@@ -9,12 +9,36 @@ from cython.operator cimport dereference as deref
 
 
 cdef class Action:
-    '''interface to Cpptraj's Action
+    '''interface to Cpptraj's Action. For internal use.
+
+    >>> import pytraj as pt
+    >>> traj = pt.load_sample_data('tz2')
+    >>> print(traj)
+    >>> from pytraj.actions.CpptrajActions import Action_Radgyr
+    >>> from pytraj.datasets import DatasetList as CpptrajDataSetList
+    >>> from pytraj.datafiles import DataFileList
+    >>> dslist = CpptrajDataSetList()
+    >>> dflist = DataFileList()
+    >>> act = Action_Radgyr(command='@CA', dslist=dslist, top=traj.top)
+    >>> act.do_action(traj)
     '''
     def __cinit__(self):
         # don't directly create instance of this ABC class.
         self.n_frames = 0
         self.top_is_processed = False
+
+    def __init__(self, command='', Topology top=None, DatasetList dslist=None, DataFileList dflist=None):
+        # __init__ will be called after __cinit__
+        # create __init__ to avoid segmentation fault (why? not sure why)
+        # don't directly create instance of this ABC class.
+
+        self._command = command
+        self._dslist = dslist
+        self._dflist = dflist
+
+        if top is not None and dslist is not None and dflist is not None:
+            self.read_input(command, top=top, dslist=dslist, dflist=dflist)
+            self.process(top)
 
     def __dealloc__(self):
         # should I del pointer here or in subclass? 

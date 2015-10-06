@@ -541,8 +541,7 @@ class DatasetList(list):
 
     def read_data(self, filename, arg=""):
         df = DataFile()
-        from pytraj.datasets.DataSetList import DataSetList
-        dslist = DataSetList()
+        dslist = DSL()
         df.read_data(filename, ArgList(arg), dslist)
         df.from_sequence(dslist, copy=False)
 
