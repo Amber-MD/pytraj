@@ -116,6 +116,7 @@ from .common_actions import (
     crank, closest, search_neighbors, replicate_cell, _rotdif,
     ired_vector_and_matrix,
     _grid,
+    pairdist,
     )
 
 # create alias
@@ -151,6 +152,7 @@ clustering = do_clustering
 mindist = calc_mindist
 # compat with cpptraj
 nativecontacts = native_contacts
+pair_distribution = pairdist
 
 from .matrix import dist
 distance_matrix = dist

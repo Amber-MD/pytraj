@@ -876,28 +876,34 @@ def calc_rdf(traj=None,
     return (np.arange(bin_spacing/2., maximum, bin_spacing), values)
 
 @noparallel
-def calc_pairdist(traj=None,
+def calc_pairdist(traj,
                   mask="*",
-                  mask2=None,
                   delta=0.1,
                   dtype='ndarray',
                   top=None):
-    # TODO: can not load datafile. update cpptraj code?
+    '''compute pair distribution function
 
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, default all atoms
+    delta : float, default 0.1
+    dtype : str, default 'ndarray'
+        dtype of return data
+    top : Topology, optional
+    '''
     with goto_temp_folder():
-        act = CpptrajActions.Action_PairDist()
-        _mask = 'mask ' + mask
-        _mask2 = '' if mask2 is None else 'mask2 ' + mask2
-        command = ' '.join((_mask, _mask2))
-        if not isinstance(command, string_types):
-            command = array_to_cpptraj_atommask(command)
-
-        command = command + ' delta ' + str(delta) + ' out tmp_pairdist.txt'
         _top = _get_topology(traj, top)
         dslist = CpptrajDatasetList()
-        dflist = DataFileList()
-        act(command, traj, top=_top, dslist=dslist, dflist=dflist)
+        act = CpptrajActions.Action_PairDist()
+
+        _mask = 'mask ' + mask
+        _delta = 'delta ' + str(delta)
+        command = ' '.join((_mask, _delta, 'out tmp_pytraj_out.txt'))
+
+        act(command, traj, top=_top, dslist=dslist)
         act.print_output()
+
         return _get_data_from_dtype(dslist, dtype=dtype)
 
 
