@@ -31,6 +31,11 @@ cdef class Action:
         # __init__ will be called after __cinit__
         # create __init__ to avoid segmentation fault (why? not sure why)
         # don't directly create instance of this ABC class.
+
+        self._command = command
+        self._dslist = dslist
+        self._dflist = dflist
+
         if top is not None and dslist is not None and dflist is not None:
             self.read_input(command, top=top, dslist=dslist, dflist=dflist)
             self.process(top)
