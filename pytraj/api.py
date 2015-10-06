@@ -6,7 +6,7 @@ from .Frame import Frame
 from .utils.check_and_assert import is_int, is_frame_iter
 from .externals.six import string_types
 from .externals.six.moves import range
-from .core.cpptraj_core import AtomMask
+from .core.cpp_core import AtomMask
 
 # use absolute import here
 from pytraj._get_common_objects import _get_topology

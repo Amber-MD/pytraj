@@ -1,7 +1,7 @@
 # distutils: language = c++
 
 from libcpp.string cimport string
-from ..core.cpptraj_core cimport CpptrajState, _CpptrajState
+from ..core.cpp_core cimport CpptrajState, _CpptrajState
 
 cdef class DataFile:
     def __cinit__(self, _own_memory=True):

@@ -61,8 +61,8 @@ from . import options
 from functools import partial
 
 from .core import Atom, Residue, Molecule
-from .core.cpptraj_core import CpptrajState, ArgList, AtomMask, _load_batch
-from .core.cpptraj_core import Command
+from .core.cpp_core import CpptrajState, ArgList, AtomMask, _load_batch
+from .core.cpp_core import Command
 dispatch = Command.dispatch
 from . import array
 from .Topology import Topology, ParmFile
@@ -114,7 +114,7 @@ from .common_actions import (
     timecorr, center, translate, rotate, rotate_dihedral, make_structure,
     scale, do_clustering, clustering_dataset, _rotate_dih, randomize_ions,
     crank, closest, search_neighbors, replicate_cell, _rotdif,
-    calc_ired_matrix,
+    ired_vector_and_matrix,
     _grid,
     )
 

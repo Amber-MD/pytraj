@@ -158,7 +158,7 @@ class TestIred(unittest.TestCase):
         h_indices = pt.select_atoms(traj.top, '@H')
         n_indices = pt.select_atoms(traj.top, '@H') - 1
         nh_indices = list(zip(n_indices, h_indices))
-        mat_ired = pt.calc_ired_matrix(traj, mask=nh_indices, order=2)[-1]
+        mat_ired = pt.ired_vector_and_matrix(traj, mask=nh_indices, order=2)[-1]
         mat_ired /= mat_ired[0, 0]
 
         # matired: make sure to reproduce cpptraj output
@@ -207,7 +207,7 @@ class TestIred(unittest.TestCase):
         nh_indices = list(zip(n_indices, h_indices))
 
         # compute N-H vectors and ired matrix
-        vecs_and_mat = pt.calc_ired_matrix(traj, mask=nh_indices, order=2)
+        vecs_and_mat = pt.ired_vector_and_matrix(traj, mask=nh_indices, order=2)
         state_vecs = vecs_and_mat[:-1].values
         mat_ired = vecs_and_mat[-1]
         mat_ired /= mat_ired[0, 0]
@@ -217,7 +217,7 @@ class TestIred(unittest.TestCase):
 
         # need to sort a numpy array bit to match to cpptraj's order
         evals = evals[::-1]
-        evecs = evecs[:, ::-1].T
+        evecs = -evecs[:, ::-1].T
 
         data = _ired(state_vecs, modes=(evals, evecs))
         order_s2_v0 = data['IRED_00127[S2]']

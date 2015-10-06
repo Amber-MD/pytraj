@@ -237,7 +237,7 @@ def iterload_remd(filename, top=None, T="300.0"):
     -----
 
     """
-    from pytraj.core.cpptraj_core import CpptrajState, Command
+    from pytraj.core.cpp_core import CpptrajState, Command
     dispatch = Command.dispatch
 
     state = CpptrajState()

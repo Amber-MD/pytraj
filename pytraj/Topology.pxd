@@ -4,11 +4,11 @@ from .cpp_vector cimport vector as cppvector
 from .core.brick cimport _Atom, Atom, _Residue, Residue, _Molecule, Molecule
 from .core.Box cimport _Box, Box, BoxType
 from .core.ParameterTypes cimport *
-from .core.cpptraj_core cimport (_FileName, FileName, _NameType, NameType)
-from .core.cpptraj_core cimport _AtomMask, AtomMask
+from .core.cpp_core cimport (_FileName, FileName, _NameType, NameType)
+from .core.cpp_core cimport _AtomMask, AtomMask
 from .Frame cimport _Frame, Frame
 from libcpp.string cimport string
-from .core.cpptraj_core cimport _FileName, FileName, _ArgList, ArgList
+from .core.cpp_core cimport _FileName, FileName, _ArgList, ArgList
 
 
 ctypedef cppvector[_Atom].const_iterator atom_iterator

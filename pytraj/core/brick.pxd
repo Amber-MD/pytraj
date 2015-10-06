@@ -1,7 +1,7 @@
 # distutils: language = c++
 from libcpp.vector cimport vector
 #from libcpp.set cimport set
-from pytraj.core.cpptraj_core cimport _NameType, NameType
+from pytraj.core.cpp_core cimport _NameType, NameType
 from pytraj.cpp_vector cimport vector as cppvector
 
 
@@ -59,7 +59,7 @@ cdef extern from "Atom.h":
 cdef class Atom:
     cdef _Atom* thisptr
 # distutils: language = c++
-from pytraj.core.cpptraj_core cimport _NameType, NameType
+from pytraj.core.cpp_core cimport _NameType, NameType
 
 cdef extern from "Residue.h": 
     cdef cppclass _Residue "Residue":

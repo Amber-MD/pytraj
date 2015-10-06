@@ -1,5 +1,9 @@
 from __future__ import print_function, absolute_import
 from .externals.six import iteritems
+from .actions import CpptrajActions
+from .analyses import CpptrajAnalyses
+from ._get_common_objects import _get_topology, _get_data_from_dtype
+from .datasets.DatasetList import DatasetList as CpptrajDatasetList
 
 
 mat_keys = {
@@ -71,7 +75,7 @@ def %s(traj=None, command="", top=None, dtype='ndarray', mat_type='full', *args,
         elif mat_type == 'half':
             return dslist[0].to_half_matrix()
         elif mat_type == 'cpptraj':
-            return dslist[0].to_cpptraj_sparse_matrix()
+            return dslist[0]._to_cpptraj_sparse_matrix()
         else:
             raise ValueError()
     else:

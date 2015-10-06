@@ -5,7 +5,7 @@ for compatibility with cpptraj
 >>> isinstance(state, CpptrajState)
 """
 from __future__ import absolute_import
-from ..core.cpptraj_core import Command
+from ..core.cpp_core import Command
 from ..utils import file_exist as file_exists
 
 

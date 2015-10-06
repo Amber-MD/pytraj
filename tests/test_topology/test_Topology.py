@@ -3,7 +3,7 @@ import numpy as np
 import unittest
 import pytraj as pt
 from pytraj.Topology import Topology
-from pytraj.core.cpptraj_core import AtomMask
+from pytraj.core.cpp_core import AtomMask
 from pytraj.base import *
 
 TRAJ = Trajectory("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")

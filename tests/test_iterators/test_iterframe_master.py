@@ -6,8 +6,8 @@ from pytraj import Frame
 from pytraj import adict
 from pytraj import io as mdio
 from pytraj.testing import aa_eq
-from pytraj.core.cpptraj_core import Command
-from pytraj.core.cpptraj_core import CpptrajState
+from pytraj.core.cpp_core import Command
+from pytraj.core.cpp_core import CpptrajState
 from pytraj.compat import izip as zip
 
 text = """

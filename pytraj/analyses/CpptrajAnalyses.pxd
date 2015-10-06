@@ -1,9 +1,9 @@
 # distutils: language = c++
 from libcpp.string cimport string
-from ..core.cpptraj_core cimport (_DispatchObject, DispatchObject,  FunctPtr)
+from ..core.cpp_core cimport (_DispatchObject, DispatchObject,  FunctPtr)
 from ..datafiles.datafiles cimport  _DataFileList, DataFileList
 from ..Topology cimport _Topology, Topology
-from ..core.cpptraj_core cimport _ArgList, ArgList
+from ..core.cpp_core cimport _ArgList, ArgList
 from ..datasets.DatasetList cimport _DatasetList, DatasetList
 from ..Frame cimport _Frame, Frame
 

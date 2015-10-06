@@ -2,7 +2,7 @@
 import os
 import numpy as np
 from ..api import Trajectory
-from ..core.cpptraj_core cimport AtomMask
+from ..core.cpp_core cimport AtomMask
 from ..Topology cimport Topology
 
 from .._cyutils import get_positive_idx

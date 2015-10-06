@@ -8,13 +8,13 @@ from .Frame import Frame
 from .core.brick import Atom
 from .datafiles.datafiles import DataFileList
 from .core.ActionList import ActionList
-from .core.cpptraj_core import CpptrajState
+from .core.cpp_core import CpptrajState
 from .datasets.DatasetList import DatasetList
 
-from .core.cpptraj_core import AtomMask
+from .core.cpp_core import AtomMask
 from .api import Trajectory
 from .Topology import Topology
-from .core.cpptraj_core import ArgList
+from .core.cpp_core import ArgList
 from .TrajectoryIterator import TrajectoryIterator
 from .trajs.Trajout import Trajout
 from . import cpptraj_dict
