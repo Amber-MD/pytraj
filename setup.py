@@ -353,8 +353,12 @@ if __name__ == "__main__":
             else:
                 sub_ext_modules_list.append(ext_modules[num_each * i:])
 
-        from multiprocessing import Pool
+        #from multiprocessing import Pool
+        from  multiprocessing.pool import ThreadPool as Pool
         pool = Pool(n_cpus)
         pool.map(build_func, sub_ext_modules_list)
-        p.close()
-        p.join()
+        try:
+            p.close()
+            p.join()
+        except AttributeError:
+            pass

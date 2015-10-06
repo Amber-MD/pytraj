@@ -27,6 +27,9 @@ cdef class Action:
     cdef public int n_frames
     cdef bint top_is_processed
     cdef object top
+    cdef public object _dslist
+    cdef public object _dflist
+    cdef public object _command
 
 cdef extern from "Action_Angle.h": 
     cdef cppclass _Action_Angle "Action_Angle" (_Action) nogil:
