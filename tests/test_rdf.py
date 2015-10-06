@@ -15,11 +15,13 @@ class TestRDF(unittest.TestCase):
             frame_slice=(0, 10))
 
         command = '''
-        radial Radial.agr 0.5 10.0 :5@CD :WAT@O
-        radial cRadial.agr 0.5 10.0 :5 :WAT@O center1
-        radial cRadial.agr 0.5 10.0 :5 :WAT@O center2
-        radial cRadial.agr 0.5 20.0 :3 :WAT@O
-        radial cRadial.agr 0.5 20.0 :3 :WAT@O noimage
+        radial output/Radial.agr 0.5 10.0 :5@CD :WAT@O
+        radial output/cRadial.agr 0.5 10.0 :5 :WAT@O center1
+        radial output/cRadial.agr 0.5 10.0 :5 :WAT@O center2
+        radial output/cRadial.agr 0.5 20.0 :3 :WAT@O
+        radial output/cRadial.agr 0.5 20.0 :3 :WAT@O noimage
+        radial output/radial.dat 0.5 10.0 :5@CD :WAT@O
+        radial output/radial2.dat 0.25 10.0 :5@CD :WAT@O
         '''
 
         # get data directly from cpptraj
@@ -68,15 +70,26 @@ class TestRDF(unittest.TestCase):
                        image=False,
                        solute_mask=':3')
 
+        data5 = pt.rdf(traj,
+                       solvent_mask=':WAT@O',
+                       bin_spacing=0.25,
+                       maximum=10.0,
+                       solute_mask=':5@CD')
+
         # do assertion
-        aa_eq(data0, state.data[1], decimal=7)
-        aa_eq(data1, state.data[2], decimal=7)
-        aa_eq(data2, state.data[3], decimal=7)
-        aa_eq(data3, state.data[4], decimal=7)
-        aa_eq(data4, state.data[5], decimal=7)
+        aa_eq(data0[1], state.data[1], decimal=7)
+        aa_eq(data1[1], state.data[2], decimal=7)
+        aa_eq(data2[1], state.data[3], decimal=7)
+        aa_eq(data3[1], state.data[4], decimal=7)
+        aa_eq(data4[1], state.data[5], decimal=7)
 
         # default solvent mask :WAT@O
-        aa_eq(data01, state.data[1], decimal=7)
+        aa_eq(data01[1], state.data[1], decimal=7)
+        steps = np.loadtxt('output/radial.dat').T[0]
+        aa_eq(data0[0], steps)
+
+        steps2 = np.loadtxt('output/radial2.dat').T[0]
+        aa_eq(data5[0], steps2)
 
 
 if __name__ == "__main__":

@@ -772,18 +772,21 @@ calc_LIE = calc_linear_interaction_energy
 
 def calc_rdf(traj=None,
              solvent_mask=':WAT@O',
-             bin_spacing=0.5,
-             maximum=10.,
              solute_mask='',
+             maximum=10.,
+             bin_spacing=0.5,
              image=True,
              density=0.033456,
              center_solvent=False,
              center_solute=False,
              intramol=True,
              frame_indices=None,
-             dtype='ndarray',
              top=None):
-    '''calculat radial distribtion function. Doc was adapted lightly from cpptraj doc
+    '''compute radial distribtion function. Doc was adapted lightly from cpptraj doc
+
+    Returns
+    -------
+    a tuple of bin_centers, rdf values
 
     Parameters
     ----------
@@ -805,9 +808,7 @@ def calc_rdf(traj=None,
         if True, calculate RDF from geometric center of atoms in solute_mask to all atoms in solvent_mask
     intramol : bool, default True, optional
         if False, ignore intra-molecular distances
-    dtype : str, default 'ndarray', optional
     frame_indices : array-like, default None, optional
-    top : Topology, default None, optional
 
     Examples
     --------
@@ -868,32 +869,41 @@ def calc_rdf(traj=None,
     act(command, traj, top=_top, dslist=dslist)
     act.print_output()
 
-    return _get_data_from_dtype(dslist, dtype)
-
+    # make a copy sine dslist[-1].values return view of its data
+    # dslist will be freed
+    values = np.array(dslist[-1].values)
+    # return (bin_centers, values)
+    return (np.arange(bin_spacing/2., maximum, bin_spacing), values)
 
 @noparallel
-def calc_pairdist(traj=None,
+def calc_pairdist(traj,
                   mask="*",
-                  mask2=None,
                   delta=0.1,
                   dtype='ndarray',
                   top=None):
-    # TODO: can not load datafile. update cpptraj code?
+    '''compute pair distribution function
 
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, default all atoms
+    delta : float, default 0.1
+    dtype : str, default 'ndarray'
+        dtype of return data
+    top : Topology, optional
+    '''
     with goto_temp_folder():
-        act = CpptrajActions.Action_PairDist()
-        _mask = 'mask ' + mask
-        _mask2 = '' if mask2 is None else 'mask2 ' + mask2
-        command = ' '.join((_mask, _mask2))
-        if not isinstance(command, string_types):
-            command = array_to_cpptraj_atommask(command)
-
-        command = command + ' delta ' + str(delta) + ' out tmp_pairdist.txt'
         _top = _get_topology(traj, top)
         dslist = CpptrajDatasetList()
-        dflist = DataFileList()
-        act(command, traj, top=_top, dslist=dslist, dflist=dflist)
+        act = CpptrajActions.Action_PairDist()
+
+        _mask = 'mask ' + mask
+        _delta = 'delta ' + str(delta)
+        command = ' '.join((_mask, _delta, 'out tmp_pytraj_out.txt'))
+
+        act(command, traj, top=_top, dslist=dslist)
         act.print_output()
+
         return _get_data_from_dtype(dslist, dtype=dtype)
 
 
