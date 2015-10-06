@@ -1402,8 +1402,19 @@ def _ired(iredvec, modes=(), NHbond=True, relax_freq=0., NHdist=1.02, order=2, t
 
     Parameters
     ----------
-    iredvec : shape=(n_vectors, n_frames)
-    modes : tuple of (eigenvalues, eigenvectors)
+    iredvec : shape=(n_vectors, n_frames, 3)
+    modes : tuple of (eigenvalues, eigenvectors) or DatasetModes (has attribute 'eigenvalues', 'eigenvectors')
+        eigenvalues has shape of (n_modes, )
+        eigenvectors has shape of (n_modes, vector_size), each vector correspond to each eigenvalue
+    NHbond : bool, default True
+        if True, relax_freq value will be used
+    relax_freq : float, default 0.
+        be used with NHbond
+    NHdist : N-H bond length, default 1.02
+    order : int, default 2
+    tstep : timestep between frames, default 1.0 ps
+    tcorr: default 10000.
+    norm : default False
     '''
 
     _freq = 'relax freq ' + str(relax_freq) if NHbond else ''
@@ -1430,7 +1441,11 @@ def _ired(iredvec, modes=(), NHbond=True, relax_freq=0., NHdist=1.02, order=2, t
     # add data to DatasetModes
     dslist.add_set('modes', 'mymodes')
     is_reduced = False # ? 
-    eigenvalues, eigenvectors = modes
+    if hasattr(modes, 'eigenvalues') and hasattr(modes, 'eigenvectors'):
+        eigenvalues = modes.eigenvalues
+        eigenvectors = modes.eigenvectors
+    else:
+        eigenvalues, eigenvectors = modes
     dslist[-1]._set_modes(is_reduced, len(eigenvalues), eigenvectors.shape[1], eigenvalues, eigenvectors.flatten())
 
     act(command, dslist=dslist)
