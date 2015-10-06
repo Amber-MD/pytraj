@@ -11,13 +11,16 @@ from cython.operator cimport dereference as deref
 cdef class Action:
     '''interface to Cpptraj's Action. For internal use.
 
+    >>> import pytraj as pt
+    >>> traj = pt.load_sample_data('tz2')
+    >>> print(traj)
     >>> from pytraj.actions.CpptrajActions import Action_Radgyr
     >>> from pytraj.datasets import DatasetList as CpptrajDataSetList
+    >>> from pytraj.datafiles import DataFileList
     >>> dslist = CpptrajDataSetList()
-    >>> act = Action_Radgyr(commad='@CA', dslist=dslist, top=traj.top)
+    >>> dflist = DataFileList()
+    >>> act = Action_Radgyr(command='@CA', dslist=dslist, top=traj.top)
     >>> act.do_action(traj)
-    >>> # or
-    >>>  for frame in traj: act.do_action(frame)
     '''
     def __cinit__(self):
         # don't directly create instance of this ABC class.
