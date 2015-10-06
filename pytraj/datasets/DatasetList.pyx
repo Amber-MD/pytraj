@@ -18,7 +18,7 @@ from ..externals.six import string_types
 from ..compat import set
 from ..utils import is_int
 from ..datafiles.datafiles import DataFile
-from ..core.cpptraj_core import ArgList
+from ..core.cpp_core import ArgList
 
 from pytraj.cpptraj_dict import DataTypeDict
 
@@ -233,7 +233,7 @@ cdef class DatasetList:
         name = name.encode()
         default_name = default_name.encode()
         dset.baseptr0 = self.thisptr.AddSet(DataTypeDict[dtype], name, default_name)
-        return dset
+        return cast_dataset(dset, dtype=dset.dtype)
 
     def add_existing_set(self, Dataset ds):
         self.thisptr.AddSet(ds.baseptr0)

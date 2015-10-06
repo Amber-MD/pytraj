@@ -52,7 +52,7 @@ def load_cpptraj_output(txt, dtype=None):
     if dtype is 'ndarray', return ndarray and so on
 
     """
-    from pytraj.core.cpptraj_core import _load_batch
+    from pytraj.core.cpp_core import _load_batch
     from pytraj.datasetlist import DatasetList
     from pytraj import ArgList
 
@@ -100,7 +100,7 @@ def load_cpptraj_state(txt):
     state.run()
     print(state.data)
     """
-    from pytraj.core.cpptraj_core import _load_batch
+    from pytraj.core.cpp_core import _load_batch
     return _load_batch(txt, traj=None)
 
 def cpptraj_dry_run(txt):

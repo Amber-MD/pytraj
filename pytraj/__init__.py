@@ -61,8 +61,8 @@ from . import options
 from functools import partial
 
 from .core import Atom, Residue, Molecule
-from .core.cpptraj_core import CpptrajState, ArgList, AtomMask, _load_batch
-from .core.cpptraj_core import Command
+from .core.cpp_core import CpptrajState, ArgList, AtomMask, _load_batch
+from .core.cpp_core import Command
 dispatch = Command.dispatch
 from . import array
 from .Topology import Topology, ParmFile

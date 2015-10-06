@@ -59,6 +59,10 @@ cdef class Dataset:
         def __get__(self):
             name = self.baseptr0.Meta().Name()
             return name.decode()
+        def __set__(self, name):
+            cdef _MetaData meta = self.baseptr0.Meta()
+            meta.SetName(name.encode())
+            self.baseptr0.SetMeta(meta)
 
     property aspect:
         def __get__(self):
@@ -185,18 +189,14 @@ cdef class Dataset:
             if True, use `matplotlib` to plot. 
             if False, return `2D numpy array`
         """
-        if not plot:
-            import numpy as np
-            return np.histogram(self.values)
-        else:
-            try:
-                from matplotlib import pyplot as plt
-                ax = plt.hist(self.values, *args, **kwd)
-                if show:
-                    plt.show()
-                return ax
-            except ImportError:
-                raise ImportError("require matplotlib")
+        try:
+            from matplotlib import pyplot as plt
+            ax = plt.hist(self.values, *args, **kwd)
+            if show:
+                plt.show()
+            return ax
+        except ImportError:
+            raise ImportError("require matplotlib")
 
     def _split(self, n_chunks_or_array):
         """split `self.data` to n_chunks
@@ -219,11 +219,9 @@ cdef class Dataset:
         return ax
 
     def _chunk_average(self, n_chunk):
-        import numpy as np
         return np.array(list(map(np.mean, self.split(n_chunk))))
 
     def _std(self, *args, **kwd):
-        import numpy as np
         return np.std(self.values, *args, **kwd)
 
     def _sum(self, *args, **kwd):
@@ -259,7 +257,6 @@ cdef class Dataset:
         >>> d0 = traj.calc_radgyr(dtype='dataset')[0]
         >>> d0.filter(lambda x : 105. < x < 200.)
         """
-        import numpy as np
         return np.array(list(filter(func, self.values)))
 
 
@@ -318,7 +315,6 @@ cdef class Dataset1D (Dataset):
         return sum(self.values) / len(self)
 
     def mean(self, *args, **kwd):
-        import numpy as np
         return np.mean(self.values, *args, **kwd)
 
     def mean_with_error(self, Dataset other):
@@ -895,6 +891,7 @@ cdef class DatasetMatrixDouble (Dataset2D):
 
     def _set_data_half_matrix(self, values, size_t size):
         '''only support half matrix
+        TODO: correct?
         '''
         cdef double x
 
@@ -905,7 +902,6 @@ cdef class DatasetMatrixDouble (Dataset2D):
 
     def to_ndarray(self, copy=True):
         """use copy=True to be the same as Dataset1D"""
-        import numpy as np
         cdef int n_rows = self.n_rows
         cdef int n_cols = self.n_cols
         cdef double[:, :] dview = np.empty((n_rows, n_cols), dtype='f8')
@@ -919,16 +915,14 @@ cdef class DatasetMatrixDouble (Dataset2D):
     def _to_cpptraj_sparse_matrix(self):
         """return 1D numpy array, dtype='f8'
         """
-        import numpy as np
         cdef int size = self.size
         cdef double[:] dview = np.empty(size, dtype='f8')
 
         for i in range(size):
             dview[i] = self.thisptr.index_opr(i)
-        return np.asarray(dview)
+        return np.array(dview)
 
     def to_half_matrix(self):
-        import numpy as np
         hm = np.zeros((self.n_rows, self.n_cols)) 
         mt = self._to_cpptraj_sparse_matrix()
 
@@ -971,7 +965,6 @@ cdef class DatasetMatrixFloat (Dataset2D):
 
     def to_ndarray(self, copy=True):
         """use copy=True to be the same as Dataset1D"""
-        import numpy as np
         cdef int n_rows = self.n_rows
         cdef int n_cols = self.n_cols
         cdef float[:, :] dview = np.empty((n_rows, n_cols), dtype='f4')
@@ -985,7 +978,6 @@ cdef class DatasetMatrixFloat (Dataset2D):
     def _to_cpptraj_sparse_matrix(self):
         """return 1D numpy array, dtype='f8'
         """
-        import numpy as np
         cdef int size = self.size
         cdef float[:] dview = np.empty(size, dtype='f4')
 
@@ -994,7 +986,6 @@ cdef class DatasetMatrixFloat (Dataset2D):
         return np.asarray(dview)
 
     def to_half_matrix(self):
-        import numpy as np
         hm = np.zeros((self.n_rows, self.n_cols)) 
         mt = self._to_cpptraj_sparse_matrix()
 

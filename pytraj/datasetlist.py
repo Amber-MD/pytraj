@@ -8,7 +8,7 @@ from pytraj.externals._pickle import to_pickle, read_pickle
 from pytraj.utils import _import_pandas, is_int, is_array, is_generator
 from pytraj.compat import string_types, callable
 from pytraj.datafiles import DataFile
-from pytraj.core.cpptraj_core import ArgList
+from pytraj.core.cpp_core import ArgList
 from pytraj.compat import map, iteritems
 from pytraj.array import DataArray
 
