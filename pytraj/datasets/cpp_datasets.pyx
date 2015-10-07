@@ -889,16 +889,16 @@ cdef class DatasetMatrixDouble (Dataset2D):
             """return 1D python array of matrix' data"""
             return self.to_ndarray()
 
-    def _set_data_half_matrix(self, values, size_t size):
+    def _set_data_half_matrix(self, double[:] values, size_t vsize, size_t n_cols):
         '''only support half matrix
         TODO: correct?
         '''
-        cdef double x
+        cdef unsigned int i
 
-        (<_Dataset2D*> self.thisptr).AllocateHalf(size)
+        (<_Dataset2D*> self.thisptr).AllocateHalf(n_cols)
 
-        for x in values:
-            self.thisptr.AddElement(x)
+        for i in range(vsize):
+            self.thisptr.AddElement(values[i])
 
     def to_ndarray(self, copy=True):
         """use copy=True to be the same as Dataset1D"""
