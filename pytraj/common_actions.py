@@ -1,7 +1,6 @@
 from __future__ import absolute_import
 import os
 import numpy as np
-from array import array
 
 from pytraj.action_dict import ActionDict
 adict = ActionDict()
@@ -97,7 +96,6 @@ def calc_distance(traj=None,
                   dtype='ndarray',
                   top=None,
                   n_frames=None):
-
     """calculate distance between two maskes
 
     Parameters
@@ -195,12 +193,13 @@ def calc_distance(traj=None,
             "command must be a string, a list/tuple of strings, or "
             "a numpy 2D array")
 
+
 def calc_pairwise_distance(traj=None,
-                  mask_1='',
-                  mask_2='',
-                  top=None,
-                  dtype='ndarray',
-                  frame_indices=None):
+                           mask_1='',
+                           mask_2='',
+                           top=None,
+                           dtype='ndarray',
+                           frame_indices=None):
     '''calculate pairwise distance between atoms in mask_1 and atoms in mask_2
 
     Parameters
@@ -217,11 +216,17 @@ def calc_pairwise_distance(traj=None,
     from itertools import product
 
     _top = _get_topology(traj, top)
-    indices_1 = _top.select(mask_1) if isinstance(mask_1, string_types) else mask_1 
-    indices_2 = _top.select(mask_2) if isinstance(mask_2, string_types) else mask_2 
+    indices_1 = _top.select(mask_1) if isinstance(mask_1,
+                                                  string_types) else mask_1
+    indices_2 = _top.select(mask_2) if isinstance(mask_2,
+                                                  string_types) else mask_2
     arr = np.array(list(product(indices_1, indices_2)))
-    return calc_distance(traj, mask=arr, dtype=dtype, top=_top,
-            frame_indices=frame_indices)
+    return calc_distance(traj,
+                         mask=arr,
+                         dtype=dtype,
+                         top=_top,
+                         frame_indices=frame_indices)
+
 
 def calc_angle(traj=None,
                mask="",
@@ -596,7 +601,7 @@ def calc_watershell(traj=None,
 
     if not isinstance(command, string_types):
         command = array_to_cpptraj_atommask(command)
-    if not 'out' in command:
+    if 'out' not in command:
         # current Watershell action require specifying output
         command += ' out tmp.tmp'
     dslist = CpptrajDatasetList()
@@ -873,14 +878,11 @@ def calc_rdf(traj=None,
     # dslist will be freed
     values = np.array(dslist[-1].values)
     # return (bin_centers, values)
-    return (np.arange(bin_spacing/2., maximum, bin_spacing), values)
+    return (np.arange(bin_spacing / 2., maximum, bin_spacing), values)
+
 
 @noparallel
-def calc_pairdist(traj,
-                  mask="*",
-                  delta=0.1,
-                  dtype='ndarray',
-                  top=None):
+def calc_pairdist(traj, mask="*", delta=0.1, dtype='ndarray', top=None):
     '''compute pair distribution function
 
     Parameters
@@ -985,6 +987,7 @@ def do_rotation(traj=None, command="", frame_indices=None, top=None):
     fi = _get_fiterator(traj, frame_indices)
     CpptrajActions.Action_Rotate()(command, fi, top=_top)
 
+
 rotate = do_rotation
 
 
@@ -1045,7 +1048,9 @@ def mean_structure(traj,
     '''
     _top = _get_topology(traj, top)
     try:
-        fi = traj.iterframe(autoimage=autoimage, rmsfit=rmsfit, frame_indices=frame_indices)
+        fi = traj.iterframe(autoimage=autoimage,
+                            rmsfit=rmsfit,
+                            frame_indices=frame_indices)
     except AttributeError:
         fi = _get_fiterator(traj, frame_indices)
 
@@ -1109,7 +1114,7 @@ def get_velocity(traj, mask=None, frame_indices=None):
             raise ValueError('frame does not have velocity')
         data[idx
              ] = frame.velocity if mask is None else frame.velocity[atm_indices
-                                                                       ]
+                                                                    ]
     return data
 
 
@@ -1407,9 +1412,17 @@ def calc_vector(traj=None,
 
     return _get_data_from_dtype(dslist, dtype=dtype)
 
-def _ired(iredvec, modes, NHbond=True, relax_freq=0.,
-          NHdist=1.02, order=2, tstep=1.0, tcorr=10000.,
-          norm=False, drct=False, dtype='dataset'):
+
+def _ired(iredvec, modes,
+          NHbond=True,
+          relax_freq=0.,
+          NHdist=1.02,
+          order=2,
+          tstep=1.0,
+          tcorr=10000.,
+          norm=False,
+          drct=False,
+          dtype='dataset'):
     '''perform isotropic reorientational Eigenmode dynamics analysis
 
     Parameters
@@ -1442,7 +1455,8 @@ def _ired(iredvec, modes, NHbond=True, relax_freq=0.,
     _drct = 'drct' if drct else ''
     _modes = 'modes mymodes'
     if NHbond:
-        command = ' '.join((_freq, _NHdist, _modes, _order, _tstep, _tcorr, _norm, _drct))
+        command = ' '.join(
+            (_freq, _NHdist, _modes, _order, _tstep, _tcorr, _norm, _drct))
     else:
         command = ' '.join((_modes, _order, _tstep, _tcorr, _norm, _drct))
     act = CpptrajAnalyses.Analysis_IRED()
@@ -1456,13 +1470,14 @@ def _ired(iredvec, modes, NHbond=True, relax_freq=0.,
 
     # add data to DatasetModes
     dslist.add_set('modes', 'mymodes')
-    is_reduced = False # ? 
+    is_reduced = False  # ?
     if hasattr(modes, 'eigenvalues') and hasattr(modes, 'eigenvectors'):
         eigenvalues = modes.eigenvalues
         eigenvectors = modes.eigenvectors
     else:
         eigenvalues, eigenvectors = modes
-    dslist[-1]._set_modes(is_reduced, len(eigenvalues), eigenvectors.shape[1], eigenvalues, eigenvectors.flatten())
+    dslist[-1]._set_modes(is_reduced, len(eigenvalues), eigenvectors.shape[1],
+                          eigenvalues, eigenvectors.flatten())
 
     act(command, dslist=dslist)
     # remove input datasets to free memory
@@ -1474,12 +1489,13 @@ def _ired(iredvec, modes, NHbond=True, relax_freq=0.,
     #return _get_data_from_dtype(dslist, dtype=dtype)
     return dslist
 
+
 def ired_vector_and_matrix(traj=None,
-                     mask="",
-                     frame_indices=None,
-                     order=2,
-                     dtype='dataset',
-                     top=None):
+                           mask="",
+                           frame_indices=None,
+                           order=2,
+                           dtype='dataset',
+                           top=None):
     """perform vector calculation and then calculate ired matrix
 
     Parameters
@@ -1752,10 +1768,11 @@ def rmsd_perres(traj=None,
     else:
         _range = ''
     _perresmask = 'perresmask ' + perres_mask if perres_mask is not None else ''
-    _perrestcenter  = 'perrescenter' if perres_center else ''
-    _perrestinvert  = 'perresinvert' if perres_invert else ''
+    _perrestcenter = 'perrescenter' if perres_center else ''
+    _perrestinvert = 'perresinvert' if perres_invert else ''
 
-    cm = " ".join((mask, 'perres', _range, _perresmask, _perrestcenter, _perrestinvert))
+    cm = " ".join(
+        (mask, 'perres', _range, _perresmask, _perrestcenter, _perrestinvert))
     return calc_rmsd(traj=traj,
                      ref=ref,
                      mask=cm,
@@ -1804,7 +1821,6 @@ def calc_rmsd(traj=None,
     >>> pt.rmsd(traj, ref=traj[0], mask=':3-13', nofit=True)
 
     """
-    from pytraj.utils import is_int
     from pytraj.core.ActionList import ActionList
 
     _nofit = ' nofit ' if nofit else ''
@@ -1844,7 +1860,7 @@ def calc_rmsd(traj=None,
         if 'savematrices' in _cm:
             if dtype not in ['dataset', 'cpptraj_dataset']:
                 raise ValueError('if savematrices, dtype must be "dataset"')
-            _cm = 'RMDSset '+ _cm
+            _cm = 'RMDSset ' + _cm
         alist.add_action(CpptrajActions.Action_Rmsd(), _cm,
                          top=_top,
                          dslist=dslist)
@@ -1854,7 +1870,7 @@ def calc_rmsd(traj=None,
 
     dnew = DatasetList(dslist)
     for d in dnew:
-        d.values= d.values[1:]
+        d.values = d.values[1:]
     return _get_data_from_dtype(dnew, dtype=dtype)
 
 # alias for `calc_rmsd`
@@ -2119,8 +2135,8 @@ def native_contacts(traj=None,
     _includesolvent = "includesolvent" if include_solvent else ""
     _byres = "byresidue" if byres else ""
 
-    _command = " ".join(('ref myframe', command, _distance, _noimage, _includesolvent, _byres
-                         ))
+    _command = " ".join(('ref myframe', command, _distance, _noimage,
+                         _includesolvent, _byres))
     dslist.add_set('ref_frame', 'myframe')
     dslist[0].add_frame(ref)
     dslist[0].top = _top
@@ -2143,7 +2159,7 @@ def calc_grid(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     command = "tmp_pytraj_grid_output.txt " + command
     _top = _get_topology(traj, top)
     with goto_temp_folder():
-         act(command, traj, dslist=dslist, top=_top, *args, **kwd)
+        act(command, traj, dslist=dslist, top=_top, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
@@ -2216,7 +2232,7 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
     cdslist.add_set("double", "d1")
 
     cdslist[0].data = np.asarray(data0)
-    cdslist[1].data  = np.asarray(data1)
+    cdslist[1].data = np.asarray(data1)
 
     act = Analysis_CrankShaft()
     command = ' '.join((mode, 'd0', 'd1'))
@@ -2285,7 +2301,11 @@ def lifetime(data, command="", dtype='ndarray', *args, **kwd):
     return _get_data_from_dtype(cdslist[1:], dtype=dtype)
 
 
-def search_neighbors(traj=None, mask='', frame_indices=None, dtype='dataset', top=None):
+def search_neighbors(traj=None,
+                     mask='',
+                     frame_indices=None,
+                     dtype='dataset',
+                     top=None):
     """search neighbors
 
     Returns
@@ -2394,7 +2414,7 @@ def center(traj=None, mask="", center='box', mass=False, top=None):
 
 
 def rotate_dihedral(traj=None, mask="", top=None):
-    # change to pt.rotate_dihedral(traj, res=0, 
+    # change to pt.rotate_dihedral(traj, res=0,
     #              mask=("O4'", "C1'", "N9", "C4"), deg=120)?
     """
     Examples
@@ -2504,8 +2524,17 @@ def make_structure(traj=None, mask="", top=None):
     act(command, traj, top=_top)
 
 
-def _analyze_modes(data, mode='', beg=1, end=50, bose=False, factor=1.0, maskp=None,
-        trajout='', pcmin=None, pcmax=None, tmode=None):
+def _analyze_modes(data,
+                   mode='',
+                   beg=1,
+                   end=50,
+                   bose=False,
+                   factor=1.0,
+                   maskp=None,
+                   trajout='',
+                   pcmin=None,
+                   pcmax=None,
+                   tmode=None):
     # TODO: not finished yet
     '''Perform analysis on calculated Eigenmodes
 
@@ -2519,7 +2548,6 @@ def _analyze_modes(data, mode='', beg=1, end=50, bose=False, factor=1.0, maskp=N
         - eigenval: Calculate eigenvalue fractions.
         - trajout:  Calculate pseudo-trajectory along given mode.
         - rmsip:    Root mean square inner product.
-    
     beg : int
     end : int
     bose : bool, optional
@@ -2529,7 +2557,11 @@ def _analyze_modes(data, mode='', beg=1, end=50, bose=False, factor=1.0, maskp=N
     '''
     pass
 
-def _projection(traj, mask, modes, scalar_type, frame_indices=None, dtype='dataset', top=None):
+
+def _projection(traj, mask, modes, scalar_type,
+                frame_indices=None,
+                dtype='dataset',
+                top=None):
     # TODO: not done yet
     act = CpptrajActions.Action_Projection()
     dslist = CpptrajDatasetList()
@@ -2539,17 +2571,24 @@ def _projection(traj, mask, modes, scalar_type, frame_indices=None, dtype='datas
     dslist.add_set('modes', 'tmp_evecs')
     is_reduced = False
     eigenvalues, eigenvectors = modes
-    dslist[-1]._set_modes(is_reduced, len(eigenvalues), eigenvectors.shape[1], eigenvalues, eigenvectors.flatten())
+    dslist[-1]._set_modes(is_reduced, len(eigenvalues), eigenvectors.shape[1],
+                          eigenvalues, eigenvectors.flatten())
     dslist[-1].scalar_type = scalar_type
     print(dslist[0])
     _mask = mask
     _evecs = 'evecs tmp_evecs'
-    command = ' '.join((_evecs, _mask)) 
+    command = ' '.join((_evecs, _mask))
     act(command, fi, top=_top, dslist=dslist)
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def calc_atomiccorr(traj, mask, cut=None, min_spacing=None, byres=False, frame_indices=None, dtype='ndarray', top=None):
+def calc_atomiccorr(traj, mask,
+                    cut=None,
+                    min_spacing=None,
+                    byres=True,
+                    frame_indices=None,
+                    dtype='ndarray',
+                    top=None):
     '''Calculate average correlations between the motion of atoms in mask. Doc is adapted from cpptraj doc.
 
     Parameters
@@ -2577,15 +2616,27 @@ def calc_atomiccorr(traj, mask, cut=None, min_spacing=None, byres=False, frame_i
     dslist = CpptrajDatasetList()
 
     with goto_temp_folder():
-        act(command, traj, top=_top, dslist=dslist)
+        act(command, fi, top=_top, dslist=dslist)
         # need to print_output for this Action
         act.print_output()
 
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def _rotdif(arr, nvecs=1000, rvecin=None, rseed=80531, order=2, ncorr=-1, tol=1E-6, 
-        d0=0.03, nmesh=2, dt=0.002, ti=0.0, tf=-1, itmax=-1., dtype='ndarray'):
+def _rotdif(arr,
+            nvecs=1000,
+            rvecin=None,
+            rseed=80531,
+            order=2,
+            ncorr=-1,
+            tol=1E-6,
+            d0=0.03,
+            nmesh=2,
+            dt=0.002,
+            ti=0.0,
+            tf=-1,
+            itmax=-1.,
+            dtype='ndarray'):
     '''
 
     Parameters
@@ -2624,14 +2675,18 @@ def _rotdif(arr, nvecs=1000, rvecin=None, rseed=80531, order=2, ncorr=-1, tol=1E
 
     dslist[0]._append_from_array(arr)
 
-    command = ' '.join((_nvecs, _rvecin, _rseed, _order, _ncorr, _tol, _d0, _nmesh, _dt,
-        _ti, _tf, _itmax, _rmatrix))
-
+    command = ' '.join((_nvecs, _rvecin, _rseed, _order, _ncorr, _tol, _d0,
+                        _nmesh, _dt, _ti, _tf, _itmax, _rmatrix))
 
     act(command, dslist=dslist)
     return _get_data_from_dtype(dslist, dtype=dtype)
 
-def _grid(traj, mask, grid_spacing, offset=1, frame_indices=None, dtype='ndarray', top=None):
+
+def _grid(traj, mask, grid_spacing,
+          offset=1,
+          frame_indices=None,
+          dtype='ndarray',
+          top=None):
     # TODO: what's about calc_grid?
     '''make grid for atom in mask
 
@@ -2658,13 +2713,15 @@ def _grid(traj, mask, grid_spacing, offset=1, frame_indices=None, dtype='ndarray
     _dy = 'dy ' + str(dy) if dy > 0. else ''
     _dz = 'dz ' + str(dz) if dz > 0. else ''
     _offset = 'offset ' + str(offset)
-    command =  ' '.join((mask, 'out tmp_bounds.dat', _dx, _dy, _dz, 'name grid_', _offset))
+    command = ' '.join(
+        (mask, 'out tmp_bounds.dat', _dx, _dy, _dz, 'name grid_', _offset))
 
     with goto_temp_folder():
         act(command, fi, top=_top, dslist=dslist)
     act.print_output()
 
     return _get_data_from_dtype(dslist, dtype=dtype)
+
 
 def NH_order_paramters(traj, vector_pairs, order=2, tstep=1., tcorr=10000.):
     '''compute NH order parameters
@@ -2702,6 +2759,10 @@ def NH_order_paramters(traj, vector_pairs, order=2, tstep=1., tcorr=10000.):
     modes = matrix.diagonalize(mat_ired, n_vecs=len(state_vecs))[0]
     evals, evecs = modes.eigenvalues, modes.eigenvectors
 
-    data = _ired(state_vecs, modes=(evals, evecs), NHbond=True, tcorr=tcorr, tstep=tstep)
+    data = _ired(state_vecs,
+                 modes=(evals, evecs),
+                 NHbond=True,
+                 tcorr=tcorr,
+                 tstep=tstep)
     order = [d.values.copy() for d in data if 'S2' in d.key][0]
     return order

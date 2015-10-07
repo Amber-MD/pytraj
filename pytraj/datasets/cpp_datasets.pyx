@@ -1076,7 +1076,7 @@ cdef class DatasetModes(Dataset):
 
     property data:
         def __get__(self):
-            return self
+            return self.eigenvalues, self.eigenvectors
 
     property values:
         def __get__(self):

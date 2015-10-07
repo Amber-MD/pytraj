@@ -254,7 +254,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
             start = None
             step = None
             try:
-                 n_frames = len(frame_indices)
+                n_frames = len(frame_indices)
             except TypeError:
                 n_frames = None
             frame_iter_super = super(TrajectoryIterator,
@@ -307,8 +307,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
             need_align = False
             ref, mask_for_rmsfit = None, None
 
-        for chunk in super(TrajectoryIterator, self).iterchunk(
-            chunksize, start, stop):
+        for chunk in super(TrajectoryIterator, self).iterchunk(chunksize, start, stop):
             # always perform autoimage before doing fitting
             # chunk is `Trajectory` object, having very fast `autoimage` and
             # `rmsfit` methods
@@ -368,8 +367,8 @@ class TrajectoryIterator(TrajectoryCpptraj):
         else:
             if rank >= 0:
                 _start, _stop = split_range(n_chunks=n_chunks,
-                                                   start=start,
-                                                   stop=stop)[rank]
+                                            start=start,
+                                            stop=stop)[rank]
                 return self.iterframe(start=_start,
                                       stop=_stop,
                                       step=step,

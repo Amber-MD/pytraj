@@ -2,19 +2,16 @@
 """
 from __future__ import absolute_import
 import numpy as np
-from ._base_result_class import BaseAnalysisResult
-from .externals.six import string_types
 from ._get_common_objects import _get_topology, _get_data_from_dtype, _get_resrange
 from ._get_common_objects import _get_reference_from_traj, _get_fiterator
 from pytraj.externals.six import iteritems
+
 
 def _group(self, key):
     # adapted from `toolz` package.
     # see license in $PYTRAJHOME/licenses/externals/toolz.txt
     import collections
-    if not callable(key):
-        key = getter(key)
-    #d = collections.defaultdict(lambda: self.__class__().append)
+    # d = collections.defaultdict(lambda: self.__class__().append)
     d = collections.defaultdict(lambda: [].append)
     for item in self:
         d[key(item)](item)
@@ -105,7 +102,7 @@ def nastruct(traj=None,
     for d in dslist:
         dslist_py.append(DataArray(d))
         dslist_py[-1].values = dslist_py[-1].values[1:]
-    return nupars(_group(dslist_py, lambda x : x.aspect))
+    return nupars(_group(dslist_py, lambda x: x.aspect))
 
 
 class nupars(object):
@@ -145,7 +142,7 @@ class nupars(object):
     def __dir__(self):
         '''for autocompletion in ipython
         '''
-        return self.keys() + ['_summary',]
+        return self.keys() + ['_summary', ]
 
     def _summary(self, ops, keys=None, indices=None):
         '''

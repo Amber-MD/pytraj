@@ -4,7 +4,6 @@ from pytraj.Frame import Frame
 from pytraj.core.cpp_core import AtomMask
 from pytraj.trajs.Trajout import Trajout
 from pytraj.externals.six import string_types, set
-from pytraj.utils import _import_numpy
 from pytraj.utils.check_and_assert import is_frame_iter, is_chunk_iter
 from pytraj.frameiter import FrameIter
 
@@ -28,7 +27,6 @@ def _savetraj(self,
                  overwrite=overwrite, *args, **kwd) as trajout:
         for idx, frame in enumerate(self):
             trajout.write(idx, frame, self.top)
-
 
 
 def _get_temperature_set(self):
@@ -58,7 +56,6 @@ def _xyz(self):
 
 def _tolist(self):
     """return flatten list for traj-like object"""
-    from itertools import chain
     return [frame.tolist() for frame in self]
 
 
@@ -73,8 +70,9 @@ def my_str_method(self):
 
 def _frame_iter(self, start=0, stop=-1, step=1, mask=None):
     """iterately get Frames with start, stop, step 
+
     Parameters
-    ---------
+    ----------
     start : int (default = 0)
     stop : int (default = max_frames - 1)
     step : int
@@ -131,7 +129,7 @@ def iterframe_master(obj):
     """
 
     is_frame_iter_but_not_master = (
-        is_frame_iter(obj) and not obj.__name__ is 'iterframe_master')
+        is_frame_iter(obj) and obj.__name__ is not 'iterframe_master')
     if isinstance(obj, Frame):
         yield obj
     elif isinstance(obj, FrameIter):

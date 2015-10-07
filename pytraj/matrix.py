@@ -1,12 +1,10 @@
 from __future__ import print_function, absolute_import
 import numpy as np
-from .externals.six import iteritems
 from .actions import CpptrajActions
 from .analyses import CpptrajAnalyses
 from .datasets import cpp_datasets
 from ._get_common_objects import _get_topology, _get_data_from_dtype
 from .datasets.DatasetList import DatasetList as CpptrajDatasetList
-
 
 mat_keys = {
     'dist',
@@ -57,8 +55,6 @@ def %s(traj=None, command="", top=None, dtype='ndarray', mat_type='full', *args,
     'distcovar_matrix' : 'distcovar',
     'idea_matrix' : 'idea'}
     """
-    from .actions.CpptrajActions import Action_Matrix
-    from ._get_common_objects import _get_topology, _get_data_from_dtype
     from .datasets.DatasetList import DatasetList as CpptrajDatasetList
 
     _top = _get_topology(traj, top)
@@ -66,7 +62,7 @@ def %s(traj=None, command="", top=None, dtype='ndarray', mat_type='full', *args,
     template_command = '%s '
     template_command += command 
 
-    act = Action_Matrix()
+    act = CpptrajActions.Action_Matrix()
     act(template_command, traj, top=_top, dslist=dslist, *args, **kwd)
     # need to call `print_output` so cpptraj can normalize some data
     # check cpptraj's code
@@ -92,6 +88,7 @@ for k in mat_keys:
 
 del k
 
+
 def diagonalize(mat, n_vecs, dtype='dataset'):
     '''diagonalize matrix and return (eigenvalues, eigenvectors)
 
@@ -102,9 +99,6 @@ def diagonalize(mat, n_vecs, dtype='dataset'):
     dtype : 'tuple' or 'dataset'
         if 'tuple', return a tuple (eigenvalues, eigenvectors). If 'dataset' return CpptrajDataseList
     '''
-    from pytraj.testing import aa_eq
-    from pytraj import tools
-
     _vecs = 'vecs ' + str(n_vecs)
     dslist = CpptrajDatasetList()
     dslist.add_set('matrix_dbl', 'mymat')
@@ -130,8 +124,9 @@ def diagonalize(mat, n_vecs, dtype='dataset'):
     elif dtype == 'dataset':
         return dslist
 
+
 def _diag_np(mat, n_vecs):
     evals, evecs = np.linalg.eigh(mat)
-    evals  = evals[::-1][:n_vecs]
+    evals = evals[::-1][:n_vecs]
     evecs = evecs[:, ::-1].T[:n_vecs]
     return evals, evecs
