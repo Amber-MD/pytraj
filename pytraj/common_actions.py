@@ -2660,3 +2660,43 @@ def _grid(traj, mask, grid_spacing, offset=1, frame_indices=None, dtype='ndarray
     act.print_output()
 
     return _get_data_from_dtype(dslist, dtype=dtype)
+
+def NH_order_paramters(traj, vector_pairs, order=2, tstep=1., tcorr=10000.):
+    '''compute NH order parameters
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    vector_pairs : 2D array-like, shape (n_pairs, 2)
+    order : default 2
+    tstep : default 1.
+    tcorr : default 10000.
+
+    Returns
+    -------
+    S2 : 1D array, order parameters
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> h_indices = pt.select_atoms(traj.top, '@H')
+    >>> n_indices = h_indices - 1
+    >>> nh_pairs = list(zip(n_indices, h_indices))
+    >>> data = pt.NH_order_paramters(traj, nh_pairs)
+    >>> print(data)
+    '''
+    from pytraj import matrix
+
+    # compute N-H vectors and ired matrix
+    vecs_and_mat = ired_vector_and_matrix(traj, vector_pairs, order=order)
+    state_vecs = vecs_and_mat[:-1].values
+    mat_ired = vecs_and_mat[-1]
+    mat_ired /= mat_ired[0, 0]
+
+    # get eigenvalues and eigenvectors
+    modes = matrix.diagonalize(mat_ired, n_vecs=len(state_vecs))[0]
+    evals, evecs = modes.eigenvalues, modes.eigenvectors
+
+    data = _ired(state_vecs, modes=(evals, evecs), NHbond=True, tcorr=tcorr, tstep=tstep)
+    order = [d.values.copy() for d in data if 'S2' in d.key][0]
+    return order
