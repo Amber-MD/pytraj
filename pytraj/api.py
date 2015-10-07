@@ -385,7 +385,7 @@ class Trajectory(object):
         """
         if isinstance(other, Frame):
             arr0 = other.xyz.reshape((1, other.n_atoms, 3))
-            barr = other.box.to_ndarray().reshape((1, 6))
+            barr = other.box.values.reshape((1, 6))
             if self._xyz is None:
                 self._xyz = arr0.copy()
                 self._boxes = barr
