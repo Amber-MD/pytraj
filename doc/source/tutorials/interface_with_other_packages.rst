@@ -14,3 +14,4 @@ try ``pytraj`` online:
     :maxdepth: 2
 
     interface_with_mdtraj_
+    interface_with_mdanalysis_
