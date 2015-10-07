@@ -7,6 +7,7 @@ from pytraj.utils import eq, aa_eq
 
 
 class TestNHOrderParamters(unittest.TestCase):
+    @unittest.skipIf('DNO_MATHLIB' in pt.compiled_info(), 'there is no LAPACK')
     def test_nh_paramters(self):
         parmfile =  '../cpptraj/test/Test_IRED/1IEE_A_prot.prmtop'
         trajfile = '../cpptraj/test/Test_IRED/1IEE_A_test.mdcrd'
