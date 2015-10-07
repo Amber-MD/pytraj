@@ -37,7 +37,6 @@ class Test(unittest.TestCase):
             has_parmed = False
 
         funclist = [DataArray,
-                    pt.NH_order_paramters,
                     pt.mean_structure,
                     pt.iterframe,
                     pt.iterchunk,
