@@ -1,7 +1,9 @@
 from __future__ import print_function, absolute_import
+import numpy as np
 from .externals.six import iteritems
 from .actions import CpptrajActions
 from .analyses import CpptrajAnalyses
+from .datasets import cpp_datasets
 from ._get_common_objects import _get_topology, _get_data_from_dtype
 from .datasets.DatasetList import DatasetList as CpptrajDatasetList
 
@@ -89,3 +91,41 @@ for k in mat_keys:
     g_dict[k].__doc__ += __cpptrajdoc__
 
 del k
+
+def diagonalize(mat, n_vecs, dtype='dataset'):
+    '''diagonalize matrix and return (eigenvalues, eigenvectors)
+
+    Parameters
+    ----------
+    mat : 2D ndarray or DatasetMatrixDouble
+    n_vecs : number of output vectors
+    dtype : 'tuple' or 'dataset'
+        if 'tuple', return a tuple (eigenvalues, eigenvectors). If 'dataset' return CpptrajDataseList
+    '''
+    from pytraj.testing import aa_eq
+    from pytraj import tools
+
+    _vecs = 'vecs ' + str(n_vecs)
+    dslist = CpptrajDatasetList()
+    dslist.add_set('matrix_dbl', 'mymat')
+
+    if isinstance(mat, np.ndarray):
+        indices = np.triu_indices(mat.shape[0])
+        arr = mat[indices]
+        dslist[0]._set_data_half_matrix(arr.astype('f8'),
+                                        vsize=len(arr),
+                                        n_cols=mat.shape[0])
+    elif isinstance(mat, cpp_datasets.DatasetMatrixDouble):
+        assert mat.kind == 'half', 'DatasetMatrixDouble must be half matrix'
+        dslist[0]._set_data_half_matrix(mat._to_cpptraj_sparse_matrix(),
+                                        vsize=mat.size,
+                                        n_cols=mat.n_cols)
+
+    act = CpptrajAnalyses.Analysis_Matrix()
+    act(' '.join(('mymat', _vecs)), dslist=dslist)
+    dslist._pop(0)
+
+    if dtype == 'tuple':
+        return (dslist[-1].eigenvalues, dslist[-1].eigenvectors)
+    elif dtype == 'dataset':
+        return dslist
