@@ -84,8 +84,7 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
             assert orig_mat.kind == 'half', 'must be half matrix'
 
             new_mat = orig_mat.__class__()
-            new_mat._set_data_half_matrix(cpp_mat, shape[0])
-            print(orig_mat.size, cpp_mat.size, new_mat.size)
+            new_mat._set_data_half_matrix(cpp_mat, orig_mat.size, shape[0])
             assert new_mat.kind == 'half', 'new_mat must be half matrix'
             aa_eq(orig_mat.values, new_mat.values)
 
