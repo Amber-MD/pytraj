@@ -129,3 +129,9 @@ def diagonalize(mat, n_vecs, dtype='dataset'):
         return (dslist[-1].eigenvalues, dslist[-1].eigenvectors)
     elif dtype == 'dataset':
         return dslist
+
+def _diag_np(mat, n_vecs):
+    evals, evecs = np.linalg.eigh(mat)
+    evals  = evals[::-1][:n_vecs]
+    evecs = evecs[:, ::-1].T[:n_vecs]
+    return evals, evecs

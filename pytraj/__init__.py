@@ -115,7 +115,7 @@ from .common_actions import (
     scale, do_clustering, clustering_dataset, _rotate_dih, randomize_ions,
     crank, closest, search_neighbors, replicate_cell, _rotdif,
     ired_vector_and_matrix,
-    _grid,
+    _grid, _ired,
     pairdist,
     )
 
