@@ -2697,6 +2697,6 @@ def NH_order_paramters(traj, vector_pairs, order=2, tstep=1., tcorr=10000.):
     modes = matrix.diagonalize(mat_ired, n_vecs=len(state_vecs))[0]
     evals, evecs = modes.eigenvalues, modes.eigenvectors
 
-    data = _ired(state_vecs, modes=(evals, evecs), tcorr=tcorr, tstep=tstep)
+    data = _ired(state_vecs, modes=(evals, evecs), NHbond=True, tcorr=tcorr, tstep=tstep)
     order = [d.values.copy() for d in data if 'S2' in d.key][0]
     return order
