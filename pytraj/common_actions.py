@@ -1407,7 +1407,8 @@ def calc_vector(traj=None,
 
     return _get_data_from_dtype(dslist, dtype=dtype)
 
-def _ired(iredvec, modes=(), NHbond=True, relax_freq=0., NHdist=1.02, order=2, tstep=1.0, tcorr=10000., norm=False, drct=False, dtype='cpptraj_dataset'):
+def _ired(iredvec, modes=(), NHbond=True, relax_freq=0., NHdist=1.02, order=2, tstep=1.0, tcorr=10000.,
+          norm=False, drct=False, dtype='dataset'):
     '''perform isotropic reorientational Eigenmode dynamics analysis
 
     Parameters
@@ -1463,7 +1464,9 @@ def _ired(iredvec, modes=(), NHbond=True, relax_freq=0., NHdist=1.02, order=2, t
     # all DatasetVectors + 1 DatasetModes
     for d in dslist[:idx+2]:
         dslist.remove_set(d)
-    return _get_data_from_dtype(dslist, dtype=dtype)
+    values = dslist.values.copy()
+    return values
+    #return _get_data_from_dtype(dslist, dtype=dtype)
 
 def ired_vector_and_matrix(traj=None,
                      mask="",
