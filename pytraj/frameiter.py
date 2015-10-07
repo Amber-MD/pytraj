@@ -6,31 +6,41 @@ from pytraj.Frame import Frame
 
 class FrameIter(object):
     """
-    internal class
-    create this class to hold all iterating information
+    create this class to hold all iterating information. This class is for internal use.
 
     Parameters
     ----------
     top : new Topology
     original_top : original Topology
     start, stop, step : int
-    mask : str, defaul ""
+    mask : str or None, default None (all atoms)
         only take atom with given mask
     frame_indices : iterable, default: None
         if frame_indices is not None: ignore (start, stop, step)
     autoimage : bool, default: False
         if autoimage, perform autoimage
-    rmsfit : int or a tuple, defaul False
+    rmsfit : int or a tuple, default False
         if rmsfit, perform rms fit to reference. If ``rmsfit`` is an integer, perform
         rms fit to indicated frame for all atoms. If ``rmsfit`` is a tuple, perform rmsfit 
-        to given frame with given mask. if bot ``autoimage`` and ``rmsfit`` are specified,
-        do ``autoimage`` first
+        to given frame with given mask. if both ``autoimage`` and ``rmsfit`` are specified,
+        do ``autoimage`` first.
     n_frames : total number of frame. read-only
     copy : bool, defaul: True
         if True, always make a copy of Frame when iterating.
 
+    Notes
+    -----
+    if 'autoimage' and 'rmsfit', reference frame is also autoimaged
+
     Examples
     --------
+    >>> # short cut:
+    >>> # create FrameIter with start=0, stop=8, step=2
+    >>> traj(0, 8, 2)
+
+    >>> # perform radgyr calculation with FrameIter
+    >>> pt.radgyr(traj(0, 8, 2))
+
     >>> # create FrameIter with start, stop, step = 0, 8, 2
     >>> # autoimage=False, rmsfit=False
     >>> traj.iterframe(0, 8, 2)

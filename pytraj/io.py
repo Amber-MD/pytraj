@@ -407,16 +407,20 @@ def load_topology(filename):
 
     if isinstance(filename, string_types):
         if filename.startswith('http://') or filename.startswith('https://'):
-            return _load_url(filename)
+            top = _load_url(filename)
         else:
             parm = ParmFile()
             set_error_silent(True)
             parm.readparm(filename=filename, top=top)
             set_error_silent(False)
-            return top
     else:
         # try to load ParmED
-        return load_ParmEd(filename)
+        top = load_ParmEd(filename)
+
+    if top.n_atoms == 0:
+        raise RuntimeError('n_atoms = 0: make sure to load correct filename '
+                           'or load supported topology (pdb, amber parm, psf, ...)')
+    return top
 
 # creat alias
 read_parm = load_topology
