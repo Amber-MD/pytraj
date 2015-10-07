@@ -1462,11 +1462,12 @@ def _ired(iredvec, modes=(), NHbond=True, relax_freq=0., NHdist=1.02, order=2, t
     act(command, dslist=dslist)
     # remove input datasets to free memory
     # all DatasetVectors + 1 DatasetModes
-    for d in dslist[:idx+2]:
-        dslist.remove_set(d)
-    values = dslist.values.copy()
-    return values
+    #for d in dslist[:idx+2]:
+    #    dslist.remove_set(d)
+    #values = dslist.values.copy()
+    #return values
     #return _get_data_from_dtype(dslist, dtype=dtype)
+    return dslist
 
 def ired_vector_and_matrix(traj=None,
                      mask="",

@@ -5,6 +5,8 @@ import pytraj as pt
 from pytraj.common_actions import _ired
 
 def main():
+    '''the results seem ok.
+    '''
     # add filenames
     parmfile =  '../cpptraj/test/Test_IRED/1IEE_A_prot.prmtop'
     trajfile = '../cpptraj/test/Test_IRED/1IEE_A_test.mdcrd'
@@ -15,7 +17,6 @@ def main():
     # load to TrajectoryIterator, first 4000 frames
     #traj = pt.iterload(trajfile, parmfile, frame_slice=(0, 4000))
     traj = pt.iterload(trajfile, parmfile)
-    print(traj)
 
     # create N-H pairs
     h_indices = pt.select_atoms(traj.top, '@H')
@@ -28,16 +29,12 @@ def main():
     mat_ired = vecs_and_mat[-1]
     mat_ired /= mat_ired[0, 0]
 
-    # get eigenvalues and eigvenvectors
-    evals, evecs = np.linalg.eigh(mat_ired)
-
-    # need to sort a numpy array bit to match to cpptraj's order
-    evals = evals[::-1]
-    evecs = evecs[:, ::-1].T
-    print(evals)
+    # get eigenvalues and eigenvectors
+    modes = pt.matrix.diagonalize(mat_ired, n_vecs=len(state_vecs))[0]
+    #evals, evecs = np.linalg.eigh(mat_ired)
+    evals, evecs = modes.eigenvalues, modes.eigenvectors
 
     data = _ired(state_vecs, modes=(evals, evecs), tcorr=4000, tstep=1.)
-    print(data.keys())
     order = data['IRED_00127[S2]']
     print(order)
 
