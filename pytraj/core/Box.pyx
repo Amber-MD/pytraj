@@ -79,7 +79,7 @@ cdef class Box(object):
     def all_box_types(cls):
         return [x.lower() for x in BoxTypeDict.keys()]
 
-    def update_box_type(self):
+    def _update_box_type(self):
         """trick to let cpptraj correctly set boxtype
         Example
         -------
@@ -88,35 +88,24 @@ cdef class Box(object):
         >>> box.alpha, box.beta, box.gamma = 90., 90., 90.
         >>> print (box.type)
         nobox
-        >>> box.update_box_type()
+        >>> box._update_box_type()
         >>> print (box.type)
         ortho
         """
-        self.set_box_from_array(self._get_data())
+        self._array(self._get_data())
 
-    @property
-    def name(self):
-        return self.thisptr.TypeName().decode()
-    
     def set_beta_lengths(self, double beta, double xin, double yin, double zin):
         self.thisptr.SetBetaLengths(beta, xin, yin, zin)
 
-    def set_box_from_array(self, boxIn):
+    def _array(self, boxIn):
         # try to cast array-like to python array
         # list, tuple are ok too
         cdef double[:] myview = np.asarray(boxIn, dtype='f8')
         
         self.thisptr.SetBox(&myview[0])
 
-    def set_trunc_oct(self):
-        self.thisptr.SetTruncOct()
-
     def set_nobox(self):
         self.thisptr.SetNoBox()
-
-    def set_missing_info(self, Box boxinst):
-        """(from cpptraj doc) set this box info from rhs if <= 0."""
-        self.thisptr.SetMissingInfo(boxinst.thisptr[0])
 
     def to_recip(self):
         cdef Matrix_3x3 ucell = Matrix_3x3()
@@ -140,7 +129,7 @@ cdef class Box(object):
                 self.alpha, self.beta, self.gamma = 90., 90., 90.
             elif value == 'truncoct':
                 # use cpptraj' method
-                self.set_trunc_oct()
+                self.thisptr.SetTruncOct()
             elif value == 'rhombic':
                 # check cpptraj' code to know why
                 self.alpha, self.beta, self.gamma = 0., 60., 0.
@@ -149,12 +138,12 @@ cdef class Box(object):
             else:
                 msg = "supported boxtype is ortho | truncoct | rhombic | nobox\n"
                 msg2 = """use box.alpha, box.beta, box.gamma to explicitly assign values
-                          and use `update_box_type() method`"""
+                          and use `_update_box_type() method`"""
                 raise ValueError(msg + msg2)
             # need to update all info so cpptraj will `SetBoxType` (private method)
             # sounds dummy to set your box to yourself to do this trick :D
             # should update cpptraj code
-            self.set_box_from_array(self._get_data())
+            self._array(self._get_data())
 
     property x:
         def __get__(self):
@@ -199,7 +188,7 @@ cdef class Box(object):
     def center(self):
         cdef Vec3 vec = Vec3()
         vec.thisptr[0] = self.thisptr.Center()
-        return vec
+        return np.array(vec.values)
 
     @property
     def lengths(self):
@@ -212,9 +201,5 @@ cdef class Box(object):
 
     @property
     def values(self):
-        """return a view as a numpy array"""
-        return self.to_ndarray()
-
-    def to_ndarray(self):
-        return np.asarray(self._get_data()[:])
-
+        """return a copy of Box's data: [x, y, z, alpha, beta, gamma]"""
+        return np.array(self._get_data()[:])

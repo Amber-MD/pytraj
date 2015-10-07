@@ -166,7 +166,7 @@ def _box(self):
     # --> use old fashion
     i = 0
     for frame in self:
-        boxarr[i] = frame.box.to_ndarray()
+        boxarr[i] = frame.box.values
         i += 1
     return boxarr
 
