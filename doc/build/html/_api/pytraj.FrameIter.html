@@ -147,8 +147,7 @@
 <dl class="class">
 <dt id="pytraj.frameiter.FrameIter">
 <em class="property">class </em><tt class="descclassname">pytraj.frameiter.</tt><tt class="descname">FrameIter</tt><big>(</big><em>fi_generator</em>, <em>original_top=None</em>, <em>new_top=None</em>, <em>start=0</em>, <em>stop=-1</em>, <em>step=1</em>, <em>mask=''</em>, <em>autoimage=False</em>, <em>rmsfit=None</em>, <em>is_trajiter=False</em>, <em>n_frames=None</em>, <em>copy=True</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.frameiter.FrameIter" title="Permalink to this definition">¶</a></dt>
-<dd><p>internal class
-create this class to hold all iterating information</p>
+<dd><p>create this class to hold all iterating information. This class is for internal use.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -156,7 +155,7 @@ create this class to hold all iterating information</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>top</strong> : new Topology</p>
 <p><strong>original_top</strong> : original Topology</p>
 <p><strong>start, stop, step</strong> : int</p>
-<p><strong>mask</strong> : str, defaul &#8220;&#8221;</p>
+<p><strong>mask</strong> : str or None, default None (all atoms)</p>
 <blockquote>
 <div><p>only take atom with given mask</p>
 </div></blockquote>
@@ -168,12 +167,12 @@ create this class to hold all iterating information</p>
 <blockquote>
 <div><p>if autoimage, perform autoimage</p>
 </div></blockquote>
-<p><strong>rmsfit</strong> : int or a tuple, defaul False</p>
+<p><strong>rmsfit</strong> : int or a tuple, default False</p>
 <blockquote>
 <div><p>if rmsfit, perform rms fit to reference. If <tt class="docutils literal"><span class="pre">rmsfit</span></tt> is an integer, perform
 rms fit to indicated frame for all atoms. If <tt class="docutils literal"><span class="pre">rmsfit</span></tt> is a tuple, perform rmsfit 
-to given frame with given mask. if bot <tt class="docutils literal"><span class="pre">autoimage</span></tt> and <tt class="docutils literal"><span class="pre">rmsfit</span></tt> are specified,
-do <tt class="docutils literal"><span class="pre">autoimage</span></tt> first</p>
+to given frame with given mask. if both <tt class="docutils literal"><span class="pre">autoimage</span></tt> and <tt class="docutils literal"><span class="pre">rmsfit</span></tt> are specified,
+do <tt class="docutils literal"><span class="pre">autoimage</span></tt> first.</p>
 </div></blockquote>
 <p><strong>n_frames</strong> : total number of frame. read-only</p>
 <p><strong>copy</strong> : bool, defaul: True</p>
@@ -184,7 +183,18 @@ do <tt class="docutils literal"><span class="pre">autoimage</span></tt> first</p
 </tr>
 </tbody>
 </table>
+<p class="rubric">Notes</p>
+<p>if &#8216;autoimage&#8217; and &#8216;rmsfit&#8217;, reference frame is also autoimaged</p>
 <p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># short cut:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># create FrameIter with start=0, stop=8, step=2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># perform radgyr calculation with FrameIter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># create FrameIter with start, stop, step = 0, 8, 2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># autoimage=False, rmsfit=False</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
