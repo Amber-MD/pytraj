@@ -629,8 +629,8 @@ like below:</p>
 
 <dl class="function">
 <dt id="pytraj.common_actions.calc_rdf">
-<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_rdf</tt><big>(</big><em>traj=None</em>, <em>solvent_mask=':WAT&#64;O'</em>, <em>bin_spacing=0.5</em>, <em>maximum=10.0</em>, <em>solute_mask=''</em>, <em>image=True</em>, <em>density=0.033456</em>, <em>center_solvent=False</em>, <em>center_solute=False</em>, <em>intramol=True</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_rdf" title="Permalink to this definition">¶</a></dt>
-<dd><p>calculat radial distribtion function. Doc was adapted lightly from cpptraj doc</p>
+<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_rdf</tt><big>(</big><em>traj=None</em>, <em>solvent_mask=':WAT&#64;O'</em>, <em>solute_mask=''</em>, <em>maximum=10.0</em>, <em>bin_spacing=0.5</em>, <em>image=True</em>, <em>density=0.033456</em>, <em>center_solvent=False</em>, <em>center_solute=False</em>, <em>intramol=True</em>, <em>frame_indices=None</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_rdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute radial distribtion function. Doc was adapted lightly from cpptraj doc</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -667,9 +667,10 @@ like below:</p>
 <blockquote>
 <div><p>if False, ignore intra-molecular distances</p>
 </div></blockquote>
-<p><strong>dtype</strong> : str, default &#8216;ndarray&#8217;, optional</p>
 <p><strong>frame_indices</strong> : array-like, default None, optional</p>
-<p class="last"><strong>top</strong> : Topology, default None, optional</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a tuple of bin_centers, rdf values</p>
 </td>
 </tr>
 </tbody>
@@ -705,8 +706,25 @@ like below:</p>
 
 <dl class="function">
 <dt id="pytraj.common_actions.calc_pairdist">
-<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_pairdist</tt><big>(</big><em>traj=None</em>, <em>mask='*'</em>, <em>mask2=None</em>, <em>delta=0.1</em>, <em>dtype='ndarray'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_pairdist" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_pairdist</tt><big>(</big><em>traj</em>, <em>mask='*'</em>, <em>delta=0.1</em>, <em>dtype='ndarray'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_pairdist" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute pair distribution function</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>mask</strong> : str, default all atoms</p>
+<p><strong>delta</strong> : float, default 0.1</p>
+<p><strong>dtype</strong> : str, default &#8216;ndarray&#8217;</p>
+<blockquote>
+<div><p>dtype of return data</p>
+</div></blockquote>
+<p class="last"><strong>top</strong> : Topology, optional</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="pytraj.common_actions.calc_multidihedral">
@@ -1140,7 +1158,7 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 05, 2015.<br/>
+      Last updated on Oct 07, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

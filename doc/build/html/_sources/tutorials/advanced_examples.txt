@@ -11,4 +11,5 @@ try ``pytraj`` online:
 .. toctree::
     :maxdepth: 1
 
+    lysozyme_order_parameter_
     hbonds
