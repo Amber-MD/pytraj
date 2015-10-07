@@ -41,7 +41,7 @@ cdef class Topology:
         self._own_memory = True
 
         if not args:
-            #print "there is no args" # for debug
+            # print "there is no args" # for debug
             # make empty Topology instance
             pass
         else:
@@ -186,7 +186,7 @@ cdef class Topology:
             alist = self.atomlist[idx]
         elif isinstance(idx, Residue):
             res = idx
-            return self[res.first_atom_idx : res.last_atom_idx]
+            return self[res.first_atom_idx: res.last_atom_idx]
         elif isinstance(idx, Molecule):
             mol = idx
             return self[mol.begin_atom: mol.end_atom]

@@ -1,11 +1,10 @@
 from __future__ import absolute_import
-from array import array
 import numpy as np
-from functools import partial
+from collections import defaultdict
 from pytraj.datasets.DatasetList import DatasetList as DSL
 from pytraj.externals._json import to_json, read_json
 from pytraj.externals._pickle import to_pickle, read_pickle
-from pytraj.utils import _import_pandas, is_int, is_array, is_generator
+from pytraj.utils import is_int, is_array, is_generator
 from pytraj.compat import string_types, callable
 from pytraj.datafiles import DataFile
 from pytraj.core.cpp_core import ArgList
@@ -19,8 +18,6 @@ def _groupby(self, key):
     # adapted from `toolz` package.
     # see license in $PYTRAJHOME/licenses/externals/toolz.txt
     import collections
-    if not callable(key):
-        key = getter(key)
     d = collections.defaultdict(lambda: self.__class__().append)
     for item in self:
         d[key(item)](item)
@@ -547,7 +544,6 @@ class DatasetList(list):
 
     # pandas related
     def describe(self):
-        import pandas as pd
         return self.to_dataframe().describe()
 
     def savetxt(self, filename='dslist_default_name.txt', labels=None):

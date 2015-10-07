@@ -11,11 +11,10 @@ from itertools import islice
 import functools
 from collections import OrderedDict, defaultdict
 
+
 def groupby(key, self):
     # adapted from `toolz` package.
     # see license in $PYTRAJHOME/licenses/externals/toolz.txt
-    if not callable(key):
-        key = getter(key)
     d = defaultdict(lambda: self.__class__().append)
     for item in self:
         d[key(item)](item)
@@ -317,8 +316,6 @@ def merge_frame_from_trajs(trajlist):
     >>> from frame in pt.tools.merge_frame_from_trajs((traj0, traj1, traj2)):
     >>>     print(frame)
     """
-    from pytraj import Frame
-
     if not isinstance(trajlist, (list, tuple)):
         raise ValueError('input must be a list or tuple of trajectories')
     for iterables in zip(*trajlist):
@@ -442,7 +439,7 @@ def read_orca_trj(fname):
     """return numpy 2D array
     """
     # http://stackoverflow.com/questions/14645789/
-    #numpy-reading-file-with-filtering-lines-on-the-fly
+    # numpy-reading-file-with-filtering-lines-on-the-fly
     import numpy as np
     regexp = r'\s+\w+' + r'\s+([-.0-9]+)' * 3 + r'\s*\n'
     return np.fromregex(fname, regexp, dtype='f')
@@ -465,7 +462,6 @@ def read_gaussian_output(filename=None, top=None):
     >>> import pytraj as pt
     >>> pt.tools.read_gaussian_output("gau.out", "mytest.pdb")
     """
-    import pytraj as pt
     import cclib
     from pytraj.api import Trajectory
     from pytraj.utils.context import goto_temp_folder
@@ -609,6 +605,7 @@ def as_3darray(xyz):
         raise ValueError('shape must be 2')
     new_shape = (shape[0], int(shape[1] / 3), 3)
     return xyz.reshape(new_shape)
+
 
 def split_and_write_traj(self,
                          n_chunks=None,
