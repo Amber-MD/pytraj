@@ -20,7 +20,6 @@ class Test(unittest.TestCase):
         bview[3:] = np.asarray([109.471220634, 109.471220634, 109.471220634])
         #print(frame0.has_box())
         assert frame0.box.type == 'truncoct'
-        assert frame0.box.name == 'Trunc. Oct.'
 
 
 if __name__ == "__main__":
