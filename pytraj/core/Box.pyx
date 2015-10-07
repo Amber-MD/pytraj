@@ -111,7 +111,7 @@ cdef class Box(object):
         cdef Matrix_3x3 ucell = Matrix_3x3()
         cdef Matrix_3x3 recip = Matrix_3x3()
         self.thisptr.ToRecip(ucell.thisptr[0], recip.thisptr[0])
-        return ucell, recip
+        return np.array(ucell), np.array(recip)
 
     property type:
         def __get__(self):
