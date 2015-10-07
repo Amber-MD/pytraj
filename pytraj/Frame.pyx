@@ -392,19 +392,19 @@ cdef class Frame (object):
         return self.size
 
     property buffer1d:
-         def __get__(self):
-             """return memory view for Frame coordinates
-             TODO : rename?
-             """
-             # debug
-             #print "from calling buffer1d: _own_memory = ", self._own_memory
-             # end debug
-             def _buffer(N):
-                 cdef double* ptr = self.thisptr.xAddress()
-                 cdef view.array my_arr
-                 my_arr = <double[:N]> ptr
-                 return my_arr
-             return _buffer(self.size)
+        def __get__(self):
+            """return memory view for Frame coordinates
+            TODO : rename?
+            """
+            # debug
+            #print "from calling buffer1d: _own_memory = ", self._own_memory
+            # end debug
+            def _buffer(N):
+                cdef double* ptr = self.thisptr.xAddress()
+                cdef view.array my_arr
+                my_arr = <double[:N]> ptr
+                return my_arr
+            return _buffer(self.size)
 
     property _buffer2d:
         def __get__(self):
@@ -523,7 +523,9 @@ cdef class Frame (object):
 
     property coordinates:
         def __get__(self):
-            return self.xyz
+            '''return a copy of Frame's coordinates
+            '''
+            return np.array(self.xyz)
 
     property coords:
         def __get__(self):
@@ -976,8 +978,8 @@ cdef class Frame (object):
             return self.thisptr.RMSD_CenteredRef(ref.thisptr[0], mass)
         else:
             mat, v = args
-            assert isinstance(mat, Matrix_3x3) == True
-            assert isinstance(v, Vec3) == True
+            assert isinstance(mat, Matrix_3x3) == True, 'mat must be Matrix_3x3'
+            assert isinstance(v, Vec3) == True, 'V must be Vec3'
             return self.thisptr.RMSD_CenteredRef(ref.thisptr[0], mat.thisptr[0], v.thisptr[0], mass)
 
     def rmsd_nofit(self, Frame frame, bint mass=False):

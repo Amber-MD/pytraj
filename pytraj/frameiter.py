@@ -116,10 +116,7 @@ class FrameIter(object):
     def __repr__(self):
         return self.__str__()
 
-    def save(self,
-             filename='',
-             overwrite=False,
-             mode='', *args, **kwd):
+    def save(self, filename='', overwrite=False, mode='', *args, **kwd):
         '''save to different file format.
 
         Notes
@@ -178,8 +175,8 @@ class FrameIter(object):
             else:
                 frame = frame0
             if self.autoimage:
-                #from pytraj.actions.CpptrajActions import Action_AutoImage
-                #Action_AutoImage()("", frame, self.top)
+                # from pytraj.actions.CpptrajActions import Action_AutoImage
+                # Action_AutoImage()("", frame, self.top)
                 image_act.do_action(frame)
             if need_align:
                 # trick cpptraj to fit to 1st frame (=ref)
