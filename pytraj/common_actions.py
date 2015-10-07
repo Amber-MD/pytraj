@@ -1407,7 +1407,8 @@ def calc_vector(traj=None,
 
     return _get_data_from_dtype(dslist, dtype=dtype)
 
-def _ired(iredvec, modes=(), NHbond=True, relax_freq=0., NHdist=1.02, order=2, tstep=1.0, tcorr=10000.,
+def _ired(iredvec, modes, NHbond=True, relax_freq=0.,
+          NHdist=1.02, order=2, tstep=1.0, tcorr=10000.,
           norm=False, drct=False, dtype='dataset'):
     '''perform isotropic reorientational Eigenmode dynamics analysis
 
@@ -1426,13 +1427,17 @@ def _ired(iredvec, modes=(), NHbond=True, relax_freq=0., NHdist=1.02, order=2, t
     tstep : timestep between frames, default 1.0 ps
     tcorr: default 10000.
     norm : default False
+
+    Returns
+    -------
+    CpptrajDatasetList
     '''
 
     _freq = 'relax freq ' + str(relax_freq) if NHbond else ''
-    _NHdist = str(NHdist) if NHbond else ''
-    _order = str(order)
-    _tstep = str(tstep)
-    _tcorr = str(tcorr)
+    _NHdist = 'NHdist ' + str(NHdist) if NHbond else ''
+    _order = 'order ' + str(order)
+    _tstep = 'tstep ' + str(tstep)
+    _tcorr = 'tcorr ' + str(tcorr)
     _norm = 'norm' if norm else ''
     _drct = 'drct' if drct else ''
     _modes = 'modes mymodes'
