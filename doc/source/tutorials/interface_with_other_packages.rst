@@ -15,3 +15,4 @@ try ``pytraj`` online:
 
     interface_with_mdtraj_
     interface_with_mdanalysis_
+    interface_with_cclib_
