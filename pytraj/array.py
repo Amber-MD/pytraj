@@ -132,7 +132,6 @@ class DataArray(object):
     def __str__(self):
         size = self.size
         key = self.key
-        dtype = self.dtype
         msg0 = """<pytraj.array.DataArray: size={0}, key={1}, dtype={2}, ndim={3}> """.format(
             size, key, self.dtype, self.ndim)
         value_str = self.values.__str__()

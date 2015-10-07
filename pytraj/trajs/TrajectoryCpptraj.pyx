@@ -15,6 +15,7 @@ from ..utils.check_and_assert import ensure_exist
 from ..utils.check_and_assert import is_array, is_range
 from ..externals.six.moves import zip, range
 
+
 def _split_range(int chunksize, int start, int stop):
     '''split a given range to n_chunks
 
@@ -27,7 +28,7 @@ def _split_range(int chunksize, int start, int stop):
 
     n_chunks = (stop - start)//chunksize
 
-    if ((stop - start) % chunksize ) != 0:
+    if ((stop - start) % chunksize) != 0:
         n_chunks += 1
 
     for i in range(n_chunks):
@@ -125,7 +126,7 @@ cdef class TrajectoryCpptraj:
         # use `frame` as buffer 
         cdef Frame frame = Frame()
 
-        #del frame.thisptr # do not do this.
+        # del frame.thisptr # do not do this.
         frame.thisptr[0] = self.thisptr.AllocateFrame()
 
         for i in range(n_frames):
@@ -139,7 +140,7 @@ cdef class TrajectoryCpptraj:
             return self._top
 
         def __set__(self, Topology other):
-            #self.thisptr.SetTopology(other.thisptr[0])
+            # self.thisptr.SetTopology(other.thisptr[0])
             self.thisptr.CoordsSetup(other.thisptr[0], self.thisptr.CoordsInfo())
 
     def iterframe(self, int start=0, int stop=-1, int step=1, mask=None):
@@ -174,7 +175,7 @@ cdef class TrajectoryCpptraj:
                 except TypeError:
                     raise TypeError("dont know how to cast to memoryview")
         #    frame.thisptr = new _Frame(<int>atm.n_atoms)
-        #else:
+        # else:
         #    frame.thisptr[0] = self.thisptr.AllocateFrame()
 
         frame.thisptr[0] = self.thisptr.AllocateFrame()
@@ -231,7 +232,7 @@ cdef class TrajectoryCpptraj:
                 farray._boxes = np.empty((real_n_frames, 6), dtype='f8')
 
                 for idx, frame in enumerate(self.iterframe(start=_tmp_start,
-                    stop=_tmp_stop)):
+                                            stop=_tmp_stop)):
                     farray._xyz[idx] = frame.xyz
                     farray._boxes[idx] = frame.box._get_data()
                 yield farray
@@ -240,99 +241,99 @@ cdef class TrajectoryCpptraj:
         raise NotImplementedError("Read only Trajectory. Use Trajectory class for __setitem__")
 
     def __getitem__(self, idxs):
-         # allocate frame for storing data
-         cdef Frame frame0
-         cdef Frame frame = Frame()
-         cdef int start, stop, step
-         cdef int i
-         cdef int idx_1, idx_2
-         cdef int[:] int_view
-         cdef list tmplist
-         cdef AtomMask atom_mask_obj
-         cdef idxs_size
+        # allocate frame for storing data
+        cdef Frame frame0
+        cdef Frame frame = Frame()
+        cdef int start, stop, step
+        cdef int i
+        cdef int idx_1, idx_2
+        cdef int[:] int_view
+        cdef list tmplist
+        cdef AtomMask atom_mask_obj
+        cdef idxs_size
 
-         frame.thisptr[0] = self.thisptr.AllocateFrame()
+        frame.thisptr[0] = self.thisptr.AllocateFrame()
      
-         if isinstance(idxs, AtomMask):
-             # atm = top('@CA')
-             # traj[atm]
-             atom_mask_obj = <AtomMask> idxs
-             _farray = Trajectory()
-             _farray.top = self.top._modify_state_by_mask(atom_mask_obj)
-             for i, frame in enumerate(self):
-                 _frame = Frame(frame, atom_mask_obj)
-                 _farray.append(_frame)
-             self.tmpfarray = _farray
-             # hold _farray in self.tmpfarray to avoid memory lost
-             return self.tmpfarray
-         elif isinstance(idxs, string_types):
-             # return array with given mask
-             # traj['@CA']
-             mask = idxs
-             try:
-                 return self[self.top(mask)]
-             except:
-                 txt = "not supported keyword `%s`" % idxs
-                 raise NotImplementedError(txt)
-         elif isinstance(idxs, slice):
-             start, stop, step = idxs.indices(self.n_frames)
-             self.tmpfarray = self._load_traj_by_indices(range(start, stop, step))
-             return self.tmpfarray
-         else:
-             # not is a slice
-             if idxs == ():
-                 return self
-             elif isinstance(idxs, tuple):
-                 idxs_size = len(idxs)
-                 if idxs_size >= 4:
-                     raise NotImplementedError("number of elements must me smaller than 4")
-                 idx0 = idxs[0]
+        if isinstance(idxs, AtomMask):
+            # atm = top('@CA')
+            # traj[atm]
+            atom_mask_obj = <AtomMask> idxs
+            _farray = Trajectory()
+            _farray.top = self.top._modify_state_by_mask(atom_mask_obj)
+            for i, frame in enumerate(self):
+                _frame = Frame(frame, atom_mask_obj)
+                _farray.append(_frame)
+            self.tmpfarray = _farray
+            # hold _farray in self.tmpfarray to avoid memory lost
+            return self.tmpfarray
+        elif isinstance(idxs, string_types):
+            # return array with given mask
+            # traj['@CA']
+            mask = idxs
+            try:
+                return self[self.top(mask)]
+            except:
+                txt = "not supported keyword `%s`" % idxs
+                raise NotImplementedError(txt)
+        elif isinstance(idxs, slice):
+            start, stop, step = idxs.indices(self.n_frames)
+            self.tmpfarray = self._load_traj_by_indices(range(start, stop, step))
+            return self.tmpfarray
+        else:
+            # not is a slice
+            if idxs == ():
+                return self
+            elif isinstance(idxs, tuple):
+                idxs_size = len(idxs)
+                if idxs_size >= 4:
+                    raise NotImplementedError("number of elements must me smaller than 4")
+                idx0 = idxs[0]
      
-                 idx1 = idxs[1]
-                 if isinstance(self[idx0], Frame):
-                     frame = self[idx0]
-                     self.tmpfarray = frame
-                     if isinstance(idx1, string_types):
-                         # traj[0, '@CA']
-                         atm = self.top(idx1)
-                         self.tmpfarray = Frame(frame, atm)
-                         return self.tmpfarray
-                     else:
-                         frame.top = self.top
-                         return self.tmpfarray[idxs[1:]]
-                 elif isinstance(self[idx0], Trajectory):
-                     farray = self[idx0]
-                     self.tmpfarray = farray
-                     if isinstance(idx1, AtomMask) or isinstance(idx1, string_types):
-                         if idxs_size == 2:
-                             return self.tmpfarray[idxs[1]]
-                         else:
-                             return self.tmpfarray[idxs[1]][idxs[2]]
-                     else:
-                         try:
-                             return self.tmpfarray[idxs[1]]
-                         except:
-                             raise NotImplementedError()
-             elif is_array(idxs) or isinstance(idxs, list) or is_range(idxs):
-                 # traj[[2, 6, 3]]
-                 # support indexing that having 'len'
-                 if any(isinstance(x, bool) for x in idxs):
-                     raise NotImplementedError("do not support bool indexing")
-                 self.tmpfarray = self._load_traj_by_indices(idxs)
-                 return self.tmpfarray
+                idx1 = idxs[1]
+                if isinstance(self[idx0], Frame):
+                    frame = self[idx0]
+                    self.tmpfarray = frame
+                    if isinstance(idx1, string_types):
+                        # traj[0, '@CA']
+                        atm = self.top(idx1)
+                        self.tmpfarray = Frame(frame, atm)
+                        return self.tmpfarray
+                    else:
+                        frame.top = self.top
+                        return self.tmpfarray[idxs[1:]]
+                elif isinstance(self[idx0], Trajectory):
+                    farray = self[idx0]
+                    self.tmpfarray = farray
+                    if isinstance(idx1, AtomMask) or isinstance(idx1, string_types):
+                        if idxs_size == 2:
+                            return self.tmpfarray[idxs[1]]
+                        else:
+                            return self.tmpfarray[idxs[1]][idxs[2]]
+                    else:
+                        try:
+                            return self.tmpfarray[idxs[1]]
+                        except:
+                            raise NotImplementedError()
+            elif is_array(idxs) or isinstance(idxs, list) or is_range(idxs):
+                # traj[[2, 6, 3]]
+                # support indexing that having 'len'
+                if any(isinstance(x, bool) for x in idxs):
+                    raise NotImplementedError("do not support bool indexing")
+                self.tmpfarray = self._load_traj_by_indices(idxs)
+                return self.tmpfarray
 
-             else:
-                 # traj[8]
-                 # assuming that `idxs` is integer
-                 idx_1 = <int> get_positive_idx(idxs, self.n_frames)
-                 # raise index out of range
-                 if idxs != 0 and idx_1 == 0:
-                     raise ValueError("index is out of range")
+            else:
+                # traj[8]
+                # assuming that `idxs` is integer
+                idx_1 = <int> get_positive_idx(idxs, self.n_frames)
+                # raise index out of range
+                if idxs != 0 and idx_1 == 0:
+                    raise ValueError("index is out of range")
 
-                 with self:
-                     self.thisptr.GetFrame(idx_1, frame.thisptr[0])
-                 self.tmpfarray = frame
-                 return self.tmpfarray
+                with self:
+                    self.thisptr.GetFrame(idx_1, frame.thisptr[0])
+                self.tmpfarray = frame
+                return self.tmpfarray
 
     def save(self, filename="", format='unknown', overwrite=True, *args, **kwd):
         '''conivinent method to save Trajectory

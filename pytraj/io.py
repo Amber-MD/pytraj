@@ -3,16 +3,14 @@ import numpy as np
 
 from .externals.six import string_types, PY3
 from .datafiles.load_sample_data import load_sample_data
-from .utils.check_and_assert import ensure_exist, is_frame_iter
-from .utils import goto_temp_folder
+from .utils.check_and_assert import is_frame_iter
 from .externals._pickle import to_pickle, read_pickle
 from .externals._json import to_json, read_json
 from .datafiles.load_cpptraj_file import load_cpptraj_file
 from ._shared_methods import iterframe_master
 from ._cyutils import _fast_iterptr as iterframe_from_array
 from .cpp_options import set_error_silent
-from ._get_common_objects import _get_topology, _get_fiterator
-from .compat import zip
+from ._get_common_objects import _get_topology
 from .Topology import Topology
 from .api import Trajectory
 from .TrajectoryIterator import TrajectoryIterator
@@ -38,8 +36,6 @@ __all__ = ['load',
            'load_pdb_rcsb',
            'load_pdb',
            'load_cpptraj_file',
-           'load_datafile',
-           'load_hdf5',
            'load_sample_data',
            'load_ParmEd',
            'load_topology',
@@ -98,10 +94,6 @@ def load(filename, top=None, frame_indices=None, mask=None):
     >>> # which is equal to:
     >>> traj = pt.load('traj.nc', top='2koc.parm7', frame_indices=range(0, 10, 2))
     """
-
-    if is_frame_iter(filename):
-        return _load_from_frame_iter(*args, **kwd)
-
     if isinstance(filename, string_types) and filename.startswith('http://') or filename.startswith('https://'):
         return load_ParmEd(filename, as_traj=True, structure=True)
     else:
@@ -256,7 +248,7 @@ def iterload_remd(filename, top=None, T="300.0"):
     dispatch(state, trajin)
     dispatch(state, 'loadtraj name remdtraj')
 
-    #state.data.remove_set(state.data['remdtop'])
+    # state.data.remove_set(state.data['remdtop'])
     traj = state.data[-1]
 
     # assign state to traj to avoid memory free
@@ -265,8 +257,8 @@ def iterload_remd(filename, top=None, T="300.0"):
 
 
 def load_remd(filename, top=None, T="300.0"):
-    from pytraj import Trajectory
     return iterload_remd(filename, top, T)[:]
+
 
 def write_traj(filename="",
                traj=None,
@@ -378,9 +370,7 @@ def write_traj(filename="",
 
 
 def write_parm(filename=None, top=None, format='AMBERPARM'):
-    # TODO : add *args
     from pytraj.Topology import ParmFile
-    #filename = filename.encode("UTF-8")
     parm = ParmFile()
     parm.writeparm(filename=filename, top=top, format=format)
 
@@ -429,8 +419,6 @@ read_parm = load_topology
 def _load_url(url):
     """load Topology from url
     """
-    from .Topology import Topology
-
     txt = urlopen(url).read()
     fname = "/tmp/tmppdb.pdb"
     with open(fname, 'w') as fh:

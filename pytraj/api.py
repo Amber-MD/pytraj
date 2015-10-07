@@ -614,7 +614,6 @@ class Trajectory(object):
             traj.rmsfit('last', '@CA') # fit to last frame using @CA atoms
         """
         # not yet dealed with `mass` and box
-        from pytraj.actions.CpptrajActions import Action_Rmsd
 
         if isinstance(ref, Frame):
             ref_frame = ref
@@ -690,7 +689,6 @@ class Trajectory(object):
                   rmsfit=None,
                   copy=False):
 
-
         if mask is None:
             _top = self.top
         else:
@@ -714,13 +712,7 @@ class Trajectory(object):
 
         # check how many frames will be calculated
         if frame_indices is None:
-            if stop is None or stop >= self.n_frames:
-                stop = self.n_frames
-            elif stop < 0:
-                stop = get_positive_idx(stop, self.n_frames)
-            else:
-                stop = stop
-
+            start, stop, step = slice(start, stop, step).indices(self.n_frames)
             # make sure `range` return iterator
             indices = range(start, stop, step)
             n_frames = len(indices)
