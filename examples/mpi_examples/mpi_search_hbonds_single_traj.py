@@ -24,7 +24,7 @@ traj = pt.iterload(traj_name, parm_name)
 # need to provide `comm`
 # save `total_arr` to rank=0
 # others: total_arr = None
-total_arr = pymap(comm, pt.search_hbonds, traj, ':1-13',
+total_arr = pymap(pt.search_hbonds, traj, ':1-13',
                   dtype='dict')
 
 if comm.rank != 0:

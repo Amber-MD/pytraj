@@ -29,11 +29,10 @@ cdef class ActionList:
                          DatasetList dslist=DatasetList(), 
                          DataFileList dflist=DataFileList(),
                          check_status=False):
-        """
-        Add action to ActionList
+        """Add action to ActionList
 
-        Parameters:
-        ==========
+        Parameters
+        ----------
         action : str or Action object
         command : str or ArgList object
         top : str | Topology | TopologyList
