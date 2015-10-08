@@ -125,6 +125,26 @@ Build doc
     $ cd doc
     $ make html
 
+There are some tricks:
+- let ipython run your code in ``.rst`` file by adding ipython directive::
+
+   .. ipython:: python
+
+Example
+
+.. code-block:: 
+
+    .. ipython:: python
+        
+         import pytraj as pt
+         traj = pt.iterload('tz2.nc', 'tz2.parm7')
+         traj
+
+- let ipython run your notebook and automatically convert to html file, add notebook directive::
+
+    .. notebook:: data/plot_rmsd_radgyr_correlation.ipynb
+       :skip_exceptions:
+
 cython
 ------
 We recommended to use ``cython`` to write or wrap high performance code. Please don't use ``cimport numpy``, use `memoryview <http://docs.cython.org/src/userguide/memoryviews.html>`_ instead
