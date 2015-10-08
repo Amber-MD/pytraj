@@ -30,6 +30,7 @@
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="pytraj 0.1.2.dev10 documentation" href="../index.html" />
+    <link rel="up" title="API" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -67,7 +68,7 @@
       aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
 </ul>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../trajectory.html">Trajectory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../topology.html">Topology</a></li>
@@ -83,7 +84,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cookbook.html">Cookbook</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a></li>
 </ul>
 </ul>
 </li>
@@ -146,29 +147,32 @@
 <tt class="descclassname">pytraj.parallel.map.</tt><tt class="descname">map</tt><big>(</big><em>func</em>, <em>traj</em>, <em>command</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.parallel.map.map" title="Permalink to this definition">¶</a></dt>
 <dd><p>parallel with MPI (mpi4py)</p>
 <p class="rubric">Examples</p>
-<p>$ # create <tt class="docutils literal"><span class="pre">test_radgyr.py</span></tt> file
-$ cat &gt; test_radgyr.py &lt;&lt;EOF
-import pytraj as pt
-from pytraj.parallel import map_mpi
-from mpi4py import MPI
-comm = MPI.COMM_WORLD</p>
-<p>traj = pt.iterload(&#8216;tz2.nc&#8217;, &#8216;tz2.parm7&#8217;)</p>
-<p>result_arr = map_mpi(pt.radgyr, traj, &#8220;&#64;CA&#8221;)</p>
-<dl class="docutils">
-<dt>if comm.rank == 0:</dt>
-<dd># save data to disk to read later by pytraj.read_pickle
-# pt.to_pickle(result_arr, &#8216;output.pk&#8217;)
-print(result_arr)</dd>
-</dl>
-<p>EOF</p>
-<p>$ # run in parallel
-$ mpirun -n 4 python ./test_radgyr.py  
-[array([ 8.10916061,  7.7643485 ,  8.09693108, ...,  9.70825678,</p>
-<blockquote>
-<div>9.3161563 ,  8.86720964]), array([ 8.82037273,  8.89008289,  9.48540176, ...,  9.29585981,
-9.53138062,  9.19155977]), array([ 9.13735723,  8.94651001,  8.97810478, ...,  7.68751186,
-8.31361647,  7.83763754]), array([ 7.37423766,  7.05637263,  6.52135566, ...,  6.38061648,
-6.24139008,  6.48994552])]</div></blockquote>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="c"># create ``test_radgyr.py`` file</span>
+<span class="nv">$ </span>cat &gt; test_radgyr.py <span class="s">&lt;&lt;EOF</span>
+<span class="s">import pytraj as pt</span>
+<span class="s">from pytraj.parallel import map_mpi</span>
+<span class="s">from mpi4py import MPI</span>
+<span class="s">comm = MPI.COMM_WORLD</span>
+
+<span class="s">traj = pt.iterload(&#39;tz2.nc&#39;, &#39;tz2.parm7&#39;)</span>
+
+<span class="s">result_arr = map_mpi(pt.radgyr, traj, &quot;@CA&quot;)</span>
+
+<span class="s">if comm.rank == 0:</span>
+<span class="s">    # save data to disk to read later by pytraj.read_pickle</span>
+<span class="s">    # pt.to_pickle(result_arr, &#39;output.pk&#39;)</span>
+<span class="s">    print(result_arr)</span>
+<span class="s">EOF</span>
+
+<span class="nv">$ </span><span class="c"># run in parallel</span>
+<span class="nv">$ </span>mpirun -n <span class="m">4</span> python ./test_radgyr.py  
+<span class="o">[</span>array<span class="o">([</span> 8.10916061,  7.7643485 ,  8.09693108, ...,  9.70825678,
+        9.3161563 ,  8.86720964<span class="o">])</span>, array<span class="o">([</span> 8.82037273,  8.89008289,  9.48540176, ...,  9.29585981,
+        9.53138062,  9.19155977<span class="o">])</span>, array<span class="o">([</span> 9.13735723,  8.94651001,  8.97810478, ...,  7.68751186,
+        8.31361647,  7.83763754<span class="o">])</span>, array<span class="o">([</span> 7.37423766,  7.05637263,  6.52135566, ...,  6.38061648,
+        6.24139008,  6.48994552<span class="o">])]</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -176,29 +180,32 @@ $ mpirun -n 4 python ./test_radgyr.py
 <tt class="descclassname">pytraj.parallel.map.</tt><tt class="descname">map_mpi</tt><big>(</big><em>func</em>, <em>traj</em>, <em>command</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.parallel.map.map_mpi" title="Permalink to this definition">¶</a></dt>
 <dd><p>parallel with MPI (mpi4py)</p>
 <p class="rubric">Examples</p>
-<p>$ # create <tt class="docutils literal"><span class="pre">test_radgyr.py</span></tt> file
-$ cat &gt; test_radgyr.py &lt;&lt;EOF
-import pytraj as pt
-from pytraj.parallel import map_mpi
-from mpi4py import MPI
-comm = MPI.COMM_WORLD</p>
-<p>traj = pt.iterload(&#8216;tz2.nc&#8217;, &#8216;tz2.parm7&#8217;)</p>
-<p>result_arr = map_mpi(pt.radgyr, traj, &#8220;&#64;CA&#8221;)</p>
-<dl class="docutils">
-<dt>if comm.rank == 0:</dt>
-<dd># save data to disk to read later by pytraj.read_pickle
-# pt.to_pickle(result_arr, &#8216;output.pk&#8217;)
-print(result_arr)</dd>
-</dl>
-<p>EOF</p>
-<p>$ # run in parallel
-$ mpirun -n 4 python ./test_radgyr.py  
-[array([ 8.10916061,  7.7643485 ,  8.09693108, ...,  9.70825678,</p>
-<blockquote>
-<div>9.3161563 ,  8.86720964]), array([ 8.82037273,  8.89008289,  9.48540176, ...,  9.29585981,
-9.53138062,  9.19155977]), array([ 9.13735723,  8.94651001,  8.97810478, ...,  7.68751186,
-8.31361647,  7.83763754]), array([ 7.37423766,  7.05637263,  6.52135566, ...,  6.38061648,
-6.24139008,  6.48994552])]</div></blockquote>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="c"># create ``test_radgyr.py`` file</span>
+<span class="nv">$ </span>cat &gt; test_radgyr.py <span class="s">&lt;&lt;EOF</span>
+<span class="s">import pytraj as pt</span>
+<span class="s">from pytraj.parallel import map_mpi</span>
+<span class="s">from mpi4py import MPI</span>
+<span class="s">comm = MPI.COMM_WORLD</span>
+
+<span class="s">traj = pt.iterload(&#39;tz2.nc&#39;, &#39;tz2.parm7&#39;)</span>
+
+<span class="s">result_arr = map_mpi(pt.radgyr, traj, &quot;@CA&quot;)</span>
+
+<span class="s">if comm.rank == 0:</span>
+<span class="s">    # save data to disk to read later by pytraj.read_pickle</span>
+<span class="s">    # pt.to_pickle(result_arr, &#39;output.pk&#39;)</span>
+<span class="s">    print(result_arr)</span>
+<span class="s">EOF</span>
+
+<span class="nv">$ </span><span class="c"># run in parallel</span>
+<span class="nv">$ </span>mpirun -n <span class="m">4</span> python ./test_radgyr.py  
+<span class="o">[</span>array<span class="o">([</span> 8.10916061,  7.7643485 ,  8.09693108, ...,  9.70825678,
+        9.3161563 ,  8.86720964<span class="o">])</span>, array<span class="o">([</span> 8.82037273,  8.89008289,  9.48540176, ...,  9.29585981,
+        9.53138062,  9.19155977<span class="o">])</span>, array<span class="o">([</span> 9.13735723,  8.94651001,  8.97810478, ...,  7.68751186,
+        8.31361647,  7.83763754<span class="o">])</span>, array<span class="o">([</span> 7.37423766,  7.05637263,  6.52135566, ...,  6.38061648,
+        6.24139008,  6.48994552<span class="o">])]</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
