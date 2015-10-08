@@ -76,14 +76,15 @@ def vector_mask(traj=None, mask="", frame_indices=None, dtype='ndarray', top=Non
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 _template = '''
-def vector_%s(traj=None, command="", frame_indices=None, dtype='ndarray', top=None):
+def %s(traj=None, command="", frame_indices=None, dtype='ndarray', top=None):
     """
     Parameters
     ----------
     traj : Trajectory-like
-    command : cpptraj command
+    command : str or a list-like of strings
+    frame_indices : array-like, default None
+        if specified, only perform calculation with given frames
     top : {str, Topology}, optional, default None
-    *args, **kwd: more arguments
     """
     from ._get_common_objects import _get_topology, _get_data_from_dtype, _get_fiterator
     from ._get_common_objects import _get_list_of_commands

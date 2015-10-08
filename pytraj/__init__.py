@@ -193,25 +193,6 @@ def load_batch(traj, txt):
 def superpose(traj, *args, **kwd):
     traj.superpose(*args, **kwd)
 
-def to_numpy_Trajectory(traj, top, unitcells=None):
-    # TODO: move to `io`?
-    from . import api
-    import numpy as np
-    from ._xyz import XYZ
-
-    t = api.Trajectory(top=top)
-    if isinstance(traj, np.ndarray) or isinstance(traj, XYZ):
-        t.xyz = np.asarray(traj)
-    elif hasattr(traj, 'xyz'):
-        t.xyz = traj.xyz
-        if hasattr(traj, 'unitcells'):
-            t.unitcells = traj.unitcells
-    else:
-        t.xyz = get_coordinates(traj)
-    if unitcells is not None:
-        t.unitcells = unitcells
-    return t
-
 
 def to_mdtraj(traj, top=None):
     # TODO: move to `io`?
@@ -246,6 +227,10 @@ def iterframe(traj, *args, **kwd):
     >>> import pytraj as pt
     >>> for frame in pt.iterframe(traj, 0, 8, 2): print(frame)
     >>> for frame in pt.iterframe(traj, 0, 8, 2, mask='@CA'): print(frame)
+
+    See also
+    --------
+    pytraj.TrajectoryIterator.iterframe
     """
     return traj.iterframe(*args, **kwd)
 
@@ -260,6 +245,10 @@ def iterchunk(traj, *args, **kwd):
     >>> import pytraj as pt
     >>> for chunk in pt.iterchunk(traj, 4): print(chunk)
     >>> for chunk in pt.iterframe(traj, 4, mask='@CA'): print(chunk)
+
+    See also
+    --------
+    pytraj.TrajectoryIterator.iterchunk
     """
     return traj.iterchunk(*args, **kwd)
 
