@@ -13,4 +13,4 @@ pytraj.Trajectory
 
 .. autosummary::
 
-    Trajectory
+    api.Trajectory
