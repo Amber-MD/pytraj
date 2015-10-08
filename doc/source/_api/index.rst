@@ -12,9 +12,9 @@ try ``pytraj`` online:
 .. toctree::
     :maxdepth: 1
 
-    pytraj.common_actions
-    trajectoryiterator
     pytraj.io
     pytraj.Trajectory
-    pytraj.CpptrajState
+    trajectoryiterator
     pytraj.FrameIter
+    pytraj.common_actions
+    pytraj.CpptrajState
