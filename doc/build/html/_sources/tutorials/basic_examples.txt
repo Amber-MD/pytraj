@@ -13,7 +13,7 @@ try ``pytraj`` online:
 Load a Topology and Trajectory
 ------------------------------
 
-.. ipython:: pytraj
+.. ipython:: python
 
     import pytraj as pt
     traj = pt.load('tz2.nc', 'tz2.parm7')
@@ -22,7 +22,7 @@ Load a Topology and Trajectory
 Select atoms
 ------------
 
-.. ipython:: pytraj
+.. ipython:: python
     
     import pytraj as pt
     traj = pt.load('tz2.nc', 'tz2.parm7')
