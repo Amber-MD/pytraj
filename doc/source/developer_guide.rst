@@ -145,7 +145,7 @@ Push pytraj and libcpptraj to anaconda.org after successful build on travis
 
 .. note:: This 'push' is for those who have permision to log in to ambermd account on anaconda.org
 
-- website: `anaconda.org/ambermd <anaconda.org/ambermd>`_
+- website: `anaconda.org/ambermd <https://anaconda.org/ambermd>`_
 
 - install ``ruby`` (google how)
 
@@ -166,17 +166,18 @@ Push pytraj and libcpptraj to anaconda.org after successful build on travis
 
   $ git clone https://github.com/Amber-MD/pytraj
   $ cd pytraj
-
   $ # generate token
   $ TOKEN=$(anaconda auth --create --name MyToken) 
   $ echo $TOKEN
 
-  $ # need to use ``travis`` to encrypt our token
+- need to use ``travis`` to encrypt our token::
+
   $ travis encrypt TRAVIS_TO_ANACONDA=secretvalue
 
-  $ # make code change, commit, push to github so travis can build pytraj and libcpptraj
-  $ # after successful build, travis will push to anaconda.org by
-  $ # anaconda -t $TRAVIS_TO_ANACONDA upload --force -u ambermd -p pytraj-dev $HOME/miniconda/conda-bld/linux-64/pytraj-dev-*
+- make code change, commit, push to github so travis can build pytraj and libcpptraj::
+
+  $ # after successful build, travis will push to anaconda.org by below command
+  $ anaconda -t $TRAVIS_TO_ANACONDA upload --force -u ambermd -p pytraj-dev $HOME/miniconda/conda-bld/linux-64/pytraj-dev-*
   $ # check devtools/travis-ci/upload.sh and .travis.yml files for implementation.
 
 cython
