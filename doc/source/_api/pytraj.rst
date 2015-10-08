@@ -1,7 +1,7 @@
-.. _pytraj.parallel.map:
+.. _pytraj_api::
 
-pytraj.parallel.map
-===================
+pytraj
+======
 
 .. container:: custom-index
     
@@ -9,7 +9,7 @@ pytraj.parallel.map
     
         <script type="text/javascript" src='../_static/cindex.js'></script>
 
-.. automodule:: pytraj.parallel.map
+.. automodule:: pytraj
     :members:
     :undoc-members:
     :show-inheritance:

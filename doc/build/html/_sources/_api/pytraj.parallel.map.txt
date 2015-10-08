@@ -1,4 +1,4 @@
-.. _pytraj.commmon_actions:
+.. _pytraj.parallel.map:
 
 pytraj.parallel.map
 ===================
