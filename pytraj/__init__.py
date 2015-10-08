@@ -186,6 +186,29 @@ from .cpp_options import set_error_silent, set_world_silent
 
 
 def load_batch(traj, txt):
+    '''perform calculation for traj with cpptraj's batch style
+
+    Parameters
+    ----------
+    traj : pytraj.TrajectoryIterator
+    txt : text or a list of test
+        cpptraj's commands
+
+    Examples
+    --------
+    .. code-block:: python
+        
+        import pytraj as pt
+        traj = pt.load_sample_data('tz2')
+        traj 
+        state = pt.load_batch(traj, """
+        autoimage
+        radgyr @CA nomax
+        molsurf !@H=
+        """)
+        state.run()
+        state.data
+    '''
     if not isinstance(traj, TrajectoryIterator):
         raise ValueError('only support TrajectoryIterator')
     return _load_batch(txt, traj=traj)
