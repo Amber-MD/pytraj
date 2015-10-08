@@ -101,6 +101,7 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">Basic examples</a><ul>
+<li><a class="reference internal" href="#select-atoms">Select atoms</a></li>
 <li><a class="reference internal" href="#dssp-analysis">DSSP analysis</a></li>
 <li><a class="reference internal" href="#hbond-analysis">Hbond analysis</a></li>
 <li><a class="reference internal" href="#more-examples">More examples</a></li>
@@ -161,15 +162,21 @@
 <p class="topic-title first">Contents</p>
 <ul class="simple">
 <li><a class="reference internal" href="#basic-examples" id="id2">Basic examples</a><ul>
-<li><a class="reference internal" href="#dssp-analysis" id="id3">DSSP analysis</a></li>
-<li><a class="reference internal" href="#hbond-analysis" id="id4">Hbond analysis</a></li>
-<li><a class="reference internal" href="#more-examples" id="id5">More examples</a></li>
+<li><a class="reference internal" href="#select-atoms" id="id3">Select atoms</a></li>
+<li><a class="reference internal" href="#dssp-analysis" id="id4">DSSP analysis</a></li>
+<li><a class="reference internal" href="#hbond-analysis" id="id5">Hbond analysis</a></li>
+<li><a class="reference internal" href="#more-examples" id="id6">More examples</a></li>
 </ul>
 </li>
 </ul>
 </div>
+<div class="section" id="select-atoms">
+<h2><a class="toc-backref" href="#id3">Select atoms</a><a class="headerlink" href="#select-atoms" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre></pre></div>
+</div>
+</div>
 <div class="section" id="dssp-analysis">
-<h2><a class="toc-backref" href="#id3">DSSP analysis</a><a class="headerlink" href="#dssp-analysis" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">DSSP analysis</a><a class="headerlink" href="#dssp-analysis" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
 <span class="gp">In [2]: </span><span class="n">pdb</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_pdb_rcsb</span><span class="p">(</span><span class="s">&quot;1l2y&quot;</span><span class="p">)</span>
@@ -187,7 +194,8 @@
 <span class="go">       [&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;]], </span>
 <span class="go">      dtype=&#39;&lt;U1&#39;), &lt;pytraj.DatasetList with 8 datasets&gt;</span>
 <span class="go">none_avg</span>
-<span class="go">[ 0.3   0.25  0.35 ...,  0.3   0.3   0.3 ]</span>
+<span class="go">[ 0.30000001  0.25        0.34999999 ...,  0.30000001  0.30000001</span>
+<span class="go">  0.30000001]</span>
 
 <span class="go">para_avg</span>
 <span class="go">[ 0.  0.  0. ...,  0.  0.  0.]</span>
@@ -197,7 +205,7 @@
 <span class="go">...</span>
 
 <span class="go">turn_avg</span>
-<span class="go">[ 0.1   0.15  0.1  ...,  0.1   0.05  0.15]</span>
+<span class="go">[ 0.1         0.15000001  0.1        ...,  0.1         0.05        0.15000001]</span>
 
 <span class="go">bend_avg</span>
 <span class="go">[ 0.05  0.1   0.05 ...,  0.05  0.1   0.05])</span>
@@ -205,7 +213,7 @@
 </div>
 </div>
 <div class="section" id="hbond-analysis">
-<h2><a class="toc-backref" href="#id4">Hbond analysis</a><a class="headerlink" href="#hbond-analysis" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">Hbond analysis</a><a class="headerlink" href="#hbond-analysis" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [5]: </span><span class="n">hbonds</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">pdb</span><span class="p">)</span>
 
 <span class="gp">In [6]: </span><span class="n">hbonds</span>
@@ -230,7 +238,7 @@
 </div>
 </div>
 <div class="section" id="more-examples">
-<h2><a class="toc-backref" href="#id5">More examples</a><a class="headerlink" href="#more-examples" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">More examples</a><a class="headerlink" href="#more-examples" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://github.com/Amber-MD/pytraj/tree/master/examples">check our github page</a></p>
 </div>
 </div>
@@ -248,7 +256,7 @@
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 05, 2015.<br/>
+      Last updated on Oct 07, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

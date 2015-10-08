@@ -10,6 +10,20 @@ try ``pytraj`` online:
 
 .. contents::
 
+Select atoms
+------------
+
+.. ipython:: pytraj
+    
+    import pytraj as pt
+    traj = pt.load('tz2.nc', 'tz2.parm7')
+    # get indices for backbone H atoms
+    h_indices = pt.select_atoms(traj.top, '@H')
+    h_indices
+    # get indices for backbone N atoms
+    n_indices = pt.select_atoms(traj.top, '@N')
+    n_indices
+
 DSSP analysis
 -------------
 
