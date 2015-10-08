@@ -9,8 +9,4 @@ pytraj.Trajectory
     
         <script type="text/javascript" src='../_static/cindex.js'></script>
 
-.. currentmodule:: pytraj
-
-.. autosummary::
-
-    api.Trajectory
+.. autoclass:: api.Trajectory
