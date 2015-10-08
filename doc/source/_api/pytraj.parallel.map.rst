@@ -1,0 +1,16 @@
+.. _pytraj.commmon_actions:
+
+pytraj.parallel.map
+===================
+
+.. container:: custom-index
+    
+    .. raw:: html
+    
+        <script type="text/javascript" src='../_static/cindex.js'></script>
+
+.. automodule:: pytraj.parallel.map
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :inherited-members:
