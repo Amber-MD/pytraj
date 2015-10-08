@@ -291,16 +291,21 @@ We put all common stuff in <a class="reference external" href="https://github.co
 <span class="nv">$ </span>make html
 </pre></div>
 </div>
-<p>There are some tricks:
-- let ipython run your code in <tt class="docutils literal"><span class="pre">.rst</span></tt> file by adding ipython directive:</p>
+<p>There are some tricks:</p>
+<ul>
+<li><p class="first">let ipython run your code in <tt class="docutils literal"><span class="pre">.rst</span></tt> file by adding ipython directive:</p>
 <div class="highlight-python"><div class="highlight"><pre>.. ipython:: python
 </pre></div>
 </div>
-<p>Example</p>
-<ul>
+</li>
 <li><p class="first">let ipython run your notebook and automatically convert to html file, add notebook directive:</p>
 <div class="highlight-python"><div class="highlight"><pre>.. notebook:: data/plot_rmsd_radgyr_correlation.ipynb
    :skip_exceptions:
+</pre></div>
+</div>
+</li>
+<li><p class="first">let&#8217;s see other tricks in:</p>
+<div class="highlight-python"><div class="highlight"><pre>source/tutorials/*rst
 </pre></div>
 </div>
 </li>
