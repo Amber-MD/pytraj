@@ -1,4 +1,4 @@
-from .map import map
+from .map import map_mpi, map
 from pytraj.tools import concat_dict
 from .pjob import PJob
 from functools import partial
