@@ -1,4 +1,4 @@
-# (require: mpi4py, numpy)
+# require: mpi4py
 # mpirun -n 4 python mpi_cal_molsurf_0.py
 
 # always add those lines to your code
@@ -31,4 +31,6 @@ if comm.rank != 0:
     assert total_arr is None
 
 if comm.rank == 0:
+    # save data to disk to read later
+    # read: pt.read_pickle('output/hbond_data.pk')
     pt.to_pickle(total_arr, 'output/hbond_data.pk')
