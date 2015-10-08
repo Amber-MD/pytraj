@@ -108,7 +108,7 @@
 <li><a class="reference internal" href="#memory-saving">memory saving</a></li>
 <li><a class="reference internal" href="#convert-trajectory">convert trajectory</a></li>
 <li><a class="reference internal" href="#pickle-data">pickle data</a></li>
-<li><a class="reference internal" href="#speed-up-calculation-with-paralle-mpi4py">speed up calculation with paralle (mpi4py)</a></li>
+<li><a class="reference internal" href="#speed-up-calculation-with-parallel-mpi4py">speed up calculation with parallel (mpi4py)</a></li>
 <li><a class="reference internal" href="#read-cpptraj-manual">read cpptraj manual</a></li>
 </ul>
 </li>
@@ -172,7 +172,7 @@
 <li><a class="reference internal" href="#memory-saving" id="id8">memory saving</a></li>
 <li><a class="reference internal" href="#convert-trajectory" id="id9">convert trajectory</a></li>
 <li><a class="reference internal" href="#pickle-data" id="id10">pickle data</a></li>
-<li><a class="reference internal" href="#speed-up-calculation-with-paralle-mpi4py" id="id11">speed up calculation with paralle (mpi4py)</a></li>
+<li><a class="reference internal" href="#speed-up-calculation-with-parallel-mpi4py" id="id11">speed up calculation with parallel (mpi4py)</a></li>
 <li><a class="reference internal" href="#read-cpptraj-manual" id="id12">read cpptraj manual</a></li>
 </ul>
 </li>
@@ -408,10 +408,10 @@ code to load the data back. However, you can use <tt class="docutils literal"><s
 </pre></div>
 </div>
 </div>
-<div class="section" id="speed-up-calculation-with-paralle-mpi4py">
-<h2><a class="toc-backref" href="#id11">speed up calculation with paralle (mpi4py)</a><a class="headerlink" href="#speed-up-calculation-with-paralle-mpi4py" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="speed-up-calculation-with-parallel-mpi4py">
+<h2><a class="toc-backref" href="#id11">speed up calculation with parallel (mpi4py)</a><a class="headerlink" href="#speed-up-calculation-with-parallel-mpi4py" title="Permalink to this headline">¶</a></h2>
 <p>Just experimental code, try it with your own risk</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cat radgyr_mpi.sh
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cat radgyr_mpi.py
 import pytraj as pt
 
 <span class="c"># add extra lines</span>
@@ -426,7 +426,7 @@ from mpi4py import MPI
     pt.to_pickle<span class="o">(</span>data, <span class="s1">&#39;data.pk&#39;</span><span class="o">)</span>
 
 <span class="nv">$ </span><span class="c"># run</span>
-<span class="nv">$ </span>mpirun -n <span class="m">4</span> python radgyr_mpi.sh
+<span class="nv">$ </span>mpirun -n <span class="m">4</span> python radgyr_mpi.py
 </pre></div>
 </div>
 </div>

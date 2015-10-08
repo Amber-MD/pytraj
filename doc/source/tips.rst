@@ -147,14 +147,14 @@ code to load the data back. However, you can use ``pytraj.to_pickle`` nad
     pt.read_pickle('my_data.pk')
     # note: do not read_pickle from files that don't belong to you. It's not secure.
 
-speed up calculation with paralle (mpi4py)
+speed up calculation with parallel (mpi4py)
 ------------------------------------------
 
 Just experimental code, try it with your own risk
 
 .. code-block:: bash
 
-    $ cat radgyr_mpi.sh
+    $ cat radgyr_mpi.py
     import pytraj as pt
     
     # add extra lines
@@ -169,7 +169,7 @@ Just experimental code, try it with your own risk
         pt.to_pickle(data, 'data.pk')
 
     $ # run
-    $ mpirun -n 4 python radgyr_mpi.sh
+    $ mpirun -n 4 python radgyr_mpi.py
 
  
 read cpptraj manual
