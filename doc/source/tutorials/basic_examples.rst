@@ -10,6 +10,15 @@ try ``pytraj`` online:
 
 .. contents::
 
+Load a Topology and Trajectory
+------------------------------
+
+.. ipython:: pytraj
+
+    import pytraj as pt
+    traj = pt.load('tz2.nc', 'tz2.parm7')
+    traj
+
 Select atoms
 ------------
 
