@@ -18,4 +18,3 @@ try ``pytraj`` online:
     pytraj.Trajectory
     pytraj.CpptrajState
     pytraj.FrameIter
-    pytraj.datasets
