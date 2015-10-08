@@ -822,24 +822,10 @@ def calc_rdf(traj=None,
     >>>               maximum=10.0,
     >>>               solute_mask=':5@CD')
 
-    >>> data1 = pt.rdf(traj, solvent_mask=':WAT@O', bin_spacing=0.5,
-    >>>               maximum=10.0,
-    >>>               center_solvent=True,
-    >>>               solute_mask=':5')
-
-    >>> data2 = pt.rdf(traj, solvent_mask=':WAT@O', bin_spacing=0.5,
-    >>>               maximum=10.0,
-    >>>               center_solute=True,
-    >>>               solute_mask=':5')
-
-    >>> data3 = pt.rdf(traj, solvent_mask=':WAT@O', bin_spacing=0.5,
-    >>>               maximum=20.0,
-    >>>               center_solute=False,
-    >>>               solute_mask=':3')
-
     Notes
     -----
-    install ``pytraj`` and ``libcpptraj`` with openmp to speed up calculation
+    - install ``pytraj`` and ``libcpptraj`` with openmp to speed up calculation
+    - do not use this method with pytraj.pmap
     '''
 
     traj = _get_fiterator(traj, frame_indices)

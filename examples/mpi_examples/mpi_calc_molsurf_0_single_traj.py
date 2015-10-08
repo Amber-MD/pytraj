@@ -25,7 +25,7 @@ traj = io.iterload(traj_name, parm_name)
 # need to provide `comm`
 # save `total_arr` to rank=0
 # others: total_arr = None
-total_arr = pymap(comm, pyca.calc_molsurf, traj, "!:WAT", top=traj.top, root=0)
+total_arr = pymap(pyca.calc_molsurf, traj, "!:WAT", top=traj.top)
 
 if comm.rank != 0:
     assert total_arr is None
