@@ -191,7 +191,34 @@
 <dl class="function">
 <dt id="pytraj.load_batch">
 <tt class="descclassname">pytraj.</tt><tt class="descname">load_batch</tt><big>(</big><em>traj</em>, <em>txt</em><big>)</big><a class="headerlink" href="#pytraj.load_batch" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>perform calculation for traj with cpptraj&#8217;s batch style</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : pytraj.TrajectoryIterator</p>
+<p><strong>txt</strong> : text or a list of test</p>
+<blockquote class="last">
+<div><p>cpptraj&#8217;s commands</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
+<span class="n">traj</span> 
+<span class="n">state</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_batch</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">autoimage</span>
+<span class="s">radgyr @CA nomax</span>
+<span class="s">molsurf !@H=</span>
+<span class="s">&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="n">state</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="n">state</span><span class="o">.</span><span class="n">data</span>
+</pre></div>
+</div>
+</dd></dl>
 
 <dl class="function">
 <dt id="pytraj.savefig">
