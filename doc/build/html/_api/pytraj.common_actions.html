@@ -31,8 +31,7 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="pytraj 0.1.2.dev10 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
-    <link rel="next" title="pytraj.TrajectoryIterator" href="trajectoryiterator.html" />
-    <link rel="prev" title="API" href="index.html" />
+    <link rel="next" title="pytraj.CpptrajState" href="pytraj.CpptrajState.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -110,11 +109,7 @@
               
                 
   <li>
-    <a href="index.html" title="Previous Chapter: API"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; API</span>
-    </a>
-  </li>
-  <li>
-    <a href="trajectoryiterator.html" title="Next Chapter: pytraj.TrajectoryIterator"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">pytraj.Trajec... &raquo;</span>
+    <a href="pytraj.CpptrajState.html" title="Next Chapter: pytraj.CpptrajState"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">pytraj.Cpptra... &raquo;</span>
     </a>
   </li>
               
@@ -676,30 +671,15 @@ like below:</p>
 </tbody>
 </table>
 <p class="rubric">Notes</p>
-<p>install <tt class="docutils literal"><span class="pre">pytraj</span></tt> and <tt class="docutils literal"><span class="pre">libcpptraj</span></tt> with openmp to speed up calculation</p>
+<ul class="simple">
+<li>install <tt class="docutils literal"><span class="pre">pytraj</span></tt> and <tt class="docutils literal"><span class="pre">libcpptraj</span></tt> with openmp to speed up calculation</li>
+<li>do not use this method with pytraj.pmap</li>
+</ul>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data0</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rdf</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">solvent_mask</span><span class="o">=</span><span class="s">&#39;:WAT@O&#39;</span><span class="p">,</span> <span class="n">bin_spacing</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
 <span class="gp">&gt;&gt;&gt; </span>              <span class="n">maximum</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
 <span class="gp">&gt;&gt;&gt; </span>              <span class="n">solute_mask</span><span class="o">=</span><span class="s">&#39;:5@CD&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">data1</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rdf</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">solvent_mask</span><span class="o">=</span><span class="s">&#39;:WAT@O&#39;</span><span class="p">,</span> <span class="n">bin_spacing</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>              <span class="n">maximum</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>              <span class="n">center_solvent</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>              <span class="n">solute_mask</span><span class="o">=</span><span class="s">&#39;:5&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">data2</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rdf</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">solvent_mask</span><span class="o">=</span><span class="s">&#39;:WAT@O&#39;</span><span class="p">,</span> <span class="n">bin_spacing</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>              <span class="n">maximum</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>              <span class="n">center_solute</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>              <span class="n">solute_mask</span><span class="o">=</span><span class="s">&#39;:5&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">data3</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rdf</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">solvent_mask</span><span class="o">=</span><span class="s">&#39;:WAT@O&#39;</span><span class="p">,</span> <span class="n">bin_spacing</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>              <span class="n">maximum</span><span class="o">=</span><span class="mf">20.0</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>              <span class="n">center_solute</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>              <span class="n">solute_mask</span><span class="o">=</span><span class="s">&#39;:3&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1158,7 +1138,7 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 07, 2015.<br/>
+      Last updated on Oct 08, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

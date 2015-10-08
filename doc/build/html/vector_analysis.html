@@ -153,16 +153,19 @@
 <div class="custom-index container">
 <script type="text/javascript" src='_static/cindex.js'></script></div>
 <span class="target" id="module-pytraj.vector"></span><dl class="function">
-<dt id="pytraj.vector.vector_box">
-<tt class="descclassname">pytraj.vector.</tt><tt class="descname">vector_box</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.vector.vector_box" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.vector.box">
+<tt class="descclassname">pytraj.vector.</tt><tt class="descname">box</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.vector.box" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
-<p><strong>command</strong> : cpptraj command</p>
-<p><strong>top</strong> : {str, Topology}, optional, default None</p>
-<p class="last"><strong>*args, **kwd: more arguments</strong></p>
+<p><strong>command</strong> : str or a list-like of strings</p>
+<p><strong>frame_indices</strong> : array-like, default None</p>
+<blockquote>
+<div><p>if specified, only perform calculation with given frames</p>
+</div></blockquote>
+<p class="last"><strong>top</strong> : {str, Topology}, optional, default None</p>
 </td>
 </tr>
 </tbody>
@@ -170,16 +173,19 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="pytraj.vector.vector_boxcenter">
-<tt class="descclassname">pytraj.vector.</tt><tt class="descname">vector_boxcenter</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.vector.vector_boxcenter" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.vector.boxcenter">
+<tt class="descclassname">pytraj.vector.</tt><tt class="descname">boxcenter</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.vector.boxcenter" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
-<p><strong>command</strong> : cpptraj command</p>
-<p><strong>top</strong> : {str, Topology}, optional, default None</p>
-<p class="last"><strong>*args, **kwd: more arguments</strong></p>
+<p><strong>command</strong> : str or a list-like of strings</p>
+<p><strong>frame_indices</strong> : array-like, default None</p>
+<blockquote>
+<div><p>if specified, only perform calculation with given frames</p>
+</div></blockquote>
+<p class="last"><strong>top</strong> : {str, Topology}, optional, default None</p>
 </td>
 </tr>
 </tbody>
@@ -187,16 +193,19 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="pytraj.vector.vector_center">
-<tt class="descclassname">pytraj.vector.</tt><tt class="descname">vector_center</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.vector.vector_center" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.vector.center">
+<tt class="descclassname">pytraj.vector.</tt><tt class="descname">center</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.vector.center" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
-<p><strong>command</strong> : cpptraj command</p>
-<p><strong>top</strong> : {str, Topology}, optional, default None</p>
-<p class="last"><strong>*args, **kwd: more arguments</strong></p>
+<p><strong>command</strong> : str or a list-like of strings</p>
+<p><strong>frame_indices</strong> : array-like, default None</p>
+<blockquote>
+<div><p>if specified, only perform calculation with given frames</p>
+</div></blockquote>
+<p class="last"><strong>top</strong> : {str, Topology}, optional, default None</p>
 </td>
 </tr>
 </tbody>
@@ -204,16 +213,19 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="pytraj.vector.vector_corrplane">
-<tt class="descclassname">pytraj.vector.</tt><tt class="descname">vector_corrplane</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.vector.vector_corrplane" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.vector.corrplane">
+<tt class="descclassname">pytraj.vector.</tt><tt class="descname">corrplane</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.vector.corrplane" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
-<p><strong>command</strong> : cpptraj command</p>
-<p><strong>top</strong> : {str, Topology}, optional, default None</p>
-<p class="last"><strong>*args, **kwd: more arguments</strong></p>
+<p><strong>command</strong> : str or a list-like of strings</p>
+<p><strong>frame_indices</strong> : array-like, default None</p>
+<blockquote>
+<div><p>if specified, only perform calculation with given frames</p>
+</div></blockquote>
+<p class="last"><strong>top</strong> : {str, Topology}, optional, default None</p>
 </td>
 </tr>
 </tbody>
@@ -221,16 +233,119 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="pytraj.vector.vector_dipole">
-<tt class="descclassname">pytraj.vector.</tt><tt class="descname">vector_dipole</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.vector.vector_dipole" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.vector.dipole">
+<tt class="descclassname">pytraj.vector.</tt><tt class="descname">dipole</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.vector.dipole" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
-<p><strong>command</strong> : cpptraj command</p>
-<p><strong>top</strong> : {str, Topology}, optional, default None</p>
-<p class="last"><strong>*args, **kwd: more arguments</strong></p>
+<p><strong>command</strong> : str or a list-like of strings</p>
+<p><strong>frame_indices</strong> : array-like, default None</p>
+<blockquote>
+<div><p>if specified, only perform calculation with given frames</p>
+</div></blockquote>
+<p class="last"><strong>top</strong> : {str, Topology}, optional, default None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.vector.minimage">
+<tt class="descclassname">pytraj.vector.</tt><tt class="descname">minimage</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.vector.minimage" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>command</strong> : str or a list-like of strings</p>
+<p><strong>frame_indices</strong> : array-like, default None</p>
+<blockquote>
+<div><p>if specified, only perform calculation with given frames</p>
+</div></blockquote>
+<p class="last"><strong>top</strong> : {str, Topology}, optional, default None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.vector.principal">
+<tt class="descclassname">pytraj.vector.</tt><tt class="descname">principal</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.vector.principal" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>command</strong> : str or a list-like of strings</p>
+<p><strong>frame_indices</strong> : array-like, default None</p>
+<blockquote>
+<div><p>if specified, only perform calculation with given frames</p>
+</div></blockquote>
+<p class="last"><strong>top</strong> : {str, Topology}, optional, default None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.vector.ucellx">
+<tt class="descclassname">pytraj.vector.</tt><tt class="descname">ucellx</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.vector.ucellx" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>command</strong> : str or a list-like of strings</p>
+<p><strong>frame_indices</strong> : array-like, default None</p>
+<blockquote>
+<div><p>if specified, only perform calculation with given frames</p>
+</div></blockquote>
+<p class="last"><strong>top</strong> : {str, Topology}, optional, default None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.vector.ucelly">
+<tt class="descclassname">pytraj.vector.</tt><tt class="descname">ucelly</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.vector.ucelly" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>command</strong> : str or a list-like of strings</p>
+<p><strong>frame_indices</strong> : array-like, default None</p>
+<blockquote>
+<div><p>if specified, only perform calculation with given frames</p>
+</div></blockquote>
+<p class="last"><strong>top</strong> : {str, Topology}, optional, default None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.vector.ucellz">
+<tt class="descclassname">pytraj.vector.</tt><tt class="descname">ucellz</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.vector.ucellz" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>command</strong> : str or a list-like of strings</p>
+<p><strong>frame_indices</strong> : array-like, default None</p>
+<blockquote>
+<div><p>if specified, only perform calculation with given frames</p>
+</div></blockquote>
+<p class="last"><strong>top</strong> : {str, Topology}, optional, default None</p>
 </td>
 </tr>
 </tbody>
@@ -282,91 +397,6 @@
 </div>
 </dd></dl>
 
-<dl class="function">
-<dt id="pytraj.vector.vector_minimage">
-<tt class="descclassname">pytraj.vector.</tt><tt class="descname">vector_minimage</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.vector.vector_minimage" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
-<p><strong>command</strong> : cpptraj command</p>
-<p><strong>top</strong> : {str, Topology}, optional, default None</p>
-<p class="last"><strong>*args, **kwd: more arguments</strong></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pytraj.vector.vector_principal">
-<tt class="descclassname">pytraj.vector.</tt><tt class="descname">vector_principal</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.vector.vector_principal" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
-<p><strong>command</strong> : cpptraj command</p>
-<p><strong>top</strong> : {str, Topology}, optional, default None</p>
-<p class="last"><strong>*args, **kwd: more arguments</strong></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pytraj.vector.vector_ucellx">
-<tt class="descclassname">pytraj.vector.</tt><tt class="descname">vector_ucellx</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.vector.vector_ucellx" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
-<p><strong>command</strong> : cpptraj command</p>
-<p><strong>top</strong> : {str, Topology}, optional, default None</p>
-<p class="last"><strong>*args, **kwd: more arguments</strong></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pytraj.vector.vector_ucelly">
-<tt class="descclassname">pytraj.vector.</tt><tt class="descname">vector_ucelly</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.vector.vector_ucelly" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
-<p><strong>command</strong> : cpptraj command</p>
-<p><strong>top</strong> : {str, Topology}, optional, default None</p>
-<p class="last"><strong>*args, **kwd: more arguments</strong></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pytraj.vector.vector_ucellz">
-<tt class="descclassname">pytraj.vector.</tt><tt class="descname">vector_ucellz</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.vector.vector_ucellz" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
-<p><strong>command</strong> : cpptraj command</p>
-<p><strong>top</strong> : {str, Topology}, optional, default None</p>
-<p class="last"><strong>*args, **kwd: more arguments</strong></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 </div>
 
 
@@ -382,7 +412,7 @@
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 05, 2015.<br/>
+      Last updated on Oct 08, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

@@ -146,6 +146,31 @@ code to load the data back. However, you can use ``pytraj.to_pickle`` nad
     # load the data's state back for further analysis
     pt.read_pickle('my_data.pk')
     # note: do not read_pickle from files that don't belong to you. It's not secure.
+
+speed up calculation with paralle (mpi4py)
+------------------------------------------
+
+Just experimental code, try it with your own risk
+
+.. code-block:: bash
+
+    $ cat radgyr_mpi.sh
+    import pytraj as pt
+    
+    # add extra lines
+    from pytraj.parallel import map_mpi
+    from mpi4py import MPI
+    comm = MPI.COMM_WORLD
+    
+    traj = pt.iterload('md.nc', 'tc5bwat.top')
+    data = map_mpi(pt.radgyr, traj, '@CA')
+    
+    if comm.rank == 0:
+        pt.to_pickle(data, 'data.pk')
+
+    $ # run
+    $ mpirun -n 4 python radgyr_mpi.sh
+
  
 read cpptraj manual
 -------------------
