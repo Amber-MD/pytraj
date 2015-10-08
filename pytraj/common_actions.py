@@ -824,7 +824,8 @@ def calc_rdf(traj=None,
 
     Notes
     -----
-    install ``pytraj`` and ``libcpptraj`` with openmp to speed up calculation
+    - install ``pytraj`` and ``libcpptraj`` with openmp to speed up calculation
+    - do not use this method with pytraj.pmap
     '''
 
     traj = _get_fiterator(traj, frame_indices)
