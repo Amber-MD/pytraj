@@ -12,6 +12,7 @@ try ``pytraj`` online:
 .. toctree::
     :maxdepth: 1
 
+    pytraj
     pytraj.io
     pytraj.Trajectory
     trajectoryiterator
