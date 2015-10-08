@@ -46,7 +46,7 @@ class Test(unittest.TestCase):
 
         dslist0 = pt.calc_vector(
             traj, ['@2,@5,@9 corrplane', '@3,@7,@20 corrplane'])
-        dslist1 = pt.vector.vector_corrplane(
+        dslist1 = pt.vector.corrplane(
             traj, ['@2,@5,@9', '@3,@7,@20'])
         data0 = pt.timecorr(dslist0[0], dslist0[1])
         data1 = pt.timecorr(dslist1[0], dslist1[1])
