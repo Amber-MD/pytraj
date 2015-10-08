@@ -140,6 +140,28 @@ There are some tricks:
 
     source/tutorials/*rst
 
+How to make a tutorial and include it in pytraj's website
+---------------------------------------------------------
+
+I (Hai) prefer to use ipython notebook to write tutorial and include it in website. sphinx will run the notebook, convert to html file, insert it in correct page. 
+But let's start with different ways to make a tutorial. First, make sure to::
+
+  $ git checkout gh-pages
+
+- use ipython directive: you just write the code and sphinx will run it for you. check::
+
+  $ source/tutorials/basic_examples.rst
+
+- use ipython notebook directive: you just write the code and sphinx will run it for you. This approach will have more richful layout. check::
+
+  $ doc/source/tutorials/plot_correlation_matrix.rst
+
+- Two above approaches are performed on the fly when you make the doc. If you don't want to rerun your notebook, you can run once, convert it to html file and include it in rst file::
+
+  $ ipython nbconvert --to html your_notebook_name.ipynb
+  $ # check doc/source/tutorials/lysozyme_order_parameter_.rst
+  $ # (basically you just need to use .. raw:: html directive)
+
 Push pytraj and libcpptraj to anaconda.org after successful build on travis
 ---------------------------------------------------------------------------
 
