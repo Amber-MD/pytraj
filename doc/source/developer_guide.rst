@@ -150,7 +150,7 @@ But let's start with different ways to make a tutorial. First, make sure to::
 
 - use ipython directive: you just write the code and sphinx will run it for you. check::
 
-  $ source/tutorials/basic_examples.rst
+  $ doc/source/tutorials/basic_examples.rst
 
 - use ipython notebook directive: you just write the code and sphinx will run it for you. This approach will have more richful layout. check::
 
