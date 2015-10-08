@@ -52,7 +52,7 @@ avg
 pt.superpose(traj, ref=avg, mask='!@H=')
 
 
-# In[7]:
+# In[ ]:
 
 # perform PCA calculation and get transformed coords
 # we need to reshape 3D traj.xyz array to 2D to make sklearn happy
@@ -62,13 +62,17 @@ xyz_2d = traj_new.xyz.reshape(traj_new.n_frames, traj_new.n_atoms * 3)
 print(xyz_2d.shape) # (n_frames, n_dimensions)
 
 
-# In[8]:
+# In[ ]:
 
 reduced_cartesian = pca.fit_transform(xyz_2d)
 print(reduced_cartesian.shape) # (n_frames, n_dimensions)
 
 
-# In[17]:
+# In[ ]:
+
+# ignore warning
+import warnings
+warnings.filterwarnings('ignore')
 
 plt.figure()
 plt.scatter(reduced_cartesian[:, 0], reduced_cartesian[:,1], marker='o', c=range(traj_new.n_frames), alpha=0.5)
@@ -82,7 +86,7 @@ cbar.set_label('frame #')
 # 
 # **note**: stop here if you do not care (a bit compilicated code)
 
-# In[10]:
+# In[ ]:
 
 # cpptraj
 
@@ -108,35 +112,35 @@ crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
 '''
 
 
-# In[11]:
+# In[ ]:
 
 state = pt.datafiles.load_cpptraj_state
 
 
-# In[12]:
+# In[ ]:
 
 state = pt.datafiles.load_cpptraj_state(command)
 # tell 'run' to perform all calculation
 state.run()
 
 
-# In[13]:
+# In[ ]:
 
 # get data
 state.data
 
 
-# In[14]:
+# In[ ]:
 
 print([dset.key for dset in state.data])
 print(state.data['MyMatrix'].values.shape)
 
 
-# In[22]:
+# In[ ]:
 
 # reduced_cartesian corresponds to dataset with names of 'Mode1', 'Mode2'
-# mode_0, mode_1 = -state.data['Mode1'].values, -state.data['Mode2'].values
-mode_0, mode_1 = state.data['Mode1'].values, state.data['Mode2'].values
+mode_0, mode_1 = -state.data['Mode1'].values, -state.data['Mode2'].values
+# mode_0, mode_1 = state.data['Mode1'].values, state.data['Mode2'].values
 
 # plot: cpptraj
 fig = plt.figure()
@@ -159,7 +163,7 @@ ax_1.set_yticks([-40, -20, 0, 20, 40])
 ax_1.set_title('sklearn')
 
 
-# In[16]:
+# In[ ]:
 
 print('sklearn \n')
 print(reduced_cartesian[:, 0], reduced_cartesian[:, 1])
