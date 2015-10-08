@@ -13,5 +13,5 @@ Radial distribution function of waters
 
 .. image:: ../images/rdf_tz2_ortho.png
 
-.. notebook:: data/radial_distribution_function.ipynb
+.. notebook:: data/radial_distribution_function_of_water.ipynb
    :skip_exceptions:
