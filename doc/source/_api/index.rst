@@ -18,3 +18,4 @@ try ``pytraj`` online:
     pytraj.FrameIter
     pytraj.common_actions
     pytraj.CpptrajState
+    pytraj.parallel.map
