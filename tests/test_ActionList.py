@@ -225,6 +225,9 @@ class TestActionList(unittest.TestCase):
         dslist = CpptrajDatasetList()
         actlist = ActionList(commands, traj.top, dslist=dslist)
 
+        d0 = dslist.add_set('ref_frame', 'my_ref')
+        d0.add_frame(traj[3])
+
         for frame in traj:
             actlist.do_actions(frame)
 
@@ -233,6 +236,7 @@ class TestActionList(unittest.TestCase):
         aa_eq(pt.distance(traj, ':3 :7'), dslist[2])
         aa_eq(pt.vector.vector_mask(traj(rmsfit=(0, '@CA')), ':2 :3'),
               dslist[3].values)
+        aa_eq(dslist['my_ref'].xyz, traj[3].xyz)
 
     def test_constructor_from_command_list_Trajectory(self):
         '''mutable Trajectory'''
