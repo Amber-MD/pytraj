@@ -6,6 +6,40 @@ from ..Topology cimport _Topology, Topology
 from ..core.cpp_core cimport _ArgList, ArgList
 from ..datasets.DatasetList cimport _DatasetList, DatasetList
 from ..Frame cimport _Frame, Frame
+from ..trajs.TrajectoryCpptraj cimport CoordinateInfo
+
+
+cdef extern from "ActionState.h":
+    cdef cppclass _ActionInit "ActionInit":
+        _ActionInit()
+        _ActionInit(_DatasetList& dslIn, _DataFileList& dflIn)
+        _DatasetList& DSL()
+        const _DatasetList& DSL()
+        _DatasetList * DslPtr()
+        _DataFileList& DFL()
+        const _DataFileList& DFL()
+        _DatasetList * DSL_Ptr()
+
+
+    cdef cppclass _ActionSetup "ActionSetup":
+        _ActionSetup()
+        void Set(_Topology * p, const CoordinateInfo& c, int n)
+        _ActionSetup(_Topology * topIn, const CoordinateInfo& cInfoIn, int nIn)
+        const _Topology& Top() const
+        _Topology * TopAddress()
+        const CoordinateInfo& CoordInfo() const
+        int Nframes() const
+        void SetTopology(_Topology * p)
+        void SetCoordInfo(CoordinateInfo * c)
+
+
+    cdef cppclass _ActionFrame "ActionFrame":
+        _ActionFrame()
+        _ActionFrame(_Frame * fIn)
+        const _Frame& Frm() const
+        _Frame& ModifyFrm()
+        _Frame * _FramePtr()
+        void SetFrame(_Frame * f)
 
 
 cdef extern from "Action.h": 
@@ -16,10 +50,10 @@ cdef extern from "Action.h":
         USEORIGINALFRAME "Action::USEORIGINALFRAME"
         SUPPRESSCOORDOUTPUT "Action::SUPPRESSCOORDOUTPUT"
     cdef cppclass _Action "Action" nogil:
-        RetType Init(_ArgList&, _DatasetList *, _DataFileList *, int)
-        RetType Setup(_Topology *, _Topology * *)
-        RetType DoAction(int, _Frame *, _Frame * *)
-        void Print() 
+        RetType Init(_ArgList&, _ActionInit&, int)
+        RetType Setup(_ActionSetup&)
+        RetType DoAction(int, _ActionFrame&)
+        void Print()
 
 
 cdef class Action:
@@ -807,18 +841,8 @@ cdef extern from "Action_Strip.h":
         void Help() 
 
 
-    cdef cppclass _Action_Unstrip "Action_Unstrip" (_Action) nogil:
-        _Action_Unstrip() 
-        _DispatchObject * Alloc() 
-        void Help() 
-
-
 cdef class Action_Strip (Action):
     cdef _Action_Strip* thisptr
-
-cdef class Action_Unstrip (Action):
-    cdef _Action_Unstrip* thisptr
-
 
 
 cdef extern from "Action_Surf.h": 
