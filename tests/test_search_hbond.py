@@ -7,7 +7,6 @@ from pytraj.testing import aa_eq
 from pytraj.compat import izip as zip
 
 
-# TODO: assert
 class TestSearchHbonds(unittest.TestCase):
     def test_hbonds(self):
         traj = pt.iterload("./data/DPDP.nc", "./data/DPDP.parm7")
@@ -25,6 +24,14 @@ class TestSearchHbonds(unittest.TestCase):
             aa_eq(mydict[key], mydict_np[key])
 
         dslist_b = search_nointramol_hbonds(traj)
+
+    def test_hbonds_with_image(self):
+        traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+
+        hbonds_0 = pt.search_hbonds(traj(autoimage=True))
+        hbonds_1 = pt.search_hbonds(traj, image=True)
+        aa_eq(hbonds_0.values, hbonds_1.values)
+
 
 if __name__ == "__main__":
     unittest.main()

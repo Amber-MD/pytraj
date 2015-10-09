@@ -16,6 +16,10 @@ cdef class ActionList:
         self.thisptr = new _ActionList()
         self.top_is_processed = False
 
+    property data:
+        def __get__(self):
+            return self._dslist
+
     def __init__(self, commands=None, Topology top=None,
                  DatasetList dslist=DatasetList(), DataFileList dflist=DataFileList()):
         """not done yet
@@ -40,6 +44,9 @@ cdef class ActionList:
         >>> for frame in traj:
         >>>     alist.do_actions(frame)
         """
+        self._dslist = dslist
+        self._dflist = dflist
+
         if commands is not None and top is not None:
             for command in commands:
                 command = command.rstrip().lstrip()
