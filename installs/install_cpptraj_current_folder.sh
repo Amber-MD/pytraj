@@ -8,5 +8,5 @@ cd $CPPTRAJHOME
 mkdir lib
 
 # turn off openmp. need to install pytraj with opnmp too. Too complicated.
-make libcpptraj -j8 || bash ./configure -shared gnu || bash ./configure -nomathlib -shared gnu || bash ./configure -amberlib -shared gnu || make libcpptraj -j8 || exit 1
+make libcpptraj -j8 || bash ./configure -shared gnu || bash ./configure -amberlib -shared gnu || bash ./configure -nomathlib -shared gnu || make libcpptraj -j8 || exit 1
 cd $PYTRAJHOME
