@@ -49,7 +49,5 @@ try ``pytraj`` online:
     # get values for each Dataset
     for d in dslist: print(d)
 
-    # get raw data for one of DatsetVectors
+    # get raw data for the last DatsetVector (x values of unitcells ('vector ucellx'))
     dslist[-1].values
-    
-
