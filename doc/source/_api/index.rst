@@ -18,5 +18,6 @@ try ``pytraj`` online:
     trajectoryiterator
     pytraj.FrameIter
     pytraj.common_actions
+    pytraj.hbonds
     pytraj.CpptrajState
     pytraj.parallel.map
