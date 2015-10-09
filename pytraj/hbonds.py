@@ -23,10 +23,11 @@ def _to_amber_mask(txt):
         _txt = txt[:]
     else:
         raise NotImplementedError()
-    
+
     for mask in _txt:
         mask = mask.replace("_", ":")
         yield " ".join(re.findall(r"(:\d+@\w+)", mask))
+
 
 class DatasetHBond(BaseAnalysisResult):
     """Hold data for hbond analysis
@@ -40,6 +41,7 @@ class DatasetHBond(BaseAnalysisResult):
     <pytraj.hbonds.DatasetHBond
     donor_aceptor pairs : 31>
     """
+
     def __str__(self):
         root_msg = "<pytraj.hbonds.DatasetHBond"
         more_info = "donor_aceptor pairs : %s>" % len(self.donor_aceptor)
@@ -51,7 +53,7 @@ class DatasetHBond(BaseAnalysisResult):
     @property
     def donor_aceptor(self):
         return self.dataset.grep(["solventhb", "solutehb"],
-                                mode='aspect').keys()
+                                 mode='aspect').keys()
 
     def to_amber_mask(self):
         """convert donor_aceptor pair mask to amber mask to calculate
@@ -121,6 +123,7 @@ def search_hbonds(traj,
                   distance=3.0,
                   angle=135.,
                   dtype='hbond',
+                  image=False,
                   more_options='',
                   top=None):
     """search hbonds for a given mask. 
@@ -159,9 +162,11 @@ def search_hbonds(traj,
         str(solvent_acceptor) if solvent_acceptor else ""
     _dist = 'dist ' + str(distance)
     _angle = 'angle ' + str(angle)
+    _image = 'image' if image else ''
     _options = more_options
 
-    command = " ".join(("series", mask, s_donor, s_acceptor, _dist, _angle, _options))
+    command = " ".join(
+        ("series", mask, s_donor, s_acceptor, _dist, _angle, _image, _options))
     act(command, traj, top=_top, dslist=dslist)
     act.print_output()
 
