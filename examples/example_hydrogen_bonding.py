@@ -5,4 +5,4 @@ print(pdb)
 
 dslist = pt.search_hbonds(pdb)
 print(dslist)
-print(dslist.keys())
+print(dslist.to_dict())

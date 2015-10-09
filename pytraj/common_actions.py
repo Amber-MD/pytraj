@@ -2267,9 +2267,6 @@ def auto_correlation_function(data, dtype='ndarray', covar=True):
 
 def lifetime(data, command="", dtype='ndarray', *args, **kwd):
     """
-    Notes
-    -----
-    Same as `autocorr` in cpptraj
     """
     from pytraj.analyses.CpptrajAnalyses import Analysis_Lifetime
 
