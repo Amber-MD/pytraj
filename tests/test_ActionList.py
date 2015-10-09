@@ -240,10 +240,13 @@ class TestActionList(unittest.TestCase):
     def test_constructor_from_command_list_Trajectory(self):
         '''mutable Trajectory'''
         # use `load` method rather `iterload`
-        traj = pt.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.load("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
 
         # make sure no space-sensitivity
-        commands = ['rmsd @CA',
+        commands = [
+                    'autoimage ',
+                    'autoimage',
+                    'rmsd @CA',
                     'distance :3 :7',
                     'distance     :3 :7',
                     'vector :2 :3',
