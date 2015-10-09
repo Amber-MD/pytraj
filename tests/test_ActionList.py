@@ -243,6 +243,7 @@ class TestActionList(unittest.TestCase):
         traj = pt.load("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
 
         # make sure no space-sensitivity
+        # make the code (commands) ugly is my intention.
         commands = [
                     'autoimage ',
                     'autoimage',
@@ -251,6 +252,7 @@ class TestActionList(unittest.TestCase):
                     'distance     :3 :7',
                     'vector :2 :3',
                     '  distance :3 :7',
+                    'rms @C,N,O',
                     ]
 
         dslist = CpptrajDatasetList()
@@ -266,6 +268,7 @@ class TestActionList(unittest.TestCase):
         aa_eq(pt.vector.vector_mask(traj, ':2 :3'),
               dslist[3].values)
         aa_eq(pt.distance(traj, ':3 :7'), dslist[4])
+        aa_eq(pt.rmsd(traj, mask='@C,N,O'), dslist[5])
 
     def test_constructor_from_command_list_TrajectoryIterator_no_DatasetList(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
