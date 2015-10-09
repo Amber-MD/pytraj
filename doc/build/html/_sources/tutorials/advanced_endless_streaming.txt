@@ -18,7 +18,8 @@ try ``pytraj`` online:
     from pytraj.datasets import DatasetList as CpptrajDatasetList
 
     # create pytraj.TrajectoryIterator, no data is actually loaded yet.
-    traj = pt.iterload("tz2.nc", "tz2.parm7")
+    traj = pt.iterload("tz2.ortho.nc", "tz2.ortho.parm7")
+    traj
 
     # create a list of commands (cpptraj's style)
     # advantage: endless streaming calculation, even TB of data.
