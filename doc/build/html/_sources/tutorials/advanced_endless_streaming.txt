@@ -38,13 +38,13 @@ try ``pytraj`` online:
     actlist = pt.ActionList(commands, traj.top, dslist=dslist)
 
     # perform the actions, only a single frame is loaded
-    # data is saved to ``dslist``
+    # data is saved to dslist
     for frame in traj:
         actlist.do_actions(frame)
     dslist
 
     # get values for each Dataset
-    for d in dslist:
-        print(d)
+    for d in dslist: print(d)
 
     print('done')
+

@@ -187,7 +187,7 @@
 <span class="gp">In [7]: </span><span class="n">actlist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">ActionList</span><span class="p">(</span><span class="n">commands</span><span class="p">,</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="n">dslist</span><span class="o">=</span><span class="n">dslist</span><span class="p">)</span>
 
 <span class="c"># perform the actions, only a single frame is loaded</span>
-<span class="c"># data is saved to ``dslist``</span>
+<span class="c"># data is saved to dslist</span>
 <span class="gp">In [8]: </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">:</span>
 <span class="gp">   ...:</span>     <span class="n">actlist</span><span class="o">.</span><span class="n">do_actions</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
 <span class="gp">   ...:</span> 
@@ -196,13 +196,21 @@
 <span class="gr">Out[9]: </span><span class="o">&lt;</span><span class="n">pytraj</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">DatasetList</span> <span class="o">-</span> <span class="mi">5</span> <span class="n">datasets</span><span class="o">&gt;</span>
 
 <span class="c"># get values for each Dataset</span>
-<span class="gp">In [10]: </span><span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dslist</span><span class="p">:</span>
+<span class="gp">In [10]: </span><span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dslist</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="go">                                                   &lt;pytraj.datasets.DatasetDouble: size=101, key=Dis_00000&gt; </span>
+<span class="go">values: </span>
+<span class="go">[ 11.17446726   8.57430478   7.40760415 ...,   9.06436275   6.59675</span>
+<span class="go">   8.63872898]</span>
+<span class="go">&lt;pytraj.datasets.DatasetDouble: size=101, key=Dis_00001&gt; </span>
+<span class="go">values: </span>
+<span class="go">[ 13.68245361  15.82286366  14.63599534 ...,  10.11782115  10.06066255</span>
+<span class="go">  10.65681696]</span>
+<span class="go">&lt;pytraj.datasets.DatasetVector: size=101, key=Vec_00002&gt; </span>
+<span class="go">&lt;pytraj.datasets.DatasetVector: size=0, key=Vec_00003&gt; </span>
+<span class="go">&lt;pytraj.datasets.DatasetVector: size=0, key=Vec_00004&gt; </span>
 
-<span class="gp">In [10]: </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;done&#39;</span><span class="p">)</span>
-<span class="go">  File &quot;&lt;ipython-input-10-d5528aad91a8&gt;&quot;, line 2</span>
-<span class="go">    print(&#39;done&#39;)</span>
-<span class="go">        ^</span>
-<span class="go">IndentationError: expected an indented block</span>
+<span class="gp">In [11]: </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;done&#39;</span><span class="p">)</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            done</span>
 </pre></div>
 </div>
 </div>
