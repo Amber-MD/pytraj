@@ -16,7 +16,7 @@ traj
 
 # search hbonds for all residues
 # dump data to `dataset` (similiar to python'list and dict)
-dataset = pt.search_hbonds(traj)
+dataset = pt.search_hbonds(traj, dtype='dataset')
 print(dataset)
 # 0: no hbond
 # 1: there is hbond

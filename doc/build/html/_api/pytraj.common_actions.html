@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="pytraj 0.1.2.dev10 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
-    <link rel="next" title="pytraj.CpptrajState" href="pytraj.CpptrajState.html" />
+    <link rel="next" title="pytraj.hbonds" href="pytraj.hbonds.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -109,7 +109,7 @@
               
                 
   <li>
-    <a href="pytraj.CpptrajState.html" title="Next Chapter: pytraj.CpptrajState"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">pytraj.Cpptra... &raquo;</span>
+    <a href="pytraj.hbonds.html" title="Next Chapter: pytraj.hbonds"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">pytraj.hbonds &raquo;</span>
     </a>
   </li>
               
@@ -918,30 +918,35 @@ if <cite>frame</cite> keyword is specified cpptraj/pytraj will take existing T</
 
 <dl class="function">
 <dt id="pytraj.common_actions.search_hbonds">
-<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">search_hbonds</tt><big>(</big><em>traj</em>, <em>mask=''</em>, <em>dtype='dataset'</em>, <em>solventdonor=None</em>, <em>solventacceptor=None</em>, <em>update_key=True</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.search_hbonds" title="Permalink to this definition">¶</a></dt>
-<dd><p>search hbonds for a given mask</p>
+<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">search_hbonds</tt><big>(</big><em>traj</em>, <em>mask=''</em>, <em>solvent_donor=None</em>, <em>solvent_acceptor=None</em>, <em>distance=3.0</em>, <em>angle=135.0</em>, <em>dtype='hbond'</em>, <em>image=False</em>, <em>more_options=''</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.search_hbonds" title="Permalink to this definition">¶</a></dt>
+<dd><p>search hbonds for a given mask.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : {Trajectory-like, list of frames, list of Trajectory-like}</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
 <p><strong>mask</strong> : str</p>
 <blockquote>
 <div><p>Amber atom mask</p>
 </div></blockquote>
-<p><strong>dtype</strong> : str {&#8216;list&#8217;, &#8216;pyarray&#8217;, &#8216;dataset&#8217;, &#8216;ndarray&#8217;}, default=&#8217;dataset&#8217;</p>
-<p><strong>*args, **kwd: optional</strong></p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>out</strong> : pytraj.DatasetList</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>out</strong> : pytraj.DatasetList, which is similiar to Python list with labeled data.</p>
 </td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">solventdonor</span><span class="o">=</span><span class="s">&#39;:WAT@O&#39;</span><span class="p">,</span> <span class="n">solventacceptor</span><span class="o">=</span><span class="s">&#39;:WAT&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:5,8&#39;</span><span class="p">)</span>
+<span class="go">&lt;pytraj.DatasetList with 3 datasets&gt;</span>
+<span class="go">total_solute_hbonds</span>
+<span class="go">[2 2 0 1 1 0 2 1 1 1]</span>
+<span class="go">LYS8_O-GLU5_N-H</span>
+<span class="go">[1 1 0 1 1 0 1 1 1 1]</span>
+<span class="go">GLU5_O-LYS8_N-H</span>
+<span class="go">[1 1 0 0 0 0 1 0 0 0]</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1138,7 +1143,7 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 08, 2015.<br/>
+      Last updated on Oct 09, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

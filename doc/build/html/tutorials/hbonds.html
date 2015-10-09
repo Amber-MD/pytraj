@@ -198,7 +198,7 @@
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="c"># search hbonds for all residues</span>
 <span class="c"># dump data to `dataset` (similiar to python&#39;list and dict)</span>
-<span class="n">dataset</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;dataset&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
 <span class="c"># 0: no hbond</span>
 <span class="c"># 1: there is hbond</span>
@@ -392,7 +392,7 @@ total hbonds for GLU5 per frame
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&lt;matplotlib.lines.Line2D at 0x2aaaabe47cf8&gt;]</pre>
+<pre>[&lt;matplotlib.lines.Line2D at 0x2aaaabe60b00&gt;]</pre>
 </div>
 
 </div>
@@ -517,26 +517,31 @@ wsBjCAAAAABJRU5ErkJggg==
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Help on function search_hbonds in module pytraj.hbonds:
 
-search_hbonds(traj, mask=&apos;&apos;, dtype=&apos;dataset&apos;, solventdonor=None, solventacceptor=None, update_key=True, *args, **kwd)
-    search hbonds for a given mask
+search_hbonds(traj, mask=&apos;&apos;, solvent_donor=None, solvent_acceptor=None, distance=3.0, angle=135.0, dtype=&apos;hbond&apos;, image=False, more_options=&apos;&apos;, top=None)
+    search hbonds for a given mask. 
     
     Parameters
     ----------
-    traj : {Trajectory-like, list of frames, list of Trajectory-like}
+    traj : Trajectory-like
     mask : str 
         Amber atom mask
-    dtype : str {&apos;list&apos;, &apos;pyarray&apos;, &apos;dataset&apos;, &apos;ndarray&apos;}, default=&apos;dataset&apos;
-    *args, **kwd: optional
     
     Returns
     -------
-    out : pytraj.DatasetList
+    out : pytraj.DatasetList, which is similiar to Python list with labeled data.
     
     Examples
     --------
     &gt;&gt;&gt; import pytraj as pt
-    &gt;&gt;&gt; pt.search_hbonds(traj)
-    &gt;&gt;&gt; pt.search_hbonds(traj, solventdonor=&apos;:WAT@O&apos;, solventacceptor=&apos;:WAT&apos;)
+    &gt;&gt;&gt; traj = pt.load_sample_data(&apos;tz2&apos;)
+    &gt;&gt;&gt; pt.search_hbonds(traj, &apos;:5,8&apos;)
+    &lt;pytraj.DatasetList with 3 datasets&gt;
+    total_solute_hbonds
+    [2 2 0 1 1 0 2 1 1 1]
+    LYS8_O-GLU5_N-H
+    [1 1 0 1 1 0 1 1 1 1]
+    GLU5_O-LYS8_N-H
+    [1 1 0 0 0 0 1 0 0 0]
 
 </pre>
 </div>
@@ -562,7 +567,7 @@ search_hbonds(traj, mask=&apos;&apos;, dtype=&apos;dataset&apos;, solventdonor=N
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 08, 2015.<br/>
+      Last updated on Oct 09, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

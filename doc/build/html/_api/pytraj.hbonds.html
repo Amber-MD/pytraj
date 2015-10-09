@@ -150,25 +150,17 @@
 <div class="custom-index container">
 <script type="text/javascript" src='../_static/cindex.js'></script></div>
 <span class="target" id="module-pytraj.hbonds"></span><dl class="class">
-<dt id="pytraj.hbonds.HbondAnalysisResult">
-<em class="property">class </em><tt class="descclassname">pytraj.hbonds.</tt><tt class="descname">HbondAnalysisResult</tt><big>(</big><em>dslist=None</em><big>)</big><a class="headerlink" href="#pytraj.hbonds.HbondAnalysisResult" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.hbonds.DatasetHBond">
+<em class="property">class </em><tt class="descclassname">pytraj.hbonds.</tt><tt class="descname">DatasetHBond</tt><big>(</big><em>dslist=None</em><big>)</big><a class="headerlink" href="#pytraj.hbonds.DatasetHBond" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pytraj._base_result_class.BaseAnalysisResult</span></tt></p>
-<p>Hold data for HbondAnalysisResult</p>
+<p>Hold data for hbond analysis</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_pdb_rcsb</span><span class="p">(</span><span class="s">&quot;1l2y&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">h</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">hbonds</span><span class="o">.</span><span class="n">HbondAnalysisResult</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">h</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">hbonds</span><span class="o">.</span><span class="n">DatasetHBond</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">())</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">h</span>
-<span class="go">&lt;pytraj.hbonds.HbondAnalysisResult</span>
+<span class="go">&lt;pytraj.hbonds.DatasetHBond</span>
 <span class="go">donor_aceptor pairs : 31&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">h</span><span class="o">.</span><span class="n">lifetime</span><span class="p">(</span><span class="n">cut</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
-<span class="go">{&#39;ARG16_O-TRP6_NE1-HE1&#39;: 0.9473684210526315,</span>
-<span class="go"> &#39;ILE4_O-LYS8_N-H&#39;: 0.7631578947368421,</span>
-<span class="go"> &#39;LEU7_O-GLY10_N-H&#39;: 0.8947368421052632,</span>
-<span class="go"> &#39;TYR3_O-LEU7_N-H&#39;: 1.0}</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">h</span><span class="o">.</span><span class="n">grep</span><span class="p">([</span><span class="s">&#39;ARG&#39;</span><span class="p">,</span> <span class="s">&#39;TYR&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">dslist</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
 </pre></div>
 </div>
 <p class="rubric">Attributes</p>
@@ -178,13 +170,13 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.hbonds.HbondAnalysisResult.dataset" title="pytraj.hbonds.HbondAnalysisResult.dataset"><tt class="xref py py-obj docutils literal"><span class="pre">dataset</span></tt></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.hbonds.DatasetHBond.dataset" title="pytraj.hbonds.DatasetHBond.dataset"><tt class="xref py py-obj docutils literal"><span class="pre">dataset</span></tt></a></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.hbonds.HbondAnalysisResult.donor_aceptor" title="pytraj.hbonds.HbondAnalysisResult.donor_aceptor"><tt class="xref py py-obj docutils literal"><span class="pre">donor_aceptor</span></tt></a></td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.hbonds.DatasetHBond.donor_aceptor" title="pytraj.hbonds.DatasetHBond.donor_aceptor"><tt class="xref py py-obj docutils literal"><span class="pre">donor_aceptor</span></tt></a></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.hbonds.HbondAnalysisResult.values" title="pytraj.hbonds.HbondAnalysisResult.values"><tt class="xref py py-obj docutils literal"><span class="pre">values</span></tt></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.hbonds.DatasetHBond.values" title="pytraj.hbonds.DatasetHBond.values"><tt class="xref py py-obj docutils literal"><span class="pre">values</span></tt></a></td>
 <td></td>
 </tr>
 </tbody>
@@ -196,102 +188,46 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.hbonds.HbondAnalysisResult.append" title="pytraj.hbonds.HbondAnalysisResult.append"><tt class="xref py py-obj docutils literal"><span class="pre">append</span></tt></a>(value)</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.hbonds.HbondAnalysisResult.grep" title="pytraj.hbonds.HbondAnalysisResult.grep"><tt class="xref py py-obj docutils literal"><span class="pre">grep</span></tt></a>(key)</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.hbonds.HbondAnalysisResult.groupby" title="pytraj.hbonds.HbondAnalysisResult.groupby"><tt class="xref py py-obj docutils literal"><span class="pre">groupby</span></tt></a>(key)</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.hbonds.HbondAnalysisResult.lifetime" title="pytraj.hbonds.HbondAnalysisResult.lifetime"><tt class="xref py py-obj docutils literal"><span class="pre">lifetime</span></tt></a>([cut])</td>
-<td>return a dict with keys as donor_aceptor pairs and</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.hbonds.HbondAnalysisResult.to_amber_mask" title="pytraj.hbonds.HbondAnalysisResult.to_amber_mask"><tt class="xref py py-obj docutils literal"><span class="pre">to_amber_mask</span></tt></a>()</td>
-<td>convert donor_aceptor pair mask to amber mask to calculate</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.hbonds.HbondAnalysisResult.to_dict" title="pytraj.hbonds.HbondAnalysisResult.to_dict"><tt class="xref py py-obj docutils literal"><span class="pre">to_dict</span></tt></a>()</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.hbonds.HbondAnalysisResult.to_ndarray" title="pytraj.hbonds.HbondAnalysisResult.to_ndarray"><tt class="xref py py-obj docutils literal"><span class="pre">to_ndarray</span></tt></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.hbonds.DatasetHBond.to_dict" title="pytraj.hbonds.DatasetHBond.to_dict"><tt class="xref py py-obj docutils literal"><span class="pre">to_dict</span></tt></a>()</td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<dl class="method">
-<dt id="pytraj.hbonds.HbondAnalysisResult.append">
-<tt class="descname">append</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#pytraj.hbonds.HbondAnalysisResult.append" title="Permalink to this definition">¶</a></dt>
+<dl class="attribute">
+<dt id="pytraj.hbonds.DatasetHBond.dataset">
+<tt class="descname">dataset</tt><a class="headerlink" href="#pytraj.hbonds.DatasetHBond.dataset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="pytraj.hbonds.HbondAnalysisResult.dataset">
-<tt class="descname">dataset</tt><a class="headerlink" href="#pytraj.hbonds.HbondAnalysisResult.dataset" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.hbonds.DatasetHBond.donor_aceptor">
+<tt class="descname">donor_aceptor</tt><a class="headerlink" href="#pytraj.hbonds.DatasetHBond.donor_aceptor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.hbonds.DatasetHBond.to_dict">
+<tt class="descname">to_dict</tt><big>(</big><big>)</big><a class="headerlink" href="#pytraj.hbonds.DatasetHBond.to_dict" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="pytraj.hbonds.HbondAnalysisResult.donor_aceptor">
-<tt class="descname">donor_aceptor</tt><a class="headerlink" href="#pytraj.hbonds.HbondAnalysisResult.donor_aceptor" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pytraj.hbonds.HbondAnalysisResult.grep">
-<tt class="descname">grep</tt><big>(</big><em>key</em><big>)</big><a class="headerlink" href="#pytraj.hbonds.HbondAnalysisResult.grep" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pytraj.hbonds.HbondAnalysisResult.groupby">
-<tt class="descname">groupby</tt><big>(</big><em>key</em><big>)</big><a class="headerlink" href="#pytraj.hbonds.HbondAnalysisResult.groupby" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pytraj.hbonds.HbondAnalysisResult.lifetime">
-<tt class="descname">lifetime</tt><big>(</big><em>cut=None</em><big>)</big><a class="headerlink" href="#pytraj.hbonds.HbondAnalysisResult.lifetime" title="Permalink to this definition">¶</a></dt>
-<dd><p>return a dict with keys as donor_aceptor pairs and
-values as fraction of frames (vs total) having hbond. This fraction
-within <cite>cut</cite>. If <cite>cut</cite> is a single number, cut=(cut, 1.0). If <cite>cut</cite>
-is a tuple, cut=(min, max)</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pytraj.hbonds.HbondAnalysisResult.to_amber_mask">
-<tt class="descname">to_amber_mask</tt><big>(</big><big>)</big><a class="headerlink" href="#pytraj.hbonds.HbondAnalysisResult.to_amber_mask" title="Permalink to this definition">¶</a></dt>
-<dd><p>convert donor_aceptor pair mask to amber mask to calculate
-distance (for example: &#8216;ARG16_O-TRP6_NE1-HE1&#8217; will be &#8216;:16&#64;O :<a class="reference external" href="mailto:6&#37;&#52;&#48;HE1">6<span>&#64;</span>HE1</a>&#8216;)</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pytraj.hbonds.HbondAnalysisResult.to_dict">
-<tt class="descname">to_dict</tt><big>(</big><big>)</big><a class="headerlink" href="#pytraj.hbonds.HbondAnalysisResult.to_dict" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pytraj.hbonds.HbondAnalysisResult.to_ndarray">
-<tt class="descname">to_ndarray</tt><big>(</big><big>)</big><a class="headerlink" href="#pytraj.hbonds.HbondAnalysisResult.to_ndarray" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pytraj.hbonds.HbondAnalysisResult.values">
-<tt class="descname">values</tt><a class="headerlink" href="#pytraj.hbonds.HbondAnalysisResult.values" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.hbonds.DatasetHBond.values">
+<tt class="descname">values</tt><a class="headerlink" href="#pytraj.hbonds.DatasetHBond.values" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="function">
 <dt id="pytraj.hbonds.search_hbonds">
-<tt class="descclassname">pytraj.hbonds.</tt><tt class="descname">search_hbonds</tt><big>(</big><em>traj</em>, <em>mask=''</em>, <em>dtype='dataset'</em>, <em>solventdonor=None</em>, <em>solventacceptor=None</em>, <em>update_key=True</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.hbonds.search_hbonds" title="Permalink to this definition">¶</a></dt>
-<dd><p>search hbonds for a given mask</p>
+<tt class="descclassname">pytraj.hbonds.</tt><tt class="descname">search_hbonds</tt><big>(</big><em>traj</em>, <em>mask=''</em>, <em>solvent_donor=None</em>, <em>solvent_acceptor=None</em>, <em>distance=3.0</em>, <em>angle=135.0</em>, <em>dtype='hbond'</em>, <em>image=False</em>, <em>more_options=''</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.hbonds.search_hbonds" title="Permalink to this definition">¶</a></dt>
+<dd><p>search hbonds for a given mask.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : {Trajectory-like, list of frames, list of Trajectory-like}</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
 <p><strong>mask</strong> : str</p>
 <blockquote>
 <div><p>Amber atom mask</p>
 </div></blockquote>
-<p><strong>dtype</strong> : str {&#8216;list&#8217;, &#8216;pyarray&#8217;, &#8216;dataset&#8217;, &#8216;ndarray&#8217;}, default=&#8217;dataset&#8217;</p>
-<p><strong>*args, **kwd: optional</strong></p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>out</strong> : pytraj.DatasetList, which is similiar to Python list with labeled data.</p>
@@ -387,7 +323,7 @@ distance (for example: &#8216;ARG16_O-TRP6_NE1-HE1&#8217; will be &#8216;:16&#64
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 08, 2015.<br/>
+      Last updated on Oct 09, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

@@ -721,19 +721,17 @@ like below:</p>
 
 <span class="target" id="search-hbonds"></span><dl class="function">
 <dt id="pytraj.search_hbonds">
-<tt class="descclassname">pytraj.</tt><tt class="descname">search_hbonds</tt><big>(</big><em>traj</em>, <em>mask=''</em>, <em>dtype='dataset'</em>, <em>solventdonor=None</em>, <em>solventacceptor=None</em>, <em>update_key=True</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.search_hbonds" title="Permalink to this definition">¶</a></dt>
-<dd><p>search hbonds for a given mask</p>
+<tt class="descclassname">pytraj.</tt><tt class="descname">search_hbonds</tt><big>(</big><em>traj</em>, <em>mask=''</em>, <em>solvent_donor=None</em>, <em>solvent_acceptor=None</em>, <em>distance=3.0</em>, <em>angle=135.0</em>, <em>dtype='hbond'</em>, <em>image=False</em>, <em>more_options=''</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.search_hbonds" title="Permalink to this definition">¶</a></dt>
+<dd><p>search hbonds for a given mask.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : {Trajectory-like, list of frames, list of Trajectory-like}</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
 <p><strong>mask</strong> : str</p>
 <blockquote>
 <div><p>Amber atom mask</p>
 </div></blockquote>
-<p><strong>dtype</strong> : str {&#8216;list&#8217;, &#8216;pyarray&#8217;, &#8216;dataset&#8217;, &#8216;ndarray&#8217;}, default=&#8217;dataset&#8217;</p>
-<p><strong>*args, **kwd: optional</strong></p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>out</strong> : pytraj.DatasetList, which is similiar to Python list with labeled data.</p>
@@ -803,9 +801,7 @@ like below:</p>
 <span class="target" id="lifetime"></span><dl class="function">
 <dt id="pytraj.lifetime">
 <tt class="descclassname">pytraj.</tt><tt class="descname">lifetime</tt><big>(</big><em>data</em>, <em>command=''</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.lifetime" title="Permalink to this definition">¶</a></dt>
-<dd><p class="rubric">Notes</p>
-<p>Same as <cite>autocorr</cite> in cpptraj</p>
-</dd></dl>
+<dd></dd></dl>
 
 <span class="target" id="auto-correlation-function"></span><dl class="function">
 <dt id="pytraj.acorr">
@@ -1024,7 +1020,7 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 08, 2015.<br/>
+      Last updated on Oct 09, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>
