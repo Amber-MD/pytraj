@@ -1,4 +1,4 @@
-.. _pytraj.api.trajectory:
+.. _pytraj.api:
 
 pytraj.Trajectory
 =================
