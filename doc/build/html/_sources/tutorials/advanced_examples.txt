@@ -13,3 +13,4 @@ try ``pytraj`` online:
 
     lysozyme_order_parameter_
     hbonds
+    advanced_endless_streaming
