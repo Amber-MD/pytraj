@@ -16,7 +16,6 @@ try ``pytraj`` online:
 
     import pytraj as pt
     from pytraj.datasets import DatasetList as CpptrajDatasetList
-    from pytraj import ActionList
 
     # create pytraj.TrajectoryIterator, no data is actually loaded yet.
     traj = pt.iterload("tz2.nc", "tz2.parm7")
@@ -27,6 +26,8 @@ try ``pytraj`` online:
                 'distance :3 :7',
                 'distance :3 :10',
                 'vector :2 :3',
+                'vector box',
+                'vector ucellx',
                 ]
 
     # create a CpptrajDatasetList object to hold all datasets
@@ -34,7 +35,7 @@ try ``pytraj`` online:
     dslist
 
     # create an ActionList object to hold all actions
-    actlist = ActionList(commands, traj.top, dslist=dslist)
+    actlist = pt.ActionList(commands, traj.top, dslist=dslist)
 
     # perform the actions, only a single frame is loaded
     for frame in traj:
