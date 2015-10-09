@@ -14,7 +14,7 @@ try ``pytraj`` online:
 
     pytraj
     pytraj.io
-    pytraj.Trajectory
+    pytraj.api.Trajectory
     trajectoryiterator
     pytraj.FrameIter
     pytraj.common_actions
