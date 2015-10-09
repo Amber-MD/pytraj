@@ -224,7 +224,8 @@
 <span class="go">       [&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;]], </span>
 <span class="go">      dtype=&#39;&lt;U1&#39;), &lt;pytraj.DatasetList with 8 datasets&gt;</span>
 <span class="go">none_avg</span>
-<span class="go">[ 0.3   0.25  0.35 ...,  0.3   0.3   0.3 ]</span>
+<span class="go">[ 0.30000001  0.25        0.34999999 ...,  0.30000001  0.30000001</span>
+<span class="go">  0.30000001]</span>
 
 <span class="go">para_avg</span>
 <span class="go">[ 0.  0.  0. ...,  0.  0.  0.]</span>
@@ -234,7 +235,7 @@
 <span class="go">...</span>
 
 <span class="go">turn_avg</span>
-<span class="go">[ 0.1   0.15  0.1  ...,  0.1   0.05  0.15]</span>
+<span class="go">[ 0.1         0.15000001  0.1        ...,  0.1         0.05        0.15000001]</span>
 
 <span class="go">bend_avg</span>
 <span class="go">[ 0.05  0.1   0.05 ...,  0.05  0.1   0.05])</span>
@@ -247,22 +248,53 @@
 
 <span class="gp">In [15]: </span><span class="n">hbonds</span>
 <span class="gr">Out[15]: </span>
-<span class="go">&lt;pytraj.DatasetList with 32 datasets&gt;</span>
-<span class="go">total_solute_hbonds</span>
-<span class="go">[6 7 8 ..., 7 6 6]</span>
+<span class="go">&lt;pytraj.hbonds.DatasetHBond</span>
+<span class="go">donor_aceptor pairs : 31&gt;</span>
 
-<span class="go">ASN1_O-GLN5_N-H</span>
-<span class="go">[1 0 0 ..., 0 0 0]</span>
+<span class="gp">In [16]: </span><span class="n">hbonds</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="go">                                                                Out[16]: </span>
+<span class="go">[&#39;total_solute_hbonds&#39;,</span>
+<span class="go"> &#39;ASN1_O-GLN5_N-H&#39;,</span>
+<span class="go"> &#39;ARG16_O-TRP6_NE1-HE1&#39;,</span>
+<span class="go"> &#39;TYR3_O-LEU7_N-H&#39;,</span>
+<span class="go"> &#39;ILE4_O-LYS8_N-H&#39;,</span>
+<span class="go"> &#39;LEU7_O-GLY10_N-H&#39;,</span>
+<span class="go"> &#39;ASP9_O-SER14_OG-HG&#39;,</span>
+<span class="go"> &#39;SER14_O-ARG16_N-H&#39;,</span>
+<span class="go"> &#39;ASP9_OD2-ARG16_NH1-HH12&#39;,</span>
+<span class="go"> &#39;ASP9_OD2-ARG16_NH2-HH22&#39;,</span>
+<span class="go"> &#39;LEU2_O-TRP6_N-H&#39;,</span>
+<span class="go"> &#39;GLN5_OE1-LYS8_NZ-HZ1&#39;,</span>
+<span class="go"> &#39;ASN1_O-ILE4_N-H&#39;,</span>
+<span class="go"> &#39;TRP6_O-GLY11_N-H&#39;,</span>
+<span class="go"> &#39;SER20_OXT-SER20_OG-HG&#39;,</span>
+<span class="go"> &#39;ASN1_O-TYR3_N-H&#39;,</span>
+<span class="go"> &#39;GLY11_O-SER14_OG-HG&#39;,</span>
+<span class="go"> &#39;ASP9_OD2-ARG16_NE-HE&#39;,</span>
+<span class="go"> &#39;ASN1_OD1-LEU2_N-H&#39;,</span>
+<span class="go"> &#39;ASP9_OD1-LYS8_NZ-HZ1&#39;,</span>
+<span class="go"> &#39;ASP9_OD2-ARG16_NH2-HH21&#39;,</span>
+<span class="go"> &#39;SER20_O-SER20_OG-HG&#39;,</span>
+<span class="go"> &#39;GLY10_O-SER13_N-H&#39;,</span>
+<span class="go"> &#39;GLY10_O-SER13_OG-HG&#39;,</span>
+<span class="go"> &#39;ASP9_OD1-SER14_OG-HG&#39;,</span>
+<span class="go"> &#39;PRO12_O-GLY15_N-H&#39;,</span>
+<span class="go"> &#39;PRO19_O-SER20_OG-HG&#39;,</span>
+<span class="go"> &#39;GLY11_O-SER14_N-H&#39;,</span>
+<span class="go"> &#39;SER13_O-SER13_OG-HG&#39;,</span>
+<span class="go"> &#39;GLN5_O-ASP9_N-H&#39;,</span>
+<span class="go"> &#39;ASP9_OD2-SER14_OG-HG&#39;,</span>
+<span class="go"> &#39;ASP9_OD2-ARG16_NH1-HH11&#39;]</span>
 
-<span class="go">ARG16_O-TRP6_NE1-HE1</span>
-<span class="go">[1 1 1 ..., 1 1 1]</span>
-<span class="go">...</span>
-
-<span class="go">ASP9_OD2-SER14_OG-HG</span>
-<span class="go">[0 0 0 ..., 0 0 0]</span>
-
-<span class="go">ASP9_OD2-ARG16_NH1-HH11</span>
-<span class="go">[0 0 0 ..., 0 0 0]</span>
+<span class="gp">In [17]: </span><span class="n">hbonds</span><span class="o">.</span><span class="n">values</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     Out[17]: </span>
+<span class="go">array([[6, 7, 8, ..., 7, 6, 6],</span>
+<span class="go">       [1, 0, 0, ..., 0, 0, 0],</span>
+<span class="go">       [1, 1, 1, ..., 1, 1, 1],</span>
+<span class="go">       ..., </span>
+<span class="go">       [0, 0, 0, ..., 0, 0, 0],</span>
+<span class="go">       [0, 0, 0, ..., 0, 0, 0],</span>
+<span class="go">       [0, 0, 0, ..., 0, 0, 0]], dtype=int32)</span>
 </pre></div>
 </div>
 </div>
@@ -285,7 +317,7 @@
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 08, 2015.<br/>
+      Last updated on Oct 09, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

@@ -50,6 +50,8 @@ Hbond analysis
  
    hbonds = pt.search_hbonds(pdb)
    hbonds
+   hbonds.dataset.keys()
+   hbonds.values
 
 More examples
 -------------
