@@ -736,17 +736,24 @@ like below:</p>
 <p><strong>*args, **kwd: optional</strong></p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>out</strong> : pytraj.DatasetList</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>out</strong> : pytraj.DatasetList, which is similiar to Python list with labeled data.</p>
 </td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">solventdonor</span><span class="o">=</span><span class="s">&#39;:WAT@O&#39;</span><span class="p">,</span> <span class="n">solventacceptor</span><span class="o">=</span><span class="s">&#39;:WAT&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:5,8&#39;</span><span class="p">)</span>
+<span class="go">&lt;pytraj.DatasetList with 3 datasets&gt;</span>
+<span class="go">total_solute_hbonds</span>
+<span class="go">[2 2 0 1 1 0 2 1 1 1]</span>
 </pre></div>
 </div>
+<p>LYS8_O-GLU5_N-H
+[1 1 0 1 1 0 1 1 1 1]</p>
+<p>GLU5_O-LYS8_N-H
+[1 1 0 0 0 0 1 0 0 0]</p>
 </dd></dl>
 
 <span class="target" id="jcoupling"></span><dl class="function">
