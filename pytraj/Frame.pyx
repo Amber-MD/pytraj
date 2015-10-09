@@ -1036,13 +1036,16 @@ cdef class Frame (object):
         -------
         self
         """
-        cdef Frame frame
+        atm.invert_mask()
+        cdef Frame frame = Frame(atm.n_atoms)
 
-        frame = Frame(self, atm)
+        frame.thisptr.SetFrame(self.thisptr[0], atm.thisptr[0])
         # deallocate old coordinates
         del self.thisptr
         # point to the new one
         self.thisptr = frame.thisptr
+        # do not let ``frame`` deallocate, let ``self`` do it
+        frame._own_memory = False
         return self
 
     def get_subframe(self, mask=None, top=None):

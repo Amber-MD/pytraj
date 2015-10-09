@@ -28,7 +28,7 @@ class Test(unittest.TestCase):
 
         #print("try to strip atoms")
         frame1 = frame0.copy()
-        frame1.strip_atoms("!@CA", traj.top)
+        frame1.strip_atoms(traj.top("!@CA"))
         #print(frame1._buffer2d.shape)
 
         _f = frame0.get_subframe("@CA", traj.top)

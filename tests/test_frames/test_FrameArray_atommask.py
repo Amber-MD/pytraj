@@ -12,7 +12,7 @@ class Test(unittest.TestCase):
         top = traj.top
         frame0 = traj[0].copy()
         f1 = frame0.get_subframe("@CA", traj.top)
-        frame0.strip_atoms("!@CA", traj.top)
+        frame0.strip_atoms(traj.top("!@CA"))
         farray0 = traj['@CA ']
 
         assert_almost_equal(farray0[0].coords, frame0.coords)
@@ -32,7 +32,7 @@ class Test(unittest.TestCase):
         farray = traj[:]
 
         frame0 = traj[0].copy()
-        frame0.strip_atoms("!@CA", traj.top)
+        frame0.strip_atoms(traj.top("!@CA"))
 
         frame1 = traj['@CA'][0]
         frame2 = farray['@CA'][0]
