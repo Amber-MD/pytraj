@@ -33,3 +33,5 @@ cdef class ActionList:
 
     # check if self.process is already called or not
     cdef bint top_is_processed
+    cdef public object _dslist
+    cdef public object _dflist

@@ -267,5 +267,24 @@ class TestActionList(unittest.TestCase):
               dslist[3].values)
         aa_eq(pt.distance(traj, ':3 :7'), dslist[4])
 
+    def test_constructor_from_command_list_TrajectoryIterator_no_DatasetList(self):
+        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+
+        commands = ['rmsd @CA',
+                    'distance :3 :7',
+                    'distance     :3 :7',
+                    'vector :2 :3']
+
+        actlist = ActionList(commands, top=traj.top)
+
+        for frame in traj:
+            actlist.do_actions(frame)
+
+        aa_eq(pt.rmsd(traj, mask='@CA'), actlist.data[0])
+        aa_eq(pt.distance(traj, ':3 :7'), actlist.data[1])
+        aa_eq(pt.distance(traj, ':3 :7'), actlist.data[2])
+        aa_eq(pt.vector.vector_mask(traj(rmsfit=(0, '@CA')), ':2 :3'),
+              actlist.data[3].values)
+
 if __name__ == "__main__":
     unittest.main()
