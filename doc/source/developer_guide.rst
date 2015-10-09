@@ -152,15 +152,21 @@ But let's start with different ways to make a tutorial. First, make sure to::
 
   $ doc/source/tutorials/basic_examples.rst
 
+This is how the page look likes `basic_examples <http://amber-md.github.io/pytraj/doc/build/html/tutorials/basic_examples.html>`_
+
 - use ipython notebook directive: you just write the code and sphinx will run it for you. This approach will have more richful layout. check::
 
   $ doc/source/tutorials/plot_correlation_matrix.rst
+
+This is how the page look likes `plot_correlation_matrix <http://amber-md.github.io/pytraj/doc/build/html/tutorials/plot_correlation_matrix.html>`_
 
 - Two above approaches are performed on the fly when you make the doc. If you don't want to rerun your notebook, you can run once, convert it to html file and include it in rst file::
 
   $ ipython nbconvert --to html your_notebook_name.ipynb
   $ # check doc/source/tutorials/lysozyme_order_parameter_.rst
   $ # (basically you just need to use .. raw:: html directive)
+
+This is how the page look likes `lysozyme_order_parameter <http://amber-md.github.io/pytraj/doc/build/html/tutorials/lysozyme_order_parameter_.html>`_
 
 Push pytraj and libcpptraj to anaconda.org after successful build on travis
 ---------------------------------------------------------------------------
