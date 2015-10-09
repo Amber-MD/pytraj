@@ -104,6 +104,10 @@ class TestIO(unittest.TestCase):
 
         xyz = pt.get_coordinates(traj, frame_indices=range(3), autoimage=True, rmsfit=ref)
 
+        # with mask
+        xyz = pt.get_coordinates(traj, mask='@CA')
+        aa_eq(xyz, traj['@CA'].xyz)
+
     def test_get_coordinates_trajecotory(self):
         '''mutable pytraj.Trajectory
         '''
