@@ -12,7 +12,7 @@ import pytraj.common_actions as pyca
 class Test(unittest.TestCase):
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        dslist = pt.search_hbonds(traj, )
+        dslist = pt.search_hbonds(traj, dtype='dataset')
 
         # +=
         d0 = dslist[0]

@@ -11,7 +11,7 @@ from pytraj.compat import izip as zip
 class TestSearchHbonds(unittest.TestCase):
     def test_hbonds(self):
         traj = pt.iterload("./data/DPDP.nc", "./data/DPDP.parm7")
-        dslist = search_hbonds(traj)
+        dslist = search_hbonds(traj, dtype='dataset')
         for key in dslist.keys():
             if 'UU' not in key:
                 assert dslist[key].tolist().__len__() == traj.n_frames

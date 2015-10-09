@@ -31,11 +31,6 @@ class Test(unittest.TestCase):
         pyca.search_hbonds(traj, 'series')
         pyca.search_hbonds(traj, 'series, nointramol')
 
-    def test_2(self):
-        #d = pyca.search_hbonds(traj)
-        d = pyca.search_hbonds(traj).filter("SER")
-        d2 = pyca.search_hbonds(traj).filter("SER").to_ndarray()
-
     def test_3_vdw_radii_topology(self):
         top = io.load_pdb("./data/tz2.pdb").top
         # should raise ValueError since pdb does not have vdw info
@@ -57,7 +52,6 @@ class Test(unittest.TestCase):
         # new DSL
         d0_dummy = search_hbonds(traj)[:][:][:][:][0]
         d0 = search_hbonds(traj)[0]
-        aa_eq(d0_dummy.to_ndarray(), d0.to_ndarray())
         # filter
 
         dslist = da.calc_phi(traj)

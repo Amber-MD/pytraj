@@ -5,4 +5,5 @@ print(pdb)
 
 dslist = pt.search_hbonds(pdb)
 print(dslist)
-print(dslist.keys())
+print(dslist.donor_aceptor)
+print('total solute hbonds: ', dslist.dataset['total_solute_hbonds'])

@@ -3,38 +3,47 @@ from __future__ import absolute_import, print_function, division
 from .action_dict import ActionDict
 from .externals.six import string_types
 from .datasets.DatasetList import DatasetList
-from ._get_common_objects import _get_data_from_dtype
+from ._get_common_objects import _get_data_from_dtype, _get_topology
 from ._base_result_class import BaseAnalysisResult
 
 adict = ActionDict()
 
-__all__ = ['HbondAnalysisResult', 'search_hbonds', 'search_nointramol_hbonds',
+__all__ = ['DatasetHBond', 'search_hbonds', 'search_nointramol_hbonds',
            'search_hbonds_noseries']
 
 
-class HbondAnalysisResult(BaseAnalysisResult):
-    """Hold data for HbondAnalysisResult
+def _to_amber_mask(txt):
+    import re
+    """Convert something like 'ASP_16@OD1-ARG_18@N-H to ':16@OD1 :18@H'
+    """
+
+    if isinstance(txt, string_types):
+        _txt = [txt, ]
+    elif isinstance(txt, (list, tuple)):
+        _txt = txt[:]
+    else:
+        raise NotImplementedError()
+
+    for mask in _txt:
+        mask = mask.replace("_", ":")
+        yield " ".join(re.findall(r"(:\d+@\w+)", mask))
+
+
+class DatasetHBond(BaseAnalysisResult):
+    """Hold data for hbond analysis
 
     Examples
     --------
     >>> import pytraj as pt
     >>> traj = pt.load_pdb_rcsb("1l2y")
-    >>> h = pt.hbonds.HbondAnalysisResult(traj.search_hbonds())
+    >>> h = pt.hbonds.DatasetHBond(traj.search_hbonds())
     >>> h
-    <pytraj.hbonds.HbondAnalysisResult
+    <pytraj.hbonds.DatasetHBond
     donor_aceptor pairs : 31>
-    >>> 
-    >>> h.lifetime(cut=(0.5, 1.0))
-    {'ARG16_O-TRP6_NE1-HE1': 0.9473684210526315,
-     'ILE4_O-LYS8_N-H': 0.7631578947368421,
-     'LEU7_O-GLY10_N-H': 0.8947368421052632,
-     'TYR3_O-LEU7_N-H': 1.0}
-    >>>
-    >>> h.grep(['ARG', 'TYR']).dslist.to_dict()
     """
 
     def __str__(self):
-        root_msg = "<pytraj.hbonds.HbondAnalysisResult"
+        root_msg = "<pytraj.hbonds.DatasetHBond"
         more_info = "donor_aceptor pairs : %s>" % len(self.donor_aceptor)
         return root_msg + "\n" + more_info
 
@@ -43,44 +52,8 @@ class HbondAnalysisResult(BaseAnalysisResult):
 
     @property
     def donor_aceptor(self):
-        return self.dslist.grep(["solventhb", "solutehb"],
-                                mode='aspect').keys()
-
-    def lifetime(self, cut=None):
-        """return a dict with keys as donor_aceptor pairs and
-        values as fraction of frames (vs total) having hbond. This fraction
-        within `cut`. If `cut` is a single number, cut=(cut, 1.0). If `cut`
-        is a tuple, cut=(min, max)
-        """
-        c = self.dslist.count(1)
-        n_frames = self.dslist[0].size
-
-        result_dict = dict((key, c[key] / n_frames)
-                           for key in self.donor_aceptor)
-
-        if cut is None:
-            return result_dict
-        else:
-
-            def func(result_dict, cut=cut):
-                d = {}
-                for k in result_dict.keys():
-                    if isinstance(cut, tuple):
-                        if cut[0] <= result_dict[k] <= cut[1]:
-                            d[k] = result_dict[k]
-                    else:
-                        if result_dict[k] >= cut:
-                            d[k] = result_dict[k]
-                return d
-
-            return func(result_dict, cut=cut)
-
-    def to_amber_mask(self):
-        """convert donor_aceptor pair mask to amber mask to calculate
-        distance (for example: 'ARG16_O-TRP6_NE1-HE1' will be ':16@O :6@HE1')
-        """
-        raise NotImplementedError("not yet")
-
+        return self.dataset.grep(["solventhb", "solutehb"],
+                                 mode='aspect').keys()
 
 def _update_key_hbond(_dslist):
 
@@ -138,50 +111,68 @@ def search_hbonds_noseries(traj,
 
 def search_hbonds(traj,
                   mask="",
-                  dtype='dataset',
-                  solventdonor=None,
-                  solventacceptor=None,
-                  update_key=True, *args, **kwd):
-    """search hbonds for a given mask
+                  solvent_donor=None,
+                  solvent_acceptor=None,
+                  distance=3.0,
+                  angle=135.,
+                  dtype='hbond',
+                  image=False,
+                  more_options='',
+                  top=None):
+    """search hbonds for a given mask. 
 
     Parameters
     ----------
-    traj : {Trajectory-like, list of frames, list of Trajectory-like}
+    traj : Trajectory-like
     mask : str 
         Amber atom mask
-    dtype : str {'list', 'pyarray', 'dataset', 'ndarray'}, default='dataset'
-    *args, **kwd: optional
 
     Returns
     -------
-    out : pytraj.DatasetList
+    out : pytraj.DatasetList, which is similiar to Python list with labeled data.
 
     Examples
     --------
     >>> import pytraj as pt
-    >>> pt.search_hbonds(traj)
-    >>> pt.search_hbonds(traj, solventdonor=':WAT@O', solventacceptor=':WAT')
+    >>> traj = pt.load_sample_data('tz2')
+    >>> pt.search_hbonds(traj, ':5,8')
+    <pytraj.DatasetList with 3 datasets>
+    total_solute_hbonds
+    [2 2 0 1 1 0 2 1 1 1]
+    LYS8_O-GLU5_N-H
+    [1 1 0 1 1 0 1 1 1 1]
+    GLU5_O-LYS8_N-H
+    [1 1 0 0 0 0 1 0 0 0]
     """
     from pytraj.actions.CpptrajActions import Action_Hbond
     dslist = DatasetList()
     act = Action_Hbond()
 
-    s_donor = "solventdonor " + str(solventdonor) if solventdonor else ""
-    s_acceptor = "solventacceptor " + \
-        str(solventacceptor) if solventacceptor else ""
+    _top = _get_topology(traj, top)
 
-    command = " ".join(("series", mask, s_donor, s_acceptor))
-    act(command, traj, dslist=dslist, *args, **kwd)
+    s_donor = "solventdonor " + str(solvent_donor) if solvent_donor else ""
+    s_acceptor = "solventacceptor " + \
+        str(solvent_acceptor) if solvent_acceptor else ""
+    _dist = 'dist ' + str(distance)
+    _angle = 'angle ' + str(angle)
+    _image = 'image' if image else ''
+    _options = more_options
+
+    command = " ".join(
+        ("series", mask, s_donor, s_acceptor, _dist, _angle, _image, _options))
+    act(command, traj, top=_top, dslist=dslist)
     act.print_output()
 
-    if update_key:
-        _update_key_hbond(dslist)
+    old_keys = dslist.keys()
+    _update_key_hbond(dslist)
     if dtype == 'dataframe':
         # return DataFrame.T to have better visual effect
         return dslist.to_dataframe().T
-    elif dtype == 'hbond_class':
+    elif dtype == 'hbond':
         dslist_new = _get_data_from_dtype(dslist, dtype='dataset')
-        return HbondAnalysisResult(dslist_new)
+        hdata = DatasetHBond(dslist_new)
+        hdata._old_keys = old_keys
+        return hdata
     else:
         return _get_data_from_dtype(dslist, dtype=dtype)
 

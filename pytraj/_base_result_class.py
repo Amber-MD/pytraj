@@ -13,13 +13,10 @@ class BaseAnalysisResult(object):
     def dataset(self):
         return self._dslist
 
-    def to_ndarray(self):
-        return self._dslist.to_ndarray()
-
     def to_dict(self):
         return self._dslist.to_dict()
 
-    def grep(self, key):
+    def _grep(self, key):
         return self._dslist.grep(key)
 
     def __getitem__(self, idx):
@@ -28,10 +25,7 @@ class BaseAnalysisResult(object):
     def __iter__(self):
         return self._dslist.__iter__()
 
-    def groupby(self, key):
-        return _groupby(self, key)
-
-    def append(self, value):
+    def _append(self, value):
         self._dslist.append(value)
 
     @property

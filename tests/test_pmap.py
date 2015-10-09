@@ -33,9 +33,9 @@ class Test(unittest.TestCase):
                     serial_out = flatten(func(traj))
                 aa_eq(pout, serial_out)
         # search_hbonds
-        a = pt.pmap(4, pt.search_hbonds, traj)
+        a = pt.pmap(4, pt.search_hbonds, traj, dtype='dataset')
         pout = pt.tools.flatten([x[1]['total_solute_hbonds'] for x in a])
-        serial_out = pt.search_hbonds(traj)['total_solute_hbonds']
+        serial_out = pt.search_hbonds(traj, dtype='dataset')['total_solute_hbonds']
         aa_eq(pout, serial_out)
 
         keys = pt.tools.flatten([x[1].keys() for x in a])
