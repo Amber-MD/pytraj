@@ -370,3 +370,12 @@ cdef extern from "Analysis_Rotdif.h":
 
 cdef class Analysis_Rotdif(Analysis):
     cdef _Analysis_Rotdif* thisptr
+
+cdef extern from "Analysis_LowestCurve.h": 
+    cdef cppclass _Analysis_LowestCurve  "Analysis_LowestCurve" (_Analysis) nogil:
+        _Analysis_LowestCurve() 
+        _DispatchObject * Alloc() 
+        void Help()
+
+cdef class Analysis_LowestCurve(Analysis):
+    cdef _Analysis_LowestCurve* thisptr

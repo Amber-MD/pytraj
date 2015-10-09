@@ -222,7 +222,7 @@ cdef class DatasetList:
         dlist.thisptr[0] = self.thisptr.GetMultipleSets(s)
         return dlist
 
-    def add_set(self, dtype=None, name="", default_name=""):
+    def add_new(self, dtype=None, name="", default_name=""):
         """create new (empty) Dataset and add to `self`
         this is for internal use
         """
@@ -234,6 +234,11 @@ cdef class DatasetList:
         default_name = default_name.encode()
         dset.baseptr0 = self.thisptr.AddSet(DataTypeDict[dtype], name, default_name)
         return cast_dataset(dset, dtype=dset.dtype)
+
+    def add_set(self, *args, **kwd):
+        '''alias of self.add_new
+        '''
+        return self.add_new(*args, **kwd)
 
     def add_existing_set(self, Dataset ds):
         self.thisptr.AddSet(ds.baseptr0)

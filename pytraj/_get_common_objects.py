@@ -107,9 +107,9 @@ def _get_reference_from_traj(traj, ref):
         try:
             return traj[0]
         except IndexError:
-            raise IndexError("%s does not support indexing" % traj.__str__())
+            raise IndexError("If reference is an integer, %s must support indexing" % traj.__str__())
     elif isinstance(ref, string_types):
-        raise ValueError("must a an integer or a Frame")
+        raise ValueError("Reference must a an integer or a Frame")
     elif 'Trajectory' in ref.__class__.__name__:
         assert ref.n_frames == 1, "only support 1-frame Trajectory as reference"
         return ref[0]
