@@ -239,10 +239,13 @@ class TestActionList(unittest.TestCase):
         # use `load` method rather `iterload`
         traj = pt.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
+        # make sure no space-sensitivity
         commands = ['rmsd @CA',
                     'distance :3 :7',
                     'distance     :3 :7',
-                    'vector :2 :3']
+                    'vector :2 :3',
+                    '  distance :3 :7',
+                    ]
 
         dslist = CpptrajDatasetList()
         actlist = ActionList(commands, traj.top, dslist=dslist)
@@ -256,6 +259,7 @@ class TestActionList(unittest.TestCase):
         # do not need to perform rmsfit again.
         aa_eq(pt.vector.vector_mask(traj, ':2 :3'),
               dslist[3].values)
+        aa_eq(pt.distance(traj, ':3 :7'), dslist[4])
 
 if __name__ == "__main__":
     unittest.main()

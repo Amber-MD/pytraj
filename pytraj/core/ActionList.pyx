@@ -42,7 +42,9 @@ cdef class ActionList:
         """
         if commands is not None and top is not None:
             for command in commands:
+                command = command.rstrip().lstrip()
                 action, cm = command.split(" ", 1)
+                action = action.rstrip().lstrip()
                 self.add_action(action, command=cm,
                                 top=top, dslist=dslist, dflist=dflist)
 
