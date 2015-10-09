@@ -154,13 +154,22 @@ def search_hbonds(traj,
 
     Returns
     -------
-    out : pytraj.DatasetList
+    out : pytraj.DatasetList, which is similiar to Python list with labeled data.
 
     Examples
     --------
     >>> import pytraj as pt
-    >>> pt.search_hbonds(traj)
-    >>> pt.search_hbonds(traj, solventdonor=':WAT@O', solventacceptor=':WAT')
+    >>> traj = pt.load_sample_data('tz2')
+    >>> pt.search_hbonds(traj, ':5,8')
+    <pytraj.DatasetList with 3 datasets>
+    total_solute_hbonds
+    [2 2 0 1 1 0 2 1 1 1]
+    
+    LYS8_O-GLU5_N-H
+    [1 1 0 1 1 0 1 1 1 1]
+    
+    GLU5_O-LYS8_N-H
+    [1 1 0 0 0 0 1 0 0 0]
     """
     from pytraj.actions.CpptrajActions import Action_Hbond
     dslist = DatasetList()
