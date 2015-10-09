@@ -214,5 +214,55 @@ class TestActionList(unittest.TestCase):
         aa_eq(dslist3_0, dslist[0])
         aa_eq(dslist3_1, dslist[1])
 
+    def test_constructor_from_command_list_TrajectoryIterator(self):
+        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+
+        commands = ['rmsd @CA',
+                    'distance :3 :7',
+                    'distance     :3 :7',
+                    'vector :2 :3']
+
+        dslist = CpptrajDatasetList()
+        actlist = ActionList(commands, traj.top, dslist=dslist)
+
+        d0 = dslist.add_set('ref_frame', 'my_ref')
+        d0.add_frame(traj[3])
+
+        for frame in traj:
+            actlist.do_actions(frame)
+
+        aa_eq(pt.rmsd(traj, mask='@CA'), dslist[0])
+        aa_eq(pt.distance(traj, ':3 :7'), dslist[1])
+        aa_eq(pt.distance(traj, ':3 :7'), dslist[2])
+        aa_eq(pt.vector.vector_mask(traj(rmsfit=(0, '@CA')), ':2 :3'),
+              dslist[3].values)
+
+    def test_constructor_from_command_list_Trajectory(self):
+        '''mutable Trajectory'''
+        # use `load` method rather `iterload`
+        traj = pt.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+
+        # make sure no space-sensitivity
+        commands = ['rmsd @CA',
+                    'distance :3 :7',
+                    'distance     :3 :7',
+                    'vector :2 :3',
+                    '  distance :3 :7',
+                    ]
+
+        dslist = CpptrajDatasetList()
+        actlist = ActionList(commands, traj.top, dslist=dslist)
+
+        for frame in traj:
+            actlist.do_actions(frame)
+
+        aa_eq(pt.rmsd(traj, mask='@CA'), dslist[0])
+        aa_eq(pt.distance(traj, ':3 :7'), dslist[1])
+        aa_eq(pt.distance(traj, ':3 :7'), dslist[2])
+        # do not need to perform rmsfit again.
+        aa_eq(pt.vector.vector_mask(traj, ':2 :3'),
+              dslist[3].values)
+        aa_eq(pt.distance(traj, ':3 :7'), dslist[4])
+
 if __name__ == "__main__":
     unittest.main()

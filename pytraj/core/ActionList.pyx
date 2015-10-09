@@ -16,6 +16,38 @@ cdef class ActionList:
         self.thisptr = new _ActionList()
         self.top_is_processed = False
 
+    def __init__(self, commands=None, Topology top=None,
+                 DatasetList dslist=DatasetList(), DataFileList dflist=DataFileList()):
+        """not done yet
+
+        Parameters
+        ----------
+        actionlist : a list of tuple
+        top : Topology
+        dslist : DatasetList, optional
+            hold data for actions
+        dflist : DataFileList, optional
+            hold datafiles
+
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> from pytraj import ActionList
+        >>> list_of_commands = ['autoimage',
+                                'rmsd first @CA',
+                                'hbond :3,8,10']
+        >>> alist = ActionList(list_of_commands, traj.top, dslist=dslist)
+        >>> for frame in traj:
+        >>>     alist.do_actions(frame)
+        """
+        if commands is not None and top is not None:
+            for command in commands:
+                command = command.rstrip().lstrip()
+                action, cm = command.split(" ", 1)
+                action = action.rstrip().lstrip()
+                self.add_action(action, command=cm,
+                                top=top, dslist=dslist, dflist=dflist)
+
     def __dealloc__(self):
         if self.thisptr:
             del self.thisptr

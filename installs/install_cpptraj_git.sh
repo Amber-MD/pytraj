@@ -8,8 +8,8 @@ export CPPTRAJHOME=`pwd`
 cd $CPPTRAJHOME
 mkdir lib
 
-# turn off openmp. need to install pytraj with opnmp too. Too complicated.
-bash ./configure -shared gnu || bash ./configure -nomathlib -shared gnu || bash ./configure -amberlib -shared gnu || exit 1
+# turn off openmp. need to install pytraj with openmp too. Too complicated.
+bash ./configure -shared gnu || bash ./configure -amberlib -shared gnu || bash ./configure -nomathlib -shared gnu || exit 1
 make libcpptraj -j8 || exit 1
 cd $PYTRAJHOME
 
