@@ -49,7 +49,7 @@ try ``pytraj`` online:
     # get values for each Dataset
     for d in dslist: print(d)
 
-    # get one of DatsetVectors
-    dslist[-1]
+    # get raw data for one of DatsetVectors
+    dslist[-1].values
     
 
