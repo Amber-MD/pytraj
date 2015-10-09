@@ -42,10 +42,14 @@ try ``pytraj`` online:
     # data is saved to dslist
     for frame in traj:
         actlist.do_actions(frame)
+        # you can plug your own function here to
+        # your_funct(frame, ...)
     dslist
 
     # get values for each Dataset
     for d in dslist: print(d)
 
-    print('done')
+    # get one of DatsetVectors
+    dslist[-1]
+    
 

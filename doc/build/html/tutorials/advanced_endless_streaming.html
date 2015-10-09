@@ -196,14 +196,13 @@
 <span class="c"># data is saved to dslist</span>
 <span class="gp">In [9]: </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">:</span>
 <span class="gp">   ...:</span>     <span class="n">actlist</span><span class="o">.</span><span class="n">do_actions</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+<span class="gp">   ...:</span> <span class="n">dslist</span>
 <span class="gp">   ...:</span> 
-
-<span class="gp">In [10]: </span><span class="n">dslist</span>
-<span class="gr">Out[10]: </span><span class="o">&lt;</span><span class="n">pytraj</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">DatasetList</span> <span class="o">-</span> <span class="mi">5</span> <span class="n">datasets</span><span class="o">&gt;</span>
+<span class="gr">Out[9]: </span><span class="o">&lt;</span><span class="n">pytraj</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">DatasetList</span> <span class="o">-</span> <span class="mi">5</span> <span class="n">datasets</span><span class="o">&gt;</span>
 
 <span class="c"># get values for each Dataset</span>
-<span class="gp">In [11]: </span><span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dslist</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-<span class="go">                                                    &lt;pytraj.datasets.DatasetDouble: size=10, key=Dis_00000&gt; </span>
+<span class="gp">In [10]: </span><span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dslist</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="go">                                                   &lt;pytraj.datasets.DatasetDouble: size=10, key=Dis_00000&gt; </span>
 <span class="go">values: </span>
 <span class="go">[  9.48439863   9.79616302   9.35450479   9.57256816  10.09955627</span>
 <span class="go">   9.6236227   10.36017486  10.04639645  10.03293064   9.45615558]</span>
@@ -215,8 +214,9 @@
 <span class="go">&lt;pytraj.datasets.DatasetVector: size=10, key=Vec_00003&gt; </span>
 <span class="go">&lt;pytraj.datasets.DatasetVector: size=10, key=Vec_00004&gt; </span>
 
-<span class="gp">In [12]: </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;done&#39;</span><span class="p">)</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   done</span>
+<span class="c"># get one of DatsetVectors</span>
+<span class="gp">In [11]: </span><span class="n">dslist</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  Out[11]: &lt;pytraj.datasets.DatasetVector: size=10, key=Vec_00004&gt; </span>
 </pre></div>
 </div>
 </div>
