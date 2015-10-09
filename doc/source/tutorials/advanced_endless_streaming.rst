@@ -3,15 +3,20 @@
 Endless streaming calculation
 =============================
 
+.. note:: syntax might be changed in future.
+
 try ``pytraj`` online:
 
 .. image:: http://mybinder.org/badge.svg
    :target: http://mybinder.org/repo/hainm/notebook-pytraj
 
+|
+
 .. ipython:: python
 
     import pytraj as pt
     from pytraj.datasets import DatasetList as CpptrajDatasetList
+    from pytraj import ActionList
 
     # create pytraj.TrajectoryIterator, no data is actually loaded yet.
     traj = pt.iterload("tz2.nc", "tz2.parm7")

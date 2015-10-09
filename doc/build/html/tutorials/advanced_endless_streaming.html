@@ -150,18 +150,33 @@
       
   <div class="section" id="endless-streaming-calculation">
 <span id="advanced-endless-streaming"></span><h1>Endless streaming calculation<a class="headerlink" href="#endless-streaming-calculation" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">syntax might be changed in future.</p>
+</div>
 <p>try <tt class="docutils literal"><span class="pre">pytraj</span></tt> online:</p>
 <a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img src="http://mybinder.org/badge.svg" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
 <span class="gp">In [2]: </span><span class="kn">from</span> <span class="nn">pytraj.datasets</span> <span class="kn">import</span> <span class="n">DatasetList</span> <span class="k">as</span> <span class="n">CpptrajDatasetList</span>
 
+<span class="gp">In [3]: </span><span class="kn">from</span> <span class="nn">pytraj</span> <span class="kn">import</span> <span class="n">ActionList</span>
+<span class="go">---------------------------------------------------------------------------</span>
+<span class="go">ImportError                               Traceback (most recent call last)</span>
+<span class="go">&lt;ipython-input-3-4d1b9de41cb0&gt; in &lt;module&gt;()</span>
+<span class="go">----&gt; 1 from pytraj import ActionList</span>
+
+<span class="go">ImportError: cannot import name &#39;ActionList&#39;</span>
+
 <span class="c"># create pytraj.TrajectoryIterator, no data is actually loaded yet.</span>
-<span class="gp">In [3]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&quot;tz2.nc&quot;</span><span class="p">,</span> <span class="s">&quot;tz2.parm7&quot;</span><span class="p">)</span>
+<span class="gp">In [4]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&quot;tz2.nc&quot;</span><span class="p">,</span> <span class="s">&quot;tz2.parm7&quot;</span><span class="p">)</span>
 
 <span class="c"># create a list of commands (cpptraj&#39;s style)</span>
 <span class="c"># advantage: endless streaming calculation, even TB of data.</span>
-<span class="gp">In [4]: </span><span class="n">commands</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;autoimage&#39;</span><span class="p">,</span>
+<span class="gp">In [5]: </span><span class="n">commands</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;autoimage&#39;</span><span class="p">,</span>
 <span class="gp">   ...:</span>             <span class="s">&#39;distance :3 :7&#39;</span><span class="p">,</span>
 <span class="gp">   ...:</span>             <span class="s">&#39;distance :3 :10&#39;</span><span class="p">,</span>
 <span class="gp">   ...:</span>             <span class="s">&#39;vector :2 :3&#39;</span><span class="p">,</span>
@@ -169,37 +184,39 @@
 <span class="gp">   ...:</span> 
 
 <span class="c"># create a CpptrajDatasetList object to hold all datasets</span>
-<span class="gp">In [5]: </span><span class="n">dslist</span> <span class="o">=</span> <span class="n">CpptrajDatasetList</span><span class="p">()</span>
+<span class="gp">In [6]: </span><span class="n">dslist</span> <span class="o">=</span> <span class="n">CpptrajDatasetList</span><span class="p">()</span>
 
-<span class="gp">In [6]: </span><span class="n">dslist</span>
-<span class="gr">Out[6]: </span><span class="o">&lt;</span><span class="n">pytraj</span><span class="o">.</span><span class="n">DatasetList</span> <span class="k">with</span> <span class="mi">0</span> <span class="n">datasets</span><span class="o">&gt;</span>
+<span class="gp">In [7]: </span><span class="n">dslist</span>
+<span class="gr">Out[7]: </span><span class="o">&lt;</span><span class="n">pytraj</span><span class="o">.</span><span class="n">DatasetList</span> <span class="k">with</span> <span class="mi">0</span> <span class="n">datasets</span><span class="o">&gt;</span>
 
 <span class="c"># create an ActionList object to hold all actions</span>
-<span class="gp">In [7]: </span><span class="n">actlist</span> <span class="o">=</span> <span class="n">ActionList</span><span class="p">(</span><span class="n">commands</span><span class="p">,</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="n">dslist</span><span class="o">=</span><span class="n">dslist</span><span class="p">)</span>
+<span class="gp">In [8]: </span><span class="n">actlist</span> <span class="o">=</span> <span class="n">ActionList</span><span class="p">(</span><span class="n">commands</span><span class="p">,</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="n">dslist</span><span class="o">=</span><span class="n">dslist</span><span class="p">)</span>
 <span class="go">                                             ---------------------------------------------------------------------------</span>
 <span class="go">NameError                                 Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-7-fcca31a01ff2&gt; in &lt;module&gt;()</span>
+<span class="go">&lt;ipython-input-8-fcca31a01ff2&gt; in &lt;module&gt;()</span>
 <span class="go">----&gt; 1 actlist = ActionList(commands, traj.top, dslist=dslist)</span>
 
 <span class="go">NameError: name &#39;ActionList&#39; is not defined</span>
 
 <span class="c"># perform the actions, only a single frame is loaded</span>
-<span class="gp">In [8]: </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">:</span>
+<span class="gp">In [9]: </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">:</span>
 <span class="gp">   ...:</span>     <span class="n">actlist</span><span class="o">.</span><span class="n">do_actions</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
 <span class="gp">   ...:</span> 
 <span class="go">                                                                                                                                                                                                                                                                                                                                                               ---------------------------------------------------------------------------</span>
 <span class="go">NameError                                 Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-8-d619699a22ee&gt; in &lt;module&gt;()</span>
+<span class="go">&lt;ipython-input-9-d619699a22ee&gt; in &lt;module&gt;()</span>
 <span class="go">      1 for frame in traj:</span>
 <span class="go">----&gt; 2     actlist.do_actions(frame)</span>
 <span class="go">      3 </span>
 
 <span class="go">NameError: name &#39;actlist&#39; is not defined</span>
 
-<span class="gp">In [9]: </span><span class="n">dslist</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Out[9]: &lt;pytraj.DatasetList with 0 datasets&gt;</span>
+<span class="gp">In [10]: </span><span class="n">dslist</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Out[10]: &lt;pytraj.DatasetList with 0 datasets&gt;</span>
 
-<span class="gp">In [10]: </span><span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dslist</span><span class="p">:</span>
+<span class="gp">In [11]: </span><span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dslist</span><span class="p">:</span>
+<span class="gp">   ....:</span>     <span class="k">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="gp">   ....:</span> 
 </pre></div>
 </div>
 </div>
