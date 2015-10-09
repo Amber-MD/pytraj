@@ -26,14 +26,19 @@ __all__ = ['DatasetList']
 
 
 cdef class DatasetList:
-    """
-    DatasetList holds data from cpptraj
+    """This class behave like a simple Python list (you
+    can index it by number) and a Python dictionary (you can index it by key). It's quite simple and
+    is introduced here to hold data from cpptraj. Mostly for internal use.
 
-    Notes
-    -----
-    Methods require pandas:
-        * describe
-        * to_dataframe
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> from pytraj.datasets import CpptrajDatasetList
+    >>> dslist = CpptrajDatasetList()
+    >>> actlist = pt.ActionList(['distance :2 :3', 'vector :3 :5'], top=traj.top, dslist=dslist)
+    >>> for frame in traj: actlist.do_actions(frame)
+    >>> print(dslist)
+    >>> print(dslist[0])
     """
     def __cinit__(self, _own_memory=True):
         # _own_memory is a flag to tell pytraj should free memory or let 
@@ -51,10 +56,7 @@ cdef class DatasetList:
             del self.thisptr
 
     def __str__(self):
-        safe_msg = "<pytraj.DatasetList with %s datasets>" % self.size
-        if self.size == 0:
-            return safe_msg
-        msg = "<pytraj.datasets.DatasetList - %s datasets>" % self.size
+        msg = "<pytraj.datasets.CpptrajDatasetList - %s datasets>" % self.size
         return msg
 
     def __repr__(self):
