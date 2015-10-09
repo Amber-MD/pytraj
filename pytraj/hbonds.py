@@ -55,13 +55,6 @@ class DatasetHBond(BaseAnalysisResult):
         return self.dataset.grep(["solventhb", "solutehb"],
                                  mode='aspect').keys()
 
-    def to_amber_mask(self):
-        """convert donor_aceptor pair mask to amber mask to calculate
-        distance (for example: 'ARG16_O-TRP6_NE1-HE1' will be ':16@O :6@HE1')
-        """
-        raise NotImplementedError("not yet")
-
-
 def _update_key_hbond(_dslist):
 
     # SER_20@O-SER_20@OG-HG --> SER20_O-SER20_OG-HG
