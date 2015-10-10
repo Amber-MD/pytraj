@@ -5,6 +5,7 @@
 import unittest
 from pytraj import *
 import pytraj as pt
+from pytraj.action_dict import ADICT
 from pytraj.trajs import *
 from pytraj.datasets import *
 from pytraj.common_actions import *
@@ -27,12 +28,11 @@ class TestRunnable(unittest.TestCase):
 
     def test_create_actions(self):
         print("try to make all action objects")
-        from pytraj import adict
         failed_list = []
 
-        for key in adict.keys():
+        for key in ADICT.key():
             if key not in failed_list:
-                adict[key]
+                print(key, ADICT[key]())
 
     def test_create_analysis(self):
         DatasetList()
