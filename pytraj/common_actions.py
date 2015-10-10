@@ -605,13 +605,8 @@ def calc_watershell(traj=None,
     if not isinstance(command, string_types):
         command = array_to_cpptraj_atommask(command)
 
-    with goto_temp_folder():
-        if 'out' not in command:
-            # current Watershell action require specifying output
-            command += ' out tmp.tmp'
-        act(command, traj, top=_top, dslist=dslist)
-        return _get_data_from_dtype(dslist, dtype=dtype)
-
+    act(command, traj, top=_top, dslist=dslist)
+    return _get_data_from_dtype(dslist, dtype=dtype)
 
 def calc_matrix(traj=None,
                 command="",
