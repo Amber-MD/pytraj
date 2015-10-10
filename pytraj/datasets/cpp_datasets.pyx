@@ -1444,7 +1444,9 @@ cdef class DatasetTopology(Dataset):
         """"""
         return self.data
 
-    @property
-    def data(self):
-        """"""
-        return self._top
+    property data:
+        def __get__(self):
+            """"""
+            return self._top
+        def __set__(self, Topology top):
+            self._top = top
