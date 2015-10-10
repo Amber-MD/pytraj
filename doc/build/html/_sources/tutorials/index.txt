@@ -24,4 +24,8 @@ If you miss any Python package, try to use ``conda``, example::
     mdtraj_adapted
     interface_with_other_packages.rst
     advanced_examples
+
+.. toctree::
+    :maxdepth: 1
+
     python_tricks

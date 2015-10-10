@@ -9,7 +9,7 @@ Python tricks that make your life easier
 .. ipython:: python
     
     import pytraj as pt
-    traj = pt.load_sampe_data('tz2')[:3]
+    traj = pt.load_sample_data('tz2')[:3]
     traj
 
 Unpacking
