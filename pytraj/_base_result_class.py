@@ -13,6 +13,10 @@ class BaseAnalysisResult(object):
     def dataset(self):
         return self._dslist
 
+    @property
+    def data(self):
+        return self._dslist
+
     def to_dict(self):
         return self._dslist.to_dict()
 

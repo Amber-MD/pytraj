@@ -695,11 +695,13 @@ def calc_rotation_matrix(traj=None,
                          mask="",
                          mass=False,
                          frame_indices=None,
-                         top=None):
+                         top=None,
+                         with_rmsd=False):
     '''
     Returns
     -------
-    out : numpy array, shape (n_frames, 3, 3)
+    out : if with_rmsd=False, return numpy array, shape (n_frames, 3, 3)
+          if with_rmsd=True, return a tuple (mat, rmsd)
     '''
     traj = _get_fiterator(traj, frame_indices)
     _top = _get_topology(traj, top)
@@ -716,7 +718,10 @@ def calc_rotation_matrix(traj=None,
     act(command, [ref, traj], top=_top, dslist=dslist)
     mat = dslist[-1].values
     # exclude data for reference
-    return mat[1:]
+    if with_rmsd:
+        return mat[1:], np.array(dslist[0].values[1:])
+    else:
+        return mat[1:]
 
 
 def calc_volume(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
