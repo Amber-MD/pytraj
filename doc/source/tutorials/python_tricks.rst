@@ -103,6 +103,7 @@ Chain several iterators
 .. ipython:: python
 
     from itertools import chain
+    traj = pt.iterload('tz2.nc', 'tz2.parm7')
     fi_0 = traj(0, 3)
     fi_0
     fi_1 = traj(5, 8)
