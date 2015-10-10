@@ -37,3 +37,4 @@ cdef class ActionList:
     cdef bint top_is_processed
     cdef public object _dslist
     cdef public object _dflist
+    cdef public object _crdinfo

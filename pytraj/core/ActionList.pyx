@@ -21,7 +21,8 @@ cdef class ActionList:
             return self._dslist
 
     def __init__(self, commands=None, Topology top=None,
-                 DatasetList dslist=DatasetList(), DataFileList dflist=DataFileList()):
+                 DatasetList dslist=DatasetList(), DataFileList dflist=DataFileList(),
+                 crdinfo={}):
         """not done yet
 
         Parameters
@@ -46,6 +47,7 @@ cdef class ActionList:
         """
         self._dslist = dslist
         self._dflist = dflist
+        self._crdinfo = crdinfo
 
         if commands is not None and top is not None:
             for command in commands:
@@ -118,6 +120,10 @@ cdef class ActionList:
         cdef Box box
         cdef bint has_velocity, has_time, has_force
 
+        if not crdinfo:
+            crdinfo = self._crdinfo
+        else:
+            crdinfo = crdinfo
         box = crdinfo.get('box', top.box)
         has_velocity = crdinfo.get('has_velocity', False)
         has_time = crdinfo.get('has_time', False)

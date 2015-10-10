@@ -49,7 +49,7 @@ cdef class Action:
         del self.baseptr
 
     def __str__(self):
-        txt = "< %s object >" % (self.__class__.__name__)
+        txt = "<pytraj.actions.CpptrajActions.%s>" % (self.__class__.__name__)
         return txt
 
     def __repr__(self):
