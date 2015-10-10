@@ -17,6 +17,13 @@ def memoize(f):
 
 # we duplicate code from .utils.check_and_assert here to avoid circular import
 
+def _register_pmap(f):
+    @wraps(f)
+    def inner(*args, **kwd):
+        return f(*args, **kwd)
+
+    inner._is_parallelizable = True
+    return inner
 
 def noparallel(f):
     @wraps(f)
