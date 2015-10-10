@@ -24,3 +24,4 @@ If you miss any Python package, try to use ``conda``, example::
     mdtraj_adapted
     interface_with_other_packages.rst
     advanced_examples
+    python_tricks

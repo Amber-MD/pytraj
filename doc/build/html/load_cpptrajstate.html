@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Run cpptraj’s batch &mdash; pytraj 0.1.2.dev10 documentation</title>
+    <title>Run cpptraj’s batch &mdash; pytraj 0.1.2.dev11 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.2.dev10',
+        VERSION:     '0.1.2.dev11',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev10 documentation" href="index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev11 documentation" href="index.html" />
     <link rel="up" title="Cookbook" href="cookbook.html" />
     <link rel="next" title="Weird things in pytraj" href="things_will_be_surprised.html" />
     <link rel="prev" title="Tips for out-of-core loading" href="tips_iterload.html" />
@@ -52,7 +52,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev10</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev11</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -217,16 +217,16 @@ molsurf
 
 <span class="c"># get some data</span>
 <span class="gp">In [8]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span>
-<span class="go">                                                                                                                    Out[8]: &lt;pytraj.datasets.DatasetList - 5 datasets&gt;</span>
+<span class="go">                                                                                                                    Out[8]: &lt;pytraj.datasets.CpptrajDatasetList - 5 datasets&gt;</span>
 
 <span class="gp">In [9]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-<span class="go">                                                                                                                                                                       Out[9]: [&#39;tz2.ortho.parm7&#39;, &#39;RMSD_00001&#39;, &#39;RoG_00002&#39;, &#39;RoG_00002[Max]&#39;, &#39;MSURF_00004&#39;]</span>
+<span class="go">                                                                                                                                                                              Out[9]: [&#39;tz2.ortho.parm7&#39;, &#39;RMSD_00001&#39;, &#39;RoG_00002&#39;, &#39;RoG_00002[Max]&#39;, &#39;MSURF_00004&#39;]</span>
 
 <span class="gp">In [10]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="go">                                                                                                                                                                                                                                                               Out[10]: &lt;pytraj.datasets.DatasetTopology: size=5293, key=tz2.ortho.parm7&gt; </span>
+<span class="go">                                                                                                                                                                                                                                                                      Out[10]: &lt;pytraj.datasets.DatasetTopology: size=5293, key=tz2.ortho.parm7&gt; </span>
 
 <span class="gp">In [11]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                           Out[11]: </span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                  Out[11]: </span>
 <span class="go">&lt;pytraj.datasets.DatasetDouble: size=10, key=MSURF_00004&gt; </span>
 <span class="go">values: </span>
 <span class="go">[ 458.5141  459.6478  456.5469  467.7294  462.4591  458.7033  454.4051</span>
@@ -234,7 +234,7 @@ molsurf
 
 <span class="c"># convert data to regular numpy array</span>
 <span class="gp">In [12]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">values</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Out[12]: </span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Out[12]: </span>
 <span class="go">array([ array([&lt;N-atom, resnum=0, n_bonds=4&gt;, &lt;H1-atom, resnum=0, n_bonds=1&gt;,</span>
 <span class="go">       &lt;H2-atom, resnum=0, n_bonds=1&gt;, ...,</span>
 <span class="go">       &lt;O-atom, resnum=1703, n_bonds=2&gt;, &lt;H1-atom, resnum=1703, n_bonds=2&gt;,</span>
@@ -278,23 +278,23 @@ molsurf
 
 <span class="c"># All datasets are stored in ``state.data``</span>
 <span class="gp">In [17]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span>
-<span class="go">                                                           Out[17]: &lt;pytraj.datasets.DatasetList - 7 datasets&gt;</span>
+<span class="go">                                                           Out[17]: &lt;pytraj.datasets.CpptrajDatasetList - 7 datasets&gt;</span>
 
 <span class="c"># if you already label your Dataset, you can access to them by using dict-like acessing</span>
 <span class="c"># get Dataset with label `end_to_end` (distance)</span>
 <span class="gp">In [18]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;end_to_end&#39;</span><span class="p">]</span>
-<span class="go">                                                                                                               Out[18]: </span>
+<span class="go">                                                                                                                      Out[18]: </span>
 <span class="go">&lt;pytraj.datasets.DatasetDouble: size=101, key=end_to_end&gt; </span>
 <span class="go">values: </span>
 <span class="go">[ 15.0506   7.8035   5.8305 ...,  14.829   12.6534  13.3292]</span>
 
 <span class="c"># get raw values (usually numpy array)</span>
 <span class="gp">In [19]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;end_to_end&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-<span class="go">                                                                                                                                                                                                                                                          Out[19]: array([ 15.0506,   7.8035,   5.8305, ...,  14.829 ,  12.6534,  13.3292])</span>
+<span class="go">                                                                                                                                                                                                                                                                 Out[19]: array([ 15.0506,   7.8035,   5.8305, ...,  14.829 ,  12.6534,  13.3292])</span>
 
 <span class="c"># get `mycrd`</span>
 <span class="gp">In [20]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;mycrd&#39;</span><span class="p">]</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                            Out[20]: </span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                   Out[20]: </span>
 <span class="go">&lt;pytraj.DatasetCoordsCRD, 101 frames, include:</span>
 <span class="go">&lt;Topology: 106 atoms, 13 residues, 106 mols, non-PBC&gt;&gt;</span>
 <span class="go">           </span>
@@ -302,7 +302,7 @@ molsurf
 <span class="gp">In [21]: </span><span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
 <span class="gp">   ....:</span>     <span class="k">print</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
 <span class="gp">   ....:</span> 
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                        &lt;pytraj.datasets.DatasetTopology: size=223, key=tz2.parm7&gt; </span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                               &lt;pytraj.datasets.DatasetTopology: size=223, key=tz2.parm7&gt; </span>
 <span class="go">&lt;pytraj.datasets.DatasetDouble: size=101, key=phi&gt; </span>
 <span class="go">values: </span>
 <span class="go">[-52.7812 -40.6208 -51.2155 ..., -88.9455 -87.1766 -77.0983]</span>
@@ -338,7 +338,7 @@ molsurf
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 08, 2015.<br/>
+      Last updated on Oct 10, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

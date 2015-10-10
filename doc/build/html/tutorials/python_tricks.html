@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Python tricks that make your life easier &mdash; pytraj 0.1.2.dev11 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.2.dev11',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="pytraj 0.1.2.dev11 documentation" href="../index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev11</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_and_write.html">Read and Write</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Python tricks that make your life easier</a><ul>
+<li><a class="reference internal" href="#unpacking">Unpacking</a></li>
+<li><a class="reference internal" href="#iterating-over-trajectory-index-and-value-pairs-enumerate">Iterating over Trajectory index and value pairs (enumerate)</a></li>
+<li><a class="reference internal" href="#zipping">Zipping</a></li>
+<li><a class="reference internal" href="#sliding-windows">Sliding windows</a></li>
+<li><a class="reference internal" href="#flattening-lists">Flattening lists</a></li>
+<li><a class="reference internal" href="#dictionary-comprehensions">Dictionary comprehensions</a></li>
+<li><a class="reference internal" href="#get-value-from-dictionary-if-key-does-not-exist">Get value from Dictionary if key does not exist</a></li>
+<li><a class="reference internal" href="#set">Set</a></li>
+<li><a class="reference internal" href="#filter-data">Filter data</a></li>
+<li><a class="reference internal" href="#combinations">Combinations</a></li>
+<li><a class="reference internal" href="#chain-several-iterators">Chain several iterators</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/tutorials/python_tricks.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <div class="contents topic" id="contents">
+<span id="python-tricks"></span><p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#python-tricks-that-make-your-life-easier" id="id1">Python tricks that make your life easier</a><ul>
+<li><a class="reference internal" href="#unpacking" id="id2">Unpacking</a></li>
+<li><a class="reference internal" href="#iterating-over-trajectory-index-and-value-pairs-enumerate" id="id3">Iterating over Trajectory index and value pairs (enumerate)</a></li>
+<li><a class="reference internal" href="#zipping" id="id4">Zipping</a></li>
+<li><a class="reference internal" href="#sliding-windows" id="id5">Sliding windows</a></li>
+<li><a class="reference internal" href="#flattening-lists" id="id6">Flattening lists</a></li>
+<li><a class="reference internal" href="#dictionary-comprehensions" id="id7">Dictionary comprehensions</a></li>
+<li><a class="reference internal" href="#get-value-from-dictionary-if-key-does-not-exist" id="id8">Get value from Dictionary if key does not exist</a></li>
+<li><a class="reference internal" href="#set" id="id9">Set</a></li>
+<li><a class="reference internal" href="#filter-data" id="id10">Filter data</a></li>
+<li><a class="reference internal" href="#combinations" id="id11">Combinations</a></li>
+<li><a class="reference internal" href="#chain-several-iterators" id="id12">Chain several iterators</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="python-tricks-that-make-your-life-easier">
+<h1><a class="toc-backref" href="#id1">Python tricks that make your life easier</a><a class="headerlink" href="#python-tricks-that-make-your-life-easier" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+
+<span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sampe_data</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)[:</span><span class="mi">3</span><span class="p">]</span>
+<span class="go">---------------------------------------------------------------------------</span>
+<span class="go">AttributeError                            Traceback (most recent call last)</span>
+<span class="go">&lt;ipython-input-2-f444f195aa95&gt; in &lt;module&gt;()</span>
+<span class="go">----&gt; 1 traj = pt.load_sampe_data(&#39;tz2&#39;)[:3]</span>
+
+<span class="go">AttributeError: &#39;module&#39; object has no attribute &#39;load_sampe_data&#39;</span>
+
+<span class="gp">In [3]: </span><span class="n">traj</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                      Out[3]: </span>
+<span class="go">&lt;pytraj.Trajectory, 101 frames, include:</span>
+<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;&gt;</span>
+</pre></div>
+</div>
+<div class="section" id="unpacking">
+<h2><a class="toc-backref" href="#id2">Unpacking</a><a class="headerlink" href="#unpacking" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [4]: </span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">traj</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">traj</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="gp">In [5]: </span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span>
+<span class="gr">Out[5]: </span><span class="p">(</span><span class="o">&lt;</span><span class="n">Frame</span> <span class="k">with</span> <span class="mi">223</span> <span class="n">atoms</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">Frame</span> <span class="k">with</span> <span class="mi">223</span> <span class="n">atoms</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">Frame</span> <span class="k">with</span> <span class="mi">223</span> <span class="n">atoms</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="iterating-over-trajectory-index-and-value-pairs-enumerate">
+<h2><a class="toc-backref" href="#id3">Iterating over Trajectory index and value pairs (enumerate)</a><a class="headerlink" href="#iterating-over-trajectory-index-and-value-pairs-enumerate" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [6]: </span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">frame</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">traj</span><span class="p">):</span>
+<span class="gp">   ...:</span>     <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span>
+<span class="gp">   ...:</span> 
+<span class="go">0 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">1 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">2 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">3 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">4 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">5 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">6 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">7 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">8 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">9 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">10 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">11 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">12 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">13 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">14 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">15 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">16 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">17 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">18 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">19 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">20 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">21 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">22 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">23 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">24 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">25 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">26 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">27 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">28 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">29 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">30 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">31 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">32 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">33 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">34 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">35 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">36 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">37 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">38 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">39 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">40 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">41 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">42 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">43 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">44 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">45 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">46 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">47 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">48 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">49 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">50 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">51 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">52 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">53 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">54 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">55 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">56 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">57 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">58 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">59 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">60 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">61 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">62 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">63 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">64 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">65 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">66 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">67 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">68 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">69 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">70 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">71 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">72 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">73 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">74 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">75 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">76 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">77 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">78 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">79 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">80 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">81 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">82 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">83 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">84 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">85 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">86 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">87 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">88 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">89 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">90 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">91 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">92 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">93 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">94 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">95 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">96 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">97 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">98 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">99 &lt;Frame with 223 atoms&gt;</span>
+<span class="go">100 &lt;Frame with 223 atoms&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="zipping">
+<h2><a class="toc-backref" href="#id4">Zipping</a><a class="headerlink" href="#zipping" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [7]: </span><span class="n">h_indices</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">select_atoms</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="s">&#39;@H&#39;</span><span class="p">)</span>
+
+<span class="gp">In [8]: </span><span class="n">n_indices</span> <span class="o">=</span> <span class="n">h_indices</span> <span class="o">-</span> <span class="mi">1</span>
+
+<span class="gp">In [9]: </span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">h_indices</span><span class="p">,</span> <span class="n">n_indices</span><span class="p">))[:</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span>
+<span class="gr">Out[9]: </span><span class="p">[(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">13</span><span class="p">),</span> <span class="p">(</span><span class="mi">38</span><span class="p">,</span> <span class="mi">37</span><span class="p">),</span> <span class="p">(</span><span class="mi">52</span><span class="p">,</span> <span class="mi">51</span><span class="p">),</span> <span class="p">(</span><span class="mi">76</span><span class="p">,</span> <span class="mi">75</span><span class="p">),</span> <span class="p">(</span><span class="mi">91</span><span class="p">,</span> <span class="mi">90</span><span class="p">),</span> <span class="p">(</span><span class="mi">105</span><span class="p">,</span> <span class="mi">104</span><span class="p">),</span> <span class="p">(</span><span class="mi">112</span><span class="p">,</span> <span class="mi">111</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sliding-windows">
+<h2><a class="toc-backref" href="#id5">Sliding windows</a><a class="headerlink" href="#sliding-windows" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [10]: </span><span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">pt</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">n_grams</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="mi">2</span><span class="p">):</span>
+<span class="gp">   ....:</span>     <span class="k">print</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<span class="gp">   ....:</span> 
+<span class="go">(0, 2)</span>
+<span class="go">(2, 4)</span>
+<span class="go">(4, 5)</span>
+<span class="go">(5, 7)</span>
+<span class="go">(7, 9)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="flattening-lists">
+<h2><a class="toc-backref" href="#id6">Flattening lists</a><a class="headerlink" href="#flattening-lists" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [11]: </span><span class="n">a</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">54</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]]</span>
+
+<span class="gp">In [12]: </span><span class="k">print</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="go">[0, 54, 6, 6, 7, 8, 9, 7, 5]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dictionary-comprehensions">
+<h2><a class="toc-backref" href="#id7">Dictionary comprehensions</a><a class="headerlink" href="#dictionary-comprehensions" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [13]: </span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;one&#39;</span><span class="p">,</span> <span class="s">&#39;two&#39;</span><span class="p">,</span> <span class="s">&#39;three&#39;</span><span class="p">]</span>
+
+<span class="gp">In [14]: </span><span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+
+<span class="gp">In [15]: </span><span class="k">print</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)))</span>
+<span class="go">{&#39;one&#39;: 1, &#39;three&#39;: 3, &#39;two&#39;: 2}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-value-from-dictionary-if-key-does-not-exist">
+<h2><a class="toc-backref" href="#id8">Get value from Dictionary if key does not exist</a><a class="headerlink" href="#get-value-from-dictionary-if-key-does-not-exist" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [16]: </span><span class="n">a</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="gp">In [17]: </span><span class="n">a</span>
+<span class="gr">Out[17]: </span><span class="p">{</span><span class="s">&#39;x&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span>
+
+<span class="gp">In [18]: </span><span class="n">a</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">)</span>
+<span class="go">                          Out[18]: 3</span>
+
+<span class="gp">In [19]: </span><span class="n">a</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;z&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="go">                                     Out[19]: 100</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="set">
+<h2><a class="toc-backref" href="#id9">Set</a><a class="headerlink" href="#set" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [20]: </span><span class="nb">set</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">residues</span><span class="p">)</span>
+<span class="gr">Out[20]: </span><span class="p">{</span><span class="s">&#39;ASN&#39;</span><span class="p">,</span> <span class="s">&#39;GLU&#39;</span><span class="p">,</span> <span class="s">&#39;GLY&#39;</span><span class="p">,</span> <span class="s">&#39;LYS&#39;</span><span class="p">,</span> <span class="s">&#39;NME&#39;</span><span class="p">,</span> <span class="s">&#39;SER&#39;</span><span class="p">,</span> <span class="s">&#39;THR&#39;</span><span class="p">,</span> <span class="s">&#39;TRP&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="filter-data">
+<h2><a class="toc-backref" href="#id10">Filter data</a><a class="headerlink" href="#filter-data" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [21]: </span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+
+<span class="gp">In [22]: </span><span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
+<span class="gr">Out[22]: </span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="combinations">
+<h2><a class="toc-backref" href="#id11">Combinations</a><a class="headerlink" href="#combinations" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [23]: </span><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">combinations</span>
+
+<span class="gp">In [24]: </span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+
+<span class="gp">In [25]: </span><span class="nb">list</span><span class="p">(</span><span class="n">combinations</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="gr">Out[25]: </span><span class="p">[(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="chain-several-iterators">
+<h2><a class="toc-backref" href="#id12">Chain several iterators</a><a class="headerlink" href="#chain-several-iterators" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [26]: </span><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+
+<span class="gp">In [27]: </span><span class="n">fi_0</span> <span class="o">=</span> <span class="n">traj</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="gp">In [28]: </span><span class="n">fi_0</span>
+<span class="gr">Out[28]: </span>
+<span class="go">&lt;FrameIter with start=0, stop=3, step=1, n_frames=3, </span>
+<span class="go">frame_indices=None, </span>
+<span class="go">mask=None, autoimage=False, rmsfit=None, copy=False&gt; </span>
+
+<span class="gp">In [29]: </span><span class="n">fi_1</span> <span class="o">=</span> <span class="n">traj</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+
+<span class="gp">In [30]: </span><span class="n">fi_1</span>
+<span class="gr">Out[30]: </span>
+<span class="go">&lt;FrameIter with start=5, stop=8, step=1, n_frames=3, </span>
+<span class="go">frame_indices=None, </span>
+<span class="go">mask=None, autoimage=False, rmsfit=None, copy=False&gt; </span>
+
+<span class="gp">In [31]: </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">(</span><span class="n">fi_0</span><span class="p">,</span> <span class="n">fi_1</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+<span class="go">                                                                                                                                           &lt;Frame with 223 atoms&gt;</span>
+<span class="go">&lt;Frame with 223 atoms&gt;</span>
+<span class="go">&lt;Frame with 223 atoms&gt;</span>
+<span class="go">&lt;Frame with 223 atoms&gt;</span>
+<span class="go">&lt;Frame with 223 atoms&gt;</span>
+<span class="go">&lt;Frame with 223 atoms&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, pytraj developers.<br/>
+      Last updated on Oct 10, 2015.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

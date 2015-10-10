@@ -164,7 +164,7 @@ Get atom_indices
     top.select('@1-100,150-160')
     top.select('(:1-100)&(@CA)')
     # select based on distance, need to set reference frame
-    top.set_reference_frame(traj[0])
+    top.set_distance_mask_reference(traj[0])
     # pick all atoms around residue 1, distance cutoff < 5.0 Angstrom
     top.select(':1 <:5.0')
 

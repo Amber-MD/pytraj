@@ -1,0 +1,110 @@
+.. _python_tricks:
+
+
+.. contents::
+
+Python tricks that make your life easier
+========================================
+
+.. ipython:: python
+    
+    import pytraj as pt
+    traj = pt.load_sampe_data('tz2')[:3]
+    traj
+
+Unpacking
+---------
+
+.. ipython:: python
+
+    a, b, c = traj[0], traj[1], traj[2]
+    a, b, c
+
+Iterating over Trajectory index and value pairs (enumerate)
+-----------------------------------------------------------
+
+.. ipython:: python
+
+    for i, frame in enumerate(traj):
+        print(i, frame)
+
+Zipping
+-------
+
+.. ipython:: python
+ 
+    h_indices = pt.select_atoms(traj.top, '@H')
+    n_indices = h_indices - 1
+    list(zip(h_indices, n_indices))[:-5]
+
+Sliding windows
+---------------
+
+.. ipython:: python
+ 
+    for value in pt.tools.n_grams([0, 2, 4, 5, 7, 9], 2):
+        print(value)
+
+Flattening lists
+----------------
+
+.. ipython:: python
+ 
+    a = [[0, 54, 6], [[6, 7, 8], [9, 7, 5]]]
+    print(pt.tools.flatten(a))
+
+
+Dictionary comprehensions
+-------------------------
+
+.. ipython:: python
+
+    a = ['one', 'two', 'three']
+    b = [1, 2, 3]
+    print(dict(zip(a, b)))
+
+Get value from Dictionary if key does not exist
+-----------------------------------------------
+
+.. ipython:: python
+
+    a = dict(x=3, y=4)
+    a
+    a.get('x')
+    a.get('z', 100)
+
+Set
+---
+
+.. ipython:: python
+
+    set(res.name for res in traj.top.residues)
+
+Filter data
+-----------
+
+.. ipython:: python
+
+    a = [3, 8, 2, 9]
+    list(filter(lambda x: x < 5, a))
+
+Combinations 
+------------
+
+.. ipython:: python
+
+    from itertools import combinations
+    a = [3, 8, 2, 9]
+    list(combinations(a, 3))
+
+Chain several iterators
+-----------------------
+
+.. ipython:: python
+
+    from itertools import chain
+    fi_0 = traj(0, 3)
+    fi_0
+    fi_1 = traj(5, 8)
+    fi_1
+    for frame in chain(fi_0, fi_1): print(frame)
