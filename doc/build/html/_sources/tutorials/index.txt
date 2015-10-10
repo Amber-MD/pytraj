@@ -17,7 +17,7 @@ If you miss any Python package, try to use ``conda``, example::
 .. raw:: html
 
    </div>
-   <div class="col-md-4">
+   <div class="col-md-6">
    <h2>Basic</h2>
 
 .. toctree::
@@ -32,7 +32,7 @@ If you miss any Python package, try to use ``conda``, example::
 .. raw:: html
 
    </div>
-   <div class="col-md-4">
+   <div class="col-md-6">
    <h2>Advanced</h2>
 
 .. toctree::
