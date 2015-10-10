@@ -44,8 +44,6 @@ class TestBox(unittest.TestCase):
         trajiter = pt.iterload("./data/tz2.ortho.nc", "data/tz2.ortho.parm7")
         saved_box = Box(
             [3.94559740E+01, 4.68215170E+01, 4.04695410E+01, 90., 90., 90.])
-        #print(traj.top.box)
-        #print(trajiter.top.box)
         aa_eq(traj.top.box.values, saved_box.values)
         for frame in traj:
             assert frame.box.type == 'ortho'
@@ -80,47 +78,16 @@ class TestBox(unittest.TestCase):
         from pytraj import Trajectory
         traj = Trajectory()
         traj._allocate(10, 10)
-        #print(traj.unitcells)
-
-    def test_assign_box_type(self):
-        #print("test_assign_box_type")
-        box = Box()
-        assert box.type == 'nobox'
-        box.type = 'ortho'
-        assert box.type == 'ortho'
-        assert box.alpha > 0.
-        box.type = 'truncoct'
-        assert box.type == 'truncoct'
-
-        box.type = 'rhombic'
-        assert box.type == 'rhombic'
-
-        #print("rhombic box?")
-        #print(box)
-
-        # assert raise if not correctly set type
-        def wrong_word(box=box):
-            box.type = 'test'
-
-        self.assertRaises(ValueError, lambda: wrong_word())
-
-        # test update boxtype
-        box = Box()
-        box.values[3:] = [90., 90., 90.]
-        assert box.type == 'nobox'
 
     def test_from_matrix_3x3(self):
         from pytraj.math import Matrix_3x3
         mat = Matrix_3x3()
         box = Box(mat)
 
-
     def test_box_constructor_with_type(self):
+        # TODO: assertion
         box = Box('rhombic')
-        assert box.type == 'rhombic'
         box = Box('ortho')
-        assert box.type == 'ortho'
-
 
 if __name__ == "__main__":
     unittest.main()

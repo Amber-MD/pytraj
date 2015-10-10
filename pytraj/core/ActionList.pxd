@@ -2,11 +2,13 @@
 
 from libcpp.string cimport string
 from .cpp_core cimport _DispatchObject, DispatchObject, DispatchAllocatorType, FunctPtr
+from .Box cimport Box
 from ..datafiles.datafiles cimport _DataFileList, DataFileList
 from ..Topology cimport _Topology, Topology
 from ..Frame cimport _Frame, Frame
 from .cpp_core cimport _ArgList, ArgList, _AtomMask, AtomMask
 from ..datasets.DatasetList cimport _DatasetList, DatasetList
+from ..actions.CpptrajActions cimport _ActionInit, _ActionSetup, _ActionFrame, CoordinateInfo
 
 cdef extern from "ActionList.h":
     cdef cppclass _ActionList "ActionList":
@@ -15,9 +17,9 @@ cdef extern from "ActionList.h":
         void SetDebug(int)
         int Debug()
         int AddAction(DispatchAllocatorType, _ArgList&,
-                      _DatasetList*, _DataFileList*)
-        int SetupActions(_Topology**)
-        bint DoActions(_Frame **, int)
+                      _ActionInit&,)
+        int SetupActions(_ActionSetup)
+        bint DoActions(int, _ActionFrame)
         void Print()
         void List()
         bint Empty()

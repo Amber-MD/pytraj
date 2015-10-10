@@ -92,17 +92,12 @@ cdef class Box(object):
         >>> print (box.type)
         ortho
         """
-        self._array(self._get_data())
+        cdef double[:] data = self.data
+
+        self.thisptr.SetBox(&data[0])
 
     def set_beta_lengths(self, double beta, double xin, double yin, double zin):
         self.thisptr.SetBetaLengths(beta, xin, yin, zin)
-
-    def _array(self, boxIn):
-        # try to cast array-like to python array
-        # list, tuple are ok too
-        cdef double[:] myview = np.asarray(boxIn, dtype='f8')
-        
-        self.thisptr.SetBox(&myview[0])
 
     def set_nobox(self):
         self.thisptr.SetNoBox()
@@ -143,7 +138,7 @@ cdef class Box(object):
             # need to update all info so cpptraj will `SetBoxType` (private method)
             # sounds dummy to set your box to yourself to do this trick :D
             # should update cpptraj code
-            self._array(self._get_data())
+            self._update_box_type()
 
     property x:
         def __get__(self):

@@ -83,6 +83,8 @@ cdef class Action:
         """
         cdef ArgList arglist
         cdef RetType i_fail
+        cdef _ActionInit actioninit_ 
+        actioninit_ = _ActionInit(dslist.thisptr[0], dflist.thisptr[0])
 
         self.top = top
 
@@ -93,7 +95,7 @@ cdef class Action:
             arglist = <ArgList> command
 
         i_fail = self.baseptr.Init(arglist.thisptr[0],
-                       dslist.thisptr, dflist.thisptr,
+                       actioninit_,
                        debug)
 
         if i_fail != OK:
@@ -103,27 +105,41 @@ cdef class Action:
             return i_fail
 
     @makesureABC("Action")
-    def process(self, Topology top=Topology(), Topology new_top=Topology()): 
-        """
-        Process input and do initial setup
-        (TODO : add more doc)
+    def process(self, Topology top=Topology(), crdinfo={}, n_frames_t=0, get_new_top=False):
+        """pass coordinate_info
 
         Parameters:
         ----------
-        top : Topology instance, default (no default)
-        new_top : new Topology instance, default=Topology()
-            Need to provide this instance if you want to change topology
+        top : Topology
+        coordinate_info : a Python dict
+        n_frames_t : number of frames associated with Topology
         """
-        if "Strip" in self.__class__.__name__:
-            # since `Action_Strip` will copy a modified version of `top` and 
-            # store in new_top, then __dealloc__ (from cpptraj)
-            # we need to see _own_memory to False
-            new_top._own_memory = False
         self.top_is_processed = True
-        return self.baseptr.Setup(top.thisptr, &(new_top.thisptr))
+        cdef _ActionSetup actionsetup_
+        cdef CoordinateInfo crdinfo_
+        cdef Box box
+        cdef bint has_velocity, has_time, has_force
+        cdef Topology new_top = Topology()
+
+        box = crdinfo.get('box', top.box)
+        has_velocity = crdinfo.get('has_velocity', False)
+        has_time = crdinfo.get('has_time', False)
+        has_force = crdinfo.get('has_force', False)
+
+        crdinfo_ = CoordinateInfo(box.thisptr[0], has_velocity, has_time, has_force)
+
+        actionsetup_ = _ActionSetup(top.thisptr, crdinfo_, n_frames_t)
+        status = self.baseptr.Setup(actionsetup_)
+
+        if get_new_top:
+            new_top._own_memory = False
+            new_top.thisptr[0] = actionsetup_.Top()
+            return (new_top, status)
+        else:
+            return status
 
     @makesureABC("Action")
-    def do_action(self, current_frame=None, Frame new_frame=Frame(), update_mass=True):
+    def do_action(self, current_frame=None, update_mass=True, int idx=0, get_new_frame=False):
         """
         Perform action on Frame. 
         Parameters:
@@ -134,24 +150,27 @@ cdef class Action:
             if action change Frame, you need to have this
         """
         # debug
-        cdef Frame frame
+        cdef Frame frame, new_frame
         cdef int i
-        cdef object traj, tmptraj, farray
-
-        if self.__class__.__name__ == 'Action_Strip':
-            # let cpptraj do its job for this special action
-            new_frame._own_memory = False
+        cdef object traj
+        cdef _ActionFrame actframe_
 
         if isinstance(current_frame, Frame):
             frame = <Frame> current_frame
             # make sure to update frame mass
             if update_mass:
                 frame.set_frame_mass(self.top)
-            self.baseptr.DoAction(self.n_frames, frame.thisptr, &(new_frame.thisptr))
+            actframe_ = _ActionFrame(frame.thisptr)
+            self.baseptr.DoAction(idx, actframe_)
             self.n_frames += 1
+
+            if get_new_frame:
+                new_frame = Frame()
+                new_frame.thisptr[0] = actframe_.ModifyFrm()
+                return new_frame
         else:
             for frame in iterframe_master(current_frame):
-                self.do_action(frame, new_frame)
+                self.do_action(frame, update_mass=update_mass, idx=idx)
 
     @makesureABC("Action")
     def print_output(self):
@@ -193,8 +212,8 @@ cdef class Action:
                         dslist=dslist,
                         dflist=dflist, debug=debug)
 
-        self.process(top=_top, new_top=new_top)
-        self.do_action(current_frame, new_frame, update_mass=update_mass)
+        self.process(top=_top)
+        self.do_action(current_frame, update_mass=update_mass)
         return dslist
 
     def reset_counter(self):

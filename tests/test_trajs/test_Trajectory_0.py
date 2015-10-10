@@ -55,29 +55,6 @@ class TestTrajectory(unittest.TestCase):
         for frame in TRAJ:
             pass
 
-    def test_iter(self):
-        farray = Trajectory()
-        farray.top = TRAJ.top
-        i = 0
-        for frame in TRAJ:
-            i += 1
-            frame.strip_atoms(top=TRAJ.top.copy(), mask="!@CA")
-            farray.append(frame.copy())
-        assert i == TRAJ.n_frames == TRAJ.n_frames
-        assert frame.size == TRAJ.top.n_residues * 3
-        farray.top.strip_atoms("!@CA")
-        assert farray.top.n_atoms == TRAJ.top.n_residues
-        assert farray.n_frames == TRAJ.n_frames
-        arr = np.zeros(farray.n_frames)
-        cpptraj_rmsd = np.loadtxt(
-            "./data/rmsd_to_firstFrame_CA_allres.Tc5b.dat",
-            skiprows=1).transpose()[1]
-
-        # caculate rmsd to 1st frame
-        for i in range(farray.n_frames):
-            arr[i] = farray[0].rmsd(farray[i])
-        np.testing.assert_almost_equal(arr[:10], cpptraj_rmsd[:10], decimal=3)
-
     def test_trj_top(self):
         traj = TrajectoryIterator()
         assert traj.top.is_empty() == True

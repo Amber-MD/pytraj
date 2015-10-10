@@ -14,6 +14,13 @@ for key in allactions.__dict__.keys():
 ADICT['surf_LCPO'] = allactions.__dict__['Action_Surf']
 ADICT['surf_lcpo'] = allactions.__dict__['Action_Surf']
 ADICT['secstruct'] = allactions.__dict__['Action_DSSP']
+ADICT['rms'] = allactions.__dict__['Action_Rmsd']
+ADICT['drmsd'] = allactions.__dict__['Action_DistRmsd']
+ADICT["lipidorder"] = allactions.__dict__['Action_OrderParameter']
+ADICT["rog"] = allactions.__dict__['Action_Radgyr']
+ADICT["stfcdiffusion"] = allactions.__dict__['Action_STFC_Diffusion']
+ADICT["symmrmsd"] = allactions.__dict__['Action_SymmetricRmsd']
+
 
 # make another dict to convert something like 'MolSurf' to 'molsurf'
 

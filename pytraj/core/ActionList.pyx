@@ -86,6 +86,8 @@ cdef class ActionList:
         """
         cdef object _action
         cdef int status
+        cdef _ActionInit actioninit_
+        actioninit_ = _ActionInit(dslist.thisptr[0], dflist.thisptr[0])
 
         if isinstance(action, string_types):
             # create action object from string
@@ -101,7 +103,7 @@ cdef class ActionList:
 
         _arglist = _get_arglist(command)
         status = self.thisptr.AddAction(func.ptr, _arglist.thisptr[0], 
-                                        dslist.thisptr, dflist.thisptr)
+                                        actioninit_)
 
         if check_status:
             # return "0" if sucess "1" if failed
@@ -109,13 +111,27 @@ cdef class ActionList:
         else:
             return None
 
-    def process(self, Topology top):
+    def process(self, Topology top, crdinfo={}, n_frames_t=0):
         # let cpptraj free mem
-        top._own_memory = False
-        self.thisptr.SetupActions(&(top.thisptr))
-        self.top_is_processed = True
+        cdef _ActionSetup actionsetup_
+        cdef CoordinateInfo crdinfo_
+        cdef Box box
+        cdef bint has_velocity, has_time, has_force
+
+        box = crdinfo.get('box', top.box)
+        has_velocity = crdinfo.get('has_velocity', False)
+        has_time = crdinfo.get('has_time', False)
+        has_force = crdinfo.get('has_force', False)
+
+        crdinfo_ = CoordinateInfo(box.thisptr[0], has_velocity, has_time, has_force)
+
+        #top._own_memory = False
+
+        actionsetup_ = _ActionSetup(top.thisptr, crdinfo_, n_frames_t)
+        self.thisptr.SetupActions(actionsetup_)
 
     def do_actions(self, traj=Frame(), int idx=0, use_mass=True):
+        cdef _ActionFrame actionframe_
         cdef Frame frame
         cdef int i
 
@@ -126,7 +142,8 @@ cdef class ActionList:
             frame = <Frame> traj
             if use_mass:
                 frame.set_frame_mass(self.top)
-            self.thisptr.DoActions(&(frame.thisptr), idx)
+            actionframe_ = _ActionFrame(frame.thisptr)
+            self.thisptr.DoActions(idx, actionframe_)
         else:
             for i, frame in enumerate( iterframe_master(traj)):
                 self.do_actions(frame, i) 

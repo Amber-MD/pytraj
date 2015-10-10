@@ -584,10 +584,13 @@ def calc_watershell(traj=None,
     >>> pt.watershell(traj, solute_mask='!:WAT')
     >>> pt.watershell(traj, solute_mask='!:WAT', lower=5.0, upper=10.)
     """
-    from pytraj.actions.CpptrajActions import Action_Watershell
+
     traj = _get_fiterator(traj, frame_indices)
     _top = _get_topology(traj, top)
     _solutemask = solute_mask if solute_mask is not None else ''
+    dslist = CpptrajDatasetList()
+
+    act = CpptrajActions.Action_Watershell()
 
     if _solutemask in [None, '']:
         raise ValueError('must provide solute mask')
@@ -601,12 +604,13 @@ def calc_watershell(traj=None,
 
     if not isinstance(command, string_types):
         command = array_to_cpptraj_atommask(command)
-    if 'out' not in command:
-        # current Watershell action require specifying output
-        command += ' out tmp.tmp'
-    dslist = CpptrajDatasetList()
-    Action_Watershell()(command, traj, _top, dslist=dslist)
-    return _get_data_from_dtype(dslist, dtype=dtype)
+
+    with goto_temp_folder():
+        if 'out' not in command:
+            # current Watershell action require specifying output
+            command += ' out tmp.tmp'
+        act(command, traj, top=_top, dslist=dslist)
+        return _get_data_from_dtype(dslist, dtype=dtype)
 
 
 def calc_matrix(traj=None,
@@ -1986,10 +1990,9 @@ def _closest_iter(act, traj):
     '''
 
     for frame in iterframe_master(traj):
-        new_frame = Frame()
-        new_frame._own_memory = False  # cpptraj will do
-        act.do_action(frame, new_frame)
-        yield new_frame.copy()
+        new_frame = act.do_action(frame, get_new_frame=True)
+        #yield new_frame.copy()
+        yield new_frame
 
 
 def closest(traj=None,
@@ -2050,15 +2053,12 @@ def closest(traj=None,
         _top = _top.copy()
         _top.set_solvent(solvent_mask)
 
-    new_top = Topology()
-    new_top._own_memory = False  # cpptraj will do
-
     if dtype not in ['trajectory', 'iterator']:
         # trick cpptraj to dump data to CpptrajDatasetList too
         command = command + " closestout tmp_pytraj_closestout.out"
 
     act.read_input(command, _top, dslist=dslist)
-    act.process(_top, new_top)
+    new_top = act.process(_top, get_new_top=True)[0]
 
     fiter = _closest_iter(act, traj)
 
@@ -2310,7 +2310,7 @@ def search_neighbors(traj=None,
     fi = _get_fiterator(traj, frame_indices)
 
     for idx, frame in enumerate(iterframe_master(fi)):
-        _top.set_reference_frame(frame)
+        _top.set_distance_mask_reference(frame)
         dslist.append({str(idx): np.asarray(_top.select(mask))})
     return _get_data_from_dtype(dslist, dtype)
 

@@ -120,6 +120,9 @@ cdef class Topology:
         del self.thisptr
         self = Topology(filename)
 
+    def set_distance_mask_reference(self, Frame frame):
+        self.thisptr.SetDistMaskRef(frame.thisptr[0])
+
     def copy(self, *args):
         """return a copy of 'self' or copy from 'other' to 'self'
         TODO : add more doc
@@ -260,24 +263,6 @@ cdef class Topology:
                 yield mol
                 incr(it)
 
-    def set_reference_frame(self, Frame frame):
-        """set reference frame for distance-based atommask selection
-
-        Examples
-        --------
-            top.set_reference_frame(frame)
-            top.select(":3 < :5.0") # select all atoms within 5.0 A to residue 3
-        """
-        self.thisptr.SetReferenceCoords(frame.thisptr[0])
-
-    def _find_atom_in_residue(self, int res, atname):
-        cdef NameType _atomnametype
-        if isinstance(atname, string_types):
-            _atomnametype = NameType(atname)
-        elif isinstance(atname, NameType):
-            _atomnametype = <NameType> atname 
-        return self.thisptr.FindAtomInResidue(res, _atomnametype.thisptr[0])
-    
     property atomlist:
         def __get__(self):
             return list(self.atoms)
@@ -328,10 +313,6 @@ cdef class Topology:
     property n_solvents:
         def __get__(self):
             return self.thisptr.Nsolvent()
-
-    property n_frames:
-        def __get__(self):
-            return self.thisptr.Nframes()
 
     def set_integer_mask(self, AtomMask atm, Frame frame=Frame()):
         if frame.is_empty():
@@ -702,3 +683,4 @@ cdef class ParmFile:
         cdef FileName filename = FileName()
         filename.thisptr[0] = self.thisptr.ParmFilename()
         return os.path.abspath(filename)
+

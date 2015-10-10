@@ -44,7 +44,7 @@ cdef extern from "Topology.h":
         void SetNrepDim(int n)
         void SetGBradiiSet(const string& s)
         void SetParmName(const string&, const _FileName&)
-        void SetReferenceCoords(const _Frame&)
+        void SetDistMaskRef(_Frame)
         const string& Tag() const 
         int Ipol() const 
         int Pindex() const 

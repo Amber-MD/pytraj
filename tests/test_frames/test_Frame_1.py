@@ -39,22 +39,6 @@ class TestFrame(unittest.TestCase):
         assert frame1.rmsd(frame1new) < 1E-3
         assert frame1new.rmsd(frame1, top=trajnew.top, mask="@CA") < 1E-3
 
-    def test_strip_atoms(self):
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        frame0 = traj[0]
-        frame1 = traj[1]
-        frame2 = traj[2]
-        frame3 = traj[3]
-        frame1 = frame0.strip_atoms("!@CA", traj.top, copy=True)
-        frame2 = Frame(frame0)
-        assert frame1.n_atoms == 20
-        assert frame0.n_atoms == 304
-        frame0.strip_atoms("!@CA", traj.top, copy=False)
-        assert frame0.n_atoms == 20
-
-        _, mat, v1, v2 = frame2.rmsd(frame3, get_mvv=True)
-        frame2.trans_rot_trans(v1, mat, v2)
-
     def test_create_frame(self):
         frame = Frame(list(range(300)))
         assert frame.size == 300

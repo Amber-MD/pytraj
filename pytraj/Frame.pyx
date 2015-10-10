@@ -619,11 +619,6 @@ cdef class Frame (object):
     def set_frame_x_m(self, vector[double] Xin, vector[double] massIn):
         return self.thisptr.SetupFrameXM(Xin, massIn)
 
-    def set_frame_v(self, Topology top):
-        """TODO: add doc
-        """
-        return self.thisptr.SetupFrameV(top.thisptr.Atoms(), top.thisptr.ParmCoordInfo())
-
     def set_frame_from_mask(self, mask, atomlist_or_top):
         cdef Atom atom
         cdef vector[_Atom] v 
@@ -1030,71 +1025,28 @@ cdef class Frame (object):
     def calc_temperature(self, AtomMask mask, int deg_of_freedom):
         return self.thisptr.CalcTemperature(mask.thisptr[0], deg_of_freedom)
 
-    cdef void _strip_atoms(Frame self, Topology top, AtomMask atm, bint update_top, bint has_box):
-        """this method is too slow vs cpptraj
-        if you use memory for numpy, you need to update after resizing Frame
-        >>> arr0 = np.asarray(frame.buffer)
-        >>> frame.strip_atoms(top,"!@CA")
-        >>> # update view
-        >>> arr0 = np.asarray(frame.buffer)
-        """
-        # NOTE:`atm` here is the KEPT-atommaks (for performance)
-        # we will do `atm.invert_mask` laster in `strip_atoms` method
-        # Important: don't try to use raw pointers. Make sure to create Python's objects
-        # (Frame, Topology) to control cpptraj' objects' lifetime.
-
-        cdef Topology newtop = Topology()
-        newtop._own_memory = False
-        cdef Frame tmpframe = Frame() 
-
-        del tmpframe.thisptr
-
-        tmpframe.thisptr = new _Frame(self.thisptr[0])
-        
-        newtop.thisptr = top.thisptr.modifyStateByMask(atm.thisptr[0])
-        tmpframe.thisptr.SetupFrameV(newtop.thisptr.Atoms(), newtop.thisptr.ParmCoordInfo())
-        tmpframe.thisptr.SetFrame(self.thisptr[0], atm.thisptr[0])
-
-        # make a copy: coords, vel, mass...
-        # if only care about `coords`, use `_fast_copy_from_frame`
-        self.thisptr[0] = tmpframe.thisptr[0]
-        if not has_box:
-            self.set_nobox()
-        if update_top:
-            top.thisptr[0] = newtop.thisptr[0]
-
-    def strip_atoms(Frame self, mask=None, Topology top=Topology(), 
-                    bint update_top=False, bint has_box=False, bint copy=False):
-        """strip_atoms(string mask, Topology top=Topology(), 
-                       bint update_top=False, bint has_box=False)
-
-        Return:
-          None : if copy=False
-          new striped Frame instance if copy=True
+    def strip_atoms(Frame self, AtomMask atm):
+        """strip_atoms
 
         Parameters:
         ----------
-        mask : str, mask, non-default
-        top : Topology, default=Topology()
-        update_top : bint, default=False
-        has_box : bint, default=False
-        copy : bint, default=False
+        atm: AtomMask
+
+        Returns
+        -------
+        self
         """
-        cdef AtomMask atm = top(mask)
         atm.invert_mask()
+        cdef Frame frame = Frame(atm.n_atoms)
 
-        if mask is None or top.is_empty():
-            raise ValueError("need non-empty mask and non-empty Topology")
-        cdef Frame frame
-
-        mask = mask.encode("UTF-8")
-
-        if not copy:
-            self._strip_atoms(top, atm, update_top, has_box)
-        else:
-            frame = Frame(self)
-            frame._strip_atoms(top, atm, update_top, has_box)
-            return frame
+        frame.thisptr.SetFrame(self.thisptr[0], atm.thisptr[0])
+        # deallocate old coordinates
+        del self.thisptr
+        # point to the new one
+        self.thisptr = frame.thisptr
+        # do not let ``frame`` deallocate, let ``self`` do it
+        frame._own_memory = False
+        return self
 
     def get_subframe(self, mask=None, top=None):
         cdef AtomMask atm

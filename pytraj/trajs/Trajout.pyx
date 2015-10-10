@@ -81,7 +81,7 @@ cdef class Trajout:
             self.thisptr.InitTrajWrite(filename, ArgList().thisptr[0], top_.thisptr)
 
         # real open
-        self.thisptr.SetupTrajWrite(top_.thisptr)
+        self.thisptr.SetupTrajWrite(top_.thisptr, CoordinateInfo(), 0)
 
     def close(self):
         self.thisptr.EndTraj()

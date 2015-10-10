@@ -8,7 +8,7 @@ from pytraj.hbonds import *
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 from .datafiles.load_sample_data import load_sample_data
-from pytraj import adict
+from pytraj.action_dict import ADICT
 from pytraj.misc import info
 from pytraj.cpp_options import set_world_silent
 from pytraj import api
@@ -26,13 +26,12 @@ def run_tests():
     traj = load_sample_data('tz2')
 
     print("try to make all action objects")
-    from pytraj import adict
     # FIXME, TODO : make failed_list empty
     failed_list = ['createreservoir', ]
 
-    for key in adict.keys():
+    for key in ADICT.keys():
         if key not in failed_list:
-            adict[key]
+            ADICT[key]()
 
     DatasetList()
     print("try to make all analysis objects")
