@@ -5,6 +5,7 @@ from .externals.six import string_types
 from .datasets.DatasetList import DatasetList
 from ._get_common_objects import _get_data_from_dtype, _get_topology
 from ._base_result_class import BaseAnalysisResult
+from ._shared_methods import iterframe_master
 
 adict = ActionDict()
 
@@ -160,7 +161,14 @@ def search_hbonds(traj,
 
     command = " ".join(
         ("series", mask, s_donor, s_acceptor, _dist, _angle, _image, _options))
-    act(command, traj, top=_top, dslist=dslist)
+
+    # need to get correct frame number
+    act.read_input(command, top=_top, dslist=dslist)
+    act.process(_top)
+
+    for idx, frame in enumerate(iterframe_master(traj)):
+        act.do_action(frame, idx=idx)
+    
     act.print_output()
 
     old_keys = dslist.keys()

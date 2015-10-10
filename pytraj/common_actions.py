@@ -28,7 +28,7 @@ from .dssp_analysis import calc_dssp
 from ._nastruct import nastruct
 from ._shared_methods import iterframe_master
 from .externals.get_pysander_energies import get_pysander_energies
-from .decorators import noparallel
+from .decorators import noparallel, _register_pmap
 from .actions import CpptrajActions
 from .analyses import CpptrajAnalyses
 
@@ -90,6 +90,7 @@ def _noaction_with_TrajectoryIterator(trajiter):
             "This analysis does not support immutable object. Use `pytraj.Trajectory`")
 
 
+@_register_pmap
 def calc_distance(traj=None,
                   mask="",
                   frame_indices=None,
@@ -227,7 +228,7 @@ def calc_pairwise_distance(traj=None,
                          top=_top,
                          frame_indices=frame_indices)
 
-
+@_register_pmap
 def calc_angle(traj=None,
                mask="",
                top=None,
@@ -354,6 +355,7 @@ def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
     return calc_dihedral(traj=traj, mask=command, top=top, dtype=dtype)
 
 
+@_register_pmap
 def calc_dihedral(traj=None,
                   mask="",
                   top=None,
@@ -459,6 +461,7 @@ def calc_dihedral(traj=None,
             return _get_data_from_dtype(py_dslist, dtype)
 
 
+@_register_pmap
 def calc_mindist(traj=None,
                  command="",
                  top=None,
@@ -624,6 +627,7 @@ def calc_matrix(traj=None,
     return _get_data_from_dtype(dslist, dtype)
 
 
+@_register_pmap
 def calc_radgyr(traj=None,
                 mask="",
                 top=None,
@@ -654,6 +658,7 @@ def calc_radgyr(traj=None,
     return _get_data_from_dtype(dslist, dtype)
 
 
+@_register_pmap
 def calc_molsurf(traj=None,
                  mask="",
                  probe=1.4,
@@ -684,6 +689,7 @@ def calc_molsurf(traj=None,
     return _get_data_from_dtype(dslist, dtype)
 
 
+@_register_pmap
 def calc_rotation_matrix(traj=None,
                          ref=0,
                          mask="",
@@ -1070,6 +1076,7 @@ def mean_structure(traj,
 get_average_frame = mean_structure
 
 
+@_register_pmap
 def get_velocity(traj, mask=None, frame_indices=None):
     '''get velocity for specify frames with given mask
 
@@ -1209,6 +1216,7 @@ def do_clustering(traj=None,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
+@_register_pmap
 def calc_multidihedral(traj=None,
                        dhtypes=None,
                        resrange=None,
@@ -1340,6 +1348,7 @@ def calc_bfactors(traj=None,
                             dtype=dtype, *args, **kwd)
 
 
+@_register_pmap
 def calc_vector(traj=None,
                 command="",
                 frame_indices=None,
@@ -1558,6 +1567,7 @@ def _calc_vector_center(traj=None,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
+@_register_pmap
 def calc_center_of_mass(traj=None,
                         mask='',
                         top=None,
@@ -1572,6 +1582,7 @@ def calc_center_of_mass(traj=None,
 calc_COM = calc_center_of_mass
 
 
+@_register_pmap
 def calc_center_of_geometry(traj=None, command="", top=None, dtype='ndarray'):
     _top = _get_topology(traj, top)
 
@@ -1709,6 +1720,7 @@ def calc_density(traj=None,
         return _get_data_from_dtype(dslist, dtype)
 
 
+@_register_pmap
 def calc_temperatures(traj=None,
                       command="",
                       frame_indices=None,
@@ -1729,6 +1741,7 @@ def calc_temperatures(traj=None,
     return _get_data_from_dtype(dslist, dtype)
 
 
+@_register_pmap
 def rmsd_perres(traj=None,
                 ref=0,
                 mask="",
@@ -1773,6 +1786,7 @@ def rmsd_perres(traj=None,
                      dtype=dtype)
 
 
+@_register_pmap
 def calc_rmsd(traj=None,
               ref=0,
               mask="",
@@ -1867,6 +1881,7 @@ def calc_rmsd(traj=None,
 rmsd = calc_rmsd
 
 
+@_register_pmap
 def calc_distance_rmsd(traj=None, ref=0, mask='', top=None, dtype='ndarray'):
     '''compute distance rmsd between traj and reference
 
@@ -2082,6 +2097,7 @@ def closest(traj=None,
             return new_dslist
 
 
+@_register_pmap
 def native_contacts(traj=None,
                     mask="",
                     mask2="",
@@ -2315,6 +2331,7 @@ def search_neighbors(traj=None,
     return _get_data_from_dtype(dslist, dtype)
 
 
+@_register_pmap
 def pucker(traj=None,
            pucker_mask=("C1'", "C2'", "C3'", "C4'", "O4'"),
            resrange=None,
