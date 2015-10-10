@@ -105,7 +105,7 @@ cdef class Action:
             return i_fail
 
     @makesureABC("Action")
-    def process(self, Topology top=Topology(), crdinfo={}, n_frames_t=0):
+    def process(self, Topology top=Topology(), crdinfo={}, n_frames_t=0, get_new_top=False):
         """pass coordinate_info
 
         Parameters:
@@ -119,6 +119,7 @@ cdef class Action:
         cdef CoordinateInfo crdinfo_
         cdef Box box
         cdef bint has_velocity, has_time, has_force
+        cdef Topology new_top = Topology()
 
         box = crdinfo.get('box', top.box)
         has_velocity = crdinfo.get('has_velocity', False)
@@ -128,10 +129,17 @@ cdef class Action:
         crdinfo_ = CoordinateInfo(box.thisptr[0], has_velocity, has_time, has_force)
 
         actionsetup_ = _ActionSetup(top.thisptr, crdinfo_, n_frames_t)
-        return self.baseptr.Setup(actionsetup_)
+        status = self.baseptr.Setup(actionsetup_)
+
+        if get_new_top:
+            new_top._own_memory = False
+            new_top.thisptr[0] = actionsetup_.Top()
+            return (new_top, status)
+        else:
+            return status
 
     @makesureABC("Action")
-    def do_action(self, current_frame=None, update_mass=True, int idx=0):
+    def do_action(self, current_frame=None, update_mass=True, int idx=0, get_new_frame=False):
         """
         Perform action on Frame. 
         Parameters:
@@ -142,7 +150,7 @@ cdef class Action:
             if action change Frame, you need to have this
         """
         # debug
-        cdef Frame frame
+        cdef Frame frame, new_frame
         cdef int i
         cdef object traj
         cdef _ActionFrame actframe_
@@ -155,6 +163,11 @@ cdef class Action:
             actframe_ = _ActionFrame(frame.thisptr)
             self.baseptr.DoAction(idx, actframe_)
             self.n_frames += 1
+
+            if get_new_frame:
+                new_frame = Frame()
+                new_frame.thisptr[0] = actframe_.ModifyFrm()
+                return new_frame
         else:
             for frame in iterframe_master(current_frame):
                 self.do_action(frame, update_mass=update_mass, idx=idx)

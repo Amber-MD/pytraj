@@ -72,6 +72,7 @@ class Test(unittest.TestCase):
             funclist.append(pt.load_parmed)
 
         for func in funclist:
+            print(func)
             run_docstring(func)
 
         func_names = ma.mat_keys
