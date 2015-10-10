@@ -2310,7 +2310,7 @@ def search_neighbors(traj=None,
     fi = _get_fiterator(traj, frame_indices)
 
     for idx, frame in enumerate(iterframe_master(fi)):
-        _top.set_reference_frame(frame)
+        _top.set_distance_mask_reference(frame)
         dslist.append({str(idx): np.asarray(_top.select(mask))})
     return _get_data_from_dtype(dslist, dtype)
 

@@ -120,6 +120,9 @@ cdef class Topology:
         del self.thisptr
         self = Topology(filename)
 
+    def set_distance_mask_reference(self, Frame frame):
+        self.thisptr.SetDistMaskRef(frame.thisptr[0])
+
     def copy(self, *args):
         """return a copy of 'self' or copy from 'other' to 'self'
         TODO : add more doc
@@ -680,3 +683,4 @@ cdef class ParmFile:
         cdef FileName filename = FileName()
         filename.thisptr[0] = self.thisptr.ParmFilename()
         return os.path.abspath(filename)
+
