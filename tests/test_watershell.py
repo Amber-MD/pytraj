@@ -1,15 +1,20 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
-from pytraj.action_dict import ADICT
-from pytraj.actions.CpptrajActions import Action_Watershell
+from pytraj.testing import aa_eq
 
 
 class TestWatershell(unittest.TestCase):
     def test_watershell(self):
         traj = pt.iterload("data/tz2.truncoct.nc",
                            "data/tz2.truncoct.parm7")
-        d0 = pt.watershell(traj, '!:WAT')
+        state = pt.load_batch(traj, '''
+        watershell :1-7
+        ''')
+
+        d0 = pt.watershell(traj, solute_mask=':1-7')
+        state.run()
+        aa_eq(d0, state.data[[1, 2]].values)
 
 if __name__ == "__main__":
     unittest.main()
