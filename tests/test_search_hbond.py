@@ -32,6 +32,21 @@ class TestSearchHbonds(unittest.TestCase):
         hbonds_1 = pt.search_hbonds(traj, image=True)
         aa_eq(hbonds_0.values, hbonds_1.values)
 
+    def test_hbonds_from_pdb(self):
+        traj = pt.load('data/1L2Y.pdb')
+        hb = pt.search_hbonds(traj)
+
+        state = pt.load_cpptraj_state('''
+        parm data/1L2Y.pdb
+        trajin data/1L2Y.pdb
+        hbond series
+        ''')
+        state.run()
+
+        for data_p, data_cpp in zip(hb.data, state.data[1:]):
+            assert len(data_p) == traj.n_frames == 38, 'size of dataset must be 38'
+            aa_eq(data_p, data_cpp)
+
 
 if __name__ == "__main__":
     unittest.main()
