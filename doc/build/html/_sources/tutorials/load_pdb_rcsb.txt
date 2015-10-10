@@ -1,7 +1,7 @@
 .. _load_pdb_rcsb:
 
 Fetch pdb
-=========
+---------
 
 try ``pytraj`` online:
 

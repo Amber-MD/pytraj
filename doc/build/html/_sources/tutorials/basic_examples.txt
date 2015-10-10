@@ -53,9 +53,6 @@ Hbond analysis
    hbonds.dataset.keys()
    hbonds.values
 
-Fetch pdb
----------
-
 .. include:: load_pdb_rcsb.rst
 
 More examples
