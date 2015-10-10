@@ -289,5 +289,25 @@ class TestActionList(unittest.TestCase):
         aa_eq(pt.vector.vector_mask(traj(rmsfit=(0, '@CA')), ':2 :3'),
               actlist.data[3].values)
 
+    def test_modify_frame(self):
+        traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        dslist = CpptrajDatasetList()
+        dslist.add_new('topology', name='mytop')
+
+        # add a new topology
+        dslist[0].data = pt.strip_atoms(traj.top, ':WAT')
+        commands = [
+                    'autoimage',
+                    'strip :WAT',
+                    'createcrd mycrd',
+                   ]
+
+        actlist = ActionList(commands, top=traj.top, dslist=dslist)
+
+        for frame in traj:
+            actlist.do_actions(frame)
+
+        aa_eq(dslist['mycrd'].xyz, pt.get_coordinates(traj, mask='!:WAT', autoimage=True))
+
 if __name__ == "__main__":
     unittest.main()

@@ -287,6 +287,12 @@ def select_atoms(topology, mask):
     '''
     return topology.select(mask)
 
+def strip_atoms(traj_or_topology, mask):
+    '''return a new Trajectory or Topology with given mask
+    '''
+    kept_mask = '!(' + mask + ')'
+    return traj_or_topology[kept_mask]
+
 def show():
     # just delay importing
     """show plot
