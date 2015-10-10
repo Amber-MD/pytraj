@@ -111,11 +111,23 @@ cdef class ActionList:
         else:
             return None
 
-    def process(self, Topology top):
+    def process(self, Topology top, crdinfo={}, n_frames_t=0):
         # let cpptraj free mem
-        top._own_memory = False
         cdef _ActionSetup actionsetup_
-        actionsetup_ = _ActionSetup(top.thisptr, CoordinateInfo(), 0)
+        cdef CoordinateInfo crdinfo_
+        cdef Box box
+        cdef bint has_velocity, has_time, has_force
+
+        box = crdinfo.get('box', top.box)
+        has_velocity = crdinfo.get('has_velocity', False)
+        has_time = crdinfo.get('has_time', False)
+        has_force = crdinfo.get('has_force', False)
+
+        crdinfo_ = CoordinateInfo(box.thisptr[0], has_velocity, has_time, has_force)
+
+        #top._own_memory = False
+
+        actionsetup_ = _ActionSetup(top.thisptr, crdinfo_, n_frames_t)
         self.thisptr.SetupActions(actionsetup_)
 
     def do_actions(self, traj=Frame(), int idx=0, use_mass=True):

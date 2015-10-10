@@ -105,18 +105,29 @@ cdef class Action:
             return i_fail
 
     @makesureABC("Action")
-    def process(self, Topology top=Topology()):
-        """
-        Process input and do initial setup
-        (TODO : add more doc)
+    def process(self, Topology top=Topology(), crdinfo={}, n_frames_t=0):
+        """pass coordinate_info
 
         Parameters:
         ----------
-        top : Topology instance, default (no default)
+        top : Topology
+        coordinate_info : a Python dict
+        n_frames_t : number of frames associated with Topology
         """
         self.top_is_processed = True
         cdef _ActionSetup actionsetup_
-        actionsetup_ = _ActionSetup(top.thisptr, CoordinateInfo(), 0)
+        cdef CoordinateInfo crdinfo_
+        cdef Box box
+        cdef bint has_velocity, has_time, has_force
+
+        box = crdinfo.get('box', top.box)
+        has_velocity = crdinfo.get('has_velocity', False)
+        has_time = crdinfo.get('has_time', False)
+        has_force = crdinfo.get('has_force', False)
+
+        crdinfo_ = CoordinateInfo(box.thisptr[0], has_velocity, has_time, has_force)
+
+        actionsetup_ = _ActionSetup(top.thisptr, crdinfo_, n_frames_t)
         return self.baseptr.Setup(actionsetup_)
 
     @makesureABC("Action")

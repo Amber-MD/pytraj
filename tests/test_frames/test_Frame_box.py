@@ -18,9 +18,8 @@ class Test(unittest.TestCase):
 
         bview = frame0.boxview
         bview[3:] = np.asarray([109.471220634, 109.471220634, 109.471220634])
-        #print(frame0.has_box())
+        bview[:3] = np.array([100, 100, 100], dtype='f8')
         assert frame0.box.type == 'truncoct'
-
 
 if __name__ == "__main__":
     unittest.main()
