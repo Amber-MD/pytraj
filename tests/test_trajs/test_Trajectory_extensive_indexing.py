@@ -17,9 +17,6 @@ trajin = """
 """
 
 ts.load(mdx, top)
-frame = Frame()
-frame.set_frame_v(top)
-frame2 = Frame(frame)
 
 # create Trajectory to store Frame
 FARRAY = Trajectory()
