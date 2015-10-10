@@ -30,7 +30,7 @@ class TestRunnable(unittest.TestCase):
         print("try to make all action objects")
         failed_list = []
 
-        for key in ADICT.key():
+        for key in ADICT.keys():
             if key not in failed_list:
                 print(key, ADICT[key]())
 
