@@ -53,6 +53,12 @@ Flattening lists
     a = [[0, 54, 6], [[6, 7, 8], [9, 7, 5]]]
     print(pt.tools.flatten(a))
 
+List comprehensions
+-------------------
+
+.. ipython:: python
+
+    [x**2 for x in [3., 5., 7.]]
 
 Dictionary comprehensions
 -------------------------
