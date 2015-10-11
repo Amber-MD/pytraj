@@ -212,22 +212,32 @@ class TestIred(unittest.TestCase):
         mat_ired = vecs_and_mat[-1]
         mat_ired /= mat_ired[0, 0]
 
-        # get eigenvalues and eigvenvectors
-        evals, evecs = np.linalg.eigh(mat_ired)
+        # cpptraj
+        data_cpp= pt.matrix.diagonalize(mat_ired, n_vecs=len(state_vecs))[0]
+        print(data_cpp.eigenvectors)
 
-        # need to sort a numpy array bit to match to cpptraj's order
-        evals = evals[::-1]
-        evecs = -evecs[:, ::-1].T
+        # numpy
+        data_np = pt.matrix._diag_np(mat_ired, n_vecs=len(state_vecs))
 
-        data = _ired(state_vecs, modes=(evals, evecs))
-        order_s2_v0 = data['IRED_00127[S2]']
-        # make sure the S2 values is 1st array
-        order_s2_v1 = data[0]
+        def order_(modes):
+            data = _ired(state_vecs, modes=modes)
+            order_s2_v0 = data['IRED_00127[S2]']
+            # make sure the S2 values is 1st array
 
-        # load cpptraj's output and compare to pytraj' values for S2 order paramters
-        cpp_order_s2 = np.loadtxt(os.path.join(cpptraj_test_dir, 'Test_IRED', 'orderparam.save')).T[-1]
-        aa_eq(order_s2_v0, cpp_order_s2, decimal=4)
-        aa_eq(order_s2_v1, cpp_order_s2, decimal=4)
+            # load cpptraj's output and compare to pytraj' values for S2 order paramters
+            cpp_order_s2 = np.loadtxt(os.path.join(cpptraj_test_dir, 'Test_IRED', 'orderparam.save')).T[-1]
+            aa_eq(order_s2_v0.values, cpp_order_s2, decimal=4)
+
+        order_(data_cpp.values)
+        #order_(data_np)
+        def plot_(x, y):
+            import seaborn as sb
+            sb.heatmap(x - y)
+            pt.show()
+
+        #plot_(np.abs(data_cpp.values[1]), np.abs(data_np[1]))
+        #plot_(data_cpp.values[1], data_np[1])
+        print((data_cpp.values[1] - data_np[1]).shape)
 
 
 if __name__ == "__main__":
