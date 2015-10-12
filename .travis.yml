@@ -26,8 +26,6 @@ install:
     - conda config --add channels https://conda.binstar.org/ambermd
     - conda config --add channels https://conda.binstar.org/pytraj
     - python --version
-    - conda build devtools/conda-recipe/libcpptraj
-    - conda install $HOME/miniconda/conda-bld/linux-64/libcpptraj-dev-* --yes
     - conda build --py $PYTHON_VERSION devtools/conda-recipe/pytraj
     - conda install $HOME/miniconda/conda-bld/linux-64/pytraj-dev-* --yes
 
