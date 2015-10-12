@@ -3,6 +3,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+import numpy as np
 from pytraj import adict, allactions
 from pytraj import ArgList, Trajectory, Frame
 from pytraj.utils import eq, aa_eq
@@ -308,6 +309,35 @@ class TestActionList(unittest.TestCase):
             actlist.do_actions(frame)
 
         aa_eq(dslist['mycrd'].xyz, pt.get_coordinates(traj, mask='!:WAT', autoimage=True))
+
+    def test_combine_with_frame_iterator(self):
+        traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        dslist = CpptrajDatasetList()
+
+        commands = [
+                    'autoimage',
+                    'rms',
+                    ]
+
+        actlist = ActionList(commands, top=traj.top, dslist=dslist)
+
+        def get_frameiter(actlist, traj):
+            for frame in traj:
+                actlist.do_actions(frame)
+                yield frame
+
+        def do_extra(fi):
+            a = []
+            for frame in fi:
+                frame.xyz = frame.xyz + 2.
+                a.append(frame.copy())
+            return a
+
+        new_list = do_extra(get_frameiter(actlist, traj))
+        t0 = traj[:].autoimage().superpose()
+        t0.xyz += 2.
+        aa_eq(np.array([frame.xyz for frame in new_list]), t0.xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

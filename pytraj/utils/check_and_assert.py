@@ -173,6 +173,7 @@ def assert_almost_equal(arr0, arr1, decimal=4):
     '''numpy-like assert,
     use default decimal=4 to match cpptraj's output
     '''
+    import math
 
     if is_number(arr0):
         arr0 = [arr0, ]
@@ -191,6 +192,8 @@ def assert_almost_equal(arr0, arr1, decimal=4):
     assert len(_arr0) == len(_arr1), 'two arrays must have the same length'
 
     for x, y in zip(_arr0, _arr1):
+        if math.isnan(x) or math.isnan(y):
+            raise ValueError('do not support NAN comparison')
         if abs(x - y) > SMALL:
             almost_equal = False
     assert almost_equal == True
