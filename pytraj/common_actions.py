@@ -1414,7 +1414,7 @@ def calc_vector(traj=None,
 
 def _ired(iredvec, modes,
           NHbond=True,
-          relax_freq=0.,
+          relax_freq=None,
           NHdist=1.02,
           order=2,
           tstep=1.0,
@@ -1432,7 +1432,8 @@ def _ired(iredvec, modes,
         eigenvectors has shape of (n_modes, vector_size), each vector correspond to each eigenvalue
     NHbond : bool, default True
         if True, relax_freq value will be used
-    relax_freq : float, default 0.
+        if False, NHdist and relax_freq will be ignored.
+    relax_freq : float or None, default None
         be used with NHbond
     NHdist : N-H bond length, default 1.02
     order : int, default 2
@@ -1445,7 +1446,7 @@ def _ired(iredvec, modes,
     CpptrajDatasetList
     '''
 
-    _freq = 'relax freq ' + str(relax_freq) if NHbond else ''
+    _freq = 'relax freq ' + str(relax_freq) if relax_freq is not None else ''
     _NHdist = 'NHdist ' + str(NHdist) if NHbond else ''
     _order = 'order ' + str(order)
     _tstep = 'tstep ' + str(tstep)
