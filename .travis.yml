@@ -2,9 +2,10 @@ language: python
 
 env:
   matrix:
-    - PYTHON_VERSION=2.7
-    - PYTHON_VERSION=3.4
-    - PYTHON_VERSION=3.5
+    - PYTHON_VERSION=2.7, CPPTRAJ_ANACONDA=NO
+    - PYTHON_VERSION=3.4, CPPTRAJ_ANACONDA=NO
+    - PYTHON_VERSION=3.5, CPPTRAJ_ANACONDA=NO
+    - PYTHON_VERSION=3.4, CPPTRAJ_ANACONDA=YES
   global:
     - secure: JLFg6mbavHoSfqApsTUnE39ZtrEuv76UUsBwMJy3b8lp1s6dBwmbmEBm9VYb4wttCSKOd3BcuRd4lo5+Oxp25tKvLLg86P0PE6/cjn7vz3RAQ/qQhbEBUEV0nJkuKMCFpQPu8LGPY2oiRyPr4OGwfWdLzgYolMAxWtS6cCqAyPk=
 
@@ -26,6 +27,7 @@ install:
     - conda config --add channels https://conda.binstar.org/ambermd
     - conda config --add channels https://conda.binstar.org/pytraj
     - python --version
+    - source devtools/travis-ci/install_cpptraj.sh
     - conda build --py $PYTHON_VERSION devtools/conda-recipe/pytraj
     - conda install $HOME/miniconda/conda-bld/linux-64/pytraj-dev-* --yes
 
