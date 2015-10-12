@@ -1,3 +1,13 @@
+'''install rule
+- if pytraj is inside $AMBERHOME, use libcpptraj.so in $AMBERHOME/lib and header file in cpptraj/src folder
+- if pytraj is outside $AMBERHOME
+    - check CPPTRAJ_LIBDIR and CPPTRAJ_HEADERDIR: if found, use those to install
+    - if not CPPTRAJ_LIBDIR, CPPTRAJ_HEADERDIR: check CPPTRAJHOME and found libcpptraj.so and header files in 
+    CPPTRAJHOME/{lib, src}
+    - if not CPPTRAJHOME, find cpptraj folder in current folder
+    - if can not find cpptraj folder, do git clone from github
+'''
+
 import os
 import sys
 import time
@@ -16,6 +26,8 @@ if sys.version_info < (2, 6):
     sys.stderr.write('You must have at least Python 2.6 for pytraj\n')
     sys.exit(0)
 
+
+PYTRAJ_DIR = os.path.abspath(os.path.dirname(__file__))
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
@@ -113,6 +125,16 @@ has_cpptraj_in_current_folder = os.path.exists("./cpptraj/")
 CPPTRAJ_LIBDIR = os.environ.get('CPPTRAJ_LIBDIR', '')
 CPPTRAJ_HEADERDIR = os.environ.get('CPPTRAJ_HEADERDIR', '')
 
+AMBERHOME = os.environ.get('AMBERHOME', '')
+PYTRAJ_AMBER_DIR = os.path.join(AMBERHOME, 'AmberTools', 'src', 'pytraj')
+
+print(PYTRAJ_AMBER_DIR, PYTRAJ_DIR)
+
+if PYTRAJ_AMBER_DIR == PYTRAJ_DIR:
+    # install pytraj inside AMBER
+    CPPTRAJ_LIBDIR = os.path.join(AMBERHOME, 'lib')
+    CPPTRAJ_HEADERDIR = os.path.join(AMBERHOME, 'AmberTools', 'src', 'cpptraj', 'src')
+
 if CPPTRAJ_LIBDIR and CPPTRAJ_HEADERDIR:
     cpptraj_include = CPPTRAJ_HEADERDIR
     libdir = CPPTRAJ_LIBDIR
@@ -126,17 +148,7 @@ else:
         cpptraj_dir = os.path.abspath("./cpptraj/")
         cpptraj_include = cpptraj_dir + "/src/"
         libdir = cpptraj_dir + "/lib/"
-    # turn off using AMBERHOME since pytraj uses cpptraj-dev
-    #elif has_amberhome:
-    #    # use libcpptraj and header files in AMBERHOME
-    #    cpptraj_dir = amberhome + "/AmberTools/src/cpptraj/"
-    #    cpptraj_include = cpptraj_dir + "/src/"
-    #    libdir = amberhome + "/lib/"
     else:
-        # use libcpptraj and header files in PYTRAJHOME
-        # ./cpptraj/src
-        # ./cpptraj/lib
-
         nice_message = """
         We're trying to dowload and build libcpptraj for you. (5-10 minutes)
         (check ./cpptraj/ folder after installation)
