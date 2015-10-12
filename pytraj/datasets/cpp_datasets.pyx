@@ -546,6 +546,7 @@ cdef class DatasetFloat (Dataset1D):
             self[i] = ds[j]
             j += 1
 
+
 cdef class DatasetInteger (Dataset1D):
     def __cinit__(self):
         # TODO : Use only one pointer? 
@@ -654,11 +655,12 @@ cdef class DatasetInteger (Dataset1D):
 
         def __set__(self, data):
             cdef size_t size = len(data)
-            cdef vector[size_t] v = [size,]
-            cdef int x
+            cdef unsigned int i
 
-            self.baseptr_1.Allocate(v)
-            self.data[:] = data
+            self.thisptr.Resize(size)
+            # let numpy handle, just need to resize self
+            values = np.asarray(self.data)
+            values[:] = data
 
 
 cdef class DatasetString (Dataset1D):
@@ -691,9 +693,14 @@ cdef class DatasetString (Dataset1D):
     def resize(self, size_t sizeIn):
         self.thisptr.Resize(sizeIn)
 
-    @property
-    def data(self):
-        return [s.decode() for s in self]
+    property data:
+        def __get__(self):
+            return [s.decode() for s in self]
+        def __set__(self, data):
+            self.thisptr.Resize(len(data))
+            for i, x in enumerate(data):
+                # x must be string
+                self[i] = x.encode()
 
     def tolist(self):
         return self.data
@@ -735,15 +742,10 @@ cdef class DatasetVector(Dataset):
 
     property data:
         def __get__(self):
-            # use `copy=True` as dummy argument to be 
-            # consistent with Dataset1D
             cdef int i
             cdef int size = self.size
             cdef _Vec3 _vec3
-            #cdef double[:, :] dview = cyarray(shape=(size, 3), 
-            #        itemsize=sizeof(double), format="d")
-            arr = np.empty((size, 3), dtype='f8')
-            cdef double[:, ::1] dview = arr
+            cdef double[:, ::1] dview = np.empty((size, 3), dtype='f8')
 
             # copy data to arr by dview
             for i in range(size):
@@ -751,9 +753,11 @@ cdef class DatasetVector(Dataset):
                 dview[i, 0] = _vec3.Dptr()[0]
                 dview[i, 1] = _vec3.Dptr()[1]
                 dview[i, 2] = _vec3.Dptr()[2]
-            return arr
+            return np.asarray(dview, dtype='f8')
 
         def __set__(self, values):
+            '''values must be 2D array that support memory view (such as numpy array)
+            '''
             cdef int i
             cdef double[:] xyz
             cdef _Vec3 _vec
@@ -1151,6 +1155,8 @@ cdef class DatasetMatrix3x3 (Dataset):
             del self.thisptr
 
     def __getitem__(self, int idx):
+        '''return a copy
+        '''
         if self.size <= 0:
             raise ValueError("size should be > 0")
 
@@ -1159,7 +1165,7 @@ cdef class DatasetMatrix3x3 (Dataset):
         return mat
 
     def __setitem__(self, int idx, double value):
-        raise NotImplementedError()
+        raise NotImplementedError('does not support setitem')
         
     def __iter__(self):
         """return copy"""
@@ -1189,7 +1195,16 @@ cdef class DatasetMatrix3x3 (Dataset):
         """
         return np.asarray(self.data)
 
-    def _append_from_array(self, double[:, ::1] arr):
+    def _append_from_array(self, arr):
+        '''arr can be 2D array, shape=(n_frames, 9) or 3D array, shape=(n_frames, 3, 3)
+        '''
+        values = np.asarray(arr)
+        if values.ndim == 2:
+            self._append_from_2array(values)
+        elif values.ndim == 3:
+            self._append_from_2array(values.reshape(values.shape[0], values.shape[1] * values.shape[2]))
+
+    def _append_from_2array(self, double[:, ::1] arr):
         cdef unsigned int i
 
         for i in range(arr.shape[0]):
@@ -1407,16 +1422,19 @@ cdef class DatasetCoordsRef (DatasetCoords):
     @property
     def values(self):
         """"""
-        return self.data
+        return self.data.xyz
 
-    @property
-    def data(self):
-        """"""
-        return self.get_frame().xyz
+    property data:
+        def __get__(self):
+            """"""
+            return self.get_frame()
+        def __set__(self, Frame frame):
+            self.thisptr.SetCRD(0, frame.thisptr[0])
     
     property xyz:
         def __get__(self):
-            return self.data
+            # use np.array to make a copy to avoid memory free
+            return np.array(self.data.xyz)
 
 
 cdef class DatasetTopology(Dataset):

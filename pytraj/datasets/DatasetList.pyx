@@ -34,6 +34,7 @@ cdef class DatasetList:
     --------
     >>> import pytraj as pt
     >>> from pytraj.datasets import CpptrajDatasetList
+    >>> # create CpptrajDatasetList to store data
     >>> dslist = CpptrajDatasetList()
     >>> actlist = pt.ActionList(['distance :2 :3', 'vector :3 :5'], top=traj.top, dslist=dslist)
     >>> for frame in traj: actlist.do_actions(frame)
@@ -224,10 +225,21 @@ cdef class DatasetList:
         dlist.thisptr[0] = self.thisptr.GetMultipleSets(s)
         return dlist
 
-    def add_new(self, dtype=None, name="", default_name=""):
+    def add_new(self, dtype=None, name=""):
         """create new (empty) Dataset and add to `self`
-        this is for internal use
+
+        Examples
+        --------
+        >>> from pytraj.datasets import CpptrajDatasetList
+        >>> dslist = CpptrajDatasetList()
+        >>> # add DatasetTopoloy
+        >>> d0 = dslist.add_new('topology', name='myparm')
+        >>> # add new Topology to d0
+        >>> d0.data = traj.top
+        >>> print(dslist[0])
+        <pytraj.datasets.DatasetTopology: size=5293, key=myparm>
         """
+        default_name = ""
         cdef Dataset dset = Dataset()
         if dtype is None:
             raise ValueError("dtype must not be None")
@@ -249,6 +261,8 @@ cdef class DatasetList:
         self.thisptr.AddCopyOfSet(dset.baseptr0)
 
     def _add_traj(self, TrajectoryCpptraj traj, name='_traj'):
+        '''add an existing TrajectoryCpptraj with given name
+        '''
         cdef _MetaData metadata
         metadata.SetName(name.encode())
         traj._own_memory = False

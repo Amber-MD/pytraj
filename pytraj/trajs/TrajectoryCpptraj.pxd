@@ -26,4 +26,4 @@ cdef class TrajectoryCpptraj:
     cdef object tmpfarray
     cdef list _filelist
     cdef public _base
-    cdef bint _own_memory
+    cdef public bint _own_memory

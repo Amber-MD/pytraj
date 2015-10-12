@@ -1,10 +1,12 @@
 #!/usr/bin/env python
+
 from __future__ import print_function
 import unittest
 import numpy as np
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
 from pytraj.datasets import cpp_datasets
+from pytraj.datasets import CpptrajDatasetList
 
 # used for loading cpptraj state
 txt = '''
@@ -27,7 +29,8 @@ runanalysis diagmatrix MyMatrix vecs 2 name MyEvecs
 crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
 '''
 
-@unittest.skipIf('DNO_MATHLIB' in pt.compiled_info(), 'there is no LAPACK')
+#@unittest.skipIf('DNO_MATHLIB' in pt.compiled_info(), 'there is no LAPACK')
+@unittest.skip('just skip')
 class TestCpptrajDatasetWithMathLib(unittest.TestCase):
     def setUp(self):
         self.state = pt.datafiles.load_cpptraj_state(txt)
@@ -87,6 +90,60 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
             new_mat._set_data_half_matrix(cpp_mat, orig_mat.size, shape[0])
             assert new_mat.kind == 'half', 'new_mat must be half matrix'
             aa_eq(orig_mat.values, new_mat.values)
+
+    def test_add_new_for_CpptrajDatasetList(self):
+        #"MATRIX_DOUBLE" : MATRIX_DBL, 
+        #"MATRIX_FLOAT" : MATRIX_FLT,
+        #"VECTOR" : VECTOR,
+        #"MODES" : MODES,
+        #"GRID_FLOAT" : GRID_FLT,
+        #"XYMESH" : XYMESH, 
+        #"TRAJ" : TRAJ, 
+        dslist = CpptrajDatasetList()
+        
+        # integer
+        dslist.add_new('integer', name='my_int')
+        dslist[-1].data = [2, 3]
+        aa_eq(dslist[-1].values, [2, 3])
+
+        # double
+        dslist.add_new('double', name='my_double')
+        dslist[-1].data = [2, 3]
+        aa_eq(dslist[-1].values, [2, 3])
+
+        # double
+        dslist.add_new('float', name='my_float')
+        dslist[-1].data = [2, 3]
+        aa_eq(dslist[-1].values, [2, 3])
+
+        # string
+        dslist.add_new('string', name='my_string')
+        dslist[-1].data = ['H', 'T']
+        assert dslist[-1].values.tolist() == ['H', 'T'], 'string must be equal'
+
+        # reference
+        dslist.add_new('reference', name='my_reference')
+        dslist[-1].data = self.traj[-2]
+        aa_eq(dslist[-1].xyz, self.traj[-2].xyz)
+
+        # matrix3x3
+        dslist.add_new('matrix3x3', name='my_mat3x3')
+        mat = pt.calc_rotation_matrix(self.traj, ref=0, mask='@CA')
+        # there is no assignment. Need to update by another method
+        dslist[-1]._append_from_array(mat)
+        aa_eq(dslist[-1].values, mat)
+
+        # TRAJ
+        dslist.add_new('traj', name='my_traj')
+        dslist[-1].top = self.traj.top
+        dslist[-1].load(self.traj.filename)
+        traj_new = dslist[-1]
+        traj_new.top._own_memory = False
+        print(traj_new._own_memory, traj_new.top._own_memory)
+        print(traj_new[::2])
+        #for _ in traj_new: pass
+        #aa_eq(traj_new.xyz, self.traj.xyz)
+
 
 if __name__ == "__main__":
     unittest.main()
