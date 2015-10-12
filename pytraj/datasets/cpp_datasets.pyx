@@ -1053,13 +1053,24 @@ cdef class DatasetGridFloat(Dataset3D):
     def shape(self):
         return (self.nx, self.ny, self.nz)
 
-    @property
-    def data(self):
-        """return a copy of 3D array of Grid"""
-        cdef size_t nx, ny, nz
-        nx, ny, nz = self.nx, self.ny, self.nz
-        cdef float* ptr = &self.thisptr.index_opr(0)
-        return <float[:nx, :ny, :nz]> ptr
+    property data:
+        def __get__(self):
+            """return a copy of 3D array of Grid"""
+            cdef size_t nx, ny, nz
+            nx, ny, nz = self.nx, self.ny, self.nz
+            cdef float* ptr = &self.thisptr.index_opr(0)
+            return <float[:nx, :ny, :nz]> ptr
+        def __set__(self, float[:, :, :] values):
+            cdef unsigned int nx, ny, nz
+            cdef unsigned int i, j, k
+
+            nx, ny, nz = values.shape[:3]
+            self.resize(nx, ny, nz)
+
+            for i in range(nx):
+                for j in range(ny):
+                    for k in range(nz):
+                        self.thisptr.SetElement(i, j, k, values[i, j, k])
 
     def to_ndarray(self, copy=True):
         # copy=True: is a dummy argument to be consistent with Dataset1D
@@ -1234,15 +1245,20 @@ cdef class DatasetMesh (Dataset1D):
 
     property data:
         def __get__(self):
-            arr = np.empty((self.size, 2), dtype='f8')
-            cdef double[:, ::1] dview = arr
+            cdef double[:, ::1] dview = np.empty((self.size, 2), dtype='f8')
             cdef unsigned int i
             cdef unsigned int size = self.size
 
             # fill data for arr by using its dview
             for i in range(size):
                 dview[i, 0], dview[i, 1] = self.thisptr.X(i), self.thisptr.Y(i)
-            return arr
+            return np.asarray(dview)
+    
+    def _append_from_array(self, double[:, ::1] values):
+        cdef unsigned int i
+
+        for i in range(values.shape[0]):
+            self.thisptr.AddXY(values[i, 0], values[i, 1])
 
     def to_ndarray(self, copy=True):
         """use copy=True to make consistent with Dataset1D

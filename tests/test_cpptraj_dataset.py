@@ -92,13 +92,10 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
             aa_eq(orig_mat.values, new_mat.values)
 
     def test_add_new_for_CpptrajDatasetList(self):
+        # TODO:
         #"MATRIX_DOUBLE" : MATRIX_DBL, 
         #"MATRIX_FLOAT" : MATRIX_FLT,
-        #"VECTOR" : VECTOR,
         #"MODES" : MODES,
-        #"GRID_FLOAT" : GRID_FLT,
-        #"XYMESH" : XYMESH, 
-        #"TRAJ" : TRAJ, 
         dslist = CpptrajDatasetList()
         
         # integer
@@ -138,12 +135,36 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
         dslist[-1].top = self.traj.top
         dslist[-1].load(self.traj.filename)
         traj_new = dslist[-1]
-        traj_new.top._own_memory = False
-        print(traj_new._own_memory, traj_new.top._own_memory)
-        print(traj_new[::2])
-        #for _ in traj_new: pass
-        #aa_eq(traj_new.xyz, self.traj.xyz)
+        # FIXME: segmentation fault
+        # aa_eq(traj_new.xyz, self.traj.xyz)
 
+        # CRD
+        dslist.add_new('coords', name='my_crd')
+        dslist[-1].top = self.traj.top
+        dslist[-1].load(self.traj.filename)
+        traj_new = dslist[-1]
+        # FIXME: segmentation fault
+        aa_eq(traj_new.xyz, self.traj.xyz)
+
+        # vector
+        dslist.add_new('vector', name='my_vec')
+        vecs = pt.vector.vector_mask(self.traj, ':3 :2')
+        dslist[-1].data = vecs
+        aa_eq(dslist[-1].values, vecs)
+
+        # grid
+        dslist.add_new('grid', name='my_grid')
+        arr = np.random.rand(8, 9, 3).astype('f4')
+        dslist[-1].data = arr
+        aa_eq(dslist[-1].values, arr)
+
+        # mesh
+        dslist.add_new('xymesh', name='my_mesh')
+        arr = np.random.rand(8, 2).astype('f8')
+        # there is not easy method to update, use _append_from_array
+        # dslist[-1].data = arr
+        dslist[-1]._append_from_array(arr)
+        aa_eq(dslist[-1].values, arr)
 
 if __name__ == "__main__":
     unittest.main()

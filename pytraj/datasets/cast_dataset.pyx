@@ -109,7 +109,7 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_string.thisptr = <_DatasetString*> dset.baseptr0
         return newset_string
 
-    elif dtype in ['XYMESH']: 
+    elif dtype in ['XYMESH', 'MESH']: 
         newset_mesh = DatasetMesh()
         # since we introduce memory view, we let cpptraj free memory
         newset_mesh._own_memory = False
@@ -166,7 +166,7 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_matrixflt.thisptr = <_DatasetMatrixFloat*> dset.baseptr0
         return newset_matrixflt
 
-    elif dtype in ['GRID_FLT', 'GRID_FLOAT', 'GRID FLOAT']:
+    elif dtype in ['GRID_FLT', 'GRID_FLOAT', 'GRID FLOAT', 'GRID']:
         newset_gridflt = DatasetGridFloat()
         # since we introduce memory view, we let cpptraj free memory
         newset_gridflt._own_memory = False
