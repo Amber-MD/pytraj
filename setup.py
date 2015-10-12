@@ -128,7 +128,6 @@ CPPTRAJ_HEADERDIR = os.environ.get('CPPTRAJ_HEADERDIR', '')
 AMBERHOME = os.environ.get('AMBERHOME', '')
 PYTRAJ_AMBER_DIR = os.path.join(AMBERHOME, 'AmberTools', 'src', 'pytraj')
 
-print(PYTRAJ_AMBER_DIR, PYTRAJ_DIR)
 
 if PYTRAJ_AMBER_DIR == PYTRAJ_DIR:
     # install pytraj inside AMBER
