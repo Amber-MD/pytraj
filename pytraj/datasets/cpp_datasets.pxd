@@ -456,6 +456,7 @@ cdef extern from "DataSet_Coords_REF.h":
         int StripRef(const _AtomMask&)
         const _Frame& RefFrame() const 
         int RefIndex() const 
+        #void SetCRD(int idx, _Frame& fIn)
 
 cdef class DatasetCoordsRef (DatasetCoords):
     cdef _DatasetCoordsRef* thisptr

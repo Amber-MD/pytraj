@@ -13,8 +13,9 @@ from .cpp_datasets cimport (_Dataset, Dataset, Dataset1D, _Dataset1D, DatasetInt
 from ..trajs.TrajectoryCpptraj cimport TrajectoryCpptraj, _TrajectoryCpptraj
 
 def cast_dataset(dsetin=None, dtype='general'):
-    """create memoryview for Dataset instance. 
+    """cast cpptraj's Dataset to other
     Dataset instace is taken from DatatSetList
+
     Parameters
     ---------
     dset : Dataset instance
@@ -24,7 +25,8 @@ def cast_dataset(dsetin=None, dtype='general'):
          'matrix_dbl', 'matrix_flt',
          'integer',
          'coords_crd', 'coords'
-         'coords_trj', 'trj'}
+         'coords_trj', 'trj',
+         'topology',}
     """
     # TODO:
     cdef Dataset dset
@@ -107,7 +109,7 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_string.thisptr = <_DatasetString*> dset.baseptr0
         return newset_string
 
-    elif dtype in ['XYMESH']: 
+    elif dtype in ['XYMESH', 'MESH']: 
         newset_mesh = DatasetMesh()
         # since we introduce memory view, we let cpptraj free memory
         newset_mesh._own_memory = False
@@ -135,7 +137,7 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_vector.thisptr = <_DatasetVector*> dset.baseptr0
         return newset_vector
 
-    elif dtype in ['MAT3X3']:
+    elif dtype in ['MAT3X3', 'MATRIX3X3']:
         newset_matrix3x3 = DatasetMatrix3x3()
         # since we introduce memory view, we let cpptraj free memory
         newset_matrix3x3._own_memory = False
@@ -164,7 +166,7 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_matrixflt.thisptr = <_DatasetMatrixFloat*> dset.baseptr0
         return newset_matrixflt
 
-    elif dtype in ['GRID_FLT', 'GRID_FLOAT', 'GRID FLOAT']:
+    elif dtype in ['GRID_FLT', 'GRID_FLOAT', 'GRID FLOAT', 'GRID']:
         newset_gridflt = DatasetGridFloat()
         # since we introduce memory view, we let cpptraj free memory
         newset_gridflt._own_memory = False

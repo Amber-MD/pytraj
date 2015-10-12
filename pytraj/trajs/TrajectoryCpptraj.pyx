@@ -3,6 +3,7 @@ import os
 import numpy as np
 from ..api import Trajectory
 from ..core.cpp_core cimport AtomMask
+from ..core.Box cimport Box
 from ..Topology cimport Topology
 
 from .._cyutils import get_positive_idx
@@ -121,7 +122,7 @@ cdef class TrajectoryCpptraj:
         '''
         cdef int i
         cdef int n_atoms = self.n_atoms
-        cdef n_frames = self.n_frames
+        cdef int n_frames = self.n_frames
 
         # use `frame` as buffer 
         cdef Frame frame = Frame()
@@ -464,12 +465,21 @@ cdef class TrajectoryCpptraj:
                     'n_atoms': self.n_atoms,
                     'box_type': self.top.box.type}
 
-        def __set__(self, value):
+        def __set__(self, dict value):
             '''value is a dict
             '''
             cdef CoordinateInfo cinfo = CoordinateInfo()
-            cinfo.SetTime(<bint> value['has_time'])
-            cinfo.SetVelocity(<bint> value['has_velocity'])
-            cinfo.SetTemperature(<bint> value['has_temperature'])
-            cinfo.SetBox(self.thisptr.Top().ParmBox())
+            cdef Box box
+
+            box = value.get('box', self.top.box)
+            has_time = value.get('has_time', False)
+            has_temperature = value.get('has_temperature', False)
+            has_velocity = value.get('has_velocity', False)
+
+            cinfo.SetTime(<bint> has_time)
+            cinfo.SetVelocity(<bint> has_velocity)
+            cinfo.SetTemperature(<bint> has_temperature)
+
+            cinfo.SetBox(box.thisptr[0])
+
             self.thisptr.CoordsSetup(self.thisptr.Top(), cinfo)

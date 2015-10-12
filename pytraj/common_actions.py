@@ -1824,6 +1824,10 @@ def calc_rmsd(traj=None,
     >>> # rmsd to first frame, use mass ':3-13' but do not perorm fitting
     >>> pt.rmsd(traj, ref=traj[0], mask=':3-13', nofit=True)
 
+    Notes
+    -----
+    if ``traj`` is mutable, its coordinates will be updated
+
     """
     from pytraj.core.ActionList import ActionList
 
