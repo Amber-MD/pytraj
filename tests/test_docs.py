@@ -7,8 +7,11 @@ import doctest
 
 
 class TestDoc(unittest.TestCase):
-    def test_doct(self):
-        doctest.testmod(pt._get_common_objects)
+    def test_doc(self):
+        failed_count = sum([doctest.testmod(pt._get_common_objects).failed,
+                            doctest.testmod(pt.hbonds).failed,
+                           ])
+        assert failed_count == 0, 'doctest: failed_count must be 0'
 
 if __name__ == "__main__":
     unittest.main()

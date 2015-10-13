@@ -11,9 +11,13 @@ class BaseAnalysisResult(object):
 
     @property
     def data(self):
+        '''return pytraj.DatasetList
+        '''
         return self._dslist
 
     def to_dict(self):
+        '''return OrderedDict
+        '''
         return self._dslist.to_dict()
 
     def _grep(self, key):
@@ -30,4 +34,6 @@ class BaseAnalysisResult(object):
 
     @property
     def values(self):
+        '''return raw numpy array
+        '''
         return self._dslist.values
