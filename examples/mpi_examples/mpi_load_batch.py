@@ -3,6 +3,7 @@
 
 # always add those lines to your code
 import pytraj as pt
+from pytraj.testing import aa_eq
 from mpi4py import MPI
 
 # create ``comm`` so you can have the info about n_cpus, cpu id
@@ -20,7 +21,7 @@ parm_name = root_dir + "tz2.parm7"
 traj = pt.iterload(traj_name, parm_name, frame_slice=(0, 4000))
 
 # make a list of things you want to
-lines = ['autoimage', 'distance :3 :18', 'molsurf @CA']
+lines = ['autoimage', 'distance :3 :10', 'molsurf @CA']
 
 # gather the data to 1st core (rank=0)
 # 
@@ -35,4 +36,12 @@ if comm.rank == 0:
     # each core return a tuple (core_id, dict)
     # so you need to concat the dict
     # use `from pytraj.tools import concat_dict
-    print(concat_dict(x[1] for x in data))
+    data_0 = concat_dict(x[1] for x in data)
+
+    # assert to serial version (do not need to copy below to your script)
+    state = pt.load_batch(traj, lines)
+    state.run()
+    data = state.data[1:].to_dict()
+
+    for key_0, key in zip(sorted(data_0.keys()), sorted(data.keys())):
+        aa_eq(data_0[key_0], data[key])
