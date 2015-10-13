@@ -4,7 +4,7 @@ from __future__ import absolute_import
 import numpy as np
 from ._get_common_objects import _get_topology, _get_data_from_dtype, _get_resrange
 from ._get_common_objects import _get_reference_from_traj, _get_fiterator
-from pytraj.externals.six import iteritems
+from pytraj.externals.six import iteritems, string_types
 
 
 def _group(self, key):
@@ -171,7 +171,7 @@ class nupars(object):
     def __dir__(self):
         '''for autocompletion in ipython
         '''
-        return self.keys() + ['_summary', ]
+        return self.keys() + ['_summary', '_explain']
 
     def _summary(self, ops, keys=None, indices=None):
         '''
@@ -185,6 +185,8 @@ class nupars(object):
         self._summary(np.mean, indices=range(2, 8))
         '''
         _keys = keys if keys is not None else self.keys()
+        if isinstance(_keys, string_types):
+            _keys = [_keys,]
 
         sumlist = []
         ops = [ops, ] if not isinstance(ops, (list, tuple)) else ops
