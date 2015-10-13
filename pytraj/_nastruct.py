@@ -28,6 +28,7 @@ def nastruct(traj=None,
              hbcut=3.5,
              frame_indices=None,
              pucker_method='altona',
+             dtype='nupars',
              top=None):
     """compute nucleic acid parameters. (adapted from cpptraj doc)
 
@@ -43,6 +44,7 @@ def nastruct(traj=None,
         'altona' : Use method of Altona & Sundaralingam to calculate sugar pucker
         'cremer' : Use method of Cremer and Pople to calculate sugar pucker'
     frame_indices : array-like, default None (all frames)
+    dtype : str, {'nupars', 'cpptraj_dataset'}, default 'nupars'
 
     Returns
     -------
@@ -98,12 +100,16 @@ def nastruct(traj=None,
     dslist = CpptrajDatasetList()
 
     act(command, [_ref, fi], dslist=dslist, top=_top)
-
-    dslist_py = []
-    for d in dslist:
-        dslist_py.append(DataArray(d))
-        dslist_py[-1].values = dslist_py[-1].values[1:]
-    return nupars(_group(dslist_py, lambda x: x.aspect))
+    if dtype == 'cpptraj_dataset':
+        return dslist
+    elif dtype == 'nupars':
+        dslist_py = []
+        for d in dslist:
+            dslist_py.append(DataArray(d))
+            dslist_py[-1].values = dslist_py[-1].values[1:]
+        return nupars(_group(dslist_py, lambda x: x.aspect))
+    else:
+        raise ValueError("only support dtype = {'nupars', 'cpptraj_dataset'}")
 
 
 class nupars(object):
