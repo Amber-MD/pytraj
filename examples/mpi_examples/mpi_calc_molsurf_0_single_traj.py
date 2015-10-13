@@ -4,9 +4,8 @@
 # always add those lines to your code
 import numpy as np
 from mpi4py import MPI
+import pytraj as pt
 from pytraj.parallel import map_mpi as pymap
-from pytraj import io
-import pytraj.common_actions as pyca
 from pytraj.testing import aa_eq
 
 comm = MPI.COMM_WORLD
@@ -18,14 +17,14 @@ traj_name = root_dir + "tz2.ortho.nc"
 parm_name = root_dir + "tz2.ortho.parm7"
 
 # load to TrajectoryIterator
-traj = io.iterload(traj_name, parm_name)
+traj = pt.iterload(traj_name, parm_name)
 #print(traj)
 
 # mapping different chunk of `traj` in N cores
 # need to provide `comm`
 # save `total_arr` to rank=0
 # others: total_arr = None
-total_arr = pymap(pyca.calc_molsurf, traj, "!:WAT", top=traj.top)
+total_arr = pymap(pt.calc_molsurf, traj, "!:WAT", top=traj.top)
 
 if comm.rank != 0:
     assert total_arr is None
@@ -39,6 +38,5 @@ if comm.rank == 0:
     #print('total array len: ', t.shape[0])
 
     # assert to serial values
-    #t2 = pyca.calc_molsurf(traj, "@CA", dtype='ndarray')
-    #assert t.shape == t2.shape
-    #aa_eq(t2, t)
+    t2 = pt.calc_molsurf(traj, "!:WAT", dtype='ndarray')
+    aa_eq(t2, t)

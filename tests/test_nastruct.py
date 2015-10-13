@@ -40,5 +40,38 @@ class TestNastruct(unittest.TestCase):
         for key in data.keys():
             aa_eq(data[key][1], na2[key][1])
 
+    def test_nupars_vs_x3dna(self):
+        traj = pt.iterload('data/Test_NAstruct/x3dna/rna.pdb')
+        ref = pt.iterload('data/Test_NAstruct/x3dna/rna_nab.pdb')
+        nu = pt.nastruct(traj, ref=ref)
+
+        root = 'data/Test_NAstruct/x3dna/'
+
+        # helical pars
+        saved_helical_pars = np.loadtxt(root + 'bp_helical.par', skiprows=3,
+                usecols=range(1, 13)).T
+        aa_eq(nu.shear[1], saved_helical_pars[0], decimal=3)
+        aa_eq(nu.stretch[1], saved_helical_pars[1], decimal=3)
+        aa_eq(nu.stagger[1], saved_helical_pars[2], decimal=3)
+        aa_eq(nu.buckle[1], saved_helical_pars[3], decimal=3)
+        aa_eq(nu.prop[1], saved_helical_pars[4], decimal=3)
+        aa_eq(nu.open[1], saved_helical_pars[5], decimal=3)
+        aa_eq(nu.xdisp[1], saved_helical_pars[6][1:], decimal=3)
+        aa_eq(nu.ydisp[1], saved_helical_pars[7][1:], decimal=3)
+        aa_eq(nu.hrise[1], saved_helical_pars[8][1:], decimal=3)
+        aa_eq(nu.incl[1], saved_helical_pars[9][1:], decimal=3)
+        aa_eq(nu.tip[1], saved_helical_pars[10][1:], decimal=3)
+        aa_eq(nu.htwist[1], saved_helical_pars[11][1:], decimal=3)
+
+        # bp_step
+        saved_helical_pars = np.loadtxt(root + 'bp_step.par', skiprows=3,
+                usecols=range(1, 13)).T
+        aa_eq(nu.shift[1], saved_helical_pars[6][1:], decimal=3)
+        aa_eq(nu.slide[1], saved_helical_pars[7][1:], decimal=3)
+        aa_eq(nu.tilt[1], saved_helical_pars[9][1:], decimal=3)
+        aa_eq(nu.roll[1], saved_helical_pars[10][1:], decimal=3)
+        aa_eq(nu.twist[1], saved_helical_pars[11][1:], decimal=3)
+
+
 if __name__ == "__main__":
     unittest.main()

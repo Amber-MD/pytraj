@@ -282,7 +282,7 @@ def dict_to_ndarray(dict_of_array):
 def concat_dict(iterables, fill_missing=None):
     """concat dict
     """
-    new_dict = {}
+    new_dict = OrderedDict()
     for i, d in enumerate(iterables):
         if i == 0:
             # make a copy of first dict
