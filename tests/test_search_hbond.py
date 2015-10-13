@@ -2,7 +2,7 @@ from __future__ import print_function
 import pytraj as pt
 import numpy as np
 import unittest
-from pytraj.hbonds import search_hbonds, search_nointramol_hbonds
+from pytraj.hbonds import search_hbonds, search_hbonds_nointramol
 from pytraj.testing import aa_eq
 from pytraj.compat import izip as zip
 
@@ -23,7 +23,7 @@ class TestSearchHbonds(unittest.TestCase):
             mydict[key] = np.asarray(mydict[key])
             aa_eq(mydict[key], mydict_np[key])
 
-        dslist_b = search_nointramol_hbonds(traj)
+        dslist_b = search_hbonds_nointramol(traj)
 
     def test_hbonds_with_image(self):
         traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")

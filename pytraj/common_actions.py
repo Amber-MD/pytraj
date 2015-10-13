@@ -23,7 +23,7 @@ from .Topology import Topology
 from .datasets.DatasetList import DatasetList as CpptrajDatasetList
 from .datafiles import DataFileList
 from .datasetlist import DatasetList
-from .hbonds import search_hbonds, search_nointramol_hbonds
+from .hbonds import search_hbonds, search_hbonds_nointramol
 from .dssp_analysis import calc_dssp
 from ._nastruct import nastruct
 from ._shared_methods import iterframe_master
@@ -65,7 +65,7 @@ list_of_do = ['do_translation',
 
 list_of_get = ['get_average_frame']
 
-list_of_the_rest = ['search_hbonds', 'search_nointramol_hbonds',
+list_of_the_rest = ['search_hbonds', 'search_hbonds_nointramol',
                     'align_principal_axis', 'principal_axes', 'closest',
                     'native_contacts', 'nastruct']
 
@@ -2728,7 +2728,7 @@ def _grid(traj, mask, grid_spacing,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def NH_order_paramters(traj, vector_pairs, order=2, tstep=1., tcorr=10000.):
+def NH_order_parameters(traj, vector_pairs, order=2, tstep=1., tcorr=10000.):
     '''compute NH order parameters
 
     Parameters
@@ -2749,7 +2749,7 @@ def NH_order_paramters(traj, vector_pairs, order=2, tstep=1., tcorr=10000.):
     >>> h_indices = pt.select_atoms(traj.top, '@H')
     >>> n_indices = h_indices - 1
     >>> nh_pairs = list(zip(n_indices, h_indices))
-    >>> data = pt.NH_order_paramters(traj, nh_pairs)
+    >>> data = pt.NH_order_parameters(traj, nh_pairs)
     >>> print(data)
     '''
     from pytraj import matrix

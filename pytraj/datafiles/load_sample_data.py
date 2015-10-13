@@ -3,24 +3,40 @@ import os
 from ..TrajectoryIterator import TrajectoryIterator
 
 
+__all__  = ['load_sample_data', 'load_rna', 'load_tz2_ortho', 'load_ala3']
+
 def load_sample_data(data_name=None):
     """
     Return TrajectoryIterator instance for Ala3 or tz2 data
 
     Paramters
     ---------
-    data_name : str, 'ala3' (defaul) | 'tz2'
+    data_name : str, {'ala3', 'tz2', 'rna'}, default 'ala3'
 
     Notes
     -----
     tz2 dataset : $AMBERHOME/AmberTools/test/cpptraj/
         explicit water, ortho box
     """
+    data_dict = {'ala3': ["Ala3/Ala3.crd", "Ala3/Ala3.top"],
+                 'tz2' : ["tz2/tz2.ortho.nc", "tz2/tz2.ortho.parm7"],
+                 'rna' : ["rna.pdb", "rna.pdb"]
+                 }
+
     mydir = os.path.dirname(os.path.abspath(__file__))
-    if data_name is None or data_name.lower() == 'ala3':
-        crd = os.path.join(mydir, "Ala3", "Ala3.crd")
-        top = os.path.join(mydir, "Ala3", "Ala3.top")
-    elif data_name.lower() == 'tz2':
-        crd = os.path.join(mydir, "tz2", "tz2.ortho.nc")
-        top = os.path.join(mydir, "tz2", "tz2.ortho.parm7")
+    if data_name is None:
+        data_name = 'ala3'
+    crd = os.path.join(mydir, data_dict[data_name][0])
+    top = os.path.join(mydir, data_dict[data_name][1])
     return TrajectoryIterator(crd, top)
+
+def load_rna():
+    '''return pytraj.TrajectoryIterator for an RNA trajectory with 3 frames
+    '''
+    return load_sample_data('rna')
+
+def load_tz2_ortho():
+    return load_sample_data('tz2')
+
+def load_ala3():
+    return load_sample_data('ala3')

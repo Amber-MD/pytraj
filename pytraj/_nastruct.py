@@ -4,7 +4,7 @@ from __future__ import absolute_import
 import numpy as np
 from ._get_common_objects import _get_topology, _get_data_from_dtype, _get_resrange
 from ._get_common_objects import _get_reference_from_traj, _get_fiterator
-from pytraj.externals.six import iteritems
+from pytraj.externals.six import iteritems, string_types
 
 
 def _group(self, key):
@@ -53,14 +53,15 @@ def nastruct(traj=None,
     --------
     >>> import pytraj as pt
     >>> import numpy as np
+    >>> traj = pt.datafiles.load_rna()
     >>> data = pt.nastruct(traj)
-    >>> data.keys()[:5]
+    >>> data.keys()[:5] # doctest: +SKIP
     ['buckle', 'minor', 'major', 'xdisp', 'stagger']
     >>> # get minor groove width values for each pairs for each snapshot
     >>> # data.minor is a tuple, first value is a list of basepairs, seconda value is
     >>> # numpy array, shape=(n_frames, n_pairs)
 
-    >>> data.minor
+    >>> data.minor # doctest: +SKIP
     (['1G16C', '2G15C', '3G14C', '4C13G', '5G12C', '6C11G', '7C10G', '8C9G'], 
      array([[ 13.32927036,  13.403409  ,  13.57159901, ...,  13.26655865,
              13.43054485,  13.4557209 ],
@@ -69,7 +70,7 @@ def nastruct(traj=None,
            [ 13.34087658,  13.53778553,  13.57062435, ...,  13.29017353,
              13.38542843,  13.46101475]]))
 
-    >>> data.twist
+    >>> data.twist # doctest: +SKIP
     (['1G16C-2G15C', '2G15C-3G14C', '3G14C-4C13G', '4C13G-5G12C', '5G12C-6C11G', '6C11G-7C10G', '7C10G-8C9G'], 
     array([[ 34.77773666,  33.98158646,  30.18647003, ...,  35.14608765,
              33.9628334 ,  33.13056946],
@@ -107,6 +108,34 @@ def nastruct(traj=None,
 
 class nupars(object):
     '''class holding data for nucleic acid.
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_rna()
+    >>> nu = pt.nastruct(traj)
+    >>> nu.major # doctest: +SKIP
+    (['1G16C', '2G15C', '3G14C', '4C13G', '5G12C', '6C11G', '7C10G', '8C9G'],
+     array([[  0.        ,  18.60012245,  18.7782402 , ...,  18.45940208,
+              18.78943062,   0.        ],
+            [  0.        ,  18.82868767,  19.09348869, ...,  18.86692429,
+              18.89782524,   0.        ],
+            [  0.        ,  18.16820908,  18.77448463, ...,  19.1559639 ,
+              18.38820267,   0.        ]]))
+    >>> nu.keys()[:10] # doctest: +SKIP
+    ['shift',
+     'prop',
+     'buckle',
+     'rise',
+     'hrise',
+     'major',
+     'twist',
+     'minor',
+     'zp',
+     'hb']
+    >>> import numpy as np
+    >>> nu._summary(np.mean, keys=['major'])
+    {'major': array([ 14.36732316,  14.3188405 ,  14.28000116])}
     '''
   
     def __init__(self, adict):
@@ -142,7 +171,7 @@ class nupars(object):
     def __dir__(self):
         '''for autocompletion in ipython
         '''
-        return self.keys() + ['_summary', ]
+        return self.keys() + ['_summary', '_explain']
 
     def _summary(self, ops, keys=None, indices=None):
         '''
@@ -156,6 +185,8 @@ class nupars(object):
         self._summary(np.mean, indices=range(2, 8))
         '''
         _keys = keys if keys is not None else self.keys()
+        if isinstance(_keys, string_types):
+            _keys = [_keys,]
 
         sumlist = []
         ops = [ops, ] if not isinstance(ops, (list, tuple)) else ops
