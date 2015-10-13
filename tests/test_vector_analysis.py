@@ -108,9 +108,9 @@ class TestVectorAnalysisModule(unittest.TestCase):
         state2.run()
 
         data = pt.common_actions.ired_vector_and_matrix(traj, nh_indices, order=2)
-        data_vec_3 = data[:-1]
+        data_vec_3 = data[0]
         assert len(data_vec_3) == 126, 'must have 126 vectors'
-        matired = data[-1].values
+        matired = data[1]
         # TODO: know why??
         matired /= matired[0, 0]
         aa_eq(data_vec_3, cpp_vectors)

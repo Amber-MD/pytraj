@@ -279,7 +279,7 @@ def dict_to_ndarray(dict_of_array):
     return np.array([v for _, v in iteritems(dict_of_array)])
 
 
-def concat_dict(iterables):
+def concat_dict(iterables, fill_missing=None):
     """concat dict
     """
     new_dict = {}

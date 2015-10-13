@@ -1502,7 +1502,7 @@ def ired_vector_and_matrix(traj=None,
                            mask="",
                            frame_indices=None,
                            order=2,
-                           dtype='dataset',
+                           dtype='tuple',
                            top=None):
     """perform vector calculation and then calculate ired matrix
 
@@ -1513,12 +1513,14 @@ def ired_vector_and_matrix(traj=None,
     frame_indices : array-like, optional, default None
         only perform calculation for given frame indices
     order : default 2 
-    dtype : output's dtype, default 'ndarray'
+    dtype : output's dtype, {'dataset', 'tuple'} default 'dataset'
     top : Topology, optional, default None
 
     Returns
     -------
-    ...
+    out : if dtype is 'dataset', return pytraj.DatasetList with shape=(n_vectors+1,)
+        last index is a matrix, otherwise n_vectors. If dtype is 'tuple', return a a tuple
+        of vectors and matrix
     """
     dslist = CpptrajDatasetList()
     _top = _get_topology(traj, top)
@@ -1547,8 +1549,15 @@ def ired_vector_and_matrix(traj=None,
     actlist.add_action(act_matired, ired_cm, _top, dslist=dslist)
     actlist.do_actions(fi)
 
-    return _get_data_from_dtype(dslist, dtype=dtype)
-
+    if dtype == 'tuple':
+        mat = dslist[-1].values
+        mat = mat / mat[0, 0]
+        return dslist[:-1].values, mat
+    else:
+        out = _get_data_from_dtype(dslist, dtype=dtype)
+        if dtype == 'dataset':
+            out[-1].values = out[-1].values / out[-1].values[0, 0]
+        return out
 
 def _calc_vector_center(traj=None,
                         command="",
@@ -2763,10 +2772,9 @@ def NH_order_parameters(traj, vector_pairs, order=2, tstep=1., tcorr=10000.):
     from pytraj import matrix
 
     # compute N-H vectors and ired matrix
-    vecs_and_mat = ired_vector_and_matrix(traj, vector_pairs, order=order)
-    state_vecs = vecs_and_mat[:-1].values
-    mat_ired = vecs_and_mat[-1]
-    mat_ired /= mat_ired[0, 0]
+    vecs_and_mat = ired_vector_and_matrix(traj, vector_pairs, order=order, dtype='tuple')
+    state_vecs = vecs_and_mat[0]
+    mat_ired = vecs_and_mat[1]
 
     # get eigenvalues and eigenvectors
     modes = matrix.diagonalize(mat_ired, n_vecs=len(state_vecs))[0]
