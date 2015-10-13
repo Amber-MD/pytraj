@@ -53,6 +53,7 @@ def nastruct(traj=None,
     --------
     >>> import pytraj as pt
     >>> import numpy as np
+    >>> traj = pt.datafiles.load_rna()
     >>> data = pt.nastruct(traj)
     >>> data.keys()[:5]
     ['buckle', 'minor', 'major', 'xdisp', 'stagger']
