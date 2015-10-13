@@ -4,7 +4,7 @@
 # always add those lines to your code
 import numpy as np
 from mpi4py import MPI
-from pytraj.parallel import map as pymap
+from pytraj.parallel import map_mpi as pymap
 from pytraj import io
 import pytraj.common_actions as pyca
 from pytraj.testing import aa_eq
@@ -13,9 +13,9 @@ comm = MPI.COMM_WORLD
 # end. you are free to update anything below here
 
 # split remd.x.000 to N cores and do calc_surf in parallel
-root_dir = "../../tests/data/nogit/tip3p/"
-traj_name = root_dir + "md.nc"
-parm_name = root_dir + "tc5bwat.top"
+root_dir = "../../tests/data/"
+traj_name = root_dir + "tz2.ortho.nc"
+parm_name = root_dir + "tz2.ortho.parm7"
 
 # load to TrajectoryIterator
 traj = io.iterload(traj_name, parm_name)
