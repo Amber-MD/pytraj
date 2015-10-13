@@ -32,7 +32,7 @@ class TestRunnable(unittest.TestCase):
 
         for key in ADICT.keys():
             if key not in failed_list:
-                print(key, ADICT[key]())
+                pass
 
     def test_create_analysis(self):
         DatasetList()
