@@ -23,7 +23,7 @@ class TestSearchHbonds(unittest.TestCase):
             mydict[key] = np.asarray(mydict[key])
             aa_eq(mydict[key], mydict_np[key])
 
-        dslist_b = search_nointramol_hbonds(traj)
+        dslist_b = search_hbonds_nointramol(traj)
 
     def test_hbonds_with_image(self):
         traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")

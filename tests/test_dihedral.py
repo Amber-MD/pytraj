@@ -34,12 +34,13 @@ class Test(unittest.TestCase):
         aa_eq(d0, dcpp)
 
         Nsize = 10
+        np.random.seed(1)
         arr = np.random.randint(0, 300, size=Nsize * 4).reshape(Nsize, 4)
         d3 = pt.calc_dihedral(fa, arr)
         d4 = pt.dihedral(traj, arr)
-        d5 = pyca.calc_dihedral(traj, arr)
-        d6 = pyca.calc_dihedral(fa, arr)
-        d7 = pyca.calc_dihedral([fa, traj], arr, n_frames=2 * fa.n_frames)
+        d5 = pt.dihedral(traj, arr)
+        d6 = pt.dihedral(fa, arr)
+        d7 = pt.dihedral([fa, traj], arr, n_frames=2 * fa.n_frames)
         aa_eq(d3, d4)
         aa_eq(d3, d5)
         aa_eq(d3, d6)
