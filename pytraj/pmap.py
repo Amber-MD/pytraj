@@ -18,15 +18,39 @@ def worker(rank,
 
 def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
     '''
-    # TODO: merge the data?
+
     Returns
     -------
-    list of (rank, data)
+    out : list of (rank, data)
+    
+    Examples
+    --------
+    >>> import numpy as np
+    >>> import pytraj as pt
+    >>> traj = pt.load_sample_data('tz2')
+    >>> data = pt.pmap(4, pt.radgyr, traj=traj)
+    >>> data
+    [(0, array([ 18.91114428,  18.93654996])),
+     (1, array([ 18.84969884,  18.90449256])),
+     (2, array([ 18.8568644 ,  18.88917208])),
+     (3, array([ 18.9430491 ,  18.88878079,  18.91669565,  18.87069722]))]
+    >>> # in most cases, you can follow below command to join the data
+    >>> pt.tools.flatten([x[1] for x in data])
+    [18.911144277821389,
+     18.936549957265814,
+     18.849698842157373,
+     18.904492557176411,
+     18.856864395949234,
+     18.889172079501037,
+     18.943049101357886,
+     18.888780788130308,
+     18.916695652897396,
+     18.870697222142766]
     '''
     from multiprocessing import Pool
     from pytraj import TrajectoryIterator
 
-    if hasattr(func, '_is_parallelizable') and not func._is_parallelizable:
+    if not hasattr(func, '_is_parallelizable') or not func._is_parallelizable:
         raise ValueError("this method does not support parallel")
 
     if not isinstance(traj, TrajectoryIterator):
