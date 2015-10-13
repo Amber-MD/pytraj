@@ -43,7 +43,7 @@ class TestNastruct(unittest.TestCase):
     def test_nupars_vs_x3dna(self):
         traj = pt.iterload('data/Test_NAstruct/x3dna/rna.pdb')
         ref = pt.iterload('data/Test_NAstruct/x3dna/rna_nab.pdb')
-        nu = pt.nastruct(traj], ref=ref)
+        nu = pt.nastruct(traj, ref=ref)
 
         root = 'data/Test_NAstruct/x3dna/'
 
