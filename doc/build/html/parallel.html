@@ -100,7 +100,11 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">Parallel calculation</a><ul>
-<li><a class="reference internal" href="#single-action-with-single-trajectory">single action with single trajectory</a></li>
+<li><a class="reference internal" href="#single-action-with-single-trajectory">single action with single trajectory</a><ul>
+<li><a class="reference internal" href="#example">Example</a></li>
+<li><a class="reference internal" href="#supported-methods">Supported methods</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#multiple-actions-with-multiple-trajectories">multiple actions with multiple trajectories</a></li>
 </ul>
 </li>
@@ -163,6 +167,8 @@
 <p><tt class="docutils literal"><span class="pre">pytraj</span></tt> use <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html">python multiprocessing</a>, so users don&#8217;t need to install extra package.</p>
 <div class="section" id="single-action-with-single-trajectory">
 <h2>single action with single trajectory<a class="headerlink" href="#single-action-with-single-trajectory" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
 <span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;data/tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s">&#39;data/tz2.ortho.parm7&#39;</span><span class="p">)</span>
@@ -176,21 +182,61 @@
 </pre></div>
 </div>
 </div>
+<div class="section" id="supported-methods">
+<h3>Supported methods<a class="headerlink" href="#supported-methods" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [4]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+
+<span class="gp">In [5]: </span><span class="k">for</span> <span class="n">method_str</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">pt</span><span class="p">):</span>
+<span class="gp">   ...:</span>     <span class="n">method</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="n">method_str</span><span class="p">)</span>
+<span class="gp">   ...:</span>     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="s">&#39;_is_parallelizable&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">method</span><span class="o">.</span><span class="n">_is_parallelizable</span><span class="p">:</span>
+<span class="gp">   ...:</span>         <span class="k">print</span><span class="p">(</span><span class="n">method_str</span><span class="p">)</span>
+<span class="gp">   ...:</span> 
+<span class="go">angle</span>
+<span class="go">calc_angle</span>
+<span class="go">calc_center_of_geometry</span>
+<span class="go">calc_center_of_mass</span>
+<span class="go">calc_dihedral</span>
+<span class="go">calc_distance</span>
+<span class="go">calc_mindist</span>
+<span class="go">calc_molsurf</span>
+<span class="go">calc_multidihedral</span>
+<span class="go">calc_radgyr</span>
+<span class="go">calc_rotation_matrix</span>
+<span class="go">calc_vector</span>
+<span class="go">center_of_geometry</span>
+<span class="go">center_of_mass</span>
+<span class="go">dihedral</span>
+<span class="go">distance</span>
+<span class="go">distance_rmsd</span>
+<span class="go">get_velocity</span>
+<span class="go">mindist</span>
+<span class="go">molsurf</span>
+<span class="go">multidihedral</span>
+<span class="go">native_contacts</span>
+<span class="go">nativecontacts</span>
+<span class="go">radgyr</span>
+<span class="go">rmsd</span>
+<span class="go">rmsd_perres</span>
+<span class="go">search_hbonds</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="section" id="multiple-actions-with-multiple-trajectories">
 <h2>multiple actions with multiple trajectories<a class="headerlink" href="#multiple-actions-with-multiple-trajectories" title="Permalink to this headline">¶</a></h2>
 <p>Only works with Python 3.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [4]: </span><span class="kn">from</span> <span class="nn">pytraj.parallel</span> <span class="kn">import</span> <span class="n">PJob</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [6]: </span><span class="kn">from</span> <span class="nn">pytraj.parallel</span> <span class="kn">import</span> <span class="n">PJob</span>
 
-<span class="gp">In [5]: </span><span class="n">tasklist</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">In [7]: </span><span class="n">tasklist</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="gp">In [6]: </span><span class="n">tasklist</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="p">))</span>
+<span class="gp">In [8]: </span><span class="n">tasklist</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="p">))</span>
 
-<span class="gp">In [7]: </span><span class="n">tasklist</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">pt</span><span class="o">.</span><span class="n">molsurf</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">))</span>
+<span class="gp">In [9]: </span><span class="n">tasklist</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">pt</span><span class="o">.</span><span class="n">molsurf</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">))</span>
 
 <span class="c"># perform each action on each CPUs (total 2 CPUs)</span>
-<span class="gp">In [8]: </span><span class="n">pjob</span> <span class="o">=</span> <span class="n">PJob</span><span class="p">(</span><span class="n">tasklist</span><span class="p">)</span>
+<span class="gp">In [10]: </span><span class="n">pjob</span> <span class="o">=</span> <span class="n">PJob</span><span class="p">(</span><span class="n">tasklist</span><span class="p">)</span>
 
-<span class="gp">In [9]: </span><span class="k">print</span><span class="p">(</span><span class="n">pjob</span><span class="o">.</span><span class="n">compute</span><span class="p">())</span>
+<span class="gp">In [11]: </span><span class="k">print</span><span class="p">(</span><span class="n">pjob</span><span class="o">.</span><span class="n">compute</span><span class="p">())</span>
 <span class="go">[(0, array([ 18.9111,  18.9365,  18.8497,  18.9045,  18.8569,  18.8892,</span>
 <span class="go">        18.943 ,  18.8888,  18.9167,  18.8707])), (1, array([ 458.5141,  459.6478,  456.5469,  467.7294,  462.4591,  458.7033,</span>
 <span class="go">        454.4051,  455.1502,  468.7057,  456.0059]))]</span>
@@ -212,7 +258,7 @@
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 10, 2015.<br/>
+      Last updated on Oct 13, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

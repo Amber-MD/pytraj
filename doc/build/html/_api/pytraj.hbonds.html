@@ -154,15 +154,6 @@
 <em class="property">class </em><tt class="descclassname">pytraj.hbonds.</tt><tt class="descname">DatasetHBond</tt><big>(</big><em>dslist=None</em><big>)</big><a class="headerlink" href="#pytraj.hbonds.DatasetHBond" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pytraj._base_result_class.BaseAnalysisResult</span></tt></p>
 <p>Hold data for hbond analysis</p>
-<p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_pdb_rcsb</span><span class="p">(</span><span class="s">&quot;1l2y&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">h</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">hbonds</span><span class="o">.</span><span class="n">DatasetHBond</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">())</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">h</span>
-<span class="go">&lt;pytraj.hbonds.DatasetHBond</span>
-<span class="go">donor_aceptor pairs : 31&gt;</span>
-</pre></div>
-</div>
 <p class="rubric">Attributes</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -171,16 +162,13 @@
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.hbonds.DatasetHBond.data" title="pytraj.hbonds.DatasetHBond.data"><tt class="xref py py-obj docutils literal"><span class="pre">data</span></tt></a></td>
+<td>return pytraj.DatasetList</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.hbonds.DatasetHBond.donor_aceptor" title="pytraj.hbonds.DatasetHBond.donor_aceptor"><tt class="xref py py-obj docutils literal"><span class="pre">donor_aceptor</span></tt></a></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.hbonds.DatasetHBond.dataset" title="pytraj.hbonds.DatasetHBond.dataset"><tt class="xref py py-obj docutils literal"><span class="pre">dataset</span></tt></a></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.hbonds.DatasetHBond.donor_aceptor" title="pytraj.hbonds.DatasetHBond.donor_aceptor"><tt class="xref py py-obj docutils literal"><span class="pre">donor_aceptor</span></tt></a></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.hbonds.DatasetHBond.values" title="pytraj.hbonds.DatasetHBond.values"><tt class="xref py py-obj docutils literal"><span class="pre">values</span></tt></a></td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.hbonds.DatasetHBond.values" title="pytraj.hbonds.DatasetHBond.values"><tt class="xref py py-obj docutils literal"><span class="pre">values</span></tt></a></td>
+<td>return raw numpy array</td>
 </tr>
 </tbody>
 </table>
@@ -192,19 +180,15 @@
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.hbonds.DatasetHBond.to_dict" title="pytraj.hbonds.DatasetHBond.to_dict"><tt class="xref py py-obj docutils literal"><span class="pre">to_dict</span></tt></a>()</td>
-<td></td>
+<td>return OrderedDict</td>
 </tr>
 </tbody>
 </table>
 <dl class="attribute">
 <dt id="pytraj.hbonds.DatasetHBond.data">
 <tt class="descname">data</tt><a class="headerlink" href="#pytraj.hbonds.DatasetHBond.data" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pytraj.hbonds.DatasetHBond.dataset">
-<tt class="descname">dataset</tt><a class="headerlink" href="#pytraj.hbonds.DatasetHBond.dataset" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>return pytraj.DatasetList</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="pytraj.hbonds.DatasetHBond.donor_aceptor">
@@ -214,12 +198,14 @@
 <dl class="method">
 <dt id="pytraj.hbonds.DatasetHBond.to_dict">
 <tt class="descname">to_dict</tt><big>(</big><big>)</big><a class="headerlink" href="#pytraj.hbonds.DatasetHBond.to_dict" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>return OrderedDict</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="pytraj.hbonds.DatasetHBond.values">
 <tt class="descname">values</tt><a class="headerlink" href="#pytraj.hbonds.DatasetHBond.values" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>return raw numpy array</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -246,21 +232,23 @@
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:5,8&#39;</span><span class="p">)</span>
-<span class="go">&lt;pytraj.DatasetList with 3 datasets&gt;</span>
-<span class="go">total_solute_hbonds</span>
-<span class="go">[2 2 0 1 1 0 2 1 1 1]</span>
-<span class="go">LYS8_O-GLU5_N-H</span>
-<span class="go">[1 1 0 1 1 0 1 1 1 1]</span>
-<span class="go">GLU5_O-LYS8_N-H</span>
-<span class="go">[1 1 0 0 0 0 1 0 0 0]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:5,8&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
+<span class="go">&lt;pytraj.hbonds.DatasetHBond</span>
+<span class="go">donor_aceptor pairs : 2&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">donor_aceptor</span>
+<span class="go">[&#39;LYS8_O-GLU5_N-H&#39;, &#39;GLU5_O-LYS8_N-H&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">values</span>
+<span class="go">array([[2, 2, 0, ..., 1, 1, 1],</span>
+<span class="go">       [1, 1, 0, ..., 1, 1, 1],</span>
+<span class="go">       [1, 1, 0, ..., 0, 0, 0]], dtype=int32)</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="function">
-<dt id="pytraj.hbonds.search_nointramol_hbonds">
-<tt class="descclassname">pytraj.hbonds.</tt><tt class="descname">search_nointramol_hbonds</tt><big>(</big><em>traj</em>, <em>mask='solventacceptor :WAT&#64;O solventdonor :WAT'</em>, <em>dtype='dataset'</em>, <em>update_key=True</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.hbonds.search_nointramol_hbonds" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.hbonds.search_hbonds_nointramol">
+<tt class="descclassname">pytraj.hbonds.</tt><tt class="descname">search_hbonds_nointramol</tt><big>(</big><em>traj</em>, <em>mask='solventacceptor :WAT&#64;O solventdonor :WAT'</em>, <em>dtype='dataset'</em>, <em>update_key=True</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.hbonds.search_hbonds_nointramol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Search hbonds between solute and solvent, ignoring intra-hbond</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -277,12 +265,6 @@
 </tr>
 </tbody>
 </table>
-<p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">search_nointramol_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">search_nointramol_hbonds</span><span class="p">([</span><span class="n">traj</span><span class="p">,</span> <span class="n">traj2</span><span class="p">],</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
-</pre></div>
-</div>
 </dd></dl>
 
 <dl class="function">
@@ -331,7 +313,7 @@
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 10, 2015.<br/>
+      Last updated on Oct 13, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

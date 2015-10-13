@@ -939,21 +939,23 @@ if <cite>frame</cite> keyword is specified cpptraj/pytraj will take existing T</
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:5,8&#39;</span><span class="p">)</span>
-<span class="go">&lt;pytraj.DatasetList with 3 datasets&gt;</span>
-<span class="go">total_solute_hbonds</span>
-<span class="go">[2 2 0 1 1 0 2 1 1 1]</span>
-<span class="go">LYS8_O-GLU5_N-H</span>
-<span class="go">[1 1 0 1 1 0 1 1 1 1]</span>
-<span class="go">GLU5_O-LYS8_N-H</span>
-<span class="go">[1 1 0 0 0 0 1 0 0 0]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:5,8&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
+<span class="go">&lt;pytraj.hbonds.DatasetHBond</span>
+<span class="go">donor_aceptor pairs : 2&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">donor_aceptor</span>
+<span class="go">[&#39;LYS8_O-GLU5_N-H&#39;, &#39;GLU5_O-LYS8_N-H&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">values</span>
+<span class="go">array([[2, 2, 0, ..., 1, 1, 1],</span>
+<span class="go">       [1, 1, 0, ..., 1, 1, 1],</span>
+<span class="go">       [1, 1, 0, ..., 0, 0, 0]], dtype=int32)</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="function">
-<dt id="pytraj.common_actions.search_nointramol_hbonds">
-<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">search_nointramol_hbonds</tt><big>(</big><em>traj</em>, <em>mask='solventacceptor :WAT&#64;O solventdonor :WAT'</em>, <em>dtype='dataset'</em>, <em>update_key=True</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.search_nointramol_hbonds" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.common_actions.search_hbonds_nointramol">
+<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">search_hbonds_nointramol</tt><big>(</big><em>traj</em>, <em>mask='solventacceptor :WAT&#64;O solventdonor :WAT'</em>, <em>dtype='dataset'</em>, <em>update_key=True</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.search_hbonds_nointramol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Search hbonds between solute and solvent, ignoring intra-hbond</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -970,12 +972,6 @@ if <cite>frame</cite> keyword is specified cpptraj/pytraj will take existing T</
 </tr>
 </tbody>
 </table>
-<p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">search_nointramol_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">search_nointramol_hbonds</span><span class="p">([</span><span class="n">traj</span><span class="p">,</span> <span class="n">traj2</span><span class="p">],</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
-</pre></div>
-</div>
 </dd></dl>
 
 <dl class="function">
@@ -1067,7 +1063,7 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
 
 <dl class="function">
 <dt id="pytraj.common_actions.nastruct">
-<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">nastruct</tt><big>(</big><em>traj=None</em>, <em>ref=0</em>, <em>resrange=None</em>, <em>resmap=None</em>, <em>hbcut=3.5</em>, <em>frame_indices=None</em>, <em>pucker_method='altona'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.nastruct" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">nastruct</tt><big>(</big><em>traj=None</em>, <em>ref=0</em>, <em>resrange=None</em>, <em>resmap=None</em>, <em>hbcut=3.5</em>, <em>frame_indices=None</em>, <em>pucker_method='altona'</em>, <em>dtype='nupars'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.nastruct" title="Permalink to this definition">¶</a></dt>
 <dd><p>compute nucleic acid parameters. (adapted from cpptraj doc)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1087,6 +1083,7 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
 &#8216;cremer&#8217; : Use method of Cremer and Pople to calculate sugar pucker&#8217;</p>
 </div></blockquote>
 <p><strong>frame_indices</strong> : array-like, default None (all frames)</p>
+<p><strong>dtype</strong> : str, {&#8216;nupars&#8217;, &#8216;cpptraj_dataset&#8217;}, default &#8216;nupars&#8217;</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : nupars object. One can assess different values (major groove width, xdips values</p>
@@ -1098,15 +1095,16 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_rna</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">nastruct</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()[:</span><span class="mi">5</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()[:</span><span class="mi">5</span><span class="p">]</span> 
 <span class="go">[&#39;buckle&#39;, &#39;minor&#39;, &#39;major&#39;, &#39;xdisp&#39;, &#39;stagger&#39;]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># get minor groove width values for each pairs for each snapshot</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># data.minor is a tuple, first value is a list of basepairs, seconda value is</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># numpy array, shape=(n_frames, n_pairs)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">minor</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">minor</span> 
 <span class="go">([&#39;1G16C&#39;, &#39;2G15C&#39;, &#39;3G14C&#39;, &#39;4C13G&#39;, &#39;5G12C&#39;, &#39;6C11G&#39;, &#39;7C10G&#39;, &#39;8C9G&#39;], </span>
 <span class="go"> array([[ 13.32927036,  13.403409  ,  13.57159901, ...,  13.26655865,</span>
 <span class="go">         13.43054485,  13.4557209 ],</span>
@@ -1116,7 +1114,7 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
 <span class="go">         13.38542843,  13.46101475]]))</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">twist</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">twist</span> 
 <span class="go">([&#39;1G16C-2G15C&#39;, &#39;2G15C-3G14C&#39;, &#39;3G14C-4C13G&#39;, &#39;4C13G-5G12C&#39;, &#39;5G12C-6C11G&#39;, &#39;6C11G-7C10G&#39;, &#39;7C10G-8C9G&#39;], </span>
 <span class="go">array([[ 34.77773666,  33.98158646,  30.18647003, ...,  35.14608765,</span>
 <span class="go">         33.9628334 ,  33.13056946],</span>
@@ -1143,7 +1141,7 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 11, 2015.<br/>
+      Last updated on Oct 13, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

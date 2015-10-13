@@ -25,11 +25,26 @@ try ``pytraj`` online:
 
 single action with single trajectory
 ------------------------------------
+
+Example
+~~~~~~~
+
 .. ipython:: python
 
     import pytraj as pt
     traj = pt.iterload('data/tz2.ortho.nc', 'data/tz2.ortho.parm7')
     pt.pmap(n_cores=4, func=pt.radgyr, traj=traj)
+
+Supported methods
+~~~~~~~~~~~~~~~~~
+
+.. ipython:: python
+
+    import pytraj as pt
+    for method_str in dir(pt):
+        method = getattr(pt, method_str)
+        if hasattr(method, '_is_parallelizable') and method._is_parallelizable:
+            print(method_str)
 
 multiple actions with multiple trajectories
 -------------------------------------------

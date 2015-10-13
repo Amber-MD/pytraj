@@ -228,3 +228,5 @@ Read Also
 `sklearn developer guide <http://scikit-learn.org/stable/developers/>`_
 
 `pandas developer guide <http://pandas.pydata.org/pandas-docs/stable/contributing.html>`_
+
+`add doctest to unittest <https://docs.python.org/2/library/doctest.html>`_
