@@ -37,6 +37,7 @@ class Test(unittest.TestCase):
             has_parmed = False
 
         funclist = [DataArray,
+                    pt.nastruct,
                     pt.mean_structure,
                     pt.iterframe,
                     pt.iterchunk,
@@ -66,7 +67,7 @@ class Test(unittest.TestCase):
                     grep,
                     clustering_dataset,
                     pt.mindist,
-                    kmeans, ]
+                    kmeans,]
 
         if has_parmed:
             funclist.append(pt.load_parmed)
@@ -75,10 +76,12 @@ class Test(unittest.TestCase):
             print(func)
             run_docstring(func)
 
+        # matrix
         func_names = ma.mat_keys
         for key in func_names:
             run_docstring(ma.__dict__[key])
 
+        # dihedral
         func_names = da.supported_dihedral_types
         for key in func_names:
             run_docstring(da.__dict__['calc_' + key])
