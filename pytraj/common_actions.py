@@ -2728,7 +2728,7 @@ def _grid(traj, mask, grid_spacing,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def NH_order_paramters(traj, vector_pairs, order=2, tstep=1., tcorr=10000.):
+def NH_order_parameters(traj, vector_pairs, order=2, tstep=1., tcorr=10000.):
     '''compute NH order parameters
 
     Parameters
@@ -2749,7 +2749,7 @@ def NH_order_paramters(traj, vector_pairs, order=2, tstep=1., tcorr=10000.):
     >>> h_indices = pt.select_atoms(traj.top, '@H')
     >>> n_indices = h_indices - 1
     >>> nh_pairs = list(zip(n_indices, h_indices))
-    >>> data = pt.NH_order_paramters(traj, nh_pairs)
+    >>> data = pt.NH_order_parameters(traj, nh_pairs)
     >>> print(data)
     '''
     from pytraj import matrix

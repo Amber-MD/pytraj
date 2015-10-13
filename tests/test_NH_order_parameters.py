@@ -17,7 +17,7 @@ class TestNHOrderParamters(unittest.TestCase):
         n_indices = h_indices - 1
         nh_indices = list(zip(n_indices, h_indices))
 
-        orders = pt.NH_order_paramters(traj, nh_indices, tcorr=8000.)
+        orders = pt.NH_order_parameters(traj, nh_indices, tcorr=8000.)
         saved_S2 = np.loadtxt('../cpptraj/test/Test_IRED/orderparam.save').T[-1]
 
         aa_eq(orders, saved_S2)
