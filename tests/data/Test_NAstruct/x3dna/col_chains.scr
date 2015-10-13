@@ -1,6 +1,6 @@
 zap
 load nmrpdb hel_regions.pdb
-# load ../rna.pdb
+# load rna.pdb
 # restrict not (protein or water)
 
 select 1: 

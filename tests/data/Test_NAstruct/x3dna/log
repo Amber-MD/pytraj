@@ -1,5 +1,5 @@
 
-handling file <../rna.pdb>
+handling file <rna.pdb>
 Match ' G5' to 'g' for residue  G5    1  on chain   [#1]
     check it & consider to add line ' G5     g' to file <baselist.dat>
 Match ' C3' to 'c' for residue  C3    8  on chain   [#8]
