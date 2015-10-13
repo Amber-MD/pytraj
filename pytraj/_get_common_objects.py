@@ -55,11 +55,7 @@ def _get_data_from_dtype(d0, dtype='dataset'):
         elif dtype == 'ndarray':
             return d0.to_ndarray()
         elif dtype == 'dict':
-            try:
-                import numpy
-                return d0.to_dict(use_numpy=True)
-            except ImportError:
-                return d0.to_dict(use_numpy=False)
+            return d0.to_dict()
         elif dtype == 'dataframe':
             if hasattr(d0, 'key'):
                 d0.key = d0.key.replace(':', '_')

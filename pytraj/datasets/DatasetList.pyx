@@ -398,14 +398,11 @@ cdef class DatasetList:
         except:
             raise ValueError("dont know how to convert to list")
 
-    def to_dict(self, use_numpy=False):
+    def to_dict(self):
         """return a dict object with key=legend, value=list"""
-        from collections import OrderedDict as dict
+        from collections import OrderedDict
         try:
-            if use_numpy:
-                return dict((d0.key, d0.to_ndarray(copy=True)) for d0 in self)
-            else:
-                return dict((d0.key, d0.tolist()) for d0 in self)
+            return OrderedDict((d0.key, d0.to_ndarray(copy=True)) for d0 in self)
         except:
             raise ValueError("don't know tho to convert to dict")
 

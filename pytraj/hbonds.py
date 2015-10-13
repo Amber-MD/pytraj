@@ -1,13 +1,12 @@
 from __future__ import absolute_import, print_function, division
 
+from .actions import CpptrajActions
 from .action_dict import ActionDict
 from .externals.six import string_types
-from .datasets.DatasetList import DatasetList
+from .datasets import CpptrajDatasetList
 from ._get_common_objects import _get_data_from_dtype, _get_topology
 from ._base_result_class import BaseAnalysisResult
 from ._shared_methods import iterframe_master
-
-adict = ActionDict()
 
 __all__ = ['DatasetHBond', 'search_hbonds', 'search_nointramol_hbonds',
            'search_hbonds_noseries']
@@ -53,7 +52,7 @@ class DatasetHBond(BaseAnalysisResult):
 
     @property
     def donor_aceptor(self):
-        return self.dataset.grep(["solventhb", "solutehb"],
+        return self.data.grep(["solventhb", "solutehb"],
                                  mode='aspect').keys()
 
 def _update_key_hbond(_dslist):
@@ -91,8 +90,8 @@ def search_hbonds_noseries(traj,
     http://ambermd.org/doc12/Amber15.pdf (page 575)
     """
 
-    dslist = DatasetList()
-    act = adict['hbond']
+    dslist = CpptrajDatasetList()
+    act = CpptrajActions.Action_Hbond()
 
     command = mask
     if "series" in command:
@@ -145,9 +144,8 @@ def search_hbonds(traj,
     GLU5_O-LYS8_N-H
     [1 1 0 0 0 0 1 0 0 0]
     """
-    from pytraj.actions.CpptrajActions import Action_Hbond
-    dslist = DatasetList()
-    act = Action_Hbond()
+    dslist = CpptrajDatasetList()
+    act = CpptrajActions.Action_Hbond()
 
     _top = _get_topology(traj, top)
 
@@ -210,9 +208,8 @@ def search_nointramol_hbonds(traj,
     --------
        search_hbonds
     """
-    from pytraj.actions.CpptrajActions import Action_Hbond
-    dslist = DatasetList()
-    act = Action_Hbond()
+    dslist = CpptrajDatasetList()
+    act = CpptrajActions.Action_Hbond()
     command = "series nointramol " + mask
     act(command, traj, dslist=dslist, *args, **kwd)
     act.print_output()

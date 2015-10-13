@@ -433,7 +433,7 @@ class DatasetList(list):
         except:
             raise NotImplementedError("dont know how to convert to list")
 
-    def to_dict(self, use_numpy=True, ordered_dict=False):
+    def to_dict(self, use_numpy=True, ordered_dict=True):
         """return a dict object with key=key, value=list"""
         _dict = dict
         if ordered_dict:

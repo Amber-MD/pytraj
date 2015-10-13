@@ -10,10 +10,6 @@ class BaseAnalysisResult(object):
             self._dslist = DatasetList()
 
     @property
-    def dataset(self):
-        return self._dslist
-
-    @property
     def data(self):
         return self._dslist
 
