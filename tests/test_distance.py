@@ -59,18 +59,18 @@ class TestNormalDistance(unittest.TestCase):
 class TestPairwiseDistance(unittest.TestCase):
     def test_pairwise(self):
         traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
-        distances = pt.pairwise_distance(traj, '@CA', '@CB')
+        distances = pt.pairwise_distance(traj, '@CA', '@CB')[0]
 
         ca_indices = pt.select_atoms(traj.top, '@CA')
         cb_indices = pt.select_atoms(traj.top, '@CB')
-        known_shape = (len(ca_indices) * len(cb_indices), traj.n_frames)
+        known_shape = (traj.n_frames, len(ca_indices), len(cb_indices))
         assert known_shape == distances.shape, 'distance array shape'
 
         slow_distances = []
         for ca_i in ca_indices:
             for cb_i in cb_indices:
                 slow_distances.append(pt.distance(traj, [ca_i, cb_i]))
-        slow_distances = np.array(slow_distances)
+        slow_distances = np.array(slow_distances).T
         aa_eq(slow_distances.flatten(), distances.flatten())
 
 if __name__ == "__main__":

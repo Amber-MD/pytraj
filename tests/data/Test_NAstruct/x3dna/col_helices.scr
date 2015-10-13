@@ -1,0 +1,25 @@
+zap
+load nmrpdb hel_regions.pdb
+# load rna.pdb
+# restrict not (protein or water)
+
+
+#------Helix #1, color: red------
+select 1: , 16: 
+color red
+select 2: , 15: 
+color red
+select 3: , 14: 
+color red
+select 4: , 13: 
+color red
+select 5: , 12: 
+color red
+select 6: , 11: 
+color red
+select 7: , 10: 
+color red
+select 8: , 9: 
+color red
+
+select all

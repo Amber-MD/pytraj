@@ -1,0 +1,39 @@
+zap
+load nmrpdb hel_regions.pdb
+# load rna.pdb
+# restrict not (protein or water)
+
+select 1: 
+color red
+select 16: 
+color green
+select 2: 
+color red
+select 15: 
+color green
+select 3: 
+color red
+select 14: 
+color green
+select 4: 
+color red
+select 13: 
+color green
+select 5: 
+color red
+select 12: 
+color green
+select 6: 
+color red
+select 11: 
+color green
+select 7: 
+color red
+select 10: 
+color green
+select 8: 
+color red
+select 9: 
+color green
+
+select all

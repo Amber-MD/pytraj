@@ -212,7 +212,12 @@ def calc_pairwise_distance(traj=None,
 
     Returns
     -------
-    numpy array, shape (n_pairs, n_frames)
+    out_1 : numpy array, shape (n_frames, n_atom_1, n_atom_2)
+    out_2 : atom pairs, shape=(n_pairs, 2)
+
+    Notes
+    -----
+    This method is only fast for small number of atoms.
     '''
     from itertools import product
 
@@ -222,11 +227,13 @@ def calc_pairwise_distance(traj=None,
     indices_2 = _top.select(mask_2) if isinstance(mask_2,
                                                   string_types) else mask_2
     arr = np.array(list(product(indices_1, indices_2)))
-    return calc_distance(traj,
+    mat = calc_distance(traj,
                          mask=arr,
                          dtype=dtype,
                          top=_top,
                          frame_indices=frame_indices)
+    mat = mat.T
+    return mat.reshape(mat.shape[0], len(indices_1), len(indices_2)), arr
 
 @_register_pmap
 def calc_angle(traj=None,

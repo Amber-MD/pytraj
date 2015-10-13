@@ -1,0 +1,40 @@
+
+handling file <rna.pdb>
+Match ' G5' to 'g' for residue  G5    1  on chain   [#1]
+    check it & consider to add line ' G5     g' to file <baselist.dat>
+Match ' C3' to 'c' for residue  C3    8  on chain   [#8]
+    check it & consider to add line ' C3     c' to file <baselist.dat>
+Match ' G5' to 'g' for residue  G5    9  on chain   [#9]
+    check it & consider to add line ' G5     g' to file <baselist.dat>
+Match ' C3' to 'c' for residue  C3   16  on chain   [#16]
+    check it & consider to add line ' C3     c' to file <baselist.dat>
+
+Time used: 00:00:00:00
+
+......Processing structure #1: <bpfile_tmp.dat>......
+Match ' G5' to 'g' for residue  G5    1  on chain   [#1]
+    check it & consider to add line ' G5     g' to file <baselist.dat>
+Match ' C3' to 'c' for residue  C3    8  on chain   [#8]
+    check it & consider to add line ' C3     c' to file <baselist.dat>
+Match ' C3' to 'c' for residue  C3   16  on chain   [#16]
+    check it & consider to add line ' C3     c' to file <baselist.dat>
+Match ' G5' to 'g' for residue  G5    9  on chain   [#9]
+    check it & consider to add line ' G5     g' to file <baselist.dat>
+Match ' G5' to 'g' for residue  G5    1  on chain   [#1]
+    check it & consider to add line ' G5     g' to file <baselist.dat>
+Match ' C3' to 'c' for residue  C3    8  on chain   [#8]
+    check it & consider to add line ' C3     c' to file <baselist.dat>
+Match ' G5' to 'g' for residue  G5    9  on chain   [#9]
+    check it & consider to add line ' G5     g' to file <baselist.dat>
+Match ' C3' to 'c' for residue  C3   16  on chain   [#16]
+    check it & consider to add line ' C3     c' to file <baselist.dat>
+missing ' P  ' atom : residue name ' G5', chain  , number [   1 ]
+missing ' OP1' atom : residue name ' G5', chain  , number [   1 ]
+missing ' OP2' atom : residue name ' G5', chain  , number [   1 ]
+missing ' P  ' atom : residue name ' G5', chain  , number [   9 ]
+missing ' OP1' atom : residue name ' G5', chain  , number [   9 ]
+missing ' OP2' atom : residue name ' G5', chain  , number [   9 ]
+missing ' P  ' atom : residue name ' G5', chain  , number [   1 ]
+missing ' P  ' atom : residue name ' G5', chain  , number [   9 ]
+
+Time used: 00:00:00:00
