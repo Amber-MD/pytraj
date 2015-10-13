@@ -4,6 +4,7 @@ from .actions import CpptrajActions
 from .action_dict import ActionDict
 from .externals.six import string_types
 from .datasets import CpptrajDatasetList
+from .decorators import _register_pmap
 from ._get_common_objects import _get_data_from_dtype, _get_topology
 from ._base_result_class import BaseAnalysisResult
 from ._shared_methods import iterframe_master
@@ -103,6 +104,7 @@ def search_hbonds_noseries(traj,
         return _get_data_from_dtype(dslist, dtype=dtype)
 
 
+@_register_pmap
 def search_hbonds(traj,
                   mask="",
                   solvent_donor=None,
