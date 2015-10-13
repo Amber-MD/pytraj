@@ -2,7 +2,7 @@ from __future__ import print_function
 import pytraj as pt
 import numpy as np
 import unittest
-from pytraj.hbonds import search_hbonds, search_nointramol_hbonds
+from pytraj.hbonds import search_hbonds, search_hbonds_nointramol
 from pytraj.testing import aa_eq
 from pytraj.compat import izip as zip
 
