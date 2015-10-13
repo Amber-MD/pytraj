@@ -39,6 +39,7 @@ Supported methods
 ~~~~~~~~~~~~~~~~~
 
 .. ipython:: python
+    :suppress:
 
     import pytraj as pt
     method_list = []
@@ -46,7 +47,11 @@ Supported methods
         method = getattr(pt, method_str)
         if hasattr(method, '_is_parallelizable') and method._is_parallelizable:
             method_list.append(method)
-   print(set(method_list))
+
+.. ipython:: python
+
+    for method in set(method_list):
+        print(str(method).split()[1])
 
 multiple actions with multiple trajectories
 -------------------------------------------
