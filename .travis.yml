@@ -35,6 +35,8 @@ script:
     - export PYTRAJHOME=`pwd`
     - export CPPTRAJHOME=`pwd`"/cpptraj/"
     - conda install libnetcdf --yes
+    # conda seems weird. Why do we need to reinstall again?
+    - conda install lapackamber arpack blasamber --yes -c ambermd
     - cd ./tests
     - python ./run_simple_test.py
     - python ./run_all_and_find_fails.py
