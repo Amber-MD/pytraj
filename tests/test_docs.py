@@ -13,6 +13,7 @@ class TestDoc(unittest.TestCase):
             return sum([doctest.testmod(mod).failed for mod in modules])
 
         modules = [pt._get_common_objects,
+                   pt._nastruct,
                   ]
         if PY3:
             # avoid adding 'u' to string in PY2: u'GLU5_O-LYS8_N-H'
