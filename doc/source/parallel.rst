@@ -41,10 +41,12 @@ Supported methods
 .. ipython:: python
 
     import pytraj as pt
+    method_list = []
     for method_str in dir(pt):
         method = getattr(pt, method_str)
         if hasattr(method, '_is_parallelizable') and method._is_parallelizable:
-            print(method_str)
+            method_list.append(method)
+   print(set(method_list))
 
 multiple actions with multiple trajectories
 -------------------------------------------
