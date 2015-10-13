@@ -213,7 +213,7 @@ def calc_pairwise_distance(traj=None,
     Returns
     -------
     out_1 : numpy array, shape (n_frames, n_atom_1, n_atom_2)
-    out_2 : atom pairs, shape=(n_pairs, 2)
+    out_2 : atom pairs, shape=(n_atom_1, n_atom_2, 2)
 
     Notes
     -----
@@ -233,7 +233,8 @@ def calc_pairwise_distance(traj=None,
                          top=_top,
                          frame_indices=frame_indices)
     mat = mat.T
-    return mat.reshape(mat.shape[0], len(indices_1), len(indices_2)), arr
+    return (mat.reshape(mat.shape[0], len(indices_1), len(indices_2)),
+            arr.reshape(len(indices_1), len(indices_2), 2))
 
 @_register_pmap
 def calc_angle(traj=None,
