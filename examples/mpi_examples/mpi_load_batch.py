@@ -12,9 +12,9 @@ comm = MPI.COMM_WORLD
 # _load_batch_pmap is temp method name, will be changed in future
 from pytraj.parallel import _load_batch_pmap
 
-root_dir = "../../tests/data/nogit/tip3p/"
-traj_name = root_dir + "md.nc"
-parm_name = root_dir + "tc5bwat.top"
+root_dir = "../../tests/data/"
+traj_name = root_dir + "tz2.nc"
+parm_name = root_dir + "tz2.parm7"
 
 # load to TrajectoryIterator
 traj = pt.iterload(traj_name, parm_name, frame_slice=(0, 4000))
