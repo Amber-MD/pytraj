@@ -3,6 +3,8 @@ import os
 from ..TrajectoryIterator import TrajectoryIterator
 
 
+__all__  = ['load_sample_data', 'load_rna', 'load_tz2_ortho', 'load_ala3']
+
 def load_sample_data(data_name=None):
     """
     Return TrajectoryIterator instance for Ala3 or tz2 data
@@ -32,3 +34,9 @@ def load_rna():
     '''return pytraj.TrajectoryIterator for an RNA trajectory with 3 frames
     '''
     return load_sample_data('rna')
+
+def load_tz2_ortho():
+    return load_sample_data('tz2')
+
+def load_ala3():
+    return load_sample_data('ala3')
