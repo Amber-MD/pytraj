@@ -170,9 +170,12 @@ def get_include_and_lib_dir():
 
 cpptraj_dir, cpptraj_include, libdir, pytraj_inside_amber  = get_include_and_lib_dir()
 
+# this checking should be here, after checking openmp and other stuff
 if len(sys.argv) == 2 and sys.argv[1] == 'install':
     do_install = True
 elif len(sys.argv) == 3 and sys.argv[1] == 'install' and pytraj_inside_amber:
+    # don't mess this up
+    # $(PYTHON) setup.py install $(PYTHON_INSTALL)
     do_install = True
 else:
     do_install = False
