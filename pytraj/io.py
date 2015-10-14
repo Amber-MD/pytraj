@@ -369,14 +369,19 @@ def write_traj(filename="",
                 trajout.write(idx, frame)
 
 
-def write_parm(filename=None, top=None, format='AMBERPARM'):
+def write_parm(filename=None, top=None, format='amberparm'):
     from pytraj.Topology import ParmFile
     parm = ParmFile()
     parm.writeparm(filename=filename, top=top, format=format)
 
 
-def load_topology(filename):
+def load_topology(filename, more_options=''):
     """load Topology from a filename or from url or from ParmEd object
+
+    Parameters
+    ----------
+    filename : str, Amber prmtop, pdb, mol2, psf, cif, gromacs topology, sdf, tinker formats
+    more_options : cpptraj options.
 
     Examples
     --------
@@ -391,9 +396,15 @@ def load_topology(filename):
     >>> import parmed as pmd
     >>> parm = pmd.load_file('data/m2-c1_f3.mol2')
     >>> top = pt.load_topology(parm)
+
+    >>> # read with more_options
+    >>> pt.load_topology('1KX5.pdb', 'bonsearch 0.2')
     """
     from pytraj.Topology import ParmFile
     top = Topology()
+
+    # always read box info from pdb
+    more_options = ' '.join(('readbox', more_options))
 
     if isinstance(filename, string_types):
         if filename.startswith('http://') or filename.startswith('https://'):
@@ -401,7 +412,7 @@ def load_topology(filename):
         else:
             parm = ParmFile()
             set_error_silent(True)
-            parm.readparm(filename=filename, top=top)
+            parm.readparm(filename=filename, top=top, more_options=more_options)
             set_error_silent(False)
     else:
         # try to load ParmED

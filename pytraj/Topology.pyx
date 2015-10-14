@@ -614,7 +614,7 @@ cdef class Topology:
             return sum([atom.charge for atom in self.atoms])
 
     def save(self, filename=None, format='AMBERPARM'):
-        from pytraj.parms.ParmFile import ParmFile
+        from pytraj.Topology import ParmFile
         parm = ParmFile()
         parm.writeparm(filename=filename, top=self, format=format)
 
@@ -631,7 +631,7 @@ cdef class ParmFile:
     def __dealloc__(self):
         del self.thisptr
 
-    def readparm(self, filename="", top=Topology(), args='readbox'):
+    def readparm(self, filename="", top=Topology(), more_options=''):
         """readparm(Topology top=Topology(), string filename="", "*args)
         Return : None (update `top`)
 
@@ -646,13 +646,13 @@ cdef class ParmFile:
 
         filename = filename.encode()
 
-        if not args:
+        if not more_options:
             self.thisptr.ReadTopology(_top.thisptr[0], filename, debug)
         else:
-            if isinstance(args, string_types):
-                arglist = ArgList(args)
+            if isinstance(more_options, string_types):
+                arglist = ArgList(more_options)
             else:
-                arglist = <ArgList> args
+                arglist = <ArgList> more_options
             self.thisptr.ReadTopology(_top.thisptr[0], filename, arglist.thisptr[0], debug)
 
     def writeparm(self, Topology top=Topology(), filename="default.top", 

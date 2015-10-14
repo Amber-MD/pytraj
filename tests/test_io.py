@@ -133,6 +133,17 @@ class TestIO(unittest.TestCase):
         xyz = pt.get_coordinates(traj, frame_indices=[0, 5], autoimage=True, rmsfit=ref)
         aa_eq(traj2[[0, 5]].autoimage().superpose(ref).xyz, xyz)
 
+    def test_save_topology_inplace(self):
+        top = self.traj_tz2_ortho.top
+        top.save('output/test.prmtop')
+        top2 = pt.load_topology('output/test.prmtop')
+        assert top.n_atoms == top2.n_atoms, 'must have the same n_atoms'
+
+        # shortcut
+        pt.load_topology('data/tz2.parm7').save('output/tz2_0.parm7')
+        top3 = pt.load_topology('output/tz2_0.parm7')
+        assert top3.n_atoms == 223, 'must have 223 atoms'
+        assert top3.n_residues == 13, 'must have 13 residues'
 
 if __name__ == "__main__":
     unittest.main()
