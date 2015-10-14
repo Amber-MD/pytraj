@@ -22,17 +22,22 @@ and then go back to pytraj folder:
 python setup.py install
 """
 
-def remind_export_LD_LIBRARY_PATH(build_tag, libdir):
+def remind_export_LD_LIBRARY_PATH(build_tag, libdir, pytraj_inside_amber):
     if build_tag:
-        from scripts.acsii_art import batman
-        print("")
-        print("")
-        print(batman)
-        libdir = os.path.abspath(libdir)
-        print('make sure to add %s to your LD_LIBRARY_PATH \n\n'
-              'example: export LD_LIBRARY_PATH=%s:$LD_LIBRARY_PATH\n\n'
-              'try simple test: python ./runtests.py simple\n\n' %
-              (libdir, libdir))
-        print("")
+        if not pytraj_inside_amber:
+            from scripts.acsii_art import batman
+            print("")
+            print("")
+            print(batman)
+            libdir = os.path.abspath(libdir)
+            print('make sure to add %s to your LD_LIBRARY_PATH \n\n'
+                  'example: export LD_LIBRARY_PATH=%s:$LD_LIBRARY_PATH\n\n'
+                  'try simple test: python ./runtests.py simple\n\n' %
+                  (libdir, libdir))
+            print("")
+        else:
+            # pytraj is a part of Amber
+            print('make sure to `source $AMBERHOME/amber.sh` (if using bash) '
+                  'or `source $AMBERHOME/amber.csh` if using csh')
     else:
         print("not able to install pytraj")

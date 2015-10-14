@@ -136,8 +136,13 @@ def get_include_and_lib_dir():
         if not AMBERHOME:
             raise EnvironmentError('must set AMBERHOME if you want to install pytraj '
                     'inside AMBER')
+        # overwrite CPPTRAJ_HEADERDIR, CPPTRAJ_LIBDIR
         CPPTRAJ_LIBDIR = os.path.join(AMBERHOME, 'lib')
         CPPTRAJ_HEADERDIR = os.path.join(AMBERHOME, 'AmberTools', 'src', 'cpptraj', 'src')
+
+        pytraj_inside_amber = True
+    else:
+        pytraj_inside_amber = False
     
     if CPPTRAJ_LIBDIR and CPPTRAJ_HEADERDIR:
         cpptraj_include = CPPTRAJ_HEADERDIR
@@ -324,7 +329,7 @@ if __name__ == "__main__":
     if not faster_build:
         build_tag = build_func(ext_modules)
         if do_install:
-            remind_export_LD_LIBRARY_PATH(build_tag, libdir)
+            remind_export_LD_LIBRARY_PATH(build_tag, libdir, pytraj_inside_amber)
     else:
         from multiprocessing import cpu_count
         n_cpus = cpu_count()
