@@ -142,7 +142,7 @@ def iterload(*args, **kwd):
 
 
 def _load_netcdf(filename, top, frame_indices=None, engine='scipy'):
-    '''simply read all data to memory. Use this if you want to load daata few times
+    '''simply read all data to memory. Use this if you want to load data few times
     faster (and  you know what you are doing).
     '''
     from pytraj import api
