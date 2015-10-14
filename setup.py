@@ -101,6 +101,8 @@ else:
 
 if len(sys.argv) == 2 and sys.argv[1] == 'install':
     do_install = True
+elif len(sys.argv) == 3 and sys.argv[1] == 'install' and pytraj_inside_amber:
+    do_install = True
 else:
     do_install = False
 

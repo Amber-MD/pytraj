@@ -101,6 +101,7 @@ from .analyses import CpptrajAnalyses as allanalyses
 from . import common_actions
 from .dssp_analysis import calc_dssp
 from .common_actions import (
+    calc_rmsd_nofit,
     rmsd, rmsd_perres, distance_rmsd, search_hbonds,
     calc_multidihedral, autoimage, nastruct, calc_angle, calc_dihedral,
     calc_distance, calc_pairwise_distance, calc_center_of_mass, calc_center_of_geometry, calc_dssp,
@@ -121,6 +122,7 @@ from .common_actions import (
     )
 
 # create alias
+rmsd_nofit = calc_rmsd_nofit
 distance = calc_distance
 pairwise_distance = calc_pairwise_distance
 angle = calc_angle

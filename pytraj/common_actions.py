@@ -1803,6 +1803,24 @@ def rmsd_perres(traj=None,
                      top=top,
                      dtype=dtype)
 
+@_register_pmap
+def calc_rmsd_nosfit(traj=None,
+              ref=0,
+              mask="",
+              mass=False,
+              frame_indices=None,
+              top=None,
+              dtype='ndarray'):
+    '''
+
+    See also
+    --------
+    calc_rmsd
+    '''
+    return calc_rmsd(traj=traj, ref=ref, mask=mask, mass=mass,
+                     nofit=True, frame_indices=frame_indices,
+                     top=top,
+                     dtype=dtype)
 
 @_register_pmap
 def calc_rmsd(traj=None,
