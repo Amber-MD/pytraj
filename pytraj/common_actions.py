@@ -1812,7 +1812,6 @@ def calc_rmsd_nofit(traj=None,
               top=None,
               dtype='ndarray'):
     '''
-
     See also
     --------
     calc_rmsd
