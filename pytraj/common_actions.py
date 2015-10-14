@@ -1804,7 +1804,7 @@ def rmsd_perres(traj=None,
                      dtype=dtype)
 
 @_register_pmap
-def calc_rmsd_nosfit(traj=None,
+def calc_rmsd_nofit(traj=None,
               ref=0,
               mask="",
               mass=False,
