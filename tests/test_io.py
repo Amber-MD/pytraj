@@ -5,6 +5,11 @@ from pytraj import Topology, Trajectory, TrajectoryIterator
 from pytraj.testing import aa_eq
 
 
+try:
+    import scipy
+    has_scipy = True
+except ImportError:
+    has_scipy = False
 
 class TestIO(unittest.TestCase):
     def setUp(self):
@@ -144,6 +149,23 @@ class TestIO(unittest.TestCase):
         top3 = pt.load_topology('output/tz2_0.parm7')
         assert top3.n_atoms == 223, 'must have 223 atoms'
         assert top3.n_residues == 13, 'must have 13 residues'
+
+    @unittest.skipIf(not has_scipy, 'skip since does not have scipy')
+    def test_load_netcdf(self):
+        fname = 'data/tz2.ortho.nc'
+        tname = 'data/tz2.ortho.parm7'
+        saved_traj = pt.iterload(fname, tname)
+
+        # load all
+        traj = pt.io._load_netcdf(fname, tname)
+        aa_eq(saved_traj.xyz, traj.xyz)
+        aa_eq(saved_traj.unitcells, traj.unitcells)
+
+        # load some
+        traj = pt.io._load_netcdf(fname, tname, frame_indices=range(5))
+        aa_eq(saved_traj[range(5)].xyz, traj.xyz)
+        aa_eq(saved_traj.unitcells[range(5)], traj.unitcells)
+
 
 if __name__ == "__main__":
     unittest.main()

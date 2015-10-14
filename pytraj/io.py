@@ -141,7 +141,10 @@ def iterload(*args, **kwd):
     return load_traj(*args, **kwd)
 
 
-def _load_netcdf(filename, top, indices=None, engine='scipy'):
+def _load_netcdf(filename, top, frame_indices=None, engine='scipy'):
+    '''simply read all data to memory. Use this if you want to load daata few times
+    faster (and  you know what you are doing).
+    '''
     from pytraj import api
     traj = api.Trajectory(top=top)
 
@@ -149,21 +152,34 @@ def _load_netcdf(filename, top, indices=None, engine='scipy'):
         from scipy import io
         fh = io.netcdf_file(filename, mmap=False)
         data = fh.variables['coordinates'].data
-        clen = fh.variables['cell_lengths'].data
-        cangle = fh.variables['cell_angles'].data
+        try:
+            clen = fh.variables['cell_lengths'].data
+            cangle = fh.variables['cell_angles'].data
+        except KeyError:
+            clen = None
+            cangle = None
     if engine == 'netcdf4':
         import netCDF4
         fh = netCDF4.Dataset(filename)
         data = fh.variables['coordinates']
-        clen = fh.variables['cell_lengths']
-        cangle = fh.variables['cell_angles']
-    if indices is None:
-        traj.xyz = data
+        try:
+            clen = fh.variables['cell_lengths']
+            cangle = fh.variables['cell_angles']
+        except KeyError:
+            clen = None
+            cangle = None
+    if clen is not None and cangle is not None:
+        clen = np.ascontiguousarray(clen, dtype='f8')
+        cangle = np.ascontiguousarray(cangle, dtype='f8')
+    if frame_indices is None:
+        traj.xyz = np.ascontiguousarray(data, dtype='f8')
     else:
-        traj.xyz = data[indices]
-    if traj.xyz.itemsize != 8:
-        traj.xyz = traj.xyz.astype('f8')
-    traj._append_unitcells((clen, cangle))
+        traj.xyz = np.ascontiguousarray(data, dtype='f8')[frame_indices]
+        if clen is not None:
+            clen = clen[frame_indices]
+            cangle = cangle[frame_indices]
+    if clen is not None:
+        traj._append_unitcells((clen, cangle))
     return traj
 
 
@@ -376,25 +392,28 @@ def write_parm(filename=None, top=None, format='amberparm'):
 
 
 def load_topology(filename, more_options=''):
-    """load Topology from a filename or from url or from ParmEd object
+    """load Topology from a filename or from url or from ParmEd object. Adapted from cpptraj doc.
 
     Parameters
     ----------
     filename : str, Amber prmtop, pdb, mol2, psf, cif, gromacs topology, sdf, tinker formats
     more_options : cpptraj options.
+        if filename is a pdb file, more_options = {'pqr', 'noconnect'}.
+        pqr     : Read atomic charge/radius from occupancy/B-factor columns.
+        noconect: Do not read CONECT records if present.
 
     Examples
     --------
     >>> import pytraj as pt
     >>> # from a filename
-    >>> pt.load_topology("./data/tz2.ortho.parm7")
+    >>> pt.load_topology("tz2.ortho.parm7")
 
     >>> # from url
     >>> pt.load_topology("http://ambermd.org/tutorials/advanced/tutorial1/files/polyAT.pdb")
 
     >>> # from ParmEd object
     >>> import parmed as pmd
-    >>> parm = pmd.load_file('data/m2-c1_f3.mol2')
+    >>> parm = pmd.load_file('m2-c1_f3.mol2')
     >>> top = pt.load_topology(parm)
 
     >>> # read with more_options
