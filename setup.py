@@ -176,9 +176,9 @@ def get_include_and_lib_dir():
             cpptraj_dir = os.path.join(rootname, "cpptraj")
             cpptraj_include = os.path.join(cpptraj_dir, 'src')
             libdir = os.path.join(cpptraj_dir, 'lib')
-    return cpptraj_dir, cpptraj_include, libdir
+    return cpptraj_dir, cpptraj_include, libdir, pytraj_inside_amber
 
-cpptraj_dir, cpptraj_include, libdir = get_include_and_lib_dir()
+cpptraj_dir, cpptraj_include, libdir, pytraj_inside_amber  = get_include_and_lib_dir()
 
 # get *.pyx files
 pxd_include_dirs = [
