@@ -16,6 +16,7 @@ try ``pytraj`` online:
     pytraj.io
     pytraj.api
     trajectoryiterator
+    pytraj.Topology
     pytraj.FrameIter
     pytraj.common_actions
     pytraj.hbonds
