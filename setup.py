@@ -99,18 +99,6 @@ if faster_build_str in sys.argv:
 else:
     faster_build = False
 
-if len(sys.argv) == 2 and sys.argv[1] == 'install':
-    do_install = True
-elif len(sys.argv) == 3 and sys.argv[1] == 'install' and pytraj_inside_amber:
-    do_install = True
-else:
-    do_install = False
-
-if len(sys.argv) == 2 and sys.argv[1] == 'build':
-    do_build = True
-else:
-    do_build = False
-
 
 # check AMBERHOME
 try:
@@ -181,6 +169,19 @@ def get_include_and_lib_dir():
     return cpptraj_dir, cpptraj_include, libdir, pytraj_inside_amber
 
 cpptraj_dir, cpptraj_include, libdir, pytraj_inside_amber  = get_include_and_lib_dir()
+
+if len(sys.argv) == 2 and sys.argv[1] == 'install':
+    do_install = True
+elif len(sys.argv) == 3 and sys.argv[1] == 'install' and pytraj_inside_amber:
+    do_install = True
+else:
+    do_install = False
+
+if len(sys.argv) == 2 and sys.argv[1] == 'build':
+    do_build = True
+else:
+    do_build = False
+
 
 # get *.pyx files
 pxd_include_dirs = [
