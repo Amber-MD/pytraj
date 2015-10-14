@@ -117,5 +117,14 @@ class TestBasic(unittest.TestCase):
         aa_eq(t10.xyz, t11.xyz)
         aa_eq(t00[frame_indices].xyz, t10.xyz)
 
+    def test_superpose_vs_rmsd(self):
+        # load frames to immutable traj
+        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        t0 =  traj[:]
+        t1 = traj[:]
+        pt.rmsd(t0, traj[0], mask='@CA')
+        pt.superpose(t1, traj[0], mask='@CA')
+        aa_eq(t0.xyz, t1.xyz)
+
 if __name__ == "__main__":
     unittest.main()

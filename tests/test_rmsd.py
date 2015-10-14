@@ -12,6 +12,14 @@ class TestSimpleRMSD(unittest.TestCase):
     def setUp(self):
         self.traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
+    def test_fit_and_then_nofit(self):
+        traj = pt.iterload("data/md1_prod.Tc5b.x", "data/Tc5b.top")
+        t0 = traj[:]
+        pt.superpose(t0, ref=traj[3], mask='@CA')
+        rmsd_0 = pt.rmsd_nofit(traj, ref=traj[3], mask='@CB')
+        rmsd_1 = pt.rmsd(traj, ref=traj[3], mask='@CB', nofit=True)
+        aa_eq(rmsd_1, rmsd_0)
+
     def test_rmsd_with_mask(self):
         TRAJ = pt.iterload(
             filename="./data/md1_prod.Tc5b.x",

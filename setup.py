@@ -22,8 +22,29 @@ from functools import partial
 from glob import glob
 from itertools import chain
 
+# local
+from scripts.base_setup import auto_install_message, remind_export_LD_LIBRARY_PATH
+
+# python version >= 2.7
 if sys.version_info < (2, 6):
     sys.stderr.write('You must have at least Python 2.6 for pytraj\n')
+    sys.exit(0)
+
+# require cython version >= 0.23 for now.
+cmdclass = {}
+try:
+    import Cython
+    from Cython.Distutils import build_ext
+    from Cython.Build import cythonize
+    has_cython = True
+    cmdclass['build_ext'] = build_ext
+    if Cython.__version__ < '0.23':
+        raise ImportError
+except ImportError:
+    #has_cython = False
+    #from distutils.command.build_ext import build_ext 
+    #cmdclass['build_ext'] = build_ext
+    sys.stderr.write('Building from source requires cython >= 0.23 \n')
     sys.exit(0)
 
 
@@ -48,12 +69,20 @@ rootname = os.getcwd()
 pytraj_home = rootname + "/pytraj/"
 
 openmp_str = "openmp"
-if openmp_str in sys.argv:
+if openmp_str in ' '.join(sys.argv):
     # python ./setup.py build openmp
     # make sure to update Makefile in $AMBERHOME/AmberTools/src
     # if changing '-openmp' to something else
     with_openmp = True
-    sys.argv.remove(openmp_str)
+    # I am dump here. fix later.
+    try:
+        sys.argv.remove('-' + openmp_str)
+    except:
+        pass
+    try:
+        sys.argv.remove(openmp_str)
+    except ValueError:
+        pass
 else:
     with_openmp = False
 
@@ -61,8 +90,8 @@ faster_build_str = "faster"
 
 KeyErrorTXT = """
 Can not use -faster_build with `install`,
-try  "python ./setup.py build faster_build
-then "python ./setup.py install" 
+try  "python setup.py build faster_build
+then "python setup.py install" 
 """
 
 if faster_build_str in sys.argv:
@@ -78,32 +107,6 @@ if faster_build_str in sys.argv:
 else:
     faster_build = False
 
-if len(sys.argv) == 2 and sys.argv[1] == 'install':
-    do_install = True
-else:
-    do_install = False
-
-if len(sys.argv) == 2 and sys.argv[1] == 'build':
-    do_build = True
-else:
-    do_build = False
-
-# require cython version >= 0.23 for now.
-cmdclass = {}
-try:
-    import Cython
-    from Cython.Distutils import build_ext
-    from Cython.Build import cythonize
-    has_cython = True
-    cmdclass['build_ext'] = build_ext
-    if Cython.__version__ < '0.23':
-        raise ImportError
-except ImportError:
-    #has_cython = False
-    #from distutils.command.build_ext import build_ext 
-    #cmdclass['build_ext'] = build_ext
-    sys.stderr.write('Building from source requires cython >= 0.23 \n')
-    sys.exit(0)
 
 # check AMBERHOME
 try:
@@ -121,70 +124,79 @@ except KeyError:
 
 has_cpptraj_in_current_folder = os.path.exists("./cpptraj/")
 
-# check if has environment variables
-CPPTRAJ_LIBDIR = os.environ.get('CPPTRAJ_LIBDIR', '')
-CPPTRAJ_HEADERDIR = os.environ.get('CPPTRAJ_HEADERDIR', '')
+def get_include_and_lib_dir():
+    # check if has environment variables
+    CPPTRAJ_LIBDIR = os.environ.get('CPPTRAJ_LIBDIR', '')
+    CPPTRAJ_HEADERDIR = os.environ.get('CPPTRAJ_HEADERDIR', '')
+    if os.path.join('AmberTools', 'src') in PYTRAJ_DIR:
+        # install pytraj inside AMBER
+        AMBERHOME = os.environ.get('AMBERHOME', '')
+        if not AMBERHOME:
+            raise EnvironmentError('must set AMBERHOME if you want to install pytraj '
+                    'inside AMBER')
+        # overwrite CPPTRAJ_HEADERDIR, CPPTRAJ_LIBDIR
+        CPPTRAJ_LIBDIR = os.path.join(AMBERHOME, 'lib')
+        CPPTRAJ_HEADERDIR = os.path.join(AMBERHOME, 'AmberTools', 'src', 'cpptraj', 'src')
 
-AMBERHOME = os.environ.get('AMBERHOME', '')
-PYTRAJ_AMBER_DIR = os.path.join(AMBERHOME, 'AmberTools', 'src', 'pytraj')
-
-
-if PYTRAJ_AMBER_DIR == PYTRAJ_DIR:
-    # install pytraj inside AMBER
-    CPPTRAJ_LIBDIR = os.path.join(AMBERHOME, 'lib')
-    CPPTRAJ_HEADERDIR = os.path.join(AMBERHOME, 'AmberTools', 'src', 'cpptraj', 'src')
-
-if CPPTRAJ_LIBDIR and CPPTRAJ_HEADERDIR:
-    cpptraj_include = CPPTRAJ_HEADERDIR
-    libdir = CPPTRAJ_LIBDIR
-else:
-    if has_cpptrajhome:
-        # use libcpptraj and header files in CPPTRAJHOME (/lib, /src)
-        cpptraj_dir = cpptrajhome
-        cpptraj_include = cpptraj_dir + "/src/"
-        libdir = cpptrajhome + "/lib/"
-    elif has_cpptraj_in_current_folder:
-        cpptraj_dir = os.path.abspath("./cpptraj/")
-        cpptraj_include = cpptraj_dir + "/src/"
-        libdir = cpptraj_dir + "/lib/"
+        pytraj_inside_amber = True
     else:
-        nice_message = """
-        We're trying to dowload and build libcpptraj for you. (5-10 minutes)
-        (check ./cpptraj/ folder after installation)
+        pytraj_inside_amber = False
     
-        To avoid auto-installation
-        --------------------------
-        Must set CPPTRAJHOME or installing ./cpptraj/ in current folder.
+    if CPPTRAJ_LIBDIR and CPPTRAJ_HEADERDIR:
+        cpptraj_include = CPPTRAJ_HEADERDIR
+        libdir = CPPTRAJ_LIBDIR
+        cpptraj_dir = ''
+    else:
+        if has_cpptrajhome:
+            # use libcpptraj and header files in CPPTRAJHOME (/lib, /src)
+            cpptraj_dir = cpptrajhome
+            cpptraj_include = cpptraj_dir + "/src/"
+            libdir = cpptrajhome + "/lib/"
+        elif has_cpptraj_in_current_folder:
+            cpptraj_dir = os.path.abspath("./cpptraj/")
+            cpptraj_include = cpptraj_dir + "/src/"
+            libdir = cpptraj_dir + "/lib/"
+        else:
     
-        If you want to manually install `libcpptraj`, you can download cpptraj
-        development version from here: https://github.com/Amber-MD/cpptraj
-    
-        $ git clone https://github.com/Amber-MD/cpptraj/
-        $ cd cpptraj
-        $ export CPPTRAJHOME=`pwd`
-        $ ./configure -shared gnu
-        $ make libcpptraj
-    
-        and then go back to pytraj folder:
-        python setup.py install
-        ...
-        """
+            if do_install or do_build:
+                print(auto_install_message)
+                for i in range(0, 3):
+                    sys.stdout.write('.')
+                    sys.stdout.flush()
+                    time.sleep(1)
+                try:
+                    subprocess.check_call(['sh',
+                                           './installs/install_cpptraj_git.sh'])
+                except CalledProcessError:
+                    sys.stderr.write(
+                        'can not install libcpptraj, you need to install it manually \n')
+                    sys.exit(0)
+            cpptraj_dir = os.path.join(rootname, "cpptraj")
+            cpptraj_include = os.path.join(cpptraj_dir, 'src')
+            libdir = os.path.join(cpptraj_dir, 'lib')
+    return cpptraj_dir, cpptraj_include, libdir, pytraj_inside_amber
 
-        if do_install or do_build:
-            print(nice_message)
-            sleep(3)
-            try:
-                subprocess.check_call(['sh',
-                                       './installs/install_cpptraj_git.sh'])
-            except CalledProcessError:
-                sys.stderr.write(
-                    'can not install libcpptraj, you need to install it manually \n')
-                sys.exit(0)
-        cpptraj_dir = os.path.join(rootname, "cpptraj")
-        cpptraj_include = os.path.join(cpptraj_dir, 'src')
-        libdir = os.path.join(cpptraj_dir, 'lib')
+def do_what():
+    # this checking should be here, after checking openmp and other stuff
+    if len(sys.argv) == 2 and sys.argv[1] == 'install':
+        do_install = True
+    elif len(sys.argv) == 3 and sys.argv[1] == 'install' and pytraj_inside_amber:
+        # don't mess this up
+        # $(PYTHON) setup.py install $(PYTHON_INSTALL)
+        do_install = True
+    else:
+        do_install = False
+    
+    if len(sys.argv) == 2 and sys.argv[1] == 'build':
+        do_build = True
+    else:
+        do_build = False
+    return do_install, do_build
 
-    # get *.pyx files
+do_install, do_build = do_what()
+cpptraj_dir, cpptraj_include, libdir, pytraj_inside_amber  = get_include_and_lib_dir()
+
+# get *.pyx files
 pxd_include_dirs = [
     directory for directory, dirs, files in os.walk('pytraj') if '__init__.pyx'
     in files or '__init__.pxd' in files or '__init__.py' in files
@@ -329,27 +341,11 @@ def build_func(my_ext):
         cmdclass=cmdclass, )
 
 
-def remind_ld_lib_path(build_tag, libdir):
-    if build_tag:
-        from scripts.acsii_art import batman
-        print("")
-        print("")
-        print(batman)
-        libdir = os.path.abspath(libdir)
-        print('make sure to add %s to your LD_LIBRARY_PATH \n\n'
-              'example: export LD_LIBRARY_PATH=%s:$LD_LIBRARY_PATH\n\n'
-              'try simple test: python ./runtests.py simple\n\n' %
-              (libdir, libdir))
-        print("")
-    else:
-        print("not able to install pytraj")
-
-
 if __name__ == "__main__":
     if not faster_build:
         build_tag = build_func(ext_modules)
         if do_install:
-            remind_ld_lib_path(build_tag, libdir)
+            remind_export_LD_LIBRARY_PATH(build_tag, libdir, pytraj_inside_amber)
     else:
         from multiprocessing import cpu_count
         n_cpus = cpu_count()
