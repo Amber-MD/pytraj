@@ -176,23 +176,25 @@ def get_include_and_lib_dir():
             libdir = os.path.join(cpptraj_dir, 'lib')
     return cpptraj_dir, cpptraj_include, libdir, pytraj_inside_amber
 
+def do_what():
+    # this checking should be here, after checking openmp and other stuff
+    if len(sys.argv) == 2 and sys.argv[1] == 'install':
+        do_install = True
+    elif len(sys.argv) == 3 and sys.argv[1] == 'install' and pytraj_inside_amber:
+        # don't mess this up
+        # $(PYTHON) setup.py install $(PYTHON_INSTALL)
+        do_install = True
+    else:
+        do_install = False
+    
+    if len(sys.argv) == 2 and sys.argv[1] == 'build':
+        do_build = True
+    else:
+        do_build = False
+    return do_install, do_build
+
+do_install, do_build = do_what()
 cpptraj_dir, cpptraj_include, libdir, pytraj_inside_amber  = get_include_and_lib_dir()
-
-# this checking should be here, after checking openmp and other stuff
-if len(sys.argv) == 2 and sys.argv[1] == 'install':
-    do_install = True
-elif len(sys.argv) == 3 and sys.argv[1] == 'install' and pytraj_inside_amber:
-    # don't mess this up
-    # $(PYTHON) setup.py install $(PYTHON_INSTALL)
-    do_install = True
-else:
-    do_install = False
-
-if len(sys.argv) == 2 and sys.argv[1] == 'build':
-    do_build = True
-else:
-    do_build = False
-
 
 # get *.pyx files
 pxd_include_dirs = [
