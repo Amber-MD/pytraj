@@ -69,12 +69,20 @@ rootname = os.getcwd()
 pytraj_home = rootname + "/pytraj/"
 
 openmp_str = "openmp"
-if openmp_str in sys.argv:
+if openmp_str in ' '.join(sys.argv):
     # python ./setup.py build openmp
     # make sure to update Makefile in $AMBERHOME/AmberTools/src
     # if changing '-openmp' to something else
     with_openmp = True
-    sys.argv.remove(openmp_str)
+    # I am dump here. fix later.
+    try:
+        sys.argv.remove('-' + openmp_str)
+    except:
+        pass
+    try:
+        sys.argv.remove(openmp_str)
+    except ValueError:
+        pass
 else:
     with_openmp = False
 
