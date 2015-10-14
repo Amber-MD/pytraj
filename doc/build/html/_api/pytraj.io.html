@@ -335,12 +335,27 @@ if False, return Topology</dd>
 
 <dl class="function">
 <dt id="pytraj.io.load_topology">
-<tt class="descclassname">pytraj.io.</tt><tt class="descname">load_topology</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#pytraj.io.load_topology" title="Permalink to this definition">¶</a></dt>
-<dd><p>load Topology from a filename or from url or from ParmEd object</p>
+<tt class="descclassname">pytraj.io.</tt><tt class="descname">load_topology</tt><big>(</big><em>filename</em>, <em>more_options=''</em><big>)</big><a class="headerlink" href="#pytraj.io.load_topology" title="Permalink to this definition">¶</a></dt>
+<dd><p>load Topology from a filename or from url or from ParmEd object. Adapted from cpptraj doc.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str, Amber prmtop, pdb, mol2, psf, cif, gromacs topology, sdf, tinker formats</p>
+<p><strong>more_options</strong> : cpptraj options.</p>
+<blockquote class="last">
+<div><p>if filename is a pdb file, more_options = {&#8216;pqr&#8217;, &#8216;noconnect&#8217;}.
+pqr     : Read atomic charge/radius from occupancy/B-factor columns.
+noconect: Do not read CONECT records if present.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># from a filename</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&quot;./data/tz2.ortho.parm7&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&quot;tz2.ortho.parm7&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># from url</span>
@@ -349,20 +364,39 @@ if False, return Topology</dd>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># from ParmEd object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">parmed</span> <span class="kn">as</span> <span class="nn">pmd</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">parm</span> <span class="o">=</span> <span class="n">pmd</span><span class="o">.</span><span class="n">load_file</span><span class="p">(</span><span class="s">&#39;data/m2-c1_f3.mol2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parm</span> <span class="o">=</span> <span class="n">pmd</span><span class="o">.</span><span class="n">load_file</span><span class="p">(</span><span class="s">&#39;m2-c1_f3.mol2&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">top</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="n">parm</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># read with more_options</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&#39;1KX5.pdb&#39;</span><span class="p">,</span> <span class="s">&#39;bonsearch 0.2&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="function">
 <dt id="pytraj.io.read_parm">
-<tt class="descclassname">pytraj.io.</tt><tt class="descname">read_parm</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#pytraj.io.read_parm" title="Permalink to this definition">¶</a></dt>
-<dd><p>load Topology from a filename or from url or from ParmEd object</p>
+<tt class="descclassname">pytraj.io.</tt><tt class="descname">read_parm</tt><big>(</big><em>filename</em>, <em>more_options=''</em><big>)</big><a class="headerlink" href="#pytraj.io.read_parm" title="Permalink to this definition">¶</a></dt>
+<dd><p>load Topology from a filename or from url or from ParmEd object. Adapted from cpptraj doc.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str, Amber prmtop, pdb, mol2, psf, cif, gromacs topology, sdf, tinker formats</p>
+<p><strong>more_options</strong> : cpptraj options.</p>
+<blockquote class="last">
+<div><p>if filename is a pdb file, more_options = {&#8216;pqr&#8217;, &#8216;noconnect&#8217;}.
+pqr     : Read atomic charge/radius from occupancy/B-factor columns.
+noconect: Do not read CONECT records if present.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># from a filename</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&quot;./data/tz2.ortho.parm7&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&quot;tz2.ortho.parm7&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># from url</span>
@@ -371,15 +405,19 @@ if False, return Topology</dd>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># from ParmEd object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">parmed</span> <span class="kn">as</span> <span class="nn">pmd</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">parm</span> <span class="o">=</span> <span class="n">pmd</span><span class="o">.</span><span class="n">load_file</span><span class="p">(</span><span class="s">&#39;data/m2-c1_f3.mol2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parm</span> <span class="o">=</span> <span class="n">pmd</span><span class="o">.</span><span class="n">load_file</span><span class="p">(</span><span class="s">&#39;m2-c1_f3.mol2&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">top</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="n">parm</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># read with more_options</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&#39;1KX5.pdb&#39;</span><span class="p">,</span> <span class="s">&#39;bonsearch 0.2&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="function">
 <dt id="pytraj.io.write_parm">
-<tt class="descclassname">pytraj.io.</tt><tt class="descname">write_parm</tt><big>(</big><em>filename=None</em>, <em>top=None</em>, <em>format='AMBERPARM'</em><big>)</big><a class="headerlink" href="#pytraj.io.write_parm" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.io.</tt><tt class="descname">write_parm</tt><big>(</big><em>filename=None</em>, <em>top=None</em>, <em>format='amberparm'</em><big>)</big><a class="headerlink" href="#pytraj.io.write_parm" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -660,7 +698,7 @@ unsafe. See: <a class="reference external" href="http://docs.python.org/2.7/libr
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 10, 2015.<br/>
+      Last updated on Oct 14, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>
