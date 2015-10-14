@@ -1,12 +1,7 @@
-.. _pytraj.FrameIter:
+.. _pytraj.Topology:
 
 pytraj.Topology
 ===============
 
-.. container:: custom-index
-    
-    .. raw:: html
-    
-        <script type="text/javascript" src='../_static/cindex.js'></script>
-
+.. autosummary::
 .. autoclass:: pytraj.Topology.Topology
