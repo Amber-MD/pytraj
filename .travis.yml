@@ -34,7 +34,7 @@ script:
     - git clone https://github.com/Amber-MD/cpptraj
     - export PYTRAJHOME=`pwd`
     - export CPPTRAJHOME=`pwd`"/cpptraj/"
-    - conda install mpi4py libnetcdf --yes
+    - conda install scipy mpi4py libnetcdf --yes
     # conda seems weird. Why do we need to reinstall again?
     - conda install lapackamber arpack blasamber --yes -c ambermd
     - cd ./tests
