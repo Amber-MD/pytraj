@@ -96,14 +96,15 @@ class TrajectoryIterator(TrajectoryCpptraj):
                 'have Topology information. Ignore other arguments')
 
         self.__dict__.update({
+            # Topology is pickable
             'top': self.top,
             'top_filename': self.top.filename,
             'filelist': self.filelist
         })
 
     def __setstate__(self, state):
-        self.__dict__ = state.copy()
-        self.top = _load_Topology(state['top_filename'])
+        self.__dict__ = state
+        self.top = state['top']
         self.load(state['filelist'], frame_slice=state['frame_slice_list'])
 
     def __getstate__(self):

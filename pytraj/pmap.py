@@ -4,16 +4,10 @@ from functools import partial
 def worker(rank,
            n_cores=None,
            func=None,
-           filelist=None,
-           top=None,
+           traj=None,
            args=None,
            kwd=None):
-    from pytraj import iterload
-    local_traj = iterload(filelist, top=top)
-    return (rank, func(
-        local_traj._split_iterators(n_cores,
-                                   rank=rank),
-        top=local_traj.top, *args, **kwd))
+    return (rank, func(traj._split_iterators(n_cores, rank=rank), args, kwd))
 
 
 def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
@@ -48,7 +42,6 @@ def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
      18.870697222142766]
     '''
     from multiprocessing import Pool
-    from pytraj import TrajectoryIterator
 
     if not hasattr(func, '_is_parallelizable') or not func._is_parallelizable:
         raise ValueError("this method does not support parallel")
@@ -60,8 +53,7 @@ def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
     pfuncs = partial(worker,
                      n_cores=n_cores,
                      func=func,
-                     filelist=traj.filelist,
-                     top=traj.top.filename,
+                     traj=traj,
                      args=args,
                      kwd=kwd)
     result = p.map(pfuncs, [rank for rank in range(n_cores)])
