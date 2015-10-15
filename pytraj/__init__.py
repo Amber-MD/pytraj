@@ -39,6 +39,7 @@ except ImportError:
 try:
     from .core import Atom, Residue, Molecule
     from .core.ActionList import ActionList
+    Pipeline = ActionList
 except ImportError:
     import os
     source_folders = ['./scripts', './devtools', './docs']

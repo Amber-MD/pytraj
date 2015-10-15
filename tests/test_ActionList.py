@@ -11,6 +11,7 @@ from pytraj.actions import CpptrajActions as CA
 from pytraj.datasets import DatasetList as CpptrajDatasetList
 from pytraj.datafiles.datafiles import DataFileList
 from pytraj.core.ActionList import ActionList
+from pytraj import Pipeline
 
 
 class TestActionList(unittest.TestCase):
@@ -304,6 +305,26 @@ class TestActionList(unittest.TestCase):
                    ]
 
         actlist = ActionList(commands, top=traj.top, dslist=dslist)
+
+        for frame in traj:
+            actlist.do_actions(frame)
+
+        aa_eq(dslist['mycrd'].xyz, pt.get_coordinates(traj, mask='!:WAT', autoimage=True))
+
+    def test_modify_frame_use_Pipeline(self):
+        traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        dslist = CpptrajDatasetList()
+        dslist.add_new('topology', name='mytop')
+
+        # add a new topology
+        dslist[0].data = pt.strip_atoms(traj.top, ':WAT')
+        commands = [
+                    'autoimage',
+                    'strip :WAT',
+                    'createcrd mycrd',
+                   ]
+
+        actlist = Pipeline(commands, top=traj.top, dslist=dslist)
 
         for frame in traj:
             actlist.do_actions(frame)
