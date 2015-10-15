@@ -70,6 +70,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
         self._chunk = None
         # only allow to load <= 1 GB
         self._size_limit_in_GB = 1
+        self._pickle_topology = False
         super(TrajectoryIterator, self).__init__()
 
         if not top:
@@ -96,18 +97,29 @@ class TrajectoryIterator(TrajectoryCpptraj):
                 'have Topology information. Ignore other arguments')
 
         self.__dict__.update({
-            # Topology is pickable
-            'top': self.top,
             'top_filename': self.top.filename,
-            'filelist': self.filelist
+            'filelist': self.filelist,
+            'frame_slice_list': self.frame_slice_list,
         })
 
     def __setstate__(self, state):
         self.__dict__ = state
-        self.top = state['top']
+        if self._pickle_topology:
+            self.top = state['top']
+        else:
+            # faster
+            self.top = _load_Topology(state['top_filename'])
         self.load(state['filelist'], frame_slice=state['frame_slice_list'])
 
     def __getstate__(self):
+        if 'top' not in self.__dict__.keys() and self._pickle_topology:
+            # slow
+            # Topology is pickable
+            if self._pickle_topology:
+                self.__dict__.update({
+                    'top': self.top
+                                     })
+
         return self.__dict__
 
     def __iter__(self):

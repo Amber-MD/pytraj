@@ -7,7 +7,7 @@ def worker(rank,
            traj=None,
            args=None,
            kwd=None):
-    return (rank, func(traj._split_iterators(n_cores, rank=rank), args, kwd))
+    return (rank, func(traj._split_iterators(n_cores, rank=rank), *args, **kwd))
 
 
 def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
@@ -42,6 +42,7 @@ def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
      18.870697222142766]
     '''
     from multiprocessing import Pool
+    from pytraj import TrajectoryIterator
 
     if not hasattr(func, '_is_parallelizable') or not func._is_parallelizable:
         raise ValueError("this method does not support parallel")
