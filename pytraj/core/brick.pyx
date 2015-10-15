@@ -6,37 +6,24 @@ from pytraj.cpptraj_dict import get_key, AtomicElementDict
 from pytraj.externals.six import string_types
 
 cdef class Atom:
-#    def __cinit__(self, aname="", atype=None, index=0, 
-#                        chainID=' ', resnum=0, mol=0,
-#                        charge=0.0, polar=0.0, mass=1.0, 
-#                        element=None,
-#                        *args, **kwd):
-    def __cinit__(self, *args, **kwd):
-        # TODO : add more constructors
-        cdef NameType aname, atype
-        cdef Atom other
-        cdef double charge, mass
+    '''Atom
 
-        if not args and not kwd:
-            self.thisptr = new _Atom()
-        else:
-            if len(args) == 1 and isinstance(args[0], Atom):
-                other = <Atom>  args[0]
-                self.thisptr = new _Atom(other.thisptr[0])
-            elif len(args) == 2:
-                if isinstance(args[0], string_types) and isinstance(args[1], string_types):
-                    aname = NameType(args[0])
-                    atype = NameType (args[1])
-                    self.thisptr = new _Atom(aname.thisptr[0], atype.thisptr[0], 1.0) 
-            elif len(args) == 4:
-                # atom name, atom type, charge, mass
-                aname = NameType(args[0])
-                atype = NameType (args[1])
-                charge = args[2]
-                mass = args[3]
-                self.thisptr = new _Atom(aname.thisptr[0], charge, mass, atype.thisptr[0])
-            else:
-                raise NotImplementedError("not yet supported")
+    Examples
+    --------
+    >>> from pytraj.core import Atom
+    >>> # name, type, charge, mass
+    >>> H = Atom('H', 'H', '0.0', '1.0', resnum=0)
+    '''
+    def __cinit__(self, name='', type='', float charge=0., float mass=0., int resnum=0):
+        cdef NameType aname, atype
+
+        # atom name, atom type, charge, mass
+        aname = NameType(name)
+        atype = NameType(type)
+        charge = charge
+        mass = mass
+        self.thisptr = new _Atom(aname.thisptr[0], charge, mass, atype.thisptr[0])
+        self.resnum = resnum
 
     def __dealloc__(self):
         del self.thisptr
@@ -65,9 +52,8 @@ cdef class Atom:
         def __get__(self):
             return self.thisptr.ResNum()
 
-    property mol:
-        def __set__(self,int molIn):
-            self.thisptr.SetMol(molIn)
+    def set_mol(self, int mol_num):
+            self.thisptr.SetMol(mol_num)
 
     property charge:
         def __set__(self,double qin):
@@ -75,9 +61,6 @@ cdef class Atom:
         def __get__(self):
             return self.thisptr.Charge()
     
-    def no_mol(self):
-        return self.thisptr.NoMol()
-
     def __str__(self):
         if self.atomic_number > 0:
             name = self.name
@@ -101,12 +84,6 @@ cdef class Atom:
     def atomic_number(self):
         return self.thisptr.AtomicNumber()
 
-    def nametype(self):
-        # TODO : do we need this method?
-        cdef NameType nt = NameType()
-        nt.thisptr[0] = self.thisptr.Name()
-        return nt
-
     @property
     def name(self):
         name = self.thisptr.c_str().decode('UTF-8')
@@ -117,10 +94,6 @@ cdef class Atom:
         cdef NameType nt = NameType()
         nt.thisptr[0] = self.thisptr.Type()
         return nt
-
-    @property
-    def typeindex(self):
-        return self.thisptr.TypeIndex()
 
     @property
     def molnum(self):
@@ -135,11 +108,10 @@ cdef class Atom:
         return self.thisptr.Mass()
 
     def is_bonded_to(self, int idx):
-        # TODO : add doc
         return self.thisptr.IsBondedTo(idx)
 
     @classmethod
-    def get_bond_length(cls, id1, id2):
+    def _get_bond_length(cls, id1, id2):
         """get_bond_length(id1, id2)
         Return : bond length of two atomic elements (Angstrom)
 
@@ -152,13 +124,21 @@ cdef class Atom:
         id2 = id2.upper()
         return _Atom.GetBondLength(AtomicElementDict[id1], 
                                    AtomicElementDict[id2])
-# distutils: language = c++
-from pytraj.externals.six import string_types
 
 
 cdef class Residue:
-    def __cinit__(self):
-        self.thisptr = new _Residue()
+    '''Residue
+
+    Examples
+    --------
+    >>> Residue('ALA', resnum=0, icode=0, chainID=0)
+    '''
+    def __cinit__(self, name='', int resnum=0, icode=0, chainID=0):
+        cdef NameType resname = NameType(name)
+        cdef char icode_ = <int> icode
+        cdef char chainID_ = <int> chainID
+        self.thisptr = new _Residue(resname.thisptr[0], <int> resnum,
+                icode_, chainID_)
 
     def __dealloc__(self):
         del self.thisptr

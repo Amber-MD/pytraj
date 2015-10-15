@@ -154,7 +154,6 @@ class TestRMSDPerRes(unittest.TestCase):
         reference ./data/tz2.truncoct.nc 2 2
         rmsd :2-11 refindex 0 perres perresout center.agr range 1 perrescenter
         '''
-        #pt._verbose()
         state = pt.load_batch(traj2, txt)
         state.run()
 

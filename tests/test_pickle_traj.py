@@ -1,17 +1,21 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
-from pytraj.utils import eq, aa_eq
-import pytraj.common_actions as pyca
+from pytraj.testing import eq, aa_eq, assert_equal_topology
 
 
-class Test(unittest.TestCase):
-    def test_0(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        pt.io.to_pickle(traj, './output/test.pk')
-        t0 = pt.io.read_pickle('./output/test.pk')
-        aa_eq(traj.xyz, t0.xyz)
-        assert traj.top.n_atoms == t0.top.n_atoms
+class TestPickleTrajectoryIterator(unittest.TestCase):
+    def test_trajiter(self):
+        for _pickle_topology in [True, False]:
+            for frame_slice in [(0, 8, 2), (0, 10, 1)]:
+                traj = pt.iterload("data/md1_prod.Tc5b.x", "data/Tc5b.top",
+                        frame_slice=frame_slice)
+                traj._pickle_topology = _pickle_topology
+                pt.io.to_pickle(traj, 'output/test0.pk')
+                t0 = pt.io.read_pickle('output/test0.pk')
+
+                aa_eq(traj.xyz, t0.xyz)
+                assert_equal_topology(traj.top, t0.top, traj)
 
 
 if __name__ == "__main__":

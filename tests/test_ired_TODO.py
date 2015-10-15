@@ -185,7 +185,6 @@ class TestIred(unittest.TestCase):
         # Bottom line is that eigenvector sign doesn't matter.
 
         aa_eq(np.abs(evecs[:, ::-1].T), np.abs(cpp_eigenvectors), decimal=4)
-        #pt._verbose()
         data = _ired(state_vecs, modes=(cpp_eigenvalues, cpp_eigenvectors))
         order_s2 = data['IRED_00127[S2]']
 

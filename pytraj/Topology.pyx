@@ -73,6 +73,9 @@ cdef class Topology:
                 box_txt)
         return tmp
 
+    def add_atom(self, Atom atom, Residue residue):
+        self.thisptr.AddTopAtom(atom.thisptr[0], residue.thisptr[0])
+
     def __repr__(self):
         return self.__str__()
 
@@ -432,7 +435,7 @@ cdef class Topology:
                 marray.append(atom.mass)
             return marray
 
-    property change:
+    property charge:
         def __get__(self):
             return np.asarray([x.charge for x in self.atoms])
 
@@ -569,6 +572,77 @@ cdef class Topology:
             for i in range(n_atoms):
                 d_view[i] = self.thisptr.GetVDWradius(i)
             return np.asarray(arr)
+
+    def __getstate__(self):
+        return self.to_dict()
+
+    def __setstate__(self, dict_data):
+        d = dict_data 
+
+        # always start molnum at 0.
+        MOLNUM = 0
+
+        for idx, (aname, atype, charge, mass, resnum, resname, mol_number) in enumerate(zip(d['atom_name'],
+                d['atom_type'], d['atom_charge'], d['atom_mass'], d['resnum'],
+                d['resname'], d['mol_number'])):
+            atom = Atom(aname, atype, charge, mass, resnum)
+            atom.set_mol(mol_number)
+            residue = Residue(resname, resnum)
+            if idx == 0:
+                self.start_new_mol()
+            if mol_number > MOLNUM:
+                self.start_new_mol()
+                MOLNUM += 1
+            self.add_atom(atom, residue)
+
+        self.add_bonds(d['bond_index'])
+        self.add_dihedrals(d['dihedral_index'])
+
+    @classmethod
+    def from_dict(cls, dict_data):
+        new_top = Topology()
+        new_top.__setstate__(dict_data)
+        return new_top
+
+    def to_dict(self):
+        '''convert Topology to Python dict
+        '''
+        cdef:
+            int n_atoms = self.n_atoms
+            int idx
+            Atom atom
+
+        d = {}
+
+        short_resnamelist = np.asarray([res.name for res in self.residues])
+        resnums = []
+
+        atomnames = []
+        atomtypes = []
+        atomcharges = []
+        molnums = []
+        resnames = []
+
+        for idx, atom in enumerate(self.atoms):
+            resnums.append(atom.resnum)
+            atomnames.append(atom.name)
+            atomtypes.append(atom.type.truncated_name)
+            atomcharges.append(atom.charge)
+            molnums.append(atom.molnum)
+            resnames.append(short_resnamelist[atom.resnum])
+
+        d['atom_name'] = atomnames
+        d['atom_type'] = atomtypes
+        d['atom_charge'] = atomcharges
+        d['atom_mass'] = self.mass
+        d['resname'] = resnames
+        d['resnum'] = resnums
+        d['bond_index'] = self.bond_indices
+        d['dihedral_index'] = self.dihedral_indices
+        d['mol_number'] = molnums
+
+        return d
+
 
     def to_dataframe(self):
         import pandas as pd

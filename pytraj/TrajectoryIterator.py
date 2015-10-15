@@ -63,6 +63,13 @@ class TrajectoryIterator(TrajectoryCpptraj):
         >>> traj = pt.iterload(['remd.x.000', 'remd.x.001'], 'input.parm7')
         >>> # load another trajectory
         >>> traj.load('./remd.x.003')
+
+        Notes
+        -----
+        It's a bit tricky to pickle this class. As default, new TrajectoryIterator will
+        use original trj filename and top filename. If set _pickle_topology to True, its
+        Topology will be pickled (slow but more accurate if you change the topology in the
+        fly)
         '''
         self._force_load = False
         # use self._chunk to store `chunk` in iterchunk
@@ -70,6 +77,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
         self._chunk = None
         # only allow to load <= 1 GB
         self._size_limit_in_GB = 1
+        self._pickle_topology = False
         super(TrajectoryIterator, self).__init__()
 
         if not top:
@@ -96,17 +104,29 @@ class TrajectoryIterator(TrajectoryCpptraj):
                 'have Topology information. Ignore other arguments')
 
         self.__dict__.update({
-            'top': self.top,
             'top_filename': self.top.filename,
-            'filelist': self.filelist
+            'filelist': self.filelist,
+            'frame_slice_list': self.frame_slice_list,
         })
 
     def __setstate__(self, state):
-        self.__dict__ = state.copy()
-        self.top = _load_Topology(state['top_filename'])
+        self.__dict__ = state
+        if self._pickle_topology:
+            self.top = state['top']
+        else:
+            # faster
+            self.top = _load_Topology(state['top_filename'])
         self.load(state['filelist'], frame_slice=state['frame_slice_list'])
 
     def __getstate__(self):
+        if 'top' not in self.__dict__.keys() and self._pickle_topology:
+            # slow
+            # Topology is pickable
+            if self._pickle_topology:
+                self.__dict__.update({
+                    'top': self.top
+                                     })
+
         return self.__dict__
 
     def __iter__(self):

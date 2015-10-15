@@ -20,20 +20,26 @@ addons:
     - gfortran
     - libz-dev
     - libbz2-dev
+    - libblas-dev
+    - liblapack-dev
+    - libarpack2-dev
     - libnetcdf-dev
+
 
 install:
     - source devtools/travis-ci/setup_env.sh
-    - conda config --add channels https://conda.binstar.org/ambermd
+    #- conda config --add channels https://conda.binstar.org/ambermd
     - python --version
-    - source devtools/travis-ci/install_cpptraj.sh
-    - conda build --py $PYTHON_VERSION devtools/conda-recipe/pytraj
-    - conda install $HOME/miniconda/conda-bld/linux-64/pytraj-dev-* --yes
+    #- source devtools/travis-ci/install_cpptraj.sh
+    #- conda build --py $PYTHON_VERSION devtools/conda-recipe/pytraj
+    #- conda install $HOME/miniconda/conda-bld/linux-64/pytraj-dev-* --yes
 
 script:
-    - git clone https://github.com/Amber-MD/cpptraj
+    #- git clone https://github.com/Amber-MD/cpptraj
     - export PYTRAJHOME=`pwd`
-    - export CPPTRAJHOME=`pwd`"/cpptraj/"
+    - python setup.py install
+    - export LD_LIBRARY_PATH=`pwd`"/cpptraj/lib":$LD_LIBRARY_PATH
+    #- export CPPTRAJHOME=`pwd`"/cpptraj/"
     - conda install scipy mpi4py libnetcdf --yes
     # conda seems weird. Why do we need to reinstall again?
     - conda install lapackamber arpack blasamber --yes -c ambermd
@@ -48,9 +54,10 @@ script:
 
 after_success:
     - echo "after_success"
-    - source devtools/travis-ci/upload.sh 
+    # turn off upload to anaconda for now
+    #- source devtools/travis-ci/upload.sh 
     # just try to install
-    - conda install -c ambermd pytraj-dev libcpptraj-dev --yes
+    #- conda install -c ambermd pytraj-dev libcpptraj-dev --yes
 
 notifications:
   email: false

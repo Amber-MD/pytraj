@@ -27,7 +27,6 @@ class TestReferenceFrame(unittest.TestCase):
         '''.format(traj.top.filename, traj.filename)
         
         state = pt.load_cpptraj_state(text)
-        pt._verbose()
         state.run()
         print(state.data.keys())
 
@@ -45,7 +44,6 @@ class TestReferenceFrame(unittest.TestCase):
         dslist = DatasetList()
         dslist.add_set('ref_frame', 'myref')
         dslist[-1].add_frame(ref)
-        pt._verbose()
         act('myrmsd ref myref @CA', traj, top=traj.top, dslist=dslist)
         print(dslist)
 
