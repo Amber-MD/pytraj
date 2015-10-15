@@ -7,6 +7,7 @@ def worker(rank,
            traj=None,
            args=None,
            kwd=None):
+    # need to unpack args and kwd
     return (rank, func(traj._split_iterators(n_cores, rank=rank), *args, **kwd))
 
 
