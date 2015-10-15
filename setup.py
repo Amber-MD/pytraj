@@ -22,7 +22,7 @@ from functools import partial
 from glob import glob
 from itertools import chain
 
-# local
+# local import
 from scripts.base_setup import auto_install_message, remind_export_LD_LIBRARY_PATH
 
 # python version >= 2.7
@@ -30,29 +30,33 @@ if sys.version_info < (2, 6):
     sys.stderr.write('You must have at least Python 2.6 for pytraj\n')
     sys.exit(0)
 
-# require cython version >= 0.23 for now.
+# cython version >= 0.21 for now.
 cmdclass = {}
+cython_msg = '''
+Building from source requires cython >= 0.21
+try `conda install cython` if you have conda
+(try to read here if you want to know why we suggeste to use conda:
+    http://conda.pydata.org/docs/download.html)
+'''
 try:
     import Cython
     from Cython.Distutils import build_ext
     from Cython.Build import cythonize
     has_cython = True
     cmdclass['build_ext'] = build_ext
-    if Cython.__version__ < '0.23':
-        raise ImportError
+    if Cython.__version__ < '0.21':
+        raise ImportError(cython_msg)
 except ImportError:
     #has_cython = False
     #from distutils.command.build_ext import build_ext 
     #cmdclass['build_ext'] = build_ext
-    sys.stderr.write('Building from source requires cython >= 0.23 \n')
+    sys.stderr.write(cython_msg)
     sys.exit(0)
 
 
-PYTRAJ_DIR = os.path.abspath(os.path.dirname(__file__))
-
 def read(fname):
+    # must be in this setup file
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
-
 
 if sys.platform == 'darwin':
     # copied from ParmEd
@@ -63,12 +67,14 @@ if sys.platform == 'darwin':
     os.environ['CXX'] = 'clang++'
     os.environ['CC'] = 'clang'
 
-pytraj_version = read("pytraj/__version__.py").split("=")[-1]
-pytraj_version = pytraj_version.replace('"', '', 10)
+PYTRAJ_DIR = os.path.abspath(os.path.dirname(__file__))
+pytraj_version = read("pytraj/__version__.py").split("=")[-1].replace('"', '', 10)
 rootname = os.getcwd()
 pytraj_home = rootname + "/pytraj/"
 
 openmp_str = "openmp"
+faster_build_str = "faster"
+
 if openmp_str in ' '.join(sys.argv):
     # python ./setup.py build openmp
     # make sure to update Makefile in $AMBERHOME/AmberTools/src
@@ -76,6 +82,7 @@ if openmp_str in ' '.join(sys.argv):
     with_openmp = True
     # I am dump here. fix later.
     try:
+        # '-openmp'
         sys.argv.remove('-' + openmp_str)
     except:
         pass
@@ -86,9 +93,7 @@ if openmp_str in ' '.join(sys.argv):
 else:
     with_openmp = False
 
-faster_build_str = "faster"
-
-KeyErrorTXT = """
+KeyErrorText = """
 Can not use -faster_build with `install`,
 try  "python setup.py build faster_build
 then "python setup.py install" 
@@ -99,7 +104,7 @@ if faster_build_str in sys.argv:
     faster_build = True
     sys.argv.remove(faster_build_str)
     if "install" in sys.argv:
-        sys.stderr.write(KeyErrorTXT)
+        sys.stderr.write(KeyErrorText)
         sys.exit(0)
     if 'build' not in sys.argv:
         sys.stderr.write('faster must come with build')

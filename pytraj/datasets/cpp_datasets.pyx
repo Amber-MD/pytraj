@@ -300,7 +300,8 @@ cdef class Dataset1D (Dataset):
             raise ValueError("idx must be 0 or 1")
 
     def allocate_1D(self, size_t size):
-        cdef vector[size_t] v = [size,]
+        cdef vector[size_t] v
+        v.push_back(size)
         return self.baseptr_1.Allocate(v)
 
     def from_array_like(self, array_like):
@@ -815,7 +816,9 @@ cdef class Dataset2D (Dataset):
         return self.baseptr_1.GetElement(x, y)
 
     def allocate_2D(self, size_t x, size_t y):
-        cdef vector[size_t] v = [x, y]
+        cdef vector[size_t] v
+        v.push_back(x)
+        v.push_back(y)
         self.baseptr_1.Allocate(v)
 
     def allocate_half(self, size_t x):
@@ -1060,11 +1063,13 @@ cdef class DatasetGridFloat(Dataset3D):
             nx, ny, nz = self.nx, self.ny, self.nz
             cdef float* ptr = &self.thisptr.index_opr(0)
             return <float[:nx, :ny, :nz]> ptr
+
         def __set__(self, float[:, :, :] values):
             cdef unsigned int nx, ny, nz
             cdef unsigned int i, j, k
 
-            nx, ny, nz = values.shape[:3]
+            # use for old cython
+            nx, ny, nz = [_ for _ in values.shape[:3]]
             self.resize(nx, ny, nz)
 
             for i in range(nx):
