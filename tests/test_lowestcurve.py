@@ -14,7 +14,6 @@ class TestLowestCurve(unittest.TestCase):
         data = pt.rmsd(traj, mask='@CA')
 
         act = Analysis_LowestCurve()
-        pt._verbose()
         dslist = CpptrajDatasetList()
         dslist.add_new('double', 'myrmsd')
         dslist[0].data = data
