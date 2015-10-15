@@ -1,5 +1,6 @@
 # distutils: language = c++
 from libcpp.vector cimport vector
+from libcpp.string cimport string
 #from libcpp.set cimport set
 from pytraj.core.cpp_core cimport _NameType, NameType
 from pytraj.cpp_vector cimport vector as cppvector
@@ -65,6 +66,7 @@ cdef extern from "Residue.h":
     cdef cppclass _Residue "Residue":
         _Residue()
         _Residue(int onum, const _NameType& resname, int first_AtomIn)
+        _Residue(_NameType& n, int r, char ic, char cid)
         inline void SetLastAtom(int i)
         inline void SetOriginalNum(int i)
         inline int FirstAtom() const 

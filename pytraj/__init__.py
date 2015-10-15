@@ -124,9 +124,12 @@ from .common_actions import (
 # create alias
 rmsd_nofit = calc_rmsd_nofit
 distance = calc_distance
+distances = calc_distance
 pairwise_distance = calc_pairwise_distance
 angle = calc_angle
+angles = calc_angle
 dihedral = calc_dihedral
+dihedrals = calc_dihedral
 jcoupling = calc_jcoupling
 nucleic_acid_analysis = nastruct
 calc_RMSF = calc_atomicfluct
