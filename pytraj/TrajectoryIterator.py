@@ -63,6 +63,13 @@ class TrajectoryIterator(TrajectoryCpptraj):
         >>> traj = pt.iterload(['remd.x.000', 'remd.x.001'], 'input.parm7')
         >>> # load another trajectory
         >>> traj.load('./remd.x.003')
+
+        Notes
+        -----
+        It's a bit tricky to pickle this class. As default, new TrajectoryIterator will
+        use original trj filename and top filename. If set _pickle_topology to True, its
+        Topology will be pickled (slow but more accurate if you change the topology in the
+        fly)
         '''
         self._force_load = False
         # use self._chunk to store `chunk` in iterchunk
