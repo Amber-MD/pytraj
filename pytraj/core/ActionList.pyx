@@ -113,7 +113,7 @@ cdef class ActionList:
         else:
             return None
 
-    def process(self, Topology top, crdinfo={}, n_frames_t=0):
+    def process(self, Topology top, crdinfo={}, n_frames_t=0, bint exit_on_error=True):
         # let cpptraj free mem
         cdef _ActionSetup actionsetup_
         cdef CoordinateInfo crdinfo_
@@ -134,7 +134,7 @@ cdef class ActionList:
         #top._own_memory = False
 
         actionsetup_ = _ActionSetup(top.thisptr, crdinfo_, n_frames_t)
-        self.thisptr.SetupActions(actionsetup_)
+        self.thisptr.SetupActions(actionsetup_, exit_on_error)
 
     def do_actions(self, traj=Frame(), int idx=0, use_mass=True):
         cdef _ActionFrame actionframe_

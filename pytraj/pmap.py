@@ -54,6 +54,10 @@ def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
     If calculation require a reference structure, users need to explicit provide reference
     as a Frame (not an integer number). For example, pt.pmap(4, pt.rmsd, traj, ref=-3)
     won't work, use ``ref=traj[3]`` instead.
+
+    Currently, pytraj does not auto-join the data. This depends on type of
+    calculation (distance vs vector vs matrix calculation ...). This behavior might be
+    changed in future.
     
     Examples
     --------
