@@ -37,6 +37,7 @@ class Test(unittest.TestCase):
             has_parmed = False
 
         funclist = [DataArray,
+                    pt.actions.CpptrajActions.Action,
                     pt.pmap,
                     pt.nastruct,
                     pt.mean_structure,

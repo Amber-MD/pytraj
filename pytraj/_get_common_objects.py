@@ -1,7 +1,8 @@
 from __future__ import absolute_import
+# TODO: rename this file
 
 # do not import anything else here.
-from pytraj.externals.six import string_types
+from pytraj.externals.six import string_types, integer_types
 
 def _load_Topology(filename):
     from pytraj import Topology, ParmFile
@@ -93,8 +94,7 @@ def _get_matrix_from_dataset(dset, mat_type='full'):
 
 
 def _get_reference_from_traj(traj, ref):
-    from pytraj.utils import is_int
-    if is_int(ref):
+    if isinstance(ref, integer_types):
         try:
             return traj[ref]
         except IndexError:
