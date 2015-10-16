@@ -839,20 +839,14 @@ def calc_rdf(traj=None,
 
     Examples
     --------
-
-    .. plot::
-        :context: close-figs
-        
-        >>> from matplotlib import pyplot as plt
-        >>> import pytraj as pt
-        >>> data = pt.rdf(traj, solvent_mask=':WAT@O', bin_spacing=0.5,
-        >>>               maximum=10.0,
-        >>>               solute_mask=':WAT@O')
-        >>> data
-        (array([ 0.25,  0.75,  1.25, ...,  8.75,  9.25,  9.75]),
-         array([ 0.        ,  0.        ,  0.        , ...,  0.95620052,
-                 0.95267934,  0.95135242])ValueErro://github.com/mwaskom/seaborn)
-        >>> plt.plot(data[0], data[1])
+    >>> import pytraj as pt
+    >>> data = pt.rdf(traj, solvent_mask=':WAT@O', bin_spacing=0.5,
+    >>>               maximum=10.0,
+    >>>               solute_mask=':WAT@O')
+    >>> data
+    (array([ 0.25,  0.75,  1.25, ...,  8.75,  9.25,  9.75]),
+     array([ 0.        ,  0.        ,  0.        , ...,  0.95620052,
+             0.95267934,  0.95135242])ValueErro://github.com/mwaskom/seaborn)
     
     Notes
     -----
