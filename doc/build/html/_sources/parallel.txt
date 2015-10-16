@@ -63,6 +63,7 @@ Supported methods for ``pmap``
         if 'calc_' in name:
             name = name.split('calc_')[-1]
         pmap_.append(name)
+    supported_pmap_methods = sorted(pmap_)
 
     openmp_ = []
     for method in set(method_list_openmp):
@@ -70,11 +71,12 @@ Supported methods for ``pmap``
         if 'calc_' in name:
             name = name.split('calc_')[-1]
         openmp_.append(name)
+    supported_openmp_methods = sorted(openmp_)
 
 
 .. ipython:: python
 
-    for method in sorted(set(pmap_)):
+    for method in supported_pmap_methods:
         print(method)
 
 
@@ -83,8 +85,9 @@ Supported methods for ``openmp``
 
 .. ipython:: python
 
-    for method in sorted(set(openmp_)):
+    for method in supported_openmp_methods:
         print(method)
+    print("")
 
 
 Rule of thumb for choosing ``pmap`` or ``openmp``?
