@@ -77,6 +77,17 @@ def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
     need to write a script, escaping ipython ession and type something like::
         
         mpirun -n 4 python my_script.py
+
+    vs::
+
+        In [1]: pt.pmap(4, pt.radgyr, traj, dtype='dict')
+        Out[1]:
+        OrderedDict([('RoG_00000',
+                      array([ 18.91114428,  18.93654996,  18.84969884,  18.90449256,
+                              18.8568644 ,  18.88917208,  18.9430491 ,  18.88878079,
+                              18.91669565,  18.87069722]))])
+
+    This is experimental method, you should expect its syntax, default output will be changed.
     
     Examples
     --------
