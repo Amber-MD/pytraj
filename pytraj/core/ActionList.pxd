@@ -18,7 +18,7 @@ cdef extern from "ActionList.h":
         int Debug()
         int AddAction(DispatchAllocatorType, _ArgList&,
                       _ActionInit&,)
-        int SetupActions(_ActionSetup)
+        int SetupActions(_ActionSetup, bint exit_on_error)
         bint DoActions(int, _ActionFrame)
         void Print()
         void List()
