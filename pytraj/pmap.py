@@ -8,7 +8,8 @@ def worker(rank,
            args=None,
            kwd=None):
     # need to unpack args and kwd
-    return (rank, func(traj._split_iterators(n_cores, rank=rank), *args, **kwd))
+    my_iter = traj._split_iterators(n_cores, rank=rank)
+    return (rank, func(my_iter, *args, **kwd), my_iter.n_frames)
 
 
 def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
