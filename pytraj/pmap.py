@@ -68,6 +68,15 @@ def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
     few hours). For calculation that takes less than 1 minutes, you won't see the
     significant speed up (or even slower) since pytraj need to warm up and need to gather
     data when the calculation done.
+
+    The parallel cacluation is very simple, trajectory will be split (almost equal) to
+    different chunk (n_chunks = n_cores), pytraj/cpptraj perform calculation for each
+    chunk in each core and then send data back to master. Note that we are using Python's
+    built-in multiprocessing module, so you can use this method interactively in Ipython
+    and ipython/jupyter notebook. This behavior is different from using MPI, in which you
+    need to write a script, escaping ipython ession and type something like::
+        
+        mpirun -n 4 python my_script.py
     
     Examples
     --------
