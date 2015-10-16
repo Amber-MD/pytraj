@@ -1,8 +1,14 @@
+# do not use relative import here. Treat this module as a seperated method.
 from functools import partial
 from pytraj.cpp_options import info as compiled_info
 from collections import OrderedDict
 import numpy as np
 from pytraj.externals.six import string_types, iteritems
+from pytraj.datasetlist import stack
+from pytraj._get_common_objects import _get_data_from_dtype
+from pytraj import matrix
+from pytraj import mean_structure 
+from pytraj import Frame
 
 
 def concat_dict(iterables):
@@ -47,7 +53,10 @@ def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
 
     Returns
     -------
-    out : list of (rank, data, n_frames)
+    out : if dtype='dict', return an OrderedDict, data is automatically joint. if dtype is
+          not 'dict', return a list of (rank, data, n_frames), data is NOT automatically
+          joint. Note that for [matrix.dist, matrix.idea, mean_structure] calculation,
+          data is always joint (does not depend on dtype)
 
     Notes
     -----
@@ -105,12 +114,32 @@ def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
             raise ValueError('only support TrajectoryIterator')
 
         p = Pool(n_cores)
+        if 'dtype' in kwd.keys():
+            dtype = kwd['dtype']
+        else:
+            dtype = None
+
         pfuncs = partial(worker,
                          n_cores=n_cores,
                          func=func,
                          traj=traj,
                          args=args,
                          kwd=kwd)
-        result = p.map(pfuncs, [rank for rank in range(n_cores)])
+
+        data = p.map(pfuncs, [rank for rank in range(n_cores)])
         p.close()
-        return result
+
+        if func in [matrix.dist, matrix.idea]:
+            y = np.sum((val[1] * val[2] for val in data)) / traj.n_frames
+            return y
+        elif func == mean_structure:
+            xyz = np.sum((x[2] * x[1].xyz for x in data)) / traj.n_frames
+            frame = Frame(xyz.shape[0])
+            frame.xyz[:] = xyz
+            return frame
+        else:
+            if dtype == 'dict':
+                new_dict = concat_dict((x[1] for x in data))
+                return new_dict
+            else:
+                return data
