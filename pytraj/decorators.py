@@ -25,6 +25,14 @@ def _register_pmap(f):
     inner._is_parallelizable = True
     return inner
 
+def _register_openmp(f):
+    @wraps(f)
+    def inner(*args, **kwd):
+        return f(*args, **kwd)
+
+    inner._openmp_capability = True
+    return inner
+
 def noparallel(f):
     @wraps(f)
     def inner(*args, **kwd):

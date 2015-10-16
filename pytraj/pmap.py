@@ -1,4 +1,5 @@
 from functools import partial
+from pytraj.cpp_options import info as compiled_info
 
 def worker(rank,
            n_cores=None,
@@ -53,6 +54,11 @@ def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
 
     if not hasattr(func, '_is_parallelizable') or not func._is_parallelizable:
         raise ValueError("this method does not support parallel")
+    else:
+        if hasattr(func, '_openmp_capability') and func._openmp_capability and 'OPENMP' in compiled_info():
+            raise RuntimeError("this method supports both openmp and pmap, but your cpptraj "
+            "version was installed with openpm. Should not use both openmp and pmap at the "
+            "same time. In this case, do not use pmap since openmp is more efficient")
 
     if not isinstance(traj, TrajectoryIterator):
         raise ValueError('only support TrajectoryIterator')

@@ -5,7 +5,7 @@ from .analyses import CpptrajAnalyses
 from .datasets import cpp_datasets
 from ._get_common_objects import _get_topology, _get_data_from_dtype
 from .datasets.DatasetList import DatasetList as CpptrajDatasetList
-from .decorators import _register_pmap
+from .decorators import _register_pmap, _register_openmp
 
 mat_keys = {
     'dist',
@@ -91,6 +91,7 @@ del k
 
 dist = _register_pmap(dist)
 idea = _register_pmap(idea)
+covar = _register_openmp(covar)
 
 
 def diagonalize(mat, n_vecs, dtype='dataset'):

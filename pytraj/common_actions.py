@@ -28,7 +28,7 @@ from .dssp_analysis import calc_dssp
 from ._nastruct import nastruct
 from ._shared_methods import iterframe_master
 from .externals.get_pysander_energies import get_pysander_energies
-from .decorators import noparallel, _register_pmap
+from .decorators import noparallel, _register_pmap, _register_openmp
 from .actions import CpptrajActions
 from .analyses import CpptrajAnalyses
 from .core.ActionList import ActionList
@@ -561,6 +561,8 @@ def _calc_diffusion(traj=None,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
+@_register_pmap
+@_register_openmp
 def calc_watershell(traj=None,
                     solute_mask=None,
                     solvent_mask=':WAT',
@@ -794,6 +796,7 @@ def calc_linear_interaction_energy(traj=None,
 calc_LIE = calc_linear_interaction_energy
 
 
+@_register_openmp
 def calc_rdf(traj=None,
              solvent_mask=':WAT@O',
              solute_mask='',
@@ -837,10 +840,14 @@ def calc_rdf(traj=None,
     Examples
     --------
     >>> import pytraj as pt
-    >>> data0 = pt.rdf(traj, solvent_mask=':WAT@O', bin_spacing=0.5,
+    >>> data = pt.rdf(traj, solvent_mask=':WAT@O', bin_spacing=0.5,
     >>>               maximum=10.0,
-    >>>               solute_mask=':5@CD')
-
+    >>>               solute_mask=':WAT@O')
+    >>> data
+    (array([ 0.25,  0.75,  1.25, ...,  8.75,  9.25,  9.75]),
+     array([ 0.        ,  0.        ,  0.        , ...,  0.95620052,
+             0.95267934,  0.95135242])ValueErro://github.com/mwaskom/seaborn)
+    
     Notes
     -----
     - install ``pytraj`` and ``libcpptraj`` with openmp to speed up calculation
@@ -1619,7 +1626,7 @@ def calc_center_of_geometry(traj=None, command="", top=None, dtype='ndarray'):
 
 calc_COG = calc_center_of_geometry
 
-
+@_register_openmp
 def calc_pairwise_rmsd(traj=None,
                        mask="",
                        metric='rms',
@@ -2015,6 +2022,7 @@ def principal_axes(traj=None, mask='*', dorotation=False, mass=True, top=None):
     return (dslist[0].values, dslist[1].values)
 
 
+@_register_openmp
 def atomiccorr(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     """
     """
@@ -2049,6 +2057,7 @@ def _closest_iter(act, traj):
         yield new_frame
 
 
+@_register_openmp
 def closest(traj=None,
             mask='*',
             solvent_mask=None,
@@ -2484,6 +2493,7 @@ def rotate_dihedral(traj=None, mask="", top=None):
     return traj
 
 
+@_register_openmp
 def replicate_cell(traj=None, mask="", direction='all', top=None):
     '''create a trajectory where the unit cell is replicated in 1 or
     more direction (up to 27)

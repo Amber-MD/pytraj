@@ -5,6 +5,7 @@ from ._get_common_objects import _get_data_from_dtype, _get_topology, _get_fiter
 from .utils.convert import array_to_cpptraj_atommask as to_cpptraj_mask
 from pytraj.compat import string_types
 from pytraj import DatasetList
+from .decorators import _register_openmp
 
 
 class DSSPAnalysisResult(BaseAnalysisResult):
@@ -68,6 +69,7 @@ class DSSPAnalysisResult(BaseAnalysisResult):
         return np.vstack((self.residues, self.to_ndarray(restype).T)).T
 
 
+@_register_openmp
 def calc_dssp(traj=None, mask="", frame_indices=None, dtype='ndarray', top=None):
     """return dssp profile for frame/traj
 
