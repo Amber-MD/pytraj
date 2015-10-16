@@ -3,6 +3,8 @@
 Parallel calculation
 ====================
 
+.. contents::
+
 .. note:: This is experimental design.
 
 try ``pytraj`` online:

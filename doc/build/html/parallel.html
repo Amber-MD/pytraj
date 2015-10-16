@@ -158,7 +158,23 @@
     <div class="col-md-12">
       
   <div class="section" id="parallel-calculation">
-<span id="parallel"></span><h1>Parallel calculation<a class="headerlink" href="#parallel-calculation" title="Permalink to this headline">¶</a></h1>
+<span id="parallel"></span><h1><a class="toc-backref" href="#id1">Parallel calculation</a><a class="headerlink" href="#parallel-calculation" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#parallel-calculation" id="id1">Parallel calculation</a><ul>
+<li><a class="reference internal" href="#single-action-with-single-trajectory" id="id2">single action with single trajectory</a><ul>
+<li><a class="reference internal" href="#example" id="id3">Example</a></li>
+<li><a class="reference internal" href="#supported-methods-for-pmap" id="id4">Supported methods for <tt class="docutils literal"><span class="pre">pmap</span></tt></a></li>
+<li><a class="reference internal" href="#supported-methods-for-openmp" id="id5">Supported methods for <tt class="docutils literal"><span class="pre">openmp</span></tt></a></li>
+<li><a class="reference internal" href="#rule-of-thumb-for-choosing-pmap-or-openmp" id="id6">Rule of thumb for choosing <tt class="docutils literal"><span class="pre">pmap</span></tt> or <tt class="docutils literal"><span class="pre">openmp</span></tt>?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#multiple-actions-with-multiple-trajectories" id="id7">multiple actions with multiple trajectories</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This is experimental design.</p>
@@ -168,9 +184,9 @@
 <p><tt class="docutils literal"><span class="pre">pytraj</span></tt> support different types of parallel computing.</p>
 <p><tt class="docutils literal"><span class="pre">pytraj</span></tt> use <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html">python multiprocessing</a>, so users don&#8217;t need to install extra package.</p>
 <div class="section" id="single-action-with-single-trajectory">
-<h2>single action with single trajectory<a class="headerlink" href="#single-action-with-single-trajectory" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id2">single action with single trajectory</a><a class="headerlink" href="#single-action-with-single-trajectory" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="example">
-<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id3">Example</a><a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
 <span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;data/tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s">&#39;data/tz2.ortho.parm7&#39;</span><span class="p">)</span>
@@ -185,7 +201,7 @@
 </div>
 </div>
 <div class="section" id="supported-methods-for-pmap">
-<h3>Supported methods for <tt class="docutils literal"><span class="pre">pmap</span></tt><a class="headerlink" href="#supported-methods-for-pmap" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id4">Supported methods for <tt class="docutils literal"><span class="pre">pmap</span></tt></a><a class="headerlink" href="#supported-methods-for-pmap" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [4]: </span><span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">supported_pmap_methods</span><span class="p">:</span>
 <span class="gp">   ...:</span>     <span class="k">print</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
 <span class="gp">   ...:</span> 
@@ -197,6 +213,7 @@
 <span class="go">distance</span>
 <span class="go">distance_rmsd</span>
 <span class="go">get_velocity</span>
+<span class="go">mean_structure</span>
 <span class="go">mindist</span>
 <span class="go">molsurf</span>
 <span class="go">multidihedral</span>
@@ -213,7 +230,7 @@
 </div>
 </div>
 <div class="section" id="supported-methods-for-openmp">
-<h3>Supported methods for <tt class="docutils literal"><span class="pre">openmp</span></tt><a class="headerlink" href="#supported-methods-for-openmp" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id5">Supported methods for <tt class="docutils literal"><span class="pre">openmp</span></tt></a><a class="headerlink" href="#supported-methods-for-openmp" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [5]: </span><span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">supported_openmp_methods</span><span class="p">:</span>
 <span class="gp">   ...:</span>     <span class="k">print</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
 <span class="gp">   ...:</span> 
@@ -230,13 +247,13 @@
 </div>
 </div>
 <div class="section" id="rule-of-thumb-for-choosing-pmap-or-openmp">
-<h3>Rule of thumb for choosing <tt class="docutils literal"><span class="pre">pmap</span></tt> or <tt class="docutils literal"><span class="pre">openmp</span></tt>?<a class="headerlink" href="#rule-of-thumb-for-choosing-pmap-or-openmp" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id6">Rule of thumb for choosing <tt class="docutils literal"><span class="pre">pmap</span></tt> or <tt class="docutils literal"><span class="pre">openmp</span></tt>?</a><a class="headerlink" href="#rule-of-thumb-for-choosing-pmap-or-openmp" title="Permalink to this headline">¶</a></h3>
 <p>Always try to install <tt class="docutils literal"><span class="pre">pytraj</span></tt> and <tt class="docutils literal"><span class="pre">cpptraj</span></tt> with <tt class="docutils literal"><span class="pre">-openmp</span></tt> flag.
 If method supports openmp, use openmp.</p>
 </div>
 </div>
 <div class="section" id="multiple-actions-with-multiple-trajectories">
-<h2>multiple actions with multiple trajectories<a class="headerlink" href="#multiple-actions-with-multiple-trajectories" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7">multiple actions with multiple trajectories</a><a class="headerlink" href="#multiple-actions-with-multiple-trajectories" title="Permalink to this headline">¶</a></h2>
 <p>Only works with Python 3.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [7]: </span><span class="kn">from</span> <span class="nn">pytraj.parallel</span> <span class="kn">import</span> <span class="n">PJob</span>
 
