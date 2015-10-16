@@ -1017,6 +1017,7 @@ def do_autoimage(traj=None, command="", frame_indices=None, top=None):
 autoimage = do_autoimage
 
 
+@_register_pmap
 def mean_structure(traj,
                    mask='',
                    frame_indices=None,

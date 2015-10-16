@@ -69,10 +69,11 @@ class TestParallelMapForMatrix(unittest.TestCase):
         traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
 
         # not support [covar, distcovar, mwcovar]
-        for func in [matrix.dist, matrix.idea]:
-            x = pt.pmap(4, func, traj, '@CA')
-            y = np.sum((val[1] * val[2] for val in x), axis=1)
-            aa_eq(y/traj.n_frames, func(traj, '@CA'))
+        for n_cores in [2, 3, 4, 5]:
+            for func in [matrix.dist, matrix.idea]:
+                x = pt.pmap(n_cores, func, traj, '@CA')
+                y = np.sum((val[1] * val[2] for val in x))
+                aa_eq(y/traj.n_frames, func(traj, '@CA'))
 
 class TestCpptrajCommandStyle(unittest.TestCase):
     def test_cpptraj_command_style(self):
@@ -84,6 +85,18 @@ class TestCpptrajCommandStyle(unittest.TestCase):
         data = pt.pmap(4, ['angle :3 :4 :5', 'distance @10 @20'], traj)
         aa_eq(angle_, data['Ang_00002'])
         aa_eq(distance_, data['Dis_00003'])
+
+class TestParallelMapForAverageStructure(unittest.TestCase):
+    def test_pmap_average_structure(self):
+        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        saved_frame = pt.mean_structure(traj, '@CA')
+        saved_xyz = saved_frame.xyz
+
+        for n_cores in [2, 3, 4, 5]:
+            data = pt.pmap(n_cores, pt.mean_structure, traj, '@CA')
+            xyz = np.sum((x[2] * np.array(x[1].xyz) for x in data)) / traj.n_frames
+            aa_eq(xyz, saved_xyz)
+
 
 if __name__ == "__main__":
     unittest.main()
