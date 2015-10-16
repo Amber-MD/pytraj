@@ -64,9 +64,10 @@ def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
     as a Frame (not an integer number). For example, pt.pmap(4, pt.rmsd, traj, ref=-3)
     won't work, use ``ref=traj[3]`` instead.
 
-    Currently, pytraj does not auto-join the data. This depends on type of
-    calculation (distance vs vector vs matrix calculation ...). This behavior might be
-    changed in future.
+    This method only benifits you if your calculation is quite long (saying few minutes to
+    few hours). For calculation that takes less than 1 minutes, you won't see the
+    significant speed up (or even slower) since pytraj need to warm up and need to gather
+    data when the calculation done.
     
     Examples
     --------
