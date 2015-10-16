@@ -13,8 +13,8 @@ from .cpp_options import __cpptraj_internal_version__
 
 _v = __cpptraj_internal_version__
 # TODO: follow python's rule
-if _v < 'V4.7':
-    raise RuntimeError("need to have cpptraj version >= v4.7")
+if _v < 'V4.2.7':
+    raise RuntimeError("need to have cpptraj version >= v4.2.7")
 
 if 'BINTRAJ' not in compiled_info():
     from warnings import warn
