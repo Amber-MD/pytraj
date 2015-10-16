@@ -43,11 +43,6 @@ class Test(unittest.TestCase):
         dslist = DatasetList()
         for f0 in farray3:
             assert f0.n_atoms == farray3.top.n_atoms
-        # adict['distance'](":2@CA :10@CA", farray3,
-        #                  farray3.top, dslist=dslist)
-
-        d0 = adict['distance'](":2@CA :10@CA", farray3, farray3.top,
-                               quick_get=True)
 
 
 if __name__ == "__main__":
