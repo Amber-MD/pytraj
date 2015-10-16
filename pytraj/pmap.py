@@ -9,7 +9,8 @@ def worker(rank,
            kwd=None):
     # need to unpack args and kwd
     my_iter = traj._split_iterators(n_cores, rank=rank)
-    return (rank, func(my_iter, *args, **kwd), my_iter.n_frames)
+    data = func(my_iter, *args, **kwd)
+    return (rank, data, my_iter.n_frames)
 
 
 def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
@@ -18,6 +19,11 @@ def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
     Returns
     -------
     out : list of (rank, data)
+
+    Notes
+    -----
+    If calculation require a reference structure, users need to explicit provide reference
+    as a Frame (not an integer number)
     
     Examples
     --------

@@ -88,7 +88,7 @@ def nastruct(traj=None,
     _resrange = _get_resrange(resrange)
 
     fi = _get_fiterator(traj, frame_indices)
-    _ref = _get_reference_from_traj(traj, ref)
+    ref = _get_reference_from_traj(traj, ref)
     _top = _get_topology(traj, top)
     _resmap = "resmap " + resmap if resmap is not None else ""
     _hbcut = "hbcut " + str(hbcut) if hbcut is not None else ""
@@ -96,10 +96,15 @@ def nastruct(traj=None,
 
     command = " ".join((_resrange, _resmap, _hbcut, _pucker_method))
 
-    act = Action_NAstruct()
     dslist = CpptrajDatasetList()
 
-    act(command, [_ref, fi], dslist=dslist, top=_top)
+    # need to construct 3 steps so we can pickle this method for parallel
+    # not sure why?
+    act = Action_NAstruct(command, top=_top, dslist=dslist)
+    update_mass = True
+    act.do_action(ref, update_mass=update_mass)
+    act.do_action(fi, update_mass=update_mass)
+
     if dtype == 'cpptraj_dataset':
         return dslist
     elif dtype == 'nupars':

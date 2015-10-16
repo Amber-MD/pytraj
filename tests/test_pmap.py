@@ -6,6 +6,7 @@ from pytraj.utils import eq, aa_eq
 import pytraj.common_actions as pyca
 from pytraj.tools import flatten
 from pytraj import matrix
+from pytraj.compat import set
 
 
 def gather(pmap_out):
@@ -17,23 +18,19 @@ class TestNormal(unittest.TestCase):
     def test_regular1D(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
-        # n_cores = 3
-        # radgyr
-        # TODO: hang forever with pt.rmsd
-        #func_list = [pt.radgyr, pt.molsurf, pt.rmsd]
-        func_list = [pt.radgyr, pt.molsurf]
+        func_list = [pt.radgyr, pt.molsurf, pt.rmsd]
         ref = traj[-3]
 
         for n_cores in [2, 3, 4]:
             for func in func_list:
                 if func in [pt.rmsd, ]:
-                    print(func)
                     pout = gather(pt.pmap(n_cores, func, traj, ref=ref))
                     serial_out = flatten(func(traj, ref=ref))
                 else:
                     pout = gather(pt.pmap(n_cores, func, traj))
                     serial_out = flatten(func(traj))
                 aa_eq(pout, serial_out)
+
         # search_hbonds
         a = pt.pmap(4, pt.search_hbonds, traj, dtype='dataset')
         pout = pt.tools.flatten([x[1]['total_solute_hbonds'] for x in a])
@@ -41,8 +38,6 @@ class TestNormal(unittest.TestCase):
         aa_eq(pout, serial_out)
 
         keys = pt.tools.flatten([x[1].keys() for x in a])
-        from pytraj.compat import set
-
 
         # raise if a given method does not support pmap
         def need_to_raise(traj=traj):
@@ -55,8 +50,6 @@ class TestNormal(unittest.TestCase):
             pt.pmap(2, pt.bfactors, traj[:])
 
         self.assertRaises(ValueError, lambda: need_to_raise_2())
-
-        #need_to_raise()
 
 
 class TestParallelMapForMatrix(unittest.TestCase):

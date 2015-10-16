@@ -559,12 +559,12 @@ cdef class Frame (object):
     property mass:
          def __get__(self):
              """return mass array"""
-             cdef pyarray arr = pyarray('d', [])
+             cdef double[:] arr = np.empty(self.n_atoms, dtype='f8')
              cdef int i
 
              for i in range(self.thisptr.Natom()):
-                 arr.append(self.thisptr.Mass(i))
-             return arr
+                 arr[i] = self.thisptr.Mass(i)
+             return np.array(arr)
 
     def set_nobox(self):
         self.boxview[:] = pyarray('d', [0. for _ in range(6)])
@@ -615,6 +615,19 @@ cdef class Frame (object):
 
     def set_frame_mass(self, Topology top):
         self.thisptr.SetMass(top.thisptr.Atoms())
+
+    def _set_mass_from_array(self, double[:] arr):
+        '''mostly for pickling
+        '''
+        cdef Atom atom
+        cdef vector[_Atom] va
+        cdef unsigned int i
+        
+        for i in range(arr.shape[0]): 
+            # just try to create dummy atom (name, type, charge, mass)
+            atom = Atom('X', 'X', 0.0, arr[i])
+            va.push_back(atom.thisptr[0])
+        self.thisptr.SetMass(va)
 
     def set_frame_x_m(self, vector[double] Xin, vector[double] massIn):
         return self.thisptr.SetupFrameXM(Xin, massIn)
@@ -1209,7 +1222,19 @@ cdef class Frame (object):
         return self.xyz.reshape((1, self.n_atoms, 3))
 
     def __setstate__(self, state):
-        self.append_xyz(state['coordinates'])
+        # when pickle, python return an empty frame
+        cdef int n_atoms
+        del self.thisptr
+        coords = state['coordinates']
+        # allocate xyz and mass too
+        n_atoms = coords.shape[0]
+        self.thisptr = new _Frame(n_atoms)
+        self.xyz[:] = coords
+        self._set_mass_from_array(state['mass'])
 
     def __getstate__(self):
-        return {'coordinates' : self.xyz}
+        # need to make a copy of xyz to avoid memory free
+        # (need for parallel)
+        # TODO: velocity?
+        return {'coordinates' : np.array(self.xyz, dtype='f8'),
+                'mass': self.mass}

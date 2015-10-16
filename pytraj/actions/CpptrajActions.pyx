@@ -13,12 +13,10 @@ cdef class Action:
 
     >>> import pytraj as pt
     >>> traj = pt.load_sample_data('tz2')
-    >>> print(traj)
     >>> from pytraj.actions.CpptrajActions import Action_Radgyr
     >>> from pytraj.datasets import DatasetList as CpptrajDataSetList
     >>> from pytraj.datafiles import DataFileList
     >>> dslist = CpptrajDataSetList()
-    >>> dflist = DataFileList()
     >>> act = Action_Radgyr(command='@CA', dslist=dslist, top=traj.top)
     >>> act.do_action(traj)
     '''
@@ -27,7 +25,8 @@ cdef class Action:
         self.n_frames = 0
         self.top_is_processed = False
 
-    def __init__(self, command='', Topology top=None, DatasetList dslist=None, DataFileList dflist=None):
+    def __init__(self, command='', Topology top=None, DatasetList dslist=None,
+            DataFileList dflist=DataFileList()):
         # __init__ will be called after __cinit__
         # create __init__ to avoid segmentation fault (why? not sure why)
         # don't directly create instance of this ABC class.
@@ -36,7 +35,7 @@ cdef class Action:
         self._dslist = dslist
         self._dflist = dflist
 
-        if top is not None and dslist is not None and dflist is not None:
+        if top is not None and dslist is not None:
             self.read_input(command, top=top, dslist=dslist, dflist=dflist)
             self.process(top)
 
@@ -191,28 +190,20 @@ cdef class Action:
                   top=Topology(),
                   dslist=DatasetList(), 
                   dflist=DataFileList(), 
-                  new_top=Topology(),
-                  new_frame=Frame(),
                   update_mass=True,
-                  int debug=0,
-                  update_frame=False,
-                  quick_get=False):
+                  int debug=0):
         """
         TODO : (do we need this method?)
             + add doc
             + don't work with `chunk_iter`
 
         """
-        if top.is_empty():
-            _top = current_frame.top
-        else:
-            _top = top
         self.read_input(command=command, 
-                        top=_top, 
+                        top=top, 
                         dslist=dslist,
                         dflist=dflist, debug=debug)
 
-        self.process(top=_top)
+        self.process(top=top)
         self.do_action(current_frame, update_mass=update_mass)
         return dslist
 

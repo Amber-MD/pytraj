@@ -31,6 +31,7 @@ from .externals.get_pysander_energies import get_pysander_energies
 from .decorators import noparallel, _register_pmap
 from .actions import CpptrajActions
 from .analyses import CpptrajAnalyses
+from .core.ActionList import ActionList
 
 list_of_cal = ['calc_distance',
                'calc_dihedral',
@@ -1864,7 +1865,6 @@ def calc_rmsd(traj=None,
     if ``traj`` is mutable, its coordinates will be updated
 
     """
-    from pytraj.core.ActionList import ActionList
 
     _nofit = ' nofit ' if nofit else ''
     _mass = ' mass ' if mass else ''
@@ -2613,7 +2613,6 @@ def _projection(traj, mask, modes, scalar_type,
     dslist[-1]._set_modes(is_reduced, len(eigenvalues), eigenvectors.shape[1],
                           eigenvalues, eigenvectors.flatten())
     dslist[-1].scalar_type = scalar_type
-    print(dslist[0])
     _mask = mask
     _evecs = 'evecs tmp_evecs'
     command = ' '.join((_evecs, _mask))
