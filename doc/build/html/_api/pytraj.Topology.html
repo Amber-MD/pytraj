@@ -184,7 +184,7 @@
 <tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">box</span></tt></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">change</span></tt></td>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">charge</span></tt></td>
 <td></td>
 </tr>
 <tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">dihedral_indices</span></tt></td>
@@ -247,17 +247,23 @@
 <tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">add_angles</span></tt></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">add_bonds</span></tt></td>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">add_atom</span></tt></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">add_dihedrals</span></tt></td>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">add_bonds</span></tt></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">atom_indices</span></tt></td>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">add_dihedrals</span></tt></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference external" href="http://docs.python.org/library/copy.html#module-copy" title="(in Python v2.7)"><tt class="xref py py-obj docutils literal"><span class="pre">copy</span></tt></a></td>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">atom_indices</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="http://docs.python.org/library/copy.html#module-copy" title="(in Python v2.7)"><tt class="xref py py-obj docutils literal"><span class="pre">copy</span></tt></a></td>
 <td>Generic (shallow and deep) copying operations.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">from_dict</span></tt></td>
+<td></td>
 </tr>
 <tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">has_box</span></tt></td>
 <td></td>
@@ -304,7 +310,10 @@
 <tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">to_dataframe</span></tt></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">to_parmed</span></tt></td>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">to_dict</span></tt></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">to_parmed</span></tt></td>
 <td></td>
 </tr>
 </tbody>
@@ -326,6 +335,11 @@ add angle for a group of 3 atoms.</p>
 </dl>
 </div></blockquote>
 </dd></dl>
+
+<dl class="method">
+<dt id="pytraj.Topology.Topology.add_atom">
+<tt class="descname">add_atom</tt><big>(</big><em>self</em>, <em>Atom atom</em>, <em>Residue residue</em><big>)</big><a class="headerlink" href="#pytraj.Topology.Topology.add_atom" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="pytraj.Topology.Topology.add_bonds">
@@ -372,6 +386,11 @@ but the return list/array use 0</p>
 <dd><p>return a copy of &#8216;self&#8217; or copy from &#8216;other&#8217; to &#8216;self&#8217;
 TODO : add more doc</p>
 </dd></dl>
+
+<dl class="method">
+<dt id="pytraj.Topology.Topology.from_dict">
+<tt class="descname">from_dict</tt><big>(</big><em>type cls</em>, <em>dict_data</em><big>)</big><a class="headerlink" href="#pytraj.Topology.Topology.from_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="pytraj.Topology.Topology.has_box">
@@ -472,6 +491,12 @@ atom_name : name of the atom</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="pytraj.Topology.Topology.to_dict">
+<tt class="descname">to_dict</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#pytraj.Topology.Topology.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>convert Topology to Python dict</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pytraj.Topology.Topology.to_parmed">
 <tt class="descname">to_parmed</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#pytraj.Topology.Topology.to_parmed" title="Permalink to this definition">¶</a></dt>
 <dd><p>try to load to ParmEd&#8217;s Structure</p>
@@ -494,7 +519,7 @@ atom_name : name of the atom</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 14, 2015.<br/>
+      Last updated on Oct 16, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>
