@@ -57,18 +57,33 @@ Supported methods for ``pmap``
         except AttributeError:
             pass
 
+    pmap_ = []
+    for method in set(method_list_pmap):
+        name = str(method).split()[1]
+        if 'calc_' in name:
+            name = name.split('calc_')[-1]
+        pmap_.append(name)
+
+    openmp_ = []
+    for method in set(method_list_openmp):
+        name = str(method).split()[1]
+        if 'calc_' in name:
+            name = name.split('calc_')[-1]
+        openmp_.append(name)
+
+
 .. ipython:: python
 
-    for method in set(method_list_pmap):
-        print(str(method).split()[1])
+    for method in set(pmap_):
+        print(method)
 
 Supported methods for ``openmp``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. ipython:: python
 
-    for method in set(method_list_openmp):
-        print(str(method).split()[1])
+    for method in set(openmp_):
+        print(method)
 
 Rule of thumb for choosing ``pmap`` or ``openmp``?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
