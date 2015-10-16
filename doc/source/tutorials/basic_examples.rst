@@ -50,7 +50,7 @@ Hbond analysis
  
    hbonds = pt.search_hbonds(pdb)
    hbonds
-   hbonds.dataset.keys()
+   hbonds.data.keys()
    hbonds.values
 
 .. include:: load_pdb_rcsb.rst

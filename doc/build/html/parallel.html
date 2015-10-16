@@ -175,10 +175,10 @@
 
 <span class="gp">In [3]: </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="o">=</span><span class="n">traj</span><span class="p">)</span>
 <span class="gr">Out[3]: </span>
-<span class="go">[(0, array([ 18.9111,  18.9365])),</span>
-<span class="go"> (1, array([ 18.8497,  18.9045])),</span>
-<span class="go"> (2, array([ 18.8569,  18.8892])),</span>
-<span class="go"> (3, array([ 18.943 ,  18.8888,  18.9167,  18.8707]))]</span>
+<span class="go">[(0, array([ 18.9111,  18.9365]), 2),</span>
+<span class="go"> (1, array([ 18.8497,  18.9045]), 2),</span>
+<span class="go"> (2, array([ 18.8569,  18.8892]), 2),</span>
+<span class="go"> (3, array([ 18.943 ,  18.8888,  18.9167,  18.8707]), 4)]</span>
 </pre></div>
 </div>
 </div>
@@ -187,23 +187,26 @@
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [4]: </span><span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">method_list</span><span class="p">):</span>
 <span class="gp">   ...:</span>     <span class="k">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">method</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>
 <span class="gp">   ...:</span> 
-<span class="go">calc_rotation_matrix</span>
-<span class="go">calc_vector</span>
-<span class="go">get_velocity</span>
-<span class="go">search_hbonds</span>
-<span class="go">calc_distance</span>
-<span class="go">calc_center_of_mass</span>
-<span class="go">calc_mindist</span>
-<span class="go">calc_multidihedral</span>
-<span class="go">rmsd_perres</span>
 <span class="go">calc_distance_rmsd</span>
-<span class="go">calc_molsurf</span>
-<span class="go">native_contacts</span>
-<span class="go">calc_center_of_geometry</span>
-<span class="go">calc_dihedral</span>
-<span class="go">calc_rmsd</span>
+<span class="go">calc_multidihedral</span>
 <span class="go">calc_radgyr</span>
+<span class="go">rmsd_perres</span>
+<span class="go">calc_rotation_matrix</span>
+<span class="go">calc_rmsd</span>
+<span class="go">calc_center_of_geometry</span>
+<span class="go">calc_mindist</span>
+<span class="go">search_hbonds</span>
+<span class="go">calc_watershell</span>
+<span class="go">calc_vector</span>
+<span class="go">calc_dihedral</span>
+<span class="go">get_velocity</span>
 <span class="go">calc_angle</span>
+<span class="go">calc_molsurf</span>
+<span class="go">calc_center_of_mass</span>
+<span class="go">calc_rmsd_nofit</span>
+<span class="go">dist</span>
+<span class="go">native_contacts</span>
+<span class="go">calc_distance</span>
 </pre></div>
 </div>
 </div>
@@ -244,7 +247,7 @@
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 13, 2015.<br/>
+      Last updated on Oct 16, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

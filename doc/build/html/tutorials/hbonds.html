@@ -392,7 +392,7 @@ total hbonds for GLU5 per frame
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&lt;matplotlib.lines.Line2D at 0x2aaaabe47b70&gt;]</pre>
+<pre>[&lt;matplotlib.lines.Line2D at 0x2aaabf3ac320&gt;]</pre>
 </div>
 
 </div>
@@ -534,14 +534,16 @@ search_hbonds(traj, mask=&apos;&apos;, solvent_donor=None, solvent_acceptor=None
     --------
     &gt;&gt;&gt; import pytraj as pt
     &gt;&gt;&gt; traj = pt.load_sample_data(&apos;tz2&apos;)
-    &gt;&gt;&gt; pt.search_hbonds(traj, &apos;:5,8&apos;)
-    &lt;pytraj.DatasetList with 3 datasets&gt;
-    total_solute_hbonds
-    [2 2 0 1 1 0 2 1 1 1]
-    LYS8_O-GLU5_N-H
-    [1 1 0 1 1 0 1 1 1 1]
-    GLU5_O-LYS8_N-H
-    [1 1 0 0 0 0 1 0 0 0]
+    &gt;&gt;&gt; data = pt.search_hbonds(traj, &apos;:5,8&apos;)
+    &gt;&gt;&gt; data
+    &lt;pytraj.hbonds.DatasetHBond
+    donor_aceptor pairs : 2&gt;
+    &gt;&gt;&gt; data.donor_aceptor
+    [&apos;LYS8_O-GLU5_N-H&apos;, &apos;GLU5_O-LYS8_N-H&apos;]
+    &gt;&gt;&gt; data.values
+    array([[2, 2, 0, ..., 1, 1, 1],
+           [1, 1, 0, ..., 1, 1, 1],
+           [1, 1, 0, ..., 0, 0, 0]], dtype=int32)
 
 </pre>
 </div>
@@ -567,7 +569,7 @@ search_hbonds(traj, mask=&apos;&apos;, solvent_donor=None, solvent_acceptor=None
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 10, 2015.<br/>
+      Last updated on Oct 16, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>
