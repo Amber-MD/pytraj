@@ -402,6 +402,11 @@ def load_topology(filename, more_options=''):
         pqr     : Read atomic charge/radius from occupancy/B-factor columns.
         noconect: Do not read CONECT records if present.
 
+    Notes
+    -----
+    if cpptraj/pytraj does not support specific file format, you still can convert to PDB
+    file. cpptraj will do the bond guess based on distance.
+
     Examples
     --------
     >>> import pytraj as pt

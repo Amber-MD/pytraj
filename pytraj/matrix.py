@@ -5,14 +5,15 @@ from .analyses import CpptrajAnalyses
 from .datasets import cpp_datasets
 from ._get_common_objects import _get_topology, _get_data_from_dtype
 from .datasets.DatasetList import DatasetList as CpptrajDatasetList
+from .decorators import _register_pmap
 
 mat_keys = {
     'dist',
+    'idea',
     'correl',
     'covar',
     'mwcovar',
     'distcovar',
-    'idea',
     'dihcovar',
 }
 
@@ -87,6 +88,9 @@ for k in mat_keys:
     g_dict[k].__doc__ += __cpptrajdoc__
 
 del k
+
+dist = _register_pmap(dist)
+idea = _register_pmap(idea)
 
 
 def diagonalize(mat, n_vecs, dtype='dataset'):

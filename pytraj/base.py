@@ -2,10 +2,9 @@
 import baseclasses for pytraj
 """
 from __future__ import absolute_import
-# TODO : make this file shorter
 from .datasets.cast_dataset import cast_dataset
 from .Frame import Frame
-from .core.brick import Atom
+from .core.brick import Atom, Residue, Molecule
 from .datafiles.datafiles import DataFileList
 from .core.ActionList import ActionList
 from .core.cpp_core import CpptrajState
@@ -19,8 +18,8 @@ from .TrajectoryIterator import TrajectoryIterator
 from .trajs.Trajout import Trajout
 from . import cpptraj_dict
 
-# `Trajectory` is alias of `Trajectory`
-__all__ = ['Atom', 'Topology', 'Frame', 'Trajectory',
-           'AtomMask', 'ArgList', 'CpptrajState', 'TrajectoryIterator',
+__all__ = ['Atom', 'Residue', 'Molecule', 'Topology', 
+           'Frame', 'Trajectory', 'TrajectoryIterator',
+           'AtomMask', 'ArgList', 'CpptrajState',
            'DatasetList', 'DataFileList', 'ActionList', 'Trajout',
            'cast_dataset', 'cpptraj_dict']

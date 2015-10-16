@@ -1,9 +1,11 @@
 from __future__ import print_function
 import unittest
+import numpy as np
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
 import pytraj.common_actions as pyca
 from pytraj.tools import flatten
+from pytraj import matrix
 
 
 def gather(pmap_out):
@@ -11,8 +13,8 @@ def gather(pmap_out):
     return flatten([x[1] for x in pmap_out])
 
 
-class Test(unittest.TestCase):
-    def test_0(self):
+class TestNormal(unittest.TestCase):
+    def test_regular1D(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         # n_cores = 3
@@ -55,6 +57,17 @@ class Test(unittest.TestCase):
         self.assertRaises(ValueError, lambda: need_to_raise_2())
 
         #need_to_raise()
+
+
+class TestParallelMapForMatrix(unittest.TestCase):
+    def test_matrices(self):
+        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+
+        # not support [covar, distcovar, mwcovar]
+        for func in [matrix.dist, matrix.idea]:
+            x = pt.pmap(4, func, traj, '@CA')
+            y = np.sum((val[1] * val[2] for val in x), axis=1)
+            aa_eq(y/traj.n_frames, func(traj, '@CA'))
 
 
 if __name__ == "__main__":
