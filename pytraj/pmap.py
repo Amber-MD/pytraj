@@ -112,6 +112,13 @@ def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
      18.888780788130308,
      18.916695652897396,
      18.870697222142766]
+
+    >>> # cpptraj command style
+    >>> data = pt.pmap(4, ['distance :3 :7', 'vector mask :3 :12'], traj)
+
+    See also
+    --------
+    pytraj.parallel.map_mpi
     '''
     from multiprocessing import Pool
     from pytraj import TrajectoryIterator
