@@ -35,23 +35,46 @@ Example
     traj = pt.iterload('data/tz2.ortho.nc', 'data/tz2.ortho.parm7')
     pt.pmap(n_cores=4, func=pt.radgyr, traj=traj)
 
-Supported methods
-~~~~~~~~~~~~~~~~~
+Supported methods for ``pmap``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. ipython:: python
     :suppress:
 
     import pytraj as pt
-    method_list = []
-    for method_str in dir(pt):
-        method = getattr(pt, method_str)
-        if hasattr(method, '_is_parallelizable') and method._is_parallelizable:
-            method_list.append(method)
+    from pytraj import matrix, vector
+    from itertools import chain
+    method_list_pmap = []
+    method_list_openmp = []
+
+    for method_str in chain(dir(pt), dir(matrix), dir(vector)):
+        try:
+            method = getattr(pt, method_str)
+            if hasattr(method, '_is_parallelizable') and method._is_parallelizable:
+                method_list_pmap.append(method)
+            if hasattr(method, '_openmp_capability') and method._openmp_capability:
+                method_list_openmp.append(method)
+        except AttributeError:
+            pass
 
 .. ipython:: python
 
-    for method in set(method_list):
+    for method in set(method_list_pmap):
         print(str(method).split()[1])
+
+Supported methods for ``openmp``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. ipython:: python
+
+    for method in set(method_list_openmp):
+        print(str(method).split()[1])
+
+Rule of thumb for choosing ``pmap`` or ``openmp``?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Always try to install ``pytraj`` and ``cpptraj`` with ``-openmp`` flag.
+If method supports openmp, use openmp.
 
 multiple actions with multiple trajectories
 -------------------------------------------
