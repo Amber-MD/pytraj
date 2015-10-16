@@ -1,5 +1,6 @@
 from __future__ import print_function, absolute_import
 import numpy as _np
+from .decorators import _register_pmap
 
 _supported_types = [
     x for x in
@@ -13,6 +14,7 @@ def _2darray_to_atommask_groups(seq):
         yield '@' + str(arr[0]+1) + ' @' +  str(arr[1]+1)
 
 
+@_register_pmap
 def vector_mask(traj=None, mask="", frame_indices=None, dtype='ndarray', top=None):
     """compute vector between two maskes
 
@@ -76,6 +78,7 @@ def vector_mask(traj=None, mask="", frame_indices=None, dtype='ndarray', top=Non
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 _template = '''
+@_register_pmap
 def %s(traj=None, command="", frame_indices=None, dtype='ndarray', top=None):
     """
     Parameters

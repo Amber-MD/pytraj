@@ -1,8 +1,14 @@
+# do not use relative import here. Treat this module as a seperated package.
 from functools import partial
 from pytraj.cpp_options import info as compiled_info
 from collections import OrderedDict
 import numpy as np
 from pytraj.externals.six import string_types, iteritems
+from pytraj.datasetlist import stack
+from pytraj._get_common_objects import _get_data_from_dtype
+from pytraj import matrix
+from pytraj import mean_structure 
+from pytraj import Frame
 
 
 def concat_dict(iterables):
@@ -47,7 +53,10 @@ def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
 
     Returns
     -------
-    out : list of (rank, data, n_frames)
+    out : if dtype='dict', return an OrderedDict, data is automatically joint. if dtype is
+          not 'dict', return a list of (rank, data, n_frames), data is NOT automatically
+          joint. Note that for [matrix.dist, matrix.idea, mean_structure] calculation,
+          data is always joint (does not depend on dtype)
 
     Notes
     -----
@@ -55,9 +64,30 @@ def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
     as a Frame (not an integer number). For example, pt.pmap(4, pt.rmsd, traj, ref=-3)
     won't work, use ``ref=traj[3]`` instead.
 
-    Currently, pytraj does not auto-join the data. This depends on type of
-    calculation (distance vs vector vs matrix calculation ...). This behavior might be
-    changed in future.
+    This method only benifits you if your calculation is quite long (saying few minutes to
+    few hours). For calculation that takes less than 1 minutes, you won't see the
+    significant speed up (or even slower) since pytraj need to warm up and need to gather
+    data when the calculation done.
+
+    The parallel cacluation is very simple, trajectory will be split (almost equal) to
+    different chunk (n_chunks = n_cores), pytraj/cpptraj perform calculation for each
+    chunk in each core and then send data back to master. Note that we are using Python's
+    built-in multiprocessing module, so you can use this method interactively in Ipython
+    and ipython/jupyter notebook. This behavior is different from using MPI, in which you
+    need to write a script, escaping ipython ession and type something like::
+        
+        mpirun -n 4 python my_script.py
+
+    vs::
+
+        In [1]: pt.pmap(4, pt.radgyr, traj, dtype='dict')
+        Out[1]:
+        OrderedDict([('RoG_00000',
+                      array([ 18.91114428,  18.93654996,  18.84969884,  18.90449256,
+                              18.8568644 ,  18.88917208,  18.9430491 ,  18.88878079,
+                              18.91669565,  18.87069722]))])
+
+    This is experimental method, you should expect its syntax, default output will be changed.
     
     Examples
     --------
@@ -82,6 +112,13 @@ def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
      18.888780788130308,
      18.916695652897396,
      18.870697222142766]
+
+    >>> # cpptraj command style
+    >>> data = pt.pmap(4, ['distance :3 :7', 'vector mask :3 :12'], traj)
+
+    See also
+    --------
+    pytraj.parallel.map_mpi
     '''
     from multiprocessing import Pool
     from pytraj import TrajectoryIterator
@@ -105,12 +142,32 @@ def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
             raise ValueError('only support TrajectoryIterator')
 
         p = Pool(n_cores)
+        if 'dtype' in kwd.keys():
+            dtype = kwd['dtype']
+        else:
+            dtype = None
+
         pfuncs = partial(worker,
                          n_cores=n_cores,
                          func=func,
                          traj=traj,
                          args=args,
                          kwd=kwd)
-        result = p.map(pfuncs, [rank for rank in range(n_cores)])
+
+        data = p.map(pfuncs, [rank for rank in range(n_cores)])
         p.close()
-        return result
+
+        if func in [matrix.dist, matrix.idea]:
+            y = np.sum((val[1] * val[2] for val in data)) / traj.n_frames
+            return y
+        elif func == mean_structure:
+            xyz = np.sum((x[2] * x[1].xyz for x in data)) / traj.n_frames
+            frame = Frame(xyz.shape[0])
+            frame.xyz[:] = xyz
+            return frame
+        else:
+            if dtype == 'dict':
+                new_dict = concat_dict((x[1] for x in data))
+                return new_dict
+            else:
+                return data

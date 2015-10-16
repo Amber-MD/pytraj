@@ -72,8 +72,7 @@ class TestParallelMapForMatrix(unittest.TestCase):
         for n_cores in [2, 3, 4, 5]:
             for func in [matrix.dist, matrix.idea]:
                 x = pt.pmap(n_cores, func, traj, '@CA')
-                y = np.sum((val[1] * val[2] for val in x))
-                aa_eq(y/traj.n_frames, func(traj, '@CA'))
+                aa_eq(x, func(traj, '@CA'))
 
 class TestCpptrajCommandStyle(unittest.TestCase):
     def test_cpptraj_command_style(self):
@@ -93,9 +92,8 @@ class TestParallelMapForAverageStructure(unittest.TestCase):
         saved_xyz = saved_frame.xyz
 
         for n_cores in [2, 3, 4, 5]:
-            data = pt.pmap(n_cores, pt.mean_structure, traj, '@CA')
-            xyz = np.sum((x[2] * np.array(x[1].xyz) for x in data)) / traj.n_frames
-            aa_eq(xyz, saved_xyz)
+            frame = pt.pmap(n_cores, pt.mean_structure, traj, '@CA')
+            aa_eq(frame.xyz, saved_xyz)
 
 
 if __name__ == "__main__":
