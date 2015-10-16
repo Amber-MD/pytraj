@@ -74,16 +74,18 @@ Supported methods for ``pmap``
 
 .. ipython:: python
 
-    for method in set(pmap_):
+    for method in sorted(set(pmap_)):
         print(method)
+
 
 Supported methods for ``openmp``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. ipython:: python
 
-    for method in set(openmp_):
+    for method in sorted(set(openmp_)):
         print(method)
+
 
 Rule of thumb for choosing ``pmap`` or ``openmp``?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

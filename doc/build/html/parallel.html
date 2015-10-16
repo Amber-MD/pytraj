@@ -186,35 +186,35 @@
 </div>
 <div class="section" id="supported-methods-for-pmap">
 <h3>Supported methods for <tt class="docutils literal"><span class="pre">pmap</span></tt><a class="headerlink" href="#supported-methods-for-pmap" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [4]: </span><span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">pmap_</span><span class="p">):</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [4]: </span><span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">pmap_</span><span class="p">)):</span>
 <span class="gp">   ...:</span>     <span class="k">print</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
 <span class="gp">   ...:</span> 
-<span class="go">dist</span>
-<span class="go">rmsd_perres</span>
-<span class="go">search_hbonds</span>
-<span class="go">distance_rmsd</span>
-<span class="go">rmsd</span>
-<span class="go">multidihedral</span>
-<span class="go">vector</span>
 <span class="go">angle</span>
+<span class="go">center_of_geometry</span>
 <span class="go">center_of_mass</span>
-<span class="go">molsurf</span>
+<span class="go">dihedral</span>
+<span class="go">dist</span>
+<span class="go">distance</span>
+<span class="go">distance_rmsd</span>
 <span class="go">get_velocity</span>
 <span class="go">mindist</span>
-<span class="go">center_of_geometry</span>
+<span class="go">molsurf</span>
+<span class="go">multidihedral</span>
 <span class="go">native_contacts</span>
-<span class="go">dihedral</span>
 <span class="go">radgyr</span>
-<span class="go">watershell</span>
-<span class="go">distance</span>
-<span class="go">rotation_matrix</span>
+<span class="go">rmsd</span>
 <span class="go">rmsd_nofit</span>
+<span class="go">rmsd_perres</span>
+<span class="go">rotation_matrix</span>
+<span class="go">search_hbonds</span>
+<span class="go">vector</span>
+<span class="go">watershell</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="supported-methods-for-openmp">
 <h3>Supported methods for <tt class="docutils literal"><span class="pre">openmp</span></tt><a class="headerlink" href="#supported-methods-for-openmp" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [5]: </span><span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">openmp_</span><span class="p">):</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [5]: </span><span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">openmp_</span><span class="p">)):</span>
 <span class="gp">   ...:</span>     <span class="k">print</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
 <span class="gp">   ...:</span> 
 </pre></div>
