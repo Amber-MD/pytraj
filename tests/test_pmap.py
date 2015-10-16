@@ -15,6 +15,9 @@ def gather(pmap_out):
 
 
 class TestNormal(unittest.TestCase):
+    def setUp(self):
+        self.traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+
     def test_regular1D(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
@@ -51,6 +54,15 @@ class TestNormal(unittest.TestCase):
 
         self.assertRaises(ValueError, lambda: need_to_raise_2())
 
+    def test_different_references(self):
+        traj = self.traj
+        func = pt.rmsd
+        for i in range(0, 8, 2):
+            ref = self.traj[i]
+            for n_cores in [2, 3, 4, 5]:
+                pout = gather(pt.pmap(n_cores, func, traj, ref=ref))
+                serial_out = flatten(func(traj, ref=ref))
+                aa_eq(pout, serial_out)
 
 class TestParallelMapForMatrix(unittest.TestCase):
     def test_matrices(self):
