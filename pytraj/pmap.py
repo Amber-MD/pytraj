@@ -1,4 +1,4 @@
-# do not use relative import here. Treat this module as a seperated method.
+# do not use relative import here. Treat this module as a seperated package.
 from functools import partial
 from pytraj.cpp_options import info as compiled_info
 from collections import OrderedDict
