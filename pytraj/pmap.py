@@ -1,6 +1,5 @@
 from functools import partial
 
-
 def worker(rank,
            n_cores=None,
            func=None,
