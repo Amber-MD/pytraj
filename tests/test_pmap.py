@@ -74,6 +74,16 @@ class TestParallelMapForMatrix(unittest.TestCase):
             y = np.sum((val[1] * val[2] for val in x), axis=1)
             aa_eq(y/traj.n_frames, func(traj, '@CA'))
 
+class TestCpptrajCommandStyle(unittest.TestCase):
+    def test_cpptraj_command_style(self):
+        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+
+        angle_ = pt.angle(traj, ':3 :4 :5')
+        distance_ = pt.distance(traj, '@10 @20')
+
+        data = pt.pmap(4, ['angle :3 :4 :5', 'distance @10 @20'], traj)
+        aa_eq(angle_, data['Ang_00002'])
+        aa_eq(distance_, data['Dis_00003'])
 
 if __name__ == "__main__":
     unittest.main()
