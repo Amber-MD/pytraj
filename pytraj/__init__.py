@@ -297,7 +297,15 @@ def strip_atoms(traj_or_topology, mask):
     '''return a new Trajectory or Topology with given mask
     '''
     kept_mask = '!(' + mask + ')'
-    return traj_or_topology[kept_mask]
+    if isinstance(traj_or_topology, (Topology, Trajectory)):
+        # return new Topology or new Trajectory
+        return traj_or_topology[kept_mask]
+    elif isinstance(traj_or_topology, TrajectoryIterator):
+        # return a FrameIter
+        return traj_or_topology(mask=kept_mask)
+    elif hasattr(traj_or_topology, 'mask'):
+        traj_or_topology.mask = kept_mask
+        return traj_or_topology
 
 def show():
     # just delay importing
