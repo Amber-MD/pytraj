@@ -43,7 +43,6 @@ def _worker(rank,
 
 
 def pmap(func=None, traj=None, *args, **kwd):
-    print('pmap')
     '''use python's multiprocessing to accelerate calculation. Limited calculations.
 
     Parameters

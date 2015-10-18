@@ -4,6 +4,7 @@ import numpy as np
 import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
+from pytraj import pmap
 
 
 class TestNHOrderParamters(unittest.TestCase):
@@ -27,7 +28,6 @@ class TestNHOrderParamters(unittest.TestCase):
         for n_cores in [2, 3, 4, 5, 6]:
             orders = pt.NH_order_parameters(traj, nh_indices, tcorr=8000., n_cores=2)
             saved_S2 = np.loadtxt('../cpptraj/test/Test_IRED/orderparam.save').T[-1]
-
             aa_eq(orders, saved_S2)
 
 
