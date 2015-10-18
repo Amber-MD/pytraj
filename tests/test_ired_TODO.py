@@ -6,7 +6,7 @@ import numpy as np
 import pytraj as pt
 from pytraj.testing import eq, aa_eq, cpptraj_test_dir
 from pytraj.compat import zip
-from pytraj.common_actions import _ired
+from pytraj.nmr import _ired
 
 txt = '''
  parm ../cpptraj/test/Test_IRED/1IEE_A_prot.prmtop

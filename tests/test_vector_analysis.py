@@ -107,7 +107,7 @@ class TestVectorAnalysisModule(unittest.TestCase):
         state2 = pt.load_batch(traj, text)
         state2.run()
 
-        data = pt.common_actions.ired_vector_and_matrix(traj, nh_indices, order=2)
+        data = pt.ired_vector_and_matrix(traj, nh_indices, order=2)
         data_vec_3 = data[0]
         assert len(data_vec_3) == 126, 'must have 126 vectors'
         matired = data[1]
