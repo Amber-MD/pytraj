@@ -9,8 +9,14 @@ def assert_close(x, y, tol=1E-4):
     print("computed = %s, expected = %s" % (x, y))
     assert abs(x - y) < tol
 
+try:
+    import sander
+    has_sander = True
+except ImportError:
+    has_sander = False
 
-class Test(unittest.TestCase):
+@unittest.skipIf(not has_sander, 'skip if not having sander')
+class TestSander(unittest.TestCase):
     def test_2(self):
         # compare to saved test: GB
         import os
