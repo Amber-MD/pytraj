@@ -113,8 +113,14 @@ Currently, all testing codes are in **pytraj/tests/** folder.
     $ # To run all tests
     $ nosetests -vs .
 
+    $ # to speed up the test
+    $ nosetests --processes=n_cpus_you_wants -vs .
+
     $ # to run specific file
     $ python test_your_new_method_name.py
+
+    $ # clean
+    $ git clean -f
 
 External codes
 --------------

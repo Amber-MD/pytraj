@@ -287,8 +287,14 @@ We put all common stuff in <a class="reference external" href="https://github.co
 <span class="nv">$ </span><span class="c"># To run all tests</span>
 <span class="nv">$ </span>nosetests -vs .
 
+<span class="nv">$ </span><span class="c"># to speed up the test</span>
+<span class="nv">$ </span>nosetests --processes<span class="o">=</span>n_cpus_you_wants -vs .
+
 <span class="nv">$ </span><span class="c"># to run specific file</span>
 <span class="nv">$ </span>python test_your_new_method_name.py
+
+<span class="nv">$ </span><span class="c"># clean</span>
+<span class="nv">$ </span>git clean -f
 </pre></div>
 </div>
 </div>
