@@ -9,11 +9,14 @@ from pytraj.compat import PY3
 
 class TestDoc(unittest.TestCase):
     def test_doc(self):
+        from pytraj.utils import convert
         def get_total_errors(modules):
             return sum([doctest.testmod(mod).failed for mod in modules])
 
         modules = [pt._get_common_objects,
                    pt._nastruct,
+                   convert,
+                   pt.tools,
                   ]
         if PY3:
             # avoid adding 'u' to string in PY2: u'GLU5_O-LYS8_N-H'
