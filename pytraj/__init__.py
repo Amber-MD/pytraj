@@ -117,10 +117,9 @@ from .common_actions import (
     timecorr, center, translate, rotate, rotate_dihedral, make_structure,
     scale, do_clustering, clustering_dataset, _rotate_dih, randomize_ions,
     crank, closest, search_neighbors, replicate_cell, _rotdif,
-    ired_vector_and_matrix,
-    _grid, _ired, NH_order_parameters,
-    pairdist,
-    )
+    pairdist, _grid)
+
+from .nmr import ired_vector_and_matrix, _ired, NH_order_parameters
 
 # create alias
 rmsd_nofit = calc_rmsd_nofit
@@ -184,7 +183,7 @@ from .misc import info
 from .run_tests import run_tests
 
 # parallel
-from .pmap import pmap
+from .pmap import pmap, _pmap
 from .parallel import _load_batch_pmap
 
 from ._shared_methods import iterframe_master

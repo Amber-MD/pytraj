@@ -10,6 +10,8 @@ from pytraj import matrix
 from pytraj import mean_structure 
 from pytraj import Frame
 from pytraj import ired_vector_and_matrix
+from pytraj import NH_order_parameters
+from multiprocessing import cpu_count
 
 
 def _concat_dict(iterables):
@@ -42,7 +44,7 @@ def _worker(rank,
     return (rank, data, my_iter.n_frames)
 
 
-def pmap(func=None, traj=None, *args, **kwd):
+def _pmap(func=None, traj=None, *args, **kwd):
     '''use python's multiprocessing to accelerate calculation. Limited calculations.
 
     Parameters
@@ -123,7 +125,6 @@ def pmap(func=None, traj=None, *args, **kwd):
     '''
     from multiprocessing import Pool
     from pytraj import TrajectoryIterator
-    from multiprocessing import cpu_count
 
     if 'n_cores' in kwd.keys():
         n_cores = kwd['n_cores']
@@ -189,3 +190,20 @@ def pmap(func=None, traj=None, *args, **kwd):
                 return new_dict
             else:
                 return data
+
+def pmap(func=None, traj=None, *args, **kwd):
+    if func != NH_order_parameters:
+        return _pmap(func, traj, *args, **kwd)
+    else:
+        if 'n_cores' in kwd.keys():
+            if kwd['n_cores'] == 1:
+                # use default n_cores=2 instead of 1
+                kwd['n_cores'] = 2
+            if kwd['n_cores'] <= 0:
+                kwd['n_cores'] = cpu_count()
+        else:
+            # use n_cores=2 for default value
+            kwd['n_cores'] = 2
+        return NH_order_parameters(traj, *args, **kwd)
+
+pmap.__doc__ = _pmap.__doc__

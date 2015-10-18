@@ -4,6 +4,7 @@ import numpy as np
 import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
+from pytraj import pmap
 
 
 class TestNHOrderParamters(unittest.TestCase):
@@ -17,10 +18,28 @@ class TestNHOrderParamters(unittest.TestCase):
         n_indices = h_indices - 1
         nh_indices = list(zip(n_indices, h_indices))
 
+        # single core
         orders = pt.NH_order_parameters(traj, nh_indices, tcorr=8000.)
         saved_S2 = np.loadtxt('../cpptraj/test/Test_IRED/orderparam.save').T[-1]
 
         aa_eq(orders, saved_S2)
+
+        # multiple core
+        # default 2
+        orders = pt.pmap(pt.NH_order_parameters, traj, nh_indices, tcorr=8000.)
+        saved_S2 = np.loadtxt('../cpptraj/test/Test_IRED/orderparam.save').T[-1]
+        aa_eq(orders, saved_S2)
+
+        for n_cores in [2, 3, 4, -1]:
+            orders = pt.NH_order_parameters(traj, nh_indices, tcorr=8000., n_cores=n_cores)
+            saved_S2 = np.loadtxt('../cpptraj/test/Test_IRED/orderparam.save').T[-1]
+            aa_eq(orders, saved_S2)
+
+            orders = pt.pmap(pt.NH_order_parameters, traj, nh_indices, tcorr=8000.,
+                    n_cores=n_cores)
+            saved_S2 = np.loadtxt('../cpptraj/test/Test_IRED/orderparam.save').T[-1]
+            aa_eq(orders, saved_S2)
+
 
 
 if __name__ == "__main__":
