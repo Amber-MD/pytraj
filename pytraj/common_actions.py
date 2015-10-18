@@ -2365,6 +2365,8 @@ def lifetime(data, cut=0.5, rawcurve=False,
     _outname = 'name lifetime_'
     _cut = 'cut ' + str(cut)
     _rawcurve = 'rawcurve' if rawcurve else ''
+    # do not sorting dataset's names. We can accessing by indexing them.
+    _nosort = 'nosort'
 
     namelist = []
     cdslist = CpptrajDatasetList()
@@ -2378,12 +2380,12 @@ def lifetime(data, cut=0.5, rawcurve=False,
         namelist.append(name)
 
     act = CpptrajAnalyses.Analysis_Lifetime()
-    _cm = ' '.join(arr)
-    command = " ".join(_cm, _outname, _cut, _rawcurve, more_options)
+    _cm = ' '.join(namelist)
+    command = " ".join((_cm, _outname, _cut, _rawcurve, _nosort, more_options))
     act(command, dslist=cdslist)
 
     for name in namelist:
-        dslist.remove_set(dslist[name])
+        cdslist.remove_set(cdslist[name])
     return _get_data_from_dtype(cdslist, dtype=dtype)
 
 
