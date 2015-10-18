@@ -41,12 +41,12 @@ def worker(rank,
     return (rank, data, my_iter.n_frames)
 
 
-def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
+def pmap(n_cores=-1, func=None, traj=None, *args, **kwd):
     '''use python's multiprocessing to accelerate calculation. Limited calculations.
 
     Parameters
     ----------
-    n_cores : int, number of cores to be used, default 2
+    n_cores : int, number of cores to be used, default -1 (all available cores)
     func : a pytraj's methods or a list of string or simply as a cpptraj' text
     traj : pytraj.TrajectoryIterator
     *args, **kwd: additional keywords
@@ -122,6 +122,11 @@ def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
     '''
     from multiprocessing import Pool
     from pytraj import TrajectoryIterator
+    from multiprocessing import cpu_count
+
+    if n_cores <= 0:
+        # use all available cores
+        n_cores = cpu_count()
 
     if isinstance(func, (list, tuple, string_types)):
         # assume using _load_batch_pmap
