@@ -328,12 +328,18 @@
 <tt class="descname">add_angles</tt><a class="headerlink" href="#pytraj.Topology.Topology.add_angles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Topology.add_angles(signatures, args, kwargs, defaults)
 add angle for a group of 3 atoms.</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>indices <span class="classifier-delimiter">:</span> <span class="classifier">2D array_like (must have buffer interface),</span></dt>
-<dd>shape=(n_atoms, 3)</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>indices</strong> : 2D array_like (must have buffer interface),</p>
+<blockquote class="last">
+<div><p>shape=(n_atoms, 3)</p>
 </div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -346,12 +352,18 @@ add angle for a group of 3 atoms.</p>
 <tt class="descname">add_bonds</tt><a class="headerlink" href="#pytraj.Topology.Topology.add_bonds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Topology.add_bonds(signatures, args, kwargs, defaults)
 add bond for pairs of atoms.</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>bond_indices <span class="classifier-delimiter">:</span> <span class="classifier">2D array_like (must have buffer interface)</span></dt>
-<dd>shape=(n_atoms, 2)</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>bond_indices</strong> : 2D array_like (must have buffer interface)</p>
+<blockquote class="last">
+<div><p>shape=(n_atoms, 2)</p>
 </div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -359,12 +371,18 @@ add bond for pairs of atoms.</p>
 <tt class="descname">add_dihedrals</tt><a class="headerlink" href="#pytraj.Topology.Topology.add_dihedrals" title="Permalink to this definition">¶</a></dt>
 <dd><p>Topology.add_dihedrals(signatures, args, kwargs, defaults)
 add dihedral for a group of 4 atoms.</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>indices <span class="classifier-delimiter">:</span> <span class="classifier">2D array_like (must have buffer interface),</span></dt>
-<dd>shape=(n_atoms, 3)</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>indices</strong> : 2D array_like (must have buffer interface),</p>
+<blockquote class="last">
+<div><p>shape=(n_atoms, 3)</p>
 </div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -373,11 +391,21 @@ add dihedral for a group of 4 atoms.</p>
 <dd><p>return atom indices with given mask
 To be the same as cpptraj/Ambertools: we mask indexing starts from 1
 but the return list/array use 0</p>
-<dl class="docutils">
-<dt>mask <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
-<dd>Atom mask</dd>
-</dl>
-<p>indices : Python array</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mask</strong> : str</p>
+<blockquote>
+<div><p>Atom mask</p>
+</div></blockquote>
+<p><strong>Returns</strong></p>
+<p><strong>&#8212;&#8212;</strong></p>
+<p class="last"><strong>indices</strong> : Python array</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -519,7 +547,7 @@ atom_name : name of the atom</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 16, 2015.<br/>
+      Last updated on Oct 18, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

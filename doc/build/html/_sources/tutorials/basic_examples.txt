@@ -48,10 +48,16 @@ Hbond analysis
 
 .. ipython:: python
  
+   # search hbonds for all residues
    hbonds = pt.search_hbonds(pdb)
    hbonds
-   hbonds.data.keys()
+   # print first few hbond
+   hbonds.donor_aceptor[:5]
    hbonds.values
+
+   # search hbonds between residue 9 and 16
+   h = pt.search_hbonds(pdb, ':9,16')
+   h.donor_aceptor
 
 .. include:: load_pdb_rcsb.rst
 
