@@ -389,7 +389,7 @@ cdef class Topology:
         but the return list/array use 0
 
         Parameters
-        ---------
+        ----------
         mask : str
             Atom mask
 
@@ -464,7 +464,7 @@ cdef class Topology:
         """add bond for pairs of atoms. 
 
         Parameters
-        ---------
+        ----------
         bond_indices : 2D array_like (must have buffer interface)
             shape=(n_atoms, 2)
         """
@@ -479,7 +479,7 @@ cdef class Topology:
         """add angle for a group of 3 atoms. 
 
         Parameters
-        ---------
+        ----------
         indices : 2D array_like (must have buffer interface),
             shape=(n_atoms, 3)
         """
@@ -494,7 +494,7 @@ cdef class Topology:
         """add dihedral for a group of 4 atoms. 
 
         Parameters
-        ---------
+        ----------
         indices : 2D array_like (must have buffer interface),
             shape=(n_atoms, 3)
         """

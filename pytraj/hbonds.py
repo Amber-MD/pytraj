@@ -115,7 +115,7 @@ def search_hbonds(traj,
                   image=False,
                   more_options='',
                   top=None):
-    """search hbonds for a given mask. 
+    """Searching for Hbond donors/acceptors in region specified by ``mask``
 
     Parameters
     ----------

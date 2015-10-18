@@ -222,6 +222,8 @@ def load_batch(traj, txt):
         raise ValueError('only support TrajectoryIterator')
     return _load_batch(txt, traj=traj)
 
+load_pipeline = load_batch
+
 def superpose(traj, *args, **kwd):
     traj.superpose(*args, **kwd)
 

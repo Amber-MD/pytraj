@@ -27,15 +27,15 @@ class TestNormal(unittest.TestCase):
         for n_cores in [2, 3, 4]:
             for func in func_list:
                 if func in [pt.rmsd, ]:
-                    pout = gather(pt.pmap(n_cores, func, traj, ref=ref))
+                    pout = gather(pt.pmap(n_cores=n_cores, func=func, traj=traj, ref=ref))
                     serial_out = flatten(func(traj, ref=ref))
                 else:
-                    pout = gather(pt.pmap(n_cores, func, traj))
+                    pout = gather(pt.pmap(n_cores=n_cores, func=func, traj=traj))
                     serial_out = flatten(func(traj))
                 aa_eq(pout, serial_out)
 
         # search_hbonds
-        a = pt.pmap(4, pt.search_hbonds, traj, dtype='dataset')
+        a = pt.pmap(pt.search_hbonds, traj, dtype='dataset', n_cores=4)
         pout = pt.tools.flatten([x[1]['total_solute_hbonds'] for x in a])
         serial_out = pt.search_hbonds(traj, dtype='dataset')['total_solute_hbonds']
         aa_eq(pout, serial_out)
@@ -50,7 +50,7 @@ class TestNormal(unittest.TestCase):
 
         # raise if a traj is not TrajectoryIterator
         def need_to_raise_2(traj=traj):
-            pt.pmap(2, pt.bfactors, traj[:])
+            pt.pmap(pt.bfactors, traj[:], n_cores=2)
 
         self.assertRaises(ValueError, lambda: need_to_raise_2())
 
@@ -60,7 +60,7 @@ class TestNormal(unittest.TestCase):
         for i in range(0, 8, 2):
             ref = self.traj[i]
             for n_cores in [2, 3, 4, 5]:
-                pout = gather(pt.pmap(n_cores, func, traj, ref=ref))
+                pout = gather(pt.pmap(n_cores=n_cores, func=func, traj=traj, ref=ref))
                 serial_out = flatten(func(traj, ref=ref))
                 aa_eq(pout, serial_out)
 
@@ -71,7 +71,7 @@ class TestParallelMapForMatrix(unittest.TestCase):
         # not support [covar, distcovar, mwcovar]
         for n_cores in [2, 3, 4, 5]:
             for func in [matrix.dist, matrix.idea]:
-                x = pt.pmap(n_cores, func, traj, '@CA')
+                x = pt.pmap(func, traj, '@CA', n_cores=n_cores)
                 aa_eq(x, func(traj, '@CA'))
 
 class TestCpptrajCommandStyle(unittest.TestCase):
@@ -81,7 +81,7 @@ class TestCpptrajCommandStyle(unittest.TestCase):
         angle_ = pt.angle(traj, ':3 :4 :5')
         distance_ = pt.distance(traj, '@10 @20')
 
-        data = pt.pmap(4, ['angle :3 :4 :5', 'distance @10 @20'], traj)
+        data = pt.pmap(['angle :3 :4 :5', 'distance @10 @20'], traj, n_cores=2)
         aa_eq(angle_, data['Ang_00002'])
         aa_eq(distance_, data['Dis_00003'])
 
@@ -92,8 +92,22 @@ class TestParallelMapForAverageStructure(unittest.TestCase):
         saved_xyz = saved_frame.xyz
 
         for n_cores in [2, 3, 4, 5]:
-            frame = pt.pmap(n_cores, pt.mean_structure, traj, '@CA')
+            frame = pt.pmap(pt.mean_structure, traj, '@CA', n_cores=n_cores)
             aa_eq(frame.xyz, saved_xyz)
+
+@unittest.skipIf('DNO_MATHLIB' in pt.compiled_info(), 'there is no LAPACK')
+class TestIredMatrix(unittest.TestCase):
+    def test_ired_vector_and_matrix_pmap(self):
+        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        h = traj.top.select('@H')
+        n = h - 1
+        nh = list(zip(n ,h))
+
+        exptected_vecs, exptected_mat = pt.ired_vector_and_matrix(traj, nh)
+        for n_cores in [2, 4, 6]:
+            vecs, mat = pt.pmap(pt.ired_vector_and_matrix, traj, nh, n_cores=n_cores)
+            aa_eq(exptected_vecs, vecs, decimal=7)
+            aa_eq(exptected_mat, mat, decimal=7)
 
 
 if __name__ == "__main__":

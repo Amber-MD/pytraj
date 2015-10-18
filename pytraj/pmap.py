@@ -9,6 +9,7 @@ from pytraj._get_common_objects import _get_data_from_dtype
 from pytraj import matrix
 from pytraj import mean_structure 
 from pytraj import Frame
+from pytraj import ired_vector_and_matrix
 
 
 def concat_dict(iterables):
@@ -41,14 +42,14 @@ def worker(rank,
     return (rank, data, my_iter.n_frames)
 
 
-def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
+def pmap(func=None, traj=None, *args, **kwd):
     '''use python's multiprocessing to accelerate calculation. Limited calculations.
 
     Parameters
     ----------
-    n_cores : int, number of cores to be used, default 2
     func : a pytraj's methods or a list of string or simply as a cpptraj' text
     traj : pytraj.TrajectoryIterator
+    n_cores : int, number of cores to be used, default 2. Specify n_cores=-1 to use all available cores
     *args, **kwd: additional keywords
 
     Returns
@@ -94,7 +95,7 @@ def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
     >>> import numpy as np
     >>> import pytraj as pt
     >>> traj = pt.load_sample_data('tz2')
-    >>> data = pt.pmap(4, pt.radgyr, traj=traj)
+    >>> data = pt.pmap(pt.radgyr, traj, n_cores=4)
     >>> data
     [(0, array([ 18.91114428,  18.93654996]), 2),
      (1, array([ 18.84969884,  18.90449256]), 2),
@@ -114,7 +115,7 @@ def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
      18.870697222142766]
 
     >>> # cpptraj command style
-    >>> data = pt.pmap(4, ['distance :3 :7', 'vector mask :3 :12'], traj)
+    >>> data = pt.pmap(['distance :3 :7', 'vector mask :3 :12'], traj, n_cores=4)
 
     See also
     --------
@@ -122,6 +123,17 @@ def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
     '''
     from multiprocessing import Pool
     from pytraj import TrajectoryIterator
+    from multiprocessing import cpu_count
+
+    if 'n_cores' in kwd.keys():
+        n_cores = kwd['n_cores']
+        kwd.pop('n_cores')
+    else:
+        # 2 cores
+        n_cores = 2
+    if n_cores <= 0:
+        # use all available cores
+        n_cores = cpu_count()
 
     if isinstance(func, (list, tuple, string_types)):
         # assume using _load_batch_pmap
@@ -160,6 +172,12 @@ def pmap(n_cores=2, func=None, traj=None, *args, **kwd):
         if func in [matrix.dist, matrix.idea]:
             y = np.sum((val[1] * val[2] for val in data)) / traj.n_frames
             return y
+        elif func in [ired_vector_and_matrix, ]:
+            # data is a list of (rank, (vectors, matrix), n_frames)
+            mat = np.sum((val[1][1] * val[2] for val in data)) / traj.n_frames
+            #vecs = np.vstack((val[1][0] for val in data))
+            vecs = np.column_stack(val[1][0] for val in data)
+            return (vecs, mat)
         elif func == mean_structure:
             xyz = np.sum((x[2] * x[1].xyz for x in data)) / traj.n_frames
             frame = Frame(xyz.shape[0])

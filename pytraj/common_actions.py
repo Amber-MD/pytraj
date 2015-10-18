@@ -1507,6 +1507,7 @@ def _ired(iredvec, modes,
     return dslist
 
 
+@_register_pmap
 def ired_vector_and_matrix(traj=None,
                            mask="",
                            frame_indices=None,
@@ -2330,23 +2331,49 @@ def auto_correlation_function(data, dtype='ndarray', covar=True):
     return _get_data_from_dtype(cdslist[1:], dtype=dtype)
 
 
-def lifetime(data, command="", dtype='ndarray', *args, **kwd):
-    """
-    """
-    from pytraj.analyses.CpptrajAnalyses import Analysis_Lifetime
+def lifetime(data, cut=0.5, rawcurve=False,
+             more_options='',
+             dtype='ndarray'):
+    """lifetime (adapted lightly from cpptraj doc)
 
-    cdslist = CpptrajDatasetList()
-    if 'int' in data.dtype.name:
-        cdslist.add_set("integer", "d0")
+    Parameters
+    ----------
+    data : 1D-array or 2D array-like
+    cut : cutoff to use when determining if data is 'present', default 0.5
+    more_options : str, more cpptraj's options. Check cpptraj's manual.
+    """
+    data = np.asarray(data)
+    if data.ndim == 1:
+        data_ = [data, ]
     else:
-        cdslist.add_set("double", "d0")
+        data_ = data
 
-    cdslist[0].data = np.asarray(data)
+    _outname = 'name lifetime_'
+    _cut = 'cut ' + str(cut)
+    _rawcurve = 'rawcurve' if rawcurve else ''
+    # do not sorting dataset's names. We can accessing by indexing them.
+    _nosort = 'nosort'
 
-    act = Analysis_Lifetime()
-    command = " ".join((command, "d0"))
+    namelist = []
+    cdslist = CpptrajDatasetList()
+    for idx, arr in enumerate(data_):
+        # create datasetname so we can reference them
+        name = 'data_' + str(idx) 
+        if 'int' in arr.dtype.name:
+            cdslist.add_set("integer", name)
+        else:
+            cdslist.add_set("double", name)
+        cdslist[-1].data = np.asarray(arr)
+        namelist.append(name)
+
+    act = CpptrajAnalyses.Analysis_Lifetime()
+    _cm = ' '.join(namelist)
+    command = " ".join((_cm, _outname, _cut, _rawcurve, _nosort, more_options))
     act(command, dslist=cdslist)
-    return _get_data_from_dtype(cdslist[1:], dtype=dtype)
+
+    for name in namelist:
+        cdslist.remove_set(cdslist[name])
+    return _get_data_from_dtype(cdslist, dtype=dtype)
 
 
 def search_neighbors(traj=None,
