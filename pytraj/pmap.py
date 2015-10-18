@@ -9,6 +9,7 @@ from pytraj._get_common_objects import _get_data_from_dtype
 from pytraj import matrix
 from pytraj import mean_structure 
 from pytraj import Frame
+from pytraj import ired_vector_and_matrix
 
 
 def concat_dict(iterables):
@@ -171,6 +172,12 @@ def pmap(func=None, traj=None, *args, **kwd):
         if func in [matrix.dist, matrix.idea]:
             y = np.sum((val[1] * val[2] for val in data)) / traj.n_frames
             return y
+        elif func in [ired_vector_and_matrix, ]:
+            # data is a list of (rank, (vectors, matrix), n_frames)
+            mat = np.sum((val[1][1] * val[2] for val in data)) / traj.n_frames
+            #vecs = np.vstack((val[1][0] for val in data))
+            vecs = np.column_stack(val[1][0] for val in data)
+            return (vecs, mat)
         elif func == mean_structure:
             xyz = np.sum((x[2] * x[1].xyz for x in data)) / traj.n_frames
             frame = Frame(xyz.shape[0])

@@ -95,6 +95,20 @@ class TestParallelMapForAverageStructure(unittest.TestCase):
             frame = pt.pmap(pt.mean_structure, traj, '@CA', n_cores=n_cores)
             aa_eq(frame.xyz, saved_xyz)
 
+@unittest.skipIf('DNO_MATHLIB' in pt.compiled_info(), 'there is no LAPACK')
+class TestIredMatrix(unittest.TestCase):
+    def test_ired_vector_and_matrix_pmap(self):
+        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        h = traj.top.select('@H')
+        n = h - 1
+        nh = list(zip(n ,h))
+
+        exptected_vecs, exptected_mat = pt.ired_vector_and_matrix(traj, nh)
+        for n_cores in [2, 4, 6]:
+            vecs, mat = pt.pmap(pt.ired_vector_and_matrix, traj, nh, n_cores=n_cores)
+            aa_eq(exptected_vecs, vecs, decimal=7)
+            aa_eq(exptected_mat, mat, decimal=7)
+
 
 if __name__ == "__main__":
     unittest.main()
