@@ -12,7 +12,7 @@ from pytraj import Frame
 from pytraj import ired_vector_and_matrix
 
 
-def concat_dict(iterables):
+def _concat_dict(iterables):
     # we have this function in pytraj.tools but copy here to be used as internal method
     # TODO: fill missing values?
     """concat dict
@@ -30,7 +30,7 @@ def concat_dict(iterables):
     return new_dict
 
 
-def worker(rank,
+def _worker(rank,
            n_cores=None,
            func=None,
            traj=None,
@@ -139,7 +139,7 @@ def pmap(func=None, traj=None, *args, **kwd):
         # assume using _load_batch_pmap
         from pytraj.parallel import _load_batch_pmap
         data = _load_batch_pmap(n_cores=n_cores, traj=traj, lines=func, dtype='dict', root=0, mode='multiprocessing')
-        return concat_dict((x[1] for x in data))
+        return _concat_dict((x[1] for x in data))
     else:
         # pytraj's method
         if not hasattr(func, '_is_parallelizable') or not func._is_parallelizable:
@@ -159,7 +159,7 @@ def pmap(func=None, traj=None, *args, **kwd):
         else:
             dtype = None
 
-        pfuncs = partial(worker,
+        pfuncs = partial(_worker,
                          n_cores=n_cores,
                          func=func,
                          traj=traj,
@@ -185,7 +185,7 @@ def pmap(func=None, traj=None, *args, **kwd):
             return frame
         else:
             if dtype == 'dict':
-                new_dict = concat_dict((x[1] for x in data))
+                new_dict = _concat_dict((x[1] for x in data))
                 return new_dict
             else:
                 return data

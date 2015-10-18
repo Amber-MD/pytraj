@@ -5,6 +5,13 @@ from pytraj.utils import eq, aa_eq
 import pytraj.common_actions as pyca
 
 
+try:
+    import sander
+    has_sander = True
+except ImportError:
+    has_sander = False
+
+@unittest.skipIf(not has_sander, 'skip if not having sander')
 class Test(unittest.TestCase):
     def test_1(self):
         import parmed as pmd

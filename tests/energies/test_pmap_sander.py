@@ -4,9 +4,15 @@ import pytraj as pt
 from pytraj.utils import eq, aa_eq
 import pytraj.common_actions as pyca
 
+try:
+    import sander
+    has_sander = True
+except ImportError:
+    has_sander = False
 
-class Test(unittest.TestCase):
-    def test_0(self):
+@unittest.skipIf(not has_sander, 'skip if not having sander')
+class TestSanderPmap(unittest.TestCase):
+    def test_sander_pmap(self):
         traj = pt.iterload('./data/md1_prod.Tc5b.x', './data/Tc5b.top')
         fname = traj.top.filename
         print(pt.energy_decomposition(traj, parm=fname)['dihedral'])
