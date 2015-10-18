@@ -31,3 +31,11 @@ def ired_():
 if __name__ == '__main__':
     N_CORES = int(sys.argv[1])
     ired_()
+
+# output:
+# not bad
+#    serial
+#    15.39 (s)
+
+#    n_cores =  6
+#    2.62 (s)
