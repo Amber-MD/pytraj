@@ -2371,8 +2371,9 @@ def lifetime(data, cut=0.5, rawcurve=False,
     namelist = []
     cdslist = CpptrajDatasetList()
     for idx, arr in enumerate(data_):
+        # create datasetname so we can reference them
+        name = 'data_' + str(idx) 
         if 'int' in arr.dtype.name:
-            name = 'data_' + str(idx) 
             cdslist.add_set("integer", name)
         else:
             cdslist.add_set("double", name)

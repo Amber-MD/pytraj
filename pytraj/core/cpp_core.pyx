@@ -614,6 +614,11 @@ cdef class CpptrajState:
         return self.thisptr.AddAnalysis(alloc_funct.ptr, _arglist.thisptr[0])
 
     def run(self):
+        '''alias of CpptrajState.compute. This is for testing purpose
+        '''
+        return self.compute()
+
+    def compute(self):
         self.thisptr.Run()
         return self
 
