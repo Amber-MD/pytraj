@@ -6,7 +6,8 @@ Developer guide for pytraj
 General philosophy
 ------------------
 
-Try your best to follow instruction below. If you have questions, do not hesitate to ask. Don't be afraid that your
+Try your best to follow instruction below but you do not need to strictly follow. Instead, you're welcome to make suggestions/changes.
+If you have questions, do not hesitate to ask. Don't be afraid that your
 code does not look right or pretty. We can discuss by openning an `issue <https://github.com/Amber-MD/pytraj/issues>`_
 
 If having any suggestions, open an issue too.
@@ -14,20 +15,35 @@ If having any suggestions, open an issue too.
 Our github repo
 ---------------
 
+`github.com/Amber-MD/pytraj <https://github.com/Amber-MD/pytraj/>`_
+
 How to contribute code?
 
-Please read general instruction about git control in `pandas website
+- Please read general instruction about git control in `pandas website
 <http://pandas.pydata.org/pandas-docs/stable/contributing.html#version-control-git-and-github>`_
 
-Our git repo is here:
+- Basic steps
+
+  - make an account on `github <https://github.com/>`_
+  - fork our repo: help `here <https://help.github.com/articles/fork-a-repo/>`_
+  - clone your fork to your computer
+  - make a new branch
+  - make change, do testing, commmit, push to your fork on github
+  - make pull request
+
+Examples: I forked amber-md/pytraj repo to my account hainm/pytraj
 
 .. code-block:: bash
 
-    $ git clone https://github.com/Amber-MD/pytraj/
+    $ # download my branch to my computer
+    $ git clone https://github.com/hainm/pytraj/
     $ cd pytraj
-    $ git branch a_new_feature_or_whatever_name
-    $ git checkout a_new_feature_or_whatever_name
+    $ git branch your_feature_name
+    $ git checkout your_feature_name
+    $ # make changes, do testing, ...
     $ # do any work on this branch and make pull request
+
+Above is very minimal instruction, it's better to google.
 
 Python style guide
 ------------------
@@ -42,7 +58,7 @@ Python 2 and 3 compat
 Use `six <http://pythonhosted.org/six/>`_ to write your compat code. 
 We put all common stuff in `pytraj.compat <https://github.com/Amber-MD/pytraj/blob/master/pytraj/compat.py>`_
 
-.. note:: currently, I (Hai) are only working on Python3.
+.. note:: currently, I (Hai) are only working on Python3 since it's much better Python2 (google why).
 
 Install
 -------
@@ -91,18 +107,14 @@ Currently, all testing codes are in **pytraj/tests/** folder.
 
 .. code-block:: bash
 
-    # We can use
-    $ cp template_unittest.py test_new_method_name_example.py
-    # To run all tests
-    $ python ./run_all_and_find_fails.py
-    # To run tests having specific keywords 
-    $ python ./run_tests_with_keyword.py your_key_word
+    $ cd tests
+    $ cp template_unittest.py test_your_new_method_name.py
 
-Outputs from test scripts are saved to **output.txt** and error status is saved to **log** file.
+    $ # To run all tests
+    $ nosetests -vs .
 
-The script ``./run_all_and_find_fails.py`` only look for file starting with ``test_`` and having key word ``unittest``. Check ``tests/get_unittest_files.py`` for further detail.
-
-We're really happy to accept PR to update test, using `nosetests <https://nose.readthedocs.org/en/latest/>`_, `pytest <http://pytest.org/latest/>`_ or whatever reasonable.
+    $ # to run specific file
+    $ python test_your_new_method_name.py
 
 External codes
 --------------
