@@ -188,8 +188,9 @@ def NH_order_parameters(traj, vector_pairs, order=2, tstep=1., tcorr=10000., n_c
     if n_cores == 1:
         vecs_and_mat = ired_vector_and_matrix(traj, vector_pairs, order=order, dtype='tuple')
     else:
-        from pytraj import pmap
-        vecs_and_mat = pmap(ired_vector_and_matrix, traj, vector_pairs, order=order,
+        # use _pmap to avoid cicular import
+        from pytraj import _pmap
+        vecs_and_mat = _pmap(ired_vector_and_matrix, traj, vector_pairs, order=order,
                 dtype='tuple', n_cores=n_cores)
 
     state_vecs = vecs_and_mat[0]

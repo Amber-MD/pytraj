@@ -25,8 +25,12 @@ class TestNHOrderParamters(unittest.TestCase):
         aa_eq(orders, saved_S2)
 
         # multiple core
-        for n_cores in [2, 3, 4, 5, 6]:
+        for n_cores in [2, 3, 4]:
             orders = pt.NH_order_parameters(traj, nh_indices, tcorr=8000., n_cores=2)
+            saved_S2 = np.loadtxt('../cpptraj/test/Test_IRED/orderparam.save').T[-1]
+            aa_eq(orders, saved_S2)
+
+            orders = pt.pmap(pt.NH_order_parameters, traj, nh_indices, tcorr=8000., n_cores=2)
             saved_S2 = np.loadtxt('../cpptraj/test/Test_IRED/orderparam.save').T[-1]
             aa_eq(orders, saved_S2)
 

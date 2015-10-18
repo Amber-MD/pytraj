@@ -10,6 +10,7 @@ from pytraj import matrix
 from pytraj import mean_structure 
 from pytraj import Frame
 from pytraj import ired_vector_and_matrix
+from pytraj import NH_order_parameters
 
 
 def _concat_dict(iterables):
@@ -42,7 +43,7 @@ def _worker(rank,
     return (rank, data, my_iter.n_frames)
 
 
-def pmap(func=None, traj=None, *args, **kwd):
+def _pmap(func=None, traj=None, *args, **kwd):
     '''use python's multiprocessing to accelerate calculation. Limited calculations.
 
     Parameters
@@ -189,3 +190,11 @@ def pmap(func=None, traj=None, *args, **kwd):
                 return new_dict
             else:
                 return data
+
+def pmap(func=None, traj=None, *args, **kwd):
+    if func != NH_order_parameters:
+        return _pmap(func, traj, *args, **kwd)
+    else:
+        return NH_order_parameters(traj, *args, **kwd)
+
+pmap.__doc__ = _pmap.__doc__

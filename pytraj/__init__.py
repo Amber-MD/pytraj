@@ -183,7 +183,7 @@ from .misc import info
 from .run_tests import run_tests
 
 # parallel
-from .pmap import pmap
+from .pmap import pmap, _pmap
 from .parallel import _load_batch_pmap
 
 from ._shared_methods import iterframe_master
