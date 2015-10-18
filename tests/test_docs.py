@@ -8,6 +8,8 @@ from pytraj.compat import PY3
 
 
 class TestDoc(unittest.TestCase):
+    '''testing for light modules
+    '''
     def test_doc(self):
         from pytraj.utils import convert
         def get_total_errors(modules):
