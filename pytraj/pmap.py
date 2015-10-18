@@ -94,7 +94,7 @@ def pmap(func=None, traj=None, *args, **kwd):
     >>> import numpy as np
     >>> import pytraj as pt
     >>> traj = pt.load_sample_data('tz2')
-    >>> data = pt.pmap(4, pt.radgyr, traj=traj)
+    >>> data = pt.pmap(pt.radgyr, traj, n_cores=4)
     >>> data
     [(0, array([ 18.91114428,  18.93654996]), 2),
      (1, array([ 18.84969884,  18.90449256]), 2),
@@ -114,7 +114,7 @@ def pmap(func=None, traj=None, *args, **kwd):
      18.870697222142766]
 
     >>> # cpptraj command style
-    >>> data = pt.pmap(4, ['distance :3 :7', 'vector mask :3 :12'], traj)
+    >>> data = pt.pmap(['distance :3 :7', 'vector mask :3 :12'], traj, n_cores=4)
 
     See also
     --------
