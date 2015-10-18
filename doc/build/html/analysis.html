@@ -724,7 +724,7 @@ like below:</p>
 <span class="target" id="search-hbonds"></span><dl class="function">
 <dt id="pytraj.search_hbonds">
 <tt class="descclassname">pytraj.</tt><tt class="descname">search_hbonds</tt><big>(</big><em>traj</em>, <em>mask=''</em>, <em>solvent_donor=None</em>, <em>solvent_acceptor=None</em>, <em>distance=3.0</em>, <em>angle=135.0</em>, <em>dtype='hbond'</em>, <em>image=False</em>, <em>more_options=''</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.search_hbonds" title="Permalink to this definition">¶</a></dt>
-<dd><p>search hbonds for a given mask.</p>
+<dd><p>Searching for Hbond donors/acceptors in region specified by <tt class="docutils literal"><span class="pre">mask</span></tt></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -804,8 +804,36 @@ like below:</p>
 
 <span class="target" id="lifetime"></span><dl class="function">
 <dt id="pytraj.lifetime">
-<tt class="descclassname">pytraj.</tt><tt class="descname">lifetime</tt><big>(</big><em>data</em>, <em>command=''</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.lifetime" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<tt class="descclassname">pytraj.</tt><tt class="descname">lifetime</tt><big>(</big><em>data</em>, <em>cut=0.5</em>, <em>rawcurve=False</em>, <em>more_options=''</em>, <em>dtype='ndarray'</em><big>)</big><a class="headerlink" href="#pytraj.lifetime" title="Permalink to this definition">¶</a></dt>
+<dd><p>lifetime (adapted lightly from cpptraj doc):</p>
+<div class="highlight-python"><div class="highlight"><pre>Perform lifetime analysis for specified data sets. “Lifetime” is defined as the length of time something remains
+’present’; data is considered present when above or below a certain cutoff (the default is greater than 0.5, useful
+for analysis of hbond time series data). For example, in the case of a hydrogen bond ’series’ data set, if a
+hydrogen bond is present during a frame the value is 1, otherwise it is 0. Given the hbond time series data set {1 1
+1 0 1 0 0 0 1 1}, the overall fraction present is 0.6. However, there are 3 lifetimes of lengths 3, 1, and 2 ({1 1 1},
+{1}, and {1 1}). The maximum lifetime is 3 and the average lifetime is 2.0, i.e. (3 + 1 + 2) / 3 lifetimes = 2.0.
+One can also construct a “lifetime curve”, which is constructed as the sum of all individual lifetimes. By default
+these curves are normalized to 1.0, but the raw curve can be obtained using the rawcurve keyword. For the
+example data set here the raw lifetime curve would be 3 frames long:
+
+    1 1 1
+    1
+    1 1
+    Curve: 3 2 1
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>data</strong> : 1D-array or 2D array-like</p>
+<p><strong>cut</strong> : cutoff to use when determining if data is &#8216;present&#8217;, default 0.5</p>
+<p class="last"><strong>more_options</strong> : str, more cpptraj&#8217;s options. Check cpptraj&#8217;s manual.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <span class="target" id="auto-correlation-function"></span><dl class="function">
 <dt id="pytraj.acorr">
