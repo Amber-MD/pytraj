@@ -71,10 +71,10 @@ def _worker_state(rank, n_cores=1, traj=None, lines=[], dtype='dict'):
     if dtype == 'dict':
         # exclude DatasetTopology and TrajectoryCpptraj
         return (rank, state.data[2:].to_dict())
-    elif dtype == 'state':
-        return state
+    else:
+        raise ValueError('must use dtype="dict"')
 
-def _load_batch_pmap(n_cores=4, traj=None, lines=[], dtype='dict', root=0, mode='multiprocessing'):
+def _load_batch_pmap(n_cores=4, lines=[], traj=None, dtype='dict', root=0, mode='multiprocessing'):
     '''mpi or multiprocessing
     '''
     if mode == 'multiprocessing':

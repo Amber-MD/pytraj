@@ -26,7 +26,7 @@ lines = ['autoimage', 'distance :3 :10', 'molsurf @CA']
 # gather the data to 1st core (rank=0)
 # 
 n_cores = comm.size
-data = _load_batch_pmap(n_cores, traj, lines=lines, mode='mpi', dtype='dict')
+data = _load_batch_pmap(n_cores, lines=lines, traj=traj, mode='mpi', dtype='dict')
 
 if comm.rank != 0:
     assert data is None

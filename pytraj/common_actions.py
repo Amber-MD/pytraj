@@ -2330,23 +2330,61 @@ def auto_correlation_function(data, dtype='ndarray', covar=True):
     return _get_data_from_dtype(cdslist[1:], dtype=dtype)
 
 
-def lifetime(data, command="", dtype='ndarray', *args, **kwd):
-    """
-    """
-    from pytraj.analyses.CpptrajAnalyses import Analysis_Lifetime
+def lifetime(data, cut=0.5, rawcurve=False,
+             more_options='',
+             dtype='ndarray'):
+    """lifetime (adapted lightly from cpptraj doc)::
 
-    cdslist = CpptrajDatasetList()
-    if 'int' in data.dtype.name:
-        cdslist.add_set("integer", "d0")
+        Perform lifetime analysis for specified data sets. “Lifetime” is defined as the length of time something remains
+        ’present’; data is considered present when above or below a certain cutoff (the default is greater than 0.5, useful
+        for analysis of hbond time series data). For example, in the case of a hydrogen bond ’series’ data set, if a
+        hydrogen bond is present during a frame the value is 1, otherwise it is 0. Given the hbond time series data set {1 1
+        1 0 1 0 0 0 1 1}, the overall fraction present is 0.6. However, there are 3 lifetimes of lengths 3, 1, and 2 ({1 1 1},
+        {1}, and {1 1}). The maximum lifetime is 3 and the average lifetime is 2.0, i.e. (3 + 1 + 2) / 3 lifetimes = 2.0.
+        One can also construct a “lifetime curve”, which is constructed as the sum of all individual lifetimes. By default
+        these curves are normalized to 1.0, but the raw curve can be obtained using the rawcurve keyword. For the
+        example data set here the raw lifetime curve would be 3 frames long:
+
+            1 1 1
+            1
+            1 1
+            Curve: 3 2 1
+
+    Parameters
+    ----------
+    data : 1D-array or 2D array-like
+    cut : cutoff to use when determining if data is 'present', default 0.5
+    more_options : str, more cpptraj's options. Check cpptraj's manual.
+    """
+    data = np.asarray(data)
+    if data.ndim == 1:
+        data_ = [data, ]
     else:
-        cdslist.add_set("double", "d0")
+        data_ = data
 
-    cdslist[0].data = np.asarray(data)
+    _outname = 'name lifetime_'
+    _cut = 'cut ' + str(cut)
+    _rawcurve = 'rawcurve' if rawcurve else ''
 
-    act = Analysis_Lifetime()
-    command = " ".join((command, "d0"))
+    namelist = []
+    cdslist = CpptrajDatasetList()
+    for idx, arr in enumerate(data_):
+        if 'int' in arr.dtype.name:
+            name = 'data_' + str(idx) 
+            cdslist.add_set("integer", name)
+        else:
+            cdslist.add_set("double", name)
+        cdslist[-1].data = np.asarray(arr)
+        namelist.append(name)
+
+    act = CpptrajAnalyses.Analysis_Lifetime()
+    _cm = ' '.join(arr)
+    command = " ".join(_cm, _outname, _cut, _rawcurve, more_options)
     act(command, dslist=cdslist)
-    return _get_data_from_dtype(cdslist[1:], dtype=dtype)
+
+    for name in namelist:
+        dslist.remove_set(dslist[name])
+    return _get_data_from_dtype(cdslist, dtype=dtype)
 
 
 def search_neighbors(traj=None,
