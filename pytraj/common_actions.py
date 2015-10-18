@@ -1507,6 +1507,7 @@ def _ired(iredvec, modes,
     return dslist
 
 
+@_register_pmap
 def ired_vector_and_matrix(traj=None,
                            mask="",
                            frame_indices=None,
@@ -2333,22 +2334,7 @@ def auto_correlation_function(data, dtype='ndarray', covar=True):
 def lifetime(data, cut=0.5, rawcurve=False,
              more_options='',
              dtype='ndarray'):
-    """lifetime (adapted lightly from cpptraj doc)::
-
-        Perform lifetime analysis for specified data sets. “Lifetime” is defined as the length of time something remains
-        ’present’; data is considered present when above or below a certain cutoff (the default is greater than 0.5, useful
-        for analysis of hbond time series data). For example, in the case of a hydrogen bond ’series’ data set, if a
-        hydrogen bond is present during a frame the value is 1, otherwise it is 0. Given the hbond time series data set {1 1
-        1 0 1 0 0 0 1 1}, the overall fraction present is 0.6. However, there are 3 lifetimes of lengths 3, 1, and 2 ({1 1 1},
-        {1}, and {1 1}). The maximum lifetime is 3 and the average lifetime is 2.0, i.e. (3 + 1 + 2) / 3 lifetimes = 2.0.
-        One can also construct a “lifetime curve”, which is constructed as the sum of all individual lifetimes. By default
-        these curves are normalized to 1.0, but the raw curve can be obtained using the rawcurve keyword. For the
-        example data set here the raw lifetime curve would be 3 frames long:
-
-            1 1 1
-            1
-            1 1
-            Curve: 3 2 1
+    """lifetime (adapted lightly from cpptraj doc)
 
     Parameters
     ----------
