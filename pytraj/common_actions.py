@@ -1336,7 +1336,6 @@ def calc_atomicfluct(traj=None,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-@noparallel
 def calc_bfactors(traj=None,
                   mask="",
                   byres=True,
