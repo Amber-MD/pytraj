@@ -71,7 +71,7 @@ class TestNormal(unittest.TestCase):
 
         # perform autoimage, then rms fit to 1st frame, then compute mean structure
         iter_options = {'autoimage': True, 'rmsfit': 0}
-        for n_cores in [2, 3, 4, 5, -1]:
+        for n_cores in [2, 3]:
             avg = pt.pmap(pt.mean_structure, traj, iter_options=iter_options,
                     n_cores=n_cores)
             aa_eq(saved_avg.xyz, avg.xyz)
