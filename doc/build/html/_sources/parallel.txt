@@ -36,6 +36,8 @@ Example
     import pytraj as pt
     traj = pt.iterload('data/tz2.ortho.nc', 'data/tz2.ortho.parm7')
     pt.pmap(pt.radgyr, traj, n_cores=4)
+    # auto-join the data
+    pt.pmap(pt.radgyr, traj, n_cores=4, dtype='dict')
 
 Supported methods for ``pmap``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -49,7 +51,7 @@ Supported methods for ``pmap``
     method_list_pmap = []
     method_list_openmp = []
 
-    for method_str in chain(dir(pt), dir(matrix), dir(vector)):
+    for method_str in chain(dir(pt), dir(matrix), dir(vector), dir(nmr)):
         try:
             method = getattr(pt, method_str)
             if hasattr(method, '_is_parallelizable') and method._is_parallelizable:

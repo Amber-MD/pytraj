@@ -197,17 +197,23 @@
 <span class="go"> (1, array([ 18.8497,  18.9045]), 2),</span>
 <span class="go"> (2, array([ 18.8569,  18.8892]), 2),</span>
 <span class="go"> (3, array([ 18.943 ,  18.8888,  18.9167,  18.8707]), 4)]</span>
+
+<span class="c"># auto-join the data</span>
+<span class="gp">In [4]: </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;dict&#39;</span><span class="p">)</span>
+<span class="go">                                                                                                                                                                                     Out[4]: </span>
+<span class="go">OrderedDict([(&#39;RoG_00000&#39;,</span>
+<span class="go">              array([ 18.9111,  18.9365,  18.8497,  18.9045,  18.8569,  18.8892,</span>
+<span class="go">                      18.943 ,  18.8888,  18.9167,  18.8707]))])</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="supported-methods-for-pmap">
 <h3><a class="toc-backref" href="#id4">Supported methods for <tt class="docutils literal"><span class="pre">pmap</span></tt></a><a class="headerlink" href="#supported-methods-for-pmap" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [4]: </span><span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">supported_pmap_methods</span><span class="p">:</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [5]: </span><span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">supported_pmap_methods</span><span class="p">:</span>
 <span class="gp">   ...:</span>     <span class="k">print</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
 <span class="gp">   ...:</span> 
 <span class="go">NH_order_parameters</span>
 <span class="go">angle</span>
-<span class="go">bfactors</span>
 <span class="go">center_of_geometry</span>
 <span class="go">center_of_mass</span>
 <span class="go">dihedral</span>
@@ -234,7 +240,7 @@
 </div>
 <div class="section" id="supported-methods-for-openmp">
 <h3><a class="toc-backref" href="#id5">Supported methods for <tt class="docutils literal"><span class="pre">openmp</span></tt></a><a class="headerlink" href="#supported-methods-for-openmp" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [5]: </span><span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">supported_openmp_methods</span><span class="p">:</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [6]: </span><span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">supported_openmp_methods</span><span class="p">:</span>
 <span class="gp">   ...:</span>     <span class="k">print</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
 <span class="gp">   ...:</span> 
 <span class="go">closest</span>
@@ -244,7 +250,7 @@
 <span class="go">replicate_cell</span>
 <span class="go">watershell</span>
 
-<span class="gp">In [6]: </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="gp">In [7]: </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
 <span class="go">                                                         </span>
 </pre></div>
 </div>
@@ -258,18 +264,18 @@ If method supports openmp, use openmp.</p>
 <div class="section" id="multiple-actions-with-multiple-trajectories">
 <h2><a class="toc-backref" href="#id7">multiple actions with multiple trajectories</a><a class="headerlink" href="#multiple-actions-with-multiple-trajectories" title="Permalink to this headline">¶</a></h2>
 <p>Only works with Python 3.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [7]: </span><span class="kn">from</span> <span class="nn">pytraj.parallel</span> <span class="kn">import</span> <span class="n">PJob</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [8]: </span><span class="kn">from</span> <span class="nn">pytraj.parallel</span> <span class="kn">import</span> <span class="n">PJob</span>
 
-<span class="gp">In [8]: </span><span class="n">tasklist</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">In [9]: </span><span class="n">tasklist</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="gp">In [9]: </span><span class="n">tasklist</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="p">))</span>
+<span class="gp">In [10]: </span><span class="n">tasklist</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="p">))</span>
 
-<span class="gp">In [10]: </span><span class="n">tasklist</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">pt</span><span class="o">.</span><span class="n">molsurf</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">))</span>
+<span class="gp">In [11]: </span><span class="n">tasklist</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">pt</span><span class="o">.</span><span class="n">molsurf</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">))</span>
 
 <span class="c"># perform each action on each CPUs (total 2 CPUs)</span>
-<span class="gp">In [11]: </span><span class="n">pjob</span> <span class="o">=</span> <span class="n">PJob</span><span class="p">(</span><span class="n">tasklist</span><span class="p">)</span>
+<span class="gp">In [12]: </span><span class="n">pjob</span> <span class="o">=</span> <span class="n">PJob</span><span class="p">(</span><span class="n">tasklist</span><span class="p">)</span>
 
-<span class="gp">In [12]: </span><span class="k">print</span><span class="p">(</span><span class="n">pjob</span><span class="o">.</span><span class="n">compute</span><span class="p">())</span>
+<span class="gp">In [13]: </span><span class="k">print</span><span class="p">(</span><span class="n">pjob</span><span class="o">.</span><span class="n">compute</span><span class="p">())</span>
 <span class="go">[(0, array([ 18.9111,  18.9365,  18.8497,  18.9045,  18.8569,  18.8892,</span>
 <span class="go">        18.943 ,  18.8888,  18.9167,  18.8707])), (1, array([ 458.5141,  459.6478,  456.5469,  467.7294,  462.4591,  458.7033,</span>
 <span class="go">        454.4051,  455.1502,  468.7057,  456.0059]))]</span>
