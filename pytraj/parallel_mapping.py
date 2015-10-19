@@ -37,9 +37,14 @@ def _worker(rank,
            func=None,
            traj=None,
            args=None,
-           kwd=None):
+           kwd=None,
+           iter_options={}):
     # need to unpack args and kwd
-    my_iter = traj._split_iterators(n_cores, rank=rank)
+    mask = iter_options.get('mask', None)
+    rmsfit = iter_options.get('rmsfit', None)
+    autoimage = iter_options.get('autoimage', False)
+    my_iter = traj._split_iterators(n_cores, rank=rank, mask=mask, rmsfit=rmsfit,
+            autoimage=autoimage)
     data = func(my_iter, *args, **kwd)
     return (rank, data, my_iter.n_frames)
 
@@ -52,6 +57,8 @@ def _pmap(func=None, traj=None, *args, **kwd):
     func : a pytraj's methods or a list of string or simply as a cpptraj' text
     traj : pytraj.TrajectoryIterator
     n_cores : int, number of cores to be used, default 2. Specify n_cores=-1 to use all available cores
+    iter_options : dict, default {}
+        Specify trajectory iterating option. This will be done before calling ``func``.
     *args, **kwd: additional keywords
 
     Returns
@@ -98,13 +105,13 @@ def _pmap(func=None, traj=None, *args, **kwd):
     >>> import pytraj as pt
     >>> traj = pt.load_sample_data('tz2')
     >>> data = pt.pmap(pt.radgyr, traj, n_cores=4)
-    >>> data
+    >>> data # doctest: +SKIP
     [(0, array([ 18.91114428,  18.93654996]), 2),
      (1, array([ 18.84969884,  18.90449256]), 2),
      (2, array([ 18.8568644 ,  18.88917208]), 2),
      (3, array([ 18.9430491 ,  18.88878079,  18.91669565,  18.87069722]), 4)]
     >>> # in most cases, you can follow below command to join the data
-    >>> pt.tools.flatten([x[1] for x in data])
+    >>> pt.tools.flatten([x[1] for x in data]) # doctest: +SKIP
     [18.911144277821389,
      18.936549957265814,
      18.849698842157373,
@@ -118,6 +125,10 @@ def _pmap(func=None, traj=None, *args, **kwd):
 
     >>> # cpptraj command style
     >>> data = pt.pmap(['distance :3 :7', 'vector mask :3 :12'], traj, n_cores=4)
+
+    >>> # use iter_options
+    >>> iter_options = {'autoimage': True, 'rmsfit': (0, '@CA')}
+    >>> data = pt.pmap(pt.mean_structure, traj, iter_options=iter_options) 
 
     See also
     --------
@@ -135,6 +146,12 @@ def _pmap(func=None, traj=None, *args, **kwd):
     if n_cores <= 0:
         # use all available cores
         n_cores = cpu_count()
+
+    if 'iter_options' in kwd.keys():
+        iter_options = kwd['iter_options']
+        kwd.pop('iter_options')
+    else:
+        iter_options = {}
 
     if isinstance(func, (list, tuple, string_types)):
         # assume using _load_batch_pmap
@@ -165,7 +182,8 @@ def _pmap(func=None, traj=None, *args, **kwd):
                          func=func,
                          traj=traj,
                          args=args,
-                         kwd=kwd)
+                         kwd=kwd,
+                         iter_options=iter_options)
 
         data = p.map(pfuncs, [rank for rank in range(n_cores)])
         p.close()
