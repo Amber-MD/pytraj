@@ -156,6 +156,8 @@ def ired_vector_and_matrix(traj=None,
             out[-1].values = out[-1].values / out[-1].values[0, 0]
         return out
 
+calc_ired_vector_and_matrix = ired_vector_and_matrix
+
 
 @_register_pmap
 def NH_order_parameters(traj, vector_pairs, order=2, tstep=1., tcorr=10000., n_cores=1):
@@ -207,3 +209,6 @@ def NH_order_parameters(traj, vector_pairs, order=2, tstep=1., tcorr=10000., n_c
                  tstep=tstep)
     order = [d.values.copy() for d in data if 'S2' in d.key][0]
     return order
+
+# create alis for easy parsing
+calc_NH_order_parameters = NH_order_parameters
