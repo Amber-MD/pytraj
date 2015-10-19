@@ -23,7 +23,6 @@ class Test(unittest.TestCase):
         from pytraj import dihedral_analysis as da
         from pytraj import Trajectory
         from pytraj import Frame
-        from pytraj.utils import split_range
         from pytraj.tools import grep_key
         from pytraj import clustering_dataset
         from pytraj.cluster import kmeans
@@ -63,7 +62,6 @@ class Test(unittest.TestCase):
                     pt.center,
                     silly_doc_func,
                     fi,
-                    split_range,
                     Frame.__getitem__,
                     Topology.select,
                     grep_key,
@@ -75,7 +73,6 @@ class Test(unittest.TestCase):
             funclist.append(pt.load_parmed)
 
         for func in funclist:
-            print(func)
             run_docstring(func)
 
         # matrix

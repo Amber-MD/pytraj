@@ -75,33 +75,12 @@ except ImportError:
     np = None
 
 
-def _dispatch_value(func):
-    def inner(data, *args, **kwd):
-        if hasattr(data, 'values'):
-            _data = data.values
-        else:
-            _data = data
-        return func(_data, *args, **kwd)
-
-    inner.__doc__ = func.__doc__
-    return inner
-
-
-def _not_yet_tested(func):
-    @functools.wraps(func)
-    def inner(*args, **kwd):
-        return func(*args, **kwd)
-
-    msg = "This method is not tested. Use it with your own risk"
-    inner.__doc__ = "\n".join((func.__doc__, "\n", msg))
-    return inner
-
-
-@_dispatch_value
-def split(data, n_chunks_or_array):
+def split(data, n_chunks):
     """split `self.data` to n_chunks
 
-    Notes : require numpy (same as `array_split`)
+    Notes
+    -----
+    same as numpy.array_split
     """
     return np.array_split(data, n_chunks_or_array)
 
@@ -123,19 +102,17 @@ def chunk_average(self, n_chunk, restype='same'):
 def moving_average(data, n):
     """moving average
 
+    Examples
+    --------
+    >>> moving_average([1, 2, 3, 4, 6], 2)
+    array([ 0.5,  1.5,  2.5,  3.5,  5. ])
+
     Notes
     -----
     from `stackoverflow <http://stackoverflow.com/questions/11352047/finding-moving-average-from-data-points-in-python>`_
     """
     window = np.ones(int(n)) / float(n)
-    new_data = np.convolve(data, window, 'same')
-    if hasattr(data, 'values'):
-        new_array = data.shallow_copy()
-        new_array.values = new_data
-        return new_array
-    else:
-        return new_data
-
+    return np.convolve(data, window, 'same')
 
 def pipe(obj, func, *args, **kwargs):
     """Notes: copied from pandas PR

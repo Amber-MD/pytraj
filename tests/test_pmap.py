@@ -18,8 +18,13 @@ class TestNormal(unittest.TestCase):
     def setUp(self):
         self.traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
-    def test_raise_if_func_not_callable(self):
+    def test_raise(self):
+        # if func is not callable
         self.assertRaises(ValueError, lambda: pt.pmap('test', self.traj))
+
+        # if func is not support pmap
+        self.assertRaises(ValueError, lambda: pt.pmap(pt.bfactors, self.traj))
+
 
     def test_regular1D(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -71,6 +76,7 @@ class TestNormal(unittest.TestCase):
         traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
         t0 = traj[:].autoimage().rmsfit(ref=0)
         saved_avg = pt.mean_structure(t0)
+        saved_radgyr = pt.radgyr(traj, '@CA')
 
         # perform autoimage, then rms fit to 1st frame, then compute mean structure
         iter_options = {'autoimage': True, 'rmsfit': 0}
@@ -78,6 +84,8 @@ class TestNormal(unittest.TestCase):
             avg = pt.pmap(pt.mean_structure, traj, iter_options=iter_options,
                     n_cores=n_cores)
             aa_eq(saved_avg.xyz, avg.xyz)
+            radgyr_ = gather(pt.pmap(pt.radgyr, traj, iter_options={'mask': '@CA'}))
+            aa_eq(radgyr_, saved_radgyr)
 
 
 class TestParallelMapForMatrix(unittest.TestCase):
