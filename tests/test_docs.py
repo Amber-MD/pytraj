@@ -24,6 +24,7 @@ class TestDoc(unittest.TestCase):
             modules.append(pt.hbonds)
             # different formats between py2 and 3
             modules.append(pt.tools)
+            modules.append(pt.parallel_mapping)
         assert get_total_errors(modules) == 0, 'doctest: failed_count must be 0'
 
 if __name__ == "__main__":
