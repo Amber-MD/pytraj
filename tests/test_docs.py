@@ -18,11 +18,12 @@ class TestDoc(unittest.TestCase):
         modules = [pt._get_common_objects,
                    pt._nastruct,
                    convert,
-                   pt.tools,
                   ]
         if PY3:
             # avoid adding 'u' to string in PY2: u'GLU5_O-LYS8_N-H'
             modules.append(pt.hbonds)
+            # different formats between py2 and 3
+            modules.append(pt.tools)
         assert get_total_errors(modules) == 0, 'doctest: failed_count must be 0'
 
 if __name__ == "__main__":
