@@ -64,6 +64,18 @@ class TestNormal(unittest.TestCase):
                 serial_out = flatten(func(traj, ref=ref))
                 aa_eq(pout, serial_out)
 
+    def test_iter_options(self):
+        traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        t0 = traj[:].autoimage().rmsfit(ref=0)
+        saved_avg = pt.mean_structure(t0)
+
+        # perform autoimage, then rms fit to 1st frame, then compute mean structure
+        iter_options = {'autoimage': True, 'rmsfit': 0}
+        for n_cores in [2, 3, 4, 5, -1]:
+            avg = pt.pmap(pt.mean_structure, traj, iter_options=iter_options,
+                    n_cores=n_cores)
+            aa_eq(saved_avg.xyz, avg.xyz)
+
 class TestParallelMapForMatrix(unittest.TestCase):
     def test_matrices(self):
         traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")

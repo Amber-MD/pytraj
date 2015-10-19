@@ -37,9 +37,14 @@ def _worker(rank,
            func=None,
            traj=None,
            args=None,
-           kwd=None):
+           kwd=None,
+           iter_options={}):
     # need to unpack args and kwd
-    my_iter = traj._split_iterators(n_cores, rank=rank)
+    mask = iter_options.get('mask', None)
+    rmsfit = iter_options.get('rmsfit', None)
+    autoimage = iter_options.get('autoimage', False)
+    my_iter = traj._split_iterators(n_cores, rank=rank, mask=mask, rmsfit=rmsfit,
+            autoimage=autoimage)
     data = func(my_iter, *args, **kwd)
     return (rank, data, my_iter.n_frames)
 
@@ -136,6 +141,12 @@ def _pmap(func=None, traj=None, *args, **kwd):
         # use all available cores
         n_cores = cpu_count()
 
+    if 'iter_options' in kwd.keys():
+        iter_options = kwd['iter_options']
+        kwd.pop('iter_options')
+    else:
+        iter_options = {}
+
     if isinstance(func, (list, tuple, string_types)):
         # assume using _load_batch_pmap
         from pytraj.parallel import _load_batch_pmap
@@ -165,7 +176,8 @@ def _pmap(func=None, traj=None, *args, **kwd):
                          func=func,
                          traj=traj,
                          args=args,
-                         kwd=kwd)
+                         kwd=kwd,
+                         iter_options=iter_options)
 
         data = p.map(pfuncs, [rank for rank in range(n_cores)])
         p.close()
