@@ -18,6 +18,9 @@ class TestNormal(unittest.TestCase):
     def setUp(self):
         self.traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
+    def test_raise_if_func_not_callable(self):
+        self.assertRaises(ValueError, lambda: pt.pmap('test', self.traj))
+
     def test_regular1D(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 

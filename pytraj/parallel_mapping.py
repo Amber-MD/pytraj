@@ -49,7 +49,7 @@ def _worker(rank,
     return (rank, data, my_iter.n_frames)
 
 
-def _pmap(func=None, traj=None, *args, **kwd):
+def _pmap(func, traj, *args, **kwd):
     '''use python's multiprocessing to accelerate calculation. Limited calculations.
 
     Parameters
@@ -153,12 +153,14 @@ def _pmap(func=None, traj=None, *args, **kwd):
     else:
         iter_options = {}
 
-    if isinstance(func, (list, tuple, string_types)):
+    if isinstance(func, (list, tuple)):
         # assume using _load_batch_pmap
         from pytraj.parallel import _load_batch_pmap
         data = _load_batch_pmap(n_cores=n_cores, traj=traj, lines=func, dtype='dict', root=0, mode='multiprocessing')
         return _concat_dict((x[1] for x in data))
     else:
+        if not callable(func):
+            raise ValueError('must callable argument')
         # pytraj's method
         if not hasattr(func, '_is_parallelizable'):
             raise ValueError("this method does not support parallel")
