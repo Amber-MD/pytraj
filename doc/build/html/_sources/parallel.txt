@@ -44,7 +44,7 @@ Supported methods for ``pmap``
     :suppress:
 
     import pytraj as pt
-    from pytraj import matrix, vector
+    from pytraj import matrix, vector, nmr
     from itertools import chain
     method_list_pmap = []
     method_list_openmp = []
