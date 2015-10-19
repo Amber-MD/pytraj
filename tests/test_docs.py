@@ -5,6 +5,7 @@ import pytraj as pt
 from pytraj.utils import eq, aa_eq
 import doctest
 from pytraj.compat import PY3
+from pytraj import testing
 
 
 class TestDoc(unittest.TestCase):
@@ -25,6 +26,7 @@ class TestDoc(unittest.TestCase):
             # different formats between py2 and 3
             modules.append(pt.tools)
             modules.append(pt.parallel_mapping)
+            modules.append(testing)
         assert get_total_errors(modules) == 0, 'doctest: failed_count must be 0'
 
 if __name__ == "__main__":

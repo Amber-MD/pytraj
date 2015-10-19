@@ -27,6 +27,12 @@ if os.path.exists(possible_path):
 
 
 def make_random_frame(n_atoms=10000):
+    '''
+    Examples
+    --------
+    >>> make_random_frame(n_atoms=300)
+    <Frame with 300 atoms>
+    '''
     import numpy as np
     from pytraj import Frame
 
@@ -42,6 +48,8 @@ traj = pt.load_sample_data("tz2")
 '''
 
 def run_docstring(func):
+    '''just want to make sure the doc string runnable.
+    '''
     func_doc = func.__doc__
     _doc = [x.lstrip() for x in func.__doc__.split("\n")]
     _doc = filter(lambda x: x.startswith('>>>'), _doc)
@@ -76,6 +84,16 @@ def assert_equal_topology(top, new_top, traj):
         assert res.last_atom_idx == res_new.last_atom_idx, 'last atom'
 
 def get_fn(txt):
+    '''get absolute path for trajectory and topology samples. Legit text = 'ala3', 'tz2',
+    'rna'. Mostly for testing purpose.
+    
+    Examples
+    --------
+    >>> # get trajectory file name
+    >>> fname = get_fn('tz2')[0]
+    >>> fname.split('/')[-1]
+    'tz2.ortho.nc'
+    '''
     from pytraj import load_sample_data
     traj = load_sample_data(txt)
     return traj.filename, traj.top.filename
