@@ -76,8 +76,9 @@ class TestNormal(unittest.TestCase):
                     n_cores=n_cores)
             aa_eq(saved_avg.xyz, avg.xyz)
 
+
 class TestParallelMapForMatrix(unittest.TestCase):
-    def test_matrices(self):
+    def test_matrix_module(self):
         traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
 
         # not support [covar, distcovar, mwcovar]
@@ -85,6 +86,31 @@ class TestParallelMapForMatrix(unittest.TestCase):
             for func in [matrix.dist, matrix.idea]:
                 x = pt.pmap(func, traj, '@CA', n_cores=n_cores)
                 aa_eq(x, func(traj, '@CA'))
+
+    def test_ired_vector_and_matrix_pmap(self):
+        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        h = traj.top.select('@H')
+        n = h - 1
+        nh = list(zip(n ,h))
+
+        exptected_vecs, exptected_mat = pt.ired_vector_and_matrix(traj, nh)
+        for n_cores in [2, 4, 6]:
+            vecs, mat = pt.pmap(pt.ired_vector_and_matrix, traj, nh, n_cores=n_cores)
+            aa_eq(exptected_vecs, vecs, decimal=7)
+            aa_eq(exptected_mat, mat, decimal=7)
+
+    def test_rotation_matrix_in_rmsd_calculation(self):
+        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        saved_mat = pt.rotation_matrix(traj, ref=traj[3], mask='@CA')
+        saved_rmsd = pt.rmsd(traj, ref=traj[3], mask='@CA')
+
+        for n_cores in [2, 3, 4, 5]:
+            mat = pt.pmap(pt.rotation_matrix, traj, ref=traj[3], mask='@CA')
+            mat2, rmsd_  = pt.pmap(pt.rotation_matrix, traj, ref=traj[3], mask='@CA',
+                    with_rmsd=True)
+            aa_eq(saved_mat, mat)
+            aa_eq(saved_mat, mat2)
+            aa_eq(saved_rmsd, rmsd_)
 
 class TestCpptrajCommandStyle(unittest.TestCase):
     def test_cpptraj_command_style(self):
@@ -106,19 +132,6 @@ class TestParallelMapForAverageStructure(unittest.TestCase):
         for n_cores in [2, 3, 4, 5]:
             frame = pt.pmap(pt.mean_structure, traj, '@CA', n_cores=n_cores)
             aa_eq(frame.xyz, saved_xyz)
-
-class TestIredMatrix(unittest.TestCase):
-    def test_ired_vector_and_matrix_pmap(self):
-        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
-        h = traj.top.select('@H')
-        n = h - 1
-        nh = list(zip(n ,h))
-
-        exptected_vecs, exptected_mat = pt.ired_vector_and_matrix(traj, nh)
-        for n_cores in [2, 4, 6]:
-            vecs, mat = pt.pmap(pt.ired_vector_and_matrix, traj, nh, n_cores=n_cores)
-            aa_eq(exptected_vecs, vecs, decimal=7)
-            aa_eq(exptected_mat, mat, decimal=7)
 
 
 if __name__ == "__main__":

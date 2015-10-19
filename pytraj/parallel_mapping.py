@@ -9,7 +9,7 @@ from pytraj._get_common_objects import _get_data_from_dtype
 from pytraj import matrix
 from pytraj import mean_structure 
 from pytraj import Frame
-from pytraj import ired_vector_and_matrix
+from pytraj import ired_vector_and_matrix, rotation_matrix
 from pytraj import NH_order_parameters
 from multiprocessing import cpu_count
 
@@ -160,7 +160,9 @@ def _pmap(func=None, traj=None, *args, **kwd):
         return _concat_dict((x[1] for x in data))
     else:
         # pytraj's method
-        if not hasattr(func, '_is_parallelizable') or not func._is_parallelizable:
+        if not hasattr(func, '_is_parallelizable'):
+            raise ValueError("this method does not support parallel")
+        elif not func._is_parallelizable:
             raise ValueError("this method does not support parallel")
         else:
             if hasattr(func, '_openmp_capability') and func._openmp_capability and 'OPENMP' in compiled_info():
@@ -189,14 +191,23 @@ def _pmap(func=None, traj=None, *args, **kwd):
         p.close()
 
         if func in [matrix.dist, matrix.idea]:
-            y = np.sum((val[1] * val[2] for val in data)) / traj.n_frames
-            return y
+            mat  = np.sum((val[1] * val[2] for val in data)) / traj.n_frames
+            return mat
         elif func in [ired_vector_and_matrix, ]:
             # data is a list of (rank, (vectors, matrix), n_frames)
             mat = np.sum((val[1][1] * val[2] for val in data)) / traj.n_frames
             #vecs = np.vstack((val[1][0] for val in data))
             vecs = np.column_stack(val[1][0] for val in data)
             return (vecs, mat)
+        elif func in [rotation_matrix, ]:
+            if 'with_rmsd' in kwd.keys() and kwd['with_rmsd']:
+                # data is a list of (rank, (mat, rmsd), n_frames)
+                mat = np.row_stack(val[1][0] for val in data)
+                rmsd_ = np.hstack(val[1][1] for val in data)
+                return mat, rmsd_
+            else:
+                mat = np.row_stack(val[1] for val in data)
+                return mat
         elif func == mean_structure:
             xyz = np.sum((x[2] * x[1].xyz for x in data)) / traj.n_frames
             frame = Frame(xyz.shape[0])
