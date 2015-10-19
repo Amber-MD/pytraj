@@ -24,7 +24,7 @@ class Test(unittest.TestCase):
         from pytraj import Trajectory
         from pytraj import Frame
         from pytraj.utils import split_range
-        from pytraj.tools import grep
+        from pytraj.tools import grep_key
         from pytraj import clustering_dataset
         from pytraj.cluster import kmeans
         from pytraj.array import DataArray
@@ -66,7 +66,7 @@ class Test(unittest.TestCase):
                     split_range,
                     Frame.__getitem__,
                     Topology.select,
-                    grep,
+                    grep_key,
                     clustering_dataset,
                     pt.mindist,
                     kmeans,]
