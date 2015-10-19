@@ -75,6 +75,10 @@ def assert_equal_topology(top, new_top, traj):
         assert res.first_atom_idx == res_new.first_atom_idx, 'first atom'
         assert res.last_atom_idx == res_new.last_atom_idx, 'last atom'
 
+def get_fn(txt):
+    from pytraj import load_sample_data
+    traj = load_sample_data(txt)
+    return traj.filename, traj.top.filename
 
 if __name__ == "__main__":
     print(amberhome)

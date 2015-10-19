@@ -48,7 +48,6 @@ class TestVectorAnalysisModule(unittest.TestCase):
     def test_ired_vector(self):
         '''test mask as a list of strings or as a 2D array of integers
         '''
-        from pytraj.tools import array_to_atommask_2_groups
         parm_dir = os.path.join(cpptraj_test_dir, 'Test_IRED',
                                 '1IEE_A_prot.prmtop')
         trajin_dir = os.path.join(cpptraj_test_dir, 'Test_IRED',

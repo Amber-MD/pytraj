@@ -12,11 +12,18 @@ import functools
 from collections import OrderedDict, defaultdict
 
 
-def groupby(key, self):
-    # adapted from `toolz` package.
+def groupby(key, seq):
+    # lightly adapted from `toolz` package.
     # see license in $PYTRAJHOME/licenses/externals/toolz.txt
-    d = defaultdict(lambda: self.__class__().append)
-    for item in self:
+    '''
+    Examples
+    --------
+    >>> names = ['Alice', 'Bob', 'Charlie', 'Dan', 'Edith', 'Frank']
+    >>> groupby(len, names)  
+    {3: ['Bob', 'Dan'], 5: ['Alice', 'Edith', 'Frank'], 7: ['Charlie']}
+    '''
+    d = defaultdict(lambda: seq.__class__().append)
+    for item in seq:
         d[key(item)](item)
     rv = {}
     for k, v in iteritems(d):
@@ -25,27 +32,13 @@ def groupby(key, self):
 
 def _array_to_cpptraj_range(seq):
     # use "i+1" since cpptraj use 1-based index for mask
+    '''
+    Examples
+    --------
+    >>> _array_to_cpptraj_range([2, 4])
+    '3,5'
+    '''
     return ",".join((str(i + 1) for i in seq))
-
-
-def array_to_atommask(seq):
-    '''
-    [1, 3, 4] --> @2,4,5
-    '''
-    return '@' + _array_to_cpptraj_range(seq)
-
-
-def array_to_atommask_2_groups(seq):
-    '''
-    [1, 3] --> @1 @3
-    [1, 3, 4] --> @1 @3 @4
-    '''
-    return ' '.join('@' + str(i+1) for i in seq)
-
-
-def array_to_residuemask(seq):
-    '''[1, 3, 4] --> :2,4,5'''
-    return ':' + _array_to_cpptraj_range(seq)
 
 # string_types, PY2, PY3, iteritems were copied from six.py
 # see license in $PYTRAJHOME/license/externals/
@@ -186,21 +179,31 @@ def compose(*funcs):
     Examples
     --------
     >>> import pytraj as pt
-    >>> func = pt.tools.compose(pt.calc_radgyr, pt.iterload)
-    >>> func("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+    >>> from pytraj.testing import get_fn
+    >>> func = compose(pt.calc_radgyr, pt.iterload)
+    >>> fname, tname = get_fn('tz2')
+    >>> func(fname, tname)
+    array([ 18.91114428,  18.93654996,  18.84969884,  18.90449256,
+            18.8568644 ,  18.88917208,  18.9430491 ,  18.88878079,
+            18.91669565,  18.87069722])
     """
     assert len(funcs) > 1, 'At least 2 callables must be passed to compose'
     return reduce(_compose2, funcs)
 
 
-def grep(self, key):
+def grep_key(self, key):
     """grep key
 
     Examples
     --------
     >>> import pytraj as pt
-    >>> dslist = pt.calc_multidihedral(traj) 
-    >>> pt.tools.grep(dslist, 'psi') 
+    >>> traj  = pt.load_sample_data('tz2')
+    >>> dslist = pt.calc_multidihedral(traj, dtype='dataset') 
+    >>> pt.tools.grep_key(dslist, 'psi')[0] # doctest: +SKIP
+    <pytraj.array.DataArray: size=10, key=psi:1, dtype=float64, ndim=1>
+    values:
+    [ 176.6155643   166.82129574  168.79510009  167.42561927  151.18334989
+      134.17610997  160.99207908  165.1126967   147.94332109  145.42901383]
     """
     new_self = self.__class__()
     for d in self:
@@ -222,7 +225,7 @@ def flatten(x):
     --------
     >>> [1, 2, [3,4], (5,6)]
     [1, 2, [3, 4], (5, 6)]
-    >>> flatten([[[1,2,3], (42,None)], [4,5], [6], 7, MyVector(8,9,10)])
+    >>> flatten([[[1,2,3], (42,None)], [4,5], [6], 7, (8,9,10)])
     [1, 2, 3, 42, None, 4, 5, 6, 7, 8, 9, 10]"""
 
     result = []
@@ -246,6 +249,11 @@ def n_grams(a, n, asarray=False):
         if False: return an iterator
         if True: return a numpy array
 
+    Examples
+    --------
+    >>> list(n_grams([2, 3, 4 ,5], 2))
+    [(2, 3), (3, 4), (4, 5)]
+
     Notes
     -----
     adapted from: http://sahandsaba.com/thirty-python-language-features-and-tricks-you-may-not-know.html
@@ -267,10 +275,15 @@ def dict_to_ndarray(dict_of_array):
     Examples
     --------
     >>> import pytraj as pt
-    >>> dslist = traj.search_hbonds()
-    >>> dict_of_array = dslist.to_dict(use_numpy=True)
-    >>> np.all(pt.tools.dict_to_ndarray(dict_of_array) == dslist.values)
-    True
+    >>> traj = pt.load_sample_data('tz2')
+    >>> dslist = pt.multidihedral(traj, dhtypes='phi psi', resrange='2', dtype='dict')
+    >>> list(dslist.keys())
+    ['phi:2', 'psi:2']
+    >>> dict_to_ndarray(dslist)
+    array([[-128.72617304, -109.44321317, -130.93278259, ..., -146.70146067,
+            -121.58263643, -112.74485175],
+           [ 150.11249102,  142.52303293,  131.11609265, ...,  123.44883266,
+             141.18992429,  120.03168126]])
     """
     if not isinstance(dict_of_array, OrderedDict):
         raise NotImplementedError("support only OrderedDict")
@@ -279,8 +292,15 @@ def dict_to_ndarray(dict_of_array):
     return np.array([v for _, v in iteritems(dict_of_array)])
 
 
-def concat_dict(iterables, fill_missing=None):
+def concat_dict(iterables):
     """concat dict
+
+    Examples
+    --------
+    >>> dict_0 = {'x' : [1, 2, 3,]}
+    >>> dict_1 = {'x' : [4, 5]}
+    >>> concat_dict((dict_0, dict_1))
+    OrderedDict([('x', array([1, 2, 3, 4, 5]))])
     """
     new_dict = OrderedDict()
     for i, d in enumerate(iterables):
@@ -295,12 +315,33 @@ def concat_dict(iterables, fill_missing=None):
 
 def merge_coordinates(iterables):
     """merge_coordinates from frames
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.load_sample_data('tz2')
+    >>> merge_coordinates(traj(0, 3)) # doctest: +SKIP
+    array([[ 15.55458927,  28.54844856,  17.18908691],
+           [ 16.20579147,  29.07935524,  17.74959946],
+           [ 14.95065975,  29.27651787,  16.83513069],
+           ...,
+           [ 34.09399796,   7.88915873,  15.6500845 ],
+           [ 34.4160347 ,   8.53098011,  15.01716137],
+           [ 34.29132462,   8.27471733,  16.50368881]])
     """
     return np.vstack((f.xyz.copy() for f in iterables))
 
 
 def merge_frames(iterables):
     """merge from frames to a single Frame. Order matters.
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.load_sample_data('tz2')
+    >>> traj[0]
+    <Frame with 5293 atoms>
+    >>> merge_frames(traj(0, 3))
+    <Frame with 15879 atoms>
     """
     from pytraj import Frame
     xyz = np.vstack((f.xyz.copy() for f in iterables))
@@ -313,8 +354,16 @@ def merge_frame_from_trajs(trajlist):
     """
     Examples
     --------
-    >>> from frame in pt.tools.merge_frame_from_trajs((traj0, traj1, traj2)):
-    >>>     print(frame)
+    >>> import pytraj as pt
+    >>> traj0 = pt.load_sample_data('tz2')[:3]
+    >>> traj1 = pt.load_sample_data('tz2')[3:6]
+    >>> traj2 = pt.load_sample_data('tz2')[6:9]
+    >>> print(traj0.n_atoms, traj1.n_atoms, traj2.n_atoms)
+    5293 5293 5293
+    >>> for frame in pt.tools.merge_frame_from_trajs((traj0, traj1, traj2)): print(frame)
+    <Frame with 15879 atoms>
+    <Frame with 15879 atoms>
+    <Frame with 15879 atoms>
     """
     if not isinstance(trajlist, (list, tuple)):
         raise ValueError('input must be a list or tuple of trajectories')
@@ -324,6 +373,13 @@ def merge_frame_from_trajs(trajlist):
 
 def rmsd_1darray(a1, a2):
     '''rmsd of a1 and a2
+
+    Examples
+    --------
+    >>> a0 = [1, 3, 4]
+    >>> a1 = [1.4, 3.5, 4.2]
+    >>> rmsd_1darray(a0, a1)
+    0.3872983346207417
     '''
     import numpy as np
     from math import sqrt
@@ -349,6 +405,15 @@ def rmsd(a1, a2, flatten=True):
     flatten : bool, default True
         if True: always flatten two input arrays
 
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> t0 = pt.load_sample_data('ala3')
+    >>> t1 = t0[:]
+    >>> t1.xyz += 1.
+    >>> rmsd(t0.xyz, t1.xyz)
+    1.0
+
     Notes
     -----
     This method is different from ``pytraj.rmsd``
@@ -363,6 +428,14 @@ def rmsd(a1, a2, flatten=True):
 
 def mean_and_error(a1, a2):
     """calculate mean and error from two 1D array-like
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> a0 = [2, 4, 6]
+    >>> a1 = [3, 5, 7]
+    >>> mean_and_error(a0, a1)
+    (4.5, 0.5)
     """
     import numpy as np
     mean = np.mean
@@ -373,34 +446,17 @@ def mean_and_error(a1, a2):
     return (mean(a1 + a2) / 2, mean(np.abs(a1 - a2)) / 2)
 
 
-def get_parmed_info(its_obj, att):
-    '''for getting info from parmed.Struture'''
-    import numpy as np
-    return np.asarray([getattr(atom, att) for atom in its_obj.atoms])
-
-
-def split_parmed_by_residues(struct, start=0, stop=-1, step=1):
-    '''split `ParmEd`'s Structure into different residue
-    '''
-    from pytraj.compat import range
-    from pytraj._cyutils import get_positive_idx
-
-    _stop = get_positive_idx(stop, len(struct.residues))
-
-    for i in range(start, _stop, step):
-        j = ':' + str(i + 1)
-        # example: traj[':3']
-        yield struct[j]
-
-
 def split_traj_by_residues(traj, start=0, stop=-1, step=1):
     '''return a generator
 
     Examples
     --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_rna()
     >>> g = pt.tools.split_traj_by_residues(traj)
-    >>> next(g)
-    >>> next(g)
+    >>> t0 = next(g)
+    >>> print(t0.top.n_residues)
+    1
     '''
     from pytraj.compat import range
     from pytraj._cyutils import get_positive_idx
@@ -460,7 +516,7 @@ def read_gaussian_output(filename=None, top=None):
     cclib (``pip install cclib``)
 
     >>> import pytraj as pt
-    >>> pt.tools.read_gaussian_output("gau.out", "mytest.pdb")
+    >>> pt.tools.read_gaussian_output("gau.out", "mytest.pdb") # doctest: +SKIP
     """
     import cclib
     from pytraj.api import Trajectory
@@ -503,16 +559,13 @@ def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
 
     Examples
     --------
-       >>> # from two Trajectory or TrajectoryIterator
-       >>> traj3 = merge_trajs(traj1, traj2)
-       >>> assert traj3.n_frames == traj1.n_frames == traj2.n_frames
-       >>> assert traj3.n_atoms == traj1.n_atoms + traj2.n_atoms
-       >>> import numpy as np
-       >>> assert np.any(traj3.xyz, np.vstack(tra1.xyz,  traj2.xyz)) == True
-
-       >>> # from frame_iter for saving memory
-       >>> traj3 = merge_trajs((traj1(0, 10, 2), traj1.top), 
-                           (traj2(100, 110, 2), traj2.top), n_frames=6)
+    >>> import pytraj as pt
+    >>> import numpy as np
+    >>> traj1 = pt.load_sample_data('ala3')[:1]
+    >>> traj2 = pt.load_sample_data('tz2')[:1]
+    >>> traj3 = merge_trajs(traj1, traj2)
+    >>> # from frame_iter for saving memory
+    >>> traj3 = merge_trajs((traj1(0, 10, 2), traj1.top), (traj2(100, 110, 2), traj2.top), n_frames=6)
 
     Notes
     -----
@@ -560,24 +613,17 @@ def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
     return traj
 
 
-def isel(traj, func, *args, **kwd):
-    """iter-select frame based on func
-    """
-    for f in traj:
-        if func(f, *args, **kwd):
-            yield f
-        else:
-            pass
-
-
-def filter(iterable, func):
-    '''return a list
-    '''
-    return list(filter(func, iterable))
-
-
 def as_2darray(traj_or_xyz):
     '''reshape traj.xyz to 2d array, shape=(n_frames, n_atoms * 3)
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.load_sample_data('tz2')
+    >>> traj.xyz.shape
+    (10, 5293, 3)
+    >>> as_2darray(traj).shape
+    (10, 15879)
 
     Notes
     -----
@@ -599,6 +645,18 @@ def as_2darray(traj_or_xyz):
 
 def as_3darray(xyz):
     '''reshape xyz to 3d array, shape=(n_frames, n_atoms, 3)
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.load_sample_data('tz2')
+    >>> traj.xyz.shape
+    (10, 5293, 3)
+    >>> xyz_2d = as_2darray(traj)
+    >>> xyz_2d.shape
+    (10, 15879)
+    >>> as_3darray(xyz_2d).shape
+    (10, 5293, 3)
     '''
     shape = xyz.shape
     if len(shape) != 2:
@@ -611,6 +669,13 @@ def split_and_write_traj(self,
                          n_chunks=None,
                          root_name="trajx",
                          ext='nc', *args, **kwd):
+    '''
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.load_sample_data('tz2')
+    >>> split_and_write_traj(traj, n_chunks=3, root_name='output/trajx')
+    '''
 
     chunksize = self.n_frames // n_chunks
     for idx, traj in enumerate(self.iterchunk(chunksize=chunksize)):

@@ -6,9 +6,6 @@ from pytraj.utils import eq, aa_eq
 
 
 class TestTools(unittest.TestCase):
-    def test_convert_array_to_cpptraj_mask(self):
-        mask = pt.tools.array_to_atommask_2_groups([0, 4, 7])
-        self.assertEqual(mask, '@1 @5 @8')
 
     def test_as_2darray(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
