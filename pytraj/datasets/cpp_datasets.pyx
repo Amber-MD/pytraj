@@ -181,84 +181,6 @@ cdef class Dataset:
             raise ImportError("require numpy. Set `use_numpy=False`")
         return {self._legend : self.tolist()}
 
-    def _hist(self, plot=True, show=True, *args, **kwd):
-        """
-        Parameters
-        ----------
-        plot : bool, default True
-            if True, use `matplotlib` to plot. 
-            if False, return `2D numpy array`
-        """
-        try:
-            from matplotlib import pyplot as plt
-            ax = plt.hist(self.values, *args, **kwd)
-            if show:
-                plt.show()
-            return ax
-        except ImportError:
-            raise ImportError("require matplotlib")
-
-    def _split(self, n_chunks_or_array):
-        """split `self.data` to n_chunks
-
-        Notes : require numpy (same as `array_split`)
-        """
-        return np.array_split(self.to_ndarray(), n_chunks_or_array)
-
-
-    def _plot(self, show=False, *args, **kwd):
-        """return matplotlib object
-        Notes
-        ----
-        Need to over-write this method for subclass if needed.
-        """
-        from matplotlib import pyplot as plt
-        ax = plt.plot(self.data, *args, **kwd)
-        if show:
-            plt.show()
-        return ax
-
-    def _chunk_average(self, n_chunk):
-        return np.array(list(map(np.mean, self.split(n_chunk))))
-
-    def _std(self, *args, **kwd):
-        return np.std(self.values, *args, **kwd)
-
-    def _sum(self, *args, **kwd):
-        return np.sum(self.values, *args, **kwd)
-
-    def _topk(self, k):
-        """pick top k max-values
-        Returns
-        -------
-        a list with len = k
-
-        # TODO : array?
-        """
-        return sorted(self.values, reverse=True)[:k]
-
-    def _head(self, k=20, restype='ndarray'):
-        if restype == 'ndarray':
-            return self.values[:k]
-        elif restype == 'list':
-            return self.tolist()[:k]
-
-    def _tail(self, k=20):
-        return self.values[-k:]
-
-    def is_(self, Dataset other):
-        return self.baseptr0 == other.baseptr0
-
-    def _filter(self, func):
-        """return a numpy array with all elements that satisfy `func`
-
-        Example
-        -------
-        >>> d0 = traj.calc_radgyr(dtype='dataset')[0]
-        >>> d0.filter(lambda x : 105. < x < 200.)
-        """
-        return np.array(list(filter(func, self.values)))
-
 
 cdef class Dataset1D (Dataset):
     def __cinit__(self, *args):
@@ -299,7 +221,7 @@ cdef class Dataset1D (Dataset):
         else:
             raise ValueError("idx must be 0 or 1")
 
-    def allocate_1D(self, size_t size):
+    def _allocate_1D(self, size_t size):
         cdef vector[size_t] v
         v.push_back(size)
         return self.baseptr_1.Allocate(v)
@@ -352,9 +274,6 @@ cdef class DatasetDouble (Dataset1D):
 
     def resize(self, size_t sizeIn):
         self.thisptr.Resize(sizeIn)
-
-    def xcrd(self, size_t idx):
-        raise NotImplementedError()
 
     property data:
         def __get__(self):
@@ -662,16 +581,16 @@ cdef class Dataset2D (Dataset):
     def get_element(self, int x, int y):
         return self.baseptr_1.GetElement(x, y)
 
-    def allocate_2D(self, size_t x, size_t y):
+    def _allocate_2D(self, size_t x, size_t y):
         cdef vector[size_t] v
         v.push_back(x)
         v.push_back(y)
         self.baseptr_1.Allocate(v)
 
-    def allocate_half(self, size_t x):
+    def _allocate_half(self, size_t x):
         self.baseptr_1.AllocateHalf(x)
 
-    def allocate_triangle(self, size_t x):
+    def _allocate_triangle(self, size_t x):
         self.baseptr_1.AllocateTriangle(x)
 
     def get_full_matrix(self):
@@ -713,7 +632,7 @@ cdef class DatasetMatrixDouble (Dataset2D):
     def vect(self):
         return self.thisptr.Vect()
 
-    def allocate_vector(self,size_t vsize):
+    def _allocate_vector(self,size_t vsize):
         self.thisptr.AllocateVector(vsize)
 
     def store_mass(self, Darray mIn):
@@ -1072,8 +991,6 @@ cdef class DatasetMesh (Dataset1D):
     def tolist(self):
         """return 2D list with format [index, value]
         """
-        # xcrd is for cpptraj's output which use index starting of 1
-        # we need to subtract "1"
         cdef unsigned int i
         return [[self.thisptr.X(i), self.thisptr.Y(i)] for i in range(self.size)]
 
@@ -1136,7 +1053,7 @@ cdef class DatasetCoords(Dataset):
         cdef unsigned int i 
         cdef unsigned int size = self.size
         cdef Frame frame
-        frame = self.allocate_frame()
+        frame = self._allocate_frame()
 
         for i in range(size):
             self.baseptr_1.GetFrame(i, frame.thisptr[0])
@@ -1144,7 +1061,7 @@ cdef class DatasetCoords(Dataset):
 
     def __getitem__(self, idx):
         cdef Frame frame
-        frame = self.allocate_frame()
+        frame = self._allocate_frame()
         frame._own_memory = True
 
         if self.size == 0:
