@@ -392,6 +392,23 @@ class TestActionList(unittest.TestCase):
         t0 = traj[:].autoimage().superpose()
         aa_eq(xyz, t0.xyz)
 
+    def test_reference(self):
+        traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+
+        # store reference
+        dslist = CpptrajDatasetList()
+        ref = dslist.add_new('reference')
+        ref.top = traj.top
+        ref.append(traj[3])
+
+        fi = pt.create_pipeline(traj, ['autoimage', 'rms refindex 0 @CA'], dslist=dslist)
+        xyz = np.array([frame.xyz.copy() for frame in fi])
+        t0 = traj[:].autoimage().superpose(traj[3], '@CA')
+        aa_eq(xyz, t0.xyz)
+
+        t1 = traj[:].autoimage()
+        aa_eq(pt.rmsd(t1, ref=traj[3], mask='@CA'), dslist[-1].values)
+
 
 if __name__ == "__main__":
     unittest.main()
