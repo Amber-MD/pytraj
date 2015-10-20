@@ -359,6 +359,32 @@ class TestActionList(unittest.TestCase):
         t0.xyz += 2.
         aa_eq(np.array([frame.xyz for frame in new_list]), t0.xyz)
 
+    def test_combine_cpptraj_iterating_with_pytraj(self):
+        traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        commands = [
+                    'autoimage',
+                    'rms',
+                    ]
+
+        dslist = CpptrajDatasetList()
+        actlist = ActionList(commands, top=traj.top, dslist=dslist)
+
+        def get_fi(actlist, traj):
+            '''create a frame iterator with pre-processed by cpptraj
+            '''
+            for frame in traj:
+                actlist.do_actions(frame)
+                yield frame
+
+        ref = traj[3]
+        pt.autoimage(ref, top=traj.top)
+        fi = get_fi(actlist, traj)
+        rmsd_nofit_after_fitting = pt.rmsd_nofit(fi, ref=ref, top=traj.top)
+
+        t0 = traj[:].autoimage().superpose()
+        saved_rmsd_ = pt.rmsd_nofit(t0, ref=ref)
+        aa_eq(rmsd_nofit_after_fitting, saved_rmsd_)
+
 
 if __name__ == "__main__":
     unittest.main()

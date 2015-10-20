@@ -19,7 +19,7 @@ class Test(unittest.TestCase):
             aa_eq(deg, _deg)
             aa_eq(deg, dih)
 
-            aa_eq(pt.calc_psi(traj[:1]).values, pt.calc_psi(t0))
+            aa_eq(pt.calc_psi(traj[:1]).values, pt.calc_psi(t0).values)
 
     def test_1(self):
         # different from test_0 a bit in `mask`
@@ -35,7 +35,7 @@ class Test(unittest.TestCase):
             aa_eq(deg, _deg)
             aa_eq(deg, dih)
 
-            aa_eq(pt.calc_psi(traj[:1]).values, pt.calc_psi(t0))
+            aa_eq(pt.calc_psi(traj[:1]).values, pt.calc_psi(t0).values)
 
     def test_2(self):
         traj = pt.iterload("./data/Tc5b.nat.crd", "./data/Tc5b.top")

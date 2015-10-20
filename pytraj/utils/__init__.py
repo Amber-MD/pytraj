@@ -6,7 +6,6 @@ from .check_and_assert import eq, a_isinstance, eq_coords
 from .check_and_assert import _import, _import_numpy, is_int, require, _import_pandas
 from .check_and_assert import has_, is_array
 from .check_and_assert import ensure_not_none_or_string
-from .list_misc import flatten_list
 from .Timer import Timer
 from .context import goto_temp_folder
 from ..externals.six.moves import range
@@ -17,7 +16,16 @@ from .amber_test import amberhome, cpptraj_test_dir, has_amberhome
 
 
 def duplicate_traj(orig_traj, n_times):
-    # always make copy
+    '''
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.load_sample_data('ala3')
+    >>> traj.n_frames
+    1
+    >>> duplicate_traj(traj, 3).n_frames
+    3
+    '''
     traj = orig_traj.copy()
     for _ in range(n_times - 1):
         if 'Iter' in orig_traj.__class__.__name__:
@@ -30,7 +38,11 @@ def duplicate_traj(orig_traj, n_times):
 
 
 def join_mask(m, res=None):
-    """ join_mask(('CA', 'CB'), res='1') return ':1@CA :1@CB'
+    """
+    Examples
+    --------
+    >>> join_mask(('CA', 'CB'), res='1')
+    ':1@CA :1@CB'
     """
     from pytraj.compat import string_types
 
@@ -52,7 +64,6 @@ def split_range(n_chunks, start, stop):
 
     Examples
     --------
-    >>> from pytraj.utils import split_range
     >>> split_range(3, 0, 10)
     [(0, 3), (3, 6), (6, 10)]
     '''

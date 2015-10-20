@@ -29,7 +29,7 @@ class TestDistanceBasedMask(unittest.TestCase):
         # subtract by '1' since cpptraj uses "1" as starting index for output
         saved_indices = saved_indices - 1
         aa_eq(indices, saved_indices)
-        aa_eq(neighbors_smaller, indices)
+        aa_eq(neighbors_smaller.values, indices)
 
         # re-calculate the distance
         ca_indices = pt.select_atoms(traj.top, ':3@CA')
@@ -49,7 +49,7 @@ class TestDistanceBasedMask(unittest.TestCase):
 
         # search_neighbors
         neighbors_larger = pt.search_neighbors(traj, mask=':3@CA >@5.0', frame_indices=[0,])
-        aa_eq(neighbors_larger, indices_larger)
+        aa_eq(neighbors_larger.values, indices_larger)
 
     def test_residue_distance(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")

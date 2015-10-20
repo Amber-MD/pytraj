@@ -3,6 +3,7 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
+from pytraj import utils
 import doctest
 from pytraj.compat import PY3
 from pytraj import testing
@@ -27,6 +28,7 @@ class TestDoc(unittest.TestCase):
             modules.append(pt.tools)
             modules.append(pt.parallel_mapping)
             modules.append(testing)
+            modules.append(utils)
         assert get_total_errors(modules) == 0, 'doctest: failed_count must be 0'
 
 if __name__ == "__main__":
