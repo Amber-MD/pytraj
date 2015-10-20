@@ -22,3 +22,4 @@ try ``pytraj`` online:
     pytraj.hbonds
     pytraj.CpptrajState
     pytraj.parallel
+    pytraj.core.ActionList
