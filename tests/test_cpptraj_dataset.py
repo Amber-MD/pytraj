@@ -68,6 +68,17 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
     def setUp(self):
         self.traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
 
+    def test_DatasetDouble(self):
+        dslist = CpptrajDatasetList()
+        d = dslist.add_new(dtype='double')
+        a = range(8)
+
+        # append
+        for i in a:
+            d.append(i)
+        aa_eq(a, d)
+        assert int(d[2]) == a[2] == 2, 'must be equal'
+
     def test_DatasetMatrix3x3(self):
         # test _append_from_array
         mat0 = pt.calc_rotation_matrix(self.traj, ref=0)
@@ -99,39 +110,39 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
         dslist = CpptrajDatasetList()
         
         # integer
-        dslist.add_new('integer', name='my_int')
+        dslist.add_new(dtype='integer', name='my_int')
         dslist[-1].data = [2, 3]
         aa_eq(dslist[-1].values, [2, 3])
 
         # double
-        dslist.add_new('double', name='my_double')
+        dslist.add_new(dtype='double', name='my_double')
         dslist[-1].data = [2, 3]
         aa_eq(dslist[-1].values, [2, 3])
 
         # double
-        dslist.add_new('float', name='my_float')
+        dslist.add_new(dtype='float', name='my_float')
         dslist[-1].data = [2, 3]
         aa_eq(dslist[-1].values, [2, 3])
 
         # string
-        dslist.add_new('string', name='my_string')
+        dslist.add_new(dtype='string', name='my_string')
         dslist[-1].data = ['H', 'T']
         assert dslist[-1].values.tolist() == ['H', 'T'], 'string must be equal'
 
         # reference
-        dslist.add_new('reference', name='my_reference')
+        dslist.add_new(dtype='reference', name='my_reference')
         dslist[-1].data = self.traj[-2]
         aa_eq(dslist[-1].xyz, self.traj[-2].xyz)
 
         # matrix3x3
-        dslist.add_new('matrix3x3', name='my_mat3x3')
+        dslist.add_new(dtype='matrix3x3', name='my_mat3x3')
         mat = pt.calc_rotation_matrix(self.traj, ref=0, mask='@CA')
         # there is no assignment. Need to update by another method
         dslist[-1]._append_from_array(mat)
         aa_eq(dslist[-1].values, mat)
 
         # TRAJ
-        dslist.add_new('traj', name='my_traj')
+        dslist.add_new(dtype='traj', name='my_traj')
         dslist[-1].top = self.traj.top
         dslist[-1].load(self.traj.filename)
         traj_new = dslist[-1]
@@ -139,7 +150,7 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
         # aa_eq(traj_new.xyz, self.traj.xyz)
 
         # CRD
-        dslist.add_new('coords', name='my_crd')
+        dslist.add_new(dtype='coords', name='my_crd')
         dslist[-1].top = self.traj.top
         dslist[-1].load(self.traj.filename)
         traj_new = dslist[-1]
@@ -147,19 +158,19 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
         aa_eq(traj_new.xyz, self.traj.xyz)
 
         # vector
-        dslist.add_new('vector', name='my_vec')
+        dslist.add_new(dtype='vector', name='my_vec')
         vecs = pt.vector.vector_mask(self.traj, ':3 :2')
         dslist[-1].data = vecs
         aa_eq(dslist[-1].values, vecs)
 
         # grid
-        dslist.add_new('grid', name='my_grid')
+        dslist.add_new(dtype='grid', name='my_grid')
         arr = np.random.rand(8, 9, 3).astype('f4')
         dslist[-1].data = arr
         aa_eq(dslist[-1].values, arr)
 
         # mesh
-        dslist.add_new('xymesh', name='my_mesh')
+        dslist.add_new(dtype='xymesh', name='my_mesh')
         arr = np.random.rand(8, 2).astype('f8')
         # there is not easy method to update, use _append_from_array
         # dslist[-1].data = arr

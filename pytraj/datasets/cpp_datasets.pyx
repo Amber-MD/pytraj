@@ -181,84 +181,6 @@ cdef class Dataset:
             raise ImportError("require numpy. Set `use_numpy=False`")
         return {self._legend : self.tolist()}
 
-    def _hist(self, plot=True, show=True, *args, **kwd):
-        """
-        Parameters
-        ----------
-        plot : bool, default True
-            if True, use `matplotlib` to plot. 
-            if False, return `2D numpy array`
-        """
-        try:
-            from matplotlib import pyplot as plt
-            ax = plt.hist(self.values, *args, **kwd)
-            if show:
-                plt.show()
-            return ax
-        except ImportError:
-            raise ImportError("require matplotlib")
-
-    def _split(self, n_chunks_or_array):
-        """split `self.data` to n_chunks
-
-        Notes : require numpy (same as `array_split`)
-        """
-        return np.array_split(self.to_ndarray(), n_chunks_or_array)
-
-
-    def _plot(self, show=False, *args, **kwd):
-        """return matplotlib object
-        Notes
-        ----
-        Need to over-write this method for subclass if needed.
-        """
-        from matplotlib import pyplot as plt
-        ax = plt.plot(self.data, *args, **kwd)
-        if show:
-            plt.show()
-        return ax
-
-    def _chunk_average(self, n_chunk):
-        return np.array(list(map(np.mean, self.split(n_chunk))))
-
-    def _std(self, *args, **kwd):
-        return np.std(self.values, *args, **kwd)
-
-    def _sum(self, *args, **kwd):
-        return np.sum(self.values, *args, **kwd)
-
-    def _topk(self, k):
-        """pick top k max-values
-        Returns
-        -------
-        a list with len = k
-
-        # TODO : array?
-        """
-        return sorted(self.values, reverse=True)[:k]
-
-    def _head(self, k=20, restype='ndarray'):
-        if restype == 'ndarray':
-            return self.values[:k]
-        elif restype == 'list':
-            return self.tolist()[:k]
-
-    def _tail(self, k=20):
-        return self.values[-k:]
-
-    def is_(self, Dataset other):
-        return self.baseptr0 == other.baseptr0
-
-    def _filter(self, func):
-        """return a numpy array with all elements that satisfy `func`
-
-        Example
-        -------
-        >>> d0 = traj.calc_radgyr(dtype='dataset')[0]
-        >>> d0.filter(lambda x : 105. < x < 200.)
-        """
-        return np.array(list(filter(func, self.values)))
-
 
 cdef class Dataset1D (Dataset):
     def __cinit__(self, *args):
@@ -299,7 +221,7 @@ cdef class Dataset1D (Dataset):
         else:
             raise ValueError("idx must be 0 or 1")
 
-    def allocate_1D(self, size_t size):
+    def _allocate_1D(self, size_t size):
         cdef vector[size_t] v
         v.push_back(size)
         return self.baseptr_1.Allocate(v)
@@ -311,108 +233,6 @@ cdef class Dataset1D (Dataset):
         old_size = self.size
         self.resize(self.size + len(array_like))
         self.values[old_size:] = array_like
-
-    def avg(self):
-        return sum(self.values) / len(self)
-
-    def mean(self, *args, **kwd):
-        return np.mean(self.values, *args, **kwd)
-
-    def mean_with_error(self, Dataset other):
-        m0 = self.mean()
-        m1 = other.mean() 
-        return ((m0 + m1)/2., abs(m0 - m1)/2.)
-
-    def min(self, *args, **kwd):
-        return self.baseptr_1.Min()
-
-    def max(self, *args, **kwd):
-        return self.baseptr_1.Max()
-
-    def cross_corr(self, Dataset1D D2, Dataset1D Ct, int lagmaxIn, 
-                bint calccovar, bint usefft):
-        return self.baseptr_1.CrossCorr(D2.baseptr_1[0], Ct.baseptr_1[0], 
-                lagmaxIn, calccovar, usefft)
-
-    def corr_coeff(self, Dataset1D other):
-        return self.baseptr_1.CorrCoeff(other.baseptr_1[0])
-
-    # below are copied from `dask` package: New BSD
-    # see pytraj/licenses/externals/dask.txt for license
-    def __abs__(self):
-        return elemwise(operator.abs, self)
-    def __add__(self, other):
-        return elemwise(operator.add, self, other)
-    def __radd__(self, other):
-        return elemwise(operator.add, other, self)
-    def __and__(self, other):
-        return elemwise(operator.and_, self, other)
-    def __rand__(self, other):
-        return elemwise(operator.and_, other, self)
-    def __div__(self, other):
-        return elemwise(operator.div, self, other)
-    def __rdiv__(self, other):
-        return elemwise(operator.div, other, self)
-    def __invert__(self):
-        return elemwise(operator.invert, self)
-    def __lshift__(self, other):
-        return elemwise(operator.lshift, self, other)
-    def __rlshift__(self, other):
-        return elemwise(operator.lshift, other, self)
-    def __mod__(self, other):
-        return elemwise(operator.mod, self, other)
-    def __rmod__(self, other):
-        return elemwise(operator.mod, other, self)
-    def __mul__(self, other):
-        return elemwise(operator.mul, self, other)
-    def __rmul__(self, other):
-        return elemwise(operator.mul, other, self)
-    def __neg__(self):
-        return elemwise(operator.neg, self)
-    def __or__(self, other):
-        return elemwise(operator.or_, self, other)
-    def __pos__(self):
-        return self
-    def __ror__(self, other):
-        return elemwise(operator.or_, other, self)
-    def __rpow__(self, other):
-        return elemwise(operator.pow, other, self)
-    def __rshift__(self, other):
-        return elemwise(operator.rshift, self, other)
-    def __rrshift__(self, other):
-        return elemwise(operator.rshift, other, self)
-    def __sub__(self, other):
-        return elemwise(operator.sub, self, other)
-    def __rsub__(self, other):
-        return elemwise(operator.sub, other, self)
-    def __truediv__(self, other):
-        return elemwise(operator.truediv, self, other)
-    def __rtruediv__(self, other):
-        return elemwise(operator.truediv, other, self)
-    def __floordiv__(self, other):
-        return elemwise(operator.floordiv, self, other)
-    def __rfloordiv__(self, other):
-        return elemwise(operator.floordiv, other, self)
-    def __xor__(self, other):
-        return elemwise(operator.xor, self, other)
-    def __rxor__(self, other):
-        return elemwise(operator.xor, other, self)
-
-    # end of copy from dask
-
-def elemwise(op, self, other=None):
-    if other:
-        if hasattr(other, 'values'):
-            _other = other.values
-        else:
-            _other = other
-        if hasattr(self, 'values'):
-            _self = self.values
-        else:
-            _self = self
-        return op(_self, _other)
-    else:
-        return op(self.values)
 
 
 cdef class DatasetDouble (Dataset1D):
@@ -449,23 +269,11 @@ cdef class DatasetDouble (Dataset1D):
         for i in range(self.size):
             yield self.thisptr.index_opr(i)
 
-    def add_element(self, double d):
+    def append(self, double d):
         self.thisptr.AddElement(d)
 
     def resize(self, size_t sizeIn):
         self.thisptr.Resize(sizeIn)
-
-    def xcrd(self, size_t idx):
-        raise NotImplementedError()
-
-    def append(self, dset, idx=None):
-        cdef DatasetDouble dset_
-        cdef double elm
-        cdef size_t idx_
-
-        elm = dset
-        idx_ = <size_t> idx
-        self.thisptr.Add(idx_, <void*> (&elm))
 
     property data:
         def __get__(self):
@@ -592,53 +400,11 @@ cdef class DatasetInteger (Dataset1D):
     def resize(self, size_t sizeIn):
         self.thisptr.Resize(sizeIn)
 
-    def count(self, value=None):
-        """
-        Parameters
-        value : int, optional
-
-        Examples
-        --------
-        ds.count()
-        ds.count(1)
-        """
-        cdef int i, count
-
-        if value is None:
-            from collections import Counter
-            return Counter(self.data)
-        else:
-            count = 0
-            for i in self:
-                if value == i:
-                    count += 1
-            return count
-
-    def append(self, values):
-        cdef int i, d
-        cdef int[:] int_view
-        cdef pyarray arr
-
-        if hasattr(values, 'real') and hasattr(values, 'imag'):
-            # a number
-            self.thisptr.AddElement(<int> values)
-        else:
-            try:
-                int_view = values
-            except:
-                if hasattr(values, 'data'):
-                    try:
-                        int_view = values.data
-                    except:
-                        arr = pyarray('i', values)
-                        int_view = arr
-
-            for i in range(int_view.shape[0]):
-                self.thisptr.AddElement(int_view[i])
+    def append(self, val):
+        self.thisptr.AddElement(<int> val)
 
     def _add(self, int idx, int value):
         self.thisptr.Add(idx, &value)
-
 
     property data:
         def __get__(self):
@@ -815,16 +581,16 @@ cdef class Dataset2D (Dataset):
     def get_element(self, int x, int y):
         return self.baseptr_1.GetElement(x, y)
 
-    def allocate_2D(self, size_t x, size_t y):
+    def _allocate_2D(self, size_t x, size_t y):
         cdef vector[size_t] v
         v.push_back(x)
         v.push_back(y)
         self.baseptr_1.Allocate(v)
 
-    def allocate_half(self, size_t x):
+    def _allocate_half(self, size_t x):
         self.baseptr_1.AllocateHalf(x)
 
-    def allocate_triangle(self, size_t x):
+    def _allocate_triangle(self, size_t x):
         self.baseptr_1.AllocateTriangle(x)
 
     def get_full_matrix(self):
@@ -857,9 +623,6 @@ cdef class DatasetMatrixDouble (Dataset2D):
     def element(self, size_t x, size_t y):
         return self.thisptr.Element(x, y)
 
-    def add_element(self, double d):
-        return self.thisptr.AddElement(d)
-
     def append(self, double d):
         return self.thisptr.AddElement(d)
 
@@ -869,7 +632,7 @@ cdef class DatasetMatrixDouble (Dataset2D):
     def vect(self):
         return self.thisptr.Vect()
 
-    def allocate_vector(self,size_t vsize):
+    def _allocate_vector(self,size_t vsize):
         self.thisptr.AllocateVector(vsize)
 
     def store_mass(self, Darray mIn):
@@ -1141,21 +904,6 @@ cdef class DatasetModes(Dataset):
                 range(n_modes*vsize)]).reshape(n_modes, vsize)
 
 
-cdef class DatasetRemLog:
-    def __cinit__(self):
-        self.thisptr = new _DatasetRemLog()
-
-    def __dealloc__(self):
-        del self.thisptr
-
-
-cdef class ReplicaFrame:
-    def __cinit__(self):
-        self.thisptr = new _ReplicaFrame()
-
-    def __dealloc__(self):
-        del self.thisptr
-
 cdef class DatasetMatrix3x3 (Dataset):
     def __cinit__(self):
         # TODO : Use only one pointer? 
@@ -1243,8 +991,6 @@ cdef class DatasetMesh (Dataset1D):
     def tolist(self):
         """return 2D list with format [index, value]
         """
-        # xcrd is for cpptraj's output which use index starting of 1
-        # we need to subtract "1"
         cdef unsigned int i
         return [[self.thisptr.X(i), self.thisptr.Y(i)] for i in range(self.size)]
 
@@ -1307,7 +1053,7 @@ cdef class DatasetCoords(Dataset):
         cdef unsigned int i 
         cdef unsigned int size = self.size
         cdef Frame frame
-        frame = self.allocate_frame()
+        frame = self._allocate_frame()
 
         for i in range(size):
             self.baseptr_1.GetFrame(i, frame.thisptr[0])
@@ -1315,7 +1061,7 @@ cdef class DatasetCoords(Dataset):
 
     def __getitem__(self, idx):
         cdef Frame frame
-        frame = self.allocate_frame()
+        frame = self._allocate_frame()
         frame._own_memory = True
 
         if self.size == 0:
