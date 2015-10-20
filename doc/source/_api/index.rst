@@ -21,4 +21,4 @@ try ``pytraj`` online:
     pytraj.common_actions
     pytraj.hbonds
     pytraj.CpptrajState
-    pytraj.parallel.map
+    pytraj.parallel
