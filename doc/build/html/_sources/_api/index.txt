@@ -23,3 +23,5 @@ try ``pytraj`` online:
     pytraj.CpptrajState
     pytraj.parallel
     pytraj.core.ActionList
+    pytraj.core.cpp_core
+    pytraj.datasets.cpp_datasets
