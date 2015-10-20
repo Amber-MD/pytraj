@@ -188,7 +188,8 @@ from .misc import info
 from .run_tests import run_tests
 
 # parallel
-from .parallel.parallel_mapping_multiprocessing import pmap
+# import _pmap here to be called from nmr module
+from .parallel.parallel_mapping_multiprocessing import pmap, _pmap
 from .parallel.parallel_mapping_mpi import pmap_mpi
 from .parallel import _load_batch_pmap
 
