@@ -26,7 +26,7 @@ class TestDoc(unittest.TestCase):
             modules.append(pt.hbonds)
             # different formats between py2 and 3
             modules.append(pt.tools)
-            modules.append(pt.parallel_mapping)
+            modules.append(pt.parallel.parallel_mapping_multiprocessing)
             modules.append(testing)
             modules.append(utils)
         assert get_total_errors(modules) == 0, 'doctest: failed_count must be 0'

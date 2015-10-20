@@ -132,7 +132,7 @@ def _pmap(func, traj, *args, **kwd):
 
     See also
     --------
-    pytraj.parallel.map_mpi
+    pytraj.pmap_mpi
     '''
     from multiprocessing import Pool
     from pytraj import TrajectoryIterator

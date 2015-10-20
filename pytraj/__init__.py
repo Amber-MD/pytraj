@@ -40,6 +40,11 @@ try:
     from .core import Atom, Residue, Molecule
     from .core.ActionList import ActionList, create_pipeline
     Pipeline = ActionList
+
+    def run_pipeline(pipe):
+        for _ in pipe:
+            pass
+
 except ImportError:
     import os
     source_folders = ['./scripts', './devtools', './docs']
@@ -183,7 +188,9 @@ from .misc import info
 from .run_tests import run_tests
 
 # parallel
-from .parallel_mapping import pmap, _pmap
+# import _pmap here to be called from nmr module
+from .parallel.parallel_mapping_multiprocessing import pmap, _pmap
+from .parallel.parallel_mapping_mpi import pmap_mpi
 from .parallel import _load_batch_pmap
 
 from ._shared_methods import iterframe_master

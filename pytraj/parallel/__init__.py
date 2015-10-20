@@ -1,51 +1,8 @@
-from .map import map_mpi
+from .parallel_mapping_mpi import pmap_mpi
+from .parallel_mapping_multiprocessing import pmap
 from pytraj.tools import concat_dict
 from .pjob import PJob
 from functools import partial
-
-
-def get_comm_size_rank():
-    try:
-        from mpi4py import MPI
-        comm = MPI.COMM_WORLD
-        rank = comm.rank
-        size = comm.size
-        return comm, size, rank
-    except ImportError:
-        comm = rank = size = None
-
-
-def gather(name='data', clients=None, restype='ndarray'):
-    '''gather data from different clients
-
-    Parameters
-    ----------
-    name : name of the output holder
-        for example: data = pytraj.calc_radgyr(traj) --> name = 'data'
-    clients : IPython.parallel.Client objects
-        number of clients == n_cores you use
-    restype : str, {'ndarray', 'dataset'}, default 'ndarray' 
-        if 'ndarray': hstack data by numpy.vstack
-        if 'dataset': 'data' should be a list of dict, then will be converted
-        to `pytraj.datasetlist.DatasetList` object
-
-    Examples
-    --------
-    (fill me)
-    '''
-    if restype == 'ndarray':
-        import numpy as np
-        return np.hstack((x[name] for x in clients))
-    elif restype == 'dataset':
-        # it's user's responsibility to return a list of dicts
-        from pytraj import datasetlist
-        iter_of_dslist = (
-            datasetlist._from_full_dict(x[name]) for x in clients)
-        return datasetlist.vstack(iter_of_dslist)
-    elif restype == 'dict':
-        return concat_dict((x[name] for x in clients))
-    else:
-        raise ValueError("must be ndarray | dataset | dict")
 
 
 def _worker_state(rank, n_cores=1, traj=None, lines=[], dtype='dict'):

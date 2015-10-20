@@ -1,7 +1,7 @@
 import numpy as np
 from pytraj.utils import split_range
 
-def map_mpi(func, traj, command, dtype='ndarray', *args, **kwd):
+def pmap_mpi(func, traj, command, dtype='ndarray', *args, **kwd):
     """parallel with MPI (mpi4py)
 
     Parameters
@@ -20,13 +20,13 @@ def map_mpi(func, traj, command, dtype='ndarray', *args, **kwd):
         $ # create test_radgyr.py file
         $ cat > test_radgyr.py <<EOF
         import pytraj as pt
-        from pytraj.parallel import map_mpi
+        from pytraj.parallel import pmap_mpi
         from mpi4py import MPI
         comm = MPI.COMM_WORLD
         
         traj = pt.iterload('tz2.nc', 'tz2.parm7')
         
-        result_arr = map_mpi(pt.radgyr, traj, "@CA")
+        result_arr = pmap_mpi(pt.radgyr, traj, "@CA")
         
         if comm.rank == 0:
             # save data to disk to read later by pytraj.read_pickle
