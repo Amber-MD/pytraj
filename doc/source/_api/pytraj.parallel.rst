@@ -3,6 +3,13 @@
 pytraj.parallel
 ===============
 
+``pmap`` is as simple as
+
+.. code-block:: python
+
+    >>> import pytraj as pt
+    >>> pt.pmap(pt.radgyr, traj, n_cores=4)
+
 .. container:: custom-index
     
     .. raw:: html
