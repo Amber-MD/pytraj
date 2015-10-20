@@ -393,6 +393,11 @@ Examples
 <dd><p>moving average</p>
 <p class="rubric">Notes</p>
 <p>from <a class="reference external" href="http://stackoverflow.com/questions/11352047/finding-moving-average-from-data-points-in-python">stackoverflow</a></p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">moving_average</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">array([ 0.5,  1.5,  2.5,  3.5,  5. ])</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -515,9 +520,10 @@ if None, use <cite>antechamber</cite> to generate mol2 file, need set $AMBERHOME
 
 <dl class="function">
 <dt id="pytraj.tools.split">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">split</tt><big>(</big><em>data</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.tools.split" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.tools.</tt><tt class="descname">split</tt><big>(</big><em>data</em>, <em>n_chunks</em><big>)</big><a class="headerlink" href="#pytraj.tools.split" title="Permalink to this definition">¶</a></dt>
 <dd><p>split <cite>self.data</cite> to n_chunks</p>
-<p>Notes : require numpy (same as <cite>array_split</cite>)</p>
+<p class="rubric">Notes</p>
+<p>same as numpy.array_split</p>
 </dd></dl>
 
 <dl class="function">
@@ -561,7 +567,7 @@ if None, use <cite>antechamber</cite> to generate mol2 file, need set $AMBERHOME
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 19, 2015.<br/>
+      Last updated on Oct 20, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

@@ -141,7 +141,7 @@
 <span id="clustering"></span><h1>Cluster Analysis<a class="headerlink" href="#cluster-analysis" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="pytraj.cluster.kmeans">
-<tt class="descclassname">pytraj.cluster.</tt><tt class="descname">kmeans</tt><big>(</big><em>traj=None</em>, <em>mask='*'</em>, <em>n_clusters=10</em>, <em>random_point=True</em>, <em>kseed=1</em>, <em>maxit=100</em>, <em>metric='rms'</em>, <em>top=None</em>, <em>output_op=''</em><big>)</big><a class="headerlink" href="#pytraj.cluster.kmeans" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.cluster.</tt><tt class="descname">kmeans</tt><big>(</big><em>traj=None</em>, <em>mask='*'</em>, <em>n_clusters=10</em>, <em>random_point=True</em>, <em>kseed=1</em>, <em>maxit=100</em>, <em>metric='rms'</em>, <em>top=None</em>, <em>output_options=''</em><big>)</big><a class="headerlink" href="#pytraj.cluster.kmeans" title="Permalink to this definition">¶</a></dt>
 <dd><p>perform clustering and return cluster index for each frame</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -163,7 +163,7 @@
 <blockquote>
 <div><p>only need to provide this Topology if <tt class="docutils literal"><span class="pre">traj</span></tt> does not have one</p>
 </div></blockquote>
-<p><strong>output_op</strong> : option to save data to files. Not working yet.</p>
+<p><strong>output_options</strong> : option to save data to files. Not working yet.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">1D numpy array of frame indices</p>
@@ -197,7 +197,7 @@
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 16, 2015.<br/>
+      Last updated on Oct 20, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

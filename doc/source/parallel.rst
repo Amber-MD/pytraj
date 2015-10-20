@@ -100,6 +100,11 @@ Rule of thumb for choosing ``pmap`` or ``openmp``?
 Always try to install ``pytraj`` and ``cpptraj`` with ``-openmp`` flag.
 If method supports openmp, use openmp.
 
+pmap doc
+--------
+
+:ref:`API <pytraj.pmap>`
+
 multiple actions with multiple trajectories
 -------------------------------------------
 
