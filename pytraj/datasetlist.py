@@ -218,50 +218,11 @@ class DatasetList(list):
             _d['idx'] = d.idx
         return ddict
 
-    def hist(self, plot=True, show=True, *args, **kwd):
-        """
-        Parameters
-        ----------
-        plot : bool, default False
-            if False, return a dictionary of 2D numpy array
-            if True, return a dictionary of matplotlib object
-        """
-        hist_dict = dict(map(
-            lambda x: (x.key, x.hist(plot=plot, show=False, *args, **kwd)),
-            self))
-
-        if show:
-            # only show once
-            from pytraj.plot import show
-            show()
-        return hist_dict
-
     def dtypes(self):
         return self.get_dtypes()
 
     def aspects(self):
         return self.get_aspects()
-
-    def pipe(self, *funcs):
-        """apply a series of functions to self's data
-        """
-        values = self.values
-        for func in funcs:
-            values = func(values)
-        return values
-
-    def apply(self, func):
-        """update self's values from `funcs` and return `self`
-        """
-        for d0 in self:
-            func(d0)
-        return self
-
-    def to_pyarray(self):
-        if self.size > 1:
-            raise NotImplementedError("only use `to_pyarray` for DataSet_1D")
-
-        return self[0].to_pyarray()
 
     def __str__(self):
         safe_msg = "<pytraj.DatasetList with %s datasets>\n" % self.size
@@ -280,9 +241,6 @@ class DatasetList(list):
 
     def __repr__(self):
         return self.__str__()
-
-    def __call__(self, *args, **kwd):
-        return self.filter(*args, **kwd)
 
     def clear(self):
         self = []
@@ -482,69 +440,11 @@ class DatasetList(list):
         my_dict = dict((d0.key, d0.to_ndarray(copy=True)) for d0 in self)
         return pandas.DataFrame(my_dict)
 
-    def mean(self, *args, **kwd):
-        dict = _OrderedDict
-        return dict((x.key, x.mean()) for x in self).values
-
-    def median(self, *args, **kwd):
-        """
-        Notes: require numpy
-        """
-        dict = _OrderedDict
-        return dict((x.key, x.median()) for x in self).values
-
-    def std(self, axis=1):
-        """
-        Notes: require numpy
-        """
-        dict = _OrderedDict
-        return dict((x.key, x.std()) for x in self).values
-
-    def min(self, *args, **kwd):
-        dict = _OrderedDict
-        return dict((x.key, x.min()) for x in self).values
-
-    def max(self, *args, **kwd):
-        dict = _OrderedDict
-        return dict((x.key, x.max()) for x in self).values
-
-    def sum(self, restype='dict'):
-        """
-        Notes: require numpy
-        """
-        dict = _OrderedDict
-        if restype == 'dict':
-            return dict((x.key, x.sum()) for x in self).values
-        elif restype == 'ndarray':
-            return np.array([self.keys(), dict((x.key, x.sum())
-                                               for x in self).to_ndarray()]).T
-
-    def cumsum(self, axis=1):
-        """Return the cumulative sum of the elements along a given axis.
-        (from numpy doc)
-        """
-        dict = _OrderedDict
-        return dict((x.key, np.cumsum(x.values)) for x in self).values
-
-    def mean_with_error(self, other):
-        ddict = defaultdict(tuple)
-        for key, dset in self.iteritems():
-            ddict[key] = dset.mean_with_error(other[key])
-        return ddict
-
-    def count(self, number=None):
-        dict = _OrderedDict
-        return dict((d0.key, d0.count(number)) for d0 in self)
-
     def read_data(self, filename, arg=""):
         df = DataFile()
         dslist = DSL()
         df.read_data(filename, ArgList(arg), dslist)
         df.from_sequence(dslist, copy=False)
-
-    # pandas related
-    def describe(self):
-        return self.to_dataframe().describe()
 
     def savetxt(self, filename='dslist_default_name.txt', labels=None):
         """just like `numpy.savetxt`
@@ -561,63 +461,6 @@ class DatasetList(list):
         values = np.column_stack((frame_number, self.values.T))
         formats = ['%8i'] + [d.format for d in self]
         np.savetxt(filename, values, fmt=formats, header=headers)
-
-    def plot(self,
-             show=True,
-             use_seaborn=True,
-             x=None,
-             y=None,
-             keys=[],
-             autoset=True,
-             xlim=None,
-             ylim=None, *args, **kwd):
-        """very simple plot for quickly visualize the data
-
-        >>> dslist[['psi:7', 'phi:7']].plot()
-        >>> dslist[['psi:7', 'phi:7']].plot(show=True)
-        """
-        if autoset:
-            keys = self.keys() if not keys else keys
-
-        if use_seaborn:
-            try:
-                import seaborn as snb
-                snb.set()
-            except ImportError:
-                print("no seaborn package. skip importing")
-        try:
-            from matplotlib import pyplot as plt
-            ax = plt.subplot(111)
-            for idx, d0 in enumerate(self):
-                lb = keys[idx] if keys else None
-                if lb:
-                    if d0.ndim == 2:
-                        ax.plot(d0[0], d0[1], label=lb, *args, **kwd)
-                    else:
-                        ax.plot(d0, label=lb, *args, **kwd)
-                else:
-                    if d0.ndim == 2 and 'B-factors' in d0.key:
-                        values = d0.values.T
-                        ax.plot(values[0], values[1], *args, **kwd)
-                    else:
-                        ax.plot(d0, *args, **kwd)
-            if x:
-                ax.set_xlabel(x)
-            if y:
-                ax.set_ylabel(y)
-            if xlim:
-                ax.set_xlim(xlim)
-            if ylim:
-                ax.set_ylim(ylim)
-
-            if keys:
-                plt.key()
-
-            if show:
-                plt.show()
-            return ax
-        except ImportError:
-            raise ImportError("require matplotlib")
 
     def append(self, dset, copy=True):
         """append anythin having `key` attribute
@@ -660,22 +503,6 @@ class DatasetList(list):
             self.append(d, copy=copy)
         return self
 
-    def chunk_average(self, n_chunks):
-        return dict(map(lambda x: (x.key, x.chunk_average(n_chunks)), self))
-
-    def topk(self, k):
-        return dict((x.key, x.topk(k)) for x in self)
-
-    def lowk(self, k):
-        from heapq import nsmallest
-        return dict((x.key, list(nsmallest(k, x))) for x in self)
-
-    def head(self, k):
-        return dict((x.key, x.head(k, restype='list')) for x in self)
-
-    def tail(self, k):
-        return dict((x.key, x.tail(k)) for x in self)
-
     def groupby(self, func_or_key):
         return _groupby(self, func_or_key)
 
@@ -685,32 +512,5 @@ class DatasetList(list):
     def names(self):
         return np.array([x.name for x in self])
 
-    def sort(self, key=None, copy=False, *args, **kwd):
-        return from_sequence(sorted(self, key=key, *args, **kwd), copy=copy)
-
-    def __add__(self, other):
-        raise NotImplementedError()
-
-    def __mul__(self, other):
-        raise NotImplementedError()
-
     def extend(self, other, copy=True):
         self.from_sequence(other, copy=copy)
-
-    def dot(self, idx0, idx1):
-        """equal to np.dot(D[idx0].values, D[idx1].values)
-        """
-        return np.dot(self[idx0].values, self[idx1].values)
-
-    def astype(self, dtype):
-        return self.values.astype(dtype)
-
-    def flatten(self):
-        """return flatten numpy array
-        """
-        try:
-            return self.values.flatten()
-        except ValueError:
-            from pytraj.tools import flatten
-            import numpy as np
-            return np.asarray(flatten(self))
