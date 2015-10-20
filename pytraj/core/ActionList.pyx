@@ -16,7 +16,7 @@ def create_pipeline(traj, commands, DatasetList dslist=DatasetList()):
 
     Parameters
     ----------
-    commands : a list of strings
+    commands : a list of strings of cpptraj's Action commands
     traj : Trajectory or any iterable that produces Frame
     dslist : CpptrajDatasetList, optional
 
