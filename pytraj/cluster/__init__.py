@@ -10,7 +10,7 @@ def kmeans(traj=None,
            maxit=100,
            metric='rms',
            top=None,
-           output_op=''):
+           output_options=''):
     '''perform clustering and return cluster index for each frame
 
     Parameters
@@ -25,7 +25,7 @@ def kmeans(traj=None,
         distance metric
     top : Topology, optional, default: None
         only need to provide this Topology if ``traj`` does not have one
-    output_op : option to save data to files. Not working yet.
+    output_options : option to save data to files. Not working yet.
 
     Returns
     -------
@@ -48,7 +48,7 @@ def kmeans(traj=None,
     _maxit = str(maxit)
     _metric = metric
     _mask = mask
-    _output = output_op
+    _output = output_options
     command = ' '.join((_clusters, _random_point, _kseed, _maxit,
                         _metric, _mask, _output))
     return _cluster(traj, command, top=top, dtype='ndarray')
@@ -64,7 +64,7 @@ def _dbscan(traj=None,
            sieve=1,
            metric='rms',
            top=None,
-           output_op=''):
+           output_options=''):
     '''perform clustering and return cluster index for each frame
 
     Parameters
@@ -79,7 +79,7 @@ def _dbscan(traj=None,
         distance metric
     top : Topology, optional, default: None
         only need to provide this Topology if ``traj`` does not have one
-    output_op : option to save data to files. Not working yet.
+    output_options : option to save data to files. Not working yet.
 
     Returns
     -------
@@ -102,7 +102,7 @@ def _dbscan(traj=None,
     _sieve = 'sieve ' + str(sieve)
     _metric = metric
     _random_sieveseed = 'random ' + str(random_sieveseed)
-    _output = output_op
+    _output = output_options
     command = ' '.join((_clusters, _epsilon, _sievetoframe, _kdist, _sieve,
                         _metric, _random_sieveseed, _mask, _output))
     return _cluster(traj, command, top=_top, dtype='ndarray')
