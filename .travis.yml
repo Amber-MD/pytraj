@@ -45,7 +45,8 @@ script:
     - conda install lapackamber arpack blasamber --yes -c ambermd
     - cd ./tests
     - python ./run_simple_test.py
-    - python ./run_all_and_find_fails.py
+    #- python ./run_all_and_find_fails.py
+    - nosetests --with-coverage --cover-package pytraj .
     - cd ../examples
     - python ./run_all_and_find_fails.py
     - cd mpi_examples
