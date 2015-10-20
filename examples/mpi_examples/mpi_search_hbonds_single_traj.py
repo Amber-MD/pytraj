@@ -4,7 +4,7 @@
 # always add those lines to your code
 import numpy as np
 from mpi4py import MPI
-from pytraj.parallel import map_mpi as pymap
+from pytraj.parallel import pmap_mpi
 
 # load pytraj
 import pytraj as pt
@@ -24,7 +24,7 @@ traj = pt.iterload(traj_name, parm_name)
 # need to provide `comm`
 # save `total_arr` to rank=0
 # others: total_arr = None
-total_arr = pymap(pt.search_hbonds, traj, ':1-13', dtype='dict')
+total_arr = pmap_mpi(pt.search_hbonds, traj, ':1-13', dtype='dict')
 
 if comm.rank != 0:
     assert total_arr is None
