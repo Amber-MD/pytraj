@@ -9,4 +9,9 @@ pytraj.Trajectory
     
         <script type="text/javascript" src='../_static/cindex.js'></script>
 
-.. autoclass:: pytraj.Trajectory
+.. automodule:: pytraj.api
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :inherited-members:
+

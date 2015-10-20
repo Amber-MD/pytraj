@@ -31,6 +31,7 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="pytraj 0.1.2.dev11 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
+    <link rel="prev" title="pytraj.Topology" href="pytraj.Topology.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -109,6 +110,10 @@
             
               
                 
+  <li>
+    <a href="pytraj.Topology.html" title="Previous Chapter: pytraj.Topology"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; pytraj.Topology</span>
+    </a>
+  </li>
               
             
             
@@ -147,7 +152,8 @@
 <dl class="class">
 <dt id="pytraj.frameiter.FrameIter">
 <em class="property">class </em><tt class="descclassname">pytraj.frameiter.</tt><tt class="descname">FrameIter</tt><big>(</big><em>fi_generator</em>, <em>original_top=None</em>, <em>new_top=None</em>, <em>start=0</em>, <em>stop=-1</em>, <em>step=1</em>, <em>mask=''</em>, <em>autoimage=False</em>, <em>rmsfit=None</em>, <em>is_trajiter=False</em>, <em>n_frames=None</em>, <em>copy=True</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.frameiter.FrameIter" title="Permalink to this definition">¶</a></dt>
-<dd><p>create this class to hold all iterating information. This class is for internal use.</p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<p>create this class to hold all iterating information. This class is for internal use.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -242,6 +248,16 @@ do <tt class="docutils literal"><span class="pre">autoimage</span></tt> first.</
 </tr>
 </tbody>
 </table>
+<dl class="attribute">
+<dt id="pytraj.frameiter.FrameIter.n_atoms">
+<tt class="descname">n_atoms</tt><a class="headerlink" href="#pytraj.frameiter.FrameIter.n_atoms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.frameiter.FrameIter.n_frames">
+<tt class="descname">n_frames</tt><a class="headerlink" href="#pytraj.frameiter.FrameIter.n_frames" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="pytraj.frameiter.FrameIter.save">
 <tt class="descname">save</tt><big>(</big><em>filename=''</em>, <em>overwrite=False</em>, <em>mode=''</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.frameiter.FrameIter.save" title="Permalink to this definition">¶</a></dt>

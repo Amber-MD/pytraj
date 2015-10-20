@@ -149,32 +149,33 @@
 <span id="pytraj-api"></span><h1>pytraj.Trajectory<a class="headerlink" href="#pytraj-trajectory" title="Permalink to this headline">¶</a></h1>
 <div class="custom-index container">
 <script type="text/javascript" src='../_static/cindex.js'></script></div>
-<dl class="class">
-<dt id="pytraj.Trajectory">
-<em class="property">class </em><tt class="descclassname">pytraj.</tt><tt class="descname">Trajectory</tt><big>(</big><em>filename=None</em>, <em>top=None</em>, <em>xyz=None</em>, <em>indices=None</em><big>)</big><a class="headerlink" href="#pytraj.Trajectory" title="Permalink to this definition">¶</a></dt>
-<dd><p class="rubric">Attributes</p>
+<span class="target" id="module-pytraj.api"></span><dl class="class">
+<dt id="pytraj.api.Trajectory">
+<em class="property">class </em><tt class="descclassname">pytraj.api.</tt><tt class="descname">Trajectory</tt><big>(</big><em>filename=None</em>, <em>top=None</em>, <em>xyz=None</em>, <em>indices=None</em><big>)</big><a class="headerlink" href="#pytraj.api.Trajectory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<p class="rubric">Attributes</p>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">n_atoms</span></tt></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.api.Trajectory.n_atoms" title="pytraj.api.Trajectory.n_atoms"><tt class="xref py py-obj docutils literal"><span class="pre">n_atoms</span></tt></a></td>
+<td>n_atoms</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.api.Trajectory.n_frames" title="pytraj.api.Trajectory.n_frames"><tt class="xref py py-obj docutils literal"><span class="pre">n_frames</span></tt></a></td>
+<td>n_frames</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.api.Trajectory.shape" title="pytraj.api.Trajectory.shape"><tt class="xref py py-obj docutils literal"><span class="pre">shape</span></tt></a></td>
+<td>(n_frames, n_atoms, 3)</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.api.Trajectory.top" title="pytraj.api.Trajectory.top"><tt class="xref py py-obj docutils literal"><span class="pre">top</span></tt></a></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">n_frames</span></tt></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.api.Trajectory.unitcells" title="pytraj.api.Trajectory.unitcells"><tt class="xref py py-obj docutils literal"><span class="pre">unitcells</span></tt></a></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">shape</span></tt></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">top</span></tt></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">unitcells</span></tt></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">xyz</span></tt></td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.api.Trajectory.xyz" title="pytraj.api.Trajectory.xyz"><tt class="xref py py-obj docutils literal"><span class="pre">xyz</span></tt></a></td>
 <td></td>
 </tr>
 </tbody>
@@ -186,62 +187,65 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">__call__</span></tt></td>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">__call__</span></tt>(*args,&nbsp;**kwd)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">append</span></tt></td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.api.Trajectory.append" title="pytraj.api.Trajectory.append"><tt class="xref py py-obj docutils literal"><span class="pre">append</span></tt></a>(other)</td>
+<td>other: xyz, Frame, Trajectory, ...</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.api.Trajectory.append_xyz" title="pytraj.api.Trajectory.append_xyz"><tt class="xref py py-obj docutils literal"><span class="pre">append_xyz</span></tt></a>(xyz)</td>
+<td>append 3D numpy array</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.api.Trajectory.autoimage" title="pytraj.api.Trajectory.autoimage"><tt class="xref py py-obj docutils literal"><span class="pre">autoimage</span></tt></a>()</td>
+<td>perform autoimage</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.api.Trajectory.copy" title="pytraj.api.Trajectory.copy"><tt class="xref py py-obj docutils literal"><span class="pre">copy</span></tt></a>()</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">append_xyz</span></tt></td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.api.Trajectory.from_iterable" title="pytraj.api.Trajectory.from_iterable"><tt class="xref py py-obj docutils literal"><span class="pre">from_iterable</span></tt></a>(iterables[,&nbsp;top,&nbsp;n_frames])</td>
+<td><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">itertraj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="s">&#39;parm.top&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.api.Trajectory.has_box" title="pytraj.api.Trajectory.has_box"><tt class="xref py py-obj docutils literal"><span class="pre">has_box</span></tt></a>()</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">autoimage</span></tt></td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.api.Trajectory.iterframe" title="pytraj.api.Trajectory.iterframe"><tt class="xref py py-obj docutils literal"><span class="pre">iterframe</span></tt></a>([start,&nbsp;stop,&nbsp;step,&nbsp;mask,&nbsp;...])</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference external" href="http://docs.python.org/library/copy.html#module-copy" title="(in Python v2.7)"><tt class="xref py py-obj docutils literal"><span class="pre">copy</span></tt></a></td>
-<td>Generic (shallow and deep) copying operations.</td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">from_iterable</span></tt></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.api.Trajectory.join" title="pytraj.api.Trajectory.join"><tt class="xref py py-obj docutils literal"><span class="pre">join</span></tt></a>(other)</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">has_box</span></tt></td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.api.Trajectory.load" title="pytraj.api.Trajectory.load"><tt class="xref py py-obj docutils literal"><span class="pre">load</span></tt></a>([filename,&nbsp;top,&nbsp;indices])</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">iterframe</span></tt></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.api.Trajectory.reverse" title="pytraj.api.Trajectory.reverse"><tt class="xref py py-obj docutils literal"><span class="pre">reverse</span></tt></a>()</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">join</span></tt></td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.api.Trajectory.rmsfit" title="pytraj.api.Trajectory.rmsfit"><tt class="xref py py-obj docutils literal"><span class="pre">rmsfit</span></tt></a>(*args,&nbsp;**kwd)</td>
+<td>do the fitting to reference Frame by rotation and translation</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.api.Trajectory.rotate" title="pytraj.api.Trajectory.rotate"><tt class="xref py py-obj docutils literal"><span class="pre">rotate</span></tt></a>(*args,&nbsp;**kwd)</td>
+<td>do rotation</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.api.Trajectory.save" title="pytraj.api.Trajectory.save"><tt class="xref py py-obj docutils literal"><span class="pre">save</span></tt></a>([filename,&nbsp;format,&nbsp;overwrite])</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">load</span></tt></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.api.Trajectory.strip" title="pytraj.api.Trajectory.strip"><tt class="xref py py-obj docutils literal"><span class="pre">strip</span></tt></a>(mask)</td>
+<td>strip atoms with given mask</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.api.Trajectory.strip_atoms" title="pytraj.api.Trajectory.strip_atoms"><tt class="xref py py-obj docutils literal"><span class="pre">strip_atoms</span></tt></a>(mask)</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">reverse</span></tt></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">rmsfit</span></tt></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">rotate</span></tt></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">save</span></tt></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">strip</span></tt></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">strip_atoms</span></tt></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">superpose</span></tt></td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.api.Trajectory.superpose" title="pytraj.api.Trajectory.superpose"><tt class="xref py py-obj docutils literal"><span class="pre">superpose</span></tt></a>([ref,&nbsp;mask,&nbsp;frame_indices,&nbsp;mass])</td>
+<td>do the fitting to reference Frame by rotation and translation</td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
-<dt id="pytraj.Trajectory.append">
-<tt class="descname">append</tt><big>(</big><em>other</em><big>)</big><a class="headerlink" href="#pytraj.Trajectory.append" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.api.Trajectory.append">
+<tt class="descname">append</tt><big>(</big><em>other</em><big>)</big><a class="headerlink" href="#pytraj.api.Trajectory.append" title="Permalink to this definition">¶</a></dt>
 <dd><p>other: xyz, Frame, Trajectory, ...</p>
 <p class="rubric">Notes</p>
 <p>Can not append TrajectoryIterator object
@@ -254,41 +258,71 @@ since we use Trajectory in TrajectoryIterator class</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytraj.Trajectory.append_xyz">
-<tt class="descname">append_xyz</tt><big>(</big><em>xyz</em><big>)</big><a class="headerlink" href="#pytraj.Trajectory.append_xyz" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.api.Trajectory.append_xyz">
+<tt class="descname">append_xyz</tt><big>(</big><em>xyz</em><big>)</big><a class="headerlink" href="#pytraj.api.Trajectory.append_xyz" title="Permalink to this definition">¶</a></dt>
 <dd><p>append 3D numpy array</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytraj.Trajectory.autoimage">
-<tt class="descname">autoimage</tt><big>(</big><big>)</big><a class="headerlink" href="#pytraj.Trajectory.autoimage" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.api.Trajectory.autoimage">
+<tt class="descname">autoimage</tt><big>(</big><big>)</big><a class="headerlink" href="#pytraj.api.Trajectory.autoimage" title="Permalink to this definition">¶</a></dt>
 <dd><p>perform autoimage</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="pytraj.api.Trajectory.copy">
+<tt class="descname">copy</tt><big>(</big><big>)</big><a class="headerlink" href="#pytraj.api.Trajectory.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="classmethod">
-<dt id="pytraj.Trajectory.from_iterable">
-<em class="property">classmethod </em><tt class="descname">from_iterable</tt><big>(</big><em>iterables</em>, <em>top=None</em>, <em>n_frames=None</em><big>)</big><a class="headerlink" href="#pytraj.Trajectory.from_iterable" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.api.Trajectory.from_iterable">
+<em class="property">classmethod </em><tt class="descname">from_iterable</tt><big>(</big><em>iterables</em>, <em>top=None</em>, <em>n_frames=None</em><big>)</big><a class="headerlink" href="#pytraj.api.Trajectory.from_iterable" title="Permalink to this definition">¶</a></dt>
 <dd><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">itertraj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="s">&#39;parm.top&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">Trajectory</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">itertraj</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 </pre></div>
 </div>
 </dd></dl>
 
+<dl class="method">
+<dt id="pytraj.api.Trajectory.has_box">
+<tt class="descname">has_box</tt><big>(</big><big>)</big><a class="headerlink" href="#pytraj.api.Trajectory.has_box" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.api.Trajectory.iterframe">
+<tt class="descname">iterframe</tt><big>(</big><em>start=0</em>, <em>stop=None</em>, <em>step=1</em>, <em>mask=None</em>, <em>autoimage=False</em>, <em>frame_indices=None</em>, <em>rmsfit=None</em>, <em>copy=False</em><big>)</big><a class="headerlink" href="#pytraj.api.Trajectory.iterframe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.api.Trajectory.join">
+<tt class="descname">join</tt><big>(</big><em>other</em><big>)</big><a class="headerlink" href="#pytraj.api.Trajectory.join" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.api.Trajectory.load">
+<tt class="descname">load</tt><big>(</big><em>filename=''</em>, <em>top=None</em>, <em>indices=None</em><big>)</big><a class="headerlink" href="#pytraj.api.Trajectory.load" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="attribute">
-<dt id="pytraj.Trajectory.n_atoms">
-<tt class="descname">n_atoms</tt><a class="headerlink" href="#pytraj.Trajectory.n_atoms" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.api.Trajectory.n_atoms">
+<tt class="descname">n_atoms</tt><a class="headerlink" href="#pytraj.api.Trajectory.n_atoms" title="Permalink to this definition">¶</a></dt>
 <dd><p>n_atoms</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pytraj.Trajectory.n_frames">
-<tt class="descname">n_frames</tt><a class="headerlink" href="#pytraj.Trajectory.n_frames" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.api.Trajectory.n_frames">
+<tt class="descname">n_frames</tt><a class="headerlink" href="#pytraj.api.Trajectory.n_frames" title="Permalink to this definition">¶</a></dt>
 <dd><p>n_frames</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytraj.Trajectory.rmsfit">
-<tt class="descname">rmsfit</tt><big>(</big><em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.Trajectory.rmsfit" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.api.Trajectory.reverse">
+<tt class="descname">reverse</tt><big>(</big><big>)</big><a class="headerlink" href="#pytraj.api.Trajectory.reverse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.api.Trajectory.rmsfit">
+<tt class="descname">rmsfit</tt><big>(</big><em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.api.Trajectory.rmsfit" title="Permalink to this definition">¶</a></dt>
 <dd><p>do the fitting to reference Frame by rotation and translation</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -314,8 +348,8 @@ traj.rmsfit(&#8216;last&#8217;, <a class="reference external" href="mailto:'&#37
 </dd></dl>
 
 <dl class="method">
-<dt id="pytraj.Trajectory.rotate">
-<tt class="descname">rotate</tt><big>(</big><em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.Trajectory.rotate" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.api.Trajectory.rotate">
+<tt class="descname">rotate</tt><big>(</big><em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.api.Trajectory.rotate" title="Permalink to this definition">¶</a></dt>
 <dd><p>do rotation</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -327,15 +361,20 @@ traj.rmsfit(&#8216;last&#8217;, <a class="reference external" href="mailto:'&#37
 </table>
 </dd></dl>
 
+<dl class="method">
+<dt id="pytraj.api.Trajectory.save">
+<tt class="descname">save</tt><big>(</big><em>filename=''</em>, <em>format='unknown'</em>, <em>overwrite=True</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.api.Trajectory.save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="attribute">
-<dt id="pytraj.Trajectory.shape">
-<tt class="descname">shape</tt><a class="headerlink" href="#pytraj.Trajectory.shape" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.api.Trajectory.shape">
+<tt class="descname">shape</tt><a class="headerlink" href="#pytraj.api.Trajectory.shape" title="Permalink to this definition">¶</a></dt>
 <dd><p>(n_frames, n_atoms, 3)</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytraj.Trajectory.strip">
-<tt class="descname">strip</tt><big>(</big><em>mask</em><big>)</big><a class="headerlink" href="#pytraj.Trajectory.strip" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.api.Trajectory.strip">
+<tt class="descname">strip</tt><big>(</big><em>mask</em><big>)</big><a class="headerlink" href="#pytraj.api.Trajectory.strip" title="Permalink to this definition">¶</a></dt>
 <dd><p>strip atoms with given mask</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s">&#39;!@CA&#39;</span><span class="p">)</span> <span class="c"># keep only CA atoms</span>
@@ -344,8 +383,13 @@ traj.rmsfit(&#8216;last&#8217;, <a class="reference external" href="mailto:'&#37
 </dd></dl>
 
 <dl class="method">
-<dt id="pytraj.Trajectory.superpose">
-<tt class="descname">superpose</tt><big>(</big><em>ref=None</em>, <em>mask='*'</em>, <em>frame_indices=None</em>, <em>mass=False</em><big>)</big><a class="headerlink" href="#pytraj.Trajectory.superpose" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.api.Trajectory.strip_atoms">
+<tt class="descname">strip_atoms</tt><big>(</big><em>mask</em><big>)</big><a class="headerlink" href="#pytraj.api.Trajectory.strip_atoms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.api.Trajectory.superpose">
+<tt class="descname">superpose</tt><big>(</big><em>ref=None</em>, <em>mask='*'</em>, <em>frame_indices=None</em>, <em>mass=False</em><big>)</big><a class="headerlink" href="#pytraj.api.Trajectory.superpose" title="Permalink to this definition">¶</a></dt>
 <dd><p>do the fitting to reference Frame by rotation and translation
 Parameters
 &#8212;&#8212;&#8212;-
@@ -368,6 +412,21 @@ frame_indices : array-like, default None, optional</p>
 <p>traj.rmsfit(0) # fit to 1st frame
 traj.rmsfit(&#8216;last&#8217;, <a class="reference external" href="mailto:'&#37;&#52;&#48;CA">'<span>&#64;</span>CA</a>&#8216;) # fit to last frame using &#64;CA atoms</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.api.Trajectory.top">
+<tt class="descname">top</tt><a class="headerlink" href="#pytraj.api.Trajectory.top" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.api.Trajectory.unitcells">
+<tt class="descname">unitcells</tt><a class="headerlink" href="#pytraj.api.Trajectory.unitcells" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.api.Trajectory.xyz">
+<tt class="descname">xyz</tt><a class="headerlink" href="#pytraj.api.Trajectory.xyz" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 

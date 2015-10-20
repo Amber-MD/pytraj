@@ -3,5 +3,8 @@
 pytraj.Topology
 ===============
 
-.. autosummary::
 .. autoclass:: pytraj.Topology.Topology
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :inherited-members::
