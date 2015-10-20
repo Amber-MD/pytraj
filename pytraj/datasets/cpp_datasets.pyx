@@ -449,7 +449,7 @@ cdef class DatasetDouble (Dataset1D):
         for i in range(self.size):
             yield self.thisptr.index_opr(i)
 
-    def add_element(self, double d):
+    def append(self, double d):
         self.thisptr.AddElement(d)
 
     def resize(self, size_t sizeIn):
@@ -457,15 +457,6 @@ cdef class DatasetDouble (Dataset1D):
 
     def xcrd(self, size_t idx):
         raise NotImplementedError()
-
-    def append(self, dset, idx=None):
-        cdef DatasetDouble dset_
-        cdef double elm
-        cdef size_t idx_
-
-        elm = dset
-        idx_ = <size_t> idx
-        self.thisptr.Add(idx_, <void*> (&elm))
 
     property data:
         def __get__(self):
