@@ -76,15 +76,8 @@ cdef class DatasetList:
             dnew._add_copy_of_set(d)
         return dnew
 
-    def __call__(self, *args, **kwd):
-        return self.groupby(*args, **kwd)
-
     def clear(self):
         self.thisptr.Clear()
-
-    def __iadd__(self, DatasetList other):
-        self.thisptr.addequal(other.thisptr[0])
-        return self
 
     def __iter__(self):
         cdef const_iterator it
@@ -112,18 +105,12 @@ cdef class DatasetList:
             incr(it)
         return i
 
-    def len(self):
-        return self.__len__()
-            
     def is_empty(self):
         return self.thisptr.empty()
 
     @property
     def size(self):
         return self.thisptr.size()
-
-    def ensemble_num(self):
-        return self.thisptr.EnsembleNum()
 
     def remove_set(self, Dataset dset):
         self.thisptr.RemoveSet(dset.baseptr0)
@@ -184,9 +171,6 @@ cdef class DatasetList:
             self[idx]._npdata[:] = value._npdata[:]
         else:
             self[idx]._npdata[:] = value
-
-    def allocate_sets(self,long int i):
-        self.thisptr.AllocateSets(i)
 
     def get_dataset(self, idx=None, name=None, dtype=None):
         """
@@ -270,25 +254,6 @@ cdef class DatasetList:
         #self.thisptr.AddCopyOfSet(<_Dataset*> traj.thisptr)
         self.thisptr.AddSet(<_Dataset*> traj.thisptr)
 
-    def add_copy_of_set(self, Dataset dset):
-        self.thisptr.AddCopyOfSet(dset.baseptr0)
-
-    def find_coords_set(self, name):
-        name = name.encode()
-        cdef Dataset dset = Dataset()
-        dset.baseptr0 = self.thisptr.FindCoordsSet(name)
-        return dset
-
-    def find_set_of_type(self, filename, dtype):
-        cdef Dataset dset = Dataset()
-
-        dtype = dtype.upper()
-        dset.baseptr0 = self.thisptr.FindSetOfType(filename.encode(), DataTypeDict[dtype])
-
-        if not dset.baseptr0:
-            raise MemoryError("Can not initialize pointer")
-        return dset
-
     def get_legends(self):
         """return a list"""
         tmp_list = []
@@ -337,10 +302,6 @@ cdef class DatasetList:
         from pytraj.compat import zip
         for key in self.keys():
             yield key, self[key]
-
-    def map(self, func):
-        for d0 in self:
-            yield func(d0)
 
     def filter(self, func, *args, **kwd):
         """return a new view of DatasetList of func return True"""
@@ -461,74 +422,9 @@ cdef class DatasetList:
             yield dset
             incr(it)
 
-    def apply(self, func):
-        for d in self:
-            arr = np.asarray(d.data)
-            arr[:] = func(arr)
-
-    def mean(self, axis=1):
-        """
-        Notes: require numpy
-        """
-        return self.to_ndarray().mean(axis=axis)
-
-    def median(self, axis=1):
-        """
-        Notes: require numpy
-        """
-        return np.median(self.to_ndarray(), axis=axis)
-
-    def std(self, axis=1):
-        """
-        Notes: require numpy
-        """
-        return np.std(self.to_ndarray(), axis=axis)
-
-    def min(self):
-        arr = array('d', [])
-        for d in self:
-            arr.append(d.min())
-        return arr
-
-    def max(self):
-        arr = array('d', [])
-        for d in self:
-            arr.append(d.max())
-        return arr
-
-    def sum(self, key=None, axis=1):
-        """
-        Notes: require numpy
-        """
-        if not key:
-            return np.sum(self.to_ndarray(), axis=axis)
-        else:
-            return self.groupby(key).sum(axis=axis)
-
-    def cumsum(self, axis=1):
-        """Return the cumulative sum of the elements along a given axis.
-        (from numpy doc)
-        """
-        return np.cumsum(self.to_ndarray(), axis=axis)
-
-    def mean_with_error(self, other):
-
-        ddict = defaultdict(tuple)
-        for key, dset in self.iteritems():
-            ddict[key] = dset.mean_with_error(other[key])
-        return ddict
-
-    def count(self, number=None):
-        return dict((d0.key, d0.count(number)) for d0 in self)
-
     def read_data(self, filename, arg=""):
         df = DataFile()
         df.read_data(filename, ArgList(arg), self)
-
-    # pandas related
-    def describe(self):
-        import pandas as pd
-        return self.to_dataframe().describe()
 
     def write_all_datafiles(self, filenames=None):
         from pytraj.core.DataFileList import DataFileList
