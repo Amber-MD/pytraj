@@ -1,21 +1,16 @@
 .. _parallel:
 
-Parallel calculation
-====================
-
-.. contents::
-
-.. note:: This is experimental design.
-
 try ``pytraj`` online:
 
 .. image:: http://mybinder.org/badge.svg
    :target: http://mybinder.org/repo/hainm/notebook-pytraj
 
+|
 
-``pytraj`` support different types of parallel computing.
+Parallel calculation
+====================
 
-``pytraj`` use `python multiprocessing <https://docs.python.org/3/library/multiprocessing.html>`_, so users don't need to install extra package.
+.. contents::
 
 .. ipython:: python
     :suppress:
@@ -25,8 +20,15 @@ try ``pytraj`` online:
     traj = pt.iterload('data/tz2.ortho.nc', 'data/tz2.ortho.parm7')
     np.set_printoptions(precision=4, suppress=True)
 
+Disclaimer
+----------
+
+This is experimental design, syntax might be changed.
+
 single action with single trajectory
 ------------------------------------
+
+``pytraj`` use `python multiprocessing <https://docs.python.org/3/library/multiprocessing.html>`_, so users don't need to install extra package.
 
 Example
 ~~~~~~~
