@@ -72,11 +72,11 @@ from .core.cpp_core import CpptrajState, ArgList, AtomMask, _load_batch
 from .core.cpp_core import Command
 dispatch = Command.dispatch
 from . import array
-from .Topology import Topology, ParmFile
+from .topology import Topology, ParmFile
 from .math import Vec3
 from .Frame import Frame
 from .api import Trajectory
-from .TrajectoryIterator import TrajectoryIterator, split_iterators as isplit
+from .trajectory_iterator import TrajectoryIterator, split_iterators as isplit
 from .trajs.Trajout import Trajout
 from .datasets.cast_dataset import cast_dataset
 from .datasetlist import DatasetList as Dataset

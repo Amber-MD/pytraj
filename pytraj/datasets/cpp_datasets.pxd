@@ -5,7 +5,7 @@ from libcpp.vector cimport vector
 from libcpp.string cimport string 
 from ..math.cpp_math cimport _Grid, _Vec3, Vec3, _Matrix_3x3, Matrix_3x3, _Matrix
 from ..Frame cimport _Frame, Frame
-from ..Topology cimport _Topology, Topology
+from ..topology cimport _Topology, Topology
 from ..core.cpp_core cimport _ArgList, ArgList, _AtomMask, AtomMask
 from ..core.coordinfo cimport CoordinateInfo
 

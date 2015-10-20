@@ -19,7 +19,7 @@ from .utils.context import goto_temp_folder
 from .utils.convert import array_to_cpptraj_atommask as array_to_cpptraj_atommask
 from .externals.six import string_types
 from .Frame import Frame
-from .Topology import Topology
+from .topology import Topology
 from .datasets.DatasetList import DatasetList as CpptrajDatasetList
 from .datafiles import DataFileList
 from .datasetlist import DatasetList
@@ -482,11 +482,10 @@ def calc_mindist(traj=None,
     >>> import pytraj as pt
     >>> pt.mindist(traj, '@CA @H')
     '''
-    from pytraj.actions.CpptrajActions import Action_NativeContacts
     from pytraj.utils.convert import array2d_to_cpptraj_maskgroup
 
     traj = _get_fiterator(traj, frame_indices)
-    act = Action_NativeContacts()
+    act = CpptrajActions.Action_NativeContacts()
     dslist = CpptrajDatasetList()
 
     if not isinstance(command, string_types):
@@ -499,6 +498,44 @@ def calc_mindist(traj=None,
 
 
 def _calc_diffusion(traj=None,
+                  mask="",
+                  tstep=1.0,
+                  dtype='ndarray',
+                  individual=False,
+                  top=None,
+                  frame_indices=None):
+    '''
+    Examples
+    --------
+    >>> import pytraj as pt
+    '''
+    traj = _get_fiterator(traj, frame_indices)
+    act = CpptrajActions.Action_Diffusion()
+    dslist = CpptrajDatasetList()
+
+    _tsep = 'time ' + str(tstep)
+    _individual = 'individual' if individual else ''
+
+    if not isinstance(mask, string_types):
+        command = array2d_to_cpptraj_maskgroup(mask)
+    else:
+        command = mask
+
+    command = ' '.join((command, _tsep, 'nocalc', _individual))
+
+    traj = _get_fiterator(traj, frame_indices)
+    _top = _get_topology(traj, top)
+
+    act(command, traj, top=_top, dslist=dslist)
+
+    for d in dslist:
+        # make nicer labels
+        d.key = d.key.replace('[', '_').replace(']', '')
+
+    return _get_data_from_dtype(dslist, dtype=dtype)
+
+
+def _calc_STFC_diffusion(traj=None,
                     mask="*",
                     dimension='xyz',
                     time=1.0,
@@ -551,6 +588,7 @@ def _calc_diffusion(traj=None,
         _dimention = dimension
 
     act = CpptrajActions.Action_STFC_Diffusion()
+    #act = CpptrajActions.Action_Diffusion()
     dslist = CpptrajDatasetList()
 
     command = ' '.join((_mask, _time, _mask2, _lower, _upper, _distances, _com,

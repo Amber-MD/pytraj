@@ -12,9 +12,9 @@ from .datasets.DatasetList import DatasetList
 
 from .core.cpp_core import AtomMask
 from .api import Trajectory
-from .Topology import Topology
+from .topology import Topology
 from .core.cpp_core import ArgList
-from .TrajectoryIterator import TrajectoryIterator
+from .trajectory_iterator import TrajectoryIterator
 from .trajs.Trajout import Trajout
 from . import cpptraj_dict
 

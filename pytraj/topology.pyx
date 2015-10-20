@@ -688,7 +688,6 @@ cdef class Topology:
             return sum([atom.charge for atom in self.atoms])
 
     def save(self, filename=None, format='AMBERPARM'):
-        from pytraj.Topology import ParmFile
         parm = ParmFile()
         parm.writeparm(filename=filename, top=self, format=format)
 

@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 import os
-from ..TrajectoryIterator import TrajectoryIterator
+from ..trajectory_iterator import TrajectoryIterator
 from ..utils.context import goto_temp_folder
 from .datafiles import DataFile, DataFileList
 from .load_sample_data import *

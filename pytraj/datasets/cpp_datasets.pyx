@@ -18,7 +18,7 @@ from .._shared_methods import _xyz, _tolist
 from .._shared_methods import my_str_method
 from .._cyutils import get_positive_idx
 from ..trajs.TrajectoryCpptraj import TrajectoryCpptraj
-from ..Topology cimport Topology
+from ..topology cimport Topology
 from ..externals.six import string_types
 
 

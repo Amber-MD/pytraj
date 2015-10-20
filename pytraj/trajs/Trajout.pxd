@@ -2,7 +2,7 @@
 from libcpp.string cimport string
 from ..Frame cimport _Frame, Frame
 from ..core.cpp_core cimport _ArgList, ArgList
-from ..Topology cimport _Topology, Topology
+from ..topology cimport _Topology, Topology
 from ..cpptraj_dict cimport TrajFormatType
 from .TrajectoryCpptraj cimport CoordinateInfo
 

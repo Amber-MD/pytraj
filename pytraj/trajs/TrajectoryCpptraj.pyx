@@ -4,7 +4,7 @@ import numpy as np
 from ..api import Trajectory
 from ..core.cpp_core cimport AtomMask
 from ..core.Box cimport Box
-from ..Topology cimport Topology
+from ..topology cimport Topology
 
 from .._cyutils import get_positive_idx
 from pytraj.externals.six import string_types, PY2

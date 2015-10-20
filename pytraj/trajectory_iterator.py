@@ -8,7 +8,7 @@ import numpy as np
 from .trajs.TrajectoryCpptraj import TrajectoryCpptraj
 from .externals.six import string_types
 from .externals.six.moves import range
-from .Topology import Topology
+from .topology import Topology
 from .Frame import Frame
 from .utils import is_int
 from ._cyutils import get_positive_idx

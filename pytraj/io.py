@@ -11,9 +11,9 @@ from ._shared_methods import iterframe_master
 from ._cyutils import _fast_iterptr as iterframe_from_array
 from .cpp_options import set_error_silent
 from ._get_common_objects import _get_topology
-from .Topology import Topology
+from .topology import Topology, ParmFile
 from .api import Trajectory
-from .TrajectoryIterator import TrajectoryIterator
+from .trajectory_iterator import TrajectoryIterator
 
 try:
     from .externals._load_ParmEd import load_ParmEd, _load_parmed
@@ -386,7 +386,6 @@ def write_traj(filename="",
 
 
 def write_parm(filename=None, top=None, format='amberparm'):
-    from pytraj.Topology import ParmFile
     parm = ParmFile()
     parm.writeparm(filename=filename, top=top, format=format)
 
@@ -424,7 +423,6 @@ def load_topology(filename, more_options=''):
     >>> # read with more_options
     >>> pt.load_topology('1KX5.pdb', 'bonsearch 0.2')
     """
-    from pytraj.Topology import ParmFile
     top = Topology()
 
     # always read box info from pdb

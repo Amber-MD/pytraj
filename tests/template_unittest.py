@@ -12,3 +12,5 @@ class Test(unittest.TestCase):
 if __name__ == "__main__":
     unittest.main()
     # command: nosetests --with-coverage --cover-package pytraj -vs .
+    #  nosetests -vs . --processes 6 --process-timeout 200
+    # nosetests -vs . --processes 6 --process-timeout 200 --with-coverage --cover-package pytraj

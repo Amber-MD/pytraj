@@ -12,7 +12,10 @@ def _get_arglist(arg):
         return ArgList(arg)
 
 def create_pipeline(traj, commands, DatasetList dslist=DatasetList()):
-    '''create frame iterator from cpptraj's commands
+    '''create frame iterator from cpptraj's commands.
+
+    This method is useful if you want cpptraj pre-processing your Trajectory before
+    throwing it to your own method.
 
     Parameters
     ----------
@@ -24,7 +27,29 @@ def create_pipeline(traj, commands, DatasetList dslist=DatasetList()):
     --------
     >>> import pytraj as pt
     >>> traj = pt.load_sample_data('tz2')
-    >>> for frame in pt.create_pipeline(traj, ['autoimage', 'rms']): print(frame)
+    >>> for frame in pt.create_pipeline(traj, ['autoimage', 'rms', 'center :1']): print(frame)
+
+    Above example is similiar to cpptraj's command::
+     
+         cpptraj -i EOF<<
+         parm tz2.ortho.parm
+         trajin tz2.ortho.nc
+         autoimage
+         rms
+         center :1
+         EOF
+
+    You can desire your own method::
+
+        def new_method(traj, ...):
+            for frame in traj:
+                do_some_thing_fun_with(frame)
+
+        fi = pt.create_pipeline(traj, ['autoimage', 'rms', 'center :1'])
+
+        # perform action with pre-processed frames (already autoimaged, then rms fit to
+        # 1st frame, then center at box center.
+        data = new_method(fi, ...)
     '''
     cdef Frame frame
     cdef ActionList actlist

@@ -4,7 +4,7 @@ from libcpp.string cimport string
 from .cpp_core cimport _DispatchObject, DispatchObject, DispatchAllocatorType, FunctPtr
 from .Box cimport Box
 from ..datafiles.datafiles cimport _DataFileList, DataFileList
-from ..Topology cimport _Topology, Topology
+from ..topology cimport _Topology, Topology
 from ..Frame cimport _Frame, Frame
 from .cpp_core cimport _ArgList, ArgList, _AtomMask, AtomMask
 from ..datasets.DatasetList cimport _DatasetList, DatasetList
