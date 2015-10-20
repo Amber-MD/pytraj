@@ -385,6 +385,13 @@ class TestActionList(unittest.TestCase):
         saved_rmsd_ = pt.rmsd_nofit(t0, ref=ref)
         aa_eq(rmsd_nofit_after_fitting, saved_rmsd_)
 
+    def test_create_frame_iterator(self):
+        traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        fi = pt.create_pipeline(traj, ['autoimage', 'rms'])
+        xyz = np.array([frame.xyz.copy() for frame in fi])
+        t0 = traj[:].autoimage().superpose()
+        aa_eq(xyz, t0.xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

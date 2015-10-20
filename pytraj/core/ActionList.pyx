@@ -11,6 +11,30 @@ def _get_arglist(arg):
     else:
         return ArgList(arg)
 
+def create_pipeline(traj, commands, DatasetList dslist=DatasetList()):
+    '''create frame iterator from cpptraj's commands
+
+    Parameters
+    ----------
+    commands : a list of strings
+    traj : Trajectory or any iterable that produces Frame
+    dslist : CpptrajDatasetList, optional
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.load_sample_data('tz2')
+    >>> for frame in pt.create_pipeline(traj, ['autoimage', 'rms']): print(frame)
+    '''
+    cdef Frame frame
+    cdef ActionList actlist
+
+    actlist = ActionList(commands, top=traj.top, dslist=dslist) 
+    for frame in iterframe_master(traj):
+        actlist.do_actions(frame)
+        yield frame
+
+
 cdef class ActionList:
     def __cinit__(self):
         self.thisptr = new _ActionList()

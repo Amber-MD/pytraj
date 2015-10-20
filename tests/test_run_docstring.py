@@ -37,6 +37,7 @@ class Test(unittest.TestCase):
 
         funclist = [DataArray,
                     pt.actions.CpptrajActions.Action,
+                    pt.create_pipeline,
                     pt.pmap,
                     pt.nastruct,
                     pt.mean_structure,
