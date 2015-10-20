@@ -23,7 +23,7 @@ from .topology import Topology
 from .datasets.DatasetList import DatasetList as CpptrajDatasetList
 from .datafiles import DataFileList
 from .datasetlist import DatasetList
-from .hbonds import search_hbonds, search_hbonds_nointramol
+from .hbonds import search_hbonds
 from .dssp_analysis import calc_dssp
 from ._nastruct import nastruct
 from ._shared_methods import iterframe_master
@@ -66,7 +66,7 @@ list_of_do = ['do_translation',
 
 list_of_get = ['get_average_frame']
 
-list_of_the_rest = ['search_hbonds', 'search_hbonds_nointramol',
+list_of_the_rest = ['search_hbonds',
                     'align_principal_axis', 'principal_axes', 'closest',
                     'native_contacts', 'nastruct']
 

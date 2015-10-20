@@ -2,7 +2,7 @@ from __future__ import print_function
 import pytraj as pt
 import numpy as np
 import unittest
-from pytraj.hbonds import search_hbonds, search_hbonds_nointramol
+from pytraj.hbonds import search_hbonds
 from pytraj.testing import aa_eq
 from pytraj.compat import izip as zip
 
@@ -48,6 +48,20 @@ class TestSearchHbonds(unittest.TestCase):
             assert len(data_p) == traj.n_frames == 38, 'size of dataset must be 38'
             aa_eq(data_p, data_cpp)
 
+        # make sure distances are smaller than cutoff
+        distance_cutoff = 2.5
+        hb = pt.search_hbonds(traj)
+        distances = pt.distance(traj, hb._amber_mask())
+        assert np.all(distances< distance_cutoff), 'must smaller than 2.5 angstrom'
+
+        saved_donor_aceptors = ['ASP9_OD2-ARG16_NH1-HH12',
+                                'ASP9_OD2-ARG16_NH2-HH22',
+                                'ASP9_OD2-ARG16_NE-HE',
+                                'ASP9_OD2-ARG16_NH2-HH21',
+                                'ASP9_OD2-ARG16_NH1-HH11'] 
+
+        donor_aceptors = pt.search_hbonds(traj, ':9,16').donor_aceptor
+        assert saved_donor_aceptors == donor_aceptors, 'saved_donor_aceptors'
 
 if __name__ == "__main__":
     unittest.main()
