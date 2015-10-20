@@ -22,6 +22,7 @@ from functools import partial
 from glob import glob
 from itertools import chain
 
+
 # local import
 from scripts.base_setup import auto_install_message, remind_export_LD_LIBRARY_PATH
 
@@ -58,6 +59,24 @@ def read(fname):
     # must be in this setup file
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
+def split_range(n_chunks, start, stop):
+    '''split a given range to n_chunks
+
+    Examples
+    --------
+    >>> split_range(3, 0, 10)
+    [(0, 3), (3, 6), (6, 10)]
+    '''
+    chunksize = (stop - start)//n_chunks
+
+    range_list = []
+    for i in range(n_chunks):
+        if i < n_chunks - 1:
+            _stop = start + (i + 1) * chunksize
+        else:
+            _stop = stop
+        yield (start + i * chunksize, _stop)
+
 if sys.platform == 'darwin':
     # copied from ParmEd
     # You *need* to use clang and clang++ for extensions on a Mac;
@@ -72,26 +91,34 @@ pytraj_version = read("pytraj/__version__.py").split("=")[-1].replace('"', '', 1
 rootname = os.getcwd()
 pytraj_home = rootname + "/pytraj/"
 
-openmp_str = "openmp"
-faster_build_str = "faster"
-
-if openmp_str in ' '.join(sys.argv):
-    # python ./setup.py build openmp
-    # make sure to update Makefile in $AMBERHOME/AmberTools/src
-    # if changing '-openmp' to something else
+if len(sys.argv) == 4 and '--rank' in sys.argv[2]:
+    # install openmp only
+    # python ./setup.py build_ext --rank=2 -i
+    rank = int(sys.argv[2].split('=')[-1])
+    sys.argv.remove(sys.argv[2])
     with_openmp = True
-    # I am dump here. fix later.
-    try:
-        # '-openmp'
-        sys.argv.remove('-' + openmp_str)
-    except:
-        pass
-    try:
-        sys.argv.remove(openmp_str)
-    except ValueError:
-        pass
 else:
-    with_openmp = False
+    rank = None
+
+    openmp_str = "openmp"
+    
+    if openmp_str in ' '.join(sys.argv):
+        # python ./setup.py build openmp
+        # make sure to update Makefile in $AMBERHOME/AmberTools/src
+        # if changing '-openmp' to something else
+        with_openmp = True
+        # I am dump here. fix later.
+        try:
+            # '-openmp'
+            sys.argv.remove('-' + openmp_str)
+        except:
+            pass
+        try:
+            sys.argv.remove(openmp_str)
+        except ValueError:
+            pass
+    else:
+        with_openmp = False
 
 KeyErrorText = """
 Can not use -faster_build with `install`,
@@ -99,6 +126,7 @@ try  "python setup.py build faster_build
 then "python setup.py install" 
 """
 
+faster_build_str = "faster"
 if faster_build_str in sys.argv:
     # try using multiple cores
     faster_build = True
@@ -111,6 +139,12 @@ if faster_build_str in sys.argv:
         sys.exit(0)
 else:
     faster_build = False
+
+if 'no_cythonize_again' in sys.argv:
+    no_cythonize_again = True
+    sys.argv.remove('no_cythonize_again')
+else:
+    no_cythonize_again = False
 
 
 # check AMBERHOME
@@ -214,6 +248,14 @@ for p in pxd_include_dirs:
     pyxfiles.extend([ext.split(".")[0] for ext in glob(p + '/*.pyx')
                      if '.pyx' in ext])
 
+if rank is not None:
+    # update n_cores in ./scripts/parallel_setup.py if you change it
+    n_cores = 6
+    start, stop = list(split_range(n_cores, 0, len(pyxfiles)))[rank]
+    pyxfiles = pyxfiles[start:stop] 
+else:
+    pyxfiles = pyxfiles
+
 # check command line
 extra_compile_args = ['-O0', ]
 extra_link_args = ['-O0', ]
@@ -266,7 +308,7 @@ cython_directives = {
 
 cythonize(
     [pfile + '.pyx' for pfile in pyxfiles],
-    nthreads=int(os.environ.get('NUM_THREADS', 6)),
+    #nthreads=int(os.environ.get('NUM_THREADS', 6)),
     compiler_directives=cython_directives,
     )
 
