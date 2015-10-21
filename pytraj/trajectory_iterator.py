@@ -15,6 +15,7 @@ from ._cyutils import get_positive_idx
 from .frameiter import FrameIter
 from ._get_common_objects import _load_Topology
 from .utils import split_range
+from .utils.convert import array_to_cpptraj_atommask
 
 __all__ = ['TrajectoryIterator', 'split_iterators']
 
@@ -241,7 +242,12 @@ class TrajectoryIterator(TrajectoryCpptraj):
         if mask is None:
             _top = self.top
         else:
-            _top = self.top._get_new_from_mask(mask)
+            if isinstance(mask, string_types):
+                mask = mask
+                _top = self.top._get_new_from_mask(mask)
+            else:
+                mask = array_to_cpptraj_atommask(mask)
+                _top = self.top._get_new_from_mask(mask)
 
         if rmsfit is not None:
             if isinstance(rmsfit, tuple):

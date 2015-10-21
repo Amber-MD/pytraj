@@ -8,7 +8,6 @@ from pytraj import io as mdio
 from pytraj.utils import eq, aa_eq
 from pytraj.testing import cpptraj_test_dir
 import pytraj.common_actions as pyca
-from pytraj.misc import from_legends_to_indices
 
 
 class Test(unittest.TestCase):

@@ -155,9 +155,10 @@ class FrameIter(object):
                    mode=mode, *args, **kwd)
 
     def __iter__(self):
+        # do not import CpptrajActions in the top to avoid circular importing
+        from pytraj.actions import CpptrajActions
         if self.autoimage:
-            from pytraj.actions.CpptrajActions import Action_AutoImage
-            image_act = Action_AutoImage()
+            image_act = CpptrajActions.Action_AutoImage()
             image_act.read_input("", top=self.original_top)
             image_act.process(self.original_top)
         if self.rmsfit is not None:
@@ -172,8 +173,7 @@ class FrameIter(object):
                 # make a copy to avoid changing ref
                 ref = ref.copy()
                 image_act.do_action(ref)
-            from pytraj.actions.CpptrajActions import Action_Rmsd
-            rmsd_act = Action_Rmsd()
+            rmsd_act = CpptrajActions.Action_Rmsd()
             rmsd_act.read_input(mask_for_rmsfit, top=self.original_top)
             rmsd_act.process(self.original_top)
             # creat first frame to trick cpptraj to align to this.
@@ -199,10 +199,7 @@ class FrameIter(object):
                 rmsd_act.do_action(frame)
             if self.mask is not None:
                 mask = self.mask
-                if isinstance(mask, string_types):
-                    atm = self.original_top(mask)
-                else:
-                    raise ValueError('must be string_types')
+                atm = self.original_top(mask)
                 frame2 = Frame(frame, atm)
                 yield frame2
             else:

@@ -4,6 +4,7 @@ import numpy as np
 from .core.Box import Box
 from .Frame import Frame
 from .utils.check_and_assert import is_int, is_frame_iter
+from .utils.convert import array_to_cpptraj_atommask
 from .externals.six import string_types
 from .externals.six.moves import range
 from .core.cpp_core import AtomMask
@@ -692,7 +693,12 @@ class Trajectory(object):
         if mask is None:
             _top = self.top
         else:
-            _top = self.top._get_new_from_mask(mask)
+            if isinstance(mask, string_types):
+                mask = mask
+                _top = self.top._get_new_from_mask(mask)
+            else:
+                mask = array_to_cpptraj_atommask(mask)
+                _top = self.top._get_new_from_mask(mask)
 
         if rmsfit is not None:
             if isinstance(rmsfit, tuple):

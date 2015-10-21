@@ -16,7 +16,7 @@ from pytraj.core.ActionList import ActionList
 from .utils import is_array, ensure_not_none_or_string
 from .utils import is_int
 from .utils.context import goto_temp_folder
-from .utils.convert import array_to_cpptraj_atommask as array_to_cpptraj_atommask
+from .utils.convert import array_to_cpptraj_atommask
 from .externals.six import string_types
 from .Frame import Frame
 from .topology import Topology
