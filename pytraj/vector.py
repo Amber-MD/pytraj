@@ -7,7 +7,9 @@ _supported_types = [
     'minimage dipole center corrplane box boxcenter ucellx ucelly ucellz principal'.split()]
 
 def _2darray_to_atommask_groups(seq):
-    '''[[0, 3], [4, 7]] turns to ['@1 @4', '@5 @8']
+    '''
+    >>> list(_2darray_to_atommask_groups([[0, 3], [4, 7]]))
+    ['@1 @4', '@5 @8']
     '''
     for arr in seq:
         # example: arr = [0, 3]; turns ot '@1 @4'
@@ -37,8 +39,10 @@ def vector_mask(traj=None, mask="", frame_indices=None, dtype='ndarray', top=Non
     Examples
     --------
     >>> # calcualte N-H vector
-    >>> from pytraj import vector as va
+    >>> import pytraj as pt
     >>> import numpy as np
+    >>> traj = pt.load_sample_data('tz2')
+    >>> from pytraj import vector as va
     >>> n_indices = pt.select_atoms(traj.top, '@N')
     >>> h_indices = n_indices + 1
 

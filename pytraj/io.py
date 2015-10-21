@@ -141,7 +141,7 @@ def iterload(*args, **kwd):
     return load_traj(*args, **kwd)
 
 
-def _load_netcdf(filename, top, frame_indices=None, engine='scipy'):
+def _load_netcdf(filename, top, frame_indices=None, engine='scipy'): # pragma: no cover
     '''simply read all data to memory. Use this if you want to load data few times
     faster (and  you know what you are doing).
     '''
@@ -352,13 +352,8 @@ def write_traj(filename="",
                         "frame indices does not work with single Frame")
                 trajout.write(0, traj)
             else:
-                if isinstance(traj, string_types):
-                    traj2 = iterload(traj, _top)
-                else:
-                    traj2 = traj
-
                 if frame_indices is not None:
-                    if isinstance(traj2, (list, tuple, Frame)):
+                    if isinstance(traj, (list, tuple, Frame)):
                         raise NotImplementedError(
                             "must be Trajectory or TrajectoryIterator instance")
                     for idx, frame in enumerate(traj.iterframe(
@@ -366,7 +361,7 @@ def write_traj(filename="",
                         trajout.write(idx, frame)
 
                 else:
-                    for idx, frame in enumerate(iterframe_master(traj2)):
+                    for idx, frame in enumerate(iterframe_master(traj)):
                         trajout.write(idx, frame)
     else:
         # is ndarray, shape=(n_frames, n_atoms, 3)

@@ -15,7 +15,9 @@ conda config --add channels http://conda.binstar.org/ambermd/
 
 conda create -y -n myenv python=$PYTHON_VERSION numpy cython h5py
 
+echo 'activate myenv'
 source activate myenv
+echo 'end activate myenv'
 conda install --yes anaconda-client
 
 # install other packages here
