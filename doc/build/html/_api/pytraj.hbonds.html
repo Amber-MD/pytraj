@@ -246,58 +246,6 @@
 </div>
 </dd></dl>
 
-<dl class="function">
-<dt id="pytraj.hbonds.search_hbonds_nointramol">
-<tt class="descclassname">pytraj.hbonds.</tt><tt class="descname">search_hbonds_nointramol</tt><big>(</big><em>traj</em>, <em>mask='solventacceptor :WAT&#64;O solventdonor :WAT'</em>, <em>dtype='dataset'</em>, <em>update_key=True</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.hbonds.search_hbonds_nointramol" title="Permalink to this definition">¶</a></dt>
-<dd><p>Search hbonds between solute and solvent, ignoring intra-hbond</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or any iterable object that _frame_iter_mater return a Frame</p>
-<p><strong>mask</strong> : str, default &#8220;solventacceptor :WAT&#64;O solventdonor :WAT&#8221;</p>
-<blockquote>
-<div><p>cpptraj command</p>
-</div></blockquote>
-<p><strong>dtype</strong> : str, default &#8216;dataset&#8217;</p>
-<p class="last"><strong>*args, **kwd: optional</strong></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pytraj.hbonds.search_hbonds_noseries">
-<tt class="descclassname">pytraj.hbonds.</tt><tt class="descname">search_hbonds_noseries</tt><big>(</big><em>traj</em>, <em>mask=''</em>, <em>dtype='dataset'</em>, <em>update_key=True</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.hbonds.search_hbonds_noseries" title="Permalink to this definition">¶</a></dt>
-<dd><p>search hbonds for a given mask</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : {Trajectory-like object, frame_iter object, list of traj}</p>
-<p><strong>mask</strong> : str</p>
-<blockquote>
-<div><p>Amber atom mask</p>
-</div></blockquote>
-<p><strong>dtype</strong> : str {&#8216;dataset&#8217;, &#8216;ndarray&#8217;}, default=&#8217;dataset&#8217;</p>
-<p><strong>*args, **kwd: optional</strong></p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>out</strong> : pytraj.DatasetList (similiar to Python list with labeled array)</p>
-</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><tt class="xref py py-obj docutils literal"><span class="pre">http</span></tt></dt>
-<dd>//ambermd.org/doc12/Amber15.pdf (page 575)</dd>
-</dl>
-</div>
-</dd></dl>
-
 </div>
 
 
@@ -313,7 +261,7 @@
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 20, 2015.<br/>
+      Last updated on Oct 21, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

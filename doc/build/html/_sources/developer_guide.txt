@@ -229,6 +229,31 @@ Push pytraj and libcpptraj to anaconda.org after successful build on travis
   $ anaconda -t $TRAVIS_TO_ANACONDA upload --force -u ambermd -p pytraj-dev $HOME/miniconda/conda-bld/linux-64/pytraj-dev-*
   $ # check devtools/travis-ci/upload.sh and .travis.yml files for implementation.
 
+Code coverage, how well are your codes tested?
+---------------------------------------------
+
+It's good to measure how well you code is tested. Basically, you should write all possible tests to make sure all (most) lines of codes executed::
+
+    $ nosetests -vs  --processes 6 --process-timeout 200 --with-coverage --cover-package pytraj
+
+Explanation for above line:
+ 
+    - ``--processes 6``: use 6 processes to speed up testing
+    - ``--with-coverage``: use `coverage module <https://pypi.python.org/pypi/coverage>`_ to measure your code coverage
+    - ``--cover-package pytraj``: only care about code in pytraj
+
+In the final output, you should get something like::
+
+    pytraj.io                                            170     29    83%   20-21, 29-30, 213-215, 217, 258, 357, 428, 439, 450-456, 493-503, 516
+
+The numbers after ``83%`` show the line numbers in pytraj.io module (io.py) that are not executed in test files. if I open the 516-th line in ``io.py`` file, I will see::
+
+    514 def load_single_frame(frame=None, top=None, index=0):
+    515     """load a single Frame"""
+    516     return iterload(frame, top)[index]
+
+This means that this method has never been tested. So just write a test case for it to increase the coverage score.
+
 cython
 ------
 We recommended to use ``cython`` to write or wrap high performance code. Please don't use ``cimport numpy``, use `memoryview <http://docs.cython.org/src/userguide/memoryviews.html>`_ instead
