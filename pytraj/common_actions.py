@@ -10,7 +10,7 @@ analdict = AnalysisDict()
 
 from pytraj.api import Trajectory
 from ._get_common_objects import _get_topology, _get_data_from_dtype, _get_list_of_commands
-from ._get_common_objects import _get_matrix_from_dataset
+from ._get_common_objects import _get_matrix_from_dataset, _dispatch_traj_ref_top_frame_indices
 from ._get_common_objects import _get_reference_from_traj, _get_fiterator
 from pytraj.core.ActionList import ActionList
 from .utils import is_array, ensure_not_none_or_string

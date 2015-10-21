@@ -1,4 +1,5 @@
 from __future__ import absolute_import
+import os
 import numpy as np
 
 from .externals.six import string_types, PY3
@@ -10,6 +11,7 @@ from .datafiles.load_cpptraj_file import load_cpptraj_file
 from ._shared_methods import iterframe_master
 from ._cyutils import _fast_iterptr as iterframe_from_array
 from .cpp_options import set_error_silent
+from .utils.context import goto_temp_folder
 from ._get_common_objects import _get_topology
 from .topology import Topology, ParmFile
 from .api import Trajectory
@@ -425,7 +427,8 @@ def load_topology(filename, more_options=''):
 
     if isinstance(filename, string_types):
         if filename.startswith('http://') or filename.startswith('https://'):
-            top = _load_url(filename)
+            import parmed as pmd
+            return load_ParmEd(pmd.load_file(filename))
         else:
             parm = ParmFile()
             set_error_silent(True)
@@ -442,18 +445,6 @@ def load_topology(filename, more_options=''):
 
 # creat alias
 read_parm = load_topology
-
-
-def _load_url(url):
-    """load Topology from url
-    """
-    txt = urlopen(url).read()
-    fname = "/tmp/tmppdb.pdb"
-    with open(fname, 'w') as fh:
-        if PY3:
-            txt = txt.decode()
-        fh.write(txt)
-    return load_topology(fname)
 
 
 def loadpdb_rcsb(pdbid):
@@ -490,7 +481,6 @@ def download_PDB(pdbid, location="./", overwrite=False):
     -----
     this method is different from `parmed.download_PDB`, which return a `Structure` object
     """
-    import os
     fname = location + pdbid + ".pdb"
     if os.path.exists(fname) and not overwrite:
         raise ValueError("must set overwrite to True")
@@ -511,9 +501,9 @@ def load_pdb(pdb_file):
     return load_traj(pdb_file, pdb_file)
 
 
-def load_single_frame(frame=None, top=None, index=0):
+def load_single_frame(filename=None, top=None, index=0):
     """load a single Frame"""
-    return iterload(frame, top)[index]
+    return iterload(filename, top)[index]
 
 
 load_frame = load_single_frame
