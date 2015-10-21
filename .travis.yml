@@ -57,6 +57,7 @@ after_success:
     #- source devtools/travis-ci/upload.sh 
     # just try to install
     #- conda install -c ambermd pytraj-dev libcpptraj-dev --yes
+    - coveralls
 
 notifications:
   email: false
