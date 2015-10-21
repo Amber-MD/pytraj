@@ -7,7 +7,7 @@ from pytraj.externals.six import string_types, set
 from pytraj.utils.check_and_assert import is_frame_iter, is_chunk_iter
 from pytraj.frameiter import FrameIter
 
-__all__ = ['_savetraj', 'iterframe_master', '_xyz', 'my_str_method', '_tolist',
+__all__ = ['_savetraj', 'iterframe_master', '_xyz', 'my_str_method',
            '_box']
 
 
@@ -27,10 +27,6 @@ def _savetraj(self,
                  overwrite=overwrite, *args, **kwd) as trajout:
         for idx, frame in enumerate(self):
             trajout.write(idx, frame, self.top)
-
-
-def _get_temperature_set(self):
-    return set(self.temperatures)
 
 
 def _xyz(self):
@@ -54,11 +50,6 @@ def _xyz(self):
     return myview
 
 
-def _tolist(self):
-    """return flatten list for traj-like object"""
-    return [frame.tolist() for frame in self]
-
-
 def my_str_method(self):
     name = "pytraj." + self.__class__.__name__
     top_str = self.top.__str__()
@@ -66,42 +57,6 @@ def my_str_method(self):
            """ % (
         name, self.n_frames, top_str, )
     return tmps
-
-
-def _frame_iter(self, start=0, stop=-1, step=1, mask=None):
-    """iterately get Frames with start, stop, step 
-
-    Parameters
-    ----------
-    start : int (default = 0)
-    stop : int (default = max_frames - 1)
-    step : int
-    mask : str or array of interger
-    """
-    frame = Frame(self.n_atoms)
-
-    if stop == -1:
-        _end = self.n_frames
-    else:
-        _end = stop
-
-    i = start
-    while i < _end:
-        frame = self[i]
-        if mask is not None:
-            if isinstance(mask, string_types):
-                atm = self.top(mask)
-            else:
-                try:
-                    atm = AtomMask()
-                    atm.add_selected_indices(mask)
-                except TypeError:
-                    raise 'TypeError'
-            frame2 = Frame(frame, atm)
-            yield frame2
-        else:
-            yield frame
-        i += step
 
 
 def iterframe_master(obj):

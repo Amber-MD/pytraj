@@ -1,23 +1,32 @@
+#!/usr/bin/env python
+
 from __future__ import print_function
 import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
-from pytraj.tools import PY2
-
+from pytraj.compat import PY3
 
 class Test(unittest.TestCase):
-    @unittest.skipIf(PY2, 'only work python3')
     def test_0(self):
+        traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
         from pytraj.parallel import PJob
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.load_sample_data('tz2')
+        tasklist = []
+        tasklist.append((pt.radgyr, traj))
+        tasklist.append((pt.molsurf, traj, '@CA'))
 
-        job = PJob([(pt.radgyr, traj), (pt.molsurf, traj)])
-        results = job.compute()
-        #print(results)
+        # perform each action on each CPUs (total 2 CPUs)
+        pjob = PJob(tasklist)
 
-        aa_eq(pt.radgyr(traj), results[0][1])
-        aa_eq(pt.molsurf(traj), results[1][1])
+        if PY3:
+            data = pjob.compute()
+            aa_eq(pt.radgyr(traj), data[0][1])
+            aa_eq(pt.molsurf(traj, '@CA'), data[1][1])
+
 
 
 if __name__ == "__main__":
     unittest.main()
+    # nosetests --with-coverage --cover-package pytraj -vs .
+    # nosetests -vs --processes 6 --process-timeout 200 .
+    # nosetests -vs --processes 6 --process-timeout 200 --with-coverage --cover-package pytraj .

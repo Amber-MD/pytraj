@@ -18,7 +18,8 @@ class TestDoc(unittest.TestCase):
     '''
     def test_doc(self):
         from pytraj.utils import convert
-        from pytraj import frameiter, vector
+        from pytraj import frameiter, vector, datasetlist
+        from pytraj import trajectory_iterator
         from pytraj.parallel import pjob
 
         modules = [pt._get_common_objects,
@@ -27,6 +28,8 @@ class TestDoc(unittest.TestCase):
                    frameiter,
                    vector,
                    pjob,
+                   datasetlist,
+                   trajectory_iterator,
                   ]
         if PY3:
             # avoid adding 'u' to string in PY2: u'GLU5_O-LYS8_N-H'

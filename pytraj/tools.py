@@ -54,7 +54,14 @@ else: # pragma: no covert
 
 
 def iteritems(d, **kw):
-    """Return an iterator over the (key, value) pairs of a dictionary."""
+    """Return an iterator over the (key, value) pairs of a dictionary.
+
+    Examples
+    --------
+    >>> for k, v in iteritems({'x': 3, 'y': 4}): print(k, v) : # doctest: +SKIP
+    x 3
+    y 4
+    """
     return iter(getattr(d, _iteritems)(**kw))
 
 
@@ -78,25 +85,30 @@ except ImportError:
 def split(data, n_chunks):
     """split `self.data` to n_chunks
 
+    Examples
+    --------
+    >>> for data in split(range(30), 3): print(data)
+    [0 1 2 3 4 5 6 7 8 9]
+    [10 11 12 13 14 15 16 17 18 19]
+    [20 21 22 23 24 25 26 27 28 29]
+
     Notes
     -----
     same as numpy.array_split
     """
-    return np.array_split(data, n_chunks_or_array)
+    return np.array_split(data, n_chunks)
 
 
-def chunk_average(self, n_chunk, restype='same'):
-    '''average by chunk'''
-    import numpy as np
-    from pytraj.array import DataArray
+def block_average(self, n_chunk):
+    '''average by chunk
 
-    data = np.array(list(map(np.mean, split(self, n_chunk))))
-    if restype == 'same' and isinstance(self, DataArray):
-        new_array = self.shallow_copy()
-        new_array.values = data
-        return new_array
-    else:
-        return data
+    Examples
+    --------
+    >>> block_average(range(30), 3)
+    array([  4.5,  14.5,  24.5])
+    '''
+
+    return np.array(list(map(np.mean, split(self, n_chunk))))
 
 
 def moving_average(data, n):
@@ -113,31 +125,6 @@ def moving_average(data, n):
     """
     window = np.ones(int(n)) / float(n)
     return np.convolve(data, window, 'same')
-
-def pipe(obj, func, *args, **kwargs):
-    """Notes: copied from pandas PR
-    https://github.com/ghl3/pandas/blob/groupby-pipe/pandas/tools/util.py
-    see license in pytraj/license/
-
-    Apply a function to a obj either by
-    passing the obj as the first argument
-    to the function or, in the case that
-    the func is a tuple, interpret the first
-    element of the tuple as a function and
-    pass the obj to that function as a keyword
-    arguemnt whose key is the value of the
-    second element of the tuple
-    """
-    if isinstance(func, tuple):
-        func, target = func
-        if target in kwargs:
-            msg = '%s is both the pipe target and a keyword argument' % target
-            raise ValueError(msg)
-        kwargs[target] = obj
-        return func(*args, **kwargs)
-    else:
-        return func(obj, *args, **kwargs)
-
 
 def _compose2(f, g):
     # copied from pandas
@@ -447,7 +434,11 @@ def split_traj_by_residues(traj, start=0, stop=-1, step=1):
 
 
 def find_lib(libname, unique=False):
-    """return a list of all library files"""
+    """return a list of all library files
+
+    >>> find_lib('cpptraj')[0].split('/')[-1]
+    'libcpptraj.so'
+    """
     paths = os.environ.get('LD_LIBRARY_PATH', '').split(':')
     lib_path_list = []
     key = "lib" + libname + "*"

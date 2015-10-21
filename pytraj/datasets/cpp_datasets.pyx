@@ -11,8 +11,7 @@ from cython.view cimport array as cyarray
 # python level
 import numpy as np
 from ..utils import is_int
-from .._shared_methods import _frame_iter
-from .._shared_methods import _xyz, _tolist
+from .._shared_methods import _xyz
 from .._shared_methods import my_str_method
 from .._cyutils import get_positive_idx
 from ..trajs.TrajectoryCpptraj import TrajectoryCpptraj
@@ -1041,9 +1040,6 @@ cdef class DatasetCoords(Dataset):
     def __repr__(self):
         return self.__str__()
 
-    def __call__(self, *args, **kwd):
-        return self.frame_iter(*args, **kwd)
-
     def __iter__(self):
         """iterately getting Frame instance
         TODO : get memoryview or copy?
@@ -1077,9 +1073,6 @@ cdef class DatasetCoords(Dataset):
             if idx != -1:
                 raise ValueError("index is out of range")
         self.baseptr_1.SetCRD(idx, other.thisptr[0])
-
-    def frame_iter(self, int start=0, int stop=-1, int step=1, mask=None):
-        return _frame_iter(self, start, stop, step, mask)
 
     def allocate_frame(self):
         cdef Frame frame = Frame()

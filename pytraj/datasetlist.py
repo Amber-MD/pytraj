@@ -1,7 +1,8 @@
 from __future__ import absolute_import
 import numpy as np
+from collections import OrderedDict
 from collections import defaultdict
-from pytraj.datasets.DatasetList import DatasetList as DSL
+from pytraj.datasets import CpptrajDatasetList
 from pytraj.externals._json import to_json, read_json
 from pytraj.externals._pickle import to_pickle, read_pickle
 from pytraj.utils import is_int, is_array, is_generator
@@ -71,9 +72,21 @@ def stack(args):
 
     Examples
     --------
-        d1 = calc_dssp(traj1, dtype='dataset')
-        d2 = calc_dssp(traj2, dtype='dataset')
-        d3 = stack((d1, d2))
+    >>> import pytraj as pt
+    >>> traj = pt.load_sample_data('tz2')
+    >>> traj1 = traj[:3]
+    >>> traj2 = traj[5:]
+
+    >>> d1 = pt.dssp(traj1, dtype='dataset')
+    >>> len(d1[0])
+    3
+    >>> d2 = pt.dssp(traj2, dtype='dataset')
+    >>> len(d2[0])
+    5
+
+    >>> d3 = stack((d1, d2))
+    >>> len(d3[0])
+    8
     """
     is_subcriptable = not (isinstance(args, map) or is_generator(args))
 
@@ -99,24 +112,6 @@ def stack(args):
 
 concat_datasetlist = stack
 
-from collections import OrderedDict
-
-
-class _OrderedDict(OrderedDict):
-    @property
-    def values(self):
-        from pytraj.tools import dict_to_ndarray
-        arr = dict_to_ndarray(self)
-        return np.array([[key for key in self.keys()], arr], dtype='object')
-
-    def to_ndarray(self, with_key=False):
-        from pytraj.tools import dict_to_ndarray
-        arr = dict_to_ndarray(self)
-
-        if not with_key:
-            return arr
-        else:
-            return np.array([[key for key in self.keys()], arr])
 
 
 class DatasetList(list):
@@ -127,15 +122,10 @@ class DatasetList(list):
     Examples
     --------
     >>> import pytraj as pt
-    >>> dslist = pt.multidihedral(traj, 'phi psi', dtype='dataset')
-    >>> print(dslist)
-    >>> print(dslist[0])
-    >>> print(dslist[::2])
-    >>> print(dslist[1::2])
-    >>> print(dslist.values) # return raw numpy array
-    >>> print(dslist.keys)
-    >>> # dict-like
-    >>> dslist['phi_2']
+    >>> traj = pt.load_sample_data('tz2')[:2]
+    >>> dslist = pt.multidihedral(traj, dtype='dataset')
+    >>> dslist['phi:2'].values
+    array([-128.72617304, -109.44321317])
     '''
 
     def __init__(self, dslist=None, copy=False):
@@ -295,31 +285,11 @@ class DatasetList(list):
             tmp_list.append(d0.key)
         return tmp_list
 
-    def get_aspects(self, is_set=True):
-        """return a set of uniqure aspects if "is_set" = True
-        else: return a full list
-        """
-
-        tmp_list = []
-        for d0 in self:
-            tmp_list.append(d0.aspect)
-        if is_set:
-            return set(tmp_list)
-        else:
-            return tmp_list
-
     def get_scalar_types(self):
         """return a list"""
         tmp_list = []
         for d0 in self:
             tmp_list.append(d0.scalar_type)
-        return tmp_list
-
-    def get_scalar_modes(self):
-        """return a list"""
-        tmp_list = []
-        for d0 in self:
-            tmp_list.append(d0.scalar_mode)
         return tmp_list
 
     def get_dtypes(self):
@@ -332,13 +302,6 @@ class DatasetList(list):
     def iteritems(self):
         for key in self.keys():
             yield key, self[key]
-
-    def items(self):
-        return self.iteritems()
-
-    def map(self, func):
-        for d0 in self:
-            yield func(d0)
 
     def filter(self, func, copy=False, *args, **kwd):
         """return a new view of DatasetList of func return True"""
@@ -396,7 +359,7 @@ class DatasetList(list):
         _dict = dict
         if ordered_dict:
             # use OrderedDict
-            _dict = _OrderedDict
+            _dict = OrderedDict
         if use_numpy:
             return _dict((d0.key, d0.to_ndarray()) for d0 in self)
         else:
@@ -436,13 +399,12 @@ class DatasetList(list):
         pandas
         """
         import pandas
-        dict = _OrderedDict
-        my_dict = dict((d0.key, d0.to_ndarray(copy=True)) for d0 in self)
+        my_dict = OrderedDict((d0.key, d0.to_ndarray(copy=True)) for d0 in self)
         return pandas.DataFrame(my_dict)
 
     def read_data(self, filename, arg=""):
         df = DataFile()
-        dslist = DSL()
+        dslist = CpptrajDatasetList()
         df.read_data(filename, ArgList(arg), dslist)
         df.from_sequence(dslist, copy=False)
 
@@ -508,9 +470,6 @@ class DatasetList(list):
 
     def cpptraj_dtypes(self):
         return np.array([x.cpptraj_dtype for x in self])
-
-    def names(self):
-        return np.array([x.name for x in self])
 
     def extend(self, other, copy=True):
         self.from_sequence(other, copy=copy)
