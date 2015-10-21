@@ -1,7 +1,6 @@
 from __future__ import absolute_import, print_function
 import os
 
-from .decorators import test_if_having, no_test, local_test
 from .datafiles.load_sample_data import load_sample_data
 from .utils import eq, aa_eq
 from .utils.check_and_assert import is_linux
@@ -9,7 +8,7 @@ from .utils import duplicate_traj, Timer
 from .topology import Topology
 from .utils.context import goto_temp_folder
 
-__all__ = ['test_if_having', 'no_test', 'local_test', 'load_sample_data', 'eq',
+__all__ = ['local_test', 'load_sample_data', 'eq',
            'aa_eq', 'is_linux', 'make_random_frame', 'duplicate_traj',
            'Timer', 'amberhome', 'cpptraj_test_dir',
            'run_docstring']

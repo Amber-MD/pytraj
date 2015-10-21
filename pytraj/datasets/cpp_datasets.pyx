@@ -2,12 +2,10 @@
 
 from __future__ import division
 from ..cpptraj_dict import DataTypeDict, ScalarTypeDict, get_key
-from ..decorators import makesureABC, require_having
 from ..datafiles.datafiles import DataFileList, DataFile
 
 import operator
 from cython.operator cimport preincrement as incr, dereference as deref
-from cpython.array cimport array as pyarray
 from cython.view cimport array as cyarray
 
 # python level
