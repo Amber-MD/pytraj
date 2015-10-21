@@ -1,5 +1,5 @@
 import numpy as np
-from .decorators import noparallel, _register_pmap, _register_openmp
+from .decorators import _register_pmap, _register_openmp
 from .datasets.DatasetList import DatasetList as CpptrajDatasetList
 from .actions import CpptrajActions
 from .analyses import CpptrajAnalyses
