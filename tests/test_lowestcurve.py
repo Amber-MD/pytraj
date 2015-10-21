@@ -26,7 +26,6 @@ class TestLowestCurve(unittest.TestCase):
         #dslist.add_new('xymesh', 'mysurf')
         #dslist[0]._append_from_array(data.T)
 
-        #pt._verbose()
         #act('points 10 mysurf', dslist=dslist)
         act('points 10 myrmsd mysurf', dslist=dslist)
         print([d for d in dslist])

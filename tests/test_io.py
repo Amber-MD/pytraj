@@ -166,6 +166,19 @@ class TestIO(unittest.TestCase):
         aa_eq(saved_traj[range(5)].xyz, traj.xyz)
         aa_eq(saved_traj.unitcells[range(5)], traj.unitcells)
 
+    def test_single_frame(self):
+        traj = pt.load_sample_data('tz2')
+        frame = pt.io.load_frame(traj.filename, traj.top.filename, 3)
+        aa_eq(traj[3].xyz, frame.xyz)
+
+    def test_download_pdb(self):
+        pt.io.download_PDB('1l2y', 'output/', overwrite=True)
+        t2 = pt.load('output/1l2y.pdb')
+        assert t2.n_atoms == 304, 'must have 304 atoms'
+
+    def test_load_https(self):
+        top = pt.io.load_topology('https://raw.githubusercontent.com/ParmEd/ParmEd/master/test/files/2koc.pdb')
+        assert top.n_atoms == 451, '2koc'
 
 if __name__ == "__main__":
     unittest.main()

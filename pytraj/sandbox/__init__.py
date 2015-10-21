@@ -85,3 +85,31 @@ class Trajout:
 
     def __exit__(self, *args):
         pass
+
+# for testing
+from pytraj._get_common_objects import (_dispatch_traj_ref_top_frame_indices,
+        _get_data_from_dtype)
+from pytraj.actions import CpptrajActions
+from pytraj.datasets import CpptrajDatasetList 
+
+@_dispatch_traj_ref_top_frame_indices
+def _toy_radgyr(traj,
+                mask="",
+                top=None,
+                dtype='ndarray',
+                nomax=True,
+                frame_indices=None):
+    '''
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> pt.mindist(traj, '@CA @H')
+    '''
+    act = CpptrajActions.Action_Radgyr()
+    dslist = CpptrajDatasetList()
+
+    _nomax = 'nomax' if nomax else ''
+    mask = ' '.join((mask, _nomax))
+
+    act(mask, traj, top=top, dslist=dslist)
+    return _get_data_from_dtype(dslist, dtype=dtype)

@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 import os
-from ..TrajectoryIterator import TrajectoryIterator
+from ..trajectory_iterator import TrajectoryIterator
 
 
 __all__  = ['load_sample_data', 'load_rna', 'load_tz2_ortho', 'load_ala3']

@@ -2,7 +2,7 @@ import os
 import numpy as np
 import unittest
 import pytraj as pt
-from pytraj.Topology import Topology
+from pytraj import Topology
 from pytraj.core.cpp_core import AtomMask
 from pytraj.base import *
 

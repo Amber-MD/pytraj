@@ -1,8 +1,10 @@
 from __future__ import absolute_import
 # TODO: rename this file
+from functools import wraps
 
 # do not import anything else here.
 from pytraj.externals.six import string_types, integer_types
+from pytraj.utils.convert import array_to_cpptraj_atommask
 
 def _load_Topology(filename):
     from pytraj import Topology, ParmFile
@@ -149,3 +151,34 @@ def _get_resrange(resrange):
     else:
         _resrange = ""
     return _resrange
+
+def _dispatch_traj_ref_top_frame_indices(f):
+    @wraps(f)
+    def inner(*args, **kwd):
+        args = list(args)
+        traj = kwd.get('traj', args[0])
+        frame_indices = kwd.get('frame_indices', None)
+        ref = kwd.get('ref', None)
+        top = kwd.get('top', None)
+
+        if 'mask' in kwd.keys():
+            mask = kwd.get('mask')
+        else:
+            mask = args[1]
+
+        # overwrite
+        kwd['top'] = _get_topology(traj, top)
+        if ref is not None:
+            kwd['ref'] = _get_reference_from_traj(traj, ref)
+        if 'traj' in kwd.keys():
+            kwd['traj'] = _get_fiterator(traj, frame_indices)
+        else:
+            args[0] = _get_fiterator(traj, frame_indices)
+        if not isinstance(mask, string_types):
+            mask = array_to_cpptraj_atommask(mask)
+        if 'mask' in kwd.keys():
+            kwd['mask'] = mask
+        else:
+            args[1] = mask
+        return f(*args, **kwd)
+    return inner

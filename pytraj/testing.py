@@ -6,7 +6,7 @@ from .datafiles.load_sample_data import load_sample_data
 from .utils import eq, aa_eq
 from .utils.check_and_assert import is_linux
 from .utils import duplicate_traj, Timer
-from .Topology import Topology
+from .topology import Topology
 from .utils.context import goto_temp_folder
 
 __all__ = ['test_if_having', 'no_test', 'local_test', 'load_sample_data', 'eq',

@@ -19,7 +19,6 @@ class TestLifeTime(unittest.TestCase):
         state.run()
         hbonds_data = [d.values for d in state.data[2:21]]
         #exptected_lifetime_data = [d.values for d in state.data[-19:]]
-        #pt._verbose()
         lifetime_data = [d.values for d in lifetime(hbonds_data, dtype='dataset')]
 
         #for arr0, arr1 in zip(exptected_lifetime_data, lifetime_data):

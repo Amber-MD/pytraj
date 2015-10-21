@@ -41,8 +41,6 @@ script:
     - export LD_LIBRARY_PATH=`pwd`"/cpptraj/lib":$LD_LIBRARY_PATH
     #- export CPPTRAJHOME=`pwd`"/cpptraj/"
     - conda install scipy mpi4py libnetcdf --yes
-    # conda seems weird. Why do we need to reinstall again?
-    - conda install lapackamber arpack blasamber --yes -c ambermd
     - cd ./tests
     - python ./run_simple_test.py
     - python ./run_all_and_find_fails.py

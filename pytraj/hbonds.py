@@ -9,26 +9,20 @@ from ._get_common_objects import _get_data_from_dtype, _get_topology
 from ._base_result_class import BaseAnalysisResult
 from ._shared_methods import iterframe_master
 
-__all__ = ['DatasetHBond', 'search_hbonds', 'search_hbonds_nointramol',
-           'search_hbonds_noseries']
+__all__ = ['DatasetHBond', 'search_hbonds']
 
 
-def _to_amber_mask(txt):
+def _to_amber_mask(txtlist):
     import re
     """Convert something like 'ASP_16@OD1-ARG_18@N-H to ':16@OD1 :18@H'
     """
 
-    if isinstance(txt, string_types):
-        _txt = [txt, ]
-    elif isinstance(txt, (list, tuple)):
-        _txt = txt[:]
-    else:
-        raise NotImplementedError()
+    # make a copy
+    _txt = txtlist[:]
 
     for mask in _txt:
         mask = mask.replace("_", ":")
         yield " ".join(re.findall(r"(:\d+@\w+)", mask))
-
 
 class DatasetHBond(BaseAnalysisResult):
     """Hold data for hbond analysis
@@ -40,7 +34,7 @@ class DatasetHBond(BaseAnalysisResult):
         return root_msg + "\n" + more_info
 
     def __repr__(self):
-        return self.__str__()
+        return str(self)
 
     @property
     def donor_aceptor(self):
@@ -60,49 +54,6 @@ def _update_key_hbond(_dslist):
     for d0 in _dslist:
         if d0.key == 'HB00000[UU]':
             d0.key = 'total_solute_hbonds'
-
-
-def search_hbonds_noseries(traj,
-                           mask="",
-                           dtype='dataset',
-                           update_key=True, *args, **kwd):
-    """search hbonds for a given mask
-
-    Parameters
-    ----------
-    traj : {Trajectory-like object, frame_iter object, list of traj}
-    mask : str 
-        Amber atom mask
-    dtype : str {'dataset', 'ndarray'}, default='dataset'
-    *args, **kwd: optional
-
-    Returns
-    -------
-    out : pytraj.DatasetList (similiar to Python list with labeled array)
-
-    See Also
-    --------
-    http://ambermd.org/doc12/Amber15.pdf (page 575)
-    """
-
-    dslist = CpptrajDatasetList()
-    act = CpptrajActions.Action_Hbond()
-
-    command = mask
-    if "series" in command:
-        raise ValueError("don't accept key `series`")
-    act(command, traj, dslist=dslist, *args, **kwd)
-    act.print_output()
-
-    if update_key:
-        _update_key_hbond(dslist)
-
-    if dtype == 'dataframe':
-        # return DataFrame.T to have better visual effect
-        return dslist.to_dataframe().T
-    else:
-        return _get_data_from_dtype(dslist, dtype=dtype)
-
 
 @_register_pmap
 def search_hbonds(traj,
@@ -177,38 +128,5 @@ def search_hbonds(traj,
         hdata = DatasetHBond(dslist_new)
         hdata._old_keys = old_keys
         return hdata
-    else:
-        return _get_data_from_dtype(dslist, dtype=dtype)
-
-
-def search_hbonds_nointramol(traj,
-                             mask="solventacceptor :WAT@O solventdonor :WAT",
-                             dtype='dataset',
-                             update_key=True, *args, **kwd):
-    """
-    Search hbonds between solute and solvent, ignoring intra-hbond
-
-    Parameters
-    ----------
-    traj : Trajectory-like or any iterable object that _frame_iter_mater return a Frame
-    mask : str, default "solventacceptor :WAT@O solventdonor :WAT"
-        cpptraj command
-    dtype : str, default 'dataset'
-    *args, **kwd: optional
-
-    See Also
-    --------
-       search_hbonds
-    """
-    dslist = CpptrajDatasetList()
-    act = CpptrajActions.Action_Hbond()
-    command = "series nointramol " + mask
-    act(command, traj, dslist=dslist, *args, **kwd)
-    act.print_output()
-
-    if update_key:
-        _update_key_hbond(dslist)
-    if dtype == 'hbond_class':
-        return HbondAnalysisResult(dslist)
     else:
         return _get_data_from_dtype(dslist, dtype=dtype)

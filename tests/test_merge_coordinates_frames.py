@@ -18,21 +18,21 @@ class Test(unittest.TestCase):
 
         # test mutable traj
         coords = pt.tools.merge_coordinates(traj[:])
-        r0 = pt.misc.rmsd(coords, pt.get_coordinates(traj), True)
+        r0 = pt.tools.rmsd(coords, pt.get_coordinates(traj), True)
         assert r0 == 0.
 
         # test immutable traj
         coords = pt.tools.merge_coordinates(traj)
-        r0 = pt.misc.rmsd(coords, pt.get_coordinates(traj), True)
+        r0 = pt.tools.rmsd(coords, pt.get_coordinates(traj), True)
         assert r0 == 0.
 
         # test tuple
         coords = pt.tools.merge_coordinates((frame for frame in traj))
-        r0 = pt.misc.rmsd(coords, pt.get_coordinates(traj), True)
+        r0 = pt.tools.rmsd(coords, pt.get_coordinates(traj), True)
         assert r0 == 0.
 
         coords = pt.tools.merge_coordinates([f.copy() for f in traj])
-        r0 = pt.misc.rmsd(coords, pt.get_coordinates(traj), True)
+        r0 = pt.tools.rmsd(coords, pt.get_coordinates(traj), True)
         assert r0 == 0.
 
     def test_1(self):
@@ -46,7 +46,7 @@ class Test(unittest.TestCase):
 
         # test mutable traj
         frame = pt.tools.merge_frames(traj[:])
-        r0 = pt.misc.rmsd(frame.xyz, pt.get_coordinates(traj), True)
+        r0 = pt.tools.rmsd(frame.xyz, pt.get_coordinates(traj), True)
         assert r0 == 0.
 
         #, True) test immutable traj

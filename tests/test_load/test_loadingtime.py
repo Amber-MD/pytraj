@@ -1,7 +1,7 @@
 from time import time
 import unittest
 from pytraj.base import *
-from pytraj.TrajectoryIterator import TrajectoryIterator
+from pytraj import TrajectoryIterator
 
 
 class TestLoadingTime(unittest.TestCase):
