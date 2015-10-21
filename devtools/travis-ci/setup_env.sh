@@ -17,6 +17,9 @@ conda create -y -n myenv python=$PYTHON_VERSION numpy cython h5py
 
 echo 'activate myenv'
 source activate myenv
+# seriously I still need to reinstall conda? 
+# this happens on Oct 20, 2015 on travis
+pip install conda
 echo 'end activate myenv'
 conda install --yes anaconda-client
 
