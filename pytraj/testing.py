@@ -1,5 +1,6 @@
 from __future__ import absolute_import, print_function
 import os
+import numpy as np
 
 from .datafiles.load_sample_data import load_sample_data
 from .utils import eq, aa_eq
@@ -72,6 +73,7 @@ def assert_equal_topology(top, new_top, traj):
     aa_eq(new_top.dihedral_indices, top.dihedral_indices)
     aa_eq(new_top.mass, top.mass)
     aa_eq(new_top.charge, top.charge)
+    aa_eq(new_top.box.values, top.box.values)
 
     assert [res.name for res in top.residues] == [res.name for res in
             new_top.residues], 'equal resnames'

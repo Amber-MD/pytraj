@@ -7,6 +7,7 @@ import pytraj as pt
 from pytraj.utils import eq, aa_eq
 from pytraj.testing import assert_equal_topology
 from pytraj.compat import zip
+from pytraj.core import Box
 
 
 class TestBuildAndPickleTopology(unittest.TestCase):
@@ -40,6 +41,7 @@ class TestBuildAndPickleTopology(unittest.TestCase):
 
         new_top.add_bonds(d['bond_index'])
         new_top.add_dihedrals(d['dihedral_index'])
+        new_top.box = Box(top.box.values)
 
         assert_equal_topology(top, new_top, self.traj)
 

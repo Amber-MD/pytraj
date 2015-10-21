@@ -644,7 +644,7 @@ cdef class Topology:
         d['bond_index'] = self.bond_indices
         d['dihedral_index'] = self.dihedral_indices
         d['mol_number'] = molnums
-        d['box'] = np.array(self.box)
+        d['box'] = self.box.values
 
         return d
 
