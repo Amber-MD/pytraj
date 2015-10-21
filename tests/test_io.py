@@ -177,9 +177,8 @@ class TestIO(unittest.TestCase):
         assert t2.n_atoms == 304, 'must have 304 atoms'
 
     def test_load_https(self):
-        top = pt.io.load_topology('https://github.com/ParmEd/ParmEd/blob/master/test/files/2koc.pdb')
-        pdb = pt.load_pdb_rcsb('2koc')
-        assert top.n_atoms == pdb.n_atoms, '2koc: same atoms'
+        top = pt.io.load_topology('https://raw.githubusercontent.com/ParmEd/ParmEd/master/test/files/2koc.pdb')
+        assert top.n_atoms == 451, '2koc'
 
 if __name__ == "__main__":
     unittest.main()
