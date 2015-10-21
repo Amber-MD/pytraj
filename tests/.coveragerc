@@ -1,3 +1,10 @@
+[run]
+branch = True
+source = pytraj
+omit =
+    */externals/*
+    */sandbox/*
+ 
 [report]
 exclude_lines =
     pragma: no cover
@@ -8,5 +15,6 @@ exclude_lines =
     raise AssertionError
     raise ValueError
     except ImportError
+    except NameError
     if 0:
     if __name__ == .__main__.:

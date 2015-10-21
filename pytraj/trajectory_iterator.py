@@ -17,19 +17,8 @@ from ._get_common_objects import _load_Topology
 from .utils import split_range
 from .utils.convert import array_to_cpptraj_atommask
 
-__all__ = ['TrajectoryIterator', 'split_iterators']
+__all__ = ['TrajectoryIterator',]
 
-
-def split_iterators(traj,
-                    n_chunks=1,
-                    start=0,
-                    stop=-1,
-                    step=1,
-                    mask=None,
-                    autoimage=False,
-                    rmsfit=None):
-    return traj._split_iterators(n_chunks, start, stop, step, mask, autoimage,
-                                rmsfit, rank=-1)
 
 
 def _make_frame_slices(n_files, original_frame_slice):
@@ -58,12 +47,12 @@ class TrajectoryIterator(TrajectoryCpptraj):
         Examples
         --------
         >>> import pytraj as pt
-        >>> traj = pt.TrajectoryIterator('./traj.nc', 'input.parm7')
+        >>> from pytraj.testing import get_fn
+        >>> traj_name, top_name = get_fn('tz2')
+        >>> traj = pt.TrajectoryIterator(traj_name, top_name)
 
         >>> # user should always use :method:`pytraj.iterload` to load TrajectoryIterator
-        >>> traj = pt.iterload(['remd.x.000', 'remd.x.001'], 'input.parm7')
-        >>> # load another trajectory
-        >>> traj.load('./remd.x.003')
+        >>> traj = pt.iterload(['remd.x.000', 'remd.x.001'], 'input.parm7') # doctest: +SKIP
 
         Notes
         -----
@@ -100,9 +89,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
                     'must have a non-empty Topology')
             self.load(filename, self.top, *args, **kwd)
         if not top and (args or kwd):
-            warnings.warn(
-                'creating an empty TrajectoryIterator since does not '
-                'have Topology information. Ignore other arguments')
+            raise ValueError('require a Topology')
 
         self.__dict__.update({
             'top_filename': self.top.filename,
@@ -181,18 +168,22 @@ class TrajectoryIterator(TrajectoryCpptraj):
 
     @property
     def topology(self):
-        """traditional name for Topology file"""
+        """traditional name for Topology file
+        
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> from pytraj.testing import get_fn
+        >>> fname, tname = get_fn('ala3')
+        >>> traj = pt.iterload(fname, tname)
+        >>> traj.topology
+        <Topology: 34 atoms, 3 residues, 1 mols, non-PBC>
+        """
         return self.top
 
     @topology.setter
     def topology(self, newtop):
         self.top = newtop
-
-    @property
-    def coordinates(self):
-        """return 3D numpy.ndarray, same as `TrajectoryIterator.xyz`
-        """
-        return self.xyz
 
     @property
     def _estimated_GB(self):
@@ -235,8 +226,10 @@ class TrajectoryIterator(TrajectoryCpptraj):
         '''
         Examples
         --------
-        >>> for frame in traj.iterframe(0, 8, 2): print(frame)
-        >>> for frame in traj.iterframe(0, 8, 2, autoimage=True)
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('tz2')
+        >>> for frame in traj.iterframe(0, 8, 2): pass
+        >>> for frame in traj.iterframe(0, 8, 2, autoimage=True): pass
         '''
 
         if mask is None:
@@ -319,7 +312,10 @@ class TrajectoryIterator(TrajectoryCpptraj):
 
         Examples
         --------
-        >>> for chunk in trajiter.iterchunk(100, autoimage=True, rmsfit=(ref0, '@CA'))
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('tz2')
+        >>> ref = traj[3]
+        >>> for chunk in traj.iterchunk(3, autoimage=True, rmsfit=(ref, '@CA')): pass
 
         Notes
         -----
@@ -375,7 +371,8 @@ class TrajectoryIterator(TrajectoryCpptraj):
         --------
         >>> import pytraj as pt
         >>> traj = pt.load_sample_data('tz2')
-        >>> list(traj.split_iterators(n_chunks=4, mask='@CA'))
+        >>> list(traj._split_iterators(n_chunks=4, mask='@CA'))
+        [<Frame with 12 atoms>, <Frame with 12 atoms>]
         """
 
         assert 0 <= start <= self.n_frames, "0 <= start <= self.n_frames"
@@ -417,6 +414,3 @@ class TrajectoryIterator(TrajectoryCpptraj):
     @property
     def temperatures(self):
         return np.array([frame.temperature for frame in self])
-
-    def _iselect(self, frame_indices):
-        return self._iterframe_indices(frame_indices)
