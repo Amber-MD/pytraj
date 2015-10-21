@@ -62,11 +62,11 @@ class TestWriteTraj(unittest.TestCase):
         traj4 = pt.iterload(flist, top)
         aa_eq(traj4.xyz, traj.xyz)
 
-    def test_raise_NotimplementedError(self):
+    def test_raise_NotImplementedError(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
-        self.assertRaises(NotimplementedError, lambda: pt.write_traj([traj[0], traj[1]],
-            top=traj.top, frame_indices=range(3)))
+        self.assertRaises(NotImplementedError, lambda: pt.write_traj('output/test.pdb', [traj[0], traj[1]],
+            top=traj.top, frame_indices=range(3), overwrite=True))
 
 
 if __name__ == "__main__":
