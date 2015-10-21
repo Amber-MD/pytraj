@@ -44,6 +44,7 @@ script:
     - cd ./tests
     - python ./run_simple_test.py
     - python ./run_all_and_find_fails.py
+    #- nosetests --processes 6 --process-timeout 200 --with-coverage --cover-package pytraj -vs .
     - cd ../examples
     - python ./run_all_and_find_fails.py
     - cd mpi_examples

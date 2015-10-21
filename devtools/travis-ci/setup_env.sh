@@ -18,7 +18,7 @@ conda config --add channels http://conda.binstar.org/ambermd/
 conda create -y -n myenv python=$PYTHON_VERSION numpy cython h5py
 
 source activate myenv
-#conda install --yes anaconda-client
+conda install --yes anaconda-client coverage python-coveralls nose
 
 # install other packages here
 pip install git+git://github.com/ParmEd/ParmEd
