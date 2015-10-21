@@ -8,18 +8,25 @@ import doctest
 from pytraj.compat import PY3
 from pytraj import testing
 
+doctest.DONT_ACCEPT_BLANKLINE = False
+
+def get_total_errors(modules):
+    return sum([doctest.testmod(mod).failed for mod in modules])
 
 class TestDoc(unittest.TestCase):
     '''testing for light modules
     '''
     def test_doc(self):
         from pytraj.utils import convert
-        def get_total_errors(modules):
-            return sum([doctest.testmod(mod).failed for mod in modules])
+        from pytraj import frameiter, vector
+        from pytraj.parallel import pjob
 
         modules = [pt._get_common_objects,
                    pt._nastruct,
                    convert,
+                   frameiter,
+                   vector,
+                   pjob,
                   ]
         if PY3:
             # avoid adding 'u' to string in PY2: u'GLU5_O-LYS8_N-H'
