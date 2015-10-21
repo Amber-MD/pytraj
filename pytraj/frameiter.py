@@ -73,6 +73,12 @@ class FrameIter(object):
     >>> fi = traj.iterframe(2, 8, mask='@1,2,3,4,5')
     >>> fi.n_atoms
     5
+
+    >>> # make copy of each Frame
+    >>> fi = traj.iterframe(2, 8, mask='@1,2,3,4,5', copy=True)
+
+    >>> fi = traj.iterframe(2, 8, rmsfit=3)
+    >>> fi = traj.iterframe(2, 8, mask='@1,2,3,4,5', copy=True)
     """
 
     def __init__(self, fi_generator,

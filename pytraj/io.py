@@ -17,12 +17,7 @@ from .topology import Topology, ParmFile
 from .api import Trajectory
 from .trajectory_iterator import TrajectoryIterator
 
-try:
-    from .externals._load_ParmEd import load_ParmEd, _load_parmed
-except:
-    load_ParmEd = None
-
-# load mdtraj and MDAnalysis
+from .externals._load_ParmEd import load_ParmEd, _load_parmed
 from .externals._load_mdtraj import load_mdtraj as _load_mdtraj
 from .externals._load_MDAnalysis import load_MDAnalysis as _load_MDAnalysis
 

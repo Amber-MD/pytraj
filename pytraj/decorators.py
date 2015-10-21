@@ -22,17 +22,6 @@ def _register_openmp(f):
     inner._openmp_capability = True
     return inner
 
-def _import(modname):
-    """has_numpy, np = _import('numpy')"""
-    has_module = False
-    try:
-        imported_mod = __import__(modname)
-        has_module = True
-        return (has_module, imported_mod)
-    except ImportError:
-        has_module = False
-        return (has_module, None)
-
 def has_(lib):
     """check if having `lib` library
 

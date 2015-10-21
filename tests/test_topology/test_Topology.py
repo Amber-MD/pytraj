@@ -61,6 +61,9 @@ class TestTopology(unittest.TestCase):
         except ImportError:
             pass
 
+    def test_raise_RuntimeError(self):
+        self.assertRaises(RuntimeError, lambda: pt.load_topology('dummy'))
+
 
 if __name__ == "__main__":
     unittest.main()
