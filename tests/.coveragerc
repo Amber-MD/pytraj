@@ -7,5 +7,6 @@ exclude_lines =
     if settings.DEBUG
     raise AssertionError
     raise ValueError
+    except ImportError
     if 0:
     if __name__ == .__main__.:

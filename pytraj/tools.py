@@ -48,7 +48,7 @@ PY3 = _sys.version_info[0] == 3
 if PY3:
     _iteritems = "items"
     string_types = str
-else:
+else: # pragma: no covert
     _iteritems = "iteritems"
     string_types = basestring
 

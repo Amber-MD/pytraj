@@ -8,7 +8,7 @@ import subprocess
 
 class TestRunMPI(unittest.TestCase):
     def test_0(self):
-        subprocess.check_call(['mpirun', '-n', '4', 'python', 'mpi/test_mpi.py'])
+        subprocess.check_call(['mpirun', '-n', '4', 'python', 'test_mpi/test_mpi.py'])
 
 
 if __name__ == "__main__":
