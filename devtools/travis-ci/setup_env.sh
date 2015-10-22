@@ -13,9 +13,11 @@ conda install --yes conda-build jinja2 anaconda-client pip
 conda create -y -n myenv python=$PYTHON_VERSION numpy cython h5py mpi4py libnetcdf
 
 source activate myenv
-conda install --yes anaconda-client coverage python-coveralls nose
+conda install --yes anaconda-client coverage python-coveralls
 
 # install other packages here
+pip install coverage
+pip install nose
 pip install git+git://github.com/ParmEd/ParmEd
 pip install memory_profiler
 pip install psutil

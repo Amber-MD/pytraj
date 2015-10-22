@@ -433,10 +433,10 @@ def split_traj_by_residues(traj, start=0, stop=-1, step=1):
         yield traj[j]
 
 
-def find_lib(libname, unique=False):
+def find_lib(libname):
     """return a list of all library files
 
-    >>> find_lib('cpptraj')[0].split('/')[-1]
+    >>> list(find_lib('cpptraj'))[0].split('/')[-1]
     'libcpptraj.so'
     """
     paths = os.environ.get('LD_LIBRARY_PATH', '').split(':')
@@ -450,24 +450,7 @@ def find_lib(libname, unique=False):
             if os.path.isfile(fname):
                 lib_path_list.append(fname)
 
-    if not lib_path_list:
-        return None
-    else:
-        if unique:
-            return set(lib_path_list)
-        else:
-            return lib_path_list
-
-
-def read_orca_trj(fname):
-    """return numpy 2D array
-    """
-    # http://stackoverflow.com/questions/14645789/
-    # numpy-reading-file-with-filtering-lines-on-the-fly
-    import numpy as np
-    regexp = r'\s+\w+' + r'\s+([-.0-9]+)' * 3 + r'\s*\n'
-    return np.fromregex(fname, regexp, dtype='f')
-
+    return set(lib_path_list)
 
 def read_gaussian_output(filename=None, top=None):
     """return a `pytraj.api.Trajectory` object
@@ -534,6 +517,18 @@ def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
     >>> traj3 = merge_trajs(traj1, traj2)
     >>> # from frame_iter for saving memory
     >>> traj3 = merge_trajs((traj1(0, 10, 2), traj1.top), (traj2(100, 110, 2), traj2.top), n_frames=6)
+
+    >>> # raise error if not having the same n_frames
+    >>> traj4 = pt.load_sample_data('tz2')[:]
+    >>> traj4.n_frames
+    10
+    >>> tra1.n_frames
+    1
+    >>> merge_trajs(traj1, traj4)
+    Traceback (most recent call last):
+        ...
+    ValueError: must have the same n_frames
+
 
     Notes
     -----
@@ -625,10 +620,14 @@ def as_3darray(xyz):
     (10, 15879)
     >>> as_3darray(xyz_2d).shape
     (10, 5293, 3)
+    >>> as_3darray(traj.xyz)
+    Traceback (most recent call last):
+        ...
+    ValueError: ndim must be 2
     '''
     shape = xyz.shape
     if len(shape) != 2:
-        raise ValueError('shape must be 2')
+        raise ValueError('ndim must be 2')
     new_shape = (shape[0], int(shape[1] / 3), 3)
     return xyz.reshape(new_shape)
 
