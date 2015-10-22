@@ -113,10 +113,14 @@ class TestIO(unittest.TestCase):
         xyz = pt.get_coordinates(traj, mask='@CA')
         aa_eq(xyz, traj['@CA'].xyz)
 
+        # raise
+        self.assertRaises(ValueError, lambda: pt.get_coordinates(traj(), frame_indices=[0,
+            2]))
+
     def test_get_coordinates_trajecotory(self):
         '''mutable pytraj.Trajectory
         '''
-        traj = self.traj_tz2_ortho.copy()
+        traj = pt.Trajectory(xyz=self.traj_tz2_ortho.xyz, top=self.traj_tz2_ortho.top)
         # make a different copy since ``traj`` is mutable
         traj2 = traj.copy()
 
@@ -175,10 +179,13 @@ class TestIO(unittest.TestCase):
         pt.io.download_PDB('1l2y', 'output/', overwrite=True)
         t2 = pt.load('output/1l2y.pdb')
         assert t2.n_atoms == 304, 'must have 304 atoms'
+        self.assertRaises(ValueError, lambda: pt.io.download_PDB('1l2y', 'output/',
+            overwrite=False))
 
     def test_load_https(self):
         top = pt.io.load_topology('https://raw.githubusercontent.com/ParmEd/ParmEd/master/test/files/2koc.pdb')
         assert top.n_atoms == 451, '2koc'
+
 
 if __name__ == "__main__":
     unittest.main()

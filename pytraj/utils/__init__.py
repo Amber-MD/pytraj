@@ -25,6 +25,9 @@ def duplicate_traj(orig_traj, n_times):
     1
     >>> duplicate_traj(traj, 3).n_frames
     3
+    >>> t0 = pt.Trajectory(xyz=traj.xyz, top=traj.top)
+    >>> duplicate_traj(t0, 3).n_frames
+    4
     '''
     traj = orig_traj.copy()
     for _ in range(n_times - 1):
@@ -42,6 +45,10 @@ def join_mask(m, res=None):
     Examples
     --------
     >>> join_mask(('CA', 'CB'), res='1')
+    ':1@CA :1@CB'
+    >>> join_mask('CA CB', res='1')
+    ':1@CA :1@CB'
+    >>> join_mask('CA CB', res=0)
     ':1@CA :1@CB'
     """
     from pytraj.compat import string_types

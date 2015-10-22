@@ -21,6 +21,7 @@ class TestDoc(unittest.TestCase):
         from pytraj import frameiter, vector, datasetlist, _base_result_class
         from pytraj import trajectory_iterator, api
         from pytraj.parallel import pjob
+        from pytraj.utils import check_and_assert
 
         modules = [api,
                    pt._get_common_objects,
@@ -34,7 +35,9 @@ class TestDoc(unittest.TestCase):
                   ]
         if PY3:
             # avoid adding 'u' to string in PY2: u'GLU5_O-LYS8_N-H'
-            additional_list = [pt.hbonds, pt.tools,
+            additional_list = [
+                    check_and_assert,
+                    pt.hbonds, pt.tools,
                     pt.parallel.parallel_mapping_multiprocessing,
                     testing, utils,
                     pt.matrix,

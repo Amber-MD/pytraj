@@ -55,5 +55,10 @@ class TestREMDTemperature(unittest.TestCase):
                 "data/Test_RemdTraj/ala2.99sb.mbondi2.parm7", T=300.0)
         aa_eq(traj.xyz, traj2.xyz)
 
+        # with Topology
+        traj2  = pt.iterload_remd("data/Test_RemdTraj/rem.nc.000",
+                                  top=traj.top, T=300.0) 
+        aa_eq(traj.xyz, traj2.xyz)
+
 if __name__ == "__main__":
     unittest.main()

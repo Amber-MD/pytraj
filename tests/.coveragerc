@@ -17,6 +17,7 @@ exclude_lines =
     raise RuntimeError
     raise NotImplementedError
     raise ImportError
+    except ImportError
     warn
 
     # Don't complain if non-runnable code isn't run:
@@ -27,3 +28,4 @@ omit =
     
     */externals/*
     */sandbox/*
+    */amber_wrapper/*
