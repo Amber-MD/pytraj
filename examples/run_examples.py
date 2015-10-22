@@ -1,3 +1,5 @@
+#!/usr/bin/env  python
+
 from subprocess import call
 import sys
 import os

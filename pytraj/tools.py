@@ -639,3 +639,12 @@ def split_and_write_traj(self,
     for idx, traj in enumerate(self.iterchunk(chunksize=chunksize)):
         fname = ".".join((root_name, str(idx), ext))
         traj.save(fname, *args, **kwd)
+
+def read_to_array(fname):
+    '''read text from file to numpy array'''
+    import numpy as np
+    with open(fname, 'r') as fh:
+        arr0 = np.array([[x for x in line.split()] for line in fh.readlines()])
+        return np.array(flatten(arr0), dtype='f8')
+
+

@@ -685,7 +685,11 @@ class Trajectory(object):
         else:
             # frame_indices is not None
             start, stop, step = None, None, None
-            n_frames = len(frame_indices)
+            try:
+                n_frames = len(frame_indices)
+            except TypeError:
+                # itertools.chain
+                n_frames = None
             indices = frame_indices
 
         frame_iter_super = self._iterframe_indices(indices)
