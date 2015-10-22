@@ -3,7 +3,6 @@ import numpy as np
 from collections import OrderedDict
 from collections import defaultdict
 from pytraj.datasets import CpptrajDatasetList
-from pytraj.externals._json import to_json, read_json
 from pytraj.externals._pickle import to_pickle, read_pickle
 from pytraj.utils import is_int, is_array, is_generator
 from pytraj.compat import string_types, callable
@@ -12,7 +11,7 @@ from pytraj.core.cpp_core import ArgList
 from pytraj.compat import map, iteritems
 from pytraj.array import DataArray
 
-__all__ = ['load_datafile', 'stack', 'DatasetList', 'from_pickle', 'from_json']
+__all__ = ['load_datafile', 'stack', 'DatasetList', 'from_pickle']
 
 
 def _groupby(self, key):
@@ -31,12 +30,6 @@ def _groupby(self, key):
 def from_pickle(filename):
     dslist = DatasetList()
     dslist.from_pickle(filename)
-    return dslist
-
-
-def from_json(filename):
-    dslist = DatasetList()
-    dslist.from_json(filename)
     return dslist
 
 
@@ -122,10 +115,19 @@ class DatasetList(list):
     Examples
     --------
     >>> import pytraj as pt
+    >>> from pytraj import DatasetList
     >>> traj = pt.load_sample_data('tz2')[:2]
     >>> dslist = pt.multidihedral(traj, dtype='dataset')
     >>> dslist['phi:2'].values
     array([-128.72617304, -109.44321317])
+
+    >>> # make a copy
+    >>> d2 = dslist.copy()
+
+    >>> # save to_pickle
+    >>> dslist.to_pickle('output/test.pk')
+    >>> d2 = DatasetList()
+    >>> d2.from_pickle('output/test.pk')
     '''
 
     def __init__(self, dslist=None, copy=False):
@@ -152,20 +154,8 @@ class DatasetList(list):
         ddict = read_pickle(filename)
         self._from_full_dict(ddict)
 
-    def from_json(self, filename):
-        ddict = read_json(filename)
-        self._from_full_dict(ddict)
-
     def to_pickle(self, filename, use_numpy=True):
         to_pickle(self._to_full_dict(use_numpy), filename)
-
-    def to_json(self, filename, use_numpy=True):
-        full_dict = self._to_full_dict(use_numpy=use_numpy)
-        for key in self.keys():
-            d = full_dict[key]['values']
-            if hasattr(d, 'dtype') and 'int' in d.dtype.name:
-                full_dict[key]['values'] = d.tolist()
-        to_json(full_dict, filename)
 
     def _from_full_dict(self, ddict):
         from pytraj.array import DataArray
@@ -210,9 +200,6 @@ class DatasetList(list):
 
     def dtypes(self):
         return self.get_dtypes()
-
-    def aspects(self):
-        return self.get_aspects()
 
     def __str__(self):
         safe_msg = "<pytraj.DatasetList with %s datasets>\n" % self.size
@@ -285,13 +272,6 @@ class DatasetList(list):
             tmp_list.append(d0.key)
         return tmp_list
 
-    def get_scalar_types(self):
-        """return a list"""
-        tmp_list = []
-        for d0 in self:
-            tmp_list.append(d0.scalar_type)
-        return tmp_list
-
     def get_dtypes(self):
         """return a list"""
         tmp_list = []
@@ -326,6 +306,13 @@ class DatasetList(list):
             keyword for searching
         mode: str, default='key'
             mode = 'key' | 'name' | 'dtype' | 'aspect'
+
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('tz2')
+        >>> dslist = pt.multidihedral(traj, dtype='dataset')
+        >>> sub_dslist = dslist.grep('phi')
         """
         import re
 
@@ -349,10 +336,7 @@ class DatasetList(list):
 
     def tolist(self):
         """return a list of list/array"""
-        try:
-            return [d0.tolist() for d0 in self]
-        except:
-            raise NotImplementedError("dont know how to convert to list")
+        return [list(d)  for d in self]
 
     def to_dict(self, use_numpy=True, ordered_dict=True):
         """return a dict object with key=key, value=list"""
@@ -447,29 +431,13 @@ class DatasetList(list):
         else:
             raise ValueError()
 
-    def remove(self, dset):
-        for idx, d in enumerate(self):
-            if dset.key == d.key:
-                # do not work with
-                # super(DatasetList, self).remove(d)
-                # TypeError: 'NotImplementedType' object is not callable
-                # why?
-                super(DatasetList, self).remove(self.__getitem__(idx))
-
-    def from_datasetlist(self, dslist, copy=True):
-        self.from_sequence(dslist, copy=copy)
-        return self
-
-    def from_sequence(self, dslist, copy=True):
-        for d in dslist:
-            self.append(d, copy=copy)
-        return self
-
     def groupby(self, func_or_key):
+        '''
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('tz2')
+        >>> dslist = pt.multidihedral(traj, dtype='dataset')
+        >>> x = dslist.groupby(lambda x: 'psi' in x.key)
+        '''
         return _groupby(self, func_or_key)
-
-    def cpptraj_dtypes(self):
-        return np.array([x.cpptraj_dtype for x in self])
-
-    def extend(self, other, copy=True):
-        self.from_sequence(other, copy=copy)

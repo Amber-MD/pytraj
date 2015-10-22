@@ -103,6 +103,14 @@ def diagonalize(mat, n_vecs, dtype='dataset'):
     n_vecs : number of output vectors
     dtype : 'tuple' or 'dataset'
         if 'tuple', return a tuple (eigenvalues, eigenvectors). If 'dataset' return CpptrajDataseList
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.load_sample_data('tz2')
+    >>> mat = pt.matrix.dist(traj, '@CA')
+    >>> x = pt.matrix.diagonalize(mat, 4, dtype='tuple')
+    >>> x = pt.matrix.diagonalize(mat, 4, dtype='dataset')
     '''
     _vecs = 'vecs ' + str(n_vecs)
     dslist = CpptrajDatasetList()
@@ -115,7 +123,8 @@ def diagonalize(mat, n_vecs, dtype='dataset'):
                                         vsize=len(arr),
                                         n_cols=mat.shape[0])
     elif isinstance(mat, cpp_datasets.DatasetMatrixDouble):
-        assert mat.kind == 'half', 'DatasetMatrixDouble must be half matrix'
+        if mat.kind != 'half':
+            raise ValueError('DatasetMatrixDouble must be half matrix')
         dslist[0]._set_data_half_matrix(mat._to_cpptraj_sparse_matrix(),
                                         vsize=mat.size,
                                         n_cols=mat.n_cols)
@@ -131,6 +140,15 @@ def diagonalize(mat, n_vecs, dtype='dataset'):
 
 
 def _diag_np(mat, n_vecs):
+    '''have opposite sign with cpptraj
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.load_sample_data('tz2')
+    >>> mat = pt.matrix.dist(traj, '@CA')
+    >>> x = pt.matrix._diag_np(mat, 4)
+    '''
     evals, evecs = np.linalg.eigh(mat)
     evals = evals[::-1][:n_vecs]
     evecs = evecs[:, ::-1].T[:n_vecs]

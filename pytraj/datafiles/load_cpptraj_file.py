@@ -7,15 +7,15 @@ for compatibility with cpptraj
 from __future__ import absolute_import
 from ..core.cpp_core import Command
 from ..utils import file_exist as file_exists
+from ..decorators import ensure_exist
 
 
-def load_cpptraj_file(fname):
+@ensure_exist
+def load_cpptraj_file(filename):
     """
     Parameters
     ----------
     fname : str, name of cpptraj input file
         ("cpptraj -i input.txt" --> fname = "input.txt")
     """
-    if not file_exists(fname):
-        raise ValueError("can not locate this file")
-    return Command.get_state(fname)
+    return Command.get_state(filename)
