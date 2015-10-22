@@ -18,8 +18,9 @@ class TestTrajectoryIterator(unittest.TestCase):
         # raise
         # memory error if load larger than 1GB for xyz
         traj  = pt.datafiles.load_tz2_ortho()
-        for _ in range(10):
+        for _ in range(11):
             traj.load(traj.filelist)
+
         self.assertRaises(MemoryError, lambda: traj.xyz)
 
         # can not find filename
