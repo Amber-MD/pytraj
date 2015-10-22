@@ -8,8 +8,9 @@ from pytraj.analyses.CpptrajAnalyses import Analysis_LowestCurve
 from pytraj.datasets import CpptrajDatasetList
 
 
+# TODO: assert, not seems right
+
 class TestLowestCurve(unittest.TestCase):
-    #@unittest.skip('not sure how this works yet')
     def test_lowestcurve(self):
         data = np.loadtxt('data/esurf_vs_rmsd.dat').T
         act = Analysis_LowestCurve()
@@ -28,7 +29,6 @@ class TestLowestCurve(unittest.TestCase):
 
         #act('points 10 mysurf', dslist=dslist)
         act('points 10 myrmsd mysurf', dslist=dslist)
-        print([d for d in dslist])
 
 
 if __name__ == "__main__":
