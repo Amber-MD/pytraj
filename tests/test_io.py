@@ -25,7 +25,7 @@ class TestIO(unittest.TestCase):
         savedtraj = pt.iterload("./output/test_0.binpos", traj.top)
         assert savedtraj.n_frames == traj.n_frames
 
-    def test_blindload(self):
+    def test_blind_load(self):
         top = pt.load_topology("./data/Tc5b.top")
         assert isinstance(top, Topology) == True
 
@@ -66,6 +66,11 @@ class TestIO(unittest.TestCase):
         assert traj2.n_frames == len(indices)
 
     def test_load_and_save_1(self):
+        # do not support frame_indices for TrajectoryIterator
+        self.assertRaises(ValueError, lambda: pt.iterload(
+            filename="./data/md1_prod.Tc5b.x",
+            top="./data/Tc5b.top", frame_indices=[0, 5]))
+
         traj = pt.iterload(
             filename="./data/md1_prod.Tc5b.x",
             top="./data/Tc5b.top")
@@ -117,7 +122,7 @@ class TestIO(unittest.TestCase):
         self.assertRaises(ValueError, lambda: pt.get_coordinates(traj(), frame_indices=[0,
             2]))
 
-    def test_get_coordinates_trajecotory(self):
+    def test_get_coordinates_trajectory(self):
         '''mutable pytraj.Trajectory
         '''
         traj = pt.Trajectory(xyz=self.traj_tz2_ortho.xyz, top=self.traj_tz2_ortho.top)

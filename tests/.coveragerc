@@ -18,6 +18,7 @@ exclude_lines =
     raise NotImplementedError
     raise ImportError
     except ImportError
+    except NameError
     warn
 
     # Don't complain if non-runnable code isn't run:

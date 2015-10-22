@@ -10,6 +10,7 @@ from glob import glob
 from itertools import islice
 import functools
 from collections import OrderedDict, defaultdict
+import numpy as np
 
 
 def groupby(key, seq):
@@ -163,11 +164,10 @@ def grep_key(self, key):
     >>> import pytraj as pt
     >>> traj  = pt.load_sample_data('tz2')
     >>> dslist = pt.calc_multidihedral(traj, dtype='dataset') 
-    >>> pt.tools.grep_key(dslist, 'psi')[0] # doctest: +SKIP
-    <pytraj.array.DataArray: size=10, key=psi:1, dtype=float64, ndim=1>
-    values:
-    [ 176.6155643   166.82129574  168.79510009  167.42561927  151.18334989
-      134.17610997  160.99207908  165.1126967   147.94332109  145.42901383]
+    >>> pt.tools.grep_key(dslist, 'psi').values[0]
+    array([ 176.6155643 ,  166.82129574,  168.79510009,  167.42561927,
+            151.18334989,  134.17610997,  160.99207908,  165.1126967 ,
+            147.94332109,  145.42901383])
     """
     new_self = self.__class__()
     for d in self:
@@ -202,7 +202,7 @@ def flatten(x):
     return result
 
 
-def n_grams(a, n, asarray=False):
+def n_grams(a, n):
     """n_grams
 
     Parameters
@@ -224,14 +224,7 @@ def n_grams(a, n, asarray=False):
     """
 
     z = (islice(a, i, None) for i in range(n))
-    it = zip(*z)
-
-    if not asarray:
-        return it
-    else:
-        import numpy as np
-        return np.array([x for x in it])
-
+    return zip(*z)
 
 def dict_to_ndarray(dict_of_array):
     """convert OrderedDict to numpy array
@@ -318,6 +311,7 @@ def merge_frame_from_trajs(trajlist):
     """
     Examples
     --------
+    >>> import numpy as np
     >>> import pytraj as pt
     >>> traj0 = pt.load_sample_data('tz2')[:3]
     >>> traj1 = pt.load_sample_data('tz2')[3:6]
@@ -328,9 +322,7 @@ def merge_frame_from_trajs(trajlist):
     <Frame with 15879 atoms>
     <Frame with 15879 atoms>
     <Frame with 15879 atoms>
-    """
-    if not isinstance(trajlist, (list, tuple)):
-        raise ValueError('input must be a list or tuple of trajectories')
+   """
     for iterables in zip(*trajlist):
         yield merge_frames(iterables)
 
@@ -344,6 +336,11 @@ def rmsd_1darray(a1, a2):
     >>> a1 = [1.4, 3.5, 4.2]
     >>> rmsd_1darray(a0, a1)
     0.3872983346207417
+
+    >>> rmsd_1darray(a0, [3, 4, 5, 7, 8])
+    Traceback (most recent call last):
+        ...
+    ValueError: must have the same shape
     '''
     import numpy as np
     from math import sqrt
@@ -497,14 +494,6 @@ def read_gaussian_output(filename=None, top=None):
         return Trajectory(xyz=go.atomcoords, top=_top)
 
 
-def read_to_array(fname):
-    '''read text from file to numpy array'''
-    import numpy as np
-    with open(fname, 'r') as fh:
-        arr0 = np.array([[x for x in line.split()] for line in fh.readlines()])
-        return np.array(flatten(arr0), dtype='f8')
-
-
 def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
     """
 
@@ -522,7 +511,7 @@ def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
     >>> traj4 = pt.load_sample_data('tz2')[:]
     >>> traj4.n_frames
     10
-    >>> tra1.n_frames
+    >>> traj1.n_frames
     1
     >>> merge_trajs(traj1, traj4)
     Traceback (most recent call last):
@@ -586,6 +575,8 @@ def as_2darray(traj_or_xyz):
     >>> traj.xyz.shape
     (10, 5293, 3)
     >>> as_2darray(traj).shape
+    (10, 15879)
+    >>> as_2darray(traj.xyz).shape
     (10, 15879)
 
     Notes
