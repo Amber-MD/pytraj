@@ -41,10 +41,6 @@ try:
     from .core.ActionList import ActionList, create_pipeline
     Pipeline = ActionList
 
-    def run_pipeline(pipe):
-        for _ in pipe:
-            pass
-
 except ImportError:
     import os
     source_folders = ['./scripts', './devtools', './docs']
