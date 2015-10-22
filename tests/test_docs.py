@@ -38,6 +38,7 @@ class TestDoc(unittest.TestCase):
             # avoid adding 'u' to string in PY2: u'GLU5_O-LYS8_N-H'
             additional_list = [
                     pt,
+                    pt.array,
                     pt.nmr,
                     check_and_assert,
                     pt.hbonds, pt.tools,

@@ -33,6 +33,7 @@ class DataArray(object):
     values:
     [0 2 4]
     >>> print(arr1.values)
+    [0 2 4]
     """
 
     def __init__(self, dset=None, copy=True):
@@ -43,7 +44,10 @@ class DataArray(object):
 
         Examples
         --------
-        >>> DataArray({'x' : [3, 5, 6]])
+        >>> DataArray({'x' : [3, 5, 6]})
+        <pytraj.array.DataArray: size=3, key=x, dtype=int64, ndim=1> 
+        values:
+        [3 5 6]
         """
         if isinstance(dset, dict):
             assert len(dset.keys()) == 1, "single dict"
@@ -181,6 +185,11 @@ class DataArray(object):
             return self.values
 
     def to_dict(self):
+        '''
+        >>> x = DataArray({'x' : [0, 3]})
+        >>> x.to_dict()
+        {'x': array([0, 3])}
+        '''
         return {self.key: self.values}
 
     def flatten(self):
