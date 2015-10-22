@@ -2,10 +2,10 @@ language: python
 
 env:
   matrix:
-    - PYTHON_VERSION=2.7 CPPTRAJ_ANACONDA=NO
-    - PYTHON_VERSION=3.4 CPPTRAJ_ANACONDA=NO
-    - PYTHON_VERSION=3.5 CPPTRAJ_ANACONDA=NO
-    - PYTHON_VERSION=3.4 CPPTRAJ_ANACONDA=YES
+    - PYTHON_VERSION=2.7
+    - PYTHON_VERSION=3.4
+    - PYTHON_VERSION=3.5
+    - PYTHON_VERSION=3.4
   global:
     - secure: JLFg6mbavHoSfqApsTUnE39ZtrEuv76UUsBwMJy3b8lp1s6dBwmbmEBm9VYb4wttCSKOd3BcuRd4lo5+Oxp25tKvLLg86P0PE6/cjn7vz3RAQ/qQhbEBUEV0nJkuKMCFpQPu8LGPY2oiRyPr4OGwfWdLzgYolMAxWtS6cCqAyPk=
 
@@ -25,36 +25,26 @@ addons:
     - libarpack2-dev
     - libnetcdf-dev
 
-
 install:
     - source devtools/travis-ci/setup_env.sh
     - python --version
-    #- source devtools/travis-ci/install_cpptraj.sh
-    #- conda build --py $PYTHON_VERSION devtools/conda-recipe/pytraj
-    #- conda install $HOME/miniconda/conda-bld/linux-64/pytraj-dev-* --yes
 
 script:
-    #- git clone https://github.com/Amber-MD/cpptraj
-    #- export CPPTRAJHOME=`pwd`"/cpptraj/"
     - export PYTRAJHOME=`pwd`
     - python setup.py install
     - export LD_LIBRARY_PATH=`pwd`"/cpptraj/lib":$LD_LIBRARY_PATH
     - cd ./tests
     - python ./run_simple_test.py
-    - python ./run_all_and_find_fails.py
-    #- nosetests --processes 6 --process-timeout 200 --with-coverage --cover-package pytraj -vs .
+    #- python ./run_all_and_find_fails.py
+    - nosetests --with-coverage --cover-package pytraj -vs test_*.py */test_*.py
     - cd ../examples
-    - python ./run_all_and_find_fails.py
+    - python ./run_examples.py
     - cd mpi_examples
-    - sh run_all.sh 4 
+    - sh run_mpi_examples.sh 4 
     - cd $PYTRAJHOME
 
 after_success:
     - echo "after_success"
-    # turn off upload to anaconda for now
-    #- source devtools/travis-ci/upload.sh 
-    # just try to install
-    #- conda install -c ambermd pytraj-dev libcpptraj-dev --yes
     - coveralls
 
 notifications:
