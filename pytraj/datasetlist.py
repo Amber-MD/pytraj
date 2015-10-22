@@ -38,18 +38,12 @@ def from_dict(d):
 
 
 def load_datafile(filename):
-    """load cpptraj's output"""
+    """load cpptraj's output
+    >>> d = load_datafile('data/tc5b.native_contacts.data')
+    """
     ds = DatasetList()
     ds.read_data(filename)
     return ds
-
-
-def _from_full_dict(full_dict):
-    return DatasetList()._from_full_dict(full_dict)
-
-
-def from_sequence(seq, copy=True):
-    return DatasetList().from_sequence(seq, copy=copy)
 
 
 def stack(args):
@@ -212,9 +206,6 @@ class DatasetList(list):
     def __repr__(self):
         return self.__str__()
 
-    def clear(self):
-        self = []
-
     def is_empty(self):
         return self != []
 
@@ -237,6 +228,13 @@ class DatasetList(list):
         >>> d1 = dslist['phi:3']
         >>> d2 = dslist[:6:2]
         >>> d3 = dslist[[0, 3, 8]]
+        >>> d4 = dslist.__getslice__(0, 3)
+
+        >>> d5 = d3.__class__()
+        >>> d5[0]
+        Traceback (most recent call last):
+            ...
+        ValueError: size = 0: can not index
         """
         if self.size == 0:
             raise ValueError("size = 0: can not index")
@@ -284,24 +282,6 @@ class DatasetList(list):
         for d0 in self:
             tmp_list.append(d0.dtype)
         return tmp_list
-
-    def iteritems(self):
-        for key in self.keys():
-            yield key, self[key]
-
-    def filter(self, func, copy=False, *args, **kwd):
-        """return a new view of DatasetList of func return True"""
-        dslist = self.__class__()
-
-        if isinstance(func, (string_types, list, tuple)):
-            return self.grep(func, *args, **kwd)
-        elif callable(func):
-            for d0 in self:
-                if func(d0, *args, **kwd):
-                    dslist.append(d0, copy=copy)
-            return dslist
-        else:
-            raise NotImplementedError("func must be a string or callable")
 
     def grep(self, key, mode='key', copy=False):
         """"return a new DatasetList object as a view of `self`
@@ -352,23 +332,16 @@ class DatasetList(list):
     @property
     def values(self):
         """return read-only ndarray"""
-        try:
-            return self.to_ndarray()
-        except:
-            raise ValueError("don't know how to cast to numpy array")
+        return self.to_ndarray()
 
     def to_ndarray(self):
         """
-        Notes: require numpy
         """
-        try:
-            if self.size == 1:
-                arr = self[0].values
-            else:
-                # more than one set
-                return np.asarray([d0.values for d0 in self])
-        except:
-            raise ValueError("don't know how to convert to ndarray")
+        if self.size == 1:
+            return self[0].values
+        else:
+            # more than one set
+            return np.array([x.values for x in self])
 
     def to_dataframe(self):
         """return pandas' DataFrame
