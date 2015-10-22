@@ -288,7 +288,6 @@ class TrajectoryIterator(TrajectoryCpptraj):
                          mask=mask,
                          autoimage=autoimage,
                          rmsfit=rmsfit,
-                         is_trajiter=True,
                          n_frames=n_frames,
                          copy=copy,
                          frame_indices=frame_indices)

@@ -175,6 +175,9 @@ class TestIO(unittest.TestCase):
         frame = pt.io.load_frame(traj.filename, traj.top.filename, 3)
         aa_eq(traj[3].xyz, frame.xyz)
 
+        self.assertRaises(RuntimeError, lambda: pt.io.load_frame('afddsfdsfa',
+            traj.top.filename, 3))
+
     def test_download_pdb(self):
         pt.io.download_PDB('1l2y', 'output/', overwrite=True)
         t2 = pt.load('output/1l2y.pdb')

@@ -65,6 +65,10 @@ class FrameIter(object):
     <Frame with 12 atoms>
     <Frame with 12 atoms>
 
+    >>> # with rmsfit
+    >>> for frame in traj.iterframe(2, 8, autoimage=True, rmsfit=0): pass
+    >>> for frame in traj.iterframe(2, 8, autoimage=True, rmsfit=(1, '!@H=')): pass
+
     >>> # rmsfit
     >>> fi = traj.iterframe(2, 8, rmsfit=(0, '@CA'))
     >>> fi.n_frames
@@ -78,7 +82,14 @@ class FrameIter(object):
     >>> fi = traj.iterframe(2, 8, mask='@1,2,3,4,5', copy=True)
 
     >>> fi = traj.iterframe(2, 8, rmsfit=3)
-    >>> fi = traj.iterframe(2, 8, mask='@1,2,3,4,5', copy=True)
+    >>> fi = traj.iterframe(2, 8, mask='@1,2,3,4,5')
+
+    >>> # explit use copy=True to give different Frame with list
+    >>> fi = traj.iterframe(2, 8)
+    >>> fi.copy = True
+    >>> pt.radgyr(list(fi), top=traj.top)
+    array([ 18.84969884,  18.90449256,  18.8568644 ,  18.88917208,
+            18.9430491 ,  18.88878079])
     """
 
     def __init__(self, fi_generator,
@@ -90,7 +101,6 @@ class FrameIter(object):
                  mask="",
                  autoimage=False,
                  rmsfit=None,
-                 is_trajiter=False,
                  n_frames=None,
                  copy=True,
                  frame_indices=None):
@@ -104,7 +114,6 @@ class FrameIter(object):
         self.autoimage = autoimage
         self.rmsfit = rmsfit
         # use `copy_frame` for TrajectoryIterator
-        self.is_trajiter = is_trajiter
         self._n_frames = n_frames
         self.copy = copy
         self.frame_indices = frame_indices
@@ -189,7 +198,7 @@ class FrameIter(object):
             ref, mask_for_rmsfit = None, None
 
         for frame0 in self.frame_iter:
-            if self.is_trajiter and self.copy:
+            if self.copy:
                 # use copy for TrajectoryIterator
                 # so [f for f in traj()] will return a list of different 
                 # frames
