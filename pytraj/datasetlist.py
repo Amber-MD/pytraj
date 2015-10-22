@@ -27,10 +27,6 @@ def _groupby(self, key):
     return rv
 
 
-def from_dict(d):
-    return DatasetList(d)
-
-
 def load_datafile(filename):
     """load cpptraj's output
     >>> d = load_datafile('data/tc5b.native_contacts.dat')
@@ -302,6 +298,11 @@ class DatasetList(list):
         >>> dslist = pt.multidihedral(traj, dtype='dataset')
         >>> sub_dslist = dslist.grep('phi')
         >>> sub_dslist = dslist.grep(['phi', 'psi'])
+
+        >>> dslist.grep(3)
+        Traceback (most recent call last):
+            ...
+        ValueError: support string or list/tuple of strings
         """
         import re
 
