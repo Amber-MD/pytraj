@@ -28,7 +28,6 @@ addons:
 
 install:
     - source devtools/travis-ci/setup_env.sh
-    #- conda config --add channels https://conda.binstar.org/ambermd
     - python --version
     #- source devtools/travis-ci/install_cpptraj.sh
     #- conda build --py $PYTHON_VERSION devtools/conda-recipe/pytraj
@@ -36,11 +35,10 @@ install:
 
 script:
     #- git clone https://github.com/Amber-MD/cpptraj
+    #- export CPPTRAJHOME=`pwd`"/cpptraj/"
     - export PYTRAJHOME=`pwd`
     - python setup.py install
     - export LD_LIBRARY_PATH=`pwd`"/cpptraj/lib":$LD_LIBRARY_PATH
-    #- export CPPTRAJHOME=`pwd`"/cpptraj/"
-    - conda install scipy mpi4py libnetcdf --yes
     - cd ./tests
     - python ./run_simple_test.py
     - python ./run_all_and_find_fails.py

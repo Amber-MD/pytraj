@@ -13,12 +13,13 @@ export PATH=$HOME/miniconda/bin:$PATH
 pip install conda
 # conda update conda --yes
 conda install --yes conda-build jinja2 anaconda-client pip
-conda config --add channels http://conda.binstar.org/ambermd/
+#conda config --add channels http://conda.binstar.org/ambermd/
 
 conda create -y -n myenv python=$PYTHON_VERSION numpy cython h5py
 
 source activate myenv
 conda install --yes anaconda-client coverage python-coveralls nose
+conda install --yes scipy mpi4py libnetcdf
 
 # install other packages here
 pip install git+git://github.com/ParmEd/ParmEd
