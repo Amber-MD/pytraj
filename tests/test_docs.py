@@ -35,12 +35,10 @@ class TestDoc(unittest.TestCase):
                   ]
         if PY3:
             # avoid adding 'u' to string in PY2: u'GLU5_O-LYS8_N-H'
-            modules.append(pt.hbonds)
-            # different formats between py2 and 3
-            modules.append(pt.tools)
-            modules.append(pt.parallel.parallel_mapping_multiprocessing)
-            modules.append(testing)
-            modules.append(utils)
+            additional_list = [pt.hbonds, pt.tools,
+                    pt.parallel.parallel_mapping_multiprocessing,
+                    testing, utils]
+            modules.extend(additional_list)
         assert get_total_errors(modules) == 0, 'doctest: failed_count must be 0'
 
 if __name__ == "__main__":
