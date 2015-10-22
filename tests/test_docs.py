@@ -10,6 +10,7 @@ from pytraj import testing
 
 doctest.DONT_ACCEPT_BLANKLINE = False
 
+
 def get_total_errors(modules):
     return sum([doctest.testmod(mod).failed for mod in modules])
 

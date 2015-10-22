@@ -16,6 +16,12 @@ class TestIterFrame(unittest.TestCase):
         for traj in [orig_traj, orig_traj[:]]:
             self.assertRaises(ValueError, lambda: traj.iterframe(rmsfit='crazy'))
 
+            # rmsfit is an int
+            t0 = orig_traj[:].rmsfit(3)
+            aa_eq(pt.rmsd_nofit(traj(rmsfit=3), orig_traj[-1]),
+                  pt.rmsd_nofit(t0, orig_traj[-1]))
+
+
 
 if __name__ == "__main__":
     unittest.main()
