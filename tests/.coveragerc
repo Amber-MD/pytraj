@@ -27,3 +27,4 @@ omit =
     
     */externals/*
     */sandbox/*
+    */amber_wrapper/*
