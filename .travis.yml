@@ -30,7 +30,7 @@ install:
     - python --version
 
 script:
-    - python setup.py install
+    - source devtools/travis-ci/install_pytraj.sh
     - export LD_LIBRARY_PATH=`pwd`"/cpptraj/lib":$LD_LIBRARY_PATH
     - cd ./tests
     - python ./run_simple_test.py
