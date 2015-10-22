@@ -112,6 +112,8 @@ def calc_dssp(traj=None, mask="", frame_indices=None, dtype='ndarray', top=None)
            ['0', '0', '0', ..., '0', '0', '0']],
           dtype='<U1')
 
+    >>> residues, ss, _ = pt.dssp(traj, mask=range(100))
+
     Notes
     -----
     ========= ======= ========= =======================

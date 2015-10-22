@@ -5,7 +5,7 @@ from ..utils.context import goto_temp_folder
 from .datafiles import DataFile, DataFileList
 from .load_sample_data import *
 
-__all__ = ['load_cpptraj_state', 'load_cpptraj_file', 'load_cpptraj_output',
+__all__ = ['load_cpptraj_state', 'load_cpptraj_output',
            'Ala3_crd', 'Ala3_crd_top', 'tz2_ortho_nc', 'tz2_ortho_parm7']
 
 mydir = os.path.dirname(os.path.abspath(__file__))

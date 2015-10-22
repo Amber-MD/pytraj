@@ -31,7 +31,6 @@ class TestDoc(unittest.TestCase):
                    pjob,
                    datasetlist,
                    trajectory_iterator,
-                   _base_result_class,
                   ]
         if PY3:
             # avoid adding 'u' to string in PY2: u'GLU5_O-LYS8_N-H'
@@ -39,6 +38,7 @@ class TestDoc(unittest.TestCase):
                     pt.parallel.parallel_mapping_multiprocessing,
                     testing, utils,
                     pt.matrix,
+                    _base_result_class,
                     ]
             modules.extend(additional_list)
         assert get_total_errors(modules) == 0, 'doctest: failed_count must be 0'

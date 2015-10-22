@@ -21,6 +21,8 @@ from .externals._load_ParmEd import load_ParmEd, _load_parmed
 from .externals._load_mdtraj import load_mdtraj as _load_mdtraj
 from .externals._load_MDAnalysis import load_MDAnalysis as _load_MDAnalysis
 
+from .decorators import ensure_exist
+
 try:
     from urllib.request import urlopen
 except ImportError:
@@ -496,6 +498,7 @@ def load_pdb(pdb_file):
     return load_traj(pdb_file, pdb_file)
 
 
+@ensure_exist
 def load_single_frame(filename=None, top=None, index=0):
     """load a single Frame"""
     return iterload(filename, top)[index]
