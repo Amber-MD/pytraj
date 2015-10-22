@@ -3,7 +3,6 @@ import numpy as np
 from collections import OrderedDict
 from collections import defaultdict
 from pytraj.datasets import CpptrajDatasetList
-from pytraj.externals._json import to_json, read_json
 from pytraj.externals._pickle import to_pickle, read_pickle
 from pytraj.utils import is_int, is_array, is_generator
 from pytraj.compat import string_types, callable
@@ -12,7 +11,7 @@ from pytraj.core.cpp_core import ArgList
 from pytraj.compat import map, iteritems
 from pytraj.array import DataArray
 
-__all__ = ['load_datafile', 'stack', 'DatasetList', 'from_pickle', 'from_json']
+__all__ = ['load_datafile', 'stack', 'DatasetList', 'from_pickle']
 
 
 def _groupby(self, key):
@@ -31,12 +30,6 @@ def _groupby(self, key):
 def from_pickle(filename):
     dslist = DatasetList()
     dslist.from_pickle(filename)
-    return dslist
-
-
-def from_json(filename):
-    dslist = DatasetList()
-    dslist.from_json(filename)
     return dslist
 
 
@@ -135,11 +128,6 @@ class DatasetList(list):
     >>> dslist.to_pickle('output/test.pk')
     >>> d2 = DatasetList()
     >>> d2.from_pickle('output/test.pk')
-
-    >>> # save to_json
-    >>> dslist.to_json('output/test.json')
-    >>> d3 = DatasetList()
-    >>> d3.from_json('output/test.json')
     '''
 
     def __init__(self, dslist=None, copy=False):
@@ -166,20 +154,8 @@ class DatasetList(list):
         ddict = read_pickle(filename)
         self._from_full_dict(ddict)
 
-    def from_json(self, filename):
-        ddict = read_json(filename)
-        self._from_full_dict(ddict)
-
     def to_pickle(self, filename, use_numpy=True):
         to_pickle(self._to_full_dict(use_numpy), filename)
-
-    def to_json(self, filename, use_numpy=True):
-        full_dict = self._to_full_dict(use_numpy=use_numpy)
-        for key in self.keys():
-            d = full_dict[key]['values']
-            if hasattr(d, 'dtype') and 'int' in d.dtype.name:
-                full_dict[key]['values'] = d.tolist()
-        to_json(full_dict, filename)
 
     def _from_full_dict(self, ddict):
         from pytraj.array import DataArray
