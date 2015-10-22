@@ -27,19 +27,13 @@ def _groupby(self, key):
     return rv
 
 
-def from_pickle(filename):
-    dslist = DatasetList()
-    dslist.from_pickle(filename)
-    return dslist
-
-
 def from_dict(d):
     return DatasetList(d)
 
 
 def load_datafile(filename):
     """load cpptraj's output
-    >>> d = load_datafile('data/tc5b.native_contacts.data')
+    >>> d = load_datafile('data/tc5b.native_contacts.dat')
     """
     ds = DatasetList()
     ds.read_data(filename)
@@ -75,6 +69,12 @@ def stack(args):
     >>> len(d3[0])
     8
 
+    >>> d4 = d1.copy()
+    >>> d4[0].key = 'dasffafa'
+    >>> d5 = stack((d1, d4))
+    Traceback (most recent call last):
+        ...
+    KeyError: "Don't support stack different key"
     """
     is_subcriptable = not (isinstance(args, map) or is_generator(args))
 
@@ -120,6 +120,8 @@ class DatasetList(list):
     >>> dslist.to_pickle('output/test.pk')
     >>> d2 = DatasetList()
     >>> d2.from_pickle('output/test.pk')
+
+    >>> d3 = DatasetList({'x': [0, 3, 7], 'y': [5, 6]})
     '''
 
     def __init__(self, dslist=None, copy=False):
@@ -382,6 +384,10 @@ class DatasetList(list):
         'psi:1'
         >>> d.append(dslist[0])
         >>> d.append(dslist[1], copy=False)
+        >>> d.append(dslist[1])
+        Traceback (most recent call last):
+            ...
+        KeyError: 'must have different key'
         """
         if copy:
             d0 = dset.copy()
