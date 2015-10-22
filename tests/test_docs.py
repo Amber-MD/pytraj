@@ -37,7 +37,9 @@ class TestDoc(unittest.TestCase):
             # avoid adding 'u' to string in PY2: u'GLU5_O-LYS8_N-H'
             additional_list = [pt.hbonds, pt.tools,
                     pt.parallel.parallel_mapping_multiprocessing,
-                    testing, utils]
+                    testing, utils,
+                    pt.matrix,
+                    ]
             modules.extend(additional_list)
         assert get_total_errors(modules) == 0, 'doctest: failed_count must be 0'
 

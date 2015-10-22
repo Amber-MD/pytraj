@@ -431,11 +431,6 @@ class DatasetList(list):
         else:
             raise ValueError()
 
-    def from_sequence(self, dslist, copy=True):
-        for d in dslist:
-            self.append(d, copy=copy)
-        return self
-
     def groupby(self, func_or_key):
         '''
         Examples
