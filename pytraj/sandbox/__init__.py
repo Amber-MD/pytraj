@@ -147,3 +147,4 @@ def _toy_radgyr(traj,
 
     act(mask, traj, top=top, dslist=dslist)
     return _get_data_from_dtype(dslist, dtype=dtype)
+

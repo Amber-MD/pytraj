@@ -664,11 +664,9 @@ class Trajectory(object):
 
         if rmsfit is not None:
             if isinstance(rmsfit, tuple):
-                assert len(rmsfit) <= 2, (
+                assert len(rmsfit) == 2, (
                     "rmsfit must be a tuple of one (frame,) "
                     "or two elements (frame, mask)")
-                if len(rmsfit) == 1:
-                    rmsfit = (rmsfit, '*')
             elif isinstance(rmsfit, int) or isinstance(rmsfit, Frame):
                 rmsfit = (rmsfit, '*')
             else:
@@ -687,7 +685,11 @@ class Trajectory(object):
         else:
             # frame_indices is not None
             start, stop, step = None, None, None
-            n_frames = len(frame_indices)
+            try:
+                n_frames = len(frame_indices)
+            except TypeError:
+                # itertools.chain
+                n_frames = None
             indices = frame_indices
 
         frame_iter_super = self._iterframe_indices(indices)

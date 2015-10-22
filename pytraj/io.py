@@ -182,7 +182,7 @@ def _load_netcdf(filename, top, frame_indices=None, engine='scipy'): # pragma: n
     return traj
 
 
-def load_traj(filename=None, top=None, frame_indices=None, *args, **kwd):
+def load_traj(filename=None, top=None, *args, **kwd):
     """load trajectory from filename
 
     Parameters
@@ -208,12 +208,7 @@ def load_traj(filename=None, top=None, frame_indices=None, *args, **kwd):
     else:
         ts.load(filename)
 
-    if frame_indices is not None:
-        if isinstance(frame_indices, tuple):
-            frame_indices = list(frame_indices)
-        return ts[frame_indices]
-    else:
-        return ts
+    return ts
 
 
 def _load_from_frame_iter(iterables, top=None, n_frames=None):
