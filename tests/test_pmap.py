@@ -29,6 +29,9 @@ class TestNormal(unittest.TestCase):
         if 'OPENMP' in pt.compiled_info():
             self.assertRaises(RuntimeError, lambda: pt.pmap(pt.watershell, self.traj))
 
+        # if traj is not TrajectoryIterator
+        self.assertRaises(ValueError, lambda: pt.pmap(pt.radgyr, self.traj[:]))
+
     def test_dtype_is_dict(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         saved_data = pt.radgyr(traj, '@CA')

@@ -186,5 +186,6 @@ class TestIO(unittest.TestCase):
         top = pt.io.load_topology('https://raw.githubusercontent.com/ParmEd/ParmEd/master/test/files/2koc.pdb')
         assert top.n_atoms == 451, '2koc'
 
+
 if __name__ == "__main__":
     unittest.main()

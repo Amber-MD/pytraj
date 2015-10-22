@@ -212,8 +212,6 @@ def load_traj(filename=None, top=None, frame_indices=None, *args, **kwd):
         if isinstance(frame_indices, tuple):
             frame_indices = list(frame_indices)
         return ts[frame_indices]
-    elif is_frame_iter(filename):
-        return _load_from_frame_iter(filename, top)
     else:
         return ts
 
