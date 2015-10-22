@@ -36,6 +36,8 @@ class TestDoc(unittest.TestCase):
         if PY3:
             # avoid adding 'u' to string in PY2: u'GLU5_O-LYS8_N-H'
             additional_list = [
+                    pt,
+                    pt.nmr,
                     check_and_assert,
                     pt.hbonds, pt.tools,
                     pt.parallel.parallel_mapping_multiprocessing,

@@ -131,6 +131,8 @@ def _get_resrange(resrange):
     --------
     >>> _get_resrange('1-3')
     'resrange 1-3'
+    >>> _get_resrange(0)
+    'resrange 1'
     >>> _get_resrange(range(3))
     'resrange 1,2,3'
     >>> _get_resrange([2, 5, 7])
