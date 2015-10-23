@@ -39,6 +39,12 @@ class TestNormal(unittest.TestCase):
         data = pt.tools.dict_to_ndarray(data)
         aa_eq(saved_data, data)
 
+    def test_dtype_is_dataset(self):
+        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        saved_data = pt.radgyr(traj, '@CA')
+        data = pt.pmap(pt.radgyr, traj, '@CA', dtype='dataset')
+        aa_eq(saved_data, data.values)
+
 
     def test_regular1D(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")

@@ -4,13 +4,14 @@ from pytraj.cpp_options import info as compiled_info
 from collections import OrderedDict
 import numpy as np
 from pytraj.externals.six import string_types, iteritems
-from pytraj.datasetlist import stack
+from pytraj.datasetlist import stack, DatasetList
 from pytraj._get_common_objects import _get_data_from_dtype
 from pytraj import matrix
 from pytraj import mean_structure 
 from pytraj import Frame
 from pytraj import ired_vector_and_matrix, rotation_matrix
 from pytraj import NH_order_parameters
+from pytraj import search_hbonds
 from multiprocessing import cpu_count
 
 
@@ -216,9 +217,10 @@ def _pmap(func, traj, *args, **kwd):
             frame.xyz[:] = xyz
             return frame
         else:
-            if dtype == 'dict':
-                new_dict = _concat_dict((x[1] for x in data))
-                return new_dict
+            if dtype in ['dict',]:
+                return _concat_dict((x[1] for x in data))
+            elif dtype in ['dataset',] and func != search_hbonds:
+                return stack((x[1] for x in data))
             else:
                 return data
 

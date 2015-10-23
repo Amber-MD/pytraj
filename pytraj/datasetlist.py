@@ -97,7 +97,7 @@ concat_datasetlist = stack
 
 class DatasetList(list):
     '''similiar to python's list but the data is labeled.
-    Think as a dict-like and list-like object. This class is suitable for small
+    Think as a OrderedDict-like and list-like object. This class is suitable for small
     datasets. For high performance, user should use pandas' DataFrame.
 
     Examples
