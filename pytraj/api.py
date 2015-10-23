@@ -104,9 +104,19 @@ class Trajectory(object):
         self._top = value.copy()
 
     def reverse(self):
+        '''
+        Returns
+        -------
+        self
+
+        >>> import pytraj as pt
+        >>> traj = pt.datafiles.load_tz2_ortho()[:]
+        >>> traj = traj.reverse() 
+        '''
         self._xyz = self._xyz[::-1]
         if self._boxes is not None:
             self._boxes = self._boxes[::-1]
+        return self
 
     @property
     def xyz(self):
@@ -323,10 +333,7 @@ class Trajectory(object):
                         self.xyz[i, k] = other.xyz[i, j]
             else:
                 view3d = other
-                try:
-                    int_view = atm.indices.astype('i4')
-                except ValueError:
-                    int_view = atm.indices
+                int_view = atm.indices.astype('i4')
                 # loop all frames
                 for i in range(view3d.shape[0]):
                     self._xyz[:, int_view] = view3d[:]
@@ -337,6 +344,15 @@ class Trajectory(object):
 
     def append_xyz(self, xyz):
         '''append 3D numpy array
+
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('tz2')
+        >>> t0 = pt.Trajectory(top=traj.top)
+        >>> t0.append_xyz(traj.xyz)
+        >>> t0.n_frames
+        10
+        >>> t0.append_xyz(traj.xyz)
+        20
         '''
         # make sure 3D
         if xyz.ndim != 3:
@@ -459,19 +475,8 @@ class Trajectory(object):
     def __call__(self, *args, **kwd):
         return self.iterframe(*args, **kwd)
 
-    def _load_new_by_scipy(self, filename):
-        from scipy import io
-        import numpy as np
-
-        fh = io.netcdf_file(filename, mmap=False)
-        self.xyz = fh.variables['coordinates'].data
-        cell_lengths = fh.variables['cell_lengths'].data
-        cell_angles = fh.variables['cell_angles'].data
-        self.unitcells = np.hstack((cell_lengths, cell_angles))
-
     def load(self, filename='', indices=None):
         '''
-
         Examples
         --------
         >>> import pytraj as pt
@@ -538,6 +543,10 @@ class Trajectory(object):
         Returns
         -------
         self
+
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('ala3')[:]
+        >>> traj = traj.rotate('@CA x 20')
         '''
         import pytraj.common_actions as pyca
 
@@ -606,7 +615,8 @@ class Trajectory(object):
         >>> import pytraj as pt
         >>> from pytraj.testing import get_fn
         >>> traj = pt.load(*get_fn('tz2'))
-        >>> traj = traj.superpose(0) # fit to 1st frame
+        >>> traj = traj.superpose() # fit to 1st frame
+        >>> traj = traj.superpose(0) # fit to 1st frame, explitly specify
         >>> traj = traj.superpose(-1, '@CA') # fit to last frame using @CA atoms
         """
         # not yet dealed with `mass` and box
@@ -620,12 +630,7 @@ class Trajectory(object):
             # first
             ref_frame = self[0]
 
-        if isinstance(mask, string_types):
-            atm = self.top(mask)
-        elif isinstance(mask, AtomMask):
-            atm = mask
-        else:
-            raise ValueError("mask must be string or AtomMask object")
+        atm = self.top(mask)
 
         fi = self if frame_indices is not None else self.iterframe(frame_indices=frame_indices)
 
