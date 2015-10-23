@@ -39,7 +39,6 @@ def _get_data_from_dtype(d0, dtype='dataset'):
     from pytraj.datasetlist import DatasetList as DSL
 
     if dtype is None or dtype == 'dataset':
-        pass
         if hasattr(d0, 'set__own_memory'):
             d0.set__own_memory(False)
         elif hasattr(d0, '_own_memory'):

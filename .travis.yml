@@ -30,8 +30,7 @@ install:
     - python --version
 
 script:
-    - export PYTRAJHOME=`pwd`
-    - python setup.py install
+    - source devtools/travis-ci/install_pytraj.sh
     - export LD_LIBRARY_PATH=`pwd`"/cpptraj/lib":$LD_LIBRARY_PATH
     - cd ./tests
     - python ./run_simple_test.py
@@ -41,11 +40,9 @@ script:
     - python ./run_examples.py
     - cd mpi_examples
     - sh run_mpi_examples.sh 4 
-    - cd $PYTRAJHOME
 
 after_success:
     - echo "after_success"
-    - coveralls
 
 notifications:
   email: false

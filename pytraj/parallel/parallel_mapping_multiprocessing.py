@@ -4,13 +4,14 @@ from pytraj.cpp_options import info as compiled_info
 from collections import OrderedDict
 import numpy as np
 from pytraj.externals.six import string_types, iteritems
-from pytraj.datasetlist import stack
+from pytraj.datasetlist import stack, DatasetList
 from pytraj._get_common_objects import _get_data_from_dtype
 from pytraj import matrix
 from pytraj import mean_structure 
 from pytraj import Frame
 from pytraj import ired_vector_and_matrix, rotation_matrix
 from pytraj import NH_order_parameters
+from pytraj import search_hbonds
 from multiprocessing import cpu_count
 
 
@@ -123,12 +124,20 @@ def _pmap(func, traj, *args, **kwd):
      18.916695652897396,
      18.870697222142766]
 
-    >>> # cpptraj command style
-    >>> data = pt.pmap(['distance :3 :7', 'vector mask :3 :12'], traj, n_cores=4)
-
     >>> # use iter_options
     >>> iter_options = {'autoimage': True, 'rmsfit': (0, '@CA')}
     >>> data = pt.pmap(pt.mean_structure, traj, iter_options=iter_options) 
+
+    >>> # cpptraj command style
+    >>> data = pt.pmap(['distance :3 :7', 'vector mask :3 :12'], traj, n_cores=4)
+
+    >>> # use reference. Need to explicitly use 'refindex', which is index of reflist
+    >>> data = pt.pmap(['rms @CA refindex 0'], traj, ref=[traj[3],], n_cores=3)
+    >>> data
+    OrderedDict([('RMSD_00001', array([  2.68820312e-01,   3.11804885e-01,   2.58835452e-01,
+             9.10475988e-08,   2.93310737e-01,   4.10197322e-01,
+             3.96226694e-01,   3.66059215e-01,   3.90890362e-01,
+             4.89180497e-01]))])
 
     See also
     --------
@@ -156,7 +165,8 @@ def _pmap(func, traj, *args, **kwd):
     if isinstance(func, (list, tuple)):
         # assume using _load_batch_pmap
         from pytraj.parallel import _load_batch_pmap
-        data = _load_batch_pmap(n_cores=n_cores, traj=traj, lines=func, dtype='dict', root=0, mode='multiprocessing')
+        data = _load_batch_pmap(n_cores=n_cores, traj=traj, lines=func, dtype='dict',
+                root=0, mode='multiprocessing', **kwd)
         return _concat_dict((x[1] for x in data))
     else:
         if not callable(func):
@@ -216,9 +226,10 @@ def _pmap(func, traj, *args, **kwd):
             frame.xyz[:] = xyz
             return frame
         else:
-            if dtype == 'dict':
-                new_dict = _concat_dict((x[1] for x in data))
-                return new_dict
+            if dtype in ['dict',]:
+                return _concat_dict((x[1] for x in data))
+            elif dtype in ['dataset',] and func != search_hbonds:
+                return stack((x[1] for x in data))
             else:
                 return data
 
