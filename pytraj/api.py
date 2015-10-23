@@ -83,11 +83,8 @@ class Trajectory(object):
             self._xyz = filename.xyz.astype(np.float64)
         elif isinstance(filename, (string_types, list, tuple)):
             self.load(filename)
-        elif is_frame_iter(filename):
-            for frame in filename:
-                self.append(frame.xyz[:])
         else:
-            raise ValueError('filename must be None, a Trajectory, string, a FrameIter')
+            raise ValueError('filename must be None, a Trajectory or a string')
 
         if hasattr(self._xyz, 'shape'):
             assert self.top.n_atoms == self._xyz.shape[1], "must have the same n_atoms"
@@ -352,6 +349,7 @@ class Trajectory(object):
         >>> t0.n_frames
         10
         >>> t0.append_xyz(traj.xyz)
+        >>> t0.n_frames
         20
         '''
         # make sure 3D
@@ -767,6 +765,10 @@ class Trajectory(object):
     @property
     def _estimated_GB(self):
         """esimated GB of data will be loaded to memory
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('tz2')[:] 
+        >>> traj._estimated_GB
+        0.0011830776929855347
         """
         return self.n_frames * self.n_atoms * 3 * 8 / (1024 ** 3)
 

@@ -211,11 +211,10 @@ def load_traj(filename=None, top=None, *args, **kwd):
     return ts
 
 
-def _load_from_frame_iter(iterables, top=None, n_frames=None):
+def _load_from_frame_iter(iterables, top=None):
     '''
     '''
-    from .api import Trajectory
-    return Trajectory.from_iterable(iterables, top, n_frames)
+    return Trajectory.from_iterable(iterables, top)
 
 
 def iterload_remd(filename, top=None, T="300.0"):

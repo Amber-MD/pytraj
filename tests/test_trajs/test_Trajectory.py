@@ -9,6 +9,9 @@ traj.load("./data/md1_prod.Tc5b.x")
 
 
 class TestTrajectory(unittest.TestCase):
+    def test_raise_construtor(self):
+        self.assertRaises(ValueError, lambda: pt.Trajectory(pt.api))
+
     def test_slice_basic(self):
         traj2 = Trajectory()
         traj2.top = pt.load_topology("./data/Tc5b.top")
@@ -79,9 +82,14 @@ class TestTrajectory(unittest.TestCase):
             traj1 = pt.load_sample_data('ala3')
             t0.xyz = traj1.xyz
 
+        def append_2d():
+            traj1 = pt.load_sample_data('ala3')
+            t0.append_xyz(pt.tools.as_2darray(traj))
+
         # not c_contiguous
         self.assertRaises(TypeError, lambda: set_xyz_not_c_contiguous())
         self.assertRaises(ValueError, lambda: set_xyz_not_same_n_atoms())
+        self.assertRaises(ValueError, lambda: append_2d())
 
     def test_from_iterables(self):
         '''test_from_iterables, tests are ind its doc. Test raise here
