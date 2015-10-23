@@ -82,10 +82,7 @@ class Trajectory(object):
             # make sure to use `float64`
             self._xyz = filename.xyz.astype(np.float64)
         elif isinstance(filename, (string_types, list, tuple)):
-            if isinstance(filename, string_types):
-                self.load(filename)
-            else:
-                raise ValueError('only load a single file. Use pytraj.load for multiple files')
+            self.load(filename)
         elif is_frame_iter(filename):
             for frame in filename:
                 self.append(frame.xyz[:])
@@ -506,6 +503,9 @@ class Trajectory(object):
                 self.xyz = ts.xyz
             else:
                 self.xyz = ts[indices].xyz
+        elif isinstance(filename, (list, tuple)):
+            for fn in filename:
+                self.load(fn)
 
     def autoimage(self):
         '''perform autoimage
@@ -682,6 +682,27 @@ class Trajectory(object):
                   frame_indices=None,
                   rmsfit=None,
                   copy=False):
+        '''
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> from pytraj.testing import get_fn
+        >>> traj = pt.load(*get_fn('tz2'))
+        >>> for frame in traj.iterframe(0, 8, 2): pass
+        >>> for frame in traj.iterframe(0, 8, 2, autoimage=True): pass
+
+        >>> # use negative index
+        >>> traj.n_frames
+        10
+        >>> fi = traj.iterframe(0, -1, 2, autoimage=True)
+        >>> fi.n_frames
+        5
+
+        >>> # mask is atom indices
+        >>> fi = traj.iterframe(0, -1, 2, mask=range(100), autoimage=True)
+        >>> fi.n_atoms
+        100
+        '''
 
         if mask is None:
             _top = self.top
@@ -735,6 +756,7 @@ class Trajectory(object):
                          autoimage=autoimage,
                          rmsfit=rmsfit,
                          n_frames=n_frames,
+                         frame_indices=frame_indices,
                          copy=copy)
 
     @property
@@ -744,7 +766,7 @@ class Trajectory(object):
         return self.n_frames * self.n_atoms * 3 * 8 / (1024 ** 3)
 
     @classmethod
-    def from_iterable(cls, iterables, top=None, n_frames=None):
+    def from_iterable(cls, iterables, top=None):
         '''
 
         Examples
@@ -752,7 +774,17 @@ class Trajectory(object):
         >>> import pytraj as pt
         >>> traj = pt.load_sample_data('tz2')
         >>> t0 = pt.Trajectory.from_iterable(traj(3, 8, 2))
-        >>> t1 = pt.Trajectory.from_iterable(traj(3, 8, 2), n_frames=3)
+
+        >>> from pytraj import create_pipeline
+        >>> fi = create_pipeline(traj, ['autoimage', 'rms'])
+        >>> t0 = pt.Trajectory.from_iterable(fi, top=traj.top)
+        >>> t0.n_frames
+        10
+        >>> pt.radgyr(t0)
+        array([ 18.90953437,  18.93564662,  18.85415458,  18.90994856,
+                18.85884218,  18.88551081,  18.9364612 ,  18.89353463,
+                18.91772124,  18.87070283])
+
         '''
         if top is None or top.is_empty():
             if hasattr(iterables, 'top'):
@@ -763,22 +795,19 @@ class Trajectory(object):
         fa = Trajectory()
         fa.top = top
 
-        if n_frames is not None:
-            _n_frames = n_frames
-        elif hasattr(iterables, 'n_frames'):
+        if hasattr(iterables, 'n_frames'):
             _n_frames = iterables.n_frames
         else:
             try:
                 _n_frames = len(iterables)
-            except:
+            except TypeError:
                 _n_frames = None
 
+        # faster
         if _n_frames is None:
-            for frame in iterables:
-                # slow
-                fa.append(frame)
+            xyz = np.array([data.xyz.copy() for data in iterables])
+            fa.xyz = xyz
         else:
-            # faster
             fa._allocate(_n_frames, fa.top.n_atoms)
             fa._boxes = np.empty((_n_frames, 6), dtype='f8')
             for idx, frame in enumerate(iterables):
@@ -794,5 +823,15 @@ class Trajectory(object):
         self._boxes = None
 
     def _apply(self, func):
-        for x in self.xyz:
-            x = func(x)
+        '''
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('ala3')[:]
+        >>> traj.xyz[0, 0]
+        array([  3.32577000e+00,   1.54790900e+00,  -1.60000000e-06])
+        >>> traj._apply(lambda x : x * 2)
+        >>> traj.xyz[0, 0]
+        array([  6.65154000e+00,   3.09581800e+00,  -3.20000000e-06])
+
+        '''
+        for idx, x in enumerate(self.xyz):
+            self.xyz[idx] = func(x)

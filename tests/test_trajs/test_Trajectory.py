@@ -83,5 +83,13 @@ class TestTrajectory(unittest.TestCase):
         self.assertRaises(TypeError, lambda: set_xyz_not_c_contiguous())
         self.assertRaises(ValueError, lambda: set_xyz_not_same_n_atoms())
 
+    def test_from_iterables(self):
+        '''test_from_iterables, tests are ind its doc. Test raise here
+        '''
+        traj = pt.datafiles.load_tz2_ortho()
+        fi = pt.create_pipeline(traj, ['autoimage'])
+        # does not have Topology info
+        self.assertRaises(ValueError, lambda: pt.Trajectory.from_iterable(fi))
+
 if __name__ == "__main__":
     unittest.main()

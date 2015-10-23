@@ -24,27 +24,10 @@ class Test(unittest.TestCase):
 
         # a set of atoms
         indices = [1, 10, 11]
-        atm = AtomMask(indices)
+        mask = '@2,11,12'
         xyz_sub = fa.xyz[:, indices] + 1.
-        fa[atm] = xyz_sub
-        aa_eq(fa[atm].xyz, xyz_sub)
-
-        indices = traj.top("@CA")
-        atm = AtomMask(indices)
-        xyz_sub = fa.xyz[:, list(indices)] + 1.
-        fa[atm] = xyz_sub
-        aa_eq(fa['@CA'].xyz, xyz_sub)
-
-        # a set of atoms, two trajectories
-        fa0 = traj[:]
-        fa1 = traj[:]
-        fa1 += 1.
-        aa_eq(fa0.xyz + 1., fa1.xyz)
-        atm = traj.top("!@H=")
-        # try assigning from AtomMask
-        fa0[atm] = fa1[atm]
-        aa_eq(fa0[atm].xyz, fa1[atm].xyz)
-        aa_eq(fa0['@H='].xyz, traj['@H='].xyz)
+        fa[mask] = xyz_sub
+        aa_eq(fa[mask].xyz, xyz_sub)
 
         # all atoms
         xyz = traj.xyz + 2.
