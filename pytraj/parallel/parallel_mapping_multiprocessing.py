@@ -124,12 +124,20 @@ def _pmap(func, traj, *args, **kwd):
      18.916695652897396,
      18.870697222142766]
 
-    >>> # cpptraj command style
-    >>> data = pt.pmap(['distance :3 :7', 'vector mask :3 :12'], traj, n_cores=4)
-
     >>> # use iter_options
     >>> iter_options = {'autoimage': True, 'rmsfit': (0, '@CA')}
     >>> data = pt.pmap(pt.mean_structure, traj, iter_options=iter_options) 
+
+    >>> # cpptraj command style
+    >>> data = pt.pmap(['distance :3 :7', 'vector mask :3 :12'], traj, n_cores=4)
+
+    >>> # use reference. Need to explicitly use 'refindex', which is index of reflist
+    >>> data = pt.pmap(['rms @CA refindex 0'], traj, ref=[traj[3],], n_cores=3)
+    >>> data
+    OrderedDict([('RMSD_00001', array([  2.68820312e-01,   3.11804885e-01,   2.58835452e-01,
+             9.10475988e-08,   2.93310737e-01,   4.10197322e-01,
+             3.96226694e-01,   3.66059215e-01,   3.90890362e-01,
+             4.89180497e-01]))])
 
     See also
     --------
