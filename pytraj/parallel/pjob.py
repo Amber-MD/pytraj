@@ -12,7 +12,7 @@ class PJob(object):
     >>> # perform each action on each CPUs (total 2 CPUs)
     >>> pjob = PJob(tasklist)
 
-    >>> # for data in pjob.compute(): print(data)
+    >>> data = pjob.compute()
     '''
     def __init__(self, tasklist):
         self.tasklist = tasklist
