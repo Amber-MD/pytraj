@@ -257,8 +257,6 @@ class DatasetList(list):
             for _idx in idx:
                 new_dslist.append(self[_idx], copy=False)
             return new_dslist
-        elif isinstance(idx, tuple) and len(idx) == 2:
-            return self[idx[0]][idx[1]]
         else:
             raise ValueError()
 
@@ -389,6 +387,11 @@ class DatasetList(list):
         Traceback (most recent call last):
             ...
         KeyError: 'must have different key'
+
+        >>> d.append(100)
+        Traceback (most recent call last):
+            ...
+        ValueError: 'must have key or be a dict'
         """
         if copy:
             d0 = dset.copy()
