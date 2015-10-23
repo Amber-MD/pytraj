@@ -73,6 +73,10 @@ class DataArray(object):
                 values = np.asarray(dset.values)
             else:
                 values = np.asarray(dset)
+            if copy:       
+                self._values = values.copy()       
+            else:      
+                self._values = values      
 
     @classmethod
     def from_dict(cls, d):
