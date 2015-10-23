@@ -5,21 +5,6 @@ from pytraj._cyutils import _fast_count
 from pytraj.datasets import Dataset
 
 
-def elemwise(op, self, other=None):
-    if other:
-        if hasattr(other, 'values'):
-            _other = other.values
-        else:
-            _other = other
-        if hasattr(self, 'values'):
-            _self = self.values
-        else:
-            _self = self
-        return op(_self, _other)
-    else:
-        return op(self.values)
-
-
 class DataArray(object):
     """place holder for all cpptraj' output.
 
@@ -88,10 +73,6 @@ class DataArray(object):
                 values = np.asarray(dset.values)
             else:
                 values = np.asarray(dset)
-            if copy:
-                self._values = values.copy()
-            else:
-                self._values = values
 
     @classmethod
     def from_dict(cls, d):
