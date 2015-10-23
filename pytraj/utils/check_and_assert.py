@@ -27,44 +27,15 @@ def eq_coords(fa0, fa1):
     assert count == fa0.n_frames == fa1.n_frames
 
 
-def a_isinstance(obj, class_type):
-    assert isinstance(obj, class_type) == True
-
-
 def file_exist(filename):
     import os
     return os.path.isfile(filename)
-
-
-def get_amber_saved_test_dir(suffix):
-    """return full dir of amber test file or None
-    Used for assert in testing
-
-    Parameter
-    --------
-    suffix : str
-    """
-    import os
-    try:
-        amberhome = os.environ['AMBERHOME']
-        return amberhome + "/AmberTools/test/cpptraj/" + suffix
-    except:
-        return None
-
-
-def is_linux():
-    import sys
-    return 'linux' in sys.platform
 
 
 def is_word_in_class_name(obj, word):
     """check if a `word` is in obj.__class__.__name__
     """
     return word in obj.__class__.__name__
-
-
-def is_pytraj_trajectory(obj):
-    return is_word_in_class_name(obj, 'Trajectory')
 
 
 def is_range(obj):
@@ -97,52 +68,12 @@ def is_generator(iter_obj):
         return False
 
 
-def is_mdanalysis(obj):
-    return is_word_in_class_name(obj, 'Universe')
-
-
-def is_mdtraj(obj):
-    """check if traj is mdtraj object"""
-    return True if 'mdtraj' in obj.__str__() else False
-
-
-def is_mdanalysis(obj):
-    return is_word_in_class_name(obj, 'Universe')
-
-
 def is_frame_iter(iter_obj):
     """check if is frame_iter
-
-    See Also
-    --------
-    Trajectory.frame_iter
-    Trajin.frame_iter
     """
-    if iter_obj.__class__.__name__ == 'generator' and 'frame_iter' in iter_obj.__name__:
-        return True
     if iter_obj.__class__.__name__ == 'FrameIter':
         return True
     return False
-
-
-def is_chunk_iter(iter_obj):
-    """check if is frame_iter
-
-    See Also
-    --------
-    Trajectory.frame_iter
-    Trajin.frame_iter
-    """
-    try:
-        name = iter_obj.__name__
-    except AttributeError:
-        return False
-
-    if iter_obj.__class__.__name__ == 'generator' and (
-            'chunk_iter' in name or 'iterchunk' in name):
-        return True
-    else:
-        return False
 
 
 def is_int(num):
@@ -157,12 +88,28 @@ def is_number(num):
 
 
 def ensure_exist(filename):
+    '''
+    >>> ensure_exist('xfdasfda33fe')
+    Traceback (most recent call last):
+        ...
+    RuntimeError: can not find xfdasfda33fe
+    '''
     if not os.path.exists(filename):
         txt = "can not find %s" % filename
         raise RuntimeError(txt)
 
 
 def ensure_not_none_or_string(obj):
+    '''
+    >>> ensure_not_none_or_string(None)
+    Traceback (most recent call last):
+        ...
+    ValueError: <None> is a wrong input. Can not use `None` or string type
+    >>> ensure_not_none_or_string('test')
+    Traceback (most recent call last):
+        ...
+    ValueError: <test> is a wrong input. Can not use `None` or string type
+    '''
     name = obj.__str__()
     msg = "<%s> is a wrong input. Can not use `None` or string type" % name
     if obj is None or isinstance(obj, string_types):
@@ -172,6 +119,8 @@ def ensure_not_none_or_string(obj):
 def assert_almost_equal(arr0, arr1, decimal=4):
     '''numpy-like assert,
     use default decimal=4 to match cpptraj's output
+    >>> assert_almost_equal(0, 0)
+    >>> assert_almost_equal([1, 2], [1.0000000003, 2.00000003])
     '''
     import math
 
@@ -194,48 +143,15 @@ def assert_almost_equal(arr0, arr1, decimal=4):
     for x, y in zip(_arr0, _arr1):
         if math.isnan(x) or math.isnan(y):
             raise ValueError('do not support NAN comparison')
-        if abs(x - y) > SMALL:
+        if abs(x - y) > SMALL: # pragma: no cover
             almost_equal = False
     assert almost_equal == True
 
 
-def _import_numpy():
-    has_numpy = False
-    try:
-        __import__('numpy')
-        has_numpy = True
-        return (has_numpy, __import__('numpy'))
-    except ImportError:
-        has_numpy = False
-        return (has_numpy, None)
-
-
-def _import_pandas():
-    has_pd = False
-    try:
-        pd = __import__('pandas')
-        has_pd = True
-        # set print options
-        pd.options.display.max_rows = 20
-        return (has_pd, pd)
-    except ImportError:
-        has_pd = False
-        return (has_pd, None)
-
-
-def _import_h5py():
-    has_h5py = False
-    try:
-        __import__('h5py')
-        has_h5py = True
-        return (has_h5py, __import__('h5py'))
-    except ImportError:
-        has_h5py = False
-        return (has_h5py, None)
-
-
 def _import(modname):
-    """has_numpy, np = _import('numpy')"""
+    """has_numpy, np = _import('numpy')
+    >>> has_np, np = _import('numpy')
+    """
     has_module = False
     try:
         imported_mod = __import__(modname)
@@ -248,24 +164,17 @@ def _import(modname):
 
 def has_(lib):
     """check if having `lib` library
+
     Example:
-    >>> has_("numpy")
+    >>> has_np = has_("numpy")
     """
     return _import(lib)[0]
-
-
-def require(libname):
-    has_lib, lib = _import(libname)
-    if not has_lib:
-        txt = "require %s lib" % libname
-        raise ImportError(txt)
 
 
 if __name__ == "__main__":
     import numpy as np
     assert_almost_equal([1., 2., 3.], [1., 2., 3.], decimals=3)
     assert_almost_equal([1., 2., 3.], [1., 2., ], decimals=3)
-    #assert_almost_equal([1., 2., 4.], [1., 2., 3.], decimals=3)
 
     arr0 = np.array([1., 2., 3.])
     arr1 = np.array([1., 2., 3.])

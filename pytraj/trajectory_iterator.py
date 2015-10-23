@@ -15,23 +15,31 @@ from ._cyutils import get_positive_idx
 from .frameiter import FrameIter
 from ._get_common_objects import _load_Topology
 from .utils import split_range
+from .utils.convert import array_to_cpptraj_atommask
 
-__all__ = ['TrajectoryIterator', 'split_iterators']
+__all__ = ['TrajectoryIterator',]
 
-
-def split_iterators(traj,
-                    n_chunks=1,
-                    start=0,
-                    stop=-1,
-                    step=1,
-                    mask=None,
-                    autoimage=False,
-                    rmsfit=None):
-    return traj._split_iterators(n_chunks, start, stop, step, mask, autoimage,
-                                rmsfit, rank=-1)
 
 
 def _make_frame_slices(n_files, original_frame_slice):
+    '''
+    >>> _make_frame_slices(2, (0, -1))
+    [(0, -1), (0, -1)]
+
+    >>> _make_frame_slices(3, [(0, -1), (0, -2)],)
+    [(0, -1), (0, -2), (0, -1, 1)]
+
+    >> # raise
+    >>> _make_frame_slices(3, None)
+    Traceback (most recent call last):
+        ...
+    ValueError: must be a tuple of integer values or a list of tuple of integer values
+
+    >>> _make_frame_slices(2, [(0, -1), (0, -2), (0, -1, 1)])
+    Traceback (most recent call last):
+        ...
+    ValueError: len of frame_slice tuple-list must be smaller or equal number of files
+    '''
     if isinstance(original_frame_slice, tuple):
         return [original_frame_slice for i in range(n_files)]
     elif isinstance(original_frame_slice, list):
@@ -57,12 +65,12 @@ class TrajectoryIterator(TrajectoryCpptraj):
         Examples
         --------
         >>> import pytraj as pt
-        >>> traj = pt.TrajectoryIterator('./traj.nc', 'input.parm7')
+        >>> from pytraj.testing import get_fn
+        >>> traj_name, top_name = get_fn('tz2')
+        >>> traj = pt.TrajectoryIterator(traj_name, top_name)
 
         >>> # user should always use :method:`pytraj.iterload` to load TrajectoryIterator
-        >>> traj = pt.iterload(['remd.x.000', 'remd.x.001'], 'input.parm7')
-        >>> # load another trajectory
-        >>> traj.load('./remd.x.003')
+        >>> traj = pt.iterload(['remd.x.000', 'remd.x.001'], 'input.parm7') # doctest: +SKIP
 
         Notes
         -----
@@ -99,9 +107,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
                     'must have a non-empty Topology')
             self.load(filename, self.top, *args, **kwd)
         if not top and (args or kwd):
-            warnings.warn(
-                'creating an empty TrajectoryIterator since does not '
-                'have Topology information. Ignore other arguments')
+            raise ValueError('require a Topology')
 
         self.__dict__.update({
             'top_filename': self.top.filename,
@@ -158,6 +164,13 @@ class TrajectoryIterator(TrajectoryCpptraj):
         if isinstance(filename, string_types) and os.path.exists(filename):
             super(TrajectoryIterator, self).load(filename, _top, frame_slice)
             self.frame_slice_list.append(frame_slice)
+        elif isinstance(filename,
+                        string_types) and not os.path.exists(filename):
+            flist = sorted(glob(filename))
+            if not flist:
+                raise ValueError(
+                    "must provie a filename or list of filenames or file pattern")
+            self.load(flist, top=top, frame_slice=frame_slice)
         elif isinstance(filename, (list, tuple)):
             filename_list = filename
             full_frame_slice = _make_frame_slices(
@@ -168,30 +181,30 @@ class TrajectoryIterator(TrajectoryCpptraj):
                 super(TrajectoryIterator, self).load(
                     fname, _top,
                     frame_slice=fslice)
-        elif isinstance(filename,
-                        string_types) and not os.path.exists(filename):
-            flist = sorted(glob(filename))
-            if not flist:
-                raise ValueError(
-                    "must provie a filename or list of filenames or file pattern")
-            self.load(flist, top=top, frame_slice=frame_slice)
         else:
-            raise ValueError("")
+            raise ValueError("filename must a string or a list of string")
 
     @property
     def topology(self):
-        """traditional name for Topology file"""
+        """traditional name for Topology file
+        
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> from pytraj.testing import get_fn
+        >>> fname, tname = get_fn('ala3')
+        >>> traj = pt.iterload(fname, tname)
+        >>> traj.topology
+        <Topology: 34 atoms, 3 residues, 1 mols, non-PBC>
+        >>> new_traj = pt.TrajectoryIterator()
+        >>> new_traj.topology = traj.topology
+        >>> new_traj.load(traj.filename)
+        """
         return self.top
 
     @topology.setter
     def topology(self, newtop):
         self.top = newtop
-
-    @property
-    def coordinates(self):
-        """return 3D numpy.ndarray, same as `TrajectoryIterator.xyz`
-        """
-        return self.xyz
 
     @property
     def _estimated_GB(self):
@@ -211,17 +224,6 @@ class TrajectoryIterator(TrajectoryCpptraj):
                 % (size_in_GB, self._size_limit_in_GB))
         return super(TrajectoryIterator, self).xyz
 
-    def _iterator_slice(self, start=0, stop=None, step=None):
-        """iterator slice"""
-        from itertools import islice
-        if stop is None:
-            stop = self.n_frames
-        return islice(self, start, stop, step)
-
-    def _make_independent_iterators(self, n_iters):
-        from itertools import tee
-        return tee(self, n_iters)
-
     def iterframe(self,
                   start=0,
                   stop=None,
@@ -234,22 +236,39 @@ class TrajectoryIterator(TrajectoryCpptraj):
         '''
         Examples
         --------
-        >>> for frame in traj.iterframe(0, 8, 2): print(frame)
-        >>> for frame in traj.iterframe(0, 8, 2, autoimage=True)
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('tz2')
+        >>> for frame in traj.iterframe(0, 8, 2): pass
+        >>> for frame in traj.iterframe(0, 8, 2, autoimage=True): pass
+
+        >>> # use negative index
+        >>> traj.n_frames
+        10
+        >>> fi = traj.iterframe(0, -1, 2, autoimage=True)
+        >>> fi.n_frames
+        5
+
+        >>> # mask is atom indices
+        >>> fi = traj.iterframe(0, -1, 2, mask=range(100), autoimage=True)
+        >>> fi.n_atoms
+        100
         '''
 
         if mask is None:
             _top = self.top
         else:
-            _top = self.top._get_new_from_mask(mask)
+            if isinstance(mask, string_types):
+                mask = mask
+                _top = self.top._get_new_from_mask(mask)
+            else:
+                mask = array_to_cpptraj_atommask(mask)
+                _top = self.top._get_new_from_mask(mask)
 
         if rmsfit is not None:
             if isinstance(rmsfit, tuple):
-                assert len(rmsfit) <= 2, (
+                assert len(rmsfit) == 2, (
                     "rmsfit must be a tuple of one (frame,) "
                     "or two elements (frame, mask)")
-                if len(rmsfit) == 1:
-                    rmsfit = (rmsfit[0], '*')
             elif isinstance(rmsfit, int) or isinstance(rmsfit, Frame):
                 rmsfit = (rmsfit, '*')
             else:
@@ -276,6 +295,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
             try:
                 n_frames = len(frame_indices)
             except TypeError:
+                # itertools.chain
                 n_frames = None
             frame_iter_super = super(TrajectoryIterator,
                                      self)._iterframe_indices(frame_indices)
@@ -289,7 +309,6 @@ class TrajectoryIterator(TrajectoryCpptraj):
                          mask=mask,
                          autoimage=autoimage,
                          rmsfit=rmsfit,
-                         is_trajiter=True,
                          n_frames=n_frames,
                          copy=copy,
                          frame_indices=frame_indices)
@@ -313,7 +332,10 @@ class TrajectoryIterator(TrajectoryCpptraj):
 
         Examples
         --------
-        >>> for chunk in trajiter.iterchunk(100, autoimage=True, rmsfit=(ref0, '@CA'))
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('tz2')
+        >>> ref = traj[3]
+        >>> for chunk in traj.iterchunk(3, autoimage=True, rmsfit=(ref, '@CA')): pass
 
         Notes
         -----
@@ -351,7 +373,13 @@ class TrajectoryIterator(TrajectoryCpptraj):
 
     @property
     def shape(self):
-        '''(n_frames, n_atoms, 3)'''
+        '''(n_frames, n_atoms, 3)
+
+        >>> import pytraj as pt
+        >>> traj = pt.datafiles.load_tz2_ortho()
+        >>> traj.shape
+        (10, 5293, 3)
+        '''
         return (self.n_frames, self.n_atoms, 3)
 
     def _split_iterators(self,
@@ -369,7 +397,10 @@ class TrajectoryIterator(TrajectoryCpptraj):
         --------
         >>> import pytraj as pt
         >>> traj = pt.load_sample_data('tz2')
-        >>> list(traj.split_iterators(n_chunks=4, mask='@CA'))
+        >>> list(traj._split_iterators(n_chunks=4, mask='@CA'))
+        [<Frame with 12 atoms>, <Frame with 12 atoms>]
+        >>> isinstance(traj._split_iterators(n_chunks=4, mask='@CA', rank=-1), list)
+        True
         """
 
         assert 0 <= start <= self.n_frames, "0 <= start <= self.n_frames"
@@ -377,40 +408,29 @@ class TrajectoryIterator(TrajectoryCpptraj):
         if stop <= 0 or stop > self.n_frames:
             stop = self.n_frames
 
-        if n_chunks == 1:
-            return self(start=start,
-                       stop=stop,
-                       step=step,
-                       mask=mask,
-                       autoimage=autoimage,
-                       rmsfit=rmsfit)
+        if rank >= 0:
+            _start, _stop = split_range(n_chunks=n_chunks,
+                                        start=start,
+                                        stop=stop)[rank]
+            return self.iterframe(start=_start,
+                                  stop=_stop,
+                                  step=step,
+                                  mask=mask,
+                                  autoimage=autoimage,
+                                  rmsfit=rmsfit)
         else:
-            if rank >= 0:
-                _start, _stop = split_range(n_chunks=n_chunks,
-                                            start=start,
-                                            stop=stop)[rank]
-                return self.iterframe(start=_start,
-                                      stop=_stop,
-                                      step=step,
-                                      mask=mask,
-                                      autoimage=autoimage,
-                                      rmsfit=rmsfit)
-            else:
-                list_of_iterators = []
-                for (_start, _stop) in split_range(n_chunks=n_chunks,
-                                            start=start,
-                                            stop=stop):
-                    list_of_iterators.append(self.iterframe(start=_start,
-                                      stop=_stop,
-                                      step=step,
-                                      mask=mask,
-                                      autoimage=autoimage,
-                                      rmsfit=rmsfit))
-                return list_of_iterators
+            list_of_iterators = []
+            for (_start, _stop) in split_range(n_chunks=n_chunks,
+                                        start=start,
+                                        stop=stop):
+                list_of_iterators.append(self.iterframe(start=_start,
+                                  stop=_stop,
+                                  step=step,
+                                  mask=mask,
+                                  autoimage=autoimage,
+                                  rmsfit=rmsfit))
+            return list_of_iterators
 
     @property
     def temperatures(self):
         return np.array([frame.temperature for frame in self])
-
-    def _iselect(self, frame_indices):
-        return self._iterframe_indices(frame_indices)

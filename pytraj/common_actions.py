@@ -16,19 +16,19 @@ from pytraj.core.ActionList import ActionList
 from .utils import is_array, ensure_not_none_or_string
 from .utils import is_int
 from .utils.context import goto_temp_folder
-from .utils.convert import array_to_cpptraj_atommask as array_to_cpptraj_atommask
+from .utils.convert import array_to_cpptraj_atommask
 from .externals.six import string_types
 from .Frame import Frame
 from .topology import Topology
 from .datasets.DatasetList import DatasetList as CpptrajDatasetList
 from .datafiles import DataFileList
 from .datasetlist import DatasetList
-from .hbonds import search_hbonds, search_hbonds_nointramol
+from .hbonds import search_hbonds
 from .dssp_analysis import calc_dssp
 from ._nastruct import nastruct
 from ._shared_methods import iterframe_master
 from .externals.get_pysander_energies import get_pysander_energies
-from .decorators import noparallel, _register_pmap, _register_openmp
+from .decorators import _register_pmap, _register_openmp
 from .actions import CpptrajActions
 from .analyses import CpptrajAnalyses
 from .core.ActionList import ActionList
@@ -66,7 +66,7 @@ list_of_do = ['do_translation',
 
 list_of_get = ['get_average_frame']
 
-list_of_the_rest = ['search_hbonds', 'search_hbonds_nointramol',
+list_of_the_rest = ['search_hbonds',
                     'align_principal_axis', 'principal_axes', 'closest',
                     'native_contacts', 'nastruct']
 
@@ -145,7 +145,6 @@ def calc_distance(traj=None,
     cm_arr = np.asarray(command)
 
     if 'int' in cm_arr.dtype.name:
-        from pytraj.datasetlist import from_dict
 
         int_2darr = cm_arr
 
@@ -170,7 +169,7 @@ def calc_distance(traj=None,
         if dtype == 'ndarray':
             return arr
         else:
-            py_dslist = from_dict({'distance': arr})
+            py_dslist = DatasetList({'distance': arr})
             return _get_data_from_dtype(py_dslist, dtype)
 
     elif isinstance(command, (list, tuple, string_types, np.ndarray)):
@@ -278,7 +277,6 @@ def calc_angle(traj=None,
     >>> # angle between atom 1, 5, 8, distance between atom 4, 10, 20 (index starts from 0)
     >>> pt.angle(traj, [[1, 5, 8], [4, 10, 20]])
     """
-    from pytraj.datasetlist import from_dict
     dslist = CpptrajDatasetList()
     act = CpptrajActions.Action_Angle()
 
@@ -340,7 +338,7 @@ def calc_angle(traj=None,
         if dtype == 'ndarray':
             return arr
         else:
-            py_dslist = from_dict({'angle': arr})
+            py_dslist = DatasetList({'angle': arr})
             return _get_data_from_dtype(py_dslist, dtype)
 
 
@@ -465,8 +463,7 @@ def calc_dihedral(traj=None,
         if dtype == 'ndarray':
             return arr
         else:
-            from pytraj.datasetlist import from_dict
-            py_dslist = from_dict({'dihedral': arr})
+            py_dslist = DatasetList({'dihedral': arr})
             return _get_data_from_dtype(py_dslist, dtype)
 
 
@@ -664,10 +661,9 @@ def calc_matrix(traj=None,
                 command="",
                 top=None,
                 dtype='ndarray', *args, **kwd):
-    from pytraj.actions.CpptrajActions import Action_Matrix
     if not isinstance(command, string_types):
         command = array_to_cpptraj_atommask(command)
-    act = Action_Matrix()
+    act = CpptrajActions.Action_Matrix()
 
     _top = _get_topology(traj, top)
     dslist = CpptrajDatasetList()
@@ -931,7 +927,6 @@ def calc_rdf(traj=None,
     return (np.arange(bin_spacing / 2., maximum, bin_spacing), values)
 
 
-@noparallel
 def calc_pairdist(traj, mask="*", delta=0.1, dtype='ndarray', top=None):
     '''compute pair distribution function
 

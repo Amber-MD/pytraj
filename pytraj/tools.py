@@ -10,6 +10,7 @@ from glob import glob
 from itertools import islice
 import functools
 from collections import OrderedDict, defaultdict
+import numpy as np
 
 
 def groupby(key, seq):
@@ -48,13 +49,20 @@ PY3 = _sys.version_info[0] == 3
 if PY3:
     _iteritems = "items"
     string_types = str
-else:
+else: # pragma: no covert
     _iteritems = "iteritems"
     string_types = basestring
 
 
 def iteritems(d, **kw):
-    """Return an iterator over the (key, value) pairs of a dictionary."""
+    """Return an iterator over the (key, value) pairs of a dictionary.
+
+    Examples
+    --------
+    >>> for k, v in iteritems({'x': 3, 'y': 4}): print(k, v) : # doctest: +SKIP
+    x 3
+    y 4
+    """
     return iter(getattr(d, _iteritems)(**kw))
 
 
@@ -78,25 +86,30 @@ except ImportError:
 def split(data, n_chunks):
     """split `self.data` to n_chunks
 
+    Examples
+    --------
+    >>> for data in split(range(30), 3): print(data)
+    [0 1 2 3 4 5 6 7 8 9]
+    [10 11 12 13 14 15 16 17 18 19]
+    [20 21 22 23 24 25 26 27 28 29]
+
     Notes
     -----
     same as numpy.array_split
     """
-    return np.array_split(data, n_chunks_or_array)
+    return np.array_split(data, n_chunks)
 
 
-def chunk_average(self, n_chunk, restype='same'):
-    '''average by chunk'''
-    import numpy as np
-    from pytraj.array import DataArray
+def block_average(self, n_chunk):
+    '''average by chunk
 
-    data = np.array(list(map(np.mean, split(self, n_chunk))))
-    if restype == 'same' and isinstance(self, DataArray):
-        new_array = self.shallow_copy()
-        new_array.values = data
-        return new_array
-    else:
-        return data
+    Examples
+    --------
+    >>> block_average(range(30), 3)
+    array([  4.5,  14.5,  24.5])
+    '''
+
+    return np.array(list(map(np.mean, split(self, n_chunk))))
 
 
 def moving_average(data, n):
@@ -113,31 +126,6 @@ def moving_average(data, n):
     """
     window = np.ones(int(n)) / float(n)
     return np.convolve(data, window, 'same')
-
-def pipe(obj, func, *args, **kwargs):
-    """Notes: copied from pandas PR
-    https://github.com/ghl3/pandas/blob/groupby-pipe/pandas/tools/util.py
-    see license in pytraj/license/
-
-    Apply a function to a obj either by
-    passing the obj as the first argument
-    to the function or, in the case that
-    the func is a tuple, interpret the first
-    element of the tuple as a function and
-    pass the obj to that function as a keyword
-    arguemnt whose key is the value of the
-    second element of the tuple
-    """
-    if isinstance(func, tuple):
-        func, target = func
-        if target in kwargs:
-            msg = '%s is both the pipe target and a keyword argument' % target
-            raise ValueError(msg)
-        kwargs[target] = obj
-        return func(*args, **kwargs)
-    else:
-        return func(obj, *args, **kwargs)
-
 
 def _compose2(f, g):
     # copied from pandas
@@ -176,11 +164,10 @@ def grep_key(self, key):
     >>> import pytraj as pt
     >>> traj  = pt.load_sample_data('tz2')
     >>> dslist = pt.calc_multidihedral(traj, dtype='dataset') 
-    >>> pt.tools.grep_key(dslist, 'psi')[0] # doctest: +SKIP
-    <pytraj.array.DataArray: size=10, key=psi:1, dtype=float64, ndim=1>
-    values:
-    [ 176.6155643   166.82129574  168.79510009  167.42561927  151.18334989
-      134.17610997  160.99207908  165.1126967   147.94332109  145.42901383]
+    >>> pt.tools.grep_key(dslist, 'psi').values[0]
+    array([ 176.6155643 ,  166.82129574,  168.79510009,  167.42561927,
+            151.18334989,  134.17610997,  160.99207908,  165.1126967 ,
+            147.94332109,  145.42901383])
     """
     new_self = self.__class__()
     for d in self:
@@ -215,7 +202,7 @@ def flatten(x):
     return result
 
 
-def n_grams(a, n, asarray=False):
+def n_grams(a, n):
     """n_grams
 
     Parameters
@@ -237,14 +224,7 @@ def n_grams(a, n, asarray=False):
     """
 
     z = (islice(a, i, None) for i in range(n))
-    it = zip(*z)
-
-    if not asarray:
-        return it
-    else:
-        import numpy as np
-        return np.array([x for x in it])
-
+    return zip(*z)
 
 def dict_to_ndarray(dict_of_array):
     """convert OrderedDict to numpy array
@@ -331,6 +311,7 @@ def merge_frame_from_trajs(trajlist):
     """
     Examples
     --------
+    >>> import numpy as np
     >>> import pytraj as pt
     >>> traj0 = pt.load_sample_data('tz2')[:3]
     >>> traj1 = pt.load_sample_data('tz2')[3:6]
@@ -341,9 +322,7 @@ def merge_frame_from_trajs(trajlist):
     <Frame with 15879 atoms>
     <Frame with 15879 atoms>
     <Frame with 15879 atoms>
-    """
-    if not isinstance(trajlist, (list, tuple)):
-        raise ValueError('input must be a list or tuple of trajectories')
+   """
     for iterables in zip(*trajlist):
         yield merge_frames(iterables)
 
@@ -357,6 +336,11 @@ def rmsd_1darray(a1, a2):
     >>> a1 = [1.4, 3.5, 4.2]
     >>> rmsd_1darray(a0, a1)
     0.3872983346207417
+
+    >>> rmsd_1darray(a0, [3, 4, 5, 7, 8])
+    Traceback (most recent call last):
+        ...
+    ValueError: must have the same shape
     '''
     import numpy as np
     from math import sqrt
@@ -446,8 +430,12 @@ def split_traj_by_residues(traj, start=0, stop=-1, step=1):
         yield traj[j]
 
 
-def find_lib(libname, unique=False):
-    """return a list of all library files"""
+def find_lib(libname):
+    """return a list of all library files
+
+    >>> list(find_lib('cpptraj'))[0].split('/')[-1]
+    'libcpptraj.so'
+    """
     paths = os.environ.get('LD_LIBRARY_PATH', '').split(':')
     lib_path_list = []
     key = "lib" + libname + "*"
@@ -459,24 +447,7 @@ def find_lib(libname, unique=False):
             if os.path.isfile(fname):
                 lib_path_list.append(fname)
 
-    if not lib_path_list:
-        return None
-    else:
-        if unique:
-            return set(lib_path_list)
-        else:
-            return lib_path_list
-
-
-def read_orca_trj(fname):
-    """return numpy 2D array
-    """
-    # http://stackoverflow.com/questions/14645789/
-    # numpy-reading-file-with-filtering-lines-on-the-fly
-    import numpy as np
-    regexp = r'\s+\w+' + r'\s+([-.0-9]+)' * 3 + r'\s*\n'
-    return np.fromregex(fname, regexp, dtype='f')
-
+    return set(lib_path_list)
 
 def read_gaussian_output(filename=None, top=None):
     """return a `pytraj.api.Trajectory` object
@@ -523,14 +494,6 @@ def read_gaussian_output(filename=None, top=None):
         return Trajectory(xyz=go.atomcoords, top=_top)
 
 
-def read_to_array(fname):
-    '''read text from file to numpy array'''
-    import numpy as np
-    with open(fname, 'r') as fh:
-        arr0 = np.array([[x for x in line.split()] for line in fh.readlines()])
-        return np.array(flatten(arr0), dtype='f8')
-
-
 def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
     """
 
@@ -543,6 +506,18 @@ def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
     >>> traj3 = merge_trajs(traj1, traj2)
     >>> # from frame_iter for saving memory
     >>> traj3 = merge_trajs((traj1(0, 10, 2), traj1.top), (traj2(100, 110, 2), traj2.top), n_frames=6)
+
+    >>> # raise error if not having the same n_frames
+    >>> traj4 = pt.load_sample_data('tz2')[:]
+    >>> traj4.n_frames
+    10
+    >>> traj1.n_frames
+    1
+    >>> merge_trajs(traj1, traj4)
+    Traceback (most recent call last):
+        ...
+    ValueError: must have the same n_frames
+
 
     Notes
     -----
@@ -601,6 +576,8 @@ def as_2darray(traj_or_xyz):
     (10, 5293, 3)
     >>> as_2darray(traj).shape
     (10, 15879)
+    >>> as_2darray(traj.xyz).shape
+    (10, 15879)
 
     Notes
     -----
@@ -634,10 +611,14 @@ def as_3darray(xyz):
     (10, 15879)
     >>> as_3darray(xyz_2d).shape
     (10, 5293, 3)
+    >>> as_3darray(traj.xyz)
+    Traceback (most recent call last):
+        ...
+    ValueError: ndim must be 2
     '''
     shape = xyz.shape
     if len(shape) != 2:
-        raise ValueError('shape must be 2')
+        raise ValueError('ndim must be 2')
     new_shape = (shape[0], int(shape[1] / 3), 3)
     return xyz.reshape(new_shape)
 
@@ -658,3 +639,12 @@ def split_and_write_traj(self,
     for idx, traj in enumerate(self.iterchunk(chunksize=chunksize)):
         fname = ".".join((root_name, str(idx), ext))
         traj.save(fname, *args, **kwd)
+
+def read_to_array(fname):
+    '''read text from file to numpy array'''
+    import numpy as np
+    with open(fname, 'r') as fh:
+        arr0 = np.array([[x for x in line.split()] for line in fh.readlines()])
+        return np.array(flatten(arr0), dtype='f8')
+
+

@@ -32,7 +32,7 @@ class Test(unittest.TestCase):
         aa_eq(fa2.xyz, fa.xyz)
 
         # try to build Trajectory from scratch
-        fa2 = Trajectory(fa.xyz, top=fa.top)
+        fa2 = Trajectory(xyz=fa.xyz, top=fa.top)
         aa_eq(fa2.xyz, fa.xyz)
 
         # timing

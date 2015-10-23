@@ -595,6 +595,10 @@ cdef class Topology:
                 MOLNUM += 1
             self.add_atom(atom, residue)
 
+        # add box
+        box = Box(d['box'])
+        self.box = box
+
         self.add_bonds(d['bond_index'])
         self.add_dihedrals(d['dihedral_index'])
 
@@ -640,6 +644,7 @@ cdef class Topology:
         d['bond_index'] = self.bond_indices
         d['dihedral_index'] = self.dihedral_indices
         d['mol_number'] = molnums
+        d['box'] = self.box.values
 
         return d
 

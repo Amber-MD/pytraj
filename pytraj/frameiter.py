@@ -36,26 +36,60 @@ class FrameIter(object):
     --------
     >>> # short cut:
     >>> # create FrameIter with start=0, stop=8, step=2
-    >>> traj(0, 8, 2)
-
+    >>> import pytraj as pt
+    >>> traj = pt.load_sample_data('tz2')
+    >>> fi = traj(0, 8, 2)
     >>> # perform radgyr calculation with FrameIter
     >>> pt.radgyr(traj(0, 8, 2))
+    array([ 18.91114428,  18.84969884,  18.8568644 ,  18.9430491 ])
 
     >>> # create FrameIter with start, stop, step = 0, 8, 2
     >>> # autoimage=False, rmsfit=False
-    >>> traj.iterframe(0, 8, 2)
+    >>> fi = traj.iterframe(0, 8, 2)
 
     >>> # create FrameIter with start, stop, step = 2, 8, 1
     >>> # autoimage=False, rmsfit=False
-    >>> traj.iterframe(2, 8)
+    >>> fi = traj.iterframe(2, 8)
 
     >>> # create FrameIter with start, stop, step = 2, 8, 1
     >>> # autoimage=False, rmsfit=False, mask='@CA'
-    >>> traj.iterframe(2, 8, mask='@CA')
+    >>> fi = traj.iterframe(2, 8, mask='@CA')
 
     >>> # create FrameIter with start, stop, step = 2, 8, 1
     >>> # autoimage=True, rmsfit=False, mask='@CA'
-    >>> traj.iterframe(2, 8, autoimage=True, mask='@CA')
+    >>> for frame in traj.iterframe(2, 8, autoimage=True, mask='@CA'): print(frame)
+    <Frame with 12 atoms>
+    <Frame with 12 atoms>
+    <Frame with 12 atoms>
+    <Frame with 12 atoms>
+    <Frame with 12 atoms>
+    <Frame with 12 atoms>
+
+    >>> # with rmsfit
+    >>> for frame in traj.iterframe(2, 8, autoimage=True, rmsfit=0): pass
+    >>> for frame in traj.iterframe(2, 8, autoimage=True, rmsfit=(1, '!@H=')): pass
+
+    >>> # rmsfit
+    >>> fi = traj.iterframe(2, 8, rmsfit=(0, '@CA'))
+    >>> fi.n_frames
+    6
+
+    >>> fi = traj.iterframe(2, 8, mask='@1,2,3,4,5')
+    >>> fi.n_atoms
+    5
+
+    >>> # make copy of each Frame
+    >>> fi = traj.iterframe(2, 8, mask='@1,2,3,4,5', copy=True)
+
+    >>> fi = traj.iterframe(2, 8, rmsfit=3)
+    >>> fi = traj.iterframe(2, 8, mask='@1,2,3,4,5')
+
+    >>> # explit use copy=True to give different Frame with list
+    >>> fi = traj.iterframe(2, 8)
+    >>> fi.copy = True
+    >>> pt.radgyr(list(fi), top=traj.top)
+    array([ 18.84969884,  18.90449256,  18.8568644 ,  18.88917208,
+            18.9430491 ,  18.88878079])
     """
 
     def __init__(self, fi_generator,
@@ -67,7 +101,6 @@ class FrameIter(object):
                  mask="",
                  autoimage=False,
                  rmsfit=None,
-                 is_trajiter=False,
                  n_frames=None,
                  copy=True,
                  frame_indices=None):
@@ -81,13 +114,9 @@ class FrameIter(object):
         self.autoimage = autoimage
         self.rmsfit = rmsfit
         # use `copy_frame` for TrajectoryIterator
-        self.is_trajiter = is_trajiter
         self._n_frames = n_frames
         self.copy = copy
         self.frame_indices = frame_indices
-
-    def __len__(self):
-        return self._n_frames
 
     @property
     def n_frames(self):
@@ -125,10 +154,12 @@ class FrameIter(object):
 
         Examples
         --------
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('tz2')
         >>> fi = traj(2, 8, 2, mask='@CA')
-        >>> fi.save('test.nc', overwrite=True)
+        >>> fi.save('output/test.nc', overwrite=True)
         >>> # short version
-        >>> traj(2, 8, 2, mask='@CA').save('test.nc')
+        >>> traj(2, 8, 2, mask='@CA').save('output/test.nc', overwrite=True)
         '''
         from pytraj.io import write_traj
         write_traj(filename=filename,
@@ -139,9 +170,10 @@ class FrameIter(object):
                    mode=mode, *args, **kwd)
 
     def __iter__(self):
+        # do not import CpptrajActions in the top to avoid circular importing
+        from pytraj.actions import CpptrajActions
         if self.autoimage:
-            from pytraj.actions.CpptrajActions import Action_AutoImage
-            image_act = Action_AutoImage()
+            image_act = CpptrajActions.Action_AutoImage()
             image_act.read_input("", top=self.original_top)
             image_act.process(self.original_top)
         if self.rmsfit is not None:
@@ -156,8 +188,7 @@ class FrameIter(object):
                 # make a copy to avoid changing ref
                 ref = ref.copy()
                 image_act.do_action(ref)
-            from pytraj.actions.CpptrajActions import Action_Rmsd
-            rmsd_act = Action_Rmsd()
+            rmsd_act = CpptrajActions.Action_Rmsd()
             rmsd_act.read_input(mask_for_rmsfit, top=self.original_top)
             rmsd_act.process(self.original_top)
             # creat first frame to trick cpptraj to align to this.
@@ -167,7 +198,7 @@ class FrameIter(object):
             ref, mask_for_rmsfit = None, None
 
         for frame0 in self.frame_iter:
-            if self.is_trajiter and self.copy:
+            if self.copy:
                 # use copy for TrajectoryIterator
                 # so [f for f in traj()] will return a list of different 
                 # frames
@@ -183,14 +214,7 @@ class FrameIter(object):
                 rmsd_act.do_action(frame)
             if self.mask is not None:
                 mask = self.mask
-                if isinstance(mask, string_types):
-                    atm = self.original_top(mask)
-                else:
-                    try:
-                        atm = AtomMask()
-                        atm.add_selected_indices(mask)
-                    except TypeError:
-                        raise TypeError('')
+                atm = self.original_top(mask)
                 frame2 = Frame(frame, atm)
                 yield frame2
             else:

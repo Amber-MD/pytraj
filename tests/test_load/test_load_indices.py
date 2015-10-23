@@ -120,6 +120,14 @@ class TestIndices(unittest.TestCase):
         aa_eq(trajCA[1].coords, trajCA_10frames[3].coords)
         aa_eq(trajCA[2].coords, trajCA_10frames[7].coords)
 
+    def test_load_mask(self):
+        traj = pt.iterload(
+            filename="data/md1_prod.Tc5b.x",
+            top="./data/Tc5b.top")
+        t0 = pt.load(traj.filename, traj.top.filename,
+                    mask='@CA')
+        aa_eq(traj['@CA'].xyz, t0.xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

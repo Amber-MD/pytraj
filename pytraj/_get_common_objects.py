@@ -1,8 +1,10 @@
 from __future__ import absolute_import
 # TODO: rename this file
+from functools import wraps
 
 # do not import anything else here.
 from pytraj.externals.six import string_types, integer_types
+from pytraj.utils.convert import array_to_cpptraj_atommask
 
 def _load_Topology(filename):
     from pytraj import Topology, ParmFile
@@ -37,7 +39,6 @@ def _get_data_from_dtype(d0, dtype='dataset'):
     from pytraj.datasetlist import DatasetList as DSL
 
     if dtype is None or dtype == 'dataset':
-        pass
         if hasattr(d0, 'set__own_memory'):
             d0.set__own_memory(False)
         elif hasattr(d0, '_own_memory'):
@@ -129,6 +130,8 @@ def _get_resrange(resrange):
     --------
     >>> _get_resrange('1-3')
     'resrange 1-3'
+    >>> _get_resrange(0)
+    'resrange 1'
     >>> _get_resrange(range(3))
     'resrange 1,2,3'
     >>> _get_resrange([2, 5, 7])
@@ -149,3 +152,4 @@ def _get_resrange(resrange):
     else:
         _resrange = ""
     return _resrange
+

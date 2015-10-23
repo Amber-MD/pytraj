@@ -1,5 +1,5 @@
 import numpy as np
-from .decorators import noparallel, _register_pmap, _register_openmp
+from .decorators import _register_pmap, _register_openmp
 from .datasets.DatasetList import DatasetList as CpptrajDatasetList
 from .actions import CpptrajActions
 from .analyses import CpptrajAnalyses
@@ -117,6 +117,17 @@ def ired_vector_and_matrix(traj=None,
     out : if dtype is 'dataset', return pytraj.DatasetList with shape=(n_vectors+1,)
         last index is a matrix, otherwise n_vectors. If dtype is 'tuple', return a a tuple
         of vectors and matrix
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> h = pt.select_atoms(traj.top, '@H')
+    >>> n = h - 1
+    >>> nh = list(zip(n, h))
+    >>> vecs, mat = pt.ired_vector_and_matrix(traj, mask=nh)
+    >>> dslist = pt.ired_vector_and_matrix(traj, mask=nh, dtype='dataset')
+
     """
     dslist = CpptrajDatasetList()
     _top = _get_topology(traj, top)
@@ -178,11 +189,11 @@ def NH_order_parameters(traj, vector_pairs, order=2, tstep=1., tcorr=10000., n_c
     Examples
     --------
     >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
     >>> h_indices = pt.select_atoms(traj.top, '@H')
     >>> n_indices = h_indices - 1
     >>> nh_pairs = list(zip(n_indices, h_indices))
     >>> data = pt.NH_order_parameters(traj, nh_pairs)
-    >>> print(data)
     '''
     from pytraj import matrix
 

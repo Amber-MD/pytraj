@@ -39,7 +39,7 @@ class TestNoName(unittest.TestCase):
         aa_eq(api_traj[0].xyz, api_traj.xyz[0])
 
         # test Box
-        assert (api_traj.has_box() == True)
+        assert (api_traj.top.has_box() == True)
         boxes = traj.unitcells
         for i, frame in enumerate(api_traj):
             assert (frame.has_box() == True)

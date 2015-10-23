@@ -41,10 +41,6 @@ try:
     from .core.ActionList import ActionList, create_pipeline
     Pipeline = ActionList
 
-    def run_pipeline(pipe):
-        for _ in pipe:
-            pass
-
 except ImportError:
     import os
     source_folders = ['./scripts', './devtools', './docs']
@@ -76,7 +72,7 @@ from .topology import Topology, ParmFile
 from .math import Vec3
 from .Frame import Frame
 from .api import Trajectory
-from .trajectory_iterator import TrajectoryIterator, split_iterators as isplit
+from .trajectory_iterator import TrajectoryIterator
 from .trajs.Trajout import Trajout
 from .datasets.cast_dataset import cast_dataset
 from .datasetlist import DatasetList as Dataset
@@ -144,7 +140,9 @@ rms2d = calc_pairwise_rmsd
 rotation_matrix = calc_rotation_matrix
 multidihedral = calc_multidihedral
 xcorr = cross_correlation_function
+crosscorr = cross_correlation_function
 acorr = auto_correlation_function
+autocorr = auto_correlation_function
 dssp = calc_dssp
 bfactors = calc_bfactors
 density = calc_density
@@ -265,8 +263,15 @@ def iterframe(traj, *args, **kwd):
     Examples
     --------
     >>> import pytraj as pt
-    >>> for frame in pt.iterframe(traj, 0, 8, 2): print(frame)
-    >>> for frame in pt.iterframe(traj, 0, 8, 2, mask='@CA'): print(frame)
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> for frame in pt.iterframe(traj, 0, 8, 2): pass
+    >>> for frame in pt.iterframe(traj, 4, mask='@CA'): print(frame)
+    <Frame with 12 atoms>
+    <Frame with 12 atoms>
+    <Frame with 12 atoms>
+    <Frame with 12 atoms>
+    <Frame with 12 atoms>
+    <Frame with 12 atoms>
 
     See also
     --------
@@ -283,8 +288,8 @@ def iterchunk(traj, *args, **kwd):
     Examples
     --------
     >>> import pytraj as pt
-    >>> for chunk in pt.iterchunk(traj, 4): print(chunk)
-    >>> for chunk in pt.iterframe(traj, 4, mask='@CA'): print(chunk)
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> for frame in pt.iterchunk(traj, 4): pass
 
     See also
     --------
@@ -298,7 +303,9 @@ def select_atoms(topology, mask):
     Examples
     --------
     >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
     >>> atom_indices = pt.select_atoms(traj.top, '@CA')
+    >>> atom_indices
     array([  4,  15,  39, ..., 159, 173, 197])
     '''
     return topology.select(mask)
@@ -332,6 +339,7 @@ def savefig(fname, *args, **kwd):
 
 def show_versions():
     """
+    >>> show_versions() # doctest: +SKIP
     """
     print(sys.version)
     print('')
@@ -341,6 +349,9 @@ def show_versions():
     print("cpptraj compiled flag = ", compiled_info())
 
 def _get_pytraj_path():
-    '''Return pytraj path'''
+    '''Return pytraj path
+    >>> 'pytraj' in _get_pytraj_path()
+    True
+    '''
     cur_dir = os.path.abspath(os.path.dirname(__file__))
     return cur_dir

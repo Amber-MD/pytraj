@@ -7,11 +7,8 @@ from ..core.Box cimport Box
 from ..topology cimport Topology
 
 from .._cyutils import get_positive_idx
-from pytraj.externals.six import string_types, PY2
-from .._shared_methods import my_str_method
-from .._shared_methods import _xyz, _tolist
-from .._shared_methods import _savetraj, _get_temperature_set
-from .._shared_methods import _box
+from pytraj.externals.six import string_types
+from .._shared_methods import (my_str_method, _xyz, _savetraj, _box)
 from ..utils.check_and_assert import ensure_exist
 from ..utils.check_and_assert import is_array, is_range
 from ..externals.six.moves import zip, range

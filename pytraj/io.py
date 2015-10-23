@@ -1,4 +1,5 @@
 from __future__ import absolute_import
+import os
 import numpy as np
 
 from .externals.six import string_types, PY3
@@ -10,19 +11,17 @@ from .datafiles.load_cpptraj_file import load_cpptraj_file
 from ._shared_methods import iterframe_master
 from ._cyutils import _fast_iterptr as iterframe_from_array
 from .cpp_options import set_error_silent
+from .utils.context import goto_temp_folder
 from ._get_common_objects import _get_topology
 from .topology import Topology, ParmFile
 from .api import Trajectory
 from .trajectory_iterator import TrajectoryIterator
 
-try:
-    from .externals._load_ParmEd import load_ParmEd, _load_parmed
-except:
-    load_ParmEd = None
-
-# load mdtraj and MDAnalysis
+from .externals._load_ParmEd import load_ParmEd, _load_parmed
 from .externals._load_mdtraj import load_mdtraj as _load_mdtraj
 from .externals._load_MDAnalysis import load_MDAnalysis as _load_MDAnalysis
+
+from .decorators import ensure_exist
 
 try:
     from urllib.request import urlopen
@@ -141,7 +140,7 @@ def iterload(*args, **kwd):
     return load_traj(*args, **kwd)
 
 
-def _load_netcdf(filename, top, frame_indices=None, engine='scipy'):
+def _load_netcdf(filename, top, frame_indices=None, engine='scipy'): # pragma: no cover
     '''simply read all data to memory. Use this if you want to load data few times
     faster (and  you know what you are doing).
     '''
@@ -183,7 +182,7 @@ def _load_netcdf(filename, top, frame_indices=None, engine='scipy'):
     return traj
 
 
-def load_traj(filename=None, top=None, frame_indices=None, *args, **kwd):
+def load_traj(filename=None, top=None, *args, **kwd):
     """load trajectory from filename
 
     Parameters
@@ -209,14 +208,7 @@ def load_traj(filename=None, top=None, frame_indices=None, *args, **kwd):
     else:
         ts.load(filename)
 
-    if frame_indices is not None:
-        if isinstance(frame_indices, tuple):
-            frame_indices = list(frame_indices)
-        return ts[frame_indices]
-    elif is_frame_iter(filename):
-        return _load_from_frame_iter(filename, top)
-    else:
-        return ts
+    return ts
 
 
 def _load_from_frame_iter(iterables, top=None, n_frames=None):
@@ -352,13 +344,8 @@ def write_traj(filename="",
                         "frame indices does not work with single Frame")
                 trajout.write(0, traj)
             else:
-                if isinstance(traj, string_types):
-                    traj2 = iterload(traj, _top)
-                else:
-                    traj2 = traj
-
                 if frame_indices is not None:
-                    if isinstance(traj2, (list, tuple, Frame)):
+                    if isinstance(traj, (list, tuple, Frame)):
                         raise NotImplementedError(
                             "must be Trajectory or TrajectoryIterator instance")
                     for idx, frame in enumerate(traj.iterframe(
@@ -366,7 +353,7 @@ def write_traj(filename="",
                         trajout.write(idx, frame)
 
                 else:
-                    for idx, frame in enumerate(iterframe_master(traj2)):
+                    for idx, frame in enumerate(iterframe_master(traj)):
                         trajout.write(idx, frame)
     else:
         # is ndarray, shape=(n_frames, n_atoms, 3)
@@ -430,7 +417,8 @@ def load_topology(filename, more_options=''):
 
     if isinstance(filename, string_types):
         if filename.startswith('http://') or filename.startswith('https://'):
-            top = _load_url(filename)
+            import parmed as pmd
+            return load_ParmEd(pmd.load_file(filename))
         else:
             parm = ParmFile()
             set_error_silent(True)
@@ -447,18 +435,6 @@ def load_topology(filename, more_options=''):
 
 # creat alias
 read_parm = load_topology
-
-
-def _load_url(url):
-    """load Topology from url
-    """
-    txt = urlopen(url).read()
-    fname = "/tmp/tmppdb.pdb"
-    with open(fname, 'w') as fh:
-        if PY3:
-            txt = txt.decode()
-        fh.write(txt)
-    return load_topology(fname)
 
 
 def loadpdb_rcsb(pdbid):
@@ -495,7 +471,6 @@ def download_PDB(pdbid, location="./", overwrite=False):
     -----
     this method is different from `parmed.download_PDB`, which return a `Structure` object
     """
-    import os
     fname = location + pdbid + ".pdb"
     if os.path.exists(fname) and not overwrite:
         raise ValueError("must set overwrite to True")
@@ -516,9 +491,10 @@ def load_pdb(pdb_file):
     return load_traj(pdb_file, pdb_file)
 
 
-def load_single_frame(frame=None, top=None, index=0):
+@ensure_exist
+def load_single_frame(filename=None, top=None, index=0):
     """load a single Frame"""
-    return iterload(frame, top)[index]
+    return iterload(filename, top)[index]
 
 
 load_frame = load_single_frame

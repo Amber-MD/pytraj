@@ -25,7 +25,7 @@ class TestIO(unittest.TestCase):
         savedtraj = pt.iterload("./output/test_0.binpos", traj.top)
         assert savedtraj.n_frames == traj.n_frames
 
-    def test_blindload(self):
+    def test_blind_load(self):
         top = pt.load_topology("./data/Tc5b.top")
         assert isinstance(top, Topology) == True
 
@@ -66,6 +66,11 @@ class TestIO(unittest.TestCase):
         assert traj2.n_frames == len(indices)
 
     def test_load_and_save_1(self):
+        # do not support frame_indices for TrajectoryIterator
+        self.assertRaises(ValueError, lambda: pt.iterload(
+            filename="./data/md1_prod.Tc5b.x",
+            top="./data/Tc5b.top", frame_indices=[0, 5]))
+
         traj = pt.iterload(
             filename="./data/md1_prod.Tc5b.x",
             top="./data/Tc5b.top")
@@ -113,10 +118,14 @@ class TestIO(unittest.TestCase):
         xyz = pt.get_coordinates(traj, mask='@CA')
         aa_eq(xyz, traj['@CA'].xyz)
 
-    def test_get_coordinates_trajecotory(self):
+        # raise
+        self.assertRaises(ValueError, lambda: pt.get_coordinates(traj(), frame_indices=[0,
+            2]))
+
+    def test_get_coordinates_trajectory(self):
         '''mutable pytraj.Trajectory
         '''
-        traj = self.traj_tz2_ortho.copy()
+        traj = pt.Trajectory(xyz=self.traj_tz2_ortho.xyz, top=self.traj_tz2_ortho.top)
         # make a different copy since ``traj`` is mutable
         traj2 = traj.copy()
 
@@ -165,6 +174,25 @@ class TestIO(unittest.TestCase):
         traj = pt.io._load_netcdf(fname, tname, frame_indices=range(5))
         aa_eq(saved_traj[range(5)].xyz, traj.xyz)
         aa_eq(saved_traj.unitcells[range(5)], traj.unitcells)
+
+    def test_single_frame(self):
+        traj = pt.load_sample_data('tz2')
+        frame = pt.io.load_frame(traj.filename, traj.top.filename, 3)
+        aa_eq(traj[3].xyz, frame.xyz)
+
+        self.assertRaises(RuntimeError, lambda: pt.io.load_frame('afddsfdsfa',
+            traj.top.filename, 3))
+
+    def test_download_pdb(self):
+        pt.io.download_PDB('1l2y', 'output/', overwrite=True)
+        t2 = pt.load('output/1l2y.pdb')
+        assert t2.n_atoms == 304, 'must have 304 atoms'
+        self.assertRaises(ValueError, lambda: pt.io.download_PDB('1l2y', 'output/',
+            overwrite=False))
+
+    def test_load_https(self):
+        top = pt.io.load_topology('https://raw.githubusercontent.com/ParmEd/ParmEd/master/test/files/2koc.pdb')
+        assert top.n_atoms == 451, '2koc'
 
 
 if __name__ == "__main__":

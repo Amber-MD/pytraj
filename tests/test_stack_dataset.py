@@ -17,13 +17,13 @@ class Test(unittest.TestCase):
         import numpy as np
         from pytraj.datasetlist import stack as stack
         _ds1 = pyca.calc_dssp(traj[:5], dtype='dataset')
-        ds1 = _ds1.filter('LYS')
+        ds1 = _ds1.grep('LYS')
         _ds2 = pyca.calc_dssp(traj[5:], dtype='dataset')
-        ds2 = _ds2.filter('LYS')
+        ds2 = _ds2.grep('LYS')
 
         dstack = stack((ds1, ds2))
         _d12 = pyca.calc_dssp(traj, dtype='dataset')
-        d12 = _d12.filter("LYS")
+        d12 = _d12.grep("LYS")
 
         dstack_dict = dstack.to_dict()
         d12_dict = d12.to_dict()

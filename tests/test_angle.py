@@ -8,7 +8,6 @@ from pytraj import io as mdio
 from pytraj.utils import eq, aa_eq
 from pytraj.testing import cpptraj_test_dir
 import pytraj.common_actions as pyca
-from pytraj.misc import from_legends_to_indices
 
 
 class Test(unittest.TestCase):
@@ -36,7 +35,6 @@ class Test(unittest.TestCase):
         aa_eq(d3, d6)
         aa_eq(d3.T, d7.T[:fa.n_frames])
         aa_eq(d3.T, d7.T[fa.n_frames:])
-        #print(d3)
 
 
 if __name__ == "__main__":

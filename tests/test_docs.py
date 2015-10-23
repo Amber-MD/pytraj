@@ -8,27 +8,46 @@ import doctest
 from pytraj.compat import PY3
 from pytraj import testing
 
+doctest.DONT_ACCEPT_BLANKLINE = False
+
+
+def get_total_errors(modules):
+    return sum([doctest.testmod(mod).failed for mod in modules])
 
 class TestDoc(unittest.TestCase):
     '''testing for light modules
     '''
     def test_doc(self):
         from pytraj.utils import convert
-        def get_total_errors(modules):
-            return sum([doctest.testmod(mod).failed for mod in modules])
+        from pytraj import frameiter, vector, datasetlist, _base_result_class
+        from pytraj import trajectory_iterator, api
+        from pytraj.parallel import pjob
+        from pytraj.utils import check_and_assert
 
-        modules = [pt._get_common_objects,
+        modules = [api,
+                   pt._get_common_objects,
                    pt._nastruct,
                    convert,
+                   frameiter,
+                   vector,
+                   pjob,
+                   trajectory_iterator,
                   ]
         if PY3:
             # avoid adding 'u' to string in PY2: u'GLU5_O-LYS8_N-H'
-            modules.append(pt.hbonds)
-            # different formats between py2 and 3
-            modules.append(pt.tools)
-            modules.append(pt.parallel.parallel_mapping_multiprocessing)
-            modules.append(testing)
-            modules.append(utils)
+            additional_list = [
+                    datasetlist,
+                    pt,
+                    pt.array,
+                    pt.nmr,
+                    check_and_assert,
+                    pt.hbonds, pt.tools,
+                    pt.parallel.parallel_mapping_multiprocessing,
+                    testing, utils,
+                    pt.matrix,
+                    _base_result_class,
+                    ]
+            modules.extend(additional_list)
         assert get_total_errors(modules) == 0, 'doctest: failed_count must be 0'
 
 if __name__ == "__main__":

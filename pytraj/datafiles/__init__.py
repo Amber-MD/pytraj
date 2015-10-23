@@ -5,7 +5,7 @@ from ..utils.context import goto_temp_folder
 from .datafiles import DataFile, DataFileList
 from .load_sample_data import *
 
-__all__ = ['load_cpptraj_state', 'load_cpptraj_file', 'load_cpptraj_output',
+__all__ = ['load_cpptraj_state', 'load_cpptraj_output',
            'Ala3_crd', 'Ala3_crd_top', 'tz2_ortho_nc', 'tz2_ortho_parm7']
 
 mydir = os.path.dirname(os.path.abspath(__file__))
@@ -103,68 +103,3 @@ def load_cpptraj_state(txt):
     """
     from pytraj.core.cpp_core import _load_batch
     return _load_batch(txt, traj=None)
-
-def cpptraj_dry_run(txt):
-    '''for speed comparison
-    '''
-    from pytraj.io import load_cpptraj_file
-    from pytraj import ArgList
-    command_list = list(filter(lambda x: x, txt.split("\n")))
-
-    for idx, line in enumerate(command_list):
-        if 'parm' in line:
-            arglist = ArgList(line)
-            # use absolute path
-            fname = os.path.abspath(arglist.get_string_key('parm'))
-            command_list[idx] = " ".join(('parm', fname))
-
-        if 'trajin' in line:
-            arglist = ArgList(line)
-            # use absolute path
-            fname = os.path.abspath(arglist.get_string_key('trajin'))
-            command_list[idx] = " ".join(('trajin', fname))
-
-    _txt = "\n".join([line for line in command_list])
-
-    with goto_temp_folder():
-        with open("tmp.in", 'w') as fh:
-            fh.write(_txt)
-        state = load_cpptraj_file("tmp.in")
-        state.run()
-
-def load_outtraj(txt, top=None):
-    '''
-    Examples
-    --------
-    >>> import pytraj as pt
-    >>> pt.datafiles.load_outtraj(tc5b_trajin + """
-    trajout test.nc
-    """, top=traj.top)
-    '''
-    from pytraj.io import load_cpptraj_file
-    from pytraj import ArgList
-    import pytraj as pt
-
-    command_list = list(filter(lambda x: x, txt.split("\n")))
-    arglist = ArgList(txt)
-
-    filelist = []
-    _top = None
-    for line in command_list:
-        if 'trajout' in line:
-            arg = ArgList(line)
-            filelist.append(arg.get_string_key('trajout'))
-
-        if 'parm' in line:
-            _top = ArgList(line).get_string_key('parm')
-
-    if top is None:
-        top = _top
-
-    with goto_temp_folder():
-        with open("tmp.in", 'w') as fh:
-            fh.write(txt)
-        state = load_cpptraj_file("tmp.in")
-        state.run()
-        traj = pt.iterload(filelist[0], top)
-        return traj
