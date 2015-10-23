@@ -167,8 +167,8 @@
 </div>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterchunk</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterchunk</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span> <span class="k">pass</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -182,8 +182,15 @@
 </div>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+<span class="go">&lt;Frame with 12 atoms&gt;</span>
+<span class="go">&lt;Frame with 12 atoms&gt;</span>
+<span class="go">&lt;Frame with 12 atoms&gt;</span>
+<span class="go">&lt;Frame with 12 atoms&gt;</span>
+<span class="go">&lt;Frame with 12 atoms&gt;</span>
+<span class="go">&lt;Frame with 12 atoms&gt;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -253,11 +260,6 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="pytraj.run_pipeline">
-<tt class="descclassname">pytraj.</tt><tt class="descname">run_pipeline</tt><big>(</big><em>pipe</em><big>)</big><a class="headerlink" href="#pytraj.run_pipeline" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
 <dt id="pytraj.savefig">
 <tt class="descclassname">pytraj.</tt><tt class="descname">savefig</tt><big>(</big><em>fname</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.savefig" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -268,7 +270,9 @@
 <dd><p>return atom indices</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">atom_indices</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">select_atoms</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">atom_indices</span>
 <span class="go">array([  4,  15,  39, ..., 159, 173, 197])</span>
 </pre></div>
 </div>
@@ -288,7 +292,10 @@
 <dl class="function">
 <dt id="pytraj.show_versions">
 <tt class="descclassname">pytraj.</tt><tt class="descname">show_versions</tt><big>(</big><big>)</big><a class="headerlink" href="#pytraj.show_versions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">show_versions</span><span class="p">()</span> 
+</pre></div>
+</div>
+</dd></dl>
 
 <dl class="function">
 <dt id="pytraj.strip_atoms">
@@ -321,7 +328,7 @@
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 21, 2015.<br/>
+      Last updated on Oct 23, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

@@ -278,14 +278,8 @@ You want to load and extract only frames at 300 K, use this method</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="pytraj.io.load_pdb">
-<tt class="descclassname">pytraj.io.</tt><tt class="descname">load_pdb</tt><big>(</big><em>pdb_file</em><big>)</big><a class="headerlink" href="#pytraj.io.load_pdb" title="Permalink to this definition">¶</a></dt>
-<dd><p>return a Trajectory object</p>
-</dd></dl>
-
-<dl class="function">
 <dt id="pytraj.io.load_cpptraj_file">
-<tt class="descclassname">pytraj.io.</tt><tt class="descname">load_cpptraj_file</tt><big>(</big><em>fname</em><big>)</big><a class="headerlink" href="#pytraj.io.load_cpptraj_file" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.io.</tt><tt class="descname">load_cpptraj_file</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#pytraj.io.load_cpptraj_file" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -372,7 +366,7 @@ file. cpptraj will do the bond guess based on distance.</p>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># read with more_options</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&#39;1KX5.pdb&#39;</span><span class="p">,</span> <span class="s">&#39;bonsearch 0.2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&#39;1KX5.pdb&#39;</span><span class="p">,</span> <span class="s">&#39;bondsearch 0.2&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -416,7 +410,7 @@ file. cpptraj will do the bond guess based on distance.</p>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># read with more_options</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&#39;1KX5.pdb&#39;</span><span class="p">,</span> <span class="s">&#39;bonsearch 0.2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&#39;1KX5.pdb&#39;</span><span class="p">,</span> <span class="s">&#39;bondsearch 0.2&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -512,7 +506,8 @@ file. cpptraj will do the bond guess based on distance.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># write to netcdf file from 3D numpy array, need to provide Topology</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">xyz</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">xyz</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">top</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;test_xyz.nc&quot;</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/test_xyz.nc&quot;</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/test_xyz.nc&quot;</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -603,7 +598,8 @@ file. cpptraj will do the bond guess based on distance.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># write to netcdf file from 3D numpy array, need to provide Topology</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">xyz</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">xyz</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">top</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;test_xyz.nc&quot;</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/test_xyz.nc&quot;</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/test_xyz.nc&quot;</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -704,7 +700,7 @@ unsafe. See: <a class="reference external" href="http://docs.python.org/2.7/libr
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 21, 2015.<br/>
+      Last updated on Oct 23, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

@@ -169,6 +169,8 @@ If want to use external package, import it inside the function</p>
 <span class="go">(10, 5293, 3)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">as_2darray</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span>
 <span class="go">(10, 15879)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">as_2darray</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">xyz</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(10, 15879)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -187,14 +189,23 @@ If want to use external package, import it inside the function</p>
 <span class="go">(10, 15879)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">as_3darray</span><span class="p">(</span><span class="n">xyz_2d</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span>
 <span class="go">(10, 5293, 3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">as_3darray</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">xyz</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">ValueError</span>: <span class="n">ndim must be 2</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="function">
-<dt id="pytraj.tools.chunk_average">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">chunk_average</tt><big>(</big><em>self</em>, <em>n_chunk</em>, <em>restype='same'</em><big>)</big><a class="headerlink" href="#pytraj.tools.chunk_average" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.tools.block_average">
+<tt class="descclassname">pytraj.tools.</tt><tt class="descname">block_average</tt><big>(</big><em>self</em>, <em>n_chunk</em><big>)</big><a class="headerlink" href="#pytraj.tools.block_average" title="Permalink to this definition">¶</a></dt>
 <dd><p>average by chunk</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">block_average</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">array([  4.5,  14.5,  24.5])</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -250,8 +261,12 @@ see license in pytraj/license/</p>
 
 <dl class="function">
 <dt id="pytraj.tools.find_lib">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">find_lib</tt><big>(</big><em>libname</em>, <em>unique=False</em><big>)</big><a class="headerlink" href="#pytraj.tools.find_lib" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.tools.</tt><tt class="descname">find_lib</tt><big>(</big><em>libname</em><big>)</big><a class="headerlink" href="#pytraj.tools.find_lib" title="Permalink to this definition">¶</a></dt>
 <dd><p>return a list of all library files</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">find_lib</span><span class="p">(</span><span class="s">&#39;cpptraj&#39;</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">&#39;libcpptraj.so&#39;</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -279,11 +294,10 @@ from the sequence and all recursively contained sub-sequences
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span>  <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dslist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;dataset&#39;</span><span class="p">)</span> 
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">grep_key</span><span class="p">(</span><span class="n">dslist</span><span class="p">,</span> <span class="s">&#39;psi&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> 
-<span class="go">&lt;pytraj.array.DataArray: size=10, key=psi:1, dtype=float64, ndim=1&gt;</span>
-<span class="go">values:</span>
-<span class="go">[ 176.6155643   166.82129574  168.79510009  167.42561927  151.18334989</span>
-<span class="go">  134.17610997  160.99207908  165.1126967   147.94332109  145.42901383]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">grep_key</span><span class="p">(</span><span class="n">dslist</span><span class="p">,</span> <span class="s">&#39;psi&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([ 176.6155643 ,  166.82129574,  168.79510009,  167.42561927,</span>
+<span class="go">        151.18334989,  134.17610997,  160.99207908,  165.1126967 ,</span>
+<span class="go">        147.94332109,  145.42901383])</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -303,6 +317,12 @@ from the sequence and all recursively contained sub-sequences
 <dt id="pytraj.tools.iteritems">
 <tt class="descclassname">pytraj.tools.</tt><tt class="descname">iteritems</tt><big>(</big><em>d</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#pytraj.tools.iteritems" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an iterator over the (key, value) pairs of a dictionary.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">({</span><span class="s">&#39;x&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">}):</span> <span class="k">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="p">:</span> 
+<span class="go">x 3</span>
+<span class="go">y 4</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -342,7 +362,8 @@ from the sequence and all recursively contained sub-sequences
 <dt id="pytraj.tools.merge_frame_from_trajs">
 <tt class="descclassname">pytraj.tools.</tt><tt class="descname">merge_frame_from_trajs</tt><big>(</big><em>trajlist</em><big>)</big><a class="headerlink" href="#pytraj.tools.merge_frame_from_trajs" title="Permalink to this definition">¶</a></dt>
 <dd><p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj0</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)[:</span><span class="mi">3</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj1</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj2</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)[</span><span class="mi">6</span><span class="p">:</span><span class="mi">9</span><span class="p">]</span>
@@ -385,6 +406,18 @@ Examples
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj3</span> <span class="o">=</span> <span class="n">merge_trajs</span><span class="p">((</span><span class="n">traj1</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">traj1</span><span class="o">.</span><span class="n">top</span><span class="p">),</span> <span class="p">(</span><span class="n">traj2</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">traj2</span><span class="o">.</span><span class="n">top</span><span class="p">),</span> <span class="n">n_frames</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
 </pre></div>
 </div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># raise error if not having the same n_frames</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj4</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)[:]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj4</span><span class="o">.</span><span class="n">n_frames</span>
+<span class="go">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj1</span><span class="o">.</span><span class="n">n_frames</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">merge_trajs</span><span class="p">(</span><span class="n">traj1</span><span class="p">,</span> <span class="n">traj4</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">ValueError</span>: <span class="n">must have the same n_frames</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -402,7 +435,7 @@ Examples
 
 <dl class="function">
 <dt id="pytraj.tools.n_grams">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">n_grams</tt><big>(</big><em>a</em>, <em>n</em>, <em>asarray=False</em><big>)</big><a class="headerlink" href="#pytraj.tools.n_grams" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.tools.</tt><tt class="descname">n_grams</tt><big>(</big><em>a</em>, <em>n</em><big>)</big><a class="headerlink" href="#pytraj.tools.n_grams" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -428,22 +461,6 @@ if True: return a numpy array</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="pytraj.tools.pipe">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">pipe</tt><big>(</big><em>obj</em>, <em>func</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pytraj.tools.pipe" title="Permalink to this definition">¶</a></dt>
-<dd><p>Notes: copied from pandas PR
-<a class="reference external" href="https://github.com/ghl3/pandas/blob/groupby-pipe/pandas/tools/util.py">https://github.com/ghl3/pandas/blob/groupby-pipe/pandas/tools/util.py</a>
-see license in pytraj/license/</p>
-<p>Apply a function to a obj either by
-passing the obj as the first argument
-to the function or, in the case that
-the func is a tuple, interpret the first
-element of the tuple as a function and
-pass the obj to that function as a keyword
-arguemnt whose key is the value of the
-second element of the tuple</p>
-</dd></dl>
-
-<dl class="function">
 <dt id="pytraj.tools.read_gaussian_output">
 <tt class="descclassname">pytraj.tools.</tt><tt class="descname">read_gaussian_output</tt><big>(</big><em>filename=None</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.tools.read_gaussian_output" title="Permalink to this definition">¶</a></dt>
 <dd><p>return a <cite>pytraj.api.Trajectory</cite> object</p>
@@ -461,12 +478,6 @@ if None, use <cite>antechamber</cite> to generate mol2 file, need set $AMBERHOME
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pytraj.tools.read_orca_trj">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">read_orca_trj</tt><big>(</big><em>fname</em><big>)</big><a class="headerlink" href="#pytraj.tools.read_orca_trj" title="Permalink to this definition">¶</a></dt>
-<dd><p>return numpy 2D array</p>
 </dd></dl>
 
 <dl class="function">
@@ -516,6 +527,12 @@ if None, use <cite>antechamber</cite> to generate mol2 file, need set $AMBERHOME
 <span class="go">0.3872983346207417</span>
 </pre></div>
 </div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">rmsd_1darray</span><span class="p">(</span><span class="n">a0</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">ValueError</span>: <span class="n">must have the same shape</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -524,6 +541,13 @@ if None, use <cite>antechamber</cite> to generate mol2 file, need set $AMBERHOME
 <dd><p>split <cite>self.data</cite> to n_chunks</p>
 <p class="rubric">Notes</p>
 <p>same as numpy.array_split</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">split</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span> <span class="mi">3</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="go">[0 1 2 3 4 5 6 7 8 9]</span>
+<span class="go">[10 11 12 13 14 15 16 17 18 19]</span>
+<span class="go">[20 21 22 23 24 25 26 27 28 29]</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -567,7 +591,7 @@ if None, use <cite>antechamber</cite> to generate mol2 file, need set $AMBERHOME
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 21, 2015.<br/>
+      Last updated on Oct 23, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

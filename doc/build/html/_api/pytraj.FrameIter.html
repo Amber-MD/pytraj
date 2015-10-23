@@ -151,7 +151,7 @@
 <script type="text/javascript" src='../_static/cindex.js'></script></div>
 <dl class="class">
 <dt id="pytraj.frameiter.FrameIter">
-<em class="property">class </em><tt class="descclassname">pytraj.frameiter.</tt><tt class="descname">FrameIter</tt><big>(</big><em>fi_generator</em>, <em>original_top=None</em>, <em>new_top=None</em>, <em>start=0</em>, <em>stop=-1</em>, <em>step=1</em>, <em>mask=''</em>, <em>autoimage=False</em>, <em>rmsfit=None</em>, <em>is_trajiter=False</em>, <em>n_frames=None</em>, <em>copy=True</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.frameiter.FrameIter" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pytraj.frameiter.</tt><tt class="descname">FrameIter</tt><big>(</big><em>fi_generator</em>, <em>original_top=None</em>, <em>new_top=None</em>, <em>start=0</em>, <em>stop=-1</em>, <em>step=1</em>, <em>mask=''</em>, <em>autoimage=False</em>, <em>rmsfit=None</em>, <em>n_frames=None</em>, <em>copy=True</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.frameiter.FrameIter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <p>create this class to hold all iterating information. This class is for internal use.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -228,6 +228,11 @@ do <tt class="docutils literal"><span class="pre">autoimage</span></tt> first.</
 <span class="go">&lt;Frame with 12 atoms&gt;</span>
 </pre></div>
 </div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># with rmsfit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">autoimage</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">rmsfit</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">autoimage</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">rmsfit</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;!@H=&#39;</span><span class="p">)):</span> <span class="k">pass</span>
+</pre></div>
+</div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># rmsfit</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">rmsfit</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span><span class="o">.</span><span class="n">n_frames</span>
@@ -237,6 +242,22 @@ do <tt class="docutils literal"><span class="pre">autoimage</span></tt> first.</
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@1,2,3,4,5&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span><span class="o">.</span><span class="n">n_atoms</span>
 <span class="go">5</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># make copy of each Frame</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@1,2,3,4,5&#39;</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">rmsfit</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@1,2,3,4,5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># explit use copy=True to give different Frame with list</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span><span class="o">.</span><span class="n">copy</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">fi</span><span class="p">),</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
+<span class="go">array([ 18.84969884,  18.90449256,  18.8568644 ,  18.88917208,</span>
+<span class="go">        18.9430491 ,  18.88878079])</span>
 </pre></div>
 </div>
 <p class="rubric">Attributes</p>
@@ -310,7 +331,7 @@ do <tt class="docutils literal"><span class="pre">autoimage</span></tt> first.</
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 21, 2015.<br/>
+      Last updated on Oct 23, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>
