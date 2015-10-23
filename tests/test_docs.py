@@ -36,6 +36,8 @@ class TestDoc(unittest.TestCase):
         if PY3:
             # avoid adding 'u' to string in PY2: u'GLU5_O-LYS8_N-H'
             additional_list = [
+                    pt.decorators,
+                    pt.dssp_analysis,
                     datasetlist,
                     pt,
                     pt.array,

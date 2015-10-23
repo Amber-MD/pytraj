@@ -39,8 +39,13 @@ def has_(lib):
     Examples
     --------
     >>> has_("numpy")
+    True
     """
-    return _import(lib)[0]
+    try:
+        __import__(lib)
+        return True
+    except ImportError:
+        return False
 
 def makesureABC(classname):
     def inner(func):
