@@ -4,15 +4,14 @@ from pytraj.tools import concat_dict
 from .pjob import PJob
 from functools import partial
 from pytraj import Frame
+from pytraj import create_pipeline
+from pytraj.datasets import CpptrajDatasetList
 
-
-def _worker_state(rank, n_cores=1, traj=None, lines=[], dtype='dict', ref=None):
+def _worker_actlist(rank, n_cores=2, traj=None, lines=[], dtype='dict', ref=None):
     # need to make a copy if lines since python's list is dangerous
     # it's easy to mess up with mutable list
     # do not use lines.copy() since this is not available in py2.7
-    my_lines = [line for line in lines]
-    from pytraj.utils import split_range
-    from pytraj.core.cpp_core import _load_batch
+    my_iter = traj._split_iterators(n_cores, rank=rank)
 
     if ref is not None:
         if isinstance(ref, Frame):
@@ -22,6 +21,35 @@ def _worker_state(rank, n_cores=1, traj=None, lines=[], dtype='dict', ref=None):
             reflist = ref
     else:
         reflist = []
+
+    dslist = CpptrajDatasetList()
+
+    if reflist:
+        for ref_ in reflist:
+            ref_dset = dslist.add_new('reference')
+            ref_dset.top = traj.top
+            ref_dset.add_frame(ref_)
+
+    # create Frame generator
+    fi = create_pipeline(my_iter, commands=lines, dslist=dslist)
+
+    # just iterate Frame to trigger calculation.
+    for _ in fi: pass
+
+    # remove ref
+    if dtype == 'dict':
+        return (rank, dslist[len(reflist):].to_dict())
+    else:
+        raise ValueError('must use dtype="dict"')
+
+
+def _worker_state(rank, n_cores=1, traj=None, lines=[], dtype='dict'):
+    # need to make a copy if lines since python's list is dangerous
+    # it's easy to mess up with mutable list
+    # do not use lines.copy() since this is not available in py2.7
+    my_lines = [line for line in lines]
+    from pytraj.utils import split_range
+    from pytraj.core.cpp_core import _load_batch
 
     mylist = split_range(n_cores, 0, traj.n_frames)[rank]
     start, stop = mylist
@@ -35,15 +63,7 @@ def _worker_state(rank, n_cores=1, traj=None, lines=[], dtype='dict', ref=None):
 
     state = _load_batch(my_lines, traj)
 
-    if reflist:
-        for ref_ in reflist:
-            ref_dset = state.data.add_new('reference')
-            ref_dset.top = traj.top
-            ref_dset.add_frame(ref_)
     state.run()
-    for dset in state.data:
-        if hasattr(dset, 'dtype') and dset.dtype == 'ref_frame':
-            state.data.remove_set(dset)
     if dtype == 'dict':
         # exclude DatasetTopology and TrajectoryCpptraj
         return (rank, state.data[2:].to_dict())
@@ -57,7 +77,9 @@ def _load_batch_pmap(n_cores=4, lines=[], traj=None, dtype='dict', root=0,
     '''
     if mode == 'multiprocessing':
         from multiprocessing import Pool
-        pfuncs = partial(_worker_state, n_cores=n_cores, traj=traj, dtype=dtype,
+        #pfuncs = partial(_worker_state, n_cores=n_cores, traj=traj, dtype=dtype,
+        #        lines=lines, ref=ref)
+        pfuncs = partial(_worker_actlist, n_cores=n_cores, traj=traj, dtype=dtype,
                 lines=lines, ref=ref)
         pool = Pool(n_cores)
         data = pool.map(pfuncs, range(n_cores))

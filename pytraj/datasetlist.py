@@ -391,10 +391,13 @@ class DatasetList(list):
         >>> d.append(100)
         Traceback (most recent call last):
             ...
-        ValueError: 'must have key or be a dict'
+        ValueError: must have key or be a dict
         """
         if copy:
-            d0 = dset.copy()
+            try:
+                d0 = dset.copy()
+            except AttributeError:
+                d0 = dset
         else:
             d0 = dset
 
