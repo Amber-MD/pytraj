@@ -13,7 +13,7 @@ class TestSearchHbonds(unittest.TestCase):
         dslist = search_hbonds(traj, dtype='dataset')
         for key in dslist.keys():
             if 'UU' not in key:
-                assert dslist[key].tolist().__len__() == traj.n_frames
+                assert len(dslist[key].values) == traj.n_frames
         mydict = dslist.to_dict()
         mydict_np = dslist.to_dict()
         assert len(mydict.keys()) == dslist.size

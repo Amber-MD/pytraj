@@ -320,7 +320,8 @@ def write_traj(filename="",
     >>> # write to netcdf file from 3D numpy array, need to provide Topology
     >>> xyz = traj.xyz
     >>> top = traj.top
-    >>> pt.write_traj("test_xyz.nc", xyz, top=traj.top, overwrite=True)
+    >>> pt.write_traj("output/test_xyz.nc", xyz, top=traj.top, overwrite=True)
+    >>> pt.write_traj("output/test_xyz.nc", xyz, top=traj.top, overwrite=True)
     """
     from .Frame import Frame
     from .trajs.Trajout import Trajout
@@ -407,7 +408,7 @@ def load_topology(filename, more_options=''):
     >>> top = pt.load_topology(parm)
 
     >>> # read with more_options
-    >>> pt.load_topology('1KX5.pdb', 'bonsearch 0.2')
+    >>> pt.load_topology('1KX5.pdb', 'bondsearch 0.2')
     """
     top = Topology()
 
@@ -424,8 +425,7 @@ def load_topology(filename, more_options=''):
             parm.readparm(filename=filename, top=top, more_options=more_options)
             set_error_silent(False)
     else:
-        # try to load ParmED
-        top = load_ParmEd(filename)
+        raise ValueError('filename must be a string')
 
     if top.n_atoms == 0:
         raise RuntimeError('n_atoms = 0: make sure to load correct filename '
@@ -484,17 +484,10 @@ def download_PDB(pdbid, location="./", overwrite=False):
 # create alias
 load_pdb_rcsb = loadpdb_rcsb
 
-
-def load_pdb(pdb_file):
-    """return a Trajectory object"""
-    return load_traj(pdb_file, pdb_file)
-
-
 @ensure_exist
 def load_single_frame(filename=None, top=None, index=0):
     """load a single Frame"""
     return iterload(filename, top)[index]
-
 
 load_frame = load_single_frame
 
@@ -549,4 +542,4 @@ def get_coordinates(iterables,
         # slower
         return np.array([frame.xyz.copy()
                          for frame in iterframe_master(iterables)],
-                        dtype='f8')
+                         dtype='f8')

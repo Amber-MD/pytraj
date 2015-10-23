@@ -27,14 +27,11 @@ def translate(traj, mask, anchor, to_point=[0.0, 0.0, 0.0]):
     -------
     updated traj
     '''
-    from pytraj import center_of_mass
-
     indices = traj.top.select(mask)
 
     for frame in traj:
-        center = center_of_mass(frame, mask=anchor, top=traj.top)[0]
-        diff = np.asarray(to_point) - center
-        frame.xyz += diff
+        diff = np.asarray(to_point) - np.asarray(anchor)
+        frame.xyz[indices] += diff
     return traj
 
 

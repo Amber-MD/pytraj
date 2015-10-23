@@ -10,7 +10,7 @@ class TestURL(unittest.TestCase):
         try:
             import parmed as pmd
             url = "http://ambermd.org/tutorials/advanced/tutorial1/files/polyAT.pdb"
-            traj0 = pt.load_pdb("./data/polyAT.pdb")
+            traj0 = pt.load("./data/polyAT.pdb")
             traj = pt.load_parmed(url, as_traj=True)
             aa_eq(traj0.xyz, traj.xyz)
 

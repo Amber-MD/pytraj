@@ -1,5 +1,6 @@
 from __future__ import print_function
 import unittest
+import pytraj as pt
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io
@@ -8,7 +9,7 @@ import pytraj.common_actions as pyca
 """
 try not to get segmentation fault error (due to whatever freaking reason)
 """
-traj = io.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
 
 class Test(unittest.TestCase):
@@ -32,12 +33,12 @@ class Test(unittest.TestCase):
         pyca.search_hbonds(traj, 'series, nointramol')
 
     def test_3_vdw_radii_topology(self):
-        top = io.load_pdb("./data/tz2.pdb").top
+        top = pt.load("./data/tz2.pdb").top
         # should raise ValueError since pdb does not have vdw info
         self.assertRaises(ValueError, lambda: top.vdw_radii())
 
     def test_4_trajiter(self):
-        traj = io.load_sample_data("tz2")
+        traj = pt.load_sample_data("tz2")
         from pytraj.compat import zip
 
         for idx, (f0, f1) in enumerate(zip(traj, traj)):
