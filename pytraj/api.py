@@ -47,6 +47,8 @@ class Trajectory(object):
 
         >>> # load from filename and topology name
         >>> traj = pt.Trajectory(fn, tn)
+        >>> traj = pt.Trajectory([fn, fn], tn)
+        >>> traj = pt.Trajectory((fn, fn), tn)
 
         >>> # load from array
         >>> traj_1 = pt.Trajectory(xyz=traj.xyz, top=traj.top)
@@ -224,7 +226,13 @@ class Trajectory(object):
 
         >>> # get a new stripped Frame
         >>> t0 = traj[0, '@CA']
+
+        >>> atm = traj.top('@CA')
+        >>> t1 = traj[atm]
         """
+        if self.n_frames == 0:
+            raise IndexError("Your Trajectory is empty, how can I index it?")
+
         if is_int(idx):
             # traj[0]
             # return a single Frame as a view
@@ -289,7 +297,7 @@ class Trajectory(object):
 
     def __setitem__(self, idx, other):
         if self.n_frames == 0:
-            raise ValueError("Your Trajectory is empty, how can I index it?")
+            raise IndexError("Your Trajectory is empty, how can I index it?")
 
         if other is None:
             raise ValueError("why bothering assign None?")
@@ -306,13 +314,10 @@ class Trajectory(object):
             # traj.xyz = xyz
             # update all atoms, use fast version
             self._xyz[:] = other  # xyz
-        elif isinstance(idx, AtomMask) or isinstance(idx, string_types):
+        elif isinstance(idx, string_types):
             # update xyz for mask
             # traj['@CA'] = xyz
-            if isinstance(idx, AtomMask):
-                atm = idx
-            else:
-                atm = self.top(idx)
+            atm = self.top(idx)
             if isinstance(other, Trajectory):
                 indices = atm.indices
 
@@ -333,22 +338,6 @@ class Trajectory(object):
             # example: self[0, 0, 0] = 100.
             self._xyz[idx] = other
 
-    def __iadd__(self, other):
-        '''use with care. not for regular user
-        '''
-        if hasattr(other, 'xyz'):
-            self._xyz.__iadd__(other.xyz)
-        else:
-            self._xyz.__iadd__(other)
-        return self
-
-    def __add__(self, other):
-        '''use with care. not for regular user
-        '''
-        self_cp = self.copy()
-        self_cp.__iadd__(other)
-        return self_cp
-
     def append_xyz(self, xyz):
         '''append 3D numpy array
         '''
@@ -362,18 +351,38 @@ class Trajectory(object):
             self._xyz = np.vstack((self._xyz, xyz))
 
     def _append_unitcells(self, box):
+        '''
+        >>> import pytraj as pt
+        >>> traj = pt.datafiles.load_tz2_ortho()
+        >>> traj2 =  pt.Trajectory(top=traj.top)
+        >>> traj2._append_unitcells(traj.unitcells)
+        >>> traj2.unitcells.shape
+        (10, 6)
+
+        >>> traj3 =  pt.Trajectory(top=traj.top)
+        >>> clen, cangle = traj.unitcells[:, :3], traj.unitcells[:, 3:]
+        >>> traj3._append_unitcells((clen, cangle))
+        >>> traj3.unitcells.shape
+        (10, 6)
+        '''
         if isinstance(box, tuple):
             clen, cangle = box
             data = np.hstack((clen, cangle))
             if self._boxes is None:
-                self._boxes = np.asarray([data])
+                self._boxes = np.asarray([data], dtype='f8')
             else:
                 self._boxes = np.vstack((self._boxes, data))
 
-            if self._boxes.ndim == 3:
-                self._boxes = self._boxes.reshape((self.n_frames, 6))
         else:
-            self._boxes = np.vstack((self._boxes, box))
+            if self._boxes is None:
+                self._boxes = np.asarray(box, dtype='f8')
+            else:
+                self._boxes = np.vstack((self._boxes, box))
+
+        if self._boxes.ndim == 3:
+            shape = self._boxes.shape
+            n_frames = int(shape[0] * shape[1] * shape[2] / 6)
+            self._boxes = self._boxes.reshape((n_frames, 6))
 
     def append(self, other):
         """other: xyz, Frame, Trajectory, ...
@@ -399,6 +408,9 @@ class Trajectory(object):
         >>> t0.append(traj())
         >>> t0.n_frames
         22
+
+        >>> t1 = pt.Trajectory(top=traj.top)
+        >>> t1.append(traj)
 
         Notes
         -----
@@ -462,6 +474,24 @@ class Trajectory(object):
 
     def load(self, filename='', indices=None):
         '''
+
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> from pytraj.testing import get_fn
+        >>> fname, tname = get_fn('tz2')
+        >>> traj = pt.Trajectory()
+        >>> traj.top = pt.load_topology(tname)
+        >>> traj.load(fname)
+        >>> traj.n_atoms
+        5293
+
+        Notes
+        -----
+        It's better to use ``pytraj.load`` method
+        >>> traj = pt.load(fname, tname)
+        >>> traj.n_atoms
+        5293
         '''
         if self.top is None or self.top.is_empty():
             raise RuntimeError('Must have a valid Topology')
@@ -483,18 +513,23 @@ class Trajectory(object):
         Return
         ------
         self
+
+        Examples
+        --------
+        >>> import pytraj as pt; from pytraj.testing import get_fn
+        >>> t0 = pt.load(*get_fn('tz2'))
+        >>> t0.top.has_box()
+        True
+        >>> t0 = t0.autoimage()
         '''
         from pytraj.actions.CpptrajActions import Action_AutoImage
 
-        if not self.top.has_box():
-            raise ValueError("can not find unitcells info from Topology")
-        else:
-            act = Action_AutoImage()
-            act.read_input("", top=self.top)
-            act.process(self.top)
+        act = Action_AutoImage()
+        act.read_input("", top=self.top)
+        act.process(self.top)
 
-            for idx, frame in enumerate(self):
-                act.do_action(frame)
+        for idx, frame in enumerate(self):
+            act.do_action(frame)
         return self
 
     def rotate(self, *args, **kwd):
@@ -568,9 +603,11 @@ class Trajectory(object):
 
         Examples
         --------
-        >>> traj.rmsfit(0) # fit to 1st frame # doctest: +SKIP
-        >>> traj.rmsfit(-1, '@CA') # fit to last frame using @CA atoms # doctest: +SKIP
-
+        >>> import pytraj as pt
+        >>> from pytraj.testing import get_fn
+        >>> traj = pt.load(*get_fn('tz2'))
+        >>> traj = traj.superpose(0) # fit to 1st frame
+        >>> traj = traj.superpose(-1, '@CA') # fit to last frame using @CA atoms
         """
         # not yet dealed with `mass` and box
 
@@ -578,12 +615,6 @@ class Trajectory(object):
             ref_frame = ref
         elif is_int(ref):
             i = ref
-            ref_frame = self[i]
-        elif isinstance(ref, string_types):
-            if ref.lower() == 'first':
-                i = 0
-            if ref.lower() == 'last':
-                i = -1
             ref_frame = self[i]
         else:
             # first
@@ -721,6 +752,7 @@ class Trajectory(object):
         >>> import pytraj as pt
         >>> traj = pt.load_sample_data('tz2')
         >>> t0 = pt.Trajectory.from_iterable(traj(3, 8, 2))
+        >>> t1 = pt.Trajectory.from_iterable(traj(3, 8, 2), n_frames=3)
         '''
         if top is None or top.is_empty():
             if hasattr(iterables, 'top'):
