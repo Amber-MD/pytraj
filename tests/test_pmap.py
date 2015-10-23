@@ -8,6 +8,7 @@ import pytraj.common_actions as pyca
 from pytraj.tools import flatten
 from pytraj import matrix
 from pytraj.compat import set
+from pytraj.parallel import _load_batch_pmap
 
 
 def gather(pmap_out):
@@ -188,6 +189,14 @@ class TestParallelMapForAverageStructure(unittest.TestCase):
         for n_cores in [2, 3, 4, 5]:
             frame = pt.pmap(pt.mean_structure, traj, '@CA', n_cores=n_cores)
             aa_eq(frame.xyz, saved_xyz)
+
+class TestLoadBathPmap(unittest.TestCase):
+    def test_load_batch(self):
+        '''just test ValueError
+        '''
+        self.assertRaises(ValueError, lambda: _load_batch_pmap(n_cores=4,
+        lines=['autoimage'], traj=None, dtype='dict', root=0,
+        mode='xyz', ref=None))
 
 
 if __name__ == "__main__":

@@ -8,67 +8,6 @@ from pytraj import DatasetList
 from .decorators import _register_openmp
 
 
-class DSSPAnalysisResult(BaseAnalysisResult):
-    """
-    Notes
-    -----
-    class's name might be changed
-    """
-
-    def to_dict(self, dtype='int'):
-        """
-        Return a dict of numpy.ndarray
-
-        Parameters
-        ----------
-        dtype : str, {'int', 'string'}
-        """
-        if dtype == 'string':
-            return _to_string_secondary_structure(self.data.filter(
-                lambda x: 'int' in x.dtype.name).to_dict())
-        elif dtype == 'int':
-            return self.data.filter(
-                lambda x: 'int' in x.dtype.name).to_dict()
-        else:
-            raise NotImplementedError()
-
-    def to_ndarray(self, dtype='string'):
-        """
-        Return a numpy.ndarray
-
-        Parameters:
-        dtype : str, {'string', 'int'}
-        """
-        if dtype == 'string':
-            return _to_string_secondary_structure(self.data.filter(
-                lambda x: 'int' in x.dtype.name).to_ndarray())
-        elif dtype == 'int':
-            return self.data.filter(
-                lambda x: 'int' in x.dtype.name).to_ndarray()
-        else:
-            raise NotImplementedError()
-
-    def to_ndarray_per_frame(self, dtype='string'):
-        return self.to_ndarray(dtype).T
-
-    def average(self):
-        """
-        Return a `pytraj.datasetlist.DatasetList` object having average value
-        for each frame for each type of secondary structure
-        """
-        return self.data.grep("avg")
-
-    @property
-    def residues(self):
-        return np.array(self.data.grep('res', mode='aspect').keys())
-
-    def values_per_frame(self, restype='string'):
-        return np.vstack((self.residues, self.to_ndarray(restype).T))
-
-    def values_per_residue(self, restype='string'):
-        return np.vstack((self.residues, self.to_ndarray(restype).T)).T
-
-
 @_register_openmp
 def calc_dssp(traj=None, mask="", frame_indices=None, dtype='ndarray', top=None):
     """return dssp profile for frame/traj
@@ -97,21 +36,21 @@ def calc_dssp(traj=None, mask="", frame_indices=None, dtype='ndarray', top=None)
     Examples
     --------
     >>> import pytraj as pt
+    >>> traj = pt.load_pdb_rcsb('1l2y')
     >>> residues, ss, _ = pt.dssp(traj, ":2-10")
     >>> residues
     array(['LEU:2', 'TYR:3', 'ILE:4', 'GLN:5', 'TRP:6', 'LEU:7', 'LYS:8',
-           'ASP:9', 'GLY:10'],
+           'ASP:9', 'GLY:10'], 
           dtype='<U6')
     >>> ss
     array([['0', '0', '0', ..., '0', '0', '0'],
            ['H', 'H', 'H', ..., 'H', 'H', 'H'],
            ['H', 'H', 'H', ..., 'H', 'H', 'H'],
-           ...,
+           ..., 
            ['H', 'H', 'H', ..., 'H', 'H', 'H'],
            ['T', 'T', 'T', ..., 'T', 'H', 'T'],
-           ['0', '0', '0', ..., '0', '0', '0']],
+           ['0', '0', '0', ..., '0', '0', '0']], 
           dtype='<U1')
-
     >>> residues, ss, _ = pt.dssp(traj, mask=range(100))
 
     Notes
@@ -161,28 +100,19 @@ def calc_dssp(traj=None, mask="", frame_indices=None, dtype='ndarray', top=None)
         avg_dict = DatasetList(dslist.grep('_avg'))
         return np.asarray(keys), np.asarray([_to_string_secondary_structure(arr) for arr
             in arr0]), avg_dict
-    if dtype == '_dssp_class':
-        return DSSPAnalysisResult(_get_data_from_dtype(dslist,
-                                                       dtype='dataset'))
     else:
         return _get_data_from_dtype(dslist, dtype=dtype)
 
+
+_s0 = ['None', 'Para', 'Anti', '3-10', 'Alpha', 'Pi', 'Turn', 'Bend']
+_s1 = ["0", "b", "B", "G", "H", "I", "T", "S"]
+
+secondary_structure_pairs = list(zip(_s0, _s1))
 
 def _to_string_secondary_structure(arr0):
     """
     arr0 : {ndarray, dict of ndarray}
     """
-    #ss = ['None', 'Para', 'Anti', '3-10', 'Alpha', 'Pi', 'Turn', 'Bend']
-    ss = ["0", "b", "B", "G", "H", "I", "T", "S"]
-    len_ss = len(ss)
-    ssdict = dict(zip(range(len_ss), ss))
+    ssdict = dict(zip(range(len(_s1)), _s1))
 
-    myfunc = lambda key: ssdict[key]
-
-    if not isinstance(arr0, dict):
-        return np.vectorize(myfunc)(arr0)
-    else:
-        new_dict = {}
-        for key in arr0.keys():
-            new_dict[key] = _to_string_secondary_structure(arr0[key])
-        return new_dict
+    return np.vectorize(lambda key: ssdict[key])(arr0)
