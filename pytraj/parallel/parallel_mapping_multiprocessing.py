@@ -157,7 +157,8 @@ def _pmap(func, traj, *args, **kwd):
     if isinstance(func, (list, tuple)):
         # assume using _load_batch_pmap
         from pytraj.parallel import _load_batch_pmap
-        data = _load_batch_pmap(n_cores=n_cores, traj=traj, lines=func, dtype='dict', root=0, mode='multiprocessing')
+        data = _load_batch_pmap(n_cores=n_cores, traj=traj, lines=func, dtype='dict',
+                root=0, mode='multiprocessing', **kwd)
         return _concat_dict((x[1] for x in data))
     else:
         if not callable(func):
