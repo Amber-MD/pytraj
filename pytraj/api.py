@@ -656,9 +656,13 @@ class Trajectory(object):
         --------
         >>> import pytraj as pt
         >>> traj = pt.load_sample_data()[:]
+        >>> traj.n_atoms
+        34
         >>> t0 = traj.strip('!@CA') # keep only CA atoms 
         >>> isinstance(t0, pt.Trajectory)
         True
+        >>> t0.n_atoms
+        3
         '''
         # AtomMask
         atm = self.top(mask)
@@ -667,7 +671,7 @@ class Trajectory(object):
 
         if self._xyz is not None:
             # need to copy to make contigous memory block
-            self._xyz = self._xyz[:, atm.indices].copy()
+            self._xyz = np.ascontiguousarray(self._xyz[:, atm.indices])
         return self
 
     def save(self,

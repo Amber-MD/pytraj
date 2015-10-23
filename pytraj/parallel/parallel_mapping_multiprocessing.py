@@ -132,12 +132,42 @@ def _pmap(func, traj, *args, **kwd):
     >>> data = pt.pmap(['distance :3 :7', 'vector mask :3 :12'], traj, n_cores=4)
 
     >>> # use reference. Need to explicitly use 'refindex', which is index of reflist
-    >>> data = pt.pmap(['rms @CA refindex 0'], traj, ref=[traj[3],], n_cores=3)
+    >>> data = pt.pmap(['rms @CA refindex 0'], traj, ref=[traj[3],], n_cores=3, dtype='dict')
     >>> data
     OrderedDict([('RMSD_00001', array([  2.68820312e-01,   3.11804885e-01,   2.58835452e-01,
              9.10475988e-08,   2.93310737e-01,   4.10197322e-01,
              3.96226694e-01,   3.66059215e-01,   3.90890362e-01,
              4.89180497e-01]))])
+
+    >>> # use different references. Need to explicitly use 'refindex', which is index of reflist
+    >>> # create a list of references
+    >>> reflist = traj[3], traj[4]
+    >>> # make sure to specify `refindex`
+    >>> # `refindex 0` is equal to `reflist[0]`
+    >>> # `refindex 1` is equal to `reflist[1]`
+    >>> data = pt.pmap(['rms @CA refindex 0', 'rms !@H= refindex 1'], traj, ref=reflist, n_cores=2, dtype='dict')
+    >>> data
+    OrderedDict([('RMSD_00002', array([  2.68820312e-01,   3.11804885e-01,   2.58835452e-01,
+             9.10475988e-08,   2.93310737e-01,   4.10197322e-01,
+             3.96226694e-01,   3.66059215e-01,   3.90890362e-01,
+             4.89180497e-01])), ('RMSD_00003', array([  1.17102654e+01,   1.07412683e+01,   8.77663285e+00,
+             8.17606134e+00,   6.47116798e-07,   8.88683731e+00,
+             1.06206160e+01,   1.09855368e+01,   1.13693451e+01,
+             1.15623929e+01]))])
+    >>> # convert to ndarray
+    >>> pt.tools.dict_to_ndarray(data)
+    array([[  0.26882031,   0.31180488,   0.25883545, ...,   0.36605922,
+              0.39089036,   0.4891805 ],
+           [ 11.71026542,  10.74126835,   8.77663285, ...,  10.9855368 ,
+             11.36934506,  11.56239288]])
+
+    >>> # specify dtype = 'ndarray'
+    >>> data = pt.pmap(['rms @CA refindex 0', 'rms !@H= refindex 1'], traj, ref=reflist, n_cores=2, dtype='ndarray')
+    >>> data
+    array([[  0.26882031,   0.31180488,   0.25883545, ...,   0.36605922,
+              0.39089036,   0.4891805 ],
+           [ 11.71026542,  10.74126835,   8.77663285, ...,  10.9855368 ,
+             11.36934506,  11.56239288]])
 
     See also
     --------
@@ -162,12 +192,26 @@ def _pmap(func, traj, *args, **kwd):
     else:
         iter_options = {}
 
+    if 'dtype' in kwd.keys():
+        dtype = kwd['dtype']
+    else:
+        dtype = None
+
     if isinstance(func, (list, tuple)):
         # assume using _load_batch_pmap
         from pytraj.parallel import _load_batch_pmap
+        if 'dtype' in kwd.keys():
+            kwd.pop('dtype')
         data = _load_batch_pmap(n_cores=n_cores, traj=traj, lines=func, dtype='dict',
                 root=0, mode='multiprocessing', **kwd)
-        return _concat_dict((x[1] for x in data))
+        data = _concat_dict((x[1] for x in data))
+        if dtype == 'dict' or dtype is None:
+            return data
+        elif dtype == 'ndarray':
+            from pytraj.tools import dict_to_ndarray
+            return dict_to_ndarray(data)
+        else:
+            raise ValueError("if using func as a list/tuple, dtype must be 'ndarray' or 'dict'")
     else:
         if not callable(func):
             raise ValueError('must callable argument')
@@ -186,10 +230,6 @@ def _pmap(func, traj, *args, **kwd):
             raise ValueError('only support TrajectoryIterator')
 
         p = Pool(n_cores)
-        if 'dtype' in kwd.keys():
-            dtype = kwd['dtype']
-        else:
-            dtype = None
 
         pfuncs = partial(_worker,
                          n_cores=n_cores,
