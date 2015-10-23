@@ -15,7 +15,7 @@ class TestPairDist(unittest.TestCase):
             data = pt.pair_distribution(traj,
                                         delta=delta,
                                         mask=mask,
-                                        dtype='dataset')
+                                        dtype='ndarray')
             data0 = data[0].T
             data1 = data[1].T
 
