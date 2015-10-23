@@ -35,6 +35,10 @@ class TestIO(unittest.TestCase):
         t1 = pt.load(fn, tn, frame_indices=(0, 3))
         aa_eq(t1.xyz, traj[[0, 3]].xyz)
 
+        # mask and frame_indices
+        t2 = pt.load(fn, tn, mask='@CA', frame_indices=[3, 8])
+        aa_eq(t2.xyz, traj[[3, 8], '@CA'].xyz)
+
         # load http
         t2 = pt.load('https://raw.githubusercontent.com/ParmEd/ParmEd/master/test/files/2koc.pdb')
         assert t2.n_atoms == 451, '2koc, 451 atoms'
@@ -64,6 +68,17 @@ class TestIO(unittest.TestCase):
                       top=traj.top,
                       overwrite=True)
         aa_eq(pt.iterload('output/test_0.nc', traj.top).xyz, traj[0].xyz)
+
+        # raise if traj is None
+        self.assertRaises(ValueError, lambda: pt.write_traj("./output/test_0.nc",
+                      None,
+                      overwrite=True))
+
+        # raise if _top is None
+        fi = pt.create_pipeline(traj, ['autoimage', ])
+        self.assertRaises(ValueError, lambda: pt.write_traj("./output/test_0.nc",
+                      traj=fi,
+                      overwrite=True))
 
         # raise if Frame with frame_indices
         self.assertRaises(ValueError, lambda: pt.write_traj("./output/test_0.nc",
