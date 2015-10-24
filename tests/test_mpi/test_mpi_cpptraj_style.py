@@ -9,7 +9,7 @@ comm = MPI.COMM_WORLD
 # end. you are free to update anything below here
 
 # split remd.x.000 to N cores and do calc_surf in parallel
-root_dir = "../../tests/data/"
+root_dir = "data/"
 traj_name = root_dir + "tz2.ortho.nc"
 parm_name = root_dir + "tz2.ortho.parm7"
 
@@ -27,7 +27,6 @@ if comm.rank == 0:
     # assert to serial
     from pytraj.tools import dict_to_ndarray
     arr = dict_to_ndarray(total_arr)
-    print(total_arr)
 
     t0 = pt.center(traj[:].autoimage(), ':2')
     aa_eq(pt.distance(t0, ':3 :7'), arr[0])
