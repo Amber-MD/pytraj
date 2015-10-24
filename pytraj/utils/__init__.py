@@ -66,6 +66,7 @@ def join_mask(m, res=None):
 
     return " ".join(':' + res + '@' + s for s in m)
 
+
 def split_range(n_chunks, start, stop):
     '''split a given range to n_chunks
 

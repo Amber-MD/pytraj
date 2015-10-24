@@ -208,7 +208,10 @@ def _pmap(func, traj, *args, **kwd):
         elif not func._is_parallelizable:
             raise ValueError("this method does not support parallel")
         else:
-            if hasattr(func, '_openmp_capability') and func._openmp_capability and 'OPENMP' in compiled_info():
+            if hasattr(
+                    func,
+                    '_openmp_capability') and func._openmp_capability and 'OPENMP' in compiled_info(
+                    ):
                 raise RuntimeError(
                     "this method supports both openmp and pmap, but your cpptraj "
                     "version was installed with openpm. Should not use both openmp and pmap at the "

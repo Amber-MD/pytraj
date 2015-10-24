@@ -14,6 +14,7 @@ class PJob(object):
 
     >>> data = pjob.compute()
     '''
+
     def __init__(self, tasklist):
         self.tasklist = tasklist
 

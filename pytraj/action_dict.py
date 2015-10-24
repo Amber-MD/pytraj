@@ -21,7 +21,6 @@ ADICT["rog"] = allactions.__dict__['Action_Radgyr']
 ADICT["stfcdiffusion"] = allactions.__dict__['Action_STFC_Diffusion']
 ADICT["symmrmsd"] = allactions.__dict__['Action_SymmetricRmsd']
 
-
 # make another dict to convert something like 'MolSurf' to 'molsurf'
 
 

@@ -24,14 +24,17 @@ import matplotlib
 matplotlib.rcParams['savefig.dpi'] = 2 * matplotlib.rcParams['savefig.dpi'] # larger image
 """
 
+
 def show_config():
     """show good ipython config"""
     return _pylab_config
+
 
 def polar(data, *args, **kwd):
     ax = plt.subplot(111, polar=True)
     ax.plot(data, *args, **kwd)
     return ax
+
 
 def plot(x='', y='', data=None, *args, **kwd):
     from matplotlib import pyplot as plt

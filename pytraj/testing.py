@@ -5,9 +5,8 @@ from .datafiles.load_sample_data import load_sample_data
 from .utils import eq, aa_eq
 from .utils import duplicate_traj, Timer
 
-__all__ = ['load_sample_data', 'eq',
-           'aa_eq', 'make_random_frame', 'duplicate_traj',
-           'Timer', 'amberhome', 'cpptraj_test_dir',
+__all__ = ['load_sample_data', 'eq', 'aa_eq', 'make_random_frame',
+           'duplicate_traj', 'Timer', 'amberhome', 'cpptraj_test_dir',
            'run_docstring']
 
 try:
@@ -43,6 +42,7 @@ import pytraj.common_actions as pyca
 traj = pt.load_sample_data("tz2")
 '''
 
+
 def run_docstring(func):
     '''just want to make sure the doc string runnable.
     '''
@@ -53,6 +53,7 @@ def run_docstring(func):
     doc = "\n".join((header_doc, doc))
     exec(doc)
 
+
 def assert_equal_topology(top, new_top, traj):
     import pytraj as pt
     assert new_top.n_atoms == top.n_atoms, 'same n_atoms'
@@ -60,24 +61,25 @@ def assert_equal_topology(top, new_top, traj):
     assert new_top.n_mols == top.n_mols, 'same n_mols'
     # there are inverted bond indices [5292 5291] vs [5291 5292]
     # so use distance to assert
-    aa_eq(pt.distance(traj, new_top.bond_indices), pt.distance(traj,
-        top.bond_indices))
+    aa_eq(pt.distance(traj, new_top.bond_indices),
+          pt.distance(traj, top.bond_indices))
     # same for dihedral_indices
-    aa_eq(pt.dihedral(traj, new_top.dihedral_indices), pt.dihedral(traj,
-        top.dihedral_indices))
+    aa_eq(pt.dihedral(traj, new_top.dihedral_indices),
+          pt.dihedral(traj, top.dihedral_indices))
     aa_eq(new_top.dihedral_indices, top.dihedral_indices)
     aa_eq(new_top.mass, top.mass)
     aa_eq(new_top.charge, top.charge)
     aa_eq(new_top.box.values, top.box.values)
 
-    assert [res.name for res in top.residues] == [res.name for res in
-            new_top.residues], 'equal resnames'
-    assert [atom.name for atom in top.atoms] == [atom.name for atom in
-            new_top.atoms], 'equal resnames'
+    assert [res.name for res in top.residues
+            ] == [res.name for res in new_top.residues], 'equal resnames'
+    assert [atom.name for atom in top.atoms
+            ] == [atom.name for atom in new_top.atoms], 'equal resnames'
 
     for res, res_new in zip(top.residues, new_top.residues):
         assert res.first_atom_idx == res_new.first_atom_idx, 'first atom'
         assert res.last_atom_idx == res_new.last_atom_idx, 'last atom'
+
 
 def get_fn(txt):
     '''get absolute path for trajectory and topology samples. Legit text = 'ala3', 'tz2',
@@ -93,6 +95,7 @@ def get_fn(txt):
     from pytraj import load_sample_data
     traj = load_sample_data(txt)
     return traj.filename, traj.top.filename
+
 
 if __name__ == "__main__":
     print(amberhome)

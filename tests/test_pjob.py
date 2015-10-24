@@ -9,7 +9,7 @@ from pytraj.compat import PY3
 class Test(unittest.TestCase):
     def test_0(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
-        from pytraj.parallel import PJob
+        from pytraj.parallel.pjob import PJob
         traj = pt.load_sample_data('tz2')
         tasklist = []
         tasklist.append((pt.radgyr, traj))

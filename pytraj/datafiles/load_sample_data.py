@@ -2,8 +2,8 @@ from __future__ import absolute_import
 import os
 from ..trajectory_iterator import TrajectoryIterator
 
+__all__ = ['load_sample_data', 'load_rna', 'load_tz2_ortho', 'load_ala3']
 
-__all__  = ['load_sample_data', 'load_rna', 'load_tz2_ortho', 'load_ala3']
 
 def load_sample_data(data_name=None):
     """
@@ -18,10 +18,11 @@ def load_sample_data(data_name=None):
     tz2 dataset : $AMBERHOME/AmberTools/test/cpptraj/
         explicit water, ortho box
     """
-    data_dict = {'ala3': ["Ala3/Ala3.crd", "Ala3/Ala3.top"],
-                 'tz2' : ["tz2/tz2.ortho.nc", "tz2/tz2.ortho.parm7"],
-                 'rna' : ["rna.pdb", "rna.pdb"]
-                 }
+    data_dict = {
+        'ala3': ["Ala3/Ala3.crd", "Ala3/Ala3.top"],
+        'tz2': ["tz2/tz2.ortho.nc", "tz2/tz2.ortho.parm7"],
+        'rna': ["rna.pdb", "rna.pdb"]
+    }
 
     mydir = os.path.dirname(os.path.abspath(__file__))
     if data_name is None:
@@ -30,13 +31,16 @@ def load_sample_data(data_name=None):
     top = os.path.join(mydir, data_dict[data_name][1])
     return TrajectoryIterator(crd, top)
 
+
 def load_rna():
     '''return pytraj.TrajectoryIterator for an RNA trajectory with 3 frames
     '''
     return load_sample_data('rna')
 
+
 def load_tz2_ortho():
     return load_sample_data('tz2')
+
 
 def load_ala3():
     return load_sample_data('ala3')

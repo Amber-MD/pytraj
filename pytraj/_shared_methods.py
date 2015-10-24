@@ -5,8 +5,7 @@ from pytraj.trajs.Trajout import Trajout
 from pytraj.utils.check_and_assert import is_frame_iter
 from pytraj.frameiter import FrameIter
 
-__all__ = ['_savetraj', 'iterframe_master', '_xyz', 'my_str_method',
-           '_box']
+__all__ = ['_savetraj', 'iterframe_master', '_xyz', 'my_str_method', '_box']
 
 
 def _savetraj(self,
@@ -99,7 +98,9 @@ def iterframe_master(obj):
                 if isinstance(traj_obj, Frame):
                     frame = traj_obj
                     yield frame
-                elif hasattr(traj_obj, '__name__') and 'iterchunk' in traj_obj.__name__:
+                elif hasattr(
+                        traj_obj,
+                        '__name__') and 'iterchunk' in traj_obj.__name__:
                     # list of list of Frames
                     for _traj in traj_obj:
                         for frame in _traj:

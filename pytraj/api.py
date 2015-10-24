@@ -87,7 +87,9 @@ class Trajectory(object):
             raise ValueError('filename must be None, a Trajectory or a string')
 
         if hasattr(self._xyz, 'shape'):
-            assert self.top.n_atoms == self._xyz.shape[1], "must have the same n_atoms"
+            assert self.top.n_atoms == self._xyz.shape[
+                1
+            ], "must have the same n_atoms"
 
         if hasattr(filename, 'unitcells'):
             self._boxes = filename.unitcells
@@ -630,14 +632,17 @@ class Trajectory(object):
 
         atm = self.top(mask)
 
-        fi = self if frame_indices is not None else self.iterframe(frame_indices=frame_indices)
+        fi = self if frame_indices is not None else self.iterframe(
+            frame_indices=frame_indices)
 
         if mass:
             ref_frame.set_frame_mass(self.top)
         for idx, frame in enumerate(fi):
             if mass:
                 frame.set_frame_mass(self.top)
-            _, mat, v1, v2 = frame.rmsd(ref_frame, atm, get_mvv=True, mass=mass)
+            _, mat, v1, v2 = frame.rmsd(ref_frame, atm,
+                                        get_mvv=True,
+                                        mass=mass)
             frame.trans_rot_trans(v1, mat, v2)
         return self
 

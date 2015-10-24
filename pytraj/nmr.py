@@ -8,12 +8,14 @@ from pytraj.core.ActionList import ActionList
 from ._get_common_objects import _get_topology, _get_data_from_dtype, _get_list_of_commands
 from ._get_common_objects import _get_fiterator
 
+
 def _2darray_to_atommask_groups(seq):
     '''[[0, 3], [4, 7]] turns to ['@1 @4', '@5 @8']
     '''
     for arr in seq:
         # example: arr = [0, 3]; turns ot '@1 @4'
         yield '@' + str(arr[0] + 1) + ' @' + str(arr[1] + 1)
+
 
 def _ired(iredvec, modes,
           NHbond=True,
@@ -92,6 +94,7 @@ def _ired(iredvec, modes,
     #return _get_data_from_dtype(dslist, dtype=dtype)
     return dslist
 
+
 @_register_pmap
 def ired_vector_and_matrix(traj=None,
                            mask="",
@@ -166,11 +169,16 @@ def ired_vector_and_matrix(traj=None,
             out[-1].values = out[-1].values / out[-1].values[0, 0]
         return out
 
+
 calc_ired_vector_and_matrix = ired_vector_and_matrix
 
 
 @_register_pmap
-def NH_order_parameters(traj, vector_pairs, order=2, tstep=1., tcorr=10000., n_cores=1):
+def NH_order_parameters(traj, vector_pairs,
+                        order=2,
+                        tstep=1.,
+                        tcorr=10000.,
+                        n_cores=1):
     '''compute NH order parameters
 
     Parameters
@@ -198,12 +206,16 @@ def NH_order_parameters(traj, vector_pairs, order=2, tstep=1., tcorr=10000., n_c
 
     # compute N-H vectors and ired matrix
     if n_cores == 1:
-        vecs_and_mat = ired_vector_and_matrix(traj, vector_pairs, order=order, dtype='tuple')
+        vecs_and_mat = ired_vector_and_matrix(traj, vector_pairs,
+                                              order=order,
+                                              dtype='tuple')
     else:
         # use _pmap to avoid cicular import
         from pytraj import _pmap
-        vecs_and_mat = _pmap(ired_vector_and_matrix, traj, vector_pairs, order=order,
-                dtype='tuple', n_cores=n_cores)
+        vecs_and_mat = _pmap(ired_vector_and_matrix, traj, vector_pairs,
+                             order=order,
+                             dtype='tuple',
+                             n_cores=n_cores)
 
     state_vecs = vecs_and_mat[0]
     mat_ired = vecs_and_mat[1]

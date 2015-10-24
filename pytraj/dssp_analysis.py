@@ -9,7 +9,11 @@ from .decorators import _register_openmp
 
 
 @_register_openmp
-def calc_dssp(traj=None, mask="", frame_indices=None, dtype='ndarray', top=None):
+def calc_dssp(traj=None,
+              mask="",
+              frame_indices=None,
+              dtype='ndarray',
+              top=None):
     """return dssp profile for frame/traj
 
     Parameters
@@ -80,10 +84,7 @@ def calc_dssp(traj=None, mask="", frame_indices=None, dtype='ndarray', top=None)
     fi = _get_fiterator(traj, frame_indices)
     dslist = CpptrajDatasetList()
 
-    Action_DSSP()(command,
-                  fi,
-                  top=_top,
-                  dslist=dslist)
+    Action_DSSP()(command, fi, top=_top, dslist=dslist)
 
     # replace key to something nicer
     for key, dset in dslist.iteritems():
@@ -98,8 +99,8 @@ def calc_dssp(traj=None, mask="", frame_indices=None, dtype='ndarray', top=None)
         arr0 = dslist.grep("integer", mode='dtype').values
         keys = dslist.grep("integer", mode='dtype').keys()
         avg_dict = DatasetList(dslist.grep('_avg'))
-        return np.asarray(keys), np.asarray([_to_string_secondary_structure(arr) for arr
-            in arr0]), avg_dict
+        return np.asarray(keys), np.asarray(
+            [_to_string_secondary_structure(arr) for arr in arr0]), avg_dict
     else:
         return _get_data_from_dtype(dslist, dtype=dtype)
 
@@ -108,6 +109,7 @@ _s0 = ['None', 'Para', 'Anti', '3-10', 'Alpha', 'Pi', 'Turn', 'Bend']
 _s1 = ["0", "b", "B", "G", "H", "I", "T", "S"]
 
 secondary_structure_pairs = list(zip(_s0, _s1))
+
 
 def _to_string_secondary_structure(arr0):
     """

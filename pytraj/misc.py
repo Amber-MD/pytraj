@@ -16,7 +16,7 @@ except ImportError:
     file_type_info = None
 
 
-def info(obj=None): # pragma: no cover
+def info(obj=None):  # pragma: no cover
     """get `help` for obj
     Useful for Actions and Analyses
 
@@ -63,7 +63,7 @@ def info(obj=None): # pragma: no cover
             raise ValueError("object does not have `help` method")
 
 
-def show_code(func, get_txt=False): # pragma: no cover
+def show_code(func, get_txt=False):  # pragma: no cover
     """show code of func or module"""
     import inspect
     txt = inspect.getsource(func)
@@ -73,19 +73,19 @@ def show_code(func, get_txt=False): # pragma: no cover
         return txt
 
 
-def get_atts(obj): # pragma: no cover
+def get_atts(obj):  # pragma: no cover
     """get methods and atts from obj but excluding special methods __"""
     atts_dict = dir(obj)
     return [a for a in atts_dict if not a.startswith("__")]
 
 
-def find_libcpptraj(**kwd): # pragma: no cover
+def find_libcpptraj(**kwd):  # pragma: no cover
     '''
     '''
     return find_library('cpptraj', **kwd)
 
 
-def find_library(libname, unique=False): # pragma: no cover
+def find_library(libname, unique=False):  # pragma: no cover
     """return a list of all library files"""
     paths = os.environ.get('LD_LIBRARY_PATH', '').split(':')
     lib_path_list = []

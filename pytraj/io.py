@@ -89,7 +89,8 @@ def load(filename, top=None, frame_indices=None, mask=None):
     >>> # which is equal to:
     >>> traj = pt.load('traj.nc', top='2koc.parm7', frame_indices=range(0, 10, 2))
     """
-    if isinstance(filename, string_types) and filename.startswith('http://') or filename.startswith('https://'):
+    if isinstance(filename, string_types) and filename.startswith(
+            'http://') or filename.startswith('https://'):
         return load_ParmEd(filename, as_traj=True, structure=True)
     else:
         # load to TrajectoryIterator object first
@@ -136,7 +137,9 @@ def iterload(*args, **kwd):
     return load_traj(*args, **kwd)
 
 
-def _load_netcdf(filename, top, frame_indices=None, engine='scipy'): # pragma: no cover
+def _load_netcdf(filename, top,
+                 frame_indices=None,
+                 engine='scipy'):  # pragma: no cover
     '''simply read all data to memory. Use this if you want to load data few times
     faster (and  you know what you are doing).
     '''
@@ -418,14 +421,17 @@ def load_topology(filename, more_options=''):
         else:
             parm = ParmFile()
             set_error_silent(True)
-            parm.readparm(filename=filename, top=top, more_options=more_options)
+            parm.readparm(filename=filename,
+                          top=top,
+                          more_options=more_options)
             set_error_silent(False)
     else:
         raise ValueError('filename must be a string')
 
     if top.n_atoms == 0:
-        raise RuntimeError('n_atoms = 0: make sure to load correct filename '
-                           'or load supported topology (pdb, amber parm, psf, ...)')
+        raise RuntimeError(
+            'n_atoms = 0: make sure to load correct filename '
+            'or load supported topology (pdb, amber parm, psf, ...)')
     return top
 
 # creat alias
@@ -480,13 +486,14 @@ def download_PDB(pdbid, location="./", overwrite=False):
 # create alias
 load_pdb_rcsb = loadpdb_rcsb
 
+
 @ensure_exist
 def load_single_frame(filename=None, top=None, index=0):
     """load a single Frame"""
     return iterload(filename, top)[index]
 
-load_frame = load_single_frame
 
+load_frame = load_single_frame
 
 # creat alias
 save = write_traj
@@ -538,4 +545,4 @@ def get_coordinates(iterables,
         # slower
         return np.array([frame.xyz.copy()
                          for frame in iterframe_master(iterables)],
-                         dtype='f8')
+                        dtype='f8')

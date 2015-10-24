@@ -65,9 +65,8 @@ list_of_do = ['do_translation',
 
 list_of_get = ['get_average_frame']
 
-list_of_the_rest = ['search_hbonds',
-                    'align_principal_axis', 'principal_axes', 'closest',
-                    'native_contacts', 'nastruct']
+list_of_the_rest = ['search_hbonds', 'align_principal_axis', 'principal_axes',
+                    'closest', 'native_contacts', 'nastruct']
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
@@ -227,13 +226,14 @@ def calc_pairwise_distance(traj=None,
                                                   string_types) else mask_2
     arr = np.array(list(product(indices_1, indices_2)))
     mat = calc_distance(traj,
-                         mask=arr,
-                         dtype=dtype,
-                         top=_top,
-                         frame_indices=frame_indices)
+                        mask=arr,
+                        dtype=dtype,
+                        top=_top,
+                        frame_indices=frame_indices)
     mat = mat.T
     return (mat.reshape(mat.shape[0], len(indices_1), len(indices_2)),
             arr.reshape(len(indices_1), len(indices_2), 2))
+
 
 @_register_pmap
 def calc_angle(traj=None,
@@ -493,12 +493,12 @@ def calc_mindist(traj=None,
 
 
 def _calc_diffusion(traj=None,
-                  mask="",
-                  tstep=1.0,
-                  dtype='ndarray',
-                  individual=False,
-                  top=None,
-                  frame_indices=None):
+                    mask="",
+                    tstep=1.0,
+                    dtype='ndarray',
+                    individual=False,
+                    top=None,
+                    frame_indices=None):
     '''
     Examples
     --------
@@ -531,17 +531,17 @@ def _calc_diffusion(traj=None,
 
 
 def _calc_STFC_diffusion(traj=None,
-                    mask="*",
-                    dimension='xyz',
-                    time=1.0,
-                    mask2=None,
-                    lower=0.01,
-                    upper=3.5,
-                    distance=False,
-                    com=False,
-                    frame_indices=None,
-                    top=None,
-                    dtype='ndarray'):
+                         mask="*",
+                         dimension='xyz',
+                         time=1.0,
+                         mask2=None,
+                         lower=0.01,
+                         upper=3.5,
+                         distance=False,
+                         com=False,
+                         frame_indices=None,
+                         top=None,
+                         dtype='ndarray'):
     '''calcualte diffusion for selected atoms
 
     Parameters
@@ -654,6 +654,7 @@ def calc_watershell(traj=None,
 
     act(command, traj, top=_top, dslist=dslist)
     return _get_data_from_dtype(dslist, dtype=dtype)
+
 
 def calc_matrix(traj=None,
                 command="",
@@ -1518,6 +1519,7 @@ def calc_center_of_geometry(traj=None, command="", top=None, dtype='ndarray'):
 
 calc_COG = calc_center_of_geometry
 
+
 @_register_openmp
 def calc_pairwise_rmsd(traj=None,
                        mask="",
@@ -1703,23 +1705,29 @@ def rmsd_perres(traj=None,
                      top=top,
                      dtype=dtype)
 
+
 @_register_pmap
 def calc_rmsd_nofit(traj=None,
-              ref=0,
-              mask="",
-              mass=False,
-              frame_indices=None,
-              top=None,
-              dtype='ndarray'):
+                    ref=0,
+                    mask="",
+                    mass=False,
+                    frame_indices=None,
+                    top=None,
+                    dtype='ndarray'):
     '''
     See also
     --------
     calc_rmsd
     '''
-    return calc_rmsd(traj=traj, ref=ref, mask=mask, mass=mass,
-                     nofit=True, frame_indices=frame_indices,
+    return calc_rmsd(traj=traj,
+                     ref=ref,
+                     mask=mask,
+                     mass=mass,
+                     nofit=True,
+                     frame_indices=frame_indices,
                      top=top,
                      dtype=dtype)
+
 
 @_register_pmap
 def calc_rmsd(traj=None,
@@ -2221,9 +2229,7 @@ def auto_correlation_function(data, dtype='ndarray', covar=True):
     return _get_data_from_dtype(cdslist[1:], dtype=dtype)
 
 
-def lifetime(data, cut=0.5, rawcurve=False,
-             more_options='',
-             dtype='ndarray'):
+def lifetime(data, cut=0.5, rawcurve=False, more_options='', dtype='ndarray'):
     """lifetime (adapted lightly from cpptraj doc)
 
     Parameters
@@ -2248,7 +2254,7 @@ def lifetime(data, cut=0.5, rawcurve=False,
     cdslist = CpptrajDatasetList()
     for idx, arr in enumerate(data_):
         # create datasetname so we can reference them
-        name = 'data_' + str(idx) 
+        name = 'data_' + str(idx)
         if 'int' in arr.dtype.name:
             cdslist.add_set("integer", name)
         else:

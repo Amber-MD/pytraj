@@ -6,12 +6,14 @@ from functools import wraps
 from pytraj.externals.six import string_types, integer_types
 from pytraj.utils.convert import array_to_cpptraj_atommask
 
+
 def _load_Topology(filename):
     from pytraj import Topology, ParmFile
     top = Topology()
     parm = ParmFile()
     parm.readparm(filename, top)
     return top
+
 
 def _get_topology(traj, top):
     if isinstance(top, string_types):
@@ -104,7 +106,9 @@ def _get_reference_from_traj(traj, ref):
         try:
             return traj[0]
         except IndexError:
-            raise IndexError("If reference is an integer, %s must support indexing" % traj.__str__())
+            raise IndexError(
+                "If reference is an integer, %s must support indexing" %
+                traj.__str__())
     elif 'Trajectory' in ref.__class__.__name__:
         assert ref.n_frames == 1, "only support 1-frame Trajectory as reference"
         return ref[0]
@@ -118,6 +122,7 @@ def _get_fiterator(traj, frame_indices=None):
         return traj
     else:
         return traj.iterframe(frame_indices=frame_indices)
+
 
 def _get_resrange(resrange):
     '''return resrange as a string
@@ -148,4 +153,3 @@ def _get_resrange(resrange):
     else:
         _resrange = ""
     return _resrange
-
