@@ -1,9 +1,7 @@
 # distutils: language = c++
 #
 from pytraj.Frame import Frame
-from pytraj.core.cpp_core import AtomMask
 from pytraj.trajs.Trajout import Trajout
-from pytraj.externals.six import string_types, set
 from pytraj.utils.check_and_assert import is_frame_iter
 from pytraj.frameiter import FrameIter
 

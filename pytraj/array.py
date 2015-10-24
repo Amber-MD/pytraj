@@ -1,7 +1,5 @@
 from __future__ import absolute_import
-import operator
 import numpy as np
-from pytraj._cyutils import _fast_count
 from pytraj.datasets import Dataset
 
 

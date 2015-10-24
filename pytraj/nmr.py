@@ -1,13 +1,12 @@
 import numpy as np
-from .decorators import _register_pmap, _register_openmp
+from .decorators import _register_pmap
 from .datasets.DatasetList import DatasetList as CpptrajDatasetList
 from .actions import CpptrajActions
 from .analyses import CpptrajAnalyses
 from pytraj.core.ActionList import ActionList
 
 from ._get_common_objects import _get_topology, _get_data_from_dtype, _get_list_of_commands
-from ._get_common_objects import _get_matrix_from_dataset
-from ._get_common_objects import _get_reference_from_traj, _get_fiterator
+from ._get_common_objects import _get_fiterator
 
 def _2darray_to_atommask_groups(seq):
     '''[[0, 3], [4, 7]] turns to ['@1 @4', '@5 @8']

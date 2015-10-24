@@ -4,22 +4,18 @@ import numpy as np
 
 from .externals.six import string_types, PY3
 from .datafiles.load_sample_data import load_sample_data
-from .utils.check_and_assert import is_frame_iter
 from .externals._pickle import to_pickle, read_pickle
 from .externals._json import to_json, read_json
 from .datafiles.load_cpptraj_file import load_cpptraj_file
 from ._shared_methods import iterframe_master
 from ._cyutils import _fast_iterptr as iterframe_from_array
 from .cpp_options import set_error_silent
-from .utils.context import goto_temp_folder
 from ._get_common_objects import _get_topology
 from .topology import Topology, ParmFile
 from .api import Trajectory
 from .trajectory_iterator import TrajectoryIterator
 
-from .externals._load_ParmEd import load_ParmEd, _load_parmed
-from .externals._load_mdtraj import load_mdtraj as _load_mdtraj
-from .externals._load_MDAnalysis import load_MDAnalysis as _load_MDAnalysis
+from .externals._load_ParmEd import load_ParmEd
 
 from .decorators import ensure_exist
 

@@ -1,7 +1,6 @@
 """out-of-core TrajectoryIterator
 """
 from __future__ import absolute_import
-import warnings
 import os
 from glob import glob
 import numpy as np

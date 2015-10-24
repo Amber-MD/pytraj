@@ -1,4 +1,3 @@
-from pytraj.datasetlist import _groupby
 from pytraj.datasetlist import DatasetList
 
 

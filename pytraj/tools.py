@@ -8,7 +8,6 @@ import sys as _sys
 import os
 from glob import glob
 from itertools import islice
-import functools
 from collections import OrderedDict, defaultdict
 import numpy as np
 
@@ -76,12 +75,6 @@ except ImportError:
 # this module gathers commonly used functions
 # from toolz, stackoverflow, ... and from myself
 # should make this independent from pytraj
-
-try:
-    import numpy as np
-except ImportError:
-    np = None
-
 
 def split(data, n_chunks):
     """split `self.data` to n_chunks

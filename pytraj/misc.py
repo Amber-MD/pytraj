@@ -4,10 +4,8 @@ randomizeions, strip atoms, ..."""
 from __future__ import print_function, absolute_import
 import os
 from glob import glob
-from pytraj.api import Trajectory
 from pytraj.cpp_options import set_world_silent
 from pytraj.compat import set
-from pytraj.tools import rmsd, rmsd_1darray
 
 # external
 from pytraj.externals.six import string_types

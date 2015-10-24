@@ -12,13 +12,11 @@ from pytraj.api import Trajectory
 from ._get_common_objects import _get_topology, _get_data_from_dtype, _get_list_of_commands
 from ._get_common_objects import _get_matrix_from_dataset
 from ._get_common_objects import _get_reference_from_traj, _get_fiterator
-from pytraj.core.ActionList import ActionList
 from .utils import is_array, ensure_not_none_or_string
 from .utils import is_int
 from .utils.context import goto_temp_folder
 from .utils.convert import array_to_cpptraj_atommask
 from .externals.six import string_types
-from .Frame import Frame
 from .topology import Topology
 from .datasets.DatasetList import DatasetList as CpptrajDatasetList
 from .datafiles import DataFileList
@@ -32,6 +30,7 @@ from .decorators import _register_pmap, _register_openmp
 from .actions import CpptrajActions
 from .analyses import CpptrajAnalyses
 from .core.ActionList import ActionList
+from .utils.convert import array2d_to_cpptraj_maskgroup
 
 list_of_cal = ['calc_distance',
                'calc_dihedral',
@@ -479,7 +478,6 @@ def calc_mindist(traj=None,
     >>> import pytraj as pt
     >>> pt.mindist(traj, '@CA @H')
     '''
-    from pytraj.utils.convert import array2d_to_cpptraj_maskgroup
 
     traj = _get_fiterator(traj, frame_indices)
     act = CpptrajActions.Action_NativeContacts()
@@ -2689,47 +2687,3 @@ def _grid(traj, mask, grid_spacing,
     act.print_output()
 
     return _get_data_from_dtype(dslist, dtype=dtype)
-
-
-def NH_order_parameters(traj, vector_pairs, order=2, tstep=1., tcorr=10000.):
-    '''compute NH order parameters
-
-    Parameters
-    ----------
-    traj : Trajectory-like
-    vector_pairs : 2D array-like, shape (n_pairs, 2)
-    order : default 2
-    tstep : default 1.
-    tcorr : default 10000.
-
-    Returns
-    -------
-    S2 : 1D array, order parameters
-
-    Examples
-    --------
-    >>> import pytraj as pt
-    >>> h_indices = pt.select_atoms(traj.top, '@H')
-    >>> n_indices = h_indices - 1
-    >>> nh_pairs = list(zip(n_indices, h_indices))
-    >>> data = pt.NH_order_parameters(traj, nh_pairs)
-    >>> print(data)
-    '''
-    from pytraj import matrix
-
-    # compute N-H vectors and ired matrix
-    vecs_and_mat = ired_vector_and_matrix(traj, vector_pairs, order=order, dtype='tuple')
-    state_vecs = vecs_and_mat[0]
-    mat_ired = vecs_and_mat[1]
-
-    # get eigenvalues and eigenvectors
-    modes = matrix.diagonalize(mat_ired, n_vecs=len(state_vecs))[0]
-    evals, evecs = modes.eigenvalues, modes.eigenvectors
-
-    data = _ired(state_vecs,
-                 modes=(evals, evecs),
-                 NHbond=True,
-                 tcorr=tcorr,
-                 tstep=tstep)
-    order = [d.values.copy() for d in data if 'S2' in d.key][0]
-    return order
