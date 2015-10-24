@@ -27,6 +27,7 @@ if comm.rank == 0:
     # assert to serial
     from pytraj.tools import dict_to_ndarray
     arr = dict_to_ndarray(total_arr)
+    print(total_arr)
 
     t0 = pt.center(traj[:].autoimage(), ':2')
     aa_eq(pt.distance(t0, ':3 :7'), arr[0])

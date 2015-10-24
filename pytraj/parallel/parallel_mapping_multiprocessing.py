@@ -12,6 +12,7 @@ from pytraj import Frame
 from pytraj import ired_vector_and_matrix, rotation_matrix
 from pytraj import NH_order_parameters
 from pytraj import search_hbonds
+from pytraj.parallel import _concat_dict
 from multiprocessing import cpu_count
 
 
