@@ -1,3 +1,5 @@
+import numpy as np
+from pytraj.externals.six import string_types, iteritems
 from .parallel_mapping_mpi import pmap_mpi
 from .parallel_mapping_multiprocessing import pmap
 from pytraj.tools import concat_dict
@@ -6,6 +8,8 @@ from functools import partial
 from pytraj import Frame
 from pytraj import create_pipeline
 from pytraj.datasets import CpptrajDatasetList
+from collections import OrderedDict
+
 
 def _worker_actlist(rank, n_cores=2, traj=None, lines=[], dtype='dict', ref=None):
     # need to make a copy if lines since python's list is dangerous
@@ -91,7 +95,9 @@ def _load_batch_pmap(n_cores=4, lines=[], traj=None, dtype='dict', root=0,
         comm = MPI.COMM_WORLD
         size = comm.size
         rank = comm.rank
-        data_chunk = _worker_state(rank, n_cores=size, traj=traj, lines=lines, dtype=dtype)
+        #data_chunk = _worker_state(rank, n_cores=size, traj=traj, lines=lines, dtype=dtype)
+        data_chunk = _worker_actlist(rank=rank, n_cores=n_cores, traj=traj, dtype=dtype,
+                lines=lines, ref=ref)
         # it's ok to use python level `gather` method since we only do this once
         # only gather data to root, other cores get None
         data = comm.gather(data_chunk, root=root)
