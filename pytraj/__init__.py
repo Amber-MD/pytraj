@@ -77,12 +77,11 @@ from .trajs.Trajout import Trajout
 from .datasets.cast_dataset import cast_dataset
 from .datasetlist import DatasetList as Dataset
 from . import io
-from .io import (load, iterload, load_remd, iterload_remd, _load_from_frame_iter, load_pdb_rcsb,
-                 load_cpptraj_file, load_sample_data,
-                 load_ParmEd,
-                 load_topology, read_parm, write_parm,
-                 get_coordinates, save, write_traj, read_pickle, read_json,
-                 to_pickle, to_json, )
+from .io import (load, iterload, load_remd, iterload_remd,
+                 _load_from_frame_iter, load_pdb_rcsb, load_cpptraj_file,
+                 load_sample_data, load_ParmEd, load_topology, read_parm,
+                 write_parm, get_coordinates, save, write_traj, read_pickle,
+                 read_json, to_pickle, to_json, )
 
 load_from_frame_iter = _load_from_frame_iter
 
@@ -103,22 +102,18 @@ from .analyses import CpptrajAnalyses as allanalyses
 from . import common_actions
 from .dssp_analysis import calc_dssp
 from .common_actions import (
-    calc_rmsd_nofit,
-    rmsd, rmsd_perres, distance_rmsd, search_hbonds,
+    calc_rmsd_nofit, rmsd, rmsd_perres, distance_rmsd, search_hbonds,
     calc_multidihedral, autoimage, nastruct, calc_angle, calc_dihedral,
-    calc_distance, calc_pairwise_distance, calc_center_of_mass, calc_center_of_geometry, calc_dssp,
-    calc_jcoupling, calc_molsurf, calc_radgyr, calc_rdf, calc_vector,
-    calc_pairwise_rmsd, calc_atomicfluct, calc_bfactors, calc_density,
-    calc_rotation_matrix,
-    calc_watershell, calc_volume, calc_mindist, lifetime, get_average_frame,
-    calc_atomiccorr,
-    get_velocity,
-    _dihedral_res, energy_decomposition, native_contacts,
+    calc_distance, calc_pairwise_distance, calc_center_of_mass,
+    calc_center_of_geometry, calc_dssp, calc_jcoupling, calc_molsurf,
+    calc_radgyr, calc_rdf, calc_vector, calc_pairwise_rmsd, calc_atomicfluct,
+    calc_bfactors, calc_density, calc_rotation_matrix, calc_watershell,
+    calc_volume, calc_mindist, lifetime, get_average_frame, calc_atomiccorr,
+    get_velocity, _dihedral_res, energy_decomposition, native_contacts,
     auto_correlation_function, principal_axes, cross_correlation_function,
     timecorr, center, translate, rotate, rotate_dihedral, make_structure,
     scale, do_clustering, clustering_dataset, _rotate_dih, randomize_ions,
-    crank, closest, search_neighbors, replicate_cell, _rotdif,
-    pairdist, _grid)
+    crank, closest, search_neighbors, replicate_cell, _rotdif, pairdist, _grid)
 
 from .nmr import ired_vector_and_matrix, _ired, NH_order_parameters
 
@@ -226,7 +221,9 @@ def load_batch(traj, txt):
         raise ValueError('only support TrajectoryIterator')
     return _load_batch(txt, traj=traj)
 
+
 load_pipeline = load_batch
+
 
 def superpose(traj, *args, **kwd):
     traj.superpose(*args, **kwd)
@@ -279,6 +276,7 @@ def iterframe(traj, *args, **kwd):
     """
     return traj.iterframe(*args, **kwd)
 
+
 from ._cyutils import _fast_iterptr as iterframe_from_array
 
 
@@ -297,6 +295,7 @@ def iterchunk(traj, *args, **kwd):
     """
     return traj.iterchunk(*args, **kwd)
 
+
 def select_atoms(topology, mask):
     '''return atom indices
 
@@ -309,6 +308,7 @@ def select_atoms(topology, mask):
     array([  4,  15,  39, ..., 159, 173, 197])
     '''
     return topology.select(mask)
+
 
 def strip_atoms(traj_or_topology, mask):
     '''return a new Trajectory or Topology with given mask
@@ -323,6 +323,7 @@ def strip_atoms(traj_or_topology, mask):
     elif hasattr(traj_or_topology, 'mask'):
         traj_or_topology.mask = kept_mask
         return traj_or_topology
+
 
 def show():
     # just delay importing
@@ -347,6 +348,7 @@ def show_versions():
     print("cpptraj version = ", __cpptraj_version__)
     print("cpptraj internal version = ", __cpptraj_internal_version__)
     print("cpptraj compiled flag = ", compiled_info())
+
 
 def _get_pytraj_path():
     '''Return pytraj path

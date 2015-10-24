@@ -1,34 +1,34 @@
 # do not use relative import here. Treat this module as a seperated package.
+import numpy as np
 from functools import partial
 from pytraj.cpp_options import info as compiled_info
-from collections import OrderedDict
-import numpy as np
-from pytraj.externals.six import string_types, iteritems
-from pytraj.datasetlist import stack, DatasetList
-from pytraj._get_common_objects import _get_data_from_dtype
 from pytraj import matrix
-from pytraj import mean_structure 
+from pytraj import mean_structure
 from pytraj import Frame
 from pytraj import ired_vector_and_matrix, rotation_matrix
 from pytraj import NH_order_parameters
 from pytraj import search_hbonds
 from multiprocessing import cpu_count
 from pytraj.tools import dict_to_ndarray, concat_dict
+from pytraj.datasetlist import stack
 
 
 def _worker(rank,
-           n_cores=None,
-           func=None,
-           traj=None,
-           args=None,
-           kwd=None,
-           iter_options={}):
+            n_cores=None,
+            func=None,
+            traj=None,
+            args=None,
+            kwd=None,
+            iter_options={}):
     # need to unpack args and kwd
     mask = iter_options.get('mask', None)
     rmsfit = iter_options.get('rmsfit', None)
     autoimage = iter_options.get('autoimage', False)
-    my_iter = traj._split_iterators(n_cores, rank=rank, mask=mask, rmsfit=rmsfit,
-            autoimage=autoimage)
+    my_iter = traj._split_iterators(n_cores,
+                                    rank=rank,
+                                    mask=mask,
+                                    rmsfit=rmsfit,
+                                    autoimage=autoimage)
     data = func(my_iter, *args, **kwd)
     return (rank, data, my_iter.n_frames)
 
@@ -185,15 +185,20 @@ def _pmap(func, traj, *args, **kwd):
         from pytraj.parallel import _load_batch_pmap
         if 'dtype' in kwd.keys():
             kwd.pop('dtype')
-        data = _load_batch_pmap(n_cores=n_cores, traj=traj, lines=func, dtype='dict',
-                root=0, mode='multiprocessing', **kwd)
+        data = _load_batch_pmap(n_cores=n_cores,
+                                traj=traj,
+                                lines=func,
+                                dtype='dict',
+                                root=0,
+                                mode='multiprocessing', **kwd)
         data = concat_dict((x[1] for x in data))
         if dtype == 'dict' or dtype is None:
             return data
         elif dtype == 'ndarray':
             return dict_to_ndarray(data)
         else:
-            raise ValueError("if using func as a list/tuple, dtype must be 'ndarray' or 'dict'")
+            raise ValueError(
+                "if using func as a list/tuple, dtype must be 'ndarray' or 'dict'")
     else:
         if not callable(func):
             raise ValueError('must callable argument')
@@ -203,10 +208,14 @@ def _pmap(func, traj, *args, **kwd):
         elif not func._is_parallelizable:
             raise ValueError("this method does not support parallel")
         else:
-            if hasattr(func, '_openmp_capability') and func._openmp_capability and 'OPENMP' in compiled_info():
-                raise RuntimeError("this method supports both openmp and pmap, but your cpptraj "
-                "version was installed with openpm. Should not use both openmp and pmap at the "
-                "same time. In this case, do not use pmap since openmp is more efficient")
+            if hasattr(
+                    func,
+                    '_openmp_capability') and func._openmp_capability and 'OPENMP' in compiled_info(
+                    ):
+                raise RuntimeError(
+                    "this method supports both openmp and pmap, but your cpptraj "
+                    "version was installed with openpm. Should not use both openmp and pmap at the "
+                    "same time. In this case, do not use pmap since openmp is more efficient")
 
         if not isinstance(traj, TrajectoryIterator):
             raise ValueError('only support TrajectoryIterator')
@@ -225,7 +234,7 @@ def _pmap(func, traj, *args, **kwd):
         p.close()
 
         if func in [matrix.dist, matrix.idea]:
-            mat  = np.sum((val[1] * val[2] for val in data)) / traj.n_frames
+            mat = np.sum((val[1] * val[2] for val in data)) / traj.n_frames
             return mat
         elif func in [ired_vector_and_matrix, ]:
             # data is a list of (rank, (vectors, matrix), n_frames)
@@ -248,12 +257,13 @@ def _pmap(func, traj, *args, **kwd):
             frame.xyz[:] = xyz
             return frame
         else:
-            if dtype in ['dict',]:
+            if dtype in ['dict', ]:
                 return concat_dict((x[1] for x in data))
-            elif dtype in ['dataset',] and func != search_hbonds:
+            elif dtype in ['dataset', ] and func != search_hbonds:
                 return stack((x[1] for x in data))
             else:
                 return data
+
 
 def pmap(func=None, traj=None, *args, **kwd):
     if func != NH_order_parameters:
@@ -269,5 +279,6 @@ def pmap(func=None, traj=None, *args, **kwd):
             # use n_cores=2 for default value
             kwd['n_cores'] = 2
         return NH_order_parameters(traj, *args, **kwd)
+
 
 pmap.__doc__ = _pmap.__doc__

@@ -18,8 +18,7 @@ from .trajectory_iterator import TrajectoryIterator
 from .trajs.Trajout import Trajout
 from . import cpptraj_dict
 
-__all__ = ['Atom', 'Residue', 'Molecule', 'Topology', 
-           'Frame', 'Trajectory', 'TrajectoryIterator',
-           'AtomMask', 'ArgList', 'CpptrajState',
+__all__ = ['Atom', 'Residue', 'Molecule', 'Topology', 'Frame', 'Trajectory',
+           'TrajectoryIterator', 'AtomMask', 'ArgList', 'CpptrajState',
            'DatasetList', 'DataFileList', 'ActionList', 'Trajout',
            'cast_dataset', 'cpptraj_dict']

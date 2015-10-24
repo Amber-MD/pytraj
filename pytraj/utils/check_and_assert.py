@@ -2,7 +2,6 @@ from __future__ import absolute_import
 import os
 import numbers
 from ..externals.six import string_types
-from functools import wraps
 
 # don't `import pytraj.externals.six` here: got import error
 try:
@@ -143,7 +142,7 @@ def assert_almost_equal(arr0, arr1, decimal=4):
     for x, y in zip(_arr0, _arr1):
         if math.isnan(x) or math.isnan(y):
             raise ValueError('do not support NAN comparison')
-        if abs(x - y) > SMALL: # pragma: no cover
+        if abs(x - y) > SMALL:  # pragma: no cover
             almost_equal = False
     assert almost_equal == True
 

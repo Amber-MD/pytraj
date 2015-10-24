@@ -1,17 +1,15 @@
-import numpy as np
-from pytraj.externals.six import string_types, iteritems
-from .parallel_mapping_mpi import pmap_mpi
-from .parallel_mapping_multiprocessing import pmap
-from pytraj.tools import concat_dict
-from .pjob import PJob
 from functools import partial
 from pytraj import Frame
 from pytraj import create_pipeline
 from pytraj.datasets import CpptrajDatasetList
-from collections import OrderedDict
 
 
-def _worker_actlist(rank, n_cores=2, traj=None, lines=[], dtype='dict', ref=None):
+def _worker_actlist(rank,
+                    n_cores=2,
+                    traj=None,
+                    lines=[],
+                    dtype='dict',
+                    ref=None):
     # need to make a copy if lines since python's list is dangerous
     # it's easy to mess up with mutable list
     # do not use lines.copy() since this is not available in py2.7
@@ -38,7 +36,8 @@ def _worker_actlist(rank, n_cores=2, traj=None, lines=[], dtype='dict', ref=None
     fi = create_pipeline(my_iter, commands=lines, dslist=dslist)
 
     # just iterate Frame to trigger calculation.
-    for _ in fi: pass
+    for _ in fi:
+        pass
 
     # remove ref
     if dtype == 'dict':
@@ -57,13 +56,14 @@ def _worker_state(rank, n_cores=1, traj=None, lines=[], dtype='dict'):
 
     mylist = split_range(n_cores, 0, traj.n_frames)[rank]
     start, stop = mylist
-    crdframes_string = 'crdframes ' + ','.join((str(start+1), str(stop)))
+    crdframes_string = 'crdframes ' + ','.join((str(start + 1), str(stop)))
 
     for idx, line in enumerate(my_lines):
         if not line.lstrip().startswith('reference'):
-            my_lines[idx] = ' '.join(('crdaction traj', line, crdframes_string))
+            my_lines[idx] = ' '.join(
+                ('crdaction traj', line, crdframes_string))
 
-    my_lines = ['loadtraj name traj',] + my_lines
+    my_lines = ['loadtraj name traj', ] + my_lines
 
     state = _load_batch(my_lines, traj)
 
@@ -75,16 +75,25 @@ def _worker_state(rank, n_cores=1, traj=None, lines=[], dtype='dict'):
         raise ValueError('must use dtype="dict"')
 
 
-def _load_batch_pmap(n_cores=4, lines=[], traj=None, dtype='dict', root=0,
-        mode='multiprocessing', ref=None):
+def _load_batch_pmap(n_cores=4,
+                     lines=[],
+                     traj=None,
+                     dtype='dict',
+                     root=0,
+                     mode='multiprocessing',
+                     ref=None):
     '''mpi or multiprocessing
     '''
     if mode == 'multiprocessing':
         from multiprocessing import Pool
         #pfuncs = partial(_worker_state, n_cores=n_cores, traj=traj, dtype=dtype,
         #        lines=lines, ref=ref)
-        pfuncs = partial(_worker_actlist, n_cores=n_cores, traj=traj, dtype=dtype,
-                lines=lines, ref=ref)
+        pfuncs = partial(_worker_actlist,
+                         n_cores=n_cores,
+                         traj=traj,
+                         dtype=dtype,
+                         lines=lines,
+                         ref=ref)
         pool = Pool(n_cores)
         data = pool.map(pfuncs, range(n_cores))
         pool.close()
@@ -93,11 +102,14 @@ def _load_batch_pmap(n_cores=4, lines=[], traj=None, dtype='dict', root=0,
     elif mode == 'mpi':
         from mpi4py import MPI
         comm = MPI.COMM_WORLD
-        size = comm.size
         rank = comm.rank
         #data_chunk = _worker_state(rank, n_cores=size, traj=traj, lines=lines, dtype=dtype)
-        data_chunk = _worker_actlist(rank=rank, n_cores=n_cores, traj=traj, dtype=dtype,
-                lines=lines, ref=ref)
+        data_chunk = _worker_actlist(rank=rank,
+                                     n_cores=n_cores,
+                                     traj=traj,
+                                     dtype=dtype,
+                                     lines=lines,
+                                     ref=ref)
         # it's ok to use python level `gather` method since we only do this once
         # only gather data to root, other cores get None
         data = comm.gather(data_chunk, root=root)

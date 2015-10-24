@@ -1,4 +1,3 @@
-
 def read_orca_trj(fname):
     """return numpy 2D array
     """
@@ -7,5 +6,3 @@ def read_orca_trj(fname):
     import numpy as np
     regexp = r'\s+\w+' + r'\s+([-.0-9]+)' * 3 + r'\s*\n'
     return np.fromregex(fname, regexp, dtype='f')
-
-

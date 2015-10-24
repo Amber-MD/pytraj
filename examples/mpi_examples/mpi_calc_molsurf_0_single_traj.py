@@ -5,7 +5,6 @@
 import numpy as np
 from mpi4py import MPI
 import pytraj as pt
-from pytraj.parallel import pmap_mpi
 from pytraj.testing import aa_eq
 
 comm = MPI.COMM_WORLD
@@ -24,7 +23,7 @@ traj = pt.iterload(traj_name, parm_name)
 # need to provide `comm`
 # save `total_arr` to rank=0
 # others: total_arr = None
-total_arr = pmap_mpi(pt.calc_molsurf, traj, "!:WAT", top=traj.top)
+total_arr = pt.pmap_mpi(pt.calc_molsurf, traj, "!:WAT", top=traj.top)
 
 if comm.rank != 0:
     assert total_arr is None

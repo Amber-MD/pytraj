@@ -20,6 +20,7 @@ def get_top(traj):
 def set_top(traj, top):
     traj.top = top
 
+
 def translate(traj, mask, anchor, to_point=[0.0, 0.0, 0.0]):
     '''translate a group of atoms in mask by moving anchor mask to given point
 
@@ -50,12 +51,14 @@ def write_traj(filename, traj=None, mode='', frame_indices=None):
     '''
     from pytraj.actions.CpptrajActions import Action_Outtraj
 
-    command = ' ' .join((filename, mode))
-    fi = traj if frame_indices is None else traj.iterframe(frame_indices=frame_indices)
+    command = ' '.join((filename, mode))
+    fi = traj if frame_indices is None else traj.iterframe(
+        frame_indices=frame_indices)
 
     act = Action_Outtraj()
     _top = traj.top
     act(command, fi, top=_top)
+
 
 class Trajout:
     # give wrong n_atoms for last frame. Why?
@@ -68,10 +71,11 @@ class Trajout:
     >>>         trajout.write_frame(idx, frame)
 
     '''
+
     def __init__(self, filename, mode='', top=None):
         from pytraj.actions.CpptrajActions import Action_Outtraj
         self._outtraj = Action_Outtraj()
-        command = ' ' .join((filename, mode))
+        command = ' '.join((filename, mode))
         self._outtraj.read_input(command, top=top)
         self._outtraj.process(top)
 
@@ -86,11 +90,13 @@ class Trajout:
 
 # for testing
 from pytraj._get_common_objects import (_get_data_from_dtype, _get_topology,
-                                        _get_reference_from_traj, _get_fiterator)
+                                        _get_reference_from_traj,
+                                        _get_fiterator)
 from pytraj.actions import CpptrajActions
-from pytraj.datasets import CpptrajDatasetList 
+from pytraj.datasets import CpptrajDatasetList
 from pytraj.compat import string_types
 from pytraj.utils.convert import array_to_cpptraj_atommask
+
 
 def _dispatch_traj_ref_top_frame_indices(f):
     @wraps(f)
@@ -121,7 +127,9 @@ def _dispatch_traj_ref_top_frame_indices(f):
         else:
             args[1] = mask
         return f(*args, **kwd)
+
     return inner
+
 
 @_dispatch_traj_ref_top_frame_indices
 def _toy_radgyr(traj,
@@ -144,4 +152,3 @@ def _toy_radgyr(traj,
 
     act(mask, traj, top=top, dslist=dslist)
     return _get_data_from_dtype(dslist, dtype=dtype)
-

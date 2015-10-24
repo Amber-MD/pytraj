@@ -1,7 +1,5 @@
 from __future__ import absolute_import
-import operator
 import numpy as np
-from pytraj._cyutils import _fast_count
 from pytraj.datasets import Dataset
 
 
@@ -54,7 +52,7 @@ class DataArray(object):
             self.scalar_type = 'unknown'
             self.cpptraj_dtype = None
         else:
-            self.key= getattr(dset, 'key', "")
+            self.key = getattr(dset, 'key', "")
             self.name = getattr(dset, 'name', "")
             self.aspect = getattr(dset, 'aspect', 'unknown')
             self.idx = getattr(dset, 'idx', 0)
@@ -73,10 +71,10 @@ class DataArray(object):
                 values = np.asarray(dset.values)
             else:
                 values = np.asarray(dset)
-            if copy:       
-                self._values = values.copy()       
-            else:      
-                self._values = values      
+            if copy:
+                self._values = values.copy()
+            else:
+                self._values = values
 
     @classmethod
     def from_dict(cls, d):

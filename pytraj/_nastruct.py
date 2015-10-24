@@ -2,7 +2,7 @@
 """
 from __future__ import absolute_import
 import numpy as np
-from ._get_common_objects import _get_topology, _get_data_from_dtype, _get_resrange
+from ._get_common_objects import _get_topology, _get_resrange
 from ._get_common_objects import _get_reference_from_traj, _get_fiterator
 from pytraj.externals.six import iteritems, string_types
 
@@ -148,7 +148,7 @@ class nupars(object):
     >>> nu._summary(np.mean, keys=['major'])
     {'major': array([ 14.36732316,  14.3188405 ,  14.28000116])}
     '''
-  
+
     def __init__(self, adict):
         self._dict = adict
 
@@ -197,12 +197,12 @@ class nupars(object):
         '''
         _keys = keys if keys is not None else self.keys()
         if isinstance(_keys, string_types):
-            _keys = [_keys,]
+            _keys = [_keys, ]
 
         sumlist = []
         ops = [ops, ] if not isinstance(ops, (list, tuple)) else ops
 
-        for op in ops: 
+        for op in ops:
             sumdict = {}
             for k in _keys:
                 values = self[k][1]

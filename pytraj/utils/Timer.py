@@ -1,5 +1,6 @@
 from time import time
 
+
 class Timer:
     '''
     Examples
@@ -10,6 +11,7 @@ class Timer:
     >>> f(2) # doctests: SKIP
     >>> f(3)
     '''
+
     def __init__(self):
         self.start = -1
         self._time_gap = -1

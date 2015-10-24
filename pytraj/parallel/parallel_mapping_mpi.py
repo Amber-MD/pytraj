@@ -1,6 +1,6 @@
-import numpy as np
 from pytraj.utils import split_range
 from pytraj.tools import concat_dict
+
 
 def pmap_mpi(func, traj, *args, **kwd):
     """parallel with MPI (mpi4py)
@@ -44,7 +44,7 @@ def pmap_mpi(func, traj, *args, **kwd):
                 6.24139008,  6.48994552])]
     """
     from mpi4py import MPI
-    comm = MPI.COMM_WORLD 
+    comm = MPI.COMM_WORLD
     n_cores = comm.size
     rank = comm.rank
 
@@ -52,17 +52,21 @@ def pmap_mpi(func, traj, *args, **kwd):
         # split traj to ``n_cores`` chunks, perform calculation 
         # for rank-th chunk
         start, stop = split_range(n_cores, 0, traj.n_frames)[rank]
-        fa_chunk = traj(start=start, stop=stop) 
+        fa_chunk = traj(start=start, stop=stop)
         data = func(fa_chunk, *args, **kwd)
         total = comm.gather(data, root=0)
     else:
-        from pytraj.parallel import _load_batch_pmap, concat_dict
+        from pytraj.parallel import _load_batch_pmap
         if 'dtype' in kwd.keys():
             kwd.pop('dtype')
         if 'dtype' in kwd.keys():
             kwd.pop('dtype')
-        total = _load_batch_pmap(n_cores=n_cores, traj=traj, lines=func, dtype='dict',
-                                root=0, mode='mpi', **kwd)
+        total = _load_batch_pmap(n_cores=n_cores,
+                                 traj=traj,
+                                 lines=func,
+                                 dtype='dict',
+                                 root=0,
+                                 mode='mpi', **kwd)
         if rank == 0:
             # otherwise, total=None
             total = concat_dict((x[1] for x in total))

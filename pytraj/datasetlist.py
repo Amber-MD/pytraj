@@ -94,7 +94,6 @@ def stack(args):
 concat_datasetlist = stack
 
 
-
 class DatasetList(list):
     '''similiar to python's list but the data is labeled.
     Think as a OrderedDict-like and list-like object. This class is suitable for small
@@ -349,7 +348,8 @@ class DatasetList(list):
         pandas
         """
         import pandas
-        my_dict = OrderedDict((d0.key, d0.to_ndarray(copy=True)) for d0 in self)
+        my_dict = OrderedDict((d0.key, d0.to_ndarray(copy=True))
+                              for d0 in self)
         return pandas.DataFrame(my_dict)
 
     @classmethod
