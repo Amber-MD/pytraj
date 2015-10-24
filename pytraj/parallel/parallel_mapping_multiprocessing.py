@@ -1,11 +1,7 @@
 # do not use relative import here. Treat this module as a seperated package.
+import numpy as np
 from functools import partial
 from pytraj.cpp_options import info as compiled_info
-from collections import OrderedDict
-import numpy as np
-from pytraj.externals.six import string_types, iteritems
-from pytraj.datasetlist import stack, DatasetList
-from pytraj._get_common_objects import _get_data_from_dtype
 from pytraj import matrix
 from pytraj import mean_structure 
 from pytraj import Frame
@@ -14,6 +10,7 @@ from pytraj import NH_order_parameters
 from pytraj import search_hbonds
 from multiprocessing import cpu_count
 from pytraj.tools import dict_to_ndarray, concat_dict
+from pytraj.datasetlist import stack
 
 
 def _worker(rank,

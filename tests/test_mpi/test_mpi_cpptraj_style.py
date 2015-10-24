@@ -2,7 +2,6 @@
 import numpy as np
 from mpi4py import MPI
 import pytraj as pt
-from pytraj.parallel import pmap_mpi
 from pytraj.testing import aa_eq
 
 comm = MPI.COMM_WORLD
@@ -18,7 +17,7 @@ traj = pt.iterload(traj_name, parm_name)
 
 # save `total_arr` to rank=0
 # others: total_arr = None
-total_arr = pmap_mpi(['autoimage', 'center :2', 'distance :3 :7', 'angle :3 :7 :8'], traj)
+total_arr = pt.pmap_mpi(['autoimage', 'center :2', 'distance :3 :7', 'angle :3 :7 :8'], traj)
 
 if comm.rank != 0:
     assert total_arr is None

@@ -1,4 +1,3 @@
-import numpy as np
 from pytraj.utils import split_range
 from pytraj.tools import concat_dict
 
@@ -56,7 +55,7 @@ def pmap_mpi(func, traj, *args, **kwd):
         data = func(fa_chunk, *args, **kwd)
         total = comm.gather(data, root=0)
     else:
-        from pytraj.parallel import _load_batch_pmap, concat_dict
+        from pytraj.parallel import _load_batch_pmap
         if 'dtype' in kwd.keys():
             kwd.pop('dtype')
         if 'dtype' in kwd.keys():
