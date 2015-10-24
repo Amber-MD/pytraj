@@ -3,7 +3,7 @@ class PJob(object):
     Examples
     --------
     >>> import pytraj as pt
-    >>> from pytraj.parallel import PJob
+    >>> from pytraj.parallel.pjob import PJob
     >>> traj = pt.load_sample_data('tz2')
     >>> tasklist = []
     >>> tasklist.append((pt.radgyr, traj))
