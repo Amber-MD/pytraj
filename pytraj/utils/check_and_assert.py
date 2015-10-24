@@ -2,7 +2,6 @@ from __future__ import absolute_import
 import os
 import numbers
 from ..externals.six import string_types
-from functools import wraps
 
 # don't `import pytraj.externals.six` here: got import error
 try:
