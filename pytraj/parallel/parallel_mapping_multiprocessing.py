@@ -15,24 +15,6 @@ from pytraj import search_hbonds
 from multiprocessing import cpu_count
 
 
-def _concat_dict(iterables):
-    # we have this function in pytraj.tools but copy here to be used as internal method
-    # TODO: fill missing values?
-    """concat dict
-
-    iterables : iterables that produces OrderedDict
-    """
-    new_dict = OrderedDict()
-    for i, d in enumerate(iterables):
-        if i == 0:
-            # make a copy of first dict
-            new_dict.update(d)
-        else:
-            for k, v in iteritems(new_dict):
-                new_dict[k] = np.concatenate((new_dict[k], d[k]))
-    return new_dict
-
-
 def _worker(rank,
            n_cores=None,
            func=None,
@@ -199,7 +181,7 @@ def _pmap(func, traj, *args, **kwd):
 
     if isinstance(func, (list, tuple)):
         # assume using _load_batch_pmap
-        from pytraj.parallel import _load_batch_pmap
+        from pytraj.parallel import _load_batch_pmap, _concat_dict
         if 'dtype' in kwd.keys():
             kwd.pop('dtype')
         data = _load_batch_pmap(n_cores=n_cores, traj=traj, lines=func, dtype='dict',
