@@ -4,6 +4,7 @@ from pytraj.base import *
 from pytraj import adict
 from pytraj.compat import zip
 from pytraj.testing import aa_eq
+from pytraj.tools import rmsd_1darray
 
 
 class TestRegular(unittest.TestCase):
@@ -41,7 +42,6 @@ class TestRegular(unittest.TestCase):
 
     def test_4(self):
         # combined with get_coordinates
-        from pytraj.misc import rmsd_1darray
         traj0 = pt.iterload(
             "./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
 
