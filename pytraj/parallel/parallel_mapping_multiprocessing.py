@@ -12,8 +12,8 @@ from pytraj import Frame
 from pytraj import ired_vector_and_matrix, rotation_matrix
 from pytraj import NH_order_parameters
 from pytraj import search_hbonds
-from pytraj.parallel import _concat_dict
 from multiprocessing import cpu_count
+from pytraj.tools import dict_to_ndarray, concat_dict
 
 
 def _worker(rank,
@@ -182,16 +182,15 @@ def _pmap(func, traj, *args, **kwd):
 
     if isinstance(func, (list, tuple)):
         # assume using _load_batch_pmap
-        from pytraj.parallel import _load_batch_pmap, _concat_dict
+        from pytraj.parallel import _load_batch_pmap
         if 'dtype' in kwd.keys():
             kwd.pop('dtype')
         data = _load_batch_pmap(n_cores=n_cores, traj=traj, lines=func, dtype='dict',
                 root=0, mode='multiprocessing', **kwd)
-        data = _concat_dict((x[1] for x in data))
+        data = concat_dict((x[1] for x in data))
         if dtype == 'dict' or dtype is None:
             return data
         elif dtype == 'ndarray':
-            from pytraj.tools import dict_to_ndarray
             return dict_to_ndarray(data)
         else:
             raise ValueError("if using func as a list/tuple, dtype must be 'ndarray' or 'dict'")
@@ -250,7 +249,7 @@ def _pmap(func, traj, *args, **kwd):
             return frame
         else:
             if dtype in ['dict',]:
-                return _concat_dict((x[1] for x in data))
+                return concat_dict((x[1] for x in data))
             elif dtype in ['dataset',] and func != search_hbonds:
                 return stack((x[1] for x in data))
             else:

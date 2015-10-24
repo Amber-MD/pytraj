@@ -10,23 +10,6 @@ from pytraj import create_pipeline
 from pytraj.datasets import CpptrajDatasetList
 from collections import OrderedDict
 
-def _concat_dict(iterables):
-    # we have this function in pytraj.tools but copy here to be used as internal method
-    # TODO: fill missing values?
-    """concat dict
-
-    iterables : iterables that produces OrderedDict
-    """
-    new_dict = OrderedDict()
-    for i, d in enumerate(iterables):
-        if i == 0:
-            # make a copy of first dict
-            new_dict.update(d)
-        else:
-            for k, v in iteritems(new_dict):
-                new_dict[k] = np.concatenate((new_dict[k], d[k]))
-    return new_dict
-
 
 def _worker_actlist(rank, n_cores=2, traj=None, lines=[], dtype='dict', ref=None):
     # need to make a copy if lines since python's list is dangerous

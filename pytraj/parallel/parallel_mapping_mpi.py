@@ -1,5 +1,6 @@
 import numpy as np
 from pytraj.utils import split_range
+from pytraj.tools import concat_dict
 
 def pmap_mpi(func, traj, *args, **kwd):
     """parallel with MPI (mpi4py)
@@ -55,7 +56,7 @@ def pmap_mpi(func, traj, *args, **kwd):
         data = func(fa_chunk, *args, **kwd)
         total = comm.gather(data, root=0)
     else:
-        from pytraj.parallel import _load_batch_pmap, _concat_dict
+        from pytraj.parallel import _load_batch_pmap, concat_dict
         if 'dtype' in kwd.keys():
             kwd.pop('dtype')
         if 'dtype' in kwd.keys():
@@ -64,5 +65,5 @@ def pmap_mpi(func, traj, *args, **kwd):
                                 root=0, mode='mpi', **kwd)
         if rank == 0:
             # otherwise, total=None
-            total = _concat_dict((x[1] for x in total))
+            total = concat_dict((x[1] for x in total))
     return total
