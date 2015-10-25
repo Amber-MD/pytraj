@@ -102,6 +102,14 @@ class Trajectory(object):
     def top(self, value):
         self._top = value.copy()
 
+    @property
+    def topology(self):
+        return self._top
+
+    @top.setter
+    def topology(self, value):
+        self._top = value.copy()
+
     def reverse(self):
         '''
         Returns

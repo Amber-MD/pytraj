@@ -449,15 +449,14 @@ def loadpdb_rcsb(pdbid):
     --------
         io.loadpdb_rcsb("2KOC") # popular RNA hairpin
     """
-
-    url = 'http://www.rcsb.org/pdb/files/%s.pdb' % pdbid
+    url = 'http://www.rcsb.org/pdb/files/%s.pdb' % pdbid.upper()
     txt = urlopen(url).read()
     fname = "/tmp/tmppdb.pdb"
     with open(fname, 'w') as fh:
         if PY3:
             txt = txt.decode()
         fh.write(txt)
-    traj = load(fname, fname)
+    traj = load(fname)
     return traj
 
 

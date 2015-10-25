@@ -59,8 +59,6 @@ def pmap_mpi(func, traj, *args, **kwd):
         from pytraj.parallel import _load_batch_pmap
         if 'dtype' in kwd.keys():
             kwd.pop('dtype')
-        if 'dtype' in kwd.keys():
-            kwd.pop('dtype')
         total = _load_batch_pmap(n_cores=n_cores,
                                  traj=traj,
                                  lines=func,
