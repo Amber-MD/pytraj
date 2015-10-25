@@ -24,6 +24,7 @@ cdef class Atom:
         mass = mass
         self.thisptr = new _Atom(aname.thisptr[0], charge, mass, atype.thisptr[0])
         self.resnum = resnum
+        self.index = 0
 
     def __dealloc__(self):
         del self.thisptr
@@ -33,6 +34,12 @@ cdef class Atom:
         #del atom.thisptr
         atom.thisptr = new _Atom(self.thisptr[0])
         return atom
+
+    property index:
+        def __get__(self):
+            return self._index
+        def __set__(self, int idx):
+            self._index = idx
 
     def bonded_indices(self):
         """get bond indices that `self` bonds to
@@ -97,6 +104,10 @@ cdef class Atom:
 
     @property
     def molnum(self):
+        return self.thisptr.MolNum()
+
+    @property
+    def chain(self):
         return self.thisptr.MolNum()
 
     @property
