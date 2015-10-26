@@ -10,7 +10,7 @@ traj.load("./data/md1_prod.Tc5b.x")
 
 class TestTrajectory(unittest.TestCase):
     def test_raise_construtor(self):
-        self.assertRaises(ValueError, lambda: pt.Trajectory(pt.api))
+        self.assertRaises(ValueError, lambda: pt.Trajectory(pt.trajectory))
 
     def test_slice_basic(self):
         traj2 = Trajectory()

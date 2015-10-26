@@ -10,38 +10,38 @@ class TestAutoImageAndRotateDihedral(unittest.TestCase):
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         farray = traj[:]
 
-        t0api = pt.api.Trajectory(traj)
-        aa_eq(farray.unitcells, t0api.unitcells)
+        t0trajectory = pt.trajectory.Trajectory(traj)
+        aa_eq(farray.unitcells, t0trajectory.unitcells)
 
         # autoimage
         farray.autoimage()
-        t0api.autoimage()
-        aa_eq(farray.xyz, t0api.xyz)
+        t0trajectory.autoimage()
+        aa_eq(farray.xyz, t0trajectory.xyz)
 
         # rotate_dihedral
-        pt.rotate_dihedral(t0api, '3:phi:120')
+        pt.rotate_dihedral(t0trajectory, '3:phi:120')
         pt.rotate_dihedral(farray, '3:phi:120')
-        aa_eq(farray.xyz, t0api.xyz)
+        aa_eq(farray.xyz, t0trajectory.xyz)
 
-        aa_eq(pt.calc_phi(t0api, '3').values, [120
-              for _ in range(t0api.n_frames)])
+        aa_eq(pt.calc_phi(t0trajectory, '3').values, [120
+              for _ in range(t0trajectory.n_frames)])
 
 
 class TestNoName(unittest.TestCase):
     def test_0(self):
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
-        api_traj = traj[:]
+        trajectory_traj = traj[:]
 
         # test xyz
-        aa_eq(api_traj.xyz, traj.xyz)
+        aa_eq(trajectory_traj.xyz, traj.xyz)
 
         # test object lifetime
-        aa_eq(api_traj[0].xyz, api_traj.xyz[0])
+        aa_eq(trajectory_traj[0].xyz, trajectory_traj.xyz[0])
 
         # test Box
-        assert (api_traj.top.has_box() == True)
+        assert (trajectory_traj.top.has_box() == True)
         boxes = traj.unitcells
-        for i, frame in enumerate(api_traj):
+        for i, frame in enumerate(trajectory_traj):
             assert (frame.has_box() == True)
             f_blist = frame.box.tolist()
             aa_eq(f_blist, boxes[i].tolist())
@@ -58,7 +58,7 @@ class TestNoName(unittest.TestCase):
 
     def testFromIterable(self):
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
-        aa_eq(pt.api.Trajectory.from_iterable(traj).xyz, traj.xyz)
+        aa_eq(pt.trajectory.Trajectory.from_iterable(traj).xyz, traj.xyz)
 
 
 if __name__ == "__main__":
