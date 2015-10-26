@@ -37,10 +37,6 @@ art = r'''
 my_script = sys.argv[0]
 
 try:
-    verbose = sys.argv[1] in ['-verbose', 'verbose', '-v']
-except:
-    verbose = False
-try:
     need_help = sys.argv[1] in ['help', '-help', '--help']
 except:
     need_help = False 
@@ -53,8 +49,8 @@ except:
 if need_help:
     print("Usage:")
     print("    short testing: python %s simple" % my_script)
-    print("    verbose run (long): python %s verbose" % my_script)
-    print("    quiet run (long): python %s" % my_script)
+    print("    long testing: python %s" % my_script)
+    print("Note: long testing requires nose and coverage, which are easily installed by `pip install`")
     sys.exit(0)
 
 print("start testing. Go to ./tests folder")
@@ -65,12 +61,8 @@ if do_simple_test:
     print('\nHAPPY COMPUTING')
     print(art)
     sys.exit(0)
-if verbose:
-    os.system('python get_unittest_files.py')
-    os.system('sh TestListTravis.sh')
 else:
-    print('quite run')
-    os.system("python ./run_all_and_find_fails.py")
+    os.system("nosetests --with-coverage --cover-package pytraj -vs .")
 
 print('\nHAPPY COMPUTING')
 print(art)
