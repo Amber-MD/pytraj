@@ -29,6 +29,7 @@ __all__ = ['Topology', 'ParmFile']
 class _FakeResidue(object):
     def __init__(self, resname, resid, atoms):
         self.resname = resname
+        self.name = resname
         self.resid = resid
         self.atoms = atoms
         self.chain = 1
