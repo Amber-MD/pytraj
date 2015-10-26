@@ -26,6 +26,13 @@ else:
 
 __all__ = ['Topology', 'ParmFile']
 
+class _FakeResidue(object):
+    def __init__(self, resname, resid, atoms):
+        self.resname = resname
+        self.resid = resid
+        self.atoms = atoms
+        self.chain = 1
+
 cdef class Topology:
     def __cinit__(self, *args):
         """
@@ -234,12 +241,15 @@ cdef class Topology:
         def __get__(self):
             cdef Atom atom
             cdef atom_iterator it
+            cdef int idx = 0
 
             it = self.thisptr.begin()
             while it != self.thisptr.end():
                 atom = Atom()
                 atom.thisptr[0] = deref(it)
+                atom.index = idx
                 yield atom
+                idx += 1
                 incr(it)
 
     property residues:
@@ -701,6 +711,12 @@ cdef class Topology:
         '''
         mask = mask.encode()
         self.thisptr.SetSolvent(mask)
+
+    def residue(self, int idx):
+        cdef Residue res = Residue()
+        res.thisptr[0] = self.thisptr.Res(idx)
+        start, end = res.first_atom_idx, res.last_atom_idx
+        return _FakeResidue(res.name, res.original_resnum, self.atomlist[start:end])
 
 cdef class ParmFile:
     def __cinit__(self):
