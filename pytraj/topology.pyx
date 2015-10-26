@@ -15,6 +15,7 @@ from pytraj.compat import set
 from pytraj.externals.six import PY2, PY3, string_types
 from pytraj.utils.check_and_assert import is_int
 from pytraj.cpptraj_dict import ParmFormatDict
+from pytraj.core.fake_residue import SimplifiedResidue
 
 PY2 = sys.version_info[0] == 2
 PY3 = sys.version_info[0] == 3
@@ -25,14 +26,6 @@ else:
     string_types = basestring
 
 __all__ = ['Topology', 'ParmFile']
-
-class _FakeResidue(object):
-    def __init__(self, resname, resid, atoms):
-        self.resname = resname
-        self.name = resname
-        self.resid = resid
-        self.atoms = atoms
-        self.chain = 1
 
 cdef class Topology:
     def __cinit__(self, *args):
@@ -249,6 +242,7 @@ cdef class Topology:
                 atom = Atom()
                 atom.thisptr[0] = deref(it)
                 atom.index = idx
+                atom.residue = self._residue_light(atom.resnum)
                 yield atom
                 idx += 1
                 incr(it)
@@ -717,7 +711,15 @@ cdef class Topology:
         cdef Residue res = Residue()
         res.thisptr[0] = self.thisptr.Res(idx)
         start, end = res.first_atom_idx, res.last_atom_idx
-        return _FakeResidue(res.name, res.original_resnum, self.atomlist[start:end])
+        return SimplifiedResidue(res.name, res.original_resnum, self.atomlist[start:end])
+
+    def _residue_light(self, int idx):
+        '''no atoms
+        '''
+        cdef Residue res = Residue()
+        res.thisptr[0] = self.thisptr.Res(idx)
+        start, end = res.first_atom_idx, res.last_atom_idx
+        return SimplifiedResidue(res.name, res.original_resnum, [])
 
 cdef class ParmFile:
     def __cinit__(self):

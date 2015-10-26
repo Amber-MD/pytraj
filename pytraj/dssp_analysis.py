@@ -118,3 +118,10 @@ def _to_string_secondary_structure(arr0):
     ssdict = dict(zip(range(len(_s1)), _s1))
 
     return np.vectorize(lambda key: ssdict[key])(arr0)
+
+def dssp_full_residues(traj, *args, **kwd):
+    '''mostly for visulization. 
+    Status: not finished yet
+    '''
+    residues, ss, _ = calc_dssp(traj, *args, **kwd)
+    pass

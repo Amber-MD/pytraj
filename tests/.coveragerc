@@ -23,6 +23,7 @@ exclude_lines =
     to_dataframe
     if dtype == 'dataframe'
     warn
+    def dssp_full_residues
 
     # Don't complain if non-runnable code isn't run:
     if 0:
