@@ -4,6 +4,7 @@ from cython.operator cimport preincrement as incr
 from cpython.array cimport array as pyarray
 from pytraj.cpptraj_dict import get_key, AtomicElementDict
 from pytraj.externals.six import string_types
+from pytraj.core.elements import Element
 
 cdef class Atom:
     '''Atom
@@ -85,7 +86,8 @@ cdef class Atom:
 
     @property
     def element(self):
-        return get_key(self.thisptr.Element(), AtomicElementDict)
+        name = get_key(self.thisptr.Element(), AtomicElementDict)
+        return name, *Element[self.atomic_number]
 
     @property
     def atomic_number(self):
