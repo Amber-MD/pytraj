@@ -17,7 +17,7 @@ def load_mdtraj(m_traj, autoconvert=False, top=None):
     """
     import numpy as np
     from mdtraj import Trajectory as MDTrajectory
-    from pytraj.api import Trajectory
+    from pytraj.trajectory import Trajectory
     from pytraj.compat import string_types
 
     if autoconvert:

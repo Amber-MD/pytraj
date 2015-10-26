@@ -12,7 +12,7 @@ from ._cyutils import _fast_iterptr as iterframe_from_array
 from .cpp_options import set_error_silent
 from ._get_common_objects import _get_topology
 from .topology import Topology, ParmFile
-from .api import Trajectory
+from .trajectory import Trajectory
 from .trajectory_iterator import TrajectoryIterator
 
 from .externals._load_ParmEd import load_ParmEd
@@ -143,8 +143,8 @@ def _load_netcdf(filename, top,
     '''simply read all data to memory. Use this if you want to load data few times
     faster (and  you know what you are doing).
     '''
-    from pytraj import api
-    traj = api.Trajectory(top=top)
+    from pytraj import trajectory
+    traj = trajectory.Trajectory(top=top)
 
     if engine == 'scipy':
         from scipy import io

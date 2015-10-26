@@ -71,7 +71,7 @@ from . import array
 from .topology import Topology, ParmFile
 from .math import Vec3
 from .Frame import Frame
-from .api import Trajectory
+from .trajectory import Trajectory
 from .trajectory_iterator import TrajectoryIterator
 from .trajs.Trajout import Trajout
 from .datasets.cast_dataset import cast_dataset
