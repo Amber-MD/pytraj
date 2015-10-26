@@ -11,7 +11,7 @@ from .core.cpp_core import CpptrajState
 from .datasets.DatasetList import DatasetList
 
 from .core.cpp_core import AtomMask
-from .api import Trajectory
+from .trajectory import Trajectory
 from .topology import Topology
 from .core.cpp_core import ArgList
 from .trajectory_iterator import TrajectoryIterator

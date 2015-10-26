@@ -45,3 +45,7 @@ mass_atomic_number_dict = dict(
 mass_element_dict = dict(
     (atom_element, mass)
     for (atom_element, mass) in zip(atom_element_arr, mass_arr))
+
+class Element(object):
+    def __init__(self):
+        pass
