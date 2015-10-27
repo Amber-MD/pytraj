@@ -140,14 +140,19 @@ def _to_string_secondary_structure(arr0, simplified=False):
     return np.vectorize(lambda key: ssdict[key])(arr0)
 
 
-def _get_ss_per_frame(arr, traj, res_indices):
-    for idx, res in enumerate(traj.top.residues):
+def _get_ss_per_frame(arr, top, res_indices, simplified=False):
+    if simplified:
+        symbol = 'C'
+    else:
+        symbol = '0'
+
+    for idx, res in enumerate(top.residues):
         if idx in res_indices:
             ss = arr[res_indices.index(idx)]
             yield [ss for _ in range(res.first_atom_idx,
                 res.last_atom_idx)]
         else:
-            yield ['0' for _ in range(res.first_atom_idx,
+            yield [symbol for _ in range(res.first_atom_idx,
                 res.last_atom_idx)]
 
 def dssp_all_atoms(traj, *args, **kwd):
@@ -162,6 +167,7 @@ def dssp_all_atoms(traj, *args, **kwd):
     this method is not well optimized for speed.
     '''
     res_labels, data = calc_dssp(traj, *args, **kwd)[:2]
+    top = _get_topology(traj, kwd.get('top', None))
     res_indices = [int(x.split(':')[-1]) - 1 for x in res_labels]
 
     if PY3:
@@ -169,6 +175,7 @@ def dssp_all_atoms(traj, *args, **kwd):
     else:
         new_data = np.empty((traj.n_frames, traj.n_atoms), dtype='S2')
 
+    simplified = kwd.get('simplified', False)
     for fid, arr in enumerate(data):
-        new_data[fid][:] = tools.flatten(_get_ss_per_frame(arr, traj, res_indices))
+        new_data[fid][:] = tools.flatten(_get_ss_per_frame(arr, top, res_indices, simplified))
     return new_data
