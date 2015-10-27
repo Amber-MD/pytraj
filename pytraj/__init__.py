@@ -113,7 +113,8 @@ from .common_actions import (
     auto_correlation_function, principal_axes, cross_correlation_function,
     timecorr, center, translate, rotate, rotate_dihedral, make_structure,
     scale, do_clustering, clustering_dataset, _rotate_dih, randomize_ions,
-    crank, closest, search_neighbors, replicate_cell, _rotdif, pairdist, _grid)
+    crank, closest, search_neighbors, replicate_cell, _rotdif, pairdist, _grid,
+    transform)
 
 from .nmr import ired_vector_and_matrix, _ired, NH_order_parameters
 

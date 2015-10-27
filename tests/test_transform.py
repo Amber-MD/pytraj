@@ -14,6 +14,11 @@ class TestTransformation(unittest.TestCase):
         t1 = traj[:].autoimage().center('origin').rotate('x 30')
         aa_eq(t0.xyz, t1.xyz)
 
+        t2 = traj[:]
+        pt.transform(t2, ['autoimage', 'center origin', 'rotate x 30'])
+        aa_eq(t1.xyz, t2.xyz)
+
+
 
 if __name__ == "__main__":
     unittest.main()

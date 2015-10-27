@@ -606,10 +606,26 @@ class Trajectory(object):
         return self
 
     def transform(self, commands, frame_indices=None):
-        '''
+        '''apply a series of cpptraj commands to trajectory
+
+        Returns
+        -------
+        self
+
         >>> import pytraj as pt
-        >>> traj = pt.datafiles.load_tz2_orho()
-        >>> traj.transform(['autoimage', 'center @CA origin', 'translate x 1.2'])
+        >>> traj = pt.datafiles.load_tz2_ortho()[:]
+        >>> traj = traj.transform(['autoimage', 'center @CA origin', 'translate x 1.2'])
+        >>> traj.xyz[0, 0]
+        array([-1.19438073,  8.75046229, -1.82742397])
+
+        # which is similiar to below:
+        >>> traj2 = pt.datafiles.load_tz2_ortho()[:]
+        >>> traj2.xyz[0, 0] # before transforming
+        array([ 15.55458927,  28.54844856,  17.18908691])
+        >>> traj = traj2.autoimage().center('@CA origin').translate('x 1.2')
+
+        >>> traj2.xyz[0, 0] # after transforming
+        array([-1.19438073,  8.75046229, -1.82742397])
         '''
         from pytraj.core.ActionList import create_pipeline
         fi = create_pipeline(self, commands, frame_indices=frame_indices)
