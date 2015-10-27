@@ -33,6 +33,10 @@ class TestDSSP(unittest.TestCase):
                 'H', 'C', 'C', 'C', 'C', 'C', 'C']
         assert expected_1st == data_sim[0].tolist(), 'test_simplified_codes: must equal'
 
+    def test_dssp_all_atoms(self):
+        # not assert yet
+        traj = pt.fetch_pdb('1l2y')
+        data = pt.dssp_all_atoms(traj)
 
 if __name__ == "__main__":
     unittest.main()

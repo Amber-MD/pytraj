@@ -3,8 +3,8 @@ import numpy as np
 from ._base_result_class import BaseAnalysisResult
 from ._get_common_objects import _get_data_from_dtype, _get_topology, _get_fiterator
 from .utils.convert import array_to_cpptraj_atommask as to_cpptraj_mask
-from pytraj.compat import string_types
-from pytraj import DatasetList
+from pytraj.compat import string_types, PY3
+from pytraj import DatasetList, tools
 from .decorators import _register_openmp
 
 
@@ -139,9 +139,36 @@ def _to_string_secondary_structure(arr0, simplified=False):
 
     return np.vectorize(lambda key: ssdict[key])(arr0)
 
-def dssp_full_residues(traj, *args, **kwd):
-    '''mostly for visulization. 
-    Status: not finished yet
+
+def _get_ss_per_frame(arr, traj, res_indices):
+    for idx, res in enumerate(traj.top.residues):
+        if idx in res_indices:
+            ss = arr[res_indices.index(idx)]
+            yield [ss for _ in range(res.first_atom_idx,
+                res.last_atom_idx)]
+        else:
+            yield ['0' for _ in range(res.first_atom_idx,
+                res.last_atom_idx)]
+
+def dssp_all_atoms(traj, *args, **kwd):
+    '''calculate dssp for all atoms
+
+    Returns
+    -------
+    ndarray, shape=(n_frames, n_atoms)
+
+    Notes
+    -----
+    this method is not well optimized for speed.
     '''
-    residues, ss, _ = calc_dssp(traj, *args, **kwd)
-    pass
+    res_labels, data = calc_dssp(traj, *args, **kwd)[:2]
+    res_indices = [int(x.split(':')[-1]) - 1 for x in res_labels]
+
+    if PY3:
+        new_data = np.empty((traj.n_frames, traj.n_atoms), dtype='U2')
+    else:
+        new_data = np.empty((traj.n_frames, traj.n_atoms), dtype='S2')
+
+    for fid, arr in enumerate(data):
+        new_data[fid][:] = tools.flatten(_get_ss_per_frame(arr, traj, res_indices))
+    return new_data

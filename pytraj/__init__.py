@@ -100,7 +100,7 @@ from . import tools
 from .actions import CpptrajActions as allactions
 from .analyses import CpptrajAnalyses as allanalyses
 from . import common_actions
-from .dssp_analysis import calc_dssp
+from .dssp_analysis import calc_dssp, dssp_all_atoms
 from .common_actions import (
     calc_rmsd_nofit, rmsd, rmsd_perres, distance_rmsd, search_hbonds,
     calc_multidihedral, autoimage, nastruct, calc_angle, calc_dihedral,
