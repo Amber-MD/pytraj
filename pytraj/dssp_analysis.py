@@ -3,8 +3,8 @@ import numpy as np
 from ._base_result_class import BaseAnalysisResult
 from ._get_common_objects import _get_data_from_dtype, _get_topology, _get_fiterator
 from .utils.convert import array_to_cpptraj_atommask as to_cpptraj_mask
-from pytraj.compat import string_types
-from pytraj import DatasetList
+from pytraj.compat import string_types, PY3
+from pytraj import DatasetList, tools
 from .decorators import _register_openmp
 
 
@@ -139,9 +139,122 @@ def _to_string_secondary_structure(arr0, simplified=False):
 
     return np.vectorize(lambda key: ssdict[key])(arr0)
 
-def dssp_full_residues(traj, *args, **kwd):
-    '''mostly for visulization. 
-    Status: not finished yet
+
+def _get_ss_per_frame(arr, top, res_indices, simplified=False, all_atoms=False):
+    if simplified:
+        symbol = 'C'
+    else:
+        symbol = '0'
+
+    for idx, res in enumerate(top.residues):
+        if idx in res_indices:
+            ss = arr[res_indices.index(idx)]
+            if all_atoms:
+                yield [ss for _ in range(res.first_atom_idx,
+                    res.last_atom_idx)]
+            else:
+                # only residues
+                yield [ss, ]
+        else:
+            if all_atoms:
+                yield [symbol for _ in range(res.first_atom_idx,
+                    res.last_atom_idx)]
+            else:
+                yield [symbol, ]
+
+
+def dssp_all_atoms(traj, *args, **kwd):
+    '''calculate dssp for all atoms
+
+    Returns
+    -------
+    ndarray, shape=(n_frames, n_atoms)
+
+    Notes
+    -----
+    this method is not well optimized for speed.
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.fetch_pdb('1l2y')
+    >>> x = pt.dssp_all_atoms(traj, simplified=True)
+    >>> x[0, :3].tolist()
+    ['C', 'C', 'C']
+
+    See also
+    --------
+    calc_dssp
     '''
-    residues, ss, _ = calc_dssp(traj, *args, **kwd)
-    pass
+    res_labels, data = calc_dssp(traj, *args, **kwd)[:2]
+    top = _get_topology(traj, kwd.get('top', None))
+    res_indices = [int(x.split(':')[-1]) - 1 for x in res_labels]
+
+    if PY3:
+        new_data = np.empty((traj.n_frames, traj.n_atoms), dtype='U2')
+    else:
+        new_data = np.empty((traj.n_frames, traj.n_atoms), dtype='S2')
+
+    simplified = kwd.get('simplified', False)
+    for fid, arr in enumerate(data):
+        new_data[fid][:] = tools.flatten(_get_ss_per_frame(arr, top, res_indices,
+            simplified, all_atoms=True))
+    return new_data
+
+
+def dssp_all_residues(traj, *args, **kwd):
+    '''calculate dssp for all residues. Mostly used for visulization.
+
+    Returns
+    -------
+    ndarray, shape=(n_frames, n_residues)
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_dpdp()
+    >>> x = pt.dssp_all_residues(traj, simplified=True)
+    >>> x[0].tolist()
+    ['C', 'E', 'E', 'E', 'E', 'C', 'C', 'C', 'C', 'E', 'E', 'E', 'E', 'E', 'C', 'C', 'E', 'E', 'E', 'E', 'C', 'C']
+    >>> len(x[0]) == traj.top.n_residues
+    True
+
+    >>> # load trajectory having waters
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> x = pt.dssp_all_residues(traj, simplified=True)
+    >>> len(x[0]) == traj.top.n_residues
+    True
+    >>> len(x[0])
+    1704
+    >>> # only calculate protein residues, use `pytraj.dssp`
+    >>> y = pt.dssp(traj, simplified=True)
+    >>> len(y[0])
+    13
+
+    Notes
+    -----
+    this method is not well optimized for speed.
+
+    See also
+    --------
+    calc_dssp
+    '''
+    res_labels, data = calc_dssp(traj, *args, **kwd)[:2]
+    top = _get_topology(traj, kwd.get('top', None))
+
+    # do not need to compute again if there is no solvent or weird residues
+    if len(res_labels) == top.n_residues:
+        return data
+
+    res_indices = [int(x.split(':')[-1]) - 1 for x in res_labels]
+
+    if PY3:
+        new_data = np.empty((traj.n_frames, traj.top.n_residues), dtype='U2')
+    else:
+        new_data = np.empty((traj.n_frames, traj.top.n_residues), dtype='S2')
+
+    simplified = kwd.get('simplified', False)
+    for fid, arr in enumerate(data):
+        new_data[fid][:] = tools.flatten(_get_ss_per_frame(arr, top, res_indices,
+            simplified, all_atoms=False))
+    return new_data

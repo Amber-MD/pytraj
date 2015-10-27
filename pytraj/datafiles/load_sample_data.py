@@ -2,7 +2,8 @@ from __future__ import absolute_import
 import os
 from ..trajectory_iterator import TrajectoryIterator
 
-__all__ = ['load_sample_data', 'load_rna', 'load_tz2_ortho', 'load_ala3']
+__all__ = ['load_sample_data', 'load_rna', 'load_tz2_ortho', 'load_ala3',
+           'load_dpdp']
 
 
 def load_sample_data(data_name=None):
@@ -21,7 +22,8 @@ def load_sample_data(data_name=None):
     data_dict = {
         'ala3': ["Ala3/Ala3.crd", "Ala3/Ala3.top"],
         'tz2': ["tz2/tz2.ortho.nc", "tz2/tz2.ortho.parm7"],
-        'rna': ["rna.pdb", "rna.pdb"]
+        'rna': ["rna.pdb", "rna.pdb"],
+        'dpdp': ["dpdp/DPDP.nc", "dpdp/DPDP.parm7"]
     }
 
     mydir = os.path.dirname(os.path.abspath(__file__))
@@ -37,6 +39,10 @@ def load_rna():
     '''
     return load_sample_data('rna')
 
+def load_dpdp():
+    '''return pytraj.TrajectoryIterator for an RNA trajectory with 3 frames
+    '''
+    return load_sample_data('dpdp')
 
 def load_tz2_ortho():
     return load_sample_data('tz2')

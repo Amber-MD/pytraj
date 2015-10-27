@@ -2693,3 +2693,8 @@ def _grid(traj, mask, grid_spacing,
     act.print_output()
 
     return _get_data_from_dtype(dslist, dtype=dtype)
+
+def transform(traj, commands, frame_indices=None):
+    '''transform pytraj.Trajectory by a series of cpptraj's commands
+    '''
+    return traj.transform(commands, frame_indices=frame_indices)

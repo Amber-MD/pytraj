@@ -4,6 +4,11 @@ import numpy as np
 import pytraj as pt
 from pytraj.testing import aa_eq
 
+try:
+    import mdtraj as md
+    has_mdtraj = True
+except ImportError:
+    has_mdtraj = False
 
 class TestDSSP(unittest.TestCase):
     def setUp(self):
@@ -32,6 +37,22 @@ class TestDSSP(unittest.TestCase):
         expected_1st = ['C', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'C', 'C', 'H', 'H', 'H',
                 'H', 'C', 'C', 'C', 'C', 'C', 'C']
         assert expected_1st == data_sim[0].tolist(), 'test_simplified_codes: must equal'
+
+    @unittest.skipIf(not has_mdtraj, 'need mdtraj to assert')
+    def test_dssp_all_residues(self):
+        from numpy.testing import assert_array_equal 
+
+        traj = pt.iterload('data/DPDP.nc', 'data/DPDP.parm7')
+        data = pt.dssp_all_residues(traj, simplified=True)[0]
+
+        mtraj = md.load(traj.filename, top=traj.top.filename)
+        mdata = md.compute_dssp(mtraj, simplified=True)[0]
+
+        for idx, elm in enumerate(mdata):
+            if elm == 'NA':
+                mdata[idx] = 'C'
+
+        assert_array_equal(data, mdata)
 
 
 if __name__ == "__main__":

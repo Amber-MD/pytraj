@@ -520,7 +520,7 @@ class Trajectory(object):
             for fn in filename:
                 self.load(fn)
 
-    def autoimage(self):
+    def autoimage(self, command=''):
         '''perform autoimage
 
         Return
@@ -535,17 +535,13 @@ class Trajectory(object):
         True
         >>> t0 = t0.autoimage()
         '''
-        from pytraj.actions.CpptrajActions import Action_AutoImage
+        from pytraj.actions import CpptrajActions
 
-        act = Action_AutoImage()
-        act.read_input("", top=self.top)
-        act.process(self.top)
-
-        for idx, frame in enumerate(self):
-            act.do_action(frame)
+        act = CpptrajActions.Action_AutoImage()
+        act(command, self, top=self.top)
         return self
 
-    def rotate(self, *args, **kwd):
+    def rotate(self, command=''):
         '''do rotation
 
         Returns
@@ -556,11 +552,86 @@ class Trajectory(object):
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.rotate('@CA x 20')
         '''
-        import pytraj.common_actions as pyca
+        from pytraj.actions import CpptrajActions
 
-        for idx, frame in enumerate(self):
-            pyca.rotate(frame, top=self.top, *args, **kwd)
-            self.xyz[idx] = frame.xyz
+        act = CpptrajActions.Action_Rotate()
+        act(command, self, top=self.top) 
+        return self
+
+    def translate(self, command=''):
+        '''do rotation
+
+        Returns
+        -------
+        self
+
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('ala3')[:]
+        >>> traj = traj.translate('@CA x 1.2')
+        '''
+        from pytraj.actions import CpptrajActions
+
+        act = CpptrajActions.Action_Translate()
+        act(command, self, top=self.top) 
+        return self
+
+    def center(self, command=''):
+        '''do centering
+
+        Returns
+        -------
+        self
+
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('ala3')[:]
+        >>> traj = traj.center('@CA origin')
+        '''
+        from pytraj.actions import CpptrajActions
+
+        act = CpptrajActions.Action_Center()
+        act(command, self, top=self.top) 
+        return self
+
+    def align_principal_axis(self, command=''):
+        """
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('ala3')[:]
+        >>> traj = traj.align_principal_axis()
+        """
+        from pytraj.actions import CpptrajActions
+        act = CpptrajActions.Action_Principal()
+
+        command += " dorotation"
+        act(command, self, top=self.top)
+        return self
+
+    def transform(self, commands, frame_indices=None):
+        '''apply a series of cpptraj commands to trajectory
+
+        Returns
+        -------
+        self
+
+        >>> import pytraj as pt
+        >>> traj = pt.datafiles.load_tz2_ortho()[:]
+        >>> traj = traj.transform(['autoimage', 'center @CA origin', 'translate x 1.2'])
+        >>> traj.xyz[0, 0]
+        array([-1.19438073,  8.75046229, -1.82742397])
+
+        # which is similiar to below:
+        >>> traj2 = pt.datafiles.load_tz2_ortho()[:]
+        >>> traj2.xyz[0, 0] # before transforming
+        array([ 15.55458927,  28.54844856,  17.18908691])
+        >>> traj = traj2.autoimage().center('@CA origin').translate('x 1.2')
+
+        >>> traj2.xyz[0, 0] # after transforming
+        array([-1.19438073,  8.75046229, -1.82742397])
+        '''
+        from pytraj.core.ActionList import create_pipeline
+        fi = create_pipeline(self, commands, frame_indices=frame_indices)
+
+        for _ in fi: pass
+        return self
 
     @property
     def unitcells(self):
