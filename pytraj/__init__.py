@@ -118,6 +118,7 @@ from .common_actions import (
 from .nmr import ired_vector_and_matrix, _ired, NH_order_parameters
 
 # create alias
+fetch_pdb = load_pdb_rcsb
 rmsd_nofit = calc_rmsd_nofit
 distance = calc_distance
 distances = calc_distance
