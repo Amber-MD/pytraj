@@ -241,6 +241,11 @@ def dssp_all_residues(traj, *args, **kwd):
     '''
     res_labels, data = calc_dssp(traj, *args, **kwd)[:2]
     top = _get_topology(traj, kwd.get('top', None))
+
+    # do not need to compute again if there is no solvent or weird residues
+    if len(res_labels) == top.n_residues:
+        return data
+
     res_indices = [int(x.split(':')[-1]) - 1 for x in res_labels]
 
     if PY3:
