@@ -711,15 +711,17 @@ cdef class Topology:
         cdef Residue res = Residue()
         res.thisptr[0] = self.thisptr.Res(idx)
         start, end = res.first_atom_idx, res.last_atom_idx
-        return SimplifiedResidue(res.name, res.original_resnum, self.atomlist[start:end])
+        return SimplifiedResidue(res.name, res.original_resnum, self.atomlist[start:end],
+                start, end)
 
     def _residue_light(self, int idx):
-        '''no atoms
+        '''no atom list for SimplifiedResidue
         '''
         cdef Residue res = Residue()
         res.thisptr[0] = self.thisptr.Res(idx)
         start, end = res.first_atom_idx, res.last_atom_idx
-        return SimplifiedResidue(res.name, res.original_resnum, [])
+        return SimplifiedResidue(res.name, res.original_resnum, [], start, end)
+
 
 cdef class ParmFile:
     def __cinit__(self):
