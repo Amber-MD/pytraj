@@ -520,7 +520,7 @@ class Trajectory(object):
             for fn in filename:
                 self.load(fn)
 
-    def autoimage(self):
+    def autoimage(self, command=''):
         '''perform autoimage
 
         Return
@@ -535,17 +535,13 @@ class Trajectory(object):
         True
         >>> t0 = t0.autoimage()
         '''
-        from pytraj.actions.CpptrajActions import Action_AutoImage
+        from pytraj.actions import CpptrajActions
 
-        act = Action_AutoImage()
-        act.read_input("", top=self.top)
-        act.process(self.top)
-
-        for idx, frame in enumerate(self):
-            act.do_action(frame)
+        act = CpptrajActions.Action_AutoImage()
+        act(command, self, top=self.top)
         return self
 
-    def rotate(self, *args, **kwd):
+    def rotate(self, command=''):
         '''do rotation
 
         Returns
@@ -556,11 +552,28 @@ class Trajectory(object):
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.rotate('@CA x 20')
         '''
-        import pytraj.common_actions as pyca
+        from pytraj.actions import CpptrajActions
 
-        for idx, frame in enumerate(self):
-            pyca.rotate(frame, top=self.top, *args, **kwd)
-            self.xyz[idx] = frame.xyz
+        act = CpptrajActions.Action_Rotate()
+        act(command, self, top=self.top) 
+        return self
+
+    def translate(self, command=''):
+        '''do rotation
+
+        Returns
+        -------
+        self
+
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('ala3')[:]
+        >>> traj = traj.translate('@CA x 1.2')
+        '''
+        from pytraj.actions import CpptrajActions
+
+        act = CpptrajActions.Action_Translate()
+        act(command, self, top=self.top) 
+        return self
 
     @property
     def unitcells(self):
