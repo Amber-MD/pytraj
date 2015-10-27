@@ -575,6 +575,48 @@ class Trajectory(object):
         act(command, self, top=self.top) 
         return self
 
+    def center(self, command=''):
+        '''do centering
+
+        Returns
+        -------
+        self
+
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('ala3')[:]
+        >>> traj = traj.center('@CA origin')
+        '''
+        from pytraj.actions import CpptrajActions
+
+        act = CpptrajActions.Action_Center()
+        act(command, self, top=self.top) 
+        return self
+
+    def align_principal_axis(self, command=''):
+        """
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('ala3')[:]
+        >>> traj = traj.align_principal_axis()
+        """
+        from pytraj.actions import CpptrajActions
+        act = CpptrajActions.Action_Principal()
+
+        command += " dorotation"
+        act(command, self, top=self.top)
+        return self
+
+    def transform(self, commands, frame_indices=None):
+        '''
+        >>> import pytraj as pt
+        >>> traj = pt.datafiles.load_tz2_orho()
+        >>> traj.transform(['autoimage', 'center @CA origin', 'translate x 1.2'])
+        '''
+        from pytraj.core.ActionList import create_pipeline
+        fi = create_pipeline(self, commands, frame_indices=frame_indices)
+
+        for _ in fi: pass
+        return self
+
     @property
     def unitcells(self):
         '''return 2D ndarray, shape=(n_frames, 6)
