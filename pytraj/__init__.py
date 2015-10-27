@@ -232,16 +232,16 @@ def superpose(traj, *args, **kwd):
 
 
 def to_mdtraj(traj, top=None):
-    # TODO: move to `io`?
     from pytraj.utils.context import goto_temp_folder
     import mdtraj as md
 
-    _top = top if top is not None else traj.top
     xyz = get_coordinates(traj)
 
     with goto_temp_folder():
-        _top.save("tmp.prmtop")
-        top = md.load_prmtop("tmp.prmtop")
+        if top is None:
+            pdb = 'tmp.pdb'
+            traj[:1].save(pdb)
+            top = md.load_topology(pdb)
         return md.Trajectory(xyz, top)
 
 
