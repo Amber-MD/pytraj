@@ -14,6 +14,7 @@ conda create -y -n myenv python=$PYTHON_VERSION numpy cython h5py mpi4py libnetc
 
 source activate myenv
 conda install --yes anaconda-client coverage python-coveralls
+conda install mdtraj -c omnia
 
 # install other packages here
 pip install coverage
