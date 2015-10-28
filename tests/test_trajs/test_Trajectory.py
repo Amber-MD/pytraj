@@ -2,6 +2,7 @@ import unittest
 import pytraj as pt
 import numpy as np
 from pytraj.base import *
+from pytraj.testing import aa_eq
 
 traj = TrajectoryIterator()
 traj.top = pt.load_topology("./data/Tc5b.top")
@@ -98,6 +99,22 @@ class TestTrajectory(unittest.TestCase):
         fi = pt.create_pipeline(traj, ['autoimage'])
         # does not have Topology info
         self.assertRaises(ValueError, lambda: pt.Trajectory.from_iterable(fi))
+
+    def test_add_merge_two_trajs(self):
+        '''test_add_merge_two_trajs'''
+        traj1 = pt.datafiles.load_ala3()[:]
+        traj2 = pt.datafiles.load_rna()[:]
+
+        # raise if do not have the same n_frames
+        self.assertRaises(ValueError, lambda: traj1 + traj2)
+
+        traj1 = traj1[:1]
+        traj2 = traj2[:1]
+
+        traj3 = traj1 + traj2
+
+        aa_eq(traj1.xyz, traj3.xyz[:, :traj1.n_atoms])
+        aa_eq(traj2.xyz, traj3.xyz[:, traj1.n_atoms:])
 
 if __name__ == "__main__":
     unittest.main()
