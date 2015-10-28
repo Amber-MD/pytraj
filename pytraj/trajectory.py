@@ -971,6 +971,12 @@ class Trajectory(object):
         array([ True,  True,  True], dtype=bool)
         >>> traj2.xyz[0, -1] == traj3.xyz[0, -1]
         array([ True,  True,  True], dtype=bool)
+
+        See also
+        --------
+        pytraj.tools.merge_trajs
+
+            - this method is more memory efficient
         '''
         if self.n_frames != other.n_frames:
             raise ValueError('two trajs must have the same n_frames')
