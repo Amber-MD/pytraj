@@ -54,9 +54,27 @@ def _pmap(func, traj, *args, **kwd):
 
     Notes
     -----
-    If calculation require a reference structure, users need to explicit provide reference
-    as a Frame (not an integer number). For example, pt.pmap(4, pt.rmsd, traj, ref=-3)
-    won't work, use ``ref=traj[3]`` instead.
+    If you not sure about parallel's results, you should compare the output to serial run.
+
+    There are two modes in this method, use pytraj's methods (pytraj.rmsd, pytraj.radgyr,
+    ...) or use cpptraj's command text syntax ('autoimage', 'rms', ...)
+
+    If using pytraj syntax::
+
+        If calculation require a reference structure, users need to explicit provide reference
+        as a Frame (not an integer number). For example, pt.pmap(4, pt.rmsd, traj, ref=-3)
+        won't work, use ``ref=traj[3]`` instead.
+
+    If using cpptraj syntax::
+        
+        user need to specify `refindex` whenever use reference. For example, if user wants
+        to superpose to first frame and do not specify `refindex 0`, cpptraj will
+        superpose a chunk of traj in each core to 1st frame in that chunk, not the first
+        frame in original traj. Specifing `refindex 0` will direct pytraj to send `ref` to
+        all the cores.
+
+        pt.pmap(['autoimage', 'rms refindex 0'], traj, ref=traj[0])
+         
 
     This method only benifits you if your calculation is quite long (saying few minutes to
     few hours). For calculation that takes less than 1 minutes, you won't see the
