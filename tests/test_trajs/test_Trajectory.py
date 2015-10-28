@@ -104,6 +104,7 @@ class TestTrajectory(unittest.TestCase):
         '''test_add_merge_two_trajs'''
         traj1 = pt.datafiles.load_ala3()[:]
         traj2 = pt.datafiles.load_rna()[:]
+        trajiter = pt.datafiles.load_rna()(stop=1)
 
         # raise if do not have the same n_frames
         self.assertRaises(ValueError, lambda: traj1 + traj2)
@@ -116,6 +117,7 @@ class TestTrajectory(unittest.TestCase):
         aa_eq(traj1.xyz, traj3.xyz[:, :traj1.n_atoms])
         aa_eq(traj2.xyz, traj3.xyz[:, traj1.n_atoms:])
         aa_eq(pt.tools.merge_trajs(traj1, traj2).xyz, traj3.xyz)
+        aa_eq(pt.tools.merge_trajs(traj1, traj2).xyz, (traj1 + trajiter).xyz)
 
 if __name__ == "__main__":
     unittest.main()
