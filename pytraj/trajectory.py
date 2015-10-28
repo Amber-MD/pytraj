@@ -975,8 +975,6 @@ class Trajectory(object):
         See also
         --------
         pytraj.tools.merge_trajs
-
-            - this method is more memory efficient
         '''
         if self.n_frames != other.n_frames:
             raise ValueError('two trajs must have the same n_frames')
