@@ -947,3 +947,42 @@ class Trajectory(object):
         '''
         for idx, x in enumerate(self.xyz):
             self.xyz[idx] = func(x)
+
+    def __add__(self, other):
+        '''merge two trajectories together. Order matter.
+
+        Notes
+        -----
+        this is convenient method and it is not really optimized for memory and speed.
+
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> traj1 = pt.datafiles.load_ala3()[:1]
+        >>> traj2 = pt.datafiles.load_tz2_ortho()[:1]
+        >>> traj3 = traj1 + traj2
+        >>> traj1.n_atoms
+        34
+        >>> traj2.n_atoms
+        5293
+        >>> traj3.n_atoms
+        5327
+        >>> traj1.xyz[0, 0] == traj3.xyz[0, 0]
+        array([ True,  True,  True], dtype=bool)
+        >>> traj2.xyz[0, -1] == traj3.xyz[0, -1]
+        array([ True,  True,  True], dtype=bool)
+
+        See also
+        --------
+        pytraj.tools.merge_trajs
+        '''
+        if self.n_frames != other.n_frames:
+            raise ValueError('two trajs must have the same n_frames')
+
+        traj = self.__class__()
+        traj._allocate(self.n_frames, self.n_atoms + other.n_atoms)
+        traj.top = self.top + other.top
+
+        for f1, f2, frame in zip(self, other, traj):
+            frame.xyz[:] = np.vstack((f1.xyz, f2.xyz))
+        return traj
