@@ -42,17 +42,27 @@ class TestDSSP(unittest.TestCase):
     def test_dssp_all_residues(self):
         from numpy.testing import assert_array_equal 
 
-        traj = pt.iterload('data/DPDP.nc', 'data/DPDP.parm7')
-        data = pt.dssp_all_residues(traj, simplified=True)[0]
+        def update_mdtraj_dssp(mdata):
+            for idx, elm in enumerate(mdata):
+                if elm == 'NA':
+                    mdata[idx] = 'C'
+            return mdata
 
-        mtraj = md.load(traj.filename, top=traj.top.filename)
-        mdata = md.compute_dssp(mtraj, simplified=True)[0]
 
-        for idx, elm in enumerate(mdata):
-            if elm == 'NA':
-                mdata[idx] = 'C'
+        trajlist = []
+        trajlist.append(pt.iterload('data/DPDP.nc', 'data/DPDP.parm7'))
+        trajlist.append(pt.iterload('data/tz2.ortho.nc', 'data/tz2.ortho.parm7'))
 
-        assert_array_equal(data, mdata)
+        pt.io.download_PDB('1l2y', './output/', overwrite=True)
+        trajlist.append(pt.iterload('output/1l2y.pdb'))
+
+        for traj in trajlist:
+            data = pt.dssp_all_residues(traj, simplified=True)[0]
+
+            mtraj = md.load(traj.filename, top=traj.top.filename)
+            mdata = md.compute_dssp(mtraj, simplified=True)[0]
+            mdata = update_mdtraj_dssp(mdata)
+            assert_array_equal(data, mdata)
 
 
 if __name__ == "__main__":
