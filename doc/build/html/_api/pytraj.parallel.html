@@ -185,9 +185,25 @@ data is always joint (does not depend on dtype)</p>
 <p class="last"><tt class="xref py py-obj docutils literal"><span class="pre">pytraj.pmap_mpi</span></tt></p>
 </div>
 <p class="rubric">Notes</p>
-<p>If calculation require a reference structure, users need to explicit provide reference
+<p>If you not sure about parallel&#8217;s results, you should compare the output to serial run.</p>
+<p>There are two modes in this method, use pytraj&#8217;s methods (pytraj.rmsd, pytraj.radgyr,
+...) or use cpptraj&#8217;s command text syntax (&#8216;autoimage&#8217;, &#8216;rms&#8217;, ...)</p>
+<p>If using pytraj syntax:</p>
+<div class="highlight-python"><div class="highlight"><pre>If calculation require a reference structure, users need to explicit provide reference
 as a Frame (not an integer number). For example, pt.pmap(4, pt.rmsd, traj, ref=-3)
-won&#8217;t work, use <tt class="docutils literal"><span class="pre">ref=traj[3]</span></tt> instead.</p>
+won&#39;t work, use ``ref=traj[3]`` instead.
+</pre></div>
+</div>
+<p>If using cpptraj syntax:</p>
+<div class="highlight-python"><div class="highlight"><pre>user need to specify `refindex` whenever use reference. For example, if user wants
+to superpose to first frame and do not specify `refindex 0`, cpptraj will
+superpose a chunk of traj in each core to 1st frame in that chunk, not the first
+frame in original traj. Specifing `refindex 0` will direct pytraj to send `ref` to
+all the cores.
+
+pt.pmap([&#39;autoimage&#39;, &#39;rms refindex 0&#39;], traj, ref=traj[0])
+</pre></div>
+</div>
 <p>This method only benifits you if your calculation is quite long (saying few minutes to
 few hours). For calculation that takes less than 1 minutes, you won&#8217;t see the
 significant speed up (or even slower) since pytraj need to warm up and need to gather
@@ -351,7 +367,7 @@ OrderedDict([(&#39;RoG_00000&#39;,
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 25, 2015.<br/>
+      Last updated on Oct 28, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>
