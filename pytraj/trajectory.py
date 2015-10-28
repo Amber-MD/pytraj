@@ -575,6 +575,23 @@ class Trajectory(object):
         act(command, self, top=self.top) 
         return self
 
+    def scale(self, command=''):
+        '''do scaling
+
+        Returns
+        -------
+        self
+
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('ala3')[:]
+        >>> traj = traj.scale('@CA x 1.2')
+        '''
+        from pytraj.actions import CpptrajActions
+
+        act = CpptrajActions.Action_Scale()
+        act(command, self, top=self.top) 
+        return self
+
     def center(self, command=''):
         '''do centering
 
