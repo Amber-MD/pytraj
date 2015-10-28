@@ -115,6 +115,7 @@ class TestTrajectory(unittest.TestCase):
 
         aa_eq(traj1.xyz, traj3.xyz[:, :traj1.n_atoms])
         aa_eq(traj2.xyz, traj3.xyz[:, traj1.n_atoms:])
+        aa_eq(pt.tools.merge_trajs(traj1, traj2).xyz, traj3.xyz)
 
 if __name__ == "__main__":
     unittest.main()
