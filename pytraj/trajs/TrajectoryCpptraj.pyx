@@ -6,7 +6,7 @@ from ..core.cpp_core cimport AtomMask
 from ..core.Box cimport Box
 from ..topology cimport Topology
 
-from .._cyutils import get_positive_idx
+from ..cyutils import get_positive_idx
 from pytraj.externals.six import string_types
 from .._shared_methods import (my_str_method, _xyz, _savetraj, _box)
 from ..utils.check_and_assert import ensure_exist

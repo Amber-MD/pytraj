@@ -6,7 +6,7 @@ from cpython.array cimport array as pyarray
 from cpython cimport array
 
 from ..utils import is_array, is_int
-from .._cyutils import _int_array1d_like_to_memview
+from ..cyutils import _int_array1d_like_to_memview
 from ..externals.six import string_types
 from ..externals.six.moves import range
 from pytraj.externals.six import string_types
