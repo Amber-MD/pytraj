@@ -45,6 +45,14 @@ class TestSimpleRMSD(unittest.TestCase):
         aa_eq(arr2, cpptraj_rmsd, decimal=3)
         aa_eq(arr3, cpptraj_rmsd, decimal=3)
 
+    def test_superpose_alias(self):
+        '''test_superpose_alias'''
+        t0 = self.traj[:]
+        t1 = self.traj[:]
+        pt.transform(t0, ['superpose'])
+        pt.transform(t1, ['rms'])
+        aa_eq(t0.xyz, t1.xyz)
+
     @unittest.skipIf(not has_('mdtraj'), 'does not have mdtraj')
     def test_ComparetoMDtraj(self):
         # use `mdtraj` for rerefence values
