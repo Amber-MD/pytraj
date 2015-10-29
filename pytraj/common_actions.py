@@ -21,7 +21,7 @@ from .topology import Topology
 from .datasets.DatasetList import DatasetList as CpptrajDatasetList
 from .datafiles import DataFileList
 from .datasetlist import DatasetList
-from .hbonds import search_hbonds
+from .hbond_analysis import search_hbonds
 from .dssp_analysis import calc_dssp
 from ._nastruct import nastruct
 from ._shared_methods import iterframe_master

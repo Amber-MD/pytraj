@@ -2,7 +2,6 @@ from __future__ import print_function
 import pytraj as pt
 import numpy as np
 import unittest
-from pytraj.hbonds import search_hbonds
 from pytraj.testing import aa_eq
 from pytraj.compat import izip as zip
 
@@ -10,7 +9,7 @@ from pytraj.compat import izip as zip
 class TestSearchHbonds(unittest.TestCase):
     def test_hbonds(self):
         traj = pt.iterload("./data/DPDP.nc", "./data/DPDP.parm7")
-        dslist = search_hbonds(traj, dtype='dataset')
+        dslist = pt.search_hbonds(traj, dtype='dataset')
         for key in dslist.keys():
             if 'UU' not in key:
                 assert len(dslist[key].values) == traj.n_frames

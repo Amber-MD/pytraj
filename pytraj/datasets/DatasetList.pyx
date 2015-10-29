@@ -10,7 +10,7 @@ from ..trajs.TrajectoryCpptraj cimport TrajectoryCpptraj
 import numpy as np
 from collections import defaultdict
 
-from .._cyutils import get_positive_idx
+from ..cyutils import get_positive_idx
 from collections import defaultdict
 from .cast_dataset import cast_dataset
 from ..utils.check_and_assert import is_array

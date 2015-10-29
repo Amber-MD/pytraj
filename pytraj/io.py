@@ -8,7 +8,7 @@ from .externals._pickle import to_pickle, read_pickle
 from .externals._json import to_json, read_json
 from .datafiles.load_cpptraj_file import load_cpptraj_file
 from ._shared_methods import iterframe_master
-from ._cyutils import _fast_iterptr as iterframe_from_array
+from .cyutils import _fast_iterptr as iterframe_from_array
 from .cpp_options import set_error_silent
 from ._get_common_objects import _get_topology
 from .topology import Topology, ParmFile

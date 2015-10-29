@@ -14,7 +14,7 @@ from pytraj._get_common_objects import _get_topology
 
 from .topology import Topology
 from ._shared_methods import _savetraj, iterframe_master, my_str_method
-from ._cyutils import _fast_iterptr, _fast_iterptr_withbox
+from .cyutils import _fast_iterptr, _fast_iterptr_withbox
 from .frameiter import FrameIter
 
 __all__ = ['Trajectory']

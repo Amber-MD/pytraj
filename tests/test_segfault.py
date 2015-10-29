@@ -28,9 +28,9 @@ class Test(unittest.TestCase):
 
     def test_1(self):
         import pytraj.common_actions as pyca
-        pyca.search_hbonds(traj)
-        pyca.search_hbonds(traj, 'series')
-        pyca.search_hbonds(traj, 'series, nointramol')
+        pt.search_hbonds(traj)
+        pt.search_hbonds(traj, 'series')
+        pt.search_hbonds(traj, 'series, nointramol')
 
     def test_3_vdw_radii_topology(self):
         top = pt.load("./data/tz2.pdb").top
@@ -47,12 +47,11 @@ class Test(unittest.TestCase):
 
     def test_indexing_nonrefernce_DSL(self):
         from pytraj import dihedral_analysis as da
-        from pytraj.hbonds import search_hbonds
 
         # segmentation fault
         # new DSL
-        d0_dummy = search_hbonds(traj)[:][:][:][:][0]
-        d0 = search_hbonds(traj)[0]
+        d0_dummy = pt.search_hbonds(traj)[:][:][:][:][0]
+        d0 = pt.search_hbonds(traj)[0]
         # filter
 
         dslist = da.calc_phi(traj)

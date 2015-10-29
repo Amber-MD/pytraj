@@ -1,5 +1,0 @@
-trajin ../tz2.nc 1 10
-#reference ../tz2.nc 1
-#rms reference :2 :11 out trp1.dat
-#trajout trp10.nc
-2drms :2 :11 out trp.dat

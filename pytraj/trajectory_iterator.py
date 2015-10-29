@@ -10,7 +10,7 @@ from .externals.six.moves import range
 from .topology import Topology
 from .Frame import Frame
 from .utils import is_int
-from ._cyutils import get_positive_idx
+from .cyutils import get_positive_idx
 from .frameiter import FrameIter
 from ._get_common_objects import _load_Topology
 from .utils import split_range

@@ -19,7 +19,7 @@ class TestDoc(unittest.TestCase):
     '''
     def test_doc(self):
         from pytraj.utils import convert
-        from pytraj import frameiter, vector, datasetlist, _base_result_class
+        from pytraj import frameiter, vector, datasetlist, base_holder
         from pytraj import trajectory_iterator
         from pytraj.parallel import pjob
         from pytraj.utils import check_and_assert
@@ -44,11 +44,11 @@ class TestDoc(unittest.TestCase):
                    pt.array,
                    pt.nmr,
                    check_and_assert,
-                   pt.hbonds, pt.tools,
+                   pt.hbond_analysis, pt.tools,
                    pt.parallel.parallel_mapping_multiprocessing,
                    testing, utils,
                    pt.matrix,
-                   _base_result_class,
+                   base_holder,
                     ]
             modules.extend(additional_list)
         assert get_total_errors(modules) == 0, 'doctest: failed_count must be 0'
