@@ -17,3 +17,4 @@ try ``pytraj`` online:
     plot_rmsd_radgyr_correlation
     plot_chi_nucleic_acid
     radial_distribution_function_of_water_
+    plot_lowest_curve
