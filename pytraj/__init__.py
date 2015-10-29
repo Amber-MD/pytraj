@@ -114,7 +114,8 @@ from .common_actions import (
     timecorr, center, translate, rotate, rotate_dihedral, make_structure,
     scale, do_clustering, clustering_dataset, _rotate_dih, randomize_ions,
     crank, closest, search_neighbors, replicate_cell, _rotdif, pairdist, _grid,
-    transform)
+    transform, lowestcurve,
+    )
 
 from .nmr import ired_vector_and_matrix, _ired, NH_order_parameters
 
@@ -162,6 +163,7 @@ mindist = calc_mindist
 # compat with cpptraj
 nativecontacts = native_contacts
 pair_distribution = pairdist
+lowest_curve = lowestcurve
 
 from .matrix import dist
 distance_matrix = dist

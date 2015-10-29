@@ -2694,7 +2694,38 @@ def _grid(traj, mask, grid_spacing,
 
     return _get_data_from_dtype(dslist, dtype=dtype)
 
+
 def transform(traj, commands, frame_indices=None):
     '''transform pytraj.Trajectory by a series of cpptraj's commands
     '''
     return traj.transform(commands, frame_indices=frame_indices)
+
+
+def lowestcurve(data, points=10, step=0.2):
+    '''calculate lowest curve for data
+
+    Paramters
+    ---------
+    data : 2D array-like
+    points : number of lowest points in each bin, default 10
+    step : step size, default 0.2
+
+    Return
+    ------
+    2d array
+    '''
+    _points = 'points ' + str(points)
+    _step = 'step ' + str(step)
+    label = 'mydata'
+    command = ' '.join((label, _points, _step))
+
+    data = np.asarray(data)
+
+    act = CpptrajAnalyses.Analysis_LowestCurve()
+    dslist = CpptrajDatasetList()
+
+    dslist.add_new('xymesh', label)
+    dslist[0]._append_from_array(data.T)
+
+    act(command, dslist=dslist)
+    return np.array([dslist[-1]._xcrd(), np.array(dslist[-1].values)])
