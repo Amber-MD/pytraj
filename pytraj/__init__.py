@@ -100,7 +100,7 @@ from . import tools
 from .actions import CpptrajActions as allactions
 from .analyses import CpptrajAnalyses as allanalyses
 from . import common_actions
-from .dssp_analysis import calc_dssp, dssp_all_atoms, dssp_all_residues
+from .dssp_analysis import calc_dssp, dssp_allatoms, dssp_allresidues
 from .common_actions import (
     calc_rmsd_nofit, rmsd, rmsd_perres, distance_rmsd, search_hbonds,
     calc_multidihedral, autoimage, nastruct, calc_angle, calc_dihedral,
@@ -119,6 +119,7 @@ from .common_actions import (
 from .nmr import ired_vector_and_matrix, _ired, NH_order_parameters
 
 # create alias
+dssp_all_residues = dssp_allresidues
 fetch_pdb = load_pdb_rcsb
 rmsd_nofit = calc_rmsd_nofit
 distance = calc_distance

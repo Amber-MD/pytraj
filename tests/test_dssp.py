@@ -39,7 +39,7 @@ class TestDSSP(unittest.TestCase):
         assert expected_1st == data_sim[0].tolist(), 'test_simplified_codes: must equal'
 
     @unittest.skipIf(not has_mdtraj, 'need mdtraj to assert')
-    def test_dssp_all_residues(self):
+    def test_dssp_allresidues(self):
         from numpy.testing import assert_array_equal 
 
         def update_mdtraj_dssp(mdata):
@@ -57,7 +57,7 @@ class TestDSSP(unittest.TestCase):
         trajlist.append(pt.iterload('output/1l2y.pdb'))
 
         for traj in trajlist:
-            data = pt.dssp_all_residues(traj, simplified=True)[0]
+            data = pt.dssp_allresidues(traj, simplified=True)[0]
 
             mtraj = md.load(traj.filename, top=traj.top.filename)
             mdata = md.compute_dssp(mtraj, simplified=True)[0]

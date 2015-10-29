@@ -163,7 +163,7 @@ def _get_ss_per_frame(arr, top, res_indices, simplified=False, all_atoms=False):
                 yield [symbol, ]
 
 
-def dssp_all_atoms(traj, *args, **kwd):
+def dssp_allatoms(traj, *args, **kwd):
     '''calculate dssp for all atoms
 
     Returns
@@ -178,7 +178,7 @@ def dssp_all_atoms(traj, *args, **kwd):
     --------
     >>> import pytraj as pt
     >>> traj = pt.fetch_pdb('1l2y')
-    >>> x = pt.dssp_all_atoms(traj, simplified=True)
+    >>> x = pt.dssp_allatoms(traj, simplified=True)
     >>> x[0, :3].tolist()
     ['C', 'C', 'C']
 
@@ -202,7 +202,7 @@ def dssp_all_atoms(traj, *args, **kwd):
     return new_data
 
 
-def dssp_all_residues(traj, *args, **kwd):
+def dssp_allresidues(traj, *args, **kwd):
     '''calculate dssp for all residues. Mostly used for visulization.
 
     Returns
@@ -213,7 +213,7 @@ def dssp_all_residues(traj, *args, **kwd):
     --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_dpdp()
-    >>> x = pt.dssp_all_residues(traj, simplified=True)
+    >>> x = pt.dssp_allresidues(traj, simplified=True)
     >>> x[0].tolist()
     ['C', 'E', 'E', 'E', 'E', 'C', 'C', 'C', 'C', 'E', 'E', 'E', 'E', 'E', 'C', 'C', 'E', 'E', 'E', 'E', 'C', 'C']
     >>> len(x[0]) == traj.top.n_residues
@@ -221,7 +221,7 @@ def dssp_all_residues(traj, *args, **kwd):
 
     >>> # load trajectory having waters
     >>> traj = pt.datafiles.load_tz2_ortho()
-    >>> x = pt.dssp_all_residues(traj, simplified=True)
+    >>> x = pt.dssp_allresidues(traj, simplified=True)
     >>> len(x[0]) == traj.top.n_residues
     True
     >>> len(x[0])
