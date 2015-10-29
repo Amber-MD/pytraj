@@ -268,7 +268,7 @@ class TestSaveToDisk(unittest.TestCase):
 
 class TestSetitem(unittest.TestCase):
     def test_setitem(self):
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
 
         # single value
@@ -312,7 +312,7 @@ class TestSetitem(unittest.TestCase):
         self.assertRaises(ValueError, lambda: shape_mismatch())
 
         def shape_mismatch2():
-            fa[0] = Frame()
+            fa[0] = pt.Frame()
 
         self.assertRaises(ValueError, lambda: shape_mismatch2())
 
