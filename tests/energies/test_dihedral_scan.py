@@ -31,7 +31,5 @@ try:
     pt.write_traj("test.pdb", flist, top=traj.top, overwrite=True, mode='model')
     
     arr[1] = arr[1] - np.min(arr[1])
-    pt.plotting.plot(arr[0], arr[1])
-    pt.plotting.plt.show()
 except ImportError:
     pass
