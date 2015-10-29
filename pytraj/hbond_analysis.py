@@ -6,7 +6,7 @@ from .externals.six import string_types
 from .datasets import CpptrajDatasetList
 from .decorators import _register_pmap
 from ._get_common_objects import _get_data_from_dtype, _get_topology
-from ._base_result_class import BaseAnalysisResult
+from .base_holder import BaseDataHolder
 from ._shared_methods import iterframe_master
 
 __all__ = ['DatasetHBond', 'search_hbonds']
@@ -25,7 +25,7 @@ def _to_amber_mask(txtlist):
         yield " ".join(re.findall(r"(:\d+@\w+)", mask))
 
 
-class DatasetHBond(BaseAnalysisResult):
+class DatasetHBond(BaseDataHolder):
     """Hold data for hbond analysis
     """
 
