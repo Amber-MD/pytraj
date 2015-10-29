@@ -1,6 +1,7 @@
 from pytraj._shared_methods import iterframe_master
 from pytraj._get_common_objects import _get_topology, _get_data_from_dtype
 from pytraj.compat import range
+from pytraj.decorators import _register_pmap
 
 __all__ = ['get_pysander_energies']
 
@@ -10,6 +11,7 @@ def _default_func():
     return array('d', [])
 
 
+@_register_pmap
 def get_pysander_energies(traj=None,
                           parm=None,
                           igb=8,
@@ -145,7 +147,7 @@ def get_pysander_energies(traj=None,
         size = new_dict['tot'].__len__()
         for key in new_dict.keys():
             dslist.add_set('double')
-            dslist[-1].legend = key
+            dslist[-1].key = key
             dslist[-1].resize(size)
             dslist[-1].data[:] = new_dict[key]
         return _get_data_from_dtype(dslist, dtype)
