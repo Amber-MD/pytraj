@@ -417,7 +417,7 @@ def split_traj_by_residues(traj, start=0, stop=-1, step=1):
     1
     '''
     from pytraj.compat import range
-    from pytraj._cyutils import get_positive_idx
+    from pytraj.cyutils import get_positive_idx
 
     _stop = get_positive_idx(stop, traj.top.n_residues)
 
