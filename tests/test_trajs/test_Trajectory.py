@@ -119,5 +119,15 @@ class TestTrajectory(unittest.TestCase):
         aa_eq(pt.tools.merge_trajs(traj1, traj2).xyz, traj3.xyz)
         aa_eq(pt.tools.merge_trajs(traj1, traj2).xyz, (traj1 + trajiter).xyz)
 
+    def test_allocate_frames(self):
+        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj2 = pt.Trajectory()
+        traj2._allocate(traj.n_frames, traj.n_atoms)
+        assert (traj2.shape == traj.shape)
+
+        traj2.top = traj.top.copy()
+        traj2.xyz = traj.xyz[:]
+        aa_eq(traj2.xyz, traj.xyz)
+
 if __name__ == "__main__":
     unittest.main()
