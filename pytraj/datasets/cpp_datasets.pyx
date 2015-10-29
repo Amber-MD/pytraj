@@ -231,6 +231,13 @@ cdef class Dataset1D (Dataset):
         self.resize(self.size + len(array_like))
         self.values[old_size:] = array_like
 
+    def _xcrd(self):
+        '''x-data.
+        '''
+        cdef unsigned int idx
+
+        return np.array([self.baseptr_1.Xcrd(idx) for idx in range(len(self))])
+
 
 cdef class DatasetDouble (Dataset1D):
     def __cinit__(self, *args):
