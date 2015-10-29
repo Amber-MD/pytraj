@@ -86,8 +86,11 @@ cdef class Atom:
 
     @property
     def element(self):
+        # I really miss python 3.5 unpacking
+        # return name, *Element[self.atomic_number]
         name = get_key(self.thisptr.Element(), AtomicElementDict)
-        return name, *Element[self.atomic_number]
+        x = [name, ] + list(Element[self.atomic_number])
+        return tuple(x)
 
     @property
     def atomic_number(self):
