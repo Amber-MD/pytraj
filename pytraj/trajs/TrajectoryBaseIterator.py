@@ -8,8 +8,7 @@ from pytraj._shared_methods import my_str_method
 class TrajectoryBaseIterator(object):
     @abstractmethod
     def __init__(self, filename=None, top=None):
-        self._filename = filename
-        self._xyz = None
+        pass
 
     def __str__(self):
         return my_str_method(self)
@@ -56,6 +55,11 @@ class TrajectoryBaseIterator(object):
     @property
     @abstractmethod
     def filelist(self):
+        pass
+
+    @property
+    @abstractmethod
+    def frame_slice_list(self):
         pass
 
     @abstractmethod
