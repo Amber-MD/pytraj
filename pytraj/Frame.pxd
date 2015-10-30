@@ -19,13 +19,11 @@ cdef extern from "Frame.h" nogil:
         POINT "Frame::POINT"
     cdef cppclass _Frame "Frame":
         _Frame() 
-        #~_Frame() 
         _Frame(int)
         _Frame(int, double*)
         _Frame(const vector[_Atom]&)
         _Frame(const _Frame&, const _AtomMask&)
         _Frame(const _Frame&)
-        #_Frame& operator =(_Frame)
         void SetFromCRD(const CRDtype&, int, int, bint)
         void SetFromCRD(const CRDtype&, const _AtomMask&, int, int, bint)
         CRDtype ConvertToCRD(int, bint) const 
@@ -39,6 +37,7 @@ cdef extern from "Frame.h" nogil:
         const double& operator[](int idx) const 
         bint empty() const 
         bint HasVelocity() const 
+        bint HasForce() const 
         int Natom() const 
         int size() const 
         int NrepDims() const 
@@ -47,25 +46,19 @@ cdef extern from "Frame.h" nogil:
         const double * XYZ(int atnum) const 
         const double * CRD(int idx) const 
         const double * VXYZ(int atnum) const 
+        const double * FXYZ(int atnum) const 
         double Mass(int atnum) const 
-        #const _Box& BoxCrd() const 
         _Box& BoxCrd() const 
         inline double * xAddress() 
         inline double * vAddress() 
+        inline double* fAddress()
         inline double * bAddress() 
         inline double * tAddress() 
         inline int * iAddress() 
-        #inline const double * xAddress() const 
-        #inline const double * vAddress() const 
-        #inline const double * bAddress() const 
-        #inline const double * tAddress() const 
         inline const int * iAddress() const 
         inline void SetBoxAngles(const double *)
         void SetBox(const _Box&)
-        # Set box alpha, beta, and gamma
-        # Set temperature
         void SetTemperature(double tIn)
-        # Set time
         void SetTime(double tIn)
         int SetupFrame(int)
         int SetupFrameM(const vector[_Atom]&)
@@ -82,11 +75,8 @@ cdef extern from "Frame.h" nogil:
         void ModifyByMap(const _Frame&, const vector[int]&)
         void ZeroCoords() 
         _Frame& addequal "operator +=" (const _Frame&)
-        #_Frame& operator +=(const _Frame&)
         _Frame& subequal "operator -=" (const _Frame&)
-        #_Frame& operator -= (const _Frame&)
         _Frame& mulequal "operator *=" (const _Frame&)
-        #_Frame& operator *= (const _Frame&)
         const _Frame operator *(const _Frame&) const 
         const _Frame operator -(const _Frame&) const 
         int Divide(const _Frame&, double)
@@ -105,7 +95,6 @@ cdef extern from "Frame.h" nogil:
         inline void Rotate(const _Matrix_3x3&, const _AtomMask&)
         inline void Trans_Rot_Trans(const _Vec3&, const _Matrix_3x3&, const _Vec3&)
         void Scale(const _AtomMask&, double, double, double)
-        # Not in cpptraj anymore
         void Center(const _AtomMask&, CenterMode, const _Vec3&, bint)
 
         _Vec3 CenterOnOrigin(bint)
