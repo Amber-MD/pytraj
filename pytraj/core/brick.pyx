@@ -26,9 +26,11 @@ cdef class Atom:
         self.thisptr = new _Atom(aname.thisptr[0], charge, mass, atype.thisptr[0])
         self.resnum = resnum
         self.index = 0
+        self.own_memory = True
 
     def __dealloc__(self):
-        del self.thisptr
+        if self.own_memory:
+            del self.thisptr
 
     def copy(self):
         cdef Atom atom = Atom()
@@ -64,10 +66,16 @@ cdef class Atom:
             self.thisptr.SetMol(mol_num)
 
     property charge:
-        def __set__(self,double qin):
+        def __set__(self, double qin):
             self.thisptr.SetCharge(qin)
         def __get__(self):
             return self.thisptr.Charge()
+
+    property gb_radius:
+        def __set__(self, double r):
+            self.thisptr.SetGBradius(r)
+        def __get__(self):
+            return self.thisptr.GBRadius()
     
     def __str__(self):
         if self.atomic_number > 0:
