@@ -17,7 +17,6 @@ Welcome
 
 .. raw:: html
 
-   </div>
    <div class="col-md-3">
    <h2>Overview</h2>
 
@@ -103,10 +102,3 @@ Welcome
 
 .. image:: http://mybinder.org/images/logo.svg
    :target: http://mybinder.org/repo/hainm/notebook-pytraj
-
-.. raw:: html
-
-   </div>
-   </div>
-   </div>
-
