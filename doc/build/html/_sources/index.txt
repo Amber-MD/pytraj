@@ -71,3 +71,21 @@ Welcome
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+.. raw:: html
+
+   </div>
+   </div>
+   </div>
+
+Install Jupyter notebook for interative data exploration
+
+.. image:: http://jupyter.org/assets/jupyterpreview.png
+   :target: http://jupyter.org/
+   :scale: 30 %
+
+Install matplotlib for plotting
+
+.. image:: http://matplotlib.org/_static/logo2.png
+   :target: http://matplotlib.org/
+   :scale: 50 %
