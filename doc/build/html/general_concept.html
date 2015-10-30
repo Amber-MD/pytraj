@@ -142,13 +142,13 @@
 <p>In most case, to use <tt class="docutils literal"><span class="pre">pytraj</span></tt>, you just need to rember this format</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">methodname</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span> <span class="o">...</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">method_name</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span> <span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><tt class="docutils literal"><span class="pre">traj</span></tt> can be a Trajectory-like (having 3D coordinates and a Topology) or it can be
-any iterable object that produces <tt class="xref py py-class docutils literal"><span class="pre">pytraj.Frame</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">ref</span></tt> can be a single Frame (conformation) or a Trajectory. If it&#8217;s a Trajectory,
+any iterable object that produces <tt class="xref py py-class docutils literal"><span class="pre">pytraj.Frame</span></tt> (a single snapshot).</li>
+<li><tt class="docutils literal"><span class="pre">ref</span></tt> can be a single Frame or a Trajectory. If it&#8217;s a Trajectory,
 first conformation is always picked up.</li>
 <li><tt class="docutils literal"><span class="pre">mask</span></tt> follows Amber mask syntax (eg. :<a class="reference external" href="mailto:3-18&#37;&#52;&#48;CA">3-18<span>&#64;</span>CA</a>) or an atom index array (eg. [0, 3, 5]). If <tt class="docutils literal"><span class="pre">mask</span></tt> is a string (amber mask), the index is 1-based (counting from 1) and</li>
 </ul>
@@ -158,24 +158,39 @@ first conformation is always picked up.</li>
 <li><tt class="docutils literal"><span class="pre">frame_indices</span></tt> is frame indices for calculation. It&#8217;s optional. If no <tt class="docutils literal"><span class="pre">frame_indices</span></tt> is provided, the calculation will be performed for whole trajectory</li>
 </ul>
 <p>Real world example</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># calculate radius of gyration for whole trajectory, all atoms</span>
-<span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="c"># calculate radius of gyration for whole trajectory, all atoms</span>
+<span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+
+<span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.parm7&#39;</span><span class="p">)</span>
+
+<span class="gp">In [3]: </span><span class="n">traj</span>
+<span class="gr">Out[3]: </span>
+<span class="go">&lt;pytraj.TrajectoryIterator, 101 frames, include:</span>
+<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;&gt;</span>
+<span class="go">           </span>
+
+<span class="gp">In [4]: </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
 
 <span class="c"># calculate radius of gyration for whole trajectory, @CA atoms</span>
-<span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="gp">In [5]: </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">)</span>
 
 <span class="c"># calculate radius of gyration for whole trajectory, for atom indices of [0, 3, 5, 100]</span>
-<span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+<span class="gp">In [6]: </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
 
-<span class="c"># calculate radius of gyration for whole trajectory, all atoms, only for 0, 7, and</span>
-<span class="mi">8</span><span class="o">-</span><span class="n">th</span> <span class="n">frames</span>
-<span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+<span class="c"># calculate radius of gyration for whole trajectory, all atoms, only for 0, 7, and 8-th frames</span>
+<span class="gp">In [7]: </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
 
-<span class="c"># calculat rmsd with reference as 0-th frame, all atoms</span>
-<span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="c"># calculate rmsd with reference as 0-th frame, all atoms</span>
+<span class="gp">In [8]: </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="c"># calculat rmsd with reference as 0-th frame, backbone heavy atoms</span>
-<span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@C,CA,N,O)</span>
+<span class="c"># calculate rmsd with reference as 0-th frame, backbone heavy atoms</span>
+<span class="gp">In [9]: </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@C,CA,N,O&#39;</span><span class="p">)</span>
+
+<span class="c"># calculate rmsd with reference as last frame, CA atoms</span>
+<span class="gp">In [10]: </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+
+<span class="gp">In [11]: </span><span class="n">data</span>
+<span class="gr">Out[11]: </span><span class="n">array</span><span class="p">([</span> <span class="mf">4.832</span> <span class="p">,</span>  <span class="mf">5.168</span> <span class="p">,</span>  <span class="mf">4.7418</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span>  <span class="mf">1.0441</span><span class="p">,</span>  <span class="mf">1.3155</span><span class="p">,</span>  <span class="mf">0.</span>    <span class="p">])</span>
 </pre></div>
 </div>
 </div>

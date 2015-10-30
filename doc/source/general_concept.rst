@@ -9,12 +9,12 @@ In most case, to use ``pytraj``, you just need to rember this format
 
     import pytraj as pt
     traj = pt.iterload(...)
-    data = pt.methodname(traj, mask=mask, ref=ref, frame_indices=frame_indices ...) 
+    data = pt.method_name(traj, mask=mask, ref=ref, frame_indices=frame_indices ...) 
 
 * ``traj`` can be a Trajectory-like (having 3D coordinates and a Topology) or it can be
-  any iterable object that produces :class:`pytraj.Frame`
+  any iterable object that produces :class:`pytraj.Frame` (a single snapshot).
 
-* ``ref`` can be a single Frame (conformation) or a Trajectory. If it's a Trajectory,
+* ``ref`` can be a single Frame or a Trajectory. If it's a Trajectory,
   first conformation is always picked up.
 
 * ``mask`` follows Amber mask syntax (eg. :3-18@CA) or an atom index array (eg. [0, 3, 5]). If ``mask`` is a string (amber mask), the index is 1-based (counting from 1) and 
@@ -24,23 +24,36 @@ In most case, to use ``pytraj``, you just need to rember this format
 
 Real world example
 
-.. code-block:: python
+.. ipython:: python
+    :suppress:
+
+    import numpy as np
+    np.set_printoptions(precision=4, suppress=True)
+
+.. ipython:: python
  
     # calculate radius of gyration for whole trajectory, all atoms
-    pt.radgyr(traj)
+    import pytraj as pt
+    traj = pt.iterload('tz2.nc', 'tz2.parm7')
+    traj
+
+    data = pt.radgyr(traj)
 
     # calculate radius of gyration for whole trajectory, @CA atoms
-    pt.radgyr(traj, mask='@CA')
+    data = pt.radgyr(traj, mask='@CA')
 
     # calculate radius of gyration for whole trajectory, for atom indices of [0, 3, 5, 100]
-    pt.radgyr(traj, mask=[0, 3, 5, 100])
+    data = pt.radgyr(traj, mask=[0, 3, 5, 100])
 
-    # calculate radius of gyration for whole trajectory, all atoms, only for 0, 7, and
-    8-th frames
-    pt.radgyr(traj, frame_indices=[0, 7, 8])
+    # calculate radius of gyration for whole trajectory, all atoms, only for 0, 7, and 8-th frames
+    data = pt.radgyr(traj, frame_indices=[0, 7, 8])
 
-    # calculat rmsd with reference as 0-th frame, all atoms
-    pt.rmsd(traj, ref=0)
+    # calculate rmsd with reference as 0-th frame, all atoms
+    data = pt.rmsd(traj, ref=0)
 
-    # calculat rmsd with reference as 0-th frame, backbone heavy atoms
-    pt.rmsd(traj, ref=0, mask='@C,CA,N,O)
+    # calculate rmsd with reference as 0-th frame, backbone heavy atoms
+    data = pt.rmsd(traj, ref=0, mask='@C,CA,N,O')
+
+    # calculate rmsd with reference as last frame, CA atoms
+    data = pt.rmsd(traj, ref=-1, mask='@CA')
+    data
