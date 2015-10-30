@@ -235,6 +235,11 @@ def do_what():
 do_install, do_build = do_what()
 cpptraj_dir, cpptraj_include, libdir, pytraj_inside_amber  = get_include_and_lib_dir()
 
+try:
+    check_cpptraj_config(cpptraj_dir)
+except:
+    pass
+
 # get *.pyx files
 pxd_include_dirs = [
     directory for directory, dirs, files in os.walk('pytraj') if '__init__.pyx'
