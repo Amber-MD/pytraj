@@ -6,7 +6,7 @@ from .datasets.cast_dataset import cast_dataset
 from .Frame import Frame
 from .core.brick import Atom, Residue, Molecule
 from .datafiles.datafiles import DataFileList
-from .core.ActionList import ActionList
+from .core import ActionList
 from .core.cpp_core import CpptrajState
 from .datasets.DatasetList import DatasetList
 

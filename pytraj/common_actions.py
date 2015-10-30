@@ -29,7 +29,7 @@ from .externals.get_pysander_energies import get_pysander_energies
 from .decorators import _register_pmap, _register_openmp
 from .actions import CpptrajActions
 from .analyses import CpptrajAnalyses
-from .core.ActionList import ActionList
+from .core.action_list import ActionList
 from .utils.convert import array2d_to_cpptraj_maskgroup
 
 list_of_cal = ['calc_distance',
@@ -301,7 +301,7 @@ def calc_angle(traj=None,
 
         elif isinstance(command, (list, tuple)):
             list_of_commands = command
-            from pytraj.core.ActionList import ActionList
+            from pytraj.core.action_list import ActionList
             dslist = CpptrajDatasetList()
             actlist = ActionList()
 
@@ -426,7 +426,7 @@ def calc_dihedral(traj=None,
 
         elif isinstance(command, (list, tuple)):
             list_of_commands = command
-            from pytraj.core.ActionList import ActionList
+            from pytraj.core.action_list import ActionList
             from pytraj.actions.CpptrajActions import Action_Dihedral
             dslist = CpptrajDatasetList()
             actlist = ActionList()
@@ -1401,7 +1401,7 @@ def calc_vector(traj=None,
     >>> comlist = ['ucellx', 'boxcenter', 'box']
     >>> pt.calc_vector(traj, comlist)
     """
-    from pytraj.core.ActionList import ActionList
+    from pytraj.core.action_list import ActionList
 
     dslist = CpptrajDatasetList()
     _top = _get_topology(traj, top)

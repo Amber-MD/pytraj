@@ -2,6 +2,7 @@ import os
 import numpy as np
 import unittest
 import pytraj as pt
+from pytraj.compat import zip
 from pytraj import Topology
 from pytraj.core.cpp_core import AtomMask
 from pytraj.base import *
@@ -40,6 +41,18 @@ class TestTopology(unittest.TestCase):
             pass
         assert idx + 1 == top.n_atoms
 
+    def test_get_iter(self):
+        #print("test_get_iter")
+        top = pt.load_topology("./data/DOPC.parm7")
+        s = [atom.name for atom in top[":PC@H*"]]
+        atom0 = top[":PC@H*"][0]
+
+        old_natoms = top.n_atoms
+        print('test')
+        self.assertRaises(ValueError, lambda: top.join(top))
+        top.join(top.copy())
+        assert top.n_atoms == 2 * old_natoms
+
     def test_select_mask(self):
         top = pt.load_topology("./data/Tc5b.top")
         arr0 = top.atom_indices("@CA")
@@ -60,6 +73,45 @@ class TestTopology(unittest.TestCase):
         atom_8.gb_radius = 10.
         assert atom_8.gb_radius == 10, 'gb radius must be 10'
         assert top[8].gb_radius == 10, 'gb radius for top[10] must be 10'
+
+    def test_join(self):
+        t0 = pt.load_sample_data().top
+        t1 = pt.load_sample_data('tz2').top
+
+        # +
+        t2 = t0 + t1  # mimic ParmEd
+        assert t2.n_atoms == t0.n_atoms + t1.n_atoms
+
+        t0 += t1
+        assert t0.n_atoms == t2.n_atoms
+
+        # *
+        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        top = traj.top
+        top0 = top * 2
+
+        assert top0.n_atoms == 2 * top.n_atoms
+
+    def test_basic(self):
+        '''slicing, select'''
+        top = pt.load_topology("./data/Tc5b.top")
+
+        # number
+        assert isinstance(top[0], Atom)
+        assert isinstance(top[:2], list)
+        assert isinstance(top[:1], Atom)
+        assert top[0].name == top['@1'][0].name
+
+        # mask, AtomMask, python array, list
+        atm = top("@CA")
+        indices = atm.indices
+        for a1, a2, a3, a4 in zip(top['@CA'], top[atm], top[indices],
+                                   top[list(indices)]):
+            assert a1.name == a2.name == a3.name == a4.name == 'CA'
+
+        # check len
+        assert top[:].__len__() == top.n_atoms
+        assert top[:10].__len__() == 10
 
 
 if __name__ == "__main__":
