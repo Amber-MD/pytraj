@@ -714,6 +714,15 @@ cdef class Topology:
         return SimplifiedResidue(res.name, res.original_resnum, self.atomlist[start:end],
                 start, end)
 
+    def _atom(self, int idx):
+        '''return Atom based on idx. Update this Atom will update Topology too
+        Make this method private for now.
+        '''
+        cdef Atom atom = Atom()
+        atom.own_memory = False
+        atom.thisptr = &self.thisptr.GetAtomView(idx)
+        return atom
+
     def _residue_light(self, int idx):
         '''no atom list for SimplifiedResidue
         '''

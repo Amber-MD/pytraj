@@ -45,6 +45,7 @@ cdef extern from "Topology.h":
         void SetGBradiiSet(const string& s)
         void SetParmName(const string&, const _FileName&)
         void SetDistMaskRef(_Frame)
+        _Atom& GetAtomView "SetAtom" (int idx)
         const string& Tag() const 
         int Ipol() const 
         int Pindex() const 

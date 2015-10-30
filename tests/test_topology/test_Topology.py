@@ -52,6 +52,15 @@ class TestTopology(unittest.TestCase):
     def test_raise_RuntimeError(self):
         self.assertRaises(RuntimeError, lambda: pt.load_topology('dummy'))
 
+    def test_get_atom_view(self):
+        top = pt.datafiles.load_ala3().top
+        atom_8 = top._atom(8)
+        # set dummy number
+        assert atom_8.gb_radius == 1.2, 'origin gb radius is 1.2'
+        atom_8.gb_radius = 10.
+        assert atom_8.gb_radius == 10, 'gb radius must be 10'
+        assert top[8].gb_radius == 10, 'gb radius for top[10] must be 10'
+
 
 if __name__ == "__main__":
     unittest.main()
