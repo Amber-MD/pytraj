@@ -14,7 +14,7 @@ def load_ParmEd(parmed_obj, as_traj=False, **kwd):
         if True, save `parmed_obj` to mol2 file and reload
         if False, internal convert. Might have bug
     as_traj: bool, default False
-        if True, return pytraj.api.Trajectory
+        if True, return pytraj.trajectory.Trajectory
         if False, return Topology
 
     >>> import parmed as pmd

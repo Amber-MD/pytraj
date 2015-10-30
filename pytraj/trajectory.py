@@ -14,7 +14,7 @@ from pytraj._get_common_objects import _get_topology
 
 from .topology import Topology
 from ._shared_methods import _savetraj, iterframe_master, my_str_method
-from ._cyutils import _fast_iterptr, _fast_iterptr_withbox
+from .cyutils import _fast_iterptr, _fast_iterptr_withbox
 from .frameiter import FrameIter
 
 __all__ = ['Trajectory']
@@ -47,6 +47,8 @@ class Trajectory(object):
 
         >>> # load from filename and topology name
         >>> traj = pt.Trajectory(fn, tn)
+        >>> traj = pt.Trajectory([fn, fn], tn)
+        >>> traj = pt.Trajectory((fn, fn), tn)
 
         >>> # load from array
         >>> traj_1 = pt.Trajectory(xyz=traj.xyz, top=traj.top)
@@ -80,18 +82,14 @@ class Trajectory(object):
             # make sure to use `float64`
             self._xyz = filename.xyz.astype(np.float64)
         elif isinstance(filename, (string_types, list, tuple)):
-            if isinstance(filename, string_types):
-                self.load(filename)
-            else:
-                raise ValueError('only load a single file. Use pytraj.load for multiple files')
-        elif is_frame_iter(filename):
-            for frame in filename:
-                self.append(frame.xyz[:])
+            self.load(filename)
         else:
-            raise ValueError('filename must be None, a Trajectory, string, a FrameIter')
+            raise ValueError('filename must be None, a Trajectory or a string')
 
         if hasattr(self._xyz, 'shape'):
-            assert self.top.n_atoms == self._xyz.shape[1], "must have the same n_atoms"
+            assert self.top.n_atoms == self._xyz.shape[
+                1
+            ], "must have the same n_atoms"
 
         if hasattr(filename, 'unitcells'):
             self._boxes = filename.unitcells
@@ -104,10 +102,28 @@ class Trajectory(object):
     def top(self, value):
         self._top = value.copy()
 
+    @property
+    def topology(self):
+        return self._top
+
+    @top.setter
+    def topology(self, value):
+        self._top = value.copy()
+
     def reverse(self):
+        '''
+        Returns
+        -------
+        self
+
+        >>> import pytraj as pt
+        >>> traj = pt.datafiles.load_tz2_ortho()[:]
+        >>> traj = traj.reverse() 
+        '''
         self._xyz = self._xyz[::-1]
         if self._boxes is not None:
             self._boxes = self._boxes[::-1]
+        return self
 
     @property
     def xyz(self):
@@ -224,7 +240,13 @@ class Trajectory(object):
 
         >>> # get a new stripped Frame
         >>> t0 = traj[0, '@CA']
+
+        >>> atm = traj.top('@CA')
+        >>> t1 = traj[atm]
         """
+        if self.n_frames == 0:
+            raise IndexError("Your Trajectory is empty, how can I index it?")
+
         if is_int(idx):
             # traj[0]
             # return a single Frame as a view
@@ -289,7 +311,7 @@ class Trajectory(object):
 
     def __setitem__(self, idx, other):
         if self.n_frames == 0:
-            raise ValueError("Your Trajectory is empty, how can I index it?")
+            raise IndexError("Your Trajectory is empty, how can I index it?")
 
         if other is None:
             raise ValueError("why bothering assign None?")
@@ -306,13 +328,10 @@ class Trajectory(object):
             # traj.xyz = xyz
             # update all atoms, use fast version
             self._xyz[:] = other  # xyz
-        elif isinstance(idx, AtomMask) or isinstance(idx, string_types):
+        elif isinstance(idx, string_types):
             # update xyz for mask
             # traj['@CA'] = xyz
-            if isinstance(idx, AtomMask):
-                atm = idx
-            else:
-                atm = self.top(idx)
+            atm = self.top(idx)
             if isinstance(other, Trajectory):
                 indices = atm.indices
 
@@ -321,10 +340,7 @@ class Trajectory(object):
                         self.xyz[i, k] = other.xyz[i, j]
             else:
                 view3d = other
-                try:
-                    int_view = atm.indices.astype('i4')
-                except ValueError:
-                    int_view = atm.indices
+                int_view = atm.indices.astype('i4')
                 # loop all frames
                 for i in range(view3d.shape[0]):
                     self._xyz[:, int_view] = view3d[:]
@@ -333,24 +349,18 @@ class Trajectory(object):
             # example: self[0, 0, 0] = 100.
             self._xyz[idx] = other
 
-    def __iadd__(self, other):
-        '''use with care. not for regular user
-        '''
-        if hasattr(other, 'xyz'):
-            self._xyz.__iadd__(other.xyz)
-        else:
-            self._xyz.__iadd__(other)
-        return self
-
-    def __add__(self, other):
-        '''use with care. not for regular user
-        '''
-        self_cp = self.copy()
-        self_cp.__iadd__(other)
-        return self_cp
-
     def append_xyz(self, xyz):
         '''append 3D numpy array
+
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('tz2')
+        >>> t0 = pt.Trajectory(top=traj.top)
+        >>> t0.append_xyz(traj.xyz)
+        >>> t0.n_frames
+        10
+        >>> t0.append_xyz(traj.xyz)
+        >>> t0.n_frames
+        20
         '''
         # make sure 3D
         if xyz.ndim != 3:
@@ -362,18 +372,38 @@ class Trajectory(object):
             self._xyz = np.vstack((self._xyz, xyz))
 
     def _append_unitcells(self, box):
+        '''
+        >>> import pytraj as pt
+        >>> traj = pt.datafiles.load_tz2_ortho()
+        >>> traj2 =  pt.Trajectory(top=traj.top)
+        >>> traj2._append_unitcells(traj.unitcells)
+        >>> traj2.unitcells.shape
+        (10, 6)
+
+        >>> traj3 =  pt.Trajectory(top=traj.top)
+        >>> clen, cangle = traj.unitcells[:, :3], traj.unitcells[:, 3:]
+        >>> traj3._append_unitcells((clen, cangle))
+        >>> traj3.unitcells.shape
+        (10, 6)
+        '''
         if isinstance(box, tuple):
             clen, cangle = box
             data = np.hstack((clen, cangle))
             if self._boxes is None:
-                self._boxes = np.asarray([data])
+                self._boxes = np.asarray([data], dtype='f8')
             else:
                 self._boxes = np.vstack((self._boxes, data))
 
-            if self._boxes.ndim == 3:
-                self._boxes = self._boxes.reshape((self.n_frames, 6))
         else:
-            self._boxes = np.vstack((self._boxes, box))
+            if self._boxes is None:
+                self._boxes = np.asarray(box, dtype='f8')
+            else:
+                self._boxes = np.vstack((self._boxes, box))
+
+        if self._boxes.ndim == 3:
+            shape = self._boxes.shape
+            n_frames = int(shape[0] * shape[1] * shape[2] / 6)
+            self._boxes = self._boxes.reshape((n_frames, 6))
 
     def append(self, other):
         """other: xyz, Frame, Trajectory, ...
@@ -399,6 +429,9 @@ class Trajectory(object):
         >>> t0.append(traj())
         >>> t0.n_frames
         22
+
+        >>> t1 = pt.Trajectory(top=traj.top)
+        >>> t1.append(traj)
 
         Notes
         -----
@@ -450,18 +483,25 @@ class Trajectory(object):
     def __call__(self, *args, **kwd):
         return self.iterframe(*args, **kwd)
 
-    def _load_new_by_scipy(self, filename):
-        from scipy import io
-        import numpy as np
-
-        fh = io.netcdf_file(filename, mmap=False)
-        self.xyz = fh.variables['coordinates'].data
-        cell_lengths = fh.variables['cell_lengths'].data
-        cell_angles = fh.variables['cell_angles'].data
-        self.unitcells = np.hstack((cell_lengths, cell_angles))
-
     def load(self, filename='', indices=None):
         '''
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> from pytraj.testing import get_fn
+        >>> fname, tname = get_fn('tz2')
+        >>> traj = pt.Trajectory()
+        >>> traj.top = pt.load_topology(tname)
+        >>> traj.load(fname)
+        >>> traj.n_atoms
+        5293
+
+        Notes
+        -----
+        It's better to use ``pytraj.load`` method
+        >>> traj = pt.load(fname, tname)
+        >>> traj.n_atoms
+        5293
         '''
         if self.top is None or self.top.is_empty():
             raise RuntimeError('Must have a valid Topology')
@@ -476,39 +516,139 @@ class Trajectory(object):
                 self.xyz = ts.xyz
             else:
                 self.xyz = ts[indices].xyz
+        elif isinstance(filename, (list, tuple)):
+            for fn in filename:
+                self.load(fn)
 
-    def autoimage(self):
+    def autoimage(self, command=''):
         '''perform autoimage
 
         Return
         ------
         self
+
+        Examples
+        --------
+        >>> import pytraj as pt; from pytraj.testing import get_fn
+        >>> t0 = pt.load(*get_fn('tz2'))
+        >>> t0.top.has_box()
+        True
+        >>> t0 = t0.autoimage()
         '''
-        from pytraj.actions.CpptrajActions import Action_AutoImage
+        from pytraj.actions import CpptrajActions
 
-        if not self.top.has_box():
-            raise ValueError("can not find unitcells info from Topology")
-        else:
-            act = Action_AutoImage()
-            act.read_input("", top=self.top)
-            act.process(self.top)
-
-            for idx, frame in enumerate(self):
-                act.do_action(frame)
+        act = CpptrajActions.Action_AutoImage()
+        act(command, self, top=self.top)
         return self
 
-    def rotate(self, *args, **kwd):
+    def rotate(self, command=''):
         '''do rotation
 
         Returns
         -------
         self
-        '''
-        import pytraj.common_actions as pyca
 
-        for idx, frame in enumerate(self):
-            pyca.rotate(frame, top=self.top, *args, **kwd)
-            self.xyz[idx] = frame.xyz
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('ala3')[:]
+        >>> traj = traj.rotate('@CA x 20')
+        '''
+        from pytraj.actions import CpptrajActions
+
+        act = CpptrajActions.Action_Rotate()
+        act(command, self, top=self.top) 
+        return self
+
+    def translate(self, command=''):
+        '''do rotation
+
+        Returns
+        -------
+        self
+
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('ala3')[:]
+        >>> traj = traj.translate('@CA x 1.2')
+        '''
+        from pytraj.actions import CpptrajActions
+
+        act = CpptrajActions.Action_Translate()
+        act(command, self, top=self.top) 
+        return self
+
+    def scale(self, command=''):
+        '''do scaling
+
+        Returns
+        -------
+        self
+
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('ala3')[:]
+        >>> traj = traj.scale('@CA x 1.2')
+        '''
+        from pytraj.actions import CpptrajActions
+
+        act = CpptrajActions.Action_Scale()
+        act(command, self, top=self.top) 
+        return self
+
+    def center(self, command=''):
+        '''do centering
+
+        Returns
+        -------
+        self
+
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('ala3')[:]
+        >>> traj = traj.center('@CA origin')
+        '''
+        from pytraj.actions import CpptrajActions
+
+        act = CpptrajActions.Action_Center()
+        act(command, self, top=self.top) 
+        return self
+
+    def align_principal_axis(self, command=''):
+        """
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('ala3')[:]
+        >>> traj = traj.align_principal_axis()
+        """
+        from pytraj.actions import CpptrajActions
+        act = CpptrajActions.Action_Principal()
+
+        command += " dorotation"
+        act(command, self, top=self.top)
+        return self
+
+    def transform(self, commands, frame_indices=None):
+        '''apply a series of cpptraj commands to trajectory
+
+        Returns
+        -------
+        self
+
+        >>> import pytraj as pt
+        >>> traj = pt.datafiles.load_tz2_ortho()[:]
+        >>> traj = traj.transform(['autoimage', 'center @CA origin', 'translate x 1.2'])
+        >>> traj.xyz[0, 0]
+        array([-1.19438073,  8.75046229, -1.82742397])
+
+        # which is similiar to below:
+        >>> traj2 = pt.datafiles.load_tz2_ortho()[:]
+        >>> traj2.xyz[0, 0] # before transforming
+        array([ 15.55458927,  28.54844856,  17.18908691])
+        >>> traj = traj2.autoimage().center('@CA origin').translate('x 1.2')
+
+        >>> traj2.xyz[0, 0] # after transforming
+        array([-1.19438073,  8.75046229, -1.82742397])
+        '''
+        from pytraj.core.action_list import create_pipeline
+        fi = create_pipeline(self, commands, frame_indices=frame_indices)
+
+        for _ in fi: pass
+        return self
 
     @property
     def unitcells(self):
@@ -568,9 +708,12 @@ class Trajectory(object):
 
         Examples
         --------
-        >>> traj.rmsfit(0) # fit to 1st frame # doctest: +SKIP
-        >>> traj.rmsfit(-1, '@CA') # fit to last frame using @CA atoms # doctest: +SKIP
-
+        >>> import pytraj as pt
+        >>> from pytraj.testing import get_fn
+        >>> traj = pt.load(*get_fn('tz2'))
+        >>> traj = traj.superpose() # fit to 1st frame
+        >>> traj = traj.superpose(0) # fit to 1st frame, explitly specify
+        >>> traj = traj.superpose(-1, '@CA') # fit to last frame using @CA atoms
         """
         # not yet dealed with `mass` and box
 
@@ -579,31 +722,23 @@ class Trajectory(object):
         elif is_int(ref):
             i = ref
             ref_frame = self[i]
-        elif isinstance(ref, string_types):
-            if ref.lower() == 'first':
-                i = 0
-            if ref.lower() == 'last':
-                i = -1
-            ref_frame = self[i]
         else:
             # first
             ref_frame = self[0]
 
-        if isinstance(mask, string_types):
-            atm = self.top(mask)
-        elif isinstance(mask, AtomMask):
-            atm = mask
-        else:
-            raise ValueError("mask must be string or AtomMask object")
+        atm = self.top(mask)
 
-        fi = self if frame_indices is not None else self.iterframe(frame_indices=frame_indices)
+        fi = self if frame_indices is not None else self.iterframe(
+            frame_indices=frame_indices)
 
         if mass:
             ref_frame.set_frame_mass(self.top)
         for idx, frame in enumerate(fi):
             if mass:
                 frame.set_frame_mass(self.top)
-            _, mat, v1, v2 = frame.rmsd(ref_frame, atm, get_mvv=True, mass=mass)
+            _, mat, v1, v2 = frame.rmsd(ref_frame, atm,
+                                        get_mvv=True,
+                                        mass=mass)
             frame.trans_rot_trans(v1, mat, v2)
         return self
 
@@ -622,9 +757,13 @@ class Trajectory(object):
         --------
         >>> import pytraj as pt
         >>> traj = pt.load_sample_data()[:]
+        >>> traj.n_atoms
+        34
         >>> t0 = traj.strip('!@CA') # keep only CA atoms 
         >>> isinstance(t0, pt.Trajectory)
         True
+        >>> t0.n_atoms
+        3
         '''
         # AtomMask
         atm = self.top(mask)
@@ -633,7 +772,7 @@ class Trajectory(object):
 
         if self._xyz is not None:
             # need to copy to make contigous memory block
-            self._xyz = self._xyz[:, atm.indices].copy()
+            self._xyz = np.ascontiguousarray(self._xyz[:, atm.indices])
         return self
 
     def save(self,
@@ -651,6 +790,27 @@ class Trajectory(object):
                   frame_indices=None,
                   rmsfit=None,
                   copy=False):
+        '''
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> from pytraj.testing import get_fn
+        >>> traj = pt.load(*get_fn('tz2'))
+        >>> for frame in traj.iterframe(0, 8, 2): pass
+        >>> for frame in traj.iterframe(0, 8, 2, autoimage=True): pass
+
+        >>> # use negative index
+        >>> traj.n_frames
+        10
+        >>> fi = traj.iterframe(0, -1, 2, autoimage=True)
+        >>> fi.n_frames
+        5
+
+        >>> # mask is atom indices
+        >>> fi = traj.iterframe(0, -1, 2, mask=range(100), autoimage=True)
+        >>> fi.n_atoms
+        100
+        '''
 
         if mask is None:
             _top = self.top
@@ -704,16 +864,21 @@ class Trajectory(object):
                          autoimage=autoimage,
                          rmsfit=rmsfit,
                          n_frames=n_frames,
+                         frame_indices=frame_indices,
                          copy=copy)
 
     @property
     def _estimated_GB(self):
         """esimated GB of data will be loaded to memory
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('tz2')[:] 
+        >>> traj._estimated_GB
+        0.0011830776929855347
         """
         return self.n_frames * self.n_atoms * 3 * 8 / (1024 ** 3)
 
     @classmethod
-    def from_iterable(cls, iterables, top=None, n_frames=None):
+    def from_iterable(cls, iterables, top=None):
         '''
 
         Examples
@@ -721,6 +886,17 @@ class Trajectory(object):
         >>> import pytraj as pt
         >>> traj = pt.load_sample_data('tz2')
         >>> t0 = pt.Trajectory.from_iterable(traj(3, 8, 2))
+
+        >>> from pytraj import create_pipeline
+        >>> fi = create_pipeline(traj, ['autoimage', 'rms'])
+        >>> t0 = pt.Trajectory.from_iterable(fi, top=traj.top)
+        >>> t0.n_frames
+        10
+        >>> pt.radgyr(t0)
+        array([ 18.90953437,  18.93564662,  18.85415458,  18.90994856,
+                18.85884218,  18.88551081,  18.9364612 ,  18.89353463,
+                18.91772124,  18.87070283])
+
         '''
         if top is None or top.is_empty():
             if hasattr(iterables, 'top'):
@@ -731,22 +907,19 @@ class Trajectory(object):
         fa = Trajectory()
         fa.top = top
 
-        if n_frames is not None:
-            _n_frames = n_frames
-        elif hasattr(iterables, 'n_frames'):
+        if hasattr(iterables, 'n_frames'):
             _n_frames = iterables.n_frames
         else:
             try:
                 _n_frames = len(iterables)
-            except:
+            except TypeError:
                 _n_frames = None
 
+        # faster
         if _n_frames is None:
-            for frame in iterables:
-                # slow
-                fa.append(frame)
+            xyz = np.array([data.xyz.copy() for data in iterables])
+            fa.xyz = xyz
         else:
-            # faster
             fa._allocate(_n_frames, fa.top.n_atoms)
             fa._boxes = np.empty((_n_frames, 6), dtype='f8')
             for idx, frame in enumerate(iterables):
@@ -762,5 +935,54 @@ class Trajectory(object):
         self._boxes = None
 
     def _apply(self, func):
-        for x in self.xyz:
-            x = func(x)
+        '''
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data('ala3')[:]
+        >>> traj.xyz[0, 0]
+        array([  3.32577000e+00,   1.54790900e+00,  -1.60000000e-06])
+        >>> traj._apply(lambda x : x * 2)
+        >>> traj.xyz[0, 0]
+        array([  6.65154000e+00,   3.09581800e+00,  -3.20000000e-06])
+
+        '''
+        for idx, x in enumerate(self.xyz):
+            self.xyz[idx] = func(x)
+
+    def __add__(self, other):
+        '''merge two trajectories together. Order matter.
+
+        Notes
+        -----
+        this is convenient method and it is not really optimized for memory and speed.
+
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> traj1 = pt.datafiles.load_ala3()[:1]
+        >>> traj2 = pt.datafiles.load_tz2_ortho()[:1]
+        >>> traj3 = traj1 + traj2
+        >>> traj1.n_atoms
+        34
+        >>> traj2.n_atoms
+        5293
+        >>> traj3.n_atoms
+        5327
+        >>> traj1.xyz[0, 0] == traj3.xyz[0, 0]
+        array([ True,  True,  True], dtype=bool)
+        >>> traj2.xyz[0, -1] == traj3.xyz[0, -1]
+        array([ True,  True,  True], dtype=bool)
+
+        See also
+        --------
+        pytraj.tools.merge_trajs
+        '''
+        if self.n_frames != other.n_frames:
+            raise ValueError('two trajs must have the same n_frames')
+
+        traj = self.__class__()
+        traj._allocate(self.n_frames, self.n_atoms + other.n_atoms)
+        traj.top = self.top + other.top
+
+        for f1, f2, frame in zip(self, other, traj):
+            frame.xyz[:] = np.vstack((f1.xyz, f2.xyz))
+        return traj

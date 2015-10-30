@@ -5,8 +5,8 @@ from ..utils.context import goto_temp_folder
 from .datafiles import DataFile, DataFileList
 from .load_sample_data import *
 
-__all__ = ['load_cpptraj_state', 'load_cpptraj_output',
-           'Ala3_crd', 'Ala3_crd_top', 'tz2_ortho_nc', 'tz2_ortho_parm7']
+__all__ = ['load_cpptraj_state', 'load_cpptraj_output', 'Ala3_crd',
+           'Ala3_crd_top', 'tz2_ortho_nc', 'tz2_ortho_parm7']
 
 mydir = os.path.dirname(os.path.abspath(__file__))
 
@@ -70,7 +70,7 @@ def load_cpptraj_output(txt, dtype=None):
             arglist = ArgList(line)
             # use absolute path
             relative_fname = arglist.get_string_key('trajin')
-            the_rest_of_line =  ' '.join(line.split(relative_fname)[1:])
+            the_rest_of_line = ' '.join(line.split(relative_fname)[1:])
             fname = os.path.abspath(relative_fname)
             command_list[idx] = " ".join(('trajin', fname, the_rest_of_line))
 
@@ -84,6 +84,7 @@ def load_cpptraj_output(txt, dtype=None):
     else:
         out = DatasetList(state.datasetlist)
     return out
+
 
 def load_cpptraj_state(txt):
     """load text to CpptrajState

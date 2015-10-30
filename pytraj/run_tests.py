@@ -4,14 +4,14 @@ from pytraj.core import *
 from pytraj.math import *
 from pytraj.externals import *
 from pytraj.trajs import *
-from pytraj.hbonds import *
+from pytraj.hbond_analysis import *
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 from .datafiles.load_sample_data import load_sample_data
 from pytraj.action_dict import ADICT
 from pytraj.misc import info
 from pytraj.cpp_options import set_world_silent
-from pytraj import api
+from pytraj import trajectory
 
 from pytraj import *
 from pytraj.datasets import *
@@ -66,7 +66,7 @@ def run_tests():
 
     print("try to create Trajectory-like objects")
     TrajectoryIterator()
-    api.Trajectory()
+    trajectory.Trajectory()
 
     print("other stuff. throw all tests don't belong anywhere else here")
     from pytraj import cpptraj_dict

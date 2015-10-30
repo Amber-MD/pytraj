@@ -8,22 +8,20 @@ adict = ActionDict()
 from pytraj.analysis_dict import AnalysisDict
 analdict = AnalysisDict()
 
-from pytraj.api import Trajectory
+from pytraj.trajectory import Trajectory
 from ._get_common_objects import _get_topology, _get_data_from_dtype, _get_list_of_commands
 from ._get_common_objects import _get_matrix_from_dataset
 from ._get_common_objects import _get_reference_from_traj, _get_fiterator
-from pytraj.core.ActionList import ActionList
 from .utils import is_array, ensure_not_none_or_string
 from .utils import is_int
 from .utils.context import goto_temp_folder
 from .utils.convert import array_to_cpptraj_atommask
 from .externals.six import string_types
-from .Frame import Frame
 from .topology import Topology
 from .datasets.DatasetList import DatasetList as CpptrajDatasetList
 from .datafiles import DataFileList
 from .datasetlist import DatasetList
-from .hbonds import search_hbonds
+from .hbond_analysis import search_hbonds
 from .dssp_analysis import calc_dssp
 from ._nastruct import nastruct
 from ._shared_methods import iterframe_master
@@ -31,7 +29,8 @@ from .externals.get_pysander_energies import get_pysander_energies
 from .decorators import _register_pmap, _register_openmp
 from .actions import CpptrajActions
 from .analyses import CpptrajAnalyses
-from .core.ActionList import ActionList
+from .core.action_list import ActionList
+from .utils.convert import array2d_to_cpptraj_maskgroup
 
 list_of_cal = ['calc_distance',
                'calc_dihedral',
@@ -66,9 +65,8 @@ list_of_do = ['do_translation',
 
 list_of_get = ['get_average_frame']
 
-list_of_the_rest = ['search_hbonds',
-                    'align_principal_axis', 'principal_axes', 'closest',
-                    'native_contacts', 'nastruct']
+list_of_the_rest = ['search_hbonds', 'align_principal_axis', 'principal_axes',
+                    'closest', 'native_contacts', 'nastruct']
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
@@ -228,13 +226,14 @@ def calc_pairwise_distance(traj=None,
                                                   string_types) else mask_2
     arr = np.array(list(product(indices_1, indices_2)))
     mat = calc_distance(traj,
-                         mask=arr,
-                         dtype=dtype,
-                         top=_top,
-                         frame_indices=frame_indices)
+                        mask=arr,
+                        dtype=dtype,
+                        top=_top,
+                        frame_indices=frame_indices)
     mat = mat.T
     return (mat.reshape(mat.shape[0], len(indices_1), len(indices_2)),
             arr.reshape(len(indices_1), len(indices_2), 2))
+
 
 @_register_pmap
 def calc_angle(traj=None,
@@ -302,7 +301,7 @@ def calc_angle(traj=None,
 
         elif isinstance(command, (list, tuple)):
             list_of_commands = command
-            from pytraj.core.ActionList import ActionList
+            from pytraj.core.action_list import ActionList
             dslist = CpptrajDatasetList()
             actlist = ActionList()
 
@@ -427,7 +426,7 @@ def calc_dihedral(traj=None,
 
         elif isinstance(command, (list, tuple)):
             list_of_commands = command
-            from pytraj.core.ActionList import ActionList
+            from pytraj.core.action_list import ActionList
             from pytraj.actions.CpptrajActions import Action_Dihedral
             dslist = CpptrajDatasetList()
             actlist = ActionList()
@@ -479,7 +478,6 @@ def calc_mindist(traj=None,
     >>> import pytraj as pt
     >>> pt.mindist(traj, '@CA @H')
     '''
-    from pytraj.utils.convert import array2d_to_cpptraj_maskgroup
 
     traj = _get_fiterator(traj, frame_indices)
     act = CpptrajActions.Action_NativeContacts()
@@ -494,19 +492,33 @@ def calc_mindist(traj=None,
     return _get_data_from_dtype(dslist, dtype=dtype)[-1]
 
 
-def _calc_diffusion(traj=None,
-                  mask="",
-                  tstep=1.0,
-                  dtype='ndarray',
-                  individual=False,
-                  top=None,
-                  frame_indices=None):
+def calc_diffusion(traj,
+                   mask="",
+                   tstep=1.0,
+                   individual=False,
+                   top=None,
+                   dtype='dataset',
+                   frame_indices=None):
     '''
+    Parameters
+    ----------
+    traj : Trajectory-like or iterator
+    mask : str, default '' (all atoms)
+    tstep : float, time step between frames, default 1.0 ps
+    individual : bool, default False
+    top : Topology, optional
+    dtype : str, default 'dataset'
+    frame_indices : array or None
+
     Examples
     --------
     >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> pt.diffusion(traj)
     '''
     traj = _get_fiterator(traj, frame_indices)
+    _top = _get_topology(traj, top)
+
     act = CpptrajActions.Action_Diffusion()
     dslist = CpptrajDatasetList()
 
@@ -518,80 +530,23 @@ def _calc_diffusion(traj=None,
     else:
         command = mask
 
-    command = ' '.join((command, _tsep, 'nocalc', _individual))
+    # add 'df' as label
+    label = 'df'
+    command = ' '.join((command, label, _tsep, _individual))
 
-    traj = _get_fiterator(traj, frame_indices)
-    _top = _get_topology(traj, top)
+    # normally we just need 
+    # act(command, traj, top=_top, dslist=dslist)
+    # but cpptraj need correct frame idx
 
-    act(command, traj, top=_top, dslist=dslist)
+    act.read_input(command, top=_top, dslist=dslist)
+    act.process(_top)
+    for idx, frame in enumerate(traj):
+        act.do_action(frame, idx=idx)
+    act.print_output()
 
+    # make the label nicer
     for d in dslist:
-        # make nicer labels
-        d.key = d.key.replace('[', '_').replace(']', '')
-
-    return _get_data_from_dtype(dslist, dtype=dtype)
-
-
-def _calc_STFC_diffusion(traj=None,
-                    mask="*",
-                    dimension='xyz',
-                    time=1.0,
-                    mask2=None,
-                    lower=0.01,
-                    upper=3.5,
-                    distance=False,
-                    com=False,
-                    frame_indices=None,
-                    top=None,
-                    dtype='ndarray'):
-    '''calcualte diffusion for selected atoms
-
-    Parameters
-    ----------
-    traj : Trajectory-like or iterable that produces Frame
-    mask : str, defaul '*' (all atoms)
-    mask2 : str, 2nd mask, optional
-    time : time step (ps)
-    ...
-    '''
-    traj = _get_fiterator(traj, frame_indices)
-    _top = _get_topology(traj, top)
-
-    if not isinstance(mask, string_types):
-        mask = array_to_cpptraj_atommask(mask)
-    else:
-        mask = mask
-
-    _mask = 'mask ' + mask
-    if mask2 is None:
-        _mask2 = ''
-    else:
-        if not isinstance(mask2, string_types):
-            mask2 = array_to_cpptraj_atommask(mask2)
-        else:
-            mask2 = mask2
-        _mask2 = 'mask2 ' + mask2
-
-    _time = 'time ' + str(time)
-    _lower = 'lower ' + str(lower)
-    _upper = 'upper ' + str(upper)
-    _distances = 'distances' if distance else ''
-    _com = 'com' if com else ''
-    dirlist = ['x', 'y', 'z', 'xy', 'xz', 'yz', 'xyz']
-
-    if dimension not in ['x', 'y', 'z', 'xy', 'xz', 'yz', 'xyz']:
-        raise ValueError('direction must be in {0}'.format(str(dirlist)))
-    else:
-        _dimention = dimension
-
-    act = CpptrajActions.Action_STFC_Diffusion()
-    #act = CpptrajActions.Action_Diffusion()
-    dslist = CpptrajDatasetList()
-
-    command = ' '.join((_mask, _time, _mask2, _lower, _upper, _distances, _com,
-                        _dimention))
-
-    act(command, traj, top=_top, dslist=dslist)
+        d.key = d.key.replace('[', '').replace(']', '').replace(label, '')
 
     return _get_data_from_dtype(dslist, dtype=dtype)
 
@@ -656,6 +611,7 @@ def calc_watershell(traj=None,
 
     act(command, traj, top=_top, dslist=dslist)
     return _get_data_from_dtype(dslist, dtype=dtype)
+
 
 def calc_matrix(traj=None,
                 command="",
@@ -1445,7 +1401,7 @@ def calc_vector(traj=None,
     >>> comlist = ['ucellx', 'boxcenter', 'box']
     >>> pt.calc_vector(traj, comlist)
     """
-    from pytraj.core.ActionList import ActionList
+    from pytraj.core.action_list import ActionList
 
     dslist = CpptrajDatasetList()
     _top = _get_topology(traj, top)
@@ -1519,6 +1475,7 @@ def calc_center_of_geometry(traj=None, command="", top=None, dtype='ndarray'):
 
 
 calc_COG = calc_center_of_geometry
+
 
 @_register_openmp
 def calc_pairwise_rmsd(traj=None,
@@ -1705,23 +1662,29 @@ def rmsd_perres(traj=None,
                      top=top,
                      dtype=dtype)
 
+
 @_register_pmap
 def calc_rmsd_nofit(traj=None,
-              ref=0,
-              mask="",
-              mass=False,
-              frame_indices=None,
-              top=None,
-              dtype='ndarray'):
+                    ref=0,
+                    mask="",
+                    mass=False,
+                    frame_indices=None,
+                    top=None,
+                    dtype='ndarray'):
     '''
     See also
     --------
     calc_rmsd
     '''
-    return calc_rmsd(traj=traj, ref=ref, mask=mask, mass=mass,
-                     nofit=True, frame_indices=frame_indices,
+    return calc_rmsd(traj=traj,
+                     ref=ref,
+                     mask=mask,
+                     mass=mass,
+                     nofit=True,
+                     frame_indices=frame_indices,
                      top=top,
                      dtype=dtype)
+
 
 @_register_pmap
 def calc_rmsd(traj=None,
@@ -2223,9 +2186,7 @@ def auto_correlation_function(data, dtype='ndarray', covar=True):
     return _get_data_from_dtype(cdslist[1:], dtype=dtype)
 
 
-def lifetime(data, cut=0.5, rawcurve=False,
-             more_options='',
-             dtype='ndarray'):
+def lifetime(data, cut=0.5, rawcurve=False, more_options='', dtype='ndarray'):
     """lifetime (adapted lightly from cpptraj doc)
 
     Parameters
@@ -2250,7 +2211,7 @@ def lifetime(data, cut=0.5, rawcurve=False,
     cdslist = CpptrajDatasetList()
     for idx, arr in enumerate(data_):
         # create datasetname so we can reference them
-        name = 'data_' + str(idx) 
+        name = 'data_' + str(idx)
         if 'int' in arr.dtype.name:
             cdslist.add_set("integer", name)
         else:
@@ -2691,45 +2652,37 @@ def _grid(traj, mask, grid_spacing,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def NH_order_parameters(traj, vector_pairs, order=2, tstep=1., tcorr=10000.):
-    '''compute NH order parameters
-
-    Parameters
-    ----------
-    traj : Trajectory-like
-    vector_pairs : 2D array-like, shape (n_pairs, 2)
-    order : default 2
-    tstep : default 1.
-    tcorr : default 10000.
-
-    Returns
-    -------
-    S2 : 1D array, order parameters
-
-    Examples
-    --------
-    >>> import pytraj as pt
-    >>> h_indices = pt.select_atoms(traj.top, '@H')
-    >>> n_indices = h_indices - 1
-    >>> nh_pairs = list(zip(n_indices, h_indices))
-    >>> data = pt.NH_order_parameters(traj, nh_pairs)
-    >>> print(data)
+def transform(traj, commands, frame_indices=None):
+    '''transform pytraj.Trajectory by a series of cpptraj's commands
     '''
-    from pytraj import matrix
+    return traj.transform(commands, frame_indices=frame_indices)
 
-    # compute N-H vectors and ired matrix
-    vecs_and_mat = ired_vector_and_matrix(traj, vector_pairs, order=order, dtype='tuple')
-    state_vecs = vecs_and_mat[0]
-    mat_ired = vecs_and_mat[1]
 
-    # get eigenvalues and eigenvectors
-    modes = matrix.diagonalize(mat_ired, n_vecs=len(state_vecs))[0]
-    evals, evecs = modes.eigenvalues, modes.eigenvectors
+def lowestcurve(data, points=10, step=0.2):
+    '''calculate lowest curve for data
 
-    data = _ired(state_vecs,
-                 modes=(evals, evecs),
-                 NHbond=True,
-                 tcorr=tcorr,
-                 tstep=tstep)
-    order = [d.values.copy() for d in data if 'S2' in d.key][0]
-    return order
+    Paramters
+    ---------
+    data : 2D array-like
+    points : number of lowest points in each bin, default 10
+    step : step size, default 0.2
+
+    Return
+    ------
+    2d array
+    '''
+    _points = 'points ' + str(points)
+    _step = 'step ' + str(step)
+    label = 'mydata'
+    command = ' '.join((label, _points, _step))
+
+    data = np.asarray(data)
+
+    act = CpptrajAnalyses.Analysis_LowestCurve()
+    dslist = CpptrajDatasetList()
+
+    dslist.add_new('xymesh', label)
+    dslist[0]._append_from_array(data.T)
+
+    act(command, dslist=dslist)
+    return np.array([dslist[-1]._xcrd(), np.array(dslist[-1].values)])

@@ -13,7 +13,7 @@ import numpy as np
 from ..utils import is_int
 from .._shared_methods import _xyz
 from .._shared_methods import my_str_method
-from .._cyutils import get_positive_idx
+from ..cyutils import get_positive_idx
 from ..trajs.TrajectoryCpptraj import TrajectoryCpptraj
 from ..topology cimport Topology
 from ..externals.six import string_types
@@ -230,6 +230,13 @@ cdef class Dataset1D (Dataset):
         old_size = self.size
         self.resize(self.size + len(array_like))
         self.values[old_size:] = array_like
+
+    def _xcrd(self):
+        '''x-data.
+        '''
+        cdef unsigned int idx
+
+        return np.array([self.baseptr_1.Xcrd(idx) for idx in range(len(self))])
 
 
 cdef class DatasetDouble (Dataset1D):

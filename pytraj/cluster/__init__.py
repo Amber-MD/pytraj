@@ -49,22 +49,23 @@ def kmeans(traj=None,
     _metric = metric
     _mask = mask
     _output = output_options
-    command = ' '.join((_clusters, _random_point, _kseed, _maxit,
-                        _metric, _mask, _output))
+    command = ' '.join((_clusters, _random_point, _kseed, _maxit, _metric,
+                        _mask, _output))
     return _cluster(traj, command, top=top, dtype='ndarray')
 
+
 def _dbscan(traj=None,
-           mask='*',
-           minpoints=None,
-           epsilon=0.,
-           sievetoframe=False,
-           random_sieveseed=1,
-           kdist=None,
-           kfile=None,
-           sieve=1,
-           metric='rms',
-           top=None,
-           output_options=''):
+            mask='*',
+            minpoints=None,
+            epsilon=0.,
+            sievetoframe=False,
+            random_sieveseed=1,
+            kdist=None,
+            kfile=None,
+            sieve=1,
+            metric='rms',
+            top=None,
+            output_options=''):
     '''perform clustering and return cluster index for each frame
 
     Parameters

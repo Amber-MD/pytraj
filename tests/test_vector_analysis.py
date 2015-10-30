@@ -11,7 +11,7 @@ from pytraj import adict
 from pytraj.testing import aa_eq
 from pytraj.testing import cpptraj_test_dir
 from pytraj.datasets.DatasetList import DatasetList
-from pytraj.core.ActionList import ActionList
+from pytraj import ActionList
 from pytraj.actions import CpptrajActions as CA
 
 

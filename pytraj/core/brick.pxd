@@ -59,6 +59,10 @@ cdef extern from "Atom.h":
 
 cdef class Atom:
     cdef _Atom* thisptr
+    cdef int _index
+    cdef public object residue
+    cdef bint own_memory
+
 # distutils: language = c++
 from pytraj.core.cpp_core cimport _NameType, NameType
 

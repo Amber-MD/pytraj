@@ -1,5 +1,6 @@
 from __future__ import print_function
 import unittest
+from collections import OrderedDict
 import numpy as np
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
@@ -7,6 +8,7 @@ import pytraj.common_actions as pyca
 from pytraj.tools import flatten
 from pytraj import matrix
 from pytraj.compat import set
+from pytraj.parallel import _load_batch_pmap
 
 
 def gather(pmap_out):
@@ -151,8 +153,32 @@ class TestCpptrajCommandStyle(unittest.TestCase):
         distance_ = pt.distance(traj, '@10 @20')
 
         data = pt.pmap(['angle :3 :4 :5', 'distance @10 @20'], traj, n_cores=2)
-        aa_eq(angle_, data['Ang_00002'])
-        aa_eq(distance_, data['Dis_00003'])
+        assert isinstance(data, OrderedDict), 'must be OrderDict'
+        arr = pt.tools.dict_to_ndarray(data)
+        aa_eq(angle_, arr[0])
+        aa_eq(distance_, arr[1])
+
+    def test_reference(self):
+        traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+
+        for n_cores in [2, 3, 4]:
+            # use 4-th Frame for reference
+            data = pt.pmap(['rms @CA refindex 0'], traj, ref=traj[3], n_cores=n_cores)
+            arr = pt.tools.dict_to_ndarray(data)[0]
+            aa_eq(arr, pt.rmsd(traj, 3, '@CA'))
+
+            # use 4-th and 5-th Frame for reference
+            data = pt.pmap(['rms @CA refindex 0', 'rms @CB refindex 1'], traj, ref=[traj[3], traj[4]], n_cores=n_cores)
+            arr = pt.tools.dict_to_ndarray(data)[0]
+            aa_eq(arr, pt.rmsd(traj, 3, '@CA'))
+
+            arr1 = pt.tools.dict_to_ndarray(data)[1]
+            aa_eq(arr1, pt.rmsd(traj, 4, '@CB'))
+
+            # no ref
+            data = pt.pmap(['radgyr',], traj, n_cores=n_cores)
+            arr = pt.tools.dict_to_ndarray(data)[0]
+            aa_eq(arr, pt.radgyr(traj))
 
 class TestParallelMapForAverageStructure(unittest.TestCase):
     def test_pmap_average_structure(self):
@@ -163,6 +189,14 @@ class TestParallelMapForAverageStructure(unittest.TestCase):
         for n_cores in [2, 3, 4, 5]:
             frame = pt.pmap(pt.mean_structure, traj, '@CA', n_cores=n_cores)
             aa_eq(frame.xyz, saved_xyz)
+
+class TestLoadBathPmap(unittest.TestCase):
+    def test_load_batch(self):
+        '''just test ValueError
+        '''
+        self.assertRaises(ValueError, lambda: _load_batch_pmap(n_cores=4,
+        lines=['autoimage'], traj=None, dtype='dict', root=0,
+        mode='xyz', ref=None))
 
 
 if __name__ == "__main__":

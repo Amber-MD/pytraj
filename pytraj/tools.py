@@ -8,7 +8,6 @@ import sys as _sys
 import os
 from glob import glob
 from itertools import islice
-import functools
 from collections import OrderedDict, defaultdict
 import numpy as np
 
@@ -31,6 +30,7 @@ def groupby(key, seq):
         rv[k] = v.__self__
     return rv
 
+
 def _array_to_cpptraj_range(seq):
     # use "i+1" since cpptraj use 1-based index for mask
     '''
@@ -49,7 +49,7 @@ PY3 = _sys.version_info[0] == 3
 if PY3:
     _iteritems = "items"
     string_types = str
-else: # pragma: no covert
+else:  # pragma: no covert
     _iteritems = "iteritems"
     string_types = basestring
 
@@ -76,11 +76,6 @@ except ImportError:
 # this module gathers commonly used functions
 # from toolz, stackoverflow, ... and from myself
 # should make this independent from pytraj
-
-try:
-    import numpy as np
-except ImportError:
-    np = None
 
 
 def split(data, n_chunks):
@@ -126,6 +121,7 @@ def moving_average(data, n):
     """
     window = np.ones(int(n)) / float(n)
     return np.convolve(data, window, 'same')
+
 
 def _compose2(f, g):
     # copied from pandas
@@ -225,6 +221,7 @@ def n_grams(a, n):
 
     z = (islice(a, i, None) for i in range(n))
     return zip(*z)
+
 
 def dict_to_ndarray(dict_of_array):
     """convert OrderedDict to numpy array
@@ -420,7 +417,7 @@ def split_traj_by_residues(traj, start=0, stop=-1, step=1):
     1
     '''
     from pytraj.compat import range
-    from pytraj._cyutils import get_positive_idx
+    from pytraj.cyutils import get_positive_idx
 
     _stop = get_positive_idx(stop, traj.top.n_residues)
 
@@ -449,8 +446,9 @@ def find_lib(libname):
 
     return set(lib_path_list)
 
+
 def read_gaussian_output(filename=None, top=None):
-    """return a `pytraj.api.Trajectory` object
+    """return a `pytraj.trajectory.Trajectory` object
 
     Parameters
     ----------
@@ -467,7 +465,7 @@ def read_gaussian_output(filename=None, top=None):
     >>> pt.tools.read_gaussian_output("gau.out", "mytest.pdb") # doctest: +SKIP
     """
     import cclib
-    from pytraj.api import Trajectory
+    from pytraj.trajectory import Trajectory
     from pytraj.utils.context import goto_temp_folder
     from pytraj._get_common_objects import _get_topology
 
@@ -640,11 +638,10 @@ def split_and_write_traj(self,
         fname = ".".join((root_name, str(idx), ext))
         traj.save(fname, *args, **kwd)
 
+
 def read_to_array(fname):
     '''read text from file to numpy array'''
     import numpy as np
     with open(fname, 'r') as fh:
         arr0 = np.array([[x for x in line.split()] for line in fh.readlines()])
         return np.array(flatten(arr0), dtype='f8')
-
-

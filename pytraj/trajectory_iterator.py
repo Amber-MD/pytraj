@@ -1,7 +1,6 @@
 """out-of-core TrajectoryIterator
 """
 from __future__ import absolute_import
-import warnings
 import os
 from glob import glob
 import numpy as np
@@ -11,14 +10,13 @@ from .externals.six.moves import range
 from .topology import Topology
 from .Frame import Frame
 from .utils import is_int
-from ._cyutils import get_positive_idx
+from .cyutils import get_positive_idx
 from .frameiter import FrameIter
 from ._get_common_objects import _load_Topology
 from .utils import split_range
 from .utils.convert import array_to_cpptraj_atommask
 
-__all__ = ['TrajectoryIterator',]
-
+__all__ = ['TrajectoryIterator', ]
 
 
 def _make_frame_slices(n_files, original_frame_slice):
@@ -129,9 +127,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
             # slow
             # Topology is pickable
             if self._pickle_topology:
-                self.__dict__.update({
-                    'top': self.top
-                                     })
+                self.__dict__.update({'top': self.top})
 
         return self.__dict__
 
@@ -165,7 +161,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
             super(TrajectoryIterator, self).load(filename, _top, frame_slice)
             self.frame_slice_list.append(frame_slice)
         elif isinstance(filename,
-                        string_types) and not os.path.exists(filename):
+                            string_types) and not os.path.exists(filename):
             flist = sorted(glob(filename))
             if not flist:
                 raise ValueError(
@@ -349,7 +345,8 @@ class TrajectoryIterator(TrajectoryCpptraj):
             need_align = False
             ref, mask_for_rmsfit = None, None
 
-        for chunk in super(TrajectoryIterator, self).iterchunk(chunksize, start, stop):
+        for chunk in super(TrajectoryIterator, self).iterchunk(chunksize,
+                                                               start, stop):
             # always perform autoimage before doing fitting
             # chunk is `Trajectory` object, having very fast `autoimage` and
             # `rmsfit` methods
@@ -383,14 +380,14 @@ class TrajectoryIterator(TrajectoryCpptraj):
         return (self.n_frames, self.n_atoms, 3)
 
     def _split_iterators(self,
-                        n_chunks=1,
-                        start=0,
-                        stop=-1,
-                        step=1,
-                        mask=None,
-                        autoimage=False,
-                        rmsfit=None,
-                        rank=0):
+                         n_chunks=1,
+                         start=0,
+                         stop=-1,
+                         step=1,
+                         mask=None,
+                         autoimage=False,
+                         rmsfit=None,
+                         rank=0):
         """simple splitting `self` to n_chunks FrameIter objects
 
         Examples
@@ -421,14 +418,14 @@ class TrajectoryIterator(TrajectoryCpptraj):
         else:
             list_of_iterators = []
             for (_start, _stop) in split_range(n_chunks=n_chunks,
-                                        start=start,
-                                        stop=stop):
+                                               start=start,
+                                               stop=stop):
                 list_of_iterators.append(self.iterframe(start=_start,
-                                  stop=_stop,
-                                  step=step,
-                                  mask=mask,
-                                  autoimage=autoimage,
-                                  rmsfit=rmsfit))
+                                                        stop=_stop,
+                                                        step=step,
+                                                        mask=mask,
+                                                        autoimage=autoimage,
+                                                        rmsfit=rmsfit))
             return list_of_iterators
 
     @property

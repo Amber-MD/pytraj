@@ -4,7 +4,10 @@ from .decorators import _register_pmap
 
 _supported_types = [
     x for x in
-    'minimage dipole center corrplane box boxcenter ucellx ucelly ucellz principal'.split()]
+    'minimage dipole center corrplane box boxcenter ucellx ucelly ucellz principal'.split(
+    )
+]
+
 
 def _2darray_to_atommask_groups(seq):
     '''
@@ -13,11 +16,15 @@ def _2darray_to_atommask_groups(seq):
     '''
     for arr in seq:
         # example: arr = [0, 3]; turns ot '@1 @4'
-        yield '@' + str(arr[0]+1) + ' @' +  str(arr[1]+1)
+        yield '@' + str(arr[0] + 1) + ' @' + str(arr[1] + 1)
 
 
 @_register_pmap
-def vector_mask(traj=None, mask="", frame_indices=None, dtype='ndarray', top=None):
+def vector_mask(traj=None,
+                mask="",
+                frame_indices=None,
+                dtype='ndarray',
+                top=None):
     """compute vector between two maskes
 
     Parameters
@@ -57,7 +64,7 @@ def vector_mask(traj=None, mask="", frame_indices=None, dtype='ndarray', top=Non
     from ._get_common_objects import _get_list_of_commands
     from .datasets.DatasetList import DatasetList as CpptrajDatasetList
     from .actions.CpptrajActions import Action_Vector
-    from .core.ActionList import ActionList
+    from .core.action_list import ActionList
 
     fi = _get_fiterator(traj, frame_indices)
     _top = _get_topology(fi, top)
@@ -69,7 +76,8 @@ def vector_mask(traj=None, mask="", frame_indices=None, dtype='ndarray', top=Non
         list_of_commands = _get_list_of_commands(mask)
     else:
         if cm_arr.ndim != 2:
-            raise ValueError('if mask is a numpy.ndarray, it must have ndim = 2')
+            raise ValueError(
+                'if mask is a numpy.ndarray, it must have ndim = 2')
         list_of_commands = _2darray_to_atommask_groups(cm_arr)
 
     actlist = ActionList()
@@ -80,6 +88,7 @@ def vector_mask(traj=None, mask="", frame_indices=None, dtype='ndarray', top=Non
         actlist.add_action(act, _command, _top, dslist=dslist)
     actlist.do_actions(fi)
     return _get_data_from_dtype(dslist, dtype=dtype)
+
 
 _template = '''
 @_register_pmap
@@ -97,7 +106,7 @@ def %s(traj=None, command="", frame_indices=None, dtype='ndarray', top=None):
     from ._get_common_objects import _get_list_of_commands
     from .datasets.DatasetList import DatasetList as CpptrajDatasetList
     from .actions.CpptrajActions import Action_Vector
-    from .core.ActionList import ActionList
+    from .core.action_list import ActionList
 
     fi = _get_fiterator(traj, frame_indices)
     _top = _get_topology(fi, top)

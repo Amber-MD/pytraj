@@ -15,6 +15,7 @@ from pytraj.compat import set
 from pytraj.externals.six import PY2, PY3, string_types
 from pytraj.utils.check_and_assert import is_int
 from pytraj.cpptraj_dict import ParmFormatDict
+from pytraj.core.fake_residue import SimplifiedResidue
 
 PY2 = sys.version_info[0] == 2
 PY3 = sys.version_info[0] == 3
@@ -215,6 +216,19 @@ cdef class Topology:
     def __iter__(self):
         return self.atoms
 
+    def _iter_mut(self):
+        cdef Atom atom
+        cdef int n_atoms = self.n_atoms
+        cdef int idx = 0
+
+        for idx in range(n_atoms):
+            atom = Atom()
+            atom.thisptr = &(self.thisptr.GetAtomView(idx))
+            atom.own_memory = False
+            atom.index = idx
+            atom.residue = self._residue_light(atom.resnum)
+            yield atom
+
     def select(self, mask):
         """return AtomMask object
 
@@ -234,12 +248,16 @@ cdef class Topology:
         def __get__(self):
             cdef Atom atom
             cdef atom_iterator it
+            cdef int idx = 0
 
             it = self.thisptr.begin()
             while it != self.thisptr.end():
                 atom = Atom()
                 atom.thisptr[0] = deref(it)
+                atom.index = idx
+                atom.residue = self._residue_light(atom.resnum)
                 yield atom
+                idx += 1
                 incr(it)
 
     property residues:
@@ -701,6 +719,31 @@ cdef class Topology:
         '''
         mask = mask.encode()
         self.thisptr.SetSolvent(mask)
+
+    def residue(self, int idx):
+        cdef Residue res = Residue()
+        res.thisptr[0] = self.thisptr.Res(idx)
+        start, end = res.first_atom_idx, res.last_atom_idx
+        return SimplifiedResidue(res.name, res.original_resnum, self.atomlist[start:end],
+                start, end)
+
+    def _atom(self, int idx):
+        '''return Atom based on idx. Update this Atom will update Topology too
+        Make this method private for now.
+        '''
+        cdef Atom atom = Atom()
+        atom.own_memory = False
+        atom.thisptr = &self.thisptr.GetAtomView(idx)
+        return atom
+
+    def _residue_light(self, int idx):
+        '''no atom list for SimplifiedResidue
+        '''
+        cdef Residue res = Residue()
+        res.thisptr[0] = self.thisptr.Res(idx)
+        start, end = res.first_atom_idx, res.last_atom_idx
+        return SimplifiedResidue(res.name, res.original_resnum, [], start, end)
+
 
 cdef class ParmFile:
     def __cinit__(self):

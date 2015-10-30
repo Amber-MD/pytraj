@@ -15,6 +15,36 @@ class TestIO(unittest.TestCase):
     def setUp(self):
         self.traj_tz2_ortho = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
 
+    def test_load_comprehensive(self):
+        traj = self.traj_tz2_ortho
+        fn, tn = ("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+
+        # frame_slice
+        t0 = pt.io.load_traj(fn, tn, frame_slice=(0, 3))
+        aa_eq(self.traj_tz2_ortho[:3].xyz, t0.xyz)
+
+        # mask
+        t1 = pt.load(fn, tn, mask='@CA')
+        aa_eq(t1.xyz, traj['@CA'].xyz)
+
+        # frame_indices, list
+        t1 = pt.load(fn, tn, frame_indices=[0, 3])
+        aa_eq(t1.xyz, traj[[0, 3]].xyz)
+
+        # frame_indices, tuple
+        t1 = pt.load(fn, tn, frame_indices=(0, 3))
+        aa_eq(t1.xyz, traj[[0, 3]].xyz)
+
+        # mask and frame_indices
+        t2 = pt.load(fn, tn, mask='@CA', frame_indices=[3, 8])
+        aa_eq(t2.xyz, traj[[3, 8], '@CA'].xyz)
+
+        # load http
+        t2 = pt.load('https://raw.githubusercontent.com/ParmEd/ParmEd/master/test/files/2koc.pdb')
+        assert t2.n_atoms == 451, '2koc, 451 atoms'
+        assert isinstance(t2, pt.Trajectory), 'must be Trajectory when loading 2koc.pdb'
+
+
     def test_save_traj_from_file(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:5]
         pt.write_traj(filename="./output/test_0.binpos",
@@ -24,6 +54,43 @@ class TestIO(unittest.TestCase):
 
         savedtraj = pt.iterload("./output/test_0.binpos", traj.top)
         assert savedtraj.n_frames == traj.n_frames
+
+        # write_xyz
+        pt.write_traj("./output/test_0.nc",
+                      traj.xyz, 
+                      top="./data/Tc5b.top",
+                      overwrite=True)
+        aa_eq(pt.iterload('output/test_0.nc', traj.top).xyz, traj.xyz)
+
+        # write single Frame
+        pt.write_traj("./output/test_0.nc",
+                      traj[0],
+                      top=traj.top,
+                      overwrite=True)
+        aa_eq(pt.iterload('output/test_0.nc', traj.top).xyz, traj[0].xyz)
+
+        # raise if traj is None
+        self.assertRaises(ValueError, lambda: pt.write_traj("./output/test_0.nc",
+                      None,
+                      overwrite=True))
+
+        # raise if _top is None
+        fi = pt.create_pipeline(traj, ['autoimage', ])
+        self.assertRaises(ValueError, lambda: pt.write_traj("./output/test_0.nc",
+                      traj=fi,
+                      overwrite=True))
+
+        # raise if Frame with frame_indices
+        self.assertRaises(ValueError, lambda: pt.write_traj("./output/test_0.nc",
+                      traj[0],
+                      top="./data/Tc5b.top",
+                      frame_indices=[3, 2],
+                      overwrite=True))
+
+        # raise if Frame with no Topology
+        self.assertRaises(ValueError, lambda: pt.write_traj("./output/test_0.nc",
+                      traj[0],
+                      overwrite=True))
 
     def test_blind_load(self):
         top = pt.load_topology("./data/Tc5b.top")
@@ -118,6 +185,10 @@ class TestIO(unittest.TestCase):
         xyz = pt.get_coordinates(traj, mask='@CA')
         aa_eq(xyz, traj['@CA'].xyz)
 
+        # slow
+        fi = pt.create_pipeline(traj, ['autoimage'])
+        aa_eq(pt.get_coordinates(fi), traj[:].autoimage().xyz)
+
         # raise
         self.assertRaises(ValueError, lambda: pt.get_coordinates(traj(), frame_indices=[0,
             2]))
@@ -147,7 +218,7 @@ class TestIO(unittest.TestCase):
         xyz = pt.get_coordinates(traj, frame_indices=[0, 5], autoimage=True, rmsfit=ref)
         aa_eq(traj2[[0, 5]].autoimage().superpose(ref).xyz, xyz)
 
-    def test_save_topology_inplace(self):
+    def test_load_and_save_topology(self):
         top = self.traj_tz2_ortho.top
         top.save('output/test.prmtop')
         top2 = pt.load_topology('output/test.prmtop')
@@ -158,6 +229,9 @@ class TestIO(unittest.TestCase):
         top3 = pt.load_topology('output/tz2_0.parm7')
         assert top3.n_atoms == 223, 'must have 223 atoms'
         assert top3.n_residues == 13, 'must have 13 residues'
+
+        # raise
+        self.assertRaises(ValueError, lambda: pt.load_topology(100))
 
     @unittest.skipIf(not has_scipy, 'skip since does not have scipy')
     def test_load_netcdf(self):
@@ -182,6 +256,9 @@ class TestIO(unittest.TestCase):
 
         self.assertRaises(RuntimeError, lambda: pt.io.load_frame('afddsfdsfa',
             traj.top.filename, 3))
+
+        self.assertRaises(RuntimeError, lambda: pt.io.load_frame(filename='afddsfdsfa',
+            top=traj.top.filename, index=3))
 
     def test_download_pdb(self):
         pt.io.download_PDB('1l2y', 'output/', overwrite=True)

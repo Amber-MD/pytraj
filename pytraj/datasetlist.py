@@ -94,7 +94,6 @@ def stack(args):
 concat_datasetlist = stack
 
 
-
 class DatasetList(list):
     '''similiar to python's list but the data is labeled.
     Think as a OrderedDict-like and list-like object. This class is suitable for small
@@ -151,10 +150,7 @@ class DatasetList(list):
         from pytraj.array import DataArray
         da = DataArray()
 
-        try:
-            ordered_keys = ddict['ordered_keys']
-        except KeyError:
-            ordered_keys = ddict.keys()
+        ordered_keys = ddict['ordered_keys']
 
         for key in ordered_keys:
             d = ddict[key]
@@ -184,7 +180,13 @@ class DatasetList(list):
         return ddict
 
     def dtypes(self):
-        return self.get_dtypes()
+        '''
+        >>> import pytraj as pt
+        >>> dslist = pt.multidihedral(pt.load_sample_data('ala3'), dtype='dataset')
+        >>> dslist.dtypes()
+        [dtype('float64'), dtype('float64'), dtype('float64'), dtype('float64'), dtype('float64'), dtype('float64')]
+        '''
+        return [d.dtype for d in self]
 
     def __str__(self):
         safe_msg = "<pytraj.DatasetList with %s datasets>\n" % self.size
@@ -203,9 +205,6 @@ class DatasetList(list):
 
     def __repr__(self):
         return self.__str__()
-
-    def is_empty(self):
-        return self != []
 
     @property
     def size(self):
@@ -233,6 +232,12 @@ class DatasetList(list):
         Traceback (most recent call last):
             ...
         ValueError: size = 0: can not index
+
+        >> # dummy
+        >>> d6 = dslist[pt.Frame]
+        Traceback (most recent call last):
+            ...
+        ValueError: index must be int, string, slice or array-like
         """
         if self.size == 0:
             raise ValueError("size = 0: can not index")
@@ -258,7 +263,7 @@ class DatasetList(list):
                 new_dslist.append(self[_idx], copy=False)
             return new_dslist
         else:
-            raise ValueError()
+            raise ValueError('index must be int, string, slice or array-like')
 
     def keys(self):
         """return a list
@@ -270,13 +275,6 @@ class DatasetList(list):
         tmp_list = []
         for d0 in self:
             tmp_list.append(d0.key)
-        return tmp_list
-
-    def get_dtypes(self):
-        """return a list"""
-        tmp_list = []
-        for d0 in self:
-            tmp_list.append(d0.dtype)
         return tmp_list
 
     def grep(self, key, mode='key', copy=False):
@@ -322,10 +320,6 @@ class DatasetList(list):
                 raise ValueError("support string or list/tuple of strings")
         return dtmp
 
-    def tolist(self):
-        """return a list of list/array"""
-        return [list(d)  for d in self]
-
     def to_dict(self):
         """return a dict object with key=key, value=list"""
         return OrderedDict((d0.key, d0.to_ndarray()) for d0 in self)
@@ -337,6 +331,8 @@ class DatasetList(list):
 
     def to_ndarray(self):
         """
+        >>> DatasetList({'x': [0, 2]}).values
+        array([0, 2])
         """
         if self.size == 1:
             return self[0].values
@@ -352,7 +348,8 @@ class DatasetList(list):
         pandas
         """
         import pandas
-        my_dict = OrderedDict((d0.key, d0.to_ndarray(copy=True)) for d0 in self)
+        my_dict = OrderedDict((d0.key, d0.to_ndarray(copy=True))
+                              for d0 in self)
         return pandas.DataFrame(my_dict)
 
     @classmethod
@@ -391,10 +388,13 @@ class DatasetList(list):
         >>> d.append(100)
         Traceback (most recent call last):
             ...
-        ValueError: 'must have key or be a dict'
+        ValueError: must have key or be a dict
         """
         if copy:
-            d0 = dset.copy()
+            try:
+                d0 = dset.copy()
+            except AttributeError:
+                d0 = dset
         else:
             d0 = dset
 
@@ -423,3 +423,24 @@ class DatasetList(list):
         >>> x = dslist.groupby(lambda x: 'psi' in x.key)
         '''
         return _groupby(self, func_or_key)
+
+    def filter(self, func, *args, **kwd):
+        """return a new view of DatasetList of func return True
+        >>> func = lambda x: sum(x) > 100
+        >>> dslist = DatasetList({'x': [100, 200], 'y': [20, 30]})
+        >>> dslist.filter(func)
+        <pytraj.DatasetList with 1 datasets>
+        x
+        [100 200]
+        """
+        dslist = self.__class__()
+
+        if isinstance(func, (string_types, list, tuple)):
+            return self.grep(func, *args, **kwd)
+        elif callable(func):
+            for d0 in self:
+                if func(d0, *args, **kwd):
+                    dslist.append(d0)
+            return dslist
+        else:
+            raise NotImplementedError("func must be a string or callable")

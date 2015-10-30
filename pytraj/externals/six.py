@@ -614,6 +614,7 @@ def add_metaclass(metaclass):
 
     return wrapper
 
+
 try:
     set = set
 except NameError:

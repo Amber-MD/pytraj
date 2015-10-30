@@ -1,23 +1,6 @@
 from __future__ import absolute_import
-import operator
 import numpy as np
-from pytraj._cyutils import _fast_count
 from pytraj.datasets import Dataset
-
-
-def elemwise(op, self, other=None):
-    if other:
-        if hasattr(other, 'values'):
-            _other = other.values
-        else:
-            _other = other
-        if hasattr(self, 'values'):
-            _self = self.values
-        else:
-            _self = self
-        return op(_self, _other)
-    else:
-        return op(self.values)
 
 
 class DataArray(object):
@@ -48,6 +31,11 @@ class DataArray(object):
         <pytraj.array.DataArray: size=3, key=x, dtype=int64, ndim=1> 
         values:
         [3 5 6]
+
+        >>> DataArray({'x' : [3, 5, 6]}, copy=False)
+        <pytraj.array.DataArray: size=3, key=x, dtype=int64, ndim=1> 
+        values:
+        [3 5 6]
         """
         if isinstance(dset, dict):
             assert len(dset.keys()) == 1, "single dict"
@@ -64,7 +52,7 @@ class DataArray(object):
             self.scalar_type = 'unknown'
             self.cpptraj_dtype = None
         else:
-            self.key= getattr(dset, 'key', "")
+            self.key = getattr(dset, 'key', "")
             self.name = getattr(dset, 'name', "")
             self.aspect = getattr(dset, 'aspect', 'unknown')
             self.idx = getattr(dset, 'idx', 0)
@@ -90,7 +78,9 @@ class DataArray(object):
 
     @classmethod
     def from_dict(cls, d):
-        assert isinstance(d, dict), "must be a dict"
+        '''
+        >>> x = DataArray.from_dict({'x': [2, 3]})
+        '''
         return cls(d)
 
     @property
@@ -110,17 +100,21 @@ class DataArray(object):
             yield x
 
     def __getitem__(self, idx):
+        '''
+        >>> x = DataArray({'x': [0, 2]})
+        >>> x[1]
+        2
+        '''
         return self._values[idx]
 
     def __setitem__(self, idx, value):
+        '''
+        >>> x = DataArray({'x': [0, 2]})
+        >>> x[0] = 2.
+        >>> x[0]
+        2
+        '''
         self._values[idx] = value
-
-    def transpose(self):
-        d = self.__class__(self, copy=False)
-        d.values = d.values.T
-        return d
-
-    T = property(transpose)
 
     @property
     def size(self):
@@ -130,11 +124,12 @@ class DataArray(object):
     def dtype(self):
         return self._values.dtype
 
-    def astype(self, t):
-        self._values = self._values.astype(t)
-
     @property
     def data(self):
+        '''
+        >>> DataArray({'x': [0, 2]}).data
+        array([0, 2])
+        '''
         return self.values
 
     def __str__(self):
@@ -160,29 +155,19 @@ class DataArray(object):
         new_ds.values = self.values.copy()
         return new_ds
 
-    def _shallow_copy(self):
-        """everything is copied but `self.values`
-        """
-        return self.__class__(self, copy=False)
-
-    def is_empty(self):
-        return len(self.values) == 0
-
     def append(self, value, axis=None):
         self.values = np.append(self.values[:], value, axis=axis)
 
     @property
     def shape(self):
+        '''
+        >>> DataArray({'x' : [0, 3]}).shape
+        (2,)
+        '''
         return self.values.shape
 
-    def tolist(self):
-        return self.values.tolist()
-
     def to_ndarray(self, copy=False):
-        if copy:
-            return self.values.copy()
-        else:
-            return self.values
+        return self.values
 
     def to_dict(self):
         '''
@@ -193,4 +178,9 @@ class DataArray(object):
         return {self.key: self.values}
 
     def flatten(self):
+        '''
+        >>> arr = DataArray({'x': [[0, 2], [3, 7]]})
+        >>> arr.flatten()
+        array([0, 2, 3, 7])
+        '''
         return self.values.flatten()

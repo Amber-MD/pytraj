@@ -6,7 +6,7 @@ from .externals.six import string_types
 from .datasets import CpptrajDatasetList
 from .decorators import _register_pmap
 from ._get_common_objects import _get_data_from_dtype, _get_topology
-from ._base_result_class import BaseAnalysisResult
+from .base_holder import BaseDataHolder
 from ._shared_methods import iterframe_master
 
 __all__ = ['DatasetHBond', 'search_hbonds']
@@ -24,7 +24,8 @@ def _to_amber_mask(txtlist):
         mask = mask.replace("_", ":")
         yield " ".join(re.findall(r"(:\d+@\w+)", mask))
 
-class DatasetHBond(BaseAnalysisResult):
+
+class DatasetHBond(BaseDataHolder):
     """Hold data for hbond analysis
     """
 
@@ -38,11 +39,11 @@ class DatasetHBond(BaseAnalysisResult):
 
     @property
     def donor_aceptor(self):
-        return self.data.grep(["solventhb", "solutehb"],
-                                 mode='aspect').keys()
+        return self.data.grep(["solventhb", "solutehb"], mode='aspect').keys()
 
     def _amber_mask(self):
         return list(_to_amber_mask(self._old_keys[1:]))
+
 
 def _update_key_hbond(_dslist):
 
@@ -54,6 +55,7 @@ def _update_key_hbond(_dslist):
     for d0 in _dslist:
         if d0.key == 'HB00000[UU]':
             d0.key = 'total_solute_hbonds'
+
 
 @_register_pmap
 def search_hbonds(traj,
@@ -115,7 +117,7 @@ def search_hbonds(traj,
 
     for idx, frame in enumerate(iterframe_master(traj)):
         act.do_action(frame, idx=idx)
-    
+
     act.print_output()
 
     old_keys = dslist.keys()

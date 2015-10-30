@@ -1,5 +1,6 @@
 from __future__ import print_function
 import unittest
+import pytraj as pt
 from pytraj.base import *
 from pytraj import adict
 from pytraj import io
@@ -8,7 +9,7 @@ import pytraj.common_actions as pyca
 """
 try not to get segmentation fault error (due to whatever freaking reason)
 """
-traj = io.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
 
 class Test(unittest.TestCase):
@@ -27,17 +28,17 @@ class Test(unittest.TestCase):
 
     def test_1(self):
         import pytraj.common_actions as pyca
-        pyca.search_hbonds(traj)
-        pyca.search_hbonds(traj, 'series')
-        pyca.search_hbonds(traj, 'series, nointramol')
+        pt.search_hbonds(traj)
+        pt.search_hbonds(traj, 'series')
+        pt.search_hbonds(traj, 'series, nointramol')
 
     def test_3_vdw_radii_topology(self):
-        top = io.load_pdb("./data/tz2.pdb").top
+        top = pt.load("./data/tz2.pdb").top
         # should raise ValueError since pdb does not have vdw info
         self.assertRaises(ValueError, lambda: top.vdw_radii())
 
     def test_4_trajiter(self):
-        traj = io.load_sample_data("tz2")
+        traj = pt.load_sample_data("tz2")
         from pytraj.compat import zip
 
         for idx, (f0, f1) in enumerate(zip(traj, traj)):
@@ -46,12 +47,11 @@ class Test(unittest.TestCase):
 
     def test_indexing_nonrefernce_DSL(self):
         from pytraj import dihedral_analysis as da
-        from pytraj.hbonds import search_hbonds
 
         # segmentation fault
         # new DSL
-        d0_dummy = search_hbonds(traj)[:][:][:][:][0]
-        d0 = search_hbonds(traj)[0]
+        d0_dummy = pt.search_hbonds(traj)[:][:][:][:][0]
+        d0 = pt.search_hbonds(traj)[0]
         # filter
 
         dslist = da.calc_phi(traj)

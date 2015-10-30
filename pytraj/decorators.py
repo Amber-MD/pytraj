@@ -3,8 +3,8 @@ import os
 import warnings
 from functools import wraps
 
-
 # we duplicate code from .utils.check_and_assert here to avoid circular import
+
 
 def _register_pmap(f):
     @wraps(f)
@@ -14,6 +14,7 @@ def _register_pmap(f):
     inner._is_parallelizable = True
     return inner
 
+
 def _register_openmp(f):
     @wraps(f)
     def inner(*args, **kwd):
@@ -21,6 +22,7 @@ def _register_openmp(f):
 
     inner._openmp_capability = True
     return inner
+
 
 def ensure_exist(f):
     @wraps(f)
@@ -31,7 +33,9 @@ def ensure_exist(f):
         if not os.path.exists(args[0]):
             raise RuntimeError('filename not exist')
         return f(*args, **kwd)
+
     return inner
+
 
 def has_(lib):
     """check if having `lib` library
@@ -39,8 +43,14 @@ def has_(lib):
     Examples
     --------
     >>> has_("numpy")
+    True
     """
-    return _import(lib)[0]
+    try:
+        __import__(lib)
+        return True
+    except ImportError:
+        return False
+
 
 def makesureABC(classname):
     def inner(func):

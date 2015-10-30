@@ -38,7 +38,7 @@ except ImportError:
 
 try:
     from .core import Atom, Residue, Molecule
-    from .core.ActionList import ActionList, create_pipeline
+    from .core.action_list import ActionList, create_pipeline
     Pipeline = ActionList
 
 except ImportError:
@@ -71,18 +71,17 @@ from . import array
 from .topology import Topology, ParmFile
 from .math import Vec3
 from .Frame import Frame
-from .api import Trajectory
+from .trajectory import Trajectory
 from .trajectory_iterator import TrajectoryIterator
 from .trajs.Trajout import Trajout
 from .datasets.cast_dataset import cast_dataset
 from .datasetlist import DatasetList as Dataset
 from . import io
-from .io import (load, iterload, load_remd, iterload_remd, _load_from_frame_iter, load_pdb_rcsb,
-                 load_pdb, load_cpptraj_file, load_sample_data,
-                 load_ParmEd,
-                 load_topology, read_parm, write_parm,
-                 get_coordinates, save, write_traj, read_pickle, read_json,
-                 to_pickle, to_json, )
+from .io import (load, iterload, load_remd, iterload_remd,
+                 _load_from_frame_iter, load_pdb_rcsb, load_cpptraj_file,
+                 load_sample_data, load_ParmEd, load_topology, read_parm,
+                 write_parm, get_coordinates, save, write_traj, read_pickle,
+                 read_json, to_pickle, to_json, )
 
 load_from_frame_iter = _load_from_frame_iter
 
@@ -99,30 +98,32 @@ from . import tools
 
 # actions and analyses
 from .actions import CpptrajActions as allactions
+from .actions import CpptrajActions
 from .analyses import CpptrajAnalyses as allanalyses
+from .analyses import CpptrajAnalyses
 from . import common_actions
-from .dssp_analysis import calc_dssp
+from .dssp_analysis import calc_dssp, dssp_allatoms, dssp_allresidues
 from .common_actions import (
-    calc_rmsd_nofit,
-    rmsd, rmsd_perres, distance_rmsd, search_hbonds,
+    calc_rmsd_nofit, rmsd, rmsd_perres, distance_rmsd, search_hbonds,
     calc_multidihedral, autoimage, nastruct, calc_angle, calc_dihedral,
-    calc_distance, calc_pairwise_distance, calc_center_of_mass, calc_center_of_geometry, calc_dssp,
-    calc_jcoupling, calc_molsurf, calc_radgyr, calc_rdf, calc_vector,
-    calc_pairwise_rmsd, calc_atomicfluct, calc_bfactors, calc_density,
-    calc_rotation_matrix,
-    calc_watershell, calc_volume, calc_mindist, lifetime, get_average_frame,
-    calc_atomiccorr,
-    get_velocity,
-    _dihedral_res, energy_decomposition, native_contacts,
+    calc_distance, calc_pairwise_distance, calc_center_of_mass,
+    calc_center_of_geometry, calc_dssp, calc_jcoupling, calc_molsurf,
+    calc_radgyr, calc_rdf, calc_vector, calc_pairwise_rmsd, calc_atomicfluct,
+    calc_bfactors, calc_density, calc_rotation_matrix, calc_watershell,
+    calc_volume, calc_mindist, lifetime, get_average_frame, calc_atomiccorr,
+    get_velocity, _dihedral_res, energy_decomposition, native_contacts,
     auto_correlation_function, principal_axes, cross_correlation_function,
     timecorr, center, translate, rotate, rotate_dihedral, make_structure,
     scale, do_clustering, clustering_dataset, _rotate_dih, randomize_ions,
-    crank, closest, search_neighbors, replicate_cell, _rotdif,
-    pairdist, _grid)
+    crank, closest, search_neighbors, replicate_cell, _rotdif, pairdist, _grid,
+    transform, lowestcurve, calc_diffusion,
+    )
 
 from .nmr import ired_vector_and_matrix, _ired, NH_order_parameters
 
 # create alias
+dssp_all_residues = dssp_allresidues
+fetch_pdb = load_pdb_rcsb
 rmsd_nofit = calc_rmsd_nofit
 distance = calc_distance
 distances = calc_distance
@@ -164,6 +165,8 @@ mindist = calc_mindist
 # compat with cpptraj
 nativecontacts = native_contacts
 pair_distribution = pairdist
+lowest_curve = lowestcurve
+diffusion = calc_diffusion
 
 from .matrix import dist
 distance_matrix = dist
@@ -226,23 +229,25 @@ def load_batch(traj, txt):
         raise ValueError('only support TrajectoryIterator')
     return _load_batch(txt, traj=traj)
 
+
 load_pipeline = load_batch
+
 
 def superpose(traj, *args, **kwd):
     traj.superpose(*args, **kwd)
 
 
 def to_mdtraj(traj, top=None):
-    # TODO: move to `io`?
     from pytraj.utils.context import goto_temp_folder
     import mdtraj as md
 
-    _top = top if top is not None else traj.top
     xyz = get_coordinates(traj)
 
     with goto_temp_folder():
-        _top.save("tmp.prmtop")
-        top = md.load_prmtop("tmp.prmtop")
+        if top is None:
+            pdb = 'tmp.pdb'
+            traj[:1].save(pdb)
+            top = md.load_topology(pdb)
         return md.Trajectory(xyz, top)
 
 
@@ -279,7 +284,8 @@ def iterframe(traj, *args, **kwd):
     """
     return traj.iterframe(*args, **kwd)
 
-from ._cyutils import _fast_iterptr as iterframe_from_array
+
+from .cyutils import _fast_iterptr as iterframe_from_array
 
 
 def iterchunk(traj, *args, **kwd):
@@ -297,6 +303,7 @@ def iterchunk(traj, *args, **kwd):
     """
     return traj.iterchunk(*args, **kwd)
 
+
 def select_atoms(topology, mask):
     '''return atom indices
 
@@ -309,6 +316,7 @@ def select_atoms(topology, mask):
     array([  4,  15,  39, ..., 159, 173, 197])
     '''
     return topology.select(mask)
+
 
 def strip_atoms(traj_or_topology, mask):
     '''return a new Trajectory or Topology with given mask
@@ -323,6 +331,7 @@ def strip_atoms(traj_or_topology, mask):
     elif hasattr(traj_or_topology, 'mask'):
         traj_or_topology.mask = kept_mask
         return traj_or_topology
+
 
 def show():
     # just delay importing
@@ -347,6 +356,7 @@ def show_versions():
     print("cpptraj version = ", __cpptraj_version__)
     print("cpptraj internal version = ", __cpptraj_internal_version__)
     print("cpptraj compiled flag = ", compiled_info())
+
 
 def _get_pytraj_path():
     '''Return pytraj path

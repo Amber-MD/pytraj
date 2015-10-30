@@ -20,7 +20,7 @@ mass_arr = [1.0, 1.00794, 10.811, 12.0107, 14.0067, 15.9994, 18.9984032,
             127.60, 180.94788, 204.3833, 50.9415, 183.84, 131.293, 91.224,
             88.90585, 174.9668, 0.0]
 
-atomic_number_arr = [0, 1, 5, 6, 7, 8, 9, 15, 16, 17, 35, 26, 20, 53, 12, 29,
+atomic_numbers = [0, 1, 5, 6, 7, 8, 9, 15, 16, 17, 35, 26, 20, 53, 12, 29,
                      3, 19, 37, 55, 30, 11, 13, 18, 33, 47, 79, 85, 4, 56, 83,
                      24, 27, 48, 87, 31, 32, 2, 72, 80, 49, 77, 36, 25, 42, 10,
                      28, 41, 76, 46, 78, 82, 84, 44, 45, 75, 86, 88, 14, 21,
@@ -29,19 +29,20 @@ atomic_number_arr = [0, 1, 5, 6, 7, 8, 9, 15, 16, 17, 35, 26, 20, 53, 12, 29,
 
 # copied from cpptraj
 # Atom names corresponding to AtomicElementType.
-atom_element_arr = ["??", "H", "B", "C", "N", "O", "F", "P", "S", "CL", "BR",
-                    "FE", "CA", "I", "MG", "CU", "LI", "K", "RB", "CS", "ZN",
-                    "NA", "AL", "AR", "AS", "AG", "AU", "AT", "BE", "BA", "BI",
-                    "CR", "CO", "CD", "FR", "GA", "GE", "HE", "HF", "HG", "IN",
-                    "IR", "KR", "MN", "MO", "NE", "NI", "NB", "OS", "PD", "PT",
-                    "PB", "PO", "RU", "RH", "RE", "RN", "RA", "SI", "SC", "SE",
-                    "SR", "SN", "SB", "TI", "TC", "TE", "TA", "TL", "V", "W",
-                    "XE", "ZR", "Y", "LU", "XP"]
+atom_elements = ["??", "H", "B", "C", "N", "O", "F", "P", "S", "CL", "BR",
+                 "FE", "CA", "I", "MG", "CU", "LI", "K", "RB", "CS", "ZN",
+                 "NA", "AL", "AR", "AS", "AG", "AU", "AT", "BE", "BA", "BI",
+                 "CR", "CO", "CD", "FR", "GA", "GE", "HE", "HF", "HG", "IN",
+                 "IR", "KR", "MN", "MO", "NE", "NI", "NB", "OS", "PD", "PT",
+                 "PB", "PO", "RU", "RH", "RE", "RN", "RA", "SI", "SC", "SE",
+                 "SR", "SN", "SB", "TI", "TC", "TE", "TA", "TL", "V", "W",
+                 "XE", "ZR", "Y", "LU", "XP"]
 
-mass_atomic_number_dict = dict(
-    (atomic_number, mass)
-    for (atomic_number, mass) in zip(atomic_number_arr, mass_arr))
+mass_atomic_number_dict = dict(zip(atomic_numbers, mass_arr))
 
-mass_element_dict = dict(
-    (atom_element, mass)
-    for (atom_element, mass) in zip(atom_element_arr, mass_arr))
+mass_element_dict = dict(zip(atom_elements, mass_arr))
+
+atomic_number_element_dict = dict(zip(atomic_numbers, atom_elements))
+
+# Element is a dict with key=atomic_number
+Element = dict(zip(atomic_numbers, zip(atom_elements, mass_arr)))

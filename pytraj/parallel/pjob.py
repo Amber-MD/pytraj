@@ -3,7 +3,7 @@ class PJob(object):
     Examples
     --------
     >>> import pytraj as pt
-    >>> from pytraj.parallel import PJob
+    >>> from pytraj.parallel.pjob import PJob
     >>> traj = pt.load_sample_data('tz2')
     >>> tasklist = []
     >>> tasklist.append((pt.radgyr, traj))
@@ -12,8 +12,9 @@ class PJob(object):
     >>> # perform each action on each CPUs (total 2 CPUs)
     >>> pjob = PJob(tasklist)
 
-    >>> # for data in pjob.compute(): print(data)
+    >>> data = pjob.compute()
     '''
+
     def __init__(self, tasklist):
         self.tasklist = tasklist
 

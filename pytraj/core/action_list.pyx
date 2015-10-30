@@ -11,7 +11,7 @@ def _get_arglist(arg):
     else:
         return ArgList(arg)
 
-def create_pipeline(traj, commands, DatasetList dslist=DatasetList()):
+def create_pipeline(traj, commands, DatasetList dslist=DatasetList(), frame_indices=None):
     '''create frame iterator from cpptraj's commands.
 
     This method is useful if you want cpptraj pre-processing your Trajectory before
@@ -54,8 +54,13 @@ def create_pipeline(traj, commands, DatasetList dslist=DatasetList()):
     cdef Frame frame
     cdef ActionList actlist
 
+    if frame_indices is None:
+        fi = traj
+    else:
+        fi = traj.iterframe(frame_indices=frame_indices)
+
     actlist = ActionList(commands, top=traj.top, dslist=dslist) 
-    for frame in iterframe_master(traj):
+    for frame in iterframe_master(fi):
         actlist.do_actions(frame)
         yield frame
 

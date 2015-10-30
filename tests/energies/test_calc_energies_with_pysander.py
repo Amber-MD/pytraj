@@ -176,8 +176,8 @@ class TestSander(unittest.TestCase):
         import sander
 
         if amberhome:
-            topfile = os.path.join(amberhome, "test/gbneck2nu_test/prmtop")
-            rstfile = os.path.join(amberhome, "test/gbneck2nu_test/min.r")
+            topfile = os.path.join(amberhome, "test/gbneck2nu/1hji/prmtop")
+            rstfile = os.path.join(amberhome, "test/gbneck2nu/1hji/min.r")
             traj = mdio.load(rstfile, topfile)
             options = sander.gas_input(8)
             options.cut = 9999.0

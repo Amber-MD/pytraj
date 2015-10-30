@@ -1,76 +1,20 @@
 from __future__ import absolute_import
 import numpy as np
-from ._base_result_class import BaseAnalysisResult
+from .base_holder import BaseDataHolder
 from ._get_common_objects import _get_data_from_dtype, _get_topology, _get_fiterator
 from .utils.convert import array_to_cpptraj_atommask as to_cpptraj_mask
-from pytraj.compat import string_types
-from pytraj import DatasetList
+from pytraj.compat import string_types, PY3
+from pytraj import DatasetList, tools
 from .decorators import _register_openmp
 
 
-class DSSPAnalysisResult(BaseAnalysisResult):
-    """
-    Notes
-    -----
-    class's name might be changed
-    """
-
-    def to_dict(self, dtype='int'):
-        """
-        Return a dict of numpy.ndarray
-
-        Parameters
-        ----------
-        dtype : str, {'int', 'string'}
-        """
-        if dtype == 'string':
-            return _to_string_secondary_structure(self.data.filter(
-                lambda x: 'int' in x.dtype.name).to_dict())
-        elif dtype == 'int':
-            return self.data.filter(
-                lambda x: 'int' in x.dtype.name).to_dict()
-        else:
-            raise NotImplementedError()
-
-    def to_ndarray(self, dtype='string'):
-        """
-        Return a numpy.ndarray
-
-        Parameters:
-        dtype : str, {'string', 'int'}
-        """
-        if dtype == 'string':
-            return _to_string_secondary_structure(self.data.filter(
-                lambda x: 'int' in x.dtype.name).to_ndarray())
-        elif dtype == 'int':
-            return self.data.filter(
-                lambda x: 'int' in x.dtype.name).to_ndarray()
-        else:
-            raise NotImplementedError()
-
-    def to_ndarray_per_frame(self, dtype='string'):
-        return self.to_ndarray(dtype).T
-
-    def average(self):
-        """
-        Return a `pytraj.datasetlist.DatasetList` object having average value
-        for each frame for each type of secondary structure
-        """
-        return self.data.grep("avg")
-
-    @property
-    def residues(self):
-        return np.array(self.data.grep('res', mode='aspect').keys())
-
-    def values_per_frame(self, restype='string'):
-        return np.vstack((self.residues, self.to_ndarray(restype).T))
-
-    def values_per_residue(self, restype='string'):
-        return np.vstack((self.residues, self.to_ndarray(restype).T)).T
-
-
 @_register_openmp
-def calc_dssp(traj=None, mask="", frame_indices=None, dtype='ndarray', top=None):
+def calc_dssp(traj=None,
+              mask="",
+              frame_indices=None,
+              dtype='ndarray',
+              simplified=False,
+              top=None):
     """return dssp profile for frame/traj
 
     Parameters
@@ -84,12 +28,15 @@ def calc_dssp(traj=None, mask="", frame_indices=None, dtype='ndarray', top=None)
     dtype : str, default 'ndarray'
         return data type, for regular user, just use default one (ndarray).
         use dtype='dataset' if wanting to get secondary structure in integer format
+    simplified : bool, default False
+        if True, use simplified codes, only has 'H', 'E' and 'C'
+        if False, use all DSSP codes
 
     Returns
     -------
     out_0: ndarray, shape=(n_residues,)
         residue names
-    out_1: ndarray, shape=(n_residues, n_frames)
+    out_1: ndarray, shape=(n_frames, n_residues)
         DSSP for each residue
     out_2 : pytraj.DatasetList
         average value for each secondary structure type
@@ -97,29 +44,36 @@ def calc_dssp(traj=None, mask="", frame_indices=None, dtype='ndarray', top=None)
     Examples
     --------
     >>> import pytraj as pt
+    >>> traj = pt.load_pdb_rcsb('1l2y')
     >>> residues, ss, _ = pt.dssp(traj, ":2-10")
     >>> residues
     array(['LEU:2', 'TYR:3', 'ILE:4', 'GLN:5', 'TRP:6', 'LEU:7', 'LYS:8',
-           'ASP:9', 'GLY:10'],
+           'ASP:9', 'GLY:10'], 
           dtype='<U6')
-    >>> ss
-    array([['0', '0', '0', ..., '0', '0', '0'],
-           ['H', 'H', 'H', ..., 'H', 'H', 'H'],
-           ['H', 'H', 'H', ..., 'H', 'H', 'H'],
+    >>> ss # doctest: +SKIP
+    array([['0', 'H', 'H', ..., 'H', 'T', '0'],
+           ['0', 'H', 'H', ..., 'H', 'T', '0'],
+           ['0', 'H', 'H', ..., 'H', 'T', '0'],
            ...,
-           ['H', 'H', 'H', ..., 'H', 'H', 'H'],
-           ['T', 'T', 'T', ..., 'T', 'H', 'T'],
-           ['0', '0', '0', ..., '0', '0', '0']],
+           ['0', 'H', 'H', ..., 'H', 'T', '0'],
+           ['0', 'H', 'H', ..., 'H', 'H', '0'],
+           ['0', 'H', 'H', ..., 'H', 'T', '0']],
           dtype='<U1')
 
     >>> residues, ss, _ = pt.dssp(traj, mask=range(100))
 
+    >>> traj = pt.fetch_pdb('1l2y')
+    >>> residues, ss, _ = pt.dssp(traj, simplified=True)
+    >>> ss[0].tolist() # first frame
+    ['C', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'C', 'C', 'H', 'H', 'H', 'H', 'C', 'C', 'C', 'C', 'C', 'C']
+
+
     Notes
     -----
     ========= ======= ========= =======================
-    Character Integer DSSP_Char SS_type
+    Character Integer DSSP_Char Seconday structure type
     ========= ======= ========= =======================
-    0         0       ' '       None
+    0         0       '0'       None
     b         1       'E'       Parallel Beta-sheet
     B         2       'B'       Anti-parallel Beta-sheet
     G         3       'G'       3-10 helix
@@ -128,6 +82,14 @@ def calc_dssp(traj=None, mask="", frame_indices=None, dtype='ndarray', top=None)
     T         6       'T'       Turn
     S         7       'S'       Bend
     ========= ======= ========= =======================
+
+    Simlified codes::
+
+        - 'H': include 'H', 'G', 'I' (helix)
+        - 'E': include 'E', 'B' (strand)
+        - 'C': include 'T', 'S' or '0' (coil)
+
+    Simlified codes will be mostly used for visulization in other packages.
     """
     from pytraj.datasets.DatasetList import DatasetList as CpptrajDatasetList
     from pytraj.actions.CpptrajActions import Action_DSSP
@@ -141,10 +103,7 @@ def calc_dssp(traj=None, mask="", frame_indices=None, dtype='ndarray', top=None)
     fi = _get_fiterator(traj, frame_indices)
     dslist = CpptrajDatasetList()
 
-    Action_DSSP()(command,
-                  fi,
-                  top=_top,
-                  dslist=dslist)
+    Action_DSSP()(command, fi, top=_top, dslist=dslist)
 
     # replace key to something nicer
     for key, dset in dslist.iteritems():
@@ -159,30 +118,143 @@ def calc_dssp(traj=None, mask="", frame_indices=None, dtype='ndarray', top=None)
         arr0 = dslist.grep("integer", mode='dtype').values
         keys = dslist.grep("integer", mode='dtype').keys()
         avg_dict = DatasetList(dslist.grep('_avg'))
-        return np.asarray(keys), np.asarray([_to_string_secondary_structure(arr) for arr
-            in arr0]), avg_dict
-    if dtype == '_dssp_class':
-        return DSSPAnalysisResult(_get_data_from_dtype(dslist,
-                                                       dtype='dataset'))
+        ss_array = np.asarray([_to_string_secondary_structure(arr, simplified=simplified)
+            for arr in arr0]).T
+        return np.asarray(keys), ss_array, avg_dict
     else:
         return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def _to_string_secondary_structure(arr0):
-    """
-    arr0 : {ndarray, dict of ndarray}
-    """
-    #ss = ['None', 'Para', 'Anti', '3-10', 'Alpha', 'Pi', 'Turn', 'Bend']
-    ss = ["0", "b", "B", "G", "H", "I", "T", "S"]
-    len_ss = len(ss)
-    ssdict = dict(zip(range(len_ss), ss))
+# _s0 = ['None', 'Para', 'Anti', '3-10', 'Alpha', 'Pi', 'Turn', 'Bend']
+_s1 = ["0", "b", "B", "G", "H", "I", "T", "S"]
 
-    myfunc = lambda key: ssdict[key]
-
-    if not isinstance(arr0, dict):
-        return np.vectorize(myfunc)(arr0)
+def _to_string_secondary_structure(arr0, simplified=False):
+    """
+    arr0 : ndarray
+    """
+    if not simplified:
+        ssdict = {0: '0', 1: 'b', 2: 'B', 3: 'G', 4: 'H', 5: 'I', 6: 'T', 7: 'S'}
     else:
-        new_dict = {}
-        for key in arr0.keys():
-            new_dict[key] = _to_string_secondary_structure(arr0[key])
-        return new_dict
+        ssdict = {0: 'C', 1: 'E', 2: 'E', 3: 'H', 4: 'H', 5: 'H', 6: 'C', 7: 'C'}
+
+    return np.vectorize(lambda key: ssdict[key])(arr0)
+
+
+def _get_ss_per_frame(arr, top, res_indices, simplified=False, all_atoms=False):
+    if simplified:
+        symbol = 'C'
+    else:
+        symbol = '0'
+
+    for idx, res in enumerate(top.residues):
+        if idx in res_indices:
+            ss = arr[res_indices.index(idx)]
+            if all_atoms:
+                yield [ss for _ in range(res.first_atom_idx,
+                    res.last_atom_idx)]
+            else:
+                # only residues
+                yield [ss, ]
+        else:
+            if all_atoms:
+                yield [symbol for _ in range(res.first_atom_idx,
+                    res.last_atom_idx)]
+            else:
+                yield [symbol, ]
+
+
+def dssp_allatoms(traj, *args, **kwd):
+    '''calculate dssp for all atoms
+
+    Returns
+    -------
+    ndarray, shape=(n_frames, n_atoms)
+
+    Notes
+    -----
+    this method is not well optimized for speed.
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.fetch_pdb('1l2y')
+    >>> x = pt.dssp_allatoms(traj, simplified=True)
+    >>> x[0, :3].tolist()
+    ['C', 'C', 'C']
+
+    See also
+    --------
+    calc_dssp
+    '''
+    res_labels, data = calc_dssp(traj, *args, **kwd)[:2]
+    top = _get_topology(traj, kwd.get('top', None))
+    res_indices = [int(x.split(':')[-1]) - 1 for x in res_labels]
+
+    if PY3:
+        new_data = np.empty((traj.n_frames, traj.n_atoms), dtype='U2')
+    else:
+        new_data = np.empty((traj.n_frames, traj.n_atoms), dtype='S2')
+
+    simplified = kwd.get('simplified', False)
+    for fid, arr in enumerate(data):
+        new_data[fid][:] = tools.flatten(_get_ss_per_frame(arr, top, res_indices,
+            simplified, all_atoms=True))
+    return new_data
+
+
+def dssp_allresidues(traj, *args, **kwd):
+    '''calculate dssp for all residues. Mostly used for visulization.
+
+    Returns
+    -------
+    ndarray, shape=(n_frames, n_residues)
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_dpdp()
+    >>> x = pt.dssp_allresidues(traj, simplified=True)
+    >>> x[0].tolist()
+    ['C', 'E', 'E', 'E', 'E', 'C', 'C', 'C', 'C', 'E', 'E', 'E', 'E', 'E', 'C', 'C', 'E', 'E', 'E', 'E', 'C', 'C']
+    >>> len(x[0]) == traj.top.n_residues
+    True
+
+    >>> # load trajectory having waters
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> x = pt.dssp_allresidues(traj, simplified=True)
+    >>> len(x[0]) == traj.top.n_residues
+    True
+    >>> len(x[0])
+    1704
+    >>> # only calculate protein residues, use `pytraj.dssp`
+    >>> y = pt.dssp(traj, simplified=True)
+    >>> len(y[0])
+    13
+
+    Notes
+    -----
+    this method is not well optimized for speed.
+
+    See also
+    --------
+    calc_dssp
+    '''
+    res_labels, data = calc_dssp(traj, *args, **kwd)[:2]
+    top = _get_topology(traj, kwd.get('top', None))
+
+    # do not need to compute again if there is no solvent or weird residues
+    if len(res_labels) == top.n_residues:
+        return data
+
+    res_indices = [int(x.split(':')[-1]) - 1 for x in res_labels]
+
+    if PY3:
+        new_data = np.empty((traj.n_frames, traj.top.n_residues), dtype='U2')
+    else:
+        new_data = np.empty((traj.n_frames, traj.top.n_residues), dtype='S2')
+
+    simplified = kwd.get('simplified', False)
+    for fid, arr in enumerate(data):
+        new_data[fid][:] = tools.flatten(_get_ss_per_frame(arr, top, res_indices,
+            simplified, all_atoms=False))
+    return new_data

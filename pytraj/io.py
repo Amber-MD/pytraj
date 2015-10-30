@@ -4,22 +4,18 @@ import numpy as np
 
 from .externals.six import string_types, PY3
 from .datafiles.load_sample_data import load_sample_data
-from .utils.check_and_assert import is_frame_iter
 from .externals._pickle import to_pickle, read_pickle
 from .externals._json import to_json, read_json
 from .datafiles.load_cpptraj_file import load_cpptraj_file
 from ._shared_methods import iterframe_master
-from ._cyutils import _fast_iterptr as iterframe_from_array
+from .cyutils import _fast_iterptr as iterframe_from_array
 from .cpp_options import set_error_silent
-from .utils.context import goto_temp_folder
 from ._get_common_objects import _get_topology
 from .topology import Topology, ParmFile
-from .api import Trajectory
+from .trajectory import Trajectory
 from .trajectory_iterator import TrajectoryIterator
 
-from .externals._load_ParmEd import load_ParmEd, _load_parmed
-from .externals._load_mdtraj import load_mdtraj as _load_mdtraj
-from .externals._load_MDAnalysis import load_MDAnalysis as _load_MDAnalysis
+from .externals._load_ParmEd import load_ParmEd
 
 from .decorators import ensure_exist
 
@@ -93,7 +89,8 @@ def load(filename, top=None, frame_indices=None, mask=None):
     >>> # which is equal to:
     >>> traj = pt.load('traj.nc', top='2koc.parm7', frame_indices=range(0, 10, 2))
     """
-    if isinstance(filename, string_types) and filename.startswith('http://') or filename.startswith('https://'):
+    if isinstance(filename, string_types) and filename.startswith(
+            'http://') or filename.startswith('https://'):
         return load_ParmEd(filename, as_traj=True, structure=True)
     else:
         # load to TrajectoryIterator object first
@@ -140,12 +137,14 @@ def iterload(*args, **kwd):
     return load_traj(*args, **kwd)
 
 
-def _load_netcdf(filename, top, frame_indices=None, engine='scipy'): # pragma: no cover
+def _load_netcdf(filename, top,
+                 frame_indices=None,
+                 engine='scipy'):  # pragma: no cover
     '''simply read all data to memory. Use this if you want to load data few times
     faster (and  you know what you are doing).
     '''
-    from pytraj import api
-    traj = api.Trajectory(top=top)
+    from pytraj import trajectory
+    traj = trajectory.Trajectory(top=top)
 
     if engine == 'scipy':
         from scipy import io
@@ -211,11 +210,10 @@ def load_traj(filename=None, top=None, *args, **kwd):
     return ts
 
 
-def _load_from_frame_iter(iterables, top=None, n_frames=None):
+def _load_from_frame_iter(iterables, top=None):
     '''
     '''
-    from .api import Trajectory
-    return Trajectory.from_iterable(iterables, top, n_frames)
+    return Trajectory.from_iterable(iterables, top)
 
 
 def iterload_remd(filename, top=None, T="300.0"):
@@ -321,7 +319,8 @@ def write_traj(filename="",
     >>> # write to netcdf file from 3D numpy array, need to provide Topology
     >>> xyz = traj.xyz
     >>> top = traj.top
-    >>> pt.write_traj("test_xyz.nc", xyz, top=traj.top, overwrite=True)
+    >>> pt.write_traj("output/test_xyz.nc", xyz, top=traj.top, overwrite=True)
+    >>> pt.write_traj("output/test_xyz.nc", xyz, top=traj.top, overwrite=True)
     """
     from .Frame import Frame
     from .trajs.Trajout import Trajout
@@ -408,7 +407,7 @@ def load_topology(filename, more_options=''):
     >>> top = pt.load_topology(parm)
 
     >>> # read with more_options
-    >>> pt.load_topology('1KX5.pdb', 'bonsearch 0.2')
+    >>> pt.load_topology('1KX5.pdb', 'bondsearch 0.2')
     """
     top = Topology()
 
@@ -422,15 +421,17 @@ def load_topology(filename, more_options=''):
         else:
             parm = ParmFile()
             set_error_silent(True)
-            parm.readparm(filename=filename, top=top, more_options=more_options)
+            parm.readparm(filename=filename,
+                          top=top,
+                          more_options=more_options)
             set_error_silent(False)
     else:
-        # try to load ParmED
-        top = load_ParmEd(filename)
+        raise ValueError('filename must be a string')
 
     if top.n_atoms == 0:
-        raise RuntimeError('n_atoms = 0: make sure to load correct filename '
-                           'or load supported topology (pdb, amber parm, psf, ...)')
+        raise RuntimeError(
+            'n_atoms = 0: make sure to load correct filename '
+            'or load supported topology (pdb, amber parm, psf, ...)')
     return top
 
 # creat alias
@@ -448,15 +449,14 @@ def loadpdb_rcsb(pdbid):
     --------
         io.loadpdb_rcsb("2KOC") # popular RNA hairpin
     """
-
-    url = 'http://www.rcsb.org/pdb/files/%s.pdb' % pdbid
+    url = 'http://www.rcsb.org/pdb/files/%s.pdb' % pdbid.upper()
     txt = urlopen(url).read()
     fname = "/tmp/tmppdb.pdb"
     with open(fname, 'w') as fh:
         if PY3:
             txt = txt.decode()
         fh.write(txt)
-    traj = load(fname, fname)
+    traj = load(fname)
     return traj
 
 
@@ -486,11 +486,6 @@ def download_PDB(pdbid, location="./", overwrite=False):
 load_pdb_rcsb = loadpdb_rcsb
 
 
-def load_pdb(pdb_file):
-    """return a Trajectory object"""
-    return load_traj(pdb_file, pdb_file)
-
-
 @ensure_exist
 def load_single_frame(filename=None, top=None, index=0):
     """load a single Frame"""
@@ -498,7 +493,6 @@ def load_single_frame(filename=None, top=None, index=0):
 
 
 load_frame = load_single_frame
-
 
 # creat alias
 save = write_traj

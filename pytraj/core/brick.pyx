@@ -4,6 +4,7 @@ from cython.operator cimport preincrement as incr
 from cpython.array cimport array as pyarray
 from pytraj.cpptraj_dict import get_key, AtomicElementDict
 from pytraj.externals.six import string_types
+from pytraj.core.elements import Element
 
 cdef class Atom:
     '''Atom
@@ -24,15 +25,24 @@ cdef class Atom:
         mass = mass
         self.thisptr = new _Atom(aname.thisptr[0], charge, mass, atype.thisptr[0])
         self.resnum = resnum
+        self.index = 0
+        self.own_memory = True
 
     def __dealloc__(self):
-        del self.thisptr
+        if self.own_memory:
+            del self.thisptr
 
     def copy(self):
         cdef Atom atom = Atom()
         #del atom.thisptr
         atom.thisptr = new _Atom(self.thisptr[0])
         return atom
+
+    property index:
+        def __get__(self):
+            return self._index
+        def __set__(self, int idx):
+            self._index = idx
 
     def bonded_indices(self):
         """get bond indices that `self` bonds to
@@ -56,10 +66,16 @@ cdef class Atom:
             self.thisptr.SetMol(mol_num)
 
     property charge:
-        def __set__(self,double qin):
+        def __set__(self, double qin):
             self.thisptr.SetCharge(qin)
         def __get__(self):
             return self.thisptr.Charge()
+
+    property gb_radius:
+        def __set__(self, double r):
+            self.thisptr.SetGBradius(r)
+        def __get__(self):
+            return self.thisptr.GBRadius()
     
     def __str__(self):
         if self.atomic_number > 0:
@@ -78,7 +94,11 @@ cdef class Atom:
 
     @property
     def element(self):
-        return get_key(self.thisptr.Element(), AtomicElementDict)
+        # I really miss python 3.5 unpacking
+        # return name, *Element[self.atomic_number]
+        name = get_key(self.thisptr.Element(), AtomicElementDict)
+        x = [name, ] + list(Element[self.atomic_number])
+        return tuple(x)
 
     @property
     def atomic_number(self):
@@ -97,6 +117,10 @@ cdef class Atom:
 
     @property
     def molnum(self):
+        return self.thisptr.MolNum()
+
+    @property
+    def chain(self):
         return self.thisptr.MolNum()
 
     @property

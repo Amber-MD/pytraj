@@ -1,51 +1,34 @@
 # do not use relative import here. Treat this module as a seperated package.
+import numpy as np
 from functools import partial
 from pytraj.cpp_options import info as compiled_info
-from collections import OrderedDict
-import numpy as np
-from pytraj.externals.six import string_types, iteritems
-from pytraj.datasetlist import stack, DatasetList
-from pytraj._get_common_objects import _get_data_from_dtype
 from pytraj import matrix
-from pytraj import mean_structure 
+from pytraj import mean_structure
 from pytraj import Frame
 from pytraj import ired_vector_and_matrix, rotation_matrix
 from pytraj import NH_order_parameters
 from pytraj import search_hbonds
 from multiprocessing import cpu_count
-
-
-def _concat_dict(iterables):
-    # we have this function in pytraj.tools but copy here to be used as internal method
-    # TODO: fill missing values?
-    """concat dict
-
-    iterables : iterables that produces OrderedDict
-    """
-    new_dict = OrderedDict()
-    for i, d in enumerate(iterables):
-        if i == 0:
-            # make a copy of first dict
-            new_dict.update(d)
-        else:
-            for k, v in iteritems(new_dict):
-                new_dict[k] = np.concatenate((new_dict[k], d[k]))
-    return new_dict
+from pytraj.tools import dict_to_ndarray, concat_dict
+from pytraj.datasetlist import stack
 
 
 def _worker(rank,
-           n_cores=None,
-           func=None,
-           traj=None,
-           args=None,
-           kwd=None,
-           iter_options={}):
+            n_cores=None,
+            func=None,
+            traj=None,
+            args=None,
+            kwd=None,
+            iter_options={}):
     # need to unpack args and kwd
     mask = iter_options.get('mask', None)
     rmsfit = iter_options.get('rmsfit', None)
     autoimage = iter_options.get('autoimage', False)
-    my_iter = traj._split_iterators(n_cores, rank=rank, mask=mask, rmsfit=rmsfit,
-            autoimage=autoimage)
+    my_iter = traj._split_iterators(n_cores,
+                                    rank=rank,
+                                    mask=mask,
+                                    rmsfit=rmsfit,
+                                    autoimage=autoimage)
     data = func(my_iter, *args, **kwd)
     return (rank, data, my_iter.n_frames)
 
@@ -71,9 +54,27 @@ def _pmap(func, traj, *args, **kwd):
 
     Notes
     -----
-    If calculation require a reference structure, users need to explicit provide reference
-    as a Frame (not an integer number). For example, pt.pmap(4, pt.rmsd, traj, ref=-3)
-    won't work, use ``ref=traj[3]`` instead.
+    If you not sure about parallel's results, you should compare the output to serial run.
+
+    There are two modes in this method, use pytraj's methods (pytraj.rmsd, pytraj.radgyr,
+    ...) or use cpptraj's command text syntax ('autoimage', 'rms', ...)
+
+    If using pytraj syntax::
+
+        If calculation require a reference structure, users need to explicit provide reference
+        as a Frame (not an integer number). For example, pt.pmap(4, pt.rmsd, traj, ref=-3)
+        won't work, use ``ref=traj[3]`` instead.
+
+    If using cpptraj syntax::
+        
+        user need to specify `refindex` whenever use reference. For example, if user wants
+        to superpose to first frame and do not specify `refindex 0`, cpptraj will
+        superpose a chunk of traj in each core to 1st frame in that chunk, not the first
+        frame in original traj. Specifing `refindex 0` will direct pytraj to send `ref` to
+        all the cores.
+
+        pt.pmap(['autoimage', 'rms refindex 0'], traj, ref=traj[0])
+         
 
     This method only benifits you if your calculation is quite long (saying few minutes to
     few hours). For calculation that takes less than 1 minutes, you won't see the
@@ -124,12 +125,50 @@ def _pmap(func, traj, *args, **kwd):
      18.916695652897396,
      18.870697222142766]
 
-    >>> # cpptraj command style
-    >>> data = pt.pmap(['distance :3 :7', 'vector mask :3 :12'], traj, n_cores=4)
-
     >>> # use iter_options
     >>> iter_options = {'autoimage': True, 'rmsfit': (0, '@CA')}
     >>> data = pt.pmap(pt.mean_structure, traj, iter_options=iter_options) 
+
+    >>> # cpptraj command style
+    >>> data = pt.pmap(['distance :3 :7', 'vector mask :3 :12'], traj, n_cores=4)
+
+    >>> # use reference. Need to explicitly use 'refindex', which is index of reflist
+    >>> data = pt.pmap(['rms @CA refindex 0'], traj, ref=[traj[3],], n_cores=3, dtype='dict')
+    >>> data
+    OrderedDict([('RMSD_00001', array([  2.68820312e-01,   3.11804885e-01,   2.58835452e-01,
+             9.10475988e-08,   2.93310737e-01,   4.10197322e-01,
+             3.96226694e-01,   3.66059215e-01,   3.90890362e-01,
+             4.89180497e-01]))])
+
+    >>> # use different references. Need to explicitly use 'refindex', which is index of reflist
+    >>> # create a list of references
+    >>> reflist = traj[3], traj[4]
+    >>> # make sure to specify `refindex`
+    >>> # `refindex 0` is equal to `reflist[0]`
+    >>> # `refindex 1` is equal to `reflist[1]`
+    >>> data = pt.pmap(['rms @CA refindex 0', 'rms !@H= refindex 1'], traj, ref=reflist, n_cores=2, dtype='dict')
+    >>> data
+    OrderedDict([('RMSD_00002', array([  2.68820312e-01,   3.11804885e-01,   2.58835452e-01,
+             9.10475988e-08,   2.93310737e-01,   4.10197322e-01,
+             3.96226694e-01,   3.66059215e-01,   3.90890362e-01,
+             4.89180497e-01])), ('RMSD_00003', array([  1.17102654e+01,   1.07412683e+01,   8.77663285e+00,
+             8.17606134e+00,   6.47116798e-07,   8.88683731e+00,
+             1.06206160e+01,   1.09855368e+01,   1.13693451e+01,
+             1.15623929e+01]))])
+    >>> # convert to ndarray
+    >>> pt.tools.dict_to_ndarray(data)
+    array([[  0.26882031,   0.31180488,   0.25883545, ...,   0.36605922,
+              0.39089036,   0.4891805 ],
+           [ 11.71026542,  10.74126835,   8.77663285, ...,  10.9855368 ,
+             11.36934506,  11.56239288]])
+
+    >>> # specify dtype = 'ndarray'
+    >>> data = pt.pmap(['rms @CA refindex 0', 'rms !@H= refindex 1'], traj, ref=reflist, n_cores=2, dtype='ndarray')
+    >>> data
+    array([[  0.26882031,   0.31180488,   0.25883545, ...,   0.36605922,
+              0.39089036,   0.4891805 ],
+           [ 11.71026542,  10.74126835,   8.77663285, ...,  10.9855368 ,
+             11.36934506,  11.56239288]])
 
     See also
     --------
@@ -154,11 +193,30 @@ def _pmap(func, traj, *args, **kwd):
     else:
         iter_options = {}
 
+    if 'dtype' in kwd.keys():
+        dtype = kwd['dtype']
+    else:
+        dtype = None
+
     if isinstance(func, (list, tuple)):
         # assume using _load_batch_pmap
         from pytraj.parallel import _load_batch_pmap
-        data = _load_batch_pmap(n_cores=n_cores, traj=traj, lines=func, dtype='dict', root=0, mode='multiprocessing')
-        return _concat_dict((x[1] for x in data))
+        if 'dtype' in kwd.keys():
+            kwd.pop('dtype')
+        data = _load_batch_pmap(n_cores=n_cores,
+                                traj=traj,
+                                lines=func,
+                                dtype='dict',
+                                root=0,
+                                mode='multiprocessing', **kwd)
+        data = concat_dict((x[1] for x in data))
+        if dtype == 'dict' or dtype is None:
+            return data
+        elif dtype == 'ndarray':
+            return dict_to_ndarray(data)
+        else:
+            raise ValueError(
+                "if using func as a list/tuple, dtype must be 'ndarray' or 'dict'")
     else:
         if not callable(func):
             raise ValueError('must callable argument')
@@ -168,19 +226,19 @@ def _pmap(func, traj, *args, **kwd):
         elif not func._is_parallelizable:
             raise ValueError("this method does not support parallel")
         else:
-            if hasattr(func, '_openmp_capability') and func._openmp_capability and 'OPENMP' in compiled_info():
-                raise RuntimeError("this method supports both openmp and pmap, but your cpptraj "
-                "version was installed with openpm. Should not use both openmp and pmap at the "
-                "same time. In this case, do not use pmap since openmp is more efficient")
+            if hasattr(
+                    func,
+                    '_openmp_capability') and func._openmp_capability and 'OPENMP' in compiled_info(
+                    ):
+                raise RuntimeError(
+                    "this method supports both openmp and pmap, but your cpptraj "
+                    "version was installed with openpm. Should not use both openmp and pmap at the "
+                    "same time. In this case, do not use pmap since openmp is more efficient")
 
         if not isinstance(traj, TrajectoryIterator):
             raise ValueError('only support TrajectoryIterator')
 
         p = Pool(n_cores)
-        if 'dtype' in kwd.keys():
-            dtype = kwd['dtype']
-        else:
-            dtype = None
 
         pfuncs = partial(_worker,
                          n_cores=n_cores,
@@ -194,7 +252,7 @@ def _pmap(func, traj, *args, **kwd):
         p.close()
 
         if func in [matrix.dist, matrix.idea]:
-            mat  = np.sum((val[1] * val[2] for val in data)) / traj.n_frames
+            mat = np.sum((val[1] * val[2] for val in data)) / traj.n_frames
             return mat
         elif func in [ired_vector_and_matrix, ]:
             # data is a list of (rank, (vectors, matrix), n_frames)
@@ -217,12 +275,13 @@ def _pmap(func, traj, *args, **kwd):
             frame.xyz[:] = xyz
             return frame
         else:
-            if dtype in ['dict',]:
-                return _concat_dict((x[1] for x in data))
-            elif dtype in ['dataset',] and func != search_hbonds:
+            if dtype in ['dict', ]:
+                return concat_dict((x[1] for x in data))
+            elif dtype in ['dataset', ] and func != search_hbonds:
                 return stack((x[1] for x in data))
             else:
                 return data
+
 
 def pmap(func=None, traj=None, *args, **kwd):
     if func != NH_order_parameters:
@@ -238,5 +297,6 @@ def pmap(func=None, traj=None, *args, **kwd):
             # use n_cores=2 for default value
             kwd['n_cores'] = 2
         return NH_order_parameters(traj, *args, **kwd)
+
 
 pmap.__doc__ = _pmap.__doc__

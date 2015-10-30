@@ -10,8 +10,9 @@ from pytraj.utils import eq, aa_eq
 from pytraj.actions import CpptrajActions as CA
 from pytraj.datasets import DatasetList as CpptrajDatasetList
 from pytraj.datafiles.datafiles import DataFileList
-from pytraj.core.ActionList import ActionList
+from pytraj import ActionList
 from pytraj import Pipeline
+from pytraj.testing import cpptraj_test_dir
 
 
 class TestActionList(unittest.TestCase):
@@ -95,8 +96,8 @@ class TestActionList(unittest.TestCase):
         # make sure that Action_Strip does its job in stripping
         assert farray2.n_frames == farray.n_frames
 
-        fsaved = pt.iterload("./CpptrajTest/Test_Image/image4.crd.save",
-                               "./data/tz2.truncoct.parm7")
+        fsaved = pt.iterload(cpptraj_test_dir + "/Test_Image/image4.crd.save",
+                               "data/tz2.truncoct.parm7")
         assert fsaved.n_frames == 2
 
     def test_run_1(self):
