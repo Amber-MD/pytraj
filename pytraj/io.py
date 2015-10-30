@@ -3,7 +3,7 @@ import os
 import numpy as np
 
 from .externals.six import string_types, PY3
-from .datafiles.load_sample_data import load_sample_data
+from .datafiles.load_samples import load_sample_data
 from .externals._pickle import to_pickle, read_pickle
 from .externals._json import to_json, read_json
 from .datafiles.load_cpptraj_file import load_cpptraj_file
