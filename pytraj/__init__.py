@@ -98,7 +98,9 @@ from . import tools
 
 # actions and analyses
 from .actions import CpptrajActions as allactions
+from .actions import CpptrajActions
 from .analyses import CpptrajAnalyses as allanalyses
+from .analyses import CpptrajAnalyses
 from . import common_actions
 from .dssp_analysis import calc_dssp, dssp_allatoms, dssp_allresidues
 from .common_actions import (
