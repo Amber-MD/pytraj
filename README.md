@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/Amber-MD/pytraj.svg?branch=master)](https://travis-ci.org/Amber-MD/pytraj)
 [![Binstar Badge](https://binstar.org/ambermd/pytraj-dev/badges/version.svg)](https://binstar.org/ambermd/pytraj-dev/)
 
-try pytraj online: [![Binder](http://mybinder.org/badge.svg)](http://mybinder.org/repo/hainm/notebook-pytraj)
+Try pytraj online with [![Binder](http://mybinder.org/images/logo.svg)](http://mybinder.org/repo/hainm/notebook-pytraj)
 
 PYTRAJ
 ------
