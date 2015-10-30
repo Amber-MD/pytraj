@@ -78,14 +78,21 @@ Welcome
    </div>
    </div>
 
-Install Jupyter notebook for interative data exploration
+.. raw:: html
+
+   </div>
+   <div class="col-md-3">
+   <h2>Install Jupyter notebook for interative data exploration</h2>
 
 .. image:: http://jupyter.org/assets/jupyterpreview.png
    :target: http://jupyter.org/
-   :scale: 30 %
+   :height: 300
 
-Install matplotlib for plotting
+.. raw:: html
+
+   </div>
+   <div class="col-md-3">
+   <h2>Install matplotlib for plotting</h2>
 
 .. image:: http://matplotlib.org/_static/logo2.png
    :target: http://matplotlib.org/
-   :scale: 50 %
