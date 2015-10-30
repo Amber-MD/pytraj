@@ -89,6 +89,14 @@ Welcome
 
    </div>
    <div class="col-md-3">
+   <h2>Install more than 300 of the most popular Python packages</h2>
+
+.. image:: https://www.continuum.io/sites/all/themes/continuum_foundation/images/logos/logo-anaconda.svg
+   :target: https://www.continuum.io/
+   :height: 200
+
+.. raw:: html
+
    <h2>Install matplotlib for plotting</h2>
 
 .. image:: http://matplotlib.org/_static/logo2.png
@@ -102,9 +110,3 @@ Welcome
 
 .. image:: http://mybinder.org/images/logo.svg
    :target: http://mybinder.org/repo/hainm/notebook-pytraj
-
-   <h2>Install more than 300 of the most popular Python packages</h2>
-
-.. image:: https://www.continuum.io/sites/all/themes/continuum_foundation/images/logos/logo-anaconda.svg
-   :target: https://www.continuum.io/
-   :height: 200
