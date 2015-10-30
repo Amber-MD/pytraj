@@ -84,7 +84,7 @@ Welcome
 
 .. image:: http://jupyter.org/assets/jupyterpreview.png
    :target: http://jupyter.org/
-   :height: 300
+   :height: 200
 
 .. raw:: html
 
