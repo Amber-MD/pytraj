@@ -439,11 +439,21 @@ cdef class Frame (object):
             """
             cdef int n_atoms = self.n_atoms
             return np.asarray(<double[:n_atoms, :3]> self.thisptr.vAddress())
+
+    property force:
+        def __get__(self):
+            """
+            """
+            cdef int n_atoms = self.n_atoms
+            return np.asarray(<double[:n_atoms, :3]> self.thisptr.fAddress())
         
     def is_empty(self):
         return self.thisptr.empty()
 
     def has_velocity(self):
+        return self.thisptr.HasVelocity()
+
+    def has_force(self):
         return self.thisptr.HasVelocity()
 
     property n_atoms:
