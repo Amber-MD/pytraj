@@ -86,7 +86,6 @@ from .io import (load, iterload, load_remd, iterload_remd,
 load_from_frame_iter = _load_from_frame_iter
 
 # dataset stuff
-from .datafiles.load_sample_data import load_sample_data
 from .datafiles import load_cpptraj_state
 from .datasetlist import DatasetList
 
