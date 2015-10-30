@@ -82,7 +82,7 @@ Welcome
 
    </div>
    <div class="col-md-3">
-   <h2>Install Jupyter notebook for interative data exploration</h2>
+   <h2>Install Jupyter notebook for interactive data exploration</h2>
 
 .. image:: http://jupyter.org/assets/jupyterpreview.png
    :target: http://jupyter.org/
@@ -96,3 +96,10 @@ Welcome
 
 .. image:: http://matplotlib.org/_static/logo2.png
    :target: http://matplotlib.org/
+
+.. raw:: html
+
+   </div>
+   </div>
+   </div>
+
