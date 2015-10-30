@@ -108,20 +108,3 @@ pmap doc
 ~~~~~~~~
 
 :ref:`API <pytraj.pmap>`
-
-multiple actions with multiple trajectories
--------------------------------------------
-
-Only works with Python 3.
-
-.. ipython:: python
-    
-    from pytraj.parallel import PJob
-
-    tasklist = []
-    tasklist.append((pt.radgyr, traj))
-    tasklist.append((pt.molsurf, traj, '@CA'))
-
-    # perform each action on each CPUs (total 2 CPUs)
-    pjob = PJob(tasklist)
-    print(pjob.compute())

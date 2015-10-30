@@ -1,4 +1,4 @@
-.. _pytraj_api::
+.. _pytraj::
 
 pytraj
 ======

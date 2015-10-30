@@ -350,11 +350,13 @@ code to load the data back. However, you can use <tt class="docutils literal"><s
 <span class="gp">In [37]: </span><span class="n">data</span>
 <span class="gr">Out[37]: </span>
 <span class="go">(array([&#39;THR:3&#39;, &#39;TRP:4&#39;, &#39;GLU:5&#39;, &#39;ASN:6&#39;, &#39;GLY:7&#39;], </span>
-<span class="go">       dtype=&#39;&lt;U5&#39;), array([[&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
-<span class="go">        [&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
-<span class="go">        [&#39;0&#39;, &#39;S&#39;, &#39;S&#39;, ..., &#39;0&#39;, &#39;S&#39;, &#39;S&#39;],</span>
-<span class="go">        [&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
-<span class="go">        [&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;]], </span>
+<span class="go">       dtype=&#39;&lt;U5&#39;), array([[&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
+<span class="go">        [&#39;0&#39;, &#39;0&#39;, &#39;S&#39;, &#39;0&#39;, &#39;0&#39;],</span>
+<span class="go">        [&#39;0&#39;, &#39;0&#39;, &#39;S&#39;, &#39;0&#39;, &#39;0&#39;],</span>
+<span class="go">        ..., </span>
+<span class="go">        [&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
+<span class="go">        [&#39;0&#39;, &#39;0&#39;, &#39;S&#39;, &#39;0&#39;, &#39;0&#39;],</span>
+<span class="go">        [&#39;0&#39;, &#39;0&#39;, &#39;S&#39;, &#39;0&#39;, &#39;0&#39;]], </span>
 <span class="go">       dtype=&#39;&lt;U1&#39;), &lt;pytraj.DatasetList with 8 datasets&gt;</span>
 <span class="go">none_avg</span>
 <span class="go">[ 1.   0.8  0.8 ...,  1.   0.8  0.8]</span>
@@ -378,11 +380,13 @@ code to load the data back. However, you can use <tt class="docutils literal"><s
 <span class="gp">In [39]: </span><span class="n">pt</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="s">&#39;my_data.pk&#39;</span><span class="p">)</span>
 <span class="gr">Out[39]: </span>
 <span class="go">(array([&#39;THR:3&#39;, &#39;TRP:4&#39;, &#39;GLU:5&#39;, &#39;ASN:6&#39;, &#39;GLY:7&#39;], </span>
-<span class="go">       dtype=&#39;&lt;U5&#39;), array([[&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
-<span class="go">        [&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
-<span class="go">        [&#39;0&#39;, &#39;S&#39;, &#39;S&#39;, ..., &#39;0&#39;, &#39;S&#39;, &#39;S&#39;],</span>
-<span class="go">        [&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
-<span class="go">        [&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;]], </span>
+<span class="go">       dtype=&#39;&lt;U5&#39;), array([[&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
+<span class="go">        [&#39;0&#39;, &#39;0&#39;, &#39;S&#39;, &#39;0&#39;, &#39;0&#39;],</span>
+<span class="go">        [&#39;0&#39;, &#39;0&#39;, &#39;S&#39;, &#39;0&#39;, &#39;0&#39;],</span>
+<span class="go">        ..., </span>
+<span class="go">        [&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
+<span class="go">        [&#39;0&#39;, &#39;0&#39;, &#39;S&#39;, &#39;0&#39;, &#39;0&#39;],</span>
+<span class="go">        [&#39;0&#39;, &#39;0&#39;, &#39;S&#39;, &#39;0&#39;, &#39;0&#39;]], </span>
 <span class="go">       dtype=&#39;&lt;U1&#39;), &lt;pytraj.DatasetList with 8 datasets&gt;</span>
 <span class="go">none_avg</span>
 <span class="go">[ 1.   0.8  0.8 ...,  1.   0.8  0.8]</span>
@@ -450,7 +454,7 @@ from mpi4py import MPI
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 20, 2015.<br/>
+      Last updated on Oct 30, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

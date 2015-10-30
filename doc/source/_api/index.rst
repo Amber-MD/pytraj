@@ -14,7 +14,7 @@ try ``pytraj`` online:
 
     pytraj
     pytraj.io
-    pytraj.api
+    pytraj.trajectory
     pytraj.TrajectoryIterator
     pytraj.Topology
     pytraj.FrameIter

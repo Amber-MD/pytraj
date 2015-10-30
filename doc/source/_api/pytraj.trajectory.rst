@@ -1,4 +1,4 @@
-.. _pytraj.api:
+.. _pytraj.trajectory:
 
 pytraj.Trajectory
 =================
@@ -9,7 +9,7 @@ pytraj.Trajectory
     
         <script type="text/javascript" src='../_static/cindex.js'></script>
 
-.. automodule:: pytraj.api
+.. automodule:: pytraj.trajectory
     :members:
     :undoc-members:
     :show-inheritance:
