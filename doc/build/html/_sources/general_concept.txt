@@ -17,8 +17,7 @@ In most case, to use ``pytraj``, you just need to rember this format
 * ``ref`` can be a single Frame or a Trajectory. If it's a Trajectory,
   first conformation is always picked up.
 
-* ``mask`` follows Amber mask syntax (eg. :3-18@CA) or an atom index array (eg. [0, 3, 5]). If ``mask`` is a string (amber mask), the index is 1-based (counting from 1) and 
- if ``mass`` is an array-like, the index is 0-based (counting from 0). 
+* ``mask`` follows Amber mask syntax (eg. :3-18@CA) or an atom index array (eg. [0, 3, 5]). If ``mask`` is a string (amber mask), the index is 1-based (counting from 1). If ``mass`` is an array-like, the index is 0-based (counting from 0). 
 
 * ``frame_indices`` is frame indices for calculation. It's optional. If no ``frame_indices`` is provided, the calculation will be performed for whole trajectory
 
