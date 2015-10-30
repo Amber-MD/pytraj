@@ -58,7 +58,7 @@ Welcome
    <h2>Plot</h2>
 
 .. image:: images/PCA_heart.png
-   :target: tutorials/plot.rst
+   :target: tutorials/plot.html
 
 |
 
