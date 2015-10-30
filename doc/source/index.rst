@@ -55,10 +55,10 @@ Welcome
 
    </div>
    <div class="col-md-3">
-   <h2>Try pytraj online</h2>
+   <h2>Plot</h2>
 
 .. image:: images/PCA_heart.png
-   :target: http://mybinder.org/repo/hainm/notebook-pytraj
+   :target: tutorials/plot.rst
 
 |
 
