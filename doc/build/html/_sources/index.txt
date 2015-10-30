@@ -97,16 +97,13 @@ Welcome
 
 .. raw:: html
 
-   <h2>Install matplotlib for plotting</h2>
-
-.. image:: http://matplotlib.org/_static/logo2.png
-   :target: http://matplotlib.org/
-
-.. raw:: html
-
    </div>
    <div class="col-md-3">
    <h2>Try pytraj online with mybinder</h2>
 
 .. image:: http://mybinder.org/images/logo.svg
    :target: http://mybinder.org/repo/hainm/notebook-pytraj
+
+.. image:: http://matplotlib.org/_static/logo2.png
+   :target: http://matplotlib.org/
+
