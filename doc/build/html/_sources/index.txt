@@ -9,9 +9,6 @@
     import numpy as np
     np.set_printoptions(precision=4, suppress=True)
 
-.. image:: images/helix3.png
-   :height: 150
-
 Welcome
 =======
 
