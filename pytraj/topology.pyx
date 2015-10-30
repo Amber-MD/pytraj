@@ -216,6 +216,19 @@ cdef class Topology:
     def __iter__(self):
         return self.atoms
 
+    def _iter_mut(self):
+        cdef Atom atom
+        cdef int n_atoms = self.n_atoms
+        cdef int idx = 0
+
+        for idx in range(n_atoms):
+            atom = Atom()
+            atom.thisptr = &(self.thisptr.GetAtomView(idx))
+            atom.own_memory = False
+            atom.index = idx
+            atom.residue = self._residue_light(atom.resnum)
+            yield atom
+
     def select(self, mask):
         """return AtomMask object
 
