@@ -232,7 +232,7 @@ class TestActionListRMSD(unittest.TestCase):
 
         def test_rmsd_actlist(input_traj):
             from pytraj.actions.CpptrajActions import Action_Rmsd
-            from pytraj.core.ActionList import ActionList
+            from pytraj import ActionList
             from pytraj.datasets import DatasetList
 
             alist = ActionList()

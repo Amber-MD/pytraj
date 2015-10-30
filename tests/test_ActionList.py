@@ -10,7 +10,7 @@ from pytraj.utils import eq, aa_eq
 from pytraj.actions import CpptrajActions as CA
 from pytraj.datasets import DatasetList as CpptrajDatasetList
 from pytraj.datafiles.datafiles import DataFileList
-from pytraj.core.ActionList import ActionList
+from pytraj import ActionList
 from pytraj import Pipeline
 from pytraj.testing import cpptraj_test_dir
 
