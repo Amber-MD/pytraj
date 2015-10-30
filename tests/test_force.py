@@ -15,7 +15,7 @@ class TestForce(unittest.TestCase):
         for f in traj:
             assert f.has_force(), 'must have force'
 
-        print(f.force)
+        #print(f.force)
 
 
 if __name__ == "__main__":
