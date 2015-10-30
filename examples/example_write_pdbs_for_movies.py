@@ -11,4 +11,4 @@ traj = pt.iterload("../tests/data/md1_prod.Tc5b.x", "../tests/data/Tc5b.top")
 # you can use this pdb file to view in VMD without loading
 # prmtop/gro/psf/...
 
-pt.write_traj("./output/test.pdb", traj, mode='model', overwrite=True)
+pt.write_traj("./output/test.pdb", traj, options='model', overwrite=True)

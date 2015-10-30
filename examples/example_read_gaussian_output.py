@@ -8,8 +8,8 @@ import pytraj as pt
 traj = pt.tools.read_gaussian_output(filename="../tests/data/gaussian/GF2.log",
                                      top="../tests/data/gaussian/GF2.pdb")
 
-# use mode='model' to write multiple pdbs to a single file
-pt.write_traj("output/traj_vmd.pdb", traj, mode='model', overwrite=True)
+# use options='model' to write multiple pdbs to a single file
+pt.write_traj("output/traj_vmd.pdb", traj, options='model', overwrite=True)
 
 # to view by VMD, just
 # vmd ./output/traj_vmd.pdb

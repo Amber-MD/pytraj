@@ -31,7 +31,7 @@ for deg in range(-180, 180, 5):
 
 pt.write_traj("./output/test0.pdb", framelist,
               top=traj.top,
-              mode='model',
+              options='model',
               overwrite=True)
 
 # you can use VMD to open the new file
