@@ -2,6 +2,7 @@
 """
 from __future__ import absolute_import
 import os
+import re
 from glob import glob
 import numpy as np
 from .trajs.TrajectoryCpptraj import TrajectoryCpptraj
@@ -17,6 +18,26 @@ from .utils import split_range
 from .utils.convert import array_to_cpptraj_atommask
 
 __all__ = ['TrajectoryIterator', ]
+
+
+# tryint, alphanum_key, sort_filename_by_number are adapted from
+# http://nedbatchelder.com/blog/200712/human_sorting.html
+def tryint(s):
+    try:
+        return int(s)
+    except:
+        return s
+
+def alphanum_key(s):
+    """ Turn a string into a list of string and number chunks.
+        "z23a" -> ["z", 23, "a"]
+    """
+    return [ tryint(c) for c in re.split('([0-9]+)', s) ]
+
+def sort_filename_by_number(filelist):
+    """ Sort the given list in the way that humans expect.
+    """
+    return sorted(filelist, key=alphanum_key)
 
 
 def _make_frame_slices(n_files, original_frame_slice):
@@ -162,7 +183,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
             self.frame_slice_list.append(frame_slice)
         elif isinstance(filename,
                             string_types) and not os.path.exists(filename):
-            flist = sorted(glob(filename))
+            flist = sort_filename_by_number(glob(filename))
             if not flist:
                 raise ValueError(
                     "must provie a filename or list of filenames or file pattern")
