@@ -1,7 +1,7 @@
 from __future__ import absolute_import, print_function
 import os
 
-from .datafiles.load_sample_data import load_sample_data
+from .datafiles.load_samples import load_sample_data
 from .utils import eq, aa_eq
 from .utils import duplicate_traj, Timer
 
