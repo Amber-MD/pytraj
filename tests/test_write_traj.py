@@ -18,7 +18,7 @@ class TestWriteTraj(unittest.TestCase):
         with goto_temp_folder():
             # write traj with nobox info
             fname = "traj_nobox.nc"
-            pt.write_traj(fname, traj, mode='nobox')
+            pt.write_traj(fname, traj, options='nobox')
             t = pt.load(fname, traj.top)
 
             assert t[0].has_box() == False

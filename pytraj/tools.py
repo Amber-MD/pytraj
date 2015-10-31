@@ -11,6 +11,19 @@ from itertools import islice
 from collections import OrderedDict, defaultdict
 import numpy as np
 
+def estimate_size(n_frames, n_atoms, dtype='f8'):
+    '''return MB
+
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> estimate_size(traj.n_frames, traj.n_atoms, 'f8')
+    1.2114715576171875
+    '''
+    if dtype == 'f8':
+        n_bytes = 8
+    if dtype == 'f4':
+        n_bytes = 4
+    return n_frames * n_atoms * 3 * n_bytes / (1024 ** 2)
 
 def groupby(key, seq):
     # lightly adapted from `toolz` package.

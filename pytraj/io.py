@@ -3,7 +3,7 @@ import os
 import numpy as np
 
 from .externals.six import string_types, PY3
-from .datafiles.load_sample_data import load_sample_data
+from .datafiles.load_samples import load_sample_data
 from .externals._pickle import to_pickle, read_pickle
 from .externals._json import to_json, read_json
 from .datafiles.load_cpptraj_file import load_cpptraj_file
@@ -271,7 +271,7 @@ def write_traj(filename="",
                top=None,
                frame_indices=None,
                overwrite=False,
-               mode=""):
+               options=""):
     """write Trajectory-like or iterable object to trajectory file
 
     Parameters
@@ -282,7 +282,7 @@ def write_traj(filename="",
     frame_indices: array-like or iterator that produces integer, default: None
         If not None, only write output for given frame indices
     overwrite: bool, default: False
-    mode : str, additional keywords for extention='.pdb'. See examples.
+    options : str, additional keywords for extention='.pdb'. See examples.
         
     Notes
     -----
@@ -308,10 +308,10 @@ def write_traj(filename="",
     >>> pt.write_traj("t.nc", traj, overwrite=True) # write to amber netcdf file
 
     >>> # write to multi pdb files (t.pdb.1, t.pdb.2, ...)
-    >>> pt.write_traj("t.pdb", traj, overwrite=True, mode='multi')
+    >>> pt.write_traj("t.pdb", traj, overwrite=True, options='multi')
 
     >>> # write all frames to single pdb file and each frame is seperated by "MODEL" word
-    >>> pt.write_traj("t.pdb", traj, overwrite=True, mode='model')
+    >>> pt.write_traj("t.pdb", traj, overwrite=True, options='model')
 
     >>> # write to DCD file
     >>> pt.write_traj("test.dcd", traj, overwrite=True)
@@ -336,7 +336,7 @@ def write_traj(filename="",
         with Trajout(filename=filename,
                      top=_top,
                      overwrite=overwrite,
-                     mode=mode) as trajout:
+                     options=options) as trajout:
             if isinstance(traj, Frame):
                 if frame_indices is not None:
                     raise ValueError(
@@ -365,7 +365,7 @@ def write_traj(filename="",
         with Trajout(filename=filename,
                      top=_top,
                      overwrite=overwrite,
-                     mode=mode) as trajout:
+                     options=options) as trajout:
 
             for idx, frame in enumerate(fi):
                 trajout.write(idx, frame)

@@ -145,7 +145,7 @@ class FrameIter(object):
     def __repr__(self):
         return self.__str__()
 
-    def save(self, filename='', overwrite=False, mode='', *args, **kwd):
+    def save(self, filename='', overwrite=False, options='', *args, **kwd):
         '''save to different file format.
 
         Notes
@@ -167,7 +167,7 @@ class FrameIter(object):
                    top=self.top,
                    frame_indices=None,
                    overwrite=overwrite,
-                   mode=mode, *args, **kwd)
+                   options=options, *args, **kwd)
 
     def __iter__(self):
         # do not import CpptrajActions in the top to avoid circular importing

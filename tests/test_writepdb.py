@@ -26,7 +26,7 @@ class Test(unittest.TestCase):
         # multiple pdb in multiple files, using `save` method in traj
         with goto_temp_folder():
             basename = "test_pdb_files.pdb"
-            traj.save(basename, overwrite=True, mode="multi")
+            traj.save(basename, overwrite=True, options="multi")
             for i in range(10):
                 fname = basename + "." + str(i + 1)  # cpptraj use `1`
                 frame = mdio.iterload(fname, traj.top)[0]
@@ -35,7 +35,7 @@ class Test(unittest.TestCase):
         # multiple pdb in multiple files, using `mdio.write_traj`
         with goto_temp_folder():
             basename = "test_pdb_files_mdio_write_traj.pdb"
-            mdio.write_traj(basename, traj, overwrite=True, mode="multi")
+            mdio.write_traj(basename, traj, overwrite=True, options="multi")
             for i in range(10):
                 fname = basename + "." + str(i + 1)  # cpptraj use `1`
                 frame = pt.iterload(fname, traj.top)[0]
@@ -51,7 +51,7 @@ class Test(unittest.TestCase):
         # multiple pdb in SINGLE file with `model` keyword
         # write to output so we can manually check
         basename = "./output/test_pdb_files_model.pdb"
-        traj.save(basename, overwrite=True, mode='model')
+        traj.save(basename, overwrite=True, options='model')
         traj3 = mdio.load(basename, traj.top)
         aa_eq(traj.xyz, traj3.xyz)
 

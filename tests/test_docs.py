@@ -7,6 +7,7 @@ from pytraj import utils
 import doctest
 from pytraj.compat import PY3
 from pytraj import testing
+from pytraj.datafiles import load_samples
 
 doctest.DONT_ACCEPT_BLANKLINE = False
 
@@ -35,6 +36,7 @@ class TestDoc(unittest.TestCase):
         if PY3:
             # avoid adding 'u' to string in PY2: u'GLU5_O-LYS8_N-H'
             additional_list = [
+                   load_samples,
                    pt.trajectory,
                    pt.decorators,
                    pt.dssp_analysis,

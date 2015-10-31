@@ -43,7 +43,7 @@ class Test(unittest.TestCase):
         pt._rotate_dih(t0, resid='4', dihtype='phi', deg=120)
         dih = pt.calc_phi(t0, resrange='4').values[0]
         assert abs(dih - 120) < 1E-3
-        t0.save('test.pdb', mode='model', overwrite=True)
+        t0.save('test.pdb', options='model', overwrite=True)
 
 
 if __name__ == "__main__":
