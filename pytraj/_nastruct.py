@@ -29,6 +29,7 @@ def nastruct(traj=None,
              frame_indices=None,
              pucker_method='altona',
              dtype='nupars',
+             groove_3dna=True,
              top=None):
     """compute nucleic acid parameters. (adapted from cpptraj doc)
 
@@ -44,6 +45,8 @@ def nastruct(traj=None,
         'altona' : Use method of Altona & Sundaralingam to calculate sugar pucker
         'cremer' : Use method of Cremer and Pople to calculate sugar pucker'
     frame_indices : array-like, default None (all frames)
+    groove_3dna : bool, default True
+        if True, major and minor groove will match 3DNA's output.
     dtype : str, {'nupars', 'cpptraj_dataset'}, default 'nupars'
 
     Returns
@@ -56,7 +59,7 @@ def nastruct(traj=None,
     >>> import pytraj as pt
     >>> import numpy as np
     >>> traj = pt.datafiles.load_rna()
-    >>> data = pt.nastruct(traj)
+    >>> data = pt.nastruct(traj, groove_3dna=False)
     >>> data.keys()[:5] # doctest: +SKIP
     ['buckle', 'minor', 'major', 'xdisp', 'stagger']
     >>> # get minor groove width values for each pairs for each snapshot
@@ -93,8 +96,9 @@ def nastruct(traj=None,
     _resmap = "resmap " + resmap if resmap is not None else ""
     _hbcut = "hbcut " + str(hbcut) if hbcut is not None else ""
     _pucker_method = pucker_method
+    _groove_3dna = 'groovecalc 3dna' if groove_3dna else ''
 
-    command = " ".join((_resrange, _resmap, _hbcut, _pucker_method))
+    command = " ".join((_resrange, _resmap, _hbcut, _pucker_method, _groove_3dna))
 
     dslist = CpptrajDatasetList()
 
@@ -124,7 +128,7 @@ class nupars(object):
     --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_rna()
-    >>> nu = pt.nastruct(traj)
+    >>> nu = pt.nastruct(traj, groove_3dna=False)
     >>> nu.major # doctest: +SKIP
     (['1G16C', '2G15C', '3G14C', '4C13G', '5G12C', '6C11G', '7C10G', '8C9G'],
      array([[  0.        ,  18.60012245,  18.7782402 , ...,  18.45940208,
