@@ -15,7 +15,7 @@ class TestNastruct(unittest.TestCase):
         text = '''
         parm "./data/Test_NAstruct/adh026.3.pdb"
         trajin "./data/Test_NAstruct/adh026.3.pdb"
-        nastruct
+        nastruct groovecalc 3dna
         '''
 
         state = pt.load_cpptraj_state(text)
@@ -43,7 +43,7 @@ class TestNastruct(unittest.TestCase):
     def test_nupars_vs_x3dna(self):
         traj = pt.iterload('data/Test_NAstruct/x3dna/rna.pdb')
         ref = pt.iterload('data/Test_NAstruct/x3dna/rna_nab.pdb')
-        nu = pt.nastruct(traj, ref=ref)
+        nu = pt.nastruct(traj, ref=ref, groove_3dna=True)
 
         root = 'data/Test_NAstruct/x3dna/'
 
@@ -71,6 +71,10 @@ class TestNastruct(unittest.TestCase):
         aa_eq(nu.tilt[1], saved_helical_pars[9][1:], decimal=3)
         aa_eq(nu.roll[1], saved_helical_pars[10][1:], decimal=3)
         aa_eq(nu.twist[1], saved_helical_pars[11][1:], decimal=3)
+
+        # grove
+        aa_eq(nu.minor[1][0], [15.8, 15.8, 15.5], decimal=1)
+        aa_eq(nu.major[1][0], [19.9, 20.8, 20.0], decimal=1)
 
 
 if __name__ == "__main__":
