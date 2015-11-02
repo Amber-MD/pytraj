@@ -167,6 +167,9 @@ class _super_dispatch(object):
         array_to_cpptraj_atommask(mask)
     - convert int ref to Frame ref
     '''
+    def __init__(self, has_ref=False):
+        self.has_ref = has_ref
+
     def __call__(self, f):
         @wraps(f)
         def inner(*args, **kwd):
@@ -175,23 +178,47 @@ class _super_dispatch(object):
             traj = kwd.get('traj', args[0])
             frame_indices = kwd.get('frame_indices', None)
             ref = kwd.get('ref', None)
+            if self.has_ref and ref is None:
+                try:
+                    ref = args[1]
+                except IndexError:
+                    ref = 0
+            if 'ref' in kwd.keys() or self.has_ref:
+                # convert to Frame
+                ref = _get_reference_from_traj(traj, ref)
+
             top = kwd.get('top', None)
 
             if 'mask' in kwd.keys():
                 mask = kwd.get('mask')
+                has_mask = True
             else:
                 # mask is always 2nd argument if there is no ref
-                try:
-                    mask = args[1]
-                    has_mask = True
-                except IndexError:
-                    mask = '*'
-                    has_mask = False
+                if not self.has_ref:
+                    try:
+                        mask = args[1]
+                        has_mask = True
+                    except IndexError:
+                        mask = '*'
+                        has_mask = False
+                else:
+                    try:
+                        mask = args[2]
+                        has_mask = True
+                    except IndexError:
+                        mask = '*'
+                        has_mask = False
 
             # overwrite
             kwd['top'] = _get_topology(traj, top)
             if ref is not None:
-                kwd['ref'] = _get_reference_from_traj(traj, ref)
+                if 'ref' in kwd.keys():
+                    kwd['ref'] = _get_reference_from_traj(traj, ref)
+                else:
+                    try:
+                        args[1] = ref
+                    except IndexError:
+                        args.append(ref)
             if 'traj' in kwd.keys():
                 kwd['traj'] = _get_fiterator(traj, frame_indices)
             else:

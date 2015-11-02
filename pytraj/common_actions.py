@@ -1750,6 +1750,7 @@ rmsd = calc_rmsd
 
 
 @_register_pmap
+@_super_dispatch(has_ref=True)
 def calc_distance_rmsd(traj=None, ref=0, mask='', top=None, dtype='ndarray',
         frame_indices=None):
     '''compute distance rmsd between traj and reference
