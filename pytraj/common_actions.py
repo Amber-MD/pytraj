@@ -649,6 +649,7 @@ def calc_radgyr(traj=None,
 
 
 @_register_pmap
+@_super_dispatch
 def calc_molsurf(traj=None,
                  mask="",
                  probe=1.4,
@@ -663,23 +664,19 @@ def calc_molsurf(traj=None,
     >>> pt.molsurf(traj, '@CA')
     >>> pt.molsurf(traj, '!:WAT')
     '''
-    fi = _get_fiterator(traj, frame_indices)
     _probe = 'probe ' + str(probe)
     _offset = 'offset ' + str(offset) if offset != 0. else ''
-
-    if not isinstance(mask, string_types):
-        mask = array_to_cpptraj_atommask(mask)
     command = ' '.join((mask, _probe, _offset))
 
     act = CpptrajActions.Action_Molsurf()
 
-    _top = _get_topology(traj, top)
     dslist = CpptrajDatasetList()
-    act(command, fi, top=_top, dslist=dslist)
+    act(command, traj, top=top, dslist=dslist)
     return _get_data_from_dtype(dslist, dtype)
 
 
 @_register_pmap
+@_super_dispatch
 def calc_rotation_matrix(traj=None,
                          ref=0,
                          mask="",
@@ -693,19 +690,13 @@ def calc_rotation_matrix(traj=None,
     out : if with_rmsd=False, return numpy array, shape (n_frames, 3, 3)
           if with_rmsd=True, return a tuple (mat, rmsd)
     '''
-    traj = _get_fiterator(traj, frame_indices)
-    _top = _get_topology(traj, top)
     dslist = CpptrajDatasetList()
-    ref = _get_reference_from_traj(traj, ref)
-
     _mass = 'mass' if mass else ''
 
-    if not isinstance(mask, string_types):
-        mask = array_to_cpptraj_atommask(mask)
     command = ' '.join(('tmp', mask, 'savematrices', _mass))
 
     act = CpptrajActions.Action_Rmsd()
-    act(command, [ref, traj], top=_top, dslist=dslist)
+    act(command, [ref, traj], top=top, dslist=dslist)
     mat = dslist[-1].values
     # exclude data for reference
     if with_rmsd:
@@ -714,61 +705,51 @@ def calc_rotation_matrix(traj=None,
         return mat[1:]
 
 
+@_super_dispatch
 def calc_volume(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
-    if not isinstance(mask, string_types):
-        mask = array_to_cpptraj_atommask(mask)
-
     command = mask
 
     act = CpptrajActions.Action_Volume()
 
-    _top = _get_topology(traj, top)
     dslist = CpptrajDatasetList()
-    act(command, traj, top=_top, dslist=dslist, *args, **kwd)
+    act(command, traj, top=top, dslist=dslist, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype)
 
 
+@_super_dispatch
 def calc_multivector(traj=None,
-                     command="",
+                     mask="",
                      top=None,
                      dtype='ndarray', *args, **kwd):
     act = CpptrajActions.Action_MultiVector()
 
-    _top = _get_topology(traj, top)
     dslist = CpptrajDatasetList()
-    act(command, traj, top=_top, dslist=dslist, *args, **kwd)
+    act(command, traj, top=top, dslist=dslist, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype)
 
 
+@_super_dispatch
 def calc_volmap(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
-    if not isinstance(mask, string_types):
-        mask = array_to_cpptraj_atommask(mask)
-
     command = mask
 
     act = CpptrajActions.Action_Volmap()
 
-    _top = _get_topology(traj, top)
     dslist = CpptrajDatasetList()
-    act(command, traj, top=_top, dslist=dslist, *args, **kwd)
+    act(command, traj, top=top, dslist=dslist, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype)
 
 
+@_super_dispatch
 def calc_linear_interaction_energy(traj=None,
                                    mask="",
                                    top=None,
                                    dtype='dataset',
                                    frame_indices=None, *args, **kwd):
-    traj = _get_fiterator(traj, frame_indices)
-    if not isinstance(mask, string_types):
-        mask = array_to_cpptraj_atommask(mask)
-
     command = mask
     act = CpptrajActions.Action_LIE()
 
-    _top = _get_topology(traj, top)
     dslist = CpptrajDatasetList()
-    act(command, traj, top=_top, dslist=dslist, *args, **kwd)
+    act(command, traj, top=top, dslist=dslist, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype)
 
 # alias
@@ -872,6 +853,7 @@ def calc_rdf(traj=None,
     return (np.arange(bin_spacing / 2., maximum, bin_spacing), values)
 
 
+@_super_dispatch
 def calc_pairdist(traj, mask="*", delta=0.1, dtype='ndarray', top=None):
     '''compute pair distribution function
 
@@ -885,7 +867,6 @@ def calc_pairdist(traj, mask="*", delta=0.1, dtype='ndarray', top=None):
     top : Topology, optional
     '''
     with goto_temp_folder():
-        _top = _get_topology(traj, top)
         dslist = CpptrajDatasetList()
         act = CpptrajActions.Action_PairDist()
 
@@ -893,7 +874,7 @@ def calc_pairdist(traj, mask="*", delta=0.1, dtype='ndarray', top=None):
         _delta = 'delta ' + str(delta)
         command = ' '.join((_mask, _delta, 'out tmp_pytraj_out.txt'))
 
-        act(command, traj, top=_top, dslist=dslist)
+        act(command, traj, top=top, dslist=dslist)
         act.print_output()
 
         return _get_data_from_dtype(dslist, dtype=dtype)
@@ -902,6 +883,7 @@ def calc_pairdist(traj, mask="*", delta=0.1, dtype='ndarray', top=None):
 pairdist = calc_pairdist
 
 
+@_super_dispatch
 def calc_jcoupling(traj=None,
                    mask="",
                    top=None,
@@ -918,18 +900,15 @@ def calc_jcoupling(traj=None,
     dtype : str, {'dataset', ...}, default 'dataset'
     *args, **kwd: optional
     """
-    if not isinstance(mask, string_types):
-        mask = array_to_cpptraj_atommask(mask)
     command = mask
 
     act = CpptrajActions.Action_Jcoupling()
     # add `radial` keyword to command (need to check `why`?)
     dslist = CpptrajDatasetList()
-    _top = _get_topology(traj, top)
 
     if kfile is not None:
         command += " kfile %s" % kfile
-    act(command, traj, dslist=dslist, top=_top, *args, **kwd)
+    act(command, traj, dslist=dslist, top=top, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype)
 
 
@@ -1314,6 +1293,7 @@ def calc_atomicfluct(traj=None,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
+@_super_dispatch
 def calc_bfactors(traj=None,
                   mask="",
                   byres=True,
@@ -1330,9 +1310,6 @@ def calc_bfactors(traj=None,
     >>> import pytraj as pt
     >>> pt.calc_bfactors(traj, byres=True)
     """
-    if not isinstance(mask, string_types):
-        mask = array_to_cpptraj_atommask(mask)
-
     byres_text = "byres" if byres else ""
 
     _command = " ".join((mask, byres_text, "bfactor"))
@@ -1556,6 +1533,7 @@ def calc_pairwise_rmsd(traj=None,
         return _get_data_from_dtype(dslist, dtype)
 
 
+@_super_dispatch
 def calc_density(traj=None,
                  command="",
                  top=None,
@@ -1567,14 +1545,13 @@ def calc_density(traj=None,
         def _calc_density(traj, command, *args, **kwd):
             # TODO: update this method if cpptraj save data to
             # CpptrajDatasetList
-            _top = _get_topology(traj, top)
             dflist = DataFileList()
 
             tmp_filename = "tmp_pytraj_out.txt"
             command = "out " + tmp_filename + " " + command
             act = CpptrajActions.Action_Density()
             # with goto_temp_folder():
-            act(command, traj, top=_top, dflist=dflist)
+            act(command, traj, top=top, dflist=dflist)
             act.print_output()
             dflist.write_all_datafiles()
             absolute_path_tmp = os.path.abspath(tmp_filename)
@@ -1587,6 +1564,7 @@ def calc_density(traj=None,
 
 
 @_register_pmap
+@_super_dispatch
 def calc_temperatures(traj=None,
                       command="",
                       frame_indices=None,
@@ -1597,17 +1575,16 @@ def calc_temperatures(traj=None,
 
     Default = array of 0.0
     """
-    _top = _get_topology(traj, top)
     dslist = CpptrajDatasetList()
 
-    fi = _get_fiterator(traj, frame_indices)
     act = CpptrajActions.Action_Temperature()
-    act(command, fi, dslist=dslist, top=_top)
+    act(command, fi, dslist=dslist, top=top)
 
     return _get_data_from_dtype(dslist, dtype)
 
 
 @_register_pmap
+@_super_dispatch
 def rmsd_perres(traj=None,
                 ref=0,
                 mask="",
@@ -1774,6 +1751,7 @@ rmsd = calc_rmsd
 
 
 @_register_pmap
+@_super_dispatch
 def calc_distance_rmsd(traj=None, ref=0, mask='', top=None, dtype='ndarray'):
     '''compute distance rmsd between traj and reference
 
@@ -1798,13 +1776,11 @@ def calc_distance_rmsd(traj=None, ref=0, mask='', top=None, dtype='ndarray'):
     >>> # compute distance_rmsd to first frame with mask = '@CA'
     >>> pt.distance_rmsd(traj, ref=0, mask='@CA')
     '''
-    _top = _get_topology(traj, top)
-    _ref = _get_reference_from_traj(traj, ref)
     dslist = CpptrajDatasetList()
     command = mask
 
     act = CpptrajActions.Action_DistRmsd()
-    act(command, [_ref, traj], top=_top, dslist=dslist)
+    act(command, [ref, traj], top=top, dslist=dslist)
 
     # exclude ref value
     for d in dslist:
@@ -1869,22 +1845,16 @@ def principal_axes(traj=None, mask='*', dorotation=False, mass=True, top=None):
 
 
 @_register_openmp
+@_super_dispatch
 def atomiccorr(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     """
     """
-    _top = _get_topology(traj, top)
-
-    if not isinstance(mask, string_types):
-        # [1, 3, 5] to "@1,3,5
-        mask = array_to_cpptraj_atommask(mask)
-
     command = mask
 
     dslist = CpptrajDatasetList()
     act = CpptrajActions.Action_AtomicCorr()
     act("out mytempfile.out " + command, traj,
-        top=_top,
-        dslist=dslist, *args, **kwd)
+        top=top, dslist=dslist, *args, **kwd)
     act.print_output()
     return _get_data_from_dtype(dslist, dtype=dtype)
 
@@ -2042,20 +2012,18 @@ def native_contacts(traj=None,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
+@_super_dispatch
 def calc_grid(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     """
     """
     # TODO: doc, rename method, move to seperate module?
-    if not isinstance(command, string_types):
-        command = array_to_cpptraj_atommask(command)
     act = CpptrajActions.Action_Grid()
     dslist = CpptrajDatasetList()
 
     # cpptraj require output
     command = "tmp_pytraj_grid_output.txt " + command
-    _top = _get_topology(traj, top)
     with goto_temp_folder():
-        act(command, traj, dslist=dslist, top=_top, *args, **kwd)
+        act(command, traj, dslist=dslist, top=top, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
@@ -2218,6 +2186,7 @@ def lifetime(data, cut=0.5, rawcurve=False, more_options='', dtype='ndarray'):
     return _get_data_from_dtype(cdslist, dtype=dtype)
 
 
+@_super_dispatch
 def search_neighbors(traj=None,
                      mask='',
                      frame_indices=None,
@@ -2240,12 +2209,9 @@ def search_neighbors(traj=None,
     """
     dslist = DatasetList()
 
-    _top = _get_topology(traj, top)
-    fi = _get_fiterator(traj, frame_indices)
-
-    for idx, frame in enumerate(iterframe_master(fi)):
-        _top.set_distance_mask_reference(frame)
-        dslist.append({str(idx): np.asarray(_top.select(mask))})
+    for idx, frame in enumerate(iterframe_master(traj)):
+        top.set_distance_mask_reference(frame)
+        dslist.append({str(idx): np.asarray(top.select(mask))})
     return _get_data_from_dtype(dslist, dtype)
 
 
@@ -2285,6 +2251,7 @@ def pucker(traj=None,
     return _get_data_from_dtype(cdslist, dtype)
 
 
+@_super_dispatch
 def center(traj=None, mask="", center='box', mass=False, top=None):
     """center
 
@@ -2324,10 +2291,9 @@ def center(traj=None, mask="", center='box', mass=False, top=None):
     _mass = 'mass' if mass else ''
     command = ' '.join((mask, _center, _mass))
     _noaction_with_TrajectoryIterator(traj)
-    _top = _get_topology(traj, top)
 
     act = CpptrajActions.Action_Center()
-    act(command, traj, top=_top)
+    act(command, traj, top=top)
     return traj
 
 
