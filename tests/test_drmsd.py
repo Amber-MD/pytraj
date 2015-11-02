@@ -5,8 +5,8 @@ import pytraj as pt
 from pytraj.utils import eq, aa_eq
 
 
-class Test(unittest.TestCase):
-    def test_0(self):
+class TestDRMSD(unittest.TestCase):
+    def test_drmsd(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
         txt = '''
         parm data/tz2.parm7
@@ -23,9 +23,8 @@ class Test(unittest.TestCase):
 
         ## distance_rmsd
         data_drmsd = pt.distance_rmsd(traj)
-        print(data_drmsd)
-        print(cpp_data[0])
         aa_eq(data_drmsd, cpp_data[0])
+        aa_eq(pt.drmsd(traj), cpp_data[0])
 
         ### rms_nofit
         aa_eq(cpp_data[1], pt.rmsd(traj, nofit=True))

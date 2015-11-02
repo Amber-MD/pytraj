@@ -1786,12 +1786,9 @@ def calc_distance_rmsd(traj=None, ref=0, mask='', top=None, dtype='ndarray',
     '''
     dslist = CpptrajDatasetList()
     command = mask
-    _ref = _get_reference_from_traj(traj, ref)
-    _top = _get_topology(traj, top)
-    fi = _get_fiterator(traj, frame_indices)
 
     act = CpptrajActions.Action_DistRmsd()
-    act(command, [_ref, fi], top=_top, dslist=dslist)
+    act(command, [ref, traj], top=top, dslist=dslist)
 
     # exclude ref value
     for d in dslist:

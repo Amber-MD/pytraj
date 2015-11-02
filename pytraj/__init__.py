@@ -125,6 +125,7 @@ from .nmr import ired_vector_and_matrix, _ired, NH_order_parameters
 dssp_all_residues = dssp_allresidues
 fetch_pdb = load_pdb_rcsb
 rmsd_nofit = calc_rmsd_nofit
+drmsd = distance_rmsd
 distance = calc_distance
 distances = calc_distance
 pairwise_distance = calc_pairwise_distance
