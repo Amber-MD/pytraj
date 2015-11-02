@@ -1584,7 +1584,6 @@ def calc_temperatures(traj=None,
 
 
 @_register_pmap
-@_super_dispatch
 def rmsd_perres(traj=None,
                 ref=0,
                 mask="",
@@ -1750,7 +1749,6 @@ def calc_rmsd(traj=None,
 rmsd = calc_rmsd
 
 
-@_super_dispatch
 @_register_pmap
 def calc_distance_rmsd(traj=None, ref=0, mask='', top=None, dtype='ndarray'):
     '''compute distance rmsd between traj and reference
@@ -1776,7 +1774,6 @@ def calc_distance_rmsd(traj=None, ref=0, mask='', top=None, dtype='ndarray'):
     >>> # compute distance_rmsd to first frame with mask = '@CA'
     >>> pt.distance_rmsd(traj, ref=0, mask='@CA')
     '''
-    print('traj={0}, ref={1}'.format(traj, ref))
     dslist = CpptrajDatasetList()
     command = mask
 

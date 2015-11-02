@@ -30,6 +30,20 @@ class TestSuperDispatch(unittest.TestCase):
         func = _super_dispatch(func_convert_mask_array)
         func(self.traj, mask=[0, 3, 7])
 
+        # test all: top, mask, ref
+        def func_all_3(traj, ref=0, top=None, mask=''):
+            assert isinstance(mask, string_types)
+            assert isinstance(ref, pt.Frame)
+            assert isinstance(top, pt.Topology)
+        func = _super_dispatch(func_all_3)
+        func(self.traj, ref=3)
+
+        # FIXME
+        # positional
+        #func(self.traj, 3)
+        # specify nothing
+        #func(self.traj)
+
     def test_super_dispatch(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
 
