@@ -7,6 +7,8 @@ from pytraj.utils import eq, aa_eq
 from pytraj._get_common_objects import _super_dispatch
 from pytraj.externals.six import string_types
 
+_super_dispatch = _super_dispatch()
+
 class TestSuperDispatch(unittest.TestCase):
     def setUp(self):
         self.traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")

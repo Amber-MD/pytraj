@@ -155,7 +155,7 @@ def _get_resrange(resrange):
     return _resrange
 
 
-def _super_dispatch(f):
+class _super_dispatch(object):
     # TODO: more descriptive method name?
     '''apply a series of functions to ``f``'s args and kwd
 
@@ -167,40 +167,41 @@ def _super_dispatch(f):
         array_to_cpptraj_atommask(mask)
     - convert int ref to Frame ref
     '''
-    @wraps(f)
-    def inner(*args, **kwd):
-        args = list(args)
-        # traj is always 1st argument
-        traj = kwd.get('traj', args[0])
-        frame_indices = kwd.get('frame_indices', None)
-        ref = kwd.get('ref', None)
-        top = kwd.get('top', None)
+    def __call__(self, f):
+        @wraps(f)
+        def inner(*args, **kwd):
+            args = list(args)
+            # traj is always 1st argument
+            traj = kwd.get('traj', args[0])
+            frame_indices = kwd.get('frame_indices', None)
+            ref = kwd.get('ref', None)
+            top = kwd.get('top', None)
 
-        if 'mask' in kwd.keys():
-            mask = kwd.get('mask')
-        else:
-            # mask is always 2nd argument if there is no ref
-            try:
-                mask = args[1]
-                has_mask = True
-            except IndexError:
-                mask = '*'
-                has_mask = False
+            if 'mask' in kwd.keys():
+                mask = kwd.get('mask')
+            else:
+                # mask is always 2nd argument if there is no ref
+                try:
+                    mask = args[1]
+                    has_mask = True
+                except IndexError:
+                    mask = '*'
+                    has_mask = False
 
-        # overwrite
-        kwd['top'] = _get_topology(traj, top)
-        if ref is not None:
-            kwd['ref'] = _get_reference_from_traj(traj, ref)
-        if 'traj' in kwd.keys():
-            kwd['traj'] = _get_fiterator(traj, frame_indices)
-        else:
-            args[0] = _get_fiterator(traj, frame_indices)
-        if not isinstance(mask, string_types):
-            mask = array_to_cpptraj_atommask(mask)
-        if 'mask' in kwd.keys():
-            kwd['mask'] = mask
-        else:
-            if has_mask:
-                args[1] = mask
-        return f(*args, **kwd)
-    return inner
+            # overwrite
+            kwd['top'] = _get_topology(traj, top)
+            if ref is not None:
+                kwd['ref'] = _get_reference_from_traj(traj, ref)
+            if 'traj' in kwd.keys():
+                kwd['traj'] = _get_fiterator(traj, frame_indices)
+            else:
+                args[0] = _get_fiterator(traj, frame_indices)
+            if not isinstance(mask, string_types):
+                mask = array_to_cpptraj_atommask(mask)
+            if 'mask' in kwd.keys():
+                kwd['mask'] = mask
+            else:
+                if has_mask:
+                    args[1] = mask
+            return f(*args, **kwd)
+        return inner

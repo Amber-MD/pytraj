@@ -493,7 +493,7 @@ def calc_mindist(traj=None,
     return _get_data_from_dtype(dslist, dtype=dtype)[-1]
 
 
-@_super_dispatch
+@_super_dispatch()
 def calc_diffusion(traj,
                    mask="",
                    tstep=1.0,
@@ -623,7 +623,7 @@ def calc_matrix(traj=None,
 
 
 @_register_pmap
-@_super_dispatch
+@_super_dispatch()
 def calc_radgyr(traj=None,
                 mask="",
                 top=None,
@@ -649,7 +649,7 @@ def calc_radgyr(traj=None,
 
 
 @_register_pmap
-@_super_dispatch
+@_super_dispatch()
 def calc_molsurf(traj=None,
                  mask="",
                  probe=1.4,
@@ -676,7 +676,7 @@ def calc_molsurf(traj=None,
 
 
 @_register_pmap
-@_super_dispatch
+@_super_dispatch()
 def calc_rotation_matrix(traj=None,
                          ref=0,
                          mask="",
@@ -705,7 +705,7 @@ def calc_rotation_matrix(traj=None,
         return mat[1:]
 
 
-@_super_dispatch
+@_super_dispatch()
 def calc_volume(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     command = mask
 
@@ -716,7 +716,7 @@ def calc_volume(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     return _get_data_from_dtype(dslist, dtype)
 
 
-@_super_dispatch
+@_super_dispatch()
 def calc_multivector(traj=None,
                      mask="",
                      top=None,
@@ -728,7 +728,7 @@ def calc_multivector(traj=None,
     return _get_data_from_dtype(dslist, dtype)
 
 
-@_super_dispatch
+@_super_dispatch()
 def calc_volmap(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     command = mask
 
@@ -739,7 +739,7 @@ def calc_volmap(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     return _get_data_from_dtype(dslist, dtype)
 
 
-@_super_dispatch
+@_super_dispatch()
 def calc_linear_interaction_energy(traj=None,
                                    mask="",
                                    top=None,
@@ -853,7 +853,7 @@ def calc_rdf(traj=None,
     return (np.arange(bin_spacing / 2., maximum, bin_spacing), values)
 
 
-@_super_dispatch
+@_super_dispatch()
 def calc_pairdist(traj, mask="*", delta=0.1, dtype='ndarray', top=None):
     '''compute pair distribution function
 
@@ -883,7 +883,7 @@ def calc_pairdist(traj, mask="*", delta=0.1, dtype='ndarray', top=None):
 pairdist = calc_pairdist
 
 
-@_super_dispatch
+@_super_dispatch()
 def calc_jcoupling(traj=None,
                    mask="",
                    top=None,
@@ -1293,7 +1293,7 @@ def calc_atomicfluct(traj=None,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-@_super_dispatch
+@_super_dispatch()
 def calc_bfactors(traj=None,
                   mask="",
                   byres=True,
@@ -1533,7 +1533,7 @@ def calc_pairwise_rmsd(traj=None,
         return _get_data_from_dtype(dslist, dtype)
 
 
-@_super_dispatch
+@_super_dispatch()
 def calc_density(traj=None,
                  command="",
                  top=None,
@@ -1564,7 +1564,7 @@ def calc_density(traj=None,
 
 
 @_register_pmap
-@_super_dispatch
+@_super_dispatch()
 def calc_temperatures(traj=None,
                       command="",
                       frame_indices=None,
@@ -1847,7 +1847,7 @@ def principal_axes(traj=None, mask='*', dorotation=False, mass=True, top=None):
 
 
 @_register_openmp
-@_super_dispatch
+@_super_dispatch()
 def atomiccorr(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     """
     """
@@ -2014,7 +2014,7 @@ def native_contacts(traj=None,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-@_super_dispatch
+@_super_dispatch()
 def calc_grid(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     """
     """
@@ -2188,7 +2188,7 @@ def lifetime(data, cut=0.5, rawcurve=False, more_options='', dtype='ndarray'):
     return _get_data_from_dtype(cdslist, dtype=dtype)
 
 
-@_super_dispatch
+@_super_dispatch()
 def search_neighbors(traj=None,
                      mask='',
                      frame_indices=None,
@@ -2253,7 +2253,7 @@ def pucker(traj=None,
     return _get_data_from_dtype(cdslist, dtype)
 
 
-@_super_dispatch
+@_super_dispatch()
 def center(traj=None, mask="", center='box', mass=False, top=None):
     """center
 
