@@ -205,7 +205,7 @@ cdef class ActionList:
             actionframe_ = _ActionFrame(frame.thisptr)
             self.thisptr.DoActions(idx, actionframe_)
         else:
-            for i, frame in enumerate( iterframe_master(traj)):
+            for i, frame in enumerate(iterframe_master(traj)):
                 self.do_actions(frame, i) 
 
     def is_empty(self):

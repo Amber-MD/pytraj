@@ -96,7 +96,10 @@ def calc_distance(traj=None,
                   frame_indices=None,
                   dtype='ndarray',
                   top=None,
+                  image=True,
                   n_frames=None):
+    # FIXME: get wrong (0.) results if Topology has box but Frame doesn't
+    # TODO: add image, noe, ...
     """calculate distance between two maskes
 
     Parameters
@@ -104,8 +107,9 @@ def calc_distance(traj=None,
     traj : Trajectory-like, list of Trajectory, list of Frames
     mask : str or a list of string or a 2D array-like of integers
     frame_indices : array-like, optional, default None
-    top : Topology, optional
     dtype : return type, default 'ndarray'
+    top : Topology, optional
+    image : bool, default True
     n_frames : int, optional, default None
         only need to provide n_frames if ``traj`` does not have this info
 
@@ -140,6 +144,7 @@ def calc_distance(traj=None,
 
     traj = _get_fiterator(traj, frame_indices)
     _top = _get_topology(traj, top)
+    _noimage = 'noimage' if not image else ''
 
     cm_arr = np.asarray(command)
 
@@ -182,9 +187,12 @@ def calc_distance(traj=None,
         actlist = ActionList()
 
         for cm in list_of_commands:
+            if not image:
+                cm = ' '.join((cm, _noimage))
             actlist.add_action(
                 CpptrajActions.Action_Distance(), cm, _top,
                 dslist=dslist)
+
         actlist.do_actions(traj)
         return _get_data_from_dtype(dslist, dtype)
 
@@ -1778,12 +1786,9 @@ def calc_distance_rmsd(traj=None, ref=0, mask='', top=None, dtype='ndarray',
     '''
     dslist = CpptrajDatasetList()
     command = mask
-    _ref = _get_reference_from_traj(traj, ref)
-    _top = _get_topology(traj, top)
-    fi = _get_fiterator(traj, frame_indices)
 
     act = CpptrajActions.Action_DistRmsd()
-    act(command, [_ref, fi], top=_top, dslist=dslist)
+    act(command, [ref, traj], top=top, dslist=dslist)
 
     # exclude ref value
     for d in dslist:
