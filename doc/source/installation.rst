@@ -119,13 +119,13 @@ If you want to see further options, check ``python setup.py install --help``
 undefined symbol error
 ~~~~~~~~~~~~~~~~~~~~~~
 
-For end users, install `pytraj` is very straigh forward by `python setup.y install`. But
-for whom wants to catch up the development of `pytraj`, you might get `undefined symbol
-error` when install new code. This happens you need to keep `pytraj` and `cpptraj` syncs. Sometimes `cpptraj` API is changed and you need to
-update `pytraj` code (by `git pull`) and recompiling pytraj from fresh.
+For end users, install pytraj is very straigh forward by ``python setup.y install``. But
+for whom wants to catch up the development of pytraj, you might get ``undefined symbol
+error`` when install new code. This happens you need to keep `pytraj` and `cpptraj` syncs. Sometimes `cpptraj` API is changed and you need to
+update `pytraj` code (by ``git pull``) and then recompile pytraj from fresh.
 
 If you already tried hard to install but not successful, it's better to remove old pytraj installation (NOT pytraj source
-code) and all the old `libcpptraj.so` files (come from `conda` install, from using `python setup.py install`...
+code) and remove all the old `libcpptraj.so` files (come from conda install or from using ``python setup.py install``...)
 
 - First, remove all `libcpptraj.so` files. You can find their dir by using::
       
@@ -142,6 +142,7 @@ code) and all the old `libcpptraj.so` files (come from `conda` install, from usi
 - Recompile `libcpptraj.so`::
 
   cd cpptraj
+
   make libcpptraj
 
 - Go back to `pytraj` source::
