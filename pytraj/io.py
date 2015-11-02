@@ -63,7 +63,10 @@ def load(filename, top=None, frame_indices=None, mask=None):
 
     Notes
     -----
-    For further slicing options, see pytraj.TrajectoryIterator (created by ``pytraj.iterload``)
+    - For further slicing options, see pytraj.TrajectoryIterator (created by ``pytraj.iterload``)
+
+    - Also see `pytraj.iterload` for loading a series of trajectories that don't fit to
+      memory
 
     Examples
     --------

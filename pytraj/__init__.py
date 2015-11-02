@@ -126,6 +126,7 @@ dssp_all_residues = dssp_allresidues
 fetch_pdb = load_pdb_rcsb
 rmsd_nofit = calc_rmsd_nofit
 drmsd = distance_rmsd
+hbond = search_hbonds
 distance = calc_distance
 distances = calc_distance
 pairwise_distance = calc_pairwise_distance
