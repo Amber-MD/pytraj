@@ -63,6 +63,7 @@ from . import options
 # import partial from functools
 from functools import partial
 
+from .externals.six import string_types
 from .core import Atom, Residue, Molecule
 from .core.cpp_core import CpptrajState, ArgList, AtomMask, _load_batch
 from .core.cpp_core import Command
@@ -313,7 +314,11 @@ def select_atoms(mask, topology):
     >>> atom_indices = pt.select_atoms('@CA', traj.top)
     >>> atom_indices
     array([  4,  15,  39, ..., 159, 173, 197])
+    >>> pt.select_atoms(traj.top, '@CA')
+    array([  4,  15,  39, ..., 159, 173, 197])
     '''
+    if isinstance(mask, Topology) and isinstance(topology, string_types):
+        mask, topology = topology, mask
     return topology.select(mask)
 
 select = select_atoms

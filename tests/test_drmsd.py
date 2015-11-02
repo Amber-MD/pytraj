@@ -23,6 +23,8 @@ class Test(unittest.TestCase):
 
         ## distance_rmsd
         data_drmsd = pt.distance_rmsd(traj)
+        print(data_drmsd)
+        print(cpp_data[0])
         aa_eq(data_drmsd, cpp_data[0])
 
         ### rms_nofit
