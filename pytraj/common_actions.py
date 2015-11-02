@@ -96,6 +96,7 @@ def calc_distance(traj=None,
                   frame_indices=None,
                   dtype='ndarray',
                   top=None,
+                  image=True,
                   n_frames=None):
     # FIXME: get wrong (0.) results if Topology has box but Frame doesn't
     # TODO: add image, noe, ...
@@ -106,8 +107,9 @@ def calc_distance(traj=None,
     traj : Trajectory-like, list of Trajectory, list of Frames
     mask : str or a list of string or a 2D array-like of integers
     frame_indices : array-like, optional, default None
-    top : Topology, optional
     dtype : return type, default 'ndarray'
+    top : Topology, optional
+    image : bool, default True
     n_frames : int, optional, default None
         only need to provide n_frames if ``traj`` does not have this info
 
