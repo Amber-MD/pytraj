@@ -16,7 +16,7 @@ def to_amber_mask(txtlist):
     """Convert something like 'ASP_16@OD1-ARG_18@N-H to ':16@OD1 :18@H'
 
     >>> list(to_amber_mask(['ASP_16@OD1-ARG_18@N-H',]))
-    [':16@OD1 :18@N']
+    [':16@OD1 :18@H']
     """
     # TODO: it's better to have cpptraj printing the atom indices
     import re
@@ -25,7 +25,7 @@ def to_amber_mask(txtlist):
 
     for mask in _txt:
         mask = mask.replace("_", " ").replace("-", " ").split()
-        yield ':' + mask[1] + ' :' + mask[3]
+        yield ':' + mask[1] + ' :' + mask[4]
 
 
 class DatasetHBond(BaseDataHolder):
