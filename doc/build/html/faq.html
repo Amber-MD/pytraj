@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Frequently Asked Questions &mdash; pytraj 0.1.2.dev11 documentation</title>
+    <title>Frequently Asked Questions &mdash; pytraj 0.1.2.dev12 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.2.dev11',
+        VERSION:     '0.1.2.dev12',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev11 documentation" href="index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12 documentation" href="index.html" />
     <link rel="next" title="Developer guide for pytraj" href="developer_guide.html" />
     <link rel="prev" title="What’s new?" href="whatsnew.html" />
 <meta charset='utf-8'>
@@ -51,7 +51,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev11</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -110,6 +110,7 @@
 <li><a class="reference internal" href="#error-could-not-determine-trajectory-format-nc">Error: Could not determine trajectory format &#8221;.nc&#8221;</a></li>
 <li><a class="reference internal" href="#importerror-libhdf5-hl-so-9-cannot-open-shared-object-file">ImportError: libhdf5_hl.so.9: cannot open shared object file</a></li>
 <li><a class="reference internal" href="#valueerror-big-endian-buffer-not-supported-on-little-endian-compiler">ValueError: Big-endian buffer not supported on little-endian compiler</a></li>
+<li><a class="reference internal" href="#importerror-after-cpptraj-update">ImportError after cpptraj update</a></li>
 </ul>
 </li>
 </ul>
@@ -175,6 +176,7 @@
 <li><a class="reference internal" href="#error-could-not-determine-trajectory-format-nc" id="id9">Error: Could not determine trajectory format &#8221;.nc&#8221;</a></li>
 <li><a class="reference internal" href="#importerror-libhdf5-hl-so-9-cannot-open-shared-object-file" id="id10">ImportError: libhdf5_hl.so.9: cannot open shared object file</a></li>
 <li><a class="reference internal" href="#valueerror-big-endian-buffer-not-supported-on-little-endian-compiler" id="id11">ValueError: Big-endian buffer not supported on little-endian compiler</a></li>
+<li><a class="reference internal" href="#importerror-after-cpptraj-update" id="id12">ImportError after cpptraj update</a></li>
 </ul>
 </li>
 </ul>
@@ -201,21 +203,22 @@ FrameIterator for lazy loading. You can use both for analysis.</p>
 
 <span class="gp">In [3]: </span><span class="n">traj</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
 <span class="gr">Out[3]: </span>
-<span class="go">&lt;pytraj.Trajectory, 5 frames, include:</span>
-<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;&gt;</span>
+<span class="go">pytraj.Trajectory, 5 frames: </span>
+<span class="go">Size: 0.0000 (GB)</span>
+<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
 <span class="go">           </span>
 
 <span class="gp">In [4]: </span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
-<span class="go">                                                                                                                 Out[4]: array([ 9.57459712,  9.94041   ,  8.91590518,  8.02623709,  8.68518202])</span>
+<span class="go">                                                                                                                         Out[4]: array([ 9.57459712,  9.94041   ,  8.91590518,  8.02623709,  8.68518202])</span>
 
 <span class="gp">In [5]: </span><span class="n">traj</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="go">                                                                                                                                                                                                  Out[5]: </span>
+<span class="go">                                                                                                                                                                                                          Out[5]: </span>
 <span class="go">&lt;FrameIter with start=1, stop=11, step=2, n_frames=5, </span>
 <span class="go">frame_indices=None, </span>
 <span class="go">mask=None, autoimage=False, rmsfit=None, copy=False&gt; </span>
 
 <span class="gp">In [6]: </span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                             Out[6]: array([ 9.57459712,  9.94041   ,  8.91590518,  8.02623709,  8.68518202])</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                     Out[6]: array([ 9.57459712,  9.94041   ,  8.91590518,  8.02623709,  8.68518202])</span>
 </pre></div>
 </div>
 </div>
@@ -233,14 +236,16 @@ extra data copying.</p>
 
 <span class="gp">In [9]: </span><span class="n">traj</span>
 <span class="gr">Out[9]: </span>
-<span class="go">&lt;pytraj.TrajectoryIterator, 101 frames, include:</span>
-<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;&gt;</span>
+<span class="go">pytraj.TrajectoryIterator, 101 frames: </span>
+<span class="go">Size: 0.0005 (GB)</span>
+<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
 <span class="go">           </span>
 
 <span class="gp">In [10]: </span><span class="n">traj</span><span class="p">[:</span><span class="mi">8</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">]</span>
-<span class="go">                                                                                                                           Out[10]: </span>
-<span class="go">&lt;pytraj.Trajectory, 8 frames, include:</span>
-<span class="go">&lt;Topology: 12 atoms, 12 residues, 12 mols, non-PBC&gt;&gt;</span>
+<span class="go">                                                                                                                                   Out[10]: </span>
+<span class="go">pytraj.Trajectory, 8 frames: </span>
+<span class="go">Size: 0.0000 (GB)</span>
+<span class="go">&lt;Topology: 12 atoms, 12 residues, 12 mols, non-PBC&gt;</span>
 </pre></div>
 </div>
 </div>
@@ -277,6 +282,21 @@ email or open issue on github</p>
 <h2><a class="toc-backref" href="#id11">ValueError: Big-endian buffer not supported on little-endian compiler</a><a class="headerlink" href="#valueerror-big-endian-buffer-not-supported-on-little-endian-compiler" title="Permalink to this headline">¶</a></h2>
 <p>When you are using memoryview, make sure to use correct type. Just google this error.</p>
 </div>
+<div class="section" id="importerror-after-cpptraj-update">
+<h2><a class="toc-backref" href="#id12">ImportError after cpptraj update</a><a class="headerlink" href="#importerror-after-cpptraj-update" title="Permalink to this headline">¶</a></h2>
+<p>Symtoms:</p>
+<div class="highlight-python"><div class="highlight"><pre>ImportError ... undefined symbol
+</pre></div>
+</div>
+<p>Solution:</p>
+<div class="highlight-python"><div class="highlight"><pre>since pytraj requires cpptraj at both compiling and running time, if you update libcpptraj.so, you need to rebbuild pytraj from fresh.
+
+# supposed you are in pytraj home folder (having README.md, tests, ...)
+rm -rf build
+python setup.py install
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -292,7 +312,7 @@ email or open issue on github</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 30, 2015.<br/>
+      Last updated on Nov 01, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

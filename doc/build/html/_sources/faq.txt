@@ -90,3 +90,18 @@ ValueError: Big-endian buffer not supported on little-endian compiler
 ---------------------------------------------------------------------
 
 When you are using memoryview, make sure to use correct type. Just google this error.
+
+ImportError after cpptraj update
+--------------------------------
+
+Symtoms::
+
+    ImportError ... undefined symbol
+
+Solution::
+
+    since pytraj requires cpptraj at both compiling and running time, if you update libcpptraj.so, you need to rebbuild pytraj from fresh.
+
+    # supposed you are in pytraj home folder (having README.md, tests, ...)
+    rm -rf build
+    python setup.py install

@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.common_actions &mdash; pytraj 0.1.2.dev11 documentation</title>
+    <title>pytraj.common_actions &mdash; pytraj 0.1.2.dev12 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev11',
+        VERSION:     '0.1.2.dev12',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev11 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="next" title="pytraj.hbonds" href="pytraj.hbonds.html" />
 <meta charset='utf-8'>
@@ -51,7 +51,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev11</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -1068,7 +1068,7 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
 
 <dl class="function">
 <dt id="pytraj.common_actions.nastruct">
-<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">nastruct</tt><big>(</big><em>traj=None</em>, <em>ref=0</em>, <em>resrange=None</em>, <em>resmap=None</em>, <em>hbcut=3.5</em>, <em>frame_indices=None</em>, <em>pucker_method='altona'</em>, <em>dtype='nupars'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.nastruct" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">nastruct</tt><big>(</big><em>traj=None</em>, <em>ref=0</em>, <em>resrange=None</em>, <em>resmap=None</em>, <em>hbcut=3.5</em>, <em>frame_indices=None</em>, <em>pucker_method='altona'</em>, <em>dtype='nupars'</em>, <em>groove_3dna=True</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.nastruct" title="Permalink to this definition">¶</a></dt>
 <dd><p>compute nucleic acid parameters. (adapted from cpptraj doc)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1088,6 +1088,10 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
 &#8216;cremer&#8217; : Use method of Cremer and Pople to calculate sugar pucker&#8217;</p>
 </div></blockquote>
 <p><strong>frame_indices</strong> : array-like, default None (all frames)</p>
+<p><strong>groove_3dna</strong> : bool, default True</p>
+<blockquote>
+<div><p>if True, major and minor groove will match 3DNA&#8217;s output.</p>
+</div></blockquote>
 <p><strong>dtype</strong> : str, {&#8216;nupars&#8217;, &#8216;cpptraj_dataset&#8217;}, default &#8216;nupars&#8217;</p>
 </td>
 </tr>
@@ -1101,7 +1105,7 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_rna</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">nastruct</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">nastruct</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">groove_3dna</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()[:</span><span class="mi">5</span><span class="p">]</span> 
 <span class="go">[&#39;buckle&#39;, &#39;minor&#39;, &#39;major&#39;, &#39;xdisp&#39;, &#39;stagger&#39;]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># get minor groove width values for each pairs for each snapshot</span>
@@ -1146,7 +1150,7 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 30, 2015.<br/>
+      Last updated on Nov 01, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

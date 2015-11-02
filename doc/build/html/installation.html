@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Installation &mdash; pytraj 0.1.2.dev11 documentation</title>
+    <title>Installation &mdash; pytraj 0.1.2.dev12 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.2.dev11',
+        VERSION:     '0.1.2.dev12',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev11 documentation" href="index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12 documentation" href="index.html" />
     <link rel="next" title="Trajectory" href="trajectory.html" />
     <link rel="prev" title="Overview" href="overview.html" />
 <meta charset='utf-8'>
@@ -51,7 +51,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev11</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -115,7 +115,11 @@
 <li><a class="reference internal" href="#id2">from conda</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+<li><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li><a class="reference internal" href="#permission-denied">Permission denied</a></li>
+<li><a class="reference internal" href="#undefined-symbol-error">undefined symbol error</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#install-ipython-and-its-notebook-for-interactive-data-exploration">install ipython and its notebook for interactive data exploration</a></li>
 <li><a class="reference internal" href="#install-anaconda-for-all-python-packages">install anaconda for all python packages</a></li>
 </ul>
@@ -190,9 +194,13 @@
 <li><a class="reference internal" href="#id2" id="id12">from conda</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#troubleshooting" id="id13">Troubleshooting</a></li>
-<li><a class="reference internal" href="#install-ipython-and-its-notebook-for-interactive-data-exploration" id="id14">install ipython and its notebook for interactive data exploration</a></li>
-<li><a class="reference internal" href="#install-anaconda-for-all-python-packages" id="id15">install anaconda for all python packages</a></li>
+<li><a class="reference internal" href="#troubleshooting" id="id13">Troubleshooting</a><ul>
+<li><a class="reference internal" href="#permission-denied" id="id14">Permission denied</a></li>
+<li><a class="reference internal" href="#undefined-symbol-error" id="id15">undefined symbol error</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#install-ipython-and-its-notebook-for-interactive-data-exploration" id="id16">install ipython and its notebook for interactive data exploration</a></li>
+<li><a class="reference internal" href="#install-anaconda-for-all-python-packages" id="id17">install anaconda for all python packages</a></li>
 </ul>
 </li>
 </ul>
@@ -268,6 +276,8 @@ follow below.</p>
 </div>
 <div class="section" id="troubleshooting">
 <h2><a class="toc-backref" href="#id13">Troubleshooting</a><a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="permission-denied">
+<h3><a class="toc-backref" href="#id14">Permission denied</a><a class="headerlink" href="#permission-denied" title="Permalink to this headline">¶</a></h3>
 <p><tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></tt> is standard process to install a new Python package.
 But if you are new to Python and got <tt class="docutils literal"><span class="pre">permission</span> <span class="pre">denied</span></tt> error, try to install <tt class="docutils literal"><span class="pre">pytraj</span></tt> in your home folder.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="c"># install pytraj in $HOME/.local</span>
@@ -281,15 +291,50 @@ python ./setup.py install --prefix<span class="o">=</span>your_favorite_dir
 </div>
 <p>If you want to see further options, check <tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span> <span class="pre">--help</span></tt></p>
 </div>
+<div class="section" id="undefined-symbol-error">
+<h3><a class="toc-backref" href="#id15">undefined symbol error</a><a class="headerlink" href="#undefined-symbol-error" title="Permalink to this headline">¶</a></h3>
+<p>For end users, install <cite>pytraj</cite> is very straigh forward by <cite>python setup.y install</cite>. But
+for whom wants to catch up the development of <cite>pytraj</cite>, you might get <cite>undefined symbol
+error</cite> when install new code. This happens you need to keep <cite>pytraj</cite> and <cite>cpptraj</cite> syncs. Sometimes <cite>cpptraj</cite> API is changed and you need to
+update <cite>pytraj</cite> code (by <cite>git pull</cite>) and recompiling pytraj from fresh.</p>
+<p>If you already tried hard to install but not successful, it&#8217;s better to remove old pytraj installation (NOT pytraj source
+code) and all the old <cite>libcpptraj.so</cite> files (come from <cite>conda</cite> install, from using <cite>python setup.py install</cite>...</p>
+<ul>
+<li><p class="first">First, remove all <cite>libcpptraj.so</cite> files. You can find their dir by using:</p>
+<div class="highlight-python"><div class="highlight"><pre>locate libcpptraj.so
+</pre></div>
+</div>
+</li>
+<li><p class="first">Then, remove build directory:</p>
+<div class="highlight-python"><div class="highlight"><pre>rm -rf build
+</pre></div>
+</div>
+</li>
+<li><p class="first">Remove installed folder, example:</p>
+<div class="highlight-python"><div class="highlight"><pre>rm -rf /home/anaconda3/lib/python3.4/site-packages/pytraj/
+</pre></div>
+</div>
+</li>
+<li><p class="first">Recompile <cite>libcpptraj.so</cite>:</p>
+<p>cd cpptraj
+make libcpptraj</p>
+</li>
+<li><p class="first">Go back to <cite>pytraj</cite> source:</p>
+<p>python setup.py install</p>
+</li>
+</ul>
+<p>If above steps do not solve your probrem, please contact us.</p>
+</div>
+</div>
 <div class="section" id="install-ipython-and-its-notebook-for-interactive-data-exploration">
-<h2><a class="toc-backref" href="#id14">install ipython and its notebook for interactive data exploration</a><a class="headerlink" href="#install-ipython-and-its-notebook-for-interactive-data-exploration" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id16">install ipython and its notebook for interactive data exploration</a><a class="headerlink" href="#install-ipython-and-its-notebook-for-interactive-data-exploration" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="http://ipython.org/">ipython</a> and its notebook is great program for interactive exloration of MD data.
 Curious about how the notebook looks like? check out our <a class="reference external" href="http://amber-md.github.io/pytraj/doc/build/html/tutorials/tut_pairwise_rmsd.html">pairwise rmsd tutorial</a></p>
 <p>If you are using <tt class="docutils literal"><span class="pre">anaconda</span></tt>, just type <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">notebook</span></tt>. If you have not haved ipython and its notebook, try <tt class="docutils literal"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">ipython</span></tt>
 For further instruction and information about <tt class="docutils literal"><span class="pre">ipython-notebook</span></tt>, please check its website.</p>
 </div>
 <div class="section" id="install-anaconda-for-all-python-packages">
-<h2><a class="toc-backref" href="#id15">install anaconda for all python packages</a><a class="headerlink" href="#install-anaconda-for-all-python-packages" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id17">install anaconda for all python packages</a><a class="headerlink" href="#install-anaconda-for-all-python-packages" title="Permalink to this headline">¶</a></h2>
 <p>we highly recommend to install anaconda that has all good python packages (<tt class="docutils literal"><span class="pre">cython</span></tt>, <tt class="docutils literal"><span class="pre">numpy</span></tt>, <tt class="docutils literal"><span class="pre">sklearn</span></tt>, <tt class="docutils literal"><span class="pre">pandas</span></tt>, ...). Anaconda is totally free.</p>
 <ul class="simple">
 <li>go to <a class="reference external" href="http://continuum.io/downloads#py34">its website</a>, choose your platform and
@@ -314,7 +359,7 @@ version)</li>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 30, 2015.<br/>
+      Last updated on Nov 01, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

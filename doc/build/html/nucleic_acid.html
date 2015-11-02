@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Nucleic Acid Analysis &mdash; pytraj 0.1.2.dev11 documentation</title>
+    <title>Nucleic Acid Analysis &mdash; pytraj 0.1.2.dev12 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.2.dev11',
+        VERSION:     '0.1.2.dev12',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev11 documentation" href="index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12 documentation" href="index.html" />
     <link rel="up" title="Analysis" href="analysis.html" />
     <link rel="next" title="Vector Analysis" href="vector_analysis.html" />
     <link rel="prev" title="Analysis" href="analysis.html" />
@@ -52,7 +52,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev11</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -155,7 +155,7 @@
 <span id="nucleic-acid"></span><h1>Nucleic Acid Analysis<a class="headerlink" href="#nucleic-acid-analysis" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="pytraj.nastruct">
-<tt class="descclassname">pytraj.</tt><tt class="descname">nastruct</tt><big>(</big><em>traj=None</em>, <em>ref=0</em>, <em>resrange=None</em>, <em>resmap=None</em>, <em>hbcut=3.5</em>, <em>frame_indices=None</em>, <em>pucker_method='altona'</em>, <em>dtype='nupars'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.nastruct" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.</tt><tt class="descname">nastruct</tt><big>(</big><em>traj=None</em>, <em>ref=0</em>, <em>resrange=None</em>, <em>resmap=None</em>, <em>hbcut=3.5</em>, <em>frame_indices=None</em>, <em>pucker_method='altona'</em>, <em>dtype='nupars'</em>, <em>groove_3dna=True</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.nastruct" title="Permalink to this definition">¶</a></dt>
 <dd><p>compute nucleic acid parameters. (adapted from cpptraj doc)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -175,6 +175,10 @@
 &#8216;cremer&#8217; : Use method of Cremer and Pople to calculate sugar pucker&#8217;</p>
 </div></blockquote>
 <p><strong>frame_indices</strong> : array-like, default None (all frames)</p>
+<p><strong>groove_3dna</strong> : bool, default True</p>
+<blockquote>
+<div><p>if True, major and minor groove will match 3DNA&#8217;s output.</p>
+</div></blockquote>
 <p><strong>dtype</strong> : str, {&#8216;nupars&#8217;, &#8216;cpptraj_dataset&#8217;}, default &#8216;nupars&#8217;</p>
 </td>
 </tr>
@@ -188,7 +192,7 @@
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_rna</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">nastruct</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">nastruct</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">groove_3dna</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()[:</span><span class="mi">5</span><span class="p">]</span> 
 <span class="go">[&#39;buckle&#39;, &#39;minor&#39;, &#39;major&#39;, &#39;xdisp&#39;, &#39;stagger&#39;]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># get minor groove width values for each pairs for each snapshot</span>
@@ -226,34 +230,35 @@
 
 <span class="gp">In [3]: </span><span class="n">traj</span>
 <span class="gr">Out[3]: </span>
-<span class="go">&lt;pytraj.TrajectoryIterator, 3 frames, include:</span>
-<span class="go">&lt;Topology: 518 atoms, 16 residues, 2 mols, non-PBC&gt;&gt;</span>
+<span class="go">pytraj.TrajectoryIterator, 3 frames: </span>
+<span class="go">Size: 0.0000 (GB)</span>
+<span class="go">&lt;Topology: 518 atoms, 16 residues, 2 mols, non-PBC&gt;</span>
 <span class="go">           </span>
 
 <span class="c"># check unique residue names</span>
 <span class="gp">In [4]: </span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">residue_names</span>
-<span class="go">                                                                                                                         Out[4]: {&#39;C&#39;, &#39;C3&#39;, &#39;G&#39;, &#39;G5&#39;}</span>
+<span class="go">                                                                                                                                 Out[4]: {&#39;C&#39;, &#39;C3&#39;, &#39;G&#39;, &#39;G5&#39;}</span>
 
 <span class="gp">In [5]: </span><span class="n">na</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">nastruct</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
 
 <span class="gp">In [6]: </span><span class="n">na</span>
-<span class="gr">Out[6]: </span><span class="o">&lt;</span><span class="n">nupars</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;stagger&#39;</span><span class="p">,</span> <span class="s">&#39;htwist&#39;</span><span class="p">,</span> <span class="s">&#39;stretch&#39;</span><span class="p">,</span> <span class="s">&#39;twist&#39;</span><span class="p">,</span> <span class="s">&#39;buckle&#39;</span><span class="p">,</span> <span class="s">&#39;prop&#39;</span><span class="p">,</span> <span class="s">&#39;shift&#39;</span><span class="p">,</span> <span class="s">&#39;incl&#39;</span><span class="p">,</span> <span class="s">&#39;ydisp&#39;</span><span class="p">,</span> <span class="s">&#39;xdisp&#39;</span><span class="p">,</span> <span class="s">&#39;tip&#39;</span><span class="p">,</span> <span class="s">&#39;tilt&#39;</span><span class="p">,</span> <span class="s">&#39;hrise&#39;</span><span class="p">,</span> <span class="s">&#39;zp&#39;</span><span class="p">,</span> <span class="s">&#39;hb&#39;</span><span class="p">,</span> <span class="s">&#39;roll&#39;</span><span class="p">,</span> <span class="s">&#39;major&#39;</span><span class="p">,</span> <span class="s">&#39;shear&#39;</span><span class="p">,</span> <span class="s">&#39;open&#39;</span><span class="p">,</span> <span class="s">&#39;rise&#39;</span><span class="p">,</span> <span class="s">&#39;minor&#39;</span><span class="p">,</span> <span class="s">&#39;slide&#39;</span><span class="p">,</span> <span class="s">&#39;pucker&#39;</span><span class="p">]</span><span class="o">&gt;</span>
+<span class="gr">Out[6]: </span><span class="o">&lt;</span><span class="n">nupars</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;shear&#39;</span><span class="p">,</span> <span class="s">&#39;roll&#39;</span><span class="p">,</span> <span class="s">&#39;slide&#39;</span><span class="p">,</span> <span class="s">&#39;stretch&#39;</span><span class="p">,</span> <span class="s">&#39;incl&#39;</span><span class="p">,</span> <span class="s">&#39;prop&#39;</span><span class="p">,</span> <span class="s">&#39;xdisp&#39;</span><span class="p">,</span> <span class="s">&#39;major&#39;</span><span class="p">,</span> <span class="s">&#39;shift&#39;</span><span class="p">,</span> <span class="s">&#39;hb&#39;</span><span class="p">,</span> <span class="s">&#39;hrise&#39;</span><span class="p">,</span> <span class="s">&#39;ydisp&#39;</span><span class="p">,</span> <span class="s">&#39;open&#39;</span><span class="p">,</span> <span class="s">&#39;buckle&#39;</span><span class="p">,</span> <span class="s">&#39;twist&#39;</span><span class="p">,</span> <span class="s">&#39;htwist&#39;</span><span class="p">,</span> <span class="s">&#39;tilt&#39;</span><span class="p">,</span> <span class="s">&#39;pucker&#39;</span><span class="p">,</span> <span class="s">&#39;zp&#39;</span><span class="p">,</span> <span class="s">&#39;minor&#39;</span><span class="p">,</span> <span class="s">&#39;rise&#39;</span><span class="p">,</span> <span class="s">&#39;stagger&#39;</span><span class="p">,</span> <span class="s">&#39;tip&#39;</span><span class="p">]</span><span class="o">&gt;</span>
 
 <span class="c"># get values for major groove width</span>
 <span class="gp">In [7]: </span><span class="n">na</span><span class="o">.</span><span class="n">major</span>
 <span class="go">                                                                                                                                                                                                                                  Out[7]: </span>
-<span class="go">([&#39;1G16C&#39;, &#39;2G15C&#39;, &#39;3G14C&#39;, &#39;4C13G&#39;, &#39;5G12C&#39;, &#39;6C11G&#39;, &#39;7C10G&#39;, &#39;8C9G&#39;],</span>
-<span class="go"> array([[  0.    ,  18.6001,  18.7782, ...,  18.4594,  18.7894,   0.    ],</span>
-<span class="go">        [  0.    ,  18.8287,  19.0935, ...,  18.8669,  18.8978,   0.    ],</span>
-<span class="go">        [  0.    ,  18.1682,  18.7745, ...,  19.156 ,  18.3882,   0.    ]]))</span>
+<span class="go">([&#39;3G14C-4C13G&#39;, &#39;4C13G-5G12C&#39;, &#39;5G12C-6C11G&#39;],</span>
+<span class="go"> array([[ 19.9015,  20.751 ,  19.9822],</span>
+<span class="go">        [ 19.5528,  20.6965,  19.6335],</span>
+<span class="go">        [ 19.2871,  21.201 ,  19.9055]]))</span>
 
 <span class="c"># get values for several parameters</span>
 <span class="gp">In [8]: </span><span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;minor&#39;</span><span class="p">,</span> <span class="s">&#39;twist&#39;</span><span class="p">,</span> <span class="s">&#39;incl&#39;</span><span class="p">]:</span>
 <span class="gp">   ...:</span>     <span class="k">print</span><span class="p">(</span><span class="n">na</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
 <span class="gp">   ...:</span> 
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ([&#39;1G16C&#39;, &#39;2G15C&#39;, &#39;3G14C&#39;, &#39;4C13G&#39;, &#39;5G12C&#39;, &#39;6C11G&#39;, &#39;7C10G&#39;, &#39;8C9G&#39;], array([[ 13.3293,  13.4034,  13.5716, ...,  13.2666,  13.4305,  13.4557],</span>
-<span class="go">       [ 13.32  ,  13.4592,  13.6325, ...,  13.2707,  13.4274,  13.5345],</span>
-<span class="go">       [ 13.3409,  13.5378,  13.5706, ...,  13.2902,  13.3854,  13.461 ]]))</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                     ([&#39;3G14C-4C13G&#39;, &#39;4C13G-5G12C&#39;, &#39;5G12C-6C11G&#39;], array([[ 15.8085,  15.818 ,  15.4856],</span>
+<span class="go">       [ 15.9407,  16.2324,  16.3369],</span>
+<span class="go">       [ 15.9514,  16.7085,  16.6283]]))</span>
 <span class="go">([&#39;1G16C-2G15C&#39;, &#39;2G15C-3G14C&#39;, &#39;3G14C-4C13G&#39;, &#39;4C13G-5G12C&#39;, &#39;5G12C-6C11G&#39;, &#39;6C11G-7C10G&#39;, &#39;7C10G-8C9G&#39;], array([[ 34.7777,  33.9816,  30.1865, ...,  35.1461,  33.9628,  33.1306],</span>
 <span class="go">       [ 33.3918,  32.6848,  28.3639, ...,  36.5977,  30.2083,  26.4873],</span>
 <span class="go">       [ 36.2067,  32.5896,  27.4771, ...,  33.4284,  30.9005,  33.7372]]))</span>
@@ -272,8 +277,8 @@
 <span class="go"> &#39;hrise&#39;: array([ 2.9544,  2.8557,  2.8099]),</span>
 <span class="go"> &#39;htwist&#39;: array([ 32.8285,  31.2766,  32.1462]),</span>
 <span class="go"> &#39;incl&#39;: array([  7.2931,   7.5347,  10.0523]),</span>
-<span class="go"> &#39;major&#39;: array([ 14.3673,  14.3188,  14.28  ]),</span>
-<span class="go"> &#39;minor&#39;: array([ 13.3908,  13.4372,  13.4598]),</span>
+<span class="go"> &#39;major&#39;: array([ 20.2115,  19.9609,  20.1312]),</span>
+<span class="go"> &#39;minor&#39;: array([ 15.704 ,  16.17  ,  16.4294]),</span>
 <span class="go"> &#39;open&#39;: array([ 1.608 , -0.2505, -1.071 ]),</span>
 <span class="go"> &#39;prop&#39;: array([-8.377 , -7.3107, -5.6306]),</span>
 <span class="go"> &#39;pucker&#39;: array([  76.5285,   98.5826,  101.2006]),</span>
@@ -299,8 +304,8 @@
 <span class="go"> &#39;hrise&#39;: array([ 0.5058,  0.391 ,  0.4398]),</span>
 <span class="go"> &#39;htwist&#39;: array([ 3.5496,  3.7633,  3.9124]),</span>
 <span class="go"> &#39;incl&#39;: array([ 8.007 ,  9.3024,  7.303 ]),</span>
-<span class="go"> &#39;major&#39;: array([ 8.3186,  8.2702,  8.2649]),</span>
-<span class="go"> &#39;minor&#39;: array([ 0.0973,  0.1189,  0.1062]),</span>
+<span class="go"> &#39;major&#39;: array([ 0.3828,  0.5212,  0.7975]),</span>
+<span class="go"> &#39;minor&#39;: array([ 0.1545,  0.1677,  0.3396]),</span>
 <span class="go"> &#39;open&#39;: array([ 3.1167,  2.5142,  2.3933]),</span>
 <span class="go"> &#39;prop&#39;: array([ 5.4986,  6.2782,  6.6499]),</span>
 <span class="go"> &#39;pucker&#39;: array([ 131.9281,  146.2912,  146.136 ]),</span>
@@ -321,8 +326,8 @@
 <span class="c"># only interested in some parameters?</span>
 <span class="gp">In [12]: </span><span class="n">na</span><span class="o">.</span><span class="n">_summary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;major&#39;</span><span class="p">,</span> <span class="s">&#39;minor&#39;</span><span class="p">,</span> <span class="s">&#39;twist&#39;</span><span class="p">])</span>
 <span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Out[12]: </span>
-<span class="go">{&#39;major&#39;: array([ 14.3673,  14.3188,  14.28  ]),</span>
-<span class="go"> &#39;minor&#39;: array([ 13.3908,  13.4372,  13.4598]),</span>
+<span class="go">{&#39;major&#39;: array([ 20.2115,  19.9609,  20.1312]),</span>
+<span class="go"> &#39;minor&#39;: array([ 15.704 ,  16.17  ,  16.4294]),</span>
 <span class="go"> &#39;twist&#39;: array([ 31.8104,  30.5342,  31.0631])}</span>
 
 <span class="c"># explain keywords</span>
@@ -361,11 +366,11 @@
 <span class="gp">In [15]: </span><span class="n">na2</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="s">&#39;na_.pk&#39;</span><span class="p">)</span>
 
 <span class="gp">In [16]: </span><span class="n">na2</span>
-<span class="gr">Out[16]: </span><span class="o">&lt;</span><span class="n">nupars</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;stagger&#39;</span><span class="p">,</span> <span class="s">&#39;htwist&#39;</span><span class="p">,</span> <span class="s">&#39;stretch&#39;</span><span class="p">,</span> <span class="s">&#39;twist&#39;</span><span class="p">,</span> <span class="s">&#39;prop&#39;</span><span class="p">,</span> <span class="s">&#39;buckle&#39;</span><span class="p">,</span> <span class="s">&#39;ydisp&#39;</span><span class="p">,</span> <span class="s">&#39;shift&#39;</span><span class="p">,</span> <span class="s">&#39;incl&#39;</span><span class="p">,</span> <span class="s">&#39;xdisp&#39;</span><span class="p">,</span> <span class="s">&#39;tip&#39;</span><span class="p">,</span> <span class="s">&#39;tilt&#39;</span><span class="p">,</span> <span class="s">&#39;hrise&#39;</span><span class="p">,</span> <span class="s">&#39;zp&#39;</span><span class="p">,</span> <span class="s">&#39;hb&#39;</span><span class="p">,</span> <span class="s">&#39;roll&#39;</span><span class="p">,</span> <span class="s">&#39;major&#39;</span><span class="p">,</span> <span class="s">&#39;shear&#39;</span><span class="p">,</span> <span class="s">&#39;open&#39;</span><span class="p">,</span> <span class="s">&#39;rise&#39;</span><span class="p">,</span> <span class="s">&#39;minor&#39;</span><span class="p">,</span> <span class="s">&#39;slide&#39;</span><span class="p">,</span> <span class="s">&#39;pucker&#39;</span><span class="p">]</span><span class="o">&gt;</span>
+<span class="gr">Out[16]: </span><span class="o">&lt;</span><span class="n">nupars</span><span class="p">,</span> <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;shear&#39;</span><span class="p">,</span> <span class="s">&#39;roll&#39;</span><span class="p">,</span> <span class="s">&#39;slide&#39;</span><span class="p">,</span> <span class="s">&#39;prop&#39;</span><span class="p">,</span> <span class="s">&#39;incl&#39;</span><span class="p">,</span> <span class="s">&#39;stretch&#39;</span><span class="p">,</span> <span class="s">&#39;xdisp&#39;</span><span class="p">,</span> <span class="s">&#39;major&#39;</span><span class="p">,</span> <span class="s">&#39;shift&#39;</span><span class="p">,</span> <span class="s">&#39;hb&#39;</span><span class="p">,</span> <span class="s">&#39;hrise&#39;</span><span class="p">,</span> <span class="s">&#39;ydisp&#39;</span><span class="p">,</span> <span class="s">&#39;open&#39;</span><span class="p">,</span> <span class="s">&#39;buckle&#39;</span><span class="p">,</span> <span class="s">&#39;stagger&#39;</span><span class="p">,</span> <span class="s">&#39;htwist&#39;</span><span class="p">,</span> <span class="s">&#39;tilt&#39;</span><span class="p">,</span> <span class="s">&#39;pucker&#39;</span><span class="p">,</span> <span class="s">&#39;zp&#39;</span><span class="p">,</span> <span class="s">&#39;minor&#39;</span><span class="p">,</span> <span class="s">&#39;rise&#39;</span><span class="p">,</span> <span class="s">&#39;twist&#39;</span><span class="p">,</span> <span class="s">&#39;tip&#39;</span><span class="p">]</span><span class="o">&gt;</span>
 
 <span class="gp">In [17]: </span><span class="n">na2</span><span class="o">.</span><span class="n">_summary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;major&#39;</span><span class="p">,</span> <span class="s">&#39;twist&#39;</span><span class="p">])</span>
 <span class="go">                                                                                                                                                                                                                                   Out[17]: </span>
-<span class="go">{&#39;major&#39;: array([ 14.3673,  14.3188,  14.28  ]),</span>
+<span class="go">{&#39;major&#39;: array([ 20.2115,  19.9609,  20.1312]),</span>
 <span class="go"> &#39;twist&#39;: array([ 31.8104,  30.5342,  31.0631])}</span>
 </pre></div>
 </div>
@@ -385,7 +390,7 @@
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 30, 2015.<br/>
+      Last updated on Nov 01, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

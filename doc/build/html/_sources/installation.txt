@@ -98,6 +98,9 @@ from conda
 Troubleshooting
 ---------------
 
+Permission denied
+~~~~~~~~~~~~~~~~~
+
 ``python setup.py install`` is standard process to install a new Python package.
 But if you are new to Python and got ``permission denied`` error, try to install ``pytraj`` in your home folder.
 
@@ -112,6 +115,41 @@ But if you are new to Python and got ``permission denied`` error, try to install
     export PYTHONPATH=your_favorite_dir:$PYTHONPATH
 
 If you want to see further options, check ``python setup.py install --help``
+
+undefined symbol error
+~~~~~~~~~~~~~~~~~~~~~~
+
+For end users, install `pytraj` is very straigh forward by `python setup.y install`. But
+for whom wants to catch up the development of `pytraj`, you might get `undefined symbol
+error` when install new code. This happens you need to keep `pytraj` and `cpptraj` syncs. Sometimes `cpptraj` API is changed and you need to
+update `pytraj` code (by `git pull`) and recompiling pytraj from fresh.
+
+If you already tried hard to install but not successful, it's better to remove old pytraj installation (NOT pytraj source
+code) and all the old `libcpptraj.so` files (come from `conda` install, from using `python setup.py install`...
+
+- First, remove all `libcpptraj.so` files. You can find their dir by using::
+      
+    locate libcpptraj.so
+
+- Then, remove build directory::
+
+   rm -rf build
+
+- Remove installed folder, example::
+
+   rm -rf /home/anaconda3/lib/python3.4/site-packages/pytraj/
+
+- Recompile `libcpptraj.so`::
+
+  cd cpptraj
+  make libcpptraj
+
+- Go back to `pytraj` source::
+
+  python setup.py install
+
+If above steps do not solve your probrem, please contact us.
+
 
 install ipython and its notebook for interactive data exploration
 -----------------------------------------------------------------

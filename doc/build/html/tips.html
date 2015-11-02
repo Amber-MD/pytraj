@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Tips &mdash; pytraj 0.1.2.dev11 documentation</title>
+    <title>Tips &mdash; pytraj 0.1.2.dev12 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.2.dev11',
+        VERSION:     '0.1.2.dev12',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev11 documentation" href="index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12 documentation" href="index.html" />
     <link rel="up" title="Cookbook" href="cookbook.html" />
     <link rel="next" title="Tips for out-of-core loading" href="tips_iterload.html" />
     <link rel="prev" title="Cookbook" href="cookbook.html" />
@@ -52,7 +52,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev11</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -263,8 +263,9 @@ trajin traj4.nc <span class="m">1</span> <span class="m">100</span> 10
 
 <span class="gp">In [21]: </span><span class="n">traj0</span>
 <span class="gr">Out[21]: </span>
-<span class="go">&lt;pytraj.Trajectory, 5 frames, include:</span>
-<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;&gt;</span>
+<span class="go">pytraj.Trajectory, 5 frames: </span>
+<span class="go">Size: 0.0000 (GB)</span>
+<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
 <span class="go">           </span>
 
 <span class="c"># only loadd coordinates for specific atoms</span>
@@ -272,8 +273,9 @@ trajin traj4.nc <span class="m">1</span> <span class="m">100</span> 10
 
 <span class="gp">In [23]: </span><span class="n">traj1</span>
 <span class="gr">Out[23]: </span>
-<span class="go">&lt;pytraj.Trajectory, 5 frames, include:</span>
-<span class="go">&lt;Topology: 12 atoms, 12 residues, 12 mols, non-PBC&gt;&gt;</span>
+<span class="go">pytraj.Trajectory, 5 frames: </span>
+<span class="go">Size: 0.0000 (GB)</span>
+<span class="go">&lt;Topology: 12 atoms, 12 residues, 12 mols, non-PBC&gt;</span>
 <span class="go">           </span>
 
 <span class="c"># or use ``iterload``</span>
@@ -283,14 +285,16 @@ trajin traj4.nc <span class="m">1</span> <span class="m">100</span> 10
 
 <span class="gp">In [26]: </span><span class="n">traj2</span>
 <span class="gr">Out[26]: </span>
-<span class="go">&lt;pytraj.TrajectoryIterator, 101 frames, include:</span>
-<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;&gt;</span>
+<span class="go">pytraj.TrajectoryIterator, 101 frames: </span>
+<span class="go">Size: 0.0005 (GB)</span>
+<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
 <span class="go">           </span>
 
 <span class="gp">In [27]: </span><span class="n">traj2</span><span class="p">[</span><span class="n">frame_indices</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">]</span>
-<span class="go">                                                                                                                            Out[27]: </span>
-<span class="go">&lt;pytraj.Trajectory, 5 frames, include:</span>
-<span class="go">&lt;Topology: 12 atoms, 12 residues, 12 mols, non-PBC&gt;&gt;</span>
+<span class="go">                                                                                                                                    Out[27]: </span>
+<span class="go">pytraj.Trajectory, 5 frames: </span>
+<span class="go">Size: 0.0000 (GB)</span>
+<span class="go">&lt;Topology: 12 atoms, 12 residues, 12 mols, non-PBC&gt;</span>
 </pre></div>
 </div>
 </div>
@@ -324,8 +328,9 @@ trajin traj4.nc <span class="m">1</span> <span class="m">100</span> 10
 
 <span class="gp">In [34]: </span><span class="n">traj</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">301</span><span class="p">]]</span>
 <span class="go">                                                                                                                                                                                                                                                                            Out[34]: </span>
-<span class="go">&lt;pytraj.Trajectory, 4 frames, include:</span>
-<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;&gt;</span>
+<span class="go">pytraj.Trajectory, 4 frames: </span>
+<span class="go">Size: 0.0000 (GB)</span>
+<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
 </pre></div>
 </div>
 <p>See also: <a class="reference internal" href="trajectory_slice.html#trajectory-slice"><em>Fancy indexing of trajectory</em></a></p>
@@ -454,7 +459,7 @@ from mpi4py import MPI
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Oct 30, 2015.<br/>
+      Last updated on Nov 01, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>
