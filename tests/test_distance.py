@@ -61,8 +61,8 @@ class TestPairwiseDistance(unittest.TestCase):
         traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
         distances = pt.pairwise_distance(traj, '@CA', '@CB')[0]
 
-        ca_indices = pt.select_atoms(traj.top, '@CA')
-        cb_indices = pt.select_atoms(traj.top, '@CB')
+        ca_indices = pt.select_atoms('@CA', traj.top)
+        cb_indices = pt.select_atoms('@CB', traj.top)
         known_shape = (traj.n_frames, len(ca_indices), len(cb_indices))
         assert known_shape == distances.shape, 'distance array shape'
 

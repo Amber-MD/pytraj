@@ -15,7 +15,7 @@ class TestNHOrderParamters(unittest.TestCase):
         trajfile = cpptraj_test_dir + '/Test_IRED/1IEE_A_test.mdcrd'
         traj = pt.iterload(trajfile, parmfile)
 
-        h_indices = pt.select_atoms(traj.top, '@H')
+        h_indices = pt.select_atoms('@H', traj.top)
         n_indices = h_indices - 1
         nh_indices = list(zip(n_indices, h_indices))
 
