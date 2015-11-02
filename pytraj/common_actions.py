@@ -144,6 +144,7 @@ def calc_distance(traj=None,
 
     traj = _get_fiterator(traj, frame_indices)
     _top = _get_topology(traj, top)
+    _noimage = 'noimage' if not image else ''
 
     cm_arr = np.asarray(command)
 
@@ -186,6 +187,8 @@ def calc_distance(traj=None,
         actlist = ActionList()
 
         for cm in list_of_commands:
+            if not image:
+                cm = ' '.join((cm, _noimage))
             actlist.add_action(
                 CpptrajActions.Action_Distance(), cm, _top,
                 dslist=dslist)
