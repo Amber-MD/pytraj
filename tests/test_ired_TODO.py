@@ -159,8 +159,8 @@ class TestIred(unittest.TestCase):
         traj = pt.Trajectory(xyz=xyz, top=top)
         state_vecs = state.data[1:-3].values
 
-        h_indices = pt.select_atoms(traj.top, '@H')
-        n_indices = pt.select_atoms(traj.top, '@H') - 1
+        h_indices = pt.select_atoms('@H', traj.top)
+        n_indices = pt.select_atoms('@H', traj.top) - 1
         nh_indices = list(zip(n_indices, h_indices))
         mat_ired = pt.ired_vector_and_matrix(traj, mask=nh_indices, order=2)[-1]
         mat_ired /= mat_ired[0, 0]
@@ -205,8 +205,8 @@ class TestIred(unittest.TestCase):
         traj = pt.iterload(trajfile, parmfile)
 
         # create N-H vectors
-        h_indices = pt.select_atoms(traj.top, '@H')
-        n_indices = pt.select_atoms(traj.top, '@H') - 1
+        h_indices = pt.select_atoms('@H', traj.top)
+        n_indices = pt.select_atoms('@H', traj.top) - 1
         nh_indices = list(zip(n_indices, h_indices))
 
         # compute N-H vectors and ired matrix

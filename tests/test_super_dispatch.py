@@ -50,7 +50,7 @@ class TestSuperDispatch(unittest.TestCase):
         funclist = [pt.radgyr, pt.molsurf]
         for func in funclist:
             mask = '@CA'
-            atom_indices = pt.select_atoms(traj.top, mask)
+            atom_indices = pt.select_atoms(mask, traj.top)
             # mask
             aa_eq(func(traj, mask=mask),
                   func(traj, mask=atom_indices))

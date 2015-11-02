@@ -303,18 +303,20 @@ def iterchunk(traj, *args, **kwd):
     return traj.iterchunk(*args, **kwd)
 
 
-def select_atoms(topology, mask):
+def select_atoms(mask, topology):
     '''return atom indices
 
     Examples
     --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()
-    >>> atom_indices = pt.select_atoms(traj.top, '@CA')
+    >>> atom_indices = pt.select_atoms('@CA', traj.top)
     >>> atom_indices
     array([  4,  15,  39, ..., 159, 173, 197])
     '''
     return topology.select(mask)
+
+select = select_atoms
 
 
 def strip_atoms(traj_or_topology, mask):

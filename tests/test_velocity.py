@@ -22,7 +22,7 @@ class TestVelocity(unittest.TestCase):
         assert vels.shape == (fi.n_frames, fi.top.n_atoms, 3), 'vels.shape'
 
         # atom indices
-        atm_indices = pt.select_atoms(traj.top, '@O')
+        atm_indices = pt.select_atoms('@O', traj.top)
         vels_ = pt.get_velocity(traj, atm_indices, frame_indices=[0, 2])
         fi = traj(frame_indices=[0, 2], mask='@O')
         assert vels_.shape == (fi.n_frames, fi.top.n_atoms, 3), 'vels.shape'
