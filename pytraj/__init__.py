@@ -117,6 +117,7 @@ from .common_actions import (
     scale, do_clustering, clustering_dataset, _rotate_dih, randomize_ions,
     crank, closest, search_neighbors, replicate_cell, _rotdif, pairdist, _grid,
     transform, lowestcurve, calc_diffusion,
+    calc_volmap,
     )
 
 from .nmr import ired_vector_and_matrix, _ired, NH_order_parameters
@@ -169,6 +170,7 @@ nativecontacts = native_contacts
 pair_distribution = pairdist
 lowest_curve = lowestcurve
 diffusion = calc_diffusion
+volmap = calc_volmap
 
 from .matrix import dist
 distance_matrix = dist

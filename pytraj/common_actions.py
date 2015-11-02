@@ -737,14 +737,16 @@ def calc_multivector(traj=None,
 
 
 @_super_dispatch()
-def calc_volmap(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
+def calc_volmap(traj=None, mask="", top=None, dtype='ndarray', frame_indices=None):
     command = mask
 
     act = CpptrajActions.Action_Volmap()
 
     dslist = CpptrajDatasetList()
-    act(command, traj, top=top, dslist=dslist, *args, **kwd)
+    act(command, traj, top=top, dslist=dslist)
     return _get_data_from_dtype(dslist, dtype)
+
+volmap = calc_volmap
 
 
 @_super_dispatch()
