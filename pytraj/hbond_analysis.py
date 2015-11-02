@@ -110,10 +110,12 @@ def search_hbonds(traj,
     _dist = 'dist ' + str(distance)
     _angle = 'angle ' + str(angle)
     _image = 'image' if image else ''
+   # TODO: use series=True in args?
+    _series = 'series'
     _options = more_options
 
     command = " ".join(
-        ("series", mask, s_donor, s_acceptor, _dist, _angle, _image, _options))
+        (_series, mask, s_donor, s_acceptor, _dist, _angle, _image, _options))
 
     # need to get correct frame number
     act.read_input(command, top=_top, dslist=dslist)
