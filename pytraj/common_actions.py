@@ -1750,8 +1750,8 @@ def calc_rmsd(traj=None,
 rmsd = calc_rmsd
 
 
-@_register_pmap
 @_super_dispatch
+@_register_pmap
 def calc_distance_rmsd(traj=None, ref=0, mask='', top=None, dtype='ndarray'):
     '''compute distance rmsd between traj and reference
 
@@ -1776,11 +1776,14 @@ def calc_distance_rmsd(traj=None, ref=0, mask='', top=None, dtype='ndarray'):
     >>> # compute distance_rmsd to first frame with mask = '@CA'
     >>> pt.distance_rmsd(traj, ref=0, mask='@CA')
     '''
+    print('traj={0}, ref={1}'.format(traj, ref))
     dslist = CpptrajDatasetList()
     command = mask
 
-    act = CpptrajActions.Action_DistRmsd()
-    act(command, [ref, traj], top=top, dslist=dslist)
+    act = CpptrajActions.Action_DistRmsd(command=command, top=top, dslist=dslist)
+    act.do_action(ref)
+    for frame in traj:
+        act.do_action(frame)
 
     # exclude ref value
     for d in dslist:
