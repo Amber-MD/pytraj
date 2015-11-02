@@ -1750,7 +1750,8 @@ rmsd = calc_rmsd
 
 
 @_register_pmap
-def calc_distance_rmsd(traj=None, ref=0, mask='', top=None, dtype='ndarray'):
+def calc_distance_rmsd(traj=None, ref=0, mask='', top=None, dtype='ndarray',
+        frame_indices=None):
     '''compute distance rmsd between traj and reference
 
     Parameters
@@ -1776,11 +1777,12 @@ def calc_distance_rmsd(traj=None, ref=0, mask='', top=None, dtype='ndarray'):
     '''
     dslist = CpptrajDatasetList()
     command = mask
+    _ref = _get_reference_from_traj(traj, ref)
+    _top = _get_topology(traj, top)
+    fi = _get_fiterator(traj, frame_indices)
 
-    act = CpptrajActions.Action_DistRmsd(command=command, top=top, dslist=dslist)
-    act.do_action(ref)
-    for frame in traj:
-        act.do_action(frame)
+    act = CpptrajActions.Action_DistRmsd()
+    act(command, [_ref, fi], top=_top, dslist=dslist)
 
     # exclude ref value
     for d in dslist:
