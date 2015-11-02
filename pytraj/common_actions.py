@@ -12,6 +12,7 @@ from pytraj.trajectory import Trajectory
 from ._get_common_objects import _get_topology, _get_data_from_dtype, _get_list_of_commands
 from ._get_common_objects import _get_matrix_from_dataset
 from ._get_common_objects import _get_reference_from_traj, _get_fiterator
+from ._get_common_objects import _super_dispatch
 from .utils import is_array, ensure_not_none_or_string
 from .utils import is_int
 from .utils.context import goto_temp_folder
@@ -492,6 +493,7 @@ def calc_mindist(traj=None,
     return _get_data_from_dtype(dslist, dtype=dtype)[-1]
 
 
+@_super_dispatch
 def calc_diffusion(traj,
                    mask="",
                    tstep=1.0,
@@ -516,30 +518,22 @@ def calc_diffusion(traj,
     >>> traj = pt.datafiles.load_tz2_ortho()
     >>> pt.diffusion(traj)
     '''
-    traj = _get_fiterator(traj, frame_indices)
-    _top = _get_topology(traj, top)
-
     act = CpptrajActions.Action_Diffusion()
     dslist = CpptrajDatasetList()
 
     _tsep = 'time ' + str(tstep)
     _individual = 'individual' if individual else ''
 
-    if not isinstance(mask, string_types):
-        command = array2d_to_cpptraj_maskgroup(mask)
-    else:
-        command = mask
-
     # add 'df' as label
     label = 'df'
-    command = ' '.join((command, label, _tsep, _individual))
+    command = ' '.join((mask, label, _tsep, _individual))
 
     # normally we just need 
     # act(command, traj, top=_top, dslist=dslist)
     # but cpptraj need correct frame idx
 
-    act.read_input(command, top=_top, dslist=dslist)
-    act.process(_top)
+    act.read_input(command, top=top, dslist=dslist)
+    act.process(top)
     for idx, frame in enumerate(traj):
         act.do_action(frame, idx=idx)
     act.print_output()
@@ -629,6 +623,7 @@ def calc_matrix(traj=None,
 
 
 @_register_pmap
+@_super_dispatch
 def calc_radgyr(traj=None,
                 mask="",
                 top=None,
@@ -643,19 +638,13 @@ def calc_radgyr(traj=None,
     >>> pt.radgyr(traj, '!:WAT', nomax=False)
     >>> pt.radgyr(traj, '@CA', frame_indices=[2, 4, 6])
     '''
-    _traj_iter = _get_fiterator(traj, frame_indices=frame_indices)
-
-    if not isinstance(mask, string_types):
-        mask = array_to_cpptraj_atommask(mask)
-
     _nomax = 'nomax' if nomax else ""
     command = " ".join((mask, _nomax))
 
     act = CpptrajActions.Action_Radgyr()
 
-    _top = _get_topology(traj, top)
     dslist = CpptrajDatasetList()
-    act(command, _traj_iter, top=_top, dslist=dslist, *args, **kwd)
+    act(command, traj, top=top, dslist=dslist, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype)
 
 
