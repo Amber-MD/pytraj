@@ -46,12 +46,13 @@ class TestDoc(unittest.TestCase):
                    pt.array,
                    pt.nmr,
                    check_and_assert,
-                   pt.hbond_analysis, pt.tools,
+                   pt.hbond_analysis,
+                   pt.tools,
                    pt.parallel.parallel_mapping_multiprocessing,
                    testing, utils,
                    pt.matrix,
                    base_holder,
-                    ]
+                   ]
             modules.extend(additional_list)
         assert get_total_errors(modules) == 0, 'doctest: failed_count must be 0'
 

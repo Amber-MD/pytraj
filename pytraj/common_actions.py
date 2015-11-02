@@ -97,6 +97,8 @@ def calc_distance(traj=None,
                   dtype='ndarray',
                   top=None,
                   n_frames=None):
+    # FIXME: get wrong (0.) results if Topology has box but Frame doesn't
+    # TODO: add image, noe, ...
     """calculate distance between two maskes
 
     Parameters
@@ -185,6 +187,7 @@ def calc_distance(traj=None,
             actlist.add_action(
                 CpptrajActions.Action_Distance(), cm, _top,
                 dslist=dslist)
+
         actlist.do_actions(traj)
         return _get_data_from_dtype(dslist, dtype)
 
