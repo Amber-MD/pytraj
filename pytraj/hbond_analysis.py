@@ -25,7 +25,8 @@ def to_amber_mask(txtlist):
 
     for mask in _txt:
         mask = mask.replace("_", " ").replace("-", " ").split()
-        yield ':' + mask[1] + ' :' + mask[4]
+        second_res = mask[3].split('@')[0]
+        yield ''.join((':', mask[1], ' :', "".join((second_res, '@', mask[4]))))
 
 
 class DatasetHBond(BaseDataHolder):
