@@ -54,7 +54,7 @@ class TestNormal(unittest.TestCase):
         func_list = [pt.radgyr, pt.molsurf, pt.rmsd]
         ref = traj[-3]
 
-        for n_cores in [2, 3, 4]:
+        for n_cores in [2, 3]:
             for func in func_list:
                 if func in [pt.rmsd, ]:
                     pout = gather(pt.pmap(n_cores=n_cores, func=func, traj=traj, ref=ref))
@@ -89,7 +89,7 @@ class TestNormal(unittest.TestCase):
         func = pt.rmsd
         for i in range(0, 8, 2):
             ref = self.traj[i]
-            for n_cores in [2, 3, 4, 5]:
+            for n_cores in [2, 3,]:
                 pout = gather(pt.pmap(n_cores=n_cores, func=func, traj=traj, ref=ref))
                 serial_out = flatten(func(traj, ref=ref))
                 aa_eq(pout, serial_out)
@@ -115,7 +115,7 @@ class TestParallelMapForMatrix(unittest.TestCase):
         traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
 
         # not support [covar, distcovar, mwcovar]
-        for n_cores in [2, 3, 4, 5]:
+        for n_cores in [2, 3]:
             for func in [matrix.dist, matrix.idea]:
                 x = pt.pmap(func, traj, '@CA', n_cores=n_cores)
                 aa_eq(x, func(traj, '@CA'))
@@ -127,7 +127,7 @@ class TestParallelMapForMatrix(unittest.TestCase):
         nh = list(zip(n ,h))
 
         exptected_vecs, exptected_mat = pt.ired_vector_and_matrix(traj, nh)
-        for n_cores in [2, 4, 6]:
+        for n_cores in [2, 3]:
             vecs, mat = pt.pmap(pt.ired_vector_and_matrix, traj, nh, n_cores=n_cores)
             aa_eq(exptected_vecs, vecs, decimal=7)
             aa_eq(exptected_mat, mat, decimal=7)
@@ -137,7 +137,7 @@ class TestParallelMapForMatrix(unittest.TestCase):
         saved_mat = pt.rotation_matrix(traj, ref=traj[3], mask='@CA')
         saved_rmsd = pt.rmsd(traj, ref=traj[3], mask='@CA')
 
-        for n_cores in [2, 3, 4, 5]:
+        for n_cores in [2, 3]:
             mat = pt.pmap(pt.rotation_matrix, traj, ref=traj[3], mask='@CA')
             mat2, rmsd_  = pt.pmap(pt.rotation_matrix, traj, ref=traj[3], mask='@CA',
                     with_rmsd=True)
@@ -161,7 +161,7 @@ class TestCpptrajCommandStyle(unittest.TestCase):
     def test_reference(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
 
-        for n_cores in [2, 3, 4]:
+        for n_cores in [2, 3]:
             # use 4-th Frame for reference
             data = pt.pmap(['rms @CA refindex 0'], traj, ref=traj[3], n_cores=n_cores)
             arr = pt.tools.dict_to_ndarray(data)[0]
@@ -186,7 +186,7 @@ class TestParallelMapForAverageStructure(unittest.TestCase):
         saved_frame = pt.mean_structure(traj, '@CA')
         saved_xyz = saved_frame.xyz
 
-        for n_cores in [2, 3, 4, 5]:
+        for n_cores in [2, 3, 4]:
             frame = pt.pmap(pt.mean_structure, traj, '@CA', n_cores=n_cores)
             aa_eq(frame.xyz, saved_xyz)
 
