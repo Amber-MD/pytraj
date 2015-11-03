@@ -35,3 +35,13 @@ To make the connection faster, you can follow below instructions:
 
     localhost:8888
     # you will see your notebooks in your given directory
+
+Snapshot on your home computer
+
+.. image:: ../images/remote_jupyter_shot_1.png
+   :height: 200
+
+Try to open notebook
+
+.. image:: ../images/remote_jupyter_shot_2.png
+   :height: 200
