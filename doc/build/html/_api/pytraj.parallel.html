@@ -186,6 +186,8 @@ data is always joint (does not depend on dtype)</p>
 </div>
 <p class="rubric">Notes</p>
 <p>If you not sure about parallel&#8217;s results, you should compare the output to serial run.</p>
+<p>Rule of thumbs: start with small number of frames (saying 10 frames), varying
+n_cores=1, 2, 3, 4 to see if the data makes sense or not.</p>
 <p>There are two modes in this method, use pytraj&#8217;s methods (pytraj.rmsd, pytraj.radgyr,
 ...) or use cpptraj&#8217;s command text syntax (&#8216;autoimage&#8217;, &#8216;rms&#8217;, ...)</p>
 <p>If using pytraj syntax:</p>
@@ -367,7 +369,7 @@ OrderedDict([(&#39;RoG_00000&#39;,
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 01, 2015.<br/>
+      Last updated on Nov 03, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

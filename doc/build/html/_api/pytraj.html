@@ -176,7 +176,8 @@
 <dl class="function">
 <dt id="pytraj.iterframe">
 <tt class="descclassname">pytraj.</tt><tt class="descname">iterframe</tt><big>(</big><em>traj</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.iterframe" title="Permalink to this definition">¶</a></dt>
-<dd><div class="admonition seealso">
+<dd><p>create frame iterator with given indices, mask or some iter_options</p>
+<div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last"><tt class="xref py py-obj docutils literal"><span class="pre">pytraj.TrajectoryIterator.iterframe</span></tt></p>
 </div>
@@ -193,6 +194,11 @@
 <span class="go">&lt;Frame with 12 atoms&gt;</span>
 </pre></div>
 </div>
+<p># create frame iterator for given indices
+&gt;&gt;&gt; for frame in pt.iterframe(traj, frame_indices=[0, 7, 3]): print(frame) 
+&lt;Frame with 5293 atoms&gt;
+&lt;Frame with 5293 atoms&gt;
+&lt;Frame with 5293 atoms&gt;</p>
 </dd></dl>
 
 <dl class="function">
@@ -265,14 +271,32 @@
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="pytraj.select_atoms">
-<tt class="descclassname">pytraj.</tt><tt class="descname">select_atoms</tt><big>(</big><em>topology</em>, <em>mask</em><big>)</big><a class="headerlink" href="#pytraj.select_atoms" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.select">
+<tt class="descclassname">pytraj.</tt><tt class="descname">select</tt><big>(</big><em>mask</em>, <em>topology</em><big>)</big><a class="headerlink" href="#pytraj.select" title="Permalink to this definition">¶</a></dt>
 <dd><p>return atom indices</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">atom_indices</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">select_atoms</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">atom_indices</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">select_atoms</span><span class="p">(</span><span class="s">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">atom_indices</span>
+<span class="go">array([  4,  15,  39, ..., 159, 173, 197])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">select_atoms</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="go">array([  4,  15,  39, ..., 159, 173, 197])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.select_atoms">
+<tt class="descclassname">pytraj.</tt><tt class="descname">select_atoms</tt><big>(</big><em>mask</em>, <em>topology</em><big>)</big><a class="headerlink" href="#pytraj.select_atoms" title="Permalink to this definition">¶</a></dt>
+<dd><p>return atom indices</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">atom_indices</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">select_atoms</span><span class="p">(</span><span class="s">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">atom_indices</span>
+<span class="go">array([  4,  15,  39, ..., 159, 173, 197])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">select_atoms</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">)</span>
 <span class="go">array([  4,  15,  39, ..., 159, 173, 197])</span>
 </pre></div>
 </div>
@@ -328,7 +352,7 @@
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 01, 2015.<br/>
+      Last updated on Nov 03, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

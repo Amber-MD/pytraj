@@ -200,7 +200,7 @@
 
 <dl class="function">
 <dt id="pytraj.common_actions.calc_distance">
-<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_distance</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em>, <em>n_frames=None</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_distance" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_distance</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em>, <em>image=True</em>, <em>n_frames=None</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_distance" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculate distance between two maskes</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -209,8 +209,9 @@
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like, list of Trajectory, list of Frames</p>
 <p><strong>mask</strong> : str or a list of string or a 2D array-like of integers</p>
 <p><strong>frame_indices</strong> : array-like, optional, default None</p>
-<p><strong>top</strong> : Topology, optional</p>
 <p><strong>dtype</strong> : return type, default &#8216;ndarray&#8217;</p>
+<p><strong>top</strong> : Topology, optional</p>
+<p><strong>image</strong> : bool, default True</p>
 <p><strong>n_frames</strong> : int, optional, default None</p>
 <blockquote>
 <div><p>only need to provide n_frames if <tt class="docutils literal"><span class="pre">traj</span></tt> does not have this info</p>
@@ -636,13 +637,45 @@ like below:</p>
 
 <dl class="function">
 <dt id="pytraj.common_actions.calc_multivector">
-<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_multivector</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_multivector" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_multivector</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_multivector" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="pytraj.common_actions.calc_volmap">
-<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_volmap</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_volmap" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_volmap</tt><big>(</big><em>traj</em>, <em>mask=''</em>, <em>grid_spacing='0.0. 0.0. 0.0'</em>, <em>buffer=3.0</em>, <em>centermask='*'</em>, <em>radscale=1.36</em>, <em>peakcut=0.05</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_volmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>(cpptraj doc) Grid data as a volumetric map, similar to the
+’volmap’ command in VMD. The density is calculated by treating each atom as a 
+3-dimensional Gaussian function whose standard deviation is equal to the van der Waals radius</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mask</strong> : {str, array-like}, default all atoms</p>
+<blockquote>
+<div><p>the atom selection from which to calculate the number density</p>
+</div></blockquote>
+<p><strong>grid_spacing</strong> : str, grid spacing in X-, Y-, Z-dimensions</p>
+<p><strong>buffer</strong> : float, default 3.0 Angstrom</p>
+<p><strong>centermask</strong> : str</p>
+<p><strong>radscale</strong> : float, default 1.36 (to match to VMD calculation)</p>
+<blockquote>
+<div><p>factor by which to scale radii (by devision)</p>
+</div></blockquote>
+<p class="last"><strong>peakcut</strong> : float</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># load all frames to memory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()[:]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># do fitting and centering before perform volmap</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">superpose</span><span class="p">(</span><span class="n">mask</span><span class="o">=</span><span class="s">&#39;:1-13&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="s">&#39;:1-13 mass origin&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">volmap</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;:WAT@O&#39;</span><span class="p">,</span> <span class="n">grid_spacing</span><span class="o">=</span><span class="s">&#39;0.5 0.5 0.5&#39;</span><span class="p">,</span> <span class="nb">buffer</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">centermask</span><span class="o">=</span><span class="s">&#39;!:1-13&#39;</span><span class="p">,</span> <span class="n">radscale</span><span class="o">=</span><span class="mf">1.36</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
 
 <dl class="function">
 <dt id="pytraj.common_actions.calc_rdf">
@@ -1150,7 +1183,7 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 01, 2015.<br/>
+      Last updated on Nov 03, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

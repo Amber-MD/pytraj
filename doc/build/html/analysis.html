@@ -169,7 +169,7 @@
 <script type="text/javascript" src='_static/cindex.js'></script></div>
 <span class="target" id="distance"></span><dl class="function">
 <dt id="pytraj.distance">
-<tt class="descclassname">pytraj.</tt><tt class="descname">distance</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em>, <em>n_frames=None</em><big>)</big><a class="headerlink" href="#pytraj.distance" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.</tt><tt class="descname">distance</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em>, <em>image=True</em>, <em>n_frames=None</em><big>)</big><a class="headerlink" href="#pytraj.distance" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculate distance between two maskes</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -178,8 +178,9 @@
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like, list of Trajectory, list of Frames</p>
 <p><strong>mask</strong> : str or a list of string or a 2D array-like of integers</p>
 <p><strong>frame_indices</strong> : array-like, optional, default None</p>
-<p><strong>top</strong> : Topology, optional</p>
 <p><strong>dtype</strong> : return type, default &#8216;ndarray&#8217;</p>
+<p><strong>top</strong> : Topology, optional</p>
+<p><strong>image</strong> : bool, default True</p>
 <p><strong>n_frames</strong> : int, optional, default None</p>
 <blockquote>
 <div><p>only need to provide n_frames if <tt class="docutils literal"><span class="pre">traj</span></tt> does not have this info</p>
@@ -1057,7 +1058,7 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 01, 2015.<br/>
+      Last updated on Nov 03, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

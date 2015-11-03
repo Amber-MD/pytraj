@@ -105,3 +105,16 @@ Solution::
     # supposed you are in pytraj home folder (having README.md, tests, ...)
     rm -rf build
     python setup.py install
+
+ValueError: Buffer not C contiguous
+-----------------------------------
+
+Symtoms::
+
+    File "pytraj/cyutils.pyx", line 76, in _fast_iterptr (pytraj/cyutils.cpp:5078)...
+    ValueError: Buffer not C contiguous.
+
+Solution::
+
+    For very fast trajectory iterating, pytraj require coords must be stored in a C contiguous memory block.
+    You should try `np.ascontiguousarray`: `xyz = np.ascontiguousarray(xyz)`

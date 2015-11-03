@@ -111,6 +111,7 @@
 <li><a class="reference internal" href="#importerror-libhdf5-hl-so-9-cannot-open-shared-object-file">ImportError: libhdf5_hl.so.9: cannot open shared object file</a></li>
 <li><a class="reference internal" href="#valueerror-big-endian-buffer-not-supported-on-little-endian-compiler">ValueError: Big-endian buffer not supported on little-endian compiler</a></li>
 <li><a class="reference internal" href="#importerror-after-cpptraj-update">ImportError after cpptraj update</a></li>
+<li><a class="reference internal" href="#valueerror-buffer-not-c-contiguous">ValueError: Buffer not C contiguous</a></li>
 </ul>
 </li>
 </ul>
@@ -177,6 +178,7 @@
 <li><a class="reference internal" href="#importerror-libhdf5-hl-so-9-cannot-open-shared-object-file" id="id10">ImportError: libhdf5_hl.so.9: cannot open shared object file</a></li>
 <li><a class="reference internal" href="#valueerror-big-endian-buffer-not-supported-on-little-endian-compiler" id="id11">ValueError: Big-endian buffer not supported on little-endian compiler</a></li>
 <li><a class="reference internal" href="#importerror-after-cpptraj-update" id="id12">ImportError after cpptraj update</a></li>
+<li><a class="reference internal" href="#valueerror-buffer-not-c-contiguous" id="id13">ValueError: Buffer not C contiguous</a></li>
 </ul>
 </li>
 </ul>
@@ -204,21 +206,21 @@ FrameIterator for lazy loading. You can use both for analysis.</p>
 <span class="gp">In [3]: </span><span class="n">traj</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
 <span class="gr">Out[3]: </span>
 <span class="go">pytraj.Trajectory, 5 frames: </span>
-<span class="go">Size: 0.0000 (GB)</span>
+<span class="go">Size: 0.000025 (GB)</span>
 <span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
 <span class="go">           </span>
 
 <span class="gp">In [4]: </span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
-<span class="go">                                                                                                                         Out[4]: array([ 9.57459712,  9.94041   ,  8.91590518,  8.02623709,  8.68518202])</span>
+<span class="go">                                                                                                                           Out[4]: array([ 9.57459712,  9.94041   ,  8.91590518,  8.02623709,  8.68518202])</span>
 
 <span class="gp">In [5]: </span><span class="n">traj</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="go">                                                                                                                                                                                                          Out[5]: </span>
+<span class="go">                                                                                                                                                                                                            Out[5]: </span>
 <span class="go">&lt;FrameIter with start=1, stop=11, step=2, n_frames=5, </span>
 <span class="go">frame_indices=None, </span>
 <span class="go">mask=None, autoimage=False, rmsfit=None, copy=False&gt; </span>
 
 <span class="gp">In [6]: </span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                     Out[6]: array([ 9.57459712,  9.94041   ,  8.91590518,  8.02623709,  8.68518202])</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                       Out[6]: array([ 9.57459712,  9.94041   ,  8.91590518,  8.02623709,  8.68518202])</span>
 </pre></div>
 </div>
 </div>
@@ -237,14 +239,14 @@ extra data copying.</p>
 <span class="gp">In [9]: </span><span class="n">traj</span>
 <span class="gr">Out[9]: </span>
 <span class="go">pytraj.TrajectoryIterator, 101 frames: </span>
-<span class="go">Size: 0.0005 (GB)</span>
+<span class="go">Size: 0.000503 (GB)</span>
 <span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
 <span class="go">           </span>
 
 <span class="gp">In [10]: </span><span class="n">traj</span><span class="p">[:</span><span class="mi">8</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">]</span>
-<span class="go">                                                                                                                                   Out[10]: </span>
+<span class="go">                                                                                                                                     Out[10]: </span>
 <span class="go">pytraj.Trajectory, 8 frames: </span>
-<span class="go">Size: 0.0000 (GB)</span>
+<span class="go">Size: 0.000002 (GB)</span>
 <span class="go">&lt;Topology: 12 atoms, 12 residues, 12 mols, non-PBC&gt;</span>
 </pre></div>
 </div>
@@ -297,6 +299,19 @@ python setup.py install
 </pre></div>
 </div>
 </div>
+<div class="section" id="valueerror-buffer-not-c-contiguous">
+<h2><a class="toc-backref" href="#id13">ValueError: Buffer not C contiguous</a><a class="headerlink" href="#valueerror-buffer-not-c-contiguous" title="Permalink to this headline">¶</a></h2>
+<p>Symtoms:</p>
+<div class="highlight-python"><div class="highlight"><pre>File &quot;pytraj/cyutils.pyx&quot;, line 76, in _fast_iterptr (pytraj/cyutils.cpp:5078)...
+ValueError: Buffer not C contiguous.
+</pre></div>
+</div>
+<p>Solution:</p>
+<div class="highlight-python"><div class="highlight"><pre>For very fast trajectory iterating, pytraj require coords must be stored in a C contiguous memory block.
+You should try `np.ascontiguousarray`: `xyz = np.ascontiguousarray(xyz)`
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -312,7 +327,7 @@ python setup.py install
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 01, 2015.<br/>
+      Last updated on Nov 02, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>
