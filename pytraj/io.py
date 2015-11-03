@@ -325,7 +325,7 @@ def write_traj(filename="",
     >>> pt.write_traj("output/test_xyz.nc", xyz, top=traj.top, overwrite=True)
     >>> pt.write_traj("output/test_xyz.nc", xyz, top=traj.top, overwrite=True)
     """
-    from .Frame import Frame
+    from .frame import Frame
     from .trajs.Trajout import Trajout
 
     _top = _get_topology(traj, top)
@@ -362,7 +362,7 @@ def write_traj(filename="",
         # create frame iterator
         xyz = np.asarray(traj)
         if not xyz.flags.c_contiguous:
-            xyz = np.ascontiguoussarray(xyz)
+            xyz = np.ascontiguousarray(xyz)
         _frame_indices = range(
             xyz.shape[0]) if frame_indices is None else frame_indices
         fi = iterframe_from_array(xyz, _top.n_atoms, _frame_indices)

@@ -1,7 +1,7 @@
 # distutils: language = c++
 from libcpp.vector cimport vector
 from libcpp.string cimport string
-from ..Frame cimport _Frame, Frame
+from ..frame cimport _Frame, Frame
 from ..topology cimport _Topology, Topology
 from ..datasets.cpp_datasets cimport _DatasetCoords
 from ..core.cpp_core cimport _AtomMask, AtomMask, _ArgList, ArgList

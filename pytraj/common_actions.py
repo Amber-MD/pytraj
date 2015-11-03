@@ -24,7 +24,7 @@ from .datafiles import DataFileList
 from .datasetlist import DatasetList
 from .hbond_analysis import search_hbonds
 from .dssp_analysis import calc_dssp
-from ._nastruct import nastruct
+from .nucleic_acid_analysis import nastruct
 from ._shared_methods import iterframe_master
 from .externals.get_pysander_energies import get_pysander_energies
 from .decorators import _register_pmap, _register_openmp
@@ -747,7 +747,7 @@ def calc_volmap(traj, mask='',
                 dtype='ndarray',
                 frame_indices=None):
     '''(cpptraj doc) Grid data as a volumetric map, similar to the
-    ’volmap’ command in VMD. The density is calculated by treating each atom as a 
+    volmap command in VMD. The density is calculated by treating each atom as a 
     3-dimensional Gaussian function whose standard deviation is equal to the van der Waals radius
 
     Parameters

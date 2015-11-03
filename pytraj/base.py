@@ -3,7 +3,7 @@ import baseclasses for pytraj
 """
 from __future__ import absolute_import
 from .datasets.cast_dataset import cast_dataset
-from .Frame import Frame
+from .frame import Frame
 from .core.brick import Atom, Residue, Molecule
 from .datafiles.datafiles import DataFileList
 from .core import ActionList

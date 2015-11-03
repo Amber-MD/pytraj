@@ -5,7 +5,7 @@ from ..datafiles.datafiles cimport  _DataFileList, DataFileList
 from ..topology cimport _Topology, Topology
 from ..core.cpp_core cimport _ArgList, ArgList
 from ..datasets.DatasetList cimport _DatasetList, DatasetList
-from ..Frame cimport _Frame, Frame
+from ..frame cimport _Frame, Frame
 
 
 cdef extern from "Analysis.h": 

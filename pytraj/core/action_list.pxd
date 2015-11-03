@@ -5,7 +5,7 @@ from .cpp_core cimport _DispatchObject, DispatchObject, DispatchAllocatorType, F
 from .Box cimport Box
 from ..datafiles.datafiles cimport _DataFileList, DataFileList
 from ..topology cimport _Topology, Topology
-from ..Frame cimport _Frame, Frame
+from ..frame cimport _Frame, Frame
 from .cpp_core cimport _ArgList, ArgList, _AtomMask, AtomMask
 from ..datasets.DatasetList cimport _DatasetList, DatasetList
 from ..actions.CpptrajActions cimport _ActionInit, _ActionSetup, _ActionFrame, CoordinateInfo

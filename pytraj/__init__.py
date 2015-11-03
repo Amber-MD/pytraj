@@ -71,7 +71,7 @@ dispatch = Command.dispatch
 from . import array
 from .topology import Topology, ParmFile
 from .math import Vec3
-from .Frame import Frame
+from .frame import Frame
 from .trajectory import Trajectory
 from .trajectory_iterator import TrajectoryIterator
 from .trajs.Trajout import Trajout
@@ -136,7 +136,6 @@ angles = calc_angle
 dihedral = calc_dihedral
 dihedrals = calc_dihedral
 jcoupling = calc_jcoupling
-nucleic_acid_analysis = nastruct
 calc_RMSF = calc_atomicfluct
 rmsf = calc_atomicfluct
 pairwise_rmsd = calc_pairwise_rmsd
