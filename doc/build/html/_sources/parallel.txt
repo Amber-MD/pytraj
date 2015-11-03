@@ -83,8 +83,8 @@ vector, multidihedral, ...
     state.data[1:].to_dict()
 
 
-Supported methods for ``pmap``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Supported methods for ``pmap`` if using pytraj's methods
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. ipython:: python
     :suppress:
@@ -126,6 +126,11 @@ Supported methods for ``pmap``
 
     for method in supported_pmap_methods:
         print(method)
+
+Supported methods for ``pmap`` if using cpptraj's command style
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**coming soon**
 
 
 Supported methods for ``openmp``

@@ -104,7 +104,8 @@
 <li><a class="reference internal" href="#single-action-with-single-trajectory">single action with single trajectory</a><ul>
 <li><a class="reference internal" href="#example-parallel-calculation-with-single-action">Example: parallel calculation with single action</a></li>
 <li><a class="reference internal" href="#example-parallel-calculation-with-cpptraj-s-command-style">Example: parallel calculation with cpptraj&#8217;s command style</a></li>
-<li><a class="reference internal" href="#supported-methods-for-pmap">Supported methods for <tt class="docutils literal"><span class="pre">pmap</span></tt></a></li>
+<li><a class="reference internal" href="#supported-methods-for-pmap-if-using-pytraj-s-methods">Supported methods for <tt class="docutils literal"><span class="pre">pmap</span></tt> if using pytraj&#8217;s methods</a></li>
+<li><a class="reference internal" href="#supported-methods-for-pmap-if-using-cpptraj-s-command-style">Supported methods for <tt class="docutils literal"><span class="pre">pmap</span></tt> if using cpptraj&#8217;s command style</a></li>
 <li><a class="reference internal" href="#supported-methods-for-openmp">Supported methods for <tt class="docutils literal"><span class="pre">openmp</span></tt></a></li>
 <li><a class="reference internal" href="#rule-of-thumb-for-choosing-pmap-or-openmp">Rule of thumb for choosing <tt class="docutils literal"><span class="pre">pmap</span></tt> or <tt class="docutils literal"><span class="pre">openmp</span></tt>?</a></li>
 <li><a class="reference internal" href="#pmap-doc">pmap doc</a></li>
@@ -175,10 +176,11 @@
 <li><a class="reference internal" href="#single-action-with-single-trajectory" id="id3">single action with single trajectory</a><ul>
 <li><a class="reference internal" href="#example-parallel-calculation-with-single-action" id="id4">Example: parallel calculation with single action</a></li>
 <li><a class="reference internal" href="#example-parallel-calculation-with-cpptraj-s-command-style" id="id5">Example: parallel calculation with cpptraj&#8217;s command style</a></li>
-<li><a class="reference internal" href="#supported-methods-for-pmap" id="id6">Supported methods for <tt class="docutils literal"><span class="pre">pmap</span></tt></a></li>
-<li><a class="reference internal" href="#supported-methods-for-openmp" id="id7">Supported methods for <tt class="docutils literal"><span class="pre">openmp</span></tt></a></li>
-<li><a class="reference internal" href="#rule-of-thumb-for-choosing-pmap-or-openmp" id="id8">Rule of thumb for choosing <tt class="docutils literal"><span class="pre">pmap</span></tt> or <tt class="docutils literal"><span class="pre">openmp</span></tt>?</a></li>
-<li><a class="reference internal" href="#pmap-doc" id="id9">pmap doc</a></li>
+<li><a class="reference internal" href="#supported-methods-for-pmap-if-using-pytraj-s-methods" id="id6">Supported methods for <tt class="docutils literal"><span class="pre">pmap</span></tt> if using pytraj&#8217;s methods</a></li>
+<li><a class="reference internal" href="#supported-methods-for-pmap-if-using-cpptraj-s-command-style" id="id7">Supported methods for <tt class="docutils literal"><span class="pre">pmap</span></tt> if using cpptraj&#8217;s command style</a></li>
+<li><a class="reference internal" href="#supported-methods-for-openmp" id="id8">Supported methods for <tt class="docutils literal"><span class="pre">openmp</span></tt></a></li>
+<li><a class="reference internal" href="#rule-of-thumb-for-choosing-pmap-or-openmp" id="id9">Rule of thumb for choosing <tt class="docutils literal"><span class="pre">pmap</span></tt> or <tt class="docutils literal"><span class="pre">openmp</span></tt>?</a></li>
+<li><a class="reference internal" href="#pmap-doc" id="id10">pmap doc</a></li>
 </ul>
 </li>
 </ul>
@@ -313,8 +315,8 @@ vector, multidihedral, ...</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="supported-methods-for-pmap">
-<h3><a class="toc-backref" href="#id6">Supported methods for <tt class="docutils literal"><span class="pre">pmap</span></tt></a><a class="headerlink" href="#supported-methods-for-pmap" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="supported-methods-for-pmap-if-using-pytraj-s-methods">
+<h3><a class="toc-backref" href="#id6">Supported methods for <tt class="docutils literal"><span class="pre">pmap</span></tt> if using pytraj&#8217;s methods</a><a class="headerlink" href="#supported-methods-for-pmap-if-using-pytraj-s-methods" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [13]: </span><span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">supported_pmap_methods</span><span class="p">:</span>
 <span class="gp">   ....:</span>     <span class="k">print</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
 <span class="gp">   ....:</span> 
@@ -358,8 +360,12 @@ vector, multidihedral, ...</p>
 </pre></div>
 </div>
 </div>
+<div class="section" id="supported-methods-for-pmap-if-using-cpptraj-s-command-style">
+<h3><a class="toc-backref" href="#id7">Supported methods for <tt class="docutils literal"><span class="pre">pmap</span></tt> if using cpptraj&#8217;s command style</a><a class="headerlink" href="#supported-methods-for-pmap-if-using-cpptraj-s-command-style" title="Permalink to this headline">¶</a></h3>
+<p><strong>coming soon</strong></p>
+</div>
 <div class="section" id="supported-methods-for-openmp">
-<h3><a class="toc-backref" href="#id7">Supported methods for <tt class="docutils literal"><span class="pre">openmp</span></tt></a><a class="headerlink" href="#supported-methods-for-openmp" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id8">Supported methods for <tt class="docutils literal"><span class="pre">openmp</span></tt></a><a class="headerlink" href="#supported-methods-for-openmp" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [14]: </span><span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">supported_openmp_methods</span><span class="p">:</span>
 <span class="gp">   ....:</span>     <span class="k">print</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
 <span class="gp">   ....:</span> 
@@ -376,12 +382,12 @@ vector, multidihedral, ...</p>
 </div>
 </div>
 <div class="section" id="rule-of-thumb-for-choosing-pmap-or-openmp">
-<h3><a class="toc-backref" href="#id8">Rule of thumb for choosing <tt class="docutils literal"><span class="pre">pmap</span></tt> or <tt class="docutils literal"><span class="pre">openmp</span></tt>?</a><a class="headerlink" href="#rule-of-thumb-for-choosing-pmap-or-openmp" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id9">Rule of thumb for choosing <tt class="docutils literal"><span class="pre">pmap</span></tt> or <tt class="docutils literal"><span class="pre">openmp</span></tt>?</a><a class="headerlink" href="#rule-of-thumb-for-choosing-pmap-or-openmp" title="Permalink to this headline">¶</a></h3>
 <p>Always try to install <tt class="docutils literal"><span class="pre">pytraj</span></tt> and <tt class="docutils literal"><span class="pre">cpptraj</span></tt> with <tt class="docutils literal"><span class="pre">-openmp</span></tt> flag.
 If method supports openmp, use openmp.</p>
 </div>
 <div class="section" id="pmap-doc">
-<h3><a class="toc-backref" href="#id9">pmap doc</a><a class="headerlink" href="#pmap-doc" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id10">pmap doc</a><a class="headerlink" href="#pmap-doc" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="_api/pytraj.parallel.html#pytraj-pmap"><em>API</em></a></p>
 </div>
 </div>
