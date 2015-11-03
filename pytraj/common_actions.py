@@ -761,6 +761,14 @@ def calc_volmap(traj, mask='',
         factor by which to scale radii (by devision)
     peakcut : float
 
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> # load all frames to memory
+    >>> traj = pt.datafiles.load_tz2_ortho()[:]
+    >>> # do fitting and centering before perform volmap
+    >>> traj = traj.superpose(mask=':1-13').center(':1-13 mass origin')
+    >>> data = pt.volmap(traj, mask=':WAT@O', grid_spacing='0.5 0.5 0.5', buffer=2.0, centermask='!:1-13', radscale=1.36)
     '''
     dummy_filename = 'dummy_fn.dat'
 
