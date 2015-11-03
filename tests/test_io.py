@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import unittest
+import numpy as np
 import pytraj as pt
 from pytraj import Topology, Trajectory, TrajectoryIterator
 from pytraj.testing import aa_eq
@@ -91,6 +92,10 @@ class TestIO(unittest.TestCase):
         self.assertRaises(ValueError, lambda: pt.write_traj("./output/test_0.nc",
                       traj[0],
                       overwrite=True))
+
+        # test if xyz is not c-contiguous
+        xyz = np.asfortranarray(traj.xyz)
+        pt.write_traj('output/xyz.nc', xyz, top=traj.top, overwrite=True)
 
     def test_blind_load(self):
         top = pt.load_topology("./data/Tc5b.top")
