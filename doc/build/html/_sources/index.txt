@@ -109,4 +109,4 @@ Welcome
    <h2>Learn more about AMBER</h2>
 
 .. image:: http://ambermd.org/Amber15_cover.png
-   :target:http://ambermd.org/
+   :target: http://ambermd.org/

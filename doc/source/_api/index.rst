@@ -22,6 +22,6 @@ try ``pytraj`` online:
     pytraj.hbonds
     pytraj.CpptrajState
     pytraj.parallel
-    pytraj.core.ActionList
+    pytraj.core.action_list
     pytraj.core.cpp_core
     pytraj.datasets.cpp_datasets
