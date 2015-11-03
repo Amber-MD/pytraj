@@ -362,7 +362,7 @@ def write_traj(filename="",
         # create frame iterator
         xyz = np.asarray(traj)
         if not xyz.flags.c_contiguous:
-            xyz = np.ascontiguoussarray(xyxz)
+            xyz = np.ascontiguoussarray(xyz)
         _frame_indices = range(
             xyz.shape[0]) if frame_indices is None else frame_indices
         fi = iterframe_from_array(xyz, _top.n_atoms, _frame_indices)
