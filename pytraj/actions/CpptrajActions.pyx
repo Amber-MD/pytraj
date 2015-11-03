@@ -171,7 +171,7 @@ cdef class Action:
                 self.do_action(frame, update_mass=update_mass, idx=idx)
 
     @makesureABC("Action")
-    def print_output(self):
+    def post_process(self):
         """Do we need this?"""
         self.baseptr.Print()
 
