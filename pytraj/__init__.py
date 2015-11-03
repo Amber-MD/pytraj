@@ -136,7 +136,6 @@ angles = calc_angle
 dihedral = calc_dihedral
 dihedrals = calc_dihedral
 jcoupling = calc_jcoupling
-nucleic_acid_analysis = nastruct
 calc_RMSF = calc_atomicfluct
 rmsf = calc_atomicfluct
 pairwise_rmsd = calc_pairwise_rmsd
