@@ -7,11 +7,10 @@ import pytraj as pt
 from pytraj.testing import eq, aa_eq
 
 class Test_Issue_991(unittest.TestCase):
-    @unittest.skip('there is no pdb file for Topology yet')
     def test_buffer_not_c_contiguous(self):
         # source code was lightly adapted from jmborr
-        # https://github.com/Amber-MD/pt/issues/991
-        traj = pt.load('data/issue991/short.dcd', 'data/issue991/pdb', 
+        # https://github.com/Amber-MD/pytraj/issues/991
+        traj = pt.load('data/issue991/short.dcd', 'data/issue991/pdb.gz', 
                        mask='(!:1-256)&(@H1,@H2,@H3,@H4,@H5)')
         
         # Trajectory of the center of mass of the first two residues
@@ -25,12 +24,18 @@ class Test_Issue_991(unittest.TestCase):
         
         # Save trajectory
         # make sure there is no ValueError
-        pt.write_traj(filename='output/junk.crd', traj=minitraj, top=minitop,
-                      overwrite=True)
+        # something is wrong with pdb, crd extension when loading with 
+        # minitop (poor topology?)
+        # make issue in cpptraj too?
+        #for ext in ['nc', 'mdcrd']:
+        for ext in ['nc']:
+            fn = 'output/junk.' + ext
+            pt.write_traj(filename=fn, traj=minitraj,
+                          top=minitop, overwrite=True)
 
-        # load coord back to make sure we correctly write it
-        new_traj = pt.iterload('output/junk.crd', minitop)
-        aa_eq(minitraj, new_traj.xyz)
+            ## load coord back to make sure we correctly write it
+            new_traj = pt.iterload(fn, minitop)
+            aa_eq(minitraj, new_traj.xyz)
 
 
 if __name__ == "__main__":
