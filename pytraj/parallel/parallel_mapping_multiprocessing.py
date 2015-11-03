@@ -56,6 +56,9 @@ def _pmap(func, traj, *args, **kwd):
     -----
     If you not sure about parallel's results, you should compare the output to serial run.
 
+    Rule of thumbs: start with small number of frames (saying 10 frames), varying
+    n_cores=1, 2, 3, 4 to see if the data makes sense or not.
+
     There are two modes in this method, use pytraj's methods (pytraj.rmsd, pytraj.radgyr,
     ...) or use cpptraj's command text syntax ('autoimage', 'rms', ...)
 
