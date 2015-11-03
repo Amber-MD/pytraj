@@ -736,7 +736,6 @@ def calc_multivector(traj=None,
     return _get_data_from_dtype(dslist, dtype)
 
 
-@_register_pmap
 @_super_dispatch()
 def calc_volmap(traj, mask='',
                 grid_spacing='0.0. 0.0. 0.0',
