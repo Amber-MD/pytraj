@@ -152,13 +152,13 @@
 <span id="remote-jupyter-notebook"></span><h1>Use Jupyter notebook remotely<a class="headerlink" href="#use-jupyter-notebook-remotely" title="Permalink to this headline">¶</a></h1>
 <p>try <tt class="docutils literal"><span class="pre">pytraj</span></tt> online:</p>
 <a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img src="http://mybinder.org/images/logo.svg" /></a>
-<p>Situation: Your data (may be TB) is in your working cluster. You want to access and
-interactively play with  your data at home, from your Windows laptop. You can use xwin to
+<p><strong>Situation</strong>: Your data (may be TB) is in your working cluster. You want to access and
+interactively play with  your datayour home computer. You can use xwin to
 open your Jupyter notebook on remote host. However, this kind of connection is quite slow.</p>
-<p>You can remotely use notebook by following method:</p>
+<p>To make the connection faster, you can follow below instructions:</p>
 <ul>
 <li><p class="first">First, make sure you install Jupyter notebook in both remote (working station in your
-offcie) and local (your laptop at home)</p>
+offcie) and local (your home computer)</p>
 </li>
 <li><p class="first">In remote host, open the terminal, change directory to where you have your notebooks and type:</p>
 <div class="highlight-python"><div class="highlight"><pre>ipython notebook --no-browser --port=8889
@@ -167,7 +167,7 @@ offcie) and local (your laptop at home)</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first">In your local laptop, open MS-DOS cmd (if using Windows) or Unix terminal, then type:</p>
+<li><p class="first">In your local computer, open MS-DOS cmd (if using Windows) or Unix terminal, then type:</p>
 <div class="highlight-python"><div class="highlight"><pre>ssh -N -f -L localhost:8888:localhost:8889 username@your_remote_host_name
 
 # make sure to change `username` to your real username in remote host
@@ -177,8 +177,10 @@ offcie) and local (your laptop at home)</p>
 </div>
 </li>
 <li><p class="first">Now open web browser (google chrome, firefox, ...) and type:</p>
-<p>localhost:8888</p>
-<p># you will see your notebooks in your given directory</p>
+<div class="highlight-python"><div class="highlight"><pre>localhost:8888
+# you will see your notebooks in your given directory
+</pre></div>
+</div>
 </li>
 </ul>
 </div>

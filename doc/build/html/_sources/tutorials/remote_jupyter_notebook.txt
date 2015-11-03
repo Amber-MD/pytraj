@@ -8,14 +8,14 @@ try ``pytraj`` online:
 .. image:: http://mybinder.org/images/logo.svg
    :target: http://mybinder.org/repo/hainm/notebook-pytraj
 
-Situation: Your data (may be TB) is in your working cluster. You want to access and
-interactively play with  your data at home, from your Windows laptop. You can use xwin to
+**Situation**: Your data (may be TB) is in your working cluster. You want to access and
+interactively play with  your datayour home computer. You can use xwin to
 open your Jupyter notebook on remote host. However, this kind of connection is quite slow.
 
-You can remotely use notebook by following method:
+To make the connection faster, you can follow below instructions:
 
 - First, make sure you install Jupyter notebook in both remote (working station in your
-  offcie) and local (your laptop at home)
+  offcie) and local (your home computer)
 
 - In remote host, open the terminal, change directory to where you have your notebooks and type::
 
@@ -23,7 +23,7 @@ You can remotely use notebook by following method:
 
     # you should leave the this open
 
-- In your local laptop, open MS-DOS cmd (if using Windows) or Unix terminal, then type::
+- In your local computer, open MS-DOS cmd (if using Windows) or Unix terminal, then type::
 
     ssh -N -f -L localhost:8888:localhost:8889 username@your_remote_host_name
 
@@ -33,6 +33,5 @@ You can remotely use notebook by following method:
 
 - Now open web browser (google chrome, firefox, ...) and type::
 
-  localhost:8888
-
-  # you will see your notebooks in your given directory
+   localhost:8888
+   # you will see your notebooks in your given directory
