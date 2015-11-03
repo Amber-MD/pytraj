@@ -58,7 +58,7 @@ cdef class Frame (object):
         # May by not: memory
         # Include topology in Trajectory instance? 
         """Constructor for Frame instance
-        >>> from pytraj.Frame import Frame
+        >>> from pytraj import Frame
         >>> # created empty Frame instance
         >>> frame0 = Frame()
         >>> # create Frame instance with 304 atoms

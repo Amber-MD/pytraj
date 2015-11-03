@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 from pytraj.core.cpp_core import AtomMask
 from pytraj.externals.six import string_types
-from pytraj.Frame import Frame
+from pytraj.frame import Frame
 
 
 class FrameIter(object):

@@ -1,6 +1,6 @@
 cimport cython
 from cython cimport view
-from .Frame cimport Frame, _Frame
+from .frame cimport Frame, _Frame
 from .core.Box cimport _Box, Box
 
 

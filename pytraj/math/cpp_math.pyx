@@ -8,7 +8,7 @@ from libc.math cimport sqrt
 from libcpp.string cimport string
 from cpython.array cimport array
 
-from ..Frame cimport Frame, _Frame
+from ..frame cimport Frame, _Frame
 from ..core.Box cimport _Box, Box
 
 import numpy as np

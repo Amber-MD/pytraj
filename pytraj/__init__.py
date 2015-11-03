@@ -71,7 +71,7 @@ dispatch = Command.dispatch
 from . import array
 from .topology import Topology, ParmFile
 from .math import Vec3
-from .Frame import Frame
+from .frame import Frame
 from .trajectory import Trajectory
 from .trajectory_iterator import TrajectoryIterator
 from .trajs.Trajout import Trajout

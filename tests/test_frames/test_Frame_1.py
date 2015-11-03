@@ -3,7 +3,7 @@ import pytraj as pt
 from array import array
 import numpy as np
 from pytraj.utils.check_and_assert import assert_almost_equal
-from pytraj.Frame import Frame
+from pytraj import Frame
 from pytraj.base import *
 from pytraj.math import Vec3
 from pytraj import io as mdio
