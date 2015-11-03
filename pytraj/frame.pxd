@@ -113,7 +113,7 @@ cdef extern from "Frame.h" nogil:
 cdef class Frame:
     cdef _Frame* thisptr
     cdef public bint _own_memory
-    cdef _update_atoms(self, int[:], double[:], int)
+    cdef _cy_update_atoms(self, int[:], double[:], int)
     # create and object as alias to Topology instance
     cdef object _top
     cdef public object _as_view
