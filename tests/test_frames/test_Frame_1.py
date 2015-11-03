@@ -51,12 +51,6 @@ class TestFrame(unittest.TestCase):
         assert arr0.shape == (100, 3)
         assert frame._buffer2d.shape == (100, 3)
         assert frame[0, 1] == arr0[0, 1]
-        # frame[:], np.arange(300, 0, -1).reshape(100, 3))
-        #assert frame.coords == array('d', range(300, 0, -1))
-
-        #frame[:] = np.arange(300, dtype='d')
-        #assert frame.coords == array('d', [x for x in range(300)])
-        #assert frame[:] == frame.coords
 
     def test_buffer1d(self):
         FRAME.buffer1d[0] = 199.
@@ -72,14 +66,10 @@ class TestFrame(unittest.TestCase):
         arr0 = np.asarray(FRAME.buffer1d)
         arr1 = arr0.reshape(10, 3)
         arr1[1] = [100., 200., 300.]
-        # TODO : add
         start = 0
         stop = 10
         strip = 2
         arr = np.asarray(FRAME[start:stop:strip])
-
-        # does not work, got "ValueError: ndarray is not contiguous"
-        #FRAME[start:stop:strip] = arr_tmp[start:stop:strip]
 
     def test_indexing(self):
         # create a Frame instance with N_ATOMS atoms
@@ -124,10 +114,6 @@ class TestFrame(unittest.TestCase):
         assert abs(rmsd - 10.3964) < 1E-3
         arr1 = np.asarray(frame0.buffer1d)[:3]
         frame0.translate(v1)
-        #print(v1.tolist())
-        #print(np.array(v1.tolist(), dtype='d'))
-        #print(arr1)
-        #print(frame0[:3])
 
     def test_long(self):
         N_ATOMS = 10
@@ -141,79 +127,56 @@ class TestFrame(unittest.TestCase):
         assert frame.n_atoms == N_ATOMS
         assert frame.size == N_ATOMS * 3
 
-        #print(frame.atoms(0))
-        #print(arr_reshape[0])
         assert_almost_equal(np.array(frame.atoms(0)), arr_reshape[0])
         assert_almost_equal(frame[0], arr[:3])
 
         # frame.info('frame info')
         frame.swap_atoms(1, 8)
 
-        #print("after swapping 1 - 8")
 
-        #print("update coords_copy for atom 1")
         frame.update_atom(1, array('d', [1., 1000., 3000.]))
-        #print(frame.atoms(1))
-        #print(frame[3])
-        #print("assign frame[3] to 1000000.")
         frame[3] = 1000000.
-        #print(frame.atoms(1))
 
-        #print("deviding Frame")
         frame.divide(2.)
 
-        #print("test iteration")
         count = 0
         for x in frame:
             count += 1
-        #print("count = %s " % count)
         assert count == N_ATOMS
 
-        #print("test enumeration")
         for i, x in enumerate(frame):
             if i == 9:
                 old_i = frame[i]
                 frame[i] = array('d', [1010., 0., 0.])
-        #print(i)
         assert i == N_ATOMS - 1
-        #print(x)
         assert_almost_equal(x, old_i)
         assert frame[9][0] == 1010.
 
-        #print("set zero_coords_copy")
         frame.zero_coords()
         arr = np.asarray(frame.coords)
         frame[0] = 1001.10
         assert frame[0, 0] == frame.coords[0]
-        #print(frame[0])
 
         arrref = np.random.rand(30)
         frameref.set_from_crd(arr, 30, 0, False)
 
         frame.update_atoms(
             array('i', [0, 3]), array('d', [0., 0., 0.1, 1.1, 2.3, 3.]))
-        #print(type(frame.atoms(0)))
-        #print(frame.atoms(0))
         assert frame.atoms(0) == array('d', [0., 0., 0.1])
         assert frame.atoms(3) == array('d', [1.1, 2.3, 3.])
 
     def test_iter(self):
-        #print("test iteration")
         alist = []
         frame = FRAME_orig.copy()
 
         for x in frame:
             alist += [int(a) for a in x]
-        #print(alist)
         assert alist == list(range(3 * N_ATOMS))
 
-        #print("test enumerate")
         alist = []
         for idx, x in enumerate(frame):
             alist += [int(a) for a in x]
         assert alist == list(range(3 * N_ATOMS))
-        #print(alist)
-        #print("====================end test_iter")
 
     def test_tranlate(self):
         farray = Trajectory(
@@ -229,10 +192,16 @@ class TestFrame(unittest.TestCase):
         assert vec3.tolist() == mylist
         f0.translate(vec3)
         f1.translate(mylist)
-        #print("to_ndarray", vec3.to_ndarray())
         f2.translate(vec3.to_ndarray())
         assert_almost_equal(f0.coords, f1.coords)
         assert_almost_equal(f0.coords, f2.coords)
+
+    def test_velocity_and_force(self):
+        traj = pt.load_sample_data('ala3')
+        assert not traj[0].has_force(), 'does not have force'
+        assert not traj[0].has_velocity(), 'does not have force'
+        assert traj[0].force is None, 'force must be None'
+        assert traj[0].velocity is None, 'velocity is None'
 
 
 if __name__ == "__main__":
