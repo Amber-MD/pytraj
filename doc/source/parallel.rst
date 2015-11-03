@@ -108,16 +108,16 @@ Supported methods for ``pmap``
     pmap_ = []
     for method in set(method_list_pmap):
         name = str(method).split()[1]
-        if 'calc_' in name:
-            name = name.split('calc_')[-1]
+        #if 'calc_' in name:
+        #    name = name.split('calc_')[-1]
         pmap_.append(name)
     supported_pmap_methods = sorted(pmap_)
 
     openmp_ = []
     for method in set(method_list_openmp):
         name = str(method).split()[1]
-        if 'calc_' in name:
-            name = name.split('calc_')[-1]
+        #if 'calc_' in name:
+        #    name = name.split('calc_')[-1]
         openmp_.append(name)
     supported_openmp_methods = sorted(openmp_)
 
