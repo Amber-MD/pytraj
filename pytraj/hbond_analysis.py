@@ -124,7 +124,7 @@ def search_hbonds(traj,
     for idx, frame in enumerate(iterframe_master(traj)):
         act.do_action(frame, idx=idx)
 
-    act.print_output()
+    act.post_process()
 
     old_keys = dslist.keys()
     _update_key_hbond(dslist)

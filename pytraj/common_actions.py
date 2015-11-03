@@ -551,7 +551,7 @@ def calc_diffusion(traj,
     act.process(top)
     for idx, frame in enumerate(traj):
         act.do_action(frame, idx=idx)
-    act.print_output()
+    act.post_process()
 
     # make the label nicer
     for d in dslist:
@@ -633,7 +633,7 @@ def calc_matrix(traj=None,
     _top = _get_topology(traj, top)
     dslist = CpptrajDatasetList()
     act(command, traj, top=_top, dslist=dslist, *args, **kwd)
-    act.print_output()
+    act.post_process()
     return _get_data_from_dtype(dslist, dtype)
 
 
@@ -790,6 +790,7 @@ def calc_volmap(traj, mask='',
 
     dslist = CpptrajDatasetList()
     act(command, traj, top=top, dslist=dslist)
+    act.post_process()
     return _get_data_from_dtype(dslist, dtype)
 
 volmap = calc_volmap
@@ -900,7 +901,7 @@ def calc_rdf(traj=None,
 
     dslist = CpptrajDatasetList()
     act(command, traj, top=_top, dslist=dslist)
-    act.print_output()
+    act.post_process()
 
     # make a copy sine dslist[-1].values return view of its data
     # dslist will be freed
@@ -931,7 +932,7 @@ def calc_pairdist(traj, mask="*", delta=0.1, dtype='ndarray', top=None):
         command = ' '.join((_mask, _delta, 'out tmp_pytraj_out.txt'))
 
         act(command, traj, top=top, dslist=dslist)
-        act.print_output()
+        act.post_process()
 
         return _get_data_from_dtype(dslist, dtype=dtype)
 
@@ -1093,7 +1094,7 @@ def mean_structure(traj,
     act(command, fi, _top, dslist=dslist)
 
     # need to call this method so cpptraj will write
-    act.print_output()
+    act.post_process()
 
     frame = dslist[0].get_frame()
     if restype.lower() == 'frame':
@@ -1344,8 +1345,8 @@ def calc_atomicfluct(traj=None,
     dslist = CpptrajDatasetList()
     act = adict['atomicfluct']
     act(command, traj, top=_top, dslist=dslist, *args, **kwd)
-    # tag: print_output()
-    act.print_output()  # need to have this. check cpptraj's code
+    # tag: post_process()
+    act.post_process()  # need to have this. check cpptraj's code
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
@@ -1608,7 +1609,7 @@ def calc_density(traj=None,
             act = CpptrajActions.Action_Density()
             # with goto_temp_folder():
             act(command, traj, top=top, dflist=dflist)
-            act.print_output()
+            act.post_process()
             dflist.write_all_datafiles()
             absolute_path_tmp = os.path.abspath(tmp_filename)
             return absolute_path_tmp
@@ -1911,7 +1912,7 @@ def atomiccorr(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     act = CpptrajActions.Action_AtomicCorr()
     act("out mytempfile.out " + command, traj,
         top=top, dslist=dslist, *args, **kwd)
-    act.print_output()
+    act.post_process()
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
@@ -2557,8 +2558,8 @@ def calc_atomiccorr(traj, mask,
 
     with goto_temp_folder():
         act(command, fi, top=_top, dslist=dslist)
-        # need to print_output for this Action
-        act.print_output()
+        # need to post_process for this Action
+        act.post_process()
 
     return _get_data_from_dtype(dslist, dtype=dtype)
 
@@ -2658,7 +2659,7 @@ def _grid(traj, mask, grid_spacing,
 
     with goto_temp_folder():
         act(command, fi, top=_top, dslist=dslist)
-    act.print_output()
+    act.post_process()
 
     return _get_data_from_dtype(dslist, dtype=dtype)
 

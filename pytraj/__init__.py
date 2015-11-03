@@ -347,6 +347,16 @@ def strip_atoms(traj_or_topology, mask):
         traj_or_topology.mask = kept_mask
         return traj_or_topology
 
+def run(fi):
+    '''shortcut for `for frame in fi: pass`
+
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> fi = pt.create_pipeline(traj, ['autoimage', 'rms', 'center :1-13'])
+    >>> pt.run(fi)
+    '''
+    for _ in fi: pass
+
 
 def show():
     # just delay importing
