@@ -27,7 +27,7 @@ class TestDoc(unittest.TestCase):
 
         modules = [
                    pt._get_common_objects,
-                   pt._nastruct,
+                   pt.nucleic_acid_analysis,
                    convert,
                    frameiter,
                    vector,
