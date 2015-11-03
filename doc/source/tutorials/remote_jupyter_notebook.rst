@@ -33,5 +33,5 @@ To make the connection faster, you can follow below instructions:
 
 - Now open web browser (google chrome, firefox, ...) and type::
 
-   localhost:8888
-   # you will see your notebooks in your given directory
+    localhost:8888
+    # you will see your notebooks in your given directory
