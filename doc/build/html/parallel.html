@@ -102,7 +102,8 @@
 <li><a class="reference internal" href="#">Parallel calculation</a><ul>
 <li><a class="reference internal" href="#disclaimer">Disclaimer</a></li>
 <li><a class="reference internal" href="#single-action-with-single-trajectory">single action with single trajectory</a><ul>
-<li><a class="reference internal" href="#example">Example</a></li>
+<li><a class="reference internal" href="#example-parallel-calculation-with-single-action">Example: parallel calculation with single action</a></li>
+<li><a class="reference internal" href="#example-parallel-calculation-with-cpptraj-s-command-style">Example: parallel calculation with cpptraj&#8217;s command style</a></li>
 <li><a class="reference internal" href="#supported-methods-for-pmap">Supported methods for <tt class="docutils literal"><span class="pre">pmap</span></tt></a></li>
 <li><a class="reference internal" href="#supported-methods-for-openmp">Supported methods for <tt class="docutils literal"><span class="pre">openmp</span></tt></a></li>
 <li><a class="reference internal" href="#rule-of-thumb-for-choosing-pmap-or-openmp">Rule of thumb for choosing <tt class="docutils literal"><span class="pre">pmap</span></tt> or <tt class="docutils literal"><span class="pre">openmp</span></tt>?</a></li>
@@ -172,11 +173,12 @@
 <li><a class="reference internal" href="#parallel-calculation" id="id1">Parallel calculation</a><ul>
 <li><a class="reference internal" href="#disclaimer" id="id2">Disclaimer</a></li>
 <li><a class="reference internal" href="#single-action-with-single-trajectory" id="id3">single action with single trajectory</a><ul>
-<li><a class="reference internal" href="#example" id="id4">Example</a></li>
-<li><a class="reference internal" href="#supported-methods-for-pmap" id="id5">Supported methods for <tt class="docutils literal"><span class="pre">pmap</span></tt></a></li>
-<li><a class="reference internal" href="#supported-methods-for-openmp" id="id6">Supported methods for <tt class="docutils literal"><span class="pre">openmp</span></tt></a></li>
-<li><a class="reference internal" href="#rule-of-thumb-for-choosing-pmap-or-openmp" id="id7">Rule of thumb for choosing <tt class="docutils literal"><span class="pre">pmap</span></tt> or <tt class="docutils literal"><span class="pre">openmp</span></tt>?</a></li>
-<li><a class="reference internal" href="#pmap-doc" id="id8">pmap doc</a></li>
+<li><a class="reference internal" href="#example-parallel-calculation-with-single-action" id="id4">Example: parallel calculation with single action</a></li>
+<li><a class="reference internal" href="#example-parallel-calculation-with-cpptraj-s-command-style" id="id5">Example: parallel calculation with cpptraj&#8217;s command style</a></li>
+<li><a class="reference internal" href="#supported-methods-for-pmap" id="id6">Supported methods for <tt class="docutils literal"><span class="pre">pmap</span></tt></a></li>
+<li><a class="reference internal" href="#supported-methods-for-openmp" id="id7">Supported methods for <tt class="docutils literal"><span class="pre">openmp</span></tt></a></li>
+<li><a class="reference internal" href="#rule-of-thumb-for-choosing-pmap-or-openmp" id="id8">Rule of thumb for choosing <tt class="docutils literal"><span class="pre">pmap</span></tt> or <tt class="docutils literal"><span class="pre">openmp</span></tt>?</a></li>
+<li><a class="reference internal" href="#pmap-doc" id="id9">pmap doc</a></li>
 </ul>
 </li>
 </ul>
@@ -190,8 +192,8 @@
 <div class="section" id="single-action-with-single-trajectory">
 <h2><a class="toc-backref" href="#id3">single action with single trajectory</a><a class="headerlink" href="#single-action-with-single-trajectory" title="Permalink to this headline">¶</a></h2>
 <p><tt class="docutils literal"><span class="pre">pytraj</span></tt> use <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html">python multiprocessing</a>, so users don&#8217;t need to install extra package.</p>
-<div class="section" id="example">
-<h3><a class="toc-backref" href="#id4">Example</a><a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="example-parallel-calculation-with-single-action">
+<h3><a class="toc-backref" href="#id4">Example: parallel calculation with single action</a><a class="headerlink" href="#example-parallel-calculation-with-single-action" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
 <span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;data/tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s">&#39;data/tz2.ortho.parm7&#39;</span><span class="p">)</span>
@@ -212,11 +214,110 @@
 </pre></div>
 </div>
 </div>
+<div class="section" id="example-parallel-calculation-with-cpptraj-s-command-style">
+<h3><a class="toc-backref" href="#id5">Example: parallel calculation with cpptraj&#8217;s command style</a><a class="headerlink" href="#example-parallel-calculation-with-cpptraj-s-command-style" title="Permalink to this headline">¶</a></h3>
+<p><strong>Rule of thumb</strong>: Only support limited cpptraj&#8217;s actions (not analysis). For now, there
+is no list of supported actions yet but you can perform any action in parallel if the
+result does not depend on the number of frame. For example, you can NOT use &#8216;atomicfluct&#8217;
+or &#8216;matrix covar&#8217;, ... This parallel method is GOOD for distance, angle, rms, dihedral,
+vector, multidihedral, ...</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="c"># perform autoimage, then rmsfit to 1st frame</span>
+<span class="c"># create a reference</span>
+<span class="gp">In [5]: </span><span class="n">ref</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="gp">In [6]: </span><span class="n">ref</span>
+<span class="gr">Out[6]: </span><span class="o">&lt;</span><span class="n">Frame</span> <span class="k">with</span> <span class="mi">5293</span> <span class="n">atoms</span><span class="o">&gt;</span>
+
+<span class="c"># need to explicitly do autoimage to reproduce cpptraj&#39;s serial run</span>
+<span class="c"># since `ref` is a single Frame, we need to provide Topology for `pt.autoimage`</span>
+<span class="gp">In [7]: </span><span class="n">pt</span><span class="o">.</span><span class="n">autoimage</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
+<span class="go">                                Out[7]: &lt;Frame with 5293 atoms&gt;</span>
+
+<span class="c"># add to reference list</span>
+<span class="gp">In [8]: </span><span class="n">reflist</span> <span class="o">=</span> <span class="p">[</span><span class="n">ref</span><span class="p">,</span> <span class="p">]</span>
+
+<span class="c"># need to explicitly specify reference by using &#39;refindex&#39;</span>
+<span class="c"># &#39;refindex 0&#39; is equal to &#39;reflist[0]&#39; and so on.</span>
+<span class="c"># we need to explicitly specify the index so pytraj can correctly send the reference to different cores.</span>
+<span class="gp">In [9]: </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">([</span><span class="s">&#39;autoimage&#39;</span><span class="p">,</span> <span class="s">&#39;rms refindex 0&#39;</span><span class="p">,</span> <span class="s">&#39;distance :3 :8&#39;</span><span class="p">,</span> <span class="s">&#39;multidihedral phi psi resrange 3-5&#39;</span><span class="p">],</span> <span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">reflist</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="gr">Out[9]: </span>
+<span class="go">OrderedDict([(&#39;RMSD_00001&#39;,</span>
+<span class="go">              array([  0.    ,   8.7689,  10.4369,  11.2591,  11.7381,  12.4922,</span>
+<span class="go">                      13.2369,  13.3734,  14.0668,  14.1891])),</span>
+<span class="go">             (&#39;Dis_00002&#39;,</span>
+<span class="go">              array([ 8.7609,  8.6396,  8.6156,  9.0299,  9.3541,  9.0833,  9.4822,</span>
+<span class="go">                      9.3856,  9.4454,  9.2076])),</span>
+<span class="go">             (&#39;phi:3&#39;,</span>
+<span class="go">              array([-157.0477, -153.8516, -141.437 , -168.1823, -156.3095, -152.9399,</span>
+<span class="go">                     -156.9742, -145.4146, -145.431 , -128.4447])),</span>
+<span class="go">             (&#39;psi:3&#39;,</span>
+<span class="go">              array([ 156.5559,  156.2962,  144.6531,  131.3405,  130.1539,  147.6546,</span>
+<span class="go">                      141.0764,  153.2045,  153.2009,  144.8442])),</span>
+<span class="go">             (&#39;phi:4&#39;,</span>
+<span class="go">              array([-74.4914, -79.0893, -79.84  , -57.2843, -57.6254, -93.2022,</span>
+<span class="go">                     -73.5377, -81.4212, -82.5295, -69.2517])),</span>
+<span class="go">             (&#39;psi:4&#39;,</span>
+<span class="go">              array([ 119.2348,  109.0394,   88.3558,   89.5826,  108.1446,   96.5808,</span>
+<span class="go">                      113.5317,  133.1828,  134.3665,   86.1773])),</span>
+<span class="go">             (&#39;phi:5&#39;,</span>
+<span class="go">              array([-133.9119, -138.1535, -122.0902, -121.3041, -133.1023, -124.2474,</span>
+<span class="go">                     -139.1863, -163.4636, -147.6285, -114.5396])),</span>
+<span class="go">             (&#39;psi:5&#39;,</span>
+<span class="go">              array([ 120.1839,  124.425 ,  130.1307,  136.707 ,  118.9966,  139.0724,</span>
+<span class="go">                      132.4688,  128.3897,  132.1973,  135.4395]))])</span>
+
+<span class="c"># compare to cpptraj&#39;s serial run</span>
+<span class="gp">In [10]: </span><span class="n">state</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_cpptraj_state</span><span class="p">(</span><span class="s">&#39;&#39;&#39;</span>
+<span class="gp">   ....:</span><span class="s"> parm tz2.ortho.parm7</span>
+<span class="gp">   ....:</span><span class="s"> trajin tz2.ortho.nc</span>
+<span class="gp">   ....:</span><span class="s"> autoimage</span>
+<span class="gp">   ....:</span><span class="s"> rms</span>
+<span class="gp">   ....:</span><span class="s"> distance :3 :8</span>
+<span class="gp">   ....:</span><span class="s"> multidihedral phi psi resrange 3-5</span>
+<span class="gp">   ....:</span><span class="s"> &#39;&#39;&#39;</span><span class="p">)</span>
+<span class="gp">   ....:</span> 
+
+<span class="gp">In [11]: </span><span class="n">state</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="gr">Out[11]: </span>
+<span class="go">CpptrajState, include:</span>
+<span class="go">&lt;datasetlist: 9 datasets&gt;</span>
+
+<span class="c"># pull output from state.data</span>
+<span class="c"># since cpptraj store Topology in `state.data`, we need to skip it</span>
+<span class="gp">In [12]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+<span class="go">                                                           Out[12]: </span>
+<span class="go">OrderedDict([(&#39;RMSD_00001&#39;,</span>
+<span class="go">              array([  0.    ,   8.7689,  10.4369,  11.2591,  11.7381,  12.4922,</span>
+<span class="go">                      13.2369,  13.3734,  14.0668,  14.1891])),</span>
+<span class="go">             (&#39;Dis_00002&#39;,</span>
+<span class="go">              array([ 8.7609,  8.6396,  8.6156,  9.0299,  9.3541,  9.0833,  9.4822,</span>
+<span class="go">                      9.3856,  9.4454,  9.2076])),</span>
+<span class="go">             (&#39;phi:3&#39;,</span>
+<span class="go">              array([-157.0477, -153.8516, -141.437 , -168.1823, -156.3095, -152.9399,</span>
+<span class="go">                     -156.9742, -145.4146, -145.431 , -128.4447])),</span>
+<span class="go">             (&#39;psi:3&#39;,</span>
+<span class="go">              array([ 156.5559,  156.2962,  144.6531,  131.3405,  130.1539,  147.6546,</span>
+<span class="go">                      141.0764,  153.2045,  153.2009,  144.8442])),</span>
+<span class="go">             (&#39;phi:4&#39;,</span>
+<span class="go">              array([-74.4914, -79.0893, -79.84  , -57.2843, -57.6254, -93.2022,</span>
+<span class="go">                     -73.5377, -81.4212, -82.5295, -69.2517])),</span>
+<span class="go">             (&#39;psi:4&#39;,</span>
+<span class="go">              array([ 119.2348,  109.0394,   88.3558,   89.5826,  108.1446,   96.5808,</span>
+<span class="go">                      113.5317,  133.1828,  134.3665,   86.1773])),</span>
+<span class="go">             (&#39;phi:5&#39;,</span>
+<span class="go">              array([-133.9119, -138.1535, -122.0902, -121.3041, -133.1023, -124.2474,</span>
+<span class="go">                     -139.1863, -163.4636, -147.6285, -114.5396])),</span>
+<span class="go">             (&#39;psi:5&#39;,</span>
+<span class="go">              array([ 120.1839,  124.425 ,  130.1307,  136.707 ,  118.9966,  139.0724,</span>
+<span class="go">                      132.4688,  128.3897,  132.1973,  135.4395]))])</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="supported-methods-for-pmap">
-<h3><a class="toc-backref" href="#id5">Supported methods for <tt class="docutils literal"><span class="pre">pmap</span></tt></a><a class="headerlink" href="#supported-methods-for-pmap" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [5]: </span><span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">supported_pmap_methods</span><span class="p">:</span>
-<span class="gp">   ...:</span>     <span class="k">print</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
-<span class="gp">   ...:</span> 
+<h3><a class="toc-backref" href="#id6">Supported methods for <tt class="docutils literal"><span class="pre">pmap</span></tt></a><a class="headerlink" href="#supported-methods-for-pmap" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [13]: </span><span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">supported_pmap_methods</span><span class="p">:</span>
+<span class="gp">   ....:</span>     <span class="k">print</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
+<span class="gp">   ....:</span> 
 <span class="go">NH_order_parameters</span>
 <span class="go">alpha</span>
 <span class="go">angle</span>
@@ -258,10 +359,10 @@
 </div>
 </div>
 <div class="section" id="supported-methods-for-openmp">
-<h3><a class="toc-backref" href="#id6">Supported methods for <tt class="docutils literal"><span class="pre">openmp</span></tt></a><a class="headerlink" href="#supported-methods-for-openmp" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [6]: </span><span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">supported_openmp_methods</span><span class="p">:</span>
-<span class="gp">   ...:</span>     <span class="k">print</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
-<span class="gp">   ...:</span> 
+<h3><a class="toc-backref" href="#id7">Supported methods for <tt class="docutils literal"><span class="pre">openmp</span></tt></a><a class="headerlink" href="#supported-methods-for-openmp" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [14]: </span><span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">supported_openmp_methods</span><span class="p">:</span>
+<span class="gp">   ....:</span>     <span class="k">print</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
+<span class="gp">   ....:</span> 
 <span class="go">closest</span>
 <span class="go">dssp</span>
 <span class="go">pairwise_rmsd</span>
@@ -269,18 +370,18 @@
 <span class="go">replicate_cell</span>
 <span class="go">watershell</span>
 
-<span class="gp">In [7]: </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="gp">In [15]: </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
 <span class="go">                                                         </span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="rule-of-thumb-for-choosing-pmap-or-openmp">
-<h3><a class="toc-backref" href="#id7">Rule of thumb for choosing <tt class="docutils literal"><span class="pre">pmap</span></tt> or <tt class="docutils literal"><span class="pre">openmp</span></tt>?</a><a class="headerlink" href="#rule-of-thumb-for-choosing-pmap-or-openmp" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id8">Rule of thumb for choosing <tt class="docutils literal"><span class="pre">pmap</span></tt> or <tt class="docutils literal"><span class="pre">openmp</span></tt>?</a><a class="headerlink" href="#rule-of-thumb-for-choosing-pmap-or-openmp" title="Permalink to this headline">¶</a></h3>
 <p>Always try to install <tt class="docutils literal"><span class="pre">pytraj</span></tt> and <tt class="docutils literal"><span class="pre">cpptraj</span></tt> with <tt class="docutils literal"><span class="pre">-openmp</span></tt> flag.
 If method supports openmp, use openmp.</p>
 </div>
 <div class="section" id="pmap-doc">
-<h3><a class="toc-backref" href="#id8">pmap doc</a><a class="headerlink" href="#pmap-doc" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id9">pmap doc</a><a class="headerlink" href="#pmap-doc" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="_api/pytraj.parallel.html#pytraj-pmap"><em>API</em></a></p>
 </div>
 </div>
@@ -299,7 +400,7 @@ If method supports openmp, use openmp.</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 01, 2015.<br/>
+      Last updated on Nov 03, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>
