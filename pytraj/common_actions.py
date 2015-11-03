@@ -737,14 +737,47 @@ def calc_multivector(traj=None,
 
 
 @_super_dispatch()
-def calc_volmap(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
-    command = mask
+def calc_volmap(traj, mask='',
+                grid_spacing='0.0. 0.0. 0.0',
+                buffer=3.0,
+                centermask='*',
+                radscale=1.36,
+                peakcut=0.05,
+                top=None,
+                dtype='ndarray',
+                frame_indices=None):
+    '''(cpptraj doc) Grid data as a volumetric map, similar to the
+    ’volmap’ command in VMD. The density is calculated by treating each atom as a 
+    3-dimensional Gaussian function whose standard deviation is equal to the van der Waals radius
+
+    Parameters
+    ----------
+    mask : {str, array-like}, default all atoms
+        the atom selection from which to calculate the number density
+    grid_spacing : str, grid spacing in X-, Y-, Z-dimensions
+    buffer : float, default 3.0 Angstrom
+    centermask : str
+    radscale : float, default 1.36 (to match to VMD calculation)
+        factor by which to scale radii (by devision)
+    peakcut : float
+
+    '''
+    dummy_filename = 'dummy_fn.dat'
+
+    _radscale = 'radscale ' + str(radscale)
+    _buffer = 'buffer ' + str(buffer)
+    _peakcut = 'peakcut ' + str(peakcut)
+    _centermask = 'centermask ' + centermask
+
+    command = ' '.join((dummy_filename, grid_spacing, mask, _radscale, _buffer, _centermask, _peakcut))
 
     act = CpptrajActions.Action_Volmap()
 
     dslist = CpptrajDatasetList()
-    act(command, traj, top=top, dslist=dslist, *args, **kwd)
+    act(command, traj, top=top, dslist=dslist)
     return _get_data_from_dtype(dslist, dtype)
+
+volmap = calc_volmap
 
 
 @_super_dispatch()
