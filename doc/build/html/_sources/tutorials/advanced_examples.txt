@@ -14,3 +14,4 @@ try ``pytraj`` online:
     lysozyme_order_parameter_
     hbonds
     advanced_endless_streaming
+    remote_jupyter_notebook

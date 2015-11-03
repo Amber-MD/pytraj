@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Advanced examples &mdash; pytraj 0.1.2.dev12 documentation</title>
+    <title>Use Jupyter notebook remotely &mdash; pytraj 0.1.2.dev12 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -30,9 +30,9 @@
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="pytraj 0.1.2.dev12 documentation" href="../index.html" />
-    <link rel="up" title="Tutorials" href="index.html" />
-    <link rel="next" title="Lysozyme NH order parameters" href="lysozyme_order_parameter_.html" />
-    <link rel="prev" title="Interface with cclib" href="interface_with_cclib_.html" />
+    <link rel="up" title="Advanced examples" href="advanced_examples.html" />
+    <link rel="next" title="Python tricks that make your life easier" href="python_tricks.html" />
+    <link rel="prev" title="Endless streaming calculation" href="advanced_endless_streaming.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -100,7 +100,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Advanced examples</a></li>
+<li><a class="reference internal" href="#">Use Jupyter notebook remotely</a></li>
 </ul>
 </ul>
 </li>
@@ -110,11 +110,11 @@
               
                 
   <li>
-    <a href="interface_with_cclib_.html" title="Previous Chapter: Interface with cclib"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Interface wit...</span>
+    <a href="advanced_endless_streaming.html" title="Previous Chapter: Endless streaming calculation"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Endless strea...</span>
     </a>
   </li>
   <li>
-    <a href="lysozyme_order_parameter_.html" title="Next Chapter: Lysozyme NH order parameters"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Lysozyme NH o... &raquo;</span>
+    <a href="python_tricks.html" title="Next Chapter: Python tricks that make your life easier"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Python tricks... &raquo;</span>
     </a>
   </li>
               
@@ -124,7 +124,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/tutorials/advanced_examples.txt"
+  <a href="../_sources/tutorials/remote_jupyter_notebook.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -148,18 +148,39 @@
   <div class="row">
     <div class="col-md-12">
       
-  <div class="section" id="advanced-examples">
-<span id="plot-tutorials"></span><h1>Advanced examples<a class="headerlink" href="#advanced-examples" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="use-jupyter-notebook-remotely">
+<span id="remote-jupyter-notebook"></span><h1>Use Jupyter notebook remotely<a class="headerlink" href="#use-jupyter-notebook-remotely" title="Permalink to this headline">¶</a></h1>
 <p>try <tt class="docutils literal"><span class="pre">pytraj</span></tt> online:</p>
-<a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img src="http://mybinder.org/badge.svg" /></a>
-<div class="toctree-wrapper compound">
+<a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img src="http://mybinder.org/images/logo.svg" /></a>
+<p>Situation: Your data (may be TB) is in your working cluster. You want to access and
+interactively play with  your data at home, from your Windows laptop. You can use xwin to
+open your Jupyter notebook on remote host. However, this kind of connection is quite slow.</p>
+<p>You can remotely use notebook by following method:</p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="lysozyme_order_parameter_.html">Lysozyme NH order parameters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hbonds.html">Hbond</a></li>
-<li class="toctree-l1"><a class="reference internal" href="advanced_endless_streaming.html">Endless streaming calculation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="remote_jupyter_notebook.html">Use Jupyter notebook remotely</a></li>
-</ul>
+<li><p class="first">First, make sure you install Jupyter notebook in both remote (working station in your
+offcie) and local (your laptop at home)</p>
+</li>
+<li><p class="first">In remote host, open the terminal, change directory to where you have your notebooks and type:</p>
+<div class="highlight-python"><div class="highlight"><pre>ipython notebook --no-browser --port=8889
+
+# you should leave the this open
+</pre></div>
 </div>
+</li>
+<li><p class="first">In your local laptop, open MS-DOS cmd (if using Windows) or Unix terminal, then type:</p>
+<div class="highlight-python"><div class="highlight"><pre>ssh -N -f -L localhost:8888:localhost:8889 username@your_remote_host_name
+
+# make sure to change `username` to your real username in remote host
+# change `your_remote_host_name` to your address of your working station
+# Example: ssh -N -f -L localhost:8888:localhost:8889 laura@cs.rutgers.edu
+</pre></div>
+</div>
+</li>
+<li><p class="first">Now open web browser (google chrome, firefox, ...) and type:</p>
+<p>localhost:8888</p>
+<p># you will see your notebooks in your given directory</p>
+</li>
+</ul>
 </div>
 
 

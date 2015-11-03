@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pytraj.ActionList &mdash; pytraj 0.1.2.dev12 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.2.dev12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="pytraj 0.1.2.dev12 documentation" href="../index.html" />
+    <link rel="up" title="API" href="index.html" />
+    <link rel="prev" title="pytraj.parallel" href="pytraj.parallel.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_and_write.html">Read and Write</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cookbook.html">Cookbook</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">pytraj.ActionList</a><ul>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="pytraj.parallel.html" title="Previous Chapter: pytraj.parallel"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; pytraj.parallel</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/_api/pytraj.core.action_list.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <div class="section" id="pytraj-actionlist">
+<span id="pytraj-core-action-list"></span><h1>pytraj.ActionList<a class="headerlink" href="#pytraj-actionlist" title="Permalink to this headline">¶</a></h1>
+<div class="custom-index container">
+<script type="text/javascript" src='../_static/cindex.js'></script></div>
+<span class="target" id="module-pytraj.core.action_list"></span><dl class="class">
+<dt id="pytraj.core.action_list.ActionList">
+<em class="property">class </em><tt class="descclassname">pytraj.core.action_list.</tt><tt class="descname">ActionList</tt><big>(</big><em>commands=None</em>, <em>Topology top=None</em>, <em>DatasetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em>, <em>crdinfo={}</em><big>)</big><a class="headerlink" href="#pytraj.core.action_list.ActionList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.data" title="pytraj.core.action_list.ActionList.data"><tt class="xref py py-obj docutils literal"><span class="pre">data</span></tt></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.n_actions" title="pytraj.core.action_list.ActionList.n_actions"><tt class="xref py py-obj docutils literal"><span class="pre">n_actions</span></tt></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.add_action" title="pytraj.core.action_list.ActionList.add_action"><tt class="xref py py-obj docutils literal"><span class="pre">add_action</span></tt></a>(self[,&nbsp;action,&nbsp;command,&nbsp;top,&nbsp;...])</td>
+<td>Add action to ActionList</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.clear" title="pytraj.core.action_list.ActionList.clear"><tt class="xref py py-obj docutils literal"><span class="pre">clear</span></tt></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.do_actions" title="pytraj.core.action_list.ActionList.do_actions"><tt class="xref py py-obj docutils literal"><span class="pre">do_actions</span></tt></a>(self[,&nbsp;traj,&nbsp;use_mass])</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.is_empty" title="pytraj.core.action_list.ActionList.is_empty"><tt class="xref py py-obj docutils literal"><span class="pre">is_empty</span></tt></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.process" title="pytraj.core.action_list.ActionList.process"><tt class="xref py py-obj docutils literal"><span class="pre">process</span></tt></a>(self,&nbsp;Topology&nbsp;top[,&nbsp;crdinfo,&nbsp;...])</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.core.action_list.ActionList.add_action">
+<tt class="descname">add_action</tt><big>(</big><em>self</em>, <em>action=''</em>, <em>command=''</em>, <em>top=None</em>, <em>DatasetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em>, <em>check_status=False</em><big>)</big><a class="headerlink" href="#pytraj.core.action_list.ActionList.add_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add action to ActionList</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>action</strong> : str or Action object</p>
+<p><strong>command</strong> : str or ArgList object</p>
+<p><strong>top</strong> : str | Topology | TopologyList</p>
+<p><strong>dslist</strong> : DatasetList</p>
+<p><strong>dflist</strong> : DataFileList</p>
+<p><strong>check_status</strong> : bool, default=False</p>
+<blockquote class="last">
+<div><p>return status of Action (0 or 1) if &#8220;True&#8221;</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.action_list.ActionList.clear">
+<tt class="descname">clear</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#pytraj.core.action_list.ActionList.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.core.action_list.ActionList.data">
+<tt class="descname">data</tt><a class="headerlink" href="#pytraj.core.action_list.ActionList.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.action_list.ActionList.do_actions">
+<tt class="descname">do_actions</tt><big>(</big><em>self</em>, <em>traj=&lt;???&gt;</em>, <em>int idx=0</em>, <em>use_mass=True</em><big>)</big><a class="headerlink" href="#pytraj.core.action_list.ActionList.do_actions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.action_list.ActionList.is_empty">
+<tt class="descname">is_empty</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#pytraj.core.action_list.ActionList.is_empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.core.action_list.ActionList.n_actions">
+<tt class="descname">n_actions</tt><a class="headerlink" href="#pytraj.core.action_list.ActionList.n_actions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.action_list.ActionList.process">
+<tt class="descname">process</tt><big>(</big><em>self</em>, <em>Topology top</em>, <em>crdinfo={}</em>, <em>n_frames_t=0</em>, <em>bool exit_on_error=True</em><big>)</big><a class="headerlink" href="#pytraj.core.action_list.ActionList.process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.core.action_list.create_pipeline">
+<tt class="descclassname">pytraj.core.action_list.</tt><tt class="descname">create_pipeline</tt><big>(</big><em>traj</em>, <em>commands</em>, <em>DatasetList dslist=&lt;???&gt;</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.core.action_list.create_pipeline" title="Permalink to this definition">¶</a></dt>
+<dd><p>create frame iterator from cpptraj&#8217;s commands.</p>
+<p>This method is useful if you want cpptraj pre-processing your Trajectory before
+throwing it to your own method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>commands</strong> : a list of strings of cpptraj&#8217;s Action commands</p>
+<p><strong>traj</strong> : Trajectory or any iterable that produces Frame</p>
+<p class="last"><strong>dslist</strong> : CpptrajDatasetList, optional</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">pt</span><span class="o">.</span><span class="n">create_pipeline</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;autoimage&#39;</span><span class="p">,</span> <span class="s">&#39;rms&#39;</span><span class="p">,</span> <span class="s">&#39;center :1&#39;</span><span class="p">]):</span> <span class="k">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Above example is similiar to cpptraj&#8217;s command:</p>
+<div class="highlight-python"><div class="highlight"><pre>cpptraj -i EOF&lt;&lt;
+parm tz2.ortho.parm
+trajin tz2.ortho.nc
+autoimage
+rms
+center :1
+EOF
+</pre></div>
+</div>
+<p>You can desire your own method:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">new_method</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">:</span>
+        <span class="n">do_some_thing_fun_with</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+
+<span class="n">fi</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">create_pipeline</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;autoimage&#39;</span><span class="p">,</span> <span class="s">&#39;rms&#39;</span><span class="p">,</span> <span class="s">&#39;center :1&#39;</span><span class="p">])</span>
+
+<span class="c"># perform action with pre-processed frames (already autoimaged, then rms fit to</span>
+<span class="c"># 1st frame, then center at box center.</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">new_method</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, pytraj developers.<br/>
+      Last updated on Nov 03, 2015.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
