@@ -118,6 +118,13 @@ def calc_distance(traj=None,
     1D ndarray if mask is a string
     2D ndarray, shape (n_atom_pairs, n_frames) if mask is a list of strings or an array
 
+    Notes
+    -----
+    Becareful with Topology. If your topology has Box info but your traj does not, you
+    would get weird output ([0.0, ...]). Make sure to use `image=False` for set_nobox for
+    Topology.
+
+
     Examples
     --------
     >>> import pytraj as pt
