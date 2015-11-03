@@ -747,7 +747,7 @@ def calc_volmap(traj, mask='',
                 dtype='ndarray',
                 frame_indices=None):
     '''(cpptraj doc) Grid data as a volumetric map, similar to the
-    ’volmap’ command in VMD. The density is calculated by treating each atom as a 
+    volmap command in VMD. The density is calculated by treating each atom as a 
     3-dimensional Gaussian function whose standard deviation is equal to the van der Waals radius
 
     Parameters
