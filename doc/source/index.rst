@@ -99,7 +99,7 @@ Welcome
 
    </div>
    <div class="col-md-3">
-   <h2>Try pytraj online with mybinder</h2>
+   <h2>Try pytraj online</h2>
 
 .. image:: http://mybinder.org/images/logo.svg
    :target: http://mybinder.org/repo/hainm/notebook-pytraj
