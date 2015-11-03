@@ -104,9 +104,5 @@ Welcome
 .. image:: http://mybinder.org/images/logo.svg
    :target: http://mybinder.org/repo/hainm/notebook-pytraj
 
-.. raw:: html
-
-   <h2>Learn more about AMBER</h2>
-
 .. image:: http://ambermd.org/Amber15_cover.png
    :target: http://ambermd.org/
