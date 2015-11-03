@@ -267,7 +267,7 @@ _verbose = set_cpptraj_verbose
 
 
 def iterframe(traj, *args, **kwd):
-    """
+    """create frame iterator with given indices, mask or some iter_options
 
     Examples
     --------
@@ -278,6 +278,12 @@ def iterframe(traj, *args, **kwd):
     <Frame with 12 atoms>
     <Frame with 12 atoms>
     <Frame with 12 atoms>
+    <Frame with 12 atoms>
+    <Frame with 12 atoms>
+    <Frame with 12 atoms>
+
+    # create frame iterator for given indices
+    >>> for frame in pt.iterator(traj, frame_indices=[0, 7, 3]): print(frame) 
     <Frame with 12 atoms>
     <Frame with 12 atoms>
     <Frame with 12 atoms>
