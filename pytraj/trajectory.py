@@ -131,11 +131,24 @@ class Trajectory(object):
 
     @xyz.setter
     def xyz(self, values):
+        '''assign new coordinates for Trajectory
+
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> traj0 = pt.datafiles.load_ala3()
+        >>> traj1 = pt.Trajectory(xyz=np.empty((traj0.n_frames, traj0.n_atoms, 3), dtype='f8'), top=traj0.top)
+        >>> traj1.xyz = traj0.xyz.copy()
+        >>> # autoconvert from fortran order to c order
+        >>> xyz = np.asfortranarray(traj0.xyz)
+        >>> traj1.xyz = xyz
+        '''
         if self.shape[1]:
             if self.n_atoms != values.shape[1]:
                 raise ValueError("must have the same number of atoms")
         if not values.flags['C_CONTIGUOUS']:
-            raise TypeError('must be C_CONTIGUOUS')
+            # autoconvert
+            values = np.ascontiguousarray(values)
         self._xyz = values
 
     def __str__(self):

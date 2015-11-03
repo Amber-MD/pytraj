@@ -193,8 +193,9 @@ class TestTrajectory(unittest.TestCase):
             traj1 = pt.load_sample_data('ala3')
             t0.append_xyz(pt.tools.as_2darray(traj))
 
-        # fortran order, need to raise
-        self.assertRaises(TypeError, lambda: set_xyz_not_c_contiguous())
+        # fortran order, autoconvert
+        # make sure there is no TypeError
+        set_xyz_not_c_contiguous()
 
         self.assertRaises(ValueError, lambda: set_xyz_not_same_n_atoms())
         self.assertRaises(ValueError, lambda: append_2d())
