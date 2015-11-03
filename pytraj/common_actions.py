@@ -120,9 +120,9 @@ def calc_distance(traj=None,
 
     Notes
     -----
-    Becareful with Topology. If your topology has Box info but your traj does not, you
-    would get weird output ([0.0, ...]). Make sure to use `image=False` for set_nobox for
-    Topology.
+    Be careful with Topology. If your topology has Box info but your traj does not, you
+    would get weird output ([0.0, ...]). Make sure to use `image=False` in this method or
+    set_nobox for Topology.
 
 
     Examples
