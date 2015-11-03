@@ -360,7 +360,9 @@ def write_traj(filename="",
     else:
         # is ndarray, shape=(n_frames, n_atoms, 3)
         # create frame iterator
-        xyz = traj
+        xyz = np.asarray(traj)
+        if not xyz.flags.c_contiguous:
+            xyz = np.ascontiguoussarray(xyxz)
         _frame_indices = range(
             xyz.shape[0]) if frame_indices is None else frame_indices
         fi = iterframe_from_array(xyz, _top.n_atoms, _frame_indices)
