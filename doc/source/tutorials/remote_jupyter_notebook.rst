@@ -39,9 +39,9 @@ To make the connection faster, you can follow below instructions:
 Snapshot on your home computer
 
 .. image:: ../images/remote_jupyter_shot_1.png
-   :height: 200
+   :height: 500
 
 Try to open notebook
 
 .. image:: ../images/remote_jupyter_shot_2.png
-   :height: 200
+   :height: 500
