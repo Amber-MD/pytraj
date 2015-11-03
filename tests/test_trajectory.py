@@ -200,6 +200,13 @@ class TestTrajectory(unittest.TestCase):
         self.assertRaises(ValueError, lambda: set_xyz_not_same_n_atoms())
         self.assertRaises(ValueError, lambda: append_2d())
 
+        # make sure to autoconvert from f4 to f8
+        xyz_f4 = np.array(traj.xyz, dtype='f4')
+        assert xyz_f4.itemsize == 4, 'must be f4'
+        t0.xyz = xyz_f4
+        aa_eq(t0.xyz, xyz_f4)
+        assert t0.xyz.itemsize == 8, 'must be converted from f4 to f8'
+
     def test_from_iterables(self):
         '''test_from_iterables, tests are ind its doc. Test raise here
         '''
