@@ -50,7 +50,7 @@ def vector_mask(traj=None,
     >>> import numpy as np
     >>> traj = pt.load_sample_data('tz2')
     >>> from pytraj import vector as va
-    >>> n_indices = pt.select_atoms(traj.top, '@N')
+    >>> n_indices = pt.select_atoms('@N', traj.top)
     >>> h_indices = n_indices + 1
 
     >>> # create n-h pair for vector calculation

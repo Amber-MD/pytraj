@@ -44,7 +44,7 @@ def do_clustering():
     frame_iter = pt.iterframe_from_array(x0, t0.n_atoms, range(n_clusters))
     pt.write_traj('output.pdb', frame_iter,
                   top=t0.top,
-                  mode='model',
+                  options='model',
                   overwrite=True)
 
 

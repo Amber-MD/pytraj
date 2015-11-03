@@ -124,7 +124,7 @@ def ired_vector_and_matrix(traj=None,
     --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()
-    >>> h = pt.select_atoms(traj.top, '@H')
+    >>> h = pt.select('@H', traj.top)
     >>> n = h - 1
     >>> nh = list(zip(n, h))
     >>> vecs, mat = pt.ired_vector_and_matrix(traj, mask=nh)
@@ -197,7 +197,7 @@ def NH_order_parameters(traj, vector_pairs,
     --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()
-    >>> h_indices = pt.select_atoms(traj.top, '@H')
+    >>> h_indices = pt.select('@H', traj.top)
     >>> n_indices = h_indices - 1
     >>> nh_pairs = list(zip(n_indices, h_indices))
     >>> data = pt.NH_order_parameters(traj, nh_pairs)

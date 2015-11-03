@@ -1,7 +1,7 @@
 from __future__ import absolute_import, print_function
 import os
 
-from .datafiles.load_sample_data import load_sample_data
+from .datafiles.load_samples import load_sample_data
 from .utils import eq, aa_eq
 from .utils import duplicate_traj, Timer
 
@@ -9,16 +9,33 @@ __all__ = ['load_sample_data', 'eq', 'aa_eq', 'make_random_frame',
            'duplicate_traj', 'Timer', 'amberhome', 'cpptraj_test_dir',
            'run_docstring']
 
-try:
-    amberhome = os.environ['AMBERHOME']
-    cpptraj_test_dir = os.path.join(amberhome, 'AmberTools', 'test', 'cpptraj')
-except:
-    amberhome = None
-    cpptraj_test_dir = None
+# find cpptraj test dir
+# find in CPPTRAJHOME first
+# if not exist CPPTRAJHOME, find in AMBERHOME
+# if not exist CPPTRAJHOME and AMBERHOME, find in ../cpptraj/ folder
+# (supposed we run pytraj's test in pytraj/tests folder)
+
+# if you are adding more test files to cpptraj master branch on github,
+# you should export CPPTRAJHOME
+
+cpptrajhome = os.environ.get('CPPTRAJHOME', '')
+amberhome = os.environ.get('AMBERHOME', '')
+
+if cpptrajhome:
+    cpptraj_test_dir = os.path.join(cpptrajhome, 'test')
+else:
+    if amberhome:
+        cpptraj_test_dir = os.path.join(amberhome, 'AmberTools', 'test', 'cpptraj')
+    else:
+        cpptrajhome = ''
+        amberhome = ''
+        cpptraj_test_dir = ''
 
 possible_path = "../cpptraj/test/"
-if os.path.exists(possible_path):
-    cpptraj_test_dir = possible_path
+
+if not cpptraj_test_dir:
+    if os.path.exists(possible_path):
+        cpptraj_test_dir = possible_path
 
 
 def make_random_frame(n_atoms=10000):

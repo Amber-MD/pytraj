@@ -182,6 +182,9 @@ class TestTrajectory(unittest.TestCase):
         def set_xyz_not_c_contiguous():
             t0.xyz = np.asfortranarray(traj.xyz)
 
+        def append_2d():
+            traj1 = pt.load_sample_data('ala3')
+
         def set_xyz_not_same_n_atoms():
             traj1 = pt.load_sample_data('ala3')
             t0.xyz = traj1.xyz
@@ -190,8 +193,9 @@ class TestTrajectory(unittest.TestCase):
             traj1 = pt.load_sample_data('ala3')
             t0.append_xyz(pt.tools.as_2darray(traj))
 
-        # not c_contiguous
+        # fortran order, need to raise
         self.assertRaises(TypeError, lambda: set_xyz_not_c_contiguous())
+
         self.assertRaises(ValueError, lambda: set_xyz_not_same_n_atoms())
         self.assertRaises(ValueError, lambda: append_2d())
 

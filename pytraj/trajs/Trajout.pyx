@@ -39,7 +39,7 @@ cdef class Trajout:
         print TrajFormatDict.keys()
 
     def open(self, filename='', top=Topology(), format='default', 
-             mode=None, overwrite=False):
+             options=None, overwrite=False):
 
         cdef ArgList arglist
         cdef Topology top_ 
@@ -68,12 +68,12 @@ cdef class Trajout:
             # 'PDBFILE' 'MOL2FILE'
             format += 'FILE'
 
-        if mode:
-            if isinstance(mode, string_types):
-                inputstring = mode
+        if options:
+            if isinstance(options, string_types):
+                inputstring = options
                 arglist = <ArgList> ArgList(inputstring) 
-            elif isinstance(mode, ArgList):
-                arglist = <ArgList> mode
+            elif isinstance(options, ArgList):
+                arglist = <ArgList> options
             else:
                 raise ValueError()
             self.thisptr.InitTrajWrite(filename, arglist.thisptr[0], top_.thisptr)

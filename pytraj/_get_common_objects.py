@@ -77,9 +77,9 @@ def _get_data_from_dtype(d0, dtype='dataset'):
 
 def _get_list_of_commands(mask_or_commands):
     if isinstance(mask_or_commands, string_types):
-        return (mask_or_commands, )
+        return [mask_or_commands, ]
     elif isinstance(mask_or_commands, (list, tuple)):
-        return tuple(mask_or_commands)
+        return list(mask_or_commands)
     else:
         raise ValueError("must be string or list/tuple of strings")
 
@@ -153,3 +153,82 @@ def _get_resrange(resrange):
     else:
         _resrange = ""
     return _resrange
+
+
+class _super_dispatch(object):
+    # TODO: more descriptive method name?
+    '''apply a series of functions to ``f``'s args and kwd
+
+    - get Topology from a given traj (Trajectory, frame iterator, ...) and top 
+        _get_topology(traj, top)
+    - create frame iterator from traj and frame_indices
+        _get_fiterator(traj, frame_indices)
+    - create Amber mask from atom index array
+        array_to_cpptraj_atommask(mask)
+    - convert int ref to Frame ref
+    '''
+    def __init__(self, has_ref=False):
+        self.has_ref = has_ref
+
+    def __call__(self, f):
+        @wraps(f)
+        def inner(*args, **kwd):
+            args = list(args)
+            # traj is always 1st argument
+            traj = kwd.get('traj', args[0])
+            frame_indices = kwd.get('frame_indices', None)
+            ref = kwd.get('ref', None)
+            if self.has_ref and ref is None:
+                try:
+                    ref = args[1]
+                except IndexError:
+                    ref = 0
+            if 'ref' in kwd.keys() or self.has_ref:
+                # convert to Frame
+                ref = _get_reference_from_traj(traj, ref)
+
+            top = kwd.get('top', None)
+
+            if 'mask' in kwd.keys():
+                mask = kwd.get('mask')
+                has_mask = True
+            else:
+                # mask is always 2nd argument if there is no ref
+                if not self.has_ref:
+                    try:
+                        mask = args[1]
+                        has_mask = True
+                    except IndexError:
+                        mask = '*'
+                        has_mask = False
+                else:
+                    try:
+                        mask = args[2]
+                        has_mask = True
+                    except IndexError:
+                        mask = '*'
+                        has_mask = False
+
+            # overwrite
+            kwd['top'] = _get_topology(traj, top)
+            if ref is not None:
+                if 'ref' in kwd.keys():
+                    kwd['ref'] = _get_reference_from_traj(traj, ref)
+                else:
+                    try:
+                        args[1] = ref
+                    except IndexError:
+                        args.append(ref)
+            if 'traj' in kwd.keys():
+                kwd['traj'] = _get_fiterator(traj, frame_indices)
+            else:
+                args[0] = _get_fiterator(traj, frame_indices)
+            if not isinstance(mask, string_types):
+                mask = array_to_cpptraj_atommask(mask)
+            if 'mask' in kwd.keys():
+                kwd['mask'] = mask
+            else:
+                if has_mask:
+                    args[1] = mask
+            return f(*args, **kwd)
+        return inner

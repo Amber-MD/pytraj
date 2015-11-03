@@ -32,7 +32,7 @@ class TestDistanceBasedMask(unittest.TestCase):
         aa_eq(neighbors_smaller.values, indices)
 
         # re-calculate the distance
-        ca_indices = pt.select_atoms(traj.top, ':3@CA')
+        ca_indices = pt.select_atoms(':3@CA', traj.top)
         all_pairs = list(product(ca_indices, indices))
         distances = pt.tools.flatten(pt.distance(ref, all_pairs))
         for dist in distances:
@@ -59,8 +59,8 @@ class TestDistanceBasedMask(unittest.TestCase):
         top.set_distance_mask_reference(ref)
         ref.top = top
 
-        indices_smaler = pt.select_atoms(top, ':3@CA <:5.0')
-        ca_indices = pt.select_atoms(traj.top, ':3@CA')
+        indices_smaler = pt.select_atoms(':3@CA <:5.0', top)
+        ca_indices = pt.select_atoms(':3@CA', traj.top)
         all_pairs_smaller = list(product(ca_indices, indices_smaler))
 
         distances = pt.tools.flatten(pt.distance(ref, all_pairs_smaller))

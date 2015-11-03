@@ -7,10 +7,14 @@ import pytraj as pt
 from pytraj.testing import eq, aa_eq, cpptraj_test_dir
 from pytraj.compat import zip
 from pytraj.nmr import _ired
+from pytraj.testing import cpptraj_test_dir
+
+parm_dir = cpptraj_test_dir  + '/Test_IRED/1IEE_A_prot.prmtop'
+traj_dir = cpptraj_test_dir + '/Test_IRED/1IEE_A_test.mdcrd'
 
 txt = '''
- parm ../cpptraj/test/Test_IRED/1IEE_A_prot.prmtop
- trajin ../cpptraj/test/Test_IRED/1IEE_A_test.mdcrd
+ parm {0}
+ trajin {1}
  vector v0 @25 ired @26
  vector v1 @41 ired @42
  vector v2 @61 ired @62
@@ -140,7 +144,7 @@ txt = '''
  matrix ired name matired order 2
  analyze matrix matired vecs 126
  createcrd CRD1
-'''
+'''.format(parm_dir, traj_dir)
 
 
 class TestIred(unittest.TestCase):
@@ -155,8 +159,8 @@ class TestIred(unittest.TestCase):
         traj = pt.Trajectory(xyz=xyz, top=top)
         state_vecs = state.data[1:-3].values
 
-        h_indices = pt.select_atoms(traj.top, '@H')
-        n_indices = pt.select_atoms(traj.top, '@H') - 1
+        h_indices = pt.select_atoms('@H', traj.top)
+        n_indices = pt.select_atoms('@H', traj.top) - 1
         nh_indices = list(zip(n_indices, h_indices))
         mat_ired = pt.ired_vector_and_matrix(traj, mask=nh_indices, order=2)[-1]
         mat_ired /= mat_ired[0, 0]
@@ -194,15 +198,15 @@ class TestIred(unittest.TestCase):
 
     @unittest.skip('do not test now, get nan in some runs')
     def test_ired_lapack_in_numpy(self):
-        parmfile =  '../cpptraj/test/Test_IRED/1IEE_A_prot.prmtop'
-        trajfile = '../cpptraj/test/Test_IRED/1IEE_A_test.mdcrd'
+        parmfile =  parm_dir
+        trajfile = traj_dir
 
         # load to TrajectoryIterator
         traj = pt.iterload(trajfile, parmfile)
 
         # create N-H vectors
-        h_indices = pt.select_atoms(traj.top, '@H')
-        n_indices = pt.select_atoms(traj.top, '@H') - 1
+        h_indices = pt.select_atoms('@H', traj.top)
+        n_indices = pt.select_atoms('@H', traj.top) - 1
         nh_indices = list(zip(n_indices, h_indices))
 
         # compute N-H vectors and ired matrix

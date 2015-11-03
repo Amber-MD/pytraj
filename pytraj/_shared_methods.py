@@ -50,9 +50,10 @@ def _xyz(self):
 def my_str_method(self):
     name = "pytraj." + self.__class__.__name__
     top_str = self.top.__str__()
-    tmps = """<%s, %s frames, include:\n%s>
-           """ % (
-        name, self.n_frames, top_str, )
+    estimated_size = '\nSize: %3.6f (GB)\n' % (self.n_frames *
+            self.n_atoms * 3 * 8 / (1024 ** 3))
+    tmps = """{0}, {1} frames: {2}{3}
+           """.format(name, self.n_frames, estimated_size, top_str)
     return tmps
 
 

@@ -4,8 +4,33 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
+from pytraj.trajectory_iterator import sort_filename_by_number
 
 class TestTrajectoryIterator(unittest.TestCase):
+    def test_sorting_filelist(self):
+        orig_list = ['md10.nc',
+                     'md11.nc',
+                     'md12.nc',
+                     'md4.nc',
+                     'md5.nc',
+                     'md100.nc',
+                     'md6.nc',
+                     'md7.nc',
+                     'md8.nc',
+                     'md9.nc']
+        expected = [
+                    'md4.nc',
+                    'md5.nc',
+                    'md6.nc',
+                    'md7.nc',
+                    'md8.nc',
+                    'md9.nc',
+                    'md10.nc',
+                    'md11.nc',
+                    'md12.nc',
+                    'md100.nc',]
+        assert expected == sort_filename_by_number(orig_list), 'two filename list must be equal'
+
     def test_comprehensive(self):
         traj  = pt.iterload("data/Test_RemdTraj/rem.nc.000",
                             "data/Test_RemdTraj/ala2.99sb.mbondi2.parm7")

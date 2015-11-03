@@ -63,6 +63,7 @@ from . import options
 # import partial from functools
 from functools import partial
 
+from .externals.six import string_types
 from .core import Atom, Residue, Molecule
 from .core.cpp_core import CpptrajState, ArgList, AtomMask, _load_batch
 from .core.cpp_core import Command
@@ -86,7 +87,6 @@ from .io import (load, iterload, load_remd, iterload_remd,
 load_from_frame_iter = _load_from_frame_iter
 
 # dataset stuff
-from .datafiles.load_sample_data import load_sample_data
 from .datafiles import load_cpptraj_state
 from .datasetlist import DatasetList
 
@@ -117,6 +117,7 @@ from .common_actions import (
     scale, do_clustering, clustering_dataset, _rotate_dih, randomize_ions,
     crank, closest, search_neighbors, replicate_cell, _rotdif, pairdist, _grid,
     transform, lowestcurve, calc_diffusion,
+    calc_volmap,
     )
 
 from .nmr import ired_vector_and_matrix, _ired, NH_order_parameters
@@ -125,6 +126,8 @@ from .nmr import ired_vector_and_matrix, _ired, NH_order_parameters
 dssp_all_residues = dssp_allresidues
 fetch_pdb = load_pdb_rcsb
 rmsd_nofit = calc_rmsd_nofit
+drmsd = distance_rmsd
+hbond = search_hbonds
 distance = calc_distance
 distances = calc_distance
 pairwise_distance = calc_pairwise_distance
@@ -167,6 +170,7 @@ nativecontacts = native_contacts
 pair_distribution = pairdist
 lowest_curve = lowestcurve
 diffusion = calc_diffusion
+volmap = calc_volmap
 
 from .matrix import dist
 distance_matrix = dist
@@ -263,7 +267,7 @@ _verbose = set_cpptraj_verbose
 
 
 def iterframe(traj, *args, **kwd):
-    """
+    """create frame iterator with given indices, mask or some iter_options
 
     Examples
     --------
@@ -277,6 +281,12 @@ def iterframe(traj, *args, **kwd):
     <Frame with 12 atoms>
     <Frame with 12 atoms>
     <Frame with 12 atoms>
+
+    # create frame iterator for given indices
+    >>> for frame in pt.iterframe(traj, frame_indices=[0, 7, 3]): print(frame) 
+    <Frame with 5293 atoms>
+    <Frame with 5293 atoms>
+    <Frame with 5293 atoms>
 
     See also
     --------
@@ -304,18 +314,24 @@ def iterchunk(traj, *args, **kwd):
     return traj.iterchunk(*args, **kwd)
 
 
-def select_atoms(topology, mask):
+def select_atoms(mask, topology):
     '''return atom indices
 
     Examples
     --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()
-    >>> atom_indices = pt.select_atoms(traj.top, '@CA')
+    >>> atom_indices = pt.select_atoms('@CA', traj.top)
     >>> atom_indices
     array([  4,  15,  39, ..., 159, 173, 197])
+    >>> pt.select_atoms(traj.top, '@CA')
+    array([  4,  15,  39, ..., 159, 173, 197])
     '''
+    if isinstance(mask, Topology) and isinstance(topology, string_types):
+        mask, topology = topology, mask
     return topology.select(mask)
+
+select = select_atoms
 
 
 def strip_atoms(traj_or_topology, mask):

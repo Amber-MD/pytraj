@@ -565,6 +565,8 @@ class Trajectory(object):
         -------
         self
 
+        Examples
+        --------
         >>> import pytraj as pt
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.translate('@CA x 1.2')
@@ -689,11 +691,13 @@ class Trajectory(object):
         Notes
         -----
         this is alias of superpose
+
         """
         return self.superpose(*args, **kwd)
 
     def superpose(self, ref=None, mask="*", frame_indices=None, mass=False):
         """do the fitting to reference Frame by rotation and translation
+
         Parameters
         ----------
         ref : {Frame object, int, str}, default=None 
@@ -791,6 +795,7 @@ class Trajectory(object):
                   rmsfit=None,
                   copy=False):
         '''
+
         Examples
         --------
         >>> import pytraj as pt

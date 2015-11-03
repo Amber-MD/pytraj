@@ -56,13 +56,32 @@ class TestNormalDistance(unittest.TestCase):
         arr3 = pt.distance(traj(stop=traj.n_frames), [0, 5])
         assert np.all(arr2 == arr3)
 
+    def test_distance_with_dry_traj_and_PBC_topology(self):
+        '''Situation: there is dry traj (no box) but Topology has box info
+        '''
+        traj = pt.iterload('data/dry_traj_with_PBC_top/strip.nc',
+                           'data/dry_traj_with_PBC_top/strip.prmtop')
+        assert traj.top.has_box(), 'Topology must have box for testing'
+
+        wrong_distance = pt.distance(traj, ':8@OP2 :5@N1')
+        correct_distance = pt.distance(traj, ':8@OP2 :5@N1', image=False)
+        state = pt.load_batch(traj, '''
+        distance :8@OP2 :5@N1
+        ''')
+        state.run()
+        expected_distance = [ 3.08030475, 2.68452183]
+
+        aa_eq(wrong_distance, [0., 0.])
+        aa_eq(correct_distance, expected_distance)
+        aa_eq(state.data[-1], expected_distance)
+
 class TestPairwiseDistance(unittest.TestCase):
     def test_pairwise(self):
         traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
         distances = pt.pairwise_distance(traj, '@CA', '@CB')[0]
 
-        ca_indices = pt.select_atoms(traj.top, '@CA')
-        cb_indices = pt.select_atoms(traj.top, '@CB')
+        ca_indices = pt.select_atoms('@CA', traj.top)
+        cb_indices = pt.select_atoms('@CB', traj.top)
         known_shape = (traj.n_frames, len(ca_indices), len(cb_indices))
         assert known_shape == distances.shape, 'distance array shape'
 

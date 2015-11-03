@@ -12,17 +12,21 @@ from ._shared_methods import iterframe_master
 __all__ = ['DatasetHBond', 'search_hbonds']
 
 
-def _to_amber_mask(txtlist):
-    import re
+def to_amber_mask(txtlist):
     """Convert something like 'ASP_16@OD1-ARG_18@N-H to ':16@OD1 :18@H'
-    """
 
+    >>> list(to_amber_mask(['ASP_16@OD1-ARG_18@N-H',]))
+    [':16@OD1 :18@H']
+    """
+    # TODO: it's better to have cpptraj printing the atom indices
+    import re
     # make a copy
     _txt = txtlist[:]
 
     for mask in _txt:
-        mask = mask.replace("_", ":")
-        yield " ".join(re.findall(r"(:\d+@\w+)", mask))
+        mask = mask.replace("_", " ").replace("-", " ").split()
+        second_res = mask[3].split('@')[0]
+        yield ''.join((':', mask[1], ' :', "".join((second_res, '@', mask[4]))))
 
 
 class DatasetHBond(BaseDataHolder):
@@ -42,7 +46,7 @@ class DatasetHBond(BaseDataHolder):
         return self.data.grep(["solventhb", "solutehb"], mode='aspect').keys()
 
     def _amber_mask(self):
-        return list(_to_amber_mask(self._old_keys[1:]))
+        return list(to_amber_mask(self._old_keys[1:]))
 
 
 def _update_key_hbond(_dslist):
@@ -106,10 +110,12 @@ def search_hbonds(traj,
     _dist = 'dist ' + str(distance)
     _angle = 'angle ' + str(angle)
     _image = 'image' if image else ''
+   # TODO: use series=True in args?
+    _series = 'series'
     _options = more_options
 
     command = " ".join(
-        ("series", mask, s_donor, s_acceptor, _dist, _angle, _image, _options))
+        (_series, mask, s_donor, s_acceptor, _dist, _angle, _image, _options))
 
     # need to get correct frame number
     act.read_input(command, top=_top, dslist=dslist)

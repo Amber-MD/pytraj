@@ -41,7 +41,7 @@ try:
     pt.write_traj("output/test.pdb", flist,
                   top=traj.top,
                   overwrite=True,
-                  mode='model')
+                  options='model')
 
     # plot the PMF
     try:

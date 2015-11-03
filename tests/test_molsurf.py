@@ -21,9 +21,12 @@ class TestMolsurf(unittest.TestCase):
         state.run()
         cpp_data = state.data[1:].values
 
-        aa_eq(pt.molsurf(traj, '@CA'), cpp_data[0])
-        aa_eq(pt.molsurf(traj, '@CA', probe=1.2), cpp_data[1])
-        aa_eq(pt.molsurf(traj, '@CA', probe=1.2, offset=0.3), cpp_data[2])
+        atom_indices = traj.top.select("@CA")
+
+        for mask in [atom_indices, '@CA']:
+            aa_eq(pt.molsurf(traj, mask), cpp_data[0])
+            aa_eq(pt.molsurf(traj, mask, probe=1.2), cpp_data[1])
+            aa_eq(pt.molsurf(traj, mask, probe=1.2, offset=0.3), cpp_data[2])
 
 
 if __name__ == "__main__":

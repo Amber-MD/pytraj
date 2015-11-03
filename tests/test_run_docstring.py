@@ -36,6 +36,7 @@ class Test(unittest.TestCase):
             has_parmed = False
 
         funclist = [DataArray,
+                    pt.volmap,
                     pt.actions.CpptrajActions.Action,
                     pt.create_pipeline,
                     pt.pmap,

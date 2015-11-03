@@ -3,7 +3,8 @@ import os
 from ..trajectory_iterator import TrajectoryIterator
 
 __all__ = ['load_sample_data', 'load_rna', 'load_tz2_ortho', 'load_ala3',
-           'load_dpdp']
+           'load_dpdp',
+           'load_trpcage']
 
 
 def load_sample_data(data_name=None):
@@ -12,7 +13,7 @@ def load_sample_data(data_name=None):
 
     Paramters
     ---------
-    data_name : str, {'ala3', 'tz2', 'rna'}, default 'ala3'
+    data_name : str, {'ala3', 'tz2', 'rna', 'trpcage'}, default 'ala3'
 
     Notes
     -----
@@ -23,6 +24,7 @@ def load_sample_data(data_name=None):
         'ala3': ["Ala3/Ala3.crd", "Ala3/Ala3.top"],
         'tz2': ["tz2/tz2.ortho.nc", "tz2/tz2.ortho.parm7"],
         'rna': ["rna.pdb", "rna.pdb"],
+        'trpcage': ["trpcage/trpcage.pdb.gz", "trpcage/trpcage.pdb.gz"],
         'dpdp': ["dpdp/DPDP.nc", "dpdp/DPDP.parm7"]
     }
 
@@ -43,6 +45,19 @@ def load_dpdp():
     '''return pytraj.TrajectoryIterator for an RNA trajectory with 3 frames
     '''
     return load_sample_data('dpdp')
+
+def load_trpcage():
+    '''return pytraj.TrajectoryIterator for an trp-cage, 38 frames, NMR (pdb: 1l2y)
+
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_trpcage()
+    >>> traj.n_frames
+    38
+    >>> traj.n_atoms
+    304
+
+    '''
+    return load_sample_data('trpcage')
 
 def load_tz2_ortho():
     return load_sample_data('tz2')

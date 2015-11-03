@@ -1,4 +1,5 @@
 from __future__ import print_function, absolute_import
+from .decorators import _register_pmap
 
 __all__ = []
 
@@ -17,6 +18,7 @@ chinu = {
 }
 
 template = '''
+@_register_pmap
 def calc_%s(traj=None, resrange="", 
             range360=False,
             top=None, dtype='dataset', *args, **kwd):

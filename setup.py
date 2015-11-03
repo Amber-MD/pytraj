@@ -354,6 +354,7 @@ packages = [
     'pytraj.datafiles.Ala3',
     'pytraj.datafiles.tz2',
     'pytraj.datafiles.dpdp',
+    'pytraj.datafiles.trpcage',
     'pytraj.plot',
     'pytraj.math',
     'pytraj.core',
@@ -365,7 +366,8 @@ packages = [
 pylen = len('pytraj') + 1
 pxdlist = [p.replace("pytraj/", "") for p in pxd_include_patterns]
 sample_data = ["datafiles/Ala3/Ala3.*", "datafiles/tz2/tz2.*", "datafiles/rna.pdb",
-        "datafiles/dpdp/DPDP*"]
+               "datafiles/trpcage/trpcage*",
+                "datafiles/dpdp/DPDP*"]
 datalist = pxdlist + sample_data
 
 
