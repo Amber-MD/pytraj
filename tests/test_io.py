@@ -94,7 +94,9 @@ class TestIO(unittest.TestCase):
                       overwrite=True))
 
         # test if xyz is not c-contiguous
+        # pytraj will autoconvert to c-contiguous
         xyz = np.asfortranarray(traj.xyz)
+        # make sure no ValueError or TypeError is raised
         pt.write_traj('output/xyz.nc', xyz, top=traj.top, overwrite=True)
 
     def test_blind_load(self):
