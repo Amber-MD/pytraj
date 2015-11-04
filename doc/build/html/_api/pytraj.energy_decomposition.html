@@ -150,11 +150,11 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : {Traj-like object, frame, list of trajs, list of frames} from pytraj</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or iterables that produce Frame</p>
 <blockquote>
 <div><p>if <cite>traj</cite> does not hold Topology information, <cite>top</cite> must be provided</p>
 </div></blockquote>
-<p><strong>parm</strong> : {str, Topology object from ParmEd}, default=None, optional</p>
+<p><strong>parm</strong> : str or Structure from ParmEd, default=None, optional</p>
 <blockquote>
 <div><p>To avoid any unexpected error, you should always provide original topology
 filename. If parm is None, pytraj will load Topology from traj.top.filename.</p>
@@ -165,25 +165,31 @@ use different Topology object, can not convert from one to another.</li>
 </div></blockquote>
 <p><strong>igb</strong> : GB model, default=8 (GB-Neck2)</p>
 <blockquote>
-<div><p>Note: this <cite>igb</cite> input will be ignored if <cite>input_options</cite> is not None</p>
+<div><p>If specify <cite>input_options</cite>, this <cite>igb</cite> input will be ignored</p>
 </div></blockquote>
-<p><strong>input_options</strong> : InputOptions object from <cite>sander</cite>, default=None, optional</p>
+<p><strong>input_options</strong> : InputOptions from <cite>sander</cite>, default=None, optional</p>
 <blockquote>
 <div><p>if <cite>input_options</cite> is None, use <cite>gas_input</cite> with given igb.
 If <cite>input_options</cite> is not None, use this</p>
 </div></blockquote>
-<p><strong>qmmm_options</strong> : InputOptions object from <cite>sander</cite> for QMMM, optional</p>
+<p><strong>qmmm_options</strong> : InputOptions from <cite>sander</cite> for QMMM, optional</p>
 <p><strong>mode</strong> : str, default=None, optional</p>
 <blockquote>
 <div><p>if mode=&#8217;minimal&#8217;, get only &#8216;bond&#8217;, &#8216;angle&#8217;, &#8216;dihedral&#8217; and &#8216;total&#8217; energies</p>
 </div></blockquote>
-<p><strong>top</strong> : {Topology, str}, default=None, optional</p>
+<p><strong>top</strong> : pytraj.Topology or str, default=None, optional</p>
+<blockquote>
+<div><p>only need to specify this <tt class="docutils literal"><span class="pre">top</span></tt> if <tt class="docutils literal"><span class="pre">traj</span></tt> does not hold Topology</p>
+</div></blockquote>
 <p><strong>dtype</strong> : str, {&#8216;dict&#8217;, &#8216;dataset&#8217;, &#8216;ndarray&#8217;, &#8216;dataframe&#8217;}, default=&#8217;dict&#8217;</p>
-<p><strong>frame_indices</strong> : {None, array-like}, default None</p>
+<blockquote>
+<div><p>return data type</p>
+</div></blockquote>
+<p><strong>frame_indices</strong> : None or 1D array-like, default None</p>
 <blockquote>
 <div><p>if not None, only perform calculation for given frames</p>
 </div></blockquote>
-<p><strong>verbose</strong> : bool, default True</p>
+<p><strong>verbose</strong> : bool, default False</p>
 <blockquote>
 <div><p>print warning message if True</p>
 </div></blockquote>
