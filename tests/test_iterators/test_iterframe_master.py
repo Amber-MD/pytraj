@@ -91,7 +91,7 @@ class Test(unittest.TestCase):
             #print(f0[0, :], f1[0, :])
             aa_eq(f0.xyz, f1.xyz)
 
-    def testTrajectorView(self):
+    def test_TrajectorView(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         # make mutable traj
         t0 = traj[:]

@@ -131,7 +131,7 @@ class Test(unittest.TestCase):
             pass
         assert frame.n_atoms == traj[0].n_atoms
 
-    def testIterWithMask(self):
+    def test_IterWithMask(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         farray = traj[:]
         for frame in farray(mask='@CA'):

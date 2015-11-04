@@ -57,7 +57,7 @@ class TestNoName(unittest.TestCase):
         # make sure to reproduce cpptraj's output too
         aa_eq(saved_traj.xyz, fa.xyz)
 
-    def testFromIterable(self):
+    def test_FromIterable(self):
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         aa_eq(pt.Trajectory.from_iterable(traj).xyz, traj.xyz)
 
