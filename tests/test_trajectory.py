@@ -132,13 +132,13 @@ class TestTrajectory(unittest.TestCase):
         traj2.load("./data/md1_prod.Tc5b.x")
         farray = traj2[[0, 9, 1]]
         assert farray.n_frames == 3
-        assert traj2[0].atoms(0) == farray[0].atoms(0)
-        assert traj2[9].atoms(0) == farray[1].atoms(0)
-        assert traj2[1].atoms(0) == farray[2].atoms(0)
+        assert traj2[0].atom(0) == farray[0].atom(0)
+        assert traj2[9].atom(0) == farray[1].atom(0)
+        assert traj2[1].atom(0) == farray[2].atom(0)
 
-        arr = np.asarray(traj2[0].buffer1d[:])
+        arr = np.asarray(traj2[0]._buffer1d[:])
         frame0 = traj2[0]
-        arr0 = np.asarray(frame0.buffer1d[:])
+        arr0 = np.asarray(frame0._buffer1d[:])
 
         mat0 = np.asmatrix(arr0).reshape(304, 3)
         mat0[:, 0] = np.asmatrix(list(range(304))).reshape(304, 1)
