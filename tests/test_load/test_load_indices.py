@@ -1,5 +1,4 @@
 import unittest
-import pytraj as pt
 import numpy as np
 from array import array
 import pytraj as pt

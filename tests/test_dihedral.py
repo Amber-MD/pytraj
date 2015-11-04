@@ -1,5 +1,4 @@
 from __future__ import print_function
-import pytraj as pt
 import unittest
 import pytraj as pt
 from pytraj.base import *
