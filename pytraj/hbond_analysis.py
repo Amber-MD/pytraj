@@ -5,7 +5,7 @@ from .action_dict import ActionDict
 from .externals.six import string_types
 from .datasets import CpptrajDatasetList
 from .decorators import _register_pmap
-from ._get_common_objects import _get_data_from_dtype, _get_topology
+from ._get_common_objects import _get_data_from_dtype, _get_topology, _super_dispatch
 from .base_holder import BaseDataHolder
 from ._shared_methods import iterframe_master
 
@@ -44,6 +44,8 @@ class DatasetHBond(BaseDataHolder):
 
     @property
     def donor_aceptor(self):
+        '''return a list of donor and aceptor
+        '''
         return self.data.grep(["solventhb", "solutehb"], mode='aspect').keys()
 
     def _amber_mask(self):
@@ -63,32 +65,62 @@ def _update_key_hbond(_dslist):
 
 
 @_register_pmap
+@_super_dispatch()
 def search_hbonds(traj,
                   mask="",
                   solvent_donor=None,
                   solvent_acceptor=None,
                   distance=3.0,
                   angle=135.,
-                  dtype='hbond',
                   image=False,
-                  more_options='',
+                  series=True,
+                  options='',
+                  dtype='hbond',
                   top=None):
     """Searching for Hbond donors/acceptors in region specified by ``mask``
 
     Parameters
     ----------
     traj : Trajectory-like
-    mask : str 
-        Amber atom mask
+    mask : {str, 1D array-like}
+        Atom mask for searching hbond
+    solvent_donor : {None, str}, default None
+    solvent_acceptor: {None, str}, deafult None
+        if solvent_acceptor and solvent_donor are None, cpptraj only search hbond for 
+        if solvent_donor and solvent_acceptor are NOT None, cpptraj will search for hbond
+        between solute and solvent too.
+    distance : float, default 3.0 (angstrom)
+        hbond distance cut off
+    angle : float, 135.0 degree
+        hbond angle cut off
+    dtype : return output's type, default 'hbond'
+    image : bool, default False
+    series : bool, default True
+        - output time series (array of 1 and 0) for hbond or not.
+        - if False, you must specify dtype='dataset'
+
+    options : str
+        additional cpptraj options
 
     Returns
     -------
-    out : pytraj.DatasetList, which is similiar to Python list with labeled data.
+    out : DatasetHBond if series is True else return 'DatasetList'
+          
+    Notes
+    -----
+    - pytraj use 'series' as default. In cpptraj, you need to explicitly specify 'series'.
+    - if 'series' is False, the 'dtype' argument will be ignored.
+
+    See also
+    --------
+    to_amber_mask
+
 
     Examples
     --------
     >>> import pytraj as pt
     >>> traj = pt.load_sample_data('tz2')
+    >>> # search hbond without including solvent
     >>> data = pt.search_hbonds(traj, ':5,8')
     >>> data
     <pytraj.hbonds.DatasetHBond
@@ -99,6 +131,9 @@ def search_hbonds(traj,
     array([[2, 2, 0, ..., 1, 1, 1],
            [1, 1, 0, ..., 1, 1, 1],
            [1, 1, 0, ..., 0, 0, 0]], dtype=int32)
+    >>> # search hbond including solvent
+    >>> data = pt.search_hbonds(traj, ':5,8', solvent_donor=':WAT@O', solvent_acceptor=':WAT')
+    >>> data
     """
     dslist = CpptrajDatasetList()
     act = CpptrajActions.Action_Hbond()
@@ -111,9 +146,8 @@ def search_hbonds(traj,
     _dist = 'dist ' + str(distance)
     _angle = 'angle ' + str(angle)
     _image = 'image' if image else ''
-   # TODO: use series=True in args?
-    _series = 'series'
-    _options = more_options
+    _series = 'series' if series else ''
+    _options = options
 
     command = " ".join(
         (_series, mask, s_donor, s_acceptor, _dist, _angle, _image, _options))
@@ -133,9 +167,12 @@ def search_hbonds(traj,
         # return DataFrame.T to have better visual effect
         return dslist.to_dataframe().T
     elif dtype == 'hbond':
-        dslist_new = _get_data_from_dtype(dslist, dtype='dataset')
-        hdata = DatasetHBond(dslist_new)
-        hdata._old_keys = old_keys
-        return hdata
+        if series:
+            dslist_new = _get_data_from_dtype(dslist, dtype='dataset')
+            hdata = DatasetHBond(dslist_new)
+            hdata._old_keys = old_keys
+            return hdata
+        else:
+            raise ValueError('series=False does not work with dtype="hbond", try dtype="dataset"')
     else:
         return _get_data_from_dtype(dslist, dtype=dtype)

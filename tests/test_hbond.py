@@ -7,7 +7,7 @@ from pytraj.compat import izip as zip
 
 
 class TestSearchHbonds(unittest.TestCase):
-    def test_hbonds(self):
+    def test_hbond_general(self):
         traj = pt.iterload("./data/DPDP.nc", "./data/DPDP.parm7")
         dslist = pt.search_hbonds(traj, dtype='dataset')
         for key in dslist.keys():
@@ -22,8 +22,8 @@ class TestSearchHbonds(unittest.TestCase):
             mydict[key] = np.asarray(mydict[key])
             aa_eq(mydict[key], mydict_np[key])
 
-        # FIXME: "Warning: Mask has no atoms"
-        #dslist_b = search_hbonds_nointramol(traj)
+        # raise if dtype='hbond' and series=False
+        self.assertRaises(ValueError, lambda: pt.hbond(traj, series=False, dtype='hbond'))
 
     def test_hbonds_with_image(self):
         traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
