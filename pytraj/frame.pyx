@@ -98,12 +98,6 @@ cdef class Frame (object):
                     elif isinstance(args[0], int):
                         natom = <int> args[0]
                         self.thisptr = new _Frame(natom)
-                    elif isinstance(args[0], (list, tuple, pyarray, np.ndarray)):
-                        # TODO : specify all things similar to list or array
-                        natom3 = <int> len(args[0])
-                        self.thisptr = new _Frame(natom3/3)
-                        for i in range(natom3):
-                            self.set_from_crd(pyarray('d', args[0]))
                     else:
                         # Create Frame from list of atom mask
                         atlist = args[0]
