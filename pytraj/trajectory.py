@@ -171,7 +171,7 @@ class Trajectory(object):
         '''
         try:
             return self._xyz.shape
-        except:
+        except AttributeError:
             return (None, None, 3)
 
     @property
@@ -847,7 +847,7 @@ class Trajectory(object):
                 assert len(rmsfit) == 2, (
                     "rmsfit must be a tuple of one (frame,) "
                     "or two elements (frame, mask)")
-            elif isinstance(rmsfit, int) or isinstance(rmsfit, Frame):
+            elif isinstance(rmsfit, (int, Frame)):
                 rmsfit = (rmsfit, '*')
             else:
                 raise ValueError("rmsfit must be a tuple or an integer")

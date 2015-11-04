@@ -31,7 +31,7 @@ class TestAutoImage(unittest.TestCase):
 
 
 class TestGeometry(unittest.TestCase):
-    def testRadgyr(self):
+    def test_radgyr(self):
         traj = pt.iterload(top="./data/Tc5b.top",
                            filename='data/md1_prod.Tc5b.x', )
         txt = '''

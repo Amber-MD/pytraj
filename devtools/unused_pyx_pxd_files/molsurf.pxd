@@ -1,2 +1,0 @@
-# distutils: language = c++
-

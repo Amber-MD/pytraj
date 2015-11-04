@@ -7,7 +7,6 @@ import pytraj as pt
 from pytraj.testing import eq, aa_eq, cpptraj_test_dir
 from pytraj.compat import zip
 from pytraj.nmr import _ired
-from pytraj.testing import cpptraj_test_dir
 
 parm_dir = cpptraj_test_dir  + '/Test_IRED/1IEE_A_prot.prmtop'
 traj_dir = cpptraj_test_dir + '/Test_IRED/1IEE_A_test.mdcrd'
