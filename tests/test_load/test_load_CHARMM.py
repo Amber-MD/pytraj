@@ -25,7 +25,7 @@ class TestCHARMM(unittest.TestCase):
         trajamber = mdio.iterload("./output/_save_charmm_to_amber.x",
                                   "./data/ala3.psf")
         for i in range(traj.n_frames):
-            aa_eq(trajamber[i].coords, traj[i].coords, decimal=3)
+            aa_eq(trajamber[i].xyz, traj[i].xyz, decimal=3)
 
 
 if __name__ == "__main__":
