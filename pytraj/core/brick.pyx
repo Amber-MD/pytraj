@@ -25,7 +25,7 @@ cdef class Atom:
         mass = mass
         self.thisptr = new _Atom(aname.thisptr[0], charge, mass, atype.thisptr[0])
         self.resnum = resnum
-        self.index = 0
+        self._index = 0
         self.own_memory = True
 
     def __dealloc__(self):
@@ -201,7 +201,7 @@ cdef class Residue:
     @property
     def index(self):
         """shortcut of original_resnum"""
-        return self.original_resnum()
+        return self.original_resnum - 1
 
     def ntype(self):
         cdef NameType nt = NameType()
