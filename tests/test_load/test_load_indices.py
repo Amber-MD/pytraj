@@ -20,9 +20,9 @@ class TestIndices(unittest.TestCase):
                         top=pt.load_topology("./data/Tc5b.top"),
                         frame_indices=frame_indices)
 
-        assert traj0[0].same_coords_as(traj1[9]) == True
-        assert traj0[1].same_coords_as(traj1[8]) == True
-        assert traj0[2].same_coords_as(traj1[7]) == True
+        aa_eq(traj0[0].xyz, traj1[9].xyz)
+        aa_eq(traj0[1].xyz, traj1[8].xyz)
+        aa_eq(traj0[2].xyz, traj1[7].xyz)
 
         assert traj0[0].rmsd(traj1[9]) < 1E-4
 
@@ -39,22 +39,7 @@ class TestIndices(unittest.TestCase):
             filename="./data/md1_prod.Tc5b.x",
             top=pt.load_topology("./data/Tc5b.top"),
             frame_indices=list(range(4)) + list(range(9, 5, -1)) + [4, ])
-        assert traj2[-1].coords == traj1[4].coords
-
-    def test_array_assigment(self):
-        traj1 = TrajectoryIterator(
-            filename="data/md1_prod.Tc5b.x",
-            top="./data/Tc5b.top")[:]
-
-        # assign traj1[0]
-        traj1[0] = traj1[1].copy()
-        # make sure the assignment happed correctly
-        assert traj1[0].same_coords_as(traj1[1]) == True
-
-        traj1[0][10, 0] = 1000000.
-        assert traj1[0][10, 0] == traj1[0, 10, 0] == 1000000.
-        assert (traj1[0].same_coords_as(traj1[1])) == False
-        assert traj1[0, 10, 0] != traj1[1, 10, 0]
+        aa_eq(traj2[-1].xyz, traj1[4].xyz)
 
     def test_1(self):
         traj0 = TrajectoryIterator(
@@ -63,24 +48,21 @@ class TestIndices(unittest.TestCase):
         traj = TrajectoryIterator(
             filename="data/md1_prod.Tc5b.x",
             top="./data/Tc5b.top")[:]
-        assert traj[0].coords == traj0[0].coords
+        aa_eq(traj[0].xyz, traj0[0].xyz)
 
         traj2 = TrajectoryIterator(
             filename="data/md1_prod.Tc5b.x",
             top="./data/Tc5b.top")[:][:10]
-        assert traj2[0].coords == traj0[0].coords
+        aa_eq(traj2[0].xyz, traj0[0].xyz)
 
         traj.join((traj[:], traj[0:100], traj[9:3:-1]))
         traj.join(traj[:])
 
-        assert traj[0].coords != array('d', [0 for _ in range(traj[0].size)])
-        assert traj[-1].coords != array('d', [0 for _ in range(traj[0].size)])
-
         for frame in traj:
-            frame.zero_coords()
+            frame.xyz[:] = 0.
 
-        assert traj[0].coords == array('d', [0 for _ in range(traj[0].size)])
-        assert traj[-1].coords == array('d', [0 for _ in range(traj[0].size)])
+        aa_eq(traj[0].xyz.flatten(), array('d', [0 for _ in range(traj[0].size)]))
+        aa_eq(traj[-1].xyz.flatten(), array('d', [0 for _ in range(traj[0].size)]))
 
     def test_del_top(self):
         # why here? lazy to make another file
@@ -111,14 +93,14 @@ class TestIndices(unittest.TestCase):
         trajCA_10frames = trajreadonly['@CA']
 
         assert isinstance(traj0, Trajectory)
-        aa_eq(traj0[0].coords, trajreadonly[1].coords)
-        aa_eq(traj0[1].coords, trajreadonly[3].coords)
-        aa_eq(traj0[2].coords, trajreadonly[7].coords)
+        aa_eq(traj0[0].xyz, trajreadonly[1].xyz)
+        aa_eq(traj0[1].xyz, trajreadonly[3].xyz)
+        aa_eq(traj0[2].xyz, trajreadonly[7].xyz)
 
         # @CA
-        aa_eq(trajCA[0].coords, trajCA_10frames[1].coords)
-        aa_eq(trajCA[1].coords, trajCA_10frames[3].coords)
-        aa_eq(trajCA[2].coords, trajCA_10frames[7].coords)
+        aa_eq(trajCA[0].xyz, trajCA_10frames[1].xyz)
+        aa_eq(trajCA[1].xyz, trajCA_10frames[3].xyz)
+        aa_eq(trajCA[2].xyz, trajCA_10frames[7].xyz)
 
     def test_load_mask(self):
         traj = pt.iterload(

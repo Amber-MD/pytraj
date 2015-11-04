@@ -89,7 +89,7 @@ class Test(unittest.TestCase):
 
         for f0, f1 in zip(fa, traj):
             #print(f0[0, :], f1[0, :])
-            aa_eq(f0.coords, f1.coords)
+            aa_eq(f0.xyz, f1.xyz)
 
     def testTrajectorView(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")

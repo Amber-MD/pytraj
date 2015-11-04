@@ -25,7 +25,7 @@ class Test(unittest.TestCase):
                                 rmsfit=(ref, '@CA,C,N')),
                           traj1(autoimage=True,
                                 rmsfit=(ref, '@CA,C,N'))):
-            assert f0.same_coords_as(f1)
+            aa_eq(f0.xyz, f1.xyz)
             assert f0.rmsd_nofit(f1) == 0.
 
 

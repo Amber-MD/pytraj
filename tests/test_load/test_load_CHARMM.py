@@ -17,7 +17,6 @@ class TestCHARMM(unittest.TestCase):
         atm.invert_mask()
         frame = Frame(atm.n_atoms)
         frame[:10] = np.asarray(array('d', list(range(30)))).reshape(10, 3)
-        frame.zero_coords()
 
     def test_1(self):
         traj = mdio.iterload("./data/ala3.dcd", "./data/ala3.psf")

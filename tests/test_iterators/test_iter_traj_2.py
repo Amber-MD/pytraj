@@ -44,13 +44,13 @@ class Test(unittest.TestCase):
         for frame in frame_iter(traj):
             count += 1
         #print("count = %s" % count)
-        assert_almost_equal(frame.coords, traj[-1].coords)
+        assert_almost_equal(frame.xyz, traj[-1].xyz)
 
         count = 0
         for frame in frame_iter(farray):
             count += 1
         #print("count = %s" % count)
-        assert_almost_equal(frame.coords, traj[-1].coords)
+        assert_almost_equal(frame.xyz, traj[-1].xyz)
 
     def test_3(self):
         from pytraj import iterframe_master as frame_iter
@@ -61,20 +61,20 @@ class Test(unittest.TestCase):
         for frame in traj.iterframe():
             count += 1
         #print("count = %s" % count)
-        assert_almost_equal(frame.coords, traj[-1].coords)
+        assert_almost_equal(frame.xyz, traj[-1].xyz)
 
         count = 0
         for frame in traj.iterframe(2, 8, 2):
             count += 1
         #print("count = %s" % count)
         assert count == 3
-        assert_almost_equal(frame.coords, traj[6].coords)
+        assert_almost_equal(frame.xyz, traj[6].xyz)
 
         count = 0
         for frame in traj[:].iterframe():
             count += 1
         #print("count = %s" % count)
-        assert_almost_equal(frame.coords, traj[-1].coords)
+        assert_almost_equal(frame.xyz, traj[-1].xyz)
 
 
 if __name__ == "__main__":
