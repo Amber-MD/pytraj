@@ -103,6 +103,10 @@ def _pmap(func, traj, *args, **kwd):
                               18.91669565,  18.87069722]))])
 
     This is experimental method, you should expect its syntax, default output will be changed.
+
+    When sending Topology to different cores, pytraj will reload Topology from
+    traj.top.filename, so if you need to update Topology (in the fly), save it to disk and
+    reload before using ``pytraj.pmap``
     
     Examples
     --------

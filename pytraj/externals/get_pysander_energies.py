@@ -21,7 +21,6 @@ def energy_decomposition(traj=None,
                           mode=None,
                           dtype='dict',
                           frame_indices=None,
-                          verbose=False,
                           top=None):
     """energy decomposition by calling `libsander`
 
@@ -49,8 +48,6 @@ def energy_decomposition(traj=None,
         return data type
     frame_indices : None or 1D array-like, default None
         if not None, only perform calculation for given frames
-    verbose : bool, default False
-        print warning message if True
 
     Returns
     -------
@@ -58,6 +55,8 @@ def energy_decomposition(traj=None,
 
     Examples
     --------
+    - Note: examples are adapted from $AMBERHOME/test/sanderapi
+
     >>> import pytraj as pt
     >>> # GB energy
     >>> traj = pt.datafiles.load_ala3()
@@ -81,6 +80,27 @@ def energy_decomposition(traj=None,
     >>> edict = pt.energy_decomposition(traj=traj, input_options=options)
     >>> edict['vdw'] 
     array([ 6028.95167558])
+
+    >>> # GB + QMMM
+    >>> topfile = os.path.join(amberhome, "test/qmmm2/lysine_PM3_qmgb2/prmtop")
+    >>> rstfile = os.path.join(amberhome, "test/qmmm2/lysine_PM3_qmgb2/lysine.crd")
+    >>> traj = pt.iterload(rstfile, topfile)
+
+    >>> options = sander.gas_input(8)
+    >>> options.cut = 99.0
+    >>> options.ifqnt = 1
+    >>> qmmm_options = sander.qm_input()
+    >>> qmmm_options.iqmatoms[:3] = [8, 9, 10]
+    >>> qmmm_options.qm_theory = "PM3"
+    >>> qmmm_options.qmcharge = 0
+    >>> qmmm_options.qmgb = 2
+    >>> qmmm_options.adjust_q = 0
+
+    >>> edict = pt.energy_decomposition(traj=traj, input_options=options, qmmm_options=qmmm_options)
+    >>> edict['bond']
+    array([ 0.00160733])
+    >>> edict['scf']
+    array([-11.92177575])
     """
     from collections import defaultdict, OrderedDict
     from pytraj.misc import get_atts
@@ -96,8 +116,6 @@ def energy_decomposition(traj=None,
     if input_options is None:
         inp = sander.gas_input(igb)
     elif igb is not None:
-        if verbose:
-            print("inp is not None, ignore provided `igb` and use `inp`")
         inp = input_options
 
     if parm is None:
