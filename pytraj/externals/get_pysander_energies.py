@@ -21,7 +21,6 @@ def energy_decomposition(traj=None,
                           mode=None,
                           dtype='dict',
                           frame_indices=None,
-                          verbose=False,
                           top=None):
     """energy decomposition by calling `libsander`
 
@@ -49,8 +48,6 @@ def energy_decomposition(traj=None,
         return data type
     frame_indices : None or 1D array-like, default None
         if not None, only perform calculation for given frames
-    verbose : bool, default False
-        print warning message if True
 
     Returns
     -------
@@ -119,8 +116,6 @@ def energy_decomposition(traj=None,
     if input_options is None:
         inp = sander.gas_input(igb)
     elif igb is not None:
-        if verbose:
-            print("inp is not None, ignore provided `igb` and use `inp`")
         inp = input_options
 
     if parm is None:
