@@ -152,15 +152,6 @@ class TestTrajectory(unittest.TestCase):
         self.assertRaises(IndexError, lambda: traj3[0])
         self.assertRaises(IndexError, lambda: traj3.__setitem__(0, traj[3]))
 
-    def test_indexing_1(self):
-        traj2 = pt.TrajectoryIterator()
-        traj2.top = pt.load_topology("./data/Tc5b.top")
-        traj2.load("./data/md1_prod.Tc5b.x")
-        self.assertRaises(ValueError, lambda: traj2[10407])
-        assert traj2[0] != traj2[9]
-
-        assert traj2[-1].coords[0] == traj2[9].coords[0]
-
     def test_iter_basic(self):
         traj = pt.TrajectoryIterator()
         traj.top = pt.load_topology("./data/Tc5b.top")
@@ -264,8 +255,8 @@ class TestSaveToDisk(unittest.TestCase):
         for idx, f0 in enumerate(fa):
             f0new = fanew[idx]
             f0new2 = fanew2[idx]
-            aa_eq(f0.coords, f0new.coords)
-            aa_eq(f0.coords, f0new2.coords)
+            aa_eq(f0.xyz, f0new.xyz)
+            aa_eq(f0.xyz, f0new2.xyz)
 
     def test_fancy_save(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -275,7 +266,7 @@ class TestSaveToDisk(unittest.TestCase):
 
         for idx, f0 in enumerate(traj[1:8]):
             f0new = fanew[idx]
-            aa_eq(f0.coords, f0new.coords)
+            aa_eq(f0.xyz, f0new.xyz)
 
 
 class TestSetitem(unittest.TestCase):

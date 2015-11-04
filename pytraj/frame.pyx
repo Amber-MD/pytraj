@@ -524,7 +524,7 @@ cdef class Frame (object):
              return np.array(arr)
 
     def set_nobox(self):
-        self.boxview[:] = pyarray('d', [0. for _ in range(6)])
+        self._boxview[:] = pyarray('d', [0. for _ in range(6)])
 
     def box_crd(self):
         cdef Box box = Box()
@@ -541,7 +541,7 @@ cdef class Frame (object):
             other : {Box, array-like}
             """
             _box = Box(other)
-            self.boxview[:] = _box[:]
+            self._boxview[:] = _box[:]
 
     def has_box(self):
         return self.box.has_box()

@@ -18,17 +18,17 @@ class TestSlicingTrajectory(unittest.TestCase):
         fa4 = FA[range(1, 4)]
         self.assertIsInstance(fa, Trajectory)
         # from TrajectoryIterator
-        aa_eq(fa[0].coords, traj[1].coords)
-        aa_eq(fa[1].coords, traj[2].coords)
+        aa_eq(fa[0].xyz, traj[1].xyz)
+        aa_eq(fa[1].xyz, traj[2].xyz)
         # from Trajectory
-        aa_eq(fa2[1].coords, traj[2].coords)
-        aa_eq(fa2[0].coords, traj[1].coords)
+        aa_eq(fa2[1].xyz, traj[2].xyz)
+        aa_eq(fa2[0].xyz, traj[1].xyz)
 
         # from "range"
-        aa_eq(fa3[1].coords, traj[2].coords)
-        aa_eq(fa3[0].coords, traj[1].coords)
-        aa_eq(fa4[1].coords, traj[2].coords)
-        aa_eq(fa4[0].coords, traj[1].coords)
+        aa_eq(fa3[1].xyz, traj[2].xyz)
+        aa_eq(fa3[0].xyz, traj[1].xyz)
+        aa_eq(fa4[1].xyz, traj[2].xyz)
+        aa_eq(fa4[0].xyz, traj[1].xyz)
 
     def test_atommask(self):
         # AtomMask

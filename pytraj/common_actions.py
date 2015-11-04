@@ -174,7 +174,7 @@ def calc_distance(traj=None,
         arr = np.empty([n_frames, len(int_2darr)])
 
         for idx, frame in enumerate(iterframe_master(traj)):
-            arr[idx] = frame.calc_distance(int_2darr)
+            arr[idx] = frame._distance(int_2darr)
 
         arr = arr.T
         if dtype == 'ndarray':
@@ -347,7 +347,7 @@ def calc_angle(traj=None,
             n_frames = kwd['n_frames']
         arr = np.empty([n_frames, len(int_2darr)])
         for idx, frame in enumerate(iterframe_master(traj)):
-            arr[idx] = frame.calc_angle(int_2darr)
+            arr[idx] = frame._angle(int_2darr)
 
         arr = arr.T
         if dtype == 'ndarray':
@@ -472,7 +472,7 @@ def calc_dihedral(traj=None,
             n_frames = kwd['n_frames']
         arr = np.empty([n_frames, len(int_2darr)])
         for idx, frame in enumerate(iterframe_master(traj)):
-            arr[idx] = frame.calc_dihedral(int_2darr)
+            arr[idx] = frame._dihedral(int_2darr)
 
         arr = arr.T
         if dtype == 'ndarray':
