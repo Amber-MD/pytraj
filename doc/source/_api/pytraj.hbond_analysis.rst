@@ -1,7 +1,7 @@
 .. _pytraj.hbond_analysis:
 
-pytraj.hbonds
-=============
+pytraj.hbond
+============
 
 .. container:: custom-index
     

@@ -266,6 +266,18 @@
 </dd></dl>
 
 <dl class="function">
+<dt id="pytraj.run">
+<tt class="descclassname">pytraj.</tt><tt class="descname">run</tt><big>(</big><em>fi</em><big>)</big><a class="headerlink" href="#pytraj.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>shortcut for <cite>for frame in fi: pass</cite></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">create_pipeline</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;autoimage&#39;</span><span class="p">,</span> <span class="s">&#39;rms&#39;</span><span class="p">,</span> <span class="s">&#39;center :1-13&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">fi</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
 <dt id="pytraj.savefig">
 <tt class="descclassname">pytraj.</tt><tt class="descname">savefig</tt><big>(</big><em>fname</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.savefig" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -352,7 +364,7 @@
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 03, 2015.<br/>
+      Last updated on Nov 04, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

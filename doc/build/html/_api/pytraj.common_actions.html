@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="pytraj 0.1.2.dev12 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
-    <link rel="next" title="pytraj.hbonds" href="pytraj.hbonds.html" />
+    <link rel="next" title="pytraj.hbond" href="pytraj.hbond_analysis.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -109,7 +109,7 @@
               
                 
   <li>
-    <a href="pytraj.hbonds.html" title="Next Chapter: pytraj.hbonds"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">pytraj.hbonds &raquo;</span>
+    <a href="pytraj.hbond_analysis.html" title="Next Chapter: pytraj.hbond"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">pytraj.hbond &raquo;</span>
     </a>
   </li>
               
@@ -981,27 +981,65 @@ if <cite>frame</cite> keyword is specified cpptraj/pytraj will take existing T</
 
 <dl class="function">
 <dt id="pytraj.common_actions.search_hbonds">
-<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">search_hbonds</tt><big>(</big><em>traj</em>, <em>mask=''</em>, <em>solvent_donor=None</em>, <em>solvent_acceptor=None</em>, <em>distance=3.0</em>, <em>angle=135.0</em>, <em>dtype='hbond'</em>, <em>image=False</em>, <em>more_options=''</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.search_hbonds" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">search_hbonds</tt><big>(</big><em>traj</em>, <em>mask=''</em>, <em>solvent_donor=None</em>, <em>solvent_acceptor=None</em>, <em>distance=3.0</em>, <em>angle=135.0</em>, <em>image=False</em>, <em>series=True</em>, <em>more_options=''</em>, <em>dtype='hbond'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.search_hbonds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Searching for Hbond donors/acceptors in region specified by <tt class="docutils literal"><span class="pre">mask</span></tt></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
-<p><strong>mask</strong> : str</p>
+<p><strong>mask</strong> : {str, 1D array-like}</p>
 <blockquote>
-<div><p>Amber atom mask</p>
+<div><p>Atom mask for searching hbond</p>
+</div></blockquote>
+<p><strong>solvent_donor</strong> : {None, str}, default None</p>
+<p><strong>solvent_acceptor: {None, str}, deafult None</strong></p>
+<blockquote>
+<div><p>if solvent_acceptor and solvent_donor are None, cpptraj only search hbond for 
+if solvent_donor and solvent_acceptor are NOT None, cpptraj will search for hbond
+between solute and solvent too.</p>
+</div></blockquote>
+<p><strong>distance</strong> : float, default 3.0 (angstrom)</p>
+<blockquote>
+<div><p>hbond distance cut off</p>
+</div></blockquote>
+<p><strong>angle</strong> : float, 135.0 degree</p>
+<blockquote>
+<div><p>hbond angle cut off</p>
+</div></blockquote>
+<p><strong>dtype</strong> : return output&#8217;s type, default &#8216;hbond&#8217;</p>
+<p><strong>image</strong> : bool, default False</p>
+<p><strong>series</strong> : bool, default True</p>
+<blockquote>
+<div><ul class="simple">
+<li>output time series (array of 1 and 0) for hbond or not.</li>
+<li>if False, you must specify dtype=&#8217;dataset&#8217;</li>
+</ul>
+</div></blockquote>
+<p><strong>more_options</strong> : str</p>
+<blockquote>
+<div><p>additional cpptraj options</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>out</strong> : pytraj.DatasetList, which is similiar to Python list with labeled data.</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>out</strong> : DatasetHBond if series is True else return &#8216;DatasetList&#8217;</p>
 </td>
 </tr>
 </tbody>
 </table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><tt class="xref py py-obj docutils literal"><span class="pre">to_amber_mask</span></tt></p>
+</div>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>pytraj use &#8216;series&#8217; as default. In cpptraj, you need to explicitly specify &#8216;series&#8217;.</li>
+<li>if &#8216;series&#8217; is False, the &#8216;dtype&#8217; argument will be ignored.</li>
+</ul>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># search hbond without including solvent</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:5,8&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
 <span class="go">&lt;pytraj.hbonds.DatasetHBond</span>
@@ -1012,6 +1050,9 @@ if <cite>frame</cite> keyword is specified cpptraj/pytraj will take existing T</
 <span class="go">array([[2, 2, 0, ..., 1, 1, 1],</span>
 <span class="go">       [1, 1, 0, ..., 1, 1, 1],</span>
 <span class="go">       [1, 1, 0, ..., 0, 0, 0]], dtype=int32)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># search hbond including solvent</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:5,8&#39;</span><span class="p">,</span> <span class="n">solvent_donor</span><span class="o">=</span><span class="s">&#39;:WAT@O&#39;</span><span class="p">,</span> <span class="n">solvent_acceptor</span><span class="o">=</span><span class="s">&#39;:WAT&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1187,7 +1228,7 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 03, 2015.<br/>
+      Last updated on Nov 04, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>
