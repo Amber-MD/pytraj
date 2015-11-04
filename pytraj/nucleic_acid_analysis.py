@@ -220,7 +220,8 @@ class nupars(object):
         else:
             return sumlist
 
-    def _explain(self):
+    @classmethod
+    def _explain(cls):
         '''copied from cpptraj doc
         '''
         return '''
