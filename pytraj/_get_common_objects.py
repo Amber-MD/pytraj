@@ -23,14 +23,10 @@ def _get_topology(traj, top):
             _top = traj.top
         else:
             # list, tuple of traj objects
-            try:
-                for tmp in traj:
-                    if hasattr(tmp, 'top'):
-                        _top = tmp.top
-                        break
-            except:
-                #print("Topology is None")
-                _top = None
+            for tmp in traj:
+                if hasattr(tmp, 'top'):
+                    _top = tmp.top
+                    break
     else:
         _top = top
     return _top

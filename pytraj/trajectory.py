@@ -171,7 +171,7 @@ class Trajectory(object):
         '''
         try:
             return self._xyz.shape
-        except:
+        except TypeError:
             return (None, None, 3)
 
     @property

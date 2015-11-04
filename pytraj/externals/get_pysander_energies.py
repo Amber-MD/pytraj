@@ -101,7 +101,7 @@ def get_pysander_energies(traj=None,
             # if `traj` is Trajectory-like (not frame_iter), try to take 1st
             # coords
             coords = traj[0].coords
-        except:
+        except AttributeError:
             # create fake list
             coords = [0. for _ in range(_top.n_atoms * 3)]
     else:

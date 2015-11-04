@@ -309,7 +309,7 @@ def calc_angle(traj=None,
             # it
             try:
                 del kwd['n_frames']
-            except:
+            except KeyError:
                 pass
             # cpptraj mask for action
             act(command, traj, top=_top, dslist=dslist, *args, **kwd)
