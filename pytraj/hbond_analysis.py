@@ -13,7 +13,8 @@ __all__ = ['DatasetHBond', 'search_hbonds']
 
 
 def to_amber_mask(txtlist):
-    """Convert something like 'ASP_16@OD1-ARG_18@N-H to ':16@OD1 :18@H'
+    """Convert hbond lables to amber mask, example 'ASP_16@OD1-ARG_18@N-H to ':16@OD1 :18@H'.
+    This converter is good to measure the hbond distance over time.
 
     >>> list(to_amber_mask(['ASP_16@OD1-ARG_18@N-H',]))
     [':16@OD1 :18@H']
