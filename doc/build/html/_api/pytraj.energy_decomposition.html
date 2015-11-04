@@ -30,6 +30,7 @@
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="pytraj 0.1.2.dev12 documentation" href="../index.html" />
+    <link rel="up" title="API" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -67,7 +68,7 @@
       aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
 </ul>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../trajectory.html">Trajectory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../topology.html">Topology</a></li>
@@ -83,7 +84,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cookbook.html">Cookbook</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a></li>
 </ul>
 </ul>
 </li>
@@ -144,45 +145,52 @@
 <span class="target" id="module-pytraj.externals.get_pysander_energies"></span><dl class="function">
 <dt id="pytraj.externals.get_pysander_energies.energy_decomposition">
 <tt class="descclassname">pytraj.externals.get_pysander_energies.</tt><tt class="descname">energy_decomposition</tt><big>(</big><em>traj=None</em>, <em>parm=None</em>, <em>igb=8</em>, <em>input_options=None</em>, <em>qmmm_options=None</em>, <em>mode=None</em>, <em>dtype='dict'</em>, <em>frame_indices=None</em>, <em>verbose=False</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.externals.get_pysander_energies.energy_decomposition" title="Permalink to this definition">¶</a></dt>
-<dd><p>&#8221;
-Parameters
-&#8212;&#8212;&#8212;
-traj : {Traj-like object, frame, list of trajs, list of frames} from pytraj</p>
-<blockquote>
-<div>if <cite>traj</cite> does not hold Topology information, <cite>top</cite> must be provided</div></blockquote>
-<dl class="docutils">
-<dt>parm <span class="classifier-delimiter">:</span> <span class="classifier">{str, Topology object from ParmEd}, default=None, optional</span></dt>
-<dd><p class="first">To avoid any unexpected error, you should always provide original topology
-filename. If parm is None, pytraj will load Topology from traj.top.filename.</p>
-<ul class="last simple">
-<li>why do you need to load additional topology filename? Because cpptraj and sander
-use different Topology object, can not convert from one to another.</li>
-</ul>
-</dd>
-<dt>igb <span class="classifier-delimiter">:</span> <span class="classifier">GB model, default=8 (GB-Neck2)</span></dt>
-<dd>Note: this <cite>igb</cite> input will be ignored if <cite>input_options</cite> is not None</dd>
-<dt>input_options <span class="classifier-delimiter">:</span> <span class="classifier">InputOptions object from <cite>sander</cite>, default=None, optional</span></dt>
-<dd>if <cite>input_options</cite> is None, use <cite>gas_input</cite> with given igb.
-If <cite>input_options</cite> is not None, use this</dd>
-</dl>
-<p>qmmm_options : InputOptions object from <cite>sander</cite> for QMMM, optional
-mode : str, default=None, optional</p>
-<blockquote>
-<div>if mode=&#8217;minimal&#8217;, get only &#8216;bond&#8217;, &#8216;angle&#8217;, &#8216;dihedral&#8217; and &#8216;total&#8217; energies</div></blockquote>
-<p>top : {Topology, str}, default=None, optional
-dtype : str, {&#8216;dict&#8217;, &#8216;dataset&#8217;, &#8216;ndarray&#8217;, &#8216;dataframe&#8217;}, default=&#8217;dict&#8217;
-frame_indices : {None, array-like}, default None</p>
-<blockquote>
-<div>if not None, only perform calculation for given frames</div></blockquote>
-<dl class="docutils">
-<dt>verbose <span class="classifier-delimiter">:</span> <span class="classifier">bool, default True</span></dt>
-<dd>print warning message if True</dd>
-</dl>
+<dd><p>energy decomposition by calling <cite>libsander</cite></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Dict of energies (to be used with DataFrame) or DatasetList</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : {Traj-like object, frame, list of trajs, list of frames} from pytraj</p>
+<blockquote>
+<div><p>if <cite>traj</cite> does not hold Topology information, <cite>top</cite> must be provided</p>
+</div></blockquote>
+<p><strong>parm</strong> : {str, Topology object from ParmEd}, default=None, optional</p>
+<blockquote>
+<div><p>To avoid any unexpected error, you should always provide original topology
+filename. If parm is None, pytraj will load Topology from traj.top.filename.</p>
+<ul class="simple">
+<li>why do you need to load additional topology filename? Because cpptraj and sander
+use different Topology object, can not convert from one to another.</li>
+</ul>
+</div></blockquote>
+<p><strong>igb</strong> : GB model, default=8 (GB-Neck2)</p>
+<blockquote>
+<div><p>Note: this <cite>igb</cite> input will be ignored if <cite>input_options</cite> is not None</p>
+</div></blockquote>
+<p><strong>input_options</strong> : InputOptions object from <cite>sander</cite>, default=None, optional</p>
+<blockquote>
+<div><p>if <cite>input_options</cite> is None, use <cite>gas_input</cite> with given igb.
+If <cite>input_options</cite> is not None, use this</p>
+</div></blockquote>
+<p><strong>qmmm_options</strong> : InputOptions object from <cite>sander</cite> for QMMM, optional</p>
+<p><strong>mode</strong> : str, default=None, optional</p>
+<blockquote>
+<div><p>if mode=&#8217;minimal&#8217;, get only &#8216;bond&#8217;, &#8216;angle&#8217;, &#8216;dihedral&#8217; and &#8216;total&#8217; energies</p>
+</div></blockquote>
+<p><strong>top</strong> : {Topology, str}, default=None, optional</p>
+<p><strong>dtype</strong> : str, {&#8216;dict&#8217;, &#8216;dataset&#8217;, &#8216;ndarray&#8217;, &#8216;dataframe&#8217;}, default=&#8217;dict&#8217;</p>
+<p><strong>frame_indices</strong> : {None, array-like}, default None</p>
+<blockquote>
+<div><p>if not None, only perform calculation for given frames</p>
+</div></blockquote>
+<p><strong>verbose</strong> : bool, default True</p>
+<blockquote>
+<div><p>print warning message if True</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Dict of energies (to be used with DataFrame) or DatasetList</p>
+</td>
 </tr>
 </tbody>
 </table>
