@@ -104,7 +104,7 @@ from .analyses import CpptrajAnalyses
 from . import common_actions
 from .dssp_analysis import calc_dssp, dssp_allatoms, dssp_allresidues
 from .common_actions import (
-    calc_rmsd_nofit, rmsd, rmsd_perres, distance_rmsd, search_hbonds,
+    calc_rmsd_nofit, rmsd, rmsd_perres, distance_rmsd,
     calc_multidihedral, autoimage, nastruct, calc_angle, calc_dihedral,
     calc_distance, calc_pairwise_distance, calc_center_of_mass,
     calc_center_of_geometry, calc_dssp, calc_jcoupling, calc_molsurf,
@@ -121,13 +121,14 @@ from .common_actions import (
     )
 
 from .nmr import ired_vector_and_matrix, _ired, NH_order_parameters
+from .hbond_analysis import hbond
 
 # create alias
 dssp_all_residues = dssp_allresidues
 fetch_pdb = load_pdb_rcsb
 rmsd_nofit = calc_rmsd_nofit
 drmsd = distance_rmsd
-hbond = search_hbonds
+search_hbonds = hbond
 distance = calc_distance
 distances = calc_distance
 pairwise_distance = calc_pairwise_distance
