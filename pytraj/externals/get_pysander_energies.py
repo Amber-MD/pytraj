@@ -1,9 +1,9 @@
 from pytraj._shared_methods import iterframe_master
-from pytraj._get_common_objects import _get_topology, _get_data_from_dtype
+from pytraj._get_common_objects import _get_topology, _get_data_from_dtype, _super_dispatch
 from pytraj.compat import range
 from pytraj.decorators import _register_pmap
 
-__all__ = ['get_pysander_energies']
+__all__ = ['energy_decomposition']
 
 
 def _default_func():
@@ -12,15 +12,17 @@ def _default_func():
 
 
 @_register_pmap
-def get_pysander_energies(traj=None,
+@_super_dispatch()
+def energy_decomposition(traj=None,
                           parm=None,
                           igb=8,
                           input_options=None,
                           qmmm_options=None,
                           mode=None,
-                          top=None,
                           dtype='dict',
-                          verbose=False):
+                          frame_indices=None,
+                          verbose=False,
+                          top=None):
     # TODO: change method's name?
     """"
     Parameters
@@ -28,16 +30,24 @@ def get_pysander_energies(traj=None,
     traj : {Traj-like object, frame, list of trajs, list of frames} from pytraj
         if `traj` does not hold Topology information, `top` must be provided
     parm : {str, Topology object from ParmEd}, default=None, optional
+        To avoid any unexpected error, you should always provide original topology
+        filename. If parm is None, pytraj will load Topology from traj.top.filename.
+
+        - why do you need to load additional topology filename? Because cpptraj and sander
+          use different Topology object, can not convert from one to another.
+
     igb : GB model, default=8 (GB-Neck2)
         Note: this `igb` input will be ignored if `input_options` is not None
     input_options : InputOptions object from `sander`, default=None, optional
-        if `input_options` is None, use `gas_input` with `igb = 8`
+        if `input_options` is None, use `gas_input` with given igb.
         If `input_options` is not None, use this
     qmmm_options : InputOptions object from `sander` for QMMM, optional
     mode : str, default=None, optional
         if mode='minimal', get only 'bond', 'angle', 'dihedral' and 'total' energies
     top : {Topology, str}, default=None, optional
     dtype : str, {'dict', 'dataset', 'ndarray', 'dataframe'}, default='dict'
+    frame_indices : {None, array-like}, default None
+        if not None, only perform calculation for given frames
     verbose : bool, default True
         print warning message if True
 
@@ -47,22 +57,11 @@ def get_pysander_energies(traj=None,
 
     Examples
     --------
-        # minimal input
-        energy_decomposition = get_pysander_energies
-        energy_decomposition(traj)
-
-        # with option
-        import sander
-        inp = sander.gas_input(igb=6)
-        energy_decomposition(traj, input_options=inp)
-
-        # with list of frames, must provide Topology object
-        energy_decomposition([frame0, frame1], top=my_topology_object)
-
-        # with provided ParmEd object
-        import parmed as pmd
-        parm = pmd.load_file("myfile.prmtop")
-        energy_decomposition(traj, parm=parm, igb=5)
+    >>> import pytraj as pt
+    >>> # GB energy
+    >>> traj_gb = pt.datafiles.load_ala3()
+    >>> traj_gb
+    >>> pt.energy_decomposition(traj, igb=8)
     """
     from collections import defaultdict
     from pytraj.misc import get_atts
@@ -75,8 +74,6 @@ def get_pysander_energies(traj=None,
 
     ddict = defaultdict(_default_func)
 
-    _top = _get_topology(traj, top)
-
     if input_options is None:
         inp = sander.gas_input(igb)
     elif igb is not None:
@@ -86,10 +83,8 @@ def get_pysander_energies(traj=None,
 
     if parm is None:
         try:
-            # try to load from file by taking _top.filename
-            if verbose:
-                print("can not find `Structure` from parmed, loading %s")
-            _parm = _top.filename
+            # try to load from file by taking top.filename
+            _parm = top.filename
         except AttributeError:
             raise ValueError("parm must be AmberParm object in ParmEd")
     else:
@@ -103,13 +98,13 @@ def get_pysander_energies(traj=None,
             coords = traj[0].xyz
         except (TypeError, AttributeError):
             # create fake list
-            coords = [0. for _ in range(_top.n_atoms * 3)]
+            coords = [0. for _ in range(top.n_atoms * 3)]
     else:
         # use default coords in `AmberParm`
         coords = _parm.coordinates
 
-    if _top.has_box():
-        box = _top.box.tolist()
+    if top.has_box():
+        box = top.box.tolist()
         has_box = True
     else:
         box = None

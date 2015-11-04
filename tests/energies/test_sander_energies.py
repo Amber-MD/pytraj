@@ -2,7 +2,7 @@ from __future__ import print_function
 import os
 import unittest
 import pytraj as pt
-from pytraj.testing import amberhome
+from pytraj.testing import amberhome, aa_eq
 
 
 # adapted test from $AMBERHOME/test/sanderapi/test.py
@@ -161,6 +161,20 @@ class TestSander(unittest.TestCase):
         assert_close(edict['gb'][0], -2287.6880, tol=3E-4)
         assert_close(edict['elec'][0], -1659.5740, tol=3E-4)
         assert_close(edict['vdw'][0], 384.2512, tol=3E-4)
+
+    def test_frame_indices(self):
+        traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
+        frame_indices = [0, 6, 7, 4, 5]
+
+        data_without_frame_indices = pt.energy_decomposition(traj, igb=8)
+        data_with_frame_indices = pt.energy_decomposition(traj, igb=8, frame_indices=frame_indices)
+        data_with_frame_indices_2 = pt.energy_decomposition(traj[frame_indices], igb=8)
+
+        for key in data_without_frame_indices:
+            aa_eq(data_without_frame_indices[key][frame_indices],
+                    data_with_frame_indices[key])
+            aa_eq(data_without_frame_indices[key][frame_indices],
+                    data_with_frame_indices_2[key])
 
 
 if __name__ == "__main__":

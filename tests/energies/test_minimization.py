@@ -28,9 +28,7 @@ class TestMin(unittest.TestCase):
                                                        igb=8,
                                                        verbose=False)['gb'])
 
-            print(pt.rmsd(traj, ref=t0[0], mask='!@H='))
             minimize(t0)
-            print(pt.rmsd(traj, ref=t0[0], mask='!@H='))
 
             self.assertRaises(ValueError, lambda: minimize(traj))
 
