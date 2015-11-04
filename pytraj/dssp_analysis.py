@@ -187,7 +187,7 @@ def dssp_allatoms(traj, *args, **kwd):
     calc_dssp
     '''
     res_labels, data = calc_dssp(traj, *args, **kwd)[:2]
-    top = _get_topology(traj, kwd.get('top', None))
+    top = _get_topology(traj, kwd.get('top'))
     res_indices = [int(x.split(':')[-1]) - 1 for x in res_labels]
 
     if PY3:

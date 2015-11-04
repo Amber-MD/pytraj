@@ -172,7 +172,7 @@ class _super_dispatch(object):
             args = list(args)
             # traj is always 1st argument
             traj = kwd.get('traj', args[0])
-            frame_indices = kwd.get('frame_indices', None)
+            frame_indices = kwd.get('frame_indices')
             ref = kwd.get('ref', None)
             if self.has_ref and ref is None:
                 try:

@@ -103,7 +103,7 @@ def _dispatch_traj_ref_top_frame_indices(f):
     def inner(*args, **kwd):
         args = list(args)
         traj = kwd.get('traj', args[0])
-        frame_indices = kwd.get('frame_indices', None)
+        frame_indices = kwd.get('frame_indices')
         ref = kwd.get('ref', None)
         top = kwd.get('top', None)
 
