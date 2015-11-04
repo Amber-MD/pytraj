@@ -27,15 +27,16 @@ class Test_Issue_991(unittest.TestCase):
         # something is wrong with pdb, crd extension when loading with 
         # minitop (poor topology?)
         # make issue in cpptraj too?
-        #for ext in ['nc', 'mdcrd']:
-        for ext in ['nc']:
+        for ext in ['nc', 'dcd', 'mdcrd', 'crd', 'pdb', 'trr']:
             fn = 'output/junk.' + ext
             pt.write_traj(filename=fn, traj=minitraj,
                           top=minitop, overwrite=True)
 
             ## load coord back to make sure we correctly write it
             new_traj = pt.iterload(fn, minitop)
-            aa_eq(minitraj, new_traj.xyz)
+            # mdcrd, crd, pdb has only 3 digits after decimal
+            decimal  = 5 if ext in ['nc', 'dcd', 'trr'] else 3
+            aa_eq(minitraj, new_traj.xyz, decimal=decimal)
 
 
 if __name__ == "__main__":

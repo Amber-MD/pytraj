@@ -9,7 +9,7 @@ from ._get_common_objects import _get_data_from_dtype, _get_topology, _super_dis
 from .base_holder import BaseDataHolder
 from ._shared_methods import iterframe_master
 
-__all__ = ['DatasetHBond', 'search_hbonds']
+__all__ = ['DatasetHBond', 'hbond']
 
 
 def to_amber_mask(txtlist):
@@ -66,24 +66,28 @@ def _update_key_hbond(_dslist):
 
 @_register_pmap
 @_super_dispatch()
-def search_hbonds(traj,
-                  mask="",
-                  solvent_donor=None,
-                  solvent_acceptor=None,
-                  distance=3.0,
-                  angle=135.,
-                  image=False,
-                  series=True,
-                  options='',
-                  dtype='hbond',
-                  top=None):
-    """Searching for Hbond donors/acceptors in region specified by ``mask``
+def hbond(traj,
+          mask="",
+          solvent_donor=None,
+          solvent_acceptor=None,
+          distance=3.0,
+          angle=135.,
+          image=False,
+          series=True,
+          cpp_options='',
+          dtype='hbond',
+          top=None):
+    """(combined with cpptraj doc) Searching for Hbond donors/acceptors in region specified by ``mask``.
+    Hydrogen bond is defined as A-HD, where A is acceptor heavy atom, H is hydrogen, D is
+    donor heavy atom. Hydrogen bond is formed when A to D distance < distance cutoff and A-H-D angle
+    > angle cutoff; if `angle` < 0 it is ignored.
 
     Parameters
     ----------
     traj : Trajectory-like
     mask : {str, 1D array-like}
-        Atom mask for searching hbond
+        Atom mask for searching hbond. If this `mask` is specify, cpptraj will
+        automatically search for donors and acceptors.
     solvent_donor : {None, str}, default None
     solvent_acceptor: {None, str}, deafult None
         if solvent_acceptor and solvent_donor are None, cpptraj only search hbond for 
@@ -98,9 +102,19 @@ def search_hbonds(traj,
     series : bool, default True
         - output time series (array of 1 and 0) for hbond or not.
         - if False, you must specify dtype='dataset'
+    cpp_options : str
+        additional cpptraj options. For example you can explicitly specify donormask and
+        acceptormask. 
 
-    options : str
-        additional cpptraj options
+        - If ``donormask`` is specified but not ``acceptormask``, acceptors will be
+          automatically searched for in ``mask``.
+
+        - If ``acceptormask`` is specified but not donormask, donors will be
+        automatically search for in ``mask``. 
+
+        - If both ``donormask`` and ``acceptormask`` are specified no automatic searching will
+          occur.
+
 
     Returns
     -------
@@ -132,8 +146,13 @@ def search_hbonds(traj,
            [1, 1, 0, ..., 1, 1, 1],
            [1, 1, 0, ..., 0, 0, 0]], dtype=int32)
     >>> # search hbond including solvent
-    >>> data = pt.search_hbonds(traj, ':5,8', solvent_donor=':WAT@O', solvent_acceptor=':WAT')
-    >>> data
+    >>> hbonds = pt.search_hbonds(traj, ':5,8', solvent_donor=':WAT@O', solvent_acceptor=':WAT')
+    >>> hbonds
+    <pytraj.hbonds.DatasetHBond
+    donor_aceptor pairs : 8>
+    >>> hbonds.donor_aceptor
+    ['LYS8_O-GLU5_N-H', 'GLU5_O-LYS8_N-H', 'LYS8_HZ1-V', 'LYS8_HZ2-V', 'GLU5_OE2-V', 'GLU5_O-V', 'GLU5_OE1-V', 'LYS8_HZ3-V']
+    >>> # 'GLU5_O-V' mean non-specific hbond between GLU5_O and solvent (:WAT in this case)
     """
     dslist = CpptrajDatasetList()
     act = CpptrajActions.Action_Hbond()
@@ -147,7 +166,7 @@ def search_hbonds(traj,
     _angle = 'angle ' + str(angle)
     _image = 'image' if image else ''
     _series = 'series' if series else ''
-    _options = options
+    _options = cpp_options
 
     command = " ".join(
         (_series, mask, s_donor, s_acceptor, _dist, _angle, _image, _options))

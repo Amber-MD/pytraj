@@ -22,7 +22,7 @@ from .topology import Topology
 from .datasets.DatasetList import DatasetList as CpptrajDatasetList
 from .datafiles import DataFileList
 from .datasetlist import DatasetList
-from .hbond_analysis import search_hbonds
+from .hbond_analysis import hbond as search_hbonds
 from .dssp_analysis import calc_dssp
 from .nucleic_acid_analysis import nastruct
 from ._shared_methods import iterframe_master
