@@ -58,6 +58,8 @@ def energy_decomposition(traj=None,
 
     Examples
     --------
+    - Note: example are adapted from $AMBERHOME/test/sanderapi
+
     >>> import pytraj as pt
     >>> # GB energy
     >>> traj = pt.datafiles.load_ala3()
