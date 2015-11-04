@@ -58,7 +58,7 @@ def energy_decomposition(traj=None,
 
     Examples
     --------
-    - Note: example are adapted from $AMBERHOME/test/sanderapi
+    - Note: examples are adapted from $AMBERHOME/test/sanderapi
 
     >>> import pytraj as pt
     >>> # GB energy
