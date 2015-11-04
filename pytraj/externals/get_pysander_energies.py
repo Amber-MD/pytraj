@@ -23,31 +23,33 @@ def energy_decomposition(traj=None,
                           frame_indices=None,
                           verbose=False,
                           top=None):
-    """"
+    """energy decomposition by calling `libsander`
+
     Parameters
-    ---------
-    traj : {Traj-like object, frame, list of trajs, list of frames} from pytraj
+    ----------
+    traj : Trajectory-like or iterables that produce Frame
         if `traj` does not hold Topology information, `top` must be provided
-    parm : {str, Topology object from ParmEd}, default=None, optional
+    parm : str or Structure from ParmEd, default=None, optional
         To avoid any unexpected error, you should always provide original topology
         filename. If parm is None, pytraj will load Topology from traj.top.filename.
 
         - why do you need to load additional topology filename? Because cpptraj and sander
           use different Topology object, can not convert from one to another.
-
     igb : GB model, default=8 (GB-Neck2)
-        Note: this `igb` input will be ignored if `input_options` is not None
-    input_options : InputOptions object from `sander`, default=None, optional
+        If specify `input_options`, this `igb` input will be ignored
+    input_options : InputOptions from `sander`, default=None, optional
         if `input_options` is None, use `gas_input` with given igb.
         If `input_options` is not None, use this
-    qmmm_options : InputOptions object from `sander` for QMMM, optional
+    qmmm_options : InputOptions from `sander` for QMMM, optional
     mode : str, default=None, optional
         if mode='minimal', get only 'bond', 'angle', 'dihedral' and 'total' energies
-    top : {Topology, str}, default=None, optional
+    top : pytraj.Topology or str, default=None, optional
+        only need to specify this ``top`` if ``traj`` does not hold Topology
     dtype : str, {'dict', 'dataset', 'ndarray', 'dataframe'}, default='dict'
-    frame_indices : {None, array-like}, default None
+        return data type
+    frame_indices : None or 1D array-like, default None
         if not None, only perform calculation for given frames
-    verbose : bool, default True
+    verbose : bool, default False
         print warning message if True
 
     Returns
