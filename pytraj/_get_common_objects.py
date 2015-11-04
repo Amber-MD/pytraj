@@ -28,7 +28,7 @@ def _get_topology(traj, top):
                     if hasattr(tmp, 'top'):
                         _top = tmp.top
                         break
-            except:
+            except TypeError:
                 #print("Topology is None")
                 _top = None
     else:
