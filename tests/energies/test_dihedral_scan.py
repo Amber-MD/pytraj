@@ -28,7 +28,7 @@ try:
     arr = np.array(deg_ene).T
     
     print(len(flist))
-    pt.write_traj("test.pdb", flist, top=traj.top, overwrite=True, mode='model')
+    pt.write_traj("test.pdb", flist, top=traj.top, overwrite=True, options='model')
     
     arr[1] = arr[1] - np.min(arr[1])
 except ImportError:

@@ -20,7 +20,7 @@ def get_pysander_energies(traj=None,
                           mode=None,
                           top=None,
                           dtype='dict',
-                          verbose=True):
+                          verbose=False):
     # TODO: change method's name?
     """"
     Parameters
@@ -100,8 +100,8 @@ def get_pysander_energies(traj=None,
         try:
             # if `traj` is Trajectory-like (not frame_iter), try to take 1st
             # coords
-            coords = traj[0].coords
-        except AttributeError:
+            coords = traj[0].xyz
+        except (TypeError, AttributeError):
             # create fake list
             coords = [0. for _ in range(_top.n_atoms * 3)]
     else:
@@ -119,7 +119,7 @@ def get_pysander_energies(traj=None,
         for frame in iterframe_master(traj):
             if has_box:
                 sander.set_box(*frame.box.tolist())
-            sander.set_positions(frame.coords)
+            sander.set_positions(frame.xyz)
             ene, frc = sander.energy_forces()
 
             # potentially slow
