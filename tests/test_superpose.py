@@ -20,7 +20,7 @@ class TestBasic(unittest.TestCase):
 
         f1.rmsfit(f0)
 
-        # expect reference `f0` coords are not changed
+        # expect reference `f0` xyz are not changed
         aa_eq(arr0, f0[0])
 
         trajsaved = pt.iterload(
@@ -28,11 +28,11 @@ class TestBasic(unittest.TestCase):
         f1saved = trajsaved[1]
 
         # make sure we reproduce cpptraj output
-        aa_eq(f1.coords, f1saved.coords, decimal=3)
+        aa_eq(f1.xyz, f1saved.xyz, decimal=3)
 
         farray = traj[:]
         farray.rmsfit(traj[0])
-        aa_eq(farray[1].coords, f1saved.coords, decimal=3)
+        aa_eq(farray[1].xyz, f1saved.xyz, decimal=3)
 
         farray.rmsfit('first')
 
@@ -75,18 +75,18 @@ class TestBasic(unittest.TestCase):
         # make mutable traj
         farray = traj[:]
 
-        aa_eq(farray[0].coords, first.coords)
+        aa_eq(farray[0].xyz, first.xyz)
         farray.rmsfit(first, "*", mass=False)
         farray2 = traj[:]
         farray2.superpose(first, "*", mass=False)
 
         for i, _f0 in enumerate(farray):
             _f1 = trajsaved[i]
-            aa_eq(_f0.coords, _f1.coords, decimal=3)
+            aa_eq(_f0.xyz, _f1.xyz, decimal=3)
 
         for i, _f0 in enumerate(farray2):
             _f1 = trajsaved[i]
-            aa_eq(_f0.coords, _f1.coords, decimal=3)
+            aa_eq(_f0.xyz, _f1.xyz, decimal=3)
 
     def test_frame_indices(self):
         # load frames to immutable traj

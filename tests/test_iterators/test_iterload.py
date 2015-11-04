@@ -15,7 +15,7 @@ class Test(unittest.TestCase):
         itertraj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         for idx, (f0, f1) in enumerate(izip(traj, itertraj)):
-            assert_almost_equal(f0.coords, f1.coords)
+            assert_almost_equal(f0.xyz, f1.xyz)
         assert idx == traj.n_frames - 1
 
 

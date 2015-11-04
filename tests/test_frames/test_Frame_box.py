@@ -12,11 +12,9 @@ class Test(unittest.TestCase):
         frame0 = traj[0]
         assert frame0.has_box() == False
         box = frame0.box
-        #print(box)
         assert frame0.box.type == 'nobox'
-        #print(box.name)
 
-        bview = frame0.boxview
+        bview = frame0._boxview
         bview[3:] = np.asarray([109.471220634, 109.471220634, 109.471220634])
         bview[:3] = np.array([100, 100, 100], dtype='f8')
         assert frame0.box.type == 'truncoct'

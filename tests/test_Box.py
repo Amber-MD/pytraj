@@ -12,8 +12,10 @@ class TestBox(unittest.TestCase):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
         frame0.box_crd()
-        frame0.boxview[:] = np.array([0.0, 1.0, 2.0, 3.0, 4.0, 6.])
+        frame0.box = np.array([0.0, 1.0, 2.0, 3.0, 4.0, 6.])
+        assert frame0.has_box(), 'must has box'
         frame0.set_nobox()
+        assert not frame0.has_box(), 'must not has box when setting no box'
 
     def test_1(self):
         box = Box()

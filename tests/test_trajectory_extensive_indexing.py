@@ -4,19 +4,13 @@ import unittest
 import pytraj as pt
 import numpy as np
 from pytraj.base import *
+from pytraj.testing import aa_eq
 
-ts = TrajectoryIterator()
-datadir = "./data/"
-topname = datadir + "Tc5b.top"
 refilename = "./data/Tc5b.nat.crd"
-mdx = "./data/md1_prod.Tc5b.x"
-ts = TrajectoryIterator()
-
-top = pt.load_topology(topname)
 trajin = """
 """
 
-ts.load(mdx, top)
+ts = pt.iterload('data/md1_prod.Tc5b.x', 'data/Tc5b.top')
 
 # create Trajectory to store Frame
 FARRAY = Trajectory()
@@ -30,47 +24,42 @@ class TestTrajectory(unittest.TestCase):
         N = 10
         farray = FARRAY[:N].copy()
         assert farray.n_frames == N
-        old_coords_5_10 = farray[5].coords[:10]
+        old_xyz_5_10 = farray[5].xyz[:10]
         assert farray[:3].n_frames == 3
         assert farray[1:3].n_frames == 2
         assert farray[3:1].n_frames == 0
         assert farray[3:1:-1].n_frames == 2
         assert farray[-1:-3].n_frames == 0
         assert farray[-1:-3:-1].n_frames == 2
-        assert farray[-1].same_coords_as(farray[N - 1]) == True
-
-        #assert farray[5:1:-1][0].same_coords_as(farray[5]) == True
-        # segment fault if using below expression
+        aa_eq(farray[-1].xyz, farray[N - 1].xyz)
 
         # need to create a temp farray
         subfarray = farray[5:1:-1]
-        assert subfarray[0].same_coords_as(farray[5]) == True
-        assert old_coords_5_10 == farray[5].coords[:10]
+        aa_eq(subfarray[0].xyz, farray[5].xyz)
+        aa_eq(old_xyz_5_10, farray[5].xyz[:10])
 
         f_last = farray[-3:-1][-1]
-        #assert f_last.same_coords_as(farray[-2]) == True
 
     def test_len_TrajectoryIterator(self):
         # create alias of `ts` (TrajectoryIterator instance  created above)
         farray = ts
         N = ts.n_frames
         assert farray.n_frames == N
-        old_coords_5_10 = farray[5].coords[:10]
+        old_xyz_5_10 = farray[5].xyz[:10].copy()
         assert farray[:3].n_frames == 3
         assert farray[1:3].n_frames == 2
         assert farray[3:1].n_frames == 0
         assert farray[3:1:-1].n_frames == 2
         assert farray[-1:-3].n_frames == 0
         assert farray[-1:-3:-1].n_frames == 2
-        assert farray[-1].same_coords_as(farray[N - 1]) == True
-
-        #assert farray[5:1:-1][0].same_coords_as(farray[5]) == True
-        # segment fault if using below expression
+        # need to store xyz
+        xyz = farray[-1].xyz.copy()
+        aa_eq(xyz, farray[N-1].xyz)
 
         # need to create a temp farray
         subfarray = farray[5:1:-1]
-        assert subfarray[0].same_coords_as(farray[5]) == True
-        assert old_coords_5_10 == farray[5].coords[:10]
+        aa_eq(subfarray[0].xyz, farray[5].xyz)
+        aa_eq(old_xyz_5_10, farray[5].xyz[:10])
 
     def test_mask_indexing_0(self):
         # Trajectory

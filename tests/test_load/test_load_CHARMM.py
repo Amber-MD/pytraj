@@ -17,7 +17,6 @@ class TestCHARMM(unittest.TestCase):
         atm.invert_mask()
         frame = Frame(atm.n_atoms)
         frame[:10] = np.asarray(array('d', list(range(30)))).reshape(10, 3)
-        frame.zero_coords()
 
     def test_1(self):
         traj = mdio.iterload("./data/ala3.dcd", "./data/ala3.psf")
@@ -26,7 +25,7 @@ class TestCHARMM(unittest.TestCase):
         trajamber = mdio.iterload("./output/_save_charmm_to_amber.x",
                                   "./data/ala3.psf")
         for i in range(traj.n_frames):
-            aa_eq(trajamber[i].coords, traj[i].coords, decimal=3)
+            aa_eq(trajamber[i].xyz, traj[i].xyz, decimal=3)
 
 
 if __name__ == "__main__":

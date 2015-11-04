@@ -13,15 +13,11 @@ class TestRegular(unittest.TestCase):
             "./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
         f0 = traj[0]
         f0cp = f0.copy()
-        #print(f0.same_coords_as(f0cp))
-        assert f0.same_coords_as(f0cp) == True
         adict['autoimage']("", f0, traj.top)
-        #print(f0.same_coords_as(f0cp))
-        assert f0.same_coords_as(f0cp) == False
 
         fsaved = pt.iterload("./data/tz2.truncoct.autoiamge.save.r",
                              "./data/tz2.truncoct.parm7")[0]
-        aa_eq(fsaved.coords, f0.coords, decimal=3)
+        aa_eq(fsaved.xyz, f0.xyz, decimal=3)
 
     def test_2(self):
         from pytraj.common_actions import do_autoimage
@@ -30,15 +26,11 @@ class TestRegular(unittest.TestCase):
             "./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
         f0 = traj[0]
         f0cp = f0.copy()
-        #print(f0.same_coords_as(f0cp))
-        assert f0.same_coords_as(f0cp) == True
         do_autoimage(traj=f0, top=traj.top)
-        #print(f0.same_coords_as(f0cp))
-        assert f0.same_coords_as(f0cp) == False
 
         fsaved = pt.iterload("./data/tz2.truncoct.autoiamge.save.r",
                              "./data/tz2.truncoct.parm7")[0]
-        aa_eq(fsaved.coords, f0.coords, decimal=3)
+        aa_eq(fsaved.xyz, f0.xyz, decimal=3)
 
     def test_4(self):
         # combined with get_coordinates
@@ -60,7 +52,7 @@ class TestRegular(unittest.TestCase):
         traj2 = pt._load_from_frame_iter(traj0(rmsfit=(0, '@CA,C,N')))
         traj1.rmsfit(ref=0, mask='@CA,C,N')
 
-        # take '@CA,C,N' coords
+        # take '@CA,C,N' xyz
         xyz2 = traj2['@CA,C,N'].xyz
         xyz1 = traj1['@CA,C,N'].xyz
         # OK
@@ -76,7 +68,7 @@ class TestRegular(unittest.TestCase):
         traj1.autoimage()
         traj1.rmsfit(ref=0, mask='@CA,C,N')
 
-        # take '@CA,C,N' coords
+        # take '@CA,C,N' xyz
         xyz2 = traj2['@CA,C,N'].xyz
         xyz1 = traj1['@CA,C,N'].xyz
         # PASSED

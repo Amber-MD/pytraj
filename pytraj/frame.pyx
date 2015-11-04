@@ -98,12 +98,6 @@ cdef class Frame (object):
                     elif isinstance(args[0], int):
                         natom = <int> args[0]
                         self.thisptr = new _Frame(natom)
-                    elif isinstance(args[0], (list, tuple, pyarray, np.ndarray)):
-                        # TODO : specify all things similar to list or array
-                        natom3 = <int> len(args[0])
-                        self.thisptr = new _Frame(natom3/3)
-                        for i in range(natom3):
-                            self.set_from_crd(pyarray('d', args[0]))
                     else:
                         # Create Frame from list of atom mask
                         atlist = args[0]
@@ -126,7 +120,7 @@ cdef class Frame (object):
     def __del__(self):
         del self.thisptr
 
-    def same_coords_as(self, Frame other):
+    def _same_coords_as(self, Frame other):
         """check if two frames having the same coords"""
         return (self.coords == other.coords)
 
@@ -135,10 +129,7 @@ cdef class Frame (object):
         cdef Frame frame = Frame(self)
         return frame
 
-    def is_empty(self):
-        return self.size == 0
-
-    def set_from_crd(self, CRDtype farray, *args):
+    def _set_from_crd(self, CRDtype farray, *args):
         """"""
         cdef int numCrd, numBoxCrd
         cdef bint hasVel
@@ -154,12 +145,6 @@ cdef class Frame (object):
             # TODO : shape checking
             numCrd = len(farray)
             self.thisptr.SetFromCRD(farray, numCrd, 0, False)
-
-    def info(self, char* msg=''):
-        self.thisptr.Info(msg)
-
-    def clear_atoms(self):
-        self.thisptr.ClearAtoms()
 
     def append_xyz(self, double[:, :] xyz):
         """append 3D array and return itself
@@ -189,20 +174,7 @@ cdef class Frame (object):
         for i in range(N):
             self.thisptr.AddXYZ(&xyz[i*3])
 
-    def append_vec3(self, Vec3 vec):
-        self.thisptr.AddVec3(vec.thisptr[0])
-
-    def swap_atoms(self, int atom1, int atom2):
-        """
-        Parameters
-        ----------
-        atom1 : int
-        atom2 : int
-
-        """
-        self.thisptr.SwapAtoms(atom1, atom2)
-
-    def swap_atom_array(self, cython.integral[:, :] int_view):
+    def swap_atoms(self, cython.integral[:, :] int_view):
         """
         Parameters
         ----------
@@ -391,13 +363,13 @@ cdef class Frame (object):
     def __len__(self):
         return self.size
 
-    property buffer1d:
+    property _buffer1d:
         def __get__(self):
             """return memory view for Frame coordinates
             TODO : rename?
             """
             # debug
-            #print "from calling buffer1d: _own_memory = ", self._own_memory
+            #print "from calling _buffer1d: _own_memory = ", self._own_memory
             # end debug
             def _buffer(N):
                 cdef double* ptr = self.thisptr.xAddress()
@@ -483,24 +455,16 @@ cdef class Frame (object):
         def __set__(self, double timein):
             self.thisptr.SetTime(timein)
 
-    def update_atom(self, int idx, double[:] xyz):
-        cdef double* ptr = self.thisptr.xAddress() + 3 * idx
-        if len(xyz) > 3:
-            raise IndexError("")
-        ptr[0] = xyz[0]
-        ptr[1] = xyz[1]
-        ptr[2] = xyz[2]
-
-    def update_atoms(self, indices, xyz):
+    def _update_atoms(self, indices, xyz):
         """TODO: add doc"""
         # xyz : 1D array
         if len(indices) != len(xyz)/3:
             raise ValueError("TODO: add doc")
-        self._update_atoms(pyarray('i', indices), pyarray('d', xyz), len(indices))
+        self._cy_update_atoms(pyarray('i', indices), pyarray('d', xyz), len(indices))
 
     @cython.boundscheck(False)
     @cython.wraparound(False)
-    cdef _update_atoms(self, int[:] indices, double[:] xyz, int N):
+    cdef _cy_update_atoms(self, int[:] indices, double[:] xyz, int N):
         """Update atom coordinates with indices and given xyz array
         Parameters:
         ----------
@@ -518,7 +482,7 @@ cdef class Frame (object):
             ptr[1] = xyz[3*i + 1]
             ptr[2] = xyz[3*i + 2]
 
-    def atoms(self, int atomnum):
+    def atom(self, int atomnum):
         """return xyz coordinates of idx-th atom"""
         # return XYZ for atomnum
         # cpptraj: return double*
@@ -543,35 +507,6 @@ cdef class Frame (object):
             '''
             return np.array(self.xyz)
 
-    property coords:
-        def __get__(self):
-            """
-            return 1D-coords (copy) of Frame
-            Notes
-            -----
-            same as `Frame.coords`. We use `coordinates` to be the same as in
-            `parmed`
-            """
-            cdef pyarray arr = cparray.clone(pyarray('d', []), 
-                                self.n_atoms*3, zero=False)
-            cdef int i
-            cdef double* ptr = self.thisptr.xAddress()
-            cdef int natom3 = 3 * self.thisptr.Natom()
-
-            for i in range(natom3):
-                arr[i] = ptr[i]
-            return arr
-
-    def v_xyz(self, int atnum):
-        """return a copy of velocity"""
-        cdef int i
-        cdef pyarray arr = pyarray('d', [])
-
-        arr.append(self.thisptr.VXYZ(atnum)[0])
-        arr.append(self.thisptr.VXYZ(atnum)[1])
-        arr.append(self.thisptr.VXYZ(atnum)[2])
-        return arr
-
     property mass:
          def __get__(self):
              """return mass array"""
@@ -583,7 +518,7 @@ cdef class Frame (object):
              return np.array(arr)
 
     def set_nobox(self):
-        self.boxview[:] = pyarray('d', [0. for _ in range(6)])
+        self._boxview[:] = pyarray('d', [0. for _ in range(6)])
 
     def box_crd(self):
         cdef Box box = Box()
@@ -600,34 +535,18 @@ cdef class Frame (object):
             other : {Box, array-like}
             """
             _box = Box(other)
-            self.boxview[:] = _box[:]
+            self._boxview[:] = _box[:]
 
     def has_box(self):
         return self.box.has_box()
 
-    property boxview:
+    property _boxview:
         def __get__(self):
             """return a memoryview of box array"""
             cdef double* ptr = self.thisptr.bAddress()
             cdef view.array my_arr
             my_arr = <double[:6]> ptr
             return my_arr
-
-    def set_box_angles(self, double[:] ain):
-        self.thisptr.SetBoxAngles(&ain[0])
-
-    def set_frame(self, *args):
-        cdef int atomnum 
-        cdef AtomMask atm
-        cdef Frame frame
-
-        if isinstance(args[0], Frame) and isinstance(args[1], AtomMask):
-            frame = args[0]
-            atm = args[1]
-            self.thisptr.SetFrame(frame.thisptr[0], atm.thisptr[0])
-        elif is_int(args):
-            atomnum = <int> args[0]
-            self.thisptr.SetupFrame(atomnum)
 
     def set_frame_mass(self, Topology top):
         self.thisptr.SetMass(top.thisptr.Atoms())
@@ -645,60 +564,6 @@ cdef class Frame (object):
             va.push_back(atom.thisptr[0])
         self.thisptr.SetMass(va)
 
-    def set_frame_x_m(self, vector[double] Xin, vector[double] massIn):
-        return self.thisptr.SetupFrameXM(Xin, massIn)
-
-    def set_frame_from_mask(self, mask, atomlist_or_top):
-        cdef Atom atom
-        cdef vector[_Atom] v 
-        cdef AtomMask atm
-        cdef Topology top
-
-        if isinstance(mask, string_types):
-            # if providing mask string
-            # create AtomMask instance
-            atm = AtomMask(mask)
-            # assume atht atomlist_or_top is Topology instance
-            atomlist_or_top.set_integer_mask(atm)
-        elif isinstance(mask, AtomMask):
-            atm = mask 
-        else:
-            raise NotImplementedError("must be `str` or AtomMask")
-
-        if isinstance(atomlist_or_top, (list, tuple)):
-            # list of atoms
-            for atom in atomlist_or_top:
-                v.push_back(atom.thisptr[0])
-            return self.thisptr.SetupFrameFromMask(atm.thisptr[0], v)
-        elif isinstance(atomlist_or_top, Topology):
-            top = atomlist_or_top
-            return self.thisptr.SetupFrameFromMask(atm.thisptr[0], top.thisptr.Atoms())
-        else:
-            raise NotImplementedError("must be list of Atom objects or Topology")
-
-    def set_coords(self, Frame frame, *args):
-        """set coords for Frame with given mask
-
-        Parameters
-        ----------
-        frame : Frame object
-        atmask : AtomMask object (optional)
-        """
-        cdef AtomMask atmask 
-        if not args:
-            self.thisptr.SetCoordinates(frame.thisptr[0])
-        else:
-            atmask = args[0]
-            self.thisptr.SetCoordinates(frame.thisptr[0], atmask.thisptr[0])
-
-    def set_coords_by_map(self, Frame frame, vector[int] mapIn):
-        self.thisptr.SetCoordinatesByMap(frame.thisptr[0], mapIn)
-
-    def zero_coords(self):
-        self.thisptr.ZeroCoords()
-
-    # NOTE: nogain with openmp for iadd, isub, ...
-    # (and not faster than numpy, even with 500K atoms) 
     def __iadd__(Frame self, value):
         cdef Frame other
         # += 
@@ -821,23 +686,6 @@ cdef class Frame (object):
             frame.xyz = self.xyz / value
         return frame
 
-    def divide(self, double divisor, *args):
-        # TODO : check
-        cdef Frame frame
-        if not args:
-            self.thisptr.Divide(divisor)
-        else:
-            frame = args[0]
-            return self.thisptr.Divide(frame.thisptr[0], divisor)
-
-    def add_by_mask(self, Frame frame, AtomMask atmask):
-        """Increment atoms in `self` by selected atoms from `frame`
-        """
-        self.thisptr.AddByMask(frame.thisptr[0], atmask.thisptr[0])
-
-    def check_coords_invalid(self):
-        return self.thisptr.CheckCoordsInvalid()
-
     def center_of_mass(self, AtomMask atmask):
         """return Vec3"""
         cdef Vec3 v3 = Vec3()
@@ -850,102 +698,9 @@ cdef class Frame (object):
         v3.thisptr[0] = self.thisptr.VGeometricCenter(atmask.thisptr[0])
         return v3
 
-    def translate(self, *args):
-        # TODO : doc
-        """
-        Paramters:
-        ---------
-               (Vec3, first_atom_idx, last_atom_idx)
-            or (Vec3, atom_idx) 
-            or (Vec3)
-        TODO: add doc
-        """
-        cdef firstAtom, lastAtom, atom
-        cdef Vec3 vec3
-
-        if not args:
-            raise ValueError()
-
-        if isinstance(args[0], Vec3):
-            vec3 = args[0]
-        else:
-            # try to convert to Vec3. no warranty :D
-            vec3 = Vec3(args[0])
-
-        if len(args) == 3:
-            vec3, firstAtom, lastAtom = args
-            self.thisptr.Translate(vec3.thisptr[0], firstAtom, lastAtom)
-        elif len(args) == 2:
-            vec3, atom = args
-            assert isinstance(vec3, Vec3), 'must be Vec3'
-            self.thisptr.Translate(vec3.thisptr[0], atom)
-        elif len(args) == 1:
-            self.thisptr.Translate(vec3.thisptr[0])
-        else:
-            raise ValueError()
-
-    def neg_translate(self, Vec3 vec):
-        self.thisptr.NegTranslate(vec.thisptr[0])
-
-    def rotate_with_matrix(self, mat, *args):
-        """
-        Parameters
-        ----------
-        mat : Matrix-like, shape=(3,3)
-            3x3 matrix (pytraj or numpy)
-        """
-        import numpy as np
-        cdef AtomMask atm
-        cdef Matrix_3x3 _mat
-
-        if isinstance(mat, np.matrix) or isinstance(mat, np.ndarray):
-            _mat = Matrix_3x3(mat)
-        else:
-            # assume Matrix_3x3
-            _mat = mat
-        if args:
-            atm = <AtomMask> args[0]
-            self.thisptr.Rotate(_mat.thisptr[0], atm.thisptr[0])
-        else:
-            self.thisptr.Rotate(_mat.thisptr[0])
-
-    def rotate(self, int x=0, int y=0, int z=0, atommask=None):
-        """rotate(Matrix_3x3 m3, *args)
-        Paramters:
-        m3 : Matrix_3x3
-        *args : optional
-            atmmaks : AtomMaks instance
-         or (mask (str), Topology instance)
-
-        """
-        cdef Matrix_3x3 m3 = Matrix_3x3()
-        cdef AtomMask atmask
-        cdef string mask
-        cdef Topology top
-
-        m3.thisptr.CalcRotationMatrix(math.radians(x), 
-                                      math.radians(y), 
-                                      math.radians(z))
-
-        if atommask is None:
-            self.thisptr.Rotate(m3.thisptr[0])
-        else:
-            atmask = <AtomMask> atommask
-            self.thisptr.Rotate(m3.thisptr[0], atmask.thisptr[0])
-
     def trans_rot_trans(self, Vec3 vec3, Matrix_3x3 m3, Vec3 vec3_2):
         # TODO : add doc, make test case
         self.thisptr.Trans_Rot_Trans(vec3.thisptr[0], m3.thisptr[0], vec3_2.thisptr[0])
-
-    def scale(self, AtomMask atm, double sx, double sy, double sz):
-        # TODO : add doc, make test case
-        self.thisptr.Scale(atm.thisptr[0], sx, sy, sz)
-
-    def center_on_origin(self,bint useMassIn):
-        # TODO : add doc, make test case
-        cdef Vec3 v = Vec3()
-        v.thisptr[0] = self.thisptr.CenterOnOrigin(useMassIn)
-        return v
 
     def rmsd(self, Frame frame, AtomMask atommask=None, 
              mask=None, top=None,
@@ -987,25 +742,6 @@ cdef class Frame (object):
                                           v1.thisptr[0], v2.thisptr[0], mass)
             return rmsd_, m3, v1, v2
 
-    def rmsd_centered_ref(self, Frame ref, bint mass=False, *args):
-        """Calculate rmsd betwen two frames
-        Parameters:
-        ----------
-        frame : Frame instance
-        mass : bool, default = False
-        *args :  optional, 2 args (Matrix_3x3 instance, Vec3 instance)
-        """
-        cdef Matrix_3x3 mat 
-        cdef Vec3 v
-
-        if not args:
-            return self.thisptr.RMSD_CenteredRef(ref.thisptr[0], mass)
-        else:
-            mat, v = args
-            assert isinstance(mat, Matrix_3x3) == True, 'mat must be Matrix_3x3'
-            assert isinstance(v, Vec3) == True, 'V must be Vec3'
-            return self.thisptr.RMSD_CenteredRef(ref.thisptr[0], mat.thisptr[0], v.thisptr[0], mass)
-
     def rmsd_nofit(self, Frame frame, bint mass=False):
         """Calculate rmsd betwen two frames without fitting
         Parameters:
@@ -1041,18 +777,15 @@ cdef class Frame (object):
         _, mat, v1, v2 = self.rmsd(ref, atm, get_mvv=True)
         self.trans_rot_trans(v1, mat, v2)
 
-    def set_axis_of_rotation(self, int atom1, int atom2):
+    def _set_axis_of_rotation(self, int atom1, int atom2):
         cdef Vec3 vec = Vec3()
         vec.thisptr[0] = self.thisptr.SetAxisOfRotation(atom1, atom2)
         return vec
 
-    def calc_inertia(self, AtomMask atm, Matrix_3x3 Inertia):
+    def _calc_inertia(self, AtomMask atm, Matrix_3x3 Inertia):
         cdef Vec3 vec = Vec3()
         vec.thisptr[0] = self.thisptr.CalculateInertia(atm.thisptr[0], Inertia.thisptr[0])
         return vec
-
-    def calc_temperature(self, AtomMask mask, int deg_of_freedom):
-        return self.thisptr.CalcTemperature(mask.thisptr[0], deg_of_freedom)
 
     def strip_atoms(Frame self, AtomMask atm):
         """strip_atoms
@@ -1077,36 +810,13 @@ cdef class Frame (object):
         frame._own_memory = False
         return self
 
-    def get_subframe(self, mask=None, top=None):
-        cdef AtomMask atm
-
-        if isinstance(mask, string_types):
-            assert top is not None
-            atm = AtomMask(mask)
-            top.set_integer_mask(atm)
-        elif isinstance(mask, AtomMask):
-            atm = <AtomMask> mask
-            assert top is None
-        else:
-            raise NotImplementedError('mask mut string  or AtomMask object')
-        return Frame(self, atm)
-
     property top:
         def __get__(self):
             return self._top
         def __set__(self, value):
             self._top = value
 
-    def save(self, filename="", top=None, format='unknown', 
-             overwrite=False, *args, **kwd):
-        if format== 'unknown':
-            # convert to "UNKNOWN_TRAJ"
-            format= format.upper() + "_TRAJ"
-        with Trajout(filename=filename, top=top, format=format, 
-                     overwrite=overwrite, *args, **kwd) as trajout:
-            trajout.write(0, self, top)
-
-    def calc_dihedral(self, cython.integral[:, :] int_arr):
+    def _dihedral(self, cython.integral[:, :] int_arr):
         """return python array of dih angle for four atoms with indices idx1-4
         Parameters
         ----------
@@ -1131,7 +841,7 @@ cdef class Frame (object):
                           self.thisptr.XYZ(idx2), self.thisptr.XYZ(idx3))
         return arr0
 
-    def calc_angle(self, cython.integral[:, :] int_arr):
+    def _angle(self, cython.integral[:, :] int_arr):
         """return python array of angles for three atoms with indices idx1-3
         Parameters
         ----------
@@ -1155,7 +865,7 @@ cdef class Frame (object):
                         self.thisptr.XYZ(idx2))
         return arr0
 
-    def calc_distance(self, arr, parallel=False):
+    def _distance(self, arr, parallel=False):
         # TODO: use `cdef _calc_distance`
         # need to make nested function to use default `parallel` value (=False)
         # if not, will get error: Special method __defaults__ 
@@ -1192,10 +902,6 @@ cdef class Frame (object):
                 arr0_view[i] = sqrt(DIST2_NoImage(self.thisptr.XYZ(idx0), self.thisptr.XYZ(idx1)))
         return arr0
 
-    def tolist(self):
-        """return a list of 2D coords"""
-        return [list(x) for x in self]
-
     def to_ndarray(self):
         """return a ndarray as a view of self._buffer2d"""
         import numpy as np
@@ -1207,7 +913,7 @@ cdef class Frame (object):
         """
         return Frame().append_xyz(xyz)
 
-    def to_dataframe(self, top=None):
+    def _to_dataframe(self, top=None):
         import pandas as pd
         import numpy as np
         if pd:
