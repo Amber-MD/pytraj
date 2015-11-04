@@ -175,7 +175,10 @@ class _super_dispatch(object):
         def inner(*args, **kwd):
             args = list(args)
             # traj is always 1st argument
-            traj = kwd.get('traj', args[0])
+            try:
+                traj = kwd.get('traj', args[0])
+            except IndexError:
+                traj = kwd.get('traj')
             frame_indices = kwd.get('frame_indices')
             ref = kwd.get('ref', None)
             if self.has_ref and ref is None:

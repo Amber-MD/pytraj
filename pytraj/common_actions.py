@@ -26,7 +26,7 @@ from .hbond_analysis import hbond as search_hbonds
 from .dssp_analysis import calc_dssp
 from .nucleic_acid_analysis import nastruct
 from ._shared_methods import iterframe_master
-from .externals.get_pysander_energies import get_pysander_energies
+from .externals.get_pysander_energies import energy_decomposition
 from .decorators import _register_pmap, _register_openmp
 from .actions import CpptrajActions
 from .analyses import CpptrajAnalyses
@@ -70,9 +70,6 @@ list_of_the_rest = ['search_hbonds', 'align_principal_axis', 'principal_axes',
                     'closest', 'native_contacts', 'nastruct']
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
-
-calc_energies = get_pysander_energies
-energy_decomposition = get_pysander_energies
 
 
 def _2darray_to_atommask_groups(seq):
