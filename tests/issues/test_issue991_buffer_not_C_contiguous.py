@@ -6,7 +6,7 @@ import numpy as np
 import pytraj as pt
 from pytraj.testing import eq, aa_eq
 
-class Test_Issue_991(unittest.TestCase):
+class TestIssue991(unittest.TestCase):
     def test_buffer_not_c_contiguous(self):
         # source code was lightly adapted from jmborr
         # https://github.com/Amber-MD/pytraj/issues/991
