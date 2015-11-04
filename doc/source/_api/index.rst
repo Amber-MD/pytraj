@@ -25,3 +25,4 @@ try ``pytraj`` online:
     pytraj.core.action_list
     pytraj.core.cpp_core
     pytraj.datasets.cpp_datasets
+    pytraj.energy_decomposition

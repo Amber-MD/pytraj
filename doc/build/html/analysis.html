@@ -750,8 +750,11 @@ like below:</p>
 
 <span class="target" id="search-hbonds"></span><dl class="function">
 <dt id="pytraj.search_hbonds">
-<tt class="descclassname">pytraj.</tt><tt class="descname">search_hbonds</tt><big>(</big><em>traj</em>, <em>mask=''</em>, <em>solvent_donor=None</em>, <em>solvent_acceptor=None</em>, <em>distance=3.0</em>, <em>angle=135.0</em>, <em>image=False</em>, <em>series=True</em>, <em>more_options=''</em>, <em>dtype='hbond'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.search_hbonds" title="Permalink to this definition">¶</a></dt>
-<dd><p>Searching for Hbond donors/acceptors in region specified by <tt class="docutils literal"><span class="pre">mask</span></tt></p>
+<tt class="descclassname">pytraj.</tt><tt class="descname">search_hbonds</tt><big>(</big><em>traj</em>, <em>mask=''</em>, <em>solvent_donor=None</em>, <em>solvent_acceptor=None</em>, <em>distance=3.0</em>, <em>angle=135.0</em>, <em>image=False</em>, <em>series=True</em>, <em>cpp_options=''</em>, <em>dtype='hbond'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.search_hbonds" title="Permalink to this definition">¶</a></dt>
+<dd><p>(combined with cpptraj doc) Searching for Hbond donors/acceptors in region specified by <tt class="docutils literal"><span class="pre">mask</span></tt>.
+Hydrogen bond is defined as A-HD, where A is acceptor heavy atom, H is hydrogen, D is
+donor heavy atom. Hydrogen bond is formed when A to D distance &lt; distance cutoff and A-H-D angle
+&gt; angle cutoff; if <cite>angle</cite> &lt; 0 it is ignored.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -759,7 +762,8 @@ like below:</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
 <p><strong>mask</strong> : {str, 1D array-like}</p>
 <blockquote>
-<div><p>Atom mask for searching hbond</p>
+<div><p>Atom mask for searching hbond. If this <cite>mask</cite> is specify, cpptraj will
+automatically search for donors and acceptors.</p>
 </div></blockquote>
 <p><strong>solvent_donor</strong> : {None, str}, default None</p>
 <p><strong>solvent_acceptor: {None, str}, deafult None</strong></p>
@@ -785,9 +789,20 @@ between solute and solvent too.</p>
 <li>if False, you must specify dtype=&#8217;dataset&#8217;</li>
 </ul>
 </div></blockquote>
-<p><strong>more_options</strong> : str</p>
+<p><strong>cpp_options</strong> : str</p>
 <blockquote>
-<div><p>additional cpptraj options</p>
+<div><p>additional cpptraj options. For example you can explicitly specify donormask and
+acceptormask.</p>
+<ul class="simple">
+<li>If <tt class="docutils literal"><span class="pre">donormask</span></tt> is specified but not <tt class="docutils literal"><span class="pre">acceptormask</span></tt>, acceptors will be
+automatically searched for in <tt class="docutils literal"><span class="pre">mask</span></tt>.</li>
+<li>If <tt class="docutils literal"><span class="pre">acceptormask</span></tt> is specified but not donormask, donors will be</li>
+</ul>
+<p>automatically search for in <tt class="docutils literal"><span class="pre">mask</span></tt>.</p>
+<ul class="simple">
+<li>If both <tt class="docutils literal"><span class="pre">donormask</span></tt> and <tt class="docutils literal"><span class="pre">acceptormask</span></tt> are specified no automatic searching will
+occur.</li>
+</ul>
 </div></blockquote>
 </td>
 </tr>
@@ -820,8 +835,13 @@ between solute and solvent too.</p>
 <span class="go">       [1, 1, 0, ..., 1, 1, 1],</span>
 <span class="go">       [1, 1, 0, ..., 0, 0, 0]], dtype=int32)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># search hbond including solvent</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:5,8&#39;</span><span class="p">,</span> <span class="n">solvent_donor</span><span class="o">=</span><span class="s">&#39;:WAT@O&#39;</span><span class="p">,</span> <span class="n">solvent_acceptor</span><span class="o">=</span><span class="s">&#39;:WAT&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hbonds</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:5,8&#39;</span><span class="p">,</span> <span class="n">solvent_donor</span><span class="o">=</span><span class="s">&#39;:WAT@O&#39;</span><span class="p">,</span> <span class="n">solvent_acceptor</span><span class="o">=</span><span class="s">&#39;:WAT&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hbonds</span>
+<span class="go">&lt;pytraj.hbonds.DatasetHBond</span>
+<span class="go">donor_aceptor pairs : 8&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hbonds</span><span class="o">.</span><span class="n">donor_aceptor</span>
+<span class="go">[&#39;LYS8_O-GLU5_N-H&#39;, &#39;GLU5_O-LYS8_N-H&#39;, &#39;LYS8_HZ1-V&#39;, &#39;LYS8_HZ2-V&#39;, &#39;GLU5_OE2-V&#39;, &#39;GLU5_O-V&#39;, &#39;GLU5_OE1-V&#39;, &#39;LYS8_HZ3-V&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># &#39;GLU5_O-V&#39; mean non-specific hbond between GLU5_O and solvent (:WAT in this case)</span>
 </pre></div>
 </div>
 </dd></dl>

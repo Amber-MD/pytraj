@@ -178,6 +178,10 @@ if string, load coordinates for given atom mask</p>
 </tr>
 </tbody>
 </table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#pytraj.io.iterload" title="pytraj.io.iterload"><tt class="xref py py-obj docutils literal"><span class="pre">iterload</span></tt></a></p>
+</div>
 <p class="rubric">Notes</p>
 <ul class="simple">
 <li>For further slicing options, see pytraj.TrajectoryIterator (created by <tt class="docutils literal"><span class="pre">pytraj.iterload</span></tt>)</li>
@@ -219,21 +223,72 @@ memory</li>
 <dt id="pytraj.io.iterload">
 <tt class="descclassname">pytraj.io.</tt><tt class="descname">iterload</tt><big>(</big><em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.io.iterload" title="Permalink to this definition">¶</a></dt>
 <dd><p>return TrajectoryIterator object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename: {str, list-like of filenames, pattern}</strong></p>
+<blockquote>
+<div><p>input trajectory filename(s). You can use a single filename, a list of filenames
+or a pattern.</p>
+</div></blockquote>
+<p><strong>top</strong> : {str, Topology}</p>
+<blockquote>
+<div><p>input topology. If str, pytraj will load from disk to Topology first</p>
+</div></blockquote>
+<p><strong>frame_slice: tuple or list of tuple</strong></p>
+<blockquote>
+<div><p>specify start, stop, step for each trajectory you want to read.</p>
+<p>cpptraj input:</p>
+<div class="highlight-python"><div class="highlight"><pre>trajin traj0.nc 1 10
+trajin traj1.nc
+</pre></div>
+</div>
+<p>In pytraj, corresponding frame_slice=[(0, 10), (0, -1)]</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">pytraj.TrajectoryIterator</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Unlike <cite>pytraj.load</cite>, you can not arbitarily set <cite>frame_indices</cite>. If you want to do
+so, first load trajectories to TrajectoryIterator object, then do fancy slicing</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">register</span> <span class="n">to</span> <span class="n">load</span> <span class="n">traj</span><span class="o">.</span><span class="n">nc</span> <span class="kn">from</span> <span class="mi">0</span><span class="o">-</span><span class="n">th</span> <span class="n">to</span> <span class="mi">99</span><span class="o">-</span><span class="n">th</span> <span class="n">frame</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="s">&#39;prmtop&#39;</span><span class="p">,</span> <span class="n">frame_slice</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># do fancy indexing to load specific frames to memory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">7</span><span class="p">]]</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load to disk with given mask</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="s">&#39;!@H=&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># load a single filename</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="s">&#39;2koc.parm7&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load from a list of files</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load from a list of filenames</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s">&#39;traj0.nc&#39;</span><span class="p">,</span> <span class="s">&#39;traj1.nc&#39;</span><span class="p">],</span> <span class="s">&#39;2koc.parm7&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load all files with given pattern</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load all files with a given pattern (sorted)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;./traj*.nc&#39;</span><span class="p">,</span> <span class="s">&#39;2koc.parm7&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load from a list of files with given frame step</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># for each file, only register to load from frame 0 to 9 (skip 10), skip every 2 frames</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s">&#39;traj0.nc&#39;</span><span class="p">,</span> <span class="s">&#39;traj1.nc&#39;</span><span class="p">],</span> <span class="s">&#39;2koc.parm7&#39;</span><span class="p">,</span> <span class="n">frame_slice</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">),]</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load from frame 0 to 9 for `traj0.nc`</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># load all frames from `traj1.nc`</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s">&#39;traj0.nc&#39;</span><span class="p">,</span> <span class="s">&#39;traj1.nc&#39;</span><span class="p">],</span> <span class="s">&#39;2koc.parm7&#39;</span><span class="p">,</span> <span class="n">frame_slice</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
 </pre></div>
 </div>
 </dd></dl>
