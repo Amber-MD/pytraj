@@ -23,7 +23,6 @@ def energy_decomposition(traj=None,
                           frame_indices=None,
                           verbose=False,
                           top=None):
-    # TODO: change method's name?
     """"
     Parameters
     ---------
@@ -59,11 +58,29 @@ def energy_decomposition(traj=None,
     --------
     >>> import pytraj as pt
     >>> # GB energy
-    >>> traj_gb = pt.datafiles.load_ala3()
-    >>> traj_gb
-    >>> pt.energy_decomposition(traj, igb=8)
+    >>> traj = pt.datafiles.load_ala3()
+    >>> traj.n_frames
+    1
+    >>> data = pt.energy_decomposition(traj, igb=8)
+    >>> data['gb']
+    array([-92.88577683])
+    >>> data['bond']
+    array([ 5.59350521])
+
+    >>> # PME
+    >>> import os
+    >>> from pytraj.testing import amberhome
+    >>> import sander
+    >>> topfile = os.path.join(amberhome, "test/4096wat/prmtop")
+    >>> rstfile = os.path.join(amberhome, "test/4096wat/eq1.x")
+    >>> traj = pt.iterload(rstfile, topfile) 
+    >>> options = sander.pme_input()
+    >>> options.cut = 8.0
+    >>> edict = pt.energy_decomposition(traj=traj, input_options=options)
+    >>> edict['vdw'] 
+    array([ 6028.95167558])
     """
-    from collections import defaultdict
+    from collections import defaultdict, OrderedDict
     from pytraj.misc import get_atts
     import numpy as np
 
@@ -134,7 +151,7 @@ def energy_decomposition(traj=None,
         new_dict[key] = np.asarray(new_dict[key])
 
     if dtype == 'dict':
-        return new_dict
+        return OrderedDict(new_dict)
     else:
         from pytraj.datasets.DatasetList import DatasetList
 
