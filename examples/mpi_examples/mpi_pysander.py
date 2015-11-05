@@ -25,10 +25,8 @@ try:
     data = pt.pmap_mpi(pt.energy_decomposition, traj, mm_options=inp)
     
     if comm.rank == 0:
-        print(data)
-
         # make sure to reproduce serial output
-        #serial_data = pt.energy_decomposition(traj, mm_options=inp)
-        #aa_eq(pt.tools.dict_to_ndarray(data), pt.tools.dict_to_ndarray(serial_data))
+        serial_data = pt.energy_decomposition(traj, mm_options=inp)
+        aa_eq(pt.tools.dict_to_ndarray(data), pt.tools.dict_to_ndarray(serial_data))
 except ImportError:
     print('does not have sander. skip this example')
