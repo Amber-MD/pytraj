@@ -43,6 +43,8 @@ class TestSanderPmap(unittest.TestCase):
 
             input_options = sander.gas_input(8)
             data_serial = pt.energy_decomposition(traj, input_options=input_options, dtype='dict')
+            aa_eq(pt.tools.dict_to_ndarray(data_parallel),
+                  pt.tools.dict_to_ndarray(data_serial))
 
 
 if __name__ == "__main__":
