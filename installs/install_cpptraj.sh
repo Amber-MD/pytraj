@@ -10,7 +10,7 @@ echo $install_type
 # PYTRAJHOME is the root folder of `pytraj`
 export PYTRAJHOME=`pwd`
 
-if [[ $install_type == 'github' ]]; then
+if [ "$install_type" = 'github' ]; then
     git clone https://github.com/Amber-MD/cpptraj
     echo 'he he, installing from github'
 fi
