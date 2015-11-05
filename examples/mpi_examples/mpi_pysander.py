@@ -22,13 +22,13 @@ try:
 
     # gather the data
     # if rank != 0: data is None
-    data = pt.pmap_mpi(pt.energy_decomposition, traj, input_options=inp)
+    data = pt.pmap_mpi(pt.energy_decomposition, traj, mm_options=inp)
     
     if comm.rank == 0:
         data = pt.tools.concat_dict(data)
 
         # make sure to reproduce serial output
-        #serial_data = pt.energy_decomposition(traj, input_options=inp)
+        #serial_data = pt.energy_decomposition(traj, mm_options=inp)
         #aa_eq(pt.tools.dict_to_ndarray(data), pt.tools.dict_to_ndarray(serial_data))
 except ImportError:
     print('does not have sander. skip this example')

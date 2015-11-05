@@ -15,10 +15,10 @@ def _default_func():
 @_register_pmap
 @_super_dispatch()
 def energy_decomposition(traj=None,
-                          parm=None,
+                          prmtop=None,
                           igb=8,
-                          input_options=None,
-                          qmmm_options=None,
+                          mm_options=None,
+                          qm_options=None,
                           mode=None,
                           dtype='dict',
                           frame_indices=None,
@@ -29,18 +29,18 @@ def energy_decomposition(traj=None,
     ----------
     traj : Trajectory-like or iterables that produce Frame
         if `traj` does not hold Topology information, `top` must be provided
-    parm : str or Structure from ParmEd, default=None, optional
+    prmtop : str or Structure from ParmEd, default=None, optional
         To avoid any unexpected error, you should always provide original topology
-        filename. If parm is None, pytraj will load Topology from traj.top.filename.
+        filename. If prmtop is None, pytraj will load Topology from traj.top.filename.
 
         - why do you need to load additional topology filename? Because cpptraj and sander
           use different Topology object, can not convert from one to another.
     igb : GB model, default=8 (GB-Neck2)
-        If specify `input_options`, this `igb` input will be ignored
-    input_options : InputOptions from `sander`, default=None, optional
-        if `input_options` is None, use `gas_input` with given igb.
-        If `input_options` is not None, use this
-    qmmm_options : InputOptions from `sander` for QMMM, optional
+        If specify `mm_options`, this `igb` input will be ignored
+    mm_options : InputOptions from `sander`, default=None, optional
+        if `mm_options` is None, use `gas_input` with given igb.
+        If `mm_options` is not None, use this
+    qm_options : InputOptions from `sander` for QMMM, optional
     mode : str, default=None, optional
         if mode='minimal', get only 'bond', 'angle', 'dihedral' and 'total' energies
     top : pytraj.Topology or str, default=None, optional
@@ -78,7 +78,7 @@ def energy_decomposition(traj=None,
     >>> traj = pt.iterload(rstfile, topfile) 
     >>> options = sander.pme_input()
     >>> options.cut = 8.0
-    >>> edict = pt.energy_decomposition(traj=traj, input_options=options)
+    >>> edict = pt.energy_decomposition(traj=traj, mm_options=options)
     >>> edict['vdw'] 
     array([ 6028.95167558])
 
@@ -90,14 +90,14 @@ def energy_decomposition(traj=None,
     >>> options = sander.gas_input(8)
     >>> options.cut = 99.0
     >>> options.ifqnt = 1
-    >>> qmmm_options = sander.qm_input()
-    >>> qmmm_options.iqmatoms[:3] = [8, 9, 10]
-    >>> qmmm_options.qm_theory = "PM3"
-    >>> qmmm_options.qmcharge = 0
-    >>> qmmm_options.qmgb = 2
-    >>> qmmm_options.adjust_q = 0
+    >>> qm_options = sander.qm_input()
+    >>> qm_options.iqmatoms[:3] = [8, 9, 10]
+    >>> qm_options.qm_theory = "PM3"
+    >>> qm_options.qmcharge = 0
+    >>> qm_options.qmgb = 2
+    >>> qm_options.adjust_q = 0
 
-    >>> edict = pt.energy_decomposition(traj=traj, input_options=options, qmmm_options=qmmm_options)
+    >>> edict = pt.energy_decomposition(traj=traj, mm_options=options, qm_options=qm_options)
     >>> edict['bond']
     array([ 0.00160733])
     >>> edict['scf']
@@ -105,8 +105,8 @@ def energy_decomposition(traj=None,
 
     Notes
     -----
-    This method does not work with `pytraj.pmap` when you specify input_options and
-    qmmm_options. Use `pytraj.pmap_mpi` with MPI instead.
+    This method does not work with `pytraj.pmap` when you specify mm_options and
+    qm_options. Use `pytraj.pmap_mpi` with MPI instead.
 
     Work with ``pytraj.pmap``::
 
@@ -116,12 +116,12 @@ def energy_decomposition(traj=None,
 
         import sander
         inp = sander.gas_input(8)
-        pt.pmap(pt.energy_decomposition, traj, input_options=inp, dtype='dict')
+        pt.pmap(pt.energy_decomposition, traj, mm_options=inp, dtype='dict')
 
     Why? Because Python need to pickle each object to send to different cores and Python
-    does not know how to pickle input_options from sander.gas_input(8).
+    does not know how to pickle mm_options from sander.gas_input(8).
 
-    This works with ``pytraj.pmap_mpi`` because pytraj explicitly create ``input_options``
+    This works with ``pytraj.pmap_mpi`` because pytraj explicitly create ``mm_options``
     in each core without pickling.
     """
     from collections import defaultdict, OrderedDict
@@ -135,34 +135,34 @@ def energy_decomposition(traj=None,
 
     ddict = defaultdict(_default_func)
 
-    if input_options is None:
+    if mm_options is None:
         inp = sander.gas_input(igb)
     elif igb is not None:
-        inp = input_options
+        inp = mm_options
 
     if isinstance(inp, string_types):
         # dangerous
         local_dict = {'sander': sander}
         exec(inp.lstrip(), local_dict)
-        inp = local_dict['input_options']
+        inp = local_dict['mm_options']
 
-    if isinstance(qmmm_options, string_types):
+    if isinstance(qm_options, string_types):
         # dangerous
         local_dict = {'sander': sander}
-        exec(qmmm_options.lstrip(), local_dict)
-        qmmm_options = local_dict['qmmm_options']
+        exec(qm_options.lstrip(), local_dict)
+        qm_options = local_dict['qm_options']
 
-    if parm is None:
+    if prmtop is None:
         try:
             # try to load from file by taking top.filename
-            _parm = top.filename
+            _prmtop = top.filename
         except AttributeError:
-            raise ValueError("parm must be AmberParm object in ParmEd")
+            raise ValueError("prmtop must be AmberParm object in ParmEd")
     else:
         # Structure, string
-        _parm = parm
+        _prmtop = prmtop
 
-    if not hasattr(_parm, 'coordinates') or _parm.coordinates is None:
+    if not hasattr(_prmtop, 'coordinates') or _parm.coordinates is None:
         try:
             # if `traj` is Trajectory-like (not frame_iter), try to take 1st
             # coords
@@ -172,7 +172,7 @@ def energy_decomposition(traj=None,
             coords = [0. for _ in range(top.n_atoms * 3)]
     else:
         # use default coords in `AmberParm`
-        coords = _parm.coordinates
+        coords = _prmtop.coordinates
 
     if top.has_box():
         box = top.box.tolist()
@@ -181,7 +181,7 @@ def energy_decomposition(traj=None,
         box = None
         has_box = False
 
-    with sander.setup(_parm, coords, box, inp, qmmm_options):
+    with sander.setup(_prmtop, coords, box, inp, qm_options):
         for frame in iterframe_master(traj):
             if has_box:
                 sander.set_box(*frame.box.tolist())
