@@ -55,7 +55,7 @@ def energy_decomposition(traj=None,
 
     Examples
     --------
-    - Note: examples are adapted from $AMBERHOME/test/sanderapi
+    Examples are adapted from $AMBERHOME/test/sanderapi
 
     >>> import pytraj as pt
     >>> # GB energy
@@ -101,6 +101,27 @@ def energy_decomposition(traj=None,
     array([ 0.00160733])
     >>> edict['scf']
     array([-11.92177575])
+
+    Notes
+    -----
+    This method does not work with `pytraj.pmap` when you specify input_options and
+    qmmm_options. Use `pytraj.pmap_mpi` with MPI instead.
+
+    Work with ``pytraj.pmap``::
+
+        pt.pmap(pt.energy_decomposition, traj, igb=8, dtype='dict')
+
+    Will NOT work with ``pytraj.pmap``::
+
+        import sander
+        inp = sander.gas_input(8)
+        pt.pmap(pt.energy_decomposition, traj, input_options=inp, dtype='dict')
+
+    Why? Because Python need to pickle each object to send to different cores and Python
+    does not know how to pickle input_options from sander.gas_input(8).
+
+    This works with ``pytraj.pmap_mpi`` because pytraj explicitly create ``input_options``
+    in each core without pickling.
     """
     from collections import defaultdict, OrderedDict
     from pytraj.misc import get_atts
