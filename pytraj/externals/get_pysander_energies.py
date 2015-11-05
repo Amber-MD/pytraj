@@ -2,6 +2,7 @@ from pytraj._shared_methods import iterframe_master
 from pytraj._get_common_objects import _get_topology, _get_data_from_dtype, _super_dispatch
 from pytraj.compat import range
 from pytraj.decorators import _register_pmap
+from pytraj.externals.six import string_types
 
 __all__ = ['energy_decomposition']
 
@@ -138,6 +139,18 @@ def energy_decomposition(traj=None,
         inp = sander.gas_input(igb)
     elif igb is not None:
         inp = input_options
+
+    if isinstance(inp, string_types):
+        # dangerous
+        local_dict = {'sander': sander}
+        exec(inp.lstrip(), local_dict)
+        inp = local_dict['input_options']
+
+    if isinstance(qmmm_options, string_types):
+        # dangerous
+        local_dict = {'sander': sander}
+        exec(qmmm_options.lstrip(), local_dict)
+        qmmm_options = local_dict['qmmm_options']
 
     if parm is None:
         try:
