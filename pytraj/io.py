@@ -68,6 +68,10 @@ def load(filename, top=None, frame_indices=None, mask=None):
     - Also see `pytraj.iterload` for loading a series of trajectories that don't fit to
       memory
 
+    See also
+    --------
+    iterload
+
     Examples
     --------
     >>> import pytraj as pt
@@ -120,19 +124,60 @@ def load(filename, top=None, frame_indices=None, mask=None):
 def iterload(*args, **kwd):
     """return TrajectoryIterator object
 
+    Parameters
+    ----------
+    filename: {str, list-like of filenames, pattern}
+        input trajectory filename(s). You can use a single filename, a list of filenames
+        or a pattern.
+    top : {str, Topology}
+        input topology. If str, pytraj will load from disk to Topology first
+    frame_slice: tuple or list of tuple
+        specify start, stop, step for each trajectory you want to read.
+
+        cpptraj input::
+            
+            trajin traj0.nc 1 10
+            trajin traj1.nc
+
+        In pytraj, corresponding frame_slice=[(0, 10), (0, -1)]
+
+    Returns
+    -------
+    pytraj.TrajectoryIterator
+
     Examples
     --------
     >>> import pytraj as pt
+    >>> # load a single filename
     >>> traj = pt.iterload('traj.nc', '2koc.parm7')
 
-    >>> # load from a list of files
+    >>> # load from a list of filenames
     >>> traj = pt.iterload(['traj0.nc', 'traj1.nc'], '2koc.parm7')
 
-    >>> # load all files with given pattern
+    >>> # load all files with a given pattern (sorted)
     >>> traj = pt.iterload('./traj*.nc', '2koc.parm7')
 
     >>> # load from a list of files with given frame step
+    >>> # for each file, only register to load from frame 0 to 9 (skip 10), skip every 2 frames
     >>> traj = pt.iterload(['traj0.nc', 'traj1.nc'], '2koc.parm7', frame_slice=[(0, 10, 2),]*2)
+
+    >>> # load from frame 0 to 9 for `traj0.nc`
+    >>> # load all frames from `traj1.nc`
+    >>> traj = pt.iterload(['traj0.nc', 'traj1.nc'], '2koc.parm7', frame_slice=[(0, 10), (0, -1)]
+
+    Notes
+    -----
+    Unlike `pytraj.load`, you can not arbitarily set `frame_indices`. If you want to do
+    so, first load trajectories to TrajectoryIterator object, then do fancy slicing
+
+    >>> import pytraj as pt
+    >>> register to load traj.nc from 0-th to 99-th frame
+    >>> traj = pt.iterload('traj.nc', 'prmtop', frame_slice=(0, 100)])
+    >>> # do fancy indexing to load specific frames to memory
+    >>> traj[[0, 8, 3, 50, 7]]
+
+    >>> # load to disk with given mask
+    >>> traj[[0, 8, 3, 50, 7], '!@H=']
     """
     if kwd and 'frame_indices' in kwd.keys():
         raise ValueError(
@@ -325,7 +370,7 @@ def write_traj(filename="",
     >>> pt.write_traj("output/test_xyz.nc", xyz, top=traj.top, overwrite=True)
     >>> pt.write_traj("output/test_xyz.nc", xyz, top=traj.top, overwrite=True)
     """
-    from .Frame import Frame
+    from .frame import Frame
     from .trajs.Trajout import Trajout
 
     _top = _get_topology(traj, top)
@@ -362,7 +407,7 @@ def write_traj(filename="",
         # create frame iterator
         xyz = np.asarray(traj)
         if not xyz.flags.c_contiguous:
-            xyz = np.ascontiguoussarray(xyz)
+            xyz = np.ascontiguousarray(xyz)
         _frame_indices = range(
             xyz.shape[0]) if frame_indices is None else frame_indices
         fi = iterframe_from_array(xyz, _top.n_atoms, _frame_indices)

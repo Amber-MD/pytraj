@@ -65,9 +65,9 @@ def %s(traj=None, command="", top=None, dtype='ndarray', mat_type='full', *args,
 
     act = CpptrajActions.Action_Matrix()
     act(template_command, traj, top=_top, dslist=dslist, *args, **kwd)
-    # need to call `print_output` so cpptraj can normalize some data
+    # need to call `post_process` so cpptraj can normalize some data
     # check cpptraj's code
-    act.print_output()
+    act.post_process()
     if dtype == 'ndarray':
         if mat_type == 'full':
             return dslist[0].values

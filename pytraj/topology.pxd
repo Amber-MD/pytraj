@@ -6,7 +6,7 @@ from .core.Box cimport _Box, Box, BoxType
 from .core.ParameterTypes cimport *
 from .core.cpp_core cimport (_FileName, FileName, _NameType, NameType)
 from .core.cpp_core cimport _AtomMask, AtomMask
-from .Frame cimport _Frame, Frame
+from .frame cimport _Frame, Frame
 from libcpp.string cimport string
 from .core.cpp_core cimport _FileName, FileName, _ArgList, ArgList
 

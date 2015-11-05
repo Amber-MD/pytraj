@@ -11,16 +11,19 @@ try:
 except ImportError:
     has_sander = False
 
-@unittest.skipIf(not has_sander, 'skip if not having sander')
-class Test(unittest.TestCase):
-    def test_1(self):
-        import parmed as pmd
-        import sander
+try:
+    import parmed as pmd
+    has_parmed = True
+except ImportError:
+    has_parmed = False
 
+@unittest.skipIf(not has_sander, 'skip if not having sander')
+class TestUpdateDihedral(unittest.TestCase):
+    def test_update_dihedral_parm(self):
         traj = pt.iterload("./data/Tc5b.crd", "./data/Tc5b.top")
         p = pmd.load_file(traj.top.filename)
         inp = sander.gas_input(8)
-        coords = traj[0].coords
+        coords = traj[0].xyz
 
         fname = "tmp.parm7"
 
@@ -30,7 +33,6 @@ class Test(unittest.TestCase):
                 p.remake_parm()
                 with sander.setup(p, coords, None, inp):
                     ene, frc = sander.energy_forces()
-                    print(ene.bond, ene.dihedral)
 
 
 if __name__ == "__main__":

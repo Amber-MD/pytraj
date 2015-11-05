@@ -20,15 +20,12 @@ try:
     
         en = pt.energy_decomposition(t0,
                                      igb=8,
-                                     verbose=False,
-                                     parm=traj.top.filename)['dihedral'][0]
-        print(deg, en)
+                                     prmtop=traj.top.filename)['dihedral'][0]
         deg_ene.append((deg, en))
     
     arr = np.array(deg_ene).T
     
-    print(len(flist))
-    pt.write_traj("test.pdb", flist, top=traj.top, overwrite=True, mode='model')
+    pt.write_traj("test.pdb", flist, top=traj.top, overwrite=True, options='model')
     
     arr[1] = arr[1] - np.min(arr[1])
 except ImportError:

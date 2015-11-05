@@ -1,5 +1,5 @@
 from __future__ import print_function, absolute_import
-import numpy as _np
+import numpy as np
 from .decorators import _register_pmap
 
 _supported_types = [
@@ -71,7 +71,7 @@ def vector_mask(traj=None,
     dslist = CpptrajDatasetList()
     template_command = ' mask '
 
-    cm_arr = _np.asarray(mask)
+    cm_arr = np.asarray(mask)
     if cm_arr.dtype.kind != 'i':
         list_of_commands = _get_list_of_commands(mask)
     else:

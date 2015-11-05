@@ -36,7 +36,7 @@ def minimize(traj, engine='sander', input=None, top=None):
     else:
         min_in = MIN_IN
 
-    if engine == 'sander' or engine == 'pmemd':
+    if engine in ['sander', 'pmemd']:
         _engine = "$AMBERHOME/bin/" + engine
     else:
         _engine = engine

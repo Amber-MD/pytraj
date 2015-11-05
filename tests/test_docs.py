@@ -8,6 +8,14 @@ import doctest
 from pytraj.compat import PY3
 from pytraj import testing
 from pytraj.datafiles import load_samples
+from pytraj import nucleic_acid_analysis
+from pytraj.externals import get_pysander_energies
+
+try:
+    import sander
+    has_sander = True
+except ImportError:
+    has_sander = False
 
 doctest.DONT_ACCEPT_BLANKLINE = False
 
@@ -27,7 +35,6 @@ class TestDoc(unittest.TestCase):
 
         modules = [
                    pt._get_common_objects,
-                   pt._nastruct,
                    convert,
                    frameiter,
                    vector,
@@ -35,7 +42,10 @@ class TestDoc(unittest.TestCase):
                   ]
         if PY3:
             # avoid adding 'u' to string in PY2: u'GLU5_O-LYS8_N-H'
+            if has_sander:
+                modules.append(get_pysander_energies)
             additional_list = [
+                   nucleic_acid_analysis,
                    load_samples,
                    pt.trajectory,
                    pt.decorators,

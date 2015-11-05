@@ -27,10 +27,9 @@ def _register_openmp(f):
 def ensure_exist(f):
     @wraps(f)
     def inner(*args, **kwd):
-        if 'filename' in kwd.keys():
-            if not os.path.exists(kwd['filename']):
+        if 'filename' in kwd.keys() and not os.path.exists(kwd['filename']):
                 raise RuntimeError('filename not exist')
-        if not os.path.exists(args[0]):
+        elif not os.path.exists(args[0]):
             raise RuntimeError('filename not exist')
         return f(*args, **kwd)
 

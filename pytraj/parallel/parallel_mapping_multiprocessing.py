@@ -1,6 +1,7 @@
 # do not use relative import here. Treat this module as a seperated package.
 import numpy as np
 from functools import partial
+from collections import OrderedDict
 from pytraj.cpp_options import info as compiled_info
 from pytraj import matrix
 from pytraj import mean_structure
@@ -47,14 +48,13 @@ def _pmap(func, traj, *args, **kwd):
 
     Returns
     -------
-    out : if dtype='dict', return an OrderedDict, data is automatically joint. if dtype is
-          not 'dict', return a list of (rank, data, n_frames), data is NOT automatically
-          joint. Note that for [matrix.dist, matrix.idea, mean_structure] calculation,
-          data is always joint (does not depend on dtype)
+    out : OrderedDict
 
     Notes
     -----
-    If you not sure about parallel's results, you should compare the output to serial run.
+    - If you not sure about parallel's results, you should compare the output to serial run.
+
+    - This is absolutely experimental. The syntax might be changed in future.
 
     Rule of thumbs: start with small number of frames (saying 10 frames), varying
     n_cores=1, 2, 3, 4 to see if the data makes sense or not.
@@ -77,6 +77,10 @@ def _pmap(func, traj, *args, **kwd):
         all the cores.
 
         pt.pmap(['autoimage', 'rms refindex 0'], traj, ref=traj[0])
+
+        pytraj only supports limited cpptraj's Actions (not Analysis, checm Amber15 manual
+        about Action and Analysis), say no  to 'matrix', 'atomicfluct', ... or any action
+        that results output depending on the number of frames.
          
 
     This method only benifits you if your calculation is quite long (saying few minutes to
@@ -95,7 +99,7 @@ def _pmap(func, traj, *args, **kwd):
 
     vs::
 
-        In [1]: pt.pmap(4, pt.radgyr, traj, dtype='dict')
+        In [1]: pt.pmap(4, pt.radgyr, traj)
         Out[1]:
         OrderedDict([('RoG_00000',
                       array([ 18.91114428,  18.93654996,  18.84969884,  18.90449256,
@@ -103,30 +107,16 @@ def _pmap(func, traj, *args, **kwd):
                               18.91669565,  18.87069722]))])
 
     This is experimental method, you should expect its syntax, default output will be changed.
+
+    When sending Topology to different cores, pytraj will reload Topology from
+    traj.top.filename, so if you need to update Topology (in the fly), save it to disk and
+    reload before using ``pytraj.pmap``
     
     Examples
     --------
     >>> import numpy as np
     >>> import pytraj as pt
     >>> traj = pt.load_sample_data('tz2')
-    >>> data = pt.pmap(pt.radgyr, traj, n_cores=4)
-    >>> data # doctest: +SKIP
-    [(0, array([ 18.91114428,  18.93654996]), 2),
-     (1, array([ 18.84969884,  18.90449256]), 2),
-     (2, array([ 18.8568644 ,  18.88917208]), 2),
-     (3, array([ 18.9430491 ,  18.88878079,  18.91669565,  18.87069722]), 4)]
-    >>> # in most cases, you can follow below command to join the data
-    >>> pt.tools.flatten([x[1] for x in data]) # doctest: +SKIP
-    [18.911144277821389,
-     18.936549957265814,
-     18.849698842157373,
-     18.904492557176411,
-     18.856864395949234,
-     18.889172079501037,
-     18.943049101357886,
-     18.888780788130308,
-     18.916695652897396,
-     18.870697222142766]
 
     >>> # use iter_options
     >>> iter_options = {'autoimage': True, 'rmsfit': (0, '@CA')}
@@ -136,7 +126,7 @@ def _pmap(func, traj, *args, **kwd):
     >>> data = pt.pmap(['distance :3 :7', 'vector mask :3 :12'], traj, n_cores=4)
 
     >>> # use reference. Need to explicitly use 'refindex', which is index of reflist
-    >>> data = pt.pmap(['rms @CA refindex 0'], traj, ref=[traj[3],], n_cores=3, dtype='dict')
+    >>> data = pt.pmap(['rms @CA refindex 0'], traj, ref=[traj[3],], n_cores=3)
     >>> data
     OrderedDict([('RMSD_00001', array([  2.68820312e-01,   3.11804885e-01,   2.58835452e-01,
              9.10475988e-08,   2.93310737e-01,   4.10197322e-01,
@@ -149,7 +139,7 @@ def _pmap(func, traj, *args, **kwd):
     >>> # make sure to specify `refindex`
     >>> # `refindex 0` is equal to `reflist[0]`
     >>> # `refindex 1` is equal to `reflist[1]`
-    >>> data = pt.pmap(['rms @CA refindex 0', 'rms !@H= refindex 1'], traj, ref=reflist, n_cores=2, dtype='dict')
+    >>> data = pt.pmap(['rms @CA refindex 0', 'rms !@H= refindex 1'], traj, ref=reflist, n_cores=2)
     >>> data
     OrderedDict([('RMSD_00002', array([  2.68820312e-01,   3.11804885e-01,   2.58835452e-01,
              9.10475988e-08,   2.93310737e-01,   4.10197322e-01,
@@ -160,14 +150,6 @@ def _pmap(func, traj, *args, **kwd):
              1.15623929e+01]))])
     >>> # convert to ndarray
     >>> pt.tools.dict_to_ndarray(data)
-    array([[  0.26882031,   0.31180488,   0.25883545, ...,   0.36605922,
-              0.39089036,   0.4891805 ],
-           [ 11.71026542,  10.74126835,   8.77663285, ...,  10.9855368 ,
-             11.36934506,  11.56239288]])
-
-    >>> # specify dtype = 'ndarray'
-    >>> data = pt.pmap(['rms @CA refindex 0', 'rms !@H= refindex 1'], traj, ref=reflist, n_cores=2, dtype='ndarray')
-    >>> data
     array([[  0.26882031,   0.31180488,   0.25883545, ...,   0.36605922,
               0.39089036,   0.4891805 ],
            [ 11.71026542,  10.74126835,   8.77663285, ...,  10.9855368 ,
@@ -196,16 +178,9 @@ def _pmap(func, traj, *args, **kwd):
     else:
         iter_options = {}
 
-    if 'dtype' in kwd.keys():
-        dtype = kwd['dtype']
-    else:
-        dtype = None
-
     if isinstance(func, (list, tuple)):
         # assume using _load_batch_pmap
         from pytraj.parallel import _load_batch_pmap
-        if 'dtype' in kwd.keys():
-            kwd.pop('dtype')
         data = _load_batch_pmap(n_cores=n_cores,
                                 traj=traj,
                                 lines=func,
@@ -213,13 +188,7 @@ def _pmap(func, traj, *args, **kwd):
                                 root=0,
                                 mode='multiprocessing', **kwd)
         data = concat_dict((x[1] for x in data))
-        if dtype == 'dict' or dtype is None:
-            return data
-        elif dtype == 'ndarray':
-            return dict_to_ndarray(data)
-        else:
-            raise ValueError(
-                "if using func as a list/tuple, dtype must be 'ndarray' or 'dict'")
+        return data
     else:
         if not callable(func):
             raise ValueError('must callable argument')
@@ -240,6 +209,10 @@ def _pmap(func, traj, *args, **kwd):
 
         if not isinstance(traj, TrajectoryIterator):
             raise ValueError('only support TrajectoryIterator')
+
+        if 'dtype' not in kwd and func not in [mean_structure, matrix.dist, matrix.idea,
+                ired_vector_and_matrix, rotation_matrix]:
+            kwd['dtype'] = 'dict'
 
         p = Pool(n_cores)
 
@@ -268,23 +241,17 @@ def _pmap(func, traj, *args, **kwd):
                 # data is a list of (rank, (mat, rmsd), n_frames)
                 mat = np.row_stack(val[1][0] for val in data)
                 rmsd_ = np.hstack(val[1][1] for val in data)
-                return mat, rmsd_
+                return OrderedDict(out=(mat, rmsd_))
             else:
                 mat = np.row_stack(val[1] for val in data)
-                return mat
+                return OrderedDict(mat=mat)
         elif func == mean_structure:
             xyz = np.sum((x[2] * x[1].xyz for x in data)) / traj.n_frames
             frame = Frame(xyz.shape[0])
             frame.xyz[:] = xyz
             return frame
         else:
-            if dtype in ['dict', ]:
-                return concat_dict((x[1] for x in data))
-            elif dtype in ['dataset', ] and func != search_hbonds:
-                return stack((x[1] for x in data))
-            else:
-                return data
-
+            return concat_dict((x[1] for x in data))
 
 def pmap(func=None, traj=None, *args, **kwd):
     if func != NH_order_parameters:

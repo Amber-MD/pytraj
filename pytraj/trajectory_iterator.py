@@ -9,7 +9,7 @@ from .trajs.TrajectoryCpptraj import TrajectoryCpptraj
 from .externals.six import string_types
 from .externals.six.moves import range
 from .topology import Topology
-from .Frame import Frame
+from .frame import Frame
 from .utils import is_int
 from .cyutils import get_positive_idx
 from .frameiter import FrameIter

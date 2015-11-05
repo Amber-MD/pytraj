@@ -14,7 +14,7 @@ class Test(unittest.TestCase):
         i0 = top("@CA").indices
         i1 = top("@CB").indices
         combinations = np.array(list(product(i0, i1)))
-        d1 = pt.calc_distance(traj, combinations).T
+        d1 = pt.distance(traj, combinations).T
 
         min_list = []
         for arr0 in d1:

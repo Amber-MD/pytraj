@@ -57,7 +57,7 @@ class TestNoName(unittest.TestCase):
         # make sure to reproduce cpptraj's output too
         aa_eq(saved_traj.xyz, fa.xyz)
 
-    def testFromIterable(self):
+    def test_FromIterable(self):
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         aa_eq(pt.Trajectory.from_iterable(traj).xyz, traj.xyz)
 
@@ -132,13 +132,13 @@ class TestTrajectory(unittest.TestCase):
         traj2.load("./data/md1_prod.Tc5b.x")
         farray = traj2[[0, 9, 1]]
         assert farray.n_frames == 3
-        assert traj2[0].atoms(0) == farray[0].atoms(0)
-        assert traj2[9].atoms(0) == farray[1].atoms(0)
-        assert traj2[1].atoms(0) == farray[2].atoms(0)
+        assert traj2[0].atom(0) == farray[0].atom(0)
+        assert traj2[9].atom(0) == farray[1].atom(0)
+        assert traj2[1].atom(0) == farray[2].atom(0)
 
-        arr = np.asarray(traj2[0].buffer1d[:])
+        arr = np.asarray(traj2[0]._buffer1d[:])
         frame0 = traj2[0]
-        arr0 = np.asarray(frame0.buffer1d[:])
+        arr0 = np.asarray(frame0._buffer1d[:])
 
         mat0 = np.asmatrix(arr0).reshape(304, 3)
         mat0[:, 0] = np.asmatrix(list(range(304))).reshape(304, 1)
@@ -151,15 +151,6 @@ class TestTrajectory(unittest.TestCase):
         assert traj3.n_frames == 0, 'empty Trajectory, n_frames must be 0'
         self.assertRaises(IndexError, lambda: traj3[0])
         self.assertRaises(IndexError, lambda: traj3.__setitem__(0, traj[3]))
-
-    def test_indexing_1(self):
-        traj2 = pt.TrajectoryIterator()
-        traj2.top = pt.load_topology("./data/Tc5b.top")
-        traj2.load("./data/md1_prod.Tc5b.x")
-        self.assertRaises(ValueError, lambda: traj2[10407])
-        assert traj2[0] != traj2[9]
-
-        assert traj2[-1].coords[0] == traj2[9].coords[0]
 
     def test_iter_basic(self):
         traj = pt.TrajectoryIterator()
@@ -193,11 +184,19 @@ class TestTrajectory(unittest.TestCase):
             traj1 = pt.load_sample_data('ala3')
             t0.append_xyz(pt.tools.as_2darray(traj))
 
-        # fortran order, need to raise
-        self.assertRaises(TypeError, lambda: set_xyz_not_c_contiguous())
+        # fortran order, autoconvert
+        # make sure there is no TypeError
+        set_xyz_not_c_contiguous()
 
         self.assertRaises(ValueError, lambda: set_xyz_not_same_n_atoms())
         self.assertRaises(ValueError, lambda: append_2d())
+
+        # make sure to autoconvert from f4 to f8
+        xyz_f4 = np.array(traj.xyz, dtype='f4')
+        assert xyz_f4.itemsize == 4, 'must be f4'
+        t0.xyz = xyz_f4
+        aa_eq(t0.xyz, xyz_f4)
+        assert t0.xyz.itemsize == 8, 'must be converted from f4 to f8'
 
     def test_from_iterables(self):
         '''test_from_iterables, tests are ind its doc. Test raise here
@@ -256,8 +255,8 @@ class TestSaveToDisk(unittest.TestCase):
         for idx, f0 in enumerate(fa):
             f0new = fanew[idx]
             f0new2 = fanew2[idx]
-            aa_eq(f0.coords, f0new.coords)
-            aa_eq(f0.coords, f0new2.coords)
+            aa_eq(f0.xyz, f0new.xyz)
+            aa_eq(f0.xyz, f0new2.xyz)
 
     def test_fancy_save(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -267,7 +266,7 @@ class TestSaveToDisk(unittest.TestCase):
 
         for idx, f0 in enumerate(traj[1:8]):
             f0new = fanew[idx]
-            aa_eq(f0.coords, f0new.coords)
+            aa_eq(f0.xyz, f0new.xyz)
 
 
 class TestSetitem(unittest.TestCase):

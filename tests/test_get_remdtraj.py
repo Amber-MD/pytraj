@@ -30,7 +30,7 @@ class Test(unittest.TestCase):
             "./data/Test_RemdTraj/temp0.crd.492.20", topfile)
 
         for idx, framepy in enumerate(f4922):
-            assert_almost_equal(framepy.coords, cpptraj[idx].coords, decimal=3)
+            assert_almost_equal(framepy.xyz, cpptraj[idx].xyz, decimal=3)
 
 
 if __name__ == "__main__":

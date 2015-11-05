@@ -11,12 +11,7 @@ from pytraj.compat import set
 from pytraj.parallel import _load_batch_pmap
 
 
-def gather(pmap_out):
-    pmap_out = sorted(pmap_out, key=lambda x: x[0])
-    return flatten([x[1] for x in pmap_out])
-
-
-class TestNormal(unittest.TestCase):
+class TestNormalPmap(unittest.TestCase):
     def setUp(self):
         self.traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
@@ -33,56 +28,43 @@ class TestNormal(unittest.TestCase):
 
         # if traj is not TrajectoryIterator
         self.assertRaises(ValueError, lambda: pt.pmap(pt.radgyr, self.traj[:]))
+        
+        # raise if a given method does not support pmap
+        def need_to_raise(traj=self.traj):
+            pt.pmap(2, pt.bfactors, traj)
 
-    def test_dtype_is_dict(self):
+        self.assertRaises(ValueError, lambda: need_to_raise())
+
+        # raise if a traj is not TrajectoryIterator
+        def need_to_raise_2(traj=self.traj):
+            pt.pmap(pt.bfactors, traj[:], n_cores=2)
+
+        self.assertRaises(ValueError, lambda: need_to_raise_2())
+
+
+    def test_general(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+
+        # with mask
         saved_data = pt.radgyr(traj, '@CA')
-        data = pt.pmap(pt.radgyr, traj, '@CA', dtype='dict')
+        data = pt.pmap(pt.radgyr, traj, '@CA')
         data = pt.tools.dict_to_ndarray(data)
         aa_eq(saved_data, data)
 
-    def test_dtype_is_dataset(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        saved_data = pt.radgyr(traj, '@CA')
-        data = pt.pmap(pt.radgyr, traj, '@CA', dtype='dataset')
-        aa_eq(saved_data, data.values)
-
-
-    def test_regular1D(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-
+        # with a series of functions
         func_list = [pt.radgyr, pt.molsurf, pt.rmsd]
         ref = traj[-3]
 
         for n_cores in [2, 3]:
             for func in func_list:
                 if func in [pt.rmsd, ]:
-                    pout = gather(pt.pmap(n_cores=n_cores, func=func, traj=traj, ref=ref))
+                    pout = pt.tools.dict_to_ndarray(pt.pmap(func=func, traj=traj, ref=ref,
+                        n_cores=n_cores))
                     serial_out = flatten(func(traj, ref=ref))
                 else:
-                    pout = gather(pt.pmap(n_cores=n_cores, func=func, traj=traj))
+                    pout = pt.tools.dict_to_ndarray(pt.pmap(n_cores=n_cores, func=func, traj=traj))
                     serial_out = flatten(func(traj))
-                aa_eq(pout, serial_out)
-
-        # search_hbonds
-        a = pt.pmap(pt.search_hbonds, traj, dtype='dataset', n_cores=4)
-        pout = pt.tools.flatten([x[1]['total_solute_hbonds'] for x in a])
-        serial_out = pt.search_hbonds(traj, dtype='dataset')['total_solute_hbonds']
-        aa_eq(pout, serial_out)
-
-        keys = pt.tools.flatten([x[1].keys() for x in a])
-
-        # raise if a given method does not support pmap
-        def need_to_raise(traj=traj):
-            pt.pmap(2, pt.bfactors, traj)
-
-        self.assertRaises(ValueError, lambda: need_to_raise())
-
-        # raise if a traj is not TrajectoryIterator
-        def need_to_raise_2(traj=traj):
-            pt.pmap(pt.bfactors, traj[:], n_cores=2)
-
-        self.assertRaises(ValueError, lambda: need_to_raise_2())
+                aa_eq(pout[0], serial_out)
 
     def test_different_references(self):
         traj = self.traj
@@ -90,9 +72,9 @@ class TestNormal(unittest.TestCase):
         for i in range(0, 8, 2):
             ref = self.traj[i]
             for n_cores in [2, 3,]:
-                pout = gather(pt.pmap(n_cores=n_cores, func=func, traj=traj, ref=ref))
+                pout = pt.tools.dict_to_ndarray(pt.pmap(n_cores=n_cores, func=func, traj=traj, ref=ref))
                 serial_out = flatten(func(traj, ref=ref))
-                aa_eq(pout, serial_out)
+                aa_eq(pout[0], serial_out)
 
     def test_iter_options(self):
         traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
@@ -106,8 +88,8 @@ class TestNormal(unittest.TestCase):
             avg = pt.pmap(pt.mean_structure, traj, iter_options=iter_options,
                     n_cores=n_cores)
             aa_eq(saved_avg.xyz, avg.xyz)
-            radgyr_ = gather(pt.pmap(pt.radgyr, traj, iter_options={'mask': '@CA'}))
-            aa_eq(radgyr_, saved_radgyr)
+            radgyr_ = pt.tools.dict_to_ndarray(pt.pmap(pt.radgyr, traj, iter_options={'mask': '@CA'}))
+            aa_eq(radgyr_[0], saved_radgyr)
 
 
 class TestParallelMapForMatrix(unittest.TestCase):
@@ -138,9 +120,11 @@ class TestParallelMapForMatrix(unittest.TestCase):
         saved_rmsd = pt.rmsd(traj, ref=traj[3], mask='@CA')
 
         for n_cores in [2, 3]:
-            mat = pt.pmap(pt.rotation_matrix, traj, ref=traj[3], mask='@CA')
-            mat2, rmsd_  = pt.pmap(pt.rotation_matrix, traj, ref=traj[3], mask='@CA',
+            out = pt.pmap(pt.rotation_matrix, traj, ref=traj[3], mask='@CA')
+            out_with_rmsd  = pt.pmap(pt.rotation_matrix, traj, ref=traj[3], mask='@CA',
                     with_rmsd=True)
+            mat = out[list(out.keys())[0]]
+            mat2, rmsd_ = out_with_rmsd[list(out_with_rmsd.keys())[0]]
             aa_eq(saved_mat, mat)
             aa_eq(saved_mat, mat2)
             aa_eq(saved_rmsd, rmsd_)

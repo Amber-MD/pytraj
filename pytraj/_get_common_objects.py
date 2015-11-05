@@ -28,7 +28,7 @@ def _get_topology(traj, top):
                     if hasattr(tmp, 'top'):
                         _top = tmp.top
                         break
-            except:
+            except TypeError:
                 #print("Topology is None")
                 _top = None
     else:
@@ -175,8 +175,11 @@ class _super_dispatch(object):
         def inner(*args, **kwd):
             args = list(args)
             # traj is always 1st argument
-            traj = kwd.get('traj', args[0])
-            frame_indices = kwd.get('frame_indices', None)
+            try:
+                traj = kwd.get('traj', args[0])
+            except IndexError:
+                traj = kwd.get('traj')
+            frame_indices = kwd.get('frame_indices')
             ref = kwd.get('ref', None)
             if self.has_ref and ref is None:
                 try:

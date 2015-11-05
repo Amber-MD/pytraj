@@ -1,9 +1,10 @@
 from pytraj._shared_methods import iterframe_master
-from pytraj._get_common_objects import _get_topology, _get_data_from_dtype
+from pytraj._get_common_objects import _get_topology, _get_data_from_dtype, _super_dispatch
 from pytraj.compat import range
 from pytraj.decorators import _register_pmap
+from pytraj.externals.six import string_types
 
-__all__ = ['get_pysander_energies']
+__all__ = ['energy_decomposition']
 
 
 def _default_func():
@@ -12,34 +13,42 @@ def _default_func():
 
 
 @_register_pmap
-def get_pysander_energies(traj=None,
-                          parm=None,
+@_super_dispatch()
+def energy_decomposition(traj=None,
+                          prmtop=None,
                           igb=8,
-                          input_options=None,
-                          qmmm_options=None,
+                          mm_options=None,
+                          qm_options=None,
                           mode=None,
-                          top=None,
                           dtype='dict',
-                          verbose=True):
-    # TODO: change method's name?
-    """"
+                          frame_indices=None,
+                          top=None):
+    """energy decomposition by calling `libsander`
+
     Parameters
-    ---------
-    traj : {Traj-like object, frame, list of trajs, list of frames} from pytraj
+    ----------
+    traj : Trajectory-like or iterables that produce Frame
         if `traj` does not hold Topology information, `top` must be provided
-    parm : {str, Topology object from ParmEd}, default=None, optional
+    prmtop : str or Structure from ParmEd, default=None, optional
+        To avoid any unexpected error, you should always provide original topology
+        filename. If prmtop is None, pytraj will load Topology from traj.top.filename.
+
+        - why do you need to load additional topology filename? Because cpptraj and sander
+          use different Topology object, can not convert from one to another.
     igb : GB model, default=8 (GB-Neck2)
-        Note: this `igb` input will be ignored if `input_options` is not None
-    input_options : InputOptions object from `sander`, default=None, optional
-        if `input_options` is None, use `gas_input` with `igb = 8`
-        If `input_options` is not None, use this
-    qmmm_options : InputOptions object from `sander` for QMMM, optional
+        If specify `mm_options`, this `igb` input will be ignored
+    mm_options : InputOptions from `sander`, default=None, optional
+        if `mm_options` is None, use `gas_input` with given igb.
+        If `mm_options` is not None, use this
+    qm_options : InputOptions from `sander` for QMMM, optional
     mode : str, default=None, optional
         if mode='minimal', get only 'bond', 'angle', 'dihedral' and 'total' energies
-    top : {Topology, str}, default=None, optional
+    top : pytraj.Topology or str, default=None, optional
+        only need to specify this ``top`` if ``traj`` does not hold Topology
     dtype : str, {'dict', 'dataset', 'ndarray', 'dataframe'}, default='dict'
-    verbose : bool, default True
-        print warning message if True
+        return data type
+    frame_indices : None or 1D array-like, default None
+        if not None, only perform calculation for given frames
 
     Returns
     -------
@@ -47,24 +56,75 @@ def get_pysander_energies(traj=None,
 
     Examples
     --------
-        # minimal input
-        energy_decomposition = get_pysander_energies
-        energy_decomposition(traj)
+    Examples are adapted from $AMBERHOME/test/sanderapi
 
-        # with option
+    >>> import pytraj as pt
+    >>> # GB energy
+    >>> traj = pt.datafiles.load_ala3()
+    >>> traj.n_frames
+    1
+    >>> data = pt.energy_decomposition(traj, igb=8)
+    >>> data['gb']
+    array([-92.88577683])
+    >>> data['bond']
+    array([ 5.59350521])
+
+    >>> # PME
+    >>> import os
+    >>> from pytraj.testing import amberhome
+    >>> import sander
+    >>> topfile = os.path.join(amberhome, "test/4096wat/prmtop")
+    >>> rstfile = os.path.join(amberhome, "test/4096wat/eq1.x")
+    >>> traj = pt.iterload(rstfile, topfile) 
+    >>> options = sander.pme_input()
+    >>> options.cut = 8.0
+    >>> edict = pt.energy_decomposition(traj=traj, mm_options=options)
+    >>> edict['vdw'] 
+    array([ 6028.95167558])
+
+    >>> # GB + QMMM
+    >>> topfile = os.path.join(amberhome, "test/qmmm2/lysine_PM3_qmgb2/prmtop")
+    >>> rstfile = os.path.join(amberhome, "test/qmmm2/lysine_PM3_qmgb2/lysine.crd")
+    >>> traj = pt.iterload(rstfile, topfile)
+
+    >>> options = sander.gas_input(8)
+    >>> options.cut = 99.0
+    >>> options.ifqnt = 1
+    >>> qm_options = sander.qm_input()
+    >>> qm_options.iqmatoms[:3] = [8, 9, 10]
+    >>> qm_options.qm_theory = "PM3"
+    >>> qm_options.qmcharge = 0
+    >>> qm_options.qmgb = 2
+    >>> qm_options.adjust_q = 0
+
+    >>> edict = pt.energy_decomposition(traj=traj, mm_options=options, qm_options=qm_options)
+    >>> edict['bond']
+    array([ 0.00160733])
+    >>> edict['scf']
+    array([-11.92177575])
+
+    Notes
+    -----
+    This method does not work with `pytraj.pmap` when you specify mm_options and
+    qm_options. Use `pytraj.pmap_mpi` with MPI instead.
+
+    Work with ``pytraj.pmap``::
+
+        pt.pmap(pt.energy_decomposition, traj, igb=8, dtype='dict')
+
+    Will NOT work with ``pytraj.pmap``::
+
         import sander
-        inp = sander.gas_input(igb=6)
-        energy_decomposition(traj, input_options=inp)
+        inp = sander.gas_input(8)
+        pt.pmap(pt.energy_decomposition, traj, mm_options=inp, dtype='dict')
 
-        # with list of frames, must provide Topology object
-        energy_decomposition([frame0, frame1], top=my_topology_object)
+    Why? Because Python need to pickle each object to send to different cores and Python
+    does not know how to pickle mm_options from sander.gas_input(8).
 
-        # with provided ParmEd object
-        import parmed as pmd
-        parm = pmd.load_file("myfile.prmtop")
-        energy_decomposition(traj, parm=parm, igb=5)
+    This works with ``pytraj.pmap_mpi`` because pytraj explicitly create ``mm_options``
+    in each core without pickling.
     """
-    from collections import defaultdict
+    from collections import defaultdict, OrderedDict
     from pytraj.misc import get_atts
     import numpy as np
 
@@ -75,51 +135,57 @@ def get_pysander_energies(traj=None,
 
     ddict = defaultdict(_default_func)
 
-    _top = _get_topology(traj, top)
-
-    if input_options is None:
+    if mm_options is None:
         inp = sander.gas_input(igb)
     elif igb is not None:
-        if verbose:
-            print("inp is not None, ignore provided `igb` and use `inp`")
-        inp = input_options
+        inp = mm_options
 
-    if parm is None:
+    if isinstance(inp, string_types):
+        # dangerous
+        local_dict = {'sander': sander}
+        exec(inp.lstrip(), local_dict)
+        inp = local_dict['mm_options']
+
+    if isinstance(qm_options, string_types):
+        # dangerous
+        local_dict = {'sander': sander}
+        exec(qm_options.lstrip(), local_dict)
+        qm_options = local_dict['qm_options']
+
+    if prmtop is None:
         try:
-            # try to load from file by taking _top.filename
-            if verbose:
-                print("can not find `Structure` from parmed, loading %s")
-            _parm = _top.filename
+            # try to load from file by taking top.filename
+            _prmtop = top.filename
         except AttributeError:
-            raise ValueError("parm must be AmberParm object in ParmEd")
+            raise ValueError("prmtop must be AmberParm object in ParmEd")
     else:
         # Structure, string
-        _parm = parm
+        _prmtop = prmtop
 
-    if not hasattr(_parm, 'coordinates') or _parm.coordinates is None:
+    if not hasattr(_prmtop, 'coordinates') or _parm.coordinates is None:
         try:
             # if `traj` is Trajectory-like (not frame_iter), try to take 1st
             # coords
-            coords = traj[0].coords
-        except:
+            coords = traj[0].xyz
+        except (TypeError, AttributeError):
             # create fake list
-            coords = [0. for _ in range(_top.n_atoms * 3)]
+            coords = [0. for _ in range(top.n_atoms * 3)]
     else:
         # use default coords in `AmberParm`
-        coords = _parm.coordinates
+        coords = _prmtop.coordinates
 
-    if _top.has_box():
-        box = _top.box.tolist()
+    if top.has_box():
+        box = top.box.tolist()
         has_box = True
     else:
         box = None
         has_box = False
 
-    with sander.setup(_parm, coords, box, inp, qmmm_options):
+    with sander.setup(_prmtop, coords, box, inp, qm_options):
         for frame in iterframe_master(traj):
             if has_box:
                 sander.set_box(*frame.box.tolist())
-            sander.set_positions(frame.coords)
+            sander.set_positions(frame.xyz)
             ene, frc = sander.energy_forces()
 
             # potentially slow
@@ -139,7 +205,7 @@ def get_pysander_energies(traj=None,
         new_dict[key] = np.asarray(new_dict[key])
 
     if dtype == 'dict':
-        return new_dict
+        return OrderedDict(new_dict)
     else:
         from pytraj.datasets.DatasetList import DatasetList
 

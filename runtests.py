@@ -38,7 +38,7 @@ my_script = sys.argv[0]
 
 try:
     need_help = sys.argv[1] in ['help', '-help', '--help']
-except:
+except IndexError:
     need_help = False 
 try:
     do_simple_test = sys.argv[1] in ['simple', 'minimal', '-simple',

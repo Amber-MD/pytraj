@@ -71,7 +71,7 @@ dispatch = Command.dispatch
 from . import array
 from .topology import Topology, ParmFile
 from .math import Vec3
-from .Frame import Frame
+from .frame import Frame
 from .trajectory import Trajectory
 from .trajectory_iterator import TrajectoryIterator
 from .trajs.Trajout import Trajout
@@ -104,7 +104,7 @@ from .analyses import CpptrajAnalyses
 from . import common_actions
 from .dssp_analysis import calc_dssp, dssp_allatoms, dssp_allresidues
 from .common_actions import (
-    calc_rmsd_nofit, rmsd, rmsd_perres, distance_rmsd, search_hbonds,
+    calc_rmsd_nofit, rmsd, rmsd_perres, distance_rmsd,
     calc_multidihedral, autoimage, nastruct, calc_angle, calc_dihedral,
     calc_distance, calc_pairwise_distance, calc_center_of_mass,
     calc_center_of_geometry, calc_dssp, calc_jcoupling, calc_molsurf,
@@ -121,13 +121,14 @@ from .common_actions import (
     )
 
 from .nmr import ired_vector_and_matrix, _ired, NH_order_parameters
+from .hbond_analysis import hbond
 
 # create alias
 dssp_all_residues = dssp_allresidues
 fetch_pdb = load_pdb_rcsb
 rmsd_nofit = calc_rmsd_nofit
 drmsd = distance_rmsd
-hbond = search_hbonds
+search_hbonds = hbond
 distance = calc_distance
 distances = calc_distance
 pairwise_distance = calc_pairwise_distance
@@ -136,7 +137,6 @@ angles = calc_angle
 dihedral = calc_dihedral
 dihedrals = calc_dihedral
 jcoupling = calc_jcoupling
-nucleic_acid_analysis = nastruct
 calc_RMSF = calc_atomicfluct
 rmsf = calc_atomicfluct
 pairwise_rmsd = calc_pairwise_rmsd
@@ -347,6 +347,16 @@ def strip_atoms(traj_or_topology, mask):
     elif hasattr(traj_or_topology, 'mask'):
         traj_or_topology.mask = kept_mask
         return traj_or_topology
+
+def run(fi):
+    '''shortcut for `for frame in fi: pass`
+
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> fi = pt.create_pipeline(traj, ['autoimage', 'rms', 'center :1-13'])
+    >>> pt.run(fi)
+    '''
+    for _ in fi: pass
 
 
 def show():

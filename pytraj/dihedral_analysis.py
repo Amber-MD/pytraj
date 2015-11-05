@@ -88,9 +88,9 @@ def calc_%s(traj=None, resrange="",
 
     act = Action_MultiDihedral()
     act(template_command, traj, top=_top, dslist=dslist, *args, **kwd)
-    # need to call `print_output` so cpptraj can normalize some data
+    # need to call `post_process` so cpptraj can normalize some data
     # check cpptraj's code
-    act.print_output()
+    act.post_process()
     return _get_data_from_dtype(dslist, dtype=dtype)
 '''
 
