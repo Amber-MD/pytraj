@@ -34,6 +34,21 @@ disable openpm install in pytraj by adding --disable-openmp
 Example: python setup.py install --disable-openmp
 '''
 
+message_after_sucessful_install = '''
+make sure to add {0} to your LD_LIBRARY_PATH
+    - Example: export LD_LIBRARY_PATH={1}:$LD_LIBRARY_PATH
+
+Run test:
+    - simple (few seconds): python ./runtests.py simple
+    - full (5-10 minutes): python runtests.py
+
+Check compiling info:
+    # change directory so python does not try to import source code
+    cd tests # or any other folders
+    python -c 'import pytraj as pt; pt.show_versions()'
+
+'''
+
 def remind_export_LD_LIBRARY_PATH(build_tag, libdir, pytraj_inside_amber):
     if build_tag:
         if not pytraj_inside_amber:
@@ -42,10 +57,7 @@ def remind_export_LD_LIBRARY_PATH(build_tag, libdir, pytraj_inside_amber):
             print("")
             print(batman)
             libdir = os.path.abspath(libdir)
-            print('make sure to add %s to your LD_LIBRARY_PATH \n\n'
-                  'example: export LD_LIBRARY_PATH=%s:$LD_LIBRARY_PATH\n\n'
-                  'try simple test: python ./runtests.py simple\n\n' %
-                  (libdir, libdir))
+            print(message_after_sucessful_install.format(libdir, libdir))
             print("")
         else:
             # pytraj is a part of Amber

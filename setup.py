@@ -252,6 +252,8 @@ if not list_of_libcpptraj:
 
 # check if libcpptraj.so was installed with openmp or not.
 # Is `nm` everywhere?
+# need to get list_of_libcpptraj again (in case we just install libcpptraj.so)
+list_of_libcpptraj = glob(os.path.join(libdir, 'libcpptraj') + '*')
 output_openmp_check = subprocess.check_output(['nm', list_of_libcpptraj[0]]).decode().split('\n')
 omp_ = [line for line in output_openmp_check if 'OMP' in line]
 
