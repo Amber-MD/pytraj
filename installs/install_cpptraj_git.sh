@@ -1,15 +1,31 @@
 #!/bin/sh
 
+# should run this in $PYTRAJHOME
+# always install openmp as default
+# User need to install libcpptraj manually if they want to disable openmp
+
+install_type=$1
+
 # PYTRAJHOME is the root folder of `pytraj`
 export PYTRAJHOME=`pwd`
-git clone https://github.com/Amber-MD/cpptraj
+
+if [ install_type == 'github' ]; then
+    git clone https://github.com/Amber-MD/cpptraj
+fi
+
 cd cpptraj/
 export CPPTRAJHOME=`pwd`
 cd $CPPTRAJHOME
 mkdir lib
 
+echo `pwd`
+
+openmp=`python ../installs/check_openmp.py`
+echo $openmp
 # turn off openmp. need to install pytraj with openmp too. Too complicated.
-bash ./configure -shared gnu || bash ./configure -amberlib -shared gnu || bash ./configure -nomathlib -shared gnu || exit 1
+bash ./configure -shared $openmp gnu || bash ./configure -amberlib -shared $openmp gnu ||
+bash ./configure -nomathlib -shared $openmp gnu || exit 1
+
 make libcpptraj -j8 || exit 1
 cd $PYTRAJHOME
 
