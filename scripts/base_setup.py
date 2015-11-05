@@ -31,7 +31,12 @@ message_serial_cpptraj = '''
 libcpptraj was detected not be installed with openmp. You can recompile it with -openmp flag or 
 disable openpm install in pytraj by adding --disable-openmp
 
-Example: python setup.py install --disable-openmp
+Example:
+    - Turn off openmp in pytraj: python setup.py install --disable-openmp
+    - Turn ON openmp in cpptraj: ./configure -shared -openmp gnu && make libcpptraj -j4
+    - Turn ON openmp in cpptraj and using netcdf, lapack, ... in $AMBERHOME (if having
+      one):
+          ./configure -shared -openmp -amberlib gnu && make libcpptraj -j4
 '''
 
 message_after_sucessful_install = '''
