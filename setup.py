@@ -24,7 +24,8 @@ from itertools import chain
 
 
 # local import
-from scripts.base_setup import auto_install_message, remind_export_LD_LIBRARY_PATH
+from scripts.base_setup import message_auto_install, remind_export_LD_LIBRARY_PATH
+from scripts.base_setup import message_openmp_cpptraj, message_serial_cpptraj
 
 # python version >= 2.7
 if sys.version_info < (2, 6):
@@ -54,6 +55,11 @@ except ImportError:
     sys.stderr.write(cython_msg)
     sys.exit(0)
 
+try:
+    sys.argv.remove('--disable-openmp')
+    disable_openmp = True
+except ValueError:
+    disable_openmp = False
 
 def read(fname):
     # must be in this setup file
@@ -91,35 +97,6 @@ pytraj_version = read("pytraj/__version__.py").split("=")[-1].replace('"', '', 1
 rootname = os.getcwd()
 pytraj_home = rootname + "/pytraj/"
 
-if len(sys.argv) == 4 and '--rank' in sys.argv[2]:
-    # install openmp only
-    # python ./setup.py build_ext --rank=2 -i
-    rank = int(sys.argv[2].split('=')[-1])
-    sys.argv.remove(sys.argv[2])
-    with_openmp = True
-else:
-    rank = None
-
-    openmp_str = "openmp"
-    
-    if openmp_str in ' '.join(sys.argv):
-        # python ./setup.py build openmp
-        # make sure to update Makefile in $AMBERHOME/AmberTools/src
-        # if changing '-openmp' to something else
-        with_openmp = True
-        # I am dump here. fix later.
-        try:
-            # '-openmp'
-            sys.argv.remove('-' + openmp_str)
-        except:
-            pass
-        try:
-            sys.argv.remove(openmp_str)
-        except ValueError:
-            pass
-    else:
-        with_openmp = False
-
 KeyErrorText = """
 Can not use -faster_build with `install`,
 try  "python setup.py build faster_build
@@ -139,12 +116,6 @@ if faster_build_str in sys.argv:
         sys.exit(0)
 else:
     faster_build = False
-
-if 'no_cythonize_again' in sys.argv:
-    no_cythonize_again = True
-    sys.argv.remove('no_cythonize_again')
-else:
-    no_cythonize_again = False
 
 
 # check AMBERHOME
@@ -198,14 +169,14 @@ def get_include_and_lib_dir():
         else:
     
             if do_install or do_build:
-                print(auto_install_message)
+                print(message_auto_install)
                 for i in range(0, 3):
                     sys.stdout.write('.')
                     sys.stdout.flush()
                     time.sleep(1)
                 try:
                     subprocess.check_call(['sh',
-                                           './installs/install_cpptraj_git.sh'])
+                                           './installs/install_cpptraj.sh', 'github'])
                 except CalledProcessError:
                     sys.stderr.write(
                         'can not install libcpptraj, you need to install it manually \n')
@@ -235,11 +206,6 @@ def do_what():
 do_install, do_build = do_what()
 cpptraj_dir, cpptraj_include, libdir, pytraj_inside_amber  = get_include_and_lib_dir()
 
-try:
-    check_cpptraj_config(cpptraj_dir)
-except:
-    pass
-
 # get *.pyx files
 pxd_include_dirs = [
     directory for directory, dirs, files in os.walk('pytraj') if '__init__.pyx'
@@ -252,14 +218,6 @@ pyxfiles = []
 for p in pxd_include_dirs:
     pyxfiles.extend([ext.split(".")[0] for ext in glob(p + '/*.pyx')
                      if '.pyx' in ext])
-
-if rank is not None:
-    # update n_cores in ./scripts/parallel_setup.py if you change it
-    n_cores = 6
-    start, stop = list(split_range(n_cores, 0, len(pyxfiles)))[rank]
-    pyxfiles = pyxfiles[start:stop] 
-else:
-    pyxfiles = pyxfiles
 
 # check command line
 extra_compile_args = ['-O0', ]
@@ -281,7 +239,7 @@ if not list_of_libcpptraj:
             sleep(3)
             try:
                 subprocess.check_call(
-                    ['sh', './installs/install_cpptraj_current_folder.sh'])
+                    ['sh', './installs/install_cpptraj.sh'])
                 cpptraj_include = os.path.join(cpptraj_dir, 'src')
             except CalledProcessError:
                 sys.stderr.write(
@@ -292,7 +250,19 @@ if not list_of_libcpptraj:
                              'You need to install ``libcpptraj`` manually. ')
             sys.exit(0)
 
-if with_openmp:
+# check if libcpptraj.so was installed with openmp or not.
+# Is `nm` everywhere?
+output_openmp_check = subprocess.check_output(['nm', list_of_libcpptraj[0]]).decode().split('\n')
+omp_ = [line for line in output_openmp_check if 'OMP' in line]
+
+if disable_openmp:
+    if omp_:
+        sys.stderr.write(message_openmp_cpptraj)
+        sys.exit(0)
+else:
+    if not omp_:
+        sys.stderr.write(message_serial_cpptraj)
+        sys.exit(0)
     extra_compile_args.append("-fopenmp")
     extra_link_args.append("-fopenmp")
 
@@ -313,7 +283,7 @@ cython_directives = {
 
 cythonize(
     [pfile + '.pyx' for pfile in pyxfiles],
-    #nthreads=int(os.environ.get('NUM_THREADS', 6)),
+    nthreads=int(os.environ.get('NUM_THREADS', 4)),
     compiler_directives=cython_directives,
     )
 

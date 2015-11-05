@@ -1,6 +1,8 @@
 # this script was adapted from pythran package
 # https://github.com/serge-sans-paille/pythran
 # BSD-3 license
+# https://github.com/serge-sans-paille/pythran/blob/master/LICENSE
+
 from __future__ import print_function
 import os
 from ctypes.util import find_library

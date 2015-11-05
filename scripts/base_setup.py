@@ -1,6 +1,6 @@
 import os
 
-auto_install_message = """
+message_auto_install = """
 Can not find cpptraj header and libcpptraj files.
 We're trying to dowload and build libcpptraj for you, would take about 5-10 minutes.
 You can check ./cpptraj/ folder after installation.
@@ -15,12 +15,24 @@ development version from here: https://github.com/Amber-MD/cpptraj
 $ git clone https://github.com/Amber-MD/cpptraj/
 $ cd cpptraj
 $ export CPPTRAJHOME=`pwd`
-$ ./configure -shared gnu
+$ ./configure -shared -openmp gnu
 $ make libcpptraj
 
 and then go back to pytraj folder:
 python setup.py install
 """
+
+message_openmp_cpptraj = '''
+libcpptraj was detected to be installed with openmp.
+You can not use --disable-openmp flag with pytraj
+'''
+
+message_serial_cpptraj = '''
+libcpptraj was detected not be installed with openmp. You can recompile it with -openmp flag or 
+disable openpm install in pytraj by adding --disable-openmp
+
+Example: python setup.py install --disable-openmp
+'''
 
 def remind_export_LD_LIBRARY_PATH(build_tag, libdir, pytraj_inside_amber):
     if build_tag:
