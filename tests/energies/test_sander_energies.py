@@ -30,8 +30,8 @@ class TestSander(unittest.TestCase):
         options.gbsa = 1
         edict = pt.energy_decomposition(
             traj=traj,
-            input_options=options,
-            parm=topfile)
+            mm_options=options,
+            prmtop=topfile)
         assert_close(edict['bond'][0], 631.8993, tol=3E-4)
         assert_close(edict['angle'][0], 898.2543, tol=3E-4)
         assert_close(edict['surf'][0], 33.8338, tol=3E-4)
@@ -40,28 +40,28 @@ class TestSander(unittest.TestCase):
         # dummy test to make sure `energy_decomposition` can work with list
         edict2 = pt.energy_decomposition(
             traj=[traj, ],
-            input_options=options,
-            parm=topfile,
+            mm_options=options,
+            prmtop=topfile,
             top=traj.top)
         edict3 = pt.energy_decomposition(
             traj=traj(),
-            input_options=options,
-            parm=topfile,
+            mm_options=options,
+            prmtop=topfile,
             top=traj.top)
         edict4 = pt.energy_decomposition(
             traj=[traj[:5], traj[5:]],
-            input_options=options,
-            parm=topfile,
+            mm_options=options,
+            prmtop=topfile,
             top=traj.top)
         edict5 = pt.energy_decomposition(
             traj=[traj[:5], traj(start=5)],
-            input_options=options,
-            parm=topfile,
+            mm_options=options,
+            prmtop=topfile,
             top=traj.top)
         # test dtype
         dslist = pt.energy_decomposition(traj=[traj, ],
-                                           input_options=options,
-                                           parm=topfile,
+                                           mm_options=options,
+                                           prmtop=topfile,
                                            top=traj.top,
                                            dtype='dataset')
         assert edict == edict2
@@ -77,7 +77,7 @@ class TestSander(unittest.TestCase):
         traj = pt.iterload(rstfile, topfile)
         options = sander.pme_input()
         options.cut = 8.0
-        edict = pt.energy_decomposition(traj=traj, input_options=options)
+        edict = pt.energy_decomposition(traj=traj, mm_options=options)
         assert_close(edict['bond'][0], 0., tol=3E-4)
         assert_close(edict['vdw'][0], 6028.9517, tol=3E-4)
         assert_close(edict['elec'][0], -45371.5995, tol=3E-4)
@@ -94,17 +94,17 @@ class TestSander(unittest.TestCase):
         options = sander.gas_input(1)
         options.cut = 99.0
         options.ifqnt = 1
-        qmmm_options = sander.qm_input()
-        qmmm_options.iqmatoms[:3] = [8, 9, 10]
-        qmmm_options.qm_theory = "PM3"
-        qmmm_options.qmcharge = 0
-        qmmm_options.qmgb = 2
-        qmmm_options.adjust_q = 0
+        qm_options = sander.qm_input()
+        qm_options.iqmatoms[:3] = [8, 9, 10]
+        qm_options.qm_theory = "PM3"
+        qm_options.qmcharge = 0
+        qm_options.qmgb = 2
+        qm_options.adjust_q = 0
 
         edict = pt.energy_decomposition(
             traj=traj,
-            input_options=options,
-            qmmm_options=qmmm_options)
+            mm_options=options,
+            qm_options=qm_options)
         assert_close(edict['bond'][0], 0.0016, tol=3E-4)
         assert_close(edict['vdw'][0], 0.1908, tol=3E-4)
         assert_close(edict['vdw_14'][0], 3.7051, tol=3E-4)
@@ -127,18 +127,18 @@ class TestSander(unittest.TestCase):
         options.ifqnt = 1
         options.jfastw = 4
 
-        qmmm_options = sander.QmInputOptions()
-        qmmm_options.qm_theory = "PDDG-PM3"
-        qmmm_options.qmmask = ":1-2"
-        qmmm_options.qmcharge = 0
-        qmmm_options.scfconv = 1e-10
+        qm_options = sander.QmInputOptions()
+        qm_options.qm_theory = "PDDG-PM3"
+        qm_options.qmmask = ":1-2"
+        qm_options.qmcharge = 0
+        qm_options.scfconv = 1e-10
         qmmm_tight_p_conv = 1
-        qmmm_options.qmmm_int = 5
+        qm_options.qmmm_int = 5
 
         edict = pt.energy_decomposition(
             traj=traj,
-            input_options=options,
-            qmmm_options=qmmm_options)
+            mm_options=options,
+            qm_options=qm_options)
         assert_close(edict['bond'][0], 605.7349, tol=3E-4)
         assert_close(edict['vdw_14'][0], 0.0000, tol=3E-4)
         assert_close(edict['elec_14'][0], 0.0000, tol=3E-4)
@@ -155,8 +155,8 @@ class TestSander(unittest.TestCase):
         options.cut = 9999.0
         edict = pt.energy_decomposition(
             traj=traj,
-            input_options=options,
-            parm=topfile)
+            mm_options=options,
+            prmtop=topfile)
         assert_close(edict['gb'][0], -2287.6880, tol=3E-4)
         assert_close(edict['gb'][0], -2287.6880, tol=3E-4)
         assert_close(edict['elec'][0], -1659.5740, tol=3E-4)

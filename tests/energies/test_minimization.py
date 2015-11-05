@@ -24,18 +24,14 @@ class TestMin(unittest.TestCase):
             t0 = traj[:1]
 
             if has_("sander"):
-                print('egb: ', pt.energy_decomposition(t0,
-                                                       igb=8,
-                                                       verbose=False)['gb'])
+                print('egb: ', pt.energy_decomposition(t0, igb=8)['gb'])
 
             minimize(t0)
 
             self.assertRaises(ValueError, lambda: minimize(traj))
 
             if has_("sander"):
-                print('egb: ', pt.energy_decomposition(t0,
-                                                       igb=8,
-                                                       verbose=False)['gb'])
+                print('egb: ', pt.energy_decomposition(t0, igb=8)['gb'])
 
             # load saved file
             saved_coords = pt.load("./data/Ala3/min/min.r", traj.top).xyz
