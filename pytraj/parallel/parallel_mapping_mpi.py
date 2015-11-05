@@ -9,9 +9,6 @@ def pmap_mpi(func, traj, *args, **kwd):
     ----------
     func : a function
     traj : pytraj.TrajectoryIterator
-    command : str
-    dtype : default 'ndarray'
-        dtype of return output
     *args, **kwd: additional arguments
 
     Examples
@@ -51,14 +48,17 @@ def pmap_mpi(func, traj, *args, **kwd):
     if not isinstance(func, (list, tuple)):
         # split traj to ``n_cores`` chunks, perform calculation 
         # for rank-th chunk
+        if 'dtype' not in kwd:
+            kwd['dtype'] = 'dict'
         start, stop = split_range(n_cores, 0, traj.n_frames)[rank]
         fa_chunk = traj(start=start, stop=stop)
         data = func(fa_chunk, *args, **kwd)
         total = comm.gather(data, root=0)
+        if rank == 0:
+            total = concat_dict(x for x in total)
     else:
+        # cpptraj command style
         from pytraj.parallel import _load_batch_pmap
-        if 'dtype' in kwd.keys():
-            kwd.pop('dtype')
         total = _load_batch_pmap(n_cores=n_cores,
                                  traj=traj,
                                  lines=func,
