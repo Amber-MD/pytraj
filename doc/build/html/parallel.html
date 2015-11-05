@@ -202,14 +202,13 @@
 
 <span class="gp">In [3]: </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="gr">Out[3]: </span>
-<span class="go">[(0, array([ 18.9111,  18.9365]), 2),</span>
-<span class="go"> (1, array([ 18.8497,  18.9045]), 2),</span>
-<span class="go"> (2, array([ 18.8569,  18.8892]), 2),</span>
-<span class="go"> (3, array([ 18.943 ,  18.8888,  18.9167,  18.8707]), 4)]</span>
+<span class="go">OrderedDict([(&#39;RoG_00000&#39;,</span>
+<span class="go">              array([ 18.9111,  18.9365,  18.8497,  18.9045,  18.8569,  18.8892,</span>
+<span class="go">                      18.943 ,  18.8888,  18.9167,  18.8707]))])</span>
 
 <span class="c"># auto-join the data</span>
-<span class="gp">In [4]: </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;dict&#39;</span><span class="p">)</span>
-<span class="go">                                                                                                                                                                                     Out[4]: </span>
+<span class="gp">In [4]: </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="go">                                                                                                                                                                                      Out[4]: </span>
 <span class="go">OrderedDict([(&#39;RoG_00000&#39;,</span>
 <span class="go">              array([ 18.9111,  18.9365,  18.8497,  18.9045,  18.8569,  18.8892,</span>
 <span class="go">                      18.943 ,  18.8888,  18.9167,  18.8707]))])</span>
@@ -350,13 +349,13 @@ vector, multidihedral, ...</p>
 <span class="go">calc_watershell</span>
 <span class="go">calc_zeta</span>
 <span class="go">dist</span>
-<span class="go">get_pysander_energies</span>
+<span class="go">energy_decomposition</span>
 <span class="go">get_velocity</span>
+<span class="go">hbond</span>
 <span class="go">ired_vector_and_matrix</span>
 <span class="go">mean_structure</span>
 <span class="go">native_contacts</span>
 <span class="go">rmsd_perres</span>
-<span class="go">search_hbonds</span>
 </pre></div>
 </div>
 </div>
@@ -406,7 +405,7 @@ If method supports openmp, use openmp.</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 03, 2015.<br/>
+      Last updated on Nov 05, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

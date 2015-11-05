@@ -41,7 +41,7 @@ Example: parallel calculation with single action
     traj = pt.iterload('data/tz2.ortho.nc', 'data/tz2.ortho.parm7')
     pt.pmap(pt.radgyr, traj, n_cores=4)
     # auto-join the data
-    pt.pmap(pt.radgyr, traj, n_cores=4, dtype='dict')
+    pt.pmap(pt.radgyr, traj, n_cores=4)
 
 Example: parallel calculation with cpptraj's command style
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

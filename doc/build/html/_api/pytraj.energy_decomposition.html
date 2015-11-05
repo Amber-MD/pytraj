@@ -144,7 +144,7 @@
 <script type="text/javascript" src='../_static/cindex.js'></script></div>
 <span class="target" id="module-pytraj.externals.get_pysander_energies"></span><dl class="function">
 <dt id="pytraj.externals.get_pysander_energies.energy_decomposition">
-<tt class="descclassname">pytraj.externals.get_pysander_energies.</tt><tt class="descname">energy_decomposition</tt><big>(</big><em>traj=None</em>, <em>parm=None</em>, <em>igb=8</em>, <em>input_options=None</em>, <em>qmmm_options=None</em>, <em>mode=None</em>, <em>dtype='dict'</em>, <em>frame_indices=None</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.externals.get_pysander_energies.energy_decomposition" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.externals.get_pysander_energies.</tt><tt class="descname">energy_decomposition</tt><big>(</big><em>traj=None</em>, <em>prmtop=None</em>, <em>igb=8</em>, <em>mm_options=None</em>, <em>qm_options=None</em>, <em>mode=None</em>, <em>dtype='dict'</em>, <em>frame_indices=None</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.externals.get_pysander_energies.energy_decomposition" title="Permalink to this definition">¶</a></dt>
 <dd><p>energy decomposition by calling <cite>libsander</cite></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -154,10 +154,10 @@
 <blockquote>
 <div><p>if <cite>traj</cite> does not hold Topology information, <cite>top</cite> must be provided</p>
 </div></blockquote>
-<p><strong>parm</strong> : str or Structure from ParmEd, default=None, optional</p>
+<p><strong>prmtop</strong> : str or Structure from ParmEd, default=None, optional</p>
 <blockquote>
 <div><p>To avoid any unexpected error, you should always provide original topology
-filename. If parm is None, pytraj will load Topology from traj.top.filename.</p>
+filename. If prmtop is None, pytraj will load Topology from traj.top.filename.</p>
 <ul class="simple">
 <li>why do you need to load additional topology filename? Because cpptraj and sander
 use different Topology object, can not convert from one to another.</li>
@@ -165,14 +165,14 @@ use different Topology object, can not convert from one to another.</li>
 </div></blockquote>
 <p><strong>igb</strong> : GB model, default=8 (GB-Neck2)</p>
 <blockquote>
-<div><p>If specify <cite>input_options</cite>, this <cite>igb</cite> input will be ignored</p>
+<div><p>If specify <cite>mm_options</cite>, this <cite>igb</cite> input will be ignored</p>
 </div></blockquote>
-<p><strong>input_options</strong> : InputOptions from <cite>sander</cite>, default=None, optional</p>
+<p><strong>mm_options</strong> : InputOptions from <cite>sander</cite>, default=None, optional</p>
 <blockquote>
-<div><p>if <cite>input_options</cite> is None, use <cite>gas_input</cite> with given igb.
-If <cite>input_options</cite> is not None, use this</p>
+<div><p>if <cite>mm_options</cite> is None, use <cite>gas_input</cite> with given igb.
+If <cite>mm_options</cite> is not None, use this</p>
 </div></blockquote>
-<p><strong>qmmm_options</strong> : InputOptions from <cite>sander</cite> for QMMM, optional</p>
+<p><strong>qm_options</strong> : InputOptions from <cite>sander</cite> for QMMM, optional</p>
 <p><strong>mode</strong> : str, default=None, optional</p>
 <blockquote>
 <div><p>if mode=&#8217;minimal&#8217;, get only &#8216;bond&#8217;, &#8216;angle&#8217;, &#8216;dihedral&#8217; and &#8216;total&#8217; energies</p>
@@ -197,8 +197,8 @@ If <cite>input_options</cite> is not None, use this</p>
 </tbody>
 </table>
 <p class="rubric">Notes</p>
-<p>This method does not work with <cite>pytraj.pmap</cite> when you specify input_options and
-qmmm_options. Use <cite>pytraj.pmap_mpi</cite> with MPI instead.</p>
+<p>This method does not work with <cite>pytraj.pmap</cite> when you specify mm_options and
+qm_options. Use <cite>pytraj.pmap_mpi</cite> with MPI instead.</p>
 <p>Work with <tt class="docutils literal"><span class="pre">pytraj.pmap</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">energy_decomposition</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">igb</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;dict&#39;</span><span class="p">)</span>
 </pre></div>
@@ -206,12 +206,12 @@ qmmm_options. Use <cite>pytraj.pmap_mpi</cite> with MPI instead.</p>
 <p>Will NOT work with <tt class="docutils literal"><span class="pre">pytraj.pmap</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sander</span>
 <span class="n">inp</span> <span class="o">=</span> <span class="n">sander</span><span class="o">.</span><span class="n">gas_input</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
-<span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">energy_decomposition</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">input_options</span><span class="o">=</span><span class="n">inp</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;dict&#39;</span><span class="p">)</span>
+<span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">energy_decomposition</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">mm_options</span><span class="o">=</span><span class="n">inp</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;dict&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Why? Because Python need to pickle each object to send to different cores and Python
-does not know how to pickle input_options from sander.gas_input(8).</p>
-<p>This works with <tt class="docutils literal"><span class="pre">pytraj.pmap_mpi</span></tt> because pytraj explicitly create <tt class="docutils literal"><span class="pre">input_options</span></tt>
+does not know how to pickle mm_options from sander.gas_input(8).</p>
+<p>This works with <tt class="docutils literal"><span class="pre">pytraj.pmap_mpi</span></tt> because pytraj explicitly create <tt class="docutils literal"><span class="pre">mm_options</span></tt>
 in each core without pickling.</p>
 <p class="rubric">Examples</p>
 <p>Examples are adapted from $AMBERHOME/test/sanderapi</p>
@@ -236,7 +236,7 @@ in each core without pickling.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="n">rstfile</span><span class="p">,</span> <span class="n">topfile</span><span class="p">)</span> 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">options</span> <span class="o">=</span> <span class="n">sander</span><span class="o">.</span><span class="n">pme_input</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">options</span><span class="o">.</span><span class="n">cut</span> <span class="o">=</span> <span class="mf">8.0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">edict</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">energy_decomposition</span><span class="p">(</span><span class="n">traj</span><span class="o">=</span><span class="n">traj</span><span class="p">,</span> <span class="n">input_options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edict</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">energy_decomposition</span><span class="p">(</span><span class="n">traj</span><span class="o">=</span><span class="n">traj</span><span class="p">,</span> <span class="n">mm_options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">edict</span><span class="p">[</span><span class="s">&#39;vdw&#39;</span><span class="p">]</span> 
 <span class="go">array([ 6028.95167558])</span>
 </pre></div>
@@ -250,15 +250,15 @@ in each core without pickling.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">options</span> <span class="o">=</span> <span class="n">sander</span><span class="o">.</span><span class="n">gas_input</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">options</span><span class="o">.</span><span class="n">cut</span> <span class="o">=</span> <span class="mf">99.0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">options</span><span class="o">.</span><span class="n">ifqnt</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">qmmm_options</span> <span class="o">=</span> <span class="n">sander</span><span class="o">.</span><span class="n">qm_input</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">qmmm_options</span><span class="o">.</span><span class="n">iqmatoms</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">qmmm_options</span><span class="o">.</span><span class="n">qm_theory</span> <span class="o">=</span> <span class="s">&quot;PM3&quot;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">qmmm_options</span><span class="o">.</span><span class="n">qmcharge</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">qmmm_options</span><span class="o">.</span><span class="n">qmgb</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">qmmm_options</span><span class="o">.</span><span class="n">adjust_q</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qm_options</span> <span class="o">=</span> <span class="n">sander</span><span class="o">.</span><span class="n">qm_input</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qm_options</span><span class="o">.</span><span class="n">iqmatoms</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qm_options</span><span class="o">.</span><span class="n">qm_theory</span> <span class="o">=</span> <span class="s">&quot;PM3&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qm_options</span><span class="o">.</span><span class="n">qmcharge</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qm_options</span><span class="o">.</span><span class="n">qmgb</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qm_options</span><span class="o">.</span><span class="n">adjust_q</span> <span class="o">=</span> <span class="mi">0</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">edict</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">energy_decomposition</span><span class="p">(</span><span class="n">traj</span><span class="o">=</span><span class="n">traj</span><span class="p">,</span> <span class="n">input_options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span> <span class="n">qmmm_options</span><span class="o">=</span><span class="n">qmmm_options</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">edict</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">energy_decomposition</span><span class="p">(</span><span class="n">traj</span><span class="o">=</span><span class="n">traj</span><span class="p">,</span> <span class="n">mm_options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span> <span class="n">qm_options</span><span class="o">=</span><span class="n">qm_options</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">edict</span><span class="p">[</span><span class="s">&#39;bond&#39;</span><span class="p">]</span>
 <span class="go">array([ 0.00160733])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">edict</span><span class="p">[</span><span class="s">&#39;scf&#39;</span><span class="p">]</span>
@@ -282,7 +282,7 @@ in each core without pickling.</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 04, 2015.<br/>
+      Last updated on Nov 05, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>
