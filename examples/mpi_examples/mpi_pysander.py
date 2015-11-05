@@ -25,7 +25,7 @@ try:
     data = pt.pmap_mpi(pt.energy_decomposition, traj, mm_options=inp)
     
     if comm.rank == 0:
-        data = pt.tools.concat_dict(data)
+        print(data)
 
         # make sure to reproduce serial output
         #serial_data = pt.energy_decomposition(traj, mm_options=inp)

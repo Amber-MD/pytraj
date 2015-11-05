@@ -12,6 +12,5 @@ traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
 data = pt.pmap_mpi(pt.radgyr, traj, '*')
 
 if rank == 0:
-    data = pt.tools.flatten(data)
     saved_data = pt.radgyr(traj, '*')
-    aa_eq(data, saved_data)
+    aa_eq(data['RoG_00000'], saved_data)
