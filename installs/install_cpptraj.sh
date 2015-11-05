@@ -5,14 +5,15 @@
 # User need to install libcpptraj manually if they want to disable openmp
 
 install_type=$1
-echo $install_type
 
 # PYTRAJHOME is the root folder of `pytraj`
 export PYTRAJHOME=`pwd`
 
 if [ "$install_type" = 'github' ]; then
+    echo 'install libcpptraj from github'
     git clone https://github.com/Amber-MD/cpptraj
-    echo 'he he, installing from github'
+else
+    echo 'install libcpptraj from current ./cpptraj folder'
 fi
 
 cd cpptraj/
