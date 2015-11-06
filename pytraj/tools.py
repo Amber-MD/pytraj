@@ -666,7 +666,7 @@ def make_fake_topology(n_atoms):
     >>> import pytraj as pt
     >>> top = pt.tools.make_fake_topology(300)
     >>> top.n_atoms
-    304
+    300
     >>> isinstance(top, pt.Topology)
     True
     '''
