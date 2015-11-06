@@ -43,6 +43,12 @@ except ValueError:
     with_coverage = False
 
 try:
+    sys.argv.remove('x')
+    with_coverage = True
+except ValueError:
+    pass
+
+try:
     need_help = sys.argv[1] in ['help', '-help', '--help']
 except IndexError:
     need_help = False 
