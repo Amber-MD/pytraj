@@ -13,6 +13,7 @@ import numpy as np
 from pytraj.utils.check_and_assert import is_int, is_array
 from pytraj.compat import set
 from pytraj.externals.six import PY2, PY3, string_types
+from pytraj.externals.six.moves import range
 from pytraj.utils.check_and_assert import is_int
 from pytraj.cpptraj_dict import ParmFormatDict
 from pytraj.core.fake_residue import SimplifiedResidue
@@ -186,13 +187,13 @@ cdef class Topology:
             # return atom object iterator with given mask
             # self(idx) return AtomMask object
             mask = array_to_cpptraj_atommask(idx.indices)
-        elif isinstance(idx, (list, tuple, range)) or is_array(idx):
-            mask = array_to_cpptraj_atommask(idx)
         elif isinstance(idx, slice):
             # does not have memory efficiency with large Topology
             # (since we convert to atom list first)
             start, stop, step = idx.indices(self.n_atoms)
             mask = array_to_cpptraj_atommask(range(start, stop, step))
+        elif isinstance(idx, (list, tuple, range)) or is_array(idx):
+            mask = array_to_cpptraj_atommask(idx)
         elif isinstance(idx, Residue):
             mask = array_to_cpptraj_atommask(range(idx.first_atom_idx, idx.last_atom_idx))
             return self._get_new_from_mask(mask)
