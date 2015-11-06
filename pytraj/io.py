@@ -76,25 +76,25 @@ def load(filename, top=None, frame_indices=None, mask=None):
     --------
     >>> import pytraj as pt
     >>> # load netcdf file with given amber parm file
-    >>> traj = pt.load('traj.nc', '2koc.parm7')
+    >>> traj = pt.load('traj.nc', '2koc.parm7') # doctest: +SKIP
 
     >>> # load netcdf file with given amber parm file
-    >>> traj = pt.load('traj.nc', '2koc.parm7')
+    >>> traj = pt.load('traj.nc', '2koc.parm7') # doctest: +SKIP
 
     >>> # load mol2 file
-    >>> traj = pt.load('traj.mol2')
+    >>> traj = pt.load('traj.mol2') # # doctest: +SKIP
 
     >>> # load pdb file
-    >>> traj = pt.load('traj.pdb')
+    >>> traj = pt.load('traj.pdb') # doctest: +SKIP
 
     >>> # load given frame numbers
-    >>> traj = pt.load('traj.nc', top='2koc.parm7', frame_indices=[0, 3, 5, 12, 20])
-    >>> traj = pt.load('traj.nc', top='2koc.parm7', frame_indices=[0, 3, 5, 12, 20], mask='!@H=')
+    >>> traj = pt.load('traj.nc', top='2koc.parm7', frame_indices=[0, 3, 5, 12, 20]) # doctest: +SKIP
+    >>> traj = pt.load('traj.nc', top='2koc.parm7', frame_indices=[0, 3, 5, 12, 20], mask='!@H=') # doctest: +SKIP
 
     >>> # load with frame slice
-    >>> traj = pt.load('traj.nc', top='2koc.parm7', frame_indices=slice(0, 10, 2))
+    >>> traj = pt.load('traj.nc', top='2koc.parm7', frame_indices=slice(0, 10, 2)) # doctest: +SKIP
     >>> # which is equal to:
-    >>> traj = pt.load('traj.nc', top='2koc.parm7', frame_indices=range(0, 10, 2))
+    >>> traj = pt.load('traj.nc', top='2koc.parm7', frame_indices=range(0, 10, 2)) # doctest: +SKIP
     """
     if isinstance(filename, string_types) and filename.startswith(
             'http://') or filename.startswith('https://'):
@@ -149,21 +149,21 @@ def iterload(*args, **kwd):
     --------
     >>> import pytraj as pt
     >>> # load a single filename
-    >>> traj = pt.iterload('traj.nc', '2koc.parm7')
+    >>> traj = pt.iterload('traj.nc', '2koc.parm7') # doctest: +SKIP
 
     >>> # load from a list of filenames
-    >>> traj = pt.iterload(['traj0.nc', 'traj1.nc'], '2koc.parm7')
+    >>> traj = pt.iterload(['traj0.nc', 'traj1.nc'], '2koc.parm7') # doctest: +SKIP
 
     >>> # load all files with a given pattern (sorted)
-    >>> traj = pt.iterload('./traj*.nc', '2koc.parm7')
+    >>> traj = pt.iterload('./traj*.nc', '2koc.parm7') # doctest: +SKIP
 
     >>> # load from a list of files with given frame step
     >>> # for each file, only register to load from frame 0 to 9 (skip 10), skip every 2 frames
-    >>> traj = pt.iterload(['traj0.nc', 'traj1.nc'], '2koc.parm7', frame_slice=[(0, 10, 2),]*2)
+    >>> traj = pt.iterload(['traj0.nc', 'traj1.nc'], '2koc.parm7', frame_slice=[(0, 10, 2),]*2) # doctest: +SKIP
 
     >>> # load from frame 0 to 9 for `traj0.nc`
     >>> # load all frames from `traj1.nc`
-    >>> traj = pt.iterload(['traj0.nc', 'traj1.nc'], '2koc.parm7', frame_slice=[(0, 10), (0, -1)]
+    >>> traj = pt.iterload(['traj0.nc', 'traj1.nc'], '2koc.parm7', frame_slice=[(0, 10), (0, -1)] # doctest: +SKIP
 
     Notes
     -----
@@ -171,13 +171,13 @@ def iterload(*args, **kwd):
     so, first load trajectories to TrajectoryIterator object, then do fancy slicing
 
     >>> import pytraj as pt
-    >>> register to load traj.nc from 0-th to 99-th frame
-    >>> traj = pt.iterload('traj.nc', 'prmtop', frame_slice=(0, 100)])
+    >>> # register to load traj.nc from 0-th to 99-th frame
+    >>> traj = pt.iterload('traj.nc', 'prmtop', frame_slice=(0, 100)]) # doctest: +SKIP
     >>> # do fancy indexing to load specific frames to memory
-    >>> traj[[0, 8, 3, 50, 7]]
+    >>> traj[[0, 8, 3, 50, 7]] # doctest: +SKIP
 
     >>> # load to disk with given mask
-    >>> traj[[0, 8, 3, 50, 7], '!@H=']
+    >>> traj[[0, 8, 3, 50, 7], '!@H='] # doctest: +SKIP
     """
     if kwd and 'frame_indices' in kwd.keys():
         raise ValueError(
@@ -258,10 +258,10 @@ def load_traj(filename=None, top=None, *args, **kwd):
     return ts
 
 
-def _load_from_frame_iter(iterables, top=None):
+def _load_from_frame_iter(iterable, top=None):
     '''
     '''
-    return Trajectory.from_iterable(iterables, top)
+    return Trajectory.from_iterable(iterable, top)
 
 
 def iterload_remd(filename, top=None, T="300.0"):
@@ -352,17 +352,17 @@ def write_traj(filename="",
     Examples
     --------
     >>> import pytraj as pt
-    >>> traj = io.load_sample_data()
-    >>> pt.write_traj("t.nc", traj, overwrite=True) # write to amber netcdf file
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> pt.write_traj("output/t.nc", traj, overwrite=True) # write to amber netcdf file
 
     >>> # write to multi pdb files (t.pdb.1, t.pdb.2, ...)
-    >>> pt.write_traj("t.pdb", traj, overwrite=True, options='multi')
+    >>> pt.write_traj("output/t.pdb", traj, overwrite=True, options='multi')
 
     >>> # write all frames to single pdb file and each frame is seperated by "MODEL" word
-    >>> pt.write_traj("t.pdb", traj, overwrite=True, options='model')
+    >>> pt.write_traj("output/t.pdb", traj, overwrite=True, options='model')
 
     >>> # write to DCD file
-    >>> pt.write_traj("test.dcd", traj, overwrite=True)
+    >>> pt.write_traj("output/test.dcd", traj, overwrite=True)
 
     >>> # write to netcdf file from 3D numpy array, need to provide Topology
     >>> xyz = traj.xyz
@@ -446,18 +446,20 @@ def load_topology(filename, more_options=''):
     --------
     >>> import pytraj as pt
     >>> # from a filename
-    >>> pt.load_topology("tz2.ortho.parm7")
+    >>> pt.load_topology("data/tz2.ortho.parm7")
+    <Topology: 5293 atoms, 1704 residues, 1692 mols, PBC with box type = ortho>
 
     >>> # from url
     >>> pt.load_topology("http://ambermd.org/tutorials/advanced/tutorial1/files/polyAT.pdb")
+    <Topology: 438 atoms, 438 residues, 438 mols, non-PBC>
 
     >>> # from ParmEd object
     >>> import parmed as pmd
-    >>> parm = pmd.load_file('m2-c1_f3.mol2')
-    >>> top = pt.load_topology(parm)
+    >>> parm = pmd.load_file('m2-c1_f3.mol2') # doctest: +SKIP
+    >>> top = pt.load_topology(parm) # doctest: +SKIP
 
     >>> # read with more_options
-    >>> pt.load_topology('1KX5.pdb', 'bondsearch 0.2')
+    >>> pt.load_topology('1KX5.pdb', 'bondsearch 0.2') # doctest: +SKIP
     """
     top = Topology()
 
@@ -549,30 +551,81 @@ save = write_traj
 save_traj = write_traj
 
 
-def get_coordinates(iterables,
+def get_coordinates(iterable,
                     autoimage=None,
                     rmsfit=None,
                     mask=None,
                     frame_indices=None):
-    '''return 3D-ndarray coordinates of `iterables`, shape=(n_frames, n_atoms, 3). This method is more memory
+    '''return 3D-ndarray coordinates of `iterable`, shape=(n_frames, n_atoms, 3). This method is more memory
     efficient if use need to perform autoimage and rms fit to reference before loading all coordinates
     from disk.
 
+    This method is good (fast, memory efficient) if you just want to get raw numpy array
+    to feed to external package, such as sciki-learn, ...
+
     Parameters
     ----------
-    iterables : could be anything having Frame info
-        a Trajectory, TrajectoryIterator,
-        a frame_iter, FrameIterator, ...
+    iterable : could be anything that produces Frame when iterating 
+               (Trajectory, TrajectoryIterator, FrameIterator, Python's generator, ...)
 
     Notes
     -----
-    if using both ``autoimage`` and ``rmsfit``, autoimage will be always processed before doing rmsfit.
+    - if using both ``autoimage`` and ``rmsfit``, autoimage will be always processed before doing rmsfit.
+    - You will get faster speed if ``iterable`` has attribute ``n_frames`` 
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> from pytraj.testing import get_fn
+    >>> fn, tn = get_fn('tz2')
+    >>> # load to out-of-core pytraj.TrajectoryIterator
+    >>> traj = pt.iterload(fn, tn)
+    >>> traj.n_frames, traj.n_atoms
+    (10, 5293)
+
+    >>> # simple
+    >>> xyz = pt.get_coordinates(traj)  # same as traj.xyz
+    >>> xyz.shape
+    (10, 5293, 3)
+
+    >>> # load coordinates to memory and doing autoimage
+    >>> xyz = pt.get_coordinates(traj, autoimage=True)
+    >>> xyz.shape
+    (10, 5293, 3)
+
+    >>> # load coordinates to memory for given mask
+    >>> xyz = pt.get_coordinates(traj, mask='@CA')
+    >>> xyz.shape
+    (10, 12, 3)
+
+    >>> # load coordinates of specific frame to memory and doing autoimage
+    >>> xyz = pt.get_coordinates(traj, autoimage=True, frame_indices=[3, 6, 2, 5])
+    >>> xyz.shape
+    (4, 5293, 3)
+
+    >>> # create frame iterator with some given cpptraj's commands
+    >>> fi = pt.create_pipeline(traj, ['autoimage', 'rms', 'center :1-6 origin'])
+    >>> xyz = pt.get_coordinates(fi)
+    >>> xyz.shape
+    (10, 5293, 3)
+
+    >>> # make your own out-of-core method
+    >>> def my_method(traj):
+    ...     for frame in traj:
+    ...         frame.xyz += 2.
+    ...         yield frame
+    >>> fi = my_method(traj)
+    >>> fi.__class__.__name__
+    'generator'
+    >>> xyz = pt.get_coordinates(fi)
+    >>> xyz.shape
+    (10, 5293, 3)
     '''
     has_any_iter_options = any(
         x is not None for x in (autoimage, rmsfit, mask, frame_indices))
     # try to iterate to get coordinates
-    if isinstance(iterables, (Trajectory, TrajectoryIterator)):
-        fi = iterables.iterframe(autoimage=autoimage,
+    if isinstance(iterable, (Trajectory, TrajectoryIterator)):
+        fi = iterable.iterframe(autoimage=autoimage,
                                  rmsfit=rmsfit,
                                  mask=mask,
                                  frame_indices=frame_indices)
@@ -580,7 +633,7 @@ def get_coordinates(iterables,
         if has_any_iter_options:
             raise ValueError(
                 'only support autoimage, rmsfit or mask for Trajectory and TrajectoryIterator')
-        fi = iterframe_master(iterables)
+        fi = iterframe_master(iterable)
     if hasattr(fi, 'n_frames') and hasattr(fi, 'n_atoms'):
         # faster
         n_frames = fi.n_frames
@@ -593,5 +646,5 @@ def get_coordinates(iterables,
     else:
         # slower
         return np.array([frame.xyz.copy()
-                         for frame in iterframe_master(iterables)],
+                         for frame in iterframe_master(iterable)],
                         dtype='f8')

@@ -27,14 +27,17 @@ from itertools import chain
 from scripts.base_setup import check_cpptraj_version, write_version_py, get_version_info
 from scripts.base_setup import remind_export_LD_LIBRARY_PATH
 from scripts.base_setup import message_openmp_cpptraj, message_serial_cpptraj, message_auto_install
+from scripts.base_setup import CleanCommand
 
 # python version >= 2.7
 if sys.version_info < (2, 6):
     sys.stderr.write('You must have at least Python 2.6 for pytraj\n')
     sys.exit(0)
 
+# python setup.py clean
+cmdclass = {'clean': CleanCommand}
+
 # cython version >= 0.21 for now.
-cmdclass = {}
 cython_msg = '''
 Building from source requires cython >= 0.21
 try `conda install cython` if you have conda
