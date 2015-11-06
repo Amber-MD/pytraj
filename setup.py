@@ -14,19 +14,15 @@ import time
 from time import sleep
 import subprocess
 from subprocess import CalledProcessError
-from random import shuffle
-from distutils.core import setup, Command
+from distutils.core import setup
 from distutils.extension import Extension
-import distutils.ccompiler
-from functools import partial
 from glob import glob
-from itertools import chain
-
 
 # local import
 from scripts.base_setup import check_cpptraj_version, write_version_py, get_version_info
 from scripts.base_setup import remind_export_LD_LIBRARY_PATH
-from scripts.base_setup import message_openmp_cpptraj, message_serial_cpptraj, message_auto_install
+from scripts.base_setup import (message_openmp_cpptraj, message_serial_cpptraj, message_auto_install,
+                                message_cython)
 from scripts.base_setup import CleanCommand
 
 # python version >= 2.7
@@ -38,12 +34,6 @@ if sys.version_info < (2, 6):
 cmdclass = {'clean': CleanCommand}
 
 # cython version >= 0.21 for now.
-cython_msg = '''
-Building from source requires cython >= 0.21
-try `conda install cython` if you have conda
-(try to read here if you want to know why we suggeste to use conda:
-    http://conda.pydata.org/docs/download.html)
-'''
 try:
     import Cython
     from Cython.Distutils import build_ext
@@ -51,12 +41,10 @@ try:
     has_cython = True
     cmdclass['build_ext'] = build_ext
     if Cython.__version__ < '0.21':
-        raise ImportError(cython_msg)
+        sys.stderr.write(message_cython)
+        sys.exit(0)
 except ImportError:
-    #has_cython = False
-    #from distutils.command.build_ext import build_ext 
-    #cmdclass['build_ext'] = build_ext
-    sys.stderr.write(cython_msg)
+    sys.stderr.write(message_cython)
     sys.exit(0)
 
 try:
@@ -79,7 +67,6 @@ def split_range(n_chunks, start, stop):
     '''
     chunksize = (stop - start)//n_chunks
 
-    range_list = []
     for i in range(n_chunks):
         if i < n_chunks - 1:
             _stop = start + (i + 1) * chunksize
@@ -324,7 +311,6 @@ for ext_name in pyxfiles:
                        extra_link_args=extra_link_args)
     ext_modules.append(extmod)
 
-#shuffle(ext_modules)
 setup_args = {}
 packages = [
     'pytraj',

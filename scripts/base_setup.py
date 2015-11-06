@@ -15,6 +15,21 @@ MICRO               = 2
 ISRELEASED          = False
 VERSION             = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 
+
+message_cython = '''
+Building from source requires cython >= 0.21
+
+Either try:
+    conda install cython
+    pip install cython --upgrade
+
+We suggest to install Anaconda suite, which has more than 300 python packages (including
+the most updated cython)
+
+    http://conda.pydata.org/docs/download.html)
+
+'''
+
 message_auto_install = """
 Can not find cpptraj header and libcpptraj files.
 We're trying to dowload and build libcpptraj for you, would take about 5-10 minutes.
