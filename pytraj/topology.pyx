@@ -13,9 +13,11 @@ import numpy as np
 from pytraj.utils.check_and_assert import is_int, is_array
 from pytraj.compat import set
 from pytraj.externals.six import PY2, PY3, string_types
+from pytraj.externals.six.moves import range
 from pytraj.utils.check_and_assert import is_int
 from pytraj.cpptraj_dict import ParmFormatDict
 from pytraj.core.fake_residue import SimplifiedResidue
+from pytraj.utils.convert import array_to_cpptraj_atommask
 
 PY2 = sys.version_info[0] == 2
 PY3 = sys.version_info[0] == 3
@@ -179,30 +181,29 @@ cdef class Topology:
         elif isinstance(idx, string_types):
             # return atom object iterator with given mask
             # self(idx) return AtomMask object
-            return self._get_new_from_mask(idx)
+            mask = idx
         elif isinstance(idx, AtomMask):
             atm = <AtomMask> idx
             # return atom object iterator with given mask
             # self(idx) return AtomMask object
-            alist = [self[i] for i in atm._indices_view]
-        elif isinstance(idx, (list, tuple)) or is_array(idx):
-            alist = [self[i] for i in idx]
+            mask = array_to_cpptraj_atommask(idx.indices)
         elif isinstance(idx, slice):
             # does not have memory efficiency with large Topology
             # (since we convert to atom list first)
-            alist = self.atomlist[idx]
+            start, stop, step = idx.indices(self.n_atoms)
+            mask = array_to_cpptraj_atommask(range(start, stop, step))
+        elif isinstance(idx, (list, tuple, range)) or is_array(idx):
+            mask = array_to_cpptraj_atommask(idx)
         elif isinstance(idx, Residue):
-            res = idx
-            return self[res.first_atom_idx: res.last_atom_idx]
+            mask = array_to_cpptraj_atommask(range(idx.first_atom_idx, idx.last_atom_idx))
+            return self._get_new_from_mask(mask)
         elif isinstance(idx, Molecule):
             mol = idx
-            return self[mol.begin_atom: mol.end_atom]
+            mask = array_to_cpptraj_atommask(range(mol.begin_atom, mol.end_atom))
         else:
             raise NotImplementedError("")
-        if len(alist) == 1:
-            return alist[0]
-        else:
-            return alist
+
+        return self._get_new_from_mask(mask)
 
     def __call__(self, mask, *args, **kwd):
         """intended to use with Frame indexing
