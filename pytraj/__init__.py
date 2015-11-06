@@ -38,7 +38,7 @@ except ImportError:
 
 try:
     from .core import Atom, Residue, Molecule
-    from .core.action_list import ActionList, create_pipeline
+    from .core.action_list import ActionList, create_pipeline, do
     Pipeline = ActionList
 
 except ImportError:
