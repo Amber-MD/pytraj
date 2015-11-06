@@ -570,7 +570,7 @@ class Trajectory(object):
         from pytraj.actions import CpptrajActions
 
         act = CpptrajActions.Action_Rotate()
-        act(command, self, top=self.top) 
+        act(command, self, top=self.top)
         return self
 
     def translate(self, command=''):
@@ -589,7 +589,7 @@ class Trajectory(object):
         from pytraj.actions import CpptrajActions
 
         act = CpptrajActions.Action_Translate()
-        act(command, self, top=self.top) 
+        act(command, self, top=self.top)
         return self
 
     def scale(self, command=''):
@@ -606,7 +606,7 @@ class Trajectory(object):
         from pytraj.actions import CpptrajActions
 
         act = CpptrajActions.Action_Scale()
-        act(command, self, top=self.top) 
+        act(command, self, top=self.top)
         return self
 
     def center(self, command=''):
@@ -623,7 +623,7 @@ class Trajectory(object):
         from pytraj.actions import CpptrajActions
 
         act = CpptrajActions.Action_Center()
-        act(command, self, top=self.top) 
+        act(command, self, top=self.top)
         return self
 
     def align_principal_axis(self, command=''):
@@ -664,7 +664,8 @@ class Trajectory(object):
         from pytraj.core.action_list import create_pipeline
         fi = create_pipeline(self, commands, frame_indices=frame_indices)
 
-        for _ in fi: pass
+        for _ in fi:
+            pass
         return self
 
     @property
@@ -875,17 +876,17 @@ class Trajectory(object):
         frame_iter_super = self._iterframe_indices(indices)
 
         return FrameIterator(frame_iter_super,
-                         original_top=self.top,
-                         new_top=_top,
-                         start=start,
-                         stop=stop,
-                         step=step,
-                         mask=mask,
-                         autoimage=autoimage,
-                         rmsfit=rmsfit,
-                         n_frames=n_frames,
-                         frame_indices=frame_indices,
-                         copy=copy)
+                             original_top=self.top,
+                             new_top=_top,
+                             start=start,
+                             stop=stop,
+                             step=step,
+                             mask=mask,
+                             autoimage=autoimage,
+                             rmsfit=rmsfit,
+                             n_frames=n_frames,
+                             frame_indices=frame_indices,
+                             copy=copy)
 
     @property
     def _estimated_GB(self):

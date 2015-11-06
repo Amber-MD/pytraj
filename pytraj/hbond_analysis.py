@@ -27,7 +27,8 @@ def to_amber_mask(txtlist):
     for mask in _txt:
         mask = mask.replace("_", " ").replace("-", " ").split()
         second_res = mask[3].split('@')[0]
-        yield ''.join((':', mask[1], ' :', "".join((second_res, '@', mask[4]))))
+        yield ''.join((':', mask[1], ' :', "".join(
+            (second_res, '@', mask[4]))))
 
 
 class DatasetHBond(BaseDataHolder):
@@ -192,6 +193,7 @@ def hbond(traj,
             hdata._old_keys = old_keys
             return hdata
         else:
-            raise ValueError('series=False does not work with dtype="hbond", try dtype="dataset"')
+            raise ValueError(
+                'series=False does not work with dtype="hbond", try dtype="dataset"')
     else:
         return _get_data_from_dtype(dslist, dtype=dtype)

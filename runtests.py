@@ -51,7 +51,7 @@ except ValueError:
 try:
     need_help = sys.argv[1] in ['help', '-help', '--help']
 except IndexError:
-    need_help = False 
+    need_help = False
 try:
     do_simple_test = sys.argv[1] in ['simple', 'minimal', '-simple',
                                      '-minimal', 'sim']
@@ -61,9 +61,12 @@ except:
 if need_help:
     print("Usage:")
     print("    short testing: python {} simple".format(my_script))
-    print("    long testing: python {}".format( my_script))
-    print("    long testing with code coverage: python {} --with-coverage".format(my_script))
-    print("Note: long testing requires nose and coverage, which are easily installed by `pip install`")
+    print("    long testing: python {}".format(my_script))
+    print(
+        "    long testing with code coverage: python {} --with-coverage".format(
+            my_script))
+    print(
+        "Note: long testing requires nose and coverage, which are easily installed by `pip install`")
     sys.exit(0)
 
 print("start testing. Go to ./tests folder")

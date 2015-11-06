@@ -741,7 +741,8 @@ def calc_multivector(traj=None,
 
 
 @_super_dispatch()
-def calc_volmap(traj, mask='',
+def calc_volmap(traj,
+                mask='',
                 grid_spacing='0.0. 0.0. 0.0',
                 buffer=3.0,
                 centermask='*',
@@ -781,7 +782,8 @@ def calc_volmap(traj, mask='',
     _peakcut = 'peakcut ' + str(peakcut)
     _centermask = 'centermask ' + centermask
 
-    command = ' '.join((dummy_filename, grid_spacing, mask, _radscale, _buffer, _centermask, _peakcut))
+    command = ' '.join((dummy_filename, grid_spacing, mask, _radscale, _buffer,
+                        _centermask, _peakcut))
 
     act = CpptrajActions.Action_Volmap()
 
@@ -789,6 +791,7 @@ def calc_volmap(traj, mask='',
     act(command, traj, top=top, dslist=dslist)
     act.post_process()
     return _get_data_from_dtype(dslist, dtype)
+
 
 volmap = calc_volmap
 
@@ -1805,8 +1808,12 @@ rmsd = calc_rmsd
 
 @_register_pmap
 @_super_dispatch(has_ref=True)
-def calc_distance_rmsd(traj=None, ref=0, mask='', top=None, dtype='ndarray',
-        frame_indices=None):
+def calc_distance_rmsd(traj=None,
+                       ref=0,
+                       mask='',
+                       top=None,
+                       dtype='ndarray',
+                       frame_indices=None):
     '''compute distance rmsd between traj and reference
 
     Parameters
@@ -1908,7 +1915,8 @@ def atomiccorr(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
     dslist = CpptrajDatasetList()
     act = CpptrajActions.Action_AtomicCorr()
     act("out mytempfile.out " + command, traj,
-        top=top, dslist=dslist, *args, **kwd)
+        top=top,
+        dslist=dslist, *args, **kwd)
     act.post_process()
     return _get_data_from_dtype(dslist, dtype=dtype)
 

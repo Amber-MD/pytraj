@@ -118,29 +118,51 @@ def calc_dssp(traj=None,
         arr0 = dslist.grep("integer", mode='dtype').values
         keys = dslist.grep("integer", mode='dtype').keys()
         avg_dict = DatasetList(dslist.grep('_avg'))
-        ss_array = np.asarray([_to_string_secondary_structure(arr, simplified=simplified)
-            for arr in arr0]).T
+        ss_array = np.asarray(
+            [_to_string_secondary_structure(arr,
+                                            simplified=simplified)
+             for arr in arr0]).T
         return np.asarray(keys), ss_array, avg_dict
     else:
         return _get_data_from_dtype(dslist, dtype=dtype)
 
-
 # _s0 = ['None', 'Para', 'Anti', '3-10', 'Alpha', 'Pi', 'Turn', 'Bend']
 _s1 = ["0", "b", "B", "G", "H", "I", "T", "S"]
+
 
 def _to_string_secondary_structure(arr0, simplified=False):
     """
     arr0 : ndarray
     """
     if not simplified:
-        ssdict = {0: '0', 1: 'b', 2: 'B', 3: 'G', 4: 'H', 5: 'I', 6: 'T', 7: 'S'}
+        ssdict = {
+            0: '0',
+            1: 'b',
+            2: 'B',
+            3: 'G',
+            4: 'H',
+            5: 'I',
+            6: 'T',
+            7: 'S'
+        }
     else:
-        ssdict = {0: 'C', 1: 'E', 2: 'E', 3: 'H', 4: 'H', 5: 'H', 6: 'C', 7: 'C'}
+        ssdict = {
+            0: 'C',
+            1: 'E',
+            2: 'E',
+            3: 'H',
+            4: 'H',
+            5: 'H',
+            6: 'C',
+            7: 'C'
+        }
 
     return np.vectorize(lambda key: ssdict[key])(arr0)
 
 
-def _get_ss_per_frame(arr, top, res_indices, simplified=False, all_atoms=False):
+def _get_ss_per_frame(arr, top, res_indices,
+                      simplified=False,
+                      all_atoms=False):
     if simplified:
         symbol = 'C'
     else:
@@ -150,15 +172,15 @@ def _get_ss_per_frame(arr, top, res_indices, simplified=False, all_atoms=False):
         if idx in res_indices:
             ss = arr[res_indices.index(idx)]
             if all_atoms:
-                yield [ss for _ in range(res.first_atom_idx,
-                    res.last_atom_idx)]
+                yield [ss for _ in range(res.first_atom_idx, res.last_atom_idx)
+                       ]
             else:
                 # only residues
                 yield [ss, ]
         else:
             if all_atoms:
-                yield [symbol for _ in range(res.first_atom_idx,
-                    res.last_atom_idx)]
+                yield [symbol
+                       for _ in range(res.first_atom_idx, res.last_atom_idx)]
             else:
                 yield [symbol, ]
 
@@ -197,8 +219,9 @@ def dssp_allatoms(traj, *args, **kwd):
 
     simplified = kwd.get('simplified', False)
     for fid, arr in enumerate(data):
-        new_data[fid][:] = tools.flatten(_get_ss_per_frame(arr, top, res_indices,
-            simplified, all_atoms=True))
+        new_data[fid][:] = tools.flatten(
+            _get_ss_per_frame(arr, top, res_indices, simplified,
+                              all_atoms=True))
     return new_data
 
 
@@ -255,6 +278,7 @@ def dssp_allresidues(traj, *args, **kwd):
 
     simplified = kwd.get('simplified', False)
     for fid, arr in enumerate(data):
-        new_data[fid][:] = tools.flatten(_get_ss_per_frame(arr, top, res_indices,
-            simplified, all_atoms=False))
+        new_data[fid][:] = tools.flatten(
+            _get_ss_per_frame(arr, top, res_indices, simplified,
+                              all_atoms=False))
     return new_data
