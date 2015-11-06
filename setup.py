@@ -24,8 +24,9 @@ from itertools import chain
 
 
 # local import
-from scripts.base_setup import message_auto_install, remind_export_LD_LIBRARY_PATH
-from scripts.base_setup import message_openmp_cpptraj, message_serial_cpptraj
+from scripts.base_setup import write_version_py, get_version_info
+from scripts.base_setup import remind_export_LD_LIBRARY_PATH
+from scripts.base_setup import message_openmp_cpptraj, message_serial_cpptraj, message_auto_install
 
 # python version >= 2.7
 if sys.version_info < (2, 6):
@@ -93,7 +94,11 @@ if sys.platform == 'darwin':
     os.environ['CC'] = 'clang'
 
 PYTRAJ_DIR = os.path.abspath(os.path.dirname(__file__))
-pytraj_version = read("pytraj/__version__.py").split("=")[-1].replace('"', '', 10)
+# update new version
+write_version_py()
+# read newly added version.py file
+FULLVERSION, GIT_REVISION = get_version_info()
+
 rootname = os.getcwd()
 pytraj_home = rootname + "/pytraj/"
 
@@ -346,7 +351,7 @@ datalist = pxdlist + sample_data
 def build_func(my_ext):
     return setup(
         name="pytraj",
-        version=pytraj_version,
+        version=FULLVERSION,
         author="Hai Nguyen",
         author_email="hainm.comp@gmail.com",
         url="https://github.com/Amber-MD/pytraj",

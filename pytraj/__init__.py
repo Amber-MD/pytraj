@@ -56,8 +56,6 @@ try:
 except ImportError:
     np = None
 
-from .__version__ import __version__
-version = __version__
 from . import options
 
 # import partial from functools
@@ -376,9 +374,10 @@ def show_versions():
     """
     >>> show_versions() # doctest: +SKIP
     """
+    from pytraj import version
     print(sys.version)
     print('')
-    print("pytraj version = ", version)
+    print("pytraj version = ", version.version)
     print("cpptraj version = ", __cpptraj_version__)
     print("cpptraj internal version = ", __cpptraj_internal_version__)
     print("cpptraj compiled flag = ", compiled_info())
