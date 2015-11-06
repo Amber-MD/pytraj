@@ -137,6 +137,7 @@ def get_version_info():
         try:
             from pytraj.__version__ import git_revision as GIT_REVISION
         except ImportError:
+            # FIXME pytraj
             #raise ImportError("Unable to import git_revision. Try removing " \
             #                  "numpy/version.py and the build directory " \
             #                  "before building.")
