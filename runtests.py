@@ -37,6 +37,18 @@ art = r'''
 my_script = sys.argv[0]
 
 try:
+    sys.argv.remove('--with-coverage')
+    with_coverage = True
+except ValueError:
+    with_coverage = False
+
+try:
+    sys.argv.remove('x')
+    with_coverage = True
+except ValueError:
+    pass
+
+try:
     need_help = sys.argv[1] in ['help', '-help', '--help']
 except IndexError:
     need_help = False 
@@ -48,8 +60,9 @@ except:
 
 if need_help:
     print("Usage:")
-    print("    short testing: python %s simple" % my_script)
-    print("    long testing: python %s" % my_script)
+    print("    short testing: python {} simple".format(my_script))
+    print("    long testing: python {}".format( my_script))
+    print("    long testing with code coverage: python {} --with-coverage".format(my_script))
     print("Note: long testing requires nose and coverage, which are easily installed by `pip install`")
     sys.exit(0)
 
@@ -62,7 +75,10 @@ if do_simple_test:
     print(art)
     sys.exit(0)
 else:
-    os.system("nosetests --with-coverage --cover-package pytraj -vs .")
+    if with_coverage:
+        os.system("nosetests --with-coverage --cover-package pytraj -vs .")
+    else:
+        os.system("nosetests -vs .")
 
 print('\nHAPPY COMPUTING')
 print(art)
