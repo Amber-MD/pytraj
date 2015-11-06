@@ -11,6 +11,7 @@ from itertools import islice
 from collections import OrderedDict, defaultdict
 import numpy as np
 
+
 def estimate_size(n_frames, n_atoms, dtype='f8'):
     '''return MB
 
@@ -24,6 +25,7 @@ def estimate_size(n_frames, n_atoms, dtype='f8'):
     if dtype == 'f4':
         n_bytes = 4
     return n_frames * n_atoms * 3 * n_bytes / (1024 ** 2)
+
 
 def groupby(key, seq):
     # lightly adapted from `toolz` package.
@@ -658,6 +660,7 @@ def read_to_array(fname):
     with open(fname, 'r') as fh:
         arr0 = np.array([[x for x in line.split()] for line in fh.readlines()])
         return np.array(flatten(arr0), dtype='f8')
+
 
 def make_fake_topology(n_atoms):
     '''make fake Topology, just for writing xyz array to supported formats

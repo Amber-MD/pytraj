@@ -28,7 +28,7 @@ def ensure_exist(f):
     @wraps(f)
     def inner(*args, **kwd):
         if 'filename' in kwd.keys() and not os.path.exists(kwd['filename']):
-                raise RuntimeError('filename not exist')
+            raise RuntimeError('filename not exist')
         elif not os.path.exists(args[0]):
             raise RuntimeError('filename not exist')
         return f(*args, **kwd)

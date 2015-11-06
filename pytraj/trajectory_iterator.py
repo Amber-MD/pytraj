@@ -28,11 +28,13 @@ def tryint(s):
     except:
         return s
 
+
 def alphanum_key(s):
     """ Turn a string into a list of string and number chunks.
         "z23a" -> ["z", 23, "a"]
     """
-    return [ tryint(c) for c in re.split('([0-9]+)', s) ]
+    return [tryint(c) for c in re.split('([0-9]+)', s)]
+
 
 def sort_filename_by_number(filelist):
     """ Sort the given list in the way that humans expect.
@@ -318,17 +320,17 @@ class TrajectoryIterator(TrajectoryCpptraj):
                                      self)._iterframe_indices(frame_indices)
 
         return FrameIterator(frame_iter_super,
-                         original_top=self.top,
-                         new_top=_top,
-                         start=start,
-                         stop=stop,
-                         step=step,
-                         mask=mask,
-                         autoimage=autoimage,
-                         rmsfit=rmsfit,
-                         n_frames=n_frames,
-                         copy=copy,
-                         frame_indices=frame_indices)
+                             original_top=self.top,
+                             new_top=_top,
+                             start=start,
+                             stop=stop,
+                             step=step,
+                             mask=mask,
+                             autoimage=autoimage,
+                             rmsfit=rmsfit,
+                             n_frames=n_frames,
+                             copy=copy,
+                             frame_indices=frame_indices)
 
     def iterchunk(self,
                   chunksize=2,

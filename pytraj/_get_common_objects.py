@@ -164,6 +164,7 @@ class _super_dispatch(object):
         array_to_cpptraj_atommask(mask)
     - convert int ref to Frame ref
     '''
+
     def __init__(self, has_ref=False):
         self.has_ref = has_ref
 
@@ -231,4 +232,5 @@ class _super_dispatch(object):
                 if has_mask:
                     args[1] = mask
             return f(*args, **kwd)
+
         return inner

@@ -102,21 +102,19 @@ from .analyses import CpptrajAnalyses
 from . import common_actions
 from .dssp_analysis import calc_dssp, dssp_allatoms, dssp_allresidues
 from .common_actions import (
-    calc_rmsd_nofit, rmsd, rmsd_perres, distance_rmsd,
-    calc_multidihedral, autoimage, nastruct, calc_angle, calc_dihedral,
-    calc_distance, calc_pairwise_distance, calc_center_of_mass,
-    calc_center_of_geometry, calc_dssp, calc_jcoupling, calc_molsurf,
-    calc_radgyr, calc_rdf, calc_vector, calc_pairwise_rmsd, calc_atomicfluct,
-    calc_bfactors, calc_density, calc_rotation_matrix, calc_watershell,
-    calc_volume, calc_mindist, lifetime, get_average_frame, calc_atomiccorr,
-    get_velocity, _dihedral_res, energy_decomposition, native_contacts,
+    calc_rmsd_nofit, rmsd, rmsd_perres, distance_rmsd, calc_multidihedral,
+    autoimage, nastruct, calc_angle, calc_dihedral, calc_distance,
+    calc_pairwise_distance, calc_center_of_mass, calc_center_of_geometry,
+    calc_dssp, calc_jcoupling, calc_molsurf, calc_radgyr, calc_rdf,
+    calc_vector, calc_pairwise_rmsd, calc_atomicfluct, calc_bfactors,
+    calc_density, calc_rotation_matrix, calc_watershell, calc_volume,
+    calc_mindist, lifetime, get_average_frame, calc_atomiccorr, get_velocity,
+    _dihedral_res, energy_decomposition, native_contacts,
     auto_correlation_function, principal_axes, cross_correlation_function,
     timecorr, center, translate, rotate, rotate_dihedral, make_structure,
     scale, do_clustering, clustering_dataset, _rotate_dih, randomize_ions,
     crank, closest, search_neighbors, replicate_cell, _rotdif, pairdist, _grid,
-    transform, lowestcurve, calc_diffusion,
-    calc_volmap,
-    )
+    transform, lowestcurve, calc_diffusion, calc_volmap, )
 
 from .nmr import ired_vector_and_matrix, _ired, NH_order_parameters
 from .hbond_analysis import hbond
@@ -329,6 +327,7 @@ def select_atoms(mask, topology):
         mask, topology = topology, mask
     return topology.select(mask)
 
+
 select = select_atoms
 
 
@@ -346,6 +345,7 @@ def strip_atoms(traj_or_topology, mask):
         traj_or_topology.mask = kept_mask
         return traj_or_topology
 
+
 def run(fi):
     '''shortcut for `for frame in fi: pass`
 
@@ -354,7 +354,8 @@ def run(fi):
     >>> fi = pt.create_pipeline(traj, ['autoimage', 'rms', 'center :1-13'])
     >>> pt.run(fi)
     '''
-    for _ in fi: pass
+    for _ in fi:
+        pass
 
 
 def show():

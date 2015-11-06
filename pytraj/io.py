@@ -626,9 +626,9 @@ def get_coordinates(iterable,
     # try to iterate to get coordinates
     if isinstance(iterable, (Trajectory, TrajectoryIterator)):
         fi = iterable.iterframe(autoimage=autoimage,
-                                 rmsfit=rmsfit,
-                                 mask=mask,
-                                 frame_indices=frame_indices)
+                                rmsfit=rmsfit,
+                                mask=mask,
+                                frame_indices=frame_indices)
     else:
         if has_any_iter_options:
             raise ValueError(

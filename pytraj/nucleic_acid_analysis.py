@@ -98,7 +98,8 @@ def nastruct(traj=None,
     _pucker_method = pucker_method
     _groove_3dna = 'groovecalc 3dna' if groove_3dna else ''
 
-    command = " ".join((_resrange, _resmap, _hbcut, _pucker_method, _groove_3dna))
+    command = " ".join(
+        (_resrange, _resmap, _hbcut, _pucker_method, _groove_3dna))
 
     dslist = CpptrajDatasetList()
 
