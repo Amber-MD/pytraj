@@ -1731,3 +1731,22 @@ cdef class Action_Watershell (Action):
         
     def help(self):
         self.thisptr.Help()
+
+cdef class Action_Unstrip (Action):
+    def __cinit__(self):
+        self.baseptr = <_Action*> new _Action_Unstrip()
+        self.thisptr = <_Action_Unstrip*> self.baseptr
+
+    def __dealloc__(self):
+        if self.baseptr is not NULL:
+            del self.baseptr
+
+    def alloc(self):
+        """return a function-pointer object to be used with ActionList class
+        """
+        cdef FunctPtr func = FunctPtr()
+        func.ptr = &(self.thisptr.Alloc)
+        return func
+
+    def help(self):
+        self.thisptr.Help()

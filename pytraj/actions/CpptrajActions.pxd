@@ -962,3 +962,13 @@ cdef extern from "Action_Watershell.h":
 
 cdef class Action_Watershell (Action):
     cdef _Action_Watershell* thisptr
+
+
+cdef extern from "Action_Unstrip.h": 
+    cdef cppclass _Action_Unstrip "Action_Unstrip" (_Action) nogil:
+        _Action_Unstrip()
+        _DispatchObject * Alloc() 
+        void Help() 
+
+cdef class Action_Unstrip(Action):
+    cdef _Action_Unstrip* thisptr

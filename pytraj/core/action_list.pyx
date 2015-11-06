@@ -65,6 +65,37 @@ def create_pipeline(traj, commands, DatasetList dslist=DatasetList(), frame_indi
         yield frame
 
 
+def do(lines, traj, ref=None):
+    cdef DatasetList dslist
+
+    if ref is not None:
+        if isinstance(ref, Frame):
+            reflist = [ref, ]
+        else:
+            # list/tuplex
+            reflist = ref
+    else:
+        reflist = []
+
+    dslist = DatasetList()
+
+    if reflist:
+        for ref_ in reflist:
+            ref_dset = dslist.add_new('reference')
+            ref_dset.top = traj.top
+            ref_dset.add_frame(ref_)
+
+    # create Frame generator
+    fi = create_pipeline(traj, commands=lines, dslist=dslist)
+
+    # just iterate Frame to trigger calculation.
+    for _ in fi:
+        pass
+
+    # remove ref
+    return dslist[len(reflist):].to_dict()
+
+
 cdef class ActionList:
     def __cinit__(self):
         self.thisptr = new _ActionList()
