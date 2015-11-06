@@ -11,8 +11,15 @@ import os
 from multiprocessing import Pool
 
 def func(rank):
-    os.system('python setup.py build_ext --rank=%s' % rank)
+    # openmp
+    os.system('python setup.py build_ext --rank=%s -i' % rank)
 
-Pool(4).map(func, range(4))
+    # double free memory
+    #os.system('python setup.py build --rank=%s' % rank)
 
-os.system('python setup.py install')
+# chose n_cpus=6 to be compromised with n_pyx_files=19
+n_cpus = 6
+
+Pool(n_cpus).map(func, range(n_cpus))
+
+os.system('python setup.py install openmp')

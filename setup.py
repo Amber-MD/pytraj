@@ -22,8 +22,10 @@ from functools import partial
 from glob import glob
 from itertools import chain
 
+
 # local import
-from scripts.base_setup import auto_install_message, remind_export_LD_LIBRARY_PATH
+from scripts.base_setup import message_auto_install, remind_export_LD_LIBRARY_PATH
+from scripts.base_setup import message_openmp_cpptraj, message_serial_cpptraj
 
 # python version >= 2.7
 if sys.version_info < (2, 6):
@@ -53,10 +55,33 @@ except ImportError:
     sys.stderr.write(cython_msg)
     sys.exit(0)
 
+try:
+    sys.argv.remove('--disable-openmp')
+    disable_openmp = True
+except ValueError:
+    disable_openmp = False
 
 def read(fname):
     # must be in this setup file
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
+
+def split_range(n_chunks, start, stop):
+    '''split a given range to n_chunks
+
+    Examples
+    --------
+    >>> split_range(3, 0, 10)
+    [(0, 3), (3, 6), (6, 10)]
+    '''
+    chunksize = (stop - start)//n_chunks
+
+    range_list = []
+    for i in range(n_chunks):
+        if i < n_chunks - 1:
+            _stop = start + (i + 1) * chunksize
+        else:
+            _stop = stop
+        yield (start + i * chunksize, _stop)
 
 if sys.platform == 'darwin':
     # copied from ParmEd
@@ -72,33 +97,13 @@ pytraj_version = read("pytraj/__version__.py").split("=")[-1].replace('"', '', 1
 rootname = os.getcwd()
 pytraj_home = rootname + "/pytraj/"
 
-openmp_str = "openmp"
-faster_build_str = "faster"
-
-if openmp_str in ' '.join(sys.argv):
-    # python ./setup.py build openmp
-    # make sure to update Makefile in $AMBERHOME/AmberTools/src
-    # if changing '-openmp' to something else
-    with_openmp = True
-    # I am dump here. fix later.
-    try:
-        # '-openmp'
-        sys.argv.remove('-' + openmp_str)
-    except:
-        pass
-    try:
-        sys.argv.remove(openmp_str)
-    except ValueError:
-        pass
-else:
-    with_openmp = False
-
 KeyErrorText = """
 Can not use -faster_build with `install`,
 try  "python setup.py build faster_build
 then "python setup.py install" 
 """
 
+faster_build_str = "faster"
 if faster_build_str in sys.argv:
     # try using multiple cores
     faster_build = True
@@ -164,14 +169,14 @@ def get_include_and_lib_dir():
         else:
     
             if do_install or do_build:
-                print(auto_install_message)
+                print(message_auto_install)
                 for i in range(0, 3):
                     sys.stdout.write('.')
                     sys.stdout.flush()
                     time.sleep(1)
                 try:
                     subprocess.check_call(['sh',
-                                           './installs/install_cpptraj_git.sh'])
+                                           './installs/install_cpptraj.sh', 'github'])
                 except CalledProcessError:
                     sys.stderr.write(
                         'can not install libcpptraj, you need to install it manually \n')
@@ -234,7 +239,7 @@ if not list_of_libcpptraj:
             sleep(3)
             try:
                 subprocess.check_call(
-                    ['sh', './installs/install_cpptraj_current_folder.sh'])
+                    ['sh', './installs/install_cpptraj.sh'])
                 cpptraj_include = os.path.join(cpptraj_dir, 'src')
             except CalledProcessError:
                 sys.stderr.write(
@@ -245,7 +250,21 @@ if not list_of_libcpptraj:
                              'You need to install ``libcpptraj`` manually. ')
             sys.exit(0)
 
-if with_openmp:
+# check if libcpptraj.so was installed with openmp or not.
+# Is `nm` everywhere?
+# need to get list_of_libcpptraj again (in case we just install libcpptraj.so)
+list_of_libcpptraj = glob(os.path.join(libdir, 'libcpptraj') + '*')
+output_openmp_check = subprocess.check_output(['nm', list_of_libcpptraj[0]]).decode().split('\n')
+omp_ = [line for line in output_openmp_check if 'get_num_threads' in line.lower()]
+
+if disable_openmp:
+    if omp_:
+        sys.stderr.write(message_openmp_cpptraj)
+        sys.exit(0)
+else:
+    if not omp_:
+        sys.stderr.write(message_serial_cpptraj)
+        sys.exit(0)
     extra_compile_args.append("-fopenmp")
     extra_link_args.append("-fopenmp")
 
@@ -266,7 +285,7 @@ cython_directives = {
 
 cythonize(
     [pfile + '.pyx' for pfile in pyxfiles],
-    nthreads=int(os.environ.get('NUM_THREADS', 6)),
+    nthreads=int(os.environ.get('NUM_THREADS', 4)),
     compiler_directives=cython_directives,
     )
 
