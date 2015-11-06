@@ -658,3 +658,24 @@ def read_to_array(fname):
     with open(fname, 'r') as fh:
         arr0 = np.array([[x for x in line.split()] for line in fh.readlines()])
         return np.array(flatten(arr0), dtype='f8')
+
+def make_fake_topology(n_atoms):
+    '''make fake Topology, just for writing xyz array to supported formats
+    (netcdf, dcd, trr, ...)
+
+    >>> import pytraj as pt
+    >>> top = pt.tools.make_fake_topology(300)
+    >>> top.n_atoms
+    304
+    >>> isinstance(top, pt.Topology)
+    True
+    '''
+    from pytraj import Atom, Residue, Topology
+
+    top = Topology()
+
+    for _ in range(n_atoms):
+        atom = Atom('X', 'X', 0., 0., 0)
+        residue = Residue('Y', 0)
+        top.add_atom(atom, residue)
+    return top
