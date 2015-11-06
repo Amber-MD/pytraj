@@ -186,7 +186,7 @@ cdef class Topology:
             # return atom object iterator with given mask
             # self(idx) return AtomMask object
             mask = array_to_cpptraj_atommask(idx.indices)
-        elif isinstance(idx, (list, tuple)) or is_array(idx):
+        elif isinstance(idx, (list, tuple, range)) or is_array(idx):
             mask = array_to_cpptraj_atommask(idx)
         elif isinstance(idx, slice):
             # does not have memory efficiency with large Topology
