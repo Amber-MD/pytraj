@@ -664,17 +664,18 @@ def make_fake_topology(n_atoms):
     (netcdf, dcd, trr, ...)
 
     >>> import pytraj as pt
-    >>> top = pt.tools.make_fake_topology(300)
+    >>> top = pt.tools.make_fake_topology(100)
     >>> top.n_atoms
-    300
+    100
     >>> isinstance(top, pt.Topology)
     True
     >>> import numpy as np
     >>> xyz = np.random.rand(10*100*3).reshape(10, 100, 3)
-    >>> pt.write_traj('output/test.nc', xyz, top=top) 
+    >>> traj0 = pt.Trajectory(xyz=xyz, top=top)
+    >>> pt.write_traj('output/test.nc', traj0, overwrite=True) 
     >>> traj = pt.iterload('output/test.nc', top=top)
     >>> traj.n_atoms
-    300
+    100
     '''
     from pytraj import Atom, Residue, Topology
 
