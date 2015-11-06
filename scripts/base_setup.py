@@ -56,6 +56,9 @@ message_after_sucessful_install = '''
 make sure to add {0} to your LD_LIBRARY_PATH
     - Example: export LD_LIBRARY_PATH={1}:$LD_LIBRARY_PATH
 
+    - Notes: you can move `libcpptraj.so` to any where you want, just properly add it to
+      $LD_LIBRARY_PATH
+
 Run test:
     - simple (few seconds): python ./runtests.py simple
     - full (5-10 minutes): python runtests.py
