@@ -54,8 +54,9 @@ except:
 
 if need_help:
     print("Usage:")
-    print("    short testing: python %s simple" % my_script)
-    print("    long testing: python %s" % my_script)
+    print("    short testing: python {} simple".format(my_script))
+    print("    long testing: python {}".format( my_script))
+    print("    long testing with code coverage: python {} --with-coverage".format(my_script))
     print("Note: long testing requires nose and coverage, which are easily installed by `pip install`")
     sys.exit(0)
 
