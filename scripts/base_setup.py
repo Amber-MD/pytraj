@@ -1,6 +1,8 @@
-import sys
 import os
+import sys
+import shutil
 import subprocess
+from distutils.command.clean import clean as Clean
 
 if sys.version_info[0] >= 3:
     import builtins
@@ -178,3 +180,27 @@ if not release:
                        'isrelease': str(ISRELEASED)})
     finally:
         a.close()
+
+
+# CleanCommand was copied and lightly adapted from scikit-learn package
+# https://github.com/scikit-learn/scikit-learn
+# New BSD License
+
+# Custom clean command to remove build artifacts
+class CleanCommand(Clean):
+    description = "Remove build artifacts from the source tree"
+
+    def run(self):
+        Clean.run(self)
+        if os.path.exists('build'):
+            shutil.rmtree('build')
+        for dirpath, dirnames, filenames in os.walk('pytraj'):
+            for filename in filenames:
+                if (filename.endswith('.so') or filename.endswith('.pyd')
+                        or filename.endswith('.dll')
+                        or filename.endswith('.pyc')):
+                    os.unlink(os.path.join(dirpath, filename))
+            for dirname in dirnames:
+                if dirname == '__pycache__':
+                    shutil.rmtree(os.path.join(dirpath, dirname))
+
