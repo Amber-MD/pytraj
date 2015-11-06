@@ -669,6 +669,12 @@ def make_fake_topology(n_atoms):
     300
     >>> isinstance(top, pt.Topology)
     True
+    >>> import numpy as np
+    >>> xyz = np.random.rand(10*100*3).reshape(10, 100, 3)
+    >>> pt.write_traj('output/test.nc', xyz, top=top) 
+    >>> traj = pt.iterload('output/test.nc', top=top)
+    >>> traj.n_atoms
+    300
     '''
     from pytraj import Atom, Residue, Topology
 
