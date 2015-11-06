@@ -21,6 +21,9 @@ class TestDo(unittest.TestCase):
         aa_eq(pt.rmsd(t0, ref=ref0), data[1])
         aa_eq(pt.rmsd(t0, ref=ref1), data[2])
 
+        # pytraj's method
+        aa_eq(pt.do(pt.radgyr, t0, '@CA'), data[0])
+
 
 if __name__ == "__main__":
     unittest.main()

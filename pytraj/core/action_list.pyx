@@ -65,35 +65,41 @@ def create_pipeline(traj, commands, DatasetList dslist=DatasetList(), frame_indi
         yield frame
 
 
-def do(lines, traj, ref=None):
+def do(lines, traj, *args, **kwd):
     cdef DatasetList dslist
 
-    if ref is not None:
-        if isinstance(ref, Frame):
-            reflist = [ref, ]
+
+    if isinstance(lines, (list, tuple)):
+        ref = kwd.get('ref')
+        if ref is not None:
+            if isinstance(ref, Frame):
+                reflist = [ref, ]
+            else:
+                # list/tuplex
+                reflist = ref
         else:
-            # list/tuplex
-            reflist = ref
-    else:
-        reflist = []
+            reflist = []
 
-    dslist = DatasetList()
+        dslist = DatasetList()
 
-    if reflist:
-        for ref_ in reflist:
-            ref_dset = dslist.add_new('reference')
-            ref_dset.top = traj.top
-            ref_dset.add_frame(ref_)
+        if reflist:
+            for ref_ in reflist:
+                ref_dset = dslist.add_new('reference')
+                ref_dset.top = traj.top
+                ref_dset.add_frame(ref_)
 
-    # create Frame generator
-    fi = create_pipeline(traj, commands=lines, dslist=dslist)
+        # create Frame generator
+        fi = create_pipeline(traj, commands=lines, dslist=dslist)
 
-    # just iterate Frame to trigger calculation.
-    for _ in fi:
-        pass
+        # just iterate Frame to trigger calculation.
+        for _ in fi:
+            pass
 
-    # remove ref
-    return dslist[len(reflist):].to_dict()
+        # remove ref
+        return dslist[len(reflist):].to_dict()
+
+    elif callable(lines):
+        return lines(traj, *args, **kwd)
 
 
 cdef class ActionList:
