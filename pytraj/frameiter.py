@@ -4,7 +4,7 @@ from pytraj.externals.six import string_types
 from pytraj.frame import Frame
 
 
-class FrameIter(object):
+class FrameIterator(object):
     """
     create this class to hold all iterating information. This class is for internal use.
 
@@ -35,27 +35,27 @@ class FrameIter(object):
     Examples
     --------
     >>> # short cut:
-    >>> # create FrameIter with start=0, stop=8, step=2
+    >>> # create FrameIterator with start=0, stop=8, step=2
     >>> import pytraj as pt
     >>> traj = pt.load_sample_data('tz2')
     >>> fi = traj(0, 8, 2)
-    >>> # perform radgyr calculation with FrameIter
+    >>> # perform radgyr calculation with FrameIterator
     >>> pt.radgyr(traj(0, 8, 2))
     array([ 18.91114428,  18.84969884,  18.8568644 ,  18.9430491 ])
 
-    >>> # create FrameIter with start, stop, step = 0, 8, 2
+    >>> # create FrameIterator with start, stop, step = 0, 8, 2
     >>> # autoimage=False, rmsfit=False
     >>> fi = traj.iterframe(0, 8, 2)
 
-    >>> # create FrameIter with start, stop, step = 2, 8, 1
+    >>> # create FrameIterator with start, stop, step = 2, 8, 1
     >>> # autoimage=False, rmsfit=False
     >>> fi = traj.iterframe(2, 8)
 
-    >>> # create FrameIter with start, stop, step = 2, 8, 1
+    >>> # create FrameIterator with start, stop, step = 2, 8, 1
     >>> # autoimage=False, rmsfit=False, mask='@CA'
     >>> fi = traj.iterframe(2, 8, mask='@CA')
 
-    >>> # create FrameIter with start, stop, step = 2, 8, 1
+    >>> # create FrameIterator with start, stop, step = 2, 8, 1
     >>> # autoimage=True, rmsfit=False, mask='@CA'
     >>> for frame in traj.iterframe(2, 8, autoimage=True, mask='@CA'): print(frame)
     <Frame with 12 atoms>
@@ -130,10 +130,10 @@ class FrameIter(object):
     def __name__(self):
         '''for inspecting
         '''
-        return "FrameIter"
+        return "FrameIterator"
 
     def __str__(self):
-        root_msg = '<FrameIter with '
+        root_msg = '<FrameIterator with '
         root_msg2 = 'start=%s, stop=%s, step=%s, n_frames=%s, \n' % (
             self.start, self.stop, self.step, self.n_frames)
         root_msg3 = 'frame_indices=%s, \n' % self.frame_indices
@@ -150,7 +150,7 @@ class FrameIter(object):
 
         Notes
         -----
-        FrameIter will be exhausted since this is an iterator.
+        FrameIterator will be exhausted since this is an iterator.
 
         Examples
         --------

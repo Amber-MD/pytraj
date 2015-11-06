@@ -12,7 +12,7 @@ from .topology import Topology
 from .frame import Frame
 from .utils import is_int
 from .cyutils import get_positive_idx
-from .frameiter import FrameIter
+from .frameiter import FrameIterator
 from ._get_common_objects import _load_Topology
 from .utils import split_range
 from .utils.convert import array_to_cpptraj_atommask
@@ -317,7 +317,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
             frame_iter_super = super(TrajectoryIterator,
                                      self)._iterframe_indices(frame_indices)
 
-        return FrameIter(frame_iter_super,
+        return FrameIterator(frame_iter_super,
                          original_top=self.top,
                          new_top=_top,
                          start=start,
@@ -409,7 +409,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
                          autoimage=False,
                          rmsfit=None,
                          rank=0):
-        """simple splitting `self` to n_chunks FrameIter objects
+        """simple splitting `self` to n_chunks FrameIterator objects
 
         Examples
         --------

@@ -3,7 +3,7 @@
 from pytraj.frame import Frame
 from pytraj.trajs.Trajout import Trajout
 from pytraj.utils.check_and_assert import is_frame_iter
-from pytraj.frameiter import FrameIter
+from pytraj.frameiter import FrameIterator
 
 __all__ = ['_savetraj', 'iterframe_master', '_xyz', 'my_str_method', '_box']
 
@@ -62,7 +62,7 @@ def iterframe_master(obj):
 
     Parameters
     ----------
-    obj : Trajectory or TrajectoryIterator or FrameIter or a list of frames, or a list of
+    obj : Trajectory or TrajectoryIterator or FrameIterator or a list of frames, or a list of
     Trajectory
 
     Examples
@@ -85,7 +85,7 @@ def iterframe_master(obj):
         is_frame_iter(obj) and obj.__name__ is not 'iterframe_master')
     if isinstance(obj, Frame):
         yield obj
-    elif isinstance(obj, FrameIter):
+    elif isinstance(obj, FrameIterator):
         for frame in obj:
             yield frame
     elif hasattr(obj, 'n_frames') or is_frame_iter_but_not_master:

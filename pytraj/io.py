@@ -562,7 +562,7 @@ def get_coordinates(iterables,
     ----------
     iterables : could be anything having Frame info
         a Trajectory, TrajectoryIterator,
-        a frame_iter, FrameIter, ...
+        a frame_iter, FrameIterator, ...
 
     Notes
     -----
