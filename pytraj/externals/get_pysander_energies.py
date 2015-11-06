@@ -1,5 +1,5 @@
 from pytraj._shared_methods import iterframe_master
-from pytraj._get_common_objects import _get_topology, _get_data_from_dtype, _super_dispatch
+from pytraj._get_common_objects import  _get_data_from_dtype, _super_dispatch
 from pytraj.compat import range
 from pytraj.decorators import _register_pmap
 from pytraj.externals.six import string_types
@@ -162,7 +162,7 @@ def energy_decomposition(traj=None,
         # Structure, string
         _prmtop = prmtop
 
-    if not hasattr(_prmtop, 'coordinates') or _parm.coordinates is None:
+    if not hasattr(_prmtop, 'coordinates') or _prmtop.coordinates is None:
         try:
             # if `traj` is Trajectory-like (not frame_iter), try to take 1st
             # coords

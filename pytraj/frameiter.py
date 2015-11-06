@@ -1,6 +1,4 @@
 from __future__ import absolute_import
-from pytraj.core.cpp_core import AtomMask
-from pytraj.externals.six import string_types
 from pytraj.frame import Frame
 
 

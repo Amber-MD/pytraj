@@ -105,7 +105,7 @@ def _dbscan(traj=None,
     _random_sieveseed = 'random ' + str(random_sieveseed)
     _output = output_options
     command = ' '.join((_clusters, _epsilon, _sievetoframe, _kdist, _sieve,
-                        _metric, _random_sieveseed, _mask, _output))
+                        _kfile, _metric, _random_sieveseed, _mask, _output))
     return _cluster(traj, command, top=_top, dtype='ndarray')
 
 

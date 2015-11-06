@@ -51,22 +51,8 @@ def read_pickle(path):
 
         # cpickle
         # GH 6899
-        try:
-            with open(path, 'rb') as fh:
-                return pkl.load(fh)
-        except (Exception) as e:
-
-            # reg/patched pickle
-            try:
-                with open(path, 'rb') as fh:
-                    return pc.load(fh, encoding=encoding, compat=False)
-
-            # compat pickle
-            except:
-                raise NotImplementedError("don't know how to read")
-                # with open(path, 'rb') as fh:
-                #    return pc.load(fh, encoding=encoding, compat=True)
-
+        with open(path, 'rb') as fh:
+            return pkl.load(fh)
     try:
         return try_read(path)
     except:

@@ -1,8 +1,6 @@
 from __future__ import absolute_import, print_function, division
 
 from .actions import CpptrajActions
-from .action_dict import ActionDict
-from .externals.six import string_types
 from .datasets import CpptrajDatasetList
 from .decorators import _register_pmap
 from ._get_common_objects import _get_data_from_dtype, _get_topology, _super_dispatch
@@ -19,9 +17,6 @@ def to_amber_mask(txtlist):
     >>> list(to_amber_mask(['ASP_16@OD1-ARG_18@N-H',]))
     [':16@OD1 :18@H']
     """
-    # TODO: it's better to have cpptraj printing the atom indices
-    import re
-    # make a copy
     _txt = txtlist[:]
 
     for mask in _txt:

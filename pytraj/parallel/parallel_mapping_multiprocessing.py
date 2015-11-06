@@ -8,10 +8,8 @@ from pytraj import mean_structure
 from pytraj import Frame
 from pytraj import ired_vector_and_matrix, rotation_matrix
 from pytraj import NH_order_parameters
-from pytraj import search_hbonds
 from multiprocessing import cpu_count
-from pytraj.tools import dict_to_ndarray, concat_dict
-from pytraj.datasetlist import stack
+from pytraj.tools import concat_dict
 
 
 def _worker(rank,

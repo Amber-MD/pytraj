@@ -79,7 +79,6 @@ def prmtop_from_tleap(fname, leapin=leapin, verbose=False):
     tleap = amberhome + '/bin/tleap'
 
     fname = os.path.abspath(fname)
-    cm = " ".join((tleap, fname))
 
     with goto_temp_folder():
         leapin = leapin % fname

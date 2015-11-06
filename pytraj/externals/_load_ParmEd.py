@@ -1,4 +1,3 @@
-from ..topology import Topology
 from .._get_common_objects import _load_Topology
 from ..utils.context import goto_temp_folder
 from .six import string_types
@@ -26,7 +25,6 @@ def load_ParmEd(parmed_obj, as_traj=False, **kwd):
     from parmed.amber import AmberParm
 
     if isinstance(parmed_obj, string_types):
-        import parmed as pmd
         # reserve **kwd for `structure=True`
         parmed_obj = pmd.load_file(parmed_obj, **kwd)
     # faster
