@@ -62,23 +62,18 @@ make sure to add {0} to your LD_LIBRARY_PATH
 Run test:
     - simple (few seconds): python ./runtests.py simple
     - full (5-10 minutes): python runtests.py
-
-Check compiling info:
-    # change directory so python does not try to import source code
-    cd tests # or any other folders
-    python -c 'import pytraj as pt; pt.show_versions()'
-
 '''
 
-def check_cpptraj_version(header_dir, version='4.2.8'):
+def check_cpptraj_version(header_dir, version=(4, 2, 8)):
     vfile = os.path.join(header_dir, 'Version.h')
     with open(vfile) as fh:
         for line in fh.readlines():
             if line.startswith('#define CPPTRAJ_INTERNAL_VERSION'):
                 break
-        int_version = int(line.split()[-1].strip('"').replace('V', '').split('.')[-1])
-        if int_version < int(version.split('.')[-1]):
-            raise ValueError('must have cpptraj version >= {}'.format(version))
+        int_version = tuple(int(i) for i in line.split()[-1].strip('"').replace('V', '').split('.'))
+        if int_version < version:
+            sys.stderr.write('must have cpptraj version >= {}\n'.format(version))
+            sys.exit(0)
 
 
 def remind_export_LD_LIBRARY_PATH(build_tag, libdir, pytraj_inside_amber):

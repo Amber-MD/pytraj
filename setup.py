@@ -24,7 +24,7 @@ from itertools import chain
 
 
 # local import
-from scripts.base_setup import write_version_py, get_version_info
+from scripts.base_setup import check_cpptraj_version, write_version_py, get_version_info
 from scripts.base_setup import remind_export_LD_LIBRARY_PATH
 from scripts.base_setup import message_openmp_cpptraj, message_serial_cpptraj, message_auto_install
 
@@ -280,6 +280,10 @@ try:
     sys.argv.remove(installtype)
 except ValueError:
     pass
+
+# check cpptraj version to make sure pytraj and cpptraj sync
+# V4.2.8
+check_cpptraj_version(cpptraj_include, (4, 2, 8))
 
 # pre-cythonize files in parallel
 cython_directives = {
