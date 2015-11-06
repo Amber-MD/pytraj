@@ -70,7 +70,7 @@ def is_generator(iter_obj):
 def is_frame_iter(iter_obj):
     """check if is frame_iter
     """
-    if iter_obj.__class__.__name__ == 'FrameIter':
+    if iter_obj.__class__.__name__ == 'FrameIterator':
         return True
     return False
 

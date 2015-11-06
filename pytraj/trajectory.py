@@ -15,7 +15,7 @@ from pytraj._get_common_objects import _get_topology
 from .topology import Topology
 from ._shared_methods import _savetraj, iterframe_master, my_str_method
 from .cyutils import _fast_iterptr, _fast_iterptr_withbox
-from .frameiter import FrameIter
+from .frameiter import FrameIterator
 
 __all__ = ['Trajectory']
 
@@ -874,7 +874,7 @@ class Trajectory(object):
 
         frame_iter_super = self._iterframe_indices(indices)
 
-        return FrameIter(frame_iter_super,
+        return FrameIterator(frame_iter_super,
                          original_top=self.top,
                          new_top=_top,
                          start=start,

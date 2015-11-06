@@ -340,7 +340,7 @@ def strip_atoms(traj_or_topology, mask):
         # return new Topology or new Trajectory
         return traj_or_topology[kept_mask]
     elif isinstance(traj_or_topology, TrajectoryIterator):
-        # return a FrameIter
+        # return a FrameIterator
         return traj_or_topology(mask=kept_mask)
     elif hasattr(traj_or_topology, 'mask'):
         traj_or_topology.mask = kept_mask

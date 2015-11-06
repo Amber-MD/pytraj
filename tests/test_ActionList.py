@@ -395,13 +395,13 @@ class TestActionList(unittest.TestCase):
         t0 = traj[:].autoimage().superpose()
         aa_eq(xyz, t0.xyz)
 
-        # from FrameIter
+        # from FrameIterator
         fi = pt.create_pipeline(traj(), ['autoimage', 'rms'])
         xyz = np.array([frame.xyz.copy() for frame in fi])
         t0 = traj[:].autoimage().superpose()
         aa_eq(xyz, t0.xyz)
 
-        # from FrameIter with indices
+        # from FrameIterator with indices
         fi = pt.create_pipeline(traj(0, 8, 2), ['autoimage', 'rms'])
         xyz = np.array([frame.xyz.copy() for frame in fi])
         t0 = traj[:8:2].autoimage().superpose()
