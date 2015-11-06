@@ -7,18 +7,11 @@ if sys.version_info[0] >= 3:
 else:
     import __builtin__ as builtins
 
-# make sure to update pytraj/__version__.py
-#__version__ = "0.1.2.dev12"
-
 MAJOR               = 0
 MINOR               = 1
 MICRO               = 2
 ISRELEASED          = False
 VERSION             = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
-
-# ------------------
-ISRELEASED = False
-# ------------------
 
 message_auto_install = """
 Can not find cpptraj header and libcpptraj files.
