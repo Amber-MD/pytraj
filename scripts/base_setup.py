@@ -70,6 +70,17 @@ Check compiling info:
 
 '''
 
+def check_cpptraj_version(header_dir, version='4.2.8'):
+    vfile = os.path.join(header_dir, 'Version.h')
+    with open(vfile) as fh:
+        for line in fh.readlines():
+            if line.startswith('#define CPPTRAJ_INTERNAL_VERSION'):
+                break
+        int_version = int(line.split()[-1].strip('"').replace('V', '').split('.')[-1])
+        if int_version < int(version.split('.')[-1]):
+            raise ValueError('must have cpptraj version >= {}'.format(version))
+
+
 def remind_export_LD_LIBRARY_PATH(build_tag, libdir, pytraj_inside_amber):
     if build_tag:
         if not pytraj_inside_amber:
