@@ -98,8 +98,8 @@ class TestTopology(unittest.TestCase):
 
         # number
         assert isinstance(top[0], Atom)
-        assert isinstance(top[:2], list)
-        assert isinstance(top[:1], Atom)
+        assert isinstance(top[:2], pt.Topology)
+        assert isinstance(top[:1], pt.Topology)
         assert top[0].name == top['@1'][0].name
 
         # mask, AtomMask, python array, list
