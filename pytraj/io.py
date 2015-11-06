@@ -560,6 +560,9 @@ def get_coordinates(iterable,
     efficient if use need to perform autoimage and rms fit to reference before loading all coordinates
     from disk.
 
+    This method is good (fast, memory efficient) if you just want to get raw numpy array
+    to feed to external package, such as sciki-learn, ...
+
     Parameters
     ----------
     iterable : could be anything that produces Frame when iterating 
