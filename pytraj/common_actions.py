@@ -1519,9 +1519,9 @@ def calc_pairwise_rmsd(traj=None,
     top : Topology, optional, default=None
     dtype: ndarray
         return type
-    mat_type : 2D or 1D ndarray, depending on value
+    mat_type : str, {'full', 'half'}
         if 'full': return 2D array, shape=(n_frames, n_frames)
-        if 'cpptraj': return 1D array, shape=(n_frames*(n_frames-1)/2, )
+        if 'half': return 1D array, shape=(n_frames*(n_frames-1)/2, )
     *args, **kwd: optional (for advanced user)
 
     Examples

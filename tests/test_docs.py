@@ -45,6 +45,7 @@ class TestDoc(unittest.TestCase):
             if has_sander:
                 modules.append(get_pysander_energies)
             additional_list = [
+                   pt.io,
                    nucleic_acid_analysis,
                    load_samples,
                    pt.trajectory,
