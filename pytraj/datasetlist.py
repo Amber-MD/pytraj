@@ -11,7 +11,7 @@ from pytraj.core.cpp_core import ArgList
 from pytraj.compat import map, iteritems
 from pytraj.array import DataArray
 
-__all__ = ['load_datafile', 'stack', 'DatasetList', 'from_pickle']
+__all__ = ['load_datafile', 'stack', 'DatasetList']
 
 
 def _groupby(self, key):
@@ -110,11 +110,6 @@ class DatasetList(list):
 
     >>> # make a copy
     >>> d2 = dslist.copy()
-
-    >>> # save to_pickle
-    >>> dslist.to_pickle('output/test.pk')
-    >>> d2 = DatasetList()
-    >>> d2.from_pickle('output/test.pk')
 
     >>> d3 = DatasetList({'x': [0, 3, 7], 'y': [5, 6]})
     '''

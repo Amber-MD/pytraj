@@ -117,7 +117,6 @@ def _get_reference_from_traj(traj, ref):
 
 
 def _get_fiterator(traj, frame_indices=None):
-    from pytraj import Trajectory, TrajectoryIterator
     if frame_indices is None:
         return traj
     else:
