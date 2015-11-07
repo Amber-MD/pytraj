@@ -19,5 +19,6 @@ class Test(unittest.TestCase):
         bview[:3] = np.array([100, 100, 100], dtype='f8')
         assert frame0.box.type == 'truncoct'
 
+
 if __name__ == "__main__":
     unittest.main()

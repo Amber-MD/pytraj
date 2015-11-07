@@ -17,6 +17,7 @@ class TestState(unittest.TestCase):
             rms @CA
             radgyr @CA nomax
             '''
+
             s = load_batch(traj, text)
             s.run()
 
@@ -28,8 +29,7 @@ class TestState(unittest.TestCase):
             assert len(s.data[0]) == traj.n_frames
 
             # load from list
-            lines = ['rms @CA',
-                     '  radgyr @CA nomax']
+            lines = ['rms @CA', '  radgyr @CA nomax']
 
             s = load_batch(traj, lines)
             s.run()

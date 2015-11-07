@@ -7,10 +7,11 @@ from pytraj.utils import eq, aa_eq
 import subprocess
 from glob import glob
 
+
 class TestRunMPI(unittest.TestCase):
     def test_all_mpi_scripts(self):
         testlist = glob('test_mpi/test_*py')
-        for testfile in  testlist:
+        for testfile in testlist:
             print(testfile)
             subprocess.check_call(['mpirun', '-n', '4', 'python', testfile])
 

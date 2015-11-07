@@ -3,7 +3,6 @@ import pytraj as pt
 from pytraj.testing import Timer, aa_eq
 import numpy as np
 import mdtraj as md
-
 '''compare iteration speed between pytraj.Trajectory and cpptraj's CRD set
 '''
 
@@ -12,12 +11,14 @@ traj = pt.iterload('md.nc', 'tc5bwat.parm7', frame_slice=(0, n_frames))
 m_traj = md.load(traj.filename, top=traj.top.filename, indices=range(n_frames))
 print(m_traj)
 
+
 @Timer()
 def iter_(traj):
     print(traj)
     for _ in traj:
         for __ in traj:
             _.rmsd(__)
+
 
 @Timer()
 def rms2d_():
@@ -29,6 +30,7 @@ def rms2d_():
             '''.format(traj.top.filename, str(n_frames)))
     state.run()
     return state
+
 
 t0 = traj[:]
 

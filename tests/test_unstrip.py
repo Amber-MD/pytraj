@@ -5,6 +5,7 @@ import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
 
+
 class TestUnstrip(unittest.TestCase):
     def test_unstrip(self):
         from pytraj.datasets import CpptrajDatasetList
@@ -12,8 +13,9 @@ class TestUnstrip(unittest.TestCase):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
 
         dslist = CpptrajDatasetList()
-        actlist = pt.ActionList(['strip !@CA', 'unstrip', 'radgyr nomax'], top=traj.top,
-                dslist=dslist)
+        actlist = pt.ActionList(['strip !@CA', 'unstrip', 'radgyr nomax'],
+                                top=traj.top,
+                                dslist=dslist)
 
         actlist.do_actions(traj)
 
@@ -21,8 +23,9 @@ class TestUnstrip(unittest.TestCase):
         aa_eq(pt.radgyr(traj), dslist.values)
 
         dslist2 = CpptrajDatasetList()
-        actlist2 = pt.ActionList(['strip !@CA', 'radgyr nomax'], top=traj.top,
-                dslist=dslist2)
+        actlist2 = pt.ActionList(['strip !@CA', 'radgyr nomax'],
+                                 top=traj.top,
+                                 dslist=dslist2)
         actlist2.do_actions(traj)
         # make sure get correct radgyr after stripping all but CA atoms
         aa_eq(dslist2.values, pt.radgyr(traj, '@CA'))

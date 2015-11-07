@@ -68,7 +68,7 @@ class TestMatrixConprehensive(unittest.TestCase):
 
             # cpptraj output has only 3 digits after decimal
             if 'byres' not in command:
-                aa_eq(matout.flatten(), state.data[idx+1].values)
+                aa_eq(matout.flatten(), state.data[idx + 1].values)
             else:
                 # save data for asserting later
                 byres_matlist.append(matout)

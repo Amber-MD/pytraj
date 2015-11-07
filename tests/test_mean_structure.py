@@ -60,7 +60,7 @@ class TestAverageFrame(unittest.TestCase):
 
         t0.autoimage()
         avg_0 = pt.mean_structure(t0, '@CA')
-        avg_1= pt.mean_structure(traj(autoimage=True), '@CA')
+        avg_1 = pt.mean_structure(traj(autoimage=True), '@CA')
         aa_eq(avg_0.xyz, avg_1.xyz)
 
     def test_autoimage_with_rmsfit(self):
@@ -69,7 +69,7 @@ class TestAverageFrame(unittest.TestCase):
 
         pt.autoimage(t0).superpose()
         avg_0 = pt.mean_structure(t0, '@CA')
-        avg_1= pt.mean_structure(traj(autoimage=True, rmsfit=0), '@CA')
+        avg_1 = pt.mean_structure(traj(autoimage=True, rmsfit=0), '@CA')
         aa_eq(avg_0.xyz, avg_1.xyz)
 
         # 3rd frame
@@ -77,8 +77,8 @@ class TestAverageFrame(unittest.TestCase):
         t0 = traj[:]
         pt.autoimage(t0).superpose(ref=3)
         avg_0 = pt.mean_structure(t0, '@CA')
-        avg_1= pt.mean_structure(traj(autoimage=True, rmsfit=3), '@CA')
-        avg_2= pt.mean_structure(traj, autoimage=True, rmsfit=3, mask='@CA')
+        avg_1 = pt.mean_structure(traj(autoimage=True, rmsfit=3), '@CA')
+        avg_2 = pt.mean_structure(traj, autoimage=True, rmsfit=3, mask='@CA')
         aa_eq(avg_0.xyz, avg_1.xyz)
         aa_eq(avg_0.xyz, avg_2.xyz)
 
@@ -93,16 +93,23 @@ class TestAverageFrame(unittest.TestCase):
 
         # use ref=5 which correspond to original index
         # try with pytraj.TrajectoryIterator
-        avg_1= pt.mean_structure(traj, autoimage=True, rmsfit=5, mask='@CA',
-                frame_indices=frame_indices)
+        avg_1 = pt.mean_structure(traj,
+                                  autoimage=True,
+                                  rmsfit=5,
+                                  mask='@CA',
+                                  frame_indices=frame_indices)
         # try with pytraj.Trajectory
-        avg_2= pt.mean_structure(t1, autoimage=True, rmsfit=-1, mask='@CA')
-        avg_3= pt.mean_structure(traj[:], autoimage=True, rmsfit=5, mask='@CA',
-                frame_indices=frame_indices)
+        avg_2 = pt.mean_structure(t1, autoimage=True, rmsfit=-1, mask='@CA')
+        avg_3 = pt.mean_structure(traj[:],
+                                  autoimage=True,
+                                  rmsfit=5,
+                                  mask='@CA',
+                                  frame_indices=frame_indices)
 
         aa_eq(avg_0.xyz, avg_1.xyz)
         aa_eq(avg_0.xyz, avg_2.xyz)
         aa_eq(avg_0.xyz, avg_3.xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -124,8 +124,9 @@ class TestSimpleRMSD(unittest.TestCase):
 
     def test_raise_savematrices_if_not_dataset(self):
         traj = self.traj.copy()
-        self.assertRaises(ValueError, lambda: pt.rmsd(traj, mask='@CA savematrices',
-            dtype='ndarray'))
+        self.assertRaises(
+            ValueError,
+            lambda: pt.rmsd(traj, mask='@CA savematrices', dtype='ndarray'))
 
 
 class TestRMSDPerRes(unittest.TestCase):
@@ -134,7 +135,11 @@ class TestRMSDPerRes(unittest.TestCase):
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         cout = load_cpptraj_output(tz2_ortho_trajin + """
         rmsd first @CA perres range 2-7""")
-        d = pt.rmsd_perres(traj, ref=0, mask='@CA', resrange='2-7', dtype='ndarray')
+        d = pt.rmsd_perres(traj,
+                           ref=0,
+                           mask='@CA',
+                           resrange='2-7',
+                           dtype='ndarray')
         aa_eq(cout[1:].values, d)
 
     def test_reference(self):
@@ -143,34 +148,46 @@ class TestRMSDPerRes(unittest.TestCase):
         reference data/tz2.truncoct.nc 2 2
         rmsd :2-11 refindex 0 perres perresout center.agr range 1 perrescenter
         '''
+
         state = pt.load_batch(traj, txt).run()
         # state.data has 3 datasets: ref, rmsd, rmsd perres
 
         # cpptraj use 2nd reference
         rmsd0 = pt.rmsd(traj, ref=1, mask=':2-11')
-        rmsdperres = pt.rmsd_perres(traj, ref=1, mask=':2-11', perres_mask='*',
-                resrange='1', perres_center=True)
+        rmsdperres = pt.rmsd_perres(traj,
+                                    ref=1,
+                                    mask=':2-11',
+                                    perres_mask='*',
+                                    resrange='1',
+                                    perres_center=True)
         aa_eq(rmsd0, state.data[2])
         aa_eq(rmsdperres[1], state.data[3].values)
 
     def test_frame_indices(self):
         traj = pt.iterload("data/tz2.truncoct.nc", "data/tz2.truncoct.parm7")
         traj2 = pt.iterload("data/tz2.truncoct.nc", "data/tz2.truncoct.parm7",
-                frame_slice=(2, 8))
+                            frame_slice=(2, 8))
 
         txt = '''
         reference ./data/tz2.truncoct.nc 2 2
         rmsd :2-11 refindex 0 perres perresout center.agr range 1 perrescenter
         '''
+
         state = pt.load_batch(traj2, txt)
         state.run()
 
         frame_indices = range(2, 8)
         rmsd0 = pt.rmsd(traj, ref=1, mask=':2-11', frame_indices=frame_indices)
-        rmsdperres = pt.rmsd_perres(traj, ref=1, mask=':2-11', perres_mask='*',
-                resrange='1', perres_center=True, frame_indices=frame_indices)
+        rmsdperres = pt.rmsd_perres(traj,
+                                    ref=1,
+                                    mask=':2-11',
+                                    perres_mask='*',
+                                    resrange='1',
+                                    perres_center=True,
+                                    frame_indices=frame_indices)
         aa_eq(rmsd0, state.data[2])
         aa_eq(rmsdperres[1], state.data[3].values)
+
 
 class TestRMSDnofit(unittest.TestCase):
     def test_0(self):

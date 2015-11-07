@@ -16,13 +16,14 @@ class TestDiffusion(unittest.TestCase):
         trajin data/tz2.ortho.nc
         diffusion {0} df {1}
         '''
+
         options = [
-                (':WAT@O nocalc', False),
-                (':1000 nocalc', False),
-                (':1000 nocalc', True),
-                (':1000', False),
-                (':1000 nocalc', True),
-                ]
+            (':WAT@O nocalc', False),
+            (':1000 nocalc', False),
+            (':1000 nocalc', True),
+            (':1000', False),
+            (':1000 nocalc', True),
+        ]
 
         for (mask, individual) in options:
             i_text = 'individual' if individual else ''
@@ -36,13 +37,14 @@ class TestDiffusion(unittest.TestCase):
             label = 'df'
 
             for d in state.data[1:]:
-                d.key = d.key.replace('[', '').replace(']', '').replace(label, '')
+                d.key = d.key.replace('[', '').replace(']', '').replace(label,
+                                                                        '')
 
             saved_data = state.data[1:].to_dict()
             data = pt.diffusion(traj, mask, individual=individual).to_dict()
 
             for key in data.keys():
-                if key != 'Label': 
+                if key != 'Label':
                     aa_eq(data[key], saved_data[key])
                 else:
                     assert list(data[key]) == list(saved_data[key])

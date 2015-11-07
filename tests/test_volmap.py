@@ -25,9 +25,13 @@ class TestVolmap(unittest.TestCase):
         cpp_data = state.data[-1].values
 
         traj = traj.superpose(mask=':1-13').center(':1-13 mass origin')
-        ds = volmap(traj, mask=':WAT@O', grid_spacing='0.5 0.5 0.5', buffer=2.0,
-                    centermask='!:1-13', radscale=1.36)
-                    
+        ds = volmap(traj,
+                    mask=':WAT@O',
+                    grid_spacing='0.5 0.5 0.5',
+                    buffer=2.0,
+                    centermask='!:1-13',
+                    radscale=1.36)
+
         aa_eq(cpp_data, ds)
 
 

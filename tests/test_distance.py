@@ -69,11 +69,12 @@ class TestNormalDistance(unittest.TestCase):
         distance :8@OP2 :5@N1
         ''')
         state.run()
-        expected_distance = [ 3.08030475, 2.68452183]
+        expected_distance = [3.08030475, 2.68452183]
 
         aa_eq(wrong_distance, [0., 0.])
         aa_eq(correct_distance, expected_distance)
         aa_eq(state.data[-1], expected_distance)
+
 
 class TestPairwiseDistance(unittest.TestCase):
     def test_pairwise(self):
@@ -91,6 +92,7 @@ class TestPairwiseDistance(unittest.TestCase):
                 slow_distances.append(pt.distance(traj, [ca_i, cb_i]))
         slow_distances = np.array(slow_distances).T
         aa_eq(slow_distances.flatten(), distances.flatten())
+
 
 if __name__ == "__main__":
     unittest.main()

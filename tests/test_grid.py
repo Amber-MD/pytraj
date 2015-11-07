@@ -31,10 +31,8 @@ class TestGridAction(unittest.TestCase):
         traj.rmsfit(mask=':1-13')
         d = calc_grid(traj, " 20 0.5 20 0.5 20 0.5 :WAT@O")
 
-        d = calc_grid(
-            traj(), " 20 0.5 20 0.5 20 0.5 :WAT@O",
-            top=traj.top)
-        
+        d = calc_grid(traj(), " 20 0.5 20 0.5 20 0.5 :WAT@O", top=traj.top)
+
     def test_action_bounds(self):
         # creat mutable trajectory
         traj = pt.load('data/tz2.ortho.nc', 'data/tz2.ortho.parm7')
@@ -63,6 +61,7 @@ class TestGridAction(unittest.TestCase):
         autoimage triclinic
         grid nonortho.dx boxref [REF] 50 50 50 :WAT@O pdb output/test.pdb
         '''
+
         state = pt.load_cpptraj_state(txt)
         state.run()
 

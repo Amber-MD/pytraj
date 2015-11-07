@@ -16,9 +16,7 @@ class Test(unittest.TestCase):
         traj = io.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         saved_data = np.loadtxt("./data/tc5b.matrix_CA.dat")
 
-        arr0 = ma.dist(
-            traj, '@CA',
-            dtype='dataset').to_dict()['Mat_00000']
+        arr0 = ma.dist(traj, '@CA', dtype='dataset').to_dict()['Mat_00000']
         dslist1 = ma.dist(traj, '@CA', dtype='dataset')
         arr1 = dslist1.to_dict()['Mat_00000']
         arr2 = ma.dist(traj, '@CA', dtype='dict')['Mat_00000']

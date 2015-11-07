@@ -11,8 +11,11 @@ class TestNativeContacts(unittest.TestCase):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         dslist = pt.native_contacts(traj, top=traj.top)
-        cpp = np.loadtxt('data/tc5b.native_contacts.dat', skiprows=1, usecols=(1, 2)).T
+        cpp = np.loadtxt('data/tc5b.native_contacts.dat',
+                         skiprows=1,
+                         usecols=(1, 2)).T
         aa_eq(dslist.values, cpp)
+
 
 if __name__ == "__main__":
     unittest.main()

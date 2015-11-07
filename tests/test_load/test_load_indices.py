@@ -60,8 +60,10 @@ class TestIndices(unittest.TestCase):
         for frame in traj:
             frame.xyz[:] = 0.
 
-        aa_eq(traj[0].xyz.flatten(), array('d', [0 for _ in range(traj[0].size)]))
-        aa_eq(traj[-1].xyz.flatten(), array('d', [0 for _ in range(traj[0].size)]))
+        aa_eq(traj[0].xyz.flatten(), array('d', [0 for _ in range(traj[0].size)
+                                                 ]))
+        aa_eq(traj[-1].xyz.flatten(), array('d',
+                                            [0 for _ in range(traj[0].size)]))
 
     def test_del_top(self):
         # why here? lazy to make another file
@@ -105,8 +107,7 @@ class TestIndices(unittest.TestCase):
         traj = pt.iterload(
             filename="data/md1_prod.Tc5b.x",
             top="./data/Tc5b.top")
-        t0 = pt.load(traj.filename, traj.top.filename,
-                    mask='@CA')
+        t0 = pt.load(traj.filename, traj.top.filename, mask='@CA')
         aa_eq(traj['@CA'].xyz, t0.xyz)
 
 

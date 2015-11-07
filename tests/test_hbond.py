@@ -23,7 +23,8 @@ class TestSearchHbonds(unittest.TestCase):
             aa_eq(mydict[key], mydict_np[key])
 
         # raise if dtype='hbond' and series=False
-        self.assertRaises(ValueError, lambda: pt.hbond(traj, series=False, dtype='hbond'))
+        self.assertRaises(ValueError,
+                          lambda: pt.hbond(traj, series=False, dtype='hbond'))
 
     def test_hbonds_with_image(self):
         traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
@@ -44,23 +45,26 @@ class TestSearchHbonds(unittest.TestCase):
         state.run()
 
         for data_p, data_cpp in zip(hb.data, state.data[1:]):
-            assert len(data_p) == traj.n_frames == 38, 'size of dataset must be 38'
+            assert len(
+                data_p) == traj.n_frames == 38, 'size of dataset must be 38'
             aa_eq(data_p, data_cpp)
 
         # make sure distances are smaller than cutoff
         distance_cutoff = 2.5
         hb = pt.search_hbonds(traj)
         distances = pt.distance(traj, hb._amber_mask())
-        assert np.all(distances< distance_cutoff), 'must smaller than 2.5 angstrom'
+        assert np.all(distances <
+                      distance_cutoff), 'must smaller than 2.5 angstrom'
 
         saved_donor_aceptors = ['ASP9_OD2-ARG16_NH1-HH12',
                                 'ASP9_OD2-ARG16_NH2-HH22',
                                 'ASP9_OD2-ARG16_NE-HE',
                                 'ASP9_OD2-ARG16_NH2-HH21',
-                                'ASP9_OD2-ARG16_NH1-HH11'] 
+                                'ASP9_OD2-ARG16_NH1-HH11']
 
         donor_aceptors = pt.search_hbonds(traj, ':9,16').donor_aceptor
         assert saved_donor_aceptors == donor_aceptors, 'saved_donor_aceptors'
+
 
 if __name__ == "__main__":
     unittest.main()

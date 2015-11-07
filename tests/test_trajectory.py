@@ -24,8 +24,8 @@ class TestAutoImageAndRotateDihedral(unittest.TestCase):
         pt.rotate_dihedral(farray, '3:phi:120')
         aa_eq(farray.xyz, t0trajectory.xyz)
 
-        aa_eq(pt.calc_phi(t0trajectory, '3').values, [120
-              for _ in range(t0trajectory.n_frames)])
+        aa_eq(pt.calc_phi(t0trajectory, '3').values,
+              [120 for _ in range(t0trajectory.n_frames)])
 
 
 class TestNoName(unittest.TestCase):
@@ -63,7 +63,6 @@ class TestNoName(unittest.TestCase):
 
 
 class TestAppend(unittest.TestCase):
-
     def test_append_trajectory(self):
         # test append
         traj = pt.Trajectory()

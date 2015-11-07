@@ -62,9 +62,7 @@ class TestActionList(unittest.TestCase):
         top = farray.top
 
         # add two actions: Action_Strip and Action_Distance
-        alist.add_action(
-            allactions.Action_Center(), ArgList(":2-11"),
-            top=top)
+        alist.add_action(allactions.Action_Center(), ArgList(":2-11"), top=top)
         alist.add_action(
             allactions.Action_Image(), ArgList("center familiar com :6"),
             top=top)
@@ -97,7 +95,7 @@ class TestActionList(unittest.TestCase):
         assert farray2.n_frames == farray.n_frames
 
         fsaved = pt.iterload(cpptraj_test_dir + "/Test_Image/image4.crd.save",
-                               "data/tz2.truncoct.parm7")
+                             "data/tz2.truncoct.parm7")
         assert fsaved.n_frames == 2
 
     def test_run_1(self):
@@ -220,9 +218,7 @@ class TestActionList(unittest.TestCase):
     def test_constructor_from_command_list_TrajectoryIterator(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
-        commands = ['rmsd @CA',
-                    'distance :3 :7',
-                    'distance     :3 :7',
+        commands = ['rmsd @CA', 'distance :3 :7', 'distance     :3 :7',
                     'vector :2 :3']
 
         dslist = CpptrajDatasetList()
@@ -248,15 +244,15 @@ class TestActionList(unittest.TestCase):
         # make sure no space-sensitivity
         # make the code (commands) ugly is my intention.
         commands = [
-                    'autoimage ',
-                    'autoimage',
-                    'rmsd @CA',
-                    'distance :3 :7',
-                    'distance     :3 :7',
-                    'vector :2 :3',
-                    '  distance :3 :7',
-                    'rms @C,N,O',
-                    ]
+            'autoimage ',
+            'autoimage',
+            'rmsd @CA',
+            'distance :3 :7',
+            'distance     :3 :7',
+            'vector :2 :3',
+            '  distance :3 :7',
+            'rms @C,N,O',
+        ]
 
         dslist = CpptrajDatasetList()
         actlist = ActionList(commands, traj.top, dslist=dslist)
@@ -268,17 +264,15 @@ class TestActionList(unittest.TestCase):
         aa_eq(pt.distance(traj, ':3 :7'), dslist[1])
         aa_eq(pt.distance(traj, ':3 :7'), dslist[2])
         # do not need to perform rmsfit again.
-        aa_eq(pt.vector.vector_mask(traj, ':2 :3'),
-              dslist[3].values)
+        aa_eq(pt.vector.vector_mask(traj, ':2 :3'), dslist[3].values)
         aa_eq(pt.distance(traj, ':3 :7'), dslist[4])
         aa_eq(pt.rmsd(traj, mask='@C,N,O'), dslist[5])
 
-    def test_constructor_from_command_list_TrajectoryIterator_no_DatasetList(self):
+    def test_constructor_from_command_list_TrajectoryIterator_no_DatasetList(
+        self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
-        commands = ['rmsd @CA',
-                    'distance :3 :7',
-                    'distance     :3 :7',
+        commands = ['rmsd @CA', 'distance :3 :7', 'distance     :3 :7',
                     'vector :2 :3']
 
         actlist = ActionList(commands, top=traj.top)
@@ -299,18 +293,16 @@ class TestActionList(unittest.TestCase):
 
         # add a new topology
         dslist[0].data = pt.strip_atoms(traj.top, ':WAT')
-        commands = [
-                    'autoimage',
-                    'strip :WAT',
-                    'createcrd mycrd',
-                   ]
+        commands = ['autoimage', 'strip :WAT', 'createcrd mycrd', ]
 
         actlist = ActionList(commands, top=traj.top, dslist=dslist)
 
         for frame in traj:
             actlist.do_actions(frame)
 
-        aa_eq(dslist['mycrd'].xyz, pt.get_coordinates(traj, mask='!:WAT', autoimage=True))
+        aa_eq(dslist['mycrd'].xyz, pt.get_coordinates(traj,
+                                                      mask='!:WAT',
+                                                      autoimage=True))
 
     def test_modify_frame_use_Pipeline(self):
         traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
@@ -319,27 +311,22 @@ class TestActionList(unittest.TestCase):
 
         # add a new topology
         dslist[0].data = pt.strip_atoms(traj.top, ':WAT')
-        commands = [
-                    'autoimage',
-                    'strip :WAT',
-                    'createcrd mycrd',
-                   ]
+        commands = ['autoimage', 'strip :WAT', 'createcrd mycrd', ]
 
         actlist = Pipeline(commands, top=traj.top, dslist=dslist)
 
         for frame in traj:
             actlist.do_actions(frame)
 
-        aa_eq(dslist['mycrd'].xyz, pt.get_coordinates(traj, mask='!:WAT', autoimage=True))
+        aa_eq(dslist['mycrd'].xyz, pt.get_coordinates(traj,
+                                                      mask='!:WAT',
+                                                      autoimage=True))
 
     def test_combine_with_frame_iterator(self):
         traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
         dslist = CpptrajDatasetList()
 
-        commands = [
-                    'autoimage',
-                    'rms',
-                    ]
+        commands = ['autoimage', 'rms', ]
 
         actlist = ActionList(commands, top=traj.top, dslist=dslist)
 
@@ -362,10 +349,7 @@ class TestActionList(unittest.TestCase):
 
     def test_combine_cpptraj_iterating_with_pytraj(self):
         traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
-        commands = [
-                    'autoimage',
-                    'rms',
-                    ]
+        commands = ['autoimage', 'rms', ]
 
         dslist = CpptrajDatasetList()
         actlist = ActionList(commands, top=traj.top, dslist=dslist)
@@ -416,7 +400,8 @@ class TestActionList(unittest.TestCase):
         ref.top = traj.top
         ref.append(traj[3])
 
-        fi = pt.create_pipeline(traj, ['autoimage', 'rms refindex 0 @CA'], dslist=dslist)
+        fi = pt.create_pipeline(traj, ['autoimage', 'rms refindex 0 @CA'],
+                                dslist=dslist)
         xyz = np.array([frame.xyz.copy() for frame in fi])
         t0 = traj[:].autoimage().superpose(traj[3], '@CA')
         aa_eq(xyz, t0.xyz)

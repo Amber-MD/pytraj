@@ -38,7 +38,6 @@ class TestWriteTraj(unittest.TestCase):
         t0 = pt.iterload(fname, top=self.traj.top)
         aa_eq(self.traj.xyz, t0.xyz)
 
-
     def test_split_and_write_traj(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         # duplcate
@@ -66,20 +65,24 @@ class TestWriteTraj(unittest.TestCase):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         # list
-        self.assertRaises(NotImplementedError, lambda: pt.write_traj('output/test.pdb', [traj[0], traj[1]],
-            top=traj.top, frame_indices=range(3), overwrite=True))
+        self.assertRaises(
+            NotImplementedError,
+            lambda: pt.write_traj('output/test.pdb', [traj[0], traj[1]], top=traj.top, frame_indices=range(3), overwrite=True))
 
         # single Frame
-        self.assertRaises(ValueError, lambda: pt.write_traj('output/test.pdb',
-            traj[0], top=traj.top, frame_indices=range(3), overwrite=True))
+        self.assertRaises(
+            ValueError,
+            lambda: pt.write_traj('output/test.pdb', traj[0], top=traj.top, frame_indices=range(3), overwrite=True))
 
         # single Frame, no Topology
-        self.assertRaises(ValueError, lambda: pt.write_traj('output/test.pdb',
-            traj[0], top=None, overwrite=True))
+        self.assertRaises(
+            ValueError,
+            lambda: pt.write_traj('output/test.pdb', traj[0], top=None, overwrite=True))
 
         # traj is None
-        self.assertRaises(ValueError, lambda: pt.write_traj('output/test.pdb',
-            None, top=traj.top, overwrite=True))
+        self.assertRaises(
+            ValueError,
+            lambda: pt.write_traj('output/test.pdb', None, top=traj.top, overwrite=True))
 
 
 if __name__ == "__main__":
