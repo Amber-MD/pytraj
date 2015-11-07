@@ -420,7 +420,9 @@ def write_traj(filename="",
                 trajout.write(idx, frame)
 
 
-def write_parm(filename=None, top=None, format='amberparm'):
+def write_parm(filename=None, top=None, format='amberparm', overwrite=False):
+    if os.path.exists(filename) and not overwrite:
+        raise RuntimeError('{0} exists, must set overwrite=True'.format(filename))
     parm = ParmFile()
     parm.writeparm(filename=filename, top=top, format=format)
 
@@ -546,8 +548,46 @@ def load_single_frame(filename=None, top=None, index=0):
 load_frame = load_single_frame
 
 # creat alias
-save = write_traj
 save_traj = write_traj
+
+def save(filename, obj, *args, **kwd):
+    '''an universal method
+
+    Parameters
+    ----------
+    filename : output filename
+    obj : Topology or Trajetory-like
+        if Topology, write a new Topology to disk
+        if Trajetory-like, write a trajectory to disk
+    *args, **kwd: additional options
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_ala3()
+    >>> isinstance(traj, pt.TrajectoryIterator)
+    True
+    >>> top = traj.top
+    >>> isinstance(top, pt.Topology)
+    True
+    >>> # save Topology to a new Topology
+    >>> pt.save('output/prmtop', top, overwrite=True)
+    >>> isinstance(pt.load_topology('output/prmtop'), pt.Topology)
+    True
+    >>> # save TrajectoryIterator to disk
+    >>> pt.save('output/traj.nc', traj, overwrite=True)
+    >>> isinstance(pt.iterload('output/traj.nc', traj.top), pt.TrajectoryIterator)
+    True
+
+    See also
+    --------
+    write_traj
+    write_parm
+    '''
+    if isinstance(obj, Topology):
+        write_parm(filename, obj, *args, **kwd)
+    else:
+        write_traj(filename, obj, *args, **kwd)
 
 
 def get_coordinates(iterable,

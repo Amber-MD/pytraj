@@ -35,8 +35,8 @@ cdef extern from "DistRoutines.h" nogil:
 __all__ = ['Frame']
 
 cdef class Frame (object):
-    """A snapshot of trajectory, hodling coordinates, unicell (box), vector (optional),
-    force (optional), ...
+    """A snapshot of trajectory, hodling coordinates, unicell (box), vector (optional), force (optional), ...
+    This class is for internal use.
 
     Parameters
     ----------
@@ -50,10 +50,22 @@ cdef class Frame (object):
     Examples
     --------
     >>> import pytraj as pt
-    >>> pt.Frame.from_ndarray(xyz)
+    >>> # create an empty Frame
+    >>> frame = pt.Frame()
+
+    >>> # create a Frame with 304 atoms
     >>> frame = pt.Frame(304)
+
+    >>> # create an empty Frame then append coordinate
+    >>> frame = pt.Frame()
     >>> frame.append_xyz(xyz)
+
+    >>> # copy from other Frame
     >>> frame2 = pt.Frame(frame)
+
+    >>> # create a Frame as a pointer (does not own any memory), used for fast iterating
+    >>> # 304 atoms, xyz is 3D array
+    >>> frame = pt.Frame(304, xyz, _as_ptr=True)
     """
     def __cinit__(self, *args, _as_ptr=False):
         """Constructor for Frame instance
@@ -439,16 +451,16 @@ cdef class Frame (object):
             return self.thisptr.size()
 
     property temperature:
+        '''temperature
+        '''
         def __get__(self):
-            '''temperature
-            '''
             return self.thisptr.Temperature()
         def __set__(self, double tin):
             self.thisptr.SetTemperature(tin)
 
     property time:
+        '''time'''
         def __get__(self):
-            '''time'''
             return self.thisptr.Time()
         def __set__(self, double timein):
             self.thisptr.SetTime(timein)
@@ -502,12 +514,6 @@ cdef class Frame (object):
     def set_nobox(self):
         '''set nobox'''
         self._boxview[:] = pyarray('d', [0. for _ in range(6)])
-
-    def box_crd(self):
-        '''return a list of box values'''
-        cdef Box box = Box()
-        box.thisptr[0] = self.thisptr.BoxCrd()
-        return box.tolist()
 
     def has_box(self):
         return self.box.has_box()
@@ -760,22 +766,6 @@ cdef class Frame (object):
         mass : bool, default = False
         """
         return self.thisptr.RMSD_NoFit(frame.thisptr[0], mass)
-
-    def dist_rmsd(self, Frame frame, atommask=None):
-        """Calculate dist_rmsd betwen two frames
-
-        Parameters
-        ----------
-        frame : Frame
-        """
-        cdef Frame f1, f2
-
-        if atommask is None:
-            return self.thisptr.DISTRMSD(frame.thisptr[0])
-        else:
-            f1 = Frame(self, <AtomMask>atommask)
-            f2 = Frame(frame, <AtomMask>atommask)
-            return f1.thisptr.DISTRMSD(f2.thisptr[0])
 
     def rmsfit(self, ref=None, AtomMask atm=None):
         """do the fitting to reference Frame by rotation and translation

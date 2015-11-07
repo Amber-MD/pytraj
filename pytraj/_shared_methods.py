@@ -11,7 +11,8 @@ __all__ = ['_savetraj', 'iterframe_master', '_xyz', 'my_str_method', '_box']
 def _savetraj(self,
               filename="",
               format='unknown',
-              overwrite=False, *args, **kwd):
+              overwrite=False,
+              *args, **kwd):
     if format == 'unknown':
         # convert to "UNKNOWN_TRAJ"
         format = format.upper() + "_TRAJ"
@@ -97,8 +98,7 @@ def iterframe_master(obj):
             # list, tuple, TrajinList, iterchunk
             for traj_obj in obj:
                 if isinstance(traj_obj, Frame):
-                    frame = traj_obj
-                    yield frame
+                    yield traj_obj
                 elif hasattr(
                         traj_obj,
                         '__name__') and 'iterchunk' in traj_obj.__name__:

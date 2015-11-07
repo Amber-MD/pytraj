@@ -85,6 +85,15 @@ def _get_list_of_commands(mask_or_commands):
 
 
 def _get_matrix_from_dataset(dset, mat_type='full'):
+    '''return full or half matrix
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> full = pt.matrix.dist(traj, '@CA', mat_type='full')
+    >>> half = pt.matrix.dist(traj, '@CA', mat_type='half')
+    '''
     # dset in DatasetMatrixDouble object
     if mat_type == 'full':
         return dset.values
@@ -95,6 +104,21 @@ def _get_matrix_from_dataset(dset, mat_type='full'):
 
 
 def _get_reference_from_traj(traj, ref):
+    '''try best to get reference
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> frame = _get_reference_from_traj(traj, 3)
+    >>> isinstance(frame, pt.Frame)
+    True
+    >>> frame = _get_reference_from_traj(traj, None)
+    >>> isinstance(frame, pt.Frame)
+    True
+    >>> ref = traj[5]
+    >>> frame = _get_reference_from_traj(traj, ref)
+    '''
     if isinstance(ref, integer_types):
         try:
             return traj[ref]

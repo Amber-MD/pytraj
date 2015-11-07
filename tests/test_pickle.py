@@ -130,5 +130,14 @@ class TestPickleFrame(unittest.TestCase):
         Pool(2).map(func, range(2))
 
 
+class TestPickleDatasetList(unittest.TestCase):
+     def test_pickle_datasetlist(self):
+       traj = pt.iterload("data/md1_prod.Tc5b.x", "data/Tc5b.top")
+       dslist = pt.multidihedral(traj)
+       pt.to_pickle(dslist, 'output/ds.pk')
+       dslist2 = pt.read_pickle('output/ds.pk')
+       aa_eq(dslist.values, dslist2.values)
+
+
 if __name__ == "__main__":
     unittest.main()

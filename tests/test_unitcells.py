@@ -11,7 +11,7 @@ class TestBox(unittest.TestCase):
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
-        frame0.box_crd()
+        frame0.box.tolist()
         frame0.box = np.array([0.0, 1.0, 2.0, 3.0, 4.0, 6.])
         assert frame0.has_box(), 'must has box'
         frame0.set_nobox()

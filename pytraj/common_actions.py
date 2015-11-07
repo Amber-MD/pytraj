@@ -90,7 +90,6 @@ def calc_distance(traj=None,
                   top=None,
                   image=True,
                   n_frames=None):
-    # FIXME: get wrong (0.) results if Topology has box but Frame doesn't
     # TODO: add image, noe, ...
     """calculate distance between two maskes
 
@@ -480,11 +479,12 @@ def calc_mindist(traj=None,
                  top=None,
                  dtype='ndarray',
                  frame_indices=None):
-    '''
+    '''calculate mindist
+
     Examples
     --------
     >>> import pytraj as pt
-    >>> pt.mindist(traj, '@CA @H')
+    >>> data = pt.mindist(traj, '@CA @H')
     '''
 
     traj = _get_fiterator(traj, frame_indices)
@@ -508,7 +508,8 @@ def calc_diffusion(traj,
                    top=None,
                    dtype='dataset',
                    frame_indices=None):
-    '''
+    '''calculate diffusion
+
     Parameters
     ----------
     traj : Trajectory-like or iterator
@@ -618,6 +619,8 @@ def calc_matrix(traj=None,
                 command="",
                 top=None,
                 dtype='ndarray', *args, **kwd):
+    '''
+    '''
     if not isinstance(command, string_types):
         command = array_to_cpptraj_atommask(command)
     act = CpptrajActions.Action_Matrix()
@@ -2439,8 +2442,11 @@ def replicate_cell(traj=None, mask="", direction='all', top=None):
 
 def _rotate_dih(traj, resid='1', dihtype=None, deg=0, top=None):
     '''
+
     Examples
+    --------
     >>> pt._rotate_dih(traj, resid='1', dihtype='delta')
+    >>> pt._rotate_dih(traj, resid=0, dihtype='delta')
 
     Returns
     -------
