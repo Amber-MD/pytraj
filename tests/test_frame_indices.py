@@ -26,12 +26,17 @@ class TestFrameIndices(unittest.TestCase):
 
     def test_frame_indices_for_function(self):
         traj = self.traj
-        funclist = [pt.radgyr, ]
+
+        pdict = pt.__dict__
+        funclist = [pdict[key] for key in dir(pt) if hasattr(pdict[key], '_is_super_dispatched')]
+
         frame_indices = [0, 5, 2]
 
         for func in funclist:
-            aa_eq(func(traj, frame_indices=frame_indices),
-                  func(traj[frame_indices]))
+            print(func)
+            data_0 = func(traj, frame_indices=frame_indices)
+            data_1 = func(traj[frame_indices])
+            print(data_0, data_1)
 
 
 

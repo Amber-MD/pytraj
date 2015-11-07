@@ -939,7 +939,8 @@ def calc_jcoupling(traj=None,
                    mask="",
                    top=None,
                    kfile=None,
-                   dtype='dataset', *args, **kwd):
+                   dtype='dataset', 
+                   frame_indices=None):
     """
     Parameters
     ----------
@@ -954,12 +955,11 @@ def calc_jcoupling(traj=None,
     command = mask
 
     act = CpptrajActions.Action_Jcoupling()
-    # add `radial` keyword to command (need to check `why`?)
     dslist = CpptrajDatasetList()
 
     if kfile is not None:
         command += " kfile %s" % kfile
-    act(command, traj, dslist=dslist, top=top, *args, **kwd)
+    act(command, traj, dslist=dslist, top=top)
     return _get_data_from_dtype(dslist, dtype)
 
 
@@ -1325,31 +1325,26 @@ def calc_multidihedral(traj=None,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
+@_super_dispatch()
 def calc_atomicfluct(traj=None,
                      mask="",
                      top=None,
-                     dtype='dataset', *args, **kwd):
-    if not isinstance(mask, string_types):
-        mask = array_to_cpptraj_atommask(mask)
-
-    command = mask
-
-    _top = _get_topology(traj, top)
-
+                     dtype='dataset',
+                     frame_indices=None):
     dslist = CpptrajDatasetList()
     act = adict['atomicfluct']
-    act(command, traj, top=_top, dslist=dslist, *args, **kwd)
-    # tag: post_process()
-    act.post_process()  # need to have this. check cpptraj's code
+    act(mask, traj, top=top, dslist=dslist)
+    act.post_process()
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-@_super_dispatch()
 def calc_bfactors(traj=None,
                   mask="",
                   byres=True,
                   top=None,
-                  dtype='ndarray', *args, **kwd):
+                  dtype='ndarray',
+                  frame_indices=None):
+    # Not: do not use _super_dispatch here since we used in calc_atomicfluct
     """
     Returns
     -------
@@ -1367,7 +1362,8 @@ def calc_bfactors(traj=None,
     return calc_atomicfluct(traj=traj,
                             mask=_command,
                             top=top,
-                            dtype=dtype, *args, **kwd)
+                            dtype=dtype,
+                            frame_indices=frame_indices)
 
 
 @_register_pmap
