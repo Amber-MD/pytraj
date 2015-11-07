@@ -35,7 +35,9 @@ cdef extern from "DistRoutines.h" nogil:
 __all__ = ['Frame']
 
 cdef class Frame (object):
-    """
+    """A snapshot of trajectory, hodling coordinates, unicell (box), vector (optional),
+    force (optional), ...
+
     Parameters
     ----------
     n_atoms : int, default=0 
@@ -54,10 +56,10 @@ cdef class Frame (object):
     >>> frame2 = pt.Frame(frame)
     """
     def __cinit__(self, *args, _as_ptr=False):
-        # Should I include topology in Frame?
-        # May by not: memory
-        # Include topology in Trajectory instance? 
         """Constructor for Frame instance
+
+        Examples
+        --------
         >>> from pytraj import Frame
         >>> # created empty Frame instance
         >>> frame0 = Frame()
@@ -125,7 +127,7 @@ cdef class Frame (object):
         return (self.coords == other.coords)
 
     def copy(self):
-        """return a copy"""
+        """return a deep copy of Frame"""
         cdef Frame frame = Frame(self)
         return frame
 
@@ -175,7 +177,8 @@ cdef class Frame (object):
             self.thisptr.AddXYZ(&xyz[i*3])
 
     def swap_atoms(self, cython.integral[:, :] int_view):
-        """
+        """swap coordinates for an array of atom pairs
+
         Parameters
         ----------
         int_view: 2D-int array-like, shape=(2, n_atoms)
@@ -196,10 +199,14 @@ cdef class Frame (object):
         return self.__str__()
 
     def is_(self, Frame other):
+        '''check if Frame is itself or not
+        '''
         return self.thisptr == other.thisptr
 
     property shape:
         def __get__(self):
+            '''return shape of its coordinates
+            '''
             return self.xyz.shape
 
     property n_frames:
@@ -209,7 +216,8 @@ cdef class Frame (object):
             return 1
 
     def __getitem__(self, idx):
-        """
+        """slicing
+
         Examples
         --------
         >>> from pytraj import io
@@ -290,7 +298,6 @@ cdef class Frame (object):
             self.xyz[idx] = value
 
     def __iter__(self):
-        import numpy as np
         cdef int i
         for i in range(self.n_atoms):
             yield np.asarray(self._buffer2d[i])
@@ -393,7 +400,6 @@ cdef class Frame (object):
     property xyz:
         def __get__(self):
             """return numpy array as a view of Frame xyz coords"""
-            import numpy as np
             return np.asarray(self._buffer2d)
 
         def __set__(self, value):
@@ -403,7 +409,7 @@ cdef class Frame (object):
 
     property velocity:
         def __get__(self):
-            """
+            """velocity, default None
             """
             cdef int n_atoms = self.n_atoms
             if self.has_velocity():
@@ -413,7 +419,7 @@ cdef class Frame (object):
 
     property force:
         def __get__(self):
-            """
+            """force, default None
             """
             cdef int n_atoms = self.n_atoms
             if self.has_force():
@@ -423,7 +429,9 @@ cdef class Frame (object):
         
     property n_atoms:
         def __get__(self):
-           return self.thisptr.Natom()
+            '''
+            '''
+            return self.thisptr.Natom()
 
     property size:
         def __get__(self):
@@ -432,12 +440,15 @@ cdef class Frame (object):
 
     property temperature:
         def __get__(self):
+            '''temperature
+            '''
             return self.thisptr.Temperature()
         def __set__(self, double tin):
             self.thisptr.SetTemperature(tin)
 
     property time:
         def __get__(self):
+            '''time'''
             return self.thisptr.Time()
         def __set__(self, double timein):
             self.thisptr.SetTime(timein)
@@ -489,9 +500,11 @@ cdef class Frame (object):
         return arr
 
     def set_nobox(self):
+        '''set nobox'''
         self._boxview[:] = pyarray('d', [0. for _ in range(6)])
 
     def box_crd(self):
+        '''return a list of box values'''
         cdef Box box = Box()
         box.thisptr[0] = self.thisptr.BoxCrd()
         return box.tolist()
@@ -524,6 +537,7 @@ cdef class Frame (object):
 
     property box:
         def __get__(self):
+            '''return unitcell'''
             cdef Box box = Box()
             box.thisptr.SetBox(self.thisptr.bAddress())
             return box
@@ -543,6 +557,8 @@ cdef class Frame (object):
             return my_arr
 
     def set_mass(self, Topology top):
+        '''set mass for Frame, requires a Topology
+        '''
         self.thisptr.SetMass(top.thisptr.Atoms())
 
     def _set_mass_from_array(self, double[:] arr):
@@ -681,13 +697,13 @@ cdef class Frame (object):
         return frame
 
     def center_of_mass(self, AtomMask atmask):
-        """return Vec3"""
+        """return Vec3 storing center of mass"""
         cdef Vec3 v3 = Vec3()
         v3.thisptr[0] = self.thisptr.VCenterOfMass(atmask.thisptr[0])
         return v3
 
     def center_of_geometry(self, AtomMask atmask):
-        """return Vec3"""
+        """return Vec3 storing center of geometry"""
         cdef Vec3 v3 = Vec3()
         v3.thisptr[0] = self.thisptr.VGeometricCenter(atmask.thisptr[0])
         return v3
@@ -699,10 +715,9 @@ cdef class Frame (object):
     def rmsd(self, Frame frame, AtomMask atommask=None, 
              mask=None, top=None,
              bint mass=False, get_mvv=False):
-        # TODO : mass does not work properly
         """Calculate rmsd betwen two frames
-        rmsd(Frame frame, bint mass=False, get_mvv=False):
-        Parameters:
+
+        Parameters
         ----------
         frame : Frame instance
         mass : bool, default = False
@@ -738,7 +753,8 @@ cdef class Frame (object):
 
     def rmsd_nofit(self, Frame frame, bint mass=False):
         """Calculate rmsd betwen two frames without fitting
-        Parameters:
+
+        Parameters
         ----------
         frame : Frame instance
         mass : bool, default = False
@@ -747,9 +763,10 @@ cdef class Frame (object):
 
     def dist_rmsd(self, Frame frame, atommask=None):
         """Calculate dist_rmsd betwen two frames
-        Parameters:
+
+        Parameters
         ----------
-        frame : Frame instance
+        frame : Frame
         """
         cdef Frame f1, f2
 
@@ -762,7 +779,6 @@ cdef class Frame (object):
 
     def rmsfit(self, ref=None, AtomMask atm=None):
         """do the fitting to reference Frame by rotation and translation
-        TODO : add assert test
         """
         # not yet dealed with `mass` and box
         cdef Matrix_3x3 mat
@@ -784,7 +800,7 @@ cdef class Frame (object):
     def strip_atoms(Frame self, AtomMask atm):
         """strip_atoms
 
-        Parameters:
+        Parameters
         ----------
         atm: AtomMask
 
@@ -897,7 +913,7 @@ cdef class Frame (object):
         return arr0
 
     def to_ndarray(self):
-        """return a ndarray as a view of self._buffer2d"""
+        """return a ndarray as a view of Frame's coordinates"""
         import numpy as np
         return np.asarray(self._buffer2d)
 

@@ -320,13 +320,33 @@ from .cyutils import _fast_iterptr as iterframe_from_array
 
 
 def iterchunk(traj, *args, **kwd):
-    """
+    """iterate ``traj`` by chunk
+
+    Parameters
+    ----------
+    traj : TrajectoryIterator
+    chunksize : int
+        the number of frames in each chunk
+    start : int, default 0
+        start frame to iterate
+    start : int, default -1 (last frame)
+        stop frame
+    autoimage : bool, default False
+        if True, do autoimage for chunk
+
+    Return
+    ------
+    pytraj.Trajectory, n_frames=chunksize
+        The final chunk might not have the n_frames=chunksize
 
     Examples
     --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()
     >>> for frame in pt.iterchunk(traj, 4): pass
+    >>> for frame in pt.iterchunk(traj, chunksize=4, start=2): pass
+    >>> for frame in pt.iterchunk(traj, chunksize=4, start=2, stop=9): pass
+    >>> for frame in pt.iterchunk(traj, chunksize=4, autoimage=True): pass
 
     See also
     --------

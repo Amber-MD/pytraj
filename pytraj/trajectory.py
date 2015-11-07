@@ -637,6 +637,8 @@ class Trajectory(object):
         -------
         self
 
+        Examples
+        --------
         >>> import pytraj as pt
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.scale('@CA x 1.2')
