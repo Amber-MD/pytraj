@@ -233,4 +233,5 @@ class _super_dispatch(object):
                     args[1] = mask
             return f(*args, **kwd)
 
+        inner._is_super_dispatched = True
         return inner
