@@ -215,10 +215,8 @@ cdef class ActionList:
             crdinfo = self._crdinfo
         else:
             crdinfo = crdinfo
-        # do not use Box info from Topology
-        # If do so, we will accidentally get wrong ouput for distance calculation if
-        # image=True
-        box = crdinfo.get('box', Box())
+
+        box = crdinfo.get('box', top.box)
         has_velocity = crdinfo.get('has_velocity', False)
         has_time = crdinfo.get('has_time', False)
         has_force = crdinfo.get('has_force', False)
