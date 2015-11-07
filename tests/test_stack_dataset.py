@@ -6,7 +6,6 @@ from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils import eq, aa_eq
 from pytraj.testing import cpptraj_test_dir
-import pytraj.common_actions as pyca
 from pytraj.datasetlist import stack
 
 traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -16,13 +15,13 @@ class Test(unittest.TestCase):
     def test_0(self):
         import numpy as np
         from pytraj.datasetlist import stack as stack
-        _ds1 = pyca.calc_dssp(traj[:5], dtype='dataset')
+        _ds1 = pt.calc_dssp(traj[:5], dtype='dataset')
         ds1 = _ds1.grep('LYS')
-        _ds2 = pyca.calc_dssp(traj[5:], dtype='dataset')
+        _ds2 = pt.calc_dssp(traj[5:], dtype='dataset')
         ds2 = _ds2.grep('LYS')
 
         dstack = stack((ds1, ds2))
-        _d12 = pyca.calc_dssp(traj, dtype='dataset')
+        _d12 = pt.calc_dssp(traj, dtype='dataset')
         d12 = _d12.grep("LYS")
 
         dstack_dict = dstack.to_dict()
