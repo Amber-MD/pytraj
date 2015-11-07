@@ -682,7 +682,7 @@ def calc_molsurf(traj=None,
 
 
 @_register_pmap
-@_super_dispatch()
+@_super_dispatch(has_ref=True)
 def calc_rotation_matrix(traj=None,
                          ref=0,
                          mask="",
@@ -712,13 +712,14 @@ def calc_rotation_matrix(traj=None,
 
 
 @_super_dispatch()
-def calc_volume(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
+def calc_volume(traj=None, mask="", top=None, dtype='ndarray',
+                frame_indices=None):
     command = mask
 
     act = CpptrajActions.Action_Volume()
 
     dslist = CpptrajDatasetList()
-    act(command, traj, top=top, dslist=dslist, *args, **kwd)
+    act(command, traj, top=top, dslist=dslist)
     return _get_data_from_dtype(dslist, dtype)
 
 
@@ -905,7 +906,7 @@ def calc_rdf(traj=None,
 
 
 @_super_dispatch()
-def calc_pairdist(traj, mask="*", delta=0.1, dtype='ndarray', top=None):
+def calc_pairdist(traj, mask="*", delta=0.1, dtype='ndarray', top=None, frame_indices=None):
     '''compute pair distribution function
 
     Parameters
@@ -917,18 +918,17 @@ def calc_pairdist(traj, mask="*", delta=0.1, dtype='ndarray', top=None):
         dtype of return data
     top : Topology, optional
     '''
-    with goto_temp_folder():
-        dslist = CpptrajDatasetList()
-        act = CpptrajActions.Action_PairDist()
+    dslist = CpptrajDatasetList()
+    act = CpptrajActions.Action_PairDist()
 
-        _mask = 'mask ' + mask
-        _delta = 'delta ' + str(delta)
-        command = ' '.join((_mask, _delta, 'out tmp_pytraj_out.txt'))
+    _command = 'mask ' + mask
+    _delta = 'delta ' + str(delta)
+    command = ' '.join((_command, _delta))
 
-        act(command, traj, top=top, dslist=dslist)
-        act.post_process()
+    act(command, traj, top=top, dslist=dslist)
+    act.post_process()
 
-        return _get_data_from_dtype(dslist, dtype=dtype)
+    return _get_data_from_dtype(dslist, dtype=dtype)
 
 
 pairdist = calc_pairdist
@@ -2253,7 +2253,9 @@ def search_neighbors(traj=None,
 
     Examples
     --------
-    >>> pt.search_neighbors(traj, ':5<@5.0') # around residue 5 with 5.0 cutoff
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> indices = pt.search_neighbors(traj, ':5<@5.0') # around residue 5 with 5.0 cutoff
     """
     dslist = DatasetList()
 
@@ -2300,7 +2302,7 @@ def pucker(traj=None,
 
 
 @_super_dispatch()
-def center(traj=None, mask="", center='box', mass=False, top=None):
+def center(traj=None, mask="", center='box', mass=False, top=None, frame_indices=None):
     """center
 
     Parameters
