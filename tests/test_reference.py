@@ -3,10 +3,10 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
-
-
 '''for using reference frame internally (without loading from file in Action)
 '''
+
+
 class TestReferenceFrame(unittest.TestCase):
     def test_reference(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
@@ -25,7 +25,7 @@ class TestReferenceFrame(unittest.TestCase):
         #rms ref ref0  @CA
         #rms ref ref1  @CA
         '''.format(traj.top.filename, traj.filename)
-        
+
         state = pt.load_cpptraj_state(text)
         state.run()
         print(state.data.keys())

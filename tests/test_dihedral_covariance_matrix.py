@@ -26,6 +26,7 @@ class TestDihedralCovarianceMatrix(unittest.TestCase):
         # Project along eigenvectors
         projection evecs DIHMODES beg 1 end 4 dihedrals BB[*]
         '''
+
         state = pt.load_cpptraj_state(txt)
         state.run()
 

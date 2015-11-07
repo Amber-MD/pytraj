@@ -4,7 +4,6 @@ import pytraj as pt
 from pytraj.utils import eq, aa_eq
 import pytraj.common_actions as pyca
 
-
 try:
     import sander
     has_sander = True
@@ -16,6 +15,7 @@ try:
     has_parmed = True
 except ImportError:
     has_parmed = False
+
 
 @unittest.skipIf(not has_sander, 'skip if not having sander')
 class TestUpdateDihedral(unittest.TestCase):

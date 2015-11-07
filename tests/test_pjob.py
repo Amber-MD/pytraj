@@ -6,6 +6,7 @@ import pytraj as pt
 from pytraj.utils import eq, aa_eq
 from pytraj.compat import PY3
 
+
 class Test(unittest.TestCase):
     def test_0(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
@@ -22,7 +23,6 @@ class Test(unittest.TestCase):
             data = pjob.compute()
             aa_eq(pt.radgyr(traj), data[0][1])
             aa_eq(pt.molsurf(traj, '@CA'), data[1][1])
-
 
 
 if __name__ == "__main__":

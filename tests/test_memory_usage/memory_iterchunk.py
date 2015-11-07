@@ -12,9 +12,11 @@ traj = pt.load_sample_data('tz2')
 for _ in range(9):
     traj.load(traj.filelist)
 
+
 @profile
 def test_iterchunk(chunksize=100):
     for chunk in traj.iterchunk(chunksize=chunksize):
         pass
+
 
 test_iterchunk(chunksize=100)

@@ -5,16 +5,17 @@ import pytraj as pt
 from pytraj import Topology, Trajectory, TrajectoryIterator
 from pytraj.testing import aa_eq
 
-
 try:
     import scipy
     has_scipy = True
 except ImportError:
     has_scipy = False
 
+
 class TestIO(unittest.TestCase):
     def setUp(self):
-        self.traj_tz2_ortho = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        self.traj_tz2_ortho = pt.iterload("data/tz2.ortho.nc",
+                                          "data/tz2.ortho.parm7")
 
     def test_load_comprehensive(self):
         traj = self.traj_tz2_ortho
@@ -41,57 +42,54 @@ class TestIO(unittest.TestCase):
         aa_eq(t2.xyz, traj[[3, 8], '@CA'].xyz)
 
         # load http
-        t2 = pt.load('https://raw.githubusercontent.com/ParmEd/ParmEd/master/test/files/2koc.pdb')
+        t2 = pt.load(
+            'https://raw.githubusercontent.com/ParmEd/ParmEd/master/test/files/2koc.pdb')
         assert t2.n_atoms == 451, '2koc, 451 atoms'
-        assert isinstance(t2, pt.Trajectory), 'must be Trajectory when loading 2koc.pdb'
-
+        assert isinstance(
+            t2, pt.Trajectory), 'must be Trajectory when loading 2koc.pdb'
 
     def test_save_traj_from_file(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:5]
         pt.write_traj(filename="./output/test_0.binpos",
-                        traj=traj,
-                        top="./data/Tc5b.top",
-                        overwrite=True)
+                      traj=traj,
+                      top="./data/Tc5b.top",
+                      overwrite=True)
 
         savedtraj = pt.iterload("./output/test_0.binpos", traj.top)
         assert savedtraj.n_frames == traj.n_frames
 
         # write_xyz
-        pt.write_traj("./output/test_0.nc",
-                      traj.xyz, 
+        pt.write_traj("./output/test_0.nc", traj.xyz,
                       top="./data/Tc5b.top",
                       overwrite=True)
         aa_eq(pt.iterload('output/test_0.nc', traj.top).xyz, traj.xyz)
 
         # write single Frame
-        pt.write_traj("./output/test_0.nc",
-                      traj[0],
+        pt.write_traj("./output/test_0.nc", traj[0],
                       top=traj.top,
                       overwrite=True)
         aa_eq(pt.iterload('output/test_0.nc', traj.top).xyz, traj[0].xyz)
 
         # raise if traj is None
-        self.assertRaises(ValueError, lambda: pt.write_traj("./output/test_0.nc",
-                      None,
-                      overwrite=True))
+        self.assertRaises(
+            ValueError,
+            lambda: pt.write_traj("./output/test_0.nc", None, overwrite=True))
 
         # raise if _top is None
         fi = pt.create_pipeline(traj, ['autoimage', ])
-        self.assertRaises(ValueError, lambda: pt.write_traj("./output/test_0.nc",
-                      traj=fi,
-                      overwrite=True))
+        self.assertRaises(
+            ValueError,
+            lambda: pt.write_traj("./output/test_0.nc", traj=fi, overwrite=True))
 
         # raise if Frame with frame_indices
-        self.assertRaises(ValueError, lambda: pt.write_traj("./output/test_0.nc",
-                      traj[0],
-                      top="./data/Tc5b.top",
-                      frame_indices=[3, 2],
-                      overwrite=True))
+        self.assertRaises(
+            ValueError,
+            lambda: pt.write_traj("./output/test_0.nc", traj[0], top="./data/Tc5b.top", frame_indices=[3, 2], overwrite=True))
 
         # raise if Frame with no Topology
-        self.assertRaises(ValueError, lambda: pt.write_traj("./output/test_0.nc",
-                      traj[0],
-                      overwrite=True))
+        self.assertRaises(
+            ValueError,
+            lambda: pt.write_traj("./output/test_0.nc", traj[0], overwrite=True))
 
         # test if xyz is not c-contiguous
         # pytraj will autoconvert to c-contiguous
@@ -126,10 +124,10 @@ class TestIO(unittest.TestCase):
 
         indices = list(range(2, 3, 5)) + [3, 7, 9, 8]
         pt.write_traj(filename="./output/test_io_saved_.x",
-                        traj=traj[:],
-                        top="./data/Tc5b.top",
-                        frame_indices=indices,
-                        overwrite=True)
+                      traj=traj[:],
+                      top="./data/Tc5b.top",
+                      frame_indices=indices,
+                      overwrite=True)
 
         # check frames
         traj2 = pt.iterload(
@@ -151,10 +149,10 @@ class TestIO(unittest.TestCase):
 
         indices = list(range(2, 4)) + [3, 7, 9, 8]
         pt.write_traj(filename="./output/test_io_saved.pdb",
-                        traj=traj,
-                        top="./data/Tc5b.top",
-                        frame_indices=indices,
-                        overwrite=True)
+                      traj=traj,
+                      top="./data/Tc5b.top",
+                      frame_indices=indices,
+                      overwrite=True)
 
         # check frames
         traj = pt.iterload(
@@ -183,10 +181,16 @@ class TestIO(unittest.TestCase):
         # given frames, autoimage=True, rmsfit=ref
         ref = traj[-3]
         pt.autoimage(ref, top=traj.top)
-        xyz = pt.get_coordinates(traj, frame_indices=[0, 5], autoimage=True, rmsfit=ref)
+        xyz = pt.get_coordinates(traj,
+                                 frame_indices=[0, 5],
+                                 autoimage=True,
+                                 rmsfit=ref)
         aa_eq(traj[[0, 5]].autoimage().superpose(ref).xyz, xyz)
 
-        xyz = pt.get_coordinates(traj, frame_indices=range(3), autoimage=True, rmsfit=ref)
+        xyz = pt.get_coordinates(traj,
+                                 frame_indices=range(3),
+                                 autoimage=True,
+                                 rmsfit=ref)
 
         # with mask
         xyz = pt.get_coordinates(traj, mask='@CA')
@@ -197,13 +201,15 @@ class TestIO(unittest.TestCase):
         aa_eq(pt.get_coordinates(fi), traj[:].autoimage().xyz)
 
         # raise
-        self.assertRaises(ValueError, lambda: pt.get_coordinates(traj(), frame_indices=[0,
-            2]))
+        self.assertRaises(
+            ValueError,
+            lambda: pt.get_coordinates(traj(), frame_indices=[0, 2]))
 
     def test_get_coordinates_trajectory(self):
         '''mutable pytraj.Trajectory
         '''
-        traj = pt.Trajectory(xyz=self.traj_tz2_ortho.xyz, top=self.traj_tz2_ortho.top)
+        traj = pt.Trajectory(xyz=self.traj_tz2_ortho.xyz,
+                             top=self.traj_tz2_ortho.top)
         # make a different copy since ``traj`` is mutable
         traj2 = traj.copy()
 
@@ -222,7 +228,10 @@ class TestIO(unittest.TestCase):
         # given frames, autoimage=True, rmsfit=ref
         ref = traj[-3]
         pt.autoimage(ref, top=traj.top)
-        xyz = pt.get_coordinates(traj, frame_indices=[0, 5], autoimage=True, rmsfit=ref)
+        xyz = pt.get_coordinates(traj,
+                                 frame_indices=[0, 5],
+                                 autoimage=True,
+                                 rmsfit=ref)
         aa_eq(traj2[[0, 5]].autoimage().superpose(ref).xyz, xyz)
 
     def test_load_and_save_topology(self):
@@ -261,21 +270,25 @@ class TestIO(unittest.TestCase):
         frame = pt.io.load_frame(traj.filename, traj.top.filename, 3)
         aa_eq(traj[3].xyz, frame.xyz)
 
-        self.assertRaises(RuntimeError, lambda: pt.io.load_frame('afddsfdsfa',
-            traj.top.filename, 3))
+        self.assertRaises(
+            RuntimeError,
+            lambda: pt.io.load_frame('afddsfdsfa', traj.top.filename, 3))
 
-        self.assertRaises(RuntimeError, lambda: pt.io.load_frame(filename='afddsfdsfa',
-            top=traj.top.filename, index=3))
+        self.assertRaises(
+            RuntimeError,
+            lambda: pt.io.load_frame(filename='afddsfdsfa', top=traj.top.filename, index=3))
 
     def test_download_pdb(self):
         pt.io.download_PDB('1l2y', 'output/', overwrite=True)
         t2 = pt.load('output/1l2y.pdb')
         assert t2.n_atoms == 304, 'must have 304 atoms'
-        self.assertRaises(ValueError, lambda: pt.io.download_PDB('1l2y', 'output/',
-            overwrite=False))
+        self.assertRaises(
+            ValueError,
+            lambda: pt.io.download_PDB('1l2y', 'output/', overwrite=False))
 
     def test_load_https(self):
-        top = pt.io.load_topology('https://raw.githubusercontent.com/ParmEd/ParmEd/master/test/files/2koc.pdb')
+        top = pt.io.load_topology(
+            'https://raw.githubusercontent.com/ParmEd/ParmEd/master/test/files/2koc.pdb')
         assert top.n_atoms == 451, '2koc'
 
 

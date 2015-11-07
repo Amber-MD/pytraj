@@ -96,7 +96,7 @@ class TestTopology(unittest.TestCase):
         '''slicing, select'''
         top = pt.load_topology("./data/Tc5b.top")
 
-        # 
+        #
         assert isinstance(top[0], Atom)
         assert isinstance(top[:2], pt.Topology)
         assert isinstance(top[:1], pt.Topology)
@@ -105,12 +105,11 @@ class TestTopology(unittest.TestCase):
         assert isinstance(top[np.array(range(10))], pt.Topology)
         assert top[0].name == top['@1'][0].name
 
-
         # mask, AtomMask, python array, list
         atm = top("@CA")
         indices = atm.indices
         for a1, a2, a3, a4 in zip(top['@CA'], top[atm], top[indices],
-                                   top[list(indices)]):
+                                  top[list(indices)]):
             assert a1.name == a2.name == a3.name == a4.name == 'CA'
 
         # check len

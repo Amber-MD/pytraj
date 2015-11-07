@@ -5,7 +5,6 @@ import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
 from pytraj import matrix
-
 '''figure out why sign of some eigenvectors are different
 '''
 
@@ -28,7 +27,8 @@ class TestDiagMatrix(unittest.TestCase):
         mat2 = mat.__class__()
         indices = np.triu_indices(mat.n_cols)
 
-        mat2._set_data_half_matrix(mat._to_cpptraj_sparse_matrix(), mat.size, mat.n_cols)
+        mat2._set_data_half_matrix(mat._to_cpptraj_sparse_matrix(), mat.size,
+                                   mat.n_cols)
 
         # OK
         data = matrix.diagonalize(mat.values, n_vecs=6)[-1]
@@ -51,7 +51,8 @@ class TestDiagMatrix(unittest.TestCase):
                 from pytraj.plot import plot_matrix
                 from matplotlib import pyplot as plt
 
-                fig, ax, bar = plot_matrix(np.abs(data.eigenvectors) - np.abs(cpp_evecs))
+                fig, ax, bar = plot_matrix(
+                    np.abs(data.eigenvectors) - np.abs(cpp_evecs))
                 fig.colorbar(bar)
                 plt.title('data vs cpp_evecs')
 
@@ -59,7 +60,8 @@ class TestDiagMatrix(unittest.TestCase):
                 fig.colorbar(bar)
                 plt.title('np vs cpp_evecs')
 
-                fig, ax, bar = plot_matrix(np.abs(np_vecs) - np.abs(data.eigenvectors))
+                fig, ax, bar = plot_matrix(
+                    np.abs(np_vecs) - np.abs(data.eigenvectors))
                 fig.colorbar(bar)
                 plt.title('np vs data')
                 pt.show()

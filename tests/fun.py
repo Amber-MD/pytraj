@@ -13,7 +13,8 @@ class TestFun(unittest.TestCase):
         '''
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
 
-        state = pt.load_pipeline(traj, ['distance :3 :2',]).compute()
+        state = pt.load_pipeline(traj, ['distance :3 :2', ]).compute()
+
 
 @_register_pmap
 def method(traj):
@@ -24,6 +25,7 @@ def method(traj):
         x.append(np.array(frame.xyz[0]))
     return x
 
+
 class TestUserFunction(unittest.TestCase):
     def test_user_defined_method(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
@@ -31,6 +33,7 @@ class TestUserFunction(unittest.TestCase):
             data = pt.pmap(method, traj, n_cores=n_cores)
             joint_data = pt.tools.flatten(x[1] for x in data)
         aa_eq(joint_data, pt.tools.flatten(method(traj)))
+
 
 if __name__ == "__main__":
     unittest.main()

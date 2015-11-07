@@ -69,7 +69,7 @@ class Test(unittest.TestCase):
                     grep_key,
                     clustering_dataset,
                     pt.mindist,
-                    kmeans,]
+                    kmeans, ]
 
         if has_parmed:
             funclist.append(pt.load_parmed)

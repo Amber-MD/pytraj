@@ -29,6 +29,7 @@ runanalysis diagmatrix MyMatrix vecs 2 name MyEvecs
 crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
 '''
 
+
 #@unittest.skipIf('DNO_MATHLIB' in pt.compiled_info(), 'there is no LAPACK')
 @unittest.skip('just skip')
 class TestCpptrajDatasetWithMathLib(unittest.TestCase):
@@ -63,6 +64,7 @@ class TestCpptrajDatasetWithMathLib(unittest.TestCase):
         aa_eq(sorted(modes.eigenvalues), np_eg[0][-2:])
         aa_eq(modes.eigenvectors[0], np_eg[1][:, -1])
         aa_eq(modes.eigenvectors[1], np_eg[1][:, -2])
+
 
 class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
     def setUp(self):
@@ -108,7 +110,7 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
         #"MATRIX_FLOAT" : MATRIX_FLT,
         #"MODES" : MODES,
         dslist = CpptrajDatasetList()
-        
+
         # integer
         dslist.add_new(dtype='integer', name='my_int')
         dslist[-1].data = [2, 3]
@@ -176,6 +178,7 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
         # dslist[-1].data = arr
         dslist[-1]._append_from_array(arr)
         aa_eq(dslist[-1].values, arr)
+
 
 if __name__ == "__main__":
     unittest.main()

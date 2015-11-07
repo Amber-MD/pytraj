@@ -5,6 +5,7 @@ import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
 
+
 class TestTopoloyObjects(unittest.TestCase):
     def setUp(self):
         self.traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")

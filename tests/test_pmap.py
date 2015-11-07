@@ -24,11 +24,12 @@ class TestNormalPmap(unittest.TestCase):
 
         # run time: openmp vs pmap
         if 'OPENMP' in pt.compiled_info():
-            self.assertRaises(RuntimeError, lambda: pt.pmap(pt.watershell, self.traj))
+            self.assertRaises(RuntimeError,
+                              lambda: pt.pmap(pt.watershell, self.traj))
 
         # if traj is not TrajectoryIterator
         self.assertRaises(ValueError, lambda: pt.pmap(pt.radgyr, self.traj[:]))
-        
+
         # raise if a given method does not support pmap
         def need_to_raise(traj=self.traj):
             pt.pmap(2, pt.bfactors, traj)
@@ -40,7 +41,6 @@ class TestNormalPmap(unittest.TestCase):
             pt.pmap(pt.bfactors, traj[:], n_cores=2)
 
         self.assertRaises(ValueError, lambda: need_to_raise_2())
-
 
     def test_general(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -58,11 +58,15 @@ class TestNormalPmap(unittest.TestCase):
         for n_cores in [2, 3]:
             for func in func_list:
                 if func in [pt.rmsd, ]:
-                    pout = pt.tools.dict_to_ndarray(pt.pmap(func=func, traj=traj, ref=ref,
-                        n_cores=n_cores))
+                    pout = pt.tools.dict_to_ndarray(pt.pmap(func=func,
+                                                            traj=traj,
+                                                            ref=ref,
+                                                            n_cores=n_cores))
                     serial_out = flatten(func(traj, ref=ref))
                 else:
-                    pout = pt.tools.dict_to_ndarray(pt.pmap(n_cores=n_cores, func=func, traj=traj))
+                    pout = pt.tools.dict_to_ndarray(pt.pmap(n_cores=n_cores,
+                                                            func=func,
+                                                            traj=traj))
                     serial_out = flatten(func(traj))
                 aa_eq(pout[0], serial_out)
 
@@ -71,8 +75,11 @@ class TestNormalPmap(unittest.TestCase):
         func = pt.rmsd
         for i in range(0, 8, 2):
             ref = self.traj[i]
-            for n_cores in [2, 3,]:
-                pout = pt.tools.dict_to_ndarray(pt.pmap(n_cores=n_cores, func=func, traj=traj, ref=ref))
+            for n_cores in [2, 3, ]:
+                pout = pt.tools.dict_to_ndarray(pt.pmap(n_cores=n_cores,
+                                                        func=func,
+                                                        traj=traj,
+                                                        ref=ref))
                 serial_out = flatten(func(traj, ref=ref))
                 aa_eq(pout[0], serial_out)
 
@@ -85,10 +92,13 @@ class TestNormalPmap(unittest.TestCase):
         # perform autoimage, then rms fit to 1st frame, then compute mean structure
         iter_options = {'autoimage': True, 'rmsfit': 0}
         for n_cores in [2, 3]:
-            avg = pt.pmap(pt.mean_structure, traj, iter_options=iter_options,
-                    n_cores=n_cores)
+            avg = pt.pmap(pt.mean_structure, traj,
+                          iter_options=iter_options,
+                          n_cores=n_cores)
             aa_eq(saved_avg.xyz, avg.xyz)
-            radgyr_ = pt.tools.dict_to_ndarray(pt.pmap(pt.radgyr, traj, iter_options={'mask': '@CA'}))
+            radgyr_ = pt.tools.dict_to_ndarray(
+                pt.pmap(pt.radgyr, traj,
+                        iter_options={'mask': '@CA'}))
             aa_eq(radgyr_[0], saved_radgyr)
 
 
@@ -106,11 +116,12 @@ class TestParallelMapForMatrix(unittest.TestCase):
         traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
         h = traj.top.select('@H')
         n = h - 1
-        nh = list(zip(n ,h))
+        nh = list(zip(n, h))
 
         exptected_vecs, exptected_mat = pt.ired_vector_and_matrix(traj, nh)
         for n_cores in [2, 3]:
-            vecs, mat = pt.pmap(pt.ired_vector_and_matrix, traj, nh, n_cores=n_cores)
+            vecs, mat = pt.pmap(pt.ired_vector_and_matrix, traj, nh,
+                                n_cores=n_cores)
             aa_eq(exptected_vecs, vecs, decimal=7)
             aa_eq(exptected_mat, mat, decimal=7)
 
@@ -121,13 +132,16 @@ class TestParallelMapForMatrix(unittest.TestCase):
 
         for n_cores in [2, 3]:
             out = pt.pmap(pt.rotation_matrix, traj, ref=traj[3], mask='@CA')
-            out_with_rmsd  = pt.pmap(pt.rotation_matrix, traj, ref=traj[3], mask='@CA',
-                    with_rmsd=True)
+            out_with_rmsd = pt.pmap(pt.rotation_matrix, traj,
+                                    ref=traj[3],
+                                    mask='@CA',
+                                    with_rmsd=True)
             mat = out[list(out.keys())[0]]
             mat2, rmsd_ = out_with_rmsd[list(out_with_rmsd.keys())[0]]
             aa_eq(saved_mat, mat)
             aa_eq(saved_mat, mat2)
             aa_eq(saved_rmsd, rmsd_)
+
 
 class TestCpptrajCommandStyle(unittest.TestCase):
     def test_cpptraj_command_style(self):
@@ -147,12 +161,16 @@ class TestCpptrajCommandStyle(unittest.TestCase):
 
         for n_cores in [2, 3]:
             # use 4-th Frame for reference
-            data = pt.pmap(['rms @CA refindex 0'], traj, ref=traj[3], n_cores=n_cores)
+            data = pt.pmap(['rms @CA refindex 0'], traj,
+                           ref=traj[3],
+                           n_cores=n_cores)
             arr = pt.tools.dict_to_ndarray(data)[0]
             aa_eq(arr, pt.rmsd(traj, 3, '@CA'))
 
             # use 4-th and 5-th Frame for reference
-            data = pt.pmap(['rms @CA refindex 0', 'rms @CB refindex 1'], traj, ref=[traj[3], traj[4]], n_cores=n_cores)
+            data = pt.pmap(['rms @CA refindex 0', 'rms @CB refindex 1'], traj,
+                           ref=[traj[3], traj[4]],
+                           n_cores=n_cores)
             arr = pt.tools.dict_to_ndarray(data)[0]
             aa_eq(arr, pt.rmsd(traj, 3, '@CA'))
 
@@ -160,9 +178,10 @@ class TestCpptrajCommandStyle(unittest.TestCase):
             aa_eq(arr1, pt.rmsd(traj, 4, '@CB'))
 
             # no ref
-            data = pt.pmap(['radgyr',], traj, n_cores=n_cores)
+            data = pt.pmap(['radgyr', ], traj, n_cores=n_cores)
             arr = pt.tools.dict_to_ndarray(data)[0]
             aa_eq(arr, pt.radgyr(traj))
+
 
 class TestParallelMapForAverageStructure(unittest.TestCase):
     def test_pmap_average_structure(self):
@@ -174,13 +193,14 @@ class TestParallelMapForAverageStructure(unittest.TestCase):
             frame = pt.pmap(pt.mean_structure, traj, '@CA', n_cores=n_cores)
             aa_eq(frame.xyz, saved_xyz)
 
+
 class TestLoadBathPmap(unittest.TestCase):
     def test_load_batch(self):
         '''just test ValueError
         '''
-        self.assertRaises(ValueError, lambda: _load_batch_pmap(n_cores=4,
-        lines=['autoimage'], traj=None, dtype='dict', root=0,
-        mode='xyz', ref=None))
+        self.assertRaises(
+            ValueError,
+            lambda: _load_batch_pmap(n_cores=4, lines=['autoimage'], traj=None, dtype='dict', root=0, mode='xyz', ref=None))
 
 
 if __name__ == "__main__":

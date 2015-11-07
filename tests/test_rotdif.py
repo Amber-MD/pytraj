@@ -18,9 +18,15 @@ class TestRotdif(unittest.TestCase):
         traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
         avg = pt.iterload(avg_fn, traj.top)
         mat = pt.calc_rotation_matrix(traj, ref=avg, mask='@CA,C,N,O')
-        data = pt._rotdif(mat, rseed=1, nvecs=10, dt=0.002, tf=0.19, itmax=500,
-                  tol=0.000001, d0=0.03, order=2)
-
+        data = pt._rotdif(mat,
+                          rseed=1,
+                          nvecs=10,
+                          dt=0.002,
+                          tf=0.19,
+                          itmax=500,
+                          tol=0.000001,
+                          d0=0.03,
+                          order=2)
 
         text = '''
         parm data/tz2.parm7

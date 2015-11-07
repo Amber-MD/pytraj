@@ -25,7 +25,9 @@ class TestDistanceBasedMask(unittest.TestCase):
             skiprows=1,
             usecols=(1, ))
 
-        neighbors_smaller = pt.search_neighbors(traj, mask=':3@CA <@5.0', frame_indices=[0,])
+        neighbors_smaller = pt.search_neighbors(traj,
+                                                mask=':3@CA <@5.0',
+                                                frame_indices=[0, ])
         # subtract by '1' since cpptraj uses "1" as starting index for output
         saved_indices = saved_indices - 1
         aa_eq(indices, saved_indices)
@@ -48,7 +50,9 @@ class TestDistanceBasedMask(unittest.TestCase):
             assert dist > 5.0, 'all distances must be larger than 5.0 Angstrom'
 
         # search_neighbors
-        neighbors_larger = pt.search_neighbors(traj, mask=':3@CA >@5.0', frame_indices=[0,])
+        neighbors_larger = pt.search_neighbors(traj,
+                                               mask=':3@CA >@5.0',
+                                               frame_indices=[0, ])
         aa_eq(neighbors_larger.values, indices_larger)
 
     def test_residue_distance(self):

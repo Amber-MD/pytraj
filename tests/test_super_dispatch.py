@@ -16,18 +16,21 @@ class TestSuperDispatch(unittest.TestCase):
         # make sure to convert int to Frame
         def func_convert_ref(traj, ref=0, top=None):
             assert isinstance(ref, pt.Frame)
+
         func = _super_dispatch()(func_convert_ref)
         func(self.traj, ref=-2)
 
         # make sure to insert correct Topology
         def func_convert_top(traj, top=None):
             assert isinstance(top, pt.Topology)
+
         func = _super_dispatch()(func_convert_top)
         func(self.traj, top=None)
 
         # make sure to convert array to Amber mask
         def func_convert_mask_array(traj, top=None, mask=None):
             assert isinstance(mask, string_types)
+
         func = _super_dispatch()(func_convert_mask_array)
         func(self.traj, mask=[0, 3, 7])
 
@@ -36,6 +39,7 @@ class TestSuperDispatch(unittest.TestCase):
             assert isinstance(mask, string_types)
             assert isinstance(ref, pt.Frame)
             assert isinstance(top, pt.Topology)
+
         func = _super_dispatch()(func_all_3)
         func(self.traj, ref=3)
 
@@ -53,13 +57,14 @@ class TestSuperDispatch(unittest.TestCase):
             mask = '@CA'
             atom_indices = pt.select_atoms(mask, traj.top)
             # mask
-            aa_eq(func(traj, mask=mask),
-                  func(traj, mask=atom_indices))
+            aa_eq(func(traj, mask=mask), func(traj, mask=atom_indices))
 
             # frame_indices with mask
             frame_indices = [0, 5, 8]
-            aa_eq(func(traj[frame_indices], mask=mask),
-                  func(traj, mask=atom_indices, frame_indices=frame_indices))
+            aa_eq(func(traj[frame_indices],
+                       mask=mask), func(traj,
+                                        mask=atom_indices,
+                                        frame_indices=frame_indices))
 
 
 if __name__ == "__main__":

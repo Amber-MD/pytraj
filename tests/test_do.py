@@ -5,6 +5,7 @@ import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
 
+
 class TestDo(unittest.TestCase):
     def test_pytraj_do(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
@@ -13,8 +14,9 @@ class TestDo(unittest.TestCase):
         ref1 = pt.autoimage(traj[1], top=traj.top)
 
         data = pt.tools.dict_to_ndarray(
-                  pt.do(['autoimage', 'radgyr nomax @CA', 'rms refindex 0', 'rms refindex 1'],
-                        traj, ref=[ref0, ref1]))
+            pt.do(['autoimage', 'radgyr nomax @CA', 'rms refindex 0',
+                   'rms refindex 1'], traj,
+                  ref=[ref0, ref1]))
 
         t0 = pt.autoimage(traj[:])
         aa_eq(pt.radgyr(t0, '@CA'), data[0])

@@ -5,11 +5,12 @@ import numpy as np
 import pytraj as pt
 from pytraj.testing import aa_eq
 
+
 class TestNastruct(unittest.TestCase):
     def test_nupars(self):
         fn = "./data/Test_NAstruct/adh026.3.pdb"
         traj = pt.iterload(fn, fn)
-        data= pt.nastruct(traj)
+        data = pt.nastruct(traj)
 
         # default
         text = '''
@@ -22,16 +23,17 @@ class TestNastruct(unittest.TestCase):
         state.run()
 
         for key in ['major', 'minor', 'twist']:
-            cpp_data = np.array([x.values for x in state.data if x.aspect == key])
+            cpp_data = np.array([x.values for x in state.data
+                                 if x.aspect == key])
             # need to transpose to get shape=(n_frames, n_pairs)
             cpp_data = cpp_data.T
             aa_eq(data[key][1], cpp_data)
 
         # TODO: assert
         data._summary(np.mean, indices=None)
-        data._summary(np.mean, indices=[1,])
-        data._summary(np.mean, keys=['major', 'twist'], indices=[1,])
-        data._summary(np.std, indices=[1,])
+        data._summary(np.mean, indices=[1, ])
+        data._summary(np.mean, keys=['major', 'twist'], indices=[1, ])
+        data._summary(np.std, indices=[1, ])
 
         # pickle
         pt.to_pickle(data, 'data/na.pk')
@@ -48,8 +50,9 @@ class TestNastruct(unittest.TestCase):
         root = 'data/Test_NAstruct/x3dna/'
 
         # helical pars
-        saved_helical_pars = np.loadtxt(root + 'bp_helical.par', skiprows=3,
-                usecols=range(1, 13)).T
+        saved_helical_pars = np.loadtxt(root + 'bp_helical.par',
+                                        skiprows=3,
+                                        usecols=range(1, 13)).T
         aa_eq(nu.shear[1], saved_helical_pars[0], decimal=3)
         aa_eq(nu.stretch[1], saved_helical_pars[1], decimal=3)
         aa_eq(nu.stagger[1], saved_helical_pars[2], decimal=3)
@@ -64,8 +67,9 @@ class TestNastruct(unittest.TestCase):
         aa_eq(nu.htwist[1], saved_helical_pars[11][1:], decimal=3)
 
         # bp_step
-        saved_helical_pars = np.loadtxt(root + 'bp_step.par', skiprows=3,
-                usecols=range(1, 13)).T
+        saved_helical_pars = np.loadtxt(root + 'bp_step.par',
+                                        skiprows=3,
+                                        usecols=range(1, 13)).T
         aa_eq(nu.shift[1], saved_helical_pars[6][1:], decimal=3)
         aa_eq(nu.slide[1], saved_helical_pars[7][1:], decimal=3)
         aa_eq(nu.tilt[1], saved_helical_pars[9][1:], decimal=3)

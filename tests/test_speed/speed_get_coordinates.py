@@ -5,9 +5,14 @@ from pytraj.testing import Timer, aa_eq
 n_frames = 5000
 traj = pt.iterload('md.nc', 'tc5bwat.top', frame_slice=(0, n_frames))
 
+
 @Timer()
 def _get_coordinates(traj):
-    return pt.get_coordinates(traj, autoimage=True, rmsfit=(0, '@CA'), mask='@CA')
+    return pt.get_coordinates(traj,
+                              autoimage=True,
+                              rmsfit=(0, '@CA'),
+                              mask='@CA')
+
 
 @Timer()
 def run_cpptraj():
@@ -23,11 +28,11 @@ def run_cpptraj():
     state.run()
     state.data[-1].xyz
 
+
 _get_coordinates(traj)
 run_cpptraj()
 
 # assert True? Yes
 #saved_xyz = pt.iterload('test.nc', 'test.tc5bwat.top').xyz
 #aa_eq(saved_xyz, xyz)
-
 # result: pytraj 11 s, cpptraj 8 s for 5000 frames

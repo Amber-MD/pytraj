@@ -8,7 +8,7 @@ from pytraj.testing import eq, aa_eq, cpptraj_test_dir
 from pytraj.compat import zip
 from pytraj.nmr import _ired
 
-parm_dir = cpptraj_test_dir  + '/Test_IRED/1IEE_A_prot.prmtop'
+parm_dir = cpptraj_test_dir + '/Test_IRED/1IEE_A_prot.prmtop'
 traj_dir = cpptraj_test_dir + '/Test_IRED/1IEE_A_test.mdcrd'
 
 txt = '''
@@ -161,7 +161,9 @@ class TestIred(unittest.TestCase):
         h_indices = pt.select_atoms('@H', traj.top)
         n_indices = pt.select_atoms('@H', traj.top) - 1
         nh_indices = list(zip(n_indices, h_indices))
-        mat_ired = pt.ired_vector_and_matrix(traj, mask=nh_indices, order=2)[-1]
+        mat_ired = pt.ired_vector_and_matrix(traj,
+                                             mask=nh_indices,
+                                             order=2)[-1]
         mat_ired /= mat_ired[0, 0]
 
         # matired: make sure to reproduce cpptraj output
@@ -192,12 +194,13 @@ class TestIred(unittest.TestCase):
         order_s2 = data['IRED_00127[S2]']
 
         # load cpptraj's output and compare to pytraj' values for S2 order paramters
-        cpp_order_s2 = np.loadtxt(os.path.join(cpptraj_test_dir, 'Test_IRED', 'orderparam.save')).T[-1]
+        cpp_order_s2 = np.loadtxt(os.path.join(cpptraj_test_dir, 'Test_IRED',
+                                               'orderparam.save')).T[-1]
         aa_eq(order_s2, cpp_order_s2, decimal=5)
 
     @unittest.skip('do not test now, get nan in some runs')
     def test_ired_lapack_in_numpy(self):
-        parmfile =  parm_dir
+        parmfile = parm_dir
         trajfile = traj_dir
 
         # load to TrajectoryIterator
@@ -209,13 +212,15 @@ class TestIred(unittest.TestCase):
         nh_indices = list(zip(n_indices, h_indices))
 
         # compute N-H vectors and ired matrix
-        vecs_and_mat = pt.ired_vector_and_matrix(traj, mask=nh_indices, order=2)
+        vecs_and_mat = pt.ired_vector_and_matrix(traj,
+                                                 mask=nh_indices,
+                                                 order=2)
         state_vecs = vecs_and_mat[:-1].values
         mat_ired = vecs_and_mat[-1]
         mat_ired /= mat_ired[0, 0]
 
         # cpptraj
-        data_cpp= pt.matrix.diagonalize(mat_ired, n_vecs=len(state_vecs))[0]
+        data_cpp = pt.matrix.diagonalize(mat_ired, n_vecs=len(state_vecs))[0]
         print(data_cpp.eigenvectors)
 
         # numpy
@@ -227,10 +232,12 @@ class TestIred(unittest.TestCase):
             # make sure the S2 values is 1st array
 
             # load cpptraj's output and compare to pytraj' values for S2 order paramters
-            cpp_order_s2 = np.loadtxt(os.path.join(cpptraj_test_dir, 'Test_IRED', 'orderparam.save')).T[-1]
+            cpp_order_s2 = np.loadtxt(os.path.join(
+                cpptraj_test_dir, 'Test_IRED', 'orderparam.save')).T[-1]
             aa_eq(order_s2_v0.values, cpp_order_s2, decimal=4)
 
         order_(data_cpp.values)
+
         #order_(data_np)
         def plot_(x, y):
             import seaborn as sb

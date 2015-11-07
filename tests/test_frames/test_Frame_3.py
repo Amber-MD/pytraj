@@ -36,10 +36,8 @@ class Test(unittest.TestCase):
         assert frame0._buffer1d.is_c_contig() == True
         frame0._buffer2d[1:3, 0] = array('d', [1., 2.])
         #assert frame0[1:3, 0] == array('d', frame0._buffer2d[1:3, 0])
-        aa_eq(
-            frame0[1:3, 0], array('d', frame0._buffer2d[1:3, 0]))
-        aa_eq(
-            frame0._buffer2d[1:3, 0], array('d', frame0._buffer2d[1:3, 0]))
+        aa_eq(frame0[1:3, 0], array('d', frame0._buffer2d[1:3, 0]))
+        aa_eq(frame0._buffer2d[1:3, 0], array('d', frame0._buffer2d[1:3, 0]))
 
     def test_1(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")

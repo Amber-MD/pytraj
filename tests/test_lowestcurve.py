@@ -7,7 +7,6 @@ from pytraj.utils import eq, aa_eq
 from pytraj.analyses import CpptrajAnalyses
 from pytraj.datasets import CpptrajDatasetList
 
-
 saved_data = '''
    0.348       9.3884
    0.548       9.2064
@@ -53,8 +52,9 @@ saved_data = '''
    8.548       0.0000
    8.748      13.2340'''
 
-saved_data = np.array([[x for x in line.split()] for line in saved_data.split('\n') if
-    line], dtype='f4').T
+saved_data = np.array([[x for x in line.split()]
+                       for line in saved_data.split('\n') if line],
+                      dtype='f4').T
 
 
 class TestLowestCurve(unittest.TestCase):
@@ -62,6 +62,7 @@ class TestLowestCurve(unittest.TestCase):
         data = np.loadtxt('data/esurf_vs_rmsd.dat').T
         lc_data = pt.lowestcurve(data, points=10, step=0.2)
         aa_eq(saved_data, lc_data, decimal=3)
+
 
 if __name__ == "__main__":
     unittest.main()

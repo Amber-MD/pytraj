@@ -57,10 +57,10 @@ class TestRotationMatrix(unittest.TestCase):
         # with rmsd
         avg = pt.mean_structure(traj)
         mat2, rmsd_ = pt.calc_rotation_matrix(traj,
-                                      ref=avg,
-                                      mask='@CA,C,N,O',
-                                      mass=True,
-                                      with_rmsd=True)
+                                              ref=avg,
+                                              mask='@CA,C,N,O',
+                                              mass=True,
+                                              with_rmsd=True)
         aa_eq(mat2.flatten(), saved_mat.flatten())
         assert pt.tools.rmsd(rmsd_, state.data['R0']) < 1E-3
 

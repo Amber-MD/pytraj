@@ -18,14 +18,14 @@ class Test(unittest.TestCase):
                  pt.calc_pairwise_rmsd, ]
         for func in flist:
             aa_eq(pt.tools.flatten(func(traj,
-                       mask=range(7))),
+                                        mask=range(7))),
                   pt.tools.flatten(func(traj,
-                       mask="@1,2,3,4,5,6,7")))
+                                        mask="@1,2,3,4,5,6,7")))
 
             aa_eq(pt.tools.flatten(func(traj,
-                       mask=range(0, 7, 2))),
+                                        mask=range(0, 7, 2))),
                   pt.tools.flatten(func(traj,
-                       mask="@1,3,5,7")))
+                                        mask="@1,3,5,7")))
 
 
 if __name__ == "__main__":

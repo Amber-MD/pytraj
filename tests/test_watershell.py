@@ -6,8 +6,7 @@ from pytraj.testing import aa_eq
 
 class TestWatershell(unittest.TestCase):
     def test_watershell(self):
-        traj = pt.iterload("data/tz2.truncoct.nc",
-                           "data/tz2.truncoct.parm7")
+        traj = pt.iterload("data/tz2.truncoct.nc", "data/tz2.truncoct.parm7")
         state = pt.load_batch(traj, '''
         watershell :1-7
         ''')
@@ -15,6 +14,7 @@ class TestWatershell(unittest.TestCase):
         d0 = pt.watershell(traj, solute_mask=':1-7')
         state.run()
         aa_eq(d0.values, state.data[[1, 2]].values)
+
 
 if __name__ == "__main__":
     unittest.main()

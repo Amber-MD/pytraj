@@ -10,11 +10,13 @@ def assert_close(x, y, tol=1E-4):
     print("computed = %s, expected = %s" % (x, y))
     assert abs(x - y) < tol
 
+
 try:
     import sander
     has_sander = True
 except ImportError:
     has_sander = False
+
 
 @unittest.skipIf(not has_sander, 'skip if not having sander')
 class TestSander(unittest.TestCase):
@@ -60,10 +62,10 @@ class TestSander(unittest.TestCase):
             top=traj.top)
         # test dtype
         dslist = pt.energy_decomposition(traj=[traj, ],
-                                           mm_options=options,
-                                           prmtop=topfile,
-                                           top=traj.top,
-                                           dtype='dataset')
+                                         mm_options=options,
+                                         prmtop=topfile,
+                                         top=traj.top,
+                                         dtype='dataset')
         assert edict == edict2
         assert edict == edict3
         assert edict == edict4
@@ -85,8 +87,7 @@ class TestSander(unittest.TestCase):
     @unittest.skipIf(not amberhome, 'skip since there is no AMBERHOME')
     def test_GB_QMMM(self):
         # compare to saved test: GB + QMMM
-        topfile = os.path.join(
-            amberhome, "test/qmmm2/lysine_PM3_qmgb2/prmtop")
+        topfile = os.path.join(amberhome, "test/qmmm2/lysine_PM3_qmgb2/prmtop")
         rstfile = os.path.join(
             amberhome, "test/qmmm2/lysine_PM3_qmgb2/lysine.crd")
         traj = pt.load(rstfile, topfile)
@@ -167,14 +168,19 @@ class TestSander(unittest.TestCase):
         frame_indices = [0, 6, 7, 4, 5]
 
         data_without_frame_indices = pt.energy_decomposition(traj, igb=8)
-        data_with_frame_indices = pt.energy_decomposition(traj, igb=8, frame_indices=frame_indices)
-        data_with_frame_indices_2 = pt.energy_decomposition(traj[frame_indices], igb=8)
+        data_with_frame_indices = pt.energy_decomposition(
+            traj,
+            igb=8,
+            frame_indices=frame_indices)
+        data_with_frame_indices_2 = pt.energy_decomposition(
+            traj[frame_indices],
+            igb=8)
 
         for key in data_without_frame_indices:
             aa_eq(data_without_frame_indices[key][frame_indices],
-                    data_with_frame_indices[key])
+                  data_with_frame_indices[key])
             aa_eq(data_without_frame_indices[key][frame_indices],
-                    data_with_frame_indices_2[key])
+                  data_with_frame_indices_2[key])
 
 
 if __name__ == "__main__":

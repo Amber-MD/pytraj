@@ -15,5 +15,6 @@ class Test(unittest.TestCase):
         aa_eq(frame.xyz.flatten(), traj[0].xyz.flatten())
         aa_eq(np.array(frame._buffer1d), traj[0].xyz.flatten())
 
+
 if __name__ == "__main__":
     unittest.main()

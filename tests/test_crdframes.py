@@ -4,13 +4,15 @@ import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
 
+
 class TestCrdFrames(unittest.TestCase):
     def test_crdframes(self):
         '''test crdframes in cpptraj
         '''
         max_frames = 50
-        traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7', frame_slice=(0, max_frames, 2))
-        
+        traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7',
+                           frame_slice=(0, max_frames, 2))
+
         state = pt.load_cpptraj_state('''
                 parm {0}
                 trajin {1} 1 {2} 2 
@@ -33,6 +35,7 @@ class TestCrdFrames(unittest.TestCase):
         rmsd_1 = pt.rmsd(traj2, ref=0, frame_indices=range(0, 30, 2))
         rmsd_crdframes = state.data[3].values
         aa_eq(rmsd_1, rmsd_crdframes)
+
 
 if __name__ == "__main__":
     unittest.main()

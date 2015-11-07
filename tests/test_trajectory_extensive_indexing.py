@@ -54,7 +54,7 @@ class TestTrajectory(unittest.TestCase):
         assert farray[-1:-3:-1].n_frames == 2
         # need to store xyz
         xyz = farray[-1].xyz.copy()
-        aa_eq(xyz, farray[N-1].xyz)
+        aa_eq(xyz, farray[N - 1].xyz)
 
         # need to create a temp farray
         subfarray = farray[5:1:-1]
