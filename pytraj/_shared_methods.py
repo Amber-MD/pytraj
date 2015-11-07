@@ -98,8 +98,7 @@ def iterframe_master(obj):
             # list, tuple, TrajinList, iterchunk
             for traj_obj in obj:
                 if isinstance(traj_obj, Frame):
-                    frame = traj_obj
-                    yield frame
+                    yield traj_obj
                 elif hasattr(
                         traj_obj,
                         '__name__') and 'iterchunk' in traj_obj.__name__:
