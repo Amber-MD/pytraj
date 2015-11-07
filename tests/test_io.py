@@ -112,9 +112,13 @@ class TestIO(unittest.TestCase):
 
     def test_ParmFile(self):
         top = pt.read_parm("./data/Tc5b.top")
-        pt.write_parm("./output/test_io.top", top)
+        pt.write_parm("./output/test_io.top", top, overwrite=True)
         newtop = pt.read_parm("./output/test_io.top")
         assert top.n_atoms == newtop.n_atoms
+
+        # test raise if file exists
+        self.assertRaises(RuntimeError, lambda: pt.write_parm("./output/test_io.top", top,
+            overwrite=False))
 
     def test_load_and_save_0(self):
         # need to load to Trajectory to save
