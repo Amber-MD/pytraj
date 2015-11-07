@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.io &mdash; pytraj 0.1.2.dev12 documentation</title>
+    <title>pytraj.io &mdash; pytraj 0.1.2.dev12+febc6c6 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev12',
+        VERSION:     '0.1.2.dev12+febc6c6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+febc6c6 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="next" title="pytraj.Trajectory" href="pytraj.trajectory.html" />
     <link rel="prev" title="pytraj" href="pytraj.html" />
@@ -52,7 +52,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+febc6c6</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -191,30 +191,30 @@ memory</li>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># load netcdf file with given amber parm file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="s">&#39;2koc.parm7&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="s">&#39;2koc.parm7&#39;</span><span class="p">)</span> 
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load netcdf file with given amber parm file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="s">&#39;2koc.parm7&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="s">&#39;2koc.parm7&#39;</span><span class="p">)</span> 
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load mol2 file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;traj.mol2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;traj.mol2&#39;</span><span class="p">)</span> <span class="c"># </span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load pdb file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;traj.pdb&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;traj.pdb&#39;</span><span class="p">)</span> 
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load given frame numbers</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="s">&#39;2koc.parm7&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="s">&#39;2koc.parm7&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;!@H=&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="s">&#39;2koc.parm7&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="s">&#39;2koc.parm7&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;!@H=&#39;</span><span class="p">)</span> 
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load with frame slice</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="s">&#39;2koc.parm7&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="s">&#39;2koc.parm7&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> 
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># which is equal to:</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="s">&#39;2koc.parm7&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="s">&#39;2koc.parm7&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> 
 </pre></div>
 </div>
 </dd></dl>
@@ -257,38 +257,38 @@ trajin traj1.nc
 <p>Unlike <cite>pytraj.load</cite>, you can not arbitarily set <cite>frame_indices</cite>. If you want to do
 so, first load trajectories to TrajectoryIterator object, then do fancy slicing</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">register</span> <span class="n">to</span> <span class="n">load</span> <span class="n">traj</span><span class="o">.</span><span class="n">nc</span> <span class="kn">from</span> <span class="mi">0</span><span class="o">-</span><span class="n">th</span> <span class="n">to</span> <span class="mi">99</span><span class="o">-</span><span class="n">th</span> <span class="n">frame</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="s">&#39;prmtop&#39;</span><span class="p">,</span> <span class="n">frame_slice</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># register to load traj.nc from 0-th to 99-th frame</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="s">&#39;prmtop&#39;</span><span class="p">,</span> <span class="n">frame_slice</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)])</span> 
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># do fancy indexing to load specific frames to memory</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">7</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">7</span><span class="p">]]</span> 
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load to disk with given mask</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="s">&#39;!@H=&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="s">&#39;!@H=&#39;</span><span class="p">]</span> 
 </pre></div>
 </div>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># load a single filename</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="s">&#39;2koc.parm7&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="s">&#39;2koc.parm7&#39;</span><span class="p">)</span> 
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load from a list of filenames</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s">&#39;traj0.nc&#39;</span><span class="p">,</span> <span class="s">&#39;traj1.nc&#39;</span><span class="p">],</span> <span class="s">&#39;2koc.parm7&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s">&#39;traj0.nc&#39;</span><span class="p">,</span> <span class="s">&#39;traj1.nc&#39;</span><span class="p">],</span> <span class="s">&#39;2koc.parm7&#39;</span><span class="p">)</span> 
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load all files with a given pattern (sorted)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;./traj*.nc&#39;</span><span class="p">,</span> <span class="s">&#39;2koc.parm7&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;./traj*.nc&#39;</span><span class="p">,</span> <span class="s">&#39;2koc.parm7&#39;</span><span class="p">)</span> 
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load from a list of files with given frame step</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># for each file, only register to load from frame 0 to 9 (skip 10), skip every 2 frames</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s">&#39;traj0.nc&#39;</span><span class="p">,</span> <span class="s">&#39;traj1.nc&#39;</span><span class="p">],</span> <span class="s">&#39;2koc.parm7&#39;</span><span class="p">,</span> <span class="n">frame_slice</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">),]</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s">&#39;traj0.nc&#39;</span><span class="p">,</span> <span class="s">&#39;traj1.nc&#39;</span><span class="p">],</span> <span class="s">&#39;2koc.parm7&#39;</span><span class="p">,</span> <span class="n">frame_slice</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">),]</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span> 
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load from frame 0 to 9 for `traj0.nc`</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># load all frames from `traj1.nc`</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s">&#39;traj0.nc&#39;</span><span class="p">,</span> <span class="s">&#39;traj1.nc&#39;</span><span class="p">],</span> <span class="s">&#39;2koc.parm7&#39;</span><span class="p">,</span> <span class="n">frame_slice</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s">&#39;traj0.nc&#39;</span><span class="p">,</span> <span class="s">&#39;traj1.nc&#39;</span><span class="p">],</span> <span class="s">&#39;2koc.parm7&#39;</span><span class="p">,</span> <span class="n">frame_slice</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)]</span> 
 </pre></div>
 </div>
 </dd></dl>
@@ -411,21 +411,23 @@ file. cpptraj will do the bond guess based on distance.</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># from a filename</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&quot;tz2.ortho.parm7&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&quot;data/tz2.ortho.parm7&quot;</span><span class="p">)</span>
+<span class="go">&lt;Topology: 5293 atoms, 1704 residues, 1692 mols, PBC with box type = ortho&gt;</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># from url</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&quot;http://ambermd.org/tutorials/advanced/tutorial1/files/polyAT.pdb&quot;</span><span class="p">)</span>
+<span class="go">&lt;Topology: 438 atoms, 438 residues, 438 mols, non-PBC&gt;</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># from ParmEd object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">parmed</span> <span class="kn">as</span> <span class="nn">pmd</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">parm</span> <span class="o">=</span> <span class="n">pmd</span><span class="o">.</span><span class="n">load_file</span><span class="p">(</span><span class="s">&#39;m2-c1_f3.mol2&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">top</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="n">parm</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parm</span> <span class="o">=</span> <span class="n">pmd</span><span class="o">.</span><span class="n">load_file</span><span class="p">(</span><span class="s">&#39;m2-c1_f3.mol2&#39;</span><span class="p">)</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">top</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="n">parm</span><span class="p">)</span> 
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># read with more_options</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&#39;1KX5.pdb&#39;</span><span class="p">,</span> <span class="s">&#39;bondsearch 0.2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&#39;1KX5.pdb&#39;</span><span class="p">,</span> <span class="s">&#39;bondsearch 0.2&#39;</span><span class="p">)</span> 
 </pre></div>
 </div>
 </dd></dl>
@@ -455,21 +457,23 @@ file. cpptraj will do the bond guess based on distance.</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># from a filename</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&quot;tz2.ortho.parm7&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&quot;data/tz2.ortho.parm7&quot;</span><span class="p">)</span>
+<span class="go">&lt;Topology: 5293 atoms, 1704 residues, 1692 mols, PBC with box type = ortho&gt;</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># from url</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&quot;http://ambermd.org/tutorials/advanced/tutorial1/files/polyAT.pdb&quot;</span><span class="p">)</span>
+<span class="go">&lt;Topology: 438 atoms, 438 residues, 438 mols, non-PBC&gt;</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># from ParmEd object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">parmed</span> <span class="kn">as</span> <span class="nn">pmd</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">parm</span> <span class="o">=</span> <span class="n">pmd</span><span class="o">.</span><span class="n">load_file</span><span class="p">(</span><span class="s">&#39;m2-c1_f3.mol2&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">top</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="n">parm</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parm</span> <span class="o">=</span> <span class="n">pmd</span><span class="o">.</span><span class="n">load_file</span><span class="p">(</span><span class="s">&#39;m2-c1_f3.mol2&#39;</span><span class="p">)</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">top</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="n">parm</span><span class="p">)</span> 
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># read with more_options</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&#39;1KX5.pdb&#39;</span><span class="p">,</span> <span class="s">&#39;bondsearch 0.2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&#39;1KX5.pdb&#39;</span><span class="p">,</span> <span class="s">&#39;bondsearch 0.2&#39;</span><span class="p">)</span> 
 </pre></div>
 </div>
 </dd></dl>
@@ -546,20 +550,20 @@ file. cpptraj will do the bond guess based on distance.</p>
 </table>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;t.nc&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c"># write to amber netcdf file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/t.nc&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c"># write to amber netcdf file</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># write to multi pdb files (t.pdb.1, t.pdb.2, ...)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;t.pdb&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s">&#39;multi&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/t.pdb&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s">&#39;multi&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># write all frames to single pdb file and each frame is seperated by &quot;MODEL&quot; word</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;t.pdb&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s">&#39;model&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/t.pdb&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s">&#39;model&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># write to DCD file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;test.dcd&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/test.dcd&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># write to netcdf file from 3D numpy array, need to provide Topology</span>
@@ -638,20 +642,20 @@ file. cpptraj will do the bond guess based on distance.</p>
 </table>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;t.nc&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c"># write to amber netcdf file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/t.nc&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c"># write to amber netcdf file</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># write to multi pdb files (t.pdb.1, t.pdb.2, ...)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;t.pdb&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s">&#39;multi&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/t.pdb&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s">&#39;multi&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># write all frames to single pdb file and each frame is seperated by &quot;MODEL&quot; word</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;t.pdb&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s">&#39;model&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/t.pdb&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s">&#39;model&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># write to DCD file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;test.dcd&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/test.dcd&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># write to netcdf file from 3D numpy array, need to provide Topology</span>
@@ -759,7 +763,7 @@ unsafe. See: <a class="reference external" href="http://docs.python.org/2.7/libr
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 04, 2015.<br/>
+      Last updated on Nov 07, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

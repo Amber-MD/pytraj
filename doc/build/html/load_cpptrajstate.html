@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Run cpptraj’s batch &mdash; pytraj 0.1.2.dev12 documentation</title>
+    <title>Run cpptraj’s batch &mdash; pytraj 0.1.2.dev12+febc6c6 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.2.dev12',
+        VERSION:     '0.1.2.dev12+febc6c6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12 documentation" href="index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+febc6c6 documentation" href="index.html" />
     <link rel="up" title="Cookbook" href="cookbook.html" />
     <link rel="next" title="Weird things in pytraj" href="things_will_be_surprised.html" />
     <link rel="prev" title="Tips for out-of-core loading" href="tips_iterload.html" />
@@ -52,7 +52,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+febc6c6</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -190,7 +190,7 @@ molsurf
 <span class="gp">In [3]: </span><span class="n">traj</span>
 <span class="gr">Out[3]: </span>
 <span class="go">pytraj.TrajectoryIterator, 10 frames: </span>
-<span class="go">Size: 0.0012 (GB)</span>
+<span class="go">Size: 0.001183 (GB)</span>
 <span class="go">&lt;Topology: 5293 atoms, 1704 residues, 1692 mols, PBC with box type = ortho&gt;</span>
 <span class="go">           </span>
 
@@ -297,14 +297,14 @@ molsurf
 <span class="gp">In [20]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;mycrd&#39;</span><span class="p">]</span>
 <span class="go">                                                                                                                                                                                                                                                                                                                                                   Out[20]: </span>
 <span class="go">pytraj.DatasetCoordsCRD, 101 frames: </span>
-<span class="go">Size: 0.0002 (GB)</span>
+<span class="go">Size: 0.000239 (GB)</span>
 <span class="go">&lt;Topology: 106 atoms, 13 residues, 106 mols, non-PBC&gt;</span>
 <span class="go">           </span>
 
 <span class="gp">In [21]: </span><span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
 <span class="gp">   ....:</span>     <span class="k">print</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
 <span class="gp">   ....:</span> 
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       &lt;pytraj.datasets.DatasetTopology: size=223, key=tz2.parm7&gt; </span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         &lt;pytraj.datasets.DatasetTopology: size=223, key=tz2.parm7&gt; </span>
 <span class="go">&lt;pytraj.datasets.DatasetDouble: size=101, key=phi&gt; </span>
 <span class="go">values: </span>
 <span class="go">[-52.7812 -40.6208 -51.2155 ..., -88.9455 -87.1766 -77.0983]</span>
@@ -321,7 +321,7 @@ molsurf
 <span class="go">values: </span>
 <span class="go">[ 0.      4.0162  6.4142 ...,  8.275   8.1941  7.7792]</span>
 <span class="go">pytraj.DatasetCoordsCRD, 101 frames: </span>
-<span class="go">Size: 0.0002 (GB)</span>
+<span class="go">Size: 0.000239 (GB)</span>
 <span class="go">&lt;Topology: 106 atoms, 13 residues, 106 mols, non-PBC&gt;</span>
 </pre></div>
 </div>
@@ -341,7 +341,7 @@ molsurf
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 01, 2015.<br/>
+      Last updated on Nov 07, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

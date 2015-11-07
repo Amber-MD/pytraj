@@ -119,6 +119,28 @@ If memory is critical, do not load all frames into memory.
     pt.iterframe(traj, frame_indices=[0, 200, 300, 301])
     traj[[0, 200, 300, 301]]
 
+
+Example: calculate pairwise rmsd for 3000 frames (~3.9 G) only costs 112.7 MB
+
+.. code-block:: bash
+
+    $ python memory/pairwise_rmsd_shorter_version.py
+
+    pytraj.TrajectoryIterator, 3000 frames:
+    Size: 3.911264 (GB)
+    <Topology: 58329 atoms, 19202 residues, 19168 mols, PBC with box type = ortho>
+    
+    Filename: memory/pairwise_rmsd_shorter_version.py
+    
+    Line #    Mem usage    Increment   Line Contents
+    ================================================
+         6     30.1 MiB      0.0 MiB   @profile
+         7                             def compute(mask='!:WAT,K+,Cl-', mat_type='half'):
+         8     64.0 MiB     33.9 MiB       traj = pt.iterload('GAAC3.5000frames.nc', 'GAAC.topo', frame_slice=(0, 3000))
+         9     64.1 MiB      0.1 MiB       print(traj)
+        10    112.7 MiB     48.5 MiB       return pt.pairwise_rmsd(traj, mask=mask, mat_type=mat_type)
+
+
 See also: :ref:`trajectory_slice`
 
 convert trajectory

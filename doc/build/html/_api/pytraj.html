@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj &mdash; pytraj 0.1.2.dev12 documentation</title>
+    <title>pytraj &mdash; pytraj 0.1.2.dev12+febc6c6 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev12',
+        VERSION:     '0.1.2.dev12+febc6c6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+febc6c6 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="next" title="pytraj.io" href="pytraj.io.html" />
     <link rel="prev" title="API" href="index.html" />
@@ -52,7 +52,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+febc6c6</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -199,6 +199,11 @@
 &lt;Frame with 5293 atoms&gt;
 &lt;Frame with 5293 atoms&gt;
 &lt;Frame with 5293 atoms&gt;</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># iterframe its self</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">fi</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -219,16 +224,27 @@
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
-<span class="n">traj</span> 
-<span class="n">state</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_batch</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;&quot;&quot;</span>
-<span class="s">autoimage</span>
-<span class="s">radgyr @CA nomax</span>
-<span class="s">molsurf !@H=</span>
-<span class="s">&quot;&quot;&quot;</span><span class="p">)</span>
-<span class="n">state</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-<span class="n">state</span><span class="o">.</span><span class="n">data</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="gp">... </span><span class="s">autoimage</span>
+<span class="gp">... </span><span class="s">radgyr @CA nomax</span>
+<span class="gp">... </span><span class="s">molsurf !@H=</span>
+<span class="gp">... </span><span class="s">&quot;&quot;&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">state</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_batch</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">state</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">state</span><span class="o">.</span><span class="n">data</span>
+<span class="go">&lt;pytraj.datasets.CpptrajDatasetList - 3 datasets&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># raise if not TrajectoryIterator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj2</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">Trajectory</span><span class="p">(</span><span class="n">xyz</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">traj2</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">TrajectoryIterator</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_batch</span><span class="p">(</span><span class="n">traj2</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">ValueError</span>: <span class="n">only support TrajectoryIterator</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -251,16 +267,27 @@
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
-<span class="n">traj</span> 
-<span class="n">state</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_batch</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;&quot;&quot;</span>
-<span class="s">autoimage</span>
-<span class="s">radgyr @CA nomax</span>
-<span class="s">molsurf !@H=</span>
-<span class="s">&quot;&quot;&quot;</span><span class="p">)</span>
-<span class="n">state</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-<span class="n">state</span><span class="o">.</span><span class="n">data</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="gp">... </span><span class="s">autoimage</span>
+<span class="gp">... </span><span class="s">radgyr @CA nomax</span>
+<span class="gp">... </span><span class="s">molsurf !@H=</span>
+<span class="gp">... </span><span class="s">&quot;&quot;&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">state</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_batch</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">state</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">state</span><span class="o">.</span><span class="n">data</span>
+<span class="go">&lt;pytraj.datasets.CpptrajDatasetList - 3 datasets&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># raise if not TrajectoryIterator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj2</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">Trajectory</span><span class="p">(</span><span class="n">xyz</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">traj2</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">TrajectoryIterator</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_batch</span><span class="p">(</span><span class="n">traj2</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">ValueError</span>: <span class="n">only support TrajectoryIterator</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -334,15 +361,74 @@
 </dd></dl>
 
 <dl class="function">
+<dt id="pytraj.strip">
+<tt class="descclassname">pytraj.</tt><tt class="descname">strip</tt><big>(</big><em>traj_or_topology</em>, <em>mask</em><big>)</big><a class="headerlink" href="#pytraj.strip" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a new Trajectory or Topology with given mask.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">n_atoms</span>
+<span class="go">5293</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">strip_atoms</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;!@CA&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">n_atoms</span>
+<span class="go">12</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">strip_atoms</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="s">&#39;!@CA&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">n_atoms</span>
+<span class="go">12</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">strip_atoms</span><span class="p">(</span><span class="s">&#39;!@CA&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">)</span><span class="o">.</span><span class="n">n_atoms</span>
+<span class="go">12</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t0</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">strip_atoms</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="s">&#39;!@CA&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">n_atoms</span>
+<span class="go">12</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">strip_atoms</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="s">&#39;!@CA&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">fi</span><span class="p">:</span>
+<span class="gp">... </span>   <span class="k">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+<span class="go">&lt;Frame with 12 atoms&gt;</span>
+<span class="go">&lt;Frame with 12 atoms&gt;</span>
+<span class="go">&lt;Frame with 12 atoms&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
 <dt id="pytraj.strip_atoms">
 <tt class="descclassname">pytraj.</tt><tt class="descname">strip_atoms</tt><big>(</big><em>traj_or_topology</em>, <em>mask</em><big>)</big><a class="headerlink" href="#pytraj.strip_atoms" title="Permalink to this definition">¶</a></dt>
-<dd><p>return a new Trajectory or Topology with given mask</p>
+<dd><p>return a new Trajectory or Topology with given mask.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">n_atoms</span>
+<span class="go">5293</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">strip_atoms</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;!@CA&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">n_atoms</span>
+<span class="go">12</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">strip_atoms</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="s">&#39;!@CA&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">n_atoms</span>
+<span class="go">12</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">strip_atoms</span><span class="p">(</span><span class="s">&#39;!@CA&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">)</span><span class="o">.</span><span class="n">n_atoms</span>
+<span class="go">12</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t0</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">strip_atoms</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="s">&#39;!@CA&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">n_atoms</span>
+<span class="go">12</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">strip_atoms</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="s">&#39;!@CA&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">fi</span><span class="p">:</span>
+<span class="gp">... </span>   <span class="k">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+<span class="go">&lt;Frame with 12 atoms&gt;</span>
+<span class="go">&lt;Frame with 12 atoms&gt;</span>
+<span class="go">&lt;Frame with 12 atoms&gt;</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
 <dt id="pytraj.superpose">
 <tt class="descclassname">pytraj.</tt><tt class="descname">superpose</tt><big>(</big><em>traj</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.superpose" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_ala3</span><span class="p">()[:]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">superpose</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
 
 <dl class="function">
 <dt id="pytraj.to_mdtraj">
@@ -364,7 +450,7 @@
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 04, 2015.<br/>
+      Last updated on Nov 07, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

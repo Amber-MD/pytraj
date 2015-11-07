@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Analysis &mdash; pytraj 0.1.2.dev12 documentation</title>
+    <title>Analysis &mdash; pytraj 0.1.2.dev12+febc6c6 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.2.dev12',
+        VERSION:     '0.1.2.dev12+febc6c6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12 documentation" href="index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+febc6c6 documentation" href="index.html" />
     <link rel="next" title="Nucleic Acid Analysis" href="nucleic_acid.html" />
     <link rel="prev" title="Python tricks that make your life easier" href="tutorials/python_tricks.html" />
 <meta charset='utf-8'>
@@ -51,7 +51,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+febc6c6</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -388,7 +388,7 @@ out[1:]: perres rmsd for all given residues
 
 <span class="target" id="pairwise-rmsd"></span><dl class="function">
 <dt id="pytraj.pairwise_rmsd">
-<tt class="descclassname">pytraj.</tt><tt class="descname">pairwise_rmsd</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>metric='rms'</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em><big>)</big><a class="headerlink" href="#pytraj.pairwise_rmsd" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.</tt><tt class="descname">pairwise_rmsd</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>metric='rms'</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.pairwise_rmsd" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculate pairwise rmsd with different metrics.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -411,10 +411,10 @@ if &#8216;nofit&#8217;, perform rmsd without fitting</p>
 <blockquote>
 <div><p>return type</p>
 </div></blockquote>
-<p><strong>mat_type</strong> : 2D or 1D ndarray, depending on value</p>
+<p><strong>mat_type</strong> : str, {&#8216;full&#8217;, &#8216;half&#8217;}</p>
 <blockquote>
 <div><p>if &#8216;full&#8217;: return 2D array, shape=(n_frames, n_frames)
-if &#8216;cpptraj&#8217;: return 1D array, shape=(n_frames*(n_frames-1)/2, )</p>
+if &#8216;half&#8217;: return 1D array, shape=(n_frames*(n_frames-1)/2, )</p>
 </div></blockquote>
 <p class="last"><strong>*args, **kwd: optional (for advanced user)</strong></p>
 </td>
@@ -644,7 +644,7 @@ if <cite>resrange</cite> is array-like, use index starting from 0 (python conven
 
 <span class="target" id="bfactors"></span><dl class="function">
 <dt id="pytraj.bfactors">
-<tt class="descclassname">pytraj.</tt><tt class="descname">bfactors</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>byres=True</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.bfactors" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.</tt><tt class="descname">bfactors</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>byres=True</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.bfactors" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -740,17 +740,17 @@ like below:</p>
 
 <span class="target" id="center-of-mass"></span><dl class="function">
 <dt id="pytraj.center_of_mass">
-<tt class="descclassname">pytraj.</tt><tt class="descname">center_of_mass</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.center_of_mass" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.</tt><tt class="descname">center_of_mass</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.center_of_mass" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <span class="target" id="center-of-geometry"></span><dl class="function">
 <dt id="pytraj.center_of_geometry">
-<tt class="descclassname">pytraj.</tt><tt class="descname">center_of_geometry</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em><big>)</big><a class="headerlink" href="#pytraj.center_of_geometry" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.</tt><tt class="descname">center_of_geometry</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.center_of_geometry" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <span class="target" id="search-hbonds"></span><dl class="function">
 <dt id="pytraj.search_hbonds">
-<tt class="descclassname">pytraj.</tt><tt class="descname">search_hbonds</tt><big>(</big><em>traj</em>, <em>mask=''</em>, <em>solvent_donor=None</em>, <em>solvent_acceptor=None</em>, <em>distance=3.0</em>, <em>angle=135.0</em>, <em>image=False</em>, <em>series=True</em>, <em>cpp_options=''</em>, <em>dtype='hbond'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.search_hbonds" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.</tt><tt class="descname">search_hbonds</tt><big>(</big><em>traj</em>, <em>mask=''</em>, <em>solvent_donor=None</em>, <em>solvent_acceptor=None</em>, <em>distance=3.0</em>, <em>angle=135.0</em>, <em>image=False</em>, <em>series=True</em>, <em>cpp_options=''</em>, <em>dtype='hbond'</em>, <em>frame_indices=None</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.search_hbonds" title="Permalink to this definition">¶</a></dt>
 <dd><p>(combined with cpptraj doc) Searching for Hbond donors/acceptors in region specified by <tt class="docutils literal"><span class="pre">mask</span></tt>.
 Hydrogen bond is defined as A-HD, where A is acceptor heavy atom, H is hydrogen, D is
 donor heavy atom. Hydrogen bond is formed when A to D distance &lt; distance cutoff and A-H-D angle
@@ -848,7 +848,7 @@ occur.</li>
 
 <span class="target" id="jcoupling"></span><dl class="function">
 <dt id="pytraj.jcoupling">
-<tt class="descclassname">pytraj.</tt><tt class="descname">jcoupling</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>kfile=None</em>, <em>dtype='dataset'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.jcoupling" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.</tt><tt class="descname">jcoupling</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>kfile=None</em>, <em>dtype='dataset'</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.jcoupling" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -877,7 +877,7 @@ occur.</li>
 
 <span class="target" id="volume"></span><dl class="function">
 <dt id="pytraj.volume">
-<tt class="descclassname">pytraj.</tt><tt class="descname">volume</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.volume" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.</tt><tt class="descname">volume</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.volume" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <span class="target" id="minimum-distance"></span><dl class="function">
@@ -1064,7 +1064,9 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">search_neighbors</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:5&lt;@5.0&#39;</span><span class="p">)</span> <span class="c"># around residue 5 with 5.0 cutoff</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">indices</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_neighbors</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:5&lt;@5.0&#39;</span><span class="p">)</span> <span class="c"># around residue 5 with 5.0 cutoff</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1123,7 +1125,7 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 05, 2015.<br/>
+      Last updated on Nov 07, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

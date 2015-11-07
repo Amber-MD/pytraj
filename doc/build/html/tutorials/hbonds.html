@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Hbond &mdash; pytraj 0.1.2.dev12 documentation</title>
+    <title>Hbond &mdash; pytraj 0.1.2.dev12+febc6c6 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev12',
+        VERSION:     '0.1.2.dev12+febc6c6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+febc6c6 documentation" href="../index.html" />
     <link rel="up" title="Advanced examples" href="advanced_examples.html" />
     <link rel="next" title="Endless streaming calculation" href="advanced_endless_streaming.html" />
     <link rel="prev" title="Lysozyme NH order parameters" href="lysozyme_order_parameter_.html" />
@@ -52,7 +52,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+febc6c6</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -181,7 +181,7 @@
 
 <div class="output_text output_subarea output_execute_result">
 <pre>pytraj.TrajectoryIterator, 38 frames: 
-Size: 0.0003 (GB)
+Size: 0.000258 (GB)
 &lt;Topology: 304 atoms, 20 residues, 1 mols, PBC with box type = ortho&gt;
            </pre>
 </div>
@@ -393,7 +393,7 @@ total hbonds for GLU5 per frame
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&lt;matplotlib.lines.Line2D at 0x2aaaabeb7710&gt;]</pre>
+<pre>[&lt;matplotlib.lines.Line2D at 0x2aaaabef0c88&gt;]</pre>
 </div>
 
 </div>
@@ -516,25 +516,67 @@ wsBjCAAAAABJRU5ErkJggg==
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Help on function search_hbonds in module pytraj.hbond_analysis:
+<pre>Help on function hbond in module pytraj.hbond_analysis:
 
-search_hbonds(traj, mask=&apos;&apos;, solvent_donor=None, solvent_acceptor=None, distance=3.0, angle=135.0, dtype=&apos;hbond&apos;, image=False, more_options=&apos;&apos;, top=None)
-    Searching for Hbond donors/acceptors in region specified by &#96;&#96;mask&#96;&#96;
+hbond(traj, mask=&apos;&apos;, solvent_donor=None, solvent_acceptor=None, distance=3.0, angle=135.0, image=False, series=True, cpp_options=&apos;&apos;, dtype=&apos;hbond&apos;, frame_indices=None, top=None)
+    (combined with cpptraj doc) Searching for Hbond donors/acceptors in region specified by &#96;&#96;mask&#96;&#96;.
+    Hydrogen bond is defined as A-HD, where A is acceptor heavy atom, H is hydrogen, D is
+    donor heavy atom. Hydrogen bond is formed when A to D distance &lt; distance cutoff and A-H-D angle
+    &gt; angle cutoff; if &#96;angle&#96; &lt; 0 it is ignored.
     
     Parameters
     ----------
     traj : Trajectory-like
-    mask : str 
-        Amber atom mask
+    mask : {str, 1D array-like}
+        Atom mask for searching hbond. If this &#96;mask&#96; is specify, cpptraj will
+        automatically search for donors and acceptors.
+    solvent_donor : {None, str}, default None
+    solvent_acceptor: {None, str}, deafult None
+        if solvent_acceptor and solvent_donor are None, cpptraj only search hbond for 
+        if solvent_donor and solvent_acceptor are NOT None, cpptraj will search for hbond
+        between solute and solvent too.
+    distance : float, default 3.0 (angstrom)
+        hbond distance cut off
+    angle : float, 135.0 degree
+        hbond angle cut off
+    dtype : return output&apos;s type, default &apos;hbond&apos;
+    image : bool, default False
+    series : bool, default True
+        - output time series (array of 1 and 0) for hbond or not.
+        - if False, you must specify dtype=&apos;dataset&apos;
+    cpp_options : str
+        additional cpptraj options. For example you can explicitly specify donormask and
+        acceptormask. 
+    
+        - If &#96;&#96;donormask&#96;&#96; is specified but not &#96;&#96;acceptormask&#96;&#96;, acceptors will be
+          automatically searched for in &#96;&#96;mask&#96;&#96;.
+    
+        - If &#96;&#96;acceptormask&#96;&#96; is specified but not donormask, donors will be
+        automatically search for in &#96;&#96;mask&#96;&#96;. 
+    
+        - If both &#96;&#96;donormask&#96;&#96; and &#96;&#96;acceptormask&#96;&#96; are specified no automatic searching will
+          occur.
+    
     
     Returns
     -------
-    out : pytraj.DatasetList, which is similiar to Python list with labeled data.
+    out : DatasetHBond if series is True else return &apos;DatasetList&apos;
+          
+    Notes
+    -----
+    - pytraj use &apos;series&apos; as default. In cpptraj, you need to explicitly specify &apos;series&apos;.
+    - if &apos;series&apos; is False, the &apos;dtype&apos; argument will be ignored.
+    
+    See also
+    --------
+    to_amber_mask
+    
     
     Examples
     --------
     &gt;&gt;&gt; import pytraj as pt
     &gt;&gt;&gt; traj = pt.load_sample_data(&apos;tz2&apos;)
+    &gt;&gt;&gt; # search hbond without including solvent
     &gt;&gt;&gt; data = pt.search_hbonds(traj, &apos;:5,8&apos;)
     &gt;&gt;&gt; data
     &lt;pytraj.hbonds.DatasetHBond
@@ -545,6 +587,14 @@ search_hbonds(traj, mask=&apos;&apos;, solvent_donor=None, solvent_acceptor=None
     array([[2, 2, 0, ..., 1, 1, 1],
            [1, 1, 0, ..., 1, 1, 1],
            [1, 1, 0, ..., 0, 0, 0]], dtype=int32)
+    &gt;&gt;&gt; # search hbond including solvent
+    &gt;&gt;&gt; hbonds = pt.search_hbonds(traj, &apos;:5,8&apos;, solvent_donor=&apos;:WAT@O&apos;, solvent_acceptor=&apos;:WAT&apos;)
+    &gt;&gt;&gt; hbonds
+    &lt;pytraj.hbonds.DatasetHBond
+    donor_aceptor pairs : 8&gt;
+    &gt;&gt;&gt; hbonds.donor_aceptor
+    [&apos;LYS8_O-GLU5_N-H&apos;, &apos;GLU5_O-LYS8_N-H&apos;, &apos;LYS8_HZ1-V&apos;, &apos;LYS8_HZ2-V&apos;, &apos;GLU5_OE2-V&apos;, &apos;GLU5_O-V&apos;, &apos;GLU5_OE1-V&apos;, &apos;LYS8_HZ3-V&apos;]
+    &gt;&gt;&gt; # &apos;GLU5_O-V&apos; mean non-specific hbond between GLU5_O and solvent (:WAT in this case)
 
 </pre>
 </div>
@@ -570,7 +620,7 @@ search_hbonds(traj, mask=&apos;&apos;, solvent_donor=None, solvent_acceptor=None
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 01, 2015.<br/>
+      Last updated on Nov 07, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

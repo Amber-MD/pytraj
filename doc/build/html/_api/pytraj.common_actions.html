@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.common_actions &mdash; pytraj 0.1.2.dev12 documentation</title>
+    <title>pytraj.common_actions &mdash; pytraj 0.1.2.dev12+febc6c6 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev12',
+        VERSION:     '0.1.2.dev12+febc6c6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,9 +29,10 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+febc6c6 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="next" title="pytraj.hbond" href="pytraj.hbond_analysis.html" />
+    <link rel="prev" title="pytraj.FrameIter" href="pytraj.FrameIter.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -51,7 +52,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+febc6c6</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -108,6 +109,10 @@
             
               
                 
+  <li>
+    <a href="pytraj.FrameIter.html" title="Previous Chapter: pytraj.FrameIter"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; pytraj.FrameIter</span>
+    </a>
+  </li>
   <li>
     <a href="pytraj.hbond_analysis.html" title="Next Chapter: pytraj.hbond"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">pytraj.hbond &raquo;</span>
     </a>
@@ -374,149 +379,8 @@ set_nobox for Topology.</p>
 
 <dl class="function">
 <dt id="pytraj.common_actions.calc_volume">
-<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_volume</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_volume" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_volume</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_volume" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-<dl class="function">
-<dt id="pytraj.common_actions.calc_dssp">
-<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_dssp</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>simplified=False</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_dssp" title="Permalink to this definition">¶</a></dt>
-<dd><p>return dssp profile for frame/traj</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
-<p><strong>mask: str</strong></p>
-<blockquote>
-<div><p>atom mask</p>
-</div></blockquote>
-<p><strong>frame_indices</strong> : {None, array-like}, default None, optional</p>
-<blockquote>
-<div><p>specify frame numbers for calculation.
-if None, do all frames</p>
-</div></blockquote>
-<p><strong>dtype</strong> : str, default &#8216;ndarray&#8217;</p>
-<blockquote>
-<div><p>return data type, for regular user, just use default one (ndarray).
-use dtype=&#8217;dataset&#8217; if wanting to get secondary structure in integer format</p>
-</div></blockquote>
-<p><strong>simplified</strong> : bool, default False</p>
-<blockquote>
-<div><p>if True, use simplified codes, only has &#8216;H&#8217;, &#8216;E&#8217; and &#8216;C&#8217;
-if False, use all DSSP codes</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">out_0: ndarray, shape=(n_residues,)</p>
-<blockquote>
-<div><p>residue names</p>
-</div></blockquote>
-<p>out_1: ndarray, shape=(n_frames, n_residues)</p>
-<blockquote>
-<div><p>DSSP for each residue</p>
-</div></blockquote>
-<p><strong>out_2</strong> : pytraj.DatasetList</p>
-<blockquote class="last">
-<div><p>average value for each secondary structure type</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Notes</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="18%" />
-<col width="14%" />
-<col width="18%" />
-<col width="49%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Character</th>
-<th class="head">Integer</th>
-<th class="head">DSSP_Char</th>
-<th class="head">Seconday structure type</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>0</td>
-<td>0</td>
-<td>&#8216;0&#8217;</td>
-<td>None</td>
-</tr>
-<tr class="row-odd"><td>b</td>
-<td>1</td>
-<td>&#8216;E&#8217;</td>
-<td>Parallel Beta-sheet</td>
-</tr>
-<tr class="row-even"><td>B</td>
-<td>2</td>
-<td>&#8216;B&#8217;</td>
-<td>Anti-parallel Beta-sheet</td>
-</tr>
-<tr class="row-odd"><td>G</td>
-<td>3</td>
-<td>&#8216;G&#8217;</td>
-<td>3-10 helix</td>
-</tr>
-<tr class="row-even"><td>H</td>
-<td>4</td>
-<td>&#8216;H&#8217;</td>
-<td>Alpha helix</td>
-</tr>
-<tr class="row-odd"><td>I</td>
-<td>5</td>
-<td>&#8216;I&#8217;</td>
-<td>Pi (3-14) helix</td>
-</tr>
-<tr class="row-even"><td>T</td>
-<td>6</td>
-<td>&#8216;T&#8217;</td>
-<td>Turn</td>
-</tr>
-<tr class="row-odd"><td>S</td>
-<td>7</td>
-<td>&#8216;S&#8217;</td>
-<td>Bend</td>
-</tr>
-</tbody>
-</table>
-<p>Simlified codes:</p>
-<div class="highlight-python"><div class="highlight"><pre>- &#39;H&#39;: include &#39;H&#39;, &#39;G&#39;, &#39;I&#39; (helix)
-- &#39;E&#39;: include &#39;E&#39;, &#39;B&#39; (strand)
-- &#39;C&#39;: include &#39;T&#39;, &#39;S&#39; or &#39;0&#39; (coil)
-</pre></div>
-</div>
-<p>Simlified codes will be mostly used for visulization in other packages.</p>
-<p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_pdb_rcsb</span><span class="p">(</span><span class="s">&#39;1l2y&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">residues</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;:2-10&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">residues</span>
-<span class="go">array([&#39;LEU:2&#39;, &#39;TYR:3&#39;, &#39;ILE:4&#39;, &#39;GLN:5&#39;, &#39;TRP:6&#39;, &#39;LEU:7&#39;, &#39;LYS:8&#39;,</span>
-<span class="go">       &#39;ASP:9&#39;, &#39;GLY:10&#39;], </span>
-<span class="go">      dtype=&#39;&lt;U6&#39;)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ss</span> 
-<span class="go">array([[&#39;0&#39;, &#39;H&#39;, &#39;H&#39;, ..., &#39;H&#39;, &#39;T&#39;, &#39;0&#39;],</span>
-<span class="go">       [&#39;0&#39;, &#39;H&#39;, &#39;H&#39;, ..., &#39;H&#39;, &#39;T&#39;, &#39;0&#39;],</span>
-<span class="go">       [&#39;0&#39;, &#39;H&#39;, &#39;H&#39;, ..., &#39;H&#39;, &#39;T&#39;, &#39;0&#39;],</span>
-<span class="go">       ...,</span>
-<span class="go">       [&#39;0&#39;, &#39;H&#39;, &#39;H&#39;, ..., &#39;H&#39;, &#39;T&#39;, &#39;0&#39;],</span>
-<span class="go">       [&#39;0&#39;, &#39;H&#39;, &#39;H&#39;, ..., &#39;H&#39;, &#39;H&#39;, &#39;0&#39;],</span>
-<span class="go">       [&#39;0&#39;, &#39;H&#39;, &#39;H&#39;, ..., &#39;H&#39;, &#39;T&#39;, &#39;0&#39;]],</span>
-<span class="go">      dtype=&#39;&lt;U1&#39;)</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">residues</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">fetch_pdb</span><span class="p">(</span><span class="s">&#39;1l2y&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">residues</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ss</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="c"># first frame</span>
-<span class="go">[&#39;C&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;C&#39;, &#39;C&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;]</span>
-</pre></div>
-</div>
-</dd></dl>
 
 <dl class="function">
 <dt id="pytraj.common_actions.calc_matrix">
@@ -525,7 +389,7 @@ if False, use all DSSP codes</p>
 
 <dl class="function">
 <dt id="pytraj.common_actions.calc_jcoupling">
-<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_jcoupling</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>kfile=None</em>, <em>dtype='dataset'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_jcoupling" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_jcoupling</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>kfile=None</em>, <em>dtype='dataset'</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_jcoupling" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -749,7 +613,7 @@ volmap command in VMD. The density is calculated by treating each atom as a
 
 <dl class="function">
 <dt id="pytraj.common_actions.calc_pairdist">
-<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_pairdist</tt><big>(</big><em>traj</em>, <em>mask='*'</em>, <em>delta=0.1</em>, <em>dtype='ndarray'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_pairdist" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_pairdist</tt><big>(</big><em>traj</em>, <em>mask='*'</em>, <em>delta=0.1</em>, <em>dtype='ndarray'</em>, <em>top=None</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_pairdist" title="Permalink to this definition">¶</a></dt>
 <dd><p>compute pair distribution function</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -826,27 +690,27 @@ if <cite>resrange</cite> is array-like, use index starting from 0 (python conven
 
 <dl class="function">
 <dt id="pytraj.common_actions.calc_atomicfluct">
-<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_atomicfluct</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='dataset'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_atomicfluct" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_atomicfluct</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='dataset'</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_atomicfluct" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="pytraj.common_actions.calc_COM">
-<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_COM</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_COM" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_COM</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_COM" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="pytraj.common_actions.calc_center_of_mass">
-<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_center_of_mass</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_center_of_mass" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_center_of_mass</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_center_of_mass" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="pytraj.common_actions.calc_center_of_geometry">
-<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_center_of_geometry</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_center_of_geometry" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_center_of_geometry</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_center_of_geometry" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="pytraj.common_actions.calc_pairwise_rmsd">
-<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_pairwise_rmsd</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>metric='rms'</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_pairwise_rmsd" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_pairwise_rmsd</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>metric='rms'</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_pairwise_rmsd" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculate pairwise rmsd with different metrics.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -869,10 +733,10 @@ if &#8216;nofit&#8217;, perform rmsd without fitting</p>
 <blockquote>
 <div><p>return type</p>
 </div></blockquote>
-<p><strong>mat_type</strong> : 2D or 1D ndarray, depending on value</p>
+<p><strong>mat_type</strong> : str, {&#8216;full&#8217;, &#8216;half&#8217;}</p>
 <blockquote>
 <div><p>if &#8216;full&#8217;: return 2D array, shape=(n_frames, n_frames)
-if &#8216;cpptraj&#8217;: return 1D array, shape=(n_frames*(n_frames-1)/2, )</p>
+if &#8216;half&#8217;: return 1D array, shape=(n_frames*(n_frames-1)/2, )</p>
 </div></blockquote>
 <p class="last"><strong>*args, **kwd: optional (for advanced user)</strong></p>
 </td>
@@ -916,7 +780,7 @@ if &#8216;cpptraj&#8217;: return 1D array, shape=(n_frames*(n_frames-1)/2, )</p>
 
 <dl class="function">
 <dt id="pytraj.common_actions.calc_temperatures">
-<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_temperatures</tt><big>(</big><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>top=None</em>, <em>dtype='ndarray'</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_temperatures" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">calc_temperatures</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>top=None</em>, <em>dtype='ndarray'</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.calc_temperatures" title="Permalink to this definition">¶</a></dt>
 <dd><p>return 1D python array of temperatures (from velocity) in traj
 if <cite>frame</cite> keyword is specified cpptraj/pytraj will take existing T</p>
 <p>Default = array of 0.0</p>
@@ -975,104 +839,6 @@ if <cite>frame</cite> keyword is specified cpptraj/pytraj will take existing T</
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># get average structure but do autoimage and rmsfit to 1st Frame.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">mean_structure</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="n">autoimage</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">rmsfit</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]))</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
-<dt id="pytraj.common_actions.search_hbonds">
-<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">search_hbonds</tt><big>(</big><em>traj</em>, <em>mask=''</em>, <em>solvent_donor=None</em>, <em>solvent_acceptor=None</em>, <em>distance=3.0</em>, <em>angle=135.0</em>, <em>image=False</em>, <em>series=True</em>, <em>cpp_options=''</em>, <em>dtype='hbond'</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.search_hbonds" title="Permalink to this definition">¶</a></dt>
-<dd><p>(combined with cpptraj doc) Searching for Hbond donors/acceptors in region specified by <tt class="docutils literal"><span class="pre">mask</span></tt>.
-Hydrogen bond is defined as A-HD, where A is acceptor heavy atom, H is hydrogen, D is
-donor heavy atom. Hydrogen bond is formed when A to D distance &lt; distance cutoff and A-H-D angle
-&gt; angle cutoff; if <cite>angle</cite> &lt; 0 it is ignored.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
-<p><strong>mask</strong> : {str, 1D array-like}</p>
-<blockquote>
-<div><p>Atom mask for searching hbond. If this <cite>mask</cite> is specify, cpptraj will
-automatically search for donors and acceptors.</p>
-</div></blockquote>
-<p><strong>solvent_donor</strong> : {None, str}, default None</p>
-<p><strong>solvent_acceptor: {None, str}, deafult None</strong></p>
-<blockquote>
-<div><p>if solvent_acceptor and solvent_donor are None, cpptraj only search hbond for 
-if solvent_donor and solvent_acceptor are NOT None, cpptraj will search for hbond
-between solute and solvent too.</p>
-</div></blockquote>
-<p><strong>distance</strong> : float, default 3.0 (angstrom)</p>
-<blockquote>
-<div><p>hbond distance cut off</p>
-</div></blockquote>
-<p><strong>angle</strong> : float, 135.0 degree</p>
-<blockquote>
-<div><p>hbond angle cut off</p>
-</div></blockquote>
-<p><strong>dtype</strong> : return output&#8217;s type, default &#8216;hbond&#8217;</p>
-<p><strong>image</strong> : bool, default False</p>
-<p><strong>series</strong> : bool, default True</p>
-<blockquote>
-<div><ul class="simple">
-<li>output time series (array of 1 and 0) for hbond or not.</li>
-<li>if False, you must specify dtype=&#8217;dataset&#8217;</li>
-</ul>
-</div></blockquote>
-<p><strong>cpp_options</strong> : str</p>
-<blockquote>
-<div><p>additional cpptraj options. For example you can explicitly specify donormask and
-acceptormask.</p>
-<ul class="simple">
-<li>If <tt class="docutils literal"><span class="pre">donormask</span></tt> is specified but not <tt class="docutils literal"><span class="pre">acceptormask</span></tt>, acceptors will be
-automatically searched for in <tt class="docutils literal"><span class="pre">mask</span></tt>.</li>
-<li>If <tt class="docutils literal"><span class="pre">acceptormask</span></tt> is specified but not donormask, donors will be</li>
-</ul>
-<p>automatically search for in <tt class="docutils literal"><span class="pre">mask</span></tt>.</p>
-<ul class="simple">
-<li>If both <tt class="docutils literal"><span class="pre">donormask</span></tt> and <tt class="docutils literal"><span class="pre">acceptormask</span></tt> are specified no automatic searching will
-occur.</li>
-</ul>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>out</strong> : DatasetHBond if series is True else return &#8216;DatasetList&#8217;</p>
-</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><tt class="xref py py-obj docutils literal"><span class="pre">to_amber_mask</span></tt></p>
-</div>
-<p class="rubric">Notes</p>
-<ul class="simple">
-<li>pytraj use &#8216;series&#8217; as default. In cpptraj, you need to explicitly specify &#8216;series&#8217;.</li>
-<li>if &#8216;series&#8217; is False, the &#8216;dtype&#8217; argument will be ignored.</li>
-</ul>
-<p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c"># search hbond without including solvent</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:5,8&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
-<span class="go">&lt;pytraj.hbonds.DatasetHBond</span>
-<span class="go">donor_aceptor pairs : 2&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">donor_aceptor</span>
-<span class="go">[&#39;LYS8_O-GLU5_N-H&#39;, &#39;GLU5_O-LYS8_N-H&#39;]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">values</span>
-<span class="go">array([[2, 2, 0, ..., 1, 1, 1],</span>
-<span class="go">       [1, 1, 0, ..., 1, 1, 1],</span>
-<span class="go">       [1, 1, 0, ..., 0, 0, 0]], dtype=int32)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c"># search hbond including solvent</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">hbonds</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:5,8&#39;</span><span class="p">,</span> <span class="n">solvent_donor</span><span class="o">=</span><span class="s">&#39;:WAT@O&#39;</span><span class="p">,</span> <span class="n">solvent_acceptor</span><span class="o">=</span><span class="s">&#39;:WAT&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">hbonds</span>
-<span class="go">&lt;pytraj.hbonds.DatasetHBond</span>
-<span class="go">donor_aceptor pairs : 8&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">hbonds</span><span class="o">.</span><span class="n">donor_aceptor</span>
-<span class="go">[&#39;LYS8_O-GLU5_N-H&#39;, &#39;GLU5_O-LYS8_N-H&#39;, &#39;LYS8_HZ1-V&#39;, &#39;LYS8_HZ2-V&#39;, &#39;GLU5_OE2-V&#39;, &#39;GLU5_O-V&#39;, &#39;GLU5_OE1-V&#39;, &#39;LYS8_HZ3-V&#39;]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c"># &#39;GLU5_O-V&#39; mean non-specific hbond between GLU5_O and solvent (:WAT in this case)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1164,75 +930,6 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
 </div>
 </dd></dl>
 
-<dl class="function">
-<dt id="pytraj.common_actions.nastruct">
-<tt class="descclassname">pytraj.common_actions.</tt><tt class="descname">nastruct</tt><big>(</big><em>traj=None</em>, <em>ref=0</em>, <em>resrange=None</em>, <em>resmap=None</em>, <em>hbcut=3.5</em>, <em>frame_indices=None</em>, <em>pucker_method='altona'</em>, <em>dtype='nupars'</em>, <em>groove_3dna=True</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.common_actions.nastruct" title="Permalink to this definition">¶</a></dt>
-<dd><p>compute nucleic acid parameters. (adapted from cpptraj doc)</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
-<p><strong>ref</strong> : {Frame, int}, default 0 (first frame)</p>
-<p><strong>resrange</strong> : None, str or array-like of integers</p>
-<p><strong>resmap</strong> : residue map, example: &#8216;AF2:A&#8217;</p>
-<p><strong>hbcut</strong> : float, default=3.5 Angstrong</p>
-<blockquote>
-<div><p>Distance cutoff for determining basepair hbond</p>
-</div></blockquote>
-<p><strong>pucker_method</strong> : str, {&#8216;altona&#8217;, &#8216;cremer&#8217;}, default &#8216;altona&#8217;</p>
-<blockquote>
-<div><p>&#8216;altona&#8217; : Use method of Altona &amp; Sundaralingam to calculate sugar pucker
-&#8216;cremer&#8217; : Use method of Cremer and Pople to calculate sugar pucker&#8217;</p>
-</div></blockquote>
-<p><strong>frame_indices</strong> : array-like, default None (all frames)</p>
-<p><strong>groove_3dna</strong> : bool, default True</p>
-<blockquote>
-<div><p>if True, major and minor groove will match 3DNA&#8217;s output.</p>
-</div></blockquote>
-<p><strong>dtype</strong> : str, {&#8216;nupars&#8217;, &#8216;cpptraj_dataset&#8217;}, default &#8216;nupars&#8217;</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : nupars object. One can assess different values (major groove width, xdips values</p>
-<p class="last">...) by accessing its attribute. See example below.</p>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_rna</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">nastruct</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">groove_3dna</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()[:</span><span class="mi">5</span><span class="p">]</span> 
-<span class="go">[&#39;buckle&#39;, &#39;minor&#39;, &#39;major&#39;, &#39;xdisp&#39;, &#39;stagger&#39;]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c"># get minor groove width values for each pairs for each snapshot</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c"># data.minor is a tuple, first value is a list of basepairs, seconda value is</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c"># numpy array, shape=(n_frames, n_pairs)</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">minor</span> 
-<span class="go">([&#39;1G16C&#39;, &#39;2G15C&#39;, &#39;3G14C&#39;, &#39;4C13G&#39;, &#39;5G12C&#39;, &#39;6C11G&#39;, &#39;7C10G&#39;, &#39;8C9G&#39;], </span>
-<span class="go"> array([[ 13.32927036,  13.403409  ,  13.57159901, ...,  13.26655865,</span>
-<span class="go">         13.43054485,  13.4557209 ],</span>
-<span class="go">       [ 13.32002068,  13.45918751,  13.63253593, ...,  13.27066231,</span>
-<span class="go">         13.42743683,  13.53450871],</span>
-<span class="go">       [ 13.34087658,  13.53778553,  13.57062435, ...,  13.29017353,</span>
-<span class="go">         13.38542843,  13.46101475]]))</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">twist</span> 
-<span class="go">([&#39;1G16C-2G15C&#39;, &#39;2G15C-3G14C&#39;, &#39;3G14C-4C13G&#39;, &#39;4C13G-5G12C&#39;, &#39;5G12C-6C11G&#39;, &#39;6C11G-7C10G&#39;, &#39;7C10G-8C9G&#39;], </span>
-<span class="go">array([[ 34.77773666,  33.98158646,  30.18647003, ...,  35.14608765,</span>
-<span class="go">         33.9628334 ,  33.13056946],</span>
-<span class="go">       [ 33.39176178,  32.68476105,  28.36385536, ...,  36.59774399,</span>
-<span class="go">         30.20827484,  26.48732948],</span>
-<span class="go">       [ 36.20665359,  32.58955002,  27.47707367, ...,  33.42843246,</span>
-<span class="go">         30.90047073,  33.73724365]]))</span>
-</pre></div>
-</div>
-</dd></dl>
-
 </div>
 
 
@@ -1248,7 +945,7 @@ if restype == &#8216;all&#8217;: return (Trajectory, DatasetList)</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 05, 2015.<br/>
+      Last updated on Nov 07, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>
