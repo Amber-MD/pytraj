@@ -11,7 +11,8 @@ __all__ = ['_savetraj', 'iterframe_master', '_xyz', 'my_str_method', '_box']
 def _savetraj(self,
               filename="",
               format='unknown',
-              overwrite=False, *args, **kwd):
+              overwrite=False,
+              *args, **kwd):
     if format == 'unknown':
         # convert to "UNKNOWN_TRAJ"
         format = format.upper() + "_TRAJ"

@@ -295,6 +295,11 @@ class TestIO(unittest.TestCase):
             'https://raw.githubusercontent.com/ParmEd/ParmEd/master/test/files/2koc.pdb')
         assert top.n_atoms == 451, '2koc'
 
+    def test_short_save(self):
+        pt.iterload('data/tz2.nc', 'data/tz2.parm7').save(
+                    'output/mini.nc', overwrite=True)
+        assert pt.iterload('output/mini.nc', 'data/tz2.parm7').n_frames == 101, 'must be 101 frames'
+
 
 if __name__ == "__main__":
     unittest.main()
