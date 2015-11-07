@@ -1450,24 +1450,18 @@ def _calc_vector_center(traj=None,
     if mass:
         command += " mass"
 
-    act.read_input(command=command, top=top, dslist=dslist)
-    act.process(top)
-
-    for frame in iterframe_master(traj):
-        # set Frame masses
-        if mass:
-            frame.set_mass(top)
-        act.do_action(frame)
+    act(command, traj, top=top, dslist=dslist)
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
 @_register_pmap
-@_super_dispatch()
 def calc_center_of_mass(traj=None,
                         mask='',
                         top=None,
                         dtype='ndarray',
                         frame_indices=None):
+    # note: do not use _super_dispatch for this method since
+    # we already use for _calc_vector_center
     return _calc_vector_center(traj=traj,
                                mask=mask,
                                top=top,
