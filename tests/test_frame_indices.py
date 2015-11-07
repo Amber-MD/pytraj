@@ -35,7 +35,11 @@ class TestFrameIndices(unittest.TestCase):
 
         frame_indices = [0, 5, 2]
 
-        excluded_fn = ['calc_volmap', 'calc_density', 'energy_decomposition', 'center', 'search_neighbors',]
+        # remove 'calc_jcoupling' since does not have kfile on travis
+        # remove energy_decomposition since does not have sander
+        # remove center, why?
+        # remove search_neighbors, why? (got messup with Frame memory owner) 
+        excluded_fn = ['calc_jcoupling', 'calc_volmap', 'calc_density', 'energy_decomposition', 'center', 'search_neighbors',]
 
         # default mask, default ref
         for func in funclist:
