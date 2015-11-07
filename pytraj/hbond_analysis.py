@@ -3,7 +3,7 @@ from __future__ import absolute_import, print_function, division
 from .actions import CpptrajActions
 from .datasets import CpptrajDatasetList
 from .decorators import _register_pmap
-from ._get_common_objects import _get_data_from_dtype, _get_topology, _super_dispatch
+from ._get_common_objects import _get_data_from_dtype, _super_dispatch
 from .base_holder import BaseDataHolder
 from ._shared_methods import iterframe_master
 
