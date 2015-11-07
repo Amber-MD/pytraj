@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Matrix Analysis &mdash; pytraj 0.1.2.dev12+54a5d66 documentation</title>
+    <title>Matrix Analysis &mdash; pytraj 0.1.2.dev12+968b6ba documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.2.dev12+54a5d66',
+        VERSION:     '0.1.2.dev12+968b6ba',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+54a5d66 documentation" href="index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+968b6ba documentation" href="index.html" />
     <link rel="up" title="Analysis" href="analysis.html" />
     <link rel="next" title="Modify trajectory" href="modify_traj.html" />
     <link rel="prev" title="Vector Analysis" href="vector_analysis.html" />
@@ -52,7 +52,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+54a5d66</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+968b6ba</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -153,100 +153,8 @@
 <div class="custom-index container">
 <script type="text/javascript" src='_static/cindex.js'></script></div>
 <span class="target" id="module-pytraj.matrix"></span><dl class="function">
-<dt id="pytraj.matrix.idea">
-<tt class="descclassname">pytraj.matrix.</tt><tt class="descname">idea</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.matrix.idea" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute matrix</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
-<p><strong>mask</strong> : cpptraj mask</p>
-<p><strong>top</strong> : Topology, optional, default None</p>
-<p><strong>mat_type</strong> : str, {&#8216;full&#8217;, &#8216;half&#8217;, &#8216;cpptraj&#8217;}, default &#8216;full&#8217;</p>
-<blockquote class="last">
-<div><p>if &#8216;full&#8217;: 2D full matrix
-if &#8216;half&#8217;: triangular matrix
-if &#8216;cpptraj&#8217;: 1D array</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pytraj.matrix.mwcovar">
-<tt class="descclassname">pytraj.matrix.</tt><tt class="descname">mwcovar</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.matrix.mwcovar" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute matrix</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
-<p><strong>mask</strong> : cpptraj mask</p>
-<p><strong>top</strong> : Topology, optional, default None</p>
-<p><strong>mat_type</strong> : str, {&#8216;full&#8217;, &#8216;half&#8217;, &#8216;cpptraj&#8217;}, default &#8216;full&#8217;</p>
-<blockquote class="last">
-<div><p>if &#8216;full&#8217;: 2D full matrix
-if &#8216;half&#8217;: triangular matrix
-if &#8216;cpptraj&#8217;: 1D array</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
 <dt id="pytraj.matrix.distcovar">
 <tt class="descclassname">pytraj.matrix.</tt><tt class="descname">distcovar</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.matrix.distcovar" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute matrix</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
-<p><strong>mask</strong> : cpptraj mask</p>
-<p><strong>top</strong> : Topology, optional, default None</p>
-<p><strong>mat_type</strong> : str, {&#8216;full&#8217;, &#8216;half&#8217;, &#8216;cpptraj&#8217;}, default &#8216;full&#8217;</p>
-<blockquote class="last">
-<div><p>if &#8216;full&#8217;: 2D full matrix
-if &#8216;half&#8217;: triangular matrix
-if &#8216;cpptraj&#8217;: 1D array</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pytraj.matrix.covar">
-<tt class="descclassname">pytraj.matrix.</tt><tt class="descname">covar</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.matrix.covar" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute matrix</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
-<p><strong>mask</strong> : cpptraj mask</p>
-<p><strong>top</strong> : Topology, optional, default None</p>
-<p><strong>mat_type</strong> : str, {&#8216;full&#8217;, &#8216;half&#8217;, &#8216;cpptraj&#8217;}, default &#8216;full&#8217;</p>
-<blockquote class="last">
-<div><p>if &#8216;full&#8217;: 2D full matrix
-if &#8216;half&#8217;: triangular matrix
-if &#8216;cpptraj&#8217;: 1D array</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pytraj.matrix.dihcovar">
-<tt class="descclassname">pytraj.matrix.</tt><tt class="descname">dihcovar</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.matrix.dihcovar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute matrix</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -291,8 +199,100 @@ if &#8216;cpptraj&#8217;: 1D array</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="pytraj.matrix.idea">
+<tt class="descclassname">pytraj.matrix.</tt><tt class="descname">idea</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.matrix.idea" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute matrix</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>mask</strong> : cpptraj mask</p>
+<p><strong>top</strong> : Topology, optional, default None</p>
+<p><strong>mat_type</strong> : str, {&#8216;full&#8217;, &#8216;half&#8217;, &#8216;cpptraj&#8217;}, default &#8216;full&#8217;</p>
+<blockquote class="last">
+<div><p>if &#8216;full&#8217;: 2D full matrix
+if &#8216;half&#8217;: triangular matrix
+if &#8216;cpptraj&#8217;: 1D array</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.matrix.dihcovar">
+<tt class="descclassname">pytraj.matrix.</tt><tt class="descname">dihcovar</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.matrix.dihcovar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute matrix</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>mask</strong> : cpptraj mask</p>
+<p><strong>top</strong> : Topology, optional, default None</p>
+<p><strong>mat_type</strong> : str, {&#8216;full&#8217;, &#8216;half&#8217;, &#8216;cpptraj&#8217;}, default &#8216;full&#8217;</p>
+<blockquote class="last">
+<div><p>if &#8216;full&#8217;: 2D full matrix
+if &#8216;half&#8217;: triangular matrix
+if &#8216;cpptraj&#8217;: 1D array</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="pytraj.matrix.dist">
 <tt class="descclassname">pytraj.matrix.</tt><tt class="descname">dist</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.matrix.dist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute matrix</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>mask</strong> : cpptraj mask</p>
+<p><strong>top</strong> : Topology, optional, default None</p>
+<p><strong>mat_type</strong> : str, {&#8216;full&#8217;, &#8216;half&#8217;, &#8216;cpptraj&#8217;}, default &#8216;full&#8217;</p>
+<blockquote class="last">
+<div><p>if &#8216;full&#8217;: 2D full matrix
+if &#8216;half&#8217;: triangular matrix
+if &#8216;cpptraj&#8217;: 1D array</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.matrix.mwcovar">
+<tt class="descclassname">pytraj.matrix.</tt><tt class="descname">mwcovar</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.matrix.mwcovar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute matrix</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>mask</strong> : cpptraj mask</p>
+<p><strong>top</strong> : Topology, optional, default None</p>
+<p><strong>mat_type</strong> : str, {&#8216;full&#8217;, &#8216;half&#8217;, &#8216;cpptraj&#8217;}, default &#8216;full&#8217;</p>
+<blockquote class="last">
+<div><p>if &#8216;full&#8217;: 2D full matrix
+if &#8216;half&#8217;: triangular matrix
+if &#8216;cpptraj&#8217;: 1D array</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.matrix.covar">
+<tt class="descclassname">pytraj.matrix.</tt><tt class="descname">covar</tt><big>(</big><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.matrix.covar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute matrix</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
