@@ -13,7 +13,7 @@ conda install --yes conda-build jinja2 anaconda-client pip
 conda create -y -n myenv python=$PYTHON_VERSION numpy cython h5py mpi4py libnetcdf
 
 source activate myenv
-conda install --yes anaconda-client coverage python-coveralls
+conda install --yes anaconda-client coverage python-coveralls pyflakes
 conda install mdtraj -c omnia --yes
 
 # install other packages here
