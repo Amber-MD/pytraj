@@ -2,7 +2,6 @@ from __future__ import absolute_import
 import numpy as np
 from collections import OrderedDict
 from pytraj.datasets import CpptrajDatasetList
-from pytraj.externals._pickle import to_pickle, read_pickle
 from pytraj.utils import is_int, is_array, is_generator
 from pytraj.compat import string_types, callable
 from pytraj.datafiles import DataFile
@@ -132,46 +131,6 @@ class DatasetList(list):
         for d0 in self:
             dslist.append(d0, copy=True)
         return dslist
-
-    def from_pickle(self, filename):
-        ddict = read_pickle(filename)
-        self._from_full_dict(ddict)
-
-    def to_pickle(self, filename, use_numpy=True):
-        to_pickle(self._to_full_dict(use_numpy), filename)
-
-    def _from_full_dict(self, ddict):
-        from pytraj.array import DataArray
-        da = DataArray()
-
-        ordered_keys = ddict['ordered_keys']
-
-        for key in ordered_keys:
-            d = ddict[key]
-            da.values = np.array(d['values'])
-            da.aspect = d['aspect']
-            da.name = d['name']
-            da.idx = d['idx']
-            da.key = key
-            da.cpptraj_dtype = d['cpptraj_dtype']
-            self.append(da)
-        return self
-
-    def _to_full_dict(self, use_numpy=True):
-        """
-        """
-        ddict = {}
-        ddict['ordered_keys'] = []
-        for d in self:
-            ddict['ordered_keys'].append(d.key)
-            ddict[d.key] = {}
-            _d = ddict[d.key]
-            _d['values'] = d.values
-            _d['name'] = d.name
-            _d['cpptraj_dtype'] = d.cpptraj_dtype
-            _d['aspect'] = d.aspect
-            _d['idx'] = d.idx
-        return ddict
 
     def dtypes(self):
         '''
@@ -427,6 +386,10 @@ class DatasetList(list):
         >>> func = lambda x: sum(x) > 100
         >>> dslist = DatasetList({'x': [100, 200], 'y': [20, 30]})
         >>> dslist.filter(func)
+        <pytraj.DatasetList with 1 datasets>
+        x
+        [100 200]
+        >>> dslist.filter('x', mode='key')
         <pytraj.DatasetList with 1 datasets>
         x
         [100 200]
