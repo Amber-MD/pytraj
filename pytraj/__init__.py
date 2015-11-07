@@ -215,18 +215,26 @@ def load_batch(traj, txt):
 
     Examples
     --------
-    .. code-block:: python
-        
-        import pytraj as pt
-        traj = pt.load_sample_data('tz2')
-        traj 
-        state = pt.load_batch(traj, """
-        autoimage
-        radgyr @CA nomax
-        molsurf !@H=
-        """)
-        state.run()
-        state.data
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> text = """
+    ... autoimage
+    ... radgyr @CA nomax
+    ... molsurf !@H=
+    ... """
+    >>> state = pt.load_batch(traj, text)
+    >>> state = state.run()
+    >>> state.data
+    <pytraj.datasets.CpptrajDatasetList - 3 datasets>
+
+    >>> # raise if not TrajectoryIterator
+    >>> traj2 = pt.Trajectory(xyz=traj.xyz, top=traj.top)
+    >>> not isinstance(traj2, pt.TrajectoryIterator)
+    True
+    >>> pt.load_batch(traj2, text)
+    Traceback (most recent call last):
+        ...
+    ValueError: only support TrajectoryIterator
     '''
     if not isinstance(traj, TrajectoryIterator):
         raise ValueError('only support TrajectoryIterator')
@@ -237,6 +245,12 @@ load_pipeline = load_batch
 
 
 def superpose(traj, *args, **kwd):
+    '''
+
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_ala3()[:]
+    >>> traj = pt.superpose(traj)
+    '''
     traj.superpose(*args, **kwd)
 
 
@@ -286,6 +300,11 @@ def iterframe(traj, *args, **kwd):
     <Frame with 5293 atoms>
     <Frame with 5293 atoms>
     <Frame with 5293 atoms>
+
+
+    >>> fi = pt.iterframe(traj)
+    >>> # iterframe its self
+    >>> fi = pt.iterframe(fi)
 
     See also
     --------
@@ -338,9 +357,37 @@ select = select_atoms
 
 
 def strip_atoms(traj_or_topology, mask):
-    '''return a new Trajectory or Topology with given mask
+    '''return a new Trajectory or Topology with given mask.
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> traj.n_atoms
+    5293
+    >>> pt.strip_atoms(traj, '!@CA').n_atoms
+    12
+    >>> pt.strip_atoms(traj.top, '!@CA').n_atoms
+    12
+    >>> pt.strip_atoms('!@CA', traj.top).n_atoms
+    12
+    >>> t0 = traj[:3]
+    >>> pt.strip_atoms(t0, '!@CA').n_atoms
+    12
+    >>> fi = pt.iterframe(traj, stop=3)
+    >>> fi = pt.strip_atoms(fi, '!@CA')
+    >>> for frame in fi:
+    ...    print(frame)
+    <Frame with 12 atoms>
+    <Frame with 12 atoms>
+    <Frame with 12 atoms>
     '''
+
+    if isinstance(traj_or_topology, string_types) and not isinstance(mask, string_types):
+        traj_or_topology, mask = mask , traj_or_topology
+
     kept_mask = '!(' + mask + ')'
+
     if isinstance(traj_or_topology, (Topology, Trajectory)):
         # return new Topology or new Trajectory
         return traj_or_topology[kept_mask]
@@ -351,6 +398,7 @@ def strip_atoms(traj_or_topology, mask):
         traj_or_topology.mask = kept_mask
         return traj_or_topology
 
+strip = strip_atoms
 
 def run(fi):
     '''shortcut for `for frame in fi: pass`

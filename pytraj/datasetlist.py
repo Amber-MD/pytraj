@@ -208,10 +208,11 @@ class DatasetList(list):
         return self.__getitem__(slice(i, j))
 
     def __getitem__(self, idx):
-        """return a DataSet instance
-        Memory view is applied (which mean this new insance is just alias of self[idx])
-        Should we use a copy instead?
+        """return a DataSet instance. Memory view is applied (which mean this new insance
+        is just alias of self[idx]). Should we use a copy instead?
 
+        Examples
+        --------
         >>> import pytraj as pt
         >>> traj = pt.datafiles.load_tz2_ortho()
         >>> dslist = pt.multidihedral(traj)
@@ -420,6 +421,9 @@ class DatasetList(list):
 
     def filter(self, func, *args, **kwd):
         """return a new view of DatasetList of func return True
+
+        Examples
+        --------
         >>> func = lambda x: sum(x) > 100
         >>> dslist = DatasetList({'x': [100, 200], 'y': [20, 30]})
         >>> dslist.filter(func)

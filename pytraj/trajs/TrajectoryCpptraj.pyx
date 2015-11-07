@@ -156,9 +156,10 @@ cdef class TrajectoryCpptraj:
         cdef AtomMask atm
         cdef int _end
         cdef int[:] int_view
+        cdef unsigned int max_frame = self.n_frames
 
         if stop == -1:
-            _end = <int> self.n_frames
+            _end = <int> max_frame
         else:
             _end = stop
 
@@ -421,10 +422,12 @@ cdef class TrajectoryCpptraj:
     def _iterframe_indices(self, frame_indices):
         cdef int i
         cdef Frame frame = Frame()
+        cdef unsigned int max_frame = self.n_frames
 
         frame.thisptr[0] = self.thisptr.AllocateFrame()
 
         for i in frame_indices:
+            assert 0 <= i < max_frame, 'frame index must be between 0 and max_frame - 1'
             self.thisptr.GetFrame(i, frame.thisptr[0])
             yield frame
 

@@ -9,6 +9,7 @@ from pytraj.analysis_dict import AnalysisDict
 analdict = AnalysisDict()
 
 from pytraj.trajectory import Trajectory
+from pytraj.trajectory_iterator import TrajectoryIterator
 from ._get_common_objects import _get_topology, _get_data_from_dtype, _get_list_of_commands
 from ._get_common_objects import _get_matrix_from_dataset
 from ._get_common_objects import _get_reference_from_traj, _get_fiterator
@@ -682,7 +683,7 @@ def calc_molsurf(traj=None,
 
 
 @_register_pmap
-@_super_dispatch()
+@_super_dispatch(has_ref=True)
 def calc_rotation_matrix(traj=None,
                          ref=0,
                          mask="",
@@ -712,13 +713,14 @@ def calc_rotation_matrix(traj=None,
 
 
 @_super_dispatch()
-def calc_volume(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
+def calc_volume(traj=None, mask="", top=None, dtype='ndarray',
+                frame_indices=None):
     command = mask
 
     act = CpptrajActions.Action_Volume()
 
     dslist = CpptrajDatasetList()
-    act(command, traj, top=top, dslist=dslist, *args, **kwd)
+    act(command, traj, top=top, dslist=dslist)
     return _get_data_from_dtype(dslist, dtype)
 
 
@@ -905,7 +907,7 @@ def calc_rdf(traj=None,
 
 
 @_super_dispatch()
-def calc_pairdist(traj, mask="*", delta=0.1, dtype='ndarray', top=None):
+def calc_pairdist(traj, mask="*", delta=0.1, dtype='ndarray', top=None, frame_indices=None):
     '''compute pair distribution function
 
     Parameters
@@ -917,18 +919,17 @@ def calc_pairdist(traj, mask="*", delta=0.1, dtype='ndarray', top=None):
         dtype of return data
     top : Topology, optional
     '''
-    with goto_temp_folder():
-        dslist = CpptrajDatasetList()
-        act = CpptrajActions.Action_PairDist()
+    dslist = CpptrajDatasetList()
+    act = CpptrajActions.Action_PairDist()
 
-        _mask = 'mask ' + mask
-        _delta = 'delta ' + str(delta)
-        command = ' '.join((_mask, _delta, 'out tmp_pytraj_out.txt'))
+    _command = 'mask ' + mask
+    _delta = 'delta ' + str(delta)
+    command = ' '.join((_command, _delta))
 
-        act(command, traj, top=top, dslist=dslist)
-        act.post_process()
+    act(command, traj, top=top, dslist=dslist)
+    act.post_process()
 
-        return _get_data_from_dtype(dslist, dtype=dtype)
+    return _get_data_from_dtype(dslist, dtype=dtype)
 
 
 pairdist = calc_pairdist
@@ -939,7 +940,8 @@ def calc_jcoupling(traj=None,
                    mask="",
                    top=None,
                    kfile=None,
-                   dtype='dataset', *args, **kwd):
+                   dtype='dataset', 
+                   frame_indices=None):
     """
     Parameters
     ----------
@@ -954,12 +956,11 @@ def calc_jcoupling(traj=None,
     command = mask
 
     act = CpptrajActions.Action_Jcoupling()
-    # add `radial` keyword to command (need to check `why`?)
     dslist = CpptrajDatasetList()
 
     if kfile is not None:
         command += " kfile %s" % kfile
-    act(command, traj, dslist=dslist, top=top, *args, **kwd)
+    act(command, traj, dslist=dslist, top=top)
     return _get_data_from_dtype(dslist, dtype)
 
 
@@ -1325,31 +1326,26 @@ def calc_multidihedral(traj=None,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
+@_super_dispatch()
 def calc_atomicfluct(traj=None,
                      mask="",
                      top=None,
-                     dtype='dataset', *args, **kwd):
-    if not isinstance(mask, string_types):
-        mask = array_to_cpptraj_atommask(mask)
-
-    command = mask
-
-    _top = _get_topology(traj, top)
-
+                     dtype='dataset',
+                     frame_indices=None):
     dslist = CpptrajDatasetList()
     act = adict['atomicfluct']
-    act(command, traj, top=_top, dslist=dslist, *args, **kwd)
-    # tag: post_process()
-    act.post_process()  # need to have this. check cpptraj's code
+    act(mask, traj, top=top, dslist=dslist)
+    act.post_process()
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-@_super_dispatch()
 def calc_bfactors(traj=None,
                   mask="",
                   byres=True,
                   top=None,
-                  dtype='ndarray', *args, **kwd):
+                  dtype='ndarray',
+                  frame_indices=None):
+    # Not: do not use _super_dispatch here since we used in calc_atomicfluct
     """
     Returns
     -------
@@ -1363,11 +1359,16 @@ def calc_bfactors(traj=None,
     """
     byres_text = "byres" if byres else ""
 
+    # need to convert to string mask
+    # do not use _super_dispatch again
+    if not isinstance(mask, string_types):
+        mask = array_to_cpptraj_atommask(mask)
     _command = " ".join((mask, byres_text, "bfactor"))
     return calc_atomicfluct(traj=traj,
                             mask=_command,
                             top=top,
-                            dtype=dtype, *args, **kwd)
+                            dtype=dtype,
+                            frame_indices=frame_indices)
 
 
 @_register_pmap
@@ -1496,7 +1497,8 @@ def calc_pairwise_rmsd(traj=None,
                        metric='rms',
                        top=None,
                        dtype='ndarray',
-                       mat_type='full'):
+                       mat_type='full',
+                       frame_indices=None):
     """calculate pairwise rmsd with different metrics.
 
     Parameters
@@ -1541,13 +1543,13 @@ def calc_pairwise_rmsd(traj=None,
 
     Install ``libcpptraj`` with ``openmp`` to get benifit from parallel
     """
+
+    # we copy Frame coordinates to DatasetCoordsCRD first
+
     if not isinstance(mask, string_types):
         mask = array_to_cpptraj_atommask(mask)
 
-    from pytraj.analyses.CpptrajAnalyses import Analysis_Rms2d
-    from pytraj import TrajectoryIterator, Trajectory
-
-    act = Analysis_Rms2d()
+    act = CpptrajAnalyses.Analysis_Rms2d()
 
     dslist = CpptrajDatasetList()
     dslist.add_set("coords", "_tmp")
@@ -1555,11 +1557,15 @@ def calc_pairwise_rmsd(traj=None,
     # need " " (space) before crdset too
 
     if isinstance(traj, (Trajectory, TrajectoryIterator)):
-        fi = traj.iterframe(mask=mask)
+        # we do atom stripping here before copying to DatasetCoordsCRD to save memory if
+        # loading from TrajectoryIterator
+        fi = traj.iterframe(mask=mask, frame_indices=frame_indices)
         command = metric
+        # use Topology from fi (could be stripped to save memory)
         dslist[0].top = fi.top
         _top = fi.top
     else:
+        # ignore frame_indices
         fi = iterframe_master(traj)
         command = ' '.join((mask, metric))
         _top = _get_topology(traj, top)
@@ -2257,7 +2263,9 @@ def search_neighbors(traj=None,
 
     Examples
     --------
-    >>> pt.search_neighbors(traj, ':5<@5.0') # around residue 5 with 5.0 cutoff
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> indices = pt.search_neighbors(traj, ':5<@5.0') # around residue 5 with 5.0 cutoff
     """
     dslist = DatasetList()
 
@@ -2304,7 +2312,7 @@ def pucker(traj=None,
 
 
 @_super_dispatch()
-def center(traj=None, mask="", center='box', mass=False, top=None):
+def center(traj=None, mask="", center='box', mass=False, top=None, frame_indices=None):
     """center
 
     Parameters

@@ -215,6 +215,7 @@ cdef class ActionList:
             crdinfo = self._crdinfo
         else:
             crdinfo = crdinfo
+
         box = crdinfo.get('box', top.box)
         has_velocity = crdinfo.get('has_velocity', False)
         has_time = crdinfo.get('has_time', False)

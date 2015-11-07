@@ -3,7 +3,7 @@ from __future__ import absolute_import, print_function, division
 from .actions import CpptrajActions
 from .datasets import CpptrajDatasetList
 from .decorators import _register_pmap
-from ._get_common_objects import _get_data_from_dtype, _get_topology, _super_dispatch
+from ._get_common_objects import _get_data_from_dtype, _super_dispatch
 from .base_holder import BaseDataHolder
 from ._shared_methods import iterframe_master
 
@@ -72,6 +72,7 @@ def hbond(traj,
           series=True,
           cpp_options='',
           dtype='hbond',
+          frame_indices=None,
           top=None):
     """(combined with cpptraj doc) Searching for Hbond donors/acceptors in region specified by ``mask``.
     Hydrogen bond is defined as A-HD, where A is acceptor heavy atom, H is hydrogen, D is
@@ -153,8 +154,6 @@ def hbond(traj,
     dslist = CpptrajDatasetList()
     act = CpptrajActions.Action_Hbond()
 
-    _top = _get_topology(traj, top)
-
     s_donor = "solventdonor " + str(solvent_donor) if solvent_donor else ""
     s_acceptor = "solventacceptor " + \
         str(solvent_acceptor) if solvent_acceptor else ""
@@ -168,8 +167,8 @@ def hbond(traj,
         (_series, mask, s_donor, s_acceptor, _dist, _angle, _image, _options))
 
     # need to get correct frame number
-    act.read_input(command, top=_top, dslist=dslist)
-    act.process(_top)
+    act.read_input(command, top=top, dslist=dslist)
+    act.process(top)
 
     for idx, frame in enumerate(iterframe_master(traj)):
         act.do_action(frame, idx=idx)

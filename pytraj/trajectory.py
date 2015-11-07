@@ -394,7 +394,10 @@ class Trajectory(object):
             self._xyz = np.vstack((self._xyz, xyz))
 
     def _append_unitcells(self, box):
-        '''
+        '''append unitcells
+
+        Examples
+        --------
         >>> import pytraj as pt
         >>> traj = pt.datafiles.load_tz2_ortho()
         >>> traj2 =  pt.Trajectory(top=traj.top)
@@ -506,7 +509,9 @@ class Trajectory(object):
         return self.iterframe(*args, **kwd)
 
     def load(self, filename='', indices=None):
-        '''
+        '''load file or files. It's better to use ``pytraj.load`` method.
+
+
         Examples
         --------
         >>> import pytraj as pt

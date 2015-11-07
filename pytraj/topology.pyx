@@ -721,12 +721,17 @@ cdef class Topology:
         mask = mask.encode()
         self.thisptr.SetSolvent(mask)
 
-    def residue(self, int idx):
+    def residue(self, int idx, bint atom=False):
+        '''
+
+        if atom is True, get full list of atoms for idx-th residue. This will be very slow
+        if atom is False, get ()
+        '''
         cdef Residue res = Residue()
         res.thisptr[0] = self.thisptr.Res(idx)
         start, end = res.first_atom_idx, res.last_atom_idx
-        return SimplifiedResidue(res.name, res.original_resnum, self.atomlist[start:end],
-                start, end)
+        alist = () if not atom else self.atomlist[start:end]
+        return SimplifiedResidue(res.name, res.original_resnum, alist, start, end)
 
     def _atom(self, int idx):
         '''return Atom based on idx. Update this Atom will update Topology too

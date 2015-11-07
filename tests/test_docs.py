@@ -47,6 +47,7 @@ class TestDoc(unittest.TestCase):
             if has_sander:
                 modules.append(get_pysander_energies)
             additional_list = [
+                pt,
                 pt.io,
                 nucleic_acid_analysis,
                 load_samples,
@@ -55,7 +56,6 @@ class TestDoc(unittest.TestCase):
                 pt.dssp_analysis,
                 datasetlist,
                 pjob,
-                pt,
                 pt.array,
                 pt.nmr,
                 check_and_assert,
