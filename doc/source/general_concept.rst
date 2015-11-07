@@ -11,7 +11,7 @@ In most case, to use ``pytraj``, you just need to rember this format
     traj = pt.iterload(...)
     data = pt.method_name(traj, mask=mask, ref=ref, frame_indices=frame_indices ...) 
 
-* ``traj`` can be a Trajectory-like (having 3D coordinates and a Topology) or it can be
+- ``traj`` can be a Trajectory-like (having 3D coordinates and a Topology) or it can be
   any iterable object that produces :class:`pytraj.Frame` (a single snapshot)::
 
     # a Trajectory
@@ -33,7 +33,7 @@ In most case, to use ``pytraj``, you just need to rember this format
     pt.radgyr(fi2)
 
 
-* ``ref`` can be a single Frame or a Trajectory or an integer. If it's a Trajectory,
+- ``ref`` can be a single Frame or a Trajectory or an integer. If it's a Trajectory,
   first conformation is always picked up. If it's an integer, pytraj will do slicing the
   corresponding Trajectory::
 
@@ -43,11 +43,22 @@ In most case, to use ``pytraj``, you just need to rember this format
     pt.rmsd(traj, ref=3)
     pt.rmsd(traj, ref=traj2)
 
-* ``mask`` follows Amber mask syntax (eg. :3-18@CA) or an atom index array (eg. [0, 3, 5]). If ``mask`` is a string (amber mask), the index is 1-based (counting from 1). If ``mass`` is an array-like, the index is 0-based (counting from 0). 
+* ``mask`` follows Amber mask syntax (eg. :3-18@CA) or an atom index array (eg. [0, 3, 5]). If ``mask`` is a string (amber mask), the index is 1-based (counting from 1). If ``mass`` is an array-like, the index is 0-based (counting from 0)::
 
-* ``frame_indices`` is frame indices for calculation. It's optional. If no ``frame_indices`` is provided, the calculation will be performed for whole trajectory
+    # mask is a string
+    pt.radgyr(traj, '@CA')
+
+    # mask is a list of integers (atom indices)
+    pt.radgyr(traj, mask=[0, 3, 5, 7])
+
+- ``frame_indices`` is frame indices for calculation. It's optional. If no ``frame_indices`` is provided, the calculation will be performed for whole trajectory::
+
+    # only compute radgyr for 3 frames (0, 3, and 7-th)
+    pt.radgyr(traj, frame_indices=[0, 3, 7])
+
 
 Real world example
+------------------
 
 .. ipython:: python
     :suppress:
