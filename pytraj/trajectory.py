@@ -96,10 +96,18 @@ class Trajectory(object):
 
     @property
     def top(self):
+        '''Topology
+
+        See also
+        --------
+        pytraj.Trajectory.topology
+        '''
         return self._top
 
     @top.setter
     def top(self, value):
+        '''Topology
+        '''
         self._top = value.copy()
 
     @property
@@ -115,6 +123,8 @@ class Trajectory(object):
 
     @top.setter
     def topology(self, value):
+        '''Topology
+        '''
         self.top = value
 
     def reverse(self):
@@ -123,6 +133,8 @@ class Trajectory(object):
         -------
         self
 
+        Examples
+        --------
         >>> import pytraj as pt
         >>> traj = pt.datafiles.load_tz2_ortho()[:]
         >>> traj = traj.reverse() 
@@ -134,11 +146,7 @@ class Trajectory(object):
 
     @property
     def xyz(self):
-        return self._xyz
-
-    @xyz.setter
-    def xyz(self, values):
-        '''assign new coordinates for Trajectory
+        '''Trajectory's coordinates, shape=(n_frames, n_frames, 3)
 
         Examples
         --------
@@ -149,6 +157,12 @@ class Trajectory(object):
         >>> # autoconvert from fortran order to c order
         >>> xyz = np.asfortranarray(traj0.xyz)
         >>> traj1.xyz = xyz
+        '''
+        return self._xyz
+
+    @xyz.setter
+    def xyz(self, values):
+        '''assign new coordinates for Trajectory
         '''
         if self.shape[1]:
             if self.n_atoms != values.shape[1]:
@@ -506,6 +520,16 @@ class Trajectory(object):
             ValueError()
 
     def __call__(self, *args, **kwd):
+        '''shortcut of ``iterframe``
+
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data()
+        >>> for f in traj(0, 8, 2): pass
+        >>> for f in traj.iterframe(0, 8, 2): pass
+
+        '''
         return self.iterframe(*args, **kwd)
 
     def load(self, filename='', indices=None):
@@ -575,6 +599,8 @@ class Trajectory(object):
         -------
         self
 
+        Examples
+        --------
         >>> import pytraj as pt
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.rotate('@CA x 20')
@@ -586,7 +612,7 @@ class Trajectory(object):
         return self
 
     def translate(self, command=''):
-        '''do rotation
+        '''do translation
 
         Returns
         -------
@@ -628,6 +654,8 @@ class Trajectory(object):
         -------
         self
 
+        Examples
+        --------
         >>> import pytraj as pt
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.center('@CA origin')
@@ -639,7 +667,10 @@ class Trajectory(object):
         return self
 
     def align_principal_axis(self, command=''):
-        """
+        """align principal axis
+
+        Examples
+        --------
         >>> import pytraj as pt
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.align_principal_axis()
@@ -658,6 +689,8 @@ class Trajectory(object):
         -------
         self
 
+        Examples
+        --------
         >>> import pytraj as pt
         >>> traj = pt.datafiles.load_tz2_ortho()[:]
         >>> traj = traj.transform(['autoimage', 'center @CA origin', 'translate x 1.2'])
