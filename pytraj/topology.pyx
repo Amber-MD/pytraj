@@ -337,7 +337,7 @@ cdef class Topology:
             return self.thisptr.Nsolvent()
 
     def set_integer_mask(self, AtomMask atm, Frame frame=Frame()):
-        if frame.is_empty():
+        if frame.n_atoms == 0:
             return self.thisptr.SetupIntegerMask(atm.thisptr[0])
         else:
             return self.thisptr.SetupIntegerMask(atm.thisptr[0], frame.thisptr[0])

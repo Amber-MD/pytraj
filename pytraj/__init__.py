@@ -291,7 +291,10 @@ def iterframe(traj, *args, **kwd):
     --------
     pytraj.TrajectoryIterator.iterframe
     """
-    return traj.iterframe(*args, **kwd)
+    if hasattr(traj, 'iterframe'):
+        return traj.iterframe(*args, **kwd)
+    else:
+        return iterframe_master(traj)
 
 
 from .cyutils import _fast_iterptr as iterframe_from_array

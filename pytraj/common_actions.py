@@ -1095,7 +1095,7 @@ def mean_structure(traj,
         return frame
     elif restype.lower() == 'traj':
         new_top = _top if mask is '' else _top[mask]
-        return Trajectory(xyz=frame.as_3darray().copy(), top=new_top)
+        return Trajectory(xyz=frame.xyz.reshape(1, frame.n_atoms, 3).copy(), top=new_top)
 
 
 get_average_frame = mean_structure
@@ -1434,55 +1434,57 @@ def calc_vector(traj=None,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
+@_super_dispatch()
 def _calc_vector_center(traj=None,
-                        command="",
+                        mask="",
                         top=None,
                         mass=False,
-                        dtype='ndarray'):
-    _top = _get_topology(traj, top)
+                        dtype='ndarray',
+                        frame_indices=None):
 
     dslist = CpptrajDatasetList()
     dslist.set__own_memory(False)  # need this to avoid segmentation fault
     act = CpptrajActions.Action_Vector()
-    command = "center " + command
+    command = "center " + mask
 
     if mass:
         command += " mass"
 
-    act.read_input(command=command, top=_top, dslist=dslist)
-    act.process(_top)
+    act.read_input(command=command, top=top, dslist=dslist)
+    act.process(top)
 
     for frame in iterframe_master(traj):
         # set Frame masses
         if mass:
-            frame.set_frame_mass(_top)
+            frame.set_mass(top)
         act.do_action(frame)
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
 @_register_pmap
+@_super_dispatch()
 def calc_center_of_mass(traj=None,
                         mask='',
                         top=None,
-                        dtype='ndarray', *args, **kwd):
+                        dtype='ndarray',
+                        frame_indices=None):
     return _calc_vector_center(traj=traj,
-                               command=mask,
+                               mask=mask,
                                top=top,
                                mass=True,
-                               dtype=dtype)
+                               dtype=dtype,
+                               frame_indices=frame_indices)
 
 
 calc_COM = calc_center_of_mass
 
 
 @_register_pmap
-def calc_center_of_geometry(traj=None, command="", top=None, dtype='ndarray'):
-    _top = _get_topology(traj, top)
+@_super_dispatch()
+def calc_center_of_geometry(traj=None, mask="", top=None, dtype='ndarray',
+                            frame_indices=None):
 
-    if not isinstance(command, string_types):
-        command = array_to_cpptraj_atommask(command)
-
-    atom_mask_obj = _top(command)
+    atom_mask_obj = top(mask)
     dslist = CpptrajDatasetList()
     dslist.add_set("vector")
 

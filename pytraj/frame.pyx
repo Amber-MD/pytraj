@@ -204,6 +204,8 @@ cdef class Frame (object):
 
     property n_frames:
         def __get__(self):
+            '''always return 1. Used for tricking action.
+            '''
             return 1
 
     def __getitem__(self, idx):
@@ -354,12 +356,6 @@ cdef class Frame (object):
                 # copy coords of each Atom
                 memcpy(<void*> ptr_dest, <void*> ptr_src, count)
 
-
-    def frame_iter(self):
-        """
-        """
-        yield self
-
     def __len__(self):
         return self.size
 
@@ -425,15 +421,6 @@ cdef class Frame (object):
             else:
                 return None
         
-    def has_velocity(self):
-        return self.thisptr.HasVelocity()
-
-    def has_force(self):
-        return self.thisptr.HasVelocity()
-
-    def is_empty(self):
-        return self.thisptr.empty()
-
     property n_atoms:
         def __get__(self):
            return self.thisptr.Natom()
@@ -501,6 +488,23 @@ cdef class Frame (object):
         arr.append(self.thisptr.XYZ(atomnum)[2])
         return arr
 
+    def set_nobox(self):
+        self._boxview[:] = pyarray('d', [0. for _ in range(6)])
+
+    def box_crd(self):
+        cdef Box box = Box()
+        box.thisptr[0] = self.thisptr.BoxCrd()
+        return box.tolist()
+
+    def has_box(self):
+        return self.box.has_box()
+
+    def has_velocity(self):
+        return self.thisptr.HasVelocity()
+
+    def has_force(self):
+        return self.thisptr.HasVelocity()
+
     property coordinates:
         def __get__(self):
             '''return a copy of Frame's coordinates
@@ -517,13 +521,6 @@ cdef class Frame (object):
                  arr[i] = self.thisptr.Mass(i)
              return np.array(arr)
 
-    def set_nobox(self):
-        self._boxview[:] = pyarray('d', [0. for _ in range(6)])
-
-    def box_crd(self):
-        cdef Box box = Box()
-        box.thisptr[0] = self.thisptr.BoxCrd()
-        return box.tolist()
 
     property box:
         def __get__(self):
@@ -537,9 +534,6 @@ cdef class Frame (object):
             _box = Box(other)
             self._boxview[:] = _box[:]
 
-    def has_box(self):
-        return self.box.has_box()
-
     property _boxview:
         def __get__(self):
             """return a memoryview of box array"""
@@ -548,7 +542,7 @@ cdef class Frame (object):
             my_arr = <double[:6]> ptr
             return my_arr
 
-    def set_frame_mass(self, Topology top):
+    def set_mass(self, Topology top):
         self.thisptr.SetMass(top.thisptr.Atoms())
 
     def _set_mass_from_array(self, double[:] arr):
@@ -698,7 +692,7 @@ cdef class Frame (object):
         v3.thisptr[0] = self.thisptr.VGeometricCenter(atmask.thisptr[0])
         return v3
 
-    def trans_rot_trans(self, Vec3 vec3, Matrix_3x3 m3, Vec3 vec3_2):
+    def _trans_rot_trans(self, Vec3 vec3, Matrix_3x3 m3, Vec3 vec3_2):
         # TODO : add doc, make test case
         self.thisptr.Trans_Rot_Trans(vec3.thisptr[0], m3.thisptr[0], vec3_2.thisptr[0])
 
@@ -775,7 +769,7 @@ cdef class Frame (object):
         cdef Vec3 v1
 
         _, mat, v1, v2 = self.rmsd(ref, atm, get_mvv=True)
-        self.trans_rot_trans(v1, mat, v2)
+        self._trans_rot_trans(v1, mat, v2)
 
     def _set_axis_of_rotation(self, int atom1, int atom2):
         cdef Vec3 vec = Vec3()
@@ -907,12 +901,6 @@ cdef class Frame (object):
         import numpy as np
         return np.asarray(self._buffer2d)
 
-    @classmethod
-    def from_ndarray(cls, xyz):
-        """create new Frame from a numpy.ndarray
-        """
-        return Frame().append_xyz(xyz)
-
     def _to_dataframe(self, top=None):
         import pandas as pd
         import numpy as np
@@ -939,9 +927,6 @@ cdef class Frame (object):
             return pd.DataFrame(arr, columns=labels)
         else:
             raise ValueError("must have pandas")
-
-    def as_3darray(self):
-        return self.xyz.reshape((1, self.n_atoms, 3))
 
     def __setstate__(self, state):
         # when pickle, python return an empty frame
