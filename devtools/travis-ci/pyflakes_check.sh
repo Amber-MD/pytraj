@@ -27,10 +27,7 @@ pyflakes pytraj 2>&1 | \
             -e "pytraj/compat.py" \
             -e "pytraj/plot/base.py" \
             -e "pytraj/externals/magic.py" \
-            -e "pytraj/run_tests.py" \
-            -e "^parmed\/unit" \
-            -e "^parmed\/utils\/six.py" \
-            -e "^parmed\/utils\/fortranformat" | tee pyflakes.log
+            -e "pytraj/run_tests.py" | tee pyflakes.log
 
 nfail=`cat pyflakes.log | wc -l`
 
