@@ -145,13 +145,44 @@
 <span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">method_name</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span> <span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><tt class="docutils literal"><span class="pre">traj</span></tt> can be a Trajectory-like (having 3D coordinates and a Topology) or it can be
-any iterable object that produces <tt class="xref py py-class docutils literal"><span class="pre">pytraj.Frame</span></tt> (a single snapshot).</li>
-<li><tt class="docutils literal"><span class="pre">ref</span></tt> can be a single Frame or a Trajectory. If it&#8217;s a Trajectory,
-first conformation is always picked up.</li>
-<li><tt class="docutils literal"><span class="pre">mask</span></tt> follows Amber mask syntax (eg. :<a class="reference external" href="mailto:3-18&#37;&#52;&#48;CA">3-18<span>&#64;</span>CA</a>) or an atom index array (eg. [0, 3, 5]). If <tt class="docutils literal"><span class="pre">mask</span></tt> is a string (amber mask), the index is 1-based (counting from 1). If <tt class="docutils literal"><span class="pre">mass</span></tt> is an array-like, the index is 0-based (counting from 0).</li>
-<li><tt class="docutils literal"><span class="pre">frame_indices</span></tt> is frame indices for calculation. It&#8217;s optional. If no <tt class="docutils literal"><span class="pre">frame_indices</span></tt> is provided, the calculation will be performed for whole trajectory</li>
+<ul>
+<li><p class="first"><tt class="docutils literal"><span class="pre">traj</span></tt> can be a Trajectory-like (having 3D coordinates and a Topology) or it can be
+any iterable object that produces <tt class="xref py py-class docutils literal"><span class="pre">pytraj.Frame</span></tt> (a single snapshot):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># a Trajectory</span>
+<span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="s">&#39;traj.prmtop&#39;</span><span class="p">)</span>
+<span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+
+<span class="c"># an iterable object</span>
+<span class="k">def</span> <span class="nf">create_iterator</span><span class="p">(</span><span class="n">traj</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">:</span>
+        <span class="n">frame</span><span class="o">.</span><span class="n">xyz</span> <span class="o">+=</span> <span class="mf">2.</span>
+        <span class="k">yield</span> <span class="n">frame</span>
+
+<span class="n">fi</span> <span class="o">=</span> <span class="n">create_iterator</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+<span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
+
+<span class="c"># a FrameIterator</span>
+<span class="n">fi2</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">fi2</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">ref</span></tt> can be a single Frame or a Trajectory or an integer. If it&#8217;s a Trajectory,
+first conformation is always picked up. If it&#8217;s an integer, pytraj will do slicing the
+corresponding Trajectory:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">frame</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">traj2</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">frame</span><span class="p">)</span>
+<span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj2</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">mask</span></tt> follows Amber mask syntax (eg. :<a class="reference external" href="mailto:3-18&#37;&#52;&#48;CA">3-18<span>&#64;</span>CA</a>) or an atom index array (eg. [0, 3, 5]). If <tt class="docutils literal"><span class="pre">mask</span></tt> is a string (amber mask), the index is 1-based (counting from 1). If <tt class="docutils literal"><span class="pre">mass</span></tt> is an array-like, the index is 0-based (counting from 0).</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">frame_indices</span></tt> is frame indices for calculation. It&#8217;s optional. If no <tt class="docutils literal"><span class="pre">frame_indices</span></tt> is provided, the calculation will be performed for whole trajectory</p>
+</li>
 </ul>
 <p>Real world example</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="c"># calculate radius of gyration for whole trajectory, all atoms</span>
