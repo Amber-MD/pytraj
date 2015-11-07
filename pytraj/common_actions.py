@@ -9,6 +9,7 @@ from pytraj.analysis_dict import AnalysisDict
 analdict = AnalysisDict()
 
 from pytraj.trajectory import Trajectory
+from pytraj.trajectory_iterator import TrajectoryIterator
 from ._get_common_objects import _get_topology, _get_data_from_dtype, _get_list_of_commands
 from ._get_common_objects import _get_matrix_from_dataset
 from ._get_common_objects import _get_reference_from_traj, _get_fiterator
@@ -1496,7 +1497,8 @@ def calc_pairwise_rmsd(traj=None,
                        metric='rms',
                        top=None,
                        dtype='ndarray',
-                       mat_type='full'):
+                       mat_type='full',
+                       frame_indices=None):
     """calculate pairwise rmsd with different metrics.
 
     Parameters
@@ -1541,13 +1543,13 @@ def calc_pairwise_rmsd(traj=None,
 
     Install ``libcpptraj`` with ``openmp`` to get benifit from parallel
     """
+
+    # we copy Frame coordinates to DatasetCoordsCRD first
+
     if not isinstance(mask, string_types):
         mask = array_to_cpptraj_atommask(mask)
 
-    from pytraj.analyses.CpptrajAnalyses import Analysis_Rms2d
-    from pytraj import TrajectoryIterator, Trajectory
-
-    act = Analysis_Rms2d()
+    act = CpptrajAnalyses.Analysis_Rms2d()
 
     dslist = CpptrajDatasetList()
     dslist.add_set("coords", "_tmp")
@@ -1555,11 +1557,15 @@ def calc_pairwise_rmsd(traj=None,
     # need " " (space) before crdset too
 
     if isinstance(traj, (Trajectory, TrajectoryIterator)):
-        fi = traj.iterframe(mask=mask)
+        # we do atom stripping here before copying to DatasetCoordsCRD to save memory if
+        # loading from TrajectoryIterator
+        fi = traj.iterframe(mask=mask, frame_indices=frame_indices)
         command = metric
+        # use Topology from fi (could be stripped to save memory)
         dslist[0].top = fi.top
         _top = fi.top
     else:
+        # ignore frame_indices
         fi = iterframe_master(traj)
         command = ' '.join((mask, metric))
         _top = _get_topology(traj, top)

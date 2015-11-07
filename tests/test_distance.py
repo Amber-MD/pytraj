@@ -63,17 +63,18 @@ class TestNormalDistance(unittest.TestCase):
                            'data/dry_traj_with_PBC_top/strip.prmtop')
         assert traj.top.has_box(), 'Topology must have box for testing'
 
-        wrong_distance = pt.distance(traj, ':8@OP2 :5@N1')
-        correct_distance = pt.distance(traj, ':8@OP2 :5@N1', image=False)
+        # regardless of image value, should get identical distance since
+        # this system is already imaged, only giving wrong Topology with box info
+        correct_distance_with_image_True = pt.distance(traj, ':8@OP2 :5@N1', image=True)
+        correct_distance_with_image_False = pt.distance(traj, ':8@OP2 :5@N1', image=False)
         state = pt.load_batch(traj, '''
         distance :8@OP2 :5@N1
         ''')
         state.run()
         expected_distance = [3.08030475, 2.68452183]
 
-        aa_eq(wrong_distance, [0., 0.])
-        aa_eq(correct_distance, expected_distance)
-        aa_eq(state.data[-1], expected_distance)
+        aa_eq(correct_distance_with_image_False, expected_distance)
+        aa_eq(correct_distance_with_image_True, expected_distance)
 
 
 class TestPairwiseDistance(unittest.TestCase):
