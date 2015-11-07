@@ -1,6 +1,5 @@
 from __future__ import absolute_import
 import numpy as np
-from .base_holder import BaseDataHolder
 from ._get_common_objects import _get_data_from_dtype, _get_topology, _get_fiterator
 from .utils.convert import array_to_cpptraj_atommask as to_cpptraj_mask
 from pytraj.compat import string_types, PY3

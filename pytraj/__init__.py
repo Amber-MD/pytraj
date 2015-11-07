@@ -100,24 +100,27 @@ from .actions import CpptrajActions
 from .analyses import CpptrajAnalyses as allanalyses
 from .analyses import CpptrajAnalyses
 from . import common_actions
+
 from .dssp_analysis import calc_dssp, dssp_allatoms, dssp_allresidues
+from .nucleic_acid_analysis import nastruct
+from .nmr import ired_vector_and_matrix, _ired, NH_order_parameters
+from .hbond_analysis import hbond
+from .externals.get_pysander_energies import energy_decomposition
+
 from .common_actions import (
     calc_rmsd_nofit, rmsd, rmsd_perres, distance_rmsd, calc_multidihedral,
-    autoimage, nastruct, calc_angle, calc_dihedral, calc_distance,
+    autoimage, calc_angle, calc_dihedral, calc_distance,
     calc_pairwise_distance, calc_center_of_mass, calc_center_of_geometry,
-    calc_dssp, calc_jcoupling, calc_molsurf, calc_radgyr, calc_rdf,
+    calc_jcoupling, calc_molsurf, calc_radgyr, calc_rdf,
     calc_vector, calc_pairwise_rmsd, calc_atomicfluct, calc_bfactors,
     calc_density, calc_rotation_matrix, calc_watershell, calc_volume,
     calc_mindist, lifetime, get_average_frame, calc_atomiccorr, get_velocity,
-    _dihedral_res, energy_decomposition, native_contacts,
+    _dihedral_res, native_contacts,
     auto_correlation_function, principal_axes, cross_correlation_function,
     timecorr, center, translate, rotate, rotate_dihedral, make_structure,
     scale, do_clustering, clustering_dataset, _rotate_dih, randomize_ions,
     crank, closest, search_neighbors, replicate_cell, _rotdif, pairdist, _grid,
     transform, lowestcurve, calc_diffusion, calc_volmap, )
-
-from .nmr import ired_vector_and_matrix, _ired, NH_order_parameters
-from .hbond_analysis import hbond
 
 # create alias
 dssp_all_residues = dssp_allresidues

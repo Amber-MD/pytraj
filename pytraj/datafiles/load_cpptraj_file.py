@@ -6,7 +6,6 @@ for compatibility with cpptraj
 """
 from __future__ import absolute_import
 from ..core.cpp_core import Command
-from ..utils import file_exist as file_exists
 from ..decorators import ensure_exist
 
 

@@ -1,11 +1,8 @@
 from __future__ import print_function, absolute_import
 import numpy as np
-from .actions import CpptrajActions
 from .analyses import CpptrajAnalyses
 from .datasets import cpp_datasets
-from ._get_common_objects import _get_topology, _get_data_from_dtype
 from .datasets.DatasetList import DatasetList as CpptrajDatasetList
-from .decorators import _register_pmap, _register_openmp
 
 mat_keys = {
     'dist',
@@ -34,18 +31,22 @@ __cpptrajdoc__ = """
 """
 
 template = '''
-def %s(traj=None, command="", top=None, dtype='ndarray', mat_type='full', *args, **kwd):
-    """
+from .actions import CpptrajActions
+from ._get_common_objects import _super_dispatch, _get_data_from_dtype
+
+@_super_dispatch()
+def %s(traj=None, mask="", top=None, dtype='ndarray', mat_type='full', frame_indices=None):
+    """Compute matrix
+
     Parameters
     ----------
     traj : Trajectory-like
-    command : cpptraj command
+    mask : cpptraj mask
     top : Topology, optional, default None
     mat_type : str, {'full', 'half', 'cpptraj'}, default 'full'
         if 'full': 2D full matrix
         if 'half': triangular matrix
         if 'cpptraj': 1D array
-    *args, **kwd: more arguments
 
     cpptraj compat mode
     -------------------
@@ -58,13 +59,12 @@ def %s(traj=None, command="", top=None, dtype='ndarray', mat_type='full', *args,
     """
     from .datasets.DatasetList import DatasetList as CpptrajDatasetList
 
-    _top = _get_topology(traj, top)
     dslist = CpptrajDatasetList()
-    template_command = '%s '
-    template_command += command 
+    template_mask = '%s '
+    template_mask += mask 
 
     act = CpptrajActions.Action_Matrix()
-    act(template_command, traj, top=_top, dslist=dslist, *args, **kwd)
+    act(template_mask, traj, top=top, dslist=dslist)
     # need to call `post_process` so cpptraj can normalize some data
     # check cpptraj's code
     act.post_process()
@@ -89,9 +89,12 @@ for k in mat_keys:
 
 del k
 
+exec('''
+from .decorators import _register_pmap, _register_openmp
 dist = _register_pmap(dist)
 idea = _register_pmap(idea)
 covar = _register_openmp(covar)
+''')
 
 
 def diagonalize(mat, n_vecs, dtype='dataset'):

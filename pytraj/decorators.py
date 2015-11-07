@@ -1,6 +1,5 @@
 from __future__ import print_function, absolute_import
 import os
-import warnings
 from functools import wraps
 
 # we duplicate code from .utils.check_and_assert here to avoid circular import

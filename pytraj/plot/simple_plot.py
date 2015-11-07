@@ -1,5 +1,4 @@
 from __future__ import absolute_import
-from ..utils import _import
 
 
 def simple_plot(d0, *args, **kwd):

@@ -1,7 +1,6 @@
 from __future__ import absolute_import
 import numpy as np
 from collections import OrderedDict
-from collections import defaultdict
 from pytraj.datasets import CpptrajDatasetList
 from pytraj.externals._pickle import to_pickle, read_pickle
 from pytraj.utils import is_int, is_array, is_generator

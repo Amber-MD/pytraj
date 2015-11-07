@@ -104,11 +104,18 @@ class Trajectory(object):
 
     @property
     def topology(self):
-        return self._top
+        '''longer name for ``top``
+
+        >>> import pytraj as pt
+        >>> traj = pt.datafiles.load_ala3()
+        >>> traj.topology.n_residues
+        3
+        '''
+        return self.top
 
     @top.setter
     def topology(self, value):
-        self._top = value.copy()
+        self.top = value
 
     def reverse(self):
         '''

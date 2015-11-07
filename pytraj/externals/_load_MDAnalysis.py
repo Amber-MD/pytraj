@@ -1,5 +1,4 @@
 from __future__ import absolute_import
-import numpy as np
 
 
 def load_MDAnalysis(its_obj, top=None):
@@ -24,11 +23,11 @@ def load_MDAnalysis(its_obj, top=None):
 
     # MDAnalysis needs numpy. So we always have numpy when using this
     if not isinstance(its_obj, Universe):
-        raise ValuError("must be a Universe")
+        raise ValueError("must be a Universe")
 
     # creat pseudotop
     if top is None:
-        raise ValuError("need a Topology or pdb/mol2/...")
+        raise ValueError("need a Topology or pdb/mol2/...")
     else:
         pseudotop = top
 

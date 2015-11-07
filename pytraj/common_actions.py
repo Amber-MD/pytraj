@@ -18,15 +18,10 @@ from .utils import is_int
 from .utils.context import goto_temp_folder
 from .utils.convert import array_to_cpptraj_atommask
 from .externals.six import string_types
-from .topology import Topology
 from .datasets.DatasetList import DatasetList as CpptrajDatasetList
 from .datafiles import DataFileList
 from .datasetlist import DatasetList
-from .hbond_analysis import hbond as search_hbonds
-from .dssp_analysis import calc_dssp
-from .nucleic_acid_analysis import nastruct
 from ._shared_methods import iterframe_master
-from .externals.get_pysander_energies import energy_decomposition
 from .decorators import _register_pmap, _register_openmp
 from .actions import CpptrajActions
 from .analyses import CpptrajAnalyses
@@ -39,7 +34,6 @@ list_of_cal = ['calc_distance',
                'calc_angle',
                'calc_molsurf',
                'calc_volume',
-               'calc_dssp',
                'calc_matrix',
                'calc_jcoupling',
                'calc_watershell',
@@ -66,8 +60,8 @@ list_of_do = ['do_translation',
 
 list_of_get = ['get_average_frame']
 
-list_of_the_rest = ['search_hbonds', 'align_principal_axis', 'principal_axes',
-                    'closest', 'native_contacts', 'nastruct']
+list_of_the_rest = ['align_principal_axis', 'principal_axes',
+                    'closest', 'native_contacts']
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
@@ -736,7 +730,7 @@ def calc_multivector(traj=None,
     act = CpptrajActions.Action_MultiVector()
 
     dslist = CpptrajDatasetList()
-    act(command, traj, top=top, dslist=dslist, *args, **kwd)
+    act(mask, traj, top=top, dslist=dslist, *args, **kwd)
     return _get_data_from_dtype(dslist, dtype)
 
 
@@ -1623,7 +1617,7 @@ def calc_density(traj=None,
 @_register_pmap
 @_super_dispatch()
 def calc_temperatures(traj=None,
-                      command="",
+                      mask="",
                       frame_indices=None,
                       top=None,
                       dtype='ndarray'):
@@ -1635,7 +1629,7 @@ def calc_temperatures(traj=None,
     dslist = CpptrajDatasetList()
 
     act = CpptrajActions.Action_Temperature()
-    act(command, fi, dslist=dslist, top=top)
+    act(mask, traj, dslist=dslist, top=top)
 
     return _get_data_from_dtype(dslist, dtype)
 
