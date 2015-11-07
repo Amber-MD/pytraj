@@ -23,6 +23,10 @@ test -d pytraj || notfound
 pyflakes pytraj 2>&1 | \
     grep -v -e "__init__.py" \
             -e "pytraj/externals/six.py" \
+            -e "redefinition of unused 'topology' from line" \
+            -e "pytraj/compat.py" \
+            -e "pytraj/plot/base.py" \
+            -e "pytraj/externals/magic.py" \
             -e "pytraj/run_tests.py" \
             -e "^parmed\/unit" \
             -e "^parmed\/utils\/six.py" \

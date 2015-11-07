@@ -1,14 +1,7 @@
 from __future__ import absolute_import
 import os
 import numbers
-from ..externals.six import string_types
-
-# don't `import pytraj.externals.six` here: got import error
-try:
-    zip = izip
-except:
-    pass
-
+from ..externals.six import string_types, zip
 
 def eq(arr0, arr1):
     assert arr0 == arr1

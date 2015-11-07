@@ -10,6 +10,7 @@ from glob import glob
 from itertools import islice
 from collections import OrderedDict, defaultdict
 import numpy as np
+from pytraj.compat import string_types
 
 
 def estimate_size(n_frames, n_atoms, dtype='f8'):
@@ -63,10 +64,8 @@ PY3 = _sys.version_info[0] == 3
 
 if PY3:
     _iteritems = "items"
-    string_types = str
 else:  # pragma: no covert
     _iteritems = "iteritems"
-    string_types = basestring
 
 
 def iteritems(d, **kw):
