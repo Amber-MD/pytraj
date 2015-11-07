@@ -1358,6 +1358,10 @@ def calc_bfactors(traj=None,
     """
     byres_text = "byres" if byres else ""
 
+    # need to convert to string mask
+    # do not use _super_dispatch again
+    if not isinstance(mask, string_types):
+        mask = array_to_cpptraj_atommask(mask)
     _command = " ".join((mask, byres_text, "bfactor"))
     return calc_atomicfluct(traj=traj,
                             mask=_command,
