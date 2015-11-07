@@ -359,6 +359,8 @@ select = select_atoms
 def strip_atoms(traj_or_topology, mask):
     '''return a new Trajectory or Topology with given mask.
 
+    Examples
+    --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()
     >>> traj.n_atoms
@@ -372,7 +374,6 @@ def strip_atoms(traj_or_topology, mask):
     >>> t0 = traj[:3]
     >>> pt.strip_atoms(t0, '!@CA').n_atoms
     12
-
     >>> fi = pt.iterframe(traj, stop=3)
     >>> fi = pt.strip_atoms(fi, '!@CA')
     >>> for frame in fi:
