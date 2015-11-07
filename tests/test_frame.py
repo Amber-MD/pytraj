@@ -30,7 +30,7 @@ class TestFrame(unittest.TestCase):
         # try do-fitting from Python
         # not right yet
         rmsd, mat, v1, v2 = frame1.rmsd(frame0, get_mvv=True)
-        frame1.trans_rot_trans(v1, mat, v2)
+        frame1._trans_rot_trans(v1, mat, v2)
         assert frame1.rmsd(frame1new) < 1E-3
         assert frame1new.rmsd(frame1, top=trajnew.top, mask="@CA") < 1E-3
 

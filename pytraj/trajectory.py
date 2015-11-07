@@ -759,14 +759,14 @@ class Trajectory(object):
             frame_indices=frame_indices)
 
         if mass:
-            ref_frame.set_frame_mass(self.top)
+            ref_frame.set_mass(self.top)
         for idx, frame in enumerate(fi):
             if mass:
-                frame.set_frame_mass(self.top)
+                frame.set_mass(self.top)
             _, mat, v1, v2 = frame.rmsd(ref_frame, atm,
                                         get_mvv=True,
                                         mass=mass)
-            frame.trans_rot_trans(v1, mat, v2)
+            frame._trans_rot_trans(v1, mat, v2)
         return self
 
     def _allocate(self, n_frames, n_atoms):

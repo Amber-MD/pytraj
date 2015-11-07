@@ -238,7 +238,7 @@ cdef class ActionList:
         if isinstance(traj, Frame):
             frame = <Frame> traj
             if use_mass:
-                frame.set_frame_mass(self.top)
+                frame.set_mass(self.top)
             actionframe_ = _ActionFrame(frame.thisptr)
             self.thisptr.DoActions(idx, actionframe_)
         else:

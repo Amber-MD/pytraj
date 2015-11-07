@@ -1,11 +1,9 @@
 import unittest
 from array import array
 import numpy as np
-from pytraj.utils.check_and_assert import assert_almost_equal
+import pytraj as pt
 from pytraj.testing import aa_eq
 from pytraj import Frame
-from pytraj.base import *
-from pytraj import io as mdio
 
 SMALL = 1E-6
 
@@ -18,8 +16,8 @@ FRAME_orig = FRAME.copy()
 
 class TestFrame(unittest.TestCase):
     def test_fit(self):
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        trajnew = mdio.iterload(
+        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        trajnew = pt.iterload(
             "./data/md1_prod.fit_to_first.Tc5b.x", "./data/Tc5b.top")
 
         # make sure 0-th frame does not change
@@ -33,16 +31,16 @@ class TestFrame(unittest.TestCase):
         # try do-fitting from Python
         # not right yet
         rmsd, mat, v1, v2 = frame1.rmsd(frame0, get_mvv=True)
-        frame1.trans_rot_trans(v1, mat, v2)
+        frame1._trans_rot_trans(v1, mat, v2)
         assert frame1.rmsd(frame1new) < 1E-3
 
     def test_1(self):
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        trajnew = mdio.iterload(
+        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        trajnew = pt.iterload(
             "./data/md1_prod.fit_to_first.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
         assert frame0[0, 2] == frame0.atom(0)[2]
-        assert_almost_equal(frame0[0, :], frame0.atom(0))
+        aa_eq(frame0[0, :], frame0.atom(0))
 
 
 if __name__ == "__main__":

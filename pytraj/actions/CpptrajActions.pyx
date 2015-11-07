@@ -157,7 +157,7 @@ cdef class Action:
             frame = <Frame> current_frame
             # make sure to update frame mass
             if update_mass:
-                frame.set_frame_mass(self.top)
+                frame.set_mass(self.top)
             actframe_ = _ActionFrame(frame.thisptr)
             self.baseptr.DoAction(idx, actframe_)
             self.n_frames += 1

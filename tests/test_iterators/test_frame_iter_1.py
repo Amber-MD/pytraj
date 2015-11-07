@@ -1,12 +1,11 @@
 import unittest
-from pytraj.base import *
-from pytraj import io as mdio
+import pytraj as pt
 from pytraj.utils.check_and_assert import assert_almost_equal
 
 
-class Test(unittest.TestCase):
-    def test_0(self):
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+class TestIterator(unittest.TestCase):
+    def test_frame_iterator(self):
+        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         frame = traj[0]
 
@@ -17,10 +16,10 @@ class Test(unittest.TestCase):
         for i in range(frame.n_atoms):
             assert (frame[i, 0]) == 0.0
 
-        for f0 in frame.frame_iter():
+        for f0 in pt.iterframe(frame):
             pass
 
-        for f0 in frame.frame_iter():
+        for f0 in pt.iterframe(frame):
             pass
 
         for frame in traj.iterframe():
