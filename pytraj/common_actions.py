@@ -1904,22 +1904,6 @@ def principal_axes(traj=None, mask='*', dorotation=False, mass=True, top=None):
     return (dslist[0].values, dslist[1].values)
 
 
-@_register_openmp
-@_super_dispatch()
-def atomiccorr(traj=None, mask="", top=None, dtype='ndarray', *args, **kwd):
-    """
-    """
-    command = mask
-
-    dslist = CpptrajDatasetList()
-    act = CpptrajActions.Action_AtomicCorr()
-    act("out mytempfile.out " + command, traj,
-        top=top,
-        dslist=dslist, *args, **kwd)
-    act.post_process()
-    return _get_data_from_dtype(dslist, dtype=dtype)
-
-
 def _closest_iter(act, traj):
     '''
     Parameters
@@ -2532,14 +2516,17 @@ def _projection(traj, mask, modes, scalar_type,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def calc_atomiccorr(traj, mask,
+@_super_dispatch()
+@_register_openmp
+def calc_atomiccorr(traj,
+                    mask='',
                     cut=None,
                     min_spacing=None,
                     byres=True,
                     frame_indices=None,
                     dtype='ndarray',
                     top=None):
-    '''Calculate average correlations between the motion of atoms in mask. Doc is adapted from cpptraj doc.
+    '''Calculate average correlations between the motion of atoms in mask.
 
     Parameters
     ----------
@@ -2553,9 +2540,6 @@ def calc_atomiccorr(traj, mask,
         if False, compute atomic motion vetor
         if True, Calculate motion vectors for entire residues (selected atoms in residues only).
     '''
-    fi = _get_fiterator(traj, frame_indices)
-    _top = _get_topology(traj, top)
-
     _mask = 'out tmp.dat ' + mask
     _cut = 'cut ' + str(cut) if cut is not None else ''
     _min_spacing = 'min ' + str(min_spacing) if min_spacing is not None else ''
@@ -2566,7 +2550,7 @@ def calc_atomiccorr(traj, mask,
     dslist = CpptrajDatasetList()
 
     with goto_temp_folder():
-        act(command, fi, top=_top, dslist=dslist)
+        act(command, traj, top=top, dslist=dslist)
         # need to post_process for this Action
         act.post_process()
 
