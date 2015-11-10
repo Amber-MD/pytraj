@@ -95,8 +95,8 @@ def assert_equal_topology(top, new_top, traj):
             ] == [atom.name for atom in new_top.atoms], 'equal resnames'
 
     for res, res_new in zip(top.residues, new_top.residues):
-        assert res.first_atom_idx == res_new.first_atom_idx, 'first atom'
-        assert res.last_atom_idx == res_new.last_atom_idx, 'last atom'
+        assert res.first_atom_index == res_new.first_atom_index, 'first atom'
+        assert res.last_atom_index == res_new.last_atom_index, 'last atom'
 
 
 def get_fn(txt):
