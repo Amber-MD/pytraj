@@ -235,6 +235,9 @@ cdef class ActionList:
 
         if not self.top_is_processed:
             self.process(self.top)
+            # make sure to make top_is_processed True after processing
+            # if not, pytraj will try to setup for every Frame
+            self.top_is_processed = True
 
         if isinstance(traj, Frame):
             frame = <Frame> traj
