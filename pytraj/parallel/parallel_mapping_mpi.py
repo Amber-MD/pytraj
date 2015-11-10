@@ -1,3 +1,4 @@
+import numpy as np
 from pytraj.utils import split_range
 from pytraj.tools import concat_dict
 
@@ -50,9 +51,15 @@ def pmap_mpi(func, traj, *args, **kwd):
         # for rank-th chunk
         if 'dtype' not in kwd:
             kwd['dtype'] = 'dict'
-        start, stop = split_range(n_cores, 0, traj.n_frames)[rank]
-        fa_chunk = traj(start=start, stop=stop)
-        data = func(fa_chunk, *args, **kwd)
+
+        frame_indices = kwd.pop('frame_indices', None)
+        if frame_indices is None:
+            start, stop = split_range(n_cores, 0, traj.n_frames)[rank]
+            my_iter = traj.iterframe(start=start, stop=stop)
+        else:
+            my_indices = np.array_split(frame_indices, n_cores)[rank]
+            my_iter = traj.iterframe(frame_indices=my_indices)
+        data = func(my_iter, *args, **kwd)
         total = comm.gather(data, root=0)
         if rank == 0:
             total = concat_dict(x for x in total)

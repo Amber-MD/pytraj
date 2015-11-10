@@ -37,45 +37,48 @@ def _get_topology(traj, top):
 
 
 def _get_data_from_dtype(d0, dtype='dataset'):
-    from pytraj.datasets import Dataset
     from pytraj.datasetlist import DatasetList as DSL
 
     if dtype is None or dtype == 'dataset':
         if hasattr(d0, 'set__own_memory'):
             d0.set__own_memory(False)
-        elif hasattr(d0, '_own_memory'):
-            d0._own_memory = False
-    if dtype is None:
+
+    dtype = dtype.lower()
+    if dtype == 'dataset':
         return DSL(d0)
-    elif not isinstance(dtype, string_types):
-        raise ValueError("dtype must a None or a string")
-    else:
-        dtype = dtype.lower()
-        if dtype == 'dataset':
-            if isinstance(d0, Dataset):
-                return d0
-            else:
-                return DSL(d0)
-        elif dtype == 'ndarray':
-            return d0.to_ndarray()
-        elif dtype == 'dict':
-            return d0.to_dict()
-        elif dtype == 'dataframe':
-            if hasattr(d0, 'key'):
-                d0.key = d0.key.replace(':', '_')
-                d0.key = d0.key.replace('-', '_')
-            else:
-                for _d in d0:
-                    _d.key = _d.key.replace(':', '_')
-                    _d.key = _d.key.replace('-', '_')
-            return d0.to_dataframe()
-        elif dtype == 'cpptraj_dataset':
-            return d0
+    elif dtype == 'ndarray':
+        return d0.to_ndarray()
+    elif dtype == 'dict':
+        return d0.to_dict()
+    elif dtype == 'dataframe':
+        if hasattr(d0, 'key'):
+            d0.key = d0.key.replace(':', '_')
+            d0.key = d0.key.replace('-', '_')
         else:
-            raise NotImplementedError()
+            for _d in d0:
+                _d.key = _d.key.replace(':', '_')
+                _d.key = _d.key.replace('-', '_')
+        return d0.to_dataframe()
+    elif dtype == 'cpptraj_dataset':
+        return d0
+    else:
+        raise NotImplementedError()
 
 
 def _get_list_of_commands(mask_or_commands):
+    '''
+
+    Examples
+    --------
+    >>> _get_list_of_commands('@CA')
+    ['@CA']
+    >>> _get_list_of_commands(('@CA'))
+    ['@CA']
+    >>> _get_list_of_commands(100)
+    Traceback (most recent call last):
+        ...
+    ValueError: must be string or list/tuple of strings
+    '''
     if isinstance(mask_or_commands, string_types):
         return [mask_or_commands, ]
     elif isinstance(mask_or_commands, (list, tuple)):
