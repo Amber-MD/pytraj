@@ -17,6 +17,10 @@ class TestExtraCoverage(unittest.TestCase):
         pt.show_versions()
         pt._verbose()
         pt._verbose(False)
+
+        # info
+        pt.info()
+
         try:
             pt.to_mdtraj(traj)
         except ImportError:
