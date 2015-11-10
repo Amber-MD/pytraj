@@ -19,6 +19,7 @@ cdef extern from "DataSet_Coords_TRJ.h" nogil:
         #const _Topology& Top() const 
         #const CoordinateInfo& CoordsInfo()
         #_Frame AllocateFrame()
+        _Topology* TopPtr()
 
 cdef class TrajectoryCpptraj:
     cdef Topology _top
