@@ -280,6 +280,8 @@ cython_directives = {
         'embedsignature': True,
         'boundscheck': False,
         'wraparound': False,
+        'profile': True,
+        'linetrace': True,
     }
 
 cythonize(

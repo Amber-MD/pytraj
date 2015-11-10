@@ -16,7 +16,6 @@ from pytraj.externals.six import PY2, PY3, string_types
 from pytraj.externals.six.moves import range
 from pytraj.utils.check_and_assert import is_int
 from pytraj.cpptraj_dict import ParmFormatDict
-from pytraj.core.fake_residue import SimplifiedResidue
 from pytraj.utils.convert import array_to_cpptraj_atommask
 
 PY2 = sys.version_info[0] == 2
@@ -28,6 +27,29 @@ else:
     string_types = basestring
 
 __all__ = ['Topology', 'ParmFile']
+
+cdef class SimplifiedResidue:
+    cdef public int residue, index, chain, first_atom_index, last_atom_index, resid
+    cdef public object resname, name
+
+    '''SimplifiedResidue, only has info about name, index, start and end atom index
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> top = pt.datafiles.load_tz2_ortho().top
+    >>> for atom in top.atoms:
+    ...     print(atom.name, atom.residue.name, atom.residue.index)
+
+    '''
+    def __cinit__(self, resname, int resid, int start, int end):
+        self.resname = resname
+        self.name = self.resname
+        self.resid = resid
+        self.index = self.resid
+        self.chain = 1
+        self.first_atom_index = start
+        self.last_atom_index = end
 
 cdef class Topology:
     def __cinit__(self, *args):
@@ -227,7 +249,7 @@ cdef class Topology:
             atom.thisptr = &(self.thisptr.GetAtomView(idx))
             atom.own_memory = False
             atom.index = idx
-            atom.residue = self._residue_light(atom.resnum)
+            #atom.residue = self._residue_light(atom.resnum)
             yield atom
 
     def select(self, mask):
@@ -731,7 +753,7 @@ cdef class Topology:
         res.thisptr[0] = self.thisptr.Res(idx)
         start, end = res.first_atom_index, res.last_atom_index
         alist = () if not atom else self.atomlist[start:end]
-        return SimplifiedResidue(res.name, res.original_resnum, alist, start, end)
+        return SimplifiedResidue(res.name, res.original_resnum, start, end)
 
     def _atom(self, int idx):
         '''return Atom based on idx. Update this Atom will update Topology too
@@ -748,7 +770,7 @@ cdef class Topology:
         cdef Residue res = Residue()
         res.thisptr[0] = self.thisptr.Res(idx)
         start, end = res.first_atom_index, res.last_atom_index
-        return SimplifiedResidue(res.name, res.original_resnum, [], start, end)
+        return SimplifiedResidue(res.name, res.original_resnum, start, end)
 
 
 cdef class ParmFile:
