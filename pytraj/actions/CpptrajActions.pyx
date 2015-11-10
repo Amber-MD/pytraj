@@ -137,7 +137,7 @@ cdef class Action:
             return status
 
     @makesureABC("Action")
-    def do_action(self, current_frame=None, update_mass=True, int idx=0, get_new_frame=False):
+    def do_action(self, current_frame=None, mass=True, int idx=0, get_new_frame=False):
         """
         Perform action on Frame. 
         Parameters:
@@ -156,7 +156,10 @@ cdef class Action:
         if isinstance(current_frame, Frame):
             frame = <Frame> current_frame
             # make sure to update frame mass
-            if update_mass:
+            # only set mass for Frame that is used as a pointer
+            # else: do not need to set mass (eg. Frame produced by TrajectoryIterator
+            # since it's already set mass
+            if mass and frame._as_view:
                 frame.set_mass(self.top)
             actframe_ = _ActionFrame(frame.thisptr)
             self.baseptr.DoAction(idx, actframe_)
@@ -168,7 +171,7 @@ cdef class Action:
                 return new_frame
         else:
             for frame in iterframe_master(current_frame):
-                self.do_action(frame, update_mass=update_mass, idx=idx)
+                self.do_action(frame, mass=mass, idx=idx)
 
     @makesureABC("Action")
     def post_process(self):
@@ -189,7 +192,7 @@ cdef class Action:
                   top=Topology(),
                   dslist=DatasetList(), 
                   dflist=DataFileList(), 
-                  update_mass=True,
+                  mass=True,
                   int debug=0):
         """
         TODO : (do we need this method?)
@@ -203,7 +206,7 @@ cdef class Action:
                         dflist=dflist, debug=debug)
 
         self.process(top=top)
-        self.do_action(current_frame, update_mass=update_mass)
+        self.do_action(current_frame, mass=mass)
         return dslist
 
     def reset_counter(self):

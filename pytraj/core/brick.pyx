@@ -15,17 +15,22 @@ cdef class Atom:
     >>> # name, type, charge, mass
     >>> H = Atom('H', 'H', '0.0', '1.0', resnum=0)
     '''
-    def __cinit__(self, name='', type='', float charge=0., float mass=0., int resnum=0):
+    def __cinit__(self, **kwd):
         cdef NameType aname, atype
 
         # atom name, atom type, charge, mass
-        aname = NameType(name)
-        atype = NameType(type)
-        charge = charge
-        mass = mass
-        self.thisptr = new _Atom(aname.thisptr[0], charge, mass, atype.thisptr[0])
-        self.resnum = resnum
-        self._index = 0
+        if kwd:
+            aname = NameType(kwd.get('name', ''))
+            atype = NameType(kwd.get('type', ''))
+            charge = kwd.get('charge', 0.)
+            mass = kwd.get('mass', 0.0)
+            self.thisptr = new _Atom(aname.thisptr[0], charge, mass, atype.thisptr[0])
+            self.resnum = kwd.get('resnum', 0)
+            self._index = 0
+        else:
+            self.thisptr = new _Atom()
+            self._index = 0
+
         self.own_memory = True
 
     def __dealloc__(self):
