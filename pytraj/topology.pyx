@@ -195,7 +195,7 @@ cdef class Topology:
         elif isinstance(idx, (list, tuple, range)) or is_array(idx):
             mask = array_to_cpptraj_atommask(idx)
         elif isinstance(idx, Residue):
-            mask = array_to_cpptraj_atommask(range(idx.first_atom_idx, idx.last_atom_idx))
+            mask = array_to_cpptraj_atommask(range(idx.first_atom_index, idx.last_atom_index))
             return self._get_new_from_mask(mask)
         elif isinstance(idx, Molecule):
             mol = idx
@@ -729,7 +729,7 @@ cdef class Topology:
         '''
         cdef Residue res = Residue()
         res.thisptr[0] = self.thisptr.Res(idx)
-        start, end = res.first_atom_idx, res.last_atom_idx
+        start, end = res.first_atom_index, res.last_atom_index
         alist = () if not atom else self.atomlist[start:end]
         return SimplifiedResidue(res.name, res.original_resnum, alist, start, end)
 
@@ -747,7 +747,7 @@ cdef class Topology:
         '''
         cdef Residue res = Residue()
         res.thisptr[0] = self.thisptr.Res(idx)
-        start, end = res.first_atom_idx, res.last_atom_idx
+        start, end = res.first_atom_index, res.last_atom_index
         return SimplifiedResidue(res.name, res.original_resnum, [], start, end)
 
 

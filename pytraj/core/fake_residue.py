@@ -17,5 +17,5 @@ class SimplifiedResidue(object):
         self.index = self.resid
         self.atoms = atoms
         self.chain = 1
-        self.first_atom_idx = start
-        self.last_atom_idx = end
+        self.first_atom_index = start
+        self.last_atom_index = end

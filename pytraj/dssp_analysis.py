@@ -171,7 +171,7 @@ def _get_ss_per_frame(arr, top, res_indices,
         if idx in res_indices:
             ss = arr[res_indices.index(idx)]
             if all_atoms:
-                yield [ss for _ in range(res.first_atom_idx, res.last_atom_idx)
+                yield [ss for _ in range(res.first_atom_index, res.last_atom_index)
                        ]
             else:
                 # only residues
@@ -179,7 +179,7 @@ def _get_ss_per_frame(arr, top, res_indices,
         else:
             if all_atoms:
                 yield [symbol
-                       for _ in range(res.first_atom_idx, res.last_atom_idx)]
+                       for _ in range(res.first_atom_index, res.last_atom_index)]
             else:
                 yield [symbol, ]
 

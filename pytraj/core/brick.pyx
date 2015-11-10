@@ -180,23 +180,22 @@ cdef class Residue:
     def __repr__(self):
         return self.__str__()
 
-    def set_last_atom(self,int i):
+    def set_last_atom(self, int i):
         self.thisptr.SetLastAtom(i)
 
-    def set_original_num(self, int i):
-        self.thisptr.SetOriginalNum(i)
-
     @property
-    def first_atom_idx(self):
+    def first_atom_index(self):
         return self.thisptr.FirstAtom()
 
     @property
-    def last_atom_idx(self):
+    def last_atom_index(self):
         return self.thisptr.LastAtom()
 
-    @property
-    def original_resnum(self):
-        return self.thisptr.OriginalResNum()
+    property original_resnum:
+        def __get__(self):
+            return self.thisptr.OriginalResNum()
+        def __set__(self, int i):
+            self.thisptr.SetOriginalNum(i)
 
     @property
     def index(self):
