@@ -2,9 +2,8 @@ from __future__ import absolute_import
 import os
 from ..trajectory_iterator import TrajectoryIterator
 
-__all__ = ['load_sample_data', 'load_rna', 'load_tz2_ortho', 'load_ala3',
-           'load_dpdp',
-           'load_trpcage']
+__all__ = ['load_sample_data', 'load_rna', 'load_tz2_ortho', 'load_tz2', 
+           'load_ala3', 'load_dpdp', 'load_trpcage']
 
 
 def load_sample_data(data_name=None):
@@ -23,6 +22,7 @@ def load_sample_data(data_name=None):
     data_dict = {
         'ala3': ["Ala3/Ala3.crd", "Ala3/Ala3.top"],
         'tz2': ["tz2/tz2.ortho.nc", "tz2/tz2.ortho.parm7"],
+        'tz2_dry': ["tz2/tz2.nc", "tz2/tz2.parm7"],
         'rna': ["rna.pdb", "rna.pdb"],
         'trpcage': ["trpcage/trpcage.pdb.gz", "trpcage/trpcage.pdb.gz"],
         'dpdp': ["dpdp/DPDP.nc", "dpdp/DPDP.parm7"]
@@ -62,6 +62,8 @@ def load_trpcage():
 def load_tz2_ortho():
     return load_sample_data('tz2')
 
+def load_tz2():
+    return load_sample_data('tz2_dry')
 
 def load_ala3():
     return load_sample_data('ala3')
