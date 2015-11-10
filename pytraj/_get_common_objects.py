@@ -37,7 +37,6 @@ def _get_topology(traj, top):
 
 
 def _get_data_from_dtype(d0, dtype='dataset'):
-    from pytraj.datasets import Dataset
     from pytraj.datasetlist import DatasetList as DSL
 
     if dtype is None or dtype == 'dataset':
