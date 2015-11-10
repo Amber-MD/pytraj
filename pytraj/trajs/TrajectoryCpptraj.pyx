@@ -40,6 +40,8 @@ cdef class TrajectoryCpptraj:
     def __cinit__(self):
         self.thisptr = new _TrajectoryCpptraj()
         self._top = Topology()
+        # we use TopPtr here, self._top is a binding
+        self._top._own_memory = False
         self._filelist = []
         self._own_memory = True
 
@@ -134,7 +136,8 @@ cdef class TrajectoryCpptraj:
 
     property top:
         def __get__(self):
-            self._top.thisptr[0] = self.thisptr.Top()
+            #self._top.thisptr[0] = self.thisptr.Top()
+            self._top.thisptr = self.thisptr.TopPtr()
             return self._top
 
         def __set__(self, Topology other):
