@@ -47,6 +47,7 @@ class TestDoc(unittest.TestCase):
             if has_sander:
                 modules.append(get_pysander_energies)
             additional_list = [
+                pt.parallel.parallel_mapping_multiprocessing,
                 pt,
                 pt.io,
                 nucleic_acid_analysis,
@@ -61,7 +62,6 @@ class TestDoc(unittest.TestCase):
                 check_and_assert,
                 pt.hbond_analysis,
                 pt.tools,
-                pt.parallel.parallel_mapping_multiprocessing,
                 testing,
                 utils,
                 pt.matrix,

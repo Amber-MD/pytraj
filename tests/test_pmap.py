@@ -202,6 +202,19 @@ class TestLoadBathPmap(unittest.TestCase):
             ValueError,
             lambda: _load_batch_pmap(n_cores=4, lines=['autoimage'], traj=None, dtype='dict', root=0, mode='xyz', ref=None))
 
+class TestFrameIndices(unittest.TestCase):
+    def test_frame_indices(self):
+        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+
+        # frame_indices could be a list, range
+        frame_indices_list = [[0, 8, 9, 3, 2, 5], range(6)]
+
+        for frame_indices in frame_indices_list:
+            for n_cores in [2, 3]:
+                serial_out = pt.radgyr(traj, '@CA', frame_indices=frame_indices)
+                parallel_out = pt.pmap(pt.radgyr, traj, '@CA', frame_indices=frame_indices)
+                aa_eq(serial_out, pt.tools.dict_to_ndarray(parallel_out))
+
 
 if __name__ == "__main__":
     unittest.main()
