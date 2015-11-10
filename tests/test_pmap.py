@@ -213,7 +213,9 @@ class TestFrameIndices(unittest.TestCase):
             for n_cores in [2, 3]:
                 serial_out = pt.radgyr(traj, '@CA', frame_indices=frame_indices)
                 parallel_out = pt.pmap(pt.radgyr, traj, '@CA', frame_indices=frame_indices)
+                parallel_out_cpptraj_style = pt.pmap(['radgyr @CA nomax'], traj, frame_indices=frame_indices)
                 aa_eq(serial_out, pt.tools.dict_to_ndarray(parallel_out))
+                aa_eq(serial_out, pt.tools.dict_to_ndarray(parallel_out_cpptraj_style))
 
 
 if __name__ == "__main__":

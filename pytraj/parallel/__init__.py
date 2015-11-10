@@ -1,3 +1,4 @@
+import numpy as np
 from functools import partial
 from pytraj import Frame
 from pytraj import create_pipeline
@@ -9,11 +10,21 @@ def _worker_actlist(rank,
                     traj=None,
                     lines=[],
                     dtype='dict',
-                    ref=None):
+                    ref=None,
+                    kwd=None):
     # need to make a copy if lines since python's list is dangerous
     # it's easy to mess up with mutable list
     # do not use lines.copy() since this is not available in py2.7
-    my_iter = traj._split_iterators(n_cores, rank=rank)
+    if kwd is not None:
+        frame_indices = kwd.pop('frame_indices', None)
+    else:
+        frame_indices = None
+
+    if frame_indices is None:
+        my_iter = traj._split_iterators(n_cores, rank=rank)
+    else:
+        my_iter = traj.iterframe(frame_indices=np.array_split(frame_indices,
+            n_cores)[rank])
 
     if ref is not None:
         if isinstance(ref, Frame):
@@ -81,7 +92,8 @@ def _load_batch_pmap(n_cores=4,
                      dtype='dict',
                      root=0,
                      mode='multiprocessing',
-                     ref=None):
+                     ref=None,
+                     **kwd):
     '''mpi or multiprocessing
     '''
     if mode == 'multiprocessing':
@@ -93,7 +105,8 @@ def _load_batch_pmap(n_cores=4,
                          traj=traj,
                          dtype=dtype,
                          lines=lines,
-                         ref=ref)
+                         ref=ref,
+                         kwd=kwd)
         pool = Pool(n_cores)
         data = pool.map(pfuncs, range(n_cores))
         pool.close()
@@ -109,7 +122,8 @@ def _load_batch_pmap(n_cores=4,
                                      traj=traj,
                                      dtype=dtype,
                                      lines=lines,
-                                     ref=ref)
+                                     ref=ref,
+                                     kwd=kwd)
         # it's ok to use python level `gather` method since we only do this once
         # only gather data to root, other cores get None
         data = comm.gather(data_chunk, root=root)
