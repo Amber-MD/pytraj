@@ -28,13 +28,9 @@ def test_state():
 test_pytraj()
 test_state()
 
-# output (1000 frames, without printing data)
+# timing output (seconds) with 1000 frames.
 
 # pytraj (not bad)
 # 5.772035837173462
 # cpptraj
 # 4.838342905044556
-# 
-# real    0m20.512s
-# user    0m24.778s
-# sys     0m4.472s
