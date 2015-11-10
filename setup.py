@@ -285,11 +285,13 @@ cython_directives = {
         'embedsignature': True,
         'boundscheck': False,
         'wraparound': False,
-        'profile': True,
-        'linetrace': True,
-        'binding': True,
+        #'profile': True,
+        #'linetrace': True,
+        #'binding': True,
     }
-define_macros=[('CYTHON_TRACE', 1),]
+
+#define_macros=[('CYTHON_TRACE', 1),]
+define_macros=[]
 
 cythonize(
     [pfile + '.pyx' for pfile in pyxfiles],
