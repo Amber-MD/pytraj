@@ -249,6 +249,7 @@ cdef class Topology:
             atom.thisptr = &(self.thisptr.GetAtomView(idx))
             atom.own_memory = False
             atom.index = idx
+            # do not call python object here to avoid overhead
             #atom.residue = self._residue_light(atom.resnum)
             yield atom
 
