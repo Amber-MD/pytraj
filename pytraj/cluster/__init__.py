@@ -5,6 +5,7 @@ from pytraj.analyses import CpptrajAnalyses
 from pytraj.datasets.DatasetList import DatasetList as CpptrajDatasetList
 
 
+@_super_dispatch()
 def kmeans(traj=None,
            mask='*',
            n_clusters=10,
@@ -13,6 +14,7 @@ def kmeans(traj=None,
            maxit=100,
            metric='rms',
            top=None,
+           frame_indices=None,
            output_options=''):
     '''perform clustering and return cluster index for each frame
 
@@ -29,6 +31,21 @@ def kmeans(traj=None,
     top : Topology, optional, default: None
         only need to provide this Topology if ``traj`` does not have one
     output_options : cpptraj's option to save data to files.
+
+    Output options::
+
+          [out <cnumvtime>] [gracecolor] [summary <summaryfile>] [info <infofile>]
+          [summarysplit <splitfile>] [splitframe <comma-separated frame list>]
+          [clustersvtime <filename> cvtwindow <window size>]
+          [cpopvtime <file> [normpop | normframe]] [lifetime]
+          [sil <silhouette file prefix>]
+
+    Coordinate output options::
+
+          [ clusterout <trajfileprefix> [clusterfmt <trajformat>] ]
+          [ singlerepout <trajfilename> [singlerepfmt <trajformat>] ]
+          [ repout <repprefix> [repfmt <repfmt>] [repframe] ]
+          [ avgout <avgprefix> [avgfmt <avgfmt>] ]
 
     Returns
     -------
@@ -83,18 +100,7 @@ def _dbscan(traj=None,
         distance metric
     top : Topology, optional, default: None
         only need to provide this Topology if ``traj`` does not have one
-    output_options : option to save data to files. Not working yet.
-       Output options:
-             [out <cnumvtime>] [gracecolor] [summary <summaryfile>] [info <infofile>]
-             [summarysplit <splitfile>] [splitframe <comma-separated frame list>]
-             [clustersvtime <filename> cvtwindow <window size>]
-             [cpopvtime <file> [normpop | normframe]] [lifetime]
-             [sil <silhouette file prefix>]
-       Coordinate output options:
-             [ clusterout <trajfileprefix> [clusterfmt <trajformat>] ]
-             [ singlerepout <trajfilename> [singlerepfmt <trajformat>] ]
-             [ repout <repprefix> [repfmt <repfmt>] [repframe] ]
-             [ avgout <avgprefix> [avgfmt <avgfmt>] ]
+    output_options : option to save data to files.
 
 
     Returns
@@ -124,7 +130,6 @@ def _dbscan(traj=None,
     return _cluster(traj, command, top=_top, dtype='ndarray')
 
 
-@_super_dispatch()
 def _cluster(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     """clustering
 
@@ -145,17 +150,18 @@ def _cluster(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     # we will get a fresh one (or will get segfault)
     dslist = CpptrajDatasetList()
 
+    dname = '__pytraj_cluster'
     if traj is not None:
-        dslist.add_set("coords", "__pytraj_cluster")
+        dslist.add_set("coords", name=dname)
         #dslist[-1].top = _top
         dslist[0].top = _top
         for frame in traj:
             # dslist[-1].add_frame(frame)
             dslist[0].add_frame(frame)
-        command += " crdset __pytraj_cluster"
+        command += " crdset {0}".format(dname)
     else:
         pass
     ana(command, _top, dslist, *args, **kwd)
     # remove frames in dslist to save memory
-    dslist.remove_set(dslist['__pyraj_cluster'])
+    dslist.remove_set(dslist[dname])
     return _get_data_from_dtype(dslist, dtype=dtype)
