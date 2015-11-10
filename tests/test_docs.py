@@ -36,7 +36,6 @@ class TestDoc(unittest.TestCase):
         from pytraj.utils import check_and_assert
 
         modules = [
-            pt._get_common_objects,
             convert,
             frameiter,
             vector,
@@ -47,6 +46,7 @@ class TestDoc(unittest.TestCase):
             if has_sander:
                 modules.append(get_pysander_energies)
             additional_list = [
+                pt._get_common_objects,
                 pt.parallel.parallel_mapping_multiprocessing,
                 pt,
                 pt.io,
