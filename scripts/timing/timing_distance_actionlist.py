@@ -30,7 +30,7 @@ test_state()
 
 # timing output (seconds) with 1000 frames.
 
-# pytraj (not bad)
-# 5.772035837173462
+# pytraj
+# 4.944881916046143
 # cpptraj
-# 4.838342905044556
+# 4.855885982513428

@@ -215,8 +215,8 @@ for p in pxd_include_dirs:
                      if '.pyx' in ext])
 
 # check command line
-extra_compile_args = ['-O0', ]
-extra_link_args = ['-O0', ]
+extra_compile_args = ['-O0', '-ggdb']
+extra_link_args = ['-O0', '-ggdb']
 
 list_of_libcpptraj = glob(os.path.join(libdir, 'libcpptraj') + '*')
 if not list_of_libcpptraj:
@@ -276,11 +276,22 @@ except ValueError:
 check_cpptraj_version(cpptraj_include, (4, 2, 8))
 
 # pre-cythonize files in parallel
+# Note: only turn on below for debugging or profiling performance
+# - profile
+# - linetrace
+# - binding
+# define_macros
 cython_directives = {
         'embedsignature': True,
         'boundscheck': False,
         'wraparound': False,
+        #'profile': True,
+        #'linetrace': True,
+        #'binding': True,
     }
+
+#define_macros=[('CYTHON_TRACE', 1),]
+define_macros=[]
 
 cythonize(
     [pfile + '.pyx' for pfile in pyxfiles],
@@ -306,6 +317,7 @@ for ext_name in pyxfiles:
                        libraries=['cpptraj'],
                        language='c++',
                        library_dirs=[libdir, ],
+                       define_macros=define_macros,
                        include_dirs=[cpptraj_include, pytraj_home],
                        extra_compile_args=extra_compile_args,
                        extra_link_args=extra_link_args)

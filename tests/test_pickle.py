@@ -31,7 +31,7 @@ class TestBuildAndPickleTopology(unittest.TestCase):
                       zip(d['atom_name'], d['atom_type'], d['atom_charge'],
                           d['atom_mass'], d['resnum'], d['resname'],
                           d['mol_number'])):
-            atom = pt.core.Atom(aname, atype, charge, mass, resnum)
+            atom = pt.core.Atom(name=aname, type=atype, charge=charge, mass=mass, resnum=resnum)
             atom.set_mol(mol_number)
             residue = pt.core.Residue(resname, resnum)
             if idx == 0:

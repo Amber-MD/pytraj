@@ -576,7 +576,7 @@ cdef class Frame (object):
         
         for i in range(arr.shape[0]): 
             # just try to create dummy atom (name, type, charge, mass)
-            atom = Atom('X', 'X', 0.0, arr[i])
+            atom = Atom(name='X', type='X', charge=0.0, mass=arr[i])
             va.push_back(atom.thisptr[0])
         self.thisptr.SetMass(va)
 
