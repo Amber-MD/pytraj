@@ -20,14 +20,23 @@ def _worker(rank,
             kwd=None,
             iter_options={}):
     # need to unpack args and kwd
-    mask = iter_options.get('mask', None)
-    rmsfit = iter_options.get('rmsfit', None)
+    mask = iter_options.get('mask')
+    rmsfit = iter_options.get('rmsfit')
     autoimage = iter_options.get('autoimage', False)
-    my_iter = traj._split_iterators(n_cores,
-                                    rank=rank,
-                                    mask=mask,
-                                    rmsfit=rmsfit,
-                                    autoimage=autoimage)
+    frame_indices = kwd.pop('frame_indices', None)
+
+    if frame_indices is None:
+        my_iter = traj._split_iterators(n_cores,
+                                        rank=rank,
+                                        mask=mask,
+                                        rmsfit=rmsfit,
+                                        autoimage=autoimage)
+    else:
+        my_indices = np.array_split(frame_indices, n_cores)[rank]
+        my_iter = traj.iterframe(frame_indices=my_indices, 
+                                 mask=mask,
+                                 rmsfit=rmsfit,
+                                 autoimage=autoimage)
     data = func(my_iter, *args, **kwd)
     return (rank, data, my_iter.n_frames)
 
@@ -42,6 +51,11 @@ def _pmap(func, traj, *args, **kwd):
     n_cores : int, number of cores to be used, default 2. Specify n_cores=-1 to use all available cores
     iter_options : dict, default {}
         Specify trajectory iterating option. This will be done before calling ``func``.
+    frame_indices : {None, array-like}, default None, optional
+        if provided, pytraj will split this frame_indices into different chunks and let
+        cpptraj perform calculation for specific indices.
+        frame_indices must be pickable so is can be sent to different cores.
+
     *args, **kwd: additional keywords
 
     Returns
@@ -152,6 +166,19 @@ def _pmap(func, traj, *args, **kwd):
               0.39089036,   0.4891805 ],
            [ 11.71026542,  10.74126835,   8.77663285, ...,  10.9855368 ,
              11.36934506,  11.56239288]])
+
+    >>> # perform parallel calculation with given frame_indices
+    >>> traj = pt.datafiles.load_tz2()
+    >>> pt.pmap(pt.radgyr, traj, '@CA', frame_indices=range(10, 50), n_cores=4)
+    OrderedDict([('RoG_00000', array([ 6.90993314,  7.87518156,  8.57775535, ...,  9.29585981,
+            9.53138062,  9.19155977]))])
+    >>> # serial version
+    >>> pt.radgyr(traj, '@CA', frame_indices=range(10, 50))
+    array([ 6.90993314,  7.87518156,  8.57775535, ...,  9.29585981,
+            9.53138062,  9.19155977])
+
+
+
 
     See also
     --------
