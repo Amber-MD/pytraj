@@ -106,9 +106,8 @@ def nastruct(traj=None,
     # need to construct 3 steps so we can pickle this method for parallel
     # not sure why?
     act = Action_NAstruct(command, top=_top, dslist=dslist)
-    update_mass = True
-    act.do_action(ref, update_mass=update_mass)
-    act.do_action(fi, update_mass=update_mass)
+    act.do_action(ref)
+    act.do_action(fi)
 
     if dtype == 'cpptraj_dataset':
         return dslist

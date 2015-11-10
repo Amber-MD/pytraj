@@ -627,7 +627,7 @@ cdef class Topology:
         for idx, (aname, atype, charge, mass, resnum, resname, mol_number) in enumerate(zip(d['atom_name'],
                 d['atom_type'], d['atom_charge'], d['atom_mass'], d['resnum'],
                 d['resname'], d['mol_number'])):
-            atom = Atom(aname, atype, charge, mass, resnum)
+            atom = Atom(name=aname, type=atype, charge=charge, mass=mass, resnum=resnum)
             atom.set_mol(mol_number)
             residue = Residue(resname, resnum)
             if idx == 0:
