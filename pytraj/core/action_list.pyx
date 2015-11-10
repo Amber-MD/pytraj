@@ -235,6 +235,7 @@ cdef class ActionList:
 
         if not self.top_is_processed:
             self.process(self.top)
+            self.top_is_processed = True
 
         if isinstance(traj, Frame):
             frame = <Frame> traj

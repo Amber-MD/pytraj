@@ -191,6 +191,7 @@ def calc_distance(traj=None,
                 CpptrajActions.Action_Distance(), cm, _top,
                 dslist=dslist)
 
+        actlist.process(_top, n_frames_t=traj.n_frames)
         actlist.do_actions(traj)
         return _get_data_from_dtype(dslist, dtype)
 
