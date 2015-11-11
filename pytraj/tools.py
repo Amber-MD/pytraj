@@ -684,7 +684,7 @@ def make_fake_topology(n_atoms):
     top = Topology()
 
     for _ in range(n_atoms):
-        atom = Atom(name='X', type='X', charge=0., mass=0., resnum=0)
+        atom = Atom(name='X', type='X', charge=0., mass=0., resid=0)
         residue = Residue('Y', 0)
         top.add_atom(atom, residue)
     return top

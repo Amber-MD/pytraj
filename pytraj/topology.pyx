@@ -31,16 +31,16 @@ else:
 
 __all__ = ['Topology', 'ParmFile']
 
-class SimplifiedAtom(namedtuple('SimplifiedAtom', 'name type element charge mass index atomic_number resname resnum')):
+class SimplifiedAtom(namedtuple('SimplifiedAtom', 'name type element charge mass index atomic_number resname resid')):
     __slots__ = ()
     def __str__(self):
-        return 'SimplifiedAtom(name={}, type={}, element={}, atomic_number={}, index={}, resname={}, resnum={})'.format(self.name,
+        return 'SimplifiedAtom(name={}, type={}, element={}, atomic_number={}, index={}, resname={}, resid={})'.format(self.name,
                 self.type,
                 self.element,
                 self.atomic_number,
                 self.index,
                 self.resname,
-                self.resnum)
+                self.resid)
     def __repr__(self):
         return str(self)
 
@@ -200,7 +200,7 @@ cdef class Topology:
         Examples
         --------
         In [31]: top[0]
-        Out[31]: <N-atom, resnum=0, n_bonds=4>
+        Out[31]: <N-atom, resid=0, n_bonds=4>
         """
 
         cdef Atom atom 
@@ -267,7 +267,7 @@ cdef class Topology:
             atom.own_memory = False
             atom.index = idx
             # do not call python object here to avoid overhead
-            #atom.residue = self._residue_light(atom.resnum)
+            #atom.residue = self._residue_light(atom.resid)
             yield atom
 
     def select(self, mask):
@@ -301,6 +301,7 @@ cdef class Topology:
                 atom = Atom()
                 atom.thisptr[0] = deref(it)
                 atom.index = idx
+                atom.resname = self.thisptr.Res(atom.resid).c_str().strip()
                 yield atom
                 idx += 1
                 incr(it)
@@ -331,7 +332,7 @@ cdef class Topology:
                                         index=idx,
                                         atomic_number=atom.AtomicNumber(),
                                         resname=res.c_str().strip(),
-                                        resnum=res.OriginalResNum()-1))
+                                        resid=res.OriginalResNum()-1))
             idx += 1
             incr(ait)
 
@@ -697,12 +698,12 @@ cdef class Topology:
         # always start molnum at 0.
         MOLNUM = 0
 
-        for idx, (aname, atype, charge, mass, resnum, resname, mol_number) in enumerate(zip(d['atom_name'],
-                d['atom_type'], d['atom_charge'], d['atom_mass'], d['resnum'],
+        for idx, (aname, atype, charge, mass, resid, resname, mol_number) in enumerate(zip(d['atom_name'],
+                d['atom_type'], d['atom_charge'], d['atom_mass'], d['resid'],
                 d['resname'], d['mol_number'])):
-            atom = Atom(name=aname, type=atype, charge=charge, mass=mass, resnum=resnum)
+            atom = Atom(name=aname, type=atype, charge=charge, mass=mass, resid=resid)
             atom.set_mol(mol_number)
-            residue = Residue(resname, resnum)
+            residue = Residue(resname, resid)
             if idx == 0:
                 self.start_new_mol()
             if mol_number > MOLNUM:
@@ -734,7 +735,7 @@ cdef class Topology:
         d = {}
 
         short_resnamelist = np.asarray([res.name for res in self.residues])
-        resnums = []
+        resids = []
 
         atomnames = []
         atomtypes = []
@@ -743,19 +744,19 @@ cdef class Topology:
         resnames = []
 
         for idx, atom in enumerate(self.atoms):
-            resnums.append(atom.resnum)
+            resids.append(atom.resid)
             atomnames.append(atom.name)
             atomtypes.append(atom.type.truncated_name)
             atomcharges.append(atom.charge)
             molnums.append(atom.molnum)
-            resnames.append(short_resnamelist[atom.resnum])
+            resnames.append(short_resnamelist[atom.resid])
 
         d['atom_name'] = atomnames
         d['atom_type'] = atomtypes
         d['atom_charge'] = atomcharges
         d['atom_mass'] = self.mass
         d['resname'] = resnames
-        d['resnum'] = resnums
+        d['resid'] = resids
         d['bond_index'] = self.bond_indices
         d['dihedral_index'] = self.dihedral_indices
         d['mol_number'] = molnums
@@ -772,21 +773,21 @@ cdef class Topology:
             Atom atom
 
         if pd:
-            labels = ['resnum', 'resname', 'atomname', 'atomic_number', 'mass']
+            labels = ['resid', 'resname', 'atomname', 'atomic_number', 'mass']
             mass_arr = np.array(self.mass)
-            resnum_arr = np.empty(n_atoms, dtype='i')
+            resid_arr = np.empty(n_atoms, dtype='i')
             resname_arr = np.empty(n_atoms, dtype='U4')
             atomname_arr= np.empty(n_atoms, 'U4')
             atomicnumber_arr = np.empty(n_atoms, dtype='i4')
 
             for idx, atom in enumerate(self.atoms):
                 # TODO: make faster?
-                resnum_arr[idx] = atom.resnum
-                resname_arr[idx] = self.residuelist[atom.resnum].name
+                resid_arr[idx] = atom.resid
+                resname_arr[idx] = self.residuelist[atom.resid].name
                 atomname_arr[idx] = atom.name
                 atomicnumber_arr[idx] = atom.atomic_number
 
-            arr = np.vstack((resnum_arr, resname_arr, atomname_arr, 
+            arr = np.vstack((resid_arr, resname_arr, atomname_arr, 
                              atomicnumber_arr, mass_arr)).T
             return pd.DataFrame(arr, columns=labels)
         else:
