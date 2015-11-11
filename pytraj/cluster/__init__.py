@@ -1,7 +1,11 @@
 from __future__ import absolute_import
 from pytraj._get_common_objects import _get_topology, _get_data_from_dtype
+from pytraj._get_common_objects import _super_dispatch
+from pytraj.analyses import CpptrajAnalyses
+from pytraj.datasets.DatasetList import DatasetList as CpptrajDatasetList
 
 
+@_super_dispatch()
 def kmeans(traj=None,
            mask='*',
            n_clusters=10,
@@ -10,6 +14,7 @@ def kmeans(traj=None,
            maxit=100,
            metric='rms',
            top=None,
+           frame_indices=None,
            output_options=''):
     '''perform clustering and return cluster index for each frame
 
@@ -25,7 +30,22 @@ def kmeans(traj=None,
         distance metric
     top : Topology, optional, default: None
         only need to provide this Topology if ``traj`` does not have one
-    output_options : option to save data to files. Not working yet.
+    output_options : cpptraj's option to save data to files.
+
+    Output options::
+
+          [out <cnumvtime>] [gracecolor] [summary <summaryfile>] [info <infofile>]
+          [summarysplit <splitfile>] [splitframe <comma-separated frame list>]
+          [clustersvtime <filename> cvtwindow <window size>]
+          [cpopvtime <file> [normpop | normframe]] [lifetime]
+          [sil <silhouette file prefix>]
+
+    Coordinate output options::
+
+          [ clusterout <trajfileprefix> [clusterfmt <trajformat>] ]
+          [ singlerepout <trajfilename> [singlerepfmt <trajformat>] ]
+          [ repout <repprefix> [repfmt <repfmt>] [repframe] ]
+          [ avgout <avgprefix> [avgfmt <avgfmt>] ]
 
     Returns
     -------
@@ -80,7 +100,8 @@ def _dbscan(traj=None,
         distance metric
     top : Topology, optional, default: None
         only need to provide this Topology if ``traj`` does not have one
-    output_options : option to save data to files. Not working yet.
+    output_options : option to save data to files.
+
 
     Returns
     -------
@@ -110,46 +131,37 @@ def _dbscan(traj=None,
 
 
 def _cluster(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
-    """
+    """clustering
+
     Parameters
-    ---------
-    traj : Trajectory-like | list of Trajectory-like | frame or chunk iterator
+    ----------
+    traj : Trajectory-like or any iterable that produces Frame
     command : cpptraj command
     top : Topology, optional
-    dslist : CpptrajDatasetList, optional
-    dflist : DataFileList, optional
+    *args, **kwd: optional arguments
 
-    Notes:
+    Notes
+    -----
     Supported algorithms: kmeans, hieragglo, and dbscan.
-
-    Examples
-    --------
-        do_clustering(traj, "kmeans clusters 50 @CA")
-
-    Returns
-    -------
-    CpptrajDatasetList object
-
     """
-    from pytraj.analyses.CpptrajAnalyses import Analysis_Clustering
-    from pytraj.datasets.DatasetList import DatasetList as CpptrajDatasetList
     _top = _get_topology(traj, top)
-    ana = Analysis_Clustering()
+    ana = CpptrajAnalyses.Analysis_Clustering()
     # need to creat `dslist` here so that every time `do_clustering` is called,
     # we will get a fresh one (or will get segfault)
     dslist = CpptrajDatasetList()
 
+    dname = '__pytraj_cluster'
     if traj is not None:
-        dslist.add_set("coords", "__pytraj_cluster")
+        dslist.add_set("coords", name=dname)
         #dslist[-1].top = _top
         dslist[0].top = _top
         for frame in traj:
             # dslist[-1].add_frame(frame)
             dslist[0].add_frame(frame)
-        command += " crdset __pytraj_cluster"
+        command += " crdset {0}".format(dname)
     else:
         pass
     ana(command, _top, dslist, *args, **kwd)
     # remove frames in dslist to save memory
-    dslist.remove_set(dslist['__pytraj_cluster'])
+    dslist.remove_set(dslist[dname])
     return _get_data_from_dtype(dslist, dtype=dtype)

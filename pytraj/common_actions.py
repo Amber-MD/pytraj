@@ -1540,13 +1540,8 @@ def calc_pairwise_rmsd(traj=None,
 
     Notes
     -----
-    This calculation is memory consumming. It's better to use out-of-core ``pytraj.TrajectoryIterator``
-
-    It's better to use ``pytraj.pairwise_rmsd(traj(mask='@CA'))`` than ``pytraj.pairwise_rmsd(traj, mask='@CA')``
-
-    Install ``libcpptraj`` with ``openmp`` to get benifit from parallel
+    Install ``libcpptraj`` with ``openmp`` to get benefit from parallel
     """
-
     # we copy Frame coordinates to DatasetCoordsCRD first
 
     if not isinstance(mask, string_types):
