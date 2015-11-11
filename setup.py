@@ -53,6 +53,13 @@ try:
 except ValueError:
     disable_openmp = False
 
+try:
+    sys.argv.remove('--debug')
+    # for profiling, optimizing code
+    debug = True
+except ValueError:
+    debug = False
+
 def read(fname):
     # must be in this setup file
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
@@ -285,13 +292,16 @@ cython_directives = {
         'embedsignature': True,
         'boundscheck': False,
         'wraparound': False,
-        #'profile': True,
-        #'linetrace': True,
-        #'binding': True,
     }
 
-#define_macros=[('CYTHON_TRACE', 1),]
-define_macros=[]
+if debug:
+    cython_directives.update({
+        'profile': True,
+        'linetrace': True,
+        'binding': True})
+    define_macros=[('CYTHON_TRACE', 1),]
+else:
+    define_macros=[]
 
 cythonize(
     [pfile + '.pyx' for pfile in pyxfiles],

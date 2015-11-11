@@ -18,10 +18,14 @@ chinu = {
 
 template = '''
 from .decorators import _register_pmap
+from ._get_common_objects import _super_dispatch
+
 @_register_pmap
+@_super_dispatch()
 def calc_%s(traj=None, resrange="", 
             range360=False,
-            top=None, dtype='dataset', *args, **kwd):
+            top=None, dtype='dataset',
+            frame_indices=None):
     """
     Parameters
     ----------
@@ -33,7 +37,8 @@ def calc_%s(traj=None, resrange="",
     range360 : bool, default False
         use -180/180 or 0/360
     top : {str, Topology}, optional, default None
-    *args, **kwd: more arguments
+    frame_indices : {None, 1D array-like}, default None
+        if not None, only compute for given indices
 
     Examples
     --------
@@ -52,7 +57,6 @@ def calc_%s(traj=None, resrange="",
     >>> from pytraj.testing import aa_eq
     >>> for key in phi0.keys():
     >>>     aa_eq(phi0[key], phi1[key])
-    >>> print ("OK")
 
     See Also
     --------
@@ -60,7 +64,7 @@ def calc_%s(traj=None, resrange="",
 
     from .datasets.DatasetList import DatasetList
     from .actions.CpptrajActions import Action_MultiDihedral
-    from ._get_common_objects import _get_topology, _get_data_from_dtype
+    from ._get_common_objects import _get_data_from_dtype
     from .compat import string_types
     from .utils import is_int
 
@@ -81,15 +85,13 @@ def calc_%s(traj=None, resrange="",
     else:
         _resrange = ""
 
-    _top = _get_topology(traj, top)
     dslist = DatasetList()
     template_command = '%s '
     template_command = " ".join((template_command, _resrange, _range360))
 
     act = Action_MultiDihedral()
-    act(template_command, traj, top=_top, dslist=dslist, *args, **kwd)
-    # need to call `post_process` so cpptraj can normalize some data
-    # check cpptraj's code
+    # we dont need to set mass here
+    act(template_command, traj, top=top, dslist=dslist, mass=False)
     act.post_process()
     return _get_data_from_dtype(dslist, dtype=dtype)
 '''

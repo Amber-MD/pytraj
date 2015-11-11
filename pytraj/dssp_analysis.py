@@ -1,13 +1,13 @@
 from __future__ import absolute_import
 import numpy as np
-from ._get_common_objects import _get_data_from_dtype, _get_topology, _get_fiterator
-from .utils.convert import array_to_cpptraj_atommask as to_cpptraj_mask
-from pytraj.compat import string_types, PY3
+from ._get_common_objects import _get_data_from_dtype, _super_dispatch, _get_topology
+from pytraj.compat import PY3
 from pytraj import DatasetList, tools
 from .decorators import _register_openmp
 
 
 @_register_openmp
+@_super_dispatch()
 def calc_dssp(traj=None,
               mask="",
               frame_indices=None,
@@ -93,16 +93,11 @@ def calc_dssp(traj=None,
     from pytraj.datasets.DatasetList import DatasetList as CpptrajDatasetList
     from pytraj.actions.CpptrajActions import Action_DSSP
 
-    if not isinstance(mask, string_types):
-        mask = to_cpptraj_mask(mask)
-
     command = mask
 
-    _top = _get_topology(traj, top)
-    fi = _get_fiterator(traj, frame_indices)
     dslist = CpptrajDatasetList()
 
-    Action_DSSP()(command, fi, top=_top, dslist=dslist)
+    Action_DSSP()(command, traj, top=top, dslist=dslist, mass=False)
 
     # replace key to something nicer
     for key, dset in dslist.iteritems():
