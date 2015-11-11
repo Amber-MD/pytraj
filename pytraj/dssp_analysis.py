@@ -1,8 +1,7 @@
 from __future__ import absolute_import
 import numpy as np
 from ._get_common_objects import _get_data_from_dtype, _super_dispatch, _get_topology
-from .utils.convert import array_to_cpptraj_atommask as to_cpptraj_mask
-from pytraj.compat import string_types, PY3
+from pytraj.compat import PY3
 from pytraj import DatasetList, tools
 from .decorators import _register_openmp
 
