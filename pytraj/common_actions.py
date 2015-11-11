@@ -1246,13 +1246,15 @@ def do_clustering(traj=None,
 
 
 @_register_pmap
+@_super_dispatch()
 def calc_multidihedral(traj=None,
                        dhtypes=None,
                        resrange=None,
                        define_new_type=None,
                        range360=False,
                        dtype='dataset',
-                       top=None, *args, **kwd):
+                       top=None,
+                       frame_indices=None):
     """perform dihedral search
 
     Parameters
@@ -1322,10 +1324,9 @@ def calc_multidihedral(traj=None,
 
     _command = " ".join((d_types, _resrange, dh_types, _range360))
 
-    _top = _get_topology(traj, top)
     dslist = CpptrajDatasetList()
-    act = adict['multidihedral']
-    act(_command, traj, _top, dslist=dslist, *args, **kwd)
+    act = CpptrajActions.Action_MultiDihedral()
+    act(_command, traj, top, dslist=dslist, mass=False)
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
