@@ -46,6 +46,7 @@ class TestDoc(unittest.TestCase):
             if has_sander:
                 modules.append(get_pysander_energies)
             additional_list = [
+                pt.topology,
                 pt._get_common_objects,
                 pt.parallel.parallel_mapping_multiprocessing,
                 pt,

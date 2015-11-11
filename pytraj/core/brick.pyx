@@ -13,7 +13,7 @@ cdef class Atom:
     --------
     >>> from pytraj.core import Atom
     >>> # name, type, charge, mass
-    >>> H = Atom('H', 'H', '0.0', '1.0', resnum=0)
+    >>> H = Atom(name='H', type='H', charge='0.0', mass='1.0', resnum=0)
     '''
     def __cinit__(self, **kwd):
         cdef NameType aname, atype
@@ -84,18 +84,21 @@ cdef class Atom:
     
     def __str__(self):
         if self.atomic_number > 0:
-            name = self.name
+            name = self.name.strip()
             if name != '':
-                name = name.split()[0]
-                txt = "<%s-atom, resnum=%s, n_bonds=%s>" % (name, self.resnum, self.n_bonds)
+                txt = 'Atom(name={}, type={}, atomic_number={}, index={}, resnum={})'.format(name,
+                       self.type,
+                       self.atomic_number,
+                       self.index,
+                       self.resnum)
             else:
-                txt = '<Empty Atom>'
+                txt = 'Atom()'
         else:
-            txt = '<Empty Atom>'
+            txt = 'Atom()'
         return txt
 
     def __repr__(self):
-        return self.__str__()
+        return str(self)
 
     @property
     def element(self):

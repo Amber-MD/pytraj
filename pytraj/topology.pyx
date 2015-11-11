@@ -9,6 +9,7 @@ from cpython.array cimport array as pyarray
 from cpython cimport array as pyarray_master
 from pytraj.cpp_options import set_world_silent # turn on and off cpptraj's stdout
 
+from collections import namedtuple
 import numpy as np
 from pytraj.utils.check_and_assert import is_int, is_array
 from pytraj.compat import set
@@ -28,28 +29,43 @@ else:
 
 __all__ = ['Topology', 'ParmFile']
 
-cdef class SimplifiedResidue:
-    cdef public int residue, index, chain, first_atom_index, last_atom_index, resid
-    cdef public object resname, name
+class SimplifiedAtom(namedtuple('SimplifiedAtom', 'name type charge mass index atomic_number resname resnum')):
+    __slots__ = ()
+    def __str__(self):
+        return 'SimplifiedAtom(name={}, type={}, atomic_number={}, index={}, resname={}, resnum={})'.format(self.name,
+                self.type,
+                self.atomic_number,
+                self.index,
+                self.resname,
+                self.resnum)
+    def __repr__(self):
+        return str(self)
 
-    '''SimplifiedResidue, only has info about name, index, start and end atom index
 
-    Examples
-    --------
-    >>> import pytraj as pt
-    >>> top = pt.datafiles.load_tz2_ortho().top
-    >>> for atom in top.atoms:
-    ...     print(atom.name, atom.residue.name, atom.residue.index)
+class SimplifiedResidue(namedtuple('SimplifiedResidue', 'name index first_atom_index last_atom_index')):
+    __slots__ = ()
+    def __str__(self):
+        return 'SimplifiedResidue(name={}, index={}, atom_range={}-{})'.format(self.name,
+                self.index,
+                self.first_atom_index,
+                self.last_atom_index)
+    def __repr__(self):
+        return str(self)
 
+
+class SimplifiedTopology(namedtuple('SimplifiedTopology', 'atoms residues')):
+    '''a lightweight Topology for fast iterating and convenient accessing atom, residue
+
+    Notes
+    -----
+    cpptraj does not understand this class (use :class:Topology)
     '''
-    def __cinit__(self, resname, int resid, int start, int end):
-        self.resname = resname
-        self.name = self.resname
-        self.resid = resid
-        self.index = self.resid
-        self.chain = 1
-        self.first_atom_index = start
-        self.last_atom_index = end
+    __slots__ = ()
+    def __str__(self):
+        return 'SimplifiedTopology({} atoms, {} residues)'.format(len(self.atoms), len(self.residues))
+    def __repr__(self):
+        return str(self)
+
 
 cdef class Topology:
     def __cinit__(self, *args):
@@ -120,9 +136,18 @@ cdef class Topology:
 
         Examples
         --------
-        >>> top0 = pt.load_topology('t0.parm7')
-        >>> top1 = pt.load_topology('t1.parm7')
-        >>> top2 = top0 + top1
+        >>> import pytraj as pt
+        >>> from pytraj.testing import get_fn
+        >>> tn0 = get_fn('tz2')[1]
+        >>> tn1 = get_fn('ala3')[1]
+        >>> top0 = pt.load_topology(tn0)
+        >>> top0
+        <Topology: 5293 atoms, 1704 residues, 1692 mols, PBC with box type = ortho>
+        >>> top1 = pt.load_topology(tn1)
+        >>> top1
+        <Topology: 34 atoms, 3 residues, 1 mols, non-PBC>
+        >>> top0 + top1
+        <Topology: 5327 atoms, 1707 residues, 1693 mols, PBC with box type = ortho>
         '''
         new_top = self.copy()
         new_top.join(other)
@@ -133,17 +158,8 @@ cdef class Topology:
         return self
 
     def load(self, string filename):
-        """loading Topology from filename
+        """loading Topology from filename. This is for internal use. Should ``pytraj.load_topology``
 
-        filename : {str}
-
-        if Topology instance is not empty, it will be still replaced by new one
-
-        # seriously why do we need this method?
-        >>> top = Topology("./data/Tc5b.top")
-        >>> # replace old with new topology
-        >>> top.load("./data/HP36.top")
-        >>> # why not using "top = Topology("./data/HP36.top")"?
         """
         del self.thisptr
         self = Topology(filename)
@@ -228,9 +244,7 @@ cdef class Topology:
         return self._get_new_from_mask(mask)
 
     def __call__(self, mask, *args, **kwd):
-        """intended to use with Frame indexing
-        Return : AtomMask object
-        >>> frame[top("@CA")]
+        """intended to use with Frame indexing: atm = top('@CA') (for internal use)
         """
         cdef AtomMask atm = AtomMask(mask)
         self.set_integer_mask(atm)
@@ -259,12 +273,17 @@ cdef class Topology:
         Examples
         --------
         >>> import pytraj as pt
+        >>> traj = pt.datafiles.load_tz2()
         >>> atm = traj.top.select("@CA")
+        >>> atm
+        array([  4,  15,  39, ..., 159, 173, 197])
         >>> pt.rmsd(traj, mask=atm)
+        array([  1.94667955e-07,   2.54596866e+00,   4.22333034e+00, ...,
+                 4.97189564e+00,   5.53947712e+00,   4.83201237e+00])
 
         Notes
         -----
-            support openmp for distance-based atommask selction
+        support openmp for distance-based atommask selction
         """
         return self(mask).indices
 
@@ -279,10 +298,51 @@ cdef class Topology:
                 atom = Atom()
                 atom.thisptr[0] = deref(it)
                 atom.index = idx
-                atom.residue = self._residue_light(atom.resnum)
                 yield atom
                 idx += 1
                 incr(it)
+
+    def simplify(self):
+        '''get a light version (immutable) of Topology for fast iterating
+        '''
+        cdef _Atom atom
+        cdef atom_iterator ait
+        cdef res_iterator rit
+        cdef int idx = 0
+        cdef _Residue res
+        cdef list atoms, residues
+
+        atoms = []
+        residues = []
+
+        # get atoms
+        ait = self.thisptr.begin()
+        while ait != self.thisptr.end():
+            res = self.thisptr.Res(atom.ResNum())
+            atom = deref(ait)
+            atoms.append(SimplifiedAtom(name=atom.c_str().strip(),
+                                        type=atom.Type().Truncated(),
+                                        charge=atom.Charge(),
+                                        mass=atom.Mass(),
+                                        index=idx,
+                                        atomic_number=atom.AtomicNumber(),
+                                        resname=res.c_str().strip(),
+                                        resnum=res.OriginalResNum()-1))
+            idx += 1
+            incr(ait)
+
+        # get residues
+        rit = self.thisptr.ResStart()
+        idx = 0
+        while rit != self.thisptr.ResEnd():
+            res = deref(rit)
+            residues.append(SimplifiedResidue(name=res.c_str().strip(),
+                                               index=idx,
+                                               first_atom_index=res.FirstAtom(),
+                                               last_atom_index=res.LastAtom()))
+            idx += 1
+            incr(rit)
+        return SimplifiedTopology(atoms=atoms, residues=residues)
 
     property residues:
         def __get__(self):
@@ -397,7 +457,14 @@ cdef class Topology:
 
     def _get_new_from_mask(self, mask=None):
         '''
-        >>> top.get_new_with_mask('@CA')
+
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> traj = pt.datafiles.load_tz2()
+        >>> top = traj.top
+        >>> top._get_new_from_mask('@CA')
+        <Topology: 12 atoms, 12 residues, 12 mols, non-PBC>
         '''
         if mask is None or mask == "":
             return self
@@ -603,10 +670,12 @@ cdef class Topology:
         def __get__(self):
             cdef int n_atoms = self.n_atoms
             cdef int i
+            cdef NonbondParmType nb = NonbondParmType()
             cdef pyarray arr = pyarray_master.clone(pyarray('d', []), 
                                n_atoms, zero=True)
             cdef double[:] d_view = arr
-            nb = self.NonbondParmType()
+
+            nb.thisptr[0] = self.thisptr.Nonbond()
 
             if nb.n_types < 1:
                 raise ValueError("don't have LJ parameters")
@@ -725,11 +794,6 @@ cdef class Topology:
         import parmed as pmd
         return pmd.load_file(self.filename)
 
-    def NonbondParmType(self):
-        cdef NonbondParmType nb = NonbondParmType()
-        nb.thisptr[0] = self.thisptr.Nonbond()
-        return nb
-
     property _total_charge:
         def __get__(self):
             return sum([atom.charge for atom in self.atoms])
@@ -752,26 +816,16 @@ cdef class Topology:
         '''
         cdef Residue res = Residue()
         res.thisptr[0] = self.thisptr.Res(idx)
-        start, end = res.first_atom_index, res.last_atom_index
-        alist = () if not atom else self.atomlist[start:end]
-        return SimplifiedResidue(res.name, res.original_resnum, start, end)
+        return res
 
-    def _atom(self, int idx):
-        '''return Atom based on idx. Update this Atom will update Topology too
+    def atom(self, int idx):
+        '''return an Atom based on idx. Update this Atom will update Topology.
         Make this method private for now.
         '''
         cdef Atom atom = Atom()
         atom.own_memory = False
         atom.thisptr = &self.thisptr.GetAtomView(idx)
         return atom
-
-    def _residue_light(self, int idx):
-        '''no atom list for SimplifiedResidue
-        '''
-        cdef Residue res = Residue()
-        res.thisptr[0] = self.thisptr.Res(idx)
-        start, end = res.first_atom_index, res.last_atom_index
-        return SimplifiedResidue(res.name, res.original_resnum, start, end)
 
 
 cdef class ParmFile:
