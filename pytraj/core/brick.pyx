@@ -13,7 +13,7 @@ cdef class Atom:
     --------
     >>> from pytraj.core import Atom
     >>> # name, type, charge, mass
-    >>> H = Atom('H', 'H', '0.0', '1.0', resnum=0)
+    >>> H = Atom(name='H', type='H', charge='0.0', mass='1.0', resid=0)
     '''
     def __cinit__(self, **kwd):
         cdef NameType aname, atype
@@ -25,7 +25,7 @@ cdef class Atom:
             charge = kwd.get('charge', 0.)
             mass = kwd.get('mass', 0.0)
             self.thisptr = new _Atom(aname.thisptr[0], charge, mass, atype.thisptr[0])
-            self.resnum = kwd.get('resnum', 0)
+            self.resid = kwd.get('resid', 0)
             self._index = 0
         else:
             self.thisptr = new _Atom()
@@ -61,9 +61,9 @@ cdef class Atom:
             incr(it)
         return arr0
 
-    property resnum:
-        def __set__(self, int resnumIn):
-            self.thisptr.SetResNum(resnumIn)
+    property resid:
+        def __set__(self, int residIn):
+            self.thisptr.SetResNum(residIn)
         def __get__(self):
             return self.thisptr.ResNum()
 
@@ -84,18 +84,21 @@ cdef class Atom:
     
     def __str__(self):
         if self.atomic_number > 0:
-            name = self.name
+            name = self.name.strip()
             if name != '':
-                name = name.split()[0]
-                txt = "<%s-atom, resnum=%s, n_bonds=%s>" % (name, self.resnum, self.n_bonds)
+                txt = 'Atom(name={}, type={}, atomic_number={}, index={}, resid={})'.format(name,
+                       self.type.strip(),
+                       self.atomic_number,
+                       self.index,
+                       self.resid)
             else:
-                txt = '<Empty Atom>'
+                txt = 'Atom()'
         else:
-            txt = '<Empty Atom>'
+            txt = 'Atom()'
         return txt
 
     def __repr__(self):
-        return self.__str__()
+        return str(self)
 
     @property
     def element(self):
@@ -116,9 +119,7 @@ cdef class Atom:
 
     @property
     def type(self):
-        cdef NameType nt = NameType()
-        nt.thisptr[0] = self.thisptr.Type()
-        return nt
+        return self.thisptr.Type().Truncated().decode()
 
     @property
     def molnum(self):
@@ -160,13 +161,13 @@ cdef class Residue:
 
     Examples
     --------
-    >>> Residue('ALA', resnum=0, icode=0, chainID=0)
+    >>> Residue('ALA', resid=0, icode=0, chainID=0)
     '''
-    def __cinit__(self, name='', int resnum=0, icode=0, chainID=0):
+    def __cinit__(self, name='', int resid=0, icode=0, chainID=0):
         cdef NameType resname = NameType(name)
         cdef char icode_ = <int> icode
         cdef char chainID_ = <int> chainID
-        self.thisptr = new _Residue(resname.thisptr[0], <int> resnum,
+        self.thisptr = new _Residue(resname.thisptr[0], <int> resid,
                 icode_, chainID_)
 
     def __dealloc__(self):
@@ -176,7 +177,7 @@ cdef class Residue:
         if self.n_atoms > 0:
             name = self.name.split()[0]
             txt = "<%s%s, %s atoms>" % (name,
-                                       self.original_resnum-1,
+                                       self.original_resid-1,
                                        self.n_atoms)
         else:
             txt = '<Emtpy Residue>'
@@ -196,7 +197,7 @@ cdef class Residue:
     def last_atom_index(self):
         return self.thisptr.LastAtom()
 
-    property original_resnum:
+    property original_resid:
         def __get__(self):
             return self.thisptr.OriginalResNum()
         def __set__(self, int i):
@@ -204,8 +205,8 @@ cdef class Residue:
 
     @property
     def index(self):
-        """shortcut of original_resnum"""
-        return self.original_resnum - 1
+        """shortcut of original_resid"""
+        return self.thisptr.OriginalResNum() - 1
 
     def ntype(self):
         cdef NameType nt = NameType()

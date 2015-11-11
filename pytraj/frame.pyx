@@ -915,20 +915,20 @@ cdef class Frame (object):
                 labels = list('xyzm')
                 arr = np.vstack((self.xyz.T, self.mass)).T
             else:
-                labels = ['resnum', 'resname', 'atomname', 'mass',
+                labels = ['resid', 'resname', 'atomname', 'mass',
                           'x', 'y', 'z']
                 mass_arr = np.array(self.mass, dtype='f4')
-                resnum_arr = np.empty(mass_arr.__len__(), dtype='i')
+                resid_arr = np.empty(mass_arr.__len__(), dtype='i')
                 resname_arr = np.empty(mass_arr.__len__(), dtype='U4')
                 atomname_arr= np.empty(mass_arr.__len__(), 'U4')
 
                 for idx, atom in enumerate(top.atoms):
                     # TODO: make faster?
-                    resnum_arr[idx] = atom.resnum
-                    resname_arr[idx] = top._get_residue(atom.resnum).name
+                    resid_arr[idx] = atom.resid
+                    resname_arr[idx] = top._get_residue(atom.resid).name
                     atomname_arr[idx] = atom.name
 
-                arr = np.vstack((resnum_arr, resname_arr, atomname_arr, 
+                arr = np.vstack((resid_arr, resname_arr, atomname_arr, 
                                  mass_arr, self.xyz.T)).T
             return pd.DataFrame(arr, columns=labels)
         else:

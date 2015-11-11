@@ -20,20 +20,20 @@ class TestBuildAndPickleTopology(unittest.TestCase):
         top = self.traj.top
         d = top.to_dict()
 
-        # H = Atom('H', 'H', '0.0', '1.0', resnum=0)
-        # res = Residue('ALA', resnum=0, icode=0, chainID=0)
+        # H = Atom('H', 'H', '0.0', '1.0', resid=0)
+        # res = Residue('ALA', resid=0, icode=0, chainID=0)
         new_top = pt.Topology()
 
         MOLNUM = 0
 
-        for idx, (aname, atype, charge, mass, resnum, resname, mol_number
+        for idx, (aname, atype, charge, mass, resid, resname, mol_number
                   ) in enumerate(
                       zip(d['atom_name'], d['atom_type'], d['atom_charge'],
-                          d['atom_mass'], d['resnum'], d['resname'],
+                          d['atom_mass'], d['resid'], d['resname'],
                           d['mol_number'])):
-            atom = pt.core.Atom(name=aname, type=atype, charge=charge, mass=mass, resnum=resnum)
+            atom = pt.core.Atom(name=aname, type=atype, charge=charge, mass=mass, resid=resid)
             atom.set_mol(mol_number)
-            residue = pt.core.Residue(resname, resnum)
+            residue = pt.core.Residue(resname, resid)
             if idx == 0:
                 new_top.start_new_mol()
             if mol_number > MOLNUM:

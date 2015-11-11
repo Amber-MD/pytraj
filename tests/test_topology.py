@@ -41,6 +41,10 @@ class TestTopology(unittest.TestCase):
             pass
         assert idx + 1 == top.n_atoms
 
+    def test_residue(self):
+        for idx, res in enumerate(TRAJ.top.residues):
+            assert idx == res.index, 'res.index'
+
     def test_get_iter(self):
         top = pt.load_topology("./data/DOPC.parm7")
         s = [atom.name for atom in top[":PC@H*"]]
@@ -64,8 +68,9 @@ class TestTopology(unittest.TestCase):
         self.assertRaises(RuntimeError, lambda: pt.load_topology('dummy'))
 
     def test_get_atom_view(self):
-        top = pt.datafiles.load_ala3().top
-        atom_8 = top._atom(8)
+        traj = pt.datafiles.load_ala3()
+        top = traj.top
+        atom_8 = top.atom(8)
         # set dummy number
         assert atom_8.gb_radius == 1.2, 'origin gb radius is 1.2'
         atom_8.gb_radius = 10.

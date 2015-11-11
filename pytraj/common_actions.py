@@ -543,7 +543,8 @@ def calc_diffusion(traj,
     act.read_input(command, top=top, dslist=dslist)
     act.process(top)
     for idx, frame in enumerate(traj):
-        act.do_action(frame, idx=idx)
+        # do not need mass
+        act.do_action(frame, idx=idx, mass=False)
     act.post_process()
 
     # make the label nicer
@@ -1015,14 +1016,12 @@ def do_rotation(traj=None, command="", frame_indices=None, top=None):
 rotate = do_rotation
 
 
-def do_autoimage(traj=None, command="", frame_indices=None, top=None):
+@_super_dispatch()
+def do_autoimage(traj, command="", frame_indices=None, top=None):
     '''perform autoimage and return the coordinate-updated traj
     '''
     _noaction_with_TrajectoryIterator(traj)
-    _top = _get_topology(traj, top)
-    fi = _get_fiterator(traj, frame_indices)
-
-    CpptrajActions.Action_AutoImage()(command, fi, top=_top)
+    CpptrajActions.Action_AutoImage()(command, traj, top=top, mass=False)
     return traj
 
 
