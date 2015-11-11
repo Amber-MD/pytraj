@@ -41,7 +41,7 @@ class TestFrameIndices(unittest.TestCase):
         # remove search_neighbors, why? (got messup with Frame memory owner) 
         excluded_fn = ['calc_jcoupling', 'calc_volmap', 'calc_density',
                 'energy_decomposition', 'center', 'search_neighbors',
-                'calc_atomiccorr',]
+                'calc_atomiccorr','do_autoimage']
 
         # default mask, default ref
         for func in funclist:
