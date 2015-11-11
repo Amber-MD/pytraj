@@ -119,9 +119,7 @@ cdef class Atom:
 
     @property
     def type(self):
-        cdef NameType nt = NameType()
-        nt.thisptr[0] = self.thisptr.Type()
-        return nt
+        return self.thisptr.Type().Truncated().decode()
 
     @property
     def molnum(self):
@@ -208,7 +206,7 @@ cdef class Residue:
     @property
     def index(self):
         """shortcut of original_resid"""
-        return self.resid
+        return self.thisptr.OriginalResNum() - 1
 
     def ntype(self):
         cdef NameType nt = NameType()

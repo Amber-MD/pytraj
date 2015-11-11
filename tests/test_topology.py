@@ -41,6 +41,10 @@ class TestTopology(unittest.TestCase):
             pass
         assert idx + 1 == top.n_atoms
 
+    def test_residue(self):
+        for idx, res in enumerate(TRAJ.top.residues):
+            assert idx == res.index, 'res.index'
+
     def test_get_iter(self):
         top = pt.load_topology("./data/DOPC.parm7")
         s = [atom.name for atom in top[":PC@H*"]]
