@@ -746,7 +746,7 @@ cdef class Topology:
         for idx, atom in enumerate(self.atoms):
             resids.append(atom.resid)
             atomnames.append(atom.name)
-            atomtypes.append(atom.type.truncated_name)
+            atomtypes.append(atom.type)
             atomcharges.append(atom.charge)
             molnums.append(atom.molnum)
             resnames.append(short_resnamelist[atom.resid])
