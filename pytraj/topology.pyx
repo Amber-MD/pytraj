@@ -11,6 +11,8 @@ from pytraj.cpp_options import set_world_silent # turn on and off cpptraj's stdo
 
 from collections import namedtuple
 import numpy as np
+
+from pytraj.cpptraj_dict import get_key, AtomicElementDict
 from pytraj.utils.check_and_assert import is_int, is_array
 from pytraj.compat import set
 from pytraj.externals.six import PY2, PY3, string_types
@@ -29,11 +31,12 @@ else:
 
 __all__ = ['Topology', 'ParmFile']
 
-class SimplifiedAtom(namedtuple('SimplifiedAtom', 'name type charge mass index atomic_number resname resnum')):
+class SimplifiedAtom(namedtuple('SimplifiedAtom', 'name type element charge mass index atomic_number resname resnum')):
     __slots__ = ()
     def __str__(self):
-        return 'SimplifiedAtom(name={}, type={}, atomic_number={}, index={}, resname={}, resnum={})'.format(self.name,
+        return 'SimplifiedAtom(name={}, type={}, element={}, atomic_number={}, index={}, resname={}, resnum={})'.format(self.name,
                 self.type,
+                self.element,
                 self.atomic_number,
                 self.index,
                 self.resname,
@@ -322,6 +325,7 @@ cdef class Topology:
             atom = deref(ait)
             atoms.append(SimplifiedAtom(name=atom.c_str().strip(),
                                         type=atom.Type().Truncated(),
+                                        element=get_key(atom.Element(), AtomicElementDict),
                                         charge=atom.Charge(),
                                         mass=atom.Mass(),
                                         index=idx,
