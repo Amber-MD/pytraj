@@ -87,7 +87,7 @@ cdef class Atom:
             name = self.name.strip()
             if name != '':
                 txt = 'Atom(name={}, type={}, atomic_number={}, index={}, resid={})'.format(name,
-                       self.type,
+                       self.type.strip(),
                        self.atomic_number,
                        self.index,
                        self.resid)

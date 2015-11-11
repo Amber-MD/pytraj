@@ -830,6 +830,7 @@ cdef class Topology:
         cdef Atom atom = Atom()
         atom.own_memory = False
         atom.thisptr = &self.thisptr.GetAtomView(idx)
+        atom.resname = self.thisptr.Res(atom.resid).c_str().strip()
         return atom
 
 
