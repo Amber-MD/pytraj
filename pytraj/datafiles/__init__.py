@@ -4,9 +4,11 @@ from ..trajectory_iterator import TrajectoryIterator
 from ..utils.context import goto_temp_folder
 from .datafiles import DataFile, DataFileList
 from .load_samples import *
+from .load_cpptraj_file import load_cpptraj_file
 
 __all__ = ['load_cpptraj_state', 'load_cpptraj_output', 'Ala3_crd',
-           'Ala3_crd_top', 'tz2_ortho_nc', 'tz2_ortho_parm7']
+           'Ala3_crd_top', 'tz2_ortho_nc', 'tz2_ortho_parm7',
+           'load_cpptraj_file']
 
 mydir = os.path.dirname(os.path.abspath(__file__))
 
@@ -102,5 +104,9 @@ def load_cpptraj_state(txt):
     state.run()
     print(state.data)
     """
-    from pytraj.core.cpp_core import _load_batch
-    return _load_batch(txt, traj=None)
+    if os.path.exists(txt):
+        # txt is a file
+        return load_cpptraj_file(txt)
+    else:
+        from pytraj.core.cpp_core import _load_batch
+        return _load_batch(txt, traj=None)
