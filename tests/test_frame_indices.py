@@ -59,6 +59,9 @@ class TestFrameIndices(unittest.TestCase):
                             aa_eq(arr0.values, arr1.values)
                 elif isinstance(data_0, DatasetHBond):
                     aa_eq(data_0.data.values, data_1.data.values)
+                elif isinstance(data_0, (list, tuple)):
+                    # dssp
+                    aa_eq(data_0[-1].values, data_1[-1].values)
                 else:
                     raise RuntimeError('must return ndarray or DatasetList or DatasetHBond')
 
