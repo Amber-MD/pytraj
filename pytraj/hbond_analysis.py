@@ -171,7 +171,7 @@ def hbond(traj,
     act.process(top)
 
     for idx, frame in enumerate(iterframe_master(traj)):
-        act.do_action(frame, idx=idx)
+        act.do_action(frame, idx=idx, mass=False)
 
     act.post_process()
 
