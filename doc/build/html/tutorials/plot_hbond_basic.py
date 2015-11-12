@@ -1,11 +1,11 @@
 
 # coding: utf-8
 
-# In[26]:
+# In[7]:
 
 # config to get better plot
-get_ipython().magic('matplotlib inline # inline for notebook, you can replace "inline" by "notebook"')
-get_ipython().magic("config InlineBackend.figure_format = 'retina'  # high resolution")
+get_ipython().magic('matplotlib inline')
+get_ipython().magic("config InlineBackend.figure_format = 'retina'")
 
 import matplotlib
 matplotlib.rcParams['savefig.dpi'] = 1.5 * matplotlib.rcParams['savefig.dpi'] # larger image
@@ -20,7 +20,7 @@ import warnings # just to avoid any warning to make this notebook prettier
 warnings.filterwarnings('ignore')
 
 
-# In[31]:
+# In[3]:
 
 # import pytraj
 import pytraj as pt
@@ -30,7 +30,7 @@ traj = pt.datafiles.load_tz2()
 traj
 
 
-# In[33]:
+# In[4]:
 
 # find hbond
 hb = pt.hbond(traj)
@@ -40,13 +40,13 @@ print("")
 print(hb.data)
 
 
-# In[34]:
+# In[5]:
 
 dist = pt.distance(traj, hb._amber_mask())
 print('all hbond distances: ', dist)
 
 
-# In[36]:
+# In[6]:
 
 sb.color_palette('deep', n_colors=6, desat=0.5)
 sb.set_style(style='white')
