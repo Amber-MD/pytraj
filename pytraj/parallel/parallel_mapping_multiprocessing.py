@@ -10,6 +10,7 @@ from pytraj import ired_vector_and_matrix, rotation_matrix
 from pytraj import NH_order_parameters
 from multiprocessing import cpu_count
 from pytraj.tools import concat_dict
+from pytraj.externals.six import string_types
 
 
 def _worker(rank,
@@ -203,7 +204,7 @@ def _pmap(func, traj, *args, **kwd):
     else:
         iter_options = {}
 
-    if isinstance(func, (list, tuple)):
+    if isinstance(func, (list, tuple, string_types)):
         # assume using _load_batch_pmap
         from pytraj.parallel import _load_batch_pmap
         data = _load_batch_pmap(n_cores=n_cores,

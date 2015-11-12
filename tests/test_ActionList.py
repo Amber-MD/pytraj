@@ -391,6 +391,14 @@ class TestActionList(unittest.TestCase):
         t0 = traj[:8:2].autoimage().superpose()
         aa_eq(xyz, t0.xyz)
 
+        # from TrajectoryIterator, cpptraj's command style
+        fi = pt.create_pipeline(traj, '''
+        autoimage
+        rms''')
+        xyz = np.array([frame.xyz.copy() for frame in fi])
+        t0 = traj[:].autoimage().superpose()
+        aa_eq(xyz, t0.xyz)
+
     def test_reference(self):
         traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
 

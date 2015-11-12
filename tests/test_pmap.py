@@ -16,9 +16,6 @@ class TestNormalPmap(unittest.TestCase):
         self.traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
     def test_raise(self):
-        # if func is not callable
-        self.assertRaises(ValueError, lambda: pt.pmap('test', self.traj))
-
         # if func is not support pmap
         self.assertRaises(ValueError, lambda: pt.pmap(pt.bfactors, self.traj))
 
@@ -151,6 +148,14 @@ class TestCpptrajCommandStyle(unittest.TestCase):
         distance_ = pt.distance(traj, '@10 @20')
 
         data = pt.pmap(['angle :3 :4 :5', 'distance @10 @20'], traj, n_cores=2)
+        assert isinstance(data, OrderedDict), 'must be OrderDict'
+        arr = pt.tools.dict_to_ndarray(data)
+        aa_eq(angle_, arr[0])
+        aa_eq(distance_, arr[1])
+
+        # as whole text, case 1
+        data = pt.pmap('''angle :3 :4 :5
+        distance @10 @20''', traj, n_cores=2)
         assert isinstance(data, OrderedDict), 'must be OrderDict'
         arr = pt.tools.dict_to_ndarray(data)
         aa_eq(angle_, arr[0])
