@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.io &mdash; pytraj 0.1.2.dev12+825fc3a documentation</title>
+    <title>pytraj.io &mdash; pytraj 0.1.2.dev12+92b721b documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev12+825fc3a',
+        VERSION:     '0.1.2.dev12+92b721b',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+825fc3a documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+92b721b documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="next" title="pytraj.Trajectory" href="pytraj.trajectory.html" />
     <link rel="prev" title="pytraj" href="pytraj.html" />
@@ -52,7 +52,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+825fc3a</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+92b721b</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -480,97 +480,48 @@ file. cpptraj will do the bond guess based on distance.</p>
 
 <dl class="function">
 <dt id="pytraj.io.write_parm">
-<tt class="descclassname">pytraj.io.</tt><tt class="descname">write_parm</tt><big>(</big><em>filename=None</em>, <em>top=None</em>, <em>format='amberparm'</em><big>)</big><a class="headerlink" href="#pytraj.io.write_parm" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pytraj.io.</tt><tt class="descname">write_parm</tt><big>(</big><em>filename=None</em>, <em>top=None</em>, <em>format='amberparm'</em>, <em>overwrite=False</em><big>)</big><a class="headerlink" href="#pytraj.io.write_parm" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="pytraj.io.save">
-<tt class="descclassname">pytraj.io.</tt><tt class="descname">save</tt><big>(</big><em>filename=''</em>, <em>traj=None</em>, <em>top=None</em>, <em>frame_indices=None</em>, <em>overwrite=False</em>, <em>options=''</em><big>)</big><a class="headerlink" href="#pytraj.io.save" title="Permalink to this definition">¶</a></dt>
-<dd><p>write Trajectory-like or iterable object to trajectory file</p>
+<tt class="descclassname">pytraj.io.</tt><tt class="descname">save</tt><big>(</big><em>filename</em>, <em>obj</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.io.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>an universal method</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
-<p><strong>traj</strong> : Trajectory-like or iterator that produces Frame or 3D ndarray with shape=(n_frames, n_atoms, 3)</p>
-<p><strong>top</strong> : Topology, optional, default: None</p>
-<p><strong>frame_indices: array-like or iterator that produces integer, default: None</strong></p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : output filename</p>
+<p><strong>obj</strong> : Topology or Trajetory-like</p>
 <blockquote>
-<div><p>If not None, only write output for given frame indices</p>
+<div><p>if Topology, write a new Topology to disk
+if Trajetory-like, write a trajectory to disk</p>
 </div></blockquote>
-<p><strong>overwrite: bool, default: False</strong></p>
-<p class="last"><strong>options</strong> : str, additional keywords for extention=&#8217;.pdb&#8217;. See examples.</p>
+<p class="last"><strong>*args, **kwd: additional options</strong></p>
 </td>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Notes</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="68%" />
-<col width="32%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Format</th>
-<th class="head">Extension</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>Amber Trajectory</td>
-<td>.crd</td>
-</tr>
-<tr class="row-odd"><td>Amber NetCDF</td>
-<td>.nc</td>
-</tr>
-<tr class="row-even"><td>Amber Restart</td>
-<td>.rst7</td>
-</tr>
-<tr class="row-odd"><td>Amber NetCDF</td>
-<td>.ncrst</td>
-</tr>
-<tr class="row-even"><td>Charmm DCD</td>
-<td>.dcd</td>
-</tr>
-<tr class="row-odd"><td>PDB</td>
-<td>.pdb</td>
-</tr>
-<tr class="row-even"><td>Mol2</td>
-<td>.mol2</td>
-</tr>
-<tr class="row-odd"><td>Scripps</td>
-<td>.binpos</td>
-</tr>
-<tr class="row-even"><td>Gromacs</td>
-<td>.trr</td>
-</tr>
-<tr class="row-odd"><td>SQM Input</td>
-<td>.sqm</td>
-</tr>
-</tbody>
-</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#pytraj.io.write_traj" title="pytraj.io.write_traj"><tt class="xref py py-obj docutils literal"><span class="pre">write_traj</span></tt></a>, <a class="reference internal" href="#pytraj.io.write_parm" title="pytraj.io.write_parm"><tt class="xref py py-obj docutils literal"><span class="pre">write_parm</span></tt></a></p>
+</div>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/t.nc&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c"># write to amber netcdf file</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># write to multi pdb files (t.pdb.1, t.pdb.2, ...)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/t.pdb&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s">&#39;multi&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># write all frames to single pdb file and each frame is seperated by &quot;MODEL&quot; word</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/t.pdb&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s">&#39;model&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># write to DCD file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/test.dcd&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># write to netcdf file from 3D numpy array, need to provide Topology</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">xyz</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">xyz</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_ala3</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">TrajectoryIterator</span><span class="p">)</span>
+<span class="go">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">top</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/test_xyz.nc&quot;</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/test_xyz.nc&quot;</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">Topology</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># save Topology to a new Topology</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;output/prmtop&#39;</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&#39;output/prmtop&#39;</span><span class="p">),</span> <span class="n">pt</span><span class="o">.</span><span class="n">Topology</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># save TrajectoryIterator to disk</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;output/traj.nc&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;output/traj.nc&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">),</span> <span class="n">pt</span><span class="o">.</span><span class="n">TrajectoryIterator</span><span class="p">)</span>
+<span class="go">True</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -763,7 +714,7 @@ unsafe. See: <a class="reference external" href="http://docs.python.org/2.7/libr
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 07, 2015.<br/>
+      Last updated on Nov 12, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

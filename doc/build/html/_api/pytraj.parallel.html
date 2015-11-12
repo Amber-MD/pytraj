@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.parallel &mdash; pytraj 0.1.2.dev12+825fc3a documentation</title>
+    <title>pytraj.parallel &mdash; pytraj 0.1.2.dev12+92b721b documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev12+825fc3a',
+        VERSION:     '0.1.2.dev12+92b721b',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+825fc3a documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+92b721b documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="next" title="pytraj.ActionList" href="pytraj.core.action_list.html" />
 <meta charset='utf-8'>
@@ -51,7 +51,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+825fc3a</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+92b721b</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -167,6 +167,12 @@
 <blockquote>
 <div><p>Specify trajectory iterating option. This will be done before calling <tt class="docutils literal"><span class="pre">func</span></tt>.</p>
 </div></blockquote>
+<p><strong>frame_indices</strong> : {None, array-like}, default None, optional</p>
+<blockquote>
+<div><p>if provided, pytraj will split this frame_indices into different chunks and let
+cpptraj perform calculation for specific indices.
+frame_indices must be pickable so is can be sent to different cores.</p>
+</div></blockquote>
 <p><strong>*args, **kwd: additional keywords</strong></p>
 </td>
 </tr>
@@ -281,6 +287,17 @@ reload before using <tt class="docutils literal"><span class="pre">pytraj.pmap</
 <span class="go">         11.36934506,  11.56239288]])</span>
 </pre></div>
 </div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># perform parallel calculation with given frame_indices</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="go">OrderedDict([(&#39;RoG_00000&#39;, array([ 6.90993314,  7.87518156,  8.57775535, ...,  9.29585981,</span>
+<span class="go">        9.53138062,  9.19155977]))])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># serial version</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>
+<span class="go">array([ 6.90993314,  7.87518156,  8.57775535, ...,  9.29585981,</span>
+<span class="go">        9.53138062,  9.19155977])</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <span class="target" id="module-pytraj.parallel.parallel_mapping_mpi"><span id="pytraj-pmap-mpi"></span></span><dl class="function">
@@ -342,7 +359,7 @@ reload before using <tt class="docutils literal"><span class="pre">pytraj.pmap</
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 07, 2015.<br/>
+      Last updated on Nov 12, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

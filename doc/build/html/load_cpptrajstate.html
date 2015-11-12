@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Run cpptraj’s batch &mdash; pytraj 0.1.2.dev12+825fc3a documentation</title>
+    <title>Run cpptraj’s batch &mdash; pytraj 0.1.2.dev12+92b721b documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.2.dev12+825fc3a',
+        VERSION:     '0.1.2.dev12+92b721b',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+825fc3a documentation" href="index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+92b721b documentation" href="index.html" />
     <link rel="up" title="Cookbook" href="cookbook.html" />
     <link rel="next" title="Weird things in pytraj" href="things_will_be_surprised.html" />
     <link rel="prev" title="Tips for out-of-core loading" href="tips_iterload.html" />
@@ -52,7 +52,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+825fc3a</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+92b721b</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -236,10 +236,12 @@ molsurf
 <span class="c"># convert data to regular numpy array</span>
 <span class="gp">In [12]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">values</span>
 <span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Out[12]: </span>
-<span class="go">array([ array([&lt;N-atom, resnum=0, n_bonds=4&gt;, &lt;H1-atom, resnum=0, n_bonds=1&gt;,</span>
-<span class="go">       &lt;H2-atom, resnum=0, n_bonds=1&gt;, ...,</span>
-<span class="go">       &lt;O-atom, resnum=1703, n_bonds=2&gt;, &lt;H1-atom, resnum=1703, n_bonds=2&gt;,</span>
-<span class="go">       &lt;H2-atom, resnum=1703, n_bonds=2&gt;], dtype=object),</span>
+<span class="go">array([ array([Atom(name=N, type=N3, atomic_number=7, index=0, resid=0),</span>
+<span class="go">       Atom(name=H1, type=H, atomic_number=1, index=1, resid=0),</span>
+<span class="go">       Atom(name=H2, type=H, atomic_number=1, index=2, resid=0), ...,</span>
+<span class="go">       Atom(name=O, type=OW, atomic_number=8, index=5290, resid=1703),</span>
+<span class="go">       Atom(name=H1, type=HW, atomic_number=1, index=5291, resid=1703),</span>
+<span class="go">       Atom(name=H2, type=HW, atomic_number=1, index=5292, resid=1703)], dtype=object),</span>
 <span class="go">       array([ 0.    ,  0.2641,  0.386 ,  0.2688,  0.2619,  0.4576,  0.4565,</span>
 <span class="go">        0.4443,  0.4363,  0.4475]),</span>
 <span class="go">       array([ 19.0048,  19.0322,  18.9463,  19.0041,  18.953 ,  18.9814,</span>
@@ -341,7 +343,7 @@ molsurf
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 07, 2015.<br/>
+      Last updated on Nov 12, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

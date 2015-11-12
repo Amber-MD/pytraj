@@ -11,6 +11,7 @@ try ``pytraj`` online:
 .. toctree::
     :maxdepth: 1
 
+    plot_hbond_basic
     plot_correlation_matrix
     tut_pairwise_rmsd
     plot_phipsi_trpcage

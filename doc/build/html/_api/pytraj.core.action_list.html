@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.ActionList &mdash; pytraj 0.1.2.dev12+825fc3a documentation</title>
+    <title>pytraj.ActionList &mdash; pytraj 0.1.2.dev12+92b721b documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev12+825fc3a',
+        VERSION:     '0.1.2.dev12+92b721b',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+825fc3a documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+92b721b documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="prev" title="pytraj.parallel" href="pytraj.parallel.html" />
 <meta charset='utf-8'>
@@ -51,7 +51,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+825fc3a</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+92b721b</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -181,7 +181,7 @@
 <tr class="row-even"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.clear" title="pytraj.core.action_list.ActionList.clear"><tt class="xref py py-obj docutils literal"><span class="pre">clear</span></tt></a>(self)</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.do_actions" title="pytraj.core.action_list.ActionList.do_actions"><tt class="xref py py-obj docutils literal"><span class="pre">do_actions</span></tt></a>(self[,&nbsp;traj,&nbsp;use_mass])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.do_actions" title="pytraj.core.action_list.ActionList.do_actions"><tt class="xref py py-obj docutils literal"><span class="pre">do_actions</span></tt></a>(self[,&nbsp;traj,&nbsp;mass])</td>
 <td></td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.is_empty" title="pytraj.core.action_list.ActionList.is_empty"><tt class="xref py py-obj docutils literal"><span class="pre">is_empty</span></tt></a>(self)</td>
@@ -227,7 +227,7 @@
 
 <dl class="method">
 <dt id="pytraj.core.action_list.ActionList.do_actions">
-<tt class="descname">do_actions</tt><big>(</big><em>self</em>, <em>traj=&lt;???&gt;</em>, <em>int idx=0</em>, <em>use_mass=True</em><big>)</big><a class="headerlink" href="#pytraj.core.action_list.ActionList.do_actions" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">do_actions</tt><big>(</big><em>self</em>, <em>traj=&lt;???&gt;</em>, <em>int idx=0</em>, <em>mass=True</em><big>)</big><a class="headerlink" href="#pytraj.core.action_list.ActionList.do_actions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -247,19 +247,23 @@
 
 </dd></dl>
 
-<dl class="function">
+<dl class="attribute">
 <dt id="pytraj.core.action_list.create_pipeline">
-<tt class="descclassname">pytraj.core.action_list.</tt><tt class="descname">create_pipeline</tt><big>(</big><em>traj</em>, <em>commands</em>, <em>DatasetList dslist=&lt;???&gt;</em>, <em>frame_indices=None</em><big>)</big><a class="headerlink" href="#pytraj.core.action_list.create_pipeline" title="Permalink to this definition">¶</a></dt>
-<dd><p>create frame iterator from cpptraj&#8217;s commands.</p>
-<p>This method is useful if you want cpptraj pre-processing your Trajectory before
-throwing it to your own method.</p>
+<tt class="descclassname">pytraj.core.action_list.</tt><tt class="descname">create_pipeline</tt><a class="headerlink" href="#pytraj.core.action_list.create_pipeline" title="Permalink to this definition">¶</a></dt>
+<dd><p>create_pipeline(traj, commands, DatasetList dslist=&lt;???&gt;, frame_indices=None)
+create frame iterator from cpptraj&#8217;s commands.</p>
+<blockquote>
+<div>This method is useful if you want cpptraj pre-processing your Trajectory before
+throwing it to your own method.</div></blockquote>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>commands</strong> : a list of strings of cpptraj&#8217;s Action commands</p>
-<p><strong>traj</strong> : Trajectory or any iterable that produces Frame</p>
-<p class="last"><strong>dslist</strong> : CpptrajDatasetList, optional</p>
+<blockquote class="last">
+<div><p>traj : Trajectory or any iterable that produces Frame
+dslist : CpptrajDatasetList, optional</p>
+</div></blockquote>
 </td>
 </tr>
 </tbody>
@@ -294,7 +298,7 @@ EOF
 </div>
 </dd></dl>
 
-<dl class="function">
+<dl class="attribute">
 <dt id="pytraj.core.action_list.do">
 <tt class="descclassname">pytraj.core.action_list.</tt><tt class="descname">do</tt><big>(</big><em>lines</em>, <em>traj</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.core.action_list.do" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -314,7 +318,7 @@ EOF
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 07, 2015.<br/>
+      Last updated on Nov 12, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>
