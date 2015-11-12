@@ -59,6 +59,11 @@ def create_pipeline(traj, commands, DatasetList dslist=DatasetList(), frame_indi
     else:
         fi = traj.iterframe(frame_indices=frame_indices)
 
+    if isinstance(commands, (list, tuple)):
+        commands = commands
+    elif isinstance(commands, string_types):
+        commands = [line.lstrip().rstrip() for line in commands.split('\n') if line.strip() != '']
+
     actlist = ActionList(commands, top=traj.top, dslist=dslist) 
     for frame in iterframe_master(fi):
         actlist.do_actions(frame)

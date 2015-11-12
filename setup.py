@@ -60,6 +60,11 @@ try:
 except ValueError:
     debug = False
 
+if len(sys.argv) == 2 and 'clean' in sys.argv:
+    do_clean = True
+else:
+    do_clean = False
+
 def read(fname):
     # must be in this setup file
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
@@ -192,7 +197,10 @@ def do_what():
     # this checking should be here, after checking openmp and other stuff
     if len(sys.argv) == 2 and sys.argv[1] == 'install':
         do_install = True
-    elif len(sys.argv) == 3 and sys.argv[1] == 'install' and pytraj_inside_amber:
+    elif len(sys.argv) == 3 and sys.argv[1] == 'install' and os.path.join('AmberTools',
+            'src') in PYTRAJ_DIR:
+        # install pytraj in $AMBERHOME
+        # do not use pytraj_inside_amber here in we call `do_what()` before calling get_include_and_lib_dir()
         # don't mess this up
         # $(PYTHON) setup.py install $(PYTHON_INSTALL)
         do_install = True
@@ -303,11 +311,12 @@ if debug:
 else:
     define_macros=[]
 
-cythonize(
-    [pfile + '.pyx' for pfile in pyxfiles],
-    nthreads=int(os.environ.get('NUM_THREADS', 4)),
-    compiler_directives=cython_directives,
-    )
+if not do_clean:
+    cythonize(
+        [pfile + '.pyx' for pfile in pyxfiles],
+        nthreads=int(os.environ.get('NUM_THREADS', 4)),
+        compiler_directives=cython_directives,
+        )
 
 ext_modules = []
 for ext_name in pyxfiles:
