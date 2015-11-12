@@ -197,7 +197,10 @@ def do_what():
     # this checking should be here, after checking openmp and other stuff
     if len(sys.argv) == 2 and sys.argv[1] == 'install':
         do_install = True
-    elif len(sys.argv) == 3 and sys.argv[1] == 'install' and pytraj_inside_amber:
+    elif len(sys.argv) == 3 and sys.argv[1] == 'install' and os.path.join('AmberTools',
+            'src') in PYTRAJ_DIR:
+        # install pytraj in $AMBERHOME
+        # do not use pytraj_inside_amber here in we call `do_what()` before calling get_include_and_lib_dir()
         # don't mess this up
         # $(PYTHON) setup.py install $(PYTHON_INSTALL)
         do_install = True
@@ -210,8 +213,8 @@ def do_what():
         do_build = False
     return do_install, do_build
 
-cpptraj_dir, cpptraj_include, libdir, pytraj_inside_amber  = get_include_and_lib_dir()
 do_install, do_build = do_what()
+cpptraj_dir, cpptraj_include, libdir, pytraj_inside_amber  = get_include_and_lib_dir()
 
 # get *.pyx files
 pxd_include_dirs = [
