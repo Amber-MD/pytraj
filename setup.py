@@ -60,6 +60,11 @@ try:
 except ValueError:
     debug = False
 
+if len(sys.argv) == 2 and 'clean' in sys.argv:
+    do_clean = True
+else:
+    do_clean = False
+
 def read(fname):
     # must be in this setup file
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
@@ -205,8 +210,8 @@ def do_what():
         do_build = False
     return do_install, do_build
 
-do_install, do_build = do_what()
 cpptraj_dir, cpptraj_include, libdir, pytraj_inside_amber  = get_include_and_lib_dir()
+do_install, do_build = do_what()
 
 # get *.pyx files
 pxd_include_dirs = [
@@ -303,11 +308,12 @@ if debug:
 else:
     define_macros=[]
 
-cythonize(
-    [pfile + '.pyx' for pfile in pyxfiles],
-    nthreads=int(os.environ.get('NUM_THREADS', 4)),
-    compiler_directives=cython_directives,
-    )
+if not do_clean:
+    cythonize(
+        [pfile + '.pyx' for pfile in pyxfiles],
+        nthreads=int(os.environ.get('NUM_THREADS', 4)),
+        compiler_directives=cython_directives,
+        )
 
 ext_modules = []
 for ext_name in pyxfiles:

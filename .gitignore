@@ -7,3 +7,4 @@ tests/*nogit*
 pytraj/*bk
 tests/TestListTravis.sh
 *nogit*
+Makefile
