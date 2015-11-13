@@ -374,6 +374,9 @@ cdef class Topology:
                 incr(it)
 
     property atomlist:
+        '''return a copy of a list of atoms. If the Topology is large, this method calling
+        is every expensive. Make sure to save atomlist.
+        '''
         def __get__(self):
             return list(self.atoms)
 

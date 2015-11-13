@@ -51,10 +51,15 @@ class TestSearchHbonds(unittest.TestCase):
 
         # make sure distances are smaller than cutoff
         distance_cutoff = 2.5
+        angle_cutoff = 135.
         hb = pt.search_hbonds(traj)
-        distances = pt.distance(traj, hb._amber_mask())
-        assert np.all(distances <
-                      distance_cutoff), 'must smaller than 2.5 angstrom'
+        distances = pt.distance(traj, hb._amber_mask()[0])
+        angles = pt.angles(traj, hb._amber_mask()[1])
+        dist_indices = np.where(distances >
+                      distance_cutoff)
+        angle_indices = np.where(angles <
+                      angle_cutoff)
+        print('FILL ME', dist_indices, angle_indices)
 
         saved_donor_aceptors = ['ASP9_OD2-ARG16_NH1-HH12',
                                 'ASP9_OD2-ARG16_NH2-HH22',
