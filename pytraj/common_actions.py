@@ -305,10 +305,8 @@ def calc_angle(traj=None,
             # cpptraj mask for action
             act(command, traj, top=_top, dslist=dslist, *args, **kwd)
             return _get_data_from_dtype(dslist, dtype)
-
-        elif isinstance(command, (list, tuple)):
+        elif isinstance(command, (list, tuple, np.ndarray)):
             list_of_commands = command
-            from pytraj.core.action_list import ActionList
             dslist = CpptrajDatasetList()
             actlist = ActionList()
 
@@ -431,7 +429,7 @@ def calc_dihedral(traj=None,
             act(command, traj, top=_top, dslist=dslist)
             return _get_data_from_dtype(dslist, dtype)
 
-        elif isinstance(command, (list, tuple)):
+        elif isinstance(command, (list, tuple, np.ndarray)):
             list_of_commands = command
             from pytraj.core.action_list import ActionList
             from pytraj.actions.CpptrajActions import Action_Dihedral

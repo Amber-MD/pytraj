@@ -1,5 +1,6 @@
 from __future__ import absolute_import, print_function, division
 
+import numpy as np
 from .actions import CpptrajActions
 from .datasets import CpptrajDatasetList
 from .decorators import _register_pmap
@@ -20,10 +21,16 @@ def to_amber_mask(txtlist):
     _txt = txtlist[:]
 
     for mask in _txt:
-        mask = mask.replace("_", " ").replace("-", " ").split()
-        second_res = mask[3].split('@')[0]
-        yield ''.join((':', mask[1], ' :', "".join(
-            (second_res, '@', mask[4]))))
+        if 'UU' not in mask and 'UV' not in mask:
+            mask = mask.replace("_", " ").replace("-", " ").split()
+            donor_mask = ''.join((':', mask[1]))
+            second_res = mask[3].split('@')[0]
+            aceptor_mask = ':' + "".join((second_res, '@', mask[4]))
+            another = ' :' + mask[3]
+
+            distance_mask = ' '.join((donor_mask, aceptor_mask))
+            angle_mask = ''.join((distance_mask, another))
+            yield distance_mask, angle_mask
 
 
 class DatasetHBond(BaseDataHolder):
@@ -45,7 +52,7 @@ class DatasetHBond(BaseDataHolder):
         return self.data.grep(["solventhb", "solutehb"], mode='aspect').keys()
 
     def _amber_mask(self):
-        return list(to_amber_mask(self._old_keys[1:]))
+        return np.array(list(to_amber_mask(self._old_keys))).T
 
 
 def _update_key_hbond(_dslist):
