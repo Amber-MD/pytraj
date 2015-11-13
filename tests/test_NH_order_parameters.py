@@ -31,7 +31,7 @@ class TestNHOrderParamters(unittest.TestCase):
         orders = pt.pmap(pt.NH_order_parameters, traj, nh_indices, tcorr=8000.)
         aa_eq(orders, saved_S2)
 
-        for n_cores in [2, 3, 4, -1]:
+        for n_cores in [1, 2, 3, 4, -1]:
             orders = pt.NH_order_parameters(traj, nh_indices,
                                             tcorr=8000.,
                                             n_cores=n_cores)

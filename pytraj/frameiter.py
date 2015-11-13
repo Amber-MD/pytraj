@@ -1,7 +1,6 @@
 from __future__ import absolute_import
 from pytraj.frame import Frame
 
-
 class FrameIterator(object):
     """
     create this class to hold all iterating information. This class is for internal use.
@@ -168,8 +167,8 @@ class FrameIterator(object):
                    options=options, *args, **kwd)
 
     def __iter__(self):
-        # do not import CpptrajActions in the top to avoid circular importing
         from pytraj.actions import CpptrajActions
+        # do not import CpptrajActions in the top to avoid circular importing
         if self.autoimage:
             image_act = CpptrajActions.Action_AutoImage()
             image_act.read_input("", top=self.original_top)
@@ -195,6 +194,10 @@ class FrameIterator(object):
             need_align = False
             ref, mask_for_rmsfit = None, None
 
+        if self.mask is not None:
+            mask = self.mask
+            atm = self.original_top(mask)
+
         for frame0 in self.frame_iter:
             if self.copy:
                 # use copy for TrajectoryIterator
@@ -211,8 +214,6 @@ class FrameIterator(object):
                 # trick cpptraj to fit to 1st frame (=ref)
                 rmsd_act.do_action(frame)
             if self.mask is not None:
-                mask = self.mask
-                atm = self.original_top(mask)
                 frame2 = Frame(frame, atm)
                 yield frame2
             else:
