@@ -81,6 +81,10 @@ class FrameIterator(object):
     >>> fi = traj.iterframe(2, 8, rmsfit=3)
     >>> fi = traj.iterframe(2, 8, mask='@1,2,3,4,5')
 
+    # rmsfit = (3,) (=(traj[3], '*'))
+    >>> fi = traj.iterframe(2, 8, rmsfit=(3,))
+    >>> fi = traj.iterframe(2, 8, mask='@1,2,3,4,5')
+
     >>> # explit use copy=True to give different Frame with list
     >>> fi = traj.iterframe(2, 8)
     >>> fi.copy = True
