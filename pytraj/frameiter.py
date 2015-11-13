@@ -81,10 +81,6 @@ class FrameIterator(object):
     >>> fi = traj.iterframe(2, 8, rmsfit=3)
     >>> fi = traj.iterframe(2, 8, mask='@1,2,3,4,5')
 
-    # rmsfit = (3,) (=(traj[3], '*'))
-    >>> fi = traj.iterframe(2, 8, rmsfit=(3,))
-    >>> fi = traj.iterframe(2, 8, mask='@1,2,3,4,5')
-
     >>> # explit use copy=True to give different Frame with list
     >>> fi = traj.iterframe(2, 8)
     >>> fi.copy = True
@@ -178,11 +174,7 @@ class FrameIterator(object):
             image_act.read_input("", top=self.original_top)
             image_act.process(self.original_top)
         if self.rmsfit is not None:
-            try:
-                ref, mask_for_rmsfit = self.rmsfit
-            except ValueError:
-                ref = self.rmsfit[0]
-                mask_for_rmsfit = "*"
+            ref, mask_for_rmsfit = self.rmsfit
             need_align = True
             if self.autoimage:
                 # need to do autoimage for ref too
