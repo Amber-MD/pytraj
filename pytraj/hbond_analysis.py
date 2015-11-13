@@ -16,7 +16,7 @@ def to_amber_mask(txtlist):
     This converter is good to measure the hbond distance over time.
 
     >>> list(to_amber_mask(['ASP_16@OD1-ARG_18@N-H',]))
-    [':16@OD1 :18@H']
+    [(':16@OD1 :18@H', ':16@OD1 :18@H :18@N')]
     """
     _txt = txtlist[:]
 
