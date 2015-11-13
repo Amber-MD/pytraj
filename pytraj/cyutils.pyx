@@ -2,6 +2,7 @@ cimport cython
 from cython cimport view
 from .frame cimport Frame, _Frame
 from .core.Box cimport _Box, Box
+from .topology cimport Topology
 
 
 __all__ = ['_fast_count', 'get_positive_idx', '_int_array1d_like_to_memview',
@@ -66,7 +67,8 @@ def _int_array1d_like_to_memview(mylist):
         int_view = arr0
     return int_view
 
-def _fast_iterptr(double[:, :, :] xyz, int n_atoms, indices):
+def _fast_iterptr(double[:, :, :] xyz, int n_atoms, indices, Topology topology=None,
+        double[:] mass=None):
     '''noxbox
     '''
     cdef int i
@@ -74,20 +76,27 @@ def _fast_iterptr(double[:, :, :] xyz, int n_atoms, indices):
 
     # just create a pointer
     cdef Frame frame = Frame(n_atoms, xyz[0], _as_ptr=True)
-    cdef _Frame _frame
+    if topology is not None:
+        frame.set_mass(topology)
+    elif mass is not None:
+        frame._set_mass_from_array(mass)
 
     for i in indices:
         frame.thisptr.SetXptr(n_atoms, &xyz[i, 0, 0])
         yield frame
 
-def _fast_iterptr_withbox(double[:, :, :] xyz, double[:, :] boxes, int n_atoms, indices):
+def _fast_iterptr_withbox(double[:, :, :] xyz, double[:, :] boxes, int n_atoms, indices,
+        Topology topology=None, double[:] mass=None):
     # withbox
     cdef int i
     cdef int n_frames = xyz.shape[0]
 
     # just create a pointer
     cdef Frame frame = Frame(n_atoms, xyz[0], _as_ptr=True)
-    cdef _Frame _frame
+    if topology is not None:
+        frame.set_mass(topology)
+    elif mass is not None:
+        frame._set_mass_from_array(mass)
 
     for i in indices:
         frame.thisptr.SetXptr(n_atoms, &xyz[i, 0, 0])

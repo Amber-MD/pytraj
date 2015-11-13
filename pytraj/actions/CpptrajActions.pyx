@@ -137,7 +137,7 @@ cdef class Action:
             return status
 
     @makesureABC("Action")
-    def do_action(self, current_frame=None, mass=True, int idx=0, get_new_frame=False):
+    def do_action(self, current_frame=None, int idx=0, get_new_frame=False):
         """
         Perform action on Frame. 
         Parameters:
@@ -155,12 +155,6 @@ cdef class Action:
 
         if isinstance(current_frame, Frame):
             frame = <Frame> current_frame
-            # make sure to update frame mass
-            # only set mass for Frame that is used as a pointer
-            # else: do not need to set mass (eg. Frame produced by TrajectoryIterator
-            # since it's already set mass
-            if mass and frame._as_view:
-                frame.set_mass(self.top)
             actframe_ = _ActionFrame(frame.thisptr)
             self.baseptr.DoAction(idx, actframe_)
             self.n_frames += 1
@@ -171,7 +165,7 @@ cdef class Action:
                 return new_frame
         else:
             for frame in iterframe_master(current_frame):
-                self.do_action(frame, mass=mass, idx=idx)
+                self.do_action(frame, idx=idx)
 
     @makesureABC("Action")
     def post_process(self):
