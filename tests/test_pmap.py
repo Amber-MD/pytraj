@@ -37,7 +37,10 @@ class TestNormalPmap(unittest.TestCase):
         def need_to_raise_2(traj=self.traj):
             pt.pmap(pt.bfactors, traj[:], n_cores=2)
 
-        self.assertRaises(ValueError, lambda: need_to_raise_2())
+        # raise if turn off pmap by setting _is_parallelizable to False
+        pt.radgyr._is_parallelizable = False
+        self.assertRaises(ValueError, lambda: pt.pmap(pt.radgyr, self.traj))
+        pt.radgyr._is_parallelizable = True
 
     def test_general(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
