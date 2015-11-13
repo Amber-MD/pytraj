@@ -1053,17 +1053,16 @@ cdef class DatasetCoords(Dataset):
         """
         cdef unsigned int i 
         cdef unsigned int size = self.size
-        cdef Frame frame
-        frame = self._allocate_frame()
+        cdef Frame frame = Frame()
+        frame.thisptr[0] = self.baseptr_1.AllocateFrame()
 
         for i in range(size):
             self.baseptr_1.GetFrame(i, frame.thisptr[0])
             yield frame
 
     def __getitem__(self, idx):
-        cdef Frame frame
-        frame = self._allocate_frame()
-        frame._own_memory = True
+        cdef Frame frame = Frame()
+        frame.thisptr[0] = self.baseptr_1.AllocateFrame()
 
         if self.size == 0:
             raise ValueError("Your Trajectory is empty, how can I index it?")

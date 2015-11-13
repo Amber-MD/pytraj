@@ -156,8 +156,8 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
         dslist[-1].top = self.traj.top
         dslist[-1].load(self.traj.filename)
         traj_new = dslist[-1]
-        # FIXME: segmentation fault
         aa_eq(traj_new.xyz, self.traj.xyz)
+        aa_eq(pt.rmsd(traj_new), pt.rmsd(self.traj))
 
         # vector
         dslist.add_new(dtype='vector', name='my_vec')
