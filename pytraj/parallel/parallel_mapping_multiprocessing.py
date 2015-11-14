@@ -206,7 +206,9 @@ def _pmap(func, traj, *args, **kwd):
 
     if isinstance(func, (list, tuple, string_types)):
         # assume using _load_batch_pmap
-        from pytraj.parallel import _load_batch_pmap
+        from pytraj.parallel import _load_batch_pmap, check_valid_command
+        if isinstance(func, (list, tuple)):
+            check_valid_command(func)
         data = _load_batch_pmap(n_cores=n_cores,
                                 traj=traj,
                                 lines=func,

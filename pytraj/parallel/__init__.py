@@ -4,6 +4,20 @@ from pytraj import Frame
 from pytraj import create_pipeline
 from pytraj.datasets import CpptrajDatasetList
 
+def check_valid_command(commands):
+    '''
+
+    Parameters
+    ----------
+    commands : list/tuple of str
+    '''
+    for cm in commands:
+        cm = cm.strip()
+        if cm.startswith('rms') and 'refindex' not in cm:
+            raise ValueError('must prodive refindex for rms/rmsd command')
+        if cm.startswith('matrix'):
+            raise ValueError('Not support matrix')
+
 
 def _worker_actlist(rank,
                     n_cores=2,

@@ -225,6 +225,15 @@ class TestFrameIndices(unittest.TestCase):
                 aa_eq(serial_out, pt.tools.dict_to_ndarray(parallel_out))
                 aa_eq(serial_out, pt.tools.dict_to_ndarray(parallel_out_cpptraj_style))
 
+class TestCheckValidCommand(unittest.TestCase):
+    def test_frame_indices(self):
+        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+
+        # must provide refindex
+        self.assertRaises(ValueError, lambda: pt.pmap(['rms'], traj, n_cores=2))
+        # does not support matrix
+        self.assertRaises(ValueError, lambda: pt.pmap(['matrix'], traj, n_cores=2))
+
 
 if __name__ == "__main__":
     unittest.main()
