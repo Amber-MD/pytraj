@@ -431,36 +431,6 @@ cdef class DatasetList:
         df = DataFile()
         df.read_data(filename, ArgList(arg), self)
 
-    def write_all_datafiles(self, filenames=None):
-        from pytraj.core.DataFileList import DataFileList
-        df = DataFileList()
-
-        for idx, d in enumerate(self):
-            if filenames is None:
-                # make default name
-                d.key= d.key.replace(":", "_")
-                fname = "pytraj_datafile_" + d.key + ".txt"
-            else:
-                fname = filenames[idx]
-            df.add_dataset(fname, d)
-        df.write_all_datafiles()
-
-    def savetxt(self, filename='dslist_default_name.txt', labels=None):
-        """just like `numpy.savetxt`
-        Notes: require numpy
-        """
-        if labels is None:
-            headers = "\t".join([d.key for d in self])
-            headers = "frame\t" + headers
-        else:
-            headers = "frame\t" + labels
-
-        frame_number = np.arange(self[0].size)
-        # transpose `values` first
-        values = np.column_stack((frame_number, self.values.T))
-        formats = ['%8i'] + [d.format for d in self]
-        np.savetxt(filename, values, format=formats, header=headers) 
-
     def _parent_lists_append(self, data):
         self._parent_lists.append(data)
 
