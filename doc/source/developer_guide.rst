@@ -254,6 +254,22 @@ The numbers after ``83%`` show the line numbers in pytraj.io module (io.py) that
 
 This means that this method has never been tested. So just write a test case for it to increase the coverage score.
 
+Segmentation fault debug
+------------------------
+
+Use ``gdb``
+
+.. code-block:: bash
+
+    $ gdb python
+    (gdb) run your_python_script.py
+    (gdb) bt
+
+This is how the output looks like after you typed ``bt`` command::
+
+    #13 0x00002aaac32fc8a4 in __pyx_pw_7_lprmsd_1lprmsd (__pyx_self=0x0, __pyx_args=<value optimized out>, __pyx_kwds=<value optimized out>) at mdtraj/rmsd/_lprmsd.cpp:1739
+
+
 cython
 ------
 We recommended to use ``cython`` to write or wrap high performance code. Please don't use ``cimport numpy``, use `memoryview <http://docs.cython.org/src/userguide/memoryviews.html>`_ instead
