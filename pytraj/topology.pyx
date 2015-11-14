@@ -543,17 +543,20 @@ cdef class Topology:
         return self
 
     property mass:
+        '''return a copy of atom masses (numpy 1D array)'''
         def __get__(self):
             """return python array of atom masses"""
             cdef Atom atom
             return np.asarray([atom.mass for atom in self.atoms])
 
     property charge:
+        '''return a copy of atom charges (numpy 1D array)'''
         def __get__(self):
-            return np.asarray([x.charge for x in self.atoms])
+            return np.asarray([atom.charge for atom in self.atoms])
 
     def indices_bonded_to(self, atom_name):
         """return indices of the number of atoms that each atom bonds to
+
         Parameters
         ----------
         atom_name : name of the atom

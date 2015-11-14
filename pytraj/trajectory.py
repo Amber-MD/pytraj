@@ -21,9 +21,17 @@ __all__ = ['Trajectory']
 
 
 class Trajectory(object):
-    def __init__(self, filename=None, top=None, xyz=None, indices=None):
+    def __init__(self, filename=None, top=None, xyz=None):
         """very simple  in-memory Trajectory. It has only information about 3D coordinates
         and unitcells (no time, no velocity, no mass, not force, ...)
+
+        Parameters
+        ----------
+        filename: str, trajectory filename
+        top : Topology
+        xyz: 3D-array
+            if filename is not given, pytraj will construct Trajectory from given
+            Topology and given xyz array.
 
         Attributes
         ----------
@@ -51,7 +59,8 @@ class Trajectory(object):
         >>> traj = pt.Trajectory((fn, fn), tn)
 
         >>> # load from array
-        >>> traj_1 = pt.Trajectory(xyz=traj.xyz, top=traj.top)
+        >>> xyz = traj.xyz
+        >>> traj_1 = pt.Trajectory(xyz=xyz, top=traj.top)
         >>> traj['@CA'].xyz[:, :, 0]
         array([[  3.970048 ,   7.6400076,  10.1610562]])
         """
@@ -96,7 +105,7 @@ class Trajectory(object):
 
     @property
     def top(self):
-        '''Topology
+        '''Topology (having info about atom, residue, ...)
 
         See also
         --------
@@ -128,7 +137,8 @@ class Trajectory(object):
         self.top = value
 
     def reverse(self):
-        '''
+        '''reverse Trajectory
+
         Returns
         -------
         self
@@ -146,7 +156,7 @@ class Trajectory(object):
 
     @property
     def xyz(self):
-        '''Trajectory's coordinates, shape=(n_frames, n_frames, 3)
+        '''Trajectory's coordinates, shape=(n_frames, n_frames, 3), dtype='f8'
 
         Examples
         --------
@@ -520,7 +530,7 @@ class Trajectory(object):
             ValueError()
 
     def __call__(self, *args, **kwd):
-        '''shortcut of ``iterframe``
+        '''shortcut of :function:iterframe
 
         Examples
         --------
@@ -534,7 +544,6 @@ class Trajectory(object):
 
     def load(self, filename='', indices=None):
         '''load file or files. It's better to use ``pytraj.load`` method.
-
 
         Examples
         --------
@@ -550,6 +559,7 @@ class Trajectory(object):
         Notes
         -----
         It's better to use ``pytraj.load`` method
+
         >>> traj = pt.load(fname, tname)
         >>> traj.n_atoms
         5293
@@ -947,7 +957,7 @@ class Trajectory(object):
 
     @classmethod
     def from_iterable(cls, iterables, top=None):
-        '''
+        '''create a new Trajectory from iterable (produce Frame)
 
         Examples
         --------
