@@ -9,8 +9,8 @@ from pytraj.testing import cpptraj_test_dir
 import pytraj.common_actions as pyca
 
 
-class Test(unittest.TestCase):
-    def test_0(self):
+class TestDihedral(unittest.TestCase):
+    def test_dihedral(self):
         import numpy as np
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
@@ -44,6 +44,9 @@ class Test(unittest.TestCase):
         aa_eq(d3, d6)
         aa_eq(d3.T, d7.T[:fa.n_frames])
         aa_eq(d3.T, d7.T[fa.n_frames:])
+
+        # raise
+        self.assertRaises(ValueError, lambda: pt.dihedrals(traj, [[0, 3, 2]]))
 
 
 if __name__ == "__main__":
