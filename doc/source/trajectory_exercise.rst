@@ -147,7 +147,7 @@ Parallel computing with TrajectoryIterator
     # serial: pt.rmsd(traj)
 
     # parallel
-    pt.pmap(pt.rmsd, traj, n_cores=3)
+    pt.pmap(pt.radgyr, traj, n_cores=3)
 
     # chain a series of cpptraj's commands
     pt.pmap(['radgyr nomax', 'molsurf @CA', 'multidihedral resrange 3-4 psi phi'], traj, n_cores=4)
