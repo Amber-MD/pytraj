@@ -52,12 +52,12 @@ list_of_cal = ['calc_distance',
                'calc_density',
                'calc_grid',
                'calc_temperatures',
-               'calc_linear_interaction_energy', ]
+               ]
 
 list_of_do = ['do_translation',
               'do_rotation',
               'do_autoimage',
-              'do_clustering', ]
+              ]
 
 list_of_get = ['get_average_frame']
 
@@ -68,14 +68,17 @@ __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
 
 def _2darray_to_atommask_groups(seq):
-    '''[[0, 3], [4, 7]] turns to ['@1 @4', '@5 @8']
+    '''
+    
+    >>> list(_2darray_to_atommask_groups([[0, 3], [4, 7]]))
+    ['@1 @4', '@5 @8']
     '''
     for arr in seq:
         # example: arr = [0, 3]; turns ot '@1 @4'
         yield '@' + str(arr[0] + 1) + ' @' + str(arr[1] + 1)
 
 
-def _noaction_with_TrajectoryIterator(trajiter):
+def _assert_mutable(trajiter):
     from pytraj import TrajectoryIterator
     if isinstance(trajiter, TrajectoryIterator):
         raise ValueError(
@@ -120,22 +123,23 @@ def calc_distance(traj=None,
     --------
     >>> import pytraj as pt
     >>> # calculate distance for two atoms, using amber mask
-    >>> pt.distance(traj, '@1 @3')
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> dist = pt.distance(traj, '@1 @3')
 
     >>> # calculate distance for two groups of atoms, using amber mask
-    >>> pt.distance(traj, '@1,37,8 @2,4,6')
+    >>> dist = pt.distance(traj, '@1,37,8 @2,4,6')
 
     >>> # calculate distance between two residues, using amber mask
-    >>> pt.distance(traj, ':1 :10')
+    >>> dist = pt.distance(traj, ':1 :10')
 
     >>> # calculate multiple distances between two residues, using amber mask
     >>> # distance between residue 1 and 10, distance between residue 3 and 20 
     >>> # (when using atom string mask, index starts from 1)
-    >>> pt.distance(traj, [':1 :10', ':3 :20'])
+    >>> dist = pt.distance(traj, [':1 :10', ':3 :20'])
 
     >>> # calculate distance for a series of atoms, using array for atom mask
     >>> # distance between atom 1 and 5, distance between atom 4 and 10 (index starts from 0)
-    >>> pt.distance(traj, [[1, 5], [4, 10]])
+    >>> dist = pt.distance(traj, [[1, 5], [4, 10]])
     """
     ensure_not_none_or_string(traj)
     command = mask
@@ -220,6 +224,12 @@ def calc_pairwise_distance(traj=None,
     out_1 : numpy array, shape (n_frames, n_atom_1, n_atom_2)
     out_2 : atom pairs, shape=(n_atom_1, n_atom_2, 2)
 
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> mat = pt.calc_pairwise_distance(traj, '@CA', '@CB')
+
     Notes
     -----
     This method is only fast for small number of atoms.
@@ -265,23 +275,27 @@ def calc_angle(traj=None,
     Examples
     --------
     >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2()
     >>> # calculate angle for three atoms, using amber mask
     >>> pt.angle(traj, '@1 @3 @10')
+    array([ 81.64123577,  57.2023556 ,  82.0960904 , ...,  79.31748553,
+            99.60633345,  79.4666477 ])
 
     >>> # calculate angle for three groups of atoms, using amber mask
-    >>> pt.angle(traj, '@1,37,8 @2,4,6 @5,20')
+    >>> dist = pt.angle(traj, '@1,37,8 @2,4,6 @5,20')
+
 
     >>> # calculate angle between three residues, using amber mask
-    >>> pt.angle(traj, ':1 :10 :20')
+    >>> dist = pt.angle(traj, ':1 :10 :20')
 
     >>> # calculate multiple angles between three residues, using amber mask
     >>> # angle between residue 1, 10, 20, angle between residue 3, 20, 30
     >>> # (when using atom string mask, index starts from 1)
-    >>> pt.angle(traj, [':1 :10 :20', ':3 :20 :30'])
+    >>> dist = pt.angle(traj, [':1 :10 :20', ':3 :20 :30'])
 
     >>> # calculate angle for a series of atoms, using array for atom mask
     >>> # angle between atom 1, 5, 8, distance between atom 4, 10, 20 (index starts from 0)
-    >>> pt.angle(traj, [[1, 5, 8], [4, 10, 20]])
+    >>> dist = pt.angle(traj, [[1, 5, 8], [4, 10, 20]])
     """
     dslist = CpptrajDatasetList()
     act = CpptrajActions.Action_Angle()
@@ -351,10 +365,17 @@ def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
 
     Parameters
     ----------
-    traj
+    traj : Trajectory-like
     mask : tuple of strings
-    resid
+    resid : str, resid
     dtype
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> from pytraj.common_actions import _dihedral_res
+    >>> traj = pt.datafiles.load_tz2()
+    >>> data = _dihedral_res(traj, mask=('N', 'CA', 'C', 'O'), resid=0)
     '''
 
     if is_int(resid):
@@ -389,23 +410,30 @@ def calc_dihedral(traj=None,
     Examples
     --------
     >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
     >>> # calculate dihedral angle for four atoms, using amber mask
     >>> pt.dihedral(traj, '@1 @3 @10 @20')
+    array([ 23.32244362,  23.5386922 ,  14.26831569,  14.58865946,
+            23.98675475,  26.18419185,   6.06982926,  13.57158505,
+            16.59013076,  29.99131573])
 
     >>> # calculate dihedral angle for four groups of atoms, using amber mask
-    >>> pt.dihedral(traj, '@1,37,8 @2,4,6 @5,20 @21,22')
+    >>> data = pt.dihedral(traj, '@1,37,8 @2,4,6 @5,20 @21,22')
 
     >>> # calculate dihedral angle for four residues, using amber mask
-    >>> pt.dihedral(traj, ':1 :10 :20 :22')
+    >>> data = pt.dihedral(traj, ':1 :10 :20 :22')
 
     >>> # calculate multiple dihedral angles for four residues, using amber mask
     >>> # angle for residue 1, 10, 20, 30; angle between residue 3, 20, 30, 40
     >>> # (when using atom string mask, index starts from 1)
     >>> pt.dihedral(traj, [':1 :10 :20 :30', ':3 :20 :30 :40'])
-
+    array([[-166.81829116, -160.19029669, -158.56560062, ..., -169.10064772,
+            -158.81655586, -165.28873555],
+           [  -0.60994639,    0.78261235,    1.86394369, ...,    1.21170489,
+              -1.16762607,   -3.08412049]])
     >>> # calculate dihedral angle for a series of atoms, using array for atom mask
     >>> # dihedral angle for atom 1, 5, 8, 10, dihedral for atom 4, 10, 20, 30 (index starts from 0)
-    >>> pt.dihedral(traj, [[1, 5, 8, 10], [4, 10, 20, 30]])
+    >>> data = pt.dihedral(traj, [[1, 5, 8, 10], [4, 10, 20, 30]])
     """
     act = CpptrajActions.Action_Dihedral()
     dslist = CpptrajDatasetList()
@@ -482,6 +510,7 @@ def calc_mindist(traj=None,
     Examples
     --------
     >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2()
     >>> data = pt.mindist(traj, '@CA @H')
     '''
 
@@ -522,7 +551,10 @@ def calc_diffusion(traj,
     --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()
-    >>> pt.diffusion(traj)
+    >>> data = pt.diffusion(traj, dtype='dict')
+    >>> data['X']
+    array([ 0.        ,  0.87027302,  1.64626022,  2.26262651,  2.98068114,
+            3.57075535,  4.07030655,  4.71894512,  5.42302306,  6.01310377])
     '''
     act = CpptrajActions.Action_Diffusion()
     dslist = CpptrajDatasetList()
@@ -586,8 +618,10 @@ def calc_watershell(traj=None,
 
     Examples
     --------
-    >>> pt.watershell(traj, solute_mask='!:WAT')
-    >>> pt.watershell(traj, solute_mask='!:WAT', lower=5.0, upper=10.)
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> data = pt.watershell(traj, solute_mask='!:WAT')
+    >>> data = pt.watershell(traj, solute_mask='!:WAT', lower=5.0, upper=10.)
     """
 
     traj = _get_fiterator(traj, frame_indices)
@@ -619,6 +653,13 @@ def calc_matrix(traj=None,
                 top=None,
                 dtype='ndarray', *args, **kwd):
     '''
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> from pytraj.common_actions import calc_matrix
+    >>> traj = pt.datafiles.load_trpcage()
+    >>> mat = calc_matrix(traj, 'covar @CA')
     '''
     if not isinstance(command, string_types):
         command = array_to_cpptraj_atommask(command)
@@ -643,9 +684,11 @@ def calc_radgyr(traj=None,
 
     Examples
     --------
-    >>> pt.radgyr(traj, '@CA')
-    >>> pt.radgyr(traj, '!:WAT', nomax=False)
-    >>> pt.radgyr(traj, '@CA', frame_indices=[2, 4, 6])
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> data = pt.radgyr(traj, '@CA')
+    >>> data = pt.radgyr(traj, '!:WAT', nomax=False)
+    >>> data = pt.radgyr(traj, '@CA', frame_indices=[2, 4, 6])
     '''
     _nomax = 'nomax' if nomax else ""
     command = " ".join((mask, _nomax))
@@ -670,8 +713,16 @@ def calc_molsurf(traj=None,
 
     Examples
     --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
     >>> pt.molsurf(traj, '@CA')
+    array([ 458.51409637,  459.64784573,  456.54690793,  467.72939574,
+            462.45908781,  458.70327554,  454.40514806,  455.15015576,
+            468.70566447,  456.0058624 ])
     >>> pt.molsurf(traj, '!:WAT')
+    array([ 1079.1395679 ,  1090.79759341,  1069.65127413,  1096.0810919 ,
+            1091.65862234,  1091.68906298,  1085.53105392,  1069.22510187,
+            1079.70803583,  1075.8151414 ])
     '''
     _probe = 'probe ' + str(probe)
     _offset = 'offset ' + str(offset) if offset != 0. else ''
@@ -693,11 +744,16 @@ def calc_rotation_matrix(traj=None,
                          frame_indices=None,
                          top=None,
                          with_rmsd=False):
-    '''
+    '''compute rotation matrix with/without rmsd
+
     Returns
     -------
     out : if with_rmsd=False, return numpy array, shape (n_frames, 3, 3)
           if with_rmsd=True, return a tuple (mat, rmsd)
+
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2()
+    >>> mat = pt.calc_rotation_matrix(traj, mask='@CA')
     '''
     dslist = CpptrajDatasetList()
     _mass = 'mass' if mass else ''
@@ -717,6 +773,14 @@ def calc_rotation_matrix(traj=None,
 @_super_dispatch()
 def calc_volume(traj=None, mask="", top=None, dtype='ndarray',
                 frame_indices=None):
+    '''calculate volume
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> vol = pt.calc_volume(traj, '@CA')
+    '''
     command = mask
 
     act = CpptrajActions.Action_Volume()
@@ -728,13 +792,41 @@ def calc_volume(traj=None, mask="", top=None, dtype='ndarray',
 
 @_super_dispatch()
 def calc_multivector(traj=None,
-                     mask="",
+                     resrange='',
+                     names='',
                      top=None,
-                     dtype='ndarray', *args, **kwd):
+                     dtype='ndarray',
+                     frame_indices=None):
+    '''
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    resrange : str, reidue range
+    names : {str, tuple of str}
+    top : Topology, optional
+    dtype : str, default 'ndarray'
+    frame_indices : {None, 1D array-like}, optional, default None
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> vecs = pt.calc_multivector(traj, resrange='1-5', names=('C', 'N'))
+    >>> vecs = pt.calc_multivector(traj, resrange='1-5', names='C N')
+    '''
     act = CpptrajActions.Action_MultiVector()
 
+    _resrange = 'resrange ' + resrange
+    if isinstance(names, string_types):
+        name1, name2 = names.split()
+    elif isinstance(names, (list, tuple)):
+        name1, name2 = names
+    _names = ' '.join(('name1', name1, 'name2', name2))
+    command = ' '.join((_resrange, _names)) 
+
     dslist = CpptrajDatasetList()
-    act(mask, traj, top=top, dslist=dslist, *args, **kwd)
+    act(command, traj, top=top, dslist=dslist)
     return _get_data_from_dtype(dslist, dtype)
 
 
@@ -792,23 +884,6 @@ def calc_volmap(traj,
 
 
 volmap = calc_volmap
-
-
-@_super_dispatch()
-def calc_linear_interaction_energy(traj=None,
-                                   mask="",
-                                   top=None,
-                                   dtype='dataset',
-                                   frame_indices=None, *args, **kwd):
-    command = mask
-    act = CpptrajActions.Action_LIE()
-
-    dslist = CpptrajDatasetList()
-    act(command, traj, top=top, dslist=dslist, *args, **kwd)
-    return _get_data_from_dtype(dslist, dtype)
-
-# alias
-calc_LIE = calc_linear_interaction_energy
 
 
 @_register_openmp
@@ -920,6 +995,12 @@ def calc_pairdist(traj, mask="*", delta=0.1, dtype='ndarray', top=None, frame_in
     dtype : str, default 'ndarray'
         dtype of return data
     top : Topology, optional
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> data = pt.calc_pairdist(traj)
     '''
     dslist = CpptrajDatasetList()
     act = CpptrajActions.Action_PairDist()
@@ -951,9 +1032,15 @@ def calc_jcoupling(traj=None,
     command : str, default ""
         cpptraj's command/mask
     kfile : str, default None, optional
-        Dir for Karplus file. If "None", use $AMBERHOME dir 
+        Dir for Karplus file. If "None", use $AMBERHOME dir
     dtype : str, {'dataset', ...}, default 'dataset'
     *args, **kwd: optional
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2()
+    >>> data = pt.calc_jcoupling(traj, ':1-12', kfile='data/Karplus.txt')
     """
     command = mask
 
@@ -967,15 +1054,19 @@ def calc_jcoupling(traj=None,
 
 
 def do_translation(traj=None, command="", frame_indices=None, top=None):
-    '''
+    '''translate coordinate
+
     Examples
     --------
     >>> import pytraj as pt
     >>> # load to mutable trajectory by `load` method
-    >>> traj = pt.load('traj.nc', 'myparm.parm7')
-    >>> pt.translate(traj, '@CA x 120.')
+    >>> from pytraj.testing import get_fn
+    >>> fn, tn = get_fn('tz2')
+    >>> traj = pt.load(fn, tn)
+    >>> # do transform traj and return itself
+    >>> traj = pt.translate(traj, '@CA x 120.')
     '''
-    _noaction_with_TrajectoryIterator(traj)
+    _assert_mutable(traj)
 
     _top = _get_topology(traj, top)
     fi = _get_fiterator(traj, frame_indices)
@@ -995,7 +1086,19 @@ translate = do_translation
 
 
 def do_scaling(traj=None, command="", frame_indices=None, top=None):
-    _noaction_with_TrajectoryIterator(traj)
+    '''
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> # load to mutable trajectory by `load` method
+    >>> from pytraj.testing import get_fn
+    >>> fn, tn = get_fn('tz2')
+    >>> traj = pt.load(fn, tn)
+    >>> # do transform traj and return itself
+    >>> traj = pt.scale(traj, '@CA x 1.2')
+    '''
+    _assert_mutable(traj)
     _top = _get_topology(traj, top)
     fi = _get_fiterator(traj, frame_indices)
     CpptrajActions.Action_Scale()(command, fi, top=_top)
@@ -1005,8 +1108,24 @@ scale = do_scaling
 
 
 def do_rotation(traj=None, command="", frame_indices=None, top=None):
+    '''
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> # load to mutable trajectory by `load` method
+    >>> from pytraj.testing import get_fn
+    >>> fn, tn = get_fn('tz2')
+    >>> traj = pt.load(fn, tn)
+    >>> # do transform traj and return itself
+    >>> traj = pt.rotate(traj, 'x 90')
+
+    Notes
+    -----
+    ``rotate`` is an alias of ``do_rotation``
+    '''
     _top = _get_topology(traj, top)
-    _noaction_with_TrajectoryIterator(traj)
+    _assert_mutable(traj)
     fi = _get_fiterator(traj, frame_indices)
     CpptrajActions.Action_Rotate()(command, fi, top=_top)
 
@@ -1017,8 +1136,12 @@ rotate = do_rotation
 @_super_dispatch()
 def do_autoimage(traj, command="", frame_indices=None, top=None):
     '''perform autoimage and return the coordinate-updated traj
+
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()[:]
+    >>> traj = pt.autoimage(traj)
     '''
-    _noaction_with_TrajectoryIterator(traj)
+    _assert_mutable(traj)
     CpptrajActions.Action_AutoImage()(command, traj, top=top)
     return traj
 
@@ -1052,17 +1175,18 @@ def mean_structure(traj,
     Examples
     --------
     >>> import pytraj as pt
-    >>> print('get average structure from whole traj, all atoms')
-    >>> pt.mean_structure(traj)
+    >>> traj = pt.datafiles.load_tz2_ortho() 
+    >>> # get average structure from whole traj, all atoms
+    >>> frame = pt.mean_structure(traj)
 
-    >>> print("get average structure from several frames, '@CA' atoms")
-    >>> pt.mean_structure(traj, '@CA', frame_indices=range(2, 8, 2))
+    >>> # get average structure from several frames, '@CA' atoms"
+    >>> frame = pt.mean_structure(traj, '@CA', frame_indices=range(2, 8, 2))
 
-    >>> print('get average structure but do autoimage and rmsfit to 1st Frame.')
-    >>> pt.mean_structure(traj(autoimage=True, rmsfit=0))
+    >>> # get average structure but do autoimage and rmsfit to 1st Frame
+    >>> frame = pt.mean_structure(traj(autoimage=True, rmsfit=0))
 
     >>> # get average structure but do autoimage and rmsfit to 1st Frame.
-    >>> pt.mean_structure(traj(autoimage=True, rmsfit=0, frame_indices=[0, 5, 6]))
+    >>> frame = pt.mean_structure(traj(autoimage=True, rmsfit=0, frame_indices=[0, 5, 6]))
 
     Notes
     -----
@@ -1117,6 +1241,10 @@ def get_velocity(traj, mask=None, frame_indices=None):
     Return
     ------
     out : 3D numpy array, shape (n_frames, n_atoms, 3)
+
+    Examples
+    --------
+    >>> vels = pt.get_velocity(traj, frame_indices=[0, 3]) # doctest: +SKIP
     '''
     if mask is None:
         atm_indices = None
@@ -1156,13 +1284,14 @@ def randomize_ions(traj=None, command="", top=None):
     """
     if not isinstance(command, string_types):
         command = array_to_cpptraj_atommask(command)
-    _noaction_with_TrajectoryIterator(traj)
+    _assert_mutable(traj)
     act = CpptrajActions.Action_RandomizeIons()
     act(command, traj, top)
 
 
 def clustering_dataset(array_like, command=''):
-    '''
+    '''cluster dataset
+
     Returns
     -------
     cluster index for each data point
@@ -1173,7 +1302,6 @@ def clustering_dataset(array_like, command=''):
     >>> import numpy as np 
     >>> array_like = np.random.randint(0, 10, 1000)
     >>> data = pt.clustering_dataset(array_like, 'clusters 10 epsilon 3.0')
-    >>> print(data)
     '''
     from pytraj.analyses.CpptrajAnalyses import Analysis_Clustering
 
@@ -1186,60 +1314,6 @@ def clustering_dataset(array_like, command=''):
     act(command, dslist=dslist)
 
     return np.array(dslist[-1])
-
-
-def do_clustering(traj=None,
-                  command="",
-                  top=None,
-                  dtype='dataset',
-                  dslist=None,
-                  dflist=None):
-    """perform clustering. (outdated)
-
-    Parameters
-    ----------
-    traj : Trajectory-like | list of Trajectory-like | frame or chunk iterator
-    command : cpptraj command
-    top : Topology, optional
-    dslist : CpptrajDatasetList, optional
-    dflist : DataFileList, optional
-
-    Notes:
-    Supported algorithms: kmeans, hieragglo, and dbscan.
-
-    Examples
-    --------
-    >>> do_clustering(traj, "kmeans clusters 50 @CA")
-
-    Returns
-    -------
-    CpptrajDatasetList object
-
-    """
-
-    _top = _get_topology(traj, top)
-    ana = analdict['clustering']
-    # need to creat `dslist` here so that every time `do_clustering` is called,
-    # we will get a fresh one (or will get segfault)
-    if dslist is None:
-        dslist = CpptrajDatasetList()
-    else:
-        dslist = dslist
-
-    if traj is not None:
-        dslist.add_set("coords", "__pytraj_cluster")
-        #dslist[-1].top = _top
-        dslist[0].top = _top
-        for frame in traj:
-            # dslist[-1].add_frame(frame)
-            dslist[0].add_frame(frame)
-        command += " crdset __pytraj_cluster"
-    else:
-        pass
-    ana(command, _top, dslist, dflist)
-    # remove frames in dslist to save memory
-    dslist.remove_set(dslist['__pytraj_cluster'])
-    return _get_data_from_dtype(dslist, dtype=dtype)
 
 
 @_register_pmap
@@ -1283,14 +1357,15 @@ def calc_multidihedral(traj=None,
     Examples
     --------
     >>> import pytraj as pt
-    >>> pt.multidihedral(traj)
-    >>> pt.multidihedral(traj, 'phi psi')
-    >>> pt.multidihedral(traj, resrange=range(8))
-    >>> pt.multidihedral(traj, range360=True)
-    >>> pt.multidihedral(traj, resrange='1,3,5')
-    >>> pt.multidihedral(traj, dhtypes='phi psi')
-    >>> pt.multidihedral(traj, dhtypes='phi psi', resrange='3-7')
-    >>> pt.multidihedral(traj, dhtypes='phi psi', resrange=[3, 4, 8])
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> data = pt.multidihedral(traj)
+    >>> data = pt.multidihedral(traj, 'phi psi')
+    >>> data = pt.multidihedral(traj, resrange=range(8))
+    >>> data = pt.multidihedral(traj, range360=True)
+    >>> data = pt.multidihedral(traj, resrange='1,3,5')
+    >>> data = pt.multidihedral(traj, dhtypes='phi psi')
+    >>> data = pt.multidihedral(traj, dhtypes='phi psi', resrange='3-7')
+    >>> data = pt.multidihedral(traj, dhtypes='phi psi', resrange=[3, 4, 8])
     """
     if resrange:
         if is_int(resrange):
@@ -1331,10 +1406,22 @@ def calc_multidihedral(traj=None,
 def calc_atomicfluct(traj=None,
                      mask="",
                      top=None,
-                     dtype='dataset',
+                     dtype='ndarray',
                      frame_indices=None):
+    '''
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> data = pt.calc_atomicfluct(traj, '@CA')
+    >>> data[:3]
+    array([[  5.        ,   0.61822273],
+           [ 16.        ,   0.5627449 ],
+           [ 40.        ,   0.53717119]])
+    '''
     dslist = CpptrajDatasetList()
-    act = adict['atomicfluct']
+    act = CpptrajActions.Action_AtomicFluct()
     act(mask, traj, top=top, dslist=dslist)
     act.post_process()
     return _get_data_from_dtype(dslist, dtype=dtype)
@@ -1347,7 +1434,13 @@ def calc_bfactors(traj=None,
                   dtype='ndarray',
                   frame_indices=None):
     # Not: do not use _super_dispatch here since we used in calc_atomicfluct
-    """
+    """calculate pseudo bfactor
+
+    Parameters
+    ----------
+    traj: Trajectory-like
+    mask: str, mask
+
     Returns
     -------
     if dtype is 'ndarray' (default), return a numpy array
@@ -1356,7 +1449,11 @@ def calc_bfactors(traj=None,
     Examples
     --------
     >>> import pytraj as pt
-    >>> pt.calc_bfactors(traj, byres=True)
+    >>> from pytraj.testing import get_fn
+    >>> fn, tn = get_fn('tz2')
+    >>> traj = pt.load(fn, tn, mask='!:WAT')
+    >>> pt.superpose(traj)
+    >>> bfactor = pt.calc_bfactors(traj, byres=True)
     """
     byres_text = "byres" if byres else ""
 
@@ -1397,13 +1494,14 @@ def calc_vector(traj=None,
     Examples
     --------
     >>> import pytraj as pt
-    >>> pt.calc_vector(traj, "@CA @CB")
-    >>> pt.calc_vector(traj, [("@CA @CB"),])
-    >>> pt.calc_vector(traj, "principal z")
-    >>> pt.calc_vector(traj, "principal x")
-    >>> pt.calc_vector(traj, "ucellx")
-    >>> pt.calc_vector(traj, "boxcenter")
-    >>> pt.calc_vector(traj, "box")
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> data = pt.calc_vector(traj, "@CA @CB")
+    >>> data = pt.calc_vector(traj, [("@CA @CB"),])
+    >>> data = pt.calc_vector(traj, "principal z")
+    >>> data = pt.calc_vector(traj, "principal x")
+    >>> data = pt.calc_vector(traj, "ucellx")
+    >>> data = pt.calc_vector(traj, "boxcenter")
+    >>> data = pt.calc_vector(traj, "box")
 
     Notes
     -----
@@ -1411,14 +1509,14 @@ def calc_vector(traj=None,
     For example, if you need to perform 3 calculations for 'ucellx', 'boxcenter', 'box'
     like below:
 
-    >>> pt.calc_vector(traj, "ucellx")
-    >>> pt.calc_vector(traj, "boxcenter")
-    >>> pt.calc_vector(traj, "box")
+    >>> data = pt.calc_vector(traj, "ucellx")
+    >>> data = pt.calc_vector(traj, "boxcenter")
+    >>> data = pt.calc_vector(traj, "box")
 
     You should use a list of commands for faster calculation.
 
     >>> comlist = ['ucellx', 'boxcenter', 'box']
-    >>> pt.calc_vector(traj, comlist)
+    >>> data = pt.calc_vector(traj, comlist)
     """
     from pytraj.core.action_list import ActionList
 
@@ -1522,7 +1620,9 @@ def calc_pairwise_rmsd(traj=None,
 
     Examples
     --------
-    >>> pt.pairwise_rmsd(traj(0, 1000, mask='@CA'))
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> arr = pt.pairwise_rmsd(traj(0, 1000, mask='@CA'))
 
     >>> # calculate pairwise rmsd for all frames using CA atoms, use `dme` (distance RMSD)
     >>> # convert to numpy array
@@ -1729,14 +1829,15 @@ def calc_rmsd(traj=None,
     Examples
     --------
     >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_trpcage()
     >>> # all atoms, do fitting, using ref=traj[-3]
-    >>> pt.rmsd(traj, ref=-3)
+    >>> data = pt.rmsd(traj, ref=-3)
 
     >>> # rmsd for 3 maskes, do fitting, using ref=traj[0] (defaul)
-    >>> pt.rmsd(traj, mask=['@CA', '@C', ':3-18@CA'], dtype='dataset')
+    >>> data = pt.rmsd(traj, mask=['@CA', '@C', ':3-18@CA'], dtype='dataset')
 
     >>> # rmsd to first frame, use mass ':3-13' but do not perorm fitting
-    >>> pt.rmsd(traj, ref=traj[0], mask=':3-13', nofit=True)
+    >>> data= pt.rmsd(traj, ref=traj[0], mask=':3-13', nofit=True)
 
     Notes
     -----
@@ -1824,10 +1925,11 @@ def calc_distance_rmsd(traj=None,
     --------
     >>> import pytraj as pt
     >>> # compute distance_rmsd to last frame
-    >>> pt.distance_rmsd(traj, ref=-1)
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> data = pt.distance_rmsd(traj, ref=-1)
 
     >>> # compute distance_rmsd to first frame with mask = '@CA'
-    >>> pt.distance_rmsd(traj, ref=0, mask='@CA')
+    >>> data = pt.distance_rmsd(traj, ref=0, mask='@CA')
     '''
     dslist = CpptrajDatasetList()
     command = mask
@@ -1852,7 +1954,7 @@ def align_principal_axis(traj=None, mask="*", top=None):
     -----
     apply for mutatble traj (Trajectory, Frame)
     """
-    _noaction_with_TrajectoryIterator(traj)
+    _assert_mutable(traj)
 
     command = mask
 
@@ -1937,6 +2039,8 @@ def closest(traj=None,
 
     Examples
     --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
     >>> # obtain new traj, keeping only closest 100 waters 
     >>> # to residues 1 to 13 (index starts from 1) by distance to the first atom of water
     >>> t = pt.closest(traj, mask='@CA', n_solvents=10)
@@ -1947,7 +2051,7 @@ def closest(traj=None,
 
     >>> # getting a frame iterator for lazy evaluation
     >>> fiter = pt.closest(traj, n_solvents=20, restype='iterator')
-    >>> for frame in fiter: print(frame) 
+    >>> for frame in fiter: pass
     """
 
     dslist = CpptrajDatasetList()
@@ -2011,14 +2115,18 @@ def native_contacts(traj=None,
                     byres=False,
                     frame_indices=None,
                     top=None):
-    """
+    """compute native contacts
+
     Examples
     --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
     >>> # use 1st frame as reference, don't need specify ref Frame
-    >>> pt.native_contacts(traj)
+    >>> data = pt.native_contacts(traj)
 
     >>> # explicitly specify reference, specify distance cutoff
-    >>> pt.native_contacts(traj, ref=ref, distance=8.0)
+    >>> ref = traj[3]
+    >>> data = pt.native_contacts(traj, ref=ref, distance=8.0)
     """
     _top = _get_topology(traj, top)
     ref = _get_reference_from_traj(traj, ref)
@@ -2066,9 +2174,12 @@ def calc_grid(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
 
 
 def check_structure(traj=None, command="", top=None, *args, **kwd):
-    """
+    """check if the structure is ok or not
+
     Examples
     --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_rna()
     >>> check_structure(traj[0], top=traj.top)
     """
     act = CpptrajActions.Action_CheckStructure()
@@ -2306,16 +2417,19 @@ def center(traj=None, mask="", center='box', mass=False, top=None, frame_indices
 
     Examples
     --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> # load all frames to memory so we can 'mutate' them
     >>> traj = traj[:]
     >>> # all atoms, center to box center (x/2, y/2, z/2)
-    >>> pt.center(traj)
+    >>> traj = pt.center(traj)
 
     >>> # center at origin, use @CA 
-    >>> pt.center(traj, '@CA', center='origin')
+    >>> traj = pt.center(traj, '@CA', center='origin')
 
     >>> # center to box center, use mass weighted
-    >>> pt.center(traj, mass=True)
-    >>> pt.center(traj, ':1', mass=True)
+    >>> traj = pt.center(traj, mass=True)
+    >>> traj = pt.center(traj, ':1', mass=True)
 
     Returns
     -------
@@ -2330,7 +2444,7 @@ def center(traj=None, mask="", center='box', mass=False, top=None, frame_indices
     _center = '' if center == 'box' else center
     _mass = 'mass' if mass else ''
     command = ' '.join((mask, _center, _mass))
-    _noaction_with_TrajectoryIterator(traj)
+    _assert_mutable(traj)
 
     act = CpptrajActions.Action_Center()
     act(command, traj, top=top)
@@ -2344,8 +2458,10 @@ def rotate_dihedral(traj=None, mask="", top=None):
     Examples
     --------
     >>> import pytraj as pt
-    >>> pt.rotate_dihedral(traj, "3:phi:120") # rotate phi of res 3 to 120 deg
-    >>> pt.rotate_dihedral(traj, "1:O4':C1':N9:C4:120") # rotate dihedral with given mask
+    >>> from pytraj.testing import get_fn
+    >>> traj = pt.load(*get_fn('tz2'))
+    >>> traj = pt.rotate_dihedral(traj, "3:phi:120") # rotate phi of res 3 to 120 deg
+    >>> traj = pt.rotate_dihedral(traj, "1:O4':C1':N9:C4:120") # rotate dihedral with given mask
 
     Returns
     -------
@@ -2355,7 +2471,7 @@ def rotate_dihedral(traj=None, mask="", top=None):
     -----
     Syntax and method's name might be changed
     """
-    _noaction_with_TrajectoryIterator(traj)
+    _assert_mutable(traj)
     _top = _get_topology(traj, top)
 
     if "custom:" in mask:
@@ -2371,8 +2487,7 @@ def rotate_dihedral(traj=None, mask="", top=None):
 
 @_register_openmp
 def replicate_cell(traj=None, mask="", direction='all', top=None):
-    '''create a trajectory where the unit cell is replicated in 1 or
-    more direction (up to 27)
+    '''create a trajectory where the unit cell is replicated in 1 or more direction (up to 27)
 
     Parameters
     ----------
@@ -2392,11 +2507,13 @@ def replicate_cell(traj=None, mask="", direction='all', top=None):
 
     Examples
     --------
-    >>> pt.replicate_cell(traj, direction='all')
-    >>> pt.replicate_cell(traj, direction='dir 001 dir 111')
-    >>> pt.replicate_cell(traj, direction='dir 001 dir 1-10')
-    >>> pt.replicate_cell(traj, direction='dir 001 dir 1-10')
-    >>> pt.replicate_cell(traj, direction=('001', '0-10'))
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> new_traj = pt.replicate_cell(traj, direction='all')
+    >>> new_traj = pt.replicate_cell(traj, direction='dir 001 dir 111')
+    >>> new_traj = pt.replicate_cell(traj, direction='dir 001 dir 1-10')
+    >>> new_traj = pt.replicate_cell(traj, direction='dir 001 dir 1-10')
+    >>> new_traj = pt.replicate_cell(traj, direction=('001', '0-10'))
     '''
     _top = _get_topology(traj, top)
     if isinstance(direction, string_types):
@@ -2417,13 +2534,17 @@ def replicate_cell(traj=None, mask="", direction='all', top=None):
     return traj
 
 
-def _rotate_dih(traj, resid='1', dihtype=None, deg=0, top=None):
+def set_dihedral(traj, resid='1', dihedral_type=None, deg=0, top=None):
     '''
 
     Examples
     --------
-    >>> pt._rotate_dih(traj, resid='1', dihtype='delta')
-    >>> pt._rotate_dih(traj, resid=0, dihtype='delta')
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2()
+    >>> # make mutable traj by loading all frames to disk
+    >>> traj = traj[:]
+    >>> traj = pt.set_dihedral(traj, resid='1', dihedral_type='delta')
+    >>> traj = pt.set_dihedral(traj, resid=0, dihedral_type='delta')
 
     Returns
     -------
@@ -2435,16 +2556,13 @@ def _rotate_dih(traj, resid='1', dihtype=None, deg=0, top=None):
         resid = str(resid + 1)
     deg = str(deg)
 
-    command = ':'.join((dihtype, resid, dihtype, deg))
+    command = ':'.join((dihedral_type, resid, dihedral_type, deg))
     make_structure(traj, command, top=_top)
     return traj
 
 
-set_dihedral = _rotate_dih
-
-
 def make_structure(traj=None, mask="", top=None):
-    _noaction_with_TrajectoryIterator(traj)
+    _assert_mutable(traj)
     _top = _get_topology(traj, top)
 
     command = mask
