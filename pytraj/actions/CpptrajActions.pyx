@@ -186,7 +186,6 @@ cdef class Action:
                   top=Topology(),
                   dslist=DatasetList(), 
                   dflist=DataFileList(), 
-                  mass=True,
                   int debug=0):
         """
         TODO : (do we need this method?)
@@ -200,7 +199,7 @@ cdef class Action:
                         dflist=dflist, debug=debug)
 
         self.process(top=top)
-        self.do_action(current_frame, mass=mass)
+        self.do_action(current_frame)
         return dslist
 
     def reset_counter(self):
