@@ -5,6 +5,7 @@ from pytraj import create_pipeline
 from pytraj.datasets import CpptrajDatasetList
 from pytraj.externals.six import string_types
 
+
 def check_valid_command(commands):
     '''
 
@@ -27,7 +28,11 @@ def check_valid_command(commands):
             raise ValueError('Not support matrix')
         for word in analysis_commands:
             if cm.startswith(word):
-                raise ValueError('Not support cpptraj analysis keyword')
+                raise ValueError(
+                    'Not support cpptraj analysis keyword for parallel '
+                    'calculation. You can use pmap for cpptraj actions to speed up the '
+                    'IO and then perform '
+                    'analysis in serial')
 
 
 def _worker_actlist(rank,
@@ -48,8 +53,8 @@ def _worker_actlist(rank,
     if frame_indices is None:
         my_iter = traj._split_iterators(n_cores, rank=rank)
     else:
-        my_iter = traj.iterframe(frame_indices=np.array_split(frame_indices,
-            n_cores)[rank])
+        my_iter = traj.iterframe(
+            frame_indices=np.array_split(frame_indices, n_cores)[rank])
 
     if ref is not None:
         if isinstance(ref, Frame):
@@ -96,8 +101,8 @@ def _worker_state(rank, n_cores=1, traj=None, lines=[], dtype='dict'):
 
     for idx, line in enumerate(my_lines):
         if not line.lstrip().startswith('reference'):
-            my_lines[idx] = ' '.join(
-                ('crdaction traj', line, crdframes_string))
+            my_lines[idx] = ' '.join(('crdaction traj', line, crdframes_string
+                                      ))
 
     my_lines = ['loadtraj name traj', ] + my_lines
 
