@@ -1,18 +1,24 @@
 from __future__ import print_function
-import re
-from glob import glob
+import sys
 
-pxdlist = glob("Analysis_*.pxd")
-pxdlist.remove("Analysis_Matrix.pxd")
-print (pxdlist)
+'''
+python write_analysis_pxd.py {'Analysis_PhiPsi', 'Analysis_TI', 'Analysis_Wavelet'}
 
-for action_with_ext in pxdlist:
-#for action_with_ext in [pxdlist[0],]:
-    action = action_with_ext.split(".")[0]
-    with open("Analysis_Matrix.pxd") as fmat:
-        txt = fmat.read()
+'''
 
-    txt = txt.replace("Analysis_Matrix", action)
+template = '''
+cdef extern from "{0}.h": 
+    cdef cppclass _{0} "{0}" (_Analysis) nogil:
+        _{0}() 
+        _DispatchObject * Alloc() 
+        void Help()
 
-    with open("./bk/" + action + ".pxd", 'w') as fnew:
-        fnew.writelines(txt)
+
+cdef class {0} (Analysis):
+    cdef _{0}* thisptr
+'''
+
+words = ' '.join(sys.argv[1:]).strip("'").strip('{').strip('}').replace(',', ' ').split()
+
+for w in words:
+    print(template.format(w))

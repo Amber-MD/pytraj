@@ -379,3 +379,69 @@ cdef extern from "Analysis_LowestCurve.h":
 
 cdef class Analysis_LowestCurve(Analysis):
     cdef _Analysis_LowestCurve* thisptr
+
+
+cdef extern from "Analysis_PhiPsi.h":
+    cdef cppclass _Analysis_PhiPsi "Analysis_PhiPsi" (_Analysis) nogil:
+        _Analysis_PhiPsi()
+        _DispatchObject * Alloc()
+        void Help()
+
+
+cdef class Analysis_PhiPsi (Analysis):
+    cdef _Analysis_PhiPsi* thisptr
+
+
+cdef extern from "Analysis_TI.h":
+    cdef cppclass _Analysis_TI "Analysis_TI" (_Analysis) nogil:
+        _Analysis_TI()
+        _DispatchObject * Alloc()
+        void Help()
+
+
+cdef class Analysis_TI (Analysis):
+    cdef _Analysis_TI* thisptr
+
+
+cdef extern from "Analysis_Wavelet.h":
+    cdef cppclass _Analysis_Wavelet "Analysis_Wavelet" (_Analysis) nogil:
+        _Analysis_Wavelet()
+        _DispatchObject * Alloc()
+        void Help()
+
+
+cdef class Analysis_Wavelet (Analysis):
+    cdef _Analysis_Wavelet* thisptr
+
+
+cdef extern from "Analysis_CurveFit.h":
+    cdef cppclass _Analysis_CurveFit "Analysis_CurveFit" (_Analysis) nogil:
+        _Analysis_CurveFit()
+        _DispatchObject * Alloc()
+        void Help()
+
+
+cdef class Analysis_CurveFit (Analysis):
+    cdef _Analysis_CurveFit* thisptr
+
+
+cdef extern from "Analysis_Multicurve.h":
+    cdef cppclass _Analysis_Multicurve "Analysis_Multicurve" (_Analysis) nogil:
+        _Analysis_Multicurve()
+        _DispatchObject * Alloc()
+        void Help()
+
+
+cdef class Analysis_Multicurve (Analysis):
+    cdef _Analysis_Multicurve* thisptr
+
+
+cdef extern from "Analysis_State.h":
+    cdef cppclass _Analysis_State "Analysis_State" (_Analysis) nogil:
+        _Analysis_State()
+        _DispatchObject * Alloc()
+        void Help()
+
+
+cdef class Analysis_State (Analysis):
+    cdef _Analysis_State* thisptr
