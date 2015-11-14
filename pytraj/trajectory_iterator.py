@@ -153,11 +153,11 @@ class TrajectoryIterator(TrajectoryCpptraj):
         >>> import pytraj as pt
         >>> traj = pt.datafiles.load_ala3()
         >>> # pickle by reloading Topology from filename
-        >>> pt.pickle(traj, 'output/test.pk')
+        >>> pt.to_pickle(traj, 'output/test.pk')
 
         >>> # pickle by rebuilding Topology
         >>> traj._pickle_topology = True
-        >>> pt.pickle(traj, 'output/test.pk')
+        >>> pt.to_pickle(traj, 'output/test.pk')
         '''
         if 'top' not in self.__dict__.keys() and self._pickle_topology:
             # slow
