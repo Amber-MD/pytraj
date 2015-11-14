@@ -586,7 +586,7 @@ def calc_diffusion(traj,
 
 @_register_pmap
 @_register_openmp
-@_super_dispatch()
+#@_super_dispatch()
 def calc_watershell(traj=None,
                     solute_mask='',
                     solvent_mask=':WAT',
@@ -625,6 +625,8 @@ def calc_watershell(traj=None,
     >>> data = pt.watershell(traj, solute_mask='!:WAT', lower=5.0, upper=10.)
     """
     _solutemask = solute_mask
+    _top = _get_topology(traj, top)
+    fi = _get_fiterator(traj, frame_indices)
 
     dslist = CpptrajDatasetList()
 
@@ -640,7 +642,7 @@ def calc_watershell(traj=None,
     _upper = 'upper ' + str(upper)
     command = ' '.join((_solutemask, _lower, _upper, _noimage, _solventmask))
 
-    act(command, traj, top=top, dslist=dslist)
+    act(command, fi, top=_top, dslist=dslist)
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
