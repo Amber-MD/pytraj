@@ -20,6 +20,31 @@ Unpacking
     a, b, c = traj[0], traj[1], traj[2]
     a, b, c
 
+Unpacking dictionary in python function
+---------------------------------------
+
+For new users, it's confusing when you see ``f(*args, **kwd)``. This is Python sytax to
+unpack list/tuple and dictionary respectively
+
+.. ipython:: python
+
+     def f(x, y, z=0, a=100):
+         print('x = {}'.format(x))
+         print('y = {}'.format(y))
+         print('z = {}'.format(z))
+         print('a = {}'.format(a))
+
+         return x + y + z + a
+
+     my_list = [4, 6]
+     my_dict = {'z': 8, 'a': 9}
+
+     # call your function by unpacking list and dictionary
+     f(*my_list, **my_dict)
+
+     # which is equal to
+     f(4, 6, z=8, a=9)
+
 Iterating over Trajectory index and value pairs (enumerate)
 -----------------------------------------------------------
 
