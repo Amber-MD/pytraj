@@ -795,7 +795,7 @@ def calc_multivector(traj=None,
                      resrange='',
                      names='',
                      top=None,
-                     dtype='ndarray',
+                     dtype='dataset',
                      frame_indices=None):
     '''
 
@@ -818,11 +818,17 @@ def calc_multivector(traj=None,
     act = CpptrajActions.Action_MultiVector()
 
     _resrange = 'resrange ' + resrange
-    if isinstance(names, string_types):
-        name1, name2 = names.split()
-    elif isinstance(names, (list, tuple)):
-        name1, name2 = names
-    _names = ' '.join(('name1', name1, 'name2', name2))
+    if 'name1' in names or 'name2' in names:
+        # cpptraj style
+        _names = names
+    else:
+        if isinstance(names, string_types):
+            name1, name2 = names.split()
+        elif isinstance(names, (list, tuple)):
+            name1, name2 = names
+        else:
+            name1, name2 = '', ''
+        _names = ' '.join(('name1', name1, 'name2', name2))
     command = ' '.join((_resrange, _names)) 
 
     dslist = CpptrajDatasetList()
