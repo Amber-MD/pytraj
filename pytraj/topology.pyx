@@ -545,12 +545,8 @@ cdef class Topology:
     property mass:
         def __get__(self):
             """return python array of atom masses"""
-            cdef pyarray marray = pyarray('d', [])
             cdef Atom atom
-
-            for atom in self.atoms:
-                marray.append(atom.mass)
-            return marray
+            return np.asarray([atom.mass for atom in self.atoms])
 
     property charge:
         def __get__(self):

@@ -542,7 +542,7 @@ def calc_diffusion(traj,
     act.process(top)
     for idx, frame in enumerate(traj):
         # do not need mass
-        act.do_action(frame, idx=idx, mass=False)
+        act.do_action(frame, idx=idx)
     act.post_process()
 
     # make the label nicer
@@ -1019,7 +1019,7 @@ def do_autoimage(traj, command="", frame_indices=None, top=None):
     '''perform autoimage and return the coordinate-updated traj
     '''
     _noaction_with_TrajectoryIterator(traj)
-    CpptrajActions.Action_AutoImage()(command, traj, top=top, mass=False)
+    CpptrajActions.Action_AutoImage()(command, traj, top=top)
     return traj
 
 
@@ -1323,7 +1323,7 @@ def calc_multidihedral(traj=None,
 
     dslist = CpptrajDatasetList()
     act = CpptrajActions.Action_MultiDihedral()
-    act(_command, traj, top, dslist=dslist, mass=False)
+    act(_command, traj, top, dslist=dslist)
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 

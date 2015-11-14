@@ -409,7 +409,7 @@ def write_traj(filename="",
             xyz = np.ascontiguousarray(xyz)
         _frame_indices = range(
             xyz.shape[0]) if frame_indices is None else frame_indices
-        fi = iterframe_from_array(xyz, _top.n_atoms, _frame_indices)
+        fi = iterframe_from_array(xyz, _top.n_atoms, _frame_indices, _top)
 
         with Trajout(filename=filename,
                      top=_top,

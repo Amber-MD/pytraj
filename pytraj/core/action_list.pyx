@@ -233,7 +233,7 @@ cdef class ActionList:
         actionsetup_ = _ActionSetup(top.thisptr, crdinfo_, n_frames_t)
         self.thisptr.SetupActions(actionsetup_, exit_on_error)
 
-    def do_actions(self, traj=Frame(), int idx=0, mass=True):
+    def do_actions(self, traj=Frame(), int idx=0):
         cdef _ActionFrame actionframe_
         cdef Frame frame
         cdef int i
@@ -246,11 +246,6 @@ cdef class ActionList:
 
         if isinstance(traj, Frame):
             frame = <Frame> traj
-            # only set mass for Frame that is used as a pointer
-            # else: do not need to set mass (eg. Frame produced by TrajectoryIterator
-            # since it's already set mass
-            if mass and frame._as_view:
-                frame.set_mass(self.top)
             actionframe_ = _ActionFrame(frame.thisptr)
             self.thisptr.DoActions(idx, actionframe_)
         else:

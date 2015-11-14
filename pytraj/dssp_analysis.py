@@ -97,7 +97,7 @@ def calc_dssp(traj=None,
 
     dslist = CpptrajDatasetList()
 
-    Action_DSSP()(command, traj, top=top, dslist=dslist, mass=False)
+    Action_DSSP()(command, traj, top=top, dslist=dslist)
 
     # replace key to something nicer
     for key, dset in dslist.iteritems():

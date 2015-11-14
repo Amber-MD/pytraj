@@ -243,10 +243,10 @@ class Trajectory(object):
         """
 
         if self._boxes is None:
-            return _fast_iterptr(self.xyz, self.n_atoms, indices)
+            return _fast_iterptr(self.xyz, self.n_atoms, indices, self.top)
         else:
             return _fast_iterptr_withbox(self.xyz, self._boxes, self.n_atoms,
-                                         indices)
+                                         indices, self.top)
 
     def __getitem__(self, idx):
         """return a view or copy of coordinates (follow numpy's rule)
