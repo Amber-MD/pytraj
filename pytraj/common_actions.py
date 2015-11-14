@@ -791,9 +791,9 @@ def calc_volume(traj=None, mask="", top=None, dtype='ndarray',
 
 
 @_super_dispatch()
-def calc_multivector(traj=None,
-                     resrange='',
-                     names='',
+def calc_multivector(traj,
+                     resrange,
+                     names,
                      top=None,
                      dtype='dataset',
                      frame_indices=None):
@@ -802,10 +802,10 @@ def calc_multivector(traj=None,
     Parameters
     ----------
     traj : Trajectory-like
-    resrange : str, reidue range
+    resrange : str, residue range
     names : {str, tuple of str}
     top : Topology, optional
-    dtype : str, default 'ndarray'
+    dtype : str, default 'dataset'
     frame_indices : {None, 1D array-like}, optional, default None
 
     Examples
