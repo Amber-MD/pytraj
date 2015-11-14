@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.Trajectory &mdash; pytraj 0.1.2.dev12+92b721b documentation</title>
+    <title>pytraj.Trajectory &mdash; pytraj 0.1.2.dev12+59057ba documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev12+92b721b',
+        VERSION:     '0.1.2.dev12+59057ba',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+92b721b documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+59057ba documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="prev" title="pytraj.io" href="pytraj.io.html" />
 <meta charset='utf-8'>
@@ -51,7 +51,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+92b721b</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+59057ba</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -151,7 +151,7 @@
 <script type="text/javascript" src='../_static/cindex.js'></script></div>
 <span class="target" id="module-pytraj.trajectory"></span><dl class="class">
 <dt id="pytraj.trajectory.Trajectory">
-<em class="property">class </em><tt class="descclassname">pytraj.trajectory.</tt><tt class="descname">Trajectory</tt><big>(</big><em>filename=None</em>, <em>top=None</em>, <em>xyz=None</em>, <em>indices=None</em><big>)</big><a class="headerlink" href="#pytraj.trajectory.Trajectory" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pytraj.trajectory.</tt><tt class="descname">Trajectory</tt><big>(</big><em>filename=None</em>, <em>top=None</em>, <em>xyz=None</em><big>)</big><a class="headerlink" href="#pytraj.trajectory.Trajectory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <p class="rubric">Attributes</p>
 <table border="1" class="longtable docutils">
@@ -170,16 +170,16 @@
 <td>(n_frames, n_atoms, 3)</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.top" title="pytraj.trajectory.Trajectory.top"><tt class="xref py py-obj docutils literal"><span class="pre">top</span></tt></a></td>
-<td>Topology</td>
+<td>Topology (having info about atom, residue, ...)</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.topology" title="pytraj.trajectory.Trajectory.topology"><tt class="xref py py-obj docutils literal"><span class="pre">topology</span></tt></a></td>
-<td>Topology</td>
+<td>Topology (having info about atom, residue, ...)</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.unitcells" title="pytraj.trajectory.Trajectory.unitcells"><tt class="xref py py-obj docutils literal"><span class="pre">unitcells</span></tt></a></td>
 <td>return 2D ndarray, shape=(n_frames, 6)</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.xyz" title="pytraj.trajectory.Trajectory.xyz"><tt class="xref py py-obj docutils literal"><span class="pre">xyz</span></tt></a></td>
-<td>Trajectory&#8217;s coordinates, shape=(n_frames, n_frames, 3)</td>
+<td>Trajectory&#8217;s coordinates, shape=(n_frames, n_frames, 3), dtype=&#8217;f8&#8217;</td>
 </tr>
 </tbody>
 </table>
@@ -191,7 +191,7 @@
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">__call__</span></tt>(*args,&nbsp;**kwd)</td>
-<td>shortcut of <tt class="docutils literal"><span class="pre">iterframe</span></tt></td>
+<td>shortcut of :function:iterframe</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.align_principal_axis" title="pytraj.trajectory.Trajectory.align_principal_axis"><tt class="xref py py-obj docutils literal"><span class="pre">align_principal_axis</span></tt></a>([command])</td>
 <td>align principal axis</td>
@@ -212,8 +212,7 @@
 <td></td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.from_iterable" title="pytraj.trajectory.Trajectory.from_iterable"><tt class="xref py py-obj docutils literal"><span class="pre">from_iterable</span></tt></a>(iterables[,&nbsp;top])</td>
-<td><p class="rubric">Examples</p>
-</td>
+<td>create a new Trajectory from iterable (produce Frame)</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.iterframe" title="pytraj.trajectory.Trajectory.iterframe"><tt class="xref py py-obj docutils literal"><span class="pre">iterframe</span></tt></a>([start,&nbsp;stop,&nbsp;step,&nbsp;mask,&nbsp;...])</td>
 <td><p class="rubric">Examples</p>
@@ -226,15 +225,7 @@
 <td>load file or files. It&#8217;s better to use <tt class="docutils literal"><span class="pre">pytraj.load</span></tt> method.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.reverse" title="pytraj.trajectory.Trajectory.reverse"><tt class="xref py py-obj docutils literal"><span class="pre">reverse</span></tt></a>()</td>
-<td><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-</td>
+<td>reverse Trajectory</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.rmsfit" title="pytraj.trajectory.Trajectory.rmsfit"><tt class="xref py py-obj docutils literal"><span class="pre">rmsfit</span></tt></a>(*args,&nbsp;**kwd)</td>
 <td>do the fitting to reference Frame by rotation and translation</td>
@@ -371,7 +362,8 @@ since we use Trajectory in TrajectoryIterator class</p>
 <dl class="classmethod">
 <dt id="pytraj.trajectory.Trajectory.from_iterable">
 <em class="property">classmethod </em><tt class="descname">from_iterable</tt><big>(</big><em>iterables</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.trajectory.Trajectory.from_iterable" title="Permalink to this definition">¶</a></dt>
-<dd><p class="rubric">Examples</p>
+<dd><p>create a new Trajectory from iterable (produce Frame)</p>
+<p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t0</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">Trajectory</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
@@ -427,10 +419,12 @@ since we use Trajectory in TrajectoryIterator class</p>
 <tt class="descname">load</tt><big>(</big><em>filename=''</em>, <em>indices=None</em><big>)</big><a class="headerlink" href="#pytraj.trajectory.Trajectory.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>load file or files. It&#8217;s better to use <tt class="docutils literal"><span class="pre">pytraj.load</span></tt> method.</p>
 <p class="rubric">Notes</p>
-<p>It&#8217;s better to use <tt class="docutils literal"><span class="pre">pytraj.load</span></tt> method
-&gt;&gt;&gt; traj = pt.load(fname, tname)
-&gt;&gt;&gt; traj.n_atoms
-5293</p>
+<p>It&#8217;s better to use <tt class="docutils literal"><span class="pre">pytraj.load</span></tt> method</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">tname</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">n_atoms</span>
+<span class="go">5293</span>
+</pre></div>
+</div>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.testing</span> <span class="kn">import</span> <span class="n">get_fn</span>
@@ -459,7 +453,8 @@ since we use Trajectory in TrajectoryIterator class</p>
 <dl class="method">
 <dt id="pytraj.trajectory.Trajectory.reverse">
 <tt class="descname">reverse</tt><big>(</big><big>)</big><a class="headerlink" href="#pytraj.trajectory.Trajectory.reverse" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
+<dd><p>reverse Trajectory</p>
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
@@ -616,7 +611,7 @@ since we use Trajectory in TrajectoryIterator class</p>
 <dl class="attribute">
 <dt id="pytraj.trajectory.Trajectory.top">
 <tt class="descname">top</tt><a class="headerlink" href="#pytraj.trajectory.Trajectory.top" title="Permalink to this definition">¶</a></dt>
-<dd><p>Topology</p>
+<dd><p>Topology (having info about atom, residue, ...)</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last"><tt class="xref py py-obj docutils literal"><span class="pre">pytraj.Trajectory.topology</span></tt></p>
@@ -626,7 +621,7 @@ since we use Trajectory in TrajectoryIterator class</p>
 <dl class="attribute">
 <dt id="pytraj.trajectory.Trajectory.topology">
 <tt class="descname">topology</tt><a class="headerlink" href="#pytraj.trajectory.Trajectory.topology" title="Permalink to this definition">¶</a></dt>
-<dd><p>Topology</p>
+<dd><p>Topology (having info about atom, residue, ...)</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last"><tt class="xref py py-obj docutils literal"><span class="pre">pytraj.Trajectory.topology</span></tt></p>
@@ -701,7 +696,7 @@ array([ 15.55458927,  28.54844856,  17.18908691])
 <dl class="attribute">
 <dt id="pytraj.trajectory.Trajectory.xyz">
 <tt class="descname">xyz</tt><a class="headerlink" href="#pytraj.trajectory.Trajectory.xyz" title="Permalink to this definition">¶</a></dt>
-<dd><p>Trajectory&#8217;s coordinates, shape=(n_frames, n_frames, 3)</p>
+<dd><p>Trajectory&#8217;s coordinates, shape=(n_frames, n_frames, 3), dtype=&#8217;f8&#8217;</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj0</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_ala3</span><span class="p">()</span>
@@ -731,7 +726,7 @@ array([ 15.55458927,  28.54844856,  17.18908691])
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 12, 2015.<br/>
+      Last updated on Nov 13, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>
