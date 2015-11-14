@@ -710,3 +710,123 @@ cdef class Analysis_LowestCurve(Analysis):
         
     def help(self):
         self.thisptr.Help()
+
+
+cdef class Analysis_PhiPsi(Analysis):
+    def __cinit__(self):
+        self.baseptr = <_Analysis*> new _Analysis_PhiPsi()
+        self.thisptr = <_Analysis_PhiPsi*> self.baseptr
+
+    def __dealloc__(self):
+        if self.baseptr is not NULL:
+            del self.baseptr
+
+    def alloc(self):
+        """return a function-pointer object to be used with AnalysisList class
+        """
+        cdef FunctPtr func = FunctPtr()
+        func.ptr = &(self.thisptr.Alloc)
+        return func
+
+    def help(self):
+        self.thisptr.Help()
+
+
+cdef class Analysis_TI(Analysis):
+    def __cinit__(self):
+        self.baseptr = <_Analysis*> new _Analysis_TI()
+        self.thisptr = <_Analysis_TI*> self.baseptr
+
+    def __dealloc__(self):
+        if self.baseptr is not NULL:
+            del self.baseptr
+
+    def alloc(self):
+        """return a function-pointer object to be used with AnalysisList class
+        """
+        cdef FunctPtr func = FunctPtr()
+        func.ptr = &(self.thisptr.Alloc)
+        return func
+
+    def help(self):
+        self.thisptr.Help()
+
+
+cdef class Analysis_Wavelet(Analysis):
+    def __cinit__(self):
+        self.baseptr = <_Analysis*> new _Analysis_Wavelet()
+        self.thisptr = <_Analysis_Wavelet*> self.baseptr
+
+    def __dealloc__(self):
+        if self.baseptr is not NULL:
+            del self.baseptr
+
+    def alloc(self):
+        """return a function-pointer object to be used with AnalysisList class
+        """
+        cdef FunctPtr func = FunctPtr()
+        func.ptr = &(self.thisptr.Alloc)
+        return func
+
+    def help(self):
+        self.thisptr.Help()
+
+
+cdef class Analysis_CurveFit(Analysis):
+    def __cinit__(self):
+        self.baseptr = <_Analysis*> new _Analysis_CurveFit()
+        self.thisptr = <_Analysis_CurveFit*> self.baseptr
+
+    def __dealloc__(self):
+        if self.baseptr is not NULL:
+            del self.baseptr
+
+    def alloc(self):
+        """return a function-pointer object to be used with AnalysisList class
+        """
+        cdef FunctPtr func = FunctPtr()
+        func.ptr = &(self.thisptr.Alloc)
+        return func
+
+    def help(self):
+        self.thisptr.Help()
+
+
+cdef class Analysis_Multicurve(Analysis):
+    def __cinit__(self):
+        self.baseptr = <_Analysis*> new _Analysis_Multicurve()
+        self.thisptr = <_Analysis_Multicurve*> self.baseptr
+
+    def __dealloc__(self):
+        if self.baseptr is not NULL:
+            del self.baseptr
+
+    def alloc(self):
+        """return a function-pointer object to be used with AnalysisList class
+        """
+        cdef FunctPtr func = FunctPtr()
+        func.ptr = &(self.thisptr.Alloc)
+        return func
+
+    def help(self):
+        self.thisptr.Help()
+
+
+cdef class Analysis_State(Analysis):
+    def __cinit__(self):
+        self.baseptr = <_Analysis*> new _Analysis_State()
+        self.thisptr = <_Analysis_State*> self.baseptr
+
+    def __dealloc__(self):
+        if self.baseptr is not NULL:
+            del self.baseptr
+
+    def alloc(self):
+        """return a function-pointer object to be used with AnalysisList class
+        """
+        cdef FunctPtr func = FunctPtr()
+        func.ptr = &(self.thisptr.Alloc)
+        return func
+
+    def help(self):
+        self.thisptr.Help()

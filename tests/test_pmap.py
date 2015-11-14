@@ -9,6 +9,7 @@ from pytraj.tools import flatten
 from pytraj import matrix
 from pytraj.compat import set
 from pytraj.parallel import _load_batch_pmap
+from pytraj import cpptraj_commands
 
 
 class TestNormalPmap(unittest.TestCase):
@@ -224,6 +225,21 @@ class TestFrameIndices(unittest.TestCase):
                 parallel_out_cpptraj_style = pt.pmap(['radgyr @CA nomax'], traj, frame_indices=frame_indices)
                 aa_eq(serial_out, pt.tools.dict_to_ndarray(parallel_out))
                 aa_eq(serial_out, pt.tools.dict_to_ndarray(parallel_out_cpptraj_style))
+
+class TestCheckValidCommand(unittest.TestCase):
+    def test_check_valid_command(self):
+        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+
+        # must provide refindex
+        self.assertRaises(ValueError, lambda: pt.pmap(['rms'], traj, n_cores=2))
+        self.assertRaises(ValueError, lambda: pt.pmap(('rms',), traj, n_cores=2))
+        self.assertRaises(ValueError, lambda: pt.pmap('rms', traj, n_cores=2))
+        # does not support matrix
+        self.assertRaises(ValueError, lambda: pt.pmap(['matrix'], traj, n_cores=2))
+
+        # do not accept any cpptraj analysis command
+        for word in cpptraj_commands.analysis_commands:
+            self.assertRaises(ValueError, lambda: pt.pmap(word, traj, n_cores=2))
 
 
 if __name__ == "__main__":

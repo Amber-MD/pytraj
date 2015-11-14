@@ -147,14 +147,14 @@ cdef class DatasetList:
             # return new view of `self`
             start, stop, step = idx.indices(self.size)
             new_dslist = self.__class__()
-            new_dslist.set__own_memory(False)
+            new_dslist.set_own_memory(False)
             for _idx in range(start, stop, step):
                 new_dslist.add_existing_set(self[_idx])
             new_dslist._parent_lists_append(self)
             return new_dslist
         elif is_array(idx) or isinstance(idx, list):
             new_dslist = self.__class__()
-            new_dslist.set__own_memory(False)
+            new_dslist.set_own_memory(False)
             for _idx in idx: 
                 new_dslist.add_existing_set(self[_idx])
             new_dslist._parent_lists_append(self)
@@ -306,13 +306,14 @@ cdef class DatasetList:
     def filter(self, func, *args, **kwd):
         """return a new view of DatasetList of func return True"""
         dslist = self.__class__()
+        dslist.set_own_memory(False)
 
         if isinstance(func, (string_types, list, tuple)):
-            return self.grep(func, *args, **kwd)
+            dslist = self.grep(func, *args, **kwd)
         elif callable(func):
             for d0 in self:
                 if func(d0, *args, **kwd):
-                    dslist.append(d0)
+                    dslist.add_existing_set(d0)
             return dslist
         else:
             raise NotImplementedError("func must be a string or callable")
@@ -334,7 +335,7 @@ cdef class DatasetList:
         dtmp = self.__class__()
 
         # dont free mem here
-        dtmp.set__own_memory(False)
+        dtmp.set_own_memory(False)
         for d0 in self._base_dataset_iter():
             att = getattr(d0, mode)
             if isinstance(key, string_types):
@@ -364,8 +365,12 @@ cdef class DatasetList:
         from collections import OrderedDict
         try:
             return OrderedDict((d0.key, d0.to_ndarray(copy=True)) for d0 in self)
-        except:
-            raise ValueError("don't know tho to convert to dict")
+        except ValueError:
+            try:
+                # we use values (might be copy of dataset's iternal data)
+                return OrderedDict((d0.key, d0.values) for d0 in self)
+            except ValueError:
+                 raise ValueError("don't know tho to convert to dict")
 
     @property
     def values(self):
@@ -403,7 +408,7 @@ cdef class DatasetList:
         my_dict = OrderedDict((d0.key, d0.to_ndarray(copy=True)) for d0 in self)
         return pandas.DataFrame(my_dict)
 
-    def set__own_memory(self, bint value):
+    def set_own_memory(self, bint value):
         # we only expose _own_memory in cython (not pure python)
         # we don't want to change *.pxd signature files since this 
         # requires recompiling *pyx codes

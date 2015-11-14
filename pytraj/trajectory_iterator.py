@@ -131,7 +131,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
             raise ValueError('require a Topology')
 
         self.__dict__.update({
-            'top_filename': self.top.filename,
+            '_top_filename': self.top.filename,
             'filelist': self.filelist,
             'frame_slice_list': self.frame_slice_list,
         })
@@ -142,7 +142,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
             self.top = state['top']
         else:
             # faster
-            self.top = _load_Topology(state['top_filename'])
+            self.top = _load_Topology(state['_top_filename'])
         self.load(state['filelist'], frame_slice=state['frame_slice_list'])
 
     def __getstate__(self):
@@ -239,7 +239,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
         if size_in_GB > self._size_limit_in_GB and not self._force_load:
             raise MemoryError(
                 "you are loading %s GB, larger than size_limit %s GB. "
-                "Please increase self._size_limit_in_GB or set self._force_load=True"
+                "Please increase traj._size_limit_in_GB or set traj._force_load to True"
                 % (size_in_GB, self._size_limit_in_GB))
         return super(TrajectoryIterator, self).xyz
 
