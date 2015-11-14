@@ -123,4 +123,4 @@ Combine with cpptraj commmand style
 
 .. ipython:: python
 
-    pt.do(['rms', 'radgyr @CA', 'distance :3 :7'], traj)
+    pt.do(['rms', 'radgyr @CA nomax', 'distance :3 :7'], traj)

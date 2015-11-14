@@ -375,7 +375,7 @@
 </div>
 <div class="section" id="combine-with-cpptraj-commmand-style">
 <h2><a class="toc-backref" href="#id12">Combine with cpptraj commmand style</a><a class="headerlink" href="#combine-with-cpptraj-commmand-style" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [21]: </span><span class="n">pt</span><span class="o">.</span><span class="n">do</span><span class="p">([</span><span class="s">&#39;rms&#39;</span><span class="p">,</span> <span class="s">&#39;radgyr @CA&#39;</span><span class="p">,</span> <span class="s">&#39;distance :3 :7&#39;</span><span class="p">],</span> <span class="n">traj</span><span class="p">)</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [21]: </span><span class="n">pt</span><span class="o">.</span><span class="n">do</span><span class="p">([</span><span class="s">&#39;rms&#39;</span><span class="p">,</span> <span class="s">&#39;radgyr @CA nomax&#39;</span><span class="p">,</span> <span class="s">&#39;distance :3 :7&#39;</span><span class="p">],</span> <span class="n">traj</span><span class="p">)</span>
 <span class="gr">Out[21]: </span>
 <span class="go">OrderedDict([(&#39;RMSD_00000&#39;,</span>
 <span class="go">              array([  2.43182129e-07,   4.01623189e+00,   6.41421043e+00, ...,</span>
@@ -383,10 +383,7 @@
 <span class="go">             (&#39;RoG_00001&#39;,</span>
 <span class="go">              array([ 8.10916061,  7.7643485 ,  8.09693108, ...,  6.38061648,</span>
 <span class="go">                      6.24139008,  6.48994552])),</span>
-<span class="go">             (&#39;RoG_00001[Max]&#39;,</span>
-<span class="go">              array([ 12.30764509,  12.10928972,  14.3881904 , ...,   9.505607  ,</span>
-<span class="go">                       9.45815721,  10.29136723])),</span>
-<span class="go">             (&#39;Dis_00003&#39;,</span>
+<span class="go">             (&#39;Dis_00002&#39;,</span>
 <span class="go">              array([ 11.17446726,   8.57430478,   7.40760415, ...,   9.06436275,</span>
 <span class="go">                       6.59675   ,   8.63872898]))])</span>
 </pre></div>
