@@ -3,6 +3,7 @@ from functools import partial
 from pytraj import Frame
 from pytraj import create_pipeline
 from pytraj.datasets import CpptrajDatasetList
+from pytraj.externals.six import string_types
 
 def check_valid_command(commands):
     '''
@@ -11,6 +12,11 @@ def check_valid_command(commands):
     ----------
     commands : list/tuple of str
     '''
+    if isinstance(commands, string_types):
+        commands = [line.strip() for line in commands.split('\n') if line]
+    else:
+        commands = commands
+
     for cm in commands:
         cm = cm.strip()
         if cm.startswith('rms') and 'refindex' not in cm:
