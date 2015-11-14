@@ -106,7 +106,8 @@ Convert data to pandas DataFrame
 
     df = pt.multidihedral(traj, resrange='3-7', dtype='dataframe')
     type(df)
-    df
+    df.head()
+    df.tail()
 
 Convert to different file format
 --------------------------------
