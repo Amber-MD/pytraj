@@ -40,7 +40,7 @@ class Test(unittest.TestCase):
     def test_2(self):
         traj = pt.iterload("./data/Tc5b.nat.crd", "./data/Tc5b.top")
         t0 = traj[:1]
-        pt._rotate_dih(t0, resid='4', dihtype='phi', deg=120)
+        pt.set_dihedral(t0, resid='4', dihedral_type='phi', deg=120)
         dih = pt.calc_phi(t0, resrange='4').values[0]
         assert abs(dih - 120) < 1E-3
         t0.save('test.pdb', options='model', overwrite=True)

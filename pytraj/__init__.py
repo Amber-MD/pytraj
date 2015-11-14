@@ -39,6 +39,7 @@ except ImportError:
 try:
     from .core import Atom, Residue, Molecule
     from .core.action_list import ActionList, create_pipeline, do
+    compute = do
     Pipeline = ActionList
 
 except ImportError:
@@ -118,9 +119,9 @@ from .common_actions import (
     _dihedral_res, native_contacts,
     auto_correlation_function, principal_axes, cross_correlation_function,
     timecorr, center, translate, rotate, rotate_dihedral, make_structure,
-    scale, do_clustering, clustering_dataset, _rotate_dih, randomize_ions,
-    crank, closest, search_neighbors, replicate_cell, _rotdif, pairdist, _grid,
-    transform, lowestcurve, calc_diffusion, calc_volmap, )
+    scale, clustering_dataset, randomize_ions, set_dihedral,
+    crank, closest, search_neighbors, replicate_cell, _rotdif, calc_pairdist, _grid,
+    transform, lowestcurve, calc_diffusion, calc_volmap, calc_multivector)
 
 # create alias
 dssp_all_residues = dssp_allresidues
@@ -152,6 +153,8 @@ density = calc_density
 volume = calc_volume
 radgyr = calc_radgyr
 rdf = calc_rdf
+pairdist = calc_pairdist
+multivector = calc_multivector
 atomiccorr = calc_atomiccorr
 #pairdist = calc_pairdist
 molsurf = calc_molsurf
@@ -162,7 +165,6 @@ mean_structure = get_average_frame
 average_frame = get_average_frame
 load_parmed = load_ParmEd
 from_parmed = load_ParmEd
-clustering = do_clustering
 mindist = calc_mindist
 # compat with cpptraj
 nativecontacts = native_contacts

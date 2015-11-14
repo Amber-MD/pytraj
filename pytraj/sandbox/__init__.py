@@ -152,3 +152,21 @@ def _toy_radgyr(traj,
 
     act(mask, traj, top=top, dslist=dslist)
     return _get_data_from_dtype(dslist, dtype=dtype)
+
+
+def calc_linear_interaction_energy(traj=None,
+                                   mask="",
+                                   top=None,
+                                   dtype='dataset',
+                                   frame_indices=None, *args, **kwd):
+    command = mask
+    act = CpptrajActions.Action_LIE()
+
+    dslist = CpptrajDatasetList()
+    act(command, traj, top=top, dslist=dslist, *args, **kwd)
+    return _get_data_from_dtype(dslist, dtype)
+
+# alias
+calc_LIE = calc_linear_interaction_energy
+
+
