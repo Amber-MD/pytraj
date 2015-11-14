@@ -14,4 +14,5 @@ try ``pytraj`` online:
     tips
     tips_iterload
     load_cpptrajstate
+    trajectory_exercise
     things_will_be_surprised
