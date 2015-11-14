@@ -131,7 +131,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
             raise ValueError('require a Topology')
 
         self.__dict__.update({
-            'top_filename': self.top.filename,
+            '_top_filename': self.top.filename,
             'filelist': self.filelist,
             'frame_slice_list': self.frame_slice_list,
         })
@@ -142,7 +142,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
             self.top = state['top']
         else:
             # faster
-            self.top = _load_Topology(state['top_filename'])
+            self.top = _load_Topology(state['_top_filename'])
         self.load(state['filelist'], frame_slice=state['frame_slice_list'])
 
     def __getstate__(self):
