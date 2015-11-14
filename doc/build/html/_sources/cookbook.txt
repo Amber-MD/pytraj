@@ -12,7 +12,7 @@ try ``pytraj`` online:
 .. raw:: html
 
    </div>
-   <div class="col-xs-6">
+   <div class="col-md-6">
 
 .. toctree::
     
@@ -24,7 +24,7 @@ try ``pytraj`` online:
 .. raw:: html
 
    </div>
-   <div class="col-xs-6">
+   <div class="col-md-6">
 
 .. toctree::
     
