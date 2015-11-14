@@ -124,3 +124,30 @@ Combine with cpptraj commmand style
 .. ipython:: python
 
     pt.do(['rms', 'radgyr @CA nomax', 'distance :3 :7'], traj)
+
+Convert out-of-core TrajectoryIterator to in-memory Trajectory
+--------------------------------------------------------------
+
+.. ipython:: python
+
+    traj2 = traj[:]
+    # apply any transformations
+
+    # superpose to first frame
+    pt.superpose(traj2)
+
+    # use the same syntax to perform calculation
+    pt.rmsd(traj2, ref=0)
+
+Parallel computing with TrajectoryIterator
+------------------------------------------
+
+.. ipython:: python
+
+    # serial: pt.rmsd(traj)
+
+    # parallel
+    pt.pmap(pt.rmsd, traj, n_cores=3)
+
+    # chain a series of cpptraj's commands
+    pt.pmap(['radgyr nomax', 'molsurf @CA', 'multidihedral resrange 3-4 psi phi'], traj, n_cores=4)

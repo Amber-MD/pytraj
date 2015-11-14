@@ -112,6 +112,8 @@
 <li><a class="reference internal" href="#convert-data-to-pandas-dataframe">Convert data to pandas DataFrame</a></li>
 <li><a class="reference internal" href="#convert-to-different-file-format">Convert to different file format</a></li>
 <li><a class="reference internal" href="#combine-with-cpptraj-commmand-style">Combine with cpptraj commmand style</a></li>
+<li><a class="reference internal" href="#convert-out-of-core-trajectoryiterator-to-in-memory-trajectory">Convert out-of-core TrajectoryIterator to in-memory Trajectory</a></li>
+<li><a class="reference internal" href="#parallel-computing-with-trajectoryiterator">Parallel computing with TrajectoryIterator</a></li>
 </ul>
 </li>
 </ul>
@@ -178,6 +180,8 @@
 <li><a class="reference internal" href="#convert-data-to-pandas-dataframe" id="id10">Convert data to pandas DataFrame</a></li>
 <li><a class="reference internal" href="#convert-to-different-file-format" id="id11">Convert to different file format</a></li>
 <li><a class="reference internal" href="#combine-with-cpptraj-commmand-style" id="id12">Combine with cpptraj commmand style</a></li>
+<li><a class="reference internal" href="#convert-out-of-core-trajectoryiterator-to-in-memory-trajectory" id="id13">Convert out-of-core TrajectoryIterator to in-memory Trajectory</a></li>
+<li><a class="reference internal" href="#parallel-computing-with-trajectoryiterator" id="id14">Parallel computing with TrajectoryIterator</a></li>
 </ul>
 </li>
 </ul>
@@ -386,6 +390,107 @@
 <span class="go">             (&#39;Dis_00002&#39;,</span>
 <span class="go">              array([ 11.17446726,   8.57430478,   7.40760415, ...,   9.06436275,</span>
 <span class="go">                       6.59675   ,   8.63872898]))])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="convert-out-of-core-trajectoryiterator-to-in-memory-trajectory">
+<h2><a class="toc-backref" href="#id13">Convert out-of-core TrajectoryIterator to in-memory Trajectory</a><a class="headerlink" href="#convert-out-of-core-trajectoryiterator-to-in-memory-trajectory" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [22]: </span><span class="n">traj2</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[:]</span>
+
+<span class="c"># apply any transformations</span>
+<span class="c"># superpose to first frame</span>
+<span class="gp">In [23]: </span><span class="n">pt</span><span class="o">.</span><span class="n">superpose</span><span class="p">(</span><span class="n">traj2</span><span class="p">)</span>
+
+<span class="c"># use the same syntax to perform calculation</span>
+<span class="gp">In [24]: </span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj2</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gr">Out[24]: </span>
+<span class="go">array([ 0.        ,  4.01623189,  6.41421043, ...,  8.27504991,</span>
+<span class="go">        8.19405473,  7.77917637])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="parallel-computing-with-trajectoryiterator">
+<h2><a class="toc-backref" href="#id14">Parallel computing with TrajectoryIterator</a><a class="headerlink" href="#parallel-computing-with-trajectoryiterator" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="c"># serial: pt.rmsd(traj)</span>
+<span class="c"># parallel</span>
+<span class="gp">In [25]: </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">---------------------------------------------------------------------------</span>
+<span class="go">RemoteTraceback                           Traceback (most recent call last)</span>
+<span class="go">RemoteTraceback: </span>
+<span class="go">&quot;&quot;&quot;</span>
+<span class="go">Traceback (most recent call last):</span>
+<span class="go">  File &quot;/home/haichit/anaconda3/lib/python3.4/multiprocessing/pool.py&quot;, line 119, in worker</span>
+<span class="go">    result = (True, func(*args, **kwds))</span>
+<span class="go">  File &quot;/home/haichit/anaconda3/lib/python3.4/multiprocessing/pool.py&quot;, line 44, in mapstar</span>
+<span class="go">    return list(map(*args))</span>
+<span class="go">  File &quot;/home/haichit/anaconda3/lib/python3.4/site-packages/pytraj/parallel/parallel_mapping_multiprocessing.py&quot;, line 41, in _worker</span>
+<span class="go">    data = func(my_iter, *args, **kwd)</span>
+<span class="go">  File &quot;/home/haichit/anaconda3/lib/python3.4/site-packages/pytraj/decorators.py&quot;, line 11, in inner</span>
+<span class="go">    return f(*args, **kwd)</span>
+<span class="go">  File &quot;/home/haichit/anaconda3/lib/python3.4/site-packages/pytraj/common_actions.py&quot;, line 1773, in calc_rmsd</span>
+<span class="go">    ref = _get_reference_from_traj(traj, ref)</span>
+<span class="go">  File &quot;/home/haichit/anaconda3/lib/python3.4/site-packages/pytraj/_get_common_objects.py&quot;, line 127, in _get_reference_from_traj</span>
+<span class="go">    return traj[ref]</span>
+<span class="go">TypeError: &#39;FrameIterator&#39; object does not support indexing</span>
+<span class="go">&quot;&quot;&quot;</span>
+
+<span class="go">The above exception was the direct cause of the following exception:</span>
+
+<span class="go">TypeError                                 Traceback (most recent call last)</span>
+<span class="go">&lt;ipython-input-25-82fb0d941637&gt; in &lt;module&gt;()</span>
+<span class="go">----&gt; 1 pt.pmap(pt.rmsd, traj, n_cores=3)</span>
+
+<span class="go">/home/haichit/anaconda3/lib/python3.4/site-packages/pytraj/parallel/parallel_mapping_multiprocessing.py in pmap(func, traj, *args, **kwd)</span>
+<span class="go">    282 def pmap(func=None, traj=None, *args, **kwd):</span>
+<span class="go">    283     if func != NH_order_parameters:</span>
+<span class="go">--&gt; 284         return _pmap(func, traj, *args, **kwd)</span>
+<span class="go">    285     else:</span>
+<span class="go">    286         if &#39;n_cores&#39; in kwd.keys():</span>
+
+<span class="go">/home/haichit/anaconda3/lib/python3.4/site-packages/pytraj/parallel/parallel_mapping_multiprocessing.py in _pmap(func, traj, *args, **kwd)</span>
+<span class="go">    251                          iter_options=iter_options)</span>
+<span class="go">    252 </span>
+<span class="go">--&gt; 253         data = p.map(pfuncs, [rank for rank in range(n_cores)])</span>
+<span class="go">    254         p.close()</span>
+<span class="go">    255 </span>
+
+<span class="go">/home/haichit/anaconda3/lib/python3.4/multiprocessing/pool.py in map(self, func, iterable, chunksize)</span>
+<span class="go">    258         in a list that is returned.</span>
+<span class="go">    259         &#39;&#39;&#39;</span>
+<span class="go">--&gt; 260         return self._map_async(func, iterable, mapstar, chunksize).get()</span>
+<span class="go">    261 </span>
+<span class="go">    262     def starmap(self, func, iterable, chunksize=None):</span>
+
+<span class="go">/home/haichit/anaconda3/lib/python3.4/multiprocessing/pool.py in get(self, timeout)</span>
+<span class="go">    597             return self._value</span>
+<span class="go">    598         else:</span>
+<span class="go">--&gt; 599             raise self._value</span>
+<span class="go">    600 </span>
+<span class="go">    601     def _set(self, i, obj):</span>
+
+<span class="go">TypeError: &#39;FrameIterator&#39; object does not support indexing</span>
+
+<span class="c"># chain a series of cpptraj&#39;s commands</span>
+<span class="gp">In [26]: </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">([</span><span class="s">&#39;radgyr nomax&#39;</span><span class="p">,</span> <span class="s">&#39;molsurf @CA&#39;</span><span class="p">,</span> <span class="s">&#39;multidihedral resrange 3-4 psi phi&#39;</span><span class="p">],</span> <span class="n">traj</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Out[26]: </span>
+<span class="go">OrderedDict([(&#39;RoG_00000&#39;,</span>
+<span class="go">              array([  9.4451051 ,   9.57459712,  10.19233494, ...,   7.48343543,</span>
+<span class="go">                       7.43238185,   7.62039157])),</span>
+<span class="go">             (&#39;MSURF_00001&#39;,</span>
+<span class="go">              array([ 430.26897875,  431.97908818,  429.77782193, ...,  429.88384545,</span>
+<span class="go">                      435.36420691,  430.17335475])),</span>
+<span class="go">             (&#39;phi:3&#39;,</span>
+<span class="go">              array([ -79.86736601, -120.15489932,  -52.18998608, ...,  -53.69942865,</span>
+<span class="go">                      -62.333767  ,  -64.6497571 ])),</span>
+<span class="go">             (&#39;psi:3&#39;,</span>
+<span class="go">              array([ 117.35593331,  108.9835746 ,  132.57474181, ...,  122.68879098,</span>
+<span class="go">                      117.95838994,  103.60736273])),</span>
+<span class="go">             (&#39;phi:4&#39;,</span>
+<span class="go">              array([-108.91204214,  -33.84874837,  -99.53036165, ...,  -95.84184562,</span>
+<span class="go">                      -74.14161826,  -96.39558308])),</span>
+<span class="go">             (&#39;psi:4&#39;,</span>
+<span class="go">              array([-55.98116923, -53.152065  , -23.19551045, ..., -56.01678085,</span>
+<span class="go">                     -57.38132622, -34.251063  ]))])</span>
 </pre></div>
 </div>
 </div>
