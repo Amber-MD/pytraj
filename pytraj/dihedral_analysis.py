@@ -91,7 +91,7 @@ def calc_%s(traj=None, resrange="",
 
     act = Action_MultiDihedral()
     # we dont need to set mass here
-    act(template_command, traj, top=top, dslist=dslist, mass=False)
+    act(template_command, traj, top=top, dslist=dslist)
     act.post_process()
     return _get_data_from_dtype(dslist, dtype=dtype)
 '''
