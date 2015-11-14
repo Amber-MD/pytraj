@@ -67,7 +67,7 @@ from .core import Atom, Residue, Molecule
 from .core.cpp_core import CpptrajState, ArgList, AtomMask, _load_batch
 from .core.cpp_core import Command
 dispatch = Command.dispatch
-from . import array
+from . import array, cpptraj_commands
 from .topology import Topology, ParmFile
 from .math import Vec3
 from .frame import Frame

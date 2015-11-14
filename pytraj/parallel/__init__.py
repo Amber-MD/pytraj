@@ -12,6 +12,8 @@ def check_valid_command(commands):
     ----------
     commands : list/tuple of str
     '''
+    from pytraj.cpptraj_commands import analysis_commands
+
     if isinstance(commands, string_types):
         commands = [line.strip() for line in commands.split('\n') if line]
     else:
@@ -23,6 +25,9 @@ def check_valid_command(commands):
             raise ValueError('must prodive refindex for rms/rmsd command')
         if cm.startswith('matrix'):
             raise ValueError('Not support matrix')
+        for word in analysis_commands:
+            if cm.startswith(word):
+                raise ValueError('Not support cpptraj analysis keyword')
 
 
 def _worker_actlist(rank,
