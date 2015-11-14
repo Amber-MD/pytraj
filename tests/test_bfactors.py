@@ -37,7 +37,7 @@ class TestAtomicFluct(unittest.TestCase):
         avg = pt.mean_structure(t0)
         pt.superpose(t0, ref=avg)
         data = pt.rmsf(t0)
-        aa_eq(data.values, state.data[-1].values)
+        aa_eq(data, state.data[-1].values)
 
 
 if __name__ == "__main__":

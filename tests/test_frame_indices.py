@@ -46,8 +46,12 @@ class TestFrameIndices(unittest.TestCase):
         # default mask, default ref
         for func in funclist:
             if func.__name__ not in excluded_fn:
-                data_0 = func(traj, frame_indices=frame_indices)
-                data_1 = func(traj[frame_indices])
+                if func is pt.calc_multivector:
+                    data_0 = func(traj, resrange='1-6', names='C N', frame_indices=frame_indices)
+                    data_1 = func(traj[frame_indices], resrange='1-6', names='C N')
+                else:
+                    data_0 = func(traj, frame_indices=frame_indices)
+                    data_1 = func(traj[frame_indices])
 
                 if isinstance(data_0, np.ndarray):
                     aa_eq(data_0, data_1)
