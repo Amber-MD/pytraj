@@ -231,6 +231,7 @@ class TestCheckValidCommand(unittest.TestCase):
 
         # must provide refindex
         self.assertRaises(ValueError, lambda: pt.pmap(['rms'], traj, n_cores=2))
+        self.assertRaises(ValueError, lambda: pt.pmap(('rms',), traj, n_cores=2))
         # does not support matrix
         self.assertRaises(ValueError, lambda: pt.pmap(['matrix'], traj, n_cores=2))
 
