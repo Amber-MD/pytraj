@@ -74,7 +74,7 @@ def do(lines, traj, *args, **kwd):
     cdef DatasetList dslist
 
 
-    if isinstance(lines, (list, tuple)):
+    if isinstance(lines, (list, tuple, string_types)):
         ref = kwd.get('ref')
         if ref is not None:
             if isinstance(ref, Frame):
