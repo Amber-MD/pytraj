@@ -1549,7 +1549,7 @@ def _calc_vector_center(traj=None,
                         frame_indices=None):
 
     dslist = CpptrajDatasetList()
-    dslist.set__own_memory(False)  # need this to avoid segmentation fault
+    dslist.set_own_memory(False)  # need this to avoid segmentation fault
     act = CpptrajActions.Action_Vector()
     command = "center " + mask
 
