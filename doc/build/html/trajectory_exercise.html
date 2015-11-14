@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Trajectory warm up &mdash; pytraj 0.1.2.dev12+59057ba documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.2.dev12+59057ba',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="pytraj 0.1.2.dev12+59057ba documentation" href="index.html" />
+    <link rel="up" title="Cookbook" href="cookbook.html" />
+    <link rel="next" title="Weird things in pytraj" href="things_will_be_surprised.html" />
+    <link rel="prev" title="Run cpptraj’s batch" href="load_cpptrajstate.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+59057ba</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_and_write.html">Read and Write</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Trajectory warm up</a><ul>
+<li><a class="reference internal" href="#register-to-load-from-disk">Register to load from disk</a></li>
+<li><a class="reference internal" href="#register-to-load-from-disk-with-frame-stride">Register to load from disk with frame stride</a></li>
+<li><a class="reference internal" href="#register-to-load-several-files-from-disk">Register to load several files from disk</a></li>
+<li><a class="reference internal" href="#register-to-load-several-files-from-disk-with-frame-stride">Register to load several files from disk with frame stride</a></li>
+<li><a class="reference internal" href="#fancy-indexing">Fancy indexing</a></li>
+<li><a class="reference internal" href="#iterate-whole-trajectory">Iterate whole trajectory</a></li>
+<li><a class="reference internal" href="#iterate-a-part-of-trajectory">Iterate a part of trajectory</a></li>
+<li><a class="reference internal" href="#do-computing">Do computing</a></li>
+<li><a class="reference internal" href="#convert-data-to-pandas-dataframe">Convert data to pandas DataFrame</a></li>
+<li><a class="reference internal" href="#convert-to-different-file-format">Convert to different file format</a></li>
+<li><a class="reference internal" href="#combine-with-cpptraj-commmand-style">Combine with cpptraj commmand style</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="load_cpptrajstate.html" title="Previous Chapter: Run cpptraj’s batch"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Run cpptraj’s...</span>
+    </a>
+  </li>
+  <li>
+    <a href="things_will_be_surprised.html" title="Next Chapter: Weird things in pytraj"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Weird things ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/trajectory_exercise.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <div class="section" id="trajectory-warm-up">
+<span id="trajectory-excercise"></span><h1><a class="toc-backref" href="#id1">Trajectory warm up</a><a class="headerlink" href="#trajectory-warm-up" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#trajectory-warm-up" id="id1">Trajectory warm up</a><ul>
+<li><a class="reference internal" href="#register-to-load-from-disk" id="id2">Register to load from disk</a></li>
+<li><a class="reference internal" href="#register-to-load-from-disk-with-frame-stride" id="id3">Register to load from disk with frame stride</a></li>
+<li><a class="reference internal" href="#register-to-load-several-files-from-disk" id="id4">Register to load several files from disk</a></li>
+<li><a class="reference internal" href="#register-to-load-several-files-from-disk-with-frame-stride" id="id5">Register to load several files from disk with frame stride</a></li>
+<li><a class="reference internal" href="#fancy-indexing" id="id6">Fancy indexing</a></li>
+<li><a class="reference internal" href="#iterate-whole-trajectory" id="id7">Iterate whole trajectory</a></li>
+<li><a class="reference internal" href="#iterate-a-part-of-trajectory" id="id8">Iterate a part of trajectory</a></li>
+<li><a class="reference internal" href="#do-computing" id="id9">Do computing</a></li>
+<li><a class="reference internal" href="#convert-data-to-pandas-dataframe" id="id10">Convert data to pandas DataFrame</a></li>
+<li><a class="reference internal" href="#convert-to-different-file-format" id="id11">Convert to different file format</a></li>
+<li><a class="reference internal" href="#combine-with-cpptraj-commmand-style" id="id12">Combine with cpptraj commmand style</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="register-to-load-from-disk">
+<h2><a class="toc-backref" href="#id2">Register to load from disk</a><a class="headerlink" href="#register-to-load-from-disk" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+
+<span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="n">tz2</span><span class="o">.</span><span class="n">parm7</span><span class="s">&#39;)</span>
+<span class="gp">   ...:</span> <span class="n">traj</span>
+<span class="gp">   ...:</span> 
+<span class="go">  File &quot;&lt;ipython-input-2-7e730e39651c&gt;&quot;, line 1</span>
+<span class="go">    traj = pt.iterload(&#39;tz2.nc&#39;, tz2.parm7&#39;)</span>
+<span class="go">                                            ^</span>
+<span class="go">SyntaxError: EOL while scanning string literal</span>
+
+<span class="gr">Out[3]: </span>
+<span class="go">pytraj.TrajectoryIterator, 101 frames: </span>
+<span class="go">Size: 0.000503 (GB)</span>
+<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="register-to-load-from-disk-with-frame-stride">
+<h2><a class="toc-backref" href="#id3">Register to load from disk with frame stride</a><a class="headerlink" href="#register-to-load-from-disk-with-frame-stride" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="c"># start=0, stop=8, step=2</span>
+<span class="gp">In [4]: </span><span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="n">tz2</span><span class="o">.</span><span class="n">parm7</span><span class="s">&#39;, frame_slice=(0, 8, 2))</span>
+<span class="go">  File &quot;&lt;ipython-input-4-4b1693f12f16&gt;&quot;, line 1</span>
+<span class="go">    pt.iterload(&#39;tz2.nc&#39;, tz2.parm7&#39;, frame_slice=(0, 8, 2))</span>
+<span class="go">                                                            ^</span>
+<span class="go">SyntaxError: EOL while scanning string literal</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="register-to-load-several-files-from-disk">
+<h2><a class="toc-backref" href="#id4">Register to load several files from disk</a><a class="headerlink" href="#register-to-load-several-files-from-disk" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [5]: </span><span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s">&#39;tz2.0.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.1.nc&#39;</span><span class="p">],</span> <span class="n">tz2</span><span class="o">.</span><span class="n">parm7</span><span class="s">&#39;)</span>
+<span class="go">  File &quot;&lt;ipython-input-5-36a9f10b9b45&gt;&quot;, line 1</span>
+<span class="go">    pt.iterload([&#39;tz2.0.nc&#39;, &#39;tz2.1.nc&#39;], tz2.parm7&#39;)</span>
+<span class="go">                                                     ^</span>
+<span class="go">SyntaxError: EOL while scanning string literal</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="register-to-load-several-files-from-disk-with-frame-stride">
+<h2><a class="toc-backref" href="#id5">Register to load several files from disk with frame stride</a><a class="headerlink" href="#register-to-load-several-files-from-disk-with-frame-stride" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [6]: </span><span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s">&#39;tz2.0.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.1.nc&#39;</span><span class="p">],</span> <span class="n">tz2</span><span class="o">.</span><span class="n">parm7</span><span class="s">&#39;, frame_slice=[(0, 8, 2), (0, 5, 1)])</span>
+<span class="go">  File &quot;&lt;ipython-input-6-a4a456e24d6f&gt;&quot;, line 1</span>
+<span class="go">    pt.iterload([&#39;tz2.0.nc&#39;, &#39;tz2.1.nc&#39;], tz2.parm7&#39;, frame_slice=[(0, 8, 2), (0, 5, 1)])</span>
+<span class="go">                                                                                         ^</span>
+<span class="go">SyntaxError: EOL while scanning string literal</span>
+
+
+</pre></div>
+</div>
+</div>
+<div class="section" id="fancy-indexing">
+<h2><a class="toc-backref" href="#id6">Fancy indexing</a><a class="headerlink" href="#fancy-indexing" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [7]: </span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gr">Out[7]: </span><span class="o">&lt;</span><span class="n">Frame</span> <span class="k">with</span> <span class="mi">223</span> <span class="n">atoms</span><span class="o">&gt;</span>
+
+<span class="gp">In [8]: </span><span class="n">traj</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+<span class="go">                               Out[8]: </span>
+<span class="go">pytraj.Trajectory, 2 frames: </span>
+<span class="go">Size: 0.000010 (GB)</span>
+<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
+<span class="go">           </span>
+
+<span class="gp">In [9]: </span><span class="n">traj</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">]</span>
+<span class="go">                                                                                                                                                          Out[9]: </span>
+<span class="go">pytraj.Trajectory, 2 frames: </span>
+<span class="go">Size: 0.000001 (GB)</span>
+<span class="go">&lt;Topology: 12 atoms, 12 residues, 12 mols, non-PBC&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="iterate-whole-trajectory">
+<h2><a class="toc-backref" href="#id7">Iterate whole trajectory</a><a class="headerlink" href="#iterate-whole-trajectory" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [10]: </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">:</span>
+<span class="gp">   ....:</span>     <span class="k">pass</span>
+<span class="gp">   ....:</span> 
+
+<span class="gp">In [11]: </span><span class="n">frame</span>
+<span class="gr">Out[11]: </span><span class="o">&lt;</span><span class="n">Frame</span> <span class="k">with</span> <span class="mi">223</span> <span class="n">atoms</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="iterate-a-part-of-trajectory">
+<h2><a class="toc-backref" href="#id8">Iterate a part of trajectory</a><a class="headerlink" href="#iterate-a-part-of-trajectory" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>with stop value</li>
+</ul>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [12]: </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+<span class="gp">   ....:</span>     <span class="k">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+<span class="gp">   ....:</span> 
+<span class="go">&lt;Frame with 223 atoms&gt;</span>
+<span class="go">&lt;Frame with 223 atoms&gt;</span>
+<span class="go">&lt;Frame with 223 atoms&gt;</span>
+<span class="go">&lt;Frame with 223 atoms&gt;</span>
+<span class="go">&lt;Frame with 223 atoms&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>with given frame indices</li>
+</ul>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [13]: </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">]):</span>
+<span class="gp">   ....:</span>     <span class="k">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+<span class="gp">   ....:</span> 
+<span class="go">&lt;Frame with 223 atoms&gt;</span>
+<span class="go">&lt;Frame with 223 atoms&gt;</span>
+<span class="go">&lt;Frame with 223 atoms&gt;</span>
+<span class="go">&lt;Frame with 223 atoms&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>with given mask</li>
+</ul>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [14]: </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">):</span>
+<span class="gp">   ....:</span>     <span class="k">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+<span class="gp">   ....:</span> 
+<span class="go">&lt;Frame with 12 atoms&gt;</span>
+<span class="go">&lt;Frame with 12 atoms&gt;</span>
+<span class="go">&lt;Frame with 12 atoms&gt;</span>
+<span class="go">&lt;Frame with 12 atoms&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="do-computing">
+<h2><a class="toc-backref" href="#id9">Do computing</a><a class="headerlink" href="#do-computing" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="c"># rmsd to first frame with mask=&#39;@CA&#39;</span>
+<span class="c"># python starts counting from 0</span>
+<span class="gp">In [15]: </span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="gr">Out[15]: </span>
+<span class="go">array([  1.94667955e-07,   2.54596866e+00,   4.22333034e+00, ...,</span>
+<span class="go">         4.97189564e+00,   5.53947712e+00,   4.83201237e+00])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="convert-data-to-pandas-dataframe">
+<h2><a class="toc-backref" href="#id10">Convert data to pandas DataFrame</a><a class="headerlink" href="#convert-data-to-pandas-dataframe" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [16]: </span><span class="n">df</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">resrange</span><span class="o">=</span><span class="s">&#39;3-7&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;dataframe&#39;</span><span class="p">)</span>
+
+<span class="gp">In [17]: </span><span class="nb">type</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="gr">Out[17]: </span><span class="n">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span>
+
+<span class="gp">In [18]: </span><span class="n">df</span>
+<span class="go">                                     Out[18]: </span>
+<span class="go">          phi_3       psi_3     omega_3       phi_4      psi_4      chip_4  \</span>
+<span class="go">0    -79.867366  117.355933 -179.707558 -108.912042 -55.981169  -45.027200   </span>
+<span class="go">1   -120.154899  108.983575 -178.763975  -33.848748 -53.152065  -66.906999   </span>
+<span class="go">2    -52.189986  132.574742  164.425577  -99.530362 -23.195510  -72.642240   </span>
+<span class="go">3    -58.993604  119.694286  155.518119  -80.487361 -52.307948  -62.742388   </span>
+<span class="go">4    -15.262900   96.106653 -179.384535  -97.619079 -46.954372  -62.307383   </span>
+<span class="go">5    -77.567664  111.418267  152.435468  -68.015785 -51.759196  -55.280412   </span>
+<span class="go">6    -66.286384  154.843449  153.437637  -57.474847 -41.525539  -65.974859   </span>
+<span class="go">7    -32.525015  105.386123  170.835006  -86.399603 -48.551285  -85.052511   </span>
+<span class="go">8    -78.696098  137.496929  156.713874  -94.440368 -30.660096  -63.114197   </span>
+<span class="go">9    -68.223357  135.360873  171.397424  -56.499225 -46.518817  -69.161752   </span>
+<span class="go">10   -68.695946  104.060940  176.028248  -46.306731 -42.648793  -52.947998   </span>
+<span class="go">11   -66.413237  138.835812  168.736158  -90.297872 -44.338512  -49.211882   </span>
+<span class="go">12   -97.795289  126.970357  173.858502  -74.466497 -44.201066  -52.723153   </span>
+<span class="go">13   -75.947342  134.761257  171.057191 -108.932385 -38.091384  -59.310435   </span>
+<span class="go">14   -96.947498  129.418229  166.440829  -97.158643 -49.344581  -59.812811   </span>
+<span class="go">15  -113.638280  115.803328  164.295156  -83.747172 -46.915696  -51.588719   </span>
+<span class="go">16  -103.002844  116.512295  178.638361 -104.008233 -60.882228  -66.806677   </span>
+<span class="go">17  -115.906310  129.742903  172.049201  -86.002046 -58.177989  -60.795243   </span>
+<span class="go">18   -51.730697  144.119151  156.406546 -106.516479 -61.514472  -73.892675   </span>
+<span class="go">19   -57.779474  108.509287  165.021574  -56.356527 -52.827521  -27.661594   </span>
+<span class="go">20   -73.518461  133.881077  162.838488  -64.001751 -48.554982  -59.093507   </span>
+<span class="go">21   -40.805788  111.941711 -173.064259  -75.739089 -35.415917  -59.066837   </span>
+<span class="go">22   -44.104245  119.711920  172.055068  -78.906596 -56.198543  -62.869679   </span>
+<span class="go">23   -61.924295  123.721065  167.106046 -109.832235 -56.367878  -72.846679   </span>
+<span class="go">24  -131.031096  111.326542 -173.004636  -63.424350 -62.247507  -58.542340   </span>
+<span class="go">25  -124.650814  110.621350 -170.732713  -61.133390 -58.189646  -59.575380   </span>
+<span class="go">26   -47.603831  116.060773 -175.977711  -39.164606 -60.531975  -51.056041   </span>
+<span class="go">27   -73.951835  104.583226  178.438145  -69.634055 -49.896806  -47.441092   </span>
+<span class="go">28   -75.813300  124.502285 -177.656257  -70.148948 -55.096041  -78.331089   </span>
+<span class="go">29   -59.121639   99.201485 -178.120738  -77.636103 -59.022242  -63.775485   </span>
+<span class="go">..          ...         ...         ...         ...        ...         ...   </span>
+<span class="go">71   -72.217817  126.262480  167.943108  -76.591356 -48.430719  170.118230   </span>
+<span class="go">72   -61.034690  124.839579 -165.314077  -92.044039 -52.429809 -157.030311   </span>
+<span class="go">73   -58.180837  132.011937  156.233138  -71.408179 -47.527921 -162.249591   </span>
+<span class="go">74  -108.211348  114.238633  174.814992  -54.101786 -46.384816  179.467208   </span>
+<span class="go">75  -122.025763   93.671690  176.681616  -71.002987 -43.912414  178.555272   </span>
+<span class="go">76  -133.978319  122.345557 -163.053130 -109.738330 -41.817022 -152.463275   </span>
+<span class="go">77   -58.919707  119.944156 -179.231885 -103.517723 -58.090474 -156.311266   </span>
+<span class="go">78   -80.242615  105.166670 -171.074142  -89.682185 -27.440835 -157.717798   </span>
+<span class="go">79   -57.716183  119.474515  170.909016  -97.325384 -51.108550 -177.740578   </span>
+<span class="go">80   -83.617541  124.782151 -179.217137 -128.955685 -77.550022  171.376019   </span>
+<span class="go">81   -77.804551   94.693399  168.195648  -72.839827 -36.962141 -139.043055   </span>
+<span class="go">82   -73.294294  112.120434  175.378181 -107.558311 -64.910786  171.300667   </span>
+<span class="go">83   -65.806592  122.835132  171.755834  -80.102182 -42.244891 -143.037374   </span>
+<span class="go">84   -78.617256  137.200031  168.388733 -106.835292 -50.488393 -174.859744   </span>
+<span class="go">85   -64.314456   84.552579  164.578369  -96.905876 -48.376626  171.434110   </span>
+<span class="go">86   -93.533521  121.797731 -166.159578 -119.456089 -53.555817 -179.488135   </span>
+<span class="go">87   -45.638008  111.118909  164.869563 -111.556277 -46.472821  163.379860   </span>
+<span class="go">88   -67.809326  108.034559  173.353414  -50.085247 -60.478878 -160.480647   </span>
+<span class="go">89   -99.987523   96.425084  176.187392  -57.644174 -48.873355 -172.324071   </span>
+<span class="go">90   -62.433552  134.113668 -175.461217 -105.196616 -51.919793  177.868334   </span>
+<span class="go">91   -81.020514  101.652477 -168.736631 -114.382370 -53.474924 -173.444897   </span>
+<span class="go">92   -75.821785  130.867902  173.576893  -84.146294 -46.006573 -178.261643   </span>
+<span class="go">93   -72.158363  119.391969  169.834931  -86.732520 -39.537321  175.283062   </span>
+<span class="go">94   -75.506215   91.483310 -162.333639  -84.116675 -41.796521  167.922501   </span>
+<span class="go">95   -84.207764   93.363178  177.522462  -69.226213 -43.359653 -169.825668   </span>
+<span class="go">96   -98.402692  110.623026 -179.036099  -46.585622 -57.770158  174.965803   </span>
+<span class="go">97   -99.936755  141.356106  175.837562 -102.973561 -43.986359 -158.479187   </span>
+<span class="go">98   -53.699429  122.688791  173.134905  -95.841846 -56.016781  170.439734   </span>
+<span class="go">99   -62.333767  117.958390  174.841249  -74.141618 -57.381326 -104.384460   </span>
+<span class="go">100  -64.649757  103.607363  162.122206  -96.395583 -34.251063  -74.762777   </span>
+
+<span class="go">        omega_4       phi_5       psi_5      chip_5     omega_5       phi_6  \</span>
+<span class="go">0    168.029851 -136.352598  129.444453 -158.596540 -179.635141 -122.441300   </span>
+<span class="go">1   -168.272834  -64.702151  126.897549 -166.483820  175.739859  -80.411988   </span>
+<span class="go">2   -162.379720  -50.700815  123.458647 -161.821720  156.189465  -66.992273   </span>
+<span class="go">3   -148.176544  -93.429302  127.907171  177.564610 -172.460701 -105.800232   </span>
+<span class="go">4    175.550087  -74.029924  125.867995 -170.184764  172.943024  -97.103336   </span>
+<span class="go">5   -178.358483 -103.958403  138.918202 -173.809754  159.544874  -67.494289   </span>
+<span class="go">6    171.113074 -111.280766  134.418283 -177.719316  179.112111  -71.071200   </span>
+<span class="go">7   -174.057927  -52.350887  135.876188 -179.816491  161.387227  -94.144057   </span>
+<span class="go">8   -167.982909  -75.553589   78.567225 -174.438551  179.922390  -50.574409   </span>
+<span class="go">9   -171.202419 -108.839529  115.363007 -179.722642  168.013125  -40.263180   </span>
+<span class="go">10  -174.997585 -114.488456  124.551979 -179.443009  169.664948  -68.086055   </span>
+<span class="go">11   177.732457  -79.461853  111.249100 -172.576301  168.768384  -84.912584   </span>
+<span class="go">12  -165.706310  -97.984090  122.247178 -174.483873 -167.843718 -100.188193   </span>
+<span class="go">13  -174.589912 -101.812342  123.591691 -175.713499 -162.794983 -133.580241   </span>
+<span class="go">14   167.884686  -60.208790  117.056973 -159.529123  159.445083 -125.648804   </span>
+<span class="go">15  -177.002102 -117.658907  105.607419 -171.578094  177.576362 -109.745543   </span>
+<span class="go">16   178.319431 -126.028108  138.779457 -169.758855  175.800244  -48.372188   </span>
+<span class="go">17  -177.658973 -135.333130  130.390503 -179.635725  174.260134 -107.109140   </span>
+<span class="go">18   166.814208  -76.216124  118.323565  167.116305  167.290441 -114.300978   </span>
+<span class="go">19   160.651602 -120.748749  144.090359 -176.118232  169.163325 -102.022480   </span>
+<span class="go">20  -179.918112 -105.050179  107.874821 -166.571466  173.386081 -118.893276   </span>
+<span class="go">21  -175.891791  -96.413218  101.448505 -165.254073  167.135916 -127.821104   </span>
+<span class="go">22  -156.113641 -117.024716  122.624048 -154.244430 -170.727692  -67.223470   </span>
+<span class="go">23   173.853995 -111.653312   99.352467  178.755515  170.136126  -78.174527   </span>
+<span class="go">24   168.078219  -83.217565  115.288071 -169.416675  170.252540  -95.013686   </span>
+<span class="go">25  -174.923695 -109.670076  132.936256 -173.396870  150.592953  -85.771095   </span>
+<span class="go">26   157.909339 -118.418488  117.177758 -166.757946  173.611426  -88.956753   </span>
+<span class="go">27  -177.742099 -101.091400  114.838206 -161.279839  177.902707 -114.939385   </span>
+<span class="go">28  -179.215088  -71.809890  121.218738 -173.170952 -172.668511  -83.315580   </span>
+<span class="go">29  -171.934534  -69.066081  126.030119 -164.172563  175.091404  -99.090462   </span>
+<span class="go">..          ...         ...         ...         ...         ...         ...   </span>
+<span class="go">71   175.384631  -58.230189  140.370365 -173.444347  175.433317  -56.524757   </span>
+<span class="go">72  -170.255714 -112.988086  117.657910 -161.271087  166.389652  -64.286352   </span>
+<span class="go">73  -175.077228 -133.487913  131.160133 -163.059777  177.236893  -73.358050   </span>
+<span class="go">74   170.112061 -113.896552  118.696108  157.914431  164.992147  -59.000679   </span>
+<span class="go">75   172.609273  -97.376843  119.337152 -148.158957  154.140672  -67.900108   </span>
+<span class="go">76   176.675184 -103.358276  126.912608 -161.134697  170.495192  -31.066080   </span>
+<span class="go">77   173.330447  -94.789293  110.931485 -179.108418 -166.251046  -28.322195   </span>
+<span class="go">78  -174.182201 -104.253440  121.069560 -171.953917  174.403202  -74.171531   </span>
+<span class="go">79  -178.633213 -147.755873  126.965689 -174.221480  165.867737  -64.034673   </span>
+<span class="go">80   179.631298  -87.089543  124.133008 -175.899982 -177.905261  -60.608047   </span>
+<span class="go">81  -179.642013 -108.122110   99.175867  171.567335  168.867698  -61.132415   </span>
+<span class="go">82  -177.443594  -53.571730  120.518427 -166.942732  166.396800  -78.777358   </span>
+<span class="go">83  -179.610071 -120.846518  118.061167 -150.110859 -177.335061  -77.917400   </span>
+<span class="go">84  -170.503537 -111.290175  127.950474 -175.351708  169.473251  -66.734101   </span>
+<span class="go">85  -165.870115  -97.276807  121.450644 -163.590177  167.562726  -78.683377   </span>
+<span class="go">86  -160.091242  -99.735066  115.556945  178.926925 -172.815298  -90.878556   </span>
+<span class="go">87  -144.751142 -100.088907  109.515278 -176.272839  171.310528  -69.113423   </span>
+<span class="go">88   162.216928 -107.589734  146.723572 -163.199732  179.029896  -87.565855   </span>
+<span class="go">89   173.727036 -104.304000  113.209428 -156.320843  169.348780  -85.222635   </span>
+<span class="go">90   162.466443 -101.899081  116.453291 -154.031035  165.254262 -100.004652   </span>
+<span class="go">91  -171.791626 -112.055086  127.814326  174.300503  174.633870  -85.449480   </span>
+<span class="go">92   161.300789 -110.378922  130.350158 -164.952557  170.360617  -66.986572   </span>
+<span class="go">93  -177.865433 -127.332375  100.787546  177.210938  170.373170  -42.076537   </span>
+<span class="go">94  -162.291765 -108.269293  140.584091 -169.799045 -173.188995  -69.372640   </span>
+<span class="go">95  -171.337368 -114.540012  130.268079 -172.556151  173.190482  -87.315079   </span>
+<span class="go">96  -176.040894 -112.239262  128.581389 -170.349500  176.916384  -63.883147   </span>
+<span class="go">97   163.163328  -97.187573  138.256269  172.851223  174.495541  -76.027191   </span>
+<span class="go">98  -168.915311 -110.753630  142.173648 -163.858501 -167.293707  -98.228679   </span>
+<span class="go">99   171.038098 -110.444472  132.380379 -162.984169  155.860401  -60.484738   </span>
+<span class="go">100  171.968921 -119.367165  119.273812 -170.889973  165.773805  -96.481030   </span>
+
+<span class="go">          psi_6      chip_6     omega_6       phi_7       psi_7     omega_7  </span>
+<span class="go">0    144.691020  -83.364416  175.649333  -63.342516 -128.126881  178.856418  </span>
+<span class="go">1     92.136296  -76.128400  179.250973 -102.850057 -132.808822  179.801203  </span>
+<span class="go">2    116.650668  -86.175454 -167.400738  -92.841213 -133.903304 -173.318265  </span>
+<span class="go">3    133.082986  -60.499949  170.360279 -101.497190 -156.582534 -164.484309  </span>
+<span class="go">4    104.473700 -176.434004  163.963335 -131.852837 -127.102659 -175.892708  </span>
+<span class="go">5    112.431645 -169.325130 -166.792959  -88.312049 -121.321641  168.729031  </span>
+<span class="go">6     85.794564 -151.874413 -177.152013 -118.166571 -135.996332  171.201925  </span>
+<span class="go">7     88.644331 -146.512644 -178.005027 -140.124142 -139.542018 -178.289491  </span>
+<span class="go">8    137.524435 -170.447741  178.031306 -167.878584 -164.303481  178.288410  </span>
+<span class="go">9    117.183936 -165.674159  171.168939 -122.271710 -143.339866  157.707101  </span>
+<span class="go">10   100.125827  162.080188 -166.082722  -89.882470 -155.443454  162.963168  </span>
+<span class="go">11    98.353368 -176.476698  179.587942 -112.309914 -139.301228 -174.401923  </span>
+<span class="go">12   115.623969 -164.428612  179.698767 -111.825098 -131.857496 -163.032477  </span>
+<span class="go">13   119.255773 -161.459572  162.386501 -109.134501 -145.098094  173.632057  </span>
+<span class="go">14   124.880607  179.862803 -175.077879  -92.972077 -169.549712  178.198480  </span>
+<span class="go">15   113.255622 -172.932852 -164.964773 -132.150378  156.622383 -179.373022  </span>
+<span class="go">16   109.684969 -176.388810  161.696959 -100.939276  124.975834 -174.310918  </span>
+<span class="go">17   123.053639 -171.863484  175.683898  -78.238425  105.899816 -176.513698  </span>
+<span class="go">18   109.915179  150.208263 -166.075557 -123.130836   86.707987  170.157688  </span>
+<span class="go">19   119.022220 -176.265828 -160.910421  -99.554268  104.338705  177.107795  </span>
+<span class="go">20   130.641596 -162.864423 -177.845889 -107.197620  142.613279  172.813741  </span>
+<span class="go">21   110.323783 -176.540036 -172.790312 -103.094377  126.187487  179.871282  </span>
+<span class="go">22   124.002273  165.480645  177.637787  -91.349016   56.681813 -174.578610  </span>
+<span class="go">23   109.675618 -178.973410  169.140034  -94.221863  114.240497  176.689638  </span>
+<span class="go">24   120.331511 -173.112382 -154.048784  -86.422571   63.419706 -169.139553  </span>
+<span class="go">25   103.737063 -174.865628 -178.093696 -109.908346   96.026384 -178.256082  </span>
+<span class="go">26    72.605769 -174.207997 -173.351318  -73.582203  135.393896 -176.015751  </span>
+<span class="go">27   109.420684 -174.320004 -169.191648  -69.841206  102.995832 -174.837156  </span>
+<span class="go">28   129.155495  174.920272 -169.027754 -105.926716  117.671283  179.209053  </span>
+<span class="go">29   142.324351 -178.184788  176.415032 -113.404731  119.063584 -176.395901  </span>
+<span class="go">..          ...         ...         ...         ...         ...         ...  </span>
+<span class="go">71    97.552311  173.957937 -168.630418   56.518739 -135.585601 -173.346323  </span>
+<span class="go">72   127.725140 -165.144243 -145.473940   67.000552 -125.249168  158.726562  </span>
+<span class="go">73   142.867555  156.745912 -174.921982   68.404661 -130.302300 -164.625605  </span>
+<span class="go">74   116.244711 -167.798591  169.544296   80.305163 -123.959075  178.451235  </span>
+<span class="go">75   149.060864 -134.797092 -175.295692   59.934783 -132.492444  178.705623  </span>
+<span class="go">76   132.303577 -168.830024  164.840167   67.185609 -134.468425  173.585901  </span>
+<span class="go">77   114.387797 -178.578472 -173.942542   71.080292 -126.570370 -172.001054  </span>
+<span class="go">78    91.694188 -170.226338  177.386730  147.170516 -137.132691  178.845365  </span>
+<span class="go">79   125.305874  178.968780  179.891081  161.234048 -132.245794 -178.074791  </span>
+<span class="go">80   116.389406  176.850047 -168.692250  138.032929 -148.925263  177.055428  </span>
+<span class="go">81   107.857968 -164.730805 -177.284562  152.581740 -128.620931 -168.183272  </span>
+<span class="go">82   120.090941 -171.853746  171.899651  152.265901 -141.467806  169.342106  </span>
+<span class="go">83   116.470539 -177.613017 -168.848387  151.563006 -142.900284 -159.142491  </span>
+<span class="go">84   109.724527 -162.601526  178.212614  154.857354 -148.675819 -168.826917  </span>
+<span class="go">85   117.794687 -169.448256  169.458323  166.691671 -123.613622  171.555226  </span>
+<span class="go">86   104.746596 -177.558646 -154.427792  168.007028 -146.911702 -157.181794  </span>
+<span class="go">87   128.118773 -175.209133 -173.926674  141.750847 -145.812532 -165.023003  </span>
+<span class="go">88   106.511584  171.936590 -172.293242  157.024099 -148.766947  174.042586  </span>
+<span class="go">89   107.360374  174.610454 -168.478120  148.153443 -120.952005 -172.606402  </span>
+<span class="go">90   126.279167 -168.033747 -157.167126  143.622110 -128.090902 -170.999520  </span>
+<span class="go">91   118.862367  178.049295 -176.588223  151.697957 -140.575980 -177.825584  </span>
+<span class="go">92    98.052730  168.018926  175.719216  161.574161 -130.376157 -174.911309  </span>
+<span class="go">93   121.952725 -150.492851  179.110404  150.529915 -122.117453  169.036942  </span>
+<span class="go">94   119.662887 -177.782413  170.774499  142.688454 -132.779115  179.362023  </span>
+<span class="go">95   116.417075 -173.350220 -165.092262  162.824320 -138.290171 -167.674412  </span>
+<span class="go">96   110.091108 -177.082909  176.636898  163.383684 -144.152464 -154.592690  </span>
+<span class="go">97   129.449673 -151.590850  171.838460  153.477961 -123.940375  168.586254  </span>
+<span class="go">98    75.041022  171.137708 -178.212557 -179.135585 -131.755678 -172.495770  </span>
+<span class="go">99   116.659763 -166.508081 -177.651517  164.026835 -140.931107  176.075817  </span>
+<span class="go">100  107.297804  179.500233 -168.223579  156.863923  -51.867563  160.892212  </span>
+
+<span class="go">[101 rows x 18 columns]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="convert-to-different-file-format">
+<h2><a class="toc-backref" href="#id11">Convert to different file format</a><a class="headerlink" href="#convert-to-different-file-format" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="c"># to DCD format</span>
+<span class="gp">In [19]: </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&#39;traj.dcd&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="combine-with-cpptraj-commmand-style">
+<h2><a class="toc-backref" href="#id12">Combine with cpptraj commmand style</a><a class="headerlink" href="#combine-with-cpptraj-commmand-style" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [20]: </span><span class="n">pt</span><span class="o">.</span><span class="n">do</span><span class="p">([</span><span class="s">&#39;rms&#39;</span><span class="p">,</span> <span class="s">&#39;radgyr @CA&#39;</span><span class="p">,</span> <span class="s">&#39;distance :3 :7&#39;</span><span class="p">],</span> <span class="n">traj</span><span class="p">)</span>
+<span class="gr">Out[20]: </span>
+<span class="go">OrderedDict([(&#39;RMSD_00000&#39;,</span>
+<span class="go">              array([  2.43182129e-07,   4.01623189e+00,   6.41421043e+00, ...,</span>
+<span class="go">                       8.27504991e+00,   8.19405473e+00,   7.77917637e+00])),</span>
+<span class="go">             (&#39;RoG_00001&#39;,</span>
+<span class="go">              array([ 8.10916061,  7.7643485 ,  8.09693108, ...,  6.38061648,</span>
+<span class="go">                      6.24139008,  6.48994552])),</span>
+<span class="go">             (&#39;RoG_00001[Max]&#39;,</span>
+<span class="go">              array([ 12.30764509,  12.10928972,  14.3881904 , ...,   9.505607  ,</span>
+<span class="go">                       9.45815721,  10.29136723])),</span>
+<span class="go">             (&#39;Dis_00003&#39;,</span>
+<span class="go">              array([ 11.17446726,   8.57430478,   7.40760415, ...,   9.06436275,</span>
+<span class="go">                       6.59675   ,   8.63872898]))])</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, pytraj developers.<br/>
+      Last updated on Nov 13, 2015.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
