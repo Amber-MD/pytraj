@@ -12,7 +12,7 @@ Register to load from disk
 .. ipython:: python
 
     import pytraj as pt
-    traj = pt.iterload('tz2.nc', tz2.parm7')
+    traj = pt.iterload('tz2.nc', 'tz2.parm7')
     traj
 
 Register to load from disk with frame stride
