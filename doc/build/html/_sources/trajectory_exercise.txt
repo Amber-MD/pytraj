@@ -21,7 +21,7 @@ Register to load from disk with frame stride
 .. ipython:: python
 
     # start=0, stop=8, step=2
-    pt.iterload('tz2.nc', tz2.parm7', frame_slice=(0, 8, 2))
+    pt.iterload('tz2.nc', 'tz2.parm7', frame_slice=(0, 8, 2))
 
 
 Register to load several files from disk
@@ -29,14 +29,14 @@ Register to load several files from disk
 
 .. ipython:: python
 
-    pt.iterload(['tz2.0.nc', 'tz2.1.nc'], tz2.parm7')
+    pt.iterload(['tz2.0.nc', 'tz2.1.nc'], 'tz2.parm7')
 
 Register to load several files from disk with frame stride
 ----------------------------------------------------------
 
 .. ipython:: python
 
-    pt.iterload(['tz2.0.nc', 'tz2.1.nc'], tz2.parm7', frame_slice=[(0, 8, 2), (0, 5, 1)])
+    pt.iterload(['tz2.0.nc', 'tz2.1.nc'], 'tz2.parm7', frame_slice=[(0, 8, 2), (0, 5, 1)])
 
     # similiar to cpptraj style
     # parm tz2.parm7

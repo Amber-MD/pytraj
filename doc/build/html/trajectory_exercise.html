@@ -199,32 +199,32 @@
 <div class="section" id="register-to-load-from-disk-with-frame-stride">
 <h2><a class="toc-backref" href="#id3">Register to load from disk with frame stride</a><a class="headerlink" href="#register-to-load-from-disk-with-frame-stride" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="c"># start=0, stop=8, step=2</span>
-<span class="gp">In [4]: </span><span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="n">tz2</span><span class="o">.</span><span class="n">parm7</span><span class="s">&#39;, frame_slice=(0, 8, 2))</span>
-<span class="go">  File &quot;&lt;ipython-input-4-4b1693f12f16&gt;&quot;, line 1</span>
-<span class="go">    pt.iterload(&#39;tz2.nc&#39;, tz2.parm7&#39;, frame_slice=(0, 8, 2))</span>
-<span class="go">                                                            ^</span>
-<span class="go">SyntaxError: EOL while scanning string literal</span>
+<span class="gp">In [4]: </span><span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.parm7&#39;</span><span class="p">,</span> <span class="n">frame_slice</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="gr">Out[4]: </span>
+<span class="go">pytraj.TrajectoryIterator, 4 frames: </span>
+<span class="go">Size: 0.000020 (GB)</span>
+<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="register-to-load-several-files-from-disk">
 <h2><a class="toc-backref" href="#id4">Register to load several files from disk</a><a class="headerlink" href="#register-to-load-several-files-from-disk" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [5]: </span><span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s">&#39;tz2.0.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.1.nc&#39;</span><span class="p">],</span> <span class="n">tz2</span><span class="o">.</span><span class="n">parm7</span><span class="s">&#39;)</span>
-<span class="go">  File &quot;&lt;ipython-input-5-36a9f10b9b45&gt;&quot;, line 1</span>
-<span class="go">    pt.iterload([&#39;tz2.0.nc&#39;, &#39;tz2.1.nc&#39;], tz2.parm7&#39;)</span>
-<span class="go">                                                     ^</span>
-<span class="go">SyntaxError: EOL while scanning string literal</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [5]: </span><span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s">&#39;tz2.0.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.1.nc&#39;</span><span class="p">],</span> <span class="s">&#39;tz2.parm7&#39;</span><span class="p">)</span>
+<span class="gr">Out[5]: </span>
+<span class="go">pytraj.TrajectoryIterator, 202 frames: </span>
+<span class="go">Size: 0.001007 (GB)</span>
+<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="register-to-load-several-files-from-disk-with-frame-stride">
 <h2><a class="toc-backref" href="#id5">Register to load several files from disk with frame stride</a><a class="headerlink" href="#register-to-load-several-files-from-disk-with-frame-stride" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [6]: </span><span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s">&#39;tz2.0.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.1.nc&#39;</span><span class="p">],</span> <span class="n">tz2</span><span class="o">.</span><span class="n">parm7</span><span class="s">&#39;, frame_slice=[(0, 8, 2), (0, 5, 1)])</span>
-<span class="go">  File &quot;&lt;ipython-input-6-a4a456e24d6f&gt;&quot;, line 1</span>
-<span class="go">    pt.iterload([&#39;tz2.0.nc&#39;, &#39;tz2.1.nc&#39;], tz2.parm7&#39;, frame_slice=[(0, 8, 2), (0, 5, 1)])</span>
-<span class="go">                                                                                         ^</span>
-<span class="go">SyntaxError: EOL while scanning string literal</span>
-
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [6]: </span><span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s">&#39;tz2.0.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.1.nc&#39;</span><span class="p">],</span> <span class="s">&#39;tz2.parm7&#39;</span><span class="p">,</span> <span class="n">frame_slice</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+<span class="gr">Out[6]: </span>
+<span class="go">pytraj.TrajectoryIterator, 9 frames: </span>
+<span class="go">Size: 0.000045 (GB)</span>
+<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
+<span class="go">           </span>
 
 </pre></div>
 </div>
