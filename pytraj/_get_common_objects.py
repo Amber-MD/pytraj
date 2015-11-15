@@ -48,7 +48,6 @@ def _get_topology(traj, top):
                         _top = tmp.top
                         break
             except TypeError:
-                #print("Topology is None")
                 _top = None
     else:
         _top = top

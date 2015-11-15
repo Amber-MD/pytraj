@@ -588,7 +588,6 @@ def calc_diffusion(traj,
 
 @_register_pmap
 @_register_openmp
-#@_super_dispatch()
 def calc_watershell(traj=None,
                     solute_mask='',
                     solvent_mask=':WAT',

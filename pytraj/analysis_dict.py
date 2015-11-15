@@ -6,7 +6,6 @@ ADICT = {}
 for key in allanalyses.__dict__.keys():
     if "Analysis_" in key:
         act = key.split('Analysis_')[1]
-        #print (act)
         # create dict of analysis objects
         ADICT[act.lower()] = allanalyses.__dict__[key]
 

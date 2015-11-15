@@ -6,7 +6,6 @@ ADICT = {}
 for key in allactions.__dict__.keys():
     if "Action_" in key:
         act = key.split('Action_')[1]
-        #print (act)
         # create dict of action objects
         ADICT[act.lower()] = allactions.__dict__[key]
 
