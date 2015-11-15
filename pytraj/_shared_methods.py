@@ -13,12 +13,6 @@ def _savetraj(self,
               format='unknown',
               overwrite=False,
               *args, **kwd):
-    if format == 'unknown':
-        # convert to "UNKNOWN_TRAJ"
-        format = format.upper() + "_TRAJ"
-    else:
-        format = format.upper()
-
     with Trajout(filename=filename,
                  top=self.top,
                  format=format,
@@ -109,8 +103,8 @@ def iterframe_master(obj):
                 else:
                     for frame in traj_obj:
                         yield frame
-        except:
-            raise ValueError("can not convert to Frame")
+        except TypeError:
+            raise TypeError("can not convert to Frame")
 
 
 def _box(self):

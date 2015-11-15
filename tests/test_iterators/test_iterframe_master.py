@@ -62,6 +62,12 @@ class TestIterFrameMaster(unittest.TestCase):
             assert isinstance(frame, Frame)
         assert i == traj.n_frames
 
+        # raise if wrong type
+        def test_raise():
+            for frame in pt.iterframe_master([0, 3]):
+                pass
+        self.assertRaises(TypeError, lambda: test_raise())
+
     def test_iter_with_a_list_of_frame_and_trajectory_and_FrameIterator(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         ref = traj[0]
