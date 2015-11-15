@@ -61,10 +61,12 @@ class TestSuperDispatch(unittest.TestCase):
 
             # frame_indices with mask
             frame_indices = [0, 5, 8]
-            aa_eq(func(traj[frame_indices],
-                       mask=mask), func(traj,
-                                        mask=atom_indices,
-                                        frame_indices=frame_indices))
+            aa_eq(
+                func(traj[frame_indices],
+                     mask=mask),
+                func(traj,
+                     mask=atom_indices,
+                     frame_indices=frame_indices))
 
 
 if __name__ == "__main__":

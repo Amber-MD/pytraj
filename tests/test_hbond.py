@@ -55,10 +55,8 @@ class TestSearchHbonds(unittest.TestCase):
         hb = pt.search_hbonds(traj)
         distances = pt.distance(traj, hb._amber_mask()[0])
         angles = pt.angles(traj, hb._amber_mask()[1])
-        dist_indices = np.where(distances >
-                      distance_cutoff)
-        angle_indices = np.where(angles <
-                      angle_cutoff)
+        dist_indices = np.where(distances > distance_cutoff)
+        angle_indices = np.where(angles < angle_cutoff)
         print('FILL ME', dist_indices, angle_indices)
 
         saved_donor_aceptors = ['ASP9_OD2-ARG16_NH1-HH12',

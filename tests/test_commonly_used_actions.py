@@ -7,8 +7,8 @@ from pytraj import adict
 
 class TestAutoImage(unittest.TestCase):
     def test_1(self):
-        traj = pt.iterload(
-            "./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
+        traj = pt.iterload("./data/tz2.truncoct.nc",
+                           "./data/tz2.truncoct.parm7")
         f0 = traj[0]
         f0cp = f0.copy()
         adict['autoimage']("", f0, traj.top)
@@ -19,8 +19,8 @@ class TestAutoImage(unittest.TestCase):
     def test_2(self):
         from pytraj.common_actions import do_autoimage
         # test do_autoimage
-        traj = pt.iterload(
-            "./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
+        traj = pt.iterload("./data/tz2.truncoct.nc",
+                           "./data/tz2.truncoct.parm7")
         f0 = traj[0]
         f0cp = f0.copy()
         do_autoimage(traj=f0, top=traj.top)

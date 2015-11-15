@@ -10,9 +10,8 @@ from pytraj.testing import aa_eq
 class TestIndices(unittest.TestCase):
     def test_slice(self):
 
-        traj1 = TrajectoryIterator(
-            filename="data/md1_prod.Tc5b.x",
-            top="./data/Tc5b.top")
+        traj1 = TrajectoryIterator(filename="data/md1_prod.Tc5b.x",
+                                   top="./data/Tc5b.top")
         frame_indices = slice(9, 6, -1)
 
         traj0 = pt.load(filename="./data/md1_prod.Tc5b.x",
@@ -41,17 +40,14 @@ class TestIndices(unittest.TestCase):
         aa_eq(traj2[-1].xyz, traj1[4].xyz)
 
     def test_1(self):
-        traj0 = TrajectoryIterator(
-            filename="data/md1_prod.Tc5b.x",
-            top="./data/Tc5b.top")
-        traj = TrajectoryIterator(
-            filename="data/md1_prod.Tc5b.x",
-            top="./data/Tc5b.top")[:]
+        traj0 = TrajectoryIterator(filename="data/md1_prod.Tc5b.x",
+                                   top="./data/Tc5b.top")
+        traj = TrajectoryIterator(filename="data/md1_prod.Tc5b.x",
+                                  top="./data/Tc5b.top")[:]
         aa_eq(traj[0].xyz, traj0[0].xyz)
 
-        traj2 = TrajectoryIterator(
-            filename="data/md1_prod.Tc5b.x",
-            top="./data/Tc5b.top")[:][:10]
+        traj2 = TrajectoryIterator(filename="data/md1_prod.Tc5b.x",
+                                   top="./data/Tc5b.top")[:][:10]
         aa_eq(traj2[0].xyz, traj0[0].xyz)
 
         traj.join((traj[:], traj[0:100], traj[9:3:-1]))
@@ -60,8 +56,8 @@ class TestIndices(unittest.TestCase):
         for frame in traj:
             frame.xyz[:] = 0.
 
-        aa_eq(traj[0].xyz.flatten(), array('d', [0 for _ in range(traj[0].size)
-                                                 ]))
+        aa_eq(traj[0].xyz.flatten(), array('d',
+                                           [0 for _ in range(traj[0].size)]))
         aa_eq(traj[-1].xyz.flatten(), array('d',
                                             [0 for _ in range(traj[0].size)]))
 
@@ -72,25 +68,21 @@ class TestIndices(unittest.TestCase):
         del top
 
     def test_join_dummy(self):
-        traj0 = TrajectoryIterator(
-            filename="data/md1_prod.Tc5b.x",
-            top="./data/Tc5b.top")[:]
+        traj0 = TrajectoryIterator(filename="data/md1_prod.Tc5b.x",
+                                   top="./data/Tc5b.top")[:]
         #traj0 += traj0
         traj0.join(traj0[:])
 
     def test_load_frame_indices_from_io(self):
-        traj0 = pt.load(
-            filename="data/md1_prod.Tc5b.x",
-            top="./data/Tc5b.top",
-            frame_indices=(1, 3, 7))
-        trajCA = pt.load(
-            filename="data/md1_prod.Tc5b.x",
-            top="./data/Tc5b.top",
-            frame_indices=(1, 3, 7),
-            mask='@CA')
-        trajreadonly = pt.iterload(
-            filename="data/md1_prod.Tc5b.x",
-            top="./data/Tc5b.top")
+        traj0 = pt.load(filename="data/md1_prod.Tc5b.x",
+                        top="./data/Tc5b.top",
+                        frame_indices=(1, 3, 7))
+        trajCA = pt.load(filename="data/md1_prod.Tc5b.x",
+                         top="./data/Tc5b.top",
+                         frame_indices=(1, 3, 7),
+                         mask='@CA')
+        trajreadonly = pt.iterload(filename="data/md1_prod.Tc5b.x",
+                                   top="./data/Tc5b.top")
         trajCA_10frames = trajreadonly['@CA']
 
         assert isinstance(traj0, Trajectory)
@@ -104,9 +96,8 @@ class TestIndices(unittest.TestCase):
         aa_eq(trajCA[2].xyz, trajCA_10frames[7].xyz)
 
     def test_load_mask(self):
-        traj = pt.iterload(
-            filename="data/md1_prod.Tc5b.x",
-            top="./data/Tc5b.top")
+        traj = pt.iterload(filename="data/md1_prod.Tc5b.x",
+                           top="./data/Tc5b.top")
         t0 = pt.load(traj.filename, traj.top.filename, mask='@CA')
         aa_eq(traj['@CA'].xyz, t0.xyz)
 

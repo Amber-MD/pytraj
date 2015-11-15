@@ -45,5 +45,6 @@ class TestClosest(unittest.TestCase):
         fi, top = pt.closest(traj)
         pt.write_traj('output/test.pdb', next(fi), top=top, overwrite=True)
 
+
 if __name__ == "__main__":
     unittest.main()

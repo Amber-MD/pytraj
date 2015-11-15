@@ -66,8 +66,12 @@ class TestNormalDistance(unittest.TestCase):
                            'data/dry_traj_with_PBC_top/strip.prmtop')
         assert traj.top.has_box(), 'Topology must have box for testing'
 
-        correct_distance_with_image_True = pt.distance(traj, ':8@OP2 :5@N1', image=True)
-        correct_distance_with_image_False = pt.distance(traj, ':8@OP2 :5@N1', image=False)
+        correct_distance_with_image_True = pt.distance(traj,
+                                                       ':8@OP2 :5@N1',
+                                                       image=True)
+        correct_distance_with_image_False = pt.distance(traj,
+                                                        ':8@OP2 :5@N1',
+                                                        image=False)
         state = pt.load_batch(traj, '''
         distance :8@OP2 :5@N1
         ''')

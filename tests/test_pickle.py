@@ -26,12 +26,15 @@ class TestBuildAndPickleTopology(unittest.TestCase):
 
         MOLNUM = 0
 
-        for idx, (aname, atype, charge, mass, resid, resname, mol_number
-                  ) in enumerate(
-                      zip(d['atom_name'], d['atom_type'], d['atom_charge'],
-                          d['atom_mass'], d['resid'], d['resname'],
-                          d['mol_number'])):
-            atom = pt.core.Atom(name=aname, type=atype, charge=charge, mass=mass, resid=resid)
+        for idx, (aname, atype, charge, mass, resid, resname,
+                  mol_number) in enumerate(zip(d['atom_name'], d[
+                      'atom_type'], d['atom_charge'], d['atom_mass'], d[
+                          'resid'], d['resname'], d['mol_number'])):
+            atom = pt.core.Atom(name=aname,
+                                type=atype,
+                                charge=charge,
+                                mass=mass,
+                                resid=resid)
             atom.set_mol(mol_number)
             residue = pt.core.Residue(resname, resid)
             if idx == 0:
@@ -88,7 +91,8 @@ class TestPickleTrajectoryIterator(unittest.TestCase):
     def test_trajiter(self):
         for _pickle_topology in [True, False]:
             for frame_slice in [(0, 8, 2), (0, 10, 1)]:
-                traj = pt.iterload("data/md1_prod.Tc5b.x", "data/Tc5b.top",
+                traj = pt.iterload("data/md1_prod.Tc5b.x",
+                                   "data/Tc5b.top",
                                    frame_slice=frame_slice)
                 traj._pickle_topology = _pickle_topology
                 pt.io.to_pickle(traj, 'output/test0.pk')
@@ -131,12 +135,12 @@ class TestPickleFrame(unittest.TestCase):
 
 
 class TestPickleDatasetList(unittest.TestCase):
-     def test_pickle_datasetlist(self):
-       traj = pt.iterload("data/md1_prod.Tc5b.x", "data/Tc5b.top")
-       dslist = pt.multidihedral(traj)
-       pt.to_pickle(dslist, 'output/ds.pk')
-       dslist2 = pt.read_pickle('output/ds.pk')
-       aa_eq(dslist.values, dslist2.values)
+    def test_pickle_datasetlist(self):
+        traj = pt.iterload("data/md1_prod.Tc5b.x", "data/Tc5b.top")
+        dslist = pt.multidihedral(traj)
+        pt.to_pickle(dslist, 'output/ds.pk')
+        dslist2 = pt.read_pickle('output/ds.pk')
+        aa_eq(dslist.values, dslist2.values)
 
 
 if __name__ == "__main__":

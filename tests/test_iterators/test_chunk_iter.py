@@ -22,9 +22,8 @@ class Test(unittest.TestCase):
         assert dslist.size == 1
         #print(dslist[0].size)
         assert dslist[0].size == traj.n_frames
-        cppout = np.loadtxt(
-            "./data/CAres2_CAres10.Tc5b.dat",
-            skiprows=1).transpose()[1]
+        cppout = np.loadtxt("./data/CAres2_CAres10.Tc5b.dat",
+                            skiprows=1).transpose()[1]
         assert_almost_equal(dslist[0][:], cppout)
         act.do_action((traj.iterchunk(chunksize=4, stop=8), ))
         #print(act.n_frames)
@@ -68,7 +67,8 @@ class Test(unittest.TestCase):
         # action on chunk_iter
         import pytraj.common_actions as pyca
         pyca.calc_distance(
-            [traj.iterchunk(), traj.iterchunk(), traj[0]], '@CA @CB',
+            [traj.iterchunk(), traj.iterchunk(), traj[0]],
+            '@CA @CB',
             top=traj.top)
 
         rmsd0 = pt.rmsd(traj.iterchunk(3), ref=traj[-1], top=traj.top)

@@ -21,8 +21,8 @@ class TestNHOrderParamters(unittest.TestCase):
 
         # single core
         orders = pt.NH_order_parameters(traj, nh_indices, tcorr=8000.)
-        saved_S2 = np.loadtxt(
-            cpptraj_test_dir + '/Test_IRED/orderparam.save').T[-1]
+        saved_S2 = np.loadtxt(cpptraj_test_dir +
+                              '/Test_IRED/orderparam.save').T[-1]
 
         aa_eq(orders, saved_S2)
 
@@ -32,12 +32,15 @@ class TestNHOrderParamters(unittest.TestCase):
         aa_eq(orders, saved_S2)
 
         for n_cores in [1, 2, 3, 4, -1]:
-            orders = pt.NH_order_parameters(traj, nh_indices,
+            orders = pt.NH_order_parameters(traj,
+                                            nh_indices,
                                             tcorr=8000.,
                                             n_cores=n_cores)
             aa_eq(orders, saved_S2)
 
-            orders = pt.pmap(pt.NH_order_parameters, traj, nh_indices,
+            orders = pt.pmap(pt.NH_order_parameters,
+                             traj,
+                             nh_indices,
                              tcorr=8000.,
                              n_cores=n_cores)
             aa_eq(orders, saved_S2)

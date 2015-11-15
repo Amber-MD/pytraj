@@ -93,13 +93,15 @@ class TestNormalPmap(unittest.TestCase):
         # perform autoimage, then rms fit to 1st frame, then compute mean structure
         iter_options = {'autoimage': True, 'rmsfit': 0}
         for n_cores in [2, 3]:
-            avg = pt.pmap(pt.mean_structure, traj,
+            avg = pt.pmap(pt.mean_structure,
+                          traj,
                           iter_options=iter_options,
                           n_cores=n_cores)
             aa_eq(saved_avg.xyz, avg.xyz)
-            radgyr_ = pt.tools.dict_to_ndarray(
-                pt.pmap(pt.radgyr, traj,
-                        iter_options={'mask': '@CA'}))
+            radgyr_ = pt.tools.dict_to_ndarray(pt.pmap(pt.radgyr,
+                                                       traj,
+                                                       iter_options={'mask':
+                                                                     '@CA'}))
             aa_eq(radgyr_[0], saved_radgyr)
 
 
@@ -121,7 +123,9 @@ class TestParallelMapForMatrix(unittest.TestCase):
 
         exptected_vecs, exptected_mat = pt.ired_vector_and_matrix(traj, nh)
         for n_cores in [2, 3]:
-            vecs, mat = pt.pmap(pt.ired_vector_and_matrix, traj, nh,
+            vecs, mat = pt.pmap(pt.ired_vector_and_matrix,
+                                traj,
+                                nh,
                                 n_cores=n_cores)
             aa_eq(exptected_vecs, vecs, decimal=7)
             aa_eq(exptected_mat, mat, decimal=7)
@@ -133,7 +137,8 @@ class TestParallelMapForMatrix(unittest.TestCase):
 
         for n_cores in [2, 3]:
             out = pt.pmap(pt.rotation_matrix, traj, ref=traj[3], mask='@CA')
-            out_with_rmsd = pt.pmap(pt.rotation_matrix, traj,
+            out_with_rmsd = pt.pmap(pt.rotation_matrix,
+                                    traj,
                                     ref=traj[3],
                                     mask='@CA',
                                     with_rmsd=True)
@@ -159,7 +164,9 @@ class TestCpptrajCommandStyle(unittest.TestCase):
 
         # as whole text, case 1
         data = pt.pmap('''angle :3 :4 :5
-        distance @10 @20''', traj, n_cores=2)
+        distance @10 @20''',
+                       traj,
+                       n_cores=2)
         assert isinstance(data, OrderedDict), 'must be OrderDict'
         arr = pt.tools.dict_to_ndarray(data)
         aa_eq(angle_, arr[0])
@@ -170,16 +177,19 @@ class TestCpptrajCommandStyle(unittest.TestCase):
 
         for n_cores in [2, 3]:
             # use 4-th Frame for reference
-            data = pt.pmap(['rms @CA refindex 0'], traj,
+            data = pt.pmap(['rms @CA refindex 0'],
+                           traj,
                            ref=traj[3],
                            n_cores=n_cores)
             arr = pt.tools.dict_to_ndarray(data)[0]
             aa_eq(arr, pt.rmsd(traj, 3, '@CA'))
 
             # use 4-th and 5-th Frame for reference
-            data = pt.pmap(['rms @CA refindex 0', 'rms @CB refindex 1'], traj,
-                           ref=[traj[3], traj[4]],
-                           n_cores=n_cores)
+            data = pt.pmap(
+                ['rms @CA refindex 0', 'rms @CB refindex 1'],
+                traj,
+                ref=[traj[3], traj[4]],
+                n_cores=n_cores)
             arr = pt.tools.dict_to_ndarray(data)[0]
             aa_eq(arr, pt.rmsd(traj, 3, '@CA'))
 
@@ -211,6 +221,7 @@ class TestLoadBathPmap(unittest.TestCase):
             ValueError,
             lambda: _load_batch_pmap(n_cores=4, lines=['autoimage'], traj=None, dtype='dict', root=0, mode='xyz', ref=None))
 
+
 class TestFrameIndices(unittest.TestCase):
     def test_frame_indices(self):
         traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
@@ -220,11 +231,21 @@ class TestFrameIndices(unittest.TestCase):
 
         for frame_indices in frame_indices_list:
             for n_cores in [2, 3]:
-                serial_out = pt.radgyr(traj, '@CA', frame_indices=frame_indices)
-                parallel_out = pt.pmap(pt.radgyr, traj, '@CA', frame_indices=frame_indices)
-                parallel_out_cpptraj_style = pt.pmap(['radgyr @CA nomax'], traj, frame_indices=frame_indices)
+                serial_out = pt.radgyr(traj,
+                                       '@CA',
+                                       frame_indices=frame_indices)
+                parallel_out = pt.pmap(pt.radgyr,
+                                       traj,
+                                       '@CA',
+                                       frame_indices=frame_indices)
+                parallel_out_cpptraj_style = pt.pmap(
+                    ['radgyr @CA nomax'],
+                    traj,
+                    frame_indices=frame_indices)
                 aa_eq(serial_out, pt.tools.dict_to_ndarray(parallel_out))
-                aa_eq(serial_out, pt.tools.dict_to_ndarray(parallel_out_cpptraj_style))
+                aa_eq(serial_out,
+                      pt.tools.dict_to_ndarray(parallel_out_cpptraj_style))
+
 
 class TestCheckValidCommand(unittest.TestCase):
     def test_check_valid_command(self):

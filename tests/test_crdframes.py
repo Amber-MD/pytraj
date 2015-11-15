@@ -10,7 +10,8 @@ class TestCrdFrames(unittest.TestCase):
         '''test crdframes in cpptraj
         '''
         max_frames = 50
-        traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7',
+        traj = pt.iterload('data/tz2.nc',
+                           'data/tz2.parm7',
                            frame_slice=(0, max_frames, 2))
 
         state = pt.load_cpptraj_state('''

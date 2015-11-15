@@ -20,10 +20,9 @@ class TestDistanceBasedMask(unittest.TestCase):
         # all atoms within 5 Angtrom from :3@CA
         indices = top.select(":3@CA <@5.0")
 
-        saved_indices = np.loadtxt(
-            "./data/mask.tz2.dat",
-            skiprows=1,
-            usecols=(1, ))
+        saved_indices = np.loadtxt("./data/mask.tz2.dat",
+                                   skiprows=1,
+                                   usecols=(1, ))
 
         neighbors_smaller = pt.search_neighbors(traj,
                                                 mask=':3@CA <@5.0',

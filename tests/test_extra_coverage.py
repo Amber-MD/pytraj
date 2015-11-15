@@ -7,6 +7,7 @@ import subprocess
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
 
+
 class TestExtraCoverage(unittest.TestCase):
     def test_extra_coverage(self):
         '''all kind of tests that do not belong to anywhere else

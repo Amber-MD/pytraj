@@ -23,8 +23,8 @@ class TestNastruct(unittest.TestCase):
         state.run()
 
         for key in ['major', 'minor', 'twist']:
-            cpp_data = np.array([x.values for x in state.data
-                                 if x.aspect == key])
+            cpp_data = np.array([x.values for x in state.data if x.aspect ==
+                                 key])
             # need to transpose to get shape=(n_frames, n_pairs)
             cpp_data = cpp_data.T
             aa_eq(data[key][1], cpp_data)

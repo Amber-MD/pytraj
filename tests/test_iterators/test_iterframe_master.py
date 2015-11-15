@@ -66,6 +66,7 @@ class TestIterFrameMaster(unittest.TestCase):
         def test_raise():
             for frame in pt.iterframe_master([0, 3]):
                 pass
+
         self.assertRaises(TypeError, lambda: test_raise())
 
     def test_iter_with_a_list_of_frame_and_trajectory_and_FrameIterator(self):
@@ -105,28 +106,32 @@ class TestIterFrameMaster(unittest.TestCase):
         aa_eq(t0.xyz[indices], traj[indices].xyz + 1.)
         aa_eq(t1.xyz[indices], traj[indices].xyz)
 
+
 class TestIterFrameFromArray(unittest.TestCase):
     def test_iterframe_from_array(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         # no mass
-        fi = pt.iterframe_from_array(traj.xyz, traj.n_atoms, range(traj.n_frames))
+        fi = pt.iterframe_from_array(traj.xyz, traj.n_atoms,
+                                     range(traj.n_frames))
         for f_traj, f_fi in zip(traj, fi):
             aa_eq(f_traj.xyz, f_fi.xyz)
             # f_fi mass must be [1.0, ...]
             aa_eq(f_fi.mass, [1.0 for _ in range(traj.n_atoms)])
 
         # mass from Topology
-        fi = pt.iterframe_from_array(traj.xyz, traj.n_atoms, range(traj.n_frames),
-                traj.top)
+        fi = pt.iterframe_from_array(traj.xyz, traj.n_atoms,
+                                     range(traj.n_frames), traj.top)
         for f_traj, f_fi in zip(traj, fi):
             aa_eq(f_traj.xyz, f_fi.xyz)
             aa_eq(f_fi.mass, f_traj.mass)
             aa_eq(f_fi.mass, traj.top.mass)
 
         # mass from array
-        fi = pt.iterframe_from_array(traj.xyz, traj.n_atoms, range(traj.n_frames),
-                mass=traj.top.mass)
+        fi = pt.iterframe_from_array(traj.xyz,
+                                     traj.n_atoms,
+                                     range(traj.n_frames),
+                                     mass=traj.top.mass)
         for f_traj, f_fi in zip(traj, fi):
             aa_eq(f_traj.xyz, f_fi.xyz)
             aa_eq(f_fi.mass, f_traj.mass)

@@ -11,7 +11,6 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame = traj[0].copy()
 
-
         frame.set_mass(traj.top)
 
         arr0 = []
@@ -20,9 +19,8 @@ class Test(unittest.TestCase):
             arr0.append(frame.rmsd(f0, use_mass=True))
 
         # load cpptraj output
-        rmsd_save = np.loadtxt(
-            "./data/rmsd_allatoms_to_1st.Tc5b.use_mass.dat",
-            skiprows=1)
+        rmsd_save = np.loadtxt("./data/rmsd_allatoms_to_1st.Tc5b.use_mass.dat",
+                               skiprows=1)
         rmsd_save = rmsd_save.transpose()
 
         assert_almost_equal(arr0, rmsd_save[1])

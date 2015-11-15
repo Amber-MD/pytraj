@@ -26,8 +26,8 @@ class Test(unittest.TestCase):
                     f4922[idx] = frame
 
         # make sure we reproduce cpptraj output
-        cpptraj = mdio.iterload(
-            "./data/Test_RemdTraj/temp0.crd.492.20", topfile)
+        cpptraj = mdio.iterload("./data/Test_RemdTraj/temp0.crd.492.20",
+                                topfile)
 
         for idx, framepy in enumerate(f4922):
             assert_almost_equal(framepy.xyz, cpptraj[idx].xyz, decimal=3)

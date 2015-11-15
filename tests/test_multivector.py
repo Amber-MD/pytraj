@@ -15,9 +15,24 @@ class TestMultiVector(unittest.TestCase):
         state.run()
         cpp_data = state.data[1:].values
 
-        aa_eq(pt.multivector(traj, resrange='3-7', names=('C', 'N'), dtype='ndarray'), cpp_data)
-        aa_eq(pt.multivector(traj, resrange='3-7', names='C N', dtype='ndarray'), cpp_data)
-        aa_eq(pt.multivector(traj, resrange='3-7', names='name1 C name2 N', dtype='ndarray'), cpp_data)
+        aa_eq(
+            pt.multivector(traj,
+                           resrange='3-7',
+                           names=('C', 'N'),
+                           dtype='ndarray'),
+            cpp_data)
+        aa_eq(
+            pt.multivector(traj,
+                           resrange='3-7',
+                           names='C N',
+                           dtype='ndarray'),
+            cpp_data)
+        aa_eq(
+            pt.multivector(traj,
+                           resrange='3-7',
+                           names='name1 C name2 N',
+                           dtype='ndarray'),
+            cpp_data)
 
 
 if __name__ == "__main__":

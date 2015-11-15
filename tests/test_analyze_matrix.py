@@ -21,7 +21,8 @@ class TestDiagMatrix(unittest.TestCase):
 
         state.run()
         mat = state.data['mymat']
-        cpp_evals, cpp_evecs = state.data[-1].eigenvalues, state.data[-1].eigenvectors
+        cpp_evals, cpp_evecs = state.data[-1].eigenvalues, state.data[
+            -1].eigenvectors
 
         # test triu_indices
         mat2 = mat.__class__()
@@ -51,8 +52,8 @@ class TestDiagMatrix(unittest.TestCase):
                 from pytraj.plot import plot_matrix
                 from matplotlib import pyplot as plt
 
-                fig, ax, bar = plot_matrix(
-                    np.abs(data.eigenvectors) - np.abs(cpp_evecs))
+                fig, ax, bar = plot_matrix(np.abs(data.eigenvectors) - np.abs(
+                    cpp_evecs))
                 fig.colorbar(bar)
                 plt.title('data vs cpp_evecs')
 
@@ -60,8 +61,8 @@ class TestDiagMatrix(unittest.TestCase):
                 fig.colorbar(bar)
                 plt.title('np vs cpp_evecs')
 
-                fig, ax, bar = plot_matrix(
-                    np.abs(np_vecs) - np.abs(data.eigenvectors))
+                fig, ax, bar = plot_matrix(np.abs(np_vecs) - np.abs(
+                    data.eigenvectors))
                 fig.colorbar(bar)
                 plt.title('np vs data')
                 pt.show()

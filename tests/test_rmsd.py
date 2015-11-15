@@ -21,9 +21,8 @@ class TestSimpleRMSD(unittest.TestCase):
         aa_eq(rmsd_1, rmsd_0)
 
     def test_rmsd_with_mask(self):
-        TRAJ = pt.iterload(
-            filename="./data/md1_prod.Tc5b.x",
-            top="./data/Tc5b.top")
+        TRAJ = pt.iterload(filename="./data/md1_prod.Tc5b.x",
+                           top="./data/Tc5b.top")
         cpptraj_rmsd = np.loadtxt(
             "./data/rmsd_to_firstFrame_CA_allres.Tc5b.dat",
             skiprows=1).transpose()[1]
@@ -58,9 +57,8 @@ class TestSimpleRMSD(unittest.TestCase):
         # use `mdtraj` for rerefence values
         import mdtraj as md
         from pytraj import Trajectory
-        traj = pt.load(
-            filename="./data/md1_prod.Tc5b.x",
-            top="./data/Tc5b.top")
+        traj = pt.load(filename="./data/md1_prod.Tc5b.x",
+                       top="./data/Tc5b.top")
         m_top = md.load_prmtop("./data/Tc5b.top")
         m_traj = md.load_mdcrd("./data/md1_prod.Tc5b.x", m_top)
         m_traj.xyz = m_traj.xyz * 10  # convert `nm` to `Angstrom` unit
@@ -165,7 +163,8 @@ class TestRMSDPerRes(unittest.TestCase):
 
     def test_frame_indices(self):
         traj = pt.iterload("data/tz2.truncoct.nc", "data/tz2.truncoct.parm7")
-        traj2 = pt.iterload("data/tz2.truncoct.nc", "data/tz2.truncoct.parm7",
+        traj2 = pt.iterload("data/tz2.truncoct.nc",
+                            "data/tz2.truncoct.parm7",
                             frame_slice=(2, 8))
 
         txt = '''
@@ -255,7 +254,8 @@ class TestActionListRMSD(unittest.TestCase):
             alist = ActionList()
             dslist = DatasetList()
             act = Action_Rmsd()
-            alist.add_action(act, 'first @CA',
+            alist.add_action(act,
+                             'first @CA',
                              top=input_traj.top,
                              dslist=dslist)
 

@@ -39,7 +39,8 @@ class TestSanderPmap(unittest.TestCase):
         traj = pt.iterload('./data/md1_prod.Tc5b.x', './data/Tc5b.top')
 
         for code in [code_global, code_local]:
-            data_parallel = pt.pmap(pt.energy_decomposition, traj,
+            data_parallel = pt.pmap(pt.energy_decomposition,
+                                    traj,
                                     mm_options=code,
                                     n_cores=3,
                                     dtype='dict')
@@ -48,8 +49,9 @@ class TestSanderPmap(unittest.TestCase):
             data_serial = pt.energy_decomposition(traj,
                                                   mm_options=mm_options,
                                                   dtype='dict')
-            aa_eq(pt.tools.dict_to_ndarray(data_parallel),
-                  pt.tools.dict_to_ndarray(data_serial))
+            aa_eq(
+                pt.tools.dict_to_ndarray(data_parallel),
+                pt.tools.dict_to_ndarray(data_serial))
 
 
 if __name__ == "__main__":

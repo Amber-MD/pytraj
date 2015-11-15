@@ -14,7 +14,7 @@ class TestGrid(unittest.TestCase):
         import numpy as np
         nx = ny = nz = 3
         g = Grid(nx, ny, nz)
-        assert g.size == nx ** 3
+        assert g.size == nx**3
         assert g.nx == g.ny == g.nz == nx
 
         value = 1000.

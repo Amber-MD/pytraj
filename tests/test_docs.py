@@ -35,12 +35,7 @@ class TestDoc(unittest.TestCase):
         from pytraj import trajectory_iterator
         from pytraj.utils import check_and_assert
 
-        modules = [
-            convert,
-            frameiter,
-            vector,
-            trajectory_iterator,
-        ]
+        modules = [convert, frameiter, vector, trajectory_iterator, ]
         if PY3:
             # avoid adding 'u' to string in PY2: u'GLU5_O-LYS8_N-H'
             if has_sander:

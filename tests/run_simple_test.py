@@ -19,7 +19,8 @@ class TestRunnable(unittest.TestCase):
 
         # load from a list of files
         fname = traj.filename
-        t0 = pt.iterload([fname, fname], traj.top,
+        t0 = pt.iterload([fname, fname],
+                         traj.top,
                          frame_slice=[(0, 8, 2), ] * 2)
 
     def test_import(self):

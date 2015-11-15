@@ -11,7 +11,8 @@ class TestIssue991(unittest.TestCase):
     def test_buffer_not_c_contiguous(self):
         # source code was lightly adapted from jmborr
         # https://github.com/Amber-MD/pytraj/issues/991
-        traj = pt.load('data/issue991/short.dcd', 'data/issue991/pdb.gz',
+        traj = pt.load('data/issue991/short.dcd',
+                       'data/issue991/pdb.gz',
                        mask='(!:1-256)&(@H1,@H2,@H3,@H4,@H5)')
 
         # Trajectory of the center of mass of the first two residues

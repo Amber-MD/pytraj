@@ -44,14 +44,16 @@ class TestBox(unittest.TestCase):
     def test_real_box(self):
         traj = pt.load("./data/tz2.ortho.nc", "data/tz2.ortho.parm7")
         trajiter = pt.iterload("./data/tz2.ortho.nc", "data/tz2.ortho.parm7")
-        saved_box = Box(
-            [3.94559740E+01, 4.68215170E+01, 4.04695410E+01, 90., 90., 90.])
+        saved_box = Box([3.94559740E+01, 4.68215170E+01, 4.04695410E+01, 90.,
+                         90., 90.])
         aa_eq(traj.top.box.values, saved_box.values)
         for frame in traj:
             assert frame.box.type == 'ortho'
-            aa_eq(frame.box.values, [
-                35.2627796623, 41.8455476799, 36.168629529, 90.0, 90.0, 90.0
-            ],
+            aa_eq(frame.box.values,
+                  [
+                      35.2627796623, 41.8455476799, 36.168629529, 90.0, 90.0,
+                      90.0
+                  ],
                   decimal=1)
 
         arr0 = traj.unitcells

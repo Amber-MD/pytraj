@@ -10,9 +10,9 @@ class Test(unittest.TestCase):
         import numpy as np
 
         # load 2 frames
-        traj = pt.iterload(
-            "./data/md1_prod.Tc5b.x", "./data/Tc5b.top",
-            frame_slice=(0, 2))
+        traj = pt.iterload("./data/md1_prod.Tc5b.x",
+                           "./data/Tc5b.top",
+                           frame_slice=(0, 2))
 
         # test mutable traj
         big_frame = pt.tools.merge_frames(traj[:])

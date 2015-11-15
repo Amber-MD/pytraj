@@ -17,8 +17,8 @@ FRAME_orig = FRAME.copy()
 class TestFrame(unittest.TestCase):
     def test_fit(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        trajnew = pt.iterload(
-            "./data/md1_prod.fit_to_first.Tc5b.x", "./data/Tc5b.top")
+        trajnew = pt.iterload("./data/md1_prod.fit_to_first.Tc5b.x",
+                              "./data/Tc5b.top")
 
         # make sure 0-th frame does not change
         frame0 = traj[0]
@@ -36,8 +36,8 @@ class TestFrame(unittest.TestCase):
 
     def test_1(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        trajnew = pt.iterload(
-            "./data/md1_prod.fit_to_first.Tc5b.x", "./data/Tc5b.top")
+        trajnew = pt.iterload("./data/md1_prod.fit_to_first.Tc5b.x",
+                              "./data/Tc5b.top")
         frame0 = traj[0]
         assert frame0[0, 2] == frame0.atom(0)[2]
         aa_eq(frame0[0, :], frame0.atom(0))

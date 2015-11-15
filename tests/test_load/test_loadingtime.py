@@ -14,9 +14,8 @@ class TestLoadingTime(unittest.TestCase):
             return time() - t0
 
         def get_time_2(indices):
-            traj = TrajectoryIterator(
-                filename="./data/md1_prod.Tc5b.x",
-                top="./data/Tc5b.top")
+            traj = TrajectoryIterator(filename="./data/md1_prod.Tc5b.x",
+                                      top="./data/Tc5b.top")
             t0 = time()
             traj[indices]
             return time() - t0
@@ -37,9 +36,8 @@ class TestLoadingTime(unittest.TestCase):
 
         #print(get_time_3(slice(0, 5, 1)))
 
-        traj = TrajectoryIterator(
-            filename="./data/md1_prod.Tc5b.x",
-            top="./data/Tc5b.top")
+        traj = TrajectoryIterator(filename="./data/md1_prod.Tc5b.x",
+                                  top="./data/Tc5b.top")
         #print(traj[:1])
         #print(traj[3:5:2])
         #print(traj[6:])

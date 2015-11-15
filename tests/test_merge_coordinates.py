@@ -11,9 +11,9 @@ class Test(unittest.TestCase):
         import numpy as np
 
         # load 2 frames
-        traj = pt.iterload(
-            "./data/md1_prod.Tc5b.x", "./data/Tc5b.top",
-            frame_slice=(0, 2))
+        traj = pt.iterload("./data/md1_prod.Tc5b.x",
+                           "./data/Tc5b.top",
+                           frame_slice=(0, 2))
 
         # test mutable traj
         coords = pt.tools.merge_coordinates(traj[:])
@@ -39,9 +39,9 @@ class Test(unittest.TestCase):
         import numpy as np
 
         # load 2 frames
-        traj = pt.iterload(
-            "./data/md1_prod.Tc5b.x", "./data/Tc5b.top",
-            frame_slice=(0, 2))
+        traj = pt.iterload("./data/md1_prod.Tc5b.x",
+                           "./data/Tc5b.top",
+                           frame_slice=(0, 2))
 
         # test mutable traj
         t0 = traj[:]
@@ -54,14 +54,14 @@ class Test(unittest.TestCase):
                       pt.get_coordinates(traj).flatten())
 
         # tuple
-        assert np.any(pt.tools.merge_frames((frame
-                                             for frame in traj)).xyz.flatten()
-                      == pt.get_coordinates(traj).flatten())
+        assert np.any(pt.tools.merge_frames((
+            frame for frame in traj)).xyz.flatten() == pt.get_coordinates(
+                traj).flatten())
 
         # list
-        assert np.any(pt.tools.merge_frames([frame
-                                             for frame in traj]).xyz.flatten()
-                      == pt.get_coordinates(traj).flatten())
+        assert np.any(pt.tools.merge_frames(
+            [frame for frame in traj]).xyz.flatten() == pt.get_coordinates(
+                traj).flatten())
 
         # frame_iter: all atoms
         assert np.any(pt.tools.merge_frames(traj()).xyz.flatten() ==

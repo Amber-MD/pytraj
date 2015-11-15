@@ -10,9 +10,9 @@ from pytraj.testing import cpptraj_test_dir
 
 class TestRDF(unittest.TestCase):
     def test_rdf(self):
-        traj = pt.iterload(
-            "./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7",
-            frame_slice=(0, 10))
+        traj = pt.iterload("./data/tz2.truncoct.nc",
+                           "./data/tz2.truncoct.parm7",
+                           frame_slice=(0, 10))
 
         command = '''
         radial output/Radial.agr 0.5 10.0 :5@CD :WAT@O
