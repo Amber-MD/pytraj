@@ -71,7 +71,8 @@ def pmap_mpi(func, traj, *args, **kwd):
                                  lines=func,
                                  dtype='dict',
                                  root=0,
-                                 mode='mpi', **kwd)
+                                 mode='mpi',
+                                 **kwd)
         if rank == 0:
             # otherwise, total=None
             total = concat_dict((x[1] for x in total))

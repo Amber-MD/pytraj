@@ -2,7 +2,7 @@ from __future__ import absolute_import
 import os
 from ..trajectory_iterator import TrajectoryIterator
 
-__all__ = ['load_sample_data', 'load_rna', 'load_tz2_ortho', 'load_tz2', 
+__all__ = ['load_sample_data', 'load_rna', 'load_tz2_ortho', 'load_tz2',
            'load_ala3', 'load_dpdp', 'load_trpcage']
 
 
@@ -41,10 +41,12 @@ def load_rna():
     '''
     return load_sample_data('rna')
 
+
 def load_dpdp():
     '''return pytraj.TrajectoryIterator for an RNA trajectory with 3 frames
     '''
     return load_sample_data('dpdp')
+
 
 def load_trpcage():
     '''return pytraj.TrajectoryIterator for an trp-cage, 38 frames, NMR (pdb: 1l2y)
@@ -59,11 +61,14 @@ def load_trpcage():
     '''
     return load_sample_data('trpcage')
 
+
 def load_tz2_ortho():
     return load_sample_data('tz2')
 
+
 def load_tz2():
     return load_sample_data('tz2_dry')
+
 
 def load_ala3():
     return load_sample_data('ala3')

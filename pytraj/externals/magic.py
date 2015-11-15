@@ -175,9 +175,9 @@ if not libmagic or not libmagic._name:
     windows_dlls = ['magic1.dll', 'cygmagic-1.dll']
     platform_to_lib = {
         'darwin':
-        ['/opt/local/lib/libmagic.dylib', '/usr/local/lib/libmagic.dylib'] +  # Assumes there will only be one version installed
-        glob.glob(
-            '/usr/local/Cellar/libmagic/*/lib/libmagic.dylib'),
+        ['/opt/local/lib/libmagic.dylib', '/usr/local/lib/libmagic.dylib'
+         ] +  # Assumes there will only be one version installed
+        glob.glob('/usr/local/Cellar/libmagic/*/lib/libmagic.dylib'),
         'win32': windows_dlls,
         'cygwin': windows_dlls
     }

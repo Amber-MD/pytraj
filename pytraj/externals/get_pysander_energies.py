@@ -1,5 +1,5 @@
 from pytraj._shared_methods import iterframe_master
-from pytraj._get_common_objects import  _get_data_from_dtype, _super_dispatch
+from pytraj._get_common_objects import _get_data_from_dtype, _super_dispatch
 from pytraj.compat import range
 from pytraj.decorators import _register_pmap
 from pytraj.externals.six import string_types
@@ -15,14 +15,14 @@ def _default_func():
 @_register_pmap
 @_super_dispatch()
 def energy_decomposition(traj=None,
-                          prmtop=None,
-                          igb=8,
-                          mm_options=None,
-                          qm_options=None,
-                          mode=None,
-                          dtype='dict',
-                          frame_indices=None,
-                          top=None):
+                         prmtop=None,
+                         igb=8,
+                         mm_options=None,
+                         qm_options=None,
+                         mode=None,
+                         dtype='dict',
+                         frame_indices=None,
+                         top=None):
     """energy decomposition by calling `libsander`
 
     Parameters

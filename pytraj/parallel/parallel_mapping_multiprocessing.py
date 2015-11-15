@@ -34,7 +34,7 @@ def _worker(rank,
                                         autoimage=autoimage)
     else:
         my_indices = np.array_split(frame_indices, n_cores)[rank]
-        my_iter = traj.iterframe(frame_indices=my_indices, 
+        my_iter = traj.iterframe(frame_indices=my_indices,
                                  mask=mask,
                                  rmsfit=rmsfit,
                                  autoimage=autoimage)
@@ -213,7 +213,8 @@ def _pmap(func, traj, *args, **kwd):
                                 lines=func,
                                 dtype='dict',
                                 root=0,
-                                mode='multiprocessing', **kwd)
+                                mode='multiprocessing',
+                                **kwd)
         data = concat_dict((x[1] for x in data))
         return data
     else:
@@ -237,8 +238,10 @@ def _pmap(func, traj, *args, **kwd):
         if not isinstance(traj, TrajectoryIterator):
             raise ValueError('only support TrajectoryIterator')
 
-        if 'dtype' not in kwd and func not in [mean_structure, matrix.dist, matrix.idea,
-                ired_vector_and_matrix, rotation_matrix]:
+        if 'dtype' not in kwd and func not in [
+                mean_structure, matrix.dist, matrix.idea,
+                ired_vector_and_matrix, rotation_matrix
+        ]:
             kwd['dtype'] = 'dict'
 
         p = Pool(n_cores)
@@ -279,6 +282,7 @@ def _pmap(func, traj, *args, **kwd):
             return frame
         else:
             return concat_dict((x[1] for x in data))
+
 
 def pmap(func=None, traj=None, *args, **kwd):
     if func != NH_order_parameters:
