@@ -61,7 +61,7 @@ def %s(traj=None, mask="", top=None, dtype='ndarray', mat_type='full', frame_ind
 
     dslist = CpptrajDatasetList()
     template_mask = '%s '
-    template_mask += mask 
+    template_mask += mask
 
     act = CpptrajActions.Action_Matrix()
     act(template_mask, traj, top=top, dslist=dslist)

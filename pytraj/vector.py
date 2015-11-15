@@ -36,7 +36,7 @@ def vector_mask(traj=None,
     frame_indices : array-like or iterable that produces integer number
         frame indices
     dtype : str, default 'ndarray'
-        output dtype 
+        output dtype
     top : Topology, optional, default None
 
     Rerturns

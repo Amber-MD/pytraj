@@ -21,6 +21,7 @@ __all__ = ['Trajectory']
 
 
 class Trajectory(object):
+
     def __init__(self, filename=None, top=None, xyz=None):
         """very simple  in-memory Trajectory. It has only information about 3D coordinates
         and unitcells (no time, no velocity, no mass, not force, ...)
@@ -145,7 +146,7 @@ class Trajectory(object):
         --------
         >>> import pytraj as pt
         >>> traj = pt.datafiles.load_tz2_ortho()[:]
-        >>> traj = traj.reverse() 
+        >>> traj = traj.reverse()
         '''
         self._xyz = self._xyz[::-1]
         if self._boxes is not None:
@@ -771,7 +772,7 @@ class Trajectory(object):
 
         Parameters
         ----------
-        ref : {Frame object, int, str}, default=None 
+        ref : {Frame object, int, str}, default=None
             Reference
         mask : str or AtomMask object, default='*' (fit all atoms)
         frame_indices : array-like, default None, optional
@@ -835,7 +836,7 @@ class Trajectory(object):
         >>> traj = pt.load_sample_data()[:]
         >>> traj.n_atoms
         34
-        >>> t0 = traj.strip('!@CA') # keep only CA atoms 
+        >>> t0 = traj.strip('!@CA') # keep only CA atoms
         >>> isinstance(t0, pt.Trajectory)
         True
         >>> t0.n_atoms
@@ -950,7 +951,7 @@ class Trajectory(object):
     def _estimated_GB(self):
         """esimated GB of data will be loaded to memory
         >>> import pytraj as pt
-        >>> traj = pt.load_sample_data('tz2')[:] 
+        >>> traj = pt.load_sample_data('tz2')[:]
         >>> traj._estimated_GB
         0.0011830776929855347
         """

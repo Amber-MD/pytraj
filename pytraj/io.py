@@ -54,7 +54,7 @@ def load(filename, top=None, frame_indices=None, mask=None):
         only load frames with given number given in frame_indices
     mask : {str, None}, default None
         if None: load coordinates for all atoms
-        if string, load coordinates for given atom mask 
+        if string, load coordinates for given atom mask
 
     Returns
     -------
@@ -134,7 +134,7 @@ def iterload(*args, **kwd):
         specify start, stop, step for each trajectory you want to read.
 
         cpptraj input::
-            
+
             trajin traj0.nc 1 10
             trajin traj1.nc
 
@@ -266,7 +266,7 @@ def _load_from_frame_iter(iterable, top=None):
 
 def iterload_remd(filename, top=None, T="300.0"):
     """Load temperature remd trajectory for single temperature.
-    Example: Suppose you have replica trajectoris remd.x.00{1-4}. 
+    Example: Suppose you have replica trajectoris remd.x.00{1-4}.
     You want to load and extract only frames at 300 K, use this method
 
     Parameters
@@ -331,7 +331,7 @@ def write_traj(filename="",
         If not None, only write output for given frame indices
     overwrite: bool, default: False
     options : str, additional keywords for extention='.pdb'. See examples.
-        
+
     Notes
     -----
     ===================  =========
@@ -395,8 +395,7 @@ def write_traj(filename="",
                     if isinstance(traj, (list, tuple, Frame)):
                         raise NotImplementedError(
                             "must be Trajectory or TrajectoryIterator instance")
-                    for idx, frame in enumerate(traj.iterframe(frame_indices=
-                                                               frame_indices)):
+                    for idx, frame in enumerate(traj.iterframe(frame_indices=frame_indices)):
                         trajout.write(idx, frame)
 
                 else:
@@ -607,13 +606,13 @@ def get_coordinates(iterable,
 
     Parameters
     ----------
-    iterable : could be anything that produces Frame when iterating 
+    iterable : could be anything that produces Frame when iterating
                (Trajectory, TrajectoryIterator, FrameIterator, Python's generator, ...)
 
     Notes
     -----
     - if using both ``autoimage`` and ``rmsfit``, autoimage will be always processed before doing rmsfit.
-    - You will get faster speed if ``iterable`` has attribute ``n_frames`` 
+    - You will get faster speed if ``iterable`` has attribute ``n_frames``
 
     Examples
     --------

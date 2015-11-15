@@ -35,7 +35,7 @@ def groupby(key, seq):
     Examples
     --------
     >>> names = ['Alice', 'Bob', 'Charlie', 'Dan', 'Edith', 'Frank']
-    >>> groupby(len, names)  
+    >>> groupby(len, names)
     {3: ['Bob', 'Dan'], 5: ['Alice', 'Edith', 'Frank'], 7: ['Charlie']}
     '''
     d = defaultdict(lambda: seq.__class__().append)
@@ -173,7 +173,7 @@ def grep_key(self, key):
     --------
     >>> import pytraj as pt
     >>> traj  = pt.load_sample_data('tz2')
-    >>> dslist = pt.calc_multidihedral(traj, dtype='dataset') 
+    >>> dslist = pt.calc_multidihedral(traj, dtype='dataset')
     >>> pt.tools.grep_key(dslist, 'psi').values[0]
     array([ 176.6155643 ,  166.82129574,  168.79510009,  167.42561927,
             151.18334989,  134.17610997,  160.99207908,  165.1126967 ,
@@ -676,7 +676,7 @@ def make_fake_topology(n_atoms):
     >>> import numpy as np
     >>> xyz = np.random.rand(10*100*3).reshape(10, 100, 3)
     >>> traj0 = pt.Trajectory(xyz=xyz, top=top)
-    >>> pt.write_traj('output/test.nc', traj0, overwrite=True) 
+    >>> pt.write_traj('output/test.nc', traj0, overwrite=True)
     >>> traj = pt.iterload('output/test.nc', top=top)
     >>> traj.n_atoms
     100
