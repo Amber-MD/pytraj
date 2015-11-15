@@ -2,7 +2,7 @@
 - if pytraj is inside $AMBERHOME, use libcpptraj.so in $AMBERHOME/lib and header file in cpptraj/src folder
 - if pytraj is outside $AMBERHOME
     - check CPPTRAJ_LIBDIR and CPPTRAJ_HEADERDIR: if found, use those to install
-    - if not CPPTRAJ_LIBDIR, CPPTRAJ_HEADERDIR: check CPPTRAJHOME and found libcpptraj.so and header files in 
+    - if not CPPTRAJ_LIBDIR, CPPTRAJ_HEADERDIR: check CPPTRAJHOME and found libcpptraj.so and header files in
     CPPTRAJHOME/{lib, src}
     - if not CPPTRAJHOME, find cpptraj folder in current folder
     - if can not find cpptraj folder, do git clone from github
@@ -65,9 +65,11 @@ if len(sys.argv) == 2 and 'clean' in sys.argv:
 else:
     do_clean = False
 
+
 def read(fname):
     # must be in this setup file
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
+
 
 def split_range(n_chunks, start, stop):
     '''split a given range to n_chunks
@@ -77,7 +79,7 @@ def split_range(n_chunks, start, stop):
     >>> split_range(3, 0, 10)
     [(0, 3), (3, 6), (6, 10)]
     '''
-    chunksize = (stop - start)//n_chunks
+    chunksize = (stop - start) // n_chunks
 
     for i in range(n_chunks):
         if i < n_chunks - 1:
@@ -107,7 +109,7 @@ pytraj_home = rootname + "/pytraj/"
 KeyErrorText = """
 Can not use -faster_build with `install`,
 try  "python setup.py build faster_build
-then "python setup.py install" 
+then "python setup.py install"
 """
 
 faster_build_str = "faster"
@@ -141,6 +143,7 @@ except KeyError:
 
 has_cpptraj_in_current_folder = os.path.exists("./cpptraj/")
 
+
 def get_include_and_lib_dir():
     # check if has environment variables
     CPPTRAJ_LIBDIR = os.environ.get('CPPTRAJ_LIBDIR', '')
@@ -150,7 +153,7 @@ def get_include_and_lib_dir():
         AMBERHOME = os.environ.get('AMBERHOME', '')
         if not AMBERHOME:
             raise EnvironmentError('must set AMBERHOME if you want to install pytraj '
-                    'inside AMBER')
+                                   'inside AMBER')
         # overwrite CPPTRAJ_HEADERDIR, CPPTRAJ_LIBDIR
         CPPTRAJ_LIBDIR = os.path.join(AMBERHOME, 'lib')
         CPPTRAJ_HEADERDIR = os.path.join(AMBERHOME, 'AmberTools', 'src', 'cpptraj', 'src')
@@ -158,7 +161,7 @@ def get_include_and_lib_dir():
         pytraj_inside_amber = True
     else:
         pytraj_inside_amber = False
-    
+
     if CPPTRAJ_LIBDIR and CPPTRAJ_HEADERDIR:
         cpptraj_include = CPPTRAJ_HEADERDIR
         libdir = CPPTRAJ_LIBDIR
@@ -174,7 +177,7 @@ def get_include_and_lib_dir():
             cpptraj_include = cpptraj_dir + "/src/"
             libdir = cpptraj_dir + "/lib/"
         else:
-    
+
             if do_install or do_build:
                 print(message_auto_install)
                 for i in range(0, 3):
@@ -193,12 +196,13 @@ def get_include_and_lib_dir():
             libdir = os.path.join(cpptraj_dir, 'lib')
     return cpptraj_dir, cpptraj_include, libdir, pytraj_inside_amber
 
+
 def do_what():
     # this checking should be here, after checking openmp and other stuff
     if len(sys.argv) == 2 and sys.argv[1] == 'install':
         do_install = True
     elif len(sys.argv) == 3 and sys.argv[1] == 'install' and os.path.join('AmberTools',
-            'src') in PYTRAJ_DIR:
+                                                                          'src') in PYTRAJ_DIR:
         # install pytraj in $AMBERHOME
         # do not use pytraj_inside_amber here in we call `do_what()` before calling get_include_and_lib_dir()
         # don't mess this up
@@ -206,7 +210,7 @@ def do_what():
         do_install = True
     else:
         do_install = False
-    
+
     if len(sys.argv) == 2 and sys.argv[1] == 'build':
         do_build = True
     else:
@@ -214,7 +218,7 @@ def do_what():
     return do_install, do_build
 
 do_install, do_build = do_what()
-cpptraj_dir, cpptraj_include, libdir, pytraj_inside_amber  = get_include_and_lib_dir()
+cpptraj_dir, cpptraj_include, libdir, pytraj_inside_amber = get_include_and_lib_dir()
 
 # get *.pyx files
 pxd_include_dirs = [
@@ -297,26 +301,26 @@ check_cpptraj_version(cpptraj_include, (4, 2, 8))
 # - binding
 # define_macros
 cython_directives = {
-        'embedsignature': True,
-        'boundscheck': False,
-        'wraparound': False,
-    }
+    'embedsignature': True,
+    'boundscheck': False,
+    'wraparound': False,
+}
 
 if debug:
     cython_directives.update({
         'profile': True,
         'linetrace': True,
         'binding': True})
-    define_macros=[('CYTHON_TRACE', 1),]
+    define_macros = [('CYTHON_TRACE', 1), ]
 else:
-    define_macros=[]
+    define_macros = []
 
 if not do_clean:
     cythonize(
         [pfile + '.pyx' for pfile in pyxfiles],
         nthreads=int(os.environ.get('NUM_THREADS', 4)),
         compiler_directives=cython_directives,
-        )
+    )
 
 ext_modules = []
 for ext_name in pyxfiles:
@@ -368,7 +372,7 @@ pylen = len('pytraj') + 1
 pxdlist = [p.replace("pytraj/", "") for p in pxd_include_patterns]
 sample_data = ["datafiles/Ala3/Ala3.*", "datafiles/tz2/tz2.*", "datafiles/rna.pdb",
                "datafiles/trpcage/trpcage*",
-                "datafiles/dpdp/DPDP*"]
+               "datafiles/dpdp/DPDP*"]
 datalist = pxdlist + sample_data
 
 
@@ -380,8 +384,7 @@ def build_func(my_ext):
         author_email="hainm.comp@gmail.com",
         url="https://github.com/Amber-MD/pytraj",
         packages=packages,
-        description=
-        """Python API for cpptraj: a data analysis package for biomolecular simulation""",
+        description="""Python API for cpptraj: a data analysis package for biomolecular simulation""",
         license="BSD License",
         classifiers=[
             'Development Status :: 4 - Beta', 'Operating System :: Unix',
@@ -417,8 +420,7 @@ if __name__ == "__main__":
             else:
                 sub_ext_modules_list.append(ext_modules[num_each * i:])
 
-        #from multiprocessing import Pool
-        from  multiprocessing.pool import ThreadPool as Pool
+        from multiprocessing.pool import ThreadPool as Pool
         pool = Pool(n_cpus)
         pool.map(build_func, sub_ext_modules_list)
         try:
