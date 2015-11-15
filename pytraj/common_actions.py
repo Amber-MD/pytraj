@@ -2,12 +2,6 @@ from __future__ import absolute_import
 import os
 import numpy as np
 
-from pytraj.action_dict import ActionDict
-adict = ActionDict()
-
-from pytraj.analysis_dict import AnalysisDict
-analdict = AnalysisDict()
-
 from pytraj.trajectory import Trajectory
 from pytraj.trajectory_iterator import TrajectoryIterator
 from ._get_common_objects import _get_topology, _get_data_from_dtype, _get_list_of_commands
@@ -2193,7 +2187,7 @@ def timecorr(vec0,
     tcorr : float, default 10000.
     norm : bool, default False
     """
-    act = analdict['timecorr']
+    act = CpptrajAnalyses.Analysis_Timecorr()
 
     cdslist = CpptrajDatasetList()
 
@@ -2254,7 +2248,7 @@ def cross_correlation_function(data0, data1, dtype='ndarray'):
     cdslist[0].data = np.asarray(data0)
     cdslist[1].data = np.asarray(data1)
 
-    act = analdict['corr']
+    act = CpptrajAnalyses.Analysis_Corr()
     act("d0 d1 out _tmp.out", dslist=cdslist)
     return _get_data_from_dtype(cdslist[2:], dtype=dtype)
 
@@ -2273,7 +2267,7 @@ def auto_correlation_function(data, dtype='ndarray', covar=True):
 
     cdslist[0].data = np.asarray(data)
 
-    act = analdict['autocorr']
+    act = CpptrajAnalyses.Analysis_Autocorr()
     command = "d0 out _tmp.out" + _nocovar
     act(command, dslist=cdslist)
     return _get_data_from_dtype(cdslist[1:], dtype=dtype)
