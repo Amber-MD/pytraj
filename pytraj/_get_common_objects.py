@@ -205,7 +205,7 @@ class _super_dispatch(object):
     # TODO: more descriptive method name?
     '''apply a series of functions to ``f``'s args and kwd
 
-    - get Topology from a given traj (Trajectory, frame iterator, ...) and top 
+    - get Topology from a given traj (Trajectory, frame iterator, ...) and top
         _get_topology(traj, top)
     - create frame iterator from traj and frame_indices
         _get_fiterator(traj, frame_indices)

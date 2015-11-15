@@ -12,7 +12,7 @@ class DataArray(object):
     >>> arr0 = DataArray([0, 2, 4])
     >>> arr1 = DataArray({'x' : [0, 2, 4]})
     >>> print(arr1)
-    <pytraj.array.DataArray: size=3, key=x, dtype=int64, ndim=1> 
+    <pytraj.array.DataArray: size=3, key=x, dtype=int64, ndim=1>
     values:
     [0 2 4]
     >>> print(arr1.values)
@@ -28,12 +28,12 @@ class DataArray(object):
         Examples
         --------
         >>> DataArray({'x' : [3, 5, 6]})
-        <pytraj.array.DataArray: size=3, key=x, dtype=int64, ndim=1> 
+        <pytraj.array.DataArray: size=3, key=x, dtype=int64, ndim=1>
         values:
         [3 5 6]
 
         >>> DataArray({'x' : [3, 5, 6]}, copy=False)
-        <pytraj.array.DataArray: size=3, key=x, dtype=int64, ndim=1> 
+        <pytraj.array.DataArray: size=3, key=x, dtype=int64, ndim=1>
         values:
         [3 5 6]
         """

@@ -80,6 +80,7 @@ def _make_frame_slices(n_files, original_frame_slice):
 
 
 class TrajectoryIterator(TrajectoryCpptraj):
+
     def __init__(self, filename=None, top=None, *args, **kwd):
         '''out-of-core trajectory holder.
 
@@ -219,7 +220,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
     @property
     def topology(self):
         """traditional name for Topology file
-        
+
         Examples
         --------
         >>> import pytraj as pt

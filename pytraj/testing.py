@@ -104,7 +104,7 @@ def assert_equal_topology(top, new_top, traj):
 def get_fn(txt):
     '''get absolute path for trajectory and topology samples. Legit text = 'ala3', 'tz2',
     'rna'. Mostly for testing purpose.
-    
+
     Examples
     --------
     >>> # get trajectory file name

@@ -94,7 +94,7 @@ def hbond(traj,
         automatically search for donors and acceptors.
     solvent_donor : {None, str}, default None
     solvent_acceptor: {None, str}, deafult None
-        if solvent_acceptor and solvent_donor are None, cpptraj only search hbond for 
+        if solvent_acceptor and solvent_donor are None, cpptraj only search hbond for
         if solvent_donor and solvent_acceptor are NOT None, cpptraj will search for hbond
         between solute and solvent too.
     distance : float, default 3.0 (angstrom)
@@ -108,13 +108,13 @@ def hbond(traj,
         - if False, you must specify dtype='dataset'
     cpp_options : str
         additional cpptraj options. For example you can explicitly specify donormask and
-        acceptormask. 
+        acceptormask.
 
         - If ``donormask`` is specified but not ``acceptormask``, acceptors will be
           automatically searched for in ``mask``.
 
         - If ``acceptormask`` is specified but not donormask, donors will be
-        automatically search for in ``mask``. 
+        automatically search for in ``mask``.
 
         - If both ``donormask`` and ``acceptormask`` are specified no automatic searching will
           occur.
@@ -123,7 +123,7 @@ def hbond(traj,
     Returns
     -------
     out : DatasetHBond if series is True else return 'DatasetList'
-          
+
     Notes
     -----
     - pytraj use 'series' as default. In cpptraj, you need to explicitly specify 'series'.

@@ -47,7 +47,7 @@ def calc_dssp(traj=None,
     >>> residues, ss, _ = pt.dssp(traj, ":2-10")
     >>> residues
     array(['LEU:2', 'TYR:3', 'ILE:4', 'GLN:5', 'TRP:6', 'LEU:7', 'LYS:8',
-           'ASP:9', 'GLY:10'], 
+           'ASP:9', 'GLY:10'],
           dtype='<U6')
     >>> ss # doctest: +SKIP
     array([['0', 'H', 'H', ..., 'H', 'T', '0'],

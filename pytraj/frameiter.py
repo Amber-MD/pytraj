@@ -19,7 +19,7 @@ class FrameIterator(object):
         if autoimage, perform autoimage
     rmsfit : int or a tuple, default False
         if rmsfit, perform rms fit to reference. If ``rmsfit`` is an integer, perform
-        rms fit to indicated frame for all atoms. If ``rmsfit`` is a tuple, perform rmsfit 
+        rms fit to indicated frame for all atoms. If ``rmsfit`` is a tuple, perform rmsfit
         to given frame with given mask. if both ``autoimage`` and ``rmsfit`` are specified,
         do ``autoimage`` first.
     n_frames : total number of frame. read-only

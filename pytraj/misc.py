@@ -1,4 +1,4 @@
-"""this file has commonly used actions such as rmsd calculation, 
+"""this file has commonly used actions such as rmsd calculation,
 randomizeions, strip atoms, ..."""
 
 from __future__ import print_function, absolute_import
@@ -20,7 +20,7 @@ def info(obj=None):  # pragma: no cover
     """get `help` for obj
     Useful for Actions and Analyses
 
-    Since we use `set_worl_silent` to turn-off cpptraj' stdout, we need 
+    Since we use `set_worl_silent` to turn-off cpptraj' stdout, we need
     to turn on to use cpptraj's help methods
     """
     from pytraj import adict, analdict

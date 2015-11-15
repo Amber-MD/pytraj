@@ -26,6 +26,7 @@ ADICT["symmrmsd"] = allactions.__dict__['Action_SymmetricRmsd']
 
 
 class ActionDict:
+
     def __init__(self):
         self.adict = ADICT
         self.action_holder = None

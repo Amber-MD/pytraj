@@ -23,7 +23,7 @@ from ._get_common_objects import _super_dispatch
 
 @_register_pmap
 @_super_dispatch()
-def calc_%s(traj=None, resrange="", 
+def calc_%s(traj=None, resrange="",
             range360=False,
             top=None, dtype='dataset',
             frame_indices=None):

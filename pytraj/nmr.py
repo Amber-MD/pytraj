@@ -111,7 +111,7 @@ def ired_vector_and_matrix(traj=None,
     mask : str or a list of strings
     frame_indices : array-like, optional, default None
         only perform calculation for given frame indices
-    order : default 2 
+    order : default 2
     dtype : output's dtype, {'dataset', 'tuple'} default 'dataset'
     top : Topology, optional, default None
 

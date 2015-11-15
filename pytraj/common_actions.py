@@ -59,7 +59,7 @@ __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
 def _2darray_to_atommask_groups(seq):
     '''
-    
+
     >>> list(_2darray_to_atommask_groups([[0, 3], [4, 7]]))
     ['@1 @4', '@5 @8']
     '''
@@ -123,7 +123,7 @@ def calc_distance(traj=None,
     >>> dist = pt.distance(traj, ':1 :10')
 
     >>> # calculate multiple distances between two residues, using amber mask
-    >>> # distance between residue 1 and 10, distance between residue 3 and 20 
+    >>> # distance between residue 1 and 10, distance between residue 3 and 20
     >>> # (when using atom string mask, index starts from 1)
     >>> dist = pt.distance(traj, [':1 :10', ':3 :20'])
 
@@ -588,8 +588,6 @@ def calc_diffusion(traj,
 
 @_register_pmap
 @_register_openmp
-
-
 #@_super_dispatch()
 def calc_watershell(traj=None,
                     solute_mask='',
@@ -854,7 +852,7 @@ def calc_volmap(traj,
                 dtype='ndarray',
                 frame_indices=None):
     '''(cpptraj doc) Grid data as a volumetric map, similar to the
-    volmap command in VMD. The density is calculated by treating each atom as a 
+    volmap command in VMD. The density is calculated by treating each atom as a
     3-dimensional Gaussian function whose standard deviation is equal to the van der Waals radius
 
     Parameters
@@ -953,7 +951,7 @@ def calc_rdf(traj=None,
     >>> # use array-like mask
     >>> atom_indices = pt.select(':WAT@O', traj.top)
     >>> data = pt.rdf(traj, solvent_mask=':WAT@O', bin_spacing=0.5, maximum=10.0, solute_mask=atom_indices)
-    
+
     Notes
     -----
     - install ``pytraj`` and ``libcpptraj`` with openmp to speed up calculation
@@ -1196,7 +1194,7 @@ def mean_structure(traj,
     Examples
     --------
     >>> import pytraj as pt
-    >>> traj = pt.datafiles.load_tz2_ortho() 
+    >>> traj = pt.datafiles.load_tz2_ortho()
     >>> # get average structure from whole traj, all atoms
     >>> frame = pt.mean_structure(traj)
 
@@ -1320,7 +1318,7 @@ def clustering_dataset(array_like, command=''):
     Examples
     --------
     >>> import pytraj as pt
-    >>> import numpy as np 
+    >>> import numpy as np
     >>> array_like = np.random.randint(0, 10, 1000)
     >>> data = pt.clustering_dataset(array_like, 'clusters 10 epsilon 3.0')
     '''
@@ -1501,7 +1499,7 @@ def calc_vector(traj=None,
     Parameters
     ----------
     traj : Trajectory-like or iterable that produces :class:`pytraj.Frame`
-    command : str or a list of strings, cpptraj command 
+    command : str or a list of strings, cpptraj command
     frame_indices : array-like, optional, default None
         only perform calculation for given frame indices
     dtype : output's dtype, default 'ndarray'
@@ -1630,9 +1628,9 @@ def calc_pairwise_rmsd(traj=None,
     mask : mask
         if mask is "", use all atoms
     metric : {'rms', 'dme', 'srmsd', 'nofit'}
-        if 'rms', perform rms fit 
+        if 'rms', perform rms fit
         if 'dme', use distance RMSD
-        if 'srmsd', use symmetry-corrected RMSD 
+        if 'srmsd', use symmetry-corrected RMSD
         if 'nofit', perform rmsd without fitting
     top : Topology, optional, default=None
     dtype: ndarray
@@ -1770,7 +1768,7 @@ def rmsd_perres(traj=None,
                 frame_indices=None,
                 top=None,
                 dtype='dataset'):
-    """superpose ``traj`` to ``ref`` with `mask`, then calculate nofit rms for residues 
+    """superpose ``traj`` to ``ref`` with `mask`, then calculate nofit rms for residues
     in `resrange` with given `perresmask`
 
     Returns
@@ -1933,7 +1931,7 @@ def calc_distance_rmsd(traj=None,
     Parameters
     ----------
     traj : Trajectory-like or iterator that produces Frame
-    ref : {int, Frame}, default 0 (1st Frame) 
+    ref : {int, Frame}, default 0 (1st Frame)
     mask : str
     top : Topology or str, optional, default None
     dtype : return dtype, default 'ndarray'
@@ -2054,7 +2052,7 @@ def closest(traj=None,
     --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()
-    >>> # obtain new traj, keeping only closest 100 waters 
+    >>> # obtain new traj, keeping only closest 100 waters
     >>> # to residues 1 to 13 (index starts from 1) by distance to the first atom of water
     >>> t = pt.closest(traj, mask='@CA', n_solvents=10)
     """
@@ -2412,7 +2410,7 @@ def center(traj=None,
     >>> # all atoms, center to box center (x/2, y/2, z/2)
     >>> traj = pt.center(traj)
 
-    >>> # center at origin, use @CA 
+    >>> # center at origin, use @CA
     >>> traj = pt.center(traj, '@CA', center='origin')
 
     >>> # center to box center, use mass weighted
@@ -2577,7 +2575,7 @@ def _analyze_modes(data,
 
     Parameters
     ----------
-    data : 
+    data :
     mode : str, {'fluct', 'displ', 'corr', 'eigenval', 'trajout', 'rmsip'}
         - fluct:    RMS fluctations from normal modes
         - displ:    Displacement of cartesian coordinates along normal mode directions
@@ -2588,7 +2586,7 @@ def _analyze_modes(data,
     beg : int
     end : int
     bose : bool, optional
-    factor : optional 
+    factor : optional
     maskp : a string or list of strings, optional
     trajout : output filename, optional
     '''
@@ -2639,7 +2637,7 @@ def calc_atomiccorr(traj,
     mask : atom mask
     cut : {None, float}, default None
         if not None, only print correlations with absolute value greater than cut
-    min_spacing : {None, float}, default None 
+    min_spacing : {None, float}, default None
         if not None, only calculate correlations for motion vectors spaced min_spacing apart
     byres : bool, default False
         if False, compute atomic motion vetor
