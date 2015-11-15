@@ -15,7 +15,6 @@ minitraj =  numpy.empty((2,traj.n_frames,3))
 minitraj[0] = pytraj.center_of_mass(traj,mask=':1')
 minitraj[1] = pytraj.center_of_mass(traj,mask=':2')
 minitraj = minitraj.transpose((1,0,2))
-#minitraj = numpy.ascontiguousarray(minitraj)
 
 # "topology" using the first two atoms
 minitop = traj.top['@1,2']
