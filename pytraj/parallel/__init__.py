@@ -146,7 +146,7 @@ def _load_batch_pmap(n_cores=4,
         from mpi4py import MPI
         comm = MPI.COMM_WORLD
         rank = comm.rank
-        #data_chunk = _worker_state(rank, n_cores=size, traj=traj, lines=lines, dtype=dtype)
+        # data_chunk = _worker_state(rank, n_cores=size, traj=traj, lines=lines, dtype=dtype)
         data_chunk = _worker_actlist(rank=rank,
                                      n_cores=n_cores,
                                      traj=traj,

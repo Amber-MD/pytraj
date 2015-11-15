@@ -153,7 +153,6 @@ def _cluster(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     dname = '__pytraj_cluster'
     if traj is not None:
         dslist.add_set("coords", name=dname)
-        #dslist[-1].top = _top
         dslist[0].top = _top
         for frame in traj:
             # dslist[-1].add_frame(frame)

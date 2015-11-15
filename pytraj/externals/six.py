@@ -143,7 +143,7 @@ _moved_attributes = [
     MovedAttribute("input", "__builtin__", "builtins", "raw_input", "input"),
     MovedAttribute("map", "itertools", "builtins", "imap", "map"),
     MovedAttribute("range", "__builtin__", "builtins", "xrange", "range"),
-    #MovedAttribute("reload_module", "__builtin__", "imp", "reload"),
+    # MovedAttribute("reload_module", "__builtin__", "imp", "reload"),
     MovedAttribute("reduce", "__builtin__", "functools"),
     MovedAttribute("StringIO", "StringIO", "io"),
     MovedAttribute("UserString", "UserString", "collections"),

@@ -138,7 +138,7 @@ def assert_almost_equal(arr0, arr1, decimal=4):
             raise ValueError('do not support NAN comparison')
         if abs(x - y) > SMALL:  # pragma: no cover
             almost_equal = False
-    assert almost_equal == True
+    assert almost_equal is True
 
 
 def _import(modname):

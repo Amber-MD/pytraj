@@ -19,7 +19,6 @@ def load_MDAnalysis(its_obj, top=None):
 
     # don't import here since we import load_pseudo_parm in
     # TrajectoryMDAnalysisIterator
-    #from ..trajs.TrajectoryMDAnalysisIterator import TrajectoryMDAnalysisIterator
 
     # MDAnalysis needs numpy. So we always have numpy when using this
     if not isinstance(its_obj, Universe):

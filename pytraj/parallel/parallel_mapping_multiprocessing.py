@@ -263,7 +263,6 @@ def _pmap(func, traj, *args, **kwd):
         elif func in [ired_vector_and_matrix, ]:
             # data is a list of (rank, (vectors, matrix), n_frames)
             mat = np.sum((val[1][1] * val[2] for val in data)) / traj.n_frames
-            #vecs = np.vstack((val[1][0] for val in data))
             vecs = np.column_stack(val[1][0] for val in data)
             return (vecs, mat)
         elif func in [rotation_matrix, ]:

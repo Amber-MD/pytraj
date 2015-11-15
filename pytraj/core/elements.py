@@ -4,7 +4,7 @@ Store extra information for Atom's elements
 from __future__ import absolute_import
 from ..compat import zip
 # copied from cpptraj's code "Atom.cpp"
-#/** Values taken from 'http://www.webelements.com/' */
+# /** Values taken from 'http://www.webelements.com/' */
 
 __all__ = ['mass_element_dict', 'mass_atomic_number_dict']
 
