@@ -3,7 +3,8 @@ import numpy as np
 from .decorators import _register_pmap
 
 _supported_types = [
-    x for x in
+    x
+    for x in
     'minimage dipole center corrplane box boxcenter ucellx ucelly ucellz principal'.split(
     )
 ]

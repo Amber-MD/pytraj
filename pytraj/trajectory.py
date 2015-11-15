@@ -82,8 +82,7 @@ class Trajectory(object):
                     raise ValueError("must have a non-empty Topology")
                 else:
                     assert self.top.n_atoms == xyz.shape[
-                        1
-                    ], "must have the same n_atoms"
+                        1], "must have the same n_atoms"
                 self._xyz = np.asarray(xyz)
             else:
                 self._xyz = None
@@ -97,8 +96,7 @@ class Trajectory(object):
 
         if hasattr(self._xyz, 'shape'):
             assert self.top.n_atoms == self._xyz.shape[
-                1
-            ], "must have the same n_atoms"
+                1], "must have the same n_atoms"
 
         if hasattr(filename, 'unitcells'):
             self._boxes = filename.unitcells
@@ -813,7 +811,8 @@ class Trajectory(object):
         for idx, frame in enumerate(fi):
             if mass:
                 frame.set_mass(self.top)
-            _, mat, v1, v2 = frame.rmsd(ref_frame, atm,
+            _, mat, v1, v2 = frame.rmsd(ref_frame,
+                                        atm,
                                         get_mvv=True,
                                         mass=mass)
             frame._trans_rot_trans(v1, mat, v2)
@@ -855,7 +854,9 @@ class Trajectory(object):
     def save(self,
              filename="",
              format='unknown',
-             overwrite=True, *args, **kwd):
+             overwrite=True,
+             *args,
+             **kwd):
         _savetraj(self, filename, format, overwrite, *args, **kwd)
 
     def iterframe(self,
@@ -953,7 +954,7 @@ class Trajectory(object):
         >>> traj._estimated_GB
         0.0011830776929855347
         """
-        return self.n_frames * self.n_atoms * 3 * 8 / (1024 ** 3)
+        return self.n_frames * self.n_atoms * 3 * 8 / (1024**3)
 
     @classmethod
     def from_iterable(cls, iterables, top=None):

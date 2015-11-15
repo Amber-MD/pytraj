@@ -88,9 +88,10 @@ def prmtop_from_tleap(fname, leapin=leapin, verbose=False):
 
         with open(os.devnull, 'wb') as devnull:
             if not verbose:
-                subprocess.check_call([tleap, ' -f _leap.in'],
-                                      stdout=devnull,
-                                      stderr=subprocess.STDOUT)
+                subprocess.check_call(
+                    [tleap, ' -f _leap.in'],
+                    stdout=devnull,
+                    stderr=subprocess.STDOUT)
             else:
                 subprocess.check_call([tleap, ' -f _leap.in'])
         return pt.load_topology("tmp.top")

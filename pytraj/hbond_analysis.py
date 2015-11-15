@@ -170,8 +170,8 @@ def hbond(traj,
     _series = 'series' if series else ''
     _options = cpp_options
 
-    command = " ".join(
-        (_series, mask, s_donor, s_acceptor, _dist, _angle, _image, _options))
+    command = " ".join((_series, mask, s_donor, s_acceptor, _dist, _angle,
+                        _image, _options))
 
     # need to get correct frame number
     act.read_input(command, top=top, dslist=dslist)

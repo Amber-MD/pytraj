@@ -77,11 +77,25 @@ from .trajs.Trajout import Trajout
 from .datasets.cast_dataset import cast_dataset
 from .datasetlist import DatasetList as Dataset
 from . import io
-from .io import (load, iterload, load_remd, iterload_remd,
-                 _load_from_frame_iter, load_pdb_rcsb, load_cpptraj_file,
-                 load_sample_data, load_ParmEd, load_topology, read_parm,
-                 write_parm, get_coordinates, save, write_traj, read_pickle,
-                 read_json, to_pickle, to_json, )
+from .io import (load,
+                 iterload,
+                 load_remd,
+                 iterload_remd,
+                 _load_from_frame_iter,
+                 load_pdb_rcsb,
+                 load_cpptraj_file,
+                 load_sample_data,
+                 load_ParmEd,
+                 load_topology,
+                 read_parm,
+                 write_parm,
+                 get_coordinates,
+                 save,
+                 write_traj,
+                 read_pickle,
+                 read_json,
+                 to_pickle,
+                 to_json, )
 
 load_from_frame_iter = _load_from_frame_iter
 
@@ -112,16 +126,47 @@ from .common_actions import (
     calc_rmsd_nofit, rmsd, rmsd_perres, distance_rmsd, calc_multidihedral,
     autoimage, calc_angle, calc_dihedral, calc_distance,
     calc_pairwise_distance, calc_center_of_mass, calc_center_of_geometry,
-    calc_jcoupling, calc_molsurf, calc_radgyr, calc_rdf,
-    calc_vector, calc_pairwise_rmsd, calc_atomicfluct, calc_bfactors,
-    calc_density, calc_rotation_matrix, calc_watershell, calc_volume,
-    calc_mindist, lifetime, get_average_frame, calc_atomiccorr, get_velocity,
-    _dihedral_res, native_contacts,
-    auto_correlation_function, principal_axes, cross_correlation_function,
-    timecorr, center, translate, rotate, rotate_dihedral, make_structure,
-    scale, clustering_dataset, randomize_ions, set_dihedral,
-    crank, closest, search_neighbors, replicate_cell, _rotdif, calc_pairdist, _grid,
-    transform, lowestcurve, calc_diffusion, calc_volmap, calc_multivector)
+    calc_jcoupling, calc_molsurf, calc_radgyr, calc_rdf, calc_vector,
+    calc_pairwise_rmsd, calc_atomicfluct, calc_bfactors, calc_density,
+    calc_rotation_matrix, calc_watershell, calc_volume, calc_mindist, lifetime,
+    get_average_frame, calc_atomiccorr, get_velocity, _dihedral_res,
+    native_contacts, auto_correlation_function, principal_axes,
+    cross_correlation_function, timecorr, center, translate, rotate,
+    rotate_dihedral, make_structure, scale, clustering_dataset, randomize_ions,
+    set_dihedral, crank, closest, search_neighbors, replicate_cell, _rotdif,
+    calc_pairdist, _grid, transform, lowestcurve, calc_diffusion, calc_volmap,
+    calc_multivector)
+
+from .matrix import dist
+distance_matrix = dist
+
+from .dihedral_analysis import (calc_phi, calc_psi, calc_alpha, calc_beta,
+                                calc_omega, calc_chin, calc_chip, calc_delta,
+                                calc_epsilon, calc_gamma, calc_zeta,
+                                calc_omega, calc_nu1, calc_nu2)
+
+from .action_dict import ActionDict
+from .analysis_dict import AnalysisDict
+from . import matrix
+from . import dihedral_analysis
+from . import vector
+
+# others
+from .misc import info
+from .run_tests import run_tests
+
+# parallel
+# import _pmap here to be called from nmr module
+from .parallel.parallel_mapping_multiprocessing import pmap, _pmap
+from .parallel.parallel_mapping_mpi import pmap_mpi
+from .parallel import _load_batch_pmap
+
+from ._shared_methods import iterframe_master
+
+# turn off verbose in cpptraj
+# TODO: need to move set_world_silent and set_error_silent to the same file
+from .cpp_options import set_error_silent, set_world_silent
+from .cyutils import _fast_iterptr as iterframe_from_array
 
 # create alias
 dssp_all_residues = dssp_allresidues
@@ -173,37 +218,8 @@ lowest_curve = lowestcurve
 diffusion = calc_diffusion
 volmap = calc_volmap
 
-from .matrix import dist
-distance_matrix = dist
-
-from .dihedral_analysis import (
-    calc_phi, calc_psi, calc_alpha, calc_beta, calc_omega, calc_chin,
-    calc_chip, calc_delta, calc_epsilon, calc_gamma, calc_zeta, calc_omega,
-    calc_nu1, calc_nu2)
-
-from .action_dict import ActionDict
-from .analysis_dict import AnalysisDict
 adict = ActionDict()
 analdict = AnalysisDict()
-from . import matrix
-from . import dihedral_analysis
-from . import vector
-
-# others
-from .misc import info
-from .run_tests import run_tests
-
-# parallel
-# import _pmap here to be called from nmr module
-from .parallel.parallel_mapping_multiprocessing import pmap, _pmap
-from .parallel.parallel_mapping_mpi import pmap_mpi
-from .parallel import _load_batch_pmap
-
-from ._shared_methods import iterframe_master
-
-# turn off verbose in cpptraj
-# TODO: need to move set_world_silent and set_error_silent to the same file
-from .cpp_options import set_error_silent, set_world_silent
 
 
 def load_batch(traj, txt):
@@ -318,9 +334,6 @@ def iterframe(traj, *args, **kwd):
         return iterframe_master(traj)
 
 
-from .cyutils import _fast_iterptr as iterframe_from_array
-
-
 def iterchunk(traj, *args, **kwd):
     """iterate ``traj`` by chunk
 
@@ -405,8 +418,9 @@ def strip_atoms(traj_or_topology, mask):
     <Frame with 12 atoms>
     '''
 
-    if isinstance(traj_or_topology, string_types) and not isinstance(mask, string_types):
-        traj_or_topology, mask = mask , traj_or_topology
+    if isinstance(traj_or_topology, string_types) and not isinstance(
+            mask, string_types):
+        traj_or_topology, mask = mask, traj_or_topology
 
     kept_mask = '!(' + mask + ')'
 
@@ -420,7 +434,9 @@ def strip_atoms(traj_or_topology, mask):
         traj_or_topology.mask = kept_mask
         return traj_or_topology
 
+
 strip = strip_atoms
+
 
 def run(fi):
     '''shortcut for `for frame in fi: pass`

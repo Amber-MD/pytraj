@@ -25,7 +25,7 @@ def estimate_size(n_frames, n_atoms, dtype='f8'):
         n_bytes = 8
     if dtype == 'f4':
         n_bytes = 4
-    return n_frames * n_atoms * 3 * n_bytes / (1024 ** 2)
+    return n_frames * n_atoms * 3 * n_bytes / (1024**2)
 
 
 def groupby(key, seq):
@@ -364,7 +364,7 @@ def rmsd_1darray(a1, a2):
     if arr1.shape != arr2.shape:
         raise ValueError("must have the same shape")
 
-    tmp = sum((arr1 - arr2) ** 2)
+    tmp = sum((arr1 - arr2)**2)
     return sqrt(tmp / arr1.shape[0])
 
 
@@ -638,7 +638,9 @@ def as_3darray(xyz):
 def split_and_write_traj(self,
                          n_chunks=None,
                          root_name="trajx",
-                         ext='nc', *args, **kwd):
+                         ext='nc',
+                         *args,
+                         **kwd):
     '''
     Examples
     --------

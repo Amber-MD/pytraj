@@ -184,7 +184,8 @@ def iterload(*args, **kwd):
     return load_traj(*args, **kwd)
 
 
-def _load_netcdf(filename, top,
+def _load_netcdf(filename,
+                 top,
                  frame_indices=None,
                  engine='scipy'):  # pragma: no cover
     '''simply read all data to memory. Use this if you want to load data few times
@@ -394,8 +395,8 @@ def write_traj(filename="",
                     if isinstance(traj, (list, tuple, Frame)):
                         raise NotImplementedError(
                             "must be Trajectory or TrajectoryIterator instance")
-                    for idx, frame in enumerate(traj.iterframe(
-                        frame_indices=frame_indices)):
+                    for idx, frame in enumerate(traj.iterframe(frame_indices=
+                                                               frame_indices)):
                         trajout.write(idx, frame)
 
                 else:
@@ -407,8 +408,8 @@ def write_traj(filename="",
         xyz = np.asarray(traj)
         if not xyz.flags.c_contiguous:
             xyz = np.ascontiguousarray(xyz)
-        _frame_indices = range(
-            xyz.shape[0]) if frame_indices is None else frame_indices
+        _frame_indices = range(xyz.shape[
+            0]) if frame_indices is None else frame_indices
         fi = iterframe_from_array(xyz, _top.n_atoms, _frame_indices, _top)
 
         with Trajout(filename=filename,
@@ -422,7 +423,8 @@ def write_traj(filename="",
 
 def write_parm(filename=None, top=None, format='amberparm', overwrite=False):
     if os.path.exists(filename) and not overwrite:
-        raise RuntimeError('{0} exists, must set overwrite=True'.format(filename))
+        raise RuntimeError('{0} exists, must set overwrite=True'.format(
+            filename))
     parm = ParmFile()
     parm.writeparm(filename=filename, top=top, format=format)
 
@@ -549,6 +551,7 @@ load_frame = load_single_frame
 
 # creat alias
 save_traj = write_traj
+
 
 def save(filename, obj, *args, **kwd):
     '''an universal method
@@ -684,6 +687,6 @@ def get_coordinates(iterable,
         return arr
     else:
         # slower
-        return np.array([frame.xyz.copy()
-                         for frame in iterframe_master(iterable)],
-                        dtype='f8')
+        return np.array(
+            [frame.xyz.copy() for frame in iterframe_master(iterable)],
+            dtype='f8')
