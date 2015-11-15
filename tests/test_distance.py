@@ -43,7 +43,6 @@ class TestNormalDistance(unittest.TestCase):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         arr = pt.distance(traj(stop=4), [0, 5])
         arr1 = pt.distance(traj(stop=4), [0, 5], n_frames=4)
-        #print(arr, arr1)
         assert np.all(arr == arr1)
 
         arr2 = pt.distance(traj(stop=1000), [0, 5])

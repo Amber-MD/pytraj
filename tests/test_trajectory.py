@@ -245,7 +245,6 @@ class TestSaveToDisk(unittest.TestCase):
     def test_basic_saving(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
-        # Trajectory()
         fa = traj[:]
         fname = "./output/test_savemethod.x"
         fname2 = "./output/test_savemethod_2.x"
@@ -311,7 +310,6 @@ class TestSetitem(unittest.TestCase):
         fa0[0] = xyz[0]  # fa[0] return a Frame
         aa_eq(fa0[0].xyz, xyz[0])
         # try to assign a Frame
-        #print(fa0, fa)
         fa0[0] = fa[0]
         aa_eq(fa0[0].xyz, fa[0].xyz)
 

@@ -28,7 +28,6 @@ class TestTrajout(unittest.TestCase):
         for i in range(5, 8):
             trajout.write(i, farray[i], farray.top)
 
-        #assert trajout.is_open() == True
         trajout.close()
 
     def test_1_with_statement(self):

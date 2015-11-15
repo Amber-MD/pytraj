@@ -1,5 +1,4 @@
 from pytraj.math import Vec3
-#from pytraj import DistRoutines as dist
 import numpy as np
 import unittest
 

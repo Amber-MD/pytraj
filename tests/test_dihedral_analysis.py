@@ -24,7 +24,6 @@ class Test(unittest.TestCase):
         arr1 = dslist1.to_ndarray()
         arr2 = da.calc_phi(traj, resrange='7', dtype='ndarray')
         arr3 = da.calc_phi(traj, resrange='7').to_dict()
-        # print(arr3)
 
         # assert to cpptraj output
         aa_eq(arr0, saved_data_phi)
@@ -32,7 +31,6 @@ class Test(unittest.TestCase):
         aa_eq(arr2, saved_data_phi)
 
         for key in dslist1.keys():
-            # print(dslist1[key].values)
             aa_eq(dslist1[key].values, arr3[key])
 
 

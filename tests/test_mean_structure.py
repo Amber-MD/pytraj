@@ -18,7 +18,6 @@ class TestAverageFrame(unittest.TestCase):
         f_saved = pt.iterload("./data/avg.Tc5b.pdb", traj.top)[0]
 
         # shorter
-        #frame2 = mean_structure("", traj, traj.top)
         frame2 = mean_structure(traj)
         aa_eq(frame2.xyz, f_saved.xyz, decimal=3)
 

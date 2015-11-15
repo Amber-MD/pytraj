@@ -55,14 +55,10 @@ class TestMatrix_3x3(unittest.TestCase):
     def test_0(self):
         import numpy as np
         mat = Matrix_3x3(list(range(9)))
-        # print(mat)
-        # print(mat.tolist())
-        # print(mat[:])
 
         assert mat[:].shape == (3, 3)
         assert mat.buffer1d.shape == (9, )
         asmat1 = np.asmatrix(np.arange(9).reshape((3, 3))).astype(np.float64)
-        # print(asmat1)
         eq_np_to_mat(asmat1, mat)
 
         mat[0, 0] = 100.
@@ -73,25 +69,16 @@ class TestMatrix_3x3(unittest.TestCase):
         mat[0, 0] = 20.
         assert npmat[0, 0] == 20.
         mat *= mat
-        # print(mat)
-        # print(mat.tolist())
-        # print(npmat)
         v1 = mat.row1
         assert v1.tolist() == list(mat[0])
         assert np.any(npmat == mat.to_ndmatrix()) == True
 
         mat_as_ndmatrix = mat.as_ndmatrix()
         mat_as_ndmatrix[0] = 10000.
-        #print("test as_ndmatrix")
-        #print(npmat, mat, mat_as_ndmatrix)
         assert np.any(npmat == mat.to_ndmatrix()) == True
         assert np.any(npmat == mat_as_ndmatrix) == True
 
         v1np = np.asarray(v1[:]).reshape(3, 1)
-        # print(v1np)
-        #print((npmat * v1np))
-        #print((mat * v1).tolist())
-        #print(mat[0, :])
 
 
 if __name__ == "__main__":

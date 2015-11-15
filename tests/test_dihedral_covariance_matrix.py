@@ -33,7 +33,6 @@ class TestDihedralCovarianceMatrix(unittest.TestCase):
 
         modes = state.data['DIHMODES']
         # need to provide all dihedrals too?
-        # data = _projection(traj, '* beg 1 end 4', (modes.eigenvalues, modes.eigenvectors), scalar_type='covar')
 
 
 if __name__ == "__main__":

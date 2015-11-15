@@ -7,7 +7,6 @@ from numpy.testing import assert_almost_equal as aa_equal
 
 traj = io.iterload("remd.x.000", "myparm.top")
 
-#trajlist = [traj, traj]
 # 200 Mb each
 trajlist = [traj, ]
 
@@ -22,7 +21,6 @@ def test_time():
 dslist = test_time()
 
 print("not using frame_iter")
-#traj_iter_list = [traj(mask='@CA'), traj(mask='@CA')]
 traj_iter_list = [traj(mask='@CA'), ]
 
 # ned to get stripped-atom top
@@ -38,6 +36,3 @@ def test_time_iter():
 
 dslist_iter = test_time_iter()
 
-#arr = dslist[0].to_ndarray().flatten()
-#arr_iter = dslist_iter[0].to_ndarray().flatten()
-#aa_equal(arr, arr_iter)

@@ -21,7 +21,6 @@ class Test(unittest.TestCase):
         for idx, frame in enumerate(it):
             pass
             # Status: don't need to fix since "it" and "traj" share the same iterator
-            # traj[idx]
 
         fa = traj[:]
         for idx, frame in enumerate(fa):
@@ -44,7 +43,6 @@ class Test(unittest.TestCase):
 
         for idx, (f0, f1) in enumerate(zip(traj, traj)):
             f0.rmsd(f1)
-        #assert idx == traj.n_frames
 
     def test_indexing_nonrefernce_DSL(self):
         from pytraj import dihedral_analysis as da

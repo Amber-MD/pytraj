@@ -111,7 +111,6 @@ class TestParallelMapForMatrix(unittest.TestCase):
     def test_matrix_module(self):
         traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
 
-        # not support [covar, distcovar, mwcovar]
         for n_cores in [2, 3]:
             for func in [matrix.dist, matrix.idea]:
                 x = pt.pmap(func, traj, '@CA', n_cores=n_cores)

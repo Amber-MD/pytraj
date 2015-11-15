@@ -17,7 +17,6 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         # convert to Trajectory
-        #fa = mdio.load("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
 
         # frame view
@@ -39,7 +38,6 @@ class Test(unittest.TestCase):
         # make sure we can make a copy
         facp = fa.copy()
         facp.xyz[0, 0, 0] = 501.
-        #print(facp.xyz[0, 0, 0])
         assert facp.xyz[0, 0, 0] == 501.
         assert fa.xyz[0, 0, 0] != 501.
 

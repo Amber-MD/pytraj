@@ -238,14 +238,11 @@ class TestIred(unittest.TestCase):
 
         order_(data_cpp.values)
 
-        # order_(data_np)
         def plot_(x, y):
             import seaborn as sb
             sb.heatmap(x - y)
             pt.show()
 
-        #plot_(np.abs(data_cpp.values[1]), np.abs(data_np[1]))
-        #plot_(data_cpp.values[1], data_np[1])
         print((data_cpp.values[1] - data_np[1]).shape)
 
 

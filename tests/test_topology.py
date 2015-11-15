@@ -24,7 +24,6 @@ class TestTopology(unittest.TestCase):
         filename = "./data/Tc5b.top"
 
         top = pt.load_topology(filename)
-        #top2 = top.modify_state_by_mask(AtomMask("!@CA"))
         #
         top.strip_atoms("!@CA")
         assert top.n_atoms == 20
@@ -93,11 +92,7 @@ class TestTopology(unittest.TestCase):
         assert t0.n_atoms == t2.n_atoms
 
         # *
-        #traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        #top = traj.top
-        #top0 = top * 2
 
-        #assert top0.n_atoms == 2 * top.n_atoms
 
     def test_basic(self):
         '''slicing, select'''

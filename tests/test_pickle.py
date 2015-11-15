@@ -21,8 +21,6 @@ class TestBuildAndPickleTopology(unittest.TestCase):
         top = self.traj.top
         d = top.to_dict()
 
-        # H = Atom('H', 'H', '0.0', '1.0', resid=0)
-        # res = Residue('ALA', resid=0, icode=0, chainID=0)
         new_top = pt.Topology()
 
         MOLNUM = 0
@@ -106,14 +104,12 @@ class TestPickleTrajectoryIterator(unittest.TestCase):
 
 
 def worker(rank, frame, traj):
-    #print(pt.radgyr(traj), frame)
     pt.nastruct(traj, ref=frame)
 
 
 class TestPickleFrame(unittest.TestCase):
 
     def setUp(self):
-        #self.traj = pt.iterload("data/md1_prod.Tc5b.x", "data/Tc5b.top")
         self.traj = pt.iterload("./data/Test_NAstruct/x3dna/rna.pdb")
 
     def test_frame(self):

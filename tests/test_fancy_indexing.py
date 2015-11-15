@@ -58,7 +58,6 @@ class Test1(unittest.TestCase):
         f0 = traj[0]
         farr0 = traj[:2]
 
-        #self.assertRaises(NotImplementedError, lambda: traj[2:4, :, : ])
         fa = traj[2:4]
 
         # we don't support traj[:, idx] or traj[:, idx, idy] since this give wrong answer

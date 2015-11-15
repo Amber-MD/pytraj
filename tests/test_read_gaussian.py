@@ -11,7 +11,6 @@ class Test(unittest.TestCase):
         # TODO : assert
         traj = pt.tools.read_gaussian_output("./data/gaussian/GF2.log",
                                              "./data/gaussian/GF2.pdb")
-        # print(traj)
 
 
 if __name__ == "__main__":

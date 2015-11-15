@@ -23,7 +23,6 @@ class Test(unittest.TestCase):
         import numpy as np
         d0np = calc_multidihedral(traj, command, dtype='ndarray')
         self.assertIsInstance(d0np, np.ndarray)
-        # print(d0np)
 
 
 if __name__ == "__main__":

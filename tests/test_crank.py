@@ -14,7 +14,6 @@ class Test(unittest.TestCase):
         d0 = pt.distance(traj, [0, 50])[0]
         d1 = pt.distance(traj, [10, 100])[0]
         # too verbose
-        #d = pt.crank(d0, d1, mode='distance')
 
 
 if __name__ == "__main__":

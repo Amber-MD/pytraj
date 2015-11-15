@@ -11,7 +11,6 @@ class Test(unittest.TestCase):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         from pytraj.utils import convert as cv
         arange = cv.array_to_cpptraj_range(range(7))
-        # print(arange)
 
         a0 = pt.multidihedral(traj, resrange='1-7').values
         a1 = pt.multidihedral(traj, resrange=range(7)).values

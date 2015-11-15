@@ -63,7 +63,6 @@ class TestBox(unittest.TestCase):
         for b0, b1, frame in zip(arr0, arr1, trajiter):
             box = frame.box
             # FIXME:
-            # b2 = frame.box.to_ndarray() # got wrong box in python2 (ok with
             # python3)
             b2 = box.values
             aa_eq(b0, b1)

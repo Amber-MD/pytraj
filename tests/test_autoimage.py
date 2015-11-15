@@ -95,7 +95,6 @@ class TestWithRmsfit(unittest.TestCase):
             pass
 
     def test_1(self):
-        # Trajectory (mutable)
         # status: OK
         from pytraj.compat import zip
         # note: use `load` instead of `iterload`
