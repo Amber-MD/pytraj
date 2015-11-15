@@ -33,6 +33,4 @@ _get_coordinates(traj)
 run_cpptraj()
 
 # assert True? Yes
-#saved_xyz = pt.iterload('test.nc', 'test.tc5bwat.top').xyz
-#aa_eq(saved_xyz, xyz)
 # result: pytraj 11 s, cpptraj 8 s for 5000 frames

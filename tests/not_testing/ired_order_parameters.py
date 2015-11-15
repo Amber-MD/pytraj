@@ -29,11 +29,8 @@ def main():
     parmfile = '../cpptraj/test/Test_IRED/1IEE_A_prot.prmtop'
     trajfile = '../cpptraj/test/Test_IRED/1IEE_A_test.mdcrd'
 
-    #parmfile = '6LYT.HIP.99SB.JSC.mb3.top'
-    #trajfile = 'output_md1_prod/md1_prod.x'
 
     # load to TrajectoryIterator, first 4000 frames
-    #traj = pt.iterload(trajfile, parmfile, frame_slice=(0, 4000))
     traj = pt.iterload(trajfile, parmfile)
 
     # create N-H pairs

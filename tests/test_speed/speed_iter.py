@@ -37,7 +37,4 @@ t0 = traj[:]
 iter_(t0)
 state = rms2d_()
 
-#mat = state.data[-1].values
-#iter_(state.data[0])
 # make sure equal result: YES
-#aa_eq(iter_(t0), mat)

@@ -70,7 +70,6 @@ class TestIndices(unittest.TestCase):
     def test_join_dummy(self):
         traj0 = TrajectoryIterator(filename="data/md1_prod.Tc5b.x",
                                    top="./data/Tc5b.top")[:]
-        #traj0 += traj0
         traj0.join(traj0[:])
 
     def test_load_frame_indices_from_io(self):

@@ -24,7 +24,6 @@ def test_fastiter(traj):
     for f in traj:
         pass
 
-#test()
 
 fname = 'data/nogit/remd/remd.x.000'
 topname = 'data/nogit/remd/myparm.parm7'
