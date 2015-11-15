@@ -82,7 +82,7 @@ def _pmap(func, traj, *args, **kwd):
         won't work, use ``ref=traj[3]`` instead.
 
     If using cpptraj syntax::
-        
+
         user need to specify `refindex` whenever use reference. For example, if user wants
         to superpose to first frame and do not specify `refindex 0`, cpptraj will
         superpose a chunk of traj in each core to 1st frame in that chunk, not the first
@@ -94,7 +94,7 @@ def _pmap(func, traj, *args, **kwd):
         pytraj only supports limited cpptraj's Actions (not Analysis, checm Amber15 manual
         about Action and Analysis), say no  to 'matrix', 'atomicfluct', ... or any action
         that results output depending on the number of frames.
-         
+
 
     This method only benifits you if your calculation is quite long (saying few minutes to
     few hours). For calculation that takes less than 1 minutes, you won't see the
@@ -107,7 +107,7 @@ def _pmap(func, traj, *args, **kwd):
     built-in multiprocessing module, so you can use this method interactively in Ipython
     and ipython/jupyter notebook. This behavior is different from using MPI, in which you
     need to write a script, escaping ipython ession and type something like::
-        
+
         mpirun -n 4 python my_script.py
 
     vs::
@@ -124,7 +124,7 @@ def _pmap(func, traj, *args, **kwd):
     When sending Topology to different cores, pytraj will reload Topology from
     traj.top.filename, so if you need to update Topology (in the fly), save it to disk and
     reload before using ``pytraj.pmap``
-    
+
     Examples
     --------
     >>> import numpy as np
@@ -133,7 +133,7 @@ def _pmap(func, traj, *args, **kwd):
 
     >>> # use iter_options
     >>> iter_options = {'autoimage': True, 'rmsfit': (0, '@CA')}
-    >>> data = pt.pmap(pt.mean_structure, traj, iter_options=iter_options) 
+    >>> data = pt.pmap(pt.mean_structure, traj, iter_options=iter_options)
 
     >>> # cpptraj command style
     >>> data = pt.pmap(['distance :3 :7', 'vector mask :3 :12'], traj, n_cores=4)
@@ -229,7 +229,7 @@ def _pmap(func, traj, *args, **kwd):
             if hasattr(
                     func,
                     '_openmp_capability') and func._openmp_capability and 'OPENMP' in compiled_info(
-                    ):
+            ):
                 raise RuntimeError(
                     "this method supports both openmp and pmap, but your cpptraj "
                     "version was installed with openpm. Should not use both openmp and pmap at the "

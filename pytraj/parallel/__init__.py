@@ -128,7 +128,7 @@ def _load_batch_pmap(n_cores=4,
     '''
     if mode == 'multiprocessing':
         from multiprocessing import Pool
-        #pfuncs = partial(_worker_state, n_cores=n_cores, traj=traj, dtype=dtype,
+        # pfuncs = partial(_worker_state, n_cores=n_cores, traj=traj, dtype=dtype,
         #        lines=lines, ref=ref)
         pfuncs = partial(_worker_actlist,
                          n_cores=n_cores,

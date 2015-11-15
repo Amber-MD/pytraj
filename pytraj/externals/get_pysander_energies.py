@@ -75,11 +75,11 @@ def energy_decomposition(traj=None,
     >>> import sander
     >>> topfile = os.path.join(amberhome, "test/4096wat/prmtop")
     >>> rstfile = os.path.join(amberhome, "test/4096wat/eq1.x")
-    >>> traj = pt.iterload(rstfile, topfile) 
+    >>> traj = pt.iterload(rstfile, topfile)
     >>> options = sander.pme_input()
     >>> options.cut = 8.0
     >>> edict = pt.energy_decomposition(traj=traj, mm_options=options)
-    >>> edict['vdw'] 
+    >>> edict['vdw']
     array([ 6028.95167558])
 
     >>> # GB + QMMM
