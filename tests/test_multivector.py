@@ -7,6 +7,7 @@ from pytraj.utils import eq, aa_eq
 
 
 class TestMultiVector(unittest.TestCase):
+
     def test_multivector(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
         state = pt.load_batch(traj, '''

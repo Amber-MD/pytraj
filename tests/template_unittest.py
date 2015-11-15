@@ -7,6 +7,7 @@ from pytraj.utils import eq, aa_eq
 
 
 class Test(unittest.TestCase):
+
     def test_0(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
 

@@ -8,6 +8,7 @@ from pytraj.tools import rmsd_1darray
 
 
 class TestRegular(unittest.TestCase):
+
     def test_1(self):
         traj = pt.iterload("./data/tz2.truncoct.nc",
                            "./data/tz2.truncoct.parm7")
@@ -75,6 +76,7 @@ class TestRegular(unittest.TestCase):
 
 
 class TestWithRmsfit(unittest.TestCase):
+
     def test_0(self):
         # TrajectoryIterrator
         # status: failed

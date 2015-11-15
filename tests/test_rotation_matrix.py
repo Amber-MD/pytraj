@@ -6,6 +6,7 @@ from pytraj.utils import eq, aa_eq
 
 
 class TestRotationMatrix(unittest.TestCase):
+
     def setUp(self):
         self.traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
         cm_avg = '''

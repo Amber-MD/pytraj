@@ -12,6 +12,7 @@ farray = pt.load("data/md1_prod.Tc5b.x",
 
 
 class TestTrajout(unittest.TestCase):
+
     def test_0(self):
         farray = pt.load("data/md1_prod.Tc5b.x",
                          "./data/Tc5b.top",

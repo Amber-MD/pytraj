@@ -4,6 +4,7 @@ import pytraj.io as mdio
 
 
 class TestPyCpptrajIO(unittest.TestCase):
+
     def test_load_and_save_0(self):
         traj = mdio.iterload(filename="./data/md1_prod.Tc5b.x",
                              top="./data/Tc5b.top")[:10]

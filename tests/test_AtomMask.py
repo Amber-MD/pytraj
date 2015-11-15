@@ -5,6 +5,7 @@ from pytraj.utils.check_and_assert import assert_almost_equal, eq
 
 
 class TestAtomMask(unittest.TestCase):
+
     def test_0(self):
         atm = AtomMask("@CA")
         assert atm.n_atoms == 0
@@ -28,7 +29,7 @@ class TestAtomMask(unittest.TestCase):
         top = pt.load_topology("./data/Tc5b.top")
         atm = AtomMask("@CA")
         top.set_integer_mask(atm)
-        #print(atm[0])
+        # print(atm[0])
 
     def test_4(self):
         from array import array

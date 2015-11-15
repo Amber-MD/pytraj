@@ -6,6 +6,7 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
+
     def test_0(self):
         trajin = pt.datafiles.tc5b_trajin + """
         distance d0 @2 @3

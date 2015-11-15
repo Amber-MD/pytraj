@@ -6,6 +6,7 @@ import pytraj.common_actions as pyca
 
 
 class TestMakeStructure(unittest.TestCase):
+
     def test_makestructure(self):
         # https://github.com/Amber-MD/cpptraj/issues/27
         # load only 1st frame

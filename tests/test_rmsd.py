@@ -9,6 +9,7 @@ from pytraj import Trajectory, TrajectoryIterator
 
 
 class TestSimpleRMSD(unittest.TestCase):
+
     def setUp(self):
         self.traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
@@ -128,6 +129,7 @@ class TestSimpleRMSD(unittest.TestCase):
 
 
 class TestRMSDPerRes(unittest.TestCase):
+
     def test_noreference(self):
         from pytraj.datafiles import load_cpptraj_output, tz2_ortho_trajin
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
@@ -189,6 +191,7 @@ class TestRMSDPerRes(unittest.TestCase):
 
 
 class TestRMSDnofit(unittest.TestCase):
+
     def test_0(self):
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
 
@@ -203,6 +206,7 @@ class TestRMSDnofit(unittest.TestCase):
 
 
 class TestPairwiseRMSD(unittest.TestCase):
+
     def testTwoTrajTypes(self):
         '''test different metrics with different traj objects
         '''
@@ -230,6 +234,7 @@ class TestPairwiseRMSD(unittest.TestCase):
 
 
 class TestActionListRMSD(unittest.TestCase):
+
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         standard_rmsd = pt.rmsd(traj, mask='@CA')

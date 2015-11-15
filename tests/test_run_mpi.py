@@ -9,6 +9,7 @@ from glob import glob
 
 
 class TestRunMPI(unittest.TestCase):
+
     def test_all_mpi_scripts(self):
         testlist = glob('test_mpi/test_*py')
         for testfile in testlist:

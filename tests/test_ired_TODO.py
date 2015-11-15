@@ -114,7 +114,7 @@ txt = '''
  vector v97 @1508 ired @1509
  vector v98 @1520 ired @1521
  vector v99 @1527 ired @1528
- vector v100 @1541 ired @1542 
+ vector v100 @1541 ired @1542
  vector v101 @1548 ired @1549
  vector v102 @1565 ired @1566
  vector v103 @1579 ired @1580
@@ -183,8 +183,8 @@ class TestIred(unittest.TestCase):
         # cpptraj's eigvenvectors
         # use absolute values to avoid flipped sign
         # from Dan Roe
-        # In practice, the "sign" of an eigenvector depends on the math library used to calculate it. 
-        # This is in fact why the modes command displacement test is disabled for cpptraj. 
+        # In practice, the "sign" of an eigenvector depends on the math library used to calculate it.
+        # This is in fact why the modes command displacement test is disabled for cpptraj.
         # I bet if you use a different math library (e.g. use your system BLAS/LAPACK instead of the one bundled with Amber
         # or vice versa) you will get different signs.
         # Bottom line is that eigenvector sign doesn't matter.
@@ -238,7 +238,7 @@ class TestIred(unittest.TestCase):
 
         order_(data_cpp.values)
 
-        #order_(data_np)
+        # order_(data_np)
         def plot_(x, y):
             import seaborn as sb
             sb.heatmap(x - y)

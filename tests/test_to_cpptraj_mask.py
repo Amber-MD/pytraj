@@ -6,6 +6,7 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
+
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         # rmsd
@@ -14,7 +15,7 @@ class Test(unittest.TestCase):
                  pt.molsurf,
                  pt.calc_atomicfluct,
                  pt.bfactors,
-                 #pt.calc_rmsd_with_rotation_matrices,
+                 # pt.calc_rmsd_with_rotation_matrices,
                  pt.calc_pairwise_rmsd, ]
         for func in flist:
             aa_eq(

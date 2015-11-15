@@ -10,6 +10,7 @@ import pytraj.common_actions as pyca
 
 
 class TestDihedral(unittest.TestCase):
+
     def test_dihedral(self):
         import numpy as np
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")

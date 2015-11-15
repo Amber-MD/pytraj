@@ -6,6 +6,7 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
+
     def test_0(self):
         # merge_coordinates
         import numpy as np

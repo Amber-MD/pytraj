@@ -6,6 +6,7 @@ from pytraj.testing import aa_eq
 
 
 class TestBasic(unittest.TestCase):
+
     def test_frame_fit(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         f0 = traj[0]

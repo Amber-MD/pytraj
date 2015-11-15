@@ -16,6 +16,7 @@ from pytraj.testing import cpptraj_test_dir
 
 
 class TestActionList(unittest.TestCase):
+
     def test_distances(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
 
@@ -43,9 +44,9 @@ class TestActionList(unittest.TestCase):
         fold = farray.copy()
 
         act = allactions.Action_Image()
-        ptrajin = """                                                     
+        ptrajin = """
         center :2-11
-        image center familiar com :6                                      
+        image center familiar com :6
         """
 
         # create 'strip' action
@@ -123,7 +124,7 @@ class TestActionList(unittest.TestCase):
         # turn off for now
         # Error: Could not get associated topology for ./output/test_trajout.nc
         #alist.add_action("outtraj", "./output/test_trajout.nc", traj.top)
-        #alist.do_actions([traj[[0, 1]], traj, traj.iterchunk(chunksize=4,
+        # alist.do_actions([traj[[0, 1]], traj, traj.iterchunk(chunksize=4,
         #                                                     stop=8),
         #                  traj.iterframe()])
         #Nframes = 1 + 1 + traj.n_frames + 8 + traj.n_frames

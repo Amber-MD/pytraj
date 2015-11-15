@@ -11,6 +11,7 @@ from pytraj.core import Box
 
 
 class TestBuildAndPickleTopology(unittest.TestCase):
+
     def setUp(self):
         self.traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
 
@@ -64,6 +65,7 @@ class TestBuildAndPickleTopology(unittest.TestCase):
 
 
 class TestPickleFrame(unittest.TestCase):
+
     def test_set_mass_correctly(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
         f0 = traj[0]
@@ -88,6 +90,7 @@ class TestPickleFrame(unittest.TestCase):
 
 
 class TestPickleTrajectoryIterator(unittest.TestCase):
+
     def test_trajiter(self):
         for _pickle_topology in [True, False]:
             for frame_slice in [(0, 8, 2), (0, 10, 1)]:
@@ -108,6 +111,7 @@ def worker(rank, frame, traj):
 
 
 class TestPickleFrame(unittest.TestCase):
+
     def setUp(self):
         #self.traj = pt.iterload("data/md1_prod.Tc5b.x", "data/Tc5b.top")
         self.traj = pt.iterload("./data/Test_NAstruct/x3dna/rna.pdb")
@@ -135,6 +139,7 @@ class TestPickleFrame(unittest.TestCase):
 
 
 class TestPickleDatasetList(unittest.TestCase):
+
     def test_pickle_datasetlist(self):
         traj = pt.iterload("data/md1_prod.Tc5b.x", "data/Tc5b.top")
         dslist = pt.multidihedral(traj)

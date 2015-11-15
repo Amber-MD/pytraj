@@ -8,6 +8,7 @@ from pytraj import sandbox as sb
 
 
 class TestSuperDispatch(unittest.TestCase):
+
     def test_radgyr_dispatch(self):
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
 

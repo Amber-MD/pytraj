@@ -9,6 +9,7 @@ from pytraj.externals.six import string_types
 
 
 class TestSuperDispatch(unittest.TestCase):
+
     def setUp(self):
         self.traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
 

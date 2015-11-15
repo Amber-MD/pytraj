@@ -9,6 +9,7 @@ from pytraj.utils import goto_temp_folder
 
 
 class Test(unittest.TestCase):
+
     def test_0(self):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         mdio.write_traj("test_1.pdb", traj[0], top=traj.top, overwrite=True)

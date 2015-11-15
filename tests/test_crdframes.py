@@ -6,6 +6,7 @@ from pytraj.utils import eq, aa_eq
 
 
 class TestCrdFrames(unittest.TestCase):
+
     def test_crdframes(self):
         '''test crdframes in cpptraj
         '''
@@ -16,8 +17,8 @@ class TestCrdFrames(unittest.TestCase):
 
         state = pt.load_cpptraj_state('''
                 parm {0}
-                trajin {1} 1 {2} 2 
-                trajin {1} 1 {2} 2 
+                trajin {1} 1 {2} 2
+                trajin {1} 1 {2} 2
                 loadtraj name traj
                 crdaction traj rms crdframes 1,10
                 crdaction traj rms crdframes 1,30,2

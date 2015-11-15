@@ -8,6 +8,7 @@ from itertools import product
 
 
 class TestDistanceBasedMask(unittest.TestCase):
+
     def test_atom_distance(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
         top = traj.top

@@ -8,6 +8,7 @@ from pytraj.compat import zip
 
 
 class TestBox(unittest.TestCase):
+
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]

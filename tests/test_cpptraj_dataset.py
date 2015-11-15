@@ -33,6 +33,7 @@ crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
 #@unittest.skipIf('DNO_MATHLIB' in pt.compiled_info(), 'there is no LAPACK')
 @unittest.skip('just skip')
 class TestCpptrajDatasetWithMathLib(unittest.TestCase):
+
     def setUp(self):
         self.state = pt.datafiles.load_cpptraj_state(txt)
         self.state.run()
@@ -67,6 +68,7 @@ class TestCpptrajDatasetWithMathLib(unittest.TestCase):
 
 
 class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
+
     def setUp(self):
         self.traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
 
@@ -106,7 +108,7 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
 
     def test_add_new_for_CpptrajDatasetList(self):
         # TODO:
-        #"MATRIX_DOUBLE" : MATRIX_DBL, 
+        #"MATRIX_DOUBLE" : MATRIX_DBL,
         #"MATRIX_FLOAT" : MATRIX_FLT,
         #"MODES" : MODES,
         dslist = CpptrajDatasetList()

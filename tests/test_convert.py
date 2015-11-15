@@ -6,6 +6,7 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
+
     def test_0(self):
         mask = pt.utils.convert.array2d_to_cpptraj_maskgroup([[0, 3], [5, 6, 8]
                                                               ])

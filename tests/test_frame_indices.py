@@ -10,6 +10,7 @@ from pytraj.hbond_analysis import DatasetHBond
 
 
 class TestFrameIndices(unittest.TestCase):
+
     def setUp(self):
         self.traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
 
@@ -82,7 +83,7 @@ class TestFrameIndices(unittest.TestCase):
         # test excluded fns
         # calc_atomiccorr
         # FIXME: why failed?
-        #aa_eq(pt.atomiccorr(traj[frame_indices], '@CA'),
+        # aa_eq(pt.atomiccorr(traj[frame_indices], '@CA'),
         #      pt.atomiccorr(traj, '@CA', frame_indices=frame_indices))
 
 

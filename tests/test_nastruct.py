@@ -7,6 +7,7 @@ from pytraj.testing import aa_eq
 
 
 class TestNastruct(unittest.TestCase):
+
     def test_nupars(self):
         fn = "./data/Test_NAstruct/adh026.3.pdb"
         traj = pt.iterload(fn, fn)

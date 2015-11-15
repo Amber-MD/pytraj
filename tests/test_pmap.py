@@ -13,6 +13,7 @@ from pytraj import cpptraj_commands
 
 
 class TestNormalPmap(unittest.TestCase):
+
     def setUp(self):
         self.traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
@@ -106,6 +107,7 @@ class TestNormalPmap(unittest.TestCase):
 
 
 class TestParallelMapForMatrix(unittest.TestCase):
+
     def test_matrix_module(self):
         traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
 
@@ -150,6 +152,7 @@ class TestParallelMapForMatrix(unittest.TestCase):
 
 
 class TestCpptrajCommandStyle(unittest.TestCase):
+
     def test_cpptraj_command_style(self):
         traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
 
@@ -203,6 +206,7 @@ class TestCpptrajCommandStyle(unittest.TestCase):
 
 
 class TestParallelMapForAverageStructure(unittest.TestCase):
+
     def test_pmap_average_structure(self):
         traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
         saved_frame = pt.mean_structure(traj, '@CA')
@@ -214,6 +218,7 @@ class TestParallelMapForAverageStructure(unittest.TestCase):
 
 
 class TestLoadBathPmap(unittest.TestCase):
+
     def test_load_batch(self):
         '''just test ValueError
         '''
@@ -223,6 +228,7 @@ class TestLoadBathPmap(unittest.TestCase):
 
 
 class TestFrameIndices(unittest.TestCase):
+
     def test_frame_indices(self):
         traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
 
@@ -248,6 +254,7 @@ class TestFrameIndices(unittest.TestCase):
 
 
 class TestCheckValidCommand(unittest.TestCase):
+
     def test_check_valid_command(self):
         traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
 

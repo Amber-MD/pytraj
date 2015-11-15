@@ -12,6 +12,7 @@ except ImportError:
 
 
 class TestDSSP(unittest.TestCase):
+
     def setUp(self):
         self.traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 

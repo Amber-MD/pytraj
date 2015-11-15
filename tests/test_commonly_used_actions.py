@@ -6,6 +6,7 @@ from pytraj import adict
 
 
 class TestAutoImage(unittest.TestCase):
+
     def test_1(self):
         traj = pt.iterload("./data/tz2.truncoct.nc",
                            "./data/tz2.truncoct.parm7")
@@ -31,6 +32,7 @@ class TestAutoImage(unittest.TestCase):
 
 
 class TestGeometry(unittest.TestCase):
+
     def test_radgyr(self):
         traj = pt.iterload(top="./data/Tc5b.top",
                            filename='data/md1_prod.Tc5b.x', )

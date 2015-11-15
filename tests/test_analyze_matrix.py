@@ -10,6 +10,7 @@ from pytraj import matrix
 
 
 class TestDiagMatrix(unittest.TestCase):
+
     @unittest.skipIf('DNO_MATHLIB' in pt.compiled_info(), 'there is no LAPACK')
     def test_diagmatrix(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")

@@ -8,6 +8,7 @@ from pytraj.utils import goto_temp_folder
 
 
 class TestWriteTraj(unittest.TestCase):
+
     def setUp(self):
         self.traj = pt.load_sample_data('tz2')
 

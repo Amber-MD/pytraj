@@ -7,6 +7,7 @@ import pytraj.common_actions as pyca
 
 
 class TestAutoImageAndRotateDihedral(unittest.TestCase):
+
     def test_autoimage_rotatedihedral(self):
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         farray = traj[:]
@@ -30,6 +31,7 @@ class TestAutoImageAndRotateDihedral(unittest.TestCase):
 
 
 class TestNoName(unittest.TestCase):
+
     def test_0(self):
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         trajectory_traj = traj[:]
@@ -64,6 +66,7 @@ class TestNoName(unittest.TestCase):
 
 
 class TestAppend(unittest.TestCase):
+
     def test_append_trajectory(self):
         # test append
         traj = pt.Trajectory()
@@ -112,6 +115,7 @@ class TestAppend(unittest.TestCase):
 
 
 class TestTrajectory(unittest.TestCase):
+
     def test_raise_construtor(self):
         self.assertRaises(ValueError, lambda: pt.Trajectory(pt.trajectory))
 
@@ -237,6 +241,7 @@ class TestTrajectory(unittest.TestCase):
 
 
 class TestSaveToDisk(unittest.TestCase):
+
     def test_basic_saving(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
@@ -270,6 +275,7 @@ class TestSaveToDisk(unittest.TestCase):
 
 
 class TestSetitem(unittest.TestCase):
+
     def test_setitem(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]

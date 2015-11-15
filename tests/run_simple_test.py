@@ -12,6 +12,7 @@ from pytraj.common_actions import *
 
 
 class TestRunnable(unittest.TestCase):
+
     def test_loading(self):
         traj = pt.load_sample_data('tz2')
         traj[:]

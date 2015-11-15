@@ -8,6 +8,7 @@ from pytraj.common_actions import _projection
 
 class TestDihedralCovarianceMatrix(unittest.TestCase):
     # TODO: add assertion
+
     def test_dihcovar(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
         txt = '''

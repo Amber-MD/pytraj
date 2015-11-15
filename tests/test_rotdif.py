@@ -10,6 +10,7 @@ from pytraj.testing import cpptraj_test_dir
 class TestRotdif(unittest.TestCase):
     # TODO: make sure cpptraj saving results to Dataset
     # not assertion yet
+
     @unittest.skip('skip rotdif, too verbose')
     def test_rotdif(self):
         '''test_rotdif
@@ -37,7 +38,7 @@ class TestRotdif(unittest.TestCase):
         0.03 order 2''' % avg_fn
         #state = pt.load_batch(traj, text)
         # too verbose
-        #state.run()
+        # state.run()
 
 
 if __name__ == "__main__":

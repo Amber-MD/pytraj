@@ -7,6 +7,7 @@ from pytraj.utils import eq, aa_eq
 
 
 class TestIterFrame(unittest.TestCase):
+
     def test_iterframe(self):
         '''test iterframe for both Trajectory and TrajectoryIterator
         '''

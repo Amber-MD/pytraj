@@ -32,6 +32,7 @@ command_list = list(filter(lambda x: x, all_commands.split("\n")))
 
 
 class TestMatrixConprehensive(unittest.TestCase):
+
     def test_matrix(self):
         import numpy as np
         from pytraj import ArgList

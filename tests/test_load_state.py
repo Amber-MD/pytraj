@@ -7,6 +7,7 @@ from pytraj import load_batch
 
 
 class TestState(unittest.TestCase):
+
     def test_loading(self):
         for frame_slice in [(0, -1, 1), (0, 8, 2), (3, 9, 3)]:
             traj = pt.iterload('data/tz2.nc',

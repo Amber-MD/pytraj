@@ -13,6 +13,7 @@ except ImportError:
 
 
 class TestIO(unittest.TestCase):
+
     def setUp(self):
         self.traj_tz2_ortho = pt.iterload("data/tz2.ortho.nc",
                                           "data/tz2.ortho.parm7")
@@ -108,7 +109,7 @@ class TestIO(unittest.TestCase):
 
         is_traj = (isinstance(traj, TrajectoryIterator) or
                    isinstance(traj, Trajectory))
-        assert is_traj == True
+        assert is_traj
 
     def test_ParmFile(self):
         top = pt.read_parm("./data/Tc5b.top")
@@ -118,7 +119,7 @@ class TestIO(unittest.TestCase):
 
         # test raise if file exists
         self.assertRaises(RuntimeError, lambda: pt.write_parm("./output/test_io.top", top,
-            overwrite=False))
+                                                              overwrite=False))
 
     def test_load_and_save_0(self):
         # need to load to Trajectory to save

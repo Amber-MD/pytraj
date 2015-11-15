@@ -16,6 +16,7 @@ from pytraj.actions import CpptrajActions as CA
 
 
 class TestVectorAnalysisModule(unittest.TestCase):
+
     def test_actionlist(self):
         '''test_actionlist
         '''

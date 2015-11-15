@@ -8,6 +8,7 @@ from pytraj.utils import eq, aa_eq
 
 
 class TestNormalDistance(unittest.TestCase):
+
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
@@ -83,6 +84,7 @@ class TestNormalDistance(unittest.TestCase):
 
 
 class TestPairwiseDistance(unittest.TestCase):
+
     def test_pairwise(self):
         traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
         distances = pt.pairwise_distance(traj, '@CA', '@CB')[0]

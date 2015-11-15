@@ -6,6 +6,7 @@ from pytraj.utils import eq, aa_eq
 
 
 class TestChainofCommands(unittest.TestCase):
+
     def test_center_autoimage_superpose(self):
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         t0 = traj[:]

@@ -6,6 +6,7 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
+
     def test_0(self):
         # merge_coordinates
         import numpy as np
@@ -67,8 +68,8 @@ class Test(unittest.TestCase):
         assert np.any(pt.tools.merge_frames(traj()).xyz.flatten() ==
                       pt.get_coordinates(traj()).flatten())
 
-        ## frame_iter: CA atoms
-        #assert np.any(pt.tools.merge_frames(traj(mask='@CA')).xyz.flatten() ==
+        # frame_iter: CA atoms
+        # assert np.any(pt.tools.merge_frames(traj(mask='@CA')).xyz.flatten() ==
         #              pt.get_coordinates(traj(mask='@CA')).flatten())
 
 

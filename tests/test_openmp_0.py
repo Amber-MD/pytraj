@@ -9,6 +9,7 @@ from pytraj.analyses.CpptrajAnalyses import Analysis_Rms2d
 
 
 class Test(unittest.TestCase):
+
     def test_1(self):
         # just need to install libcpptraj with openmp
         # that's it
