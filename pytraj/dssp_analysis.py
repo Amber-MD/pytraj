@@ -45,7 +45,7 @@ def calc_dssp(traj=None,
     >>> import pytraj as pt
     >>> traj = pt.load_pdb_rcsb('1l2y')
     >>> residues, ss, _ = pt.dssp(traj, ":2-10")
-    >>> residues
+    >>> residues # doctest: +SKIP
     array(['LEU:2', 'TYR:3', 'ILE:4', 'GLN:5', 'TRP:6', 'LEU:7', 'LYS:8',
            'ASP:9', 'GLY:10'],
           dtype='<U6')
