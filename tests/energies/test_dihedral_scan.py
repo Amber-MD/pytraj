@@ -25,7 +25,8 @@ try:
 
     arr = np.array(deg_ene).T
 
-    pt.write_traj("test.pdb", flist,
+    pt.write_traj("test.pdb",
+                  flist,
                   top=traj.top,
                   overwrite=True,
                   options='model')

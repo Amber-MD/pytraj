@@ -9,6 +9,7 @@ import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
+
     def test_0(self):
         # TODO: 1D or 2D matrix?
         import numpy as np

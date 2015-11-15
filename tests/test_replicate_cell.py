@@ -5,6 +5,7 @@ from pytraj.utils import eq, aa_eq
 
 
 class TestReplicateCell(unittest.TestCase):
+
     def test_vs_cpptraj(self):
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         txt = '''

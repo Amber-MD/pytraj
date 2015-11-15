@@ -34,7 +34,7 @@ def _worker(rank,
                                         autoimage=autoimage)
     else:
         my_indices = np.array_split(frame_indices, n_cores)[rank]
-        my_iter = traj.iterframe(frame_indices=my_indices, 
+        my_iter = traj.iterframe(frame_indices=my_indices,
                                  mask=mask,
                                  rmsfit=rmsfit,
                                  autoimage=autoimage)
@@ -82,7 +82,7 @@ def _pmap(func, traj, *args, **kwd):
         won't work, use ``ref=traj[3]`` instead.
 
     If using cpptraj syntax::
-        
+
         user need to specify `refindex` whenever use reference. For example, if user wants
         to superpose to first frame and do not specify `refindex 0`, cpptraj will
         superpose a chunk of traj in each core to 1st frame in that chunk, not the first
@@ -94,7 +94,7 @@ def _pmap(func, traj, *args, **kwd):
         pytraj only supports limited cpptraj's Actions (not Analysis, checm Amber15 manual
         about Action and Analysis), say no  to 'matrix', 'atomicfluct', ... or any action
         that results output depending on the number of frames.
-         
+
 
     This method only benifits you if your calculation is quite long (saying few minutes to
     few hours). For calculation that takes less than 1 minutes, you won't see the
@@ -107,7 +107,7 @@ def _pmap(func, traj, *args, **kwd):
     built-in multiprocessing module, so you can use this method interactively in Ipython
     and ipython/jupyter notebook. This behavior is different from using MPI, in which you
     need to write a script, escaping ipython ession and type something like::
-        
+
         mpirun -n 4 python my_script.py
 
     vs::
@@ -124,7 +124,7 @@ def _pmap(func, traj, *args, **kwd):
     When sending Topology to different cores, pytraj will reload Topology from
     traj.top.filename, so if you need to update Topology (in the fly), save it to disk and
     reload before using ``pytraj.pmap``
-    
+
     Examples
     --------
     >>> import numpy as np
@@ -133,7 +133,7 @@ def _pmap(func, traj, *args, **kwd):
 
     >>> # use iter_options
     >>> iter_options = {'autoimage': True, 'rmsfit': (0, '@CA')}
-    >>> data = pt.pmap(pt.mean_structure, traj, iter_options=iter_options) 
+    >>> data = pt.pmap(pt.mean_structure, traj, iter_options=iter_options)
 
     >>> # cpptraj command style
     >>> data = pt.pmap(['distance :3 :7', 'vector mask :3 :12'], traj, n_cores=4)
@@ -213,7 +213,8 @@ def _pmap(func, traj, *args, **kwd):
                                 lines=func,
                                 dtype='dict',
                                 root=0,
-                                mode='multiprocessing', **kwd)
+                                mode='multiprocessing',
+                                **kwd)
         data = concat_dict((x[1] for x in data))
         return data
     else:
@@ -228,7 +229,7 @@ def _pmap(func, traj, *args, **kwd):
             if hasattr(
                     func,
                     '_openmp_capability') and func._openmp_capability and 'OPENMP' in compiled_info(
-                    ):
+            ):
                 raise RuntimeError(
                     "this method supports both openmp and pmap, but your cpptraj "
                     "version was installed with openpm. Should not use both openmp and pmap at the "
@@ -237,8 +238,10 @@ def _pmap(func, traj, *args, **kwd):
         if not isinstance(traj, TrajectoryIterator):
             raise ValueError('only support TrajectoryIterator')
 
-        if 'dtype' not in kwd and func not in [mean_structure, matrix.dist, matrix.idea,
-                ired_vector_and_matrix, rotation_matrix]:
+        if 'dtype' not in kwd and func not in [
+                mean_structure, matrix.dist, matrix.idea,
+                ired_vector_and_matrix, rotation_matrix
+        ]:
             kwd['dtype'] = 'dict'
 
         p = Pool(n_cores)
@@ -260,7 +263,6 @@ def _pmap(func, traj, *args, **kwd):
         elif func in [ired_vector_and_matrix, ]:
             # data is a list of (rank, (vectors, matrix), n_frames)
             mat = np.sum((val[1][1] * val[2] for val in data)) / traj.n_frames
-            #vecs = np.vstack((val[1][0] for val in data))
             vecs = np.column_stack(val[1][0] for val in data)
             return (vecs, mat)
         elif func in [rotation_matrix, ]:
@@ -279,6 +281,7 @@ def _pmap(func, traj, *args, **kwd):
             return frame
         else:
             return concat_dict((x[1] for x in data))
+
 
 def pmap(func=None, traj=None, *args, **kwd):
     if func != NH_order_parameters:

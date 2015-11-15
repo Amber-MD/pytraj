@@ -79,11 +79,13 @@ def assert_equal_topology(top, new_top, traj):
     assert new_top.n_mols == top.n_mols, 'same n_mols'
     # there are inverted bond indices [5292 5291] vs [5291 5292]
     # so use distance to assert
-    aa_eq(pt.distance(traj, new_top.bond_indices),
-          pt.distance(traj, top.bond_indices))
+    aa_eq(
+        pt.distance(traj, new_top.bond_indices),
+        pt.distance(traj, top.bond_indices))
     # same for dihedral_indices
-    aa_eq(pt.dihedral(traj, new_top.dihedral_indices),
-          pt.dihedral(traj, top.dihedral_indices))
+    aa_eq(
+        pt.dihedral(traj, new_top.dihedral_indices),
+        pt.dihedral(traj, top.dihedral_indices))
     aa_eq(new_top.dihedral_indices, top.dihedral_indices)
     aa_eq(new_top.mass, top.mass)
     aa_eq(new_top.charge, top.charge)
@@ -102,7 +104,7 @@ def assert_equal_topology(top, new_top, traj):
 def get_fn(txt):
     '''get absolute path for trajectory and topology samples. Legit text = 'ala3', 'tz2',
     'rna'. Mostly for testing purpose.
-    
+
     Examples
     --------
     >>> # get trajectory file name

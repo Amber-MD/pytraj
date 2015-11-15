@@ -16,6 +16,7 @@ from pytraj.testing import cpptraj_test_dir
 
 
 class TestActionList(unittest.TestCase):
+
     def test_distances(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
 
@@ -38,15 +39,14 @@ class TestActionList(unittest.TestCase):
 
     def test_run_0(self):
         # load traj
-        farray = pt.load(
-            filename="./data/tz2.truncoct.nc",
-            top="./data/tz2.truncoct.parm7")[:2]
+        farray = pt.load(filename="./data/tz2.truncoct.nc",
+                         top="./data/tz2.truncoct.parm7")[:2]
         fold = farray.copy()
 
         act = allactions.Action_Image()
-        ptrajin = """                                                     
+        ptrajin = """
         center :2-11
-        image center familiar com :6                                      
+        image center familiar com :6
         """
 
         # create 'strip' action
@@ -63,9 +63,9 @@ class TestActionList(unittest.TestCase):
 
         # add two actions: Action_Strip and Action_Distance
         alist.add_action(allactions.Action_Center(), ArgList(":2-11"), top=top)
-        alist.add_action(
-            allactions.Action_Image(), ArgList("center familiar com :6"),
-            top=top)
+        alist.add_action(allactions.Action_Image(),
+                         ArgList("center familiar com :6"),
+                         top=top)
 
         #
         assert alist.n_actions == 2
@@ -85,10 +85,8 @@ class TestActionList(unittest.TestCase):
             # we make a copy since we want to keep orginal Frame
             frame0 = frame.copy()
             alist.do_actions(frame0)
-            # alist.do_actions(frame)
 
             # we need to keep the modified frame in farray2
-            # farray2.append(frame)
             farray2.append(frame0)
 
         # make sure that Action_Strip does its job in stripping
@@ -120,16 +118,11 @@ class TestActionList(unittest.TestCase):
         alist.add_action('matrix', "out ./output/_mat_alist.out", traj.top,
                          dslist, dflist)
         # does not work with `strip` (output traj have the same n_atoms as originl traj)
-        #alist.add_action("strip", "!CA", traj.top)
         # turn off for now
         # Error: Could not get associated topology for ./output/test_trajout.nc
-        #alist.add_action("outtraj", "./output/test_trajout.nc", traj.top)
-        #alist.do_actions([traj[[0, 1]], traj, traj.iterchunk(chunksize=4,
+        # alist.do_actions([traj[[0, 1]], traj, traj.iterchunk(chunksize=4,
         #                                                     stop=8),
         #                  traj.iterframe()])
-        #Nframes = 1 + 1 + traj.n_frames + 8 + traj.n_frames
-        #traj2 = pt.iterload("./output/test_trajout.nc", traj.top)
-        #assert traj2.n_frames == Nframes
 
     def test_run_2(self):
         # load traj
@@ -153,9 +146,10 @@ class TestActionList(unittest.TestCase):
         mask_list = ['@CB @CA @N', '@CA @H @N']
 
         for mask in mask_list:
-            actlist.add_action(
-                CA.Action_Angle(), mask, traj.top,
-                dslist=dslist)
+            actlist.add_action(CA.Action_Angle(),
+                               mask,
+                               traj.top,
+                               dslist=dslist)
         actlist.do_actions(traj)
 
         dslist2 = pt.calc_angle(traj, mask_list)
@@ -175,9 +169,10 @@ class TestActionList(unittest.TestCase):
         mask_list = ['@CB @CA @N @H', '@CA @H @N @H=']
 
         for mask in mask_list:
-            actlist.add_action(
-                CA.Action_Dihedral(), mask, traj.top,
-                dslist=dslist)
+            actlist.add_action(CA.Action_Dihedral(),
+                               mask,
+                               traj.top,
+                               dslist=dslist)
         actlist.do_actions(traj)
 
         dslist2 = pt.calc_dihedral(traj, mask_list)
@@ -197,9 +192,10 @@ class TestActionList(unittest.TestCase):
         actlist = ActionList()
 
         for mask in mask_list:
-            actlist.add_action(
-                CA.Action_Distance(), mask, traj.top,
-                dslist=dslist)
+            actlist.add_action(CA.Action_Distance(),
+                               mask,
+                               traj.top,
+                               dslist=dslist)
         actlist.do_actions(traj)
 
         dslist2 = pt.calc_distance(traj, mask_list)
@@ -233,8 +229,11 @@ class TestActionList(unittest.TestCase):
         aa_eq(pt.rmsd(traj, mask='@CA'), dslist[0])
         aa_eq(pt.distance(traj, ':3 :7'), dslist[1])
         aa_eq(pt.distance(traj, ':3 :7'), dslist[2])
-        aa_eq(pt.vector.vector_mask(traj(rmsfit=(0, '@CA')), ':2 :3'),
-              dslist[3].values)
+        aa_eq(
+            pt.vector.vector_mask(
+                traj(rmsfit=(0, '@CA')),
+                ':2 :3'),
+            dslist[3].values)
 
     def test_constructor_from_command_list_Trajectory(self):
         '''mutable Trajectory'''
@@ -269,7 +268,7 @@ class TestActionList(unittest.TestCase):
         aa_eq(pt.rmsd(traj, mask='@C,N,O'), dslist[5])
 
     def test_constructor_from_command_list_TrajectoryIterator_no_DatasetList(
-        self):
+            self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         commands = ['rmsd @CA', 'distance :3 :7', 'distance     :3 :7',
@@ -283,8 +282,11 @@ class TestActionList(unittest.TestCase):
         aa_eq(pt.rmsd(traj, mask='@CA'), actlist.data[0])
         aa_eq(pt.distance(traj, ':3 :7'), actlist.data[1])
         aa_eq(pt.distance(traj, ':3 :7'), actlist.data[2])
-        aa_eq(pt.vector.vector_mask(traj(rmsfit=(0, '@CA')), ':2 :3'),
-              actlist.data[3].values)
+        aa_eq(
+            pt.vector.vector_mask(
+                traj(rmsfit=(0, '@CA')),
+                ':2 :3'),
+            actlist.data[3].values)
 
     def test_modify_frame(self):
         traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
@@ -300,9 +302,10 @@ class TestActionList(unittest.TestCase):
         for frame in traj:
             actlist.do_actions(frame)
 
-        aa_eq(dslist['mycrd'].xyz, pt.get_coordinates(traj,
-                                                      mask='!:WAT',
-                                                      autoimage=True))
+        aa_eq(dslist['mycrd'].xyz,
+              pt.get_coordinates(traj,
+                                 mask='!:WAT',
+                                 autoimage=True))
 
     def test_modify_frame_use_Pipeline(self):
         traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
@@ -318,9 +321,10 @@ class TestActionList(unittest.TestCase):
         for frame in traj:
             actlist.do_actions(frame)
 
-        aa_eq(dslist['mycrd'].xyz, pt.get_coordinates(traj,
-                                                      mask='!:WAT',
-                                                      autoimage=True))
+        aa_eq(dslist['mycrd'].xyz,
+              pt.get_coordinates(traj,
+                                 mask='!:WAT',
+                                 autoimage=True))
 
     def test_combine_with_frame_iterator(self):
         traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
@@ -408,7 +412,8 @@ class TestActionList(unittest.TestCase):
         ref.top = traj.top
         ref.append(traj[3])
 
-        fi = pt.create_pipeline(traj, ['autoimage', 'rms refindex 0 @CA'],
+        fi = pt.create_pipeline(traj,
+                                ['autoimage', 'rms refindex 0 @CA'],
                                 dslist=dslist)
         xyz = np.array([frame.xyz.copy() for frame in fi])
         t0 = traj[:].autoimage().superpose(traj[3], '@CA')

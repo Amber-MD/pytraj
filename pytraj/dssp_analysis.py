@@ -45,9 +45,9 @@ def calc_dssp(traj=None,
     >>> import pytraj as pt
     >>> traj = pt.load_pdb_rcsb('1l2y')
     >>> residues, ss, _ = pt.dssp(traj, ":2-10")
-    >>> residues
+    >>> residues # doctest: +SKIP
     array(['LEU:2', 'TYR:3', 'ILE:4', 'GLN:5', 'TRP:6', 'LEU:7', 'LYS:8',
-           'ASP:9', 'GLY:10'], 
+           'ASP:9', 'GLY:10'],
           dtype='<U6')
     >>> ss # doctest: +SKIP
     array([['0', 'H', 'H', ..., 'H', 'T', '0'],
@@ -112,10 +112,9 @@ def calc_dssp(traj=None,
         arr0 = dslist.grep("integer", mode='dtype').values
         keys = dslist.grep("integer", mode='dtype').keys()
         avg_dict = DatasetList(dslist.grep('_avg'))
-        ss_array = np.asarray(
-            [_to_string_secondary_structure(arr,
-                                            simplified=simplified)
-             for arr in arr0]).T
+        ss_array = np.asarray([_to_string_secondary_structure(
+            arr,
+            simplified=simplified) for arr in arr0]).T
         return np.asarray(keys), ss_array, avg_dict
     else:
         return _get_data_from_dtype(dslist, dtype=dtype)
@@ -154,7 +153,9 @@ def _to_string_secondary_structure(arr0, simplified=False):
     return np.vectorize(lambda key: ssdict[key])(arr0)
 
 
-def _get_ss_per_frame(arr, top, res_indices,
+def _get_ss_per_frame(arr,
+                      top,
+                      res_indices,
                       simplified=False,
                       all_atoms=False):
     if simplified:
@@ -166,15 +167,19 @@ def _get_ss_per_frame(arr, top, res_indices,
         if idx in res_indices:
             ss = arr[res_indices.index(idx)]
             if all_atoms:
-                yield [ss for _ in range(res.first_atom_index, res.last_atom_index)
-                       ]
+                yield [
+                    ss
+                    for _ in range(res.first_atom_index, res.last_atom_index)
+                ]
             else:
                 # only residues
                 yield [ss, ]
         else:
             if all_atoms:
-                yield [symbol
-                       for _ in range(res.first_atom_index, res.last_atom_index)]
+                yield [
+                    symbol
+                    for _ in range(res.first_atom_index, res.last_atom_index)
+                ]
             else:
                 yield [symbol, ]
 
@@ -213,9 +218,11 @@ def dssp_allatoms(traj, *args, **kwd):
 
     simplified = kwd.get('simplified', False)
     for fid, arr in enumerate(data):
-        new_data[fid][:] = tools.flatten(
-            _get_ss_per_frame(arr, top, res_indices, simplified,
-                              all_atoms=True))
+        new_data[fid][:] = tools.flatten(_get_ss_per_frame(arr,
+                                                           top,
+                                                           res_indices,
+                                                           simplified,
+                                                           all_atoms=True))
     return new_data
 
 
@@ -272,7 +279,9 @@ def dssp_allresidues(traj, *args, **kwd):
 
     simplified = kwd.get('simplified', False)
     for fid, arr in enumerate(data):
-        new_data[fid][:] = tools.flatten(
-            _get_ss_per_frame(arr, top, res_indices, simplified,
-                              all_atoms=False))
+        new_data[fid][:] = tools.flatten(_get_ss_per_frame(arr,
+                                                           top,
+                                                           res_indices,
+                                                           simplified,
+                                                           all_atoms=False))
     return new_data

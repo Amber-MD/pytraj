@@ -8,6 +8,7 @@ from pytraj.utils import eq, aa_eq
 
 
 class TestFun(unittest.TestCase):
+
     def test_fun(self):
         '''for anything that does not need serious testing
         '''
@@ -27,6 +28,7 @@ def method(traj):
 
 
 class TestUserFunction(unittest.TestCase):
+
     def test_user_defined_method(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
         for n_cores in [3, 5, 7]:

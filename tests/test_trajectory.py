@@ -7,6 +7,7 @@ import pytraj.common_actions as pyca
 
 
 class TestAutoImageAndRotateDihedral(unittest.TestCase):
+
     def test_autoimage_rotatedihedral(self):
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         farray = traj[:]
@@ -24,11 +25,13 @@ class TestAutoImageAndRotateDihedral(unittest.TestCase):
         pt.rotate_dihedral(farray, '3:phi:120')
         aa_eq(farray.xyz, t0trajectory.xyz)
 
-        aa_eq(pt.calc_phi(t0trajectory, '3').values,
-              [120 for _ in range(t0trajectory.n_frames)])
+        aa_eq(
+            pt.calc_phi(t0trajectory, '3').values,
+            [120 for _ in range(t0trajectory.n_frames)])
 
 
 class TestNoName(unittest.TestCase):
+
     def test_0(self):
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         trajectory_traj = traj[:]
@@ -51,8 +54,8 @@ class TestNoName(unittest.TestCase):
         # make Trajectory from TrajectoryIterator
         fa = traj[:]
         fa.autoimage()
-        saved_traj = pt.iterload(
-            "./data/tz2.autoimage.nc", "./data/tz2.ortho.parm7")
+        saved_traj = pt.iterload("./data/tz2.autoimage.nc",
+                                 "./data/tz2.ortho.parm7")
 
         # make sure to reproduce cpptraj's output too
         aa_eq(saved_traj.xyz, fa.xyz)
@@ -63,6 +66,7 @@ class TestNoName(unittest.TestCase):
 
 
 class TestAppend(unittest.TestCase):
+
     def test_append_trajectory(self):
         # test append
         traj = pt.Trajectory()
@@ -111,6 +115,7 @@ class TestAppend(unittest.TestCase):
 
 
 class TestTrajectory(unittest.TestCase):
+
     def test_raise_construtor(self):
         self.assertRaises(ValueError, lambda: pt.Trajectory(pt.trajectory))
 
@@ -236,10 +241,10 @@ class TestTrajectory(unittest.TestCase):
 
 
 class TestSaveToDisk(unittest.TestCase):
+
     def test_basic_saving(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
-        # Trajectory()
         fa = traj[:]
         fname = "./output/test_savemethod.x"
         fname2 = "./output/test_savemethod_2.x"
@@ -269,6 +274,7 @@ class TestSaveToDisk(unittest.TestCase):
 
 
 class TestSetitem(unittest.TestCase):
+
     def test_setitem(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
@@ -304,7 +310,6 @@ class TestSetitem(unittest.TestCase):
         fa0[0] = xyz[0]  # fa[0] return a Frame
         aa_eq(fa0[0].xyz, xyz[0])
         # try to assign a Frame
-        #print(fa0, fa)
         fa0[0] = fa[0]
         aa_eq(fa0[0].xyz, fa[0].xyz)
 

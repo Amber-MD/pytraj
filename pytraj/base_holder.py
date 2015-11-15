@@ -2,13 +2,14 @@ from pytraj.datasetlist import DatasetList
 
 
 class BaseDataHolder(object):
+
     def __init__(self, dslist=None):
         '''
         >>> holder = BaseDataHolder()
         >>> import pytraj as pt
         >>> traj = pt.load_sample_data('tz2')
         >>> dslist = pt.radgyr(traj, dtype='dataset')
-        >>> holder = BaseDataHolder(dslist) 
+        >>> holder = BaseDataHolder(dslist)
 
         >>> holder.data
         <pytraj.DatasetList with 1 datasets>

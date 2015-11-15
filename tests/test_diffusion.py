@@ -8,6 +8,7 @@ from numpy.testing import assert_equal
 
 
 class TestDiffusion(unittest.TestCase):
+
     def test_diffusion(self):
         traj = pt.iterload('data/tz2.ortho.nc', 'data/tz2.ortho.parm7')
 

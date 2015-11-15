@@ -8,6 +8,7 @@ from pytraj.trajectory_iterator import sort_filename_by_number
 
 
 class TestTrajectoryIterator(unittest.TestCase):
+
     def test_sorting_filelist(self):
         orig_list = ['md10.nc', 'md11.nc', 'md12.nc', 'md4.nc', 'md5.nc',
                      'md100.nc', 'md6.nc', 'md7.nc', 'md8.nc', 'md9.nc']

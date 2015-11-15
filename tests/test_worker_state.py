@@ -21,7 +21,8 @@ class TestWorkerState(unittest.TestCase):
                             (10, 100, 3),
                             (50, 80, 2),
                             (51, 80, 3), ]:
-            traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7",
+            traj = pt.iterload("./data/tz2.nc",
+                               "./data/tz2.parm7",
                                frame_slice=frame_slice)
             saved_angle = pt.angle(traj, ':3 :7 :9')
             saved_dist = pt.distance(traj, ':2 :10')

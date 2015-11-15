@@ -67,7 +67,7 @@ def nastruct(traj=None,
     >>> # numpy array, shape=(n_frames, n_pairs)
 
     >>> data.minor # doctest: +SKIP
-    (['1G16C', '2G15C', '3G14C', '4C13G', '5G12C', '6C11G', '7C10G', '8C9G'], 
+    (['1G16C', '2G15C', '3G14C', '4C13G', '5G12C', '6C11G', '7C10G', '8C9G'],
      array([[ 13.32927036,  13.403409  ,  13.57159901, ...,  13.26655865,
              13.43054485,  13.4557209 ],
            [ 13.32002068,  13.45918751,  13.63253593, ...,  13.27066231,
@@ -76,7 +76,7 @@ def nastruct(traj=None,
              13.38542843,  13.46101475]]))
 
     >>> data.twist # doctest: +SKIP
-    (['1G16C-2G15C', '2G15C-3G14C', '3G14C-4C13G', '4C13G-5G12C', '5G12C-6C11G', '6C11G-7C10G', '7C10G-8C9G'], 
+    (['1G16C-2G15C', '2G15C-3G14C', '3G14C-4C13G', '4C13G-5G12C', '5G12C-6C11G', '6C11G-7C10G', '7C10G-8C9G'],
     array([[ 34.77773666,  33.98158646,  30.18647003, ...,  35.14608765,
              33.9628334 ,  33.13056946],
            [ 33.39176178,  32.68476105,  28.36385536, ...,  36.59774399,
@@ -98,8 +98,8 @@ def nastruct(traj=None,
     _pucker_method = pucker_method
     _groove_3dna = 'groovecalc 3dna' if groove_3dna else ''
 
-    command = " ".join(
-        (_resrange, _resmap, _hbcut, _pucker_method, _groove_3dna))
+    command = " ".join((_resrange, _resmap, _hbcut, _pucker_method,
+                        _groove_3dna))
 
     dslist = CpptrajDatasetList()
 

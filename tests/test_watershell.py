@@ -5,6 +5,7 @@ from pytraj.testing import aa_eq
 
 
 class TestWatershell(unittest.TestCase):
+
     def test_watershell(self):
         traj = pt.iterload("data/tz2.truncoct.nc", "data/tz2.truncoct.parm7")
         state = pt.load_batch(traj, '''

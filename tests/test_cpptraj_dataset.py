@@ -33,6 +33,7 @@ crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
 #@unittest.skipIf('DNO_MATHLIB' in pt.compiled_info(), 'there is no LAPACK')
 @unittest.skip('just skip')
 class TestCpptrajDatasetWithMathLib(unittest.TestCase):
+
     def setUp(self):
         self.state = pt.datafiles.load_cpptraj_state(txt)
         self.state.run()
@@ -67,6 +68,7 @@ class TestCpptrajDatasetWithMathLib(unittest.TestCase):
 
 
 class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
+
     def setUp(self):
         self.traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
 
@@ -106,9 +108,6 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
 
     def test_add_new_for_CpptrajDatasetList(self):
         # TODO:
-        #"MATRIX_DOUBLE" : MATRIX_DBL, 
-        #"MATRIX_FLOAT" : MATRIX_FLT,
-        #"MODES" : MODES,
         dslist = CpptrajDatasetList()
 
         # integer
@@ -149,7 +148,6 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
         dslist[-1].load(self.traj.filename)
         traj_new = dslist[-1]
         # FIXME: segmentation fault
-        # aa_eq(traj_new.xyz, self.traj.xyz)
 
         # CRD
         dslist.add_new(dtype='coords', name='my_crd')
@@ -175,7 +173,6 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
         dslist.add_new(dtype='xymesh', name='my_mesh')
         arr = np.random.rand(8, 2).astype('f8')
         # there is not easy method to update, use _append_from_array
-        # dslist[-1].data = arr
         dslist[-1]._append_from_array(arr)
         aa_eq(dslist[-1].values, arr)
 

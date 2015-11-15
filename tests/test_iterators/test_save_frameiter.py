@@ -10,8 +10,11 @@ class Test(unittest.TestCase):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         traj(0, 8, 2, mask='@CA').save('output/test0.nc', overwrite=True)
-        pt.write_traj('./output/test1.nc', traj(0, 8, 2,
-                                                mask='@CA'),
+        pt.write_traj('./output/test1.nc',
+                      traj(0,
+                           8,
+                           2,
+                           mask='@CA'),
                       overwrite=True)
 
         new_top = traj.top._get_new_from_mask('@CA')

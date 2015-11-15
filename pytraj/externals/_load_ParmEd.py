@@ -19,7 +19,7 @@ def load_ParmEd(parmed_obj, as_traj=False, **kwd):
     >>> import parmed as pmd
     >>> import pytraj as pt
     >>> p = pmd.download_PDB("1l2y")
-    >>> top = pt.load_ParmEd(p, save_and_reload=True) 
+    >>> top = pt.load_ParmEd(p, save_and_reload=True)
     """
     import parmed as pmd
     from parmed.amber import AmberParm

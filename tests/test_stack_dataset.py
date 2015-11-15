@@ -12,6 +12,7 @@ traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
 
 class Test(unittest.TestCase):
+
     def test_0(self):
         import numpy as np
         from pytraj.datasetlist import stack as stack

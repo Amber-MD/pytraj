@@ -5,7 +5,6 @@
 """
 from __future__ import absolute_import
 # don't import _load_HDF5 here to avoid circular importing
-#from ._load_HDF5 import load_hdf5
 from ._pickle import to_pickle, read_pickle
 from ._json import to_json, read_json
 

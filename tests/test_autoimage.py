@@ -8,9 +8,10 @@ from pytraj.tools import rmsd_1darray
 
 
 class TestRegular(unittest.TestCase):
+
     def test_1(self):
-        traj = pt.iterload(
-            "./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
+        traj = pt.iterload("./data/tz2.truncoct.nc",
+                           "./data/tz2.truncoct.parm7")
         f0 = traj[0]
         f0cp = f0.copy()
         adict['autoimage']("", f0, traj.top)
@@ -22,8 +23,8 @@ class TestRegular(unittest.TestCase):
     def test_2(self):
         from pytraj.common_actions import do_autoimage
         # test do_autoimage
-        traj = pt.iterload(
-            "./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
+        traj = pt.iterload("./data/tz2.truncoct.nc",
+                           "./data/tz2.truncoct.parm7")
         f0 = traj[0]
         f0cp = f0.copy()
         do_autoimage(traj=f0, top=traj.top)
@@ -34,8 +35,8 @@ class TestRegular(unittest.TestCase):
 
     def test_4(self):
         # combined with get_coordinates
-        traj0 = pt.iterload(
-            "./data/tz2.truncoct.nc", "./data/tz2.truncoct.parm7")
+        traj0 = pt.iterload("./data/tz2.truncoct.nc",
+                            "./data/tz2.truncoct.parm7")
 
         # test autoimage
         traj1 = traj0[:]
@@ -62,9 +63,8 @@ class TestRegular(unittest.TestCase):
         # reset traj1
         traj1 = traj0[:]
         # get new trajectory from traj0
-        traj2 = pt._load_from_frame_iter(
-            traj0(autoimage=True,
-                  rmsfit=(0, '@CA,C,N')))
+        traj2 = pt._load_from_frame_iter(traj0(autoimage=True,
+                                               rmsfit=(0, '@CA,C,N')))
         traj1.autoimage()
         traj1.rmsfit(ref=0, mask='@CA,C,N')
 
@@ -76,6 +76,7 @@ class TestRegular(unittest.TestCase):
 
 
 class TestWithRmsfit(unittest.TestCase):
+
     def test_0(self):
         # TrajectoryIterrator
         # status: failed
@@ -94,7 +95,6 @@ class TestWithRmsfit(unittest.TestCase):
             pass
 
     def test_1(self):
-        # Trajectory (mutable)
         # status: OK
         from pytraj.compat import zip
         # note: use `load` instead of `iterload`

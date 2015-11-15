@@ -6,6 +6,7 @@ from pytraj._shared_methods import my_str_method
 
 @add_metaclass(ABCMeta)
 class TrajectoryBaseIterator(object):
+
     @abstractmethod
     def __init__(self, filename=None, top=None):
         pass

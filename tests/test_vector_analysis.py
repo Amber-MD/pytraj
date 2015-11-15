@@ -16,6 +16,7 @@ from pytraj.actions import CpptrajActions as CA
 
 
 class TestVectorAnalysisModule(unittest.TestCase):
+
     def test_actionlist(self):
         '''test_actionlist
         '''
@@ -25,9 +26,10 @@ class TestVectorAnalysisModule(unittest.TestCase):
         mask_list = ['@CB @CA', '@CA @H']
 
         for mask in mask_list:
-            actlist.add_action(
-                CA.Action_Vector(), mask, traj.top,
-                dslist=dslist)
+            actlist.add_action(CA.Action_Vector(),
+                               mask,
+                               traj.top,
+                               dslist=dslist)
         actlist.do_actions(traj)
 
         dslist2 = pt.calc_vector(traj, mask_list)

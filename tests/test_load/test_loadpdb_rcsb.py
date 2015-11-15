@@ -9,9 +9,6 @@ class Test(unittest.TestCase):
         traj = mdio.loadpdb_rcsb("2KOC")
         # coords of 1st atom of 1st frame
         # http://www.rcsb.org/pdb/files/2KOC.pdb
-        #print(traj[0, 0])
-        #print(traj.top.atom_names)
-        #print(traj.top.residue_names)
         assert traj.n_frames == 20
         aa_eq(traj[0, 0], [-8.886, -5.163, 9.647])
 

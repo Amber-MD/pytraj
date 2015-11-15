@@ -3,6 +3,7 @@ import os
 import numbers
 from ..externals.six import string_types, zip
 
+
 def eq(arr0, arr1):
     assert arr0 == arr1
 
@@ -122,7 +123,7 @@ def assert_almost_equal(arr0, arr1, decimal=4):
         arr1 = [arr1, ]
 
     almost_equal = True
-    SMALL = 10 ** (-decimal)
+    SMALL = 10**(-decimal)
 
     if hasattr(arr0, 'flatten') and hasattr(arr1, 'flatten'):
         _arr0 = arr0.flatten()
@@ -137,7 +138,7 @@ def assert_almost_equal(arr0, arr1, decimal=4):
             raise ValueError('do not support NAN comparison')
         if abs(x - y) > SMALL:  # pragma: no cover
             almost_equal = False
-    assert almost_equal == True
+    assert almost_equal is True
 
 
 def _import(modname):

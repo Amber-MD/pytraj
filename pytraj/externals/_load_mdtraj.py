@@ -9,7 +9,7 @@ def load_mdtraj(m_traj, autoconvert=False, top=None):
 
     Parameters
     ----------
-    m_traj : Trajectory object from mdtraj 
+    m_traj : Trajectory object from mdtraj
     autoconvert : bool, default=False
         convert from "nm" (mdtraj )to "Angstrom" (pytraj)
     top : pytraj.Topology, default None

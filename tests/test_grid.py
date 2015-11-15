@@ -9,12 +9,13 @@ from pytraj.testing import cpptraj_test_dir
 
 
 class TestGrid(unittest.TestCase):
+
     def test_0(self):
         from pytraj.math import Grid
         import numpy as np
         nx = ny = nz = 3
         g = Grid(nx, ny, nz)
-        assert g.size == nx ** 3
+        assert g.size == nx**3
         assert g.nx == g.ny == g.nz == nx
 
         value = 1000.
@@ -24,6 +25,7 @@ class TestGrid(unittest.TestCase):
 
 
 class TestGridAction(unittest.TestCase):
+
     def test_action_grid(self):
         from pytraj.common_actions import calc_grid
         traj = pt.load_sample_data("tz2")[:]

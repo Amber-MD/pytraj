@@ -14,12 +14,12 @@ ts = pt.iterload('data/md1_prod.Tc5b.x', 'data/Tc5b.top')
 
 # create Trajectory to store Frame
 FARRAY = Trajectory()
-#FARRAY.get_frames(ts, update_top=True)
 FRAMENUM = 999
 FARRAY = ts[:FRAMENUM]
 
 
 class TestTrajectory(unittest.TestCase):
+
     def test_len(self):
         N = 10
         farray = FARRAY[:N].copy()

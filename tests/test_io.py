@@ -13,6 +13,7 @@ except ImportError:
 
 
 class TestIO(unittest.TestCase):
+
     def setUp(self):
         self.traj_tz2_ortho = pt.iterload("data/tz2.ortho.nc",
                                           "data/tz2.ortho.parm7")
@@ -59,13 +60,15 @@ class TestIO(unittest.TestCase):
         assert savedtraj.n_frames == traj.n_frames
 
         # write_xyz
-        pt.write_traj("./output/test_0.nc", traj.xyz,
+        pt.write_traj("./output/test_0.nc",
+                      traj.xyz,
                       top="./data/Tc5b.top",
                       overwrite=True)
         aa_eq(pt.iterload('output/test_0.nc', traj.top).xyz, traj.xyz)
 
         # write single Frame
-        pt.write_traj("./output/test_0.nc", traj[0],
+        pt.write_traj("./output/test_0.nc",
+                      traj[0],
                       top=traj.top,
                       overwrite=True)
         aa_eq(pt.iterload('output/test_0.nc', traj.top).xyz, traj[0].xyz)
@@ -101,14 +104,12 @@ class TestIO(unittest.TestCase):
         top = pt.load_topology("./data/Tc5b.top")
         assert isinstance(top, Topology) == True
 
-        traj = pt.iterload(
-            filename="./data/md1_prod.Tc5b.x",
-            top="./data/Tc5b.top")
+        traj = pt.iterload(filename="./data/md1_prod.Tc5b.x",
+                           top="./data/Tc5b.top")
 
-        is_traj = (
-            isinstance(traj, TrajectoryIterator) or
-            isinstance(traj, Trajectory))
-        assert is_traj == True
+        is_traj = (isinstance(traj, TrajectoryIterator) or
+                   isinstance(traj, Trajectory))
+        assert is_traj
 
     def test_ParmFile(self):
         top = pt.read_parm("./data/Tc5b.top")
@@ -118,13 +119,12 @@ class TestIO(unittest.TestCase):
 
         # test raise if file exists
         self.assertRaises(RuntimeError, lambda: pt.write_parm("./output/test_io.top", top,
-            overwrite=False))
+                                                              overwrite=False))
 
     def test_load_and_save_0(self):
         # need to load to Trajectory to save
-        traj = pt.iterload(
-            filename="./data/md1_prod.Tc5b.x",
-            top="./data/Tc5b.top")[:]
+        traj = pt.iterload(filename="./data/md1_prod.Tc5b.x",
+                           top="./data/Tc5b.top")[:]
 
         indices = list(range(2, 3, 5)) + [3, 7, 9, 8]
         pt.write_traj(filename="./output/test_io_saved_.x",
@@ -134,9 +134,8 @@ class TestIO(unittest.TestCase):
                       overwrite=True)
 
         # check frames
-        traj2 = pt.iterload(
-            filename="./output/test_io_saved_.x",
-            top="./data/Tc5b.top")
+        traj2 = pt.iterload(filename="./output/test_io_saved_.x",
+                            top="./data/Tc5b.top")
 
         # about 50% failures
         assert traj2.n_frames == len(indices)
@@ -147,9 +146,8 @@ class TestIO(unittest.TestCase):
             filename="./data/md1_prod.Tc5b.x",
             top="./data/Tc5b.top", frame_indices=[0, 5]))
 
-        traj = pt.iterload(
-            filename="./data/md1_prod.Tc5b.x",
-            top="./data/Tc5b.top")
+        traj = pt.iterload(filename="./data/md1_prod.Tc5b.x",
+                           top="./data/Tc5b.top")
 
         indices = list(range(2, 4)) + [3, 7, 9, 8]
         pt.write_traj(filename="./output/test_io_saved.pdb",
@@ -159,9 +157,8 @@ class TestIO(unittest.TestCase):
                       overwrite=True)
 
         # check frames
-        traj = pt.iterload(
-            filename="./output/test_io_saved.pdb",
-            top="./data/Tc5b.top")
+        traj = pt.iterload(filename="./output/test_io_saved.pdb",
+                           top="./data/Tc5b.top")
         assert traj.n_frames == len(indices)
         assert traj.top.n_atoms == 304
 
@@ -296,9 +293,11 @@ class TestIO(unittest.TestCase):
         assert top.n_atoms == 451, '2koc'
 
     def test_short_save(self):
-        pt.iterload('data/tz2.nc', 'data/tz2.parm7').save(
-                    'output/mini.nc', overwrite=True)
-        assert pt.iterload('output/mini.nc', 'data/tz2.parm7').n_frames == 101, 'must be 101 frames'
+        pt.iterload('data/tz2.nc', 'data/tz2.parm7').save('output/mini.nc',
+                                                          overwrite=True)
+        assert pt.iterload(
+            'output/mini.nc',
+            'data/tz2.parm7').n_frames == 101, 'must be 101 frames'
 
 
 if __name__ == "__main__":

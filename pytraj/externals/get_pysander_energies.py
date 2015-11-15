@@ -1,5 +1,5 @@
 from pytraj._shared_methods import iterframe_master
-from pytraj._get_common_objects import  _get_data_from_dtype, _super_dispatch
+from pytraj._get_common_objects import _get_data_from_dtype, _super_dispatch
 from pytraj.compat import range
 from pytraj.decorators import _register_pmap
 from pytraj.externals.six import string_types
@@ -15,14 +15,14 @@ def _default_func():
 @_register_pmap
 @_super_dispatch()
 def energy_decomposition(traj=None,
-                          prmtop=None,
-                          igb=8,
-                          mm_options=None,
-                          qm_options=None,
-                          mode=None,
-                          dtype='dict',
-                          frame_indices=None,
-                          top=None):
+                         prmtop=None,
+                         igb=8,
+                         mm_options=None,
+                         qm_options=None,
+                         mode=None,
+                         dtype='dict',
+                         frame_indices=None,
+                         top=None):
     """energy decomposition by calling `libsander`
 
     Parameters
@@ -75,11 +75,11 @@ def energy_decomposition(traj=None,
     >>> import sander
     >>> topfile = os.path.join(amberhome, "test/4096wat/prmtop")
     >>> rstfile = os.path.join(amberhome, "test/4096wat/eq1.x")
-    >>> traj = pt.iterload(rstfile, topfile) 
+    >>> traj = pt.iterload(rstfile, topfile)
     >>> options = sander.pme_input()
     >>> options.cut = 8.0
     >>> edict = pt.energy_decomposition(traj=traj, mm_options=options)
-    >>> edict['vdw'] 
+    >>> edict['vdw']
     array([ 6028.95167558])
 
     >>> # GB + QMMM

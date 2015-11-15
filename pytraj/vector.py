@@ -3,7 +3,8 @@ import numpy as np
 from .decorators import _register_pmap
 
 _supported_types = [
-    x for x in
+    x
+    for x in
     'minimage dipole center corrplane box boxcenter ucellx ucelly ucellz principal'.split(
     )
 ]
@@ -35,7 +36,7 @@ def vector_mask(traj=None,
     frame_indices : array-like or iterable that produces integer number
         frame indices
     dtype : str, default 'ndarray'
-        output dtype 
+        output dtype
     top : Topology, optional, default None
 
     Rerturns

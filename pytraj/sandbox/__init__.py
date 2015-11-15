@@ -158,7 +158,9 @@ def calc_linear_interaction_energy(traj=None,
                                    mask="",
                                    top=None,
                                    dtype='dataset',
-                                   frame_indices=None, *args, **kwd):
+                                   frame_indices=None,
+                                   *args,
+                                   **kwd):
     command = mask
     act = CpptrajActions.Action_LIE()
 
@@ -168,5 +170,3 @@ def calc_linear_interaction_energy(traj=None,
 
 # alias
 calc_LIE = calc_linear_interaction_energy
-
-

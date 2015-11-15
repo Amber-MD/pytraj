@@ -8,6 +8,7 @@ from pytraj.utils import eq, aa_eq
 
 
 class TestNormalDistance(unittest.TestCase):
+
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
@@ -42,7 +43,6 @@ class TestNormalDistance(unittest.TestCase):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         arr = pt.distance(traj(stop=4), [0, 5])
         arr1 = pt.distance(traj(stop=4), [0, 5], n_frames=4)
-        #print(arr, arr1)
         assert np.all(arr == arr1)
 
         arr2 = pt.distance(traj(stop=1000), [0, 5])
@@ -66,8 +66,12 @@ class TestNormalDistance(unittest.TestCase):
                            'data/dry_traj_with_PBC_top/strip.prmtop')
         assert traj.top.has_box(), 'Topology must have box for testing'
 
-        correct_distance_with_image_True = pt.distance(traj, ':8@OP2 :5@N1', image=True)
-        correct_distance_with_image_False = pt.distance(traj, ':8@OP2 :5@N1', image=False)
+        correct_distance_with_image_True = pt.distance(traj,
+                                                       ':8@OP2 :5@N1',
+                                                       image=True)
+        correct_distance_with_image_False = pt.distance(traj,
+                                                        ':8@OP2 :5@N1',
+                                                        image=False)
         state = pt.load_batch(traj, '''
         distance :8@OP2 :5@N1
         ''')
@@ -79,6 +83,7 @@ class TestNormalDistance(unittest.TestCase):
 
 
 class TestPairwiseDistance(unittest.TestCase):
+
     def test_pairwise(self):
         traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
         distances = pt.pairwise_distance(traj, '@CA', '@CB')[0]

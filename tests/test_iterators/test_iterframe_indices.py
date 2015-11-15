@@ -23,7 +23,7 @@ class TestIteraframeIndices(unittest.TestCase):
         # only care about TrajectoryCpptraj since we would get segmentation fault
         # if index is larger than max n_frame
         def iter_(traj=traj):
-            for _ in traj._iterframe_indices([traj.n_frames,]):
+            for _ in traj._iterframe_indices([traj.n_frames, ]):
                 print(_.xyz)
 
         self.assertRaises(AssertionError, lambda: iter_(traj))

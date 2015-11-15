@@ -5,6 +5,7 @@ from pytraj.cyutils import _int_array2d_like_to_memview
 
 
 class Test(unittest.TestCase):
+
     def test_0(self):
         import numpy as np
         from array import array
@@ -53,7 +54,6 @@ class Test(unittest.TestCase):
         # range
         arr = _int_array1d_like_to_memview(range(100))
         assert (list(arr)) == list(range(100))
-        #print(list(arr))
 
 
 if __name__ == "__main__":

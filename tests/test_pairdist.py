@@ -8,6 +8,7 @@ import numpy as np
 
 
 class TestPairDist(unittest.TestCase):
+
     def test_general(self):
         traj = pt.iterload("./data/tz2.crd", "./data/tz2.parm7")
 

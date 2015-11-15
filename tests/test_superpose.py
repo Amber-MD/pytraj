@@ -6,6 +6,7 @@ from pytraj.testing import aa_eq
 
 
 class TestBasic(unittest.TestCase):
+
     def test_frame_fit(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         f0 = traj[0]
@@ -23,8 +24,8 @@ class TestBasic(unittest.TestCase):
         # expect reference `f0` xyz are not changed
         aa_eq(arr0, f0[0])
 
-        trajsaved = pt.iterload(
-            "./data/fit_to_1stframe.Tc5b.x", "./data/Tc5b.top")
+        trajsaved = pt.iterload("./data/fit_to_1stframe.Tc5b.x",
+                                "./data/Tc5b.top")
         f1saved = trajsaved[1]
 
         # make sure we reproduce cpptraj output
@@ -63,8 +64,8 @@ class TestBasic(unittest.TestCase):
 
         # load frames to immutable traj
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        trajsaved = pt.iterload(
-            "./data/fit_to_1stframe.Tc5b.x", "./data/Tc5b.top")
+        trajsaved = pt.iterload("./data/fit_to_1stframe.Tc5b.x",
+                                "./data/Tc5b.top")
 
         for _f1 in trajsaved:
             pass

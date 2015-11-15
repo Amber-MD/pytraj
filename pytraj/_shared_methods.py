@@ -12,17 +12,14 @@ def _savetraj(self,
               filename="",
               format='unknown',
               overwrite=False,
-              *args, **kwd):
-    if format == 'unknown':
-        # convert to "UNKNOWN_TRAJ"
-        format = format.upper() + "_TRAJ"
-    else:
-        format = format.upper()
-
+              *args,
+              **kwd):
     with Trajout(filename=filename,
                  top=self.top,
                  format=format,
-                 overwrite=overwrite, *args, **kwd) as trajout:
+                 overwrite=overwrite,
+                 *args,
+                 **kwd) as trajout:
         for idx, frame in enumerate(self):
             trajout.write(idx, frame, self.top)
 
@@ -51,8 +48,8 @@ def _xyz(self):
 def my_str_method(self):
     name = "pytraj." + self.__class__.__name__
     top_str = self.top.__str__()
-    estimated_size = '\nSize: %3.6f (GB)\n' % (
-        self.n_frames * self.n_atoms * 3 * 8 / (1024 ** 3))
+    estimated_size = '\nSize: %3.6f (GB)\n' % (self.n_frames * self.n_atoms *
+                                               3 * 8 / (1024**3))
     tmps = """{0}, {1} frames: {2}{3}
            """.format(name, self.n_frames, estimated_size, top_str)
     return tmps
@@ -82,8 +79,8 @@ def iterframe_master(obj):
     >>> for frame in iterframe_master([traj.iterframe(), traj.iterchunk()]): pass
     """
 
-    is_frame_iter_but_not_master = (
-        is_frame_iter(obj) and obj.__name__ is not 'iterframe_master')
+    is_frame_iter_but_not_master = (is_frame_iter(obj) and
+                                    obj.__name__ is not 'iterframe_master')
     if isinstance(obj, Frame):
         yield obj
     elif isinstance(obj, FrameIterator):
@@ -99,9 +96,8 @@ def iterframe_master(obj):
             for traj_obj in obj:
                 if isinstance(traj_obj, Frame):
                     yield traj_obj
-                elif hasattr(
-                        traj_obj,
-                        '__name__') and 'iterchunk' in traj_obj.__name__:
+                elif hasattr(traj_obj,
+                             '__name__') and 'iterchunk' in traj_obj.__name__:
                     # list of list of Frames
                     for _traj in traj_obj:
                         for frame in _traj:
@@ -109,8 +105,8 @@ def iterframe_master(obj):
                 else:
                     for frame in traj_obj:
                         yield frame
-        except:
-            raise ValueError("can not convert to Frame")
+        except TypeError:
+            raise TypeError("can not convert to Frame")
 
 
 def _box(self):

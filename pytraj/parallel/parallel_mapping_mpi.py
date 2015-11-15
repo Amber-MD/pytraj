@@ -22,11 +22,11 @@ def pmap_mpi(func, traj, *args, **kwd):
         from pytraj.parallel import pmap_mpi
         from mpi4py import MPI
         comm = MPI.COMM_WORLD
-        
+
         traj = pt.iterload('tz2.nc', 'tz2.parm7')
-        
+
         result_arr = pmap_mpi(pt.radgyr, traj, "@CA")
-        
+
         if comm.rank == 0:
             # save data to disk to read later by pytraj.read_pickle
             # pt.to_pickle(result_arr, 'output.pk')
@@ -34,7 +34,7 @@ def pmap_mpi(func, traj, *args, **kwd):
         EOF
 
         $ # run in parallel
-        $ mpirun -n 4 python ./test_radgyr.py  
+        $ mpirun -n 4 python ./test_radgyr.py
         [array([ 8.10916061,  7.7643485 ,  8.09693108, ...,  9.70825678,
                 9.3161563 ,  8.86720964]), array([ 8.82037273,  8.89008289,  9.48540176, ...,  9.29585981,
                 9.53138062,  9.19155977]), array([ 9.13735723,  8.94651001,  8.97810478, ...,  7.68751186,
@@ -47,7 +47,7 @@ def pmap_mpi(func, traj, *args, **kwd):
     rank = comm.rank
 
     if not isinstance(func, (list, tuple)):
-        # split traj to ``n_cores`` chunks, perform calculation 
+        # split traj to ``n_cores`` chunks, perform calculation
         # for rank-th chunk
         if 'dtype' not in kwd:
             kwd['dtype'] = 'dict'
@@ -71,7 +71,8 @@ def pmap_mpi(func, traj, *args, **kwd):
                                  lines=func,
                                  dtype='dict',
                                  root=0,
-                                 mode='mpi', **kwd)
+                                 mode='mpi',
+                                 **kwd)
         if rank == 0:
             # otherwise, total=None
             total = concat_dict((x[1] for x in total))

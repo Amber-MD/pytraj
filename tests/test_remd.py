@@ -6,6 +6,7 @@ from pytraj.utils import eq, aa_eq
 
 
 class TestREMDTemperature(unittest.TestCase):
+
     def setUp(self):
         self.trajin_text = '''
         parm  data/Test_RemdTraj/ala2.99sb.mbondi2.parm7

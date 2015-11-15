@@ -54,7 +54,7 @@ def load(filename, top=None, frame_indices=None, mask=None):
         only load frames with given number given in frame_indices
     mask : {str, None}, default None
         if None: load coordinates for all atoms
-        if string, load coordinates for given atom mask 
+        if string, load coordinates for given atom mask
 
     Returns
     -------
@@ -134,7 +134,7 @@ def iterload(*args, **kwd):
         specify start, stop, step for each trajectory you want to read.
 
         cpptraj input::
-            
+
             trajin traj0.nc 1 10
             trajin traj1.nc
 
@@ -184,7 +184,8 @@ def iterload(*args, **kwd):
     return load_traj(*args, **kwd)
 
 
-def _load_netcdf(filename, top,
+def _load_netcdf(filename,
+                 top,
                  frame_indices=None,
                  engine='scipy'):  # pragma: no cover
     '''simply read all data to memory. Use this if you want to load data few times
@@ -265,7 +266,7 @@ def _load_from_frame_iter(iterable, top=None):
 
 def iterload_remd(filename, top=None, T="300.0"):
     """Load temperature remd trajectory for single temperature.
-    Example: Suppose you have replica trajectoris remd.x.00{1-4}. 
+    Example: Suppose you have replica trajectoris remd.x.00{1-4}.
     You want to load and extract only frames at 300 K, use this method
 
     Parameters
@@ -330,7 +331,7 @@ def write_traj(filename="",
         If not None, only write output for given frame indices
     overwrite: bool, default: False
     options : str, additional keywords for extention='.pdb'. See examples.
-        
+
     Notes
     -----
     ===================  =========
@@ -394,8 +395,7 @@ def write_traj(filename="",
                     if isinstance(traj, (list, tuple, Frame)):
                         raise NotImplementedError(
                             "must be Trajectory or TrajectoryIterator instance")
-                    for idx, frame in enumerate(traj.iterframe(
-                        frame_indices=frame_indices)):
+                    for idx, frame in enumerate(traj.iterframe(frame_indices=frame_indices)):
                         trajout.write(idx, frame)
 
                 else:
@@ -407,8 +407,8 @@ def write_traj(filename="",
         xyz = np.asarray(traj)
         if not xyz.flags.c_contiguous:
             xyz = np.ascontiguousarray(xyz)
-        _frame_indices = range(
-            xyz.shape[0]) if frame_indices is None else frame_indices
+        _frame_indices = range(xyz.shape[
+            0]) if frame_indices is None else frame_indices
         fi = iterframe_from_array(xyz, _top.n_atoms, _frame_indices, _top)
 
         with Trajout(filename=filename,
@@ -422,7 +422,8 @@ def write_traj(filename="",
 
 def write_parm(filename=None, top=None, format='amberparm', overwrite=False):
     if os.path.exists(filename) and not overwrite:
-        raise RuntimeError('{0} exists, must set overwrite=True'.format(filename))
+        raise RuntimeError('{0} exists, must set overwrite=True'.format(
+            filename))
     parm = ParmFile()
     parm.writeparm(filename=filename, top=top, format=format)
 
@@ -550,6 +551,7 @@ load_frame = load_single_frame
 # creat alias
 save_traj = write_traj
 
+
 def save(filename, obj, *args, **kwd):
     '''an universal method
 
@@ -604,13 +606,13 @@ def get_coordinates(iterable,
 
     Parameters
     ----------
-    iterable : could be anything that produces Frame when iterating 
+    iterable : could be anything that produces Frame when iterating
                (Trajectory, TrajectoryIterator, FrameIterator, Python's generator, ...)
 
     Notes
     -----
     - if using both ``autoimage`` and ``rmsfit``, autoimage will be always processed before doing rmsfit.
-    - You will get faster speed if ``iterable`` has attribute ``n_frames`` 
+    - You will get faster speed if ``iterable`` has attribute ``n_frames``
 
     Examples
     --------
@@ -684,6 +686,6 @@ def get_coordinates(iterable,
         return arr
     else:
         # slower
-        return np.array([frame.xyz.copy()
-                         for frame in iterframe_master(iterable)],
-                        dtype='f8')
+        return np.array(
+            [frame.xyz.copy() for frame in iterframe_master(iterable)],
+            dtype='f8')

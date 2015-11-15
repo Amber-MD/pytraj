@@ -8,6 +8,7 @@ from pytraj.utils import goto_temp_folder
 
 
 class TestWriteTraj(unittest.TestCase):
+
     def setUp(self):
         self.traj = pt.load_sample_data('tz2')
 
@@ -54,7 +55,8 @@ class TestWriteTraj(unittest.TestCase):
         aa_eq(traj4.xyz, traj.xyz)
 
         # dcd ext
-        pt.tools.split_and_write_traj(traj, 4,
+        pt.tools.split_and_write_traj(traj,
+                                      4,
                                       root_name='./output/ts',
                                       ext='dcd')
         flist = sorted(glob("./output/ts.*.dcd"))

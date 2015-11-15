@@ -5,6 +5,7 @@ from pytraj.utils import eq, aa_eq
 
 
 class TestCenter(unittest.TestCase):
+
     def test_center(self):
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         saved_traj = pt.load("./data/tz2.center_mass.nc", traj.top)

@@ -7,6 +7,7 @@ from pytraj.utils import eq, aa_eq
 
 
 class TestNativeContacts(unittest.TestCase):
+
     def test_nativecontacts(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 

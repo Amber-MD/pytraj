@@ -7,6 +7,7 @@ from pytraj.utils import eq, aa_eq
 
 
 class TestMultiVector(unittest.TestCase):
+
     def test_multivector(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
         state = pt.load_batch(traj, '''
@@ -15,9 +16,24 @@ class TestMultiVector(unittest.TestCase):
         state.run()
         cpp_data = state.data[1:].values
 
-        aa_eq(pt.multivector(traj, resrange='3-7', names=('C', 'N'), dtype='ndarray'), cpp_data)
-        aa_eq(pt.multivector(traj, resrange='3-7', names='C N', dtype='ndarray'), cpp_data)
-        aa_eq(pt.multivector(traj, resrange='3-7', names='name1 C name2 N', dtype='ndarray'), cpp_data)
+        aa_eq(
+            pt.multivector(traj,
+                           resrange='3-7',
+                           names=('C', 'N'),
+                           dtype='ndarray'),
+            cpp_data)
+        aa_eq(
+            pt.multivector(traj,
+                           resrange='3-7',
+                           names='C N',
+                           dtype='ndarray'),
+            cpp_data)
+        aa_eq(
+            pt.multivector(traj,
+                           resrange='3-7',
+                           names='name1 C name2 N',
+                           dtype='ndarray'),
+            cpp_data)
 
 
 if __name__ == "__main__":

@@ -11,13 +11,13 @@ from pytraj import mean_structure
 
 
 class TestAverageFrame(unittest.TestCase):
+
     def test_comprehensive(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         # make sure we DO reproducing cpptraj output
         f_saved = pt.iterload("./data/avg.Tc5b.pdb", traj.top)[0]
 
         # shorter
-        #frame2 = mean_structure("", traj, traj.top)
         frame2 = mean_structure(traj)
         aa_eq(frame2.xyz, f_saved.xyz, decimal=3)
 
@@ -29,8 +29,8 @@ class TestAverageFrame(unittest.TestCase):
 
         # test iter
         frame5 = mean_structure(traj=traj(1, 8, 2), top=traj.top)
-        f5_saved = pt.iterload(
-            "./data/avg.Tc5b.frame_2_to_8_skip_2.pdb", traj.top)[0]
+        f5_saved = pt.iterload("./data/avg.Tc5b.frame_2_to_8_skip_2.pdb",
+                               traj.top)[0]
         aa_eq(frame5.xyz, f5_saved.xyz, decimal=3)
 
         # test iter CA
@@ -41,9 +41,8 @@ class TestAverageFrame(unittest.TestCase):
         aa_eq(frame5.xyz, frame6.xyz, decimal=3)
 
         xyz_0 = pt.get_coordinates(traj(1, 8, 2))
-        xyz_1 = np.array(
-            [frame.xyz.copy()
-             for frame in traj.iterframe(frame_indices=range(1, 8, 2))])
+        xyz_1 = np.array([frame.xyz.copy(
+        ) for frame in traj.iterframe(frame_indices=range(1, 8, 2))])
         aa_eq(xyz_0, xyz_1, decimal=3)
 
         # test as traj

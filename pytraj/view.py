@@ -18,7 +18,9 @@ def to_chemview(traj):
     top['secondary_structure'] = pt.dssp_allresidues(traj[:1],
                                                      simplified=True)[0]
     top['residue_types'] = [r.name for r in traj.topology.residues]
-    top['residue_indices'] = [list(range(r.first_atom_index, r.last_atom_index))
-                              for r in traj.topology.residues]
+    top['residue_indices'] = [
+        list(range(r.first_atom_index, r.last_atom_index))
+        for r in traj.topology.residues
+    ]
 
     return top

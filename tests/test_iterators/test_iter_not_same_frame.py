@@ -10,15 +10,21 @@ class Test(unittest.TestCase):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         # TrajectoryIterator
-        aa_eq(pt.molsurf([f.copy() for f in traj],
-                         top=traj.top), pt.molsurf(traj))
+        aa_eq(
+            pt.molsurf([f.copy() for f in traj],
+                       top=traj.top),
+            pt.molsurf(traj))
 
         # frame_iter
-        aa_eq(pt.molsurf([f.copy() for f in traj()],
-                         top=traj.top), pt.molsurf(traj))
+        aa_eq(
+            pt.molsurf([f.copy() for f in traj()],
+                       top=traj.top),
+            pt.molsurf(traj))
 
-        aa_eq(pt.molsurf([f.copy() for f in traj.iterchunk(3)],
-                         top=traj.top), pt.molsurf(traj))
+        aa_eq(
+            pt.molsurf([f.copy() for f in traj.iterchunk(3)],
+                       top=traj.top),
+            pt.molsurf(traj))
 
 
 if __name__ == "__main__":

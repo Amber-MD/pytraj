@@ -7,6 +7,7 @@ from pytraj.testing import aa_eq
 
 
 class TestNastruct(unittest.TestCase):
+
     def test_nupars(self):
         fn = "./data/Test_NAstruct/adh026.3.pdb"
         traj = pt.iterload(fn, fn)
@@ -23,8 +24,8 @@ class TestNastruct(unittest.TestCase):
         state.run()
 
         for key in ['major', 'minor', 'twist']:
-            cpp_data = np.array([x.values for x in state.data
-                                 if x.aspect == key])
+            cpp_data = np.array([x.values for x in state.data if x.aspect ==
+                                 key])
             # need to transpose to get shape=(n_frames, n_pairs)
             cpp_data = cpp_data.T
             aa_eq(data[key][1], cpp_data)

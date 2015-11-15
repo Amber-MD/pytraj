@@ -52,6 +52,7 @@ else:
     else:
         # It's possible to have sizeof(long) != sizeof(Py_ssize_t).
         class X(object):
+
             def __len__(self):
                 return 1 << 31
 
@@ -78,6 +79,7 @@ def _import_module(name):
 
 
 class _LazyDescr(object):
+
     def __init__(self, name):
         self.name = name
 
@@ -90,6 +92,7 @@ class _LazyDescr(object):
 
 
 class MovedModule(_LazyDescr):
+
     def __init__(self, name, old, new=None):
         super(MovedModule, self).__init__(name)
         if PY3:
@@ -104,6 +107,7 @@ class MovedModule(_LazyDescr):
 
 
 class MovedAttribute(_LazyDescr):
+
     def __init__(self, name, old_mod, new_mod, old_attr=None, new_attr=None):
         super(MovedAttribute, self).__init__(name)
         if PY3:
@@ -139,7 +143,7 @@ _moved_attributes = [
     MovedAttribute("input", "__builtin__", "builtins", "raw_input", "input"),
     MovedAttribute("map", "itertools", "builtins", "imap", "map"),
     MovedAttribute("range", "__builtin__", "builtins", "xrange", "range"),
-    #MovedAttribute("reload_module", "__builtin__", "imp", "reload"),
+    # MovedAttribute("reload_module", "__builtin__", "imp", "reload"),
     MovedAttribute("reduce", "__builtin__", "functools"),
     MovedAttribute("StringIO", "StringIO", "io"),
     MovedAttribute("UserString", "UserString", "collections"),
@@ -433,6 +437,7 @@ else:
         return types.MethodType(func, obj, obj.__class__)
 
     class Iterator(object):
+
         def next(self):
             return type(self).__next__(self)
 

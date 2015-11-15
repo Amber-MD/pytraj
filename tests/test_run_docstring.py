@@ -17,6 +17,7 @@ def silly_doc_func():
 
 
 class Test(unittest.TestCase):
+
     def test_0(self):
         from pytraj._shared_methods import iterframe_master as fi
         from pytraj import matrix as ma

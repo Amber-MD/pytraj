@@ -8,6 +8,7 @@ from pytraj.common_actions import _projection
 
 class TestDihedralCovarianceMatrix(unittest.TestCase):
     # TODO: add assertion
+
     def test_dihcovar(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
         txt = '''
@@ -32,7 +33,6 @@ class TestDihedralCovarianceMatrix(unittest.TestCase):
 
         modes = state.data['DIHMODES']
         # need to provide all dihedrals too?
-        # data = _projection(traj, '* beg 1 end 4', (modes.eigenvalues, modes.eigenvectors), scalar_type='covar')
 
 
 if __name__ == "__main__":

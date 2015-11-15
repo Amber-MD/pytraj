@@ -17,7 +17,8 @@ def _2darray_to_atommask_groups(seq):
         yield '@' + str(arr[0] + 1) + ' @' + str(arr[1] + 1)
 
 
-def _ired(iredvec, modes,
+def _ired(iredvec,
+          modes,
           NHbond=True,
           relax_freq=None,
           NHdist=1.02,
@@ -60,8 +61,8 @@ def _ired(iredvec, modes,
     _drct = 'drct' if drct else ''
     _modes = 'modes mymodes'
     if NHbond:
-        command = ' '.join(
-            (_freq, _NHdist, _modes, _order, _tstep, _tcorr, _norm, _drct))
+        command = ' '.join((_freq, _NHdist, _modes, _order, _tstep, _tcorr,
+                            _norm, _drct))
     else:
         command = ' '.join((_modes, _order, _tstep, _tcorr, _norm, _drct))
     act = CpptrajAnalyses.Analysis_IRED()
@@ -87,11 +88,11 @@ def _ired(iredvec, modes,
     act(command, dslist=dslist)
     # remove input datasets to free memory
     # all DatasetVectors + 1 DatasetModes
-    #for d in dslist[:idx+2]:
+    # for d in dslist[:idx+2]:
     #    dslist.remove_set(d)
-    #values = dslist.values.copy()
-    #return values
-    #return _get_data_from_dtype(dslist, dtype=dtype)
+    # values = dslist.values.copy()
+    # return values
+    # return _get_data_from_dtype(dslist, dtype=dtype)
     return dslist
 
 
@@ -110,7 +111,7 @@ def ired_vector_and_matrix(traj=None,
     mask : str or a list of strings
     frame_indices : array-like, optional, default None
         only perform calculation for given frame indices
-    order : default 2 
+    order : default 2
     dtype : output's dtype, {'dataset', 'tuple'} default 'dataset'
     top : Topology, optional, default None
 
@@ -174,7 +175,8 @@ calc_ired_vector_and_matrix = ired_vector_and_matrix
 
 
 @_register_pmap
-def NH_order_parameters(traj, vector_pairs,
+def NH_order_parameters(traj,
+                        vector_pairs,
                         order=2,
                         tstep=1.,
                         tcorr=10000.,
@@ -206,13 +208,16 @@ def NH_order_parameters(traj, vector_pairs,
 
     # compute N-H vectors and ired matrix
     if n_cores == 1:
-        vecs_and_mat = ired_vector_and_matrix(traj, vector_pairs,
+        vecs_and_mat = ired_vector_and_matrix(traj,
+                                              vector_pairs,
                                               order=order,
                                               dtype='tuple')
     else:
         # use _pmap to avoid cicular import
         from pytraj import _pmap
-        vecs_and_mat = _pmap(ired_vector_and_matrix, traj, vector_pairs,
+        vecs_and_mat = _pmap(ired_vector_and_matrix,
+                             traj,
+                             vector_pairs,
                              order=order,
                              dtype='tuple',
                              n_cores=n_cores)

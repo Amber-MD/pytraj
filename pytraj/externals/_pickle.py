@@ -53,6 +53,7 @@ def read_pickle(path):
         # GH 6899
         with open(path, 'rb') as fh:
             return pkl.load(fh)
+
     try:
         return try_read(path)
     except:

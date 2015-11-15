@@ -61,7 +61,7 @@ def %s(traj=None, mask="", top=None, dtype='ndarray', mat_type='full', frame_ind
 
     dslist = CpptrajDatasetList()
     template_mask = '%s '
-    template_mask += mask 
+    template_mask += mask
 
     act = CpptrajActions.Action_Matrix()
     act(template_mask, traj, top=top, dslist=dslist)
@@ -122,9 +122,10 @@ def diagonalize(mat, n_vecs, dtype='dataset'):
     if isinstance(mat, np.ndarray):
         indices = np.triu_indices(mat.shape[0])
         arr = mat[indices]
-        dslist[0]._set_data_half_matrix(arr.astype('f8'),
-                                        vsize=len(arr),
-                                        n_cols=mat.shape[0])
+        dslist[0]._set_data_half_matrix(
+            arr.astype('f8'),
+            vsize=len(arr),
+            n_cols=mat.shape[0])
     elif isinstance(mat, cpp_datasets.DatasetMatrixDouble):
         if mat.kind != 'half':
             raise ValueError('DatasetMatrixDouble must be half matrix')

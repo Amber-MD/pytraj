@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 from pytraj.frame import Frame
 
+
 class FrameIterator(object):
     """
     create this class to hold all iterating information. This class is for internal use.
@@ -18,7 +19,7 @@ class FrameIterator(object):
         if autoimage, perform autoimage
     rmsfit : int or a tuple, default False
         if rmsfit, perform rms fit to reference. If ``rmsfit`` is an integer, perform
-        rms fit to indicated frame for all atoms. If ``rmsfit`` is a tuple, perform rmsfit 
+        rms fit to indicated frame for all atoms. If ``rmsfit`` is a tuple, perform rmsfit
         to given frame with given mask. if both ``autoimage`` and ``rmsfit`` are specified,
         do ``autoimage`` first.
     n_frames : total number of frame. read-only
@@ -89,7 +90,8 @@ class FrameIterator(object):
             18.9430491 ,  18.88878079])
     """
 
-    def __init__(self, fi_generator,
+    def __init__(self,
+                 fi_generator,
                  original_top=None,
                  new_top=None,
                  start=0,
@@ -164,7 +166,9 @@ class FrameIterator(object):
                    top=self.top,
                    frame_indices=None,
                    overwrite=overwrite,
-                   options=options, *args, **kwd)
+                   options=options,
+                   *args,
+                   **kwd)
 
     def __iter__(self):
         from pytraj.actions import CpptrajActions
@@ -197,7 +201,7 @@ class FrameIterator(object):
         for frame0 in self.frame_iter:
             if self.copy:
                 # use copy for TrajectoryIterator
-                # so [f for f in traj()] will return a list of different 
+                # so [f for f in traj()] will return a list of different
                 # frames
                 frame = frame0.copy()
             else:

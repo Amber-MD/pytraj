@@ -6,6 +6,7 @@ from pytraj.utils import eq, aa_eq
 
 
 class TestMolsurf(unittest.TestCase):
+
     def test_molsurf(self):
         traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
 

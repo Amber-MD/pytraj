@@ -11,7 +11,6 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         f0 = Frame()
         f0.append_xyz(traj[0]._buffer2d)
-        #print(f0.size)
 
 
 if __name__ == "__main__":

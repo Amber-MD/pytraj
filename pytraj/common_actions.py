@@ -2,12 +2,6 @@ from __future__ import absolute_import
 import os
 import numpy as np
 
-from pytraj.action_dict import ActionDict
-adict = ActionDict()
-
-from pytraj.analysis_dict import AnalysisDict
-analdict = AnalysisDict()
-
 from pytraj.trajectory import Trajectory
 from pytraj.trajectory_iterator import TrajectoryIterator
 from ._get_common_objects import _get_topology, _get_data_from_dtype, _get_list_of_commands
@@ -51,25 +45,21 @@ list_of_cal = ['calc_distance',
                'calc_pairwise_rmsd',
                'calc_density',
                'calc_grid',
-               'calc_temperatures',
-               ]
+               'calc_temperatures', ]
 
-list_of_do = ['do_translation',
-              'do_rotation',
-              'do_autoimage',
-              ]
+list_of_do = ['do_translation', 'do_rotation', 'do_autoimage', ]
 
 list_of_get = ['get_average_frame']
 
-list_of_the_rest = ['align_principal_axis', 'principal_axes',
-                    'closest', 'native_contacts']
+list_of_the_rest = ['align_principal_axis', 'principal_axes', 'closest',
+                    'native_contacts']
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
 
 def _2darray_to_atommask_groups(seq):
     '''
-    
+
     >>> list(_2darray_to_atommask_groups([[0, 3], [4, 7]]))
     ['@1 @4', '@5 @8']
     '''
@@ -133,7 +123,7 @@ def calc_distance(traj=None,
     >>> dist = pt.distance(traj, ':1 :10')
 
     >>> # calculate multiple distances between two residues, using amber mask
-    >>> # distance between residue 1 and 10, distance between residue 3 and 20 
+    >>> # distance between residue 1 and 10, distance between residue 3 and 20
     >>> # (when using atom string mask, index starts from 1)
     >>> dist = pt.distance(traj, [':1 :10', ':3 :20'])
 
@@ -191,9 +181,10 @@ def calc_distance(traj=None,
         for cm in list_of_commands:
             if not image:
                 cm = ' '.join((cm, _noimage))
-            actlist.add_action(
-                CpptrajActions.Action_Distance(), cm, _top,
-                dslist=dslist)
+            actlist.add_action(CpptrajActions.Action_Distance(),
+                               cm,
+                               _top,
+                               dslist=dslist)
 
         actlist.do_actions(traj)
         return _get_data_from_dtype(dslist, dtype)
@@ -249,7 +240,8 @@ def calc_pairwise_distance(traj=None,
                         frame_indices=frame_indices)
     mat = mat.T
     return (mat.reshape(mat.shape[0], len(indices_1), len(indices_2)),
-            arr.reshape(len(indices_1), len(indices_2), 2))
+            arr.reshape(
+                len(indices_1), len(indices_2), 2))
 
 
 @_register_pmap
@@ -257,7 +249,9 @@ def calc_angle(traj=None,
                mask="",
                top=None,
                dtype='ndarray',
-               frame_indices=None, *args, **kwd):
+               frame_indices=None,
+               *args,
+               **kwd):
     """calculate angle between two maskes
 
     Parameters
@@ -325,9 +319,12 @@ def calc_angle(traj=None,
             actlist = ActionList()
 
             for cm in list_of_commands:
-                actlist.add_action(
-                    CpptrajActions.Action_Angle(), cm, _top,
-                    dslist=dslist, *args, **kwd)
+                actlist.add_action(CpptrajActions.Action_Angle(),
+                                   cm,
+                                   _top,
+                                   dslist=dslist,
+                                   *args,
+                                   **kwd)
             actlist.do_actions(traj)
             return _get_data_from_dtype(dslist, dtype)
 
@@ -392,7 +389,9 @@ def calc_dihedral(traj=None,
                   mask="",
                   top=None,
                   dtype='ndarray',
-                  frame_indices=None, *args, **kwd):
+                  frame_indices=None,
+                  *args,
+                  **kwd):
     """calculate dihedral angle between two maskes
 
     Parameters
@@ -465,9 +464,12 @@ def calc_dihedral(traj=None,
             actlist = ActionList()
 
             for cm in list_of_commands:
-                actlist.add_action(
-                    Action_Dihedral(), cm, _top,
-                    dslist=dslist, *args, **kwd)
+                actlist.add_action(Action_Dihedral(),
+                                   cm,
+                                   _top,
+                                   dslist=dslist,
+                                   *args,
+                                   **kwd)
             actlist.do_actions(traj)
             return _get_data_from_dtype(dslist, dtype)
     else:
@@ -566,7 +568,7 @@ def calc_diffusion(traj,
     label = 'df'
     command = ' '.join((mask, label, _tsep, _individual))
 
-    # normally we just need 
+    # normally we just need
     # act(command, traj, top=_top, dslist=dslist)
     # but cpptraj need correct frame idx
 
@@ -586,7 +588,6 @@ def calc_diffusion(traj,
 
 @_register_pmap
 @_register_openmp
-#@_super_dispatch()
 def calc_watershell(traj=None,
                     solute_mask='',
                     solvent_mask=':WAT',
@@ -676,7 +677,9 @@ def calc_radgyr(traj=None,
                 top=None,
                 nomax=True,
                 frame_indices=None,
-                dtype='ndarray', *args, **kwd):
+                dtype='ndarray',
+                *args,
+                **kwd):
     '''calc radgyr
 
     Examples
@@ -768,7 +771,10 @@ def calc_rotation_matrix(traj=None,
 
 
 @_super_dispatch()
-def calc_volume(traj=None, mask="", top=None, dtype='ndarray',
+def calc_volume(traj=None,
+                mask="",
+                top=None,
+                dtype='ndarray',
                 frame_indices=None):
     '''calculate volume
 
@@ -826,7 +832,7 @@ def calc_multivector(traj,
         else:
             name1, name2 = '', ''
         _names = ' '.join(('name1', name1, 'name2', name2))
-    command = ' '.join((_resrange, _names)) 
+    command = ' '.join((_resrange, _names))
 
     dslist = CpptrajDatasetList()
     act(command, traj, top=top, dslist=dslist)
@@ -845,7 +851,7 @@ def calc_volmap(traj,
                 dtype='ndarray',
                 frame_indices=None):
     '''(cpptraj doc) Grid data as a volumetric map, similar to the
-    volmap command in VMD. The density is calculated by treating each atom as a 
+    volmap command in VMD. The density is calculated by treating each atom as a
     3-dimensional Gaussian function whose standard deviation is equal to the van der Waals radius
 
     Parameters
@@ -944,7 +950,7 @@ def calc_rdf(traj=None,
     >>> # use array-like mask
     >>> atom_indices = pt.select(':WAT@O', traj.top)
     >>> data = pt.rdf(traj, solvent_mask=':WAT@O', bin_spacing=0.5, maximum=10.0, solute_mask=atom_indices)
-    
+
     Notes
     -----
     - install ``pytraj`` and ``libcpptraj`` with openmp to speed up calculation
@@ -975,9 +981,9 @@ def calc_rdf(traj=None,
     # order does matters
     # the order between _solventmask and _solutemask is swapped compared
     # to cpptraj's doc (to get correct result)
-    command = ' '.join(("pytraj_tmp_output.agr", _spacing, _maximum,
-                        _solutemask, _solventmask, _noimage, _density,
-                        _center1, _center2, _nointramol))
+    command = ' '.join(
+        ("pytraj_tmp_output.agr", _spacing, _maximum, _solutemask,
+         _solventmask, _noimage, _density, _center1, _center2, _nointramol))
 
     dslist = CpptrajDatasetList()
     act(command, traj, top=_top, dslist=dslist)
@@ -991,7 +997,12 @@ def calc_rdf(traj=None,
 
 
 @_super_dispatch()
-def calc_pairdist(traj, mask="*", delta=0.1, dtype='ndarray', top=None, frame_indices=None):
+def calc_pairdist(traj,
+                  mask="*",
+                  delta=0.1,
+                  dtype='ndarray',
+                  top=None,
+                  frame_indices=None):
     '''compute pair distribution function
 
     Parameters
@@ -1030,7 +1041,7 @@ def calc_jcoupling(traj=None,
                    mask="",
                    top=None,
                    kfile=None,
-                   dtype='dataset', 
+                   dtype='dataset',
                    frame_indices=None):
     """
     Parameters
@@ -1182,7 +1193,7 @@ def mean_structure(traj,
     Examples
     --------
     >>> import pytraj as pt
-    >>> traj = pt.datafiles.load_tz2_ortho() 
+    >>> traj = pt.datafiles.load_tz2_ortho()
     >>> # get average structure from whole traj, all atoms
     >>> frame = pt.mean_structure(traj)
 
@@ -1227,7 +1238,8 @@ def mean_structure(traj,
         return frame
     elif restype.lower() == 'traj':
         new_top = _top if mask is '' else _top[mask]
-        return Trajectory(xyz=frame.xyz.reshape(1, frame.n_atoms, 3).copy(), top=new_top)
+        return Trajectory(xyz=frame.xyz.reshape(1, frame.n_atoms, 3).copy(),
+                          top=new_top)
 
 
 get_average_frame = mean_structure
@@ -1270,9 +1282,8 @@ def get_velocity(traj, mask=None, frame_indices=None):
     for idx, frame in enumerate(fi):
         if not frame.has_velocity():
             raise ValueError('frame does not have velocity')
-        data[idx
-             ] = frame.velocity if mask is None else frame.velocity[atm_indices
-                                                                    ]
+        data[idx] = frame.velocity if mask is None else frame.velocity[
+            atm_indices]
     return data
 
 
@@ -1306,7 +1317,7 @@ def clustering_dataset(array_like, command=''):
     Examples
     --------
     >>> import pytraj as pt
-    >>> import numpy as np 
+    >>> import numpy as np
     >>> array_like = np.random.randint(0, 10, 1000)
     >>> data = pt.clustering_dataset(array_like, 'clusters 10 epsilon 3.0')
     '''
@@ -1487,7 +1498,7 @@ def calc_vector(traj=None,
     Parameters
     ----------
     traj : Trajectory-like or iterable that produces :class:`pytraj.Frame`
-    command : str or a list of strings, cpptraj command 
+    command : str or a list of strings, cpptraj command
     frame_indices : array-like, optional, default None
         only perform calculation for given frame indices
     dtype : output's dtype, default 'ndarray'
@@ -1582,7 +1593,10 @@ calc_COM = calc_center_of_mass
 
 @_register_pmap
 @_super_dispatch()
-def calc_center_of_geometry(traj=None, mask="", top=None, dtype='ndarray',
+def calc_center_of_geometry(traj=None,
+                            mask="",
+                            top=None,
+                            dtype='ndarray',
                             frame_indices=None):
 
     atom_mask_obj = top(mask)
@@ -1613,9 +1627,9 @@ def calc_pairwise_rmsd(traj=None,
     mask : mask
         if mask is "", use all atoms
     metric : {'rms', 'dme', 'srmsd', 'nofit'}
-        if 'rms', perform rms fit 
+        if 'rms', perform rms fit
         if 'dme', use distance RMSD
-        if 'srmsd', use symmetry-corrected RMSD 
+        if 'srmsd', use symmetry-corrected RMSD
         if 'nofit', perform rmsd without fitting
     top : Topology, optional, default=None
     dtype: ndarray
@@ -1693,7 +1707,9 @@ def calc_pairwise_rmsd(traj=None,
 def calc_density(traj=None,
                  command="",
                  top=None,
-                 dtype='ndarray', *args, **kwd):
+                 dtype='ndarray',
+                 *args,
+                 **kwd):
     # NOTE: trick cpptraj to write to file first and the reload
 
     with goto_temp_folder():
@@ -1751,7 +1767,7 @@ def rmsd_perres(traj=None,
                 frame_indices=None,
                 top=None,
                 dtype='dataset'):
-    """superpose ``traj`` to ``ref`` with `mask`, then calculate nofit rms for residues 
+    """superpose ``traj`` to ``ref`` with `mask`, then calculate nofit rms for residues
     in `resrange` with given `perresmask`
 
     Returns
@@ -1761,19 +1777,13 @@ def rmsd_perres(traj=None,
         out[1:]: perres rmsd for all given residues
         `out.values` will return corresponding numpy array
     """
-    if resrange is not None:
-        if isinstance(resrange, string_types):
-            _range = 'range %s ' % resrange
-        else:
-            raise ValueError("range must be a string")
-    else:
-        _range = ''
+    _range = 'range %s ' % resrange
     _perresmask = 'perresmask ' + perres_mask if perres_mask is not None else ''
     _perrestcenter = 'perrescenter' if perres_center else ''
     _perrestinvert = 'perresinvert' if perres_invert else ''
 
-    cm = " ".join(
-        (mask, 'perres', _range, _perresmask, _perrestcenter, _perrestinvert))
+    cm = " ".join((mask, 'perres', _range, _perresmask, _perrestcenter,
+                   _perrestinvert))
     return calc_rmsd(traj=traj,
                      ref=ref,
                      mask=cm,
@@ -1890,7 +1900,8 @@ def calc_rmsd(traj=None,
             if dtype not in ['dataset', 'cpptraj_dataset']:
                 raise ValueError('if savematrices, dtype must be "dataset"')
             _cm = 'RMDSset ' + _cm
-        alist.add_action(CpptrajActions.Action_Rmsd(), _cm,
+        alist.add_action(CpptrajActions.Action_Rmsd(),
+                         _cm,
                          top=_top,
                          dslist=dslist)
 
@@ -1919,7 +1930,7 @@ def calc_distance_rmsd(traj=None,
     Parameters
     ----------
     traj : Trajectory-like or iterator that produces Frame
-    ref : {int, Frame}, default 0 (1st Frame) 
+    ref : {int, Frame}, default 0 (1st Frame)
     mask : str
     top : Topology or str, optional, default None
     dtype : return dtype, default 'ndarray'
@@ -2040,7 +2051,7 @@ def closest(traj=None,
     --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()
-    >>> # obtain new traj, keeping only closest 100 waters 
+    >>> # obtain new traj, keeping only closest 100 waters
     >>> # to residues 1 to 13 (index starts from 1) by distance to the first atom of water
     >>> t = pt.closest(traj, mask='@CA', n_solvents=10)
     """
@@ -2069,6 +2080,7 @@ def closest(traj=None,
     fiter = _closest_iter(act, traj)
 
     return (fiter, new_top.copy())
+
 
 @_register_pmap
 @_super_dispatch(has_ref=True)
@@ -2154,7 +2166,8 @@ def check_structure(traj=None, command="", top=None, *args, **kwd):
     act(command, traj, top=_top, *args, **kwd)
 
 
-def timecorr(vec0, vec1,
+def timecorr(vec0,
+             vec1,
              order=2,
              tstep=1.,
              tcorr=10000.,
@@ -2171,7 +2184,7 @@ def timecorr(vec0, vec1,
     tcorr : float, default 10000.
     norm : bool, default False
     """
-    act = analdict['timecorr']
+    act = CpptrajAnalyses.Analysis_Timecorr()
 
     cdslist = CpptrajDatasetList()
 
@@ -2184,8 +2197,8 @@ def timecorr(vec0, vec1,
     _tstep = "tstep " + str(tstep)
     _tcorr = "tcorr " + str(tcorr)
     _norm = "norm" if norm else ""
-    command = " ".join(
-        ('vec1 _vec0 vec2 _vec1', _order, _tstep, _tcorr, _norm))
+    command = " ".join(('vec1 _vec0 vec2 _vec1', _order, _tstep, _tcorr, _norm
+                        ))
     act(command, dslist=cdslist)
     return _get_data_from_dtype(cdslist[2:], dtype=dtype)
 
@@ -2232,7 +2245,7 @@ def cross_correlation_function(data0, data1, dtype='ndarray'):
     cdslist[0].data = np.asarray(data0)
     cdslist[1].data = np.asarray(data1)
 
-    act = analdict['corr']
+    act = CpptrajAnalyses.Analysis_Corr()
     act("d0 d1 out _tmp.out", dslist=cdslist)
     return _get_data_from_dtype(cdslist[2:], dtype=dtype)
 
@@ -2251,7 +2264,7 @@ def auto_correlation_function(data, dtype='ndarray', covar=True):
 
     cdslist[0].data = np.asarray(data)
 
-    act = analdict['autocorr']
+    act = CpptrajAnalyses.Analysis_AutoCorr()
     command = "d0 out _tmp.out" + _nocovar
     act(command, dslist=cdslist)
     return _get_data_from_dtype(cdslist[1:], dtype=dtype)
@@ -2341,7 +2354,9 @@ def pucker(traj=None,
            method='altona',
            use_com=True,
            amplitude=True,
-           offset=None, *args, **kwd):
+           offset=None,
+           *args,
+           **kwd):
     """Note: not validate yet
 
     """
@@ -2361,14 +2376,19 @@ def pucker(traj=None,
         act = CpptrajActions.Action_Pucker()
         command = " ".join((":" + str(res + 1) + '@' + x for x in pucker_mask))
         name = "pucker_res" + str(res + 1)
-        command = " ".join(
-            (name, command, _range360, method, geom, amp, _offset))
+        command = " ".join((name, command, _range360, method, geom, amp,
+                            _offset))
         act(command, traj, top=_top, dslist=cdslist, *args, **kwd)
     return _get_data_from_dtype(cdslist, dtype)
 
 
 @_super_dispatch()
-def center(traj=None, mask="", center='box', mass=False, top=None, frame_indices=None):
+def center(traj=None,
+           mask="",
+           center='box',
+           mass=False,
+           top=None,
+           frame_indices=None):
     """center
 
     Parameters
@@ -2389,7 +2409,7 @@ def center(traj=None, mask="", center='box', mass=False, top=None, frame_indices
     >>> # all atoms, center to box center (x/2, y/2, z/2)
     >>> traj = pt.center(traj)
 
-    >>> # center at origin, use @CA 
+    >>> # center at origin, use @CA
     >>> traj = pt.center(traj, '@CA', center='origin')
 
     >>> # center to box center, use mass weighted
@@ -2554,7 +2574,7 @@ def _analyze_modes(data,
 
     Parameters
     ----------
-    data : 
+    data :
     mode : str, {'fluct', 'displ', 'corr', 'eigenval', 'trajout', 'rmsip'}
         - fluct:    RMS fluctations from normal modes
         - displ:    Displacement of cartesian coordinates along normal mode directions
@@ -2565,14 +2585,17 @@ def _analyze_modes(data,
     beg : int
     end : int
     bose : bool, optional
-    factor : optional 
+    factor : optional
     maskp : a string or list of strings, optional
     trajout : output filename, optional
     '''
     pass
 
 
-def _projection(traj, mask, modes, scalar_type,
+def _projection(traj,
+                mask,
+                modes,
+                scalar_type,
                 frame_indices=None,
                 dtype='dataset',
                 top=None):
@@ -2613,7 +2636,7 @@ def calc_atomiccorr(traj,
     mask : atom mask
     cut : {None, float}, default None
         if not None, only print correlations with absolute value greater than cut
-    min_spacing : {None, float}, default None 
+    min_spacing : {None, float}, default None
         if not None, only calculate correlations for motion vectors spaced min_spacing apart
     byres : bool, default False
         if False, compute atomic motion vetor
@@ -2695,7 +2718,9 @@ def _rotdif(arr,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def _grid(traj, mask, grid_spacing,
+def _grid(traj,
+          mask,
+          grid_spacing,
           offset=1,
           frame_indices=None,
           dtype='ndarray',
@@ -2723,8 +2748,8 @@ def _grid(traj, mask, grid_spacing,
     _dy = 'dy ' + str(dy) if dy > 0. else ''
     _dz = 'dz ' + str(dz) if dz > 0. else ''
     _offset = 'offset ' + str(offset)
-    command = ' '.join(
-        (mask, 'out tmp_bounds.dat', _dx, _dy, _dz, 'name grid_', _offset))
+    command = ' '.join((mask, 'out tmp_bounds.dat', _dx, _dy, _dz,
+                        'name grid_', _offset))
 
     with goto_temp_folder():
         act(command, fi, top=_top, dslist=dslist)

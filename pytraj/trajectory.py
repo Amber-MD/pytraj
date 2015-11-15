@@ -21,6 +21,7 @@ __all__ = ['Trajectory']
 
 
 class Trajectory(object):
+
     def __init__(self, filename=None, top=None, xyz=None):
         """very simple  in-memory Trajectory. It has only information about 3D coordinates
         and unitcells (no time, no velocity, no mass, not force, ...)
@@ -82,8 +83,7 @@ class Trajectory(object):
                     raise ValueError("must have a non-empty Topology")
                 else:
                     assert self.top.n_atoms == xyz.shape[
-                        1
-                    ], "must have the same n_atoms"
+                        1], "must have the same n_atoms"
                 self._xyz = np.asarray(xyz)
             else:
                 self._xyz = None
@@ -97,8 +97,7 @@ class Trajectory(object):
 
         if hasattr(self._xyz, 'shape'):
             assert self.top.n_atoms == self._xyz.shape[
-                1
-            ], "must have the same n_atoms"
+                1], "must have the same n_atoms"
 
         if hasattr(filename, 'unitcells'):
             self._boxes = filename.unitcells
@@ -147,7 +146,7 @@ class Trajectory(object):
         --------
         >>> import pytraj as pt
         >>> traj = pt.datafiles.load_tz2_ortho()[:]
-        >>> traj = traj.reverse() 
+        >>> traj = traj.reverse()
         '''
         self._xyz = self._xyz[::-1]
         if self._boxes is not None:
@@ -773,7 +772,7 @@ class Trajectory(object):
 
         Parameters
         ----------
-        ref : {Frame object, int, str}, default=None 
+        ref : {Frame object, int, str}, default=None
             Reference
         mask : str or AtomMask object, default='*' (fit all atoms)
         frame_indices : array-like, default None, optional
@@ -813,7 +812,8 @@ class Trajectory(object):
         for idx, frame in enumerate(fi):
             if mass:
                 frame.set_mass(self.top)
-            _, mat, v1, v2 = frame.rmsd(ref_frame, atm,
+            _, mat, v1, v2 = frame.rmsd(ref_frame,
+                                        atm,
                                         get_mvv=True,
                                         mass=mass)
             frame._trans_rot_trans(v1, mat, v2)
@@ -836,7 +836,7 @@ class Trajectory(object):
         >>> traj = pt.load_sample_data()[:]
         >>> traj.n_atoms
         34
-        >>> t0 = traj.strip('!@CA') # keep only CA atoms 
+        >>> t0 = traj.strip('!@CA') # keep only CA atoms
         >>> isinstance(t0, pt.Trajectory)
         True
         >>> t0.n_atoms
@@ -855,7 +855,9 @@ class Trajectory(object):
     def save(self,
              filename="",
              format='unknown',
-             overwrite=True, *args, **kwd):
+             overwrite=True,
+             *args,
+             **kwd):
         _savetraj(self, filename, format, overwrite, *args, **kwd)
 
     def iterframe(self,
@@ -949,11 +951,11 @@ class Trajectory(object):
     def _estimated_GB(self):
         """esimated GB of data will be loaded to memory
         >>> import pytraj as pt
-        >>> traj = pt.load_sample_data('tz2')[:] 
+        >>> traj = pt.load_sample_data('tz2')[:]
         >>> traj._estimated_GB
         0.0011830776929855347
         """
-        return self.n_frames * self.n_atoms * 3 * 8 / (1024 ** 3)
+        return self.n_frames * self.n_atoms * 3 * 8 / (1024**3)
 
     @classmethod
     def from_iterable(cls, iterables, top=None):

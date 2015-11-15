@@ -5,6 +5,7 @@ from pytraj.testing import aa_eq, cpptraj_test_dir
 
 
 class Test(unittest.TestCase):
+
     def test_0(self):
         kfile = os.path.abspath(os.path.join(cpptraj_test_dir,
                                              "Test_Jcoupling", "Karplus.txt"))

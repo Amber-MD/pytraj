@@ -1,10 +1,10 @@
 from pytraj.math import Vec3
-#from pytraj import DistRoutines as dist
 import numpy as np
 import unittest
 
 
 class Test(unittest.TestCase):
+
     def test_0(self):
         v1 = Vec3(0., 0., 0.)
         v1[0] = 200.

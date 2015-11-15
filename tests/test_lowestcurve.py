@@ -52,12 +52,13 @@ saved_data = '''
    8.548       0.0000
    8.748      13.2340'''
 
-saved_data = np.array([[x for x in line.split()]
-                       for line in saved_data.split('\n') if line],
-                      dtype='f4').T
+saved_data = np.array(
+    [[x for x in line.split()] for line in saved_data.split('\n') if line],
+    dtype='f4').T
 
 
 class TestLowestCurve(unittest.TestCase):
+
     def test_lowestcurve_low_level(self):
         data = np.loadtxt('data/esurf_vs_rmsd.dat').T
         lc_data = pt.lowestcurve(data, points=10, step=0.2)

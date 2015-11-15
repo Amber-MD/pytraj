@@ -80,6 +80,7 @@ def _make_frame_slices(n_files, original_frame_slice):
 
 
 class TrajectoryIterator(TrajectoryCpptraj):
+
     def __init__(self, filename=None, top=None, *args, **kwd):
         '''out-of-core trajectory holder.
 
@@ -197,7 +198,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
             super(TrajectoryIterator, self).load(filename, _top, frame_slice)
             self.frame_slice_list.append(frame_slice)
         elif isinstance(filename,
-                            string_types) and not os.path.exists(filename):
+                        string_types) and not os.path.exists(filename):
             flist = sort_filename_by_number(glob(filename))
             if not flist:
                 raise ValueError(
@@ -210,16 +211,16 @@ class TrajectoryIterator(TrajectoryCpptraj):
 
             for fname, fslice in zip(filename_list, full_frame_slice):
                 self.frame_slice_list.append(frame_slice)
-                super(TrajectoryIterator, self).load(
-                    fname, _top,
-                    frame_slice=fslice)
+                super(TrajectoryIterator, self).load(fname,
+                                                     _top,
+                                                     frame_slice=fslice)
         else:
             raise ValueError("filename must a string or a list of string")
 
     @property
     def topology(self):
         """traditional name for Topology file
-        
+
         Examples
         --------
         >>> import pytraj as pt
@@ -242,7 +243,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
     def _estimated_GB(self):
         """esimated GB of data will be loaded to memory
         """
-        return self.n_frames * self.n_atoms * 3 * 8 / (1024 ** 3)
+        return self.n_frames * self.n_atoms * 3 * 8 / (1024**3)
 
     @property
     def xyz(self):
@@ -318,8 +319,8 @@ class TrajectoryIterator(TrajectoryCpptraj):
             elif stop < 0:
                 stop = get_positive_idx(stop, self.n_frames)
             n_frames = len(range(start, stop, step))
-            frame_iter_super = super(
-                TrajectoryIterator, self).iterframe(start, stop, step)
+            frame_iter_super = super(TrajectoryIterator,
+                                     self).iterframe(start, stop, step)
         else:
             stop = None
             start = None

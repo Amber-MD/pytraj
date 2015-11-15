@@ -8,6 +8,7 @@ from pytraj.compat import zip
 
 
 class TestBox(unittest.TestCase):
+
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
@@ -44,14 +45,16 @@ class TestBox(unittest.TestCase):
     def test_real_box(self):
         traj = pt.load("./data/tz2.ortho.nc", "data/tz2.ortho.parm7")
         trajiter = pt.iterload("./data/tz2.ortho.nc", "data/tz2.ortho.parm7")
-        saved_box = Box(
-            [3.94559740E+01, 4.68215170E+01, 4.04695410E+01, 90., 90., 90.])
+        saved_box = Box([3.94559740E+01, 4.68215170E+01, 4.04695410E+01, 90.,
+                         90., 90.])
         aa_eq(traj.top.box.values, saved_box.values)
         for frame in traj:
             assert frame.box.type == 'ortho'
-            aa_eq(frame.box.values, [
-                35.2627796623, 41.8455476799, 36.168629529, 90.0, 90.0, 90.0
-            ],
+            aa_eq(frame.box.values,
+                  [
+                      35.2627796623, 41.8455476799, 36.168629529, 90.0, 90.0,
+                      90.0
+                  ],
                   decimal=1)
 
         arr0 = traj.unitcells
@@ -60,7 +63,6 @@ class TestBox(unittest.TestCase):
         for b0, b1, frame in zip(arr0, arr1, trajiter):
             box = frame.box
             # FIXME:
-            # b2 = frame.box.to_ndarray() # got wrong box in python2 (ok with
             # python3)
             b2 = box.values
             aa_eq(b0, b1)

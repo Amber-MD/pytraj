@@ -7,6 +7,7 @@ from pytraj.utils import eq, aa_eq
 
 
 class TestIterFrame(unittest.TestCase):
+
     def test_iterframe(self):
         '''test iterframe for both Trajectory and TrajectoryIterator
         '''
@@ -20,8 +21,11 @@ class TestIterFrame(unittest.TestCase):
 
             # rmsfit is an int
             t0 = orig_traj[:].rmsfit(3)
-            aa_eq(pt.rmsd_nofit(traj(rmsfit=3), orig_traj[-1]),
-                  pt.rmsd_nofit(t0, orig_traj[-1]))
+            aa_eq(
+                pt.rmsd_nofit(
+                    traj(rmsfit=3),
+                    orig_traj[-1]),
+                pt.rmsd_nofit(t0, orig_traj[-1]))
 
         # test TypeError if not has n_frames info
         t0 = orig_traj[:]

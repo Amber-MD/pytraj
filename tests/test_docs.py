@@ -10,6 +10,7 @@ from pytraj import testing
 from pytraj.datafiles import load_samples
 from pytraj import nucleic_acid_analysis
 from pytraj.externals import get_pysander_energies
+from pytraj import datafiles
 
 try:
     import sander
@@ -34,17 +35,13 @@ class TestDoc(unittest.TestCase):
         from pytraj import trajectory_iterator
         from pytraj.utils import check_and_assert
 
-        modules = [
-            convert,
-            frameiter,
-            vector,
-            trajectory_iterator,
-        ]
+        modules = [convert, frameiter, vector, trajectory_iterator, ]
         if PY3:
             # avoid adding 'u' to string in PY2: u'GLU5_O-LYS8_N-H'
             if has_sander:
                 modules.append(get_pysander_energies)
             additional_list = [
+                datafiles,
                 pt.common_actions,
                 pt.topology,
                 pt._get_common_objects,

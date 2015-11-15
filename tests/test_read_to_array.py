@@ -18,10 +18,11 @@ expected_result = np.array("""
   0.559558 -0.377967  0.545248 -0.362708  0.050194  0.158582 -0.604041  0.163106
   0.900514 -0.776397 -0.774453  0.205434
 """.split(),
-                           dtype='f8')
+    dtype='f8')
 
 
 class Test(unittest.TestCase):
+
     def test_0(self):
         arr = pt.tools.read_to_array("./data/floBF-resp.chg")
         assert arr.shape == (84, )
