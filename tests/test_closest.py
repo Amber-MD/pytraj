@@ -30,10 +30,20 @@ class TestClosest(unittest.TestCase):
         # test write to disk
         fi, top = pt.closest(traj)
 
-        pt.write_traj('output/fi.nc', fi, top=top)
+        pt.write_traj('output/fi.nc', fi, top=top, overwrite=True)
         # load back
         t1 = pt.load('output/fi.nc', top=top)
         aa_eq(t0.xyz, t1.xyz)
+
+        # make sure n_sovent=10 (default)
+        n_solvents = 0
+        for mol in top.mols:
+            if mol.is_solvent():
+                n_solvents += 1
+        assert n_solvents == 10, 'must be 10 solvents'
+
+        fi, top = pt.closest(traj)
+        pt.write_traj('output/test.pdb', next(fi), top=top, overwrite=True)
 
 if __name__ == "__main__":
     unittest.main()
