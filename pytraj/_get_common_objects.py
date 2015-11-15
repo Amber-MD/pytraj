@@ -16,9 +16,28 @@ def _load_Topology(filename):
 
 
 def _get_topology(traj, top):
+    '''
+
+    >>> import pytraj as pt
+    >>> from pytraj import Topology
+    >>> traj = pt.datafiles.load_rna()
+    >>> top_filename = traj.top.filename
+    >>> isinstance(_get_topology(traj, None), Topology)
+    True
+    >>> isinstance(_get_topology(traj, top_filename), Topology)
+    True
+    >>> top = traj.top
+    >>> isinstance(_get_topology(traj, top), Topology)
+    True
+    >>> # find Topology in a list
+    >>> isinstance(_get_topology([traj, traj], None), Topology)
+    True
+    '''
     if isinstance(top, string_types):
+        # if provide a filename, load to Topology
         _top = _load_Topology(top)
     elif top is None:
+        # if user does not provide Topology, try to find it in traj
         if hasattr(traj, 'top'):
             _top = traj.top
         else:
@@ -94,8 +113,11 @@ def _get_matrix_from_dataset(dset, mat_type='full'):
     --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()
-    >>> full = pt.matrix.dist(traj, '@CA', mat_type='full')
-    >>> half = pt.matrix.dist(traj, '@CA', mat_type='half')
+    >>> dset = pt.matrix.dist(traj, '@CA', dtype='cpptraj_dataset')[0]
+    >>> _get_matrix_from_dataset(dset, mat_type='full').shape
+    (12, 12)
+    >>> _get_matrix_from_dataset(dset, mat_type='half').shape
+    (78,)
     '''
     # dset in DatasetMatrixDouble object
     if mat_type == 'full':

@@ -88,25 +88,36 @@ def load_cpptraj_output(txt, dtype=None):
     return out
 
 
-def load_cpptraj_state(txt):
+def load_cpptraj_state(txt, traj=None):
     """load text to CpptrajState
 
     Examples
     --------
+    >>> # load from string
     >>> import pytraj as pt
     >>> state  = pt.datafiles.load_cpptraj_state('''
-                               parm 2koc.parm7
-                               trajin md.nc
-                               autoimage
-                               center origin
-                               rms
-    '''
-    state.run()
-    print(state.data)
+    ...                        parm data/tz2.ortho.parm7
+    ...                        trajin data/tz2.ortho.nc
+    ...                        autoimage
+    ...                        center origin
+    ...                        rms''')
+    >>> state.run()
+    CpptrajState, include:
+    <datasetlist: 2 datasets>
+
+    >>> # load from string with given TrajectoryIterator
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> state  = pt.datafiles.load_cpptraj_state('''
+    ...                        autoimage
+    ...                        center origin
+    ...                        rms''', traj=traj)
+    >>> state.run()
+    CpptrajState, include:
+    <datasetlist: 2 datasets>
     """
     if os.path.exists(txt):
         # txt is a file
         return load_cpptraj_file(txt)
     else:
         from pytraj.core.cpp_core import _load_batch
-        return _load_batch(txt, traj=None)
+        return _load_batch(txt, traj=traj)
