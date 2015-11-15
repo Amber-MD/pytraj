@@ -196,7 +196,6 @@ rdf = calc_rdf
 pairdist = calc_pairdist
 multivector = calc_multivector
 atomiccorr = calc_atomiccorr
-#pairdist = calc_pairdist
 molsurf = calc_molsurf
 center_of_mass = calc_center_of_mass
 center_of_geometry = calc_center_of_geometry
