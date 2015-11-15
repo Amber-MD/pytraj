@@ -2004,6 +2004,7 @@ def principal_axes(traj=None, mask='*', dorotation=False, mass=True, top=None):
 
 def _closest_iter(act, traj):
     '''
+
     Parameters
     ----------
     act : Action object
@@ -2012,7 +2013,6 @@ def _closest_iter(act, traj):
 
     for frame in iterframe_master(traj):
         new_frame = act.do_action(frame, get_new_frame=True)
-        #yield new_frame.copy()
         yield new_frame
 
 
@@ -2022,7 +2022,6 @@ def closest(traj=None,
             mask='*',
             solvent_mask=None,
             n_solvents=10,
-            restype='trajectory',
             frame_indices=None,
             top=None):
     """return either a new Trajectory or a frame iterator. Keep only ``n_solvents`` closest to mask
@@ -2031,11 +2030,6 @@ def closest(traj=None,
     ----------
     traj : Trajectory-like | list of Trajectory-like/frames | frame iterator | chunk iterator
     mask: str, default '*' (all solute atoms)
-    restype : str, {'trajectory', 'dataset', 'iterator'}, default 'trajectory'
-        if restype == 'trajectory', return a new ``pytraj.Trajectory``
-        if restype == 'dataset': return a tuple (new_traj, datasetlist)
-        if restype == 'iterator': return a tuple of (Frame iterator, new Topology),  good for memory saving
-        if restype == 'all': return (Trajectory, DatasetList)
     top : Topology-like object, default=None, optional
 
     Returns
@@ -2049,27 +2043,11 @@ def closest(traj=None,
     >>> # obtain new traj, keeping only closest 100 waters 
     >>> # to residues 1 to 13 (index starts from 1) by distance to the first atom of water
     >>> t = pt.closest(traj, mask='@CA', n_solvents=10)
-
-    >>> # only get meta data for frames, solvent without getting new Trajectory
-    >>> # (such as Frame number, original solvent molecule number, ...) (from cpptraj manual)
-    >>> dslist = pt.closest(traj, n_solvents=100, mask=':1-13', restype='dataset')
-
-    >>> # getting a frame iterator for lazy evaluation
-    >>> fiter = pt.closest(traj, n_solvents=20, restype='iterator')
-    >>> for frame in fiter: pass
-
-    >>> # return a new Trajectory
-    >>> new_traj = pt.closest(traj, n_solvents=20, restype='trajectory')
     """
-
+    # check if top has solvent
     dslist = CpptrajDatasetList()
 
-    if n_solvents == 0:
-        raise ValueError('must specify the number of solvents')
-
     command = str(n_solvents) + ' ' + mask
-
-    dtype = restype
 
     act = CpptrajActions.Action_Closest()
 
@@ -2077,34 +2055,20 @@ def closest(traj=None,
         top = top.copy()
         top.set_solvent(solvent_mask)
 
-    if dtype not in ['trajectory', 'iterator']:
-        # trick cpptraj to dump data to CpptrajDatasetList too
-        command = command + " closestout tmp_pytraj_closestout.out"
+    has_solvent = False
+    for mol in top.mols:
+        if mol.is_solvent():
+            has_solvent = True
+            break
+    if not has_solvent:
+        raise RuntimeError("Topology does not have solvent")
 
     act.read_input(command, top, dslist=dslist)
     new_top = act.process(top, get_new_top=True)[0]
 
     fiter = _closest_iter(act, traj)
 
-    if dtype == 'iterator':
-        return (fiter, new_top.copy())
-    else:
-        if dtype in ['trajectory', 'all']:
-            fa = Trajectory()
-            fa.top = new_top.copy()
-            for new_frame in fiter:
-                fa.append(new_frame.copy())
-            if dtype == 'trajectory':
-                return fa
-            elif dtype == 'all':
-                return fa, dslist
-        else:
-            for new_frame in fiter:
-                # just let cpptraj dump data to DatasetList
-                pass
-            new_dslist = _get_data_from_dtype(dslist, dtype=dtype)
-            return new_dslist
-
+    return (fiter, new_top.copy())
 
 @_register_pmap
 @_super_dispatch(has_ref=True)
