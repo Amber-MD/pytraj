@@ -1761,13 +1761,7 @@ def rmsd_perres(traj=None,
         out[1:]: perres rmsd for all given residues
         `out.values` will return corresponding numpy array
     """
-    if resrange is not None:
-        if isinstance(resrange, string_types):
-            _range = 'range %s ' % resrange
-        else:
-            raise ValueError("range must be a string")
-    else:
-        _range = ''
+    _range = 'range %s ' % resrange
     _perresmask = 'perresmask ' + perres_mask if perres_mask is not None else ''
     _perrestcenter = 'perrescenter' if perres_center else ''
     _perrestinvert = 'perresinvert' if perres_invert else ''
