@@ -586,8 +586,9 @@ def calc_diffusion(traj,
 
 @_register_pmap
 @_register_openmp
+#@_super_dispatch()
 def calc_watershell(traj=None,
-                    solute_mask=None,
+                    solute_mask='',
                     solvent_mask=':WAT',
                     lower=3.4,
                     upper=5.0,
@@ -623,10 +624,10 @@ def calc_watershell(traj=None,
     >>> data = pt.watershell(traj, solute_mask='!:WAT')
     >>> data = pt.watershell(traj, solute_mask='!:WAT', lower=5.0, upper=10.)
     """
-
-    traj = _get_fiterator(traj, frame_indices)
+    _solutemask = solute_mask
     _top = _get_topology(traj, top)
-    _solutemask = solute_mask if solute_mask is not None else ''
+    fi = _get_fiterator(traj, frame_indices)
+
     dslist = CpptrajDatasetList()
 
     act = CpptrajActions.Action_Watershell()
@@ -641,17 +642,16 @@ def calc_watershell(traj=None,
     _upper = 'upper ' + str(upper)
     command = ' '.join((_solutemask, _lower, _upper, _noimage, _solventmask))
 
-    if not isinstance(command, string_types):
-        command = array_to_cpptraj_atommask(command)
-
-    act(command, traj, top=_top, dslist=dslist)
+    act(command, fi, top=_top, dslist=dslist)
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
+@_super_dispatch()
 def calc_matrix(traj=None,
-                command="",
+                mask="",
                 top=None,
-                dtype='ndarray', *args, **kwd):
+                dtype='ndarray',
+                frame_indices=None):
     '''
 
     Examples
@@ -661,13 +661,10 @@ def calc_matrix(traj=None,
     >>> traj = pt.datafiles.load_trpcage()
     >>> mat = calc_matrix(traj, 'covar @CA')
     '''
-    if not isinstance(command, string_types):
-        command = array_to_cpptraj_atommask(command)
     act = CpptrajActions.Action_Matrix()
 
-    _top = _get_topology(traj, top)
     dslist = CpptrajDatasetList()
-    act(command, traj, top=_top, dslist=dslist, *args, **kwd)
+    act(mask, traj, top=top, dslist=dslist)
     act.post_process()
     return _get_data_from_dtype(dslist, dtype)
 
@@ -943,6 +940,10 @@ def calc_rdf(traj=None,
     >>> data[1]
     array([ 0.        ,  0.        ,  0.        , ...,  0.95620052,
             0.95267934,  0.95135242])
+
+    >>> # use array-like mask
+    >>> atom_indices = pt.select(':WAT@O', traj.top)
+    >>> data = pt.rdf(traj, solvent_mask=':WAT@O', bin_spacing=0.5, maximum=10.0, solute_mask=atom_indices)
     
     Notes
     -----
@@ -1952,7 +1953,8 @@ def calc_distance_rmsd(traj=None,
 distance_rmsd = calc_distance_rmsd
 
 
-def align_principal_axis(traj=None, mask="*", top=None):
+@_super_dispatch()
+def align_principal_axis(traj=None, mask="*", top=None, frame_indices=None):
     # TODO : does not match with cpptraj output
     # rmsd_nofit ~ 0.5 for md1_prod.Tc5b.x, 1st frame
     """
@@ -1962,14 +1964,9 @@ def align_principal_axis(traj=None, mask="*", top=None):
     """
     _assert_mutable(traj)
 
-    command = mask
-
-    if not isinstance(command, string_types):
-        command = array_to_cpptraj_atommask(command)
-    _top = _get_topology(traj, top)
     act = CpptrajActions.Action_Principal()
-    command += " dorotation"
-    act(command, traj, top=_top)
+    command = mask + " dorotation"
+    act(command, traj, top=top)
 
 
 def principal_axes(traj=None, mask='*', dorotation=False, mass=True, top=None):
@@ -2020,11 +2017,13 @@ def _closest_iter(act, traj):
 
 
 @_register_openmp
+@_super_dispatch()
 def closest(traj=None,
             mask='*',
             solvent_mask=None,
             n_solvents=10,
             restype='trajectory',
+            frame_indices=None,
             top=None):
     """return either a new Trajectory or a frame iterator. Keep only ``n_solvents`` closest to mask
 
@@ -2058,6 +2057,9 @@ def closest(traj=None,
     >>> # getting a frame iterator for lazy evaluation
     >>> fiter = pt.closest(traj, n_solvents=20, restype='iterator')
     >>> for frame in fiter: pass
+
+    >>> # return a new Trajectory
+    >>> new_traj = pt.closest(traj, n_solvents=20, restype='trajectory')
     """
 
     dslist = CpptrajDatasetList()
@@ -2065,27 +2067,22 @@ def closest(traj=None,
     if n_solvents == 0:
         raise ValueError('must specify the number of solvents')
 
-    if not isinstance(mask, string_types):
-        mask = array_to_cpptraj_atommask(mask)
-
     command = str(n_solvents) + ' ' + mask
 
     dtype = restype
 
     act = CpptrajActions.Action_Closest()
 
-    _top = _get_topology(traj, top)
-
     if solvent_mask is not None:
-        _top = _top.copy()
-        _top.set_solvent(solvent_mask)
+        top = top.copy()
+        top.set_solvent(solvent_mask)
 
     if dtype not in ['trajectory', 'iterator']:
         # trick cpptraj to dump data to CpptrajDatasetList too
         command = command + " closestout tmp_pytraj_closestout.out"
 
-    act.read_input(command, _top, dslist=dslist)
-    new_top = act.process(_top, get_new_top=True)[0]
+    act.read_input(command, top, dslist=dslist)
+    new_top = act.process(top, get_new_top=True)[0]
 
     fiter = _closest_iter(act, traj)
 
@@ -2110,11 +2107,12 @@ def closest(traj=None,
 
 
 @_register_pmap
+@_super_dispatch(has_ref=True)
 def native_contacts(traj=None,
+                    ref=0,
                     mask="",
                     mask2="",
                     dtype='dataset',
-                    ref=0,
                     distance=7.0,
                     image=True,
                     include_solvent=False,
@@ -2133,16 +2131,13 @@ def native_contacts(traj=None,
     >>> # explicitly specify reference, specify distance cutoff
     >>> ref = traj[3]
     >>> data = pt.native_contacts(traj, ref=ref, distance=8.0)
+
+    >>> # use integer array for mask
+    >>> data = pt.native_contacts(traj, mask=range(100), mask2=[200, 201], ref=ref, distance=8.0)
     """
-    _top = _get_topology(traj, top)
-    ref = _get_reference_from_traj(traj, ref)
-    fi = _get_fiterator(traj, frame_indices)
     act = CpptrajActions.Action_NativeContacts()
     dslist = CpptrajDatasetList()
 
-    if not isinstance(mask, string_types):
-        # [1, 3, 5] to "@1,3,5
-        mask = array_to_cpptraj_atommask(mask)
     if not isinstance(mask2, string_types):
         # [1, 3, 5] to "@1,3,5
         mask2 = array_to_cpptraj_atommask(mask2)
@@ -2157,8 +2152,8 @@ def native_contacts(traj=None,
                          _includesolvent, _byres))
     dslist.add_set('ref_frame', 'myframe')
     dslist[0].add_frame(ref)
-    dslist[0].top = _top
-    act(_command, fi, top=_top, dslist=dslist)
+    dslist[0].top = top
+    act(_command, traj, top=top, dslist=dslist)
     dslist._pop(0)
 
     return _get_data_from_dtype(dslist, dtype=dtype)
@@ -2519,7 +2514,10 @@ def replicate_cell(traj=None, mask="", direction='all', top=None):
     >>> new_traj = pt.replicate_cell(traj, direction='dir 001 dir 111')
     >>> new_traj = pt.replicate_cell(traj, direction='dir 001 dir 1-10')
     >>> new_traj = pt.replicate_cell(traj, direction='dir 001 dir 1-10')
+
+    >>> # similiar usage
     >>> new_traj = pt.replicate_cell(traj, direction=('001', '0-10'))
+    >>> new_traj = pt.replicate_cell(traj, direction=['001', '0-10'])
     '''
     _top = _get_topology(traj, top)
     if isinstance(direction, string_types):
@@ -2752,9 +2750,6 @@ def _grid(traj, mask, grid_spacing,
     dtype : str, default 'ndarray'
         output data type
     '''
-    if len(grid_spacing) != 3:
-        raise ValueError('must have grid_spacing with len=3')
-
     _top = _get_topology(traj, top)
     fi = _get_fiterator(traj, frame_indices)
     act = CpptrajActions.Action_Bounds()

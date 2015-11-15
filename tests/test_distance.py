@@ -32,6 +32,9 @@ class TestNormalDistance(unittest.TestCase):
         aa_eq(d3.T, d7.T[:fa.n_frames])
         aa_eq(d3.T, d7.T[fa.n_frames:])
 
+        # raise
+        self.assertRaises(ValueError, lambda: pt.dihedrals(traj, [[0, 3, 2]]))
+
     def test_2(self):
         # calculate distance without specifying n_frames
         # TrajectoryIterator

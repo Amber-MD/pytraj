@@ -32,7 +32,6 @@ class TestDoc(unittest.TestCase):
         from pytraj.utils import convert
         from pytraj import frameiter, vector, datasetlist, base_holder
         from pytraj import trajectory_iterator
-        from pytraj.parallel import pjob
         from pytraj.utils import check_and_assert
 
         modules = [
@@ -58,7 +57,6 @@ class TestDoc(unittest.TestCase):
                 pt.decorators,
                 pt.dssp_analysis,
                 datasetlist,
-                pjob,
                 pt.array,
                 pt.nmr,
                 check_and_assert,

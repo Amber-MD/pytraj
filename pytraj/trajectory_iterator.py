@@ -146,6 +146,19 @@ class TrajectoryIterator(TrajectoryCpptraj):
         self.load(state['filelist'], frame_slice=state['frame_slice_list'])
 
     def __getstate__(self):
+        '''
+
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> traj = pt.datafiles.load_ala3()
+        >>> # pickle by reloading Topology from filename
+        >>> pt.to_pickle(traj, 'output/test.pk')
+
+        >>> # pickle by rebuilding Topology
+        >>> traj._pickle_topology = True
+        >>> pt.to_pickle(traj, 'output/test.pk')
+        '''
         if 'top' not in self.__dict__.keys() and self._pickle_topology:
             # slow
             # Topology is pickable
@@ -421,6 +434,9 @@ class TrajectoryIterator(TrajectoryCpptraj):
         [<Frame with 12 atoms>, <Frame with 12 atoms>]
         >>> isinstance(traj._split_iterators(n_chunks=4, mask='@CA', rank=-1), list)
         True
+
+        >>> # reset stop value to max n_framaes if this number looks 'weird'
+        >>> fi = traj._split_iterators(n_chunks=4, mask='@CA', stop=-100)
         """
 
         assert 0 <= start <= self.n_frames, "0 <= start <= self.n_frames"
