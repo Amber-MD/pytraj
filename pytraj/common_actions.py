@@ -2264,7 +2264,7 @@ def auto_correlation_function(data, dtype='ndarray', covar=True):
 
     cdslist[0].data = np.asarray(data)
 
-    act = CpptrajAnalyses.Analysis_Autocorr()
+    act = CpptrajAnalyses.Analysis_AutoCorr()
     command = "d0 out _tmp.out" + _nocovar
     act(command, dslist=cdslist)
     return _get_data_from_dtype(cdslist[1:], dtype=dtype)
