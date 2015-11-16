@@ -5,10 +5,11 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.energy_decomposition &mdash; pytraj 0.1.2.dev12+2e1511c documentation</title>
+    <title>pytraj.energy_decomposition &mdash; pytraj 0.1.2.dev12+a3b3a89 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/searchbox.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
@@ -16,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev12+2e1511c',
+        VERSION:     '0.1.2.dev12+a3b3a89',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,11 +26,13 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/0.6.0/lunr.min.js"></script>
+    <script type="text/javascript" src="../_static/js/searchbox.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+2e1511c documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+a3b3a89 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -37,7 +40,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -50,7 +53,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+2e1511c</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+a3b3a89</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -144,7 +147,7 @@
 <script type="text/javascript" src='../_static/cindex.js'></script></div>
 <span class="target" id="module-pytraj.externals.get_pysander_energies"></span><dl class="function">
 <dt id="pytraj.externals.get_pysander_energies.energy_decomposition">
-<tt class="descclassname">pytraj.externals.get_pysander_energies.</tt><tt class="descname">energy_decomposition</tt><big>(</big><em>traj=None</em>, <em>prmtop=None</em>, <em>igb=8</em>, <em>mm_options=None</em>, <em>qm_options=None</em>, <em>mode=None</em>, <em>dtype='dict'</em>, <em>frame_indices=None</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.externals.get_pysander_energies.energy_decomposition" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.externals.get_pysander_energies.</code><code class="descname">energy_decomposition</code><span class="sig-paren">(</span><em>traj=None</em>, <em>prmtop=None</em>, <em>igb=8</em>, <em>mm_options=None</em>, <em>qm_options=None</em>, <em>mode=None</em>, <em>dtype='dict'</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.externals.get_pysander_energies.energy_decomposition" title="Permalink to this definition">¶</a></dt>
 <dd><p>energy decomposition by calling <cite>libsander</cite></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -179,7 +182,7 @@ If <cite>mm_options</cite> is not None, use this</p>
 </div></blockquote>
 <p><strong>top</strong> : pytraj.Topology or str, default=None, optional</p>
 <blockquote>
-<div><p>only need to specify this <tt class="docutils literal"><span class="pre">top</span></tt> if <tt class="docutils literal"><span class="pre">traj</span></tt> does not hold Topology</p>
+<div><p>only need to specify this <code class="docutils literal"><span class="pre">top</span></code> if <code class="docutils literal"><span class="pre">traj</span></code> does not hold Topology</p>
 </div></blockquote>
 <p><strong>dtype</strong> : str, {&#8216;dict&#8217;, &#8216;dataset&#8217;, &#8216;ndarray&#8217;, &#8216;dataframe&#8217;}, default=&#8217;dict&#8217;</p>
 <blockquote>
@@ -199,11 +202,11 @@ If <cite>mm_options</cite> is not None, use this</p>
 <p class="rubric">Notes</p>
 <p>This method does not work with <cite>pytraj.pmap</cite> when you specify mm_options and
 qm_options. Use <cite>pytraj.pmap_mpi</cite> with MPI instead.</p>
-<p>Work with <tt class="docutils literal"><span class="pre">pytraj.pmap</span></tt>:</p>
+<p>Work with <code class="docutils literal"><span class="pre">pytraj.pmap</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">energy_decomposition</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">igb</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;dict&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Will NOT work with <tt class="docutils literal"><span class="pre">pytraj.pmap</span></tt>:</p>
+<p>Will NOT work with <code class="docutils literal"><span class="pre">pytraj.pmap</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sander</span>
 <span class="n">inp</span> <span class="o">=</span> <span class="n">sander</span><span class="o">.</span><span class="n">gas_input</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
 <span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">energy_decomposition</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">mm_options</span><span class="o">=</span><span class="n">inp</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;dict&#39;</span><span class="p">)</span>
@@ -211,7 +214,7 @@ qm_options. Use <cite>pytraj.pmap_mpi</cite> with MPI instead.</p>
 </div>
 <p>Why? Because Python need to pickle each object to send to different cores and Python
 does not know how to pickle mm_options from sander.gas_input(8).</p>
-<p>This works with <tt class="docutils literal"><span class="pre">pytraj.pmap_mpi</span></tt> because pytraj explicitly create <tt class="docutils literal"><span class="pre">mm_options</span></tt>
+<p>This works with <code class="docutils literal"><span class="pre">pytraj.pmap_mpi</span></code> because pytraj explicitly create <code class="docutils literal"><span class="pre">mm_options</span></code>
 in each core without pickling.</p>
 <p class="rubric">Examples</p>
 <p>Examples are adapted from $AMBERHOME/test/sanderapi</p>
@@ -233,11 +236,11 @@ in each core without pickling.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sander</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">topfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">amberhome</span><span class="p">,</span> <span class="s">&quot;test/4096wat/prmtop&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rstfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">amberhome</span><span class="p">,</span> <span class="s">&quot;test/4096wat/eq1.x&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="n">rstfile</span><span class="p">,</span> <span class="n">topfile</span><span class="p">)</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="n">rstfile</span><span class="p">,</span> <span class="n">topfile</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">options</span> <span class="o">=</span> <span class="n">sander</span><span class="o">.</span><span class="n">pme_input</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">options</span><span class="o">.</span><span class="n">cut</span> <span class="o">=</span> <span class="mf">8.0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">edict</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">energy_decomposition</span><span class="p">(</span><span class="n">traj</span><span class="o">=</span><span class="n">traj</span><span class="p">,</span> <span class="n">mm_options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">edict</span><span class="p">[</span><span class="s">&#39;vdw&#39;</span><span class="p">]</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edict</span><span class="p">[</span><span class="s">&#39;vdw&#39;</span><span class="p">]</span>
 <span class="go">array([ 6028.95167558])</span>
 </pre></div>
 </div>
@@ -282,8 +285,8 @@ in each core without pickling.</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 14, 2015.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
+      Last updated on Nov 16, 2015.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

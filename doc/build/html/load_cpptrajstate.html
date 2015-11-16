@@ -5,10 +5,11 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Run cpptraj’s batch &mdash; pytraj 0.1.2.dev12+2e1511c documentation</title>
+    <title>Run cpptraj’s batch &mdash; pytraj 0.1.2.dev12+a3b3a89 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/css/searchbox.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
@@ -16,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.2.dev12+2e1511c',
+        VERSION:     '0.1.2.dev12+a3b3a89',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,11 +26,13 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/0.6.0/lunr.min.js"></script>
+    <script type="text/javascript" src="_static/js/searchbox.js"></script>
     <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+2e1511c documentation" href="index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+a3b3a89 documentation" href="index.html" />
     <link rel="up" title="Cookbook" href="cookbook.html" />
     <link rel="next" title="Weird things in pytraj" href="things_will_be_surprised.html" />
     <link rel="prev" title="Tips for out-of-core loading" href="tips_iterload.html" />
@@ -39,7 +42,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -52,7 +55,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+2e1511c</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+a3b3a89</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -101,8 +104,8 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">Run cpptraj&#8217;s batch</a><ul>
-<li><a class="reference internal" href="#create-state-with-existing-trajectoryiterator-class">Create state with existing <tt class="docutils literal"><span class="pre">TrajectoryIterator</span></tt> class</a></li>
-<li><a class="reference internal" href="#create-state-without-trajectoryiterator-class">Create state without <tt class="docutils literal"><span class="pre">TrajectoryIterator</span></tt> class</a></li>
+<li><a class="reference internal" href="#create-state-with-existing-trajectoryiterator-class">Create state with existing <code class="docutils literal"><span class="pre">TrajectoryIterator</span></code> class</a></li>
+<li><a class="reference internal" href="#create-state-without-trajectoryiterator-class">Create state without <code class="docutils literal"><span class="pre">TrajectoryIterator</span></code> class</a></li>
 </ul>
 </li>
 </ul>
@@ -156,8 +159,8 @@
 <span id="load-cpptrajstate"></span><p class="topic-title first">Contents</p>
 <ul class="simple">
 <li><a class="reference internal" href="#run-cpptraj-s-batch" id="id1">Run cpptraj&#8217;s batch</a><ul>
-<li><a class="reference internal" href="#create-state-with-existing-trajectoryiterator-class" id="id2">Create state with existing <tt class="docutils literal"><span class="pre">TrajectoryIterator</span></tt> class</a></li>
-<li><a class="reference internal" href="#create-state-without-trajectoryiterator-class" id="id3">Create state without <tt class="docutils literal"><span class="pre">TrajectoryIterator</span></tt> class</a></li>
+<li><a class="reference internal" href="#create-state-with-existing-trajectoryiterator-class" id="id2">Create state with existing <code class="docutils literal"><span class="pre">TrajectoryIterator</span></code> class</a></li>
+<li><a class="reference internal" href="#create-state-without-trajectoryiterator-class" id="id3">Create state without <code class="docutils literal"><span class="pre">TrajectoryIterator</span></code> class</a></li>
 </ul>
 </li>
 </ul>
@@ -181,7 +184,7 @@ molsurf
 </div>
 <p>you can create a &#8216;CpptrajState&#8217;</p>
 <div class="section" id="create-state-with-existing-trajectoryiterator-class">
-<h2><a class="toc-backref" href="#id2">Create state with existing <tt class="docutils literal"><span class="pre">TrajectoryIterator</span></tt> class</a><a class="headerlink" href="#create-state-with-existing-trajectoryiterator-class" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id2">Create state with existing <code class="docutils literal"><span class="pre">TrajectoryIterator</span></code> class</a><a class="headerlink" href="#create-state-with-existing-trajectoryiterator-class" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="c"># load traj first</span>
 <span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
@@ -254,7 +257,7 @@ molsurf
 </div>
 </div>
 <div class="section" id="create-state-without-trajectoryiterator-class">
-<h2><a class="toc-backref" href="#id3">Create state without <tt class="docutils literal"><span class="pre">TrajectoryIterator</span></tt> class</a><a class="headerlink" href="#create-state-without-trajectoryiterator-class" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3">Create state without <code class="docutils literal"><span class="pre">TrajectoryIterator</span></code> class</a><a class="headerlink" href="#create-state-without-trajectoryiterator-class" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="c"># suppose you have</span>
 <span class="gp">In [13]: </span><span class="n">text</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
 <span class="gp">   ....:</span><span class="s"> parm tz2.parm7</span>
@@ -343,8 +346,8 @@ molsurf
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 14, 2015.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
+      Last updated on Nov 16, 2015.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

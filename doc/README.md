@@ -9,6 +9,7 @@
 - jupyter (conda install jupyter)
 - sphinx_bootstrap_theme: I am using v0.4.7
 - runipy
+- sphinxcontrib-lunrsearch (instant search box)
 
 Most above packages can be installed via conda
     example: conda install matplotlib seaborn numpy jupyter

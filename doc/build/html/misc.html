@@ -5,10 +5,11 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Misc &mdash; pytraj 0.1.2.dev12+2e1511c documentation</title>
+    <title>Misc &mdash; pytraj 0.1.2.dev12+a3b3a89 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/css/searchbox.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
@@ -16,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.2.dev12+2e1511c',
+        VERSION:     '0.1.2.dev12+a3b3a89',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,11 +26,13 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/0.6.0/lunr.min.js"></script>
+    <script type="text/javascript" src="_static/js/searchbox.js"></script>
     <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+2e1511c documentation" href="index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+a3b3a89 documentation" href="index.html" />
     <link rel="next" title="Cookbook" href="cookbook.html" />
     <link rel="prev" title="Developer guide for pytraj" href="developer_guide.html" />
 <meta charset='utf-8'>
@@ -38,7 +41,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -51,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+2e1511c</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+a3b3a89</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -149,7 +152,7 @@
       
   <div class="section" id="misc">
 <h1>Misc<a class="headerlink" href="#misc" title="Permalink to this headline">¶</a></h1>
-<p>try <tt class="docutils literal"><span class="pre">pytraj</span></tt> online:</p>
+<p>try <code class="docutils literal"><span class="pre">pytraj</span></code> online:</p>
 <a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img src="http://mybinder.org/badge.svg" /></a>
 <div class="custom-index container">
 <script type="text/javascript" src='_static/cindex.js'></script></div>
@@ -158,10 +161,10 @@ If want to use external package, import it inside the function</p>
 <p>This module stores all useful functions that does not fit to anywhere else.</p>
 <dl class="function">
 <dt id="pytraj.tools.as_2darray">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">as_2darray</tt><big>(</big><em>traj_or_xyz</em><big>)</big><a class="headerlink" href="#pytraj.tools.as_2darray" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">as_2darray</code><span class="sig-paren">(</span><em>traj_or_xyz</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.as_2darray" title="Permalink to this definition">¶</a></dt>
 <dd><p>reshape traj.xyz to 2d array, shape=(n_frames, n_atoms * 3)</p>
 <p class="rubric">Notes</p>
-<p>if <tt class="docutils literal"><span class="pre">traj</span></tt> is mutable, this method return a view of its coordinates.</p>
+<p>if <code class="docutils literal"><span class="pre">traj</span></code> is mutable, this method return a view of its coordinates.</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
@@ -177,7 +180,7 @@ If want to use external package, import it inside the function</p>
 
 <dl class="function">
 <dt id="pytraj.tools.as_3darray">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">as_3darray</tt><big>(</big><em>xyz</em><big>)</big><a class="headerlink" href="#pytraj.tools.as_3darray" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">as_3darray</code><span class="sig-paren">(</span><em>xyz</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.as_3darray" title="Permalink to this definition">¶</a></dt>
 <dd><p>reshape xyz to 3d array, shape=(n_frames, n_atoms, 3)</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
@@ -199,7 +202,7 @@ If want to use external package, import it inside the function</p>
 
 <dl class="function">
 <dt id="pytraj.tools.block_average">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">block_average</tt><big>(</big><em>self</em>, <em>n_chunk</em><big>)</big><a class="headerlink" href="#pytraj.tools.block_average" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">block_average</code><span class="sig-paren">(</span><em>self</em>, <em>n_chunk</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.block_average" title="Permalink to this definition">¶</a></dt>
 <dd><p>average by chunk</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">block_average</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
@@ -210,7 +213,7 @@ If want to use external package, import it inside the function</p>
 
 <dl class="function">
 <dt id="pytraj.tools.compose">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">compose</tt><big>(</big><em>*funcs</em><big>)</big><a class="headerlink" href="#pytraj.tools.compose" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">compose</code><span class="sig-paren">(</span><em>*funcs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.compose" title="Permalink to this definition">¶</a></dt>
 <dd><p>Notes: copied from pandas (added pytraj&#8217;s example)
 see license in pytraj/license/</p>
 <p>Compose 2 or more callables</p>
@@ -229,7 +232,7 @@ see license in pytraj/license/</p>
 
 <dl class="function">
 <dt id="pytraj.tools.concat_dict">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">concat_dict</tt><big>(</big><em>iterables</em><big>)</big><a class="headerlink" href="#pytraj.tools.concat_dict" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">concat_dict</code><span class="sig-paren">(</span><em>iterables</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.concat_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>concat dict</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dict_0</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;x&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,]}</span>
@@ -242,7 +245,7 @@ see license in pytraj/license/</p>
 
 <dl class="function">
 <dt id="pytraj.tools.dict_to_ndarray">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">dict_to_ndarray</tt><big>(</big><em>dict_of_array</em><big>)</big><a class="headerlink" href="#pytraj.tools.dict_to_ndarray" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">dict_to_ndarray</code><span class="sig-paren">(</span><em>dict_of_array</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.dict_to_ndarray" title="Permalink to this definition">¶</a></dt>
 <dd><p>convert OrderedDict to numpy array</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
@@ -261,7 +264,7 @@ see license in pytraj/license/</p>
 
 <dl class="function">
 <dt id="pytraj.tools.estimate_size">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">estimate_size</tt><big>(</big><em>n_frames</em>, <em>n_atoms</em>, <em>dtype='f8'</em><big>)</big><a class="headerlink" href="#pytraj.tools.estimate_size" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">estimate_size</code><span class="sig-paren">(</span><em>n_frames</em>, <em>n_atoms</em>, <em>dtype='f8'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.estimate_size" title="Permalink to this definition">¶</a></dt>
 <dd><p>return MB</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
@@ -273,7 +276,7 @@ see license in pytraj/license/</p>
 
 <dl class="function">
 <dt id="pytraj.tools.find_lib">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">find_lib</tt><big>(</big><em>libname</em><big>)</big><a class="headerlink" href="#pytraj.tools.find_lib" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">find_lib</code><span class="sig-paren">(</span><em>libname</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.find_lib" title="Permalink to this definition">¶</a></dt>
 <dd><p>return a list of all library files</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">find_lib</span><span class="p">(</span><span class="s">&#39;cpptraj&#39;</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 <span class="go">&#39;libcpptraj.so&#39;</span>
@@ -283,7 +286,7 @@ see license in pytraj/license/</p>
 
 <dl class="function">
 <dt id="pytraj.tools.flatten">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">flatten</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pytraj.tools.flatten" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">flatten</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.flatten" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a single, flat list which contains all elements retrieved
 from the sequence and all recursively contained sub-sequences
 (iterables).</p>
@@ -300,12 +303,12 @@ from the sequence and all recursively contained sub-sequences
 
 <dl class="function">
 <dt id="pytraj.tools.grep_key">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">grep_key</tt><big>(</big><em>self</em>, <em>key</em><big>)</big><a class="headerlink" href="#pytraj.tools.grep_key" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">grep_key</code><span class="sig-paren">(</span><em>self</em>, <em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.grep_key" title="Permalink to this definition">¶</a></dt>
 <dd><p>grep key</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span>  <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dslist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;dataset&#39;</span><span class="p">)</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dslist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;dataset&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">grep_key</span><span class="p">(</span><span class="n">dslist</span><span class="p">,</span> <span class="s">&#39;psi&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="go">array([ 176.6155643 ,  166.82129574,  168.79510009,  167.42561927,</span>
 <span class="go">        151.18334989,  134.17610997,  160.99207908,  165.1126967 ,</span>
@@ -316,10 +319,10 @@ from the sequence and all recursively contained sub-sequences
 
 <dl class="function">
 <dt id="pytraj.tools.groupby">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">groupby</tt><big>(</big><em>key</em>, <em>seq</em><big>)</big><a class="headerlink" href="#pytraj.tools.groupby" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">groupby</code><span class="sig-paren">(</span><em>key</em>, <em>seq</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.groupby" title="Permalink to this definition">¶</a></dt>
 <dd><p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Alice&#39;</span><span class="p">,</span> <span class="s">&#39;Bob&#39;</span><span class="p">,</span> <span class="s">&#39;Charlie&#39;</span><span class="p">,</span> <span class="s">&#39;Dan&#39;</span><span class="p">,</span> <span class="s">&#39;Edith&#39;</span><span class="p">,</span> <span class="s">&#39;Frank&#39;</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">groupby</span><span class="p">(</span><span class="nb">len</span><span class="p">,</span> <span class="n">names</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">groupby</span><span class="p">(</span><span class="nb">len</span><span class="p">,</span> <span class="n">names</span><span class="p">)</span>
 <span class="go">{3: [&#39;Bob&#39;, &#39;Dan&#39;], 5: [&#39;Alice&#39;, &#39;Edith&#39;, &#39;Frank&#39;], 7: [&#39;Charlie&#39;]}</span>
 </pre></div>
 </div>
@@ -327,7 +330,7 @@ from the sequence and all recursively contained sub-sequences
 
 <dl class="function">
 <dt id="pytraj.tools.iteritems">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">iteritems</tt><big>(</big><em>d</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#pytraj.tools.iteritems" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">iteritems</code><span class="sig-paren">(</span><em>d</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.iteritems" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an iterator over the (key, value) pairs of a dictionary.</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">({</span><span class="s">&#39;x&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">}):</span> <span class="k">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="p">:</span> 
@@ -339,7 +342,7 @@ from the sequence and all recursively contained sub-sequences
 
 <dl class="function">
 <dt id="pytraj.tools.make_fake_topology">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">make_fake_topology</tt><big>(</big><em>n_atoms</em><big>)</big><a class="headerlink" href="#pytraj.tools.make_fake_topology" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">make_fake_topology</code><span class="sig-paren">(</span><em>n_atoms</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.make_fake_topology" title="Permalink to this definition">¶</a></dt>
 <dd><p>make fake Topology, just for writing xyz array to supported formats
 (netcdf, dcd, trr, ...)</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
@@ -351,7 +354,7 @@ from the sequence and all recursively contained sub-sequences
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">xyz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="mi">100</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj0</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">Trajectory</span><span class="p">(</span><span class="n">xyz</span><span class="o">=</span><span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">top</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&#39;output/test.nc&#39;</span><span class="p">,</span> <span class="n">traj0</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&#39;output/test.nc&#39;</span><span class="p">,</span> <span class="n">traj0</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;output/test.nc&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">top</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">n_atoms</span>
 <span class="go">100</span>
@@ -361,7 +364,7 @@ from the sequence and all recursively contained sub-sequences
 
 <dl class="function">
 <dt id="pytraj.tools.mean_and_error">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">mean_and_error</tt><big>(</big><em>a1</em>, <em>a2</em><big>)</big><a class="headerlink" href="#pytraj.tools.mean_and_error" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">mean_and_error</code><span class="sig-paren">(</span><em>a1</em>, <em>a2</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.mean_and_error" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculate mean and error from two 1D array-like</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
@@ -375,7 +378,7 @@ from the sequence and all recursively contained sub-sequences
 
 <dl class="function">
 <dt id="pytraj.tools.merge_coordinates">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">merge_coordinates</tt><big>(</big><em>iterables</em><big>)</big><a class="headerlink" href="#pytraj.tools.merge_coordinates" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">merge_coordinates</code><span class="sig-paren">(</span><em>iterables</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.merge_coordinates" title="Permalink to this definition">¶</a></dt>
 <dd><p>merge_coordinates from frames</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
@@ -394,7 +397,7 @@ from the sequence and all recursively contained sub-sequences
 
 <dl class="function">
 <dt id="pytraj.tools.merge_frame_from_trajs">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">merge_frame_from_trajs</tt><big>(</big><em>trajlist</em><big>)</big><a class="headerlink" href="#pytraj.tools.merge_frame_from_trajs" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">merge_frame_from_trajs</code><span class="sig-paren">(</span><em>trajlist</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.merge_frame_from_trajs" title="Permalink to this definition">¶</a></dt>
 <dd><p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
@@ -413,7 +416,7 @@ from the sequence and all recursively contained sub-sequences
 
 <dl class="function">
 <dt id="pytraj.tools.merge_frames">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">merge_frames</tt><big>(</big><em>iterables</em><big>)</big><a class="headerlink" href="#pytraj.tools.merge_frames" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">merge_frames</code><span class="sig-paren">(</span><em>iterables</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.merge_frames" title="Permalink to this definition">¶</a></dt>
 <dd><p>merge from frames to a single Frame. Order matters.
 Examples
 &#8212;&#8212;&#8211;
@@ -427,7 +430,7 @@ Examples
 
 <dl class="function">
 <dt id="pytraj.tools.merge_trajs">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">merge_trajs</tt><big>(</big><em>traj1</em>, <em>traj2</em>, <em>start_new_mol=True</em>, <em>n_frames=None</em><big>)</big><a class="headerlink" href="#pytraj.tools.merge_trajs" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">merge_trajs</code><span class="sig-paren">(</span><em>traj1</em>, <em>traj2</em>, <em>start_new_mol=True</em>, <em>n_frames=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.merge_trajs" title="Permalink to this definition">¶</a></dt>
 <dd><p class="rubric">Notes</p>
 <p>Code might be changed</p>
 <p class="rubric">Examples</p>
@@ -456,7 +459,7 @@ Examples
 
 <dl class="function">
 <dt id="pytraj.tools.moving_average">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">moving_average</tt><big>(</big><em>data</em>, <em>n</em><big>)</big><a class="headerlink" href="#pytraj.tools.moving_average" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">moving_average</code><span class="sig-paren">(</span><em>data</em>, <em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.moving_average" title="Permalink to this definition">¶</a></dt>
 <dd><p>moving average</p>
 <p class="rubric">Notes</p>
 <p>from <a class="reference external" href="http://stackoverflow.com/questions/11352047/finding-moving-average-from-data-points-in-python">stackoverflow</a></p>
@@ -469,7 +472,7 @@ Examples
 
 <dl class="function">
 <dt id="pytraj.tools.n_grams">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">n_grams</tt><big>(</big><em>a</em>, <em>n</em><big>)</big><a class="headerlink" href="#pytraj.tools.n_grams" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">n_grams</code><span class="sig-paren">(</span><em>a</em>, <em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.n_grams" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -496,7 +499,7 @@ if True: return a numpy array</p>
 
 <dl class="function">
 <dt id="pytraj.tools.read_gaussian_output">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">read_gaussian_output</tt><big>(</big><em>filename=None</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.tools.read_gaussian_output" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">read_gaussian_output</code><span class="sig-paren">(</span><em>filename=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.read_gaussian_output" title="Permalink to this definition">¶</a></dt>
 <dd><p>return a <cite>pytraj.trajectory.Trajectory</cite> object</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -516,13 +519,13 @@ if None, use <cite>antechamber</cite> to generate mol2 file, need set $AMBERHOME
 
 <dl class="function">
 <dt id="pytraj.tools.read_to_array">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">read_to_array</tt><big>(</big><em>fname</em><big>)</big><a class="headerlink" href="#pytraj.tools.read_to_array" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">read_to_array</code><span class="sig-paren">(</span><em>fname</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.read_to_array" title="Permalink to this definition">¶</a></dt>
 <dd><p>read text from file to numpy array</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pytraj.tools.rmsd">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">rmsd</tt><big>(</big><em>a1</em>, <em>a2</em>, <em>flatten=True</em><big>)</big><a class="headerlink" href="#pytraj.tools.rmsd" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">rmsd</code><span class="sig-paren">(</span><em>a1</em>, <em>a2</em>, <em>flatten=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.rmsd" title="Permalink to this definition">¶</a></dt>
 <dd><p>rmsd for two array with the same shape</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -538,7 +541,7 @@ if None, use <cite>antechamber</cite> to generate mol2 file, need set $AMBERHOME
 </tbody>
 </table>
 <p class="rubric">Notes</p>
-<p>This method is different from <tt class="docutils literal"><span class="pre">pytraj.rmsd</span></tt></p>
+<p>This method is different from <code class="docutils literal"><span class="pre">pytraj.rmsd</span></code></p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t0</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s">&#39;ala3&#39;</span><span class="p">)</span>
@@ -552,7 +555,7 @@ if None, use <cite>antechamber</cite> to generate mol2 file, need set $AMBERHOME
 
 <dl class="function">
 <dt id="pytraj.tools.rmsd_1darray">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">rmsd_1darray</tt><big>(</big><em>a1</em>, <em>a2</em><big>)</big><a class="headerlink" href="#pytraj.tools.rmsd_1darray" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">rmsd_1darray</code><span class="sig-paren">(</span><em>a1</em>, <em>a2</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.rmsd_1darray" title="Permalink to this definition">¶</a></dt>
 <dd><p>rmsd of a1 and a2</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a0</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
@@ -571,7 +574,7 @@ if None, use <cite>antechamber</cite> to generate mol2 file, need set $AMBERHOME
 
 <dl class="function">
 <dt id="pytraj.tools.split">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">split</tt><big>(</big><em>data</em>, <em>n_chunks</em><big>)</big><a class="headerlink" href="#pytraj.tools.split" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">split</code><span class="sig-paren">(</span><em>data</em>, <em>n_chunks</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.split" title="Permalink to this definition">¶</a></dt>
 <dd><p>split <cite>self.data</cite> to n_chunks</p>
 <p class="rubric">Notes</p>
 <p>same as numpy.array_split</p>
@@ -586,7 +589,7 @@ if None, use <cite>antechamber</cite> to generate mol2 file, need set $AMBERHOME
 
 <dl class="function">
 <dt id="pytraj.tools.split_and_write_traj">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">split_and_write_traj</tt><big>(</big><em>self</em>, <em>n_chunks=None</em>, <em>root_name='trajx'</em>, <em>ext='nc'</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.tools.split_and_write_traj" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">split_and_write_traj</code><span class="sig-paren">(</span><em>self</em>, <em>n_chunks=None</em>, <em>root_name='trajx'</em>, <em>ext='nc'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.split_and_write_traj" title="Permalink to this definition">¶</a></dt>
 <dd><p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
@@ -597,7 +600,7 @@ if None, use <cite>antechamber</cite> to generate mol2 file, need set $AMBERHOME
 
 <dl class="function">
 <dt id="pytraj.tools.split_traj_by_residues">
-<tt class="descclassname">pytraj.tools.</tt><tt class="descname">split_traj_by_residues</tt><big>(</big><em>traj</em>, <em>start=0</em>, <em>stop=-1</em>, <em>step=1</em><big>)</big><a class="headerlink" href="#pytraj.tools.split_traj_by_residues" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.tools.</code><code class="descname">split_traj_by_residues</code><span class="sig-paren">(</span><em>traj</em>, <em>start=0</em>, <em>stop=-1</em>, <em>step=1</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.tools.split_traj_by_residues" title="Permalink to this definition">¶</a></dt>
 <dd><p>return a generator</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
@@ -625,8 +628,8 @@ if None, use <cite>antechamber</cite> to generate mol2 file, need set $AMBERHOME
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 14, 2015.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
+      Last updated on Nov 16, 2015.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

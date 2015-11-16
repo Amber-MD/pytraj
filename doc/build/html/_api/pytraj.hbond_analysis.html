@@ -5,10 +5,11 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.hbond &mdash; pytraj 0.1.2.dev12+2e1511c documentation</title>
+    <title>pytraj.hbond &mdash; pytraj 0.1.2.dev12+a3b3a89 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/searchbox.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
@@ -16,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev12+2e1511c',
+        VERSION:     '0.1.2.dev12+a3b3a89',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,11 +26,13 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/0.6.0/lunr.min.js"></script>
+    <script type="text/javascript" src="../_static/js/searchbox.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+2e1511c documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+a3b3a89 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="prev" title="pytraj.common_actions" href="pytraj.common_actions.html" />
 <meta charset='utf-8'>
@@ -38,7 +41,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -51,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+2e1511c</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+a3b3a89</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -151,8 +154,8 @@
 <script type="text/javascript" src='../_static/cindex.js'></script></div>
 <span class="target" id="module-pytraj.hbond_analysis"></span><dl class="class">
 <dt id="pytraj.hbond_analysis.DatasetHBond">
-<em class="property">class </em><tt class="descclassname">pytraj.hbond_analysis.</tt><tt class="descname">DatasetHBond</tt><big>(</big><em>dslist=None</em><big>)</big><a class="headerlink" href="#pytraj.hbond_analysis.DatasetHBond" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pytraj.base_holder.BaseDataHolder</span></tt></p>
+<em class="property">class </em><code class="descclassname">pytraj.hbond_analysis.</code><code class="descname">DatasetHBond</code><span class="sig-paren">(</span><em>dslist=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.hbond_analysis.DatasetHBond" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pytraj.base_holder.BaseDataHolder</span></code></p>
 <p>Hold data for hbond analysis</p>
 <p class="rubric">Attributes</p>
 <table border="1" class="longtable docutils">
@@ -161,13 +164,13 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.hbond_analysis.DatasetHBond.data" title="pytraj.hbond_analysis.DatasetHBond.data"><tt class="xref py py-obj docutils literal"><span class="pre">data</span></tt></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.hbond_analysis.DatasetHBond.data" title="pytraj.hbond_analysis.DatasetHBond.data"><code class="xref py py-obj docutils literal"><span class="pre">data</span></code></a></td>
 <td>return pytraj.DatasetList</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.hbond_analysis.DatasetHBond.donor_aceptor" title="pytraj.hbond_analysis.DatasetHBond.donor_aceptor"><tt class="xref py py-obj docutils literal"><span class="pre">donor_aceptor</span></tt></a></td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.hbond_analysis.DatasetHBond.donor_aceptor" title="pytraj.hbond_analysis.DatasetHBond.donor_aceptor"><code class="xref py py-obj docutils literal"><span class="pre">donor_aceptor</span></code></a></td>
 <td>return a list of donor and aceptor</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.hbond_analysis.DatasetHBond.values" title="pytraj.hbond_analysis.DatasetHBond.values"><tt class="xref py py-obj docutils literal"><span class="pre">values</span></tt></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.hbond_analysis.DatasetHBond.values" title="pytraj.hbond_analysis.DatasetHBond.values"><code class="xref py py-obj docutils literal"><span class="pre">values</span></code></a></td>
 <td>return raw numpy array</td>
 </tr>
 </tbody>
@@ -179,32 +182,29 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.hbond_analysis.DatasetHBond.to_dict" title="pytraj.hbond_analysis.DatasetHBond.to_dict"><tt class="xref py py-obj docutils literal"><span class="pre">to_dict</span></tt></a>()</td>
-<td>return OrderedDict</td>
-</tr>
 </tbody>
 </table>
 <dl class="attribute">
 <dt id="pytraj.hbond_analysis.DatasetHBond.data">
-<tt class="descname">data</tt><a class="headerlink" href="#pytraj.hbond_analysis.DatasetHBond.data" title="Permalink to this definition">¶</a></dt>
+<code class="descname">data</code><a class="headerlink" href="#pytraj.hbond_analysis.DatasetHBond.data" title="Permalink to this definition">¶</a></dt>
 <dd><p>return pytraj.DatasetList</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pytraj.hbond_analysis.DatasetHBond.donor_aceptor">
-<tt class="descname">donor_aceptor</tt><a class="headerlink" href="#pytraj.hbond_analysis.DatasetHBond.donor_aceptor" title="Permalink to this definition">¶</a></dt>
+<code class="descname">donor_aceptor</code><a class="headerlink" href="#pytraj.hbond_analysis.DatasetHBond.donor_aceptor" title="Permalink to this definition">¶</a></dt>
 <dd><p>return a list of donor and aceptor</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pytraj.hbond_analysis.DatasetHBond.to_dict">
-<tt class="descname">to_dict</tt><big>(</big><big>)</big><a class="headerlink" href="#pytraj.hbond_analysis.DatasetHBond.to_dict" title="Permalink to this definition">¶</a></dt>
+<code class="descname">to_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.hbond_analysis.DatasetHBond.to_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>return OrderedDict</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pytraj.hbond_analysis.DatasetHBond.values">
-<tt class="descname">values</tt><a class="headerlink" href="#pytraj.hbond_analysis.DatasetHBond.values" title="Permalink to this definition">¶</a></dt>
+<code class="descname">values</code><a class="headerlink" href="#pytraj.hbond_analysis.DatasetHBond.values" title="Permalink to this definition">¶</a></dt>
 <dd><p>return raw numpy array</p>
 </dd></dl>
 
@@ -212,8 +212,8 @@
 
 <dl class="function">
 <dt id="pytraj.hbond_analysis.hbond">
-<tt class="descclassname">pytraj.hbond_analysis.</tt><tt class="descname">hbond</tt><big>(</big><em>traj</em>, <em>mask=''</em>, <em>solvent_donor=None</em>, <em>solvent_acceptor=None</em>, <em>distance=3.0</em>, <em>angle=135.0</em>, <em>image=False</em>, <em>series=True</em>, <em>cpp_options=''</em>, <em>dtype='hbond'</em>, <em>frame_indices=None</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.hbond_analysis.hbond" title="Permalink to this definition">¶</a></dt>
-<dd><p>(combined with cpptraj doc) Searching for Hbond donors/acceptors in region specified by <tt class="docutils literal"><span class="pre">mask</span></tt>.
+<code class="descclassname">pytraj.hbond_analysis.</code><code class="descname">hbond</code><span class="sig-paren">(</span><em>traj</em>, <em>mask=''</em>, <em>solvent_donor=None</em>, <em>solvent_acceptor=None</em>, <em>distance=3.0</em>, <em>angle=135.0</em>, <em>image=False</em>, <em>series=True</em>, <em>cpp_options=''</em>, <em>dtype='hbond'</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.hbond_analysis.hbond" title="Permalink to this definition">¶</a></dt>
+<dd><p>(combined with cpptraj doc) Searching for Hbond donors/acceptors in region specified by <code class="docutils literal"><span class="pre">mask</span></code>.
 Hydrogen bond is defined as A-HD, where A is acceptor heavy atom, H is hydrogen, D is
 donor heavy atom. Hydrogen bond is formed when A to D distance &lt; distance cutoff and A-H-D angle
 &gt; angle cutoff; if <cite>angle</cite> &lt; 0 it is ignored.</p>
@@ -230,7 +230,7 @@ automatically search for donors and acceptors.</p>
 <p><strong>solvent_donor</strong> : {None, str}, default None</p>
 <p><strong>solvent_acceptor: {None, str}, deafult None</strong></p>
 <blockquote>
-<div><p>if solvent_acceptor and solvent_donor are None, cpptraj only search hbond for 
+<div><p>if solvent_acceptor and solvent_donor are None, cpptraj only search hbond for
 if solvent_donor and solvent_acceptor are NOT None, cpptraj will search for hbond
 between solute and solvent too.</p>
 </div></blockquote>
@@ -256,13 +256,13 @@ between solute and solvent too.</p>
 <div><p>additional cpptraj options. For example you can explicitly specify donormask and
 acceptormask.</p>
 <ul class="simple">
-<li>If <tt class="docutils literal"><span class="pre">donormask</span></tt> is specified but not <tt class="docutils literal"><span class="pre">acceptormask</span></tt>, acceptors will be
-automatically searched for in <tt class="docutils literal"><span class="pre">mask</span></tt>.</li>
-<li>If <tt class="docutils literal"><span class="pre">acceptormask</span></tt> is specified but not donormask, donors will be</li>
+<li>If <code class="docutils literal"><span class="pre">donormask</span></code> is specified but not <code class="docutils literal"><span class="pre">acceptormask</span></code>, acceptors will be
+automatically searched for in <code class="docutils literal"><span class="pre">mask</span></code>.</li>
+<li>If <code class="docutils literal"><span class="pre">acceptormask</span></code> is specified but not donormask, donors will be</li>
 </ul>
-<p>automatically search for in <tt class="docutils literal"><span class="pre">mask</span></tt>.</p>
+<p>automatically search for in <code class="docutils literal"><span class="pre">mask</span></code>.</p>
 <ul class="simple">
-<li>If both <tt class="docutils literal"><span class="pre">donormask</span></tt> and <tt class="docutils literal"><span class="pre">acceptormask</span></tt> are specified no automatic searching will
+<li>If both <code class="docutils literal"><span class="pre">donormask</span></code> and <code class="docutils literal"><span class="pre">acceptormask</span></code> are specified no automatic searching will
 occur.</li>
 </ul>
 </div></blockquote>
@@ -275,7 +275,7 @@ occur.</li>
 </table>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><tt class="xref py py-obj docutils literal"><span class="pre">to_amber_mask</span></tt></p>
+<p class="last"><code class="xref py py-obj docutils literal"><span class="pre">to_amber_mask</span></code></p>
 </div>
 <p class="rubric">Notes</p>
 <ul class="simple">
@@ -323,8 +323,8 @@ occur.</li>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 14, 2015.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
+      Last updated on Nov 16, 2015.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

@@ -5,10 +5,11 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Atom mask selection &mdash; pytraj 0.1.2.dev12+2e1511c documentation</title>
+    <title>Atom mask selection &mdash; pytraj 0.1.2.dev12+a3b3a89 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/css/searchbox.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
@@ -16,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.2.dev12+2e1511c',
+        VERSION:     '0.1.2.dev12+a3b3a89',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,11 +26,13 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/0.6.0/lunr.min.js"></script>
+    <script type="text/javascript" src="_static/js/searchbox.js"></script>
     <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+2e1511c documentation" href="index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+a3b3a89 documentation" href="index.html" />
     <link rel="next" title="Fancy indexing of trajectory" href="trajectory_slice.html" />
     <link rel="prev" title="Modify trajectory" href="modify_traj.html" />
 <meta charset='utf-8'>
@@ -38,7 +41,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -51,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+2e1511c</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+a3b3a89</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -109,10 +112,10 @@
 <li><a class="reference internal" href="#distance-based-selections">Distance-based selections</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#examples-atom-mask-selection-for-trajectory">Examples: Atom mask selection for <tt class="docutils literal"><span class="pre">Trajectory</span></tt></a></li>
-<li><a class="reference internal" href="#example-atom-mask-selection-for-pytraj-topology">Example: Atom mask selection for <tt class="docutils literal"><span class="pre">pytraj.Topology</span></tt></a><ul>
+<li><a class="reference internal" href="#examples-atom-mask-selection-for-trajectory">Examples: Atom mask selection for <code class="docutils literal"><span class="pre">Trajectory</span></code></a></li>
+<li><a class="reference internal" href="#example-atom-mask-selection-for-pytraj-topology">Example: Atom mask selection for <code class="docutils literal"><span class="pre">pytraj.Topology</span></code></a><ul>
 <li><a class="reference internal" href="#get-atom-indices">Get atom_indices</a></li>
-<li><a class="reference internal" href="#get-new-topology">Get new <tt class="docutils literal"><span class="pre">Topology</span></tt></a></li>
+<li><a class="reference internal" href="#get-new-topology">Get new <code class="docutils literal"><span class="pre">Topology</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -166,7 +169,7 @@
       
   <div class="section" id="atom-mask-selection">
 <h1><a class="toc-backref" href="#id1">Atom mask selection</a><a class="headerlink" href="#atom-mask-selection" title="Permalink to this headline">¶</a></h1>
-<p>try <tt class="docutils literal"><span class="pre">pytraj</span></tt> online:</p>
+<p>try <code class="docutils literal"><span class="pre">pytraj</span></code> online:</p>
 <a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img src="http://mybinder.org/badge.svg" /></a>
 <div class="contents topic" id="contents">
 <p class="topic-title first">Contents</p>
@@ -181,10 +184,10 @@
 <li><a class="reference internal" href="#distance-based-selections" id="id8">Distance-based selections</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#examples-atom-mask-selection-for-trajectory" id="id9">Examples: Atom mask selection for <tt class="docutils literal"><span class="pre">Trajectory</span></tt></a></li>
-<li><a class="reference internal" href="#example-atom-mask-selection-for-pytraj-topology" id="id10">Example: Atom mask selection for <tt class="docutils literal"><span class="pre">pytraj.Topology</span></tt></a><ul>
+<li><a class="reference internal" href="#examples-atom-mask-selection-for-trajectory" id="id9">Examples: Atom mask selection for <code class="docutils literal"><span class="pre">Trajectory</span></code></a></li>
+<li><a class="reference internal" href="#example-atom-mask-selection-for-pytraj-topology" id="id10">Example: Atom mask selection for <code class="docutils literal"><span class="pre">pytraj.Topology</span></code></a><ul>
 <li><a class="reference internal" href="#get-atom-indices" id="id11">Get atom_indices</a></li>
-<li><a class="reference internal" href="#get-new-topology" id="id12">Get new <tt class="docutils literal"><span class="pre">Topology</span></tt></a></li>
+<li><a class="reference internal" href="#get-new-topology" id="id12">Get new <code class="docutils literal"><span class="pre">Topology</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -193,19 +196,19 @@
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Section describing <tt class="docutils literal"><span class="pre">Amber</span> <span class="pre">mask</span> <span class="pre">syntax</span></tt> is direct excerpt from <a class="reference external" href="http://parmed.github.io/ParmEd/html/amber.html#amber-mask-syntax">parmed&#8217;s website</a></p>
+<p class="last">Section describing <code class="docutils literal"><span class="pre">Amber</span> <span class="pre">mask</span> <span class="pre">syntax</span></code> is direct excerpt from <a class="reference external" href="http://parmed.github.io/ParmEd/html/amber.html#amber-mask-syntax">parmed&#8217;s website</a></p>
 </div>
 <div class="section" id="amber-mask-syntax">
 <h2><a class="toc-backref" href="#id2">Amber mask syntax</a><a class="headerlink" href="#amber-mask-syntax" title="Permalink to this headline">¶</a></h2>
 <p>The Amber programs use a selection syntax very similar to Chimera&#8217;s selection
-syntax, referred to as an <em>Amber mask</em>. The character <tt class="docutils literal"><span class="pre">:</span></tt> is used for residue
-selections and <tt class="docutils literal"><span class="pre">&#64;</span></tt> is used for atom selections.  Both numbers and names are
+syntax, referred to as an <em>Amber mask</em>. The character <code class="docutils literal"><span class="pre">:</span></code> is used for residue
+selections and <code class="docutils literal"><span class="pre">&#64;</span></code> is used for atom selections.  Both numbers and names are
 supported in the atom and residue selections (where the serial numbers range
 from 1 to <em>N</em>, where <em>N</em> is either the total number of atoms or residues,
 depending on what is being selected).</p>
 <p>The atom/residue name or number list can be specified as a comma-delimited list
 of entries (<em>inclusive</em> number ranges are also supported).  You can also use
-logical operators <tt class="docutils literal"><span class="pre">&amp;</span></tt> (and), <tt class="docutils literal"><span class="pre">|</span></tt> (or), and <tt class="docutils literal"><span class="pre">!</span></tt> (not) and group expressions
+logical operators <code class="docutils literal"><span class="pre">&amp;</span></code> (and), <code class="docutils literal"><span class="pre">|</span></code> (or), and <code class="docutils literal"><span class="pre">!</span></code> (not) and group expressions
 with parenthesis to denote order-of-operations.</p>
 <div class="section" id="residue-selections">
 <h3><a class="toc-backref" href="#id3">Residue selections</a><a class="headerlink" href="#residue-selections" title="Permalink to this headline">¶</a></h3>
@@ -233,7 +236,7 @@ atom name. Be careful though! Atom type names can change from force field to
 force field, and are considered an implementation detail.  While atom <em>names</em>
 should never change (and are based on the PDB standard, typically), atom <em>type</em>
 names can be set and/or changed to whatever the force field developer wants.</p>
-<p>You have been warned. If you wish to push on, though, you can use the <tt class="docutils literal"><span class="pre">&#64;%</span></tt>
+<p>You have been warned. If you wish to push on, though, you can use the <code class="docutils literal"><span class="pre">&#64;%</span></code>
 characters to select from type names rather than atom names. Note, no indices
 (or index ranges) can be used, as atom types have no defined order.  Examples
 are shown below:</p>
@@ -244,7 +247,7 @@ are shown below:</p>
 <div class="section" id="logical-operators">
 <h3><a class="toc-backref" href="#id6">Logical operators</a><a class="headerlink" href="#logical-operators" title="Permalink to this headline">¶</a></h3>
 <p>You often want to select certain atoms from certain residues. You can use the
-<tt class="docutils literal"><span class="pre">&amp;</span></tt> binary operator to do this, as shown in examples below:</p>
+<code class="docutils literal"><span class="pre">&amp;</span></code> binary operator to do this, as shown in examples below:</p>
 <div class="highlight-python"><div class="highlight"><pre>(:1-100)&amp;(@CA)      Selects atoms named CA in the first 100 residues
 (:1-100)&amp;(@CA,CB)   Selects atoms named CA or CB in the first 100 residues
 (:ASP,GLU)&amp;(@CA)    Selects atoms named CA in all ASP or GLU residues
@@ -257,15 +260,15 @@ equivalent expressions to the examples above:</p>
 :ASP,GLU@CA
 </pre></div>
 </div>
-<p>You can also expand your selection using the <tt class="docutils literal"><span class="pre">|</span></tt> (or) operator. For example:</p>
+<p>You can also expand your selection using the <code class="docutils literal"><span class="pre">|</span></code> (or) operator. For example:</p>
 <div class="highlight-python"><div class="highlight"><pre>:1-100|@CA      Selects all atoms in the first 100 residues AND all atoms named CA
 </pre></div>
 </div>
-<p>Don&#8217;t get confused between what the <tt class="docutils literal"><span class="pre">&amp;</span></tt> (and) and <tt class="docutils literal"><span class="pre">|</span></tt> (or) operators do.
+<p>Don&#8217;t get confused between what the <code class="docutils literal"><span class="pre">&amp;</span></code> (and) and <code class="docutils literal"><span class="pre">|</span></code> (or) operators do.
 The above example selects all atoms if it satisfies the criteria of being in the
-first 100 residues <em>or</em> if it satisfies the criteria of having the name <tt class="docutils literal"><span class="pre">CA</span></tt>,
+first 100 residues <em>or</em> if it satisfies the criteria of having the name <code class="docutils literal"><span class="pre">CA</span></code>,
 meaning it selects all atoms in the first 100 residues <em>and</em> all atoms named
-<tt class="docutils literal"><span class="pre">CA</span></tt>.</p>
+<code class="docutils literal"><span class="pre">CA</span></code>.</p>
 <p>You can also select all atoms <em>except</em> a particular selection:</p>
 <div class="highlight-python"><div class="highlight"><pre>!(:LIG)         Selects all atoms that are NOT in a residue named LIG
 </pre></div>
@@ -276,7 +279,7 @@ meaning it selects all atoms in the first 100 residues <em>and</em> all atoms na
 <p>Let&#8217;s suppose you want to select all hydrogen atoms. These atoms usually have
 many names, but they almost always start with &#8220;H&#8221;, so we would like a way to
 select all atoms that start with the letter &#8220;H&#8221;.  We can do this with
-<em>wild-cards</em>, which is the <tt class="docutils literal"><span class="pre">=</span></tt> character in Amber masks, and works for both
+<em>wild-cards</em>, which is the <code class="docutils literal"><span class="pre">=</span></code> character in Amber masks, and works for both
 atoms and residues. For example:</p>
 <div class="highlight-python"><div class="highlight"><pre>:AS=@H=   Select all atoms whose residue starts with AS AND atom name starts with H
 </pre></div>
@@ -286,15 +289,15 @@ atoms and residues. For example:</p>
 <h3><a class="toc-backref" href="#id8">Distance-based selections</a><a class="headerlink" href="#distance-based-selections" title="Permalink to this headline">¶</a></h3>
 <p>Sometimes you also want to be able to select all atoms within a certain distance
 (or all atoms within a <em>residue</em> that is a certain distance) from a specific set
-of atoms.  For this, the <tt class="docutils literal"><span class="pre">&lt;</span></tt> and <tt class="docutils literal"><span class="pre">&gt;</span></tt> operators are used to denote distances
+of atoms.  For this, the <code class="docutils literal"><span class="pre">&lt;</span></code> and <code class="docutils literal"><span class="pre">&gt;</span></code> operators are used to denote distances
 that are less than or greater than a particular value, respectively.</p>
 <p>This is probably the most complex part of the Amber mask syntax, but it is also
-quite powerful.  In addition to the <tt class="docutils literal"><span class="pre">&lt;</span></tt> and <tt class="docutils literal"><span class="pre">&gt;</span></tt> operators, you must use
-either <tt class="docutils literal"><span class="pre">&#64;</span></tt> or <tt class="docutils literal"><span class="pre">:</span></tt> to indicate whether you want to select individual <em>atoms</em>
+quite powerful.  In addition to the <code class="docutils literal"><span class="pre">&lt;</span></code> and <code class="docutils literal"><span class="pre">&gt;</span></code> operators, you must use
+either <code class="docutils literal"><span class="pre">&#64;</span></code> or <code class="docutils literal"><span class="pre">:</span></code> to indicate whether you want to select individual <em>atoms</em>
 or whole <em>residues</em> satisfying the distance.  When selecting residues, the whole
 residue is selected if <em>any atom</em> satisfies the distance criteria.  The general
-syntax is <tt class="docutils literal"><span class="pre">SELECTION&lt;:DISTANCE</span></tt>, where <tt class="docutils literal"><span class="pre">SELECTION</span></tt> is an Amber mask (<tt class="docutils literal"><span class="pre">:</span></tt>
-can also be <tt class="docutils literal"><span class="pre">&#64;</span></tt> to select only atoms), and <tt class="docutils literal"><span class="pre">DISTANCE</span></tt> is a floating point
+syntax is <code class="docutils literal"><span class="pre">SELECTION&lt;:DISTANCE</span></code>, where <code class="docutils literal"><span class="pre">SELECTION</span></code> is an Amber mask (<code class="docutils literal"><span class="pre">:</span></code>
+can also be <code class="docutils literal"><span class="pre">&#64;</span></code> to select only atoms), and <code class="docutils literal"><span class="pre">DISTANCE</span></code> is a floating point
 distance that defines the criteria.  Examples are shown below with annotations:</p>
 <div class="highlight-python"><div class="highlight"><pre>:8&lt;@5.0     All atoms that are LESS THAN 5 Angstroms away from any atom in residue 8
 :1&gt;:10.0    All atoms in any residue in which one atom is MORE THAN 10 angstroms away from residue 1
@@ -303,7 +306,7 @@ distance that defines the criteria.  Examples are shown below with annotations:<
 </div>
 </div>
 <div class="section" id="examples-atom-mask-selection-for-trajectory">
-<h2><a class="toc-backref" href="#id9">Examples: Atom mask selection for <tt class="docutils literal"><span class="pre">Trajectory</span></tt></a><a class="headerlink" href="#examples-atom-mask-selection-for-trajectory" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">Examples: Atom mask selection for <code class="docutils literal"><span class="pre">Trajectory</span></code></a><a class="headerlink" href="#examples-atom-mask-selection-for-trajectory" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
 <span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;data/tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s">&#39;data/tz2.ortho.parm7&#39;</span><span class="p">)</span>
@@ -319,37 +322,37 @@ distance that defines the criteria.  Examples are shown below with annotations:<
 
 <span class="gp">In [5]: </span><span class="nb">list</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">atom_names</span><span class="p">)[:</span><span class="mi">20</span><span class="p">]</span>
 <span class="go">                                                                                                                                                                                                                           Out[5]: </span>
-<span class="go">[&#39;HG22&#39;,</span>
-<span class="go"> &#39;H&#39;,</span>
-<span class="go"> &#39;H1&#39;,</span>
-<span class="go"> &#39;OG&#39;,</span>
-<span class="go"> &#39;HG23&#39;,</span>
-<span class="go"> &#39;HG1&#39;,</span>
-<span class="go"> &#39;CB&#39;,</span>
-<span class="go"> &#39;CZ3&#39;,</span>
-<span class="go"> &#39;HA2&#39;,</span>
-<span class="go"> &#39;HD22&#39;,</span>
-<span class="go"> &#39;CE&#39;,</span>
-<span class="go"> &#39;HB&#39;,</span>
-<span class="go"> &#39;CH2&#39;,</span>
-<span class="go"> &#39;CZ2&#39;,</span>
-<span class="go"> &#39;OE2&#39;,</span>
-<span class="go"> &#39;OD1&#39;,</span>
-<span class="go"> &#39;HB3&#39;,</span>
-<span class="go"> &#39;NZ&#39;,</span>
+<span class="go">[&#39;HD2&#39;,</span>
+<span class="go"> &#39;HA&#39;,</span>
 <span class="go"> &#39;CA&#39;,</span>
+<span class="go"> &#39;ND2&#39;,</span>
+<span class="go"> &#39;HD3&#39;,</span>
+<span class="go"> &#39;HG&#39;,</span>
+<span class="go"> &#39;CZ2&#39;,</span>
+<span class="go"> &#39;HB3&#39;,</span>
+<span class="go"> &#39;NE1&#39;,</span>
+<span class="go"> &#39;OE2&#39;,</span>
+<span class="go"> &#39;HA3&#39;,</span>
+<span class="go"> &#39;HD1&#39;,</span>
+<span class="go"> &#39;HG3&#39;,</span>
+<span class="go"> &#39;HN2&#39;,</span>
+<span class="go"> &#39;HA2&#39;,</span>
+<span class="go"> &#39;HN1&#39;,</span>
+<span class="go"> &#39;HE2&#39;,</span>
+<span class="go"> &#39;HE1&#39;,</span>
+<span class="go"> &#39;OG1&#39;,</span>
 <span class="go"> &#39;OE1&#39;]</span>
 
 <span class="c"># Residue selections</span>
 <span class="gp">In [6]: </span><span class="n">traj</span><span class="p">[</span><span class="s">&#39;:1,3,6-10&#39;</span><span class="p">]</span>  <span class="c"># Select residues 1, 3, 6, 7, 8, 9, and 10</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                              Out[6]: </span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                 Out[6]: </span>
 <span class="go">pytraj.Trajectory, 10 frames: </span>
 <span class="go">Size: 0.000024 (GB)</span>
 <span class="go">&lt;Topology: 108 atoms, 7 residues, 3 mols, PBC with box type = ortho&gt;</span>
 <span class="go">           </span>
 
 <span class="gp">In [7]: </span><span class="n">traj</span><span class="p">[</span><span class="s">&#39;:ALA,LYS,10&#39;</span><span class="p">]</span>  <span class="c"># Select all residues with names ALA or LYS, and residue 10</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           Out[7]: </span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              Out[7]: </span>
 <span class="go">pytraj.Trajectory, 10 frames: </span>
 <span class="go">Size: 0.000013 (GB)</span>
 <span class="go">&lt;Topology: 58 atoms, 3 residues, 3 mols, PBC with box type = ortho&gt;</span>
@@ -357,14 +360,14 @@ distance that defines the criteria.  Examples are shown below with annotations:<
 
 <span class="c"># Atom selections</span>
 <span class="gp">In [8]: </span><span class="n">traj</span><span class="p">[</span><span class="s">&#39;@1-100,150-160&#39;</span><span class="p">]</span> <span class="c">#  Select the first 100 atoms as well as the 11 atoms 150-160</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Out[8]: </span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Out[8]: </span>
 <span class="go">pytraj.Trajectory, 10 frames: </span>
 <span class="go">Size: 0.000025 (GB)</span>
 <span class="go">&lt;Topology: 111 atoms, 8 residues, 4 mols, PBC with box type = ortho&gt;</span>
 <span class="go">           </span>
 
 <span class="gp">In [9]: </span><span class="n">traj</span><span class="p">[</span><span class="s">&#39;@CA,C,10-15&#39;</span><span class="p">]</span> <span class="c"># Select all atoms whose names are CA or C, and 6 atoms 10-15</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Out[9]: </span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Out[9]: </span>
 <span class="go">pytraj.Trajectory, 10 frames: </span>
 <span class="go">Size: 0.000006 (GB)</span>
 <span class="go">&lt;Topology: 29 atoms, 12 residues, 0 mols, PBC with box type = ortho&gt;</span>
@@ -372,7 +375,7 @@ distance that defines the criteria.  Examples are shown below with annotations:<
 
 <span class="c"># Logical operators</span>
 <span class="gp">In [10]: </span><span class="n">traj</span><span class="p">[</span><span class="s">&#39;(:1-100)&amp;(@CA)&#39;</span><span class="p">]</span> <span class="c"># Selects atoms named CA in the first 100 residues</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 Out[10]: </span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Out[10]: </span>
 <span class="go">pytraj.Trajectory, 10 frames: </span>
 <span class="go">Size: 0.000003 (GB)</span>
 <span class="go">&lt;Topology: 12 atoms, 12 residues, 12 mols, PBC with box type = ortho&gt;</span>
@@ -380,7 +383,7 @@ distance that defines the criteria.  Examples are shown below with annotations:<
 </div>
 </div>
 <div class="section" id="example-atom-mask-selection-for-pytraj-topology">
-<h2><a class="toc-backref" href="#id10">Example: Atom mask selection for <tt class="docutils literal"><span class="pre">pytraj.Topology</span></tt></a><a class="headerlink" href="#example-atom-mask-selection-for-pytraj-topology" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id10">Example: Atom mask selection for <code class="docutils literal"><span class="pre">pytraj.Topology</span></code></a><a class="headerlink" href="#example-atom-mask-selection-for-pytraj-topology" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="get-atom-indices">
 <h3><a class="toc-backref" href="#id11">Get atom_indices</a><a class="headerlink" href="#get-atom-indices" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [11]: </span><span class="n">top</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span>
@@ -413,7 +416,7 @@ distance that defines the criteria.  Examples are shown below with annotations:<
 </div>
 </div>
 <div class="section" id="get-new-topology">
-<h3><a class="toc-backref" href="#id12">Get new <tt class="docutils literal"><span class="pre">Topology</span></tt></a><a class="headerlink" href="#get-new-topology" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id12">Get new <code class="docutils literal"><span class="pre">Topology</span></code></a><a class="headerlink" href="#get-new-topology" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [19]: </span><span class="n">top</span><span class="p">[</span><span class="s">&#39;:1,3,6-10&#39;</span><span class="p">]</span>
 <span class="gr">Out[19]: </span><span class="o">&lt;</span><span class="n">Topology</span><span class="p">:</span> <span class="mi">108</span> <span class="n">atoms</span><span class="p">,</span> <span class="mi">7</span> <span class="n">residues</span><span class="p">,</span> <span class="mi">3</span> <span class="n">mols</span><span class="p">,</span> <span class="n">PBC</span> <span class="k">with</span> <span class="n">box</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">ortho</span><span class="o">&gt;</span>
 
@@ -447,8 +450,8 @@ distance that defines the criteria.  Examples are shown below with annotations:<
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 14, 2015.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
+      Last updated on Nov 16, 2015.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

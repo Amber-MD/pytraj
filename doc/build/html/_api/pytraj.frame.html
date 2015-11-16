@@ -5,10 +5,11 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.frame &mdash; pytraj 0.1.2.dev12+2e1511c documentation</title>
+    <title>pytraj.frame &mdash; pytraj 0.1.2.dev12+a3b3a89 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/searchbox.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
@@ -16,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev12+2e1511c',
+        VERSION:     '0.1.2.dev12+a3b3a89',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,11 +26,13 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/0.6.0/lunr.min.js"></script>
+    <script type="text/javascript" src="../_static/js/searchbox.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+2e1511c documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+a3b3a89 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -37,7 +40,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -50,7 +53,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+2e1511c</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+a3b3a89</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -146,8 +149,8 @@
 <script type="text/javascript" src='../_static/cindex.js'></script></div>
 <span class="target" id="module-pytraj.frame"></span><dl class="class">
 <dt id="pytraj.frame.Frame">
-<em class="property">class </em><tt class="descclassname">pytraj.frame.</tt><tt class="descname">Frame</tt><a class="headerlink" href="#pytraj.frame.Frame" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<em class="property">class </em><code class="descclassname">pytraj.frame.</code><code class="descname">Frame</code><a class="headerlink" href="#pytraj.frame.Frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>A snapshot of trajectory, hodling coordinates, unicell (box), vector (optional), force (optional), ...
 This class is for internal use.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -201,43 +204,43 @@ This class is for internal use.</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.box" title="pytraj.frame.Frame.box"><tt class="xref py py-obj docutils literal"><span class="pre">box</span></tt></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.box" title="pytraj.frame.Frame.box"><code class="xref py py-obj docutils literal"><span class="pre">box</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.coordinates" title="pytraj.frame.Frame.coordinates"><tt class="xref py py-obj docutils literal"><span class="pre">coordinates</span></tt></a></td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.coordinates" title="pytraj.frame.Frame.coordinates"><code class="xref py py-obj docutils literal"><span class="pre">coordinates</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.force" title="pytraj.frame.Frame.force"><tt class="xref py py-obj docutils literal"><span class="pre">force</span></tt></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.force" title="pytraj.frame.Frame.force"><code class="xref py py-obj docutils literal"><span class="pre">force</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.mass" title="pytraj.frame.Frame.mass"><tt class="xref py py-obj docutils literal"><span class="pre">mass</span></tt></a></td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.mass" title="pytraj.frame.Frame.mass"><code class="xref py py-obj docutils literal"><span class="pre">mass</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.n_atoms" title="pytraj.frame.Frame.n_atoms"><tt class="xref py py-obj docutils literal"><span class="pre">n_atoms</span></tt></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.n_atoms" title="pytraj.frame.Frame.n_atoms"><code class="xref py py-obj docutils literal"><span class="pre">n_atoms</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.n_frames" title="pytraj.frame.Frame.n_frames"><tt class="xref py py-obj docutils literal"><span class="pre">n_frames</span></tt></a></td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.n_frames" title="pytraj.frame.Frame.n_frames"><code class="xref py py-obj docutils literal"><span class="pre">n_frames</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.shape" title="pytraj.frame.Frame.shape"><tt class="xref py py-obj docutils literal"><span class="pre">shape</span></tt></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.shape" title="pytraj.frame.Frame.shape"><code class="xref py py-obj docutils literal"><span class="pre">shape</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.size" title="pytraj.frame.Frame.size"><tt class="xref py py-obj docutils literal"><span class="pre">size</span></tt></a></td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.size" title="pytraj.frame.Frame.size"><code class="xref py py-obj docutils literal"><span class="pre">size</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.temperature" title="pytraj.frame.Frame.temperature"><tt class="xref py py-obj docutils literal"><span class="pre">temperature</span></tt></a></td>
-<td>temperature</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.time" title="pytraj.frame.Frame.time"><tt class="xref py py-obj docutils literal"><span class="pre">time</span></tt></a></td>
-<td>time</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.top" title="pytraj.frame.Frame.top"><tt class="xref py py-obj docutils literal"><span class="pre">top</span></tt></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.temperature" title="pytraj.frame.Frame.temperature"><code class="xref py py-obj docutils literal"><span class="pre">temperature</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.velocity" title="pytraj.frame.Frame.velocity"><tt class="xref py py-obj docutils literal"><span class="pre">velocity</span></tt></a></td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.time" title="pytraj.frame.Frame.time"><code class="xref py py-obj docutils literal"><span class="pre">time</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.xyz" title="pytraj.frame.Frame.xyz"><tt class="xref py py-obj docutils literal"><span class="pre">xyz</span></tt></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.top" title="pytraj.frame.Frame.top"><code class="xref py py-obj docutils literal"><span class="pre">top</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.velocity" title="pytraj.frame.Frame.velocity"><code class="xref py py-obj docutils literal"><span class="pre">velocity</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.xyz" title="pytraj.frame.Frame.xyz"><code class="xref py py-obj docutils literal"><span class="pre">xyz</span></code></a></td>
 <td></td>
 </tr>
 </tbody>
@@ -249,143 +252,143 @@ This class is for internal use.</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.append_xyz" title="pytraj.frame.Frame.append_xyz"><tt class="xref py py-obj docutils literal"><span class="pre">append_xyz</span></tt></a>(self,&nbsp;__Pyx_memviewslice&nbsp;xyz)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.append_xyz" title="pytraj.frame.Frame.append_xyz"><code class="xref py py-obj docutils literal"><span class="pre">append_xyz</span></code></a>(self,&nbsp;__Pyx_memviewslice&nbsp;xyz)</td>
 <td>append 3D array and return itself</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.atom" title="pytraj.frame.Frame.atom"><tt class="xref py py-obj docutils literal"><span class="pre">atom</span></tt></a>(self,&nbsp;int&nbsp;atomnum)</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.atom" title="pytraj.frame.Frame.atom"><code class="xref py py-obj docutils literal"><span class="pre">atom</span></code></a>(self,&nbsp;int&nbsp;atomnum)</td>
 <td>return xyz coordinates of idx-th atom</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.center_of_geometry" title="pytraj.frame.Frame.center_of_geometry"><tt class="xref py py-obj docutils literal"><span class="pre">center_of_geometry</span></tt></a>(self,&nbsp;AtomMask&nbsp;atmask)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.center_of_geometry" title="pytraj.frame.Frame.center_of_geometry"><code class="xref py py-obj docutils literal"><span class="pre">center_of_geometry</span></code></a>(self,&nbsp;AtomMask&nbsp;atmask)</td>
 <td>return Vec3 storing center of geometry</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.center_of_mass" title="pytraj.frame.Frame.center_of_mass"><tt class="xref py py-obj docutils literal"><span class="pre">center_of_mass</span></tt></a>(self,&nbsp;AtomMask&nbsp;atmask)</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.center_of_mass" title="pytraj.frame.Frame.center_of_mass"><code class="xref py py-obj docutils literal"><span class="pre">center_of_mass</span></code></a>(self,&nbsp;AtomMask&nbsp;atmask)</td>
 <td>return Vec3 storing center of mass</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.copy" title="pytraj.frame.Frame.copy"><tt class="xref py py-obj docutils literal"><span class="pre">copy</span></tt></a>(self)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.copy" title="pytraj.frame.Frame.copy"><code class="xref py py-obj docutils literal"><span class="pre">copy</span></code></a>(self)</td>
 <td>return a deep copy of Frame</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.has_box" title="pytraj.frame.Frame.has_box"><tt class="xref py py-obj docutils literal"><span class="pre">has_box</span></tt></a>(self)</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.has_box" title="pytraj.frame.Frame.has_box"><code class="xref py py-obj docutils literal"><span class="pre">has_box</span></code></a>(self)</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.has_force" title="pytraj.frame.Frame.has_force"><tt class="xref py py-obj docutils literal"><span class="pre">has_force</span></tt></a>(self)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.has_force" title="pytraj.frame.Frame.has_force"><code class="xref py py-obj docutils literal"><span class="pre">has_force</span></code></a>(self)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.has_velocity" title="pytraj.frame.Frame.has_velocity"><tt class="xref py py-obj docutils literal"><span class="pre">has_velocity</span></tt></a>(self)</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.has_velocity" title="pytraj.frame.Frame.has_velocity"><code class="xref py py-obj docutils literal"><span class="pre">has_velocity</span></code></a>(self)</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.is_" title="pytraj.frame.Frame.is_"><tt class="xref py py-obj docutils literal"><span class="pre">is_</span></tt></a>(self,&nbsp;Frame&nbsp;other)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.is_" title="pytraj.frame.Frame.is_"><code class="xref py py-obj docutils literal"><span class="pre">is_</span></code></a>(self,&nbsp;Frame&nbsp;other)</td>
 <td>check if Frame is itself or not</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.rmsd" title="pytraj.frame.Frame.rmsd"><tt class="xref py py-obj docutils literal"><span class="pre">rmsd</span></tt></a>(self,&nbsp;Frame&nbsp;frame,&nbsp;AtomMask&nbsp;atommask=None)</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.rmsd" title="pytraj.frame.Frame.rmsd"><code class="xref py py-obj docutils literal"><span class="pre">rmsd</span></code></a>(self,&nbsp;Frame&nbsp;frame,&nbsp;AtomMask&nbsp;atommask=None)</td>
 <td>Calculate rmsd betwen two frames</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.rmsd_nofit" title="pytraj.frame.Frame.rmsd_nofit"><tt class="xref py py-obj docutils literal"><span class="pre">rmsd_nofit</span></tt></a>(self,&nbsp;Frame&nbsp;frame,&nbsp;bool&nbsp;mass=False)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.rmsd_nofit" title="pytraj.frame.Frame.rmsd_nofit"><code class="xref py py-obj docutils literal"><span class="pre">rmsd_nofit</span></code></a>(self,&nbsp;Frame&nbsp;frame,&nbsp;bool&nbsp;mass=False)</td>
 <td>Calculate rmsd betwen two frames without fitting</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.rmsfit" title="pytraj.frame.Frame.rmsfit"><tt class="xref py py-obj docutils literal"><span class="pre">rmsfit</span></tt></a>(self[,&nbsp;ref])</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.rmsfit" title="pytraj.frame.Frame.rmsfit"><code class="xref py py-obj docutils literal"><span class="pre">rmsfit</span></code></a>(self[,&nbsp;ref])</td>
 <td>do the fitting to reference Frame by rotation and translation</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.set_mass" title="pytraj.frame.Frame.set_mass"><tt class="xref py py-obj docutils literal"><span class="pre">set_mass</span></tt></a>(self,&nbsp;Topology&nbsp;top)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.set_mass" title="pytraj.frame.Frame.set_mass"><code class="xref py py-obj docutils literal"><span class="pre">set_mass</span></code></a>(self,&nbsp;Topology&nbsp;top)</td>
 <td>set mass for Frame, requires a Topology</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.set_nobox" title="pytraj.frame.Frame.set_nobox"><tt class="xref py py-obj docutils literal"><span class="pre">set_nobox</span></tt></a>(self)</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.set_nobox" title="pytraj.frame.Frame.set_nobox"><code class="xref py py-obj docutils literal"><span class="pre">set_nobox</span></code></a>(self)</td>
 <td>set nobox</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.strip_atoms" title="pytraj.frame.Frame.strip_atoms"><tt class="xref py py-obj docutils literal"><span class="pre">strip_atoms</span></tt></a>(self,&nbsp;AtomMask&nbsp;atm)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.strip_atoms" title="pytraj.frame.Frame.strip_atoms"><code class="xref py py-obj docutils literal"><span class="pre">strip_atoms</span></code></a>(self,&nbsp;AtomMask&nbsp;atm)</td>
 <td>strip_atoms</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.swap_atoms" title="pytraj.frame.Frame.swap_atoms"><tt class="xref py py-obj docutils literal"><span class="pre">swap_atoms</span></tt></a></td>
-<td>Frame.swap_atoms(signatures, args, kwargs, defaults)</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.swap_atoms" title="pytraj.frame.Frame.swap_atoms"><code class="xref py py-obj docutils literal"><span class="pre">swap_atoms</span></code></a></td>
+<td>swap coordinates for an array of atom pairs</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.to_ndarray" title="pytraj.frame.Frame.to_ndarray"><tt class="xref py py-obj docutils literal"><span class="pre">to_ndarray</span></tt></a>(self)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.to_ndarray" title="pytraj.frame.Frame.to_ndarray"><code class="xref py py-obj docutils literal"><span class="pre">to_ndarray</span></code></a>(self)</td>
 <td>return a ndarray as a view of Frame&#8217;s coordinates</td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
 <dt id="pytraj.frame.Frame.append_xyz">
-<tt class="descname">append_xyz</tt><big>(</big><em>self</em>, <em>__Pyx_memviewslice xyz</em><big>)</big><a class="headerlink" href="#pytraj.frame.Frame.append_xyz" title="Permalink to this definition">¶</a></dt>
+<code class="descname">append_xyz</code><span class="sig-paren">(</span><em>self</em>, <em>__Pyx_memviewslice xyz</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.frame.Frame.append_xyz" title="Permalink to this definition">¶</a></dt>
 <dd><p>append 3D array and return itself</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pytraj.frame.Frame.atom">
-<tt class="descname">atom</tt><big>(</big><em>self</em>, <em>int atomnum</em><big>)</big><a class="headerlink" href="#pytraj.frame.Frame.atom" title="Permalink to this definition">¶</a></dt>
+<code class="descname">atom</code><span class="sig-paren">(</span><em>self</em>, <em>int atomnum</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.frame.Frame.atom" title="Permalink to this definition">¶</a></dt>
 <dd><p>return xyz coordinates of idx-th atom</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pytraj.frame.Frame.box">
-<tt class="descname">box</tt><a class="headerlink" href="#pytraj.frame.Frame.box" title="Permalink to this definition">¶</a></dt>
+<code class="descname">box</code><a class="headerlink" href="#pytraj.frame.Frame.box" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="pytraj.frame.Frame.center_of_geometry">
-<tt class="descname">center_of_geometry</tt><big>(</big><em>self</em>, <em>AtomMask atmask</em><big>)</big><a class="headerlink" href="#pytraj.frame.Frame.center_of_geometry" title="Permalink to this definition">¶</a></dt>
+<code class="descname">center_of_geometry</code><span class="sig-paren">(</span><em>self</em>, <em>AtomMask atmask</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.frame.Frame.center_of_geometry" title="Permalink to this definition">¶</a></dt>
 <dd><p>return Vec3 storing center of geometry</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pytraj.frame.Frame.center_of_mass">
-<tt class="descname">center_of_mass</tt><big>(</big><em>self</em>, <em>AtomMask atmask</em><big>)</big><a class="headerlink" href="#pytraj.frame.Frame.center_of_mass" title="Permalink to this definition">¶</a></dt>
+<code class="descname">center_of_mass</code><span class="sig-paren">(</span><em>self</em>, <em>AtomMask atmask</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.frame.Frame.center_of_mass" title="Permalink to this definition">¶</a></dt>
 <dd><p>return Vec3 storing center of mass</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pytraj.frame.Frame.coordinates">
-<tt class="descname">coordinates</tt><a class="headerlink" href="#pytraj.frame.Frame.coordinates" title="Permalink to this definition">¶</a></dt>
+<code class="descname">coordinates</code><a class="headerlink" href="#pytraj.frame.Frame.coordinates" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="pytraj.frame.Frame.copy">
-<tt class="descname">copy</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#pytraj.frame.Frame.copy" title="Permalink to this definition">¶</a></dt>
+<code class="descname">copy</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.frame.Frame.copy" title="Permalink to this definition">¶</a></dt>
 <dd><p>return a deep copy of Frame</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pytraj.frame.Frame.force">
-<tt class="descname">force</tt><a class="headerlink" href="#pytraj.frame.Frame.force" title="Permalink to this definition">¶</a></dt>
+<code class="descname">force</code><a class="headerlink" href="#pytraj.frame.Frame.force" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="pytraj.frame.Frame.has_box">
-<tt class="descname">has_box</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#pytraj.frame.Frame.has_box" title="Permalink to this definition">¶</a></dt>
+<code class="descname">has_box</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.frame.Frame.has_box" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="pytraj.frame.Frame.has_force">
-<tt class="descname">has_force</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#pytraj.frame.Frame.has_force" title="Permalink to this definition">¶</a></dt>
+<code class="descname">has_force</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.frame.Frame.has_force" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="pytraj.frame.Frame.has_velocity">
-<tt class="descname">has_velocity</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#pytraj.frame.Frame.has_velocity" title="Permalink to this definition">¶</a></dt>
+<code class="descname">has_velocity</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.frame.Frame.has_velocity" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="pytraj.frame.Frame.is_">
-<tt class="descname">is_</tt><big>(</big><em>self</em>, <em>Frame other</em><big>)</big><a class="headerlink" href="#pytraj.frame.Frame.is_" title="Permalink to this definition">¶</a></dt>
+<code class="descname">is_</code><span class="sig-paren">(</span><em>self</em>, <em>Frame other</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.frame.Frame.is_" title="Permalink to this definition">¶</a></dt>
 <dd><p>check if Frame is itself or not</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pytraj.frame.Frame.mass">
-<tt class="descname">mass</tt><a class="headerlink" href="#pytraj.frame.Frame.mass" title="Permalink to this definition">¶</a></dt>
+<code class="descname">mass</code><a class="headerlink" href="#pytraj.frame.Frame.mass" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="pytraj.frame.Frame.n_atoms">
-<tt class="descname">n_atoms</tt><a class="headerlink" href="#pytraj.frame.Frame.n_atoms" title="Permalink to this definition">¶</a></dt>
+<code class="descname">n_atoms</code><a class="headerlink" href="#pytraj.frame.Frame.n_atoms" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="pytraj.frame.Frame.n_frames">
-<tt class="descname">n_frames</tt><a class="headerlink" href="#pytraj.frame.Frame.n_frames" title="Permalink to this definition">¶</a></dt>
+<code class="descname">n_frames</code><a class="headerlink" href="#pytraj.frame.Frame.n_frames" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="pytraj.frame.Frame.rmsd">
-<tt class="descname">rmsd</tt><big>(</big><em>self</em>, <em>Frame frame</em>, <em>AtomMask atommask=None</em>, <em>mask=None</em>, <em>top=None</em>, <em>bool mass=False</em>, <em>get_mvv=False</em><big>)</big><a class="headerlink" href="#pytraj.frame.Frame.rmsd" title="Permalink to this definition">¶</a></dt>
+<code class="descname">rmsd</code><span class="sig-paren">(</span><em>self</em>, <em>Frame frame</em>, <em>AtomMask atommask=None</em>, <em>mask=None</em>, <em>top=None</em>, <em>bool mass=False</em>, <em>get_mvv=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.frame.Frame.rmsd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate rmsd betwen two frames</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -406,7 +409,7 @@ if False: return rmsd</p>
 
 <dl class="method">
 <dt id="pytraj.frame.Frame.rmsd_nofit">
-<tt class="descname">rmsd_nofit</tt><big>(</big><em>self</em>, <em>Frame frame</em>, <em>bool mass=False</em><big>)</big><a class="headerlink" href="#pytraj.frame.Frame.rmsd_nofit" title="Permalink to this definition">¶</a></dt>
+<code class="descname">rmsd_nofit</code><span class="sig-paren">(</span><em>self</em>, <em>Frame frame</em>, <em>bool mass=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.frame.Frame.rmsd_nofit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate rmsd betwen two frames without fitting</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -422,35 +425,35 @@ if False: return rmsd</p>
 
 <dl class="method">
 <dt id="pytraj.frame.Frame.rmsfit">
-<tt class="descname">rmsfit</tt><big>(</big><em>self</em>, <em>ref=None</em>, <em>AtomMask atm=None</em><big>)</big><a class="headerlink" href="#pytraj.frame.Frame.rmsfit" title="Permalink to this definition">¶</a></dt>
+<code class="descname">rmsfit</code><span class="sig-paren">(</span><em>self</em>, <em>ref=None</em>, <em>AtomMask atm=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.frame.Frame.rmsfit" title="Permalink to this definition">¶</a></dt>
 <dd><p>do the fitting to reference Frame by rotation and translation</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pytraj.frame.Frame.set_mass">
-<tt class="descname">set_mass</tt><big>(</big><em>self</em>, <em>Topology top</em><big>)</big><a class="headerlink" href="#pytraj.frame.Frame.set_mass" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_mass</code><span class="sig-paren">(</span><em>self</em>, <em>Topology top</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.frame.Frame.set_mass" title="Permalink to this definition">¶</a></dt>
 <dd><p>set mass for Frame, requires a Topology</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pytraj.frame.Frame.set_nobox">
-<tt class="descname">set_nobox</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#pytraj.frame.Frame.set_nobox" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_nobox</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.frame.Frame.set_nobox" title="Permalink to this definition">¶</a></dt>
 <dd><p>set nobox</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pytraj.frame.Frame.shape">
-<tt class="descname">shape</tt><a class="headerlink" href="#pytraj.frame.Frame.shape" title="Permalink to this definition">¶</a></dt>
+<code class="descname">shape</code><a class="headerlink" href="#pytraj.frame.Frame.shape" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="pytraj.frame.Frame.size">
-<tt class="descname">size</tt><a class="headerlink" href="#pytraj.frame.Frame.size" title="Permalink to this definition">¶</a></dt>
+<code class="descname">size</code><a class="headerlink" href="#pytraj.frame.Frame.size" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="pytraj.frame.Frame.strip_atoms">
-<tt class="descname">strip_atoms</tt><big>(</big><em>self</em>, <em>AtomMask atm</em><big>)</big><a class="headerlink" href="#pytraj.frame.Frame.strip_atoms" title="Permalink to this definition">¶</a></dt>
+<code class="descname">strip_atoms</code><span class="sig-paren">(</span><em>self</em>, <em>AtomMask atm</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.frame.Frame.strip_atoms" title="Permalink to this definition">¶</a></dt>
 <dd><p>strip_atoms</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -466,9 +469,8 @@ if False: return rmsd</p>
 
 <dl class="attribute">
 <dt id="pytraj.frame.Frame.swap_atoms">
-<tt class="descname">swap_atoms</tt><a class="headerlink" href="#pytraj.frame.Frame.swap_atoms" title="Permalink to this definition">¶</a></dt>
-<dd><p>Frame.swap_atoms(signatures, args, kwargs, defaults)
-swap coordinates for an array of atom pairs</p>
+<code class="descname">swap_atoms</code><a class="headerlink" href="#pytraj.frame.Frame.swap_atoms" title="Permalink to this definition">¶</a></dt>
+<dd><p>swap coordinates for an array of atom pairs</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -481,35 +483,33 @@ swap coordinates for an array of atom pairs</p>
 
 <dl class="attribute">
 <dt id="pytraj.frame.Frame.temperature">
-<tt class="descname">temperature</tt><a class="headerlink" href="#pytraj.frame.Frame.temperature" title="Permalink to this definition">¶</a></dt>
-<dd><p>temperature</p>
-</dd></dl>
+<code class="descname">temperature</code><a class="headerlink" href="#pytraj.frame.Frame.temperature" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="pytraj.frame.Frame.time">
-<tt class="descname">time</tt><a class="headerlink" href="#pytraj.frame.Frame.time" title="Permalink to this definition">¶</a></dt>
-<dd><p>time</p>
-</dd></dl>
+<code class="descname">time</code><a class="headerlink" href="#pytraj.frame.Frame.time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="pytraj.frame.Frame.to_ndarray">
-<tt class="descname">to_ndarray</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#pytraj.frame.Frame.to_ndarray" title="Permalink to this definition">¶</a></dt>
+<code class="descname">to_ndarray</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.frame.Frame.to_ndarray" title="Permalink to this definition">¶</a></dt>
 <dd><p>return a ndarray as a view of Frame&#8217;s coordinates</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pytraj.frame.Frame.top">
-<tt class="descname">top</tt><a class="headerlink" href="#pytraj.frame.Frame.top" title="Permalink to this definition">¶</a></dt>
+<code class="descname">top</code><a class="headerlink" href="#pytraj.frame.Frame.top" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="pytraj.frame.Frame.velocity">
-<tt class="descname">velocity</tt><a class="headerlink" href="#pytraj.frame.Frame.velocity" title="Permalink to this definition">¶</a></dt>
+<code class="descname">velocity</code><a class="headerlink" href="#pytraj.frame.Frame.velocity" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="pytraj.frame.Frame.xyz">
-<tt class="descname">xyz</tt><a class="headerlink" href="#pytraj.frame.Frame.xyz" title="Permalink to this definition">¶</a></dt>
+<code class="descname">xyz</code><a class="headerlink" href="#pytraj.frame.Frame.xyz" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -529,8 +529,8 @@ swap coordinates for an array of atom pairs</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 14, 2015.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
+      Last updated on Nov 16, 2015.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

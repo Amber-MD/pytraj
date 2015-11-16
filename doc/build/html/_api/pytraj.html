@@ -5,10 +5,11 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj &mdash; pytraj 0.1.2.dev12+2e1511c documentation</title>
+    <title>pytraj &mdash; pytraj 0.1.2.dev12+a3b3a89 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/searchbox.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
@@ -16,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev12+2e1511c',
+        VERSION:     '0.1.2.dev12+a3b3a89',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,11 +26,13 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/0.6.0/lunr.min.js"></script>
+    <script type="text/javascript" src="../_static/js/searchbox.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+2e1511c documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+a3b3a89 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="next" title="pytraj.io" href="pytraj.io.html" />
     <link rel="prev" title="API" href="index.html" />
@@ -39,7 +42,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -52,7 +55,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+2e1511c</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+a3b3a89</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -155,13 +158,13 @@
 <span class="target" id="module-pytraj"></span><p>pytraj</p>
 <dl class="function">
 <dt id="pytraj.dispatch">
-<tt class="descclassname">pytraj.</tt><tt class="descname">dispatch</tt><big>(</big><em>type cls</em>, <em>CpptrajState state</em>, <em>line</em><big>)</big><a class="headerlink" href="#pytraj.dispatch" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">dispatch</code><span class="sig-paren">(</span><em>type cls</em>, <em>CpptrajState state</em>, <em>line</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.dispatch" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="pytraj.iterchunk">
-<tt class="descclassname">pytraj.</tt><tt class="descname">iterchunk</tt><big>(</big><em>traj</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.iterchunk" title="Permalink to this definition">¶</a></dt>
-<dd><p>iterate <tt class="docutils literal"><span class="pre">traj</span></tt> by chunk</p>
+<code class="descclassname">pytraj.</code><code class="descname">iterchunk</code><span class="sig-paren">(</span><em>traj</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.iterchunk" title="Permalink to this definition">¶</a></dt>
+<dd><p>iterate <code class="docutils literal"><span class="pre">traj</span></code> by chunk</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -189,7 +192,7 @@
 </table>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><tt class="xref py py-obj docutils literal"><span class="pre">pytraj.TrajectoryIterator.iterchunk</span></tt></p>
+<p class="last"><code class="xref py py-obj docutils literal"><span class="pre">pytraj.TrajectoryIterator.iterchunk</span></code></p>
 </div>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
@@ -204,11 +207,11 @@
 
 <dl class="function">
 <dt id="pytraj.iterframe">
-<tt class="descclassname">pytraj.</tt><tt class="descname">iterframe</tt><big>(</big><em>traj</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.iterframe" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">iterframe</code><span class="sig-paren">(</span><em>traj</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.iterframe" title="Permalink to this definition">¶</a></dt>
 <dd><p>create frame iterator with given indices, mask or some iter_options</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><tt class="xref py py-obj docutils literal"><span class="pre">pytraj.TrajectoryIterator.iterframe</span></tt></p>
+<p class="last"><code class="xref py py-obj docutils literal"><span class="pre">pytraj.TrajectoryIterator.iterframe</span></code></p>
 </div>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
@@ -224,7 +227,7 @@
 </pre></div>
 </div>
 <p># create frame iterator for given indices
-&gt;&gt;&gt; for frame in pt.iterframe(traj, frame_indices=[0, 7, 3]): print(frame) 
+&gt;&gt;&gt; for frame in pt.iterframe(traj, frame_indices=[0, 7, 3]): print(frame)
 &lt;Frame with 5293 atoms&gt;
 &lt;Frame with 5293 atoms&gt;
 &lt;Frame with 5293 atoms&gt;</p>
@@ -237,7 +240,7 @@
 
 <dl class="function">
 <dt id="pytraj.load_batch">
-<tt class="descclassname">pytraj.</tt><tt class="descname">load_batch</tt><big>(</big><em>traj</em>, <em>txt</em><big>)</big><a class="headerlink" href="#pytraj.load_batch" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">load_batch</code><span class="sig-paren">(</span><em>traj</em>, <em>txt</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.load_batch" title="Permalink to this definition">¶</a></dt>
 <dd><p>perform calculation for traj with cpptraj&#8217;s batch style</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -280,7 +283,7 @@
 
 <dl class="function">
 <dt id="pytraj.load_pipeline">
-<tt class="descclassname">pytraj.</tt><tt class="descname">load_pipeline</tt><big>(</big><em>traj</em>, <em>txt</em><big>)</big><a class="headerlink" href="#pytraj.load_pipeline" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">load_pipeline</code><span class="sig-paren">(</span><em>traj</em>, <em>txt</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.load_pipeline" title="Permalink to this definition">¶</a></dt>
 <dd><p>perform calculation for traj with cpptraj&#8217;s batch style</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -323,7 +326,7 @@
 
 <dl class="function">
 <dt id="pytraj.run">
-<tt class="descclassname">pytraj.</tt><tt class="descname">run</tt><big>(</big><em>fi</em><big>)</big><a class="headerlink" href="#pytraj.run" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">run</code><span class="sig-paren">(</span><em>fi</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>shortcut for <cite>for frame in fi: pass</cite></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
@@ -335,12 +338,12 @@
 
 <dl class="function">
 <dt id="pytraj.savefig">
-<tt class="descclassname">pytraj.</tt><tt class="descname">savefig</tt><big>(</big><em>fname</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.savefig" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">savefig</code><span class="sig-paren">(</span><em>fname</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.savefig" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="pytraj.select">
-<tt class="descclassname">pytraj.</tt><tt class="descname">select</tt><big>(</big><em>mask</em>, <em>topology</em><big>)</big><a class="headerlink" href="#pytraj.select" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">select</code><span class="sig-paren">(</span><em>mask</em>, <em>topology</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.select" title="Permalink to this definition">¶</a></dt>
 <dd><p>return atom indices</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
@@ -356,7 +359,7 @@
 
 <dl class="function">
 <dt id="pytraj.select_atoms">
-<tt class="descclassname">pytraj.</tt><tt class="descname">select_atoms</tt><big>(</big><em>mask</em>, <em>topology</em><big>)</big><a class="headerlink" href="#pytraj.select_atoms" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">select_atoms</code><span class="sig-paren">(</span><em>mask</em>, <em>topology</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.select_atoms" title="Permalink to this definition">¶</a></dt>
 <dd><p>return atom indices</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
@@ -372,18 +375,18 @@
 
 <dl class="function">
 <dt id="pytraj.set_cpptraj_verbose">
-<tt class="descclassname">pytraj.</tt><tt class="descname">set_cpptraj_verbose</tt><big>(</big><em>cm=True</em><big>)</big><a class="headerlink" href="#pytraj.set_cpptraj_verbose" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">set_cpptraj_verbose</code><span class="sig-paren">(</span><em>cm=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.set_cpptraj_verbose" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="pytraj.show">
-<tt class="descclassname">pytraj.</tt><tt class="descname">show</tt><big>(</big><big>)</big><a class="headerlink" href="#pytraj.show" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.show" title="Permalink to this definition">¶</a></dt>
 <dd><p>show plot</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pytraj.show_versions">
-<tt class="descclassname">pytraj.</tt><tt class="descname">show_versions</tt><big>(</big><big>)</big><a class="headerlink" href="#pytraj.show_versions" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">show_versions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.show_versions" title="Permalink to this definition">¶</a></dt>
 <dd><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">show_versions</span><span class="p">()</span> 
 </pre></div>
 </div>
@@ -391,7 +394,7 @@
 
 <dl class="function">
 <dt id="pytraj.strip">
-<tt class="descclassname">pytraj.</tt><tt class="descname">strip</tt><big>(</big><em>traj_or_topology</em>, <em>mask</em><big>)</big><a class="headerlink" href="#pytraj.strip" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">strip</code><span class="sig-paren">(</span><em>traj_or_topology</em>, <em>mask</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.strip" title="Permalink to this definition">¶</a></dt>
 <dd><p>return a new Trajectory or Topology with given mask.</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
@@ -420,7 +423,7 @@
 
 <dl class="function">
 <dt id="pytraj.strip_atoms">
-<tt class="descclassname">pytraj.</tt><tt class="descname">strip_atoms</tt><big>(</big><em>traj_or_topology</em>, <em>mask</em><big>)</big><a class="headerlink" href="#pytraj.strip_atoms" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">strip_atoms</code><span class="sig-paren">(</span><em>traj_or_topology</em>, <em>mask</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.strip_atoms" title="Permalink to this definition">¶</a></dt>
 <dd><p>return a new Trajectory or Topology with given mask.</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
@@ -449,7 +452,7 @@
 
 <dl class="function">
 <dt id="pytraj.superpose">
-<tt class="descclassname">pytraj.</tt><tt class="descname">superpose</tt><big>(</big><em>traj</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.superpose" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">superpose</code><span class="sig-paren">(</span><em>traj</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.superpose" title="Permalink to this definition">¶</a></dt>
 <dd><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_ala3</span><span class="p">()[:]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">superpose</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
@@ -459,7 +462,7 @@
 
 <dl class="function">
 <dt id="pytraj.to_mdtraj">
-<tt class="descclassname">pytraj.</tt><tt class="descname">to_mdtraj</tt><big>(</big><em>traj</em>, <em>top=None</em><big>)</big><a class="headerlink" href="#pytraj.to_mdtraj" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">to_mdtraj</code><span class="sig-paren">(</span><em>traj</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.to_mdtraj" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -477,8 +480,8 @@
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 14, 2015.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
+      Last updated on Nov 16, 2015.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

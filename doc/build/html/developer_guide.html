@@ -5,10 +5,11 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Developer guide for pytraj &mdash; pytraj 0.1.2.dev12+2e1511c documentation</title>
+    <title>Developer guide for pytraj &mdash; pytraj 0.1.2.dev12+a3b3a89 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/css/searchbox.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
@@ -16,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.2.dev12+2e1511c',
+        VERSION:     '0.1.2.dev12+a3b3a89',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,11 +26,13 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/0.6.0/lunr.min.js"></script>
+    <script type="text/javascript" src="_static/js/searchbox.js"></script>
     <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+2e1511c documentation" href="index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+a3b3a89 documentation" href="index.html" />
     <link rel="next" title="Misc" href="misc.html" />
     <link rel="prev" title="Frequently Asked Questions" href="faq.html" />
 <meta charset='utf-8'>
@@ -38,7 +41,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -51,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+2e1511c</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+a3b3a89</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -257,7 +260,7 @@ We put all common stuff in <a class="reference external" href="https://github.co
 </div>
 <div class="section" id="add-new-method-to-pytraj">
 <h2><a class="toc-backref" href="#id9">Add new method to pytraj</a><a class="headerlink" href="#add-new-method-to-pytraj" title="Permalink to this headline">¶</a></h2>
-<p>Check <tt class="docutils literal"><span class="pre">pytraj.common_actions</span></tt> for example.</p>
+<p>Check <code class="docutils literal"><span class="pre">pytraj.common_actions</span></code> for example.</p>
 </div>
 <div class="section" id="write-your-code-for-pytraj-s-parallel-pmap">
 <h2><a class="toc-backref" href="#id10">Write your code for pytraj&#8217;s parallel pmap</a><a class="headerlink" href="#write-your-code-for-pytraj-s-parallel-pmap" title="Permalink to this headline">¶</a></h2>
@@ -304,11 +307,11 @@ We put all common stuff in <a class="reference external" href="https://github.co
 </div>
 <div class="section" id="external-codes">
 <h2><a class="toc-backref" href="#id12">External codes</a><a class="headerlink" href="#external-codes" title="Permalink to this headline">¶</a></h2>
-<p>Try to put all external codes (<tt class="docutils literal"><span class="pre">six.py</span></tt>, ...) in <tt class="docutils literal"><span class="pre">pytraj/externals/</span></tt> folder.</p>
+<p>Try to put all external codes (<code class="docutils literal"><span class="pre">six.py</span></code>, ...) in <code class="docutils literal"><span class="pre">pytraj/externals/</span></code> folder.</p>
 </div>
 <div class="section" id="licence-info">
 <h2><a class="toc-backref" href="#id13">Licence info</a><a class="headerlink" href="#licence-info" title="Permalink to this headline">¶</a></h2>
-<p><tt class="docutils literal"><span class="pre">pytraj</span></tt> always welcomes code contribution. It&#8217;s recommended to put your name in the code you write. However, for the sake of clearness, just put something very short, like <tt class="docutils literal"><span class="pre">Copyright</span> <span class="pre">(c)</span> <span class="pre">2010-2013</span> <span class="pre">your_first_and_last_name</span></tt> and give full details of your contribution, license in <tt class="docutils literal"><span class="pre">pytraj/licenses/</span></tt> folder.</p>
+<p><code class="docutils literal"><span class="pre">pytraj</span></code> always welcomes code contribution. It&#8217;s recommended to put your name in the code you write. However, for the sake of clearness, just put something very short, like <code class="docutils literal"><span class="pre">Copyright</span> <span class="pre">(c)</span> <span class="pre">2010-2013</span> <span class="pre">your_first_and_last_name</span></code> and give full details of your contribution, license in <code class="docutils literal"><span class="pre">pytraj/licenses/</span></code> folder.</p>
 </div>
 <div class="section" id="build-doc">
 <h2><a class="toc-backref" href="#id14">Build doc</a><a class="headerlink" href="#build-doc" title="Permalink to this headline">¶</a></h2>
@@ -325,7 +328,7 @@ We put all common stuff in <a class="reference external" href="https://github.co
 </div>
 <p>There are some tricks:</p>
 <ul>
-<li><p class="first">let ipython run your code in <tt class="docutils literal"><span class="pre">.rst</span></tt> file by adding ipython directive:</p>
+<li><p class="first">let ipython run your code in <code class="docutils literal"><span class="pre">.rst</span></code> file by adding ipython directive:</p>
 <div class="highlight-python"><div class="highlight"><pre>.. ipython:: python
 </pre></div>
 </div>
@@ -358,7 +361,7 @@ But let&#8217;s start with different ways to make a tutorial. First, make sure t
 </li>
 </ul>
 <p>This is how the page look likes <a class="reference external" href="http://amber-md.github.io/pytraj/doc/build/html/tutorials/basic_examples.html">basic_examples</a>.
-Click <tt class="docutils literal"><span class="pre">Source</span></tt> in that page for raw code.</p>
+Click <code class="docutils literal"><span class="pre">Source</span></code> in that page for raw code.</p>
 <ul>
 <li><p class="first">use ipython notebook directive: you just write the code and sphinx will run it for you. This approach will have more richful layout. check:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ doc/source/tutorials/plot_correlation_matrix.rst
@@ -367,7 +370,7 @@ Click <tt class="docutils literal"><span class="pre">Source</span></tt> in that 
 </li>
 </ul>
 <p>This is how the page look likes <a class="reference external" href="http://amber-md.github.io/pytraj/doc/build/html/tutorials/plot_correlation_matrix.html">plot_correlation_matrix</a>.
-Click <tt class="docutils literal"><span class="pre">Source</span></tt> in that page for raw code.</p>
+Click <code class="docutils literal"><span class="pre">Source</span></code> in that page for raw code.</p>
 <ul>
 <li><p class="first">Two above approaches are performed on the fly when you make the doc. If you don&#8217;t want to rerun your notebook, you can run once, convert it to html file and include it in rst file:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ ipython nbconvert --to html your_notebook_name.ipynb
@@ -378,7 +381,7 @@ $ # (basically you just need to use .. raw:: html directive)
 </li>
 </ul>
 <p>This is how the page look likes <a class="reference external" href="http://amber-md.github.io/pytraj/doc/build/html/tutorials/lysozyme_order_parameter_.html">lysozyme_order_parameter</a>.
-Click <tt class="docutils literal"><span class="pre">Source</span></tt> in that page for raw code.</p>
+Click <code class="docutils literal"><span class="pre">Source</span></code> in that page for raw code.</p>
 </div>
 <div class="section" id="push-pytraj-and-libcpptraj-to-anaconda-org-after-successful-build-on-travis">
 <h2><a class="toc-backref" href="#id16">Push pytraj and libcpptraj to anaconda.org after successful build on travis</a><a class="headerlink" href="#push-pytraj-and-libcpptraj-to-anaconda-org-after-successful-build-on-travis" title="Permalink to this headline">¶</a></h2>
@@ -389,9 +392,9 @@ Click <tt class="docutils literal"><span class="pre">Source</span></tt> in that 
 <ul>
 <li><p class="first">website: <a class="reference external" href="https://anaconda.org/ambermd">anaconda.org/ambermd</a></p>
 </li>
-<li><p class="first">install <tt class="docutils literal"><span class="pre">ruby</span></tt> (google how)</p>
+<li><p class="first">install <code class="docutils literal"><span class="pre">ruby</span></code> (google how)</p>
 </li>
-<li><p class="first">install <tt class="docutils literal"><span class="pre">travis</span></tt>:</p>
+<li><p class="first">install <code class="docutils literal"><span class="pre">travis</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ gem install travis
 </pre></div>
 </div>
@@ -416,7 +419,7 @@ $ echo $TOKEN
 </pre></div>
 </div>
 </li>
-<li><p class="first">need to use <tt class="docutils literal"><span class="pre">travis</span></tt> to encrypt our token:</p>
+<li><p class="first">need to use <code class="docutils literal"><span class="pre">travis</span></code> to encrypt our token:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ travis encrypt TRAVIS_TO_ANACONDA=secretvalue
 </pre></div>
 </div>
@@ -439,16 +442,16 @@ $ # check devtools/travis-ci/upload.sh and .travis.yml files for implementation.
 <p>Explanation for above line:</p>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="docutils literal"><span class="pre">--processes</span> <span class="pre">6</span></tt>: use 6 processes to speed up testing</li>
-<li><tt class="docutils literal"><span class="pre">--with-coverage</span></tt>: use <a class="reference external" href="https://pypi.python.org/pypi/coverage">coverage module</a> to measure your code coverage</li>
-<li><tt class="docutils literal"><span class="pre">--cover-package</span> <span class="pre">pytraj</span></tt>: only care about code in pytraj</li>
+<li><code class="docutils literal"><span class="pre">--processes</span> <span class="pre">6</span></code>: use 6 processes to speed up testing</li>
+<li><code class="docutils literal"><span class="pre">--with-coverage</span></code>: use <a class="reference external" href="https://pypi.python.org/pypi/coverage">coverage module</a> to measure your code coverage</li>
+<li><code class="docutils literal"><span class="pre">--cover-package</span> <span class="pre">pytraj</span></code>: only care about code in pytraj</li>
 </ul>
 </div></blockquote>
 <p>In the final output, you should get something like:</p>
 <div class="highlight-python"><div class="highlight"><pre>pytraj.io                                            170     29    83%   20-21, 29-30, 213-215, 217, 258, 357, 428, 439, 450-456, 493-503, 516
 </pre></div>
 </div>
-<p>The numbers after <tt class="docutils literal"><span class="pre">83%</span></tt> show the line numbers in pytraj.io module (io.py) that are not executed in test files. if I open the 516-th line in <tt class="docutils literal"><span class="pre">io.py</span></tt> file, I will see:</p>
+<p>The numbers after <code class="docutils literal"><span class="pre">83%</span></code> show the line numbers in pytraj.io module (io.py) that are not executed in test files. if I open the 516-th line in <code class="docutils literal"><span class="pre">io.py</span></code> file, I will see:</p>
 <div class="highlight-python"><div class="highlight"><pre>514 def load_single_frame(frame=None, top=None, index=0):
 515     &quot;&quot;&quot;load a single Frame&quot;&quot;&quot;
 516     return iterload(frame, top)[index]
@@ -458,22 +461,22 @@ $ # check devtools/travis-ci/upload.sh and .travis.yml files for implementation.
 </div>
 <div class="section" id="segmentation-fault-debug">
 <h2><a class="toc-backref" href="#id18">Segmentation fault debug</a><a class="headerlink" href="#segmentation-fault-debug" title="Permalink to this headline">¶</a></h2>
-<p>Use <tt class="docutils literal"><span class="pre">gdb</span></tt></p>
+<p>Use <code class="docutils literal"><span class="pre">gdb</span></code></p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>gdb python
 <span class="o">(</span>gdb<span class="o">)</span> run your_python_script.py
 <span class="o">(</span>gdb<span class="o">)</span> bt
 </pre></div>
 </div>
-<p>This is how the output looks like after you typed <tt class="docutils literal"><span class="pre">bt</span></tt> command:</p>
+<p>This is how the output looks like after you typed <code class="docutils literal"><span class="pre">bt</span></code> command:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c">#13 0x00002aaac32fc8a4 in __pyx_pw_7_lprmsd_1lprmsd (__pyx_self=0x0, __pyx_args=&lt;value optimized out&gt;, __pyx_kwds=&lt;value optimized out&gt;) at mdtraj/rmsd/_lprmsd.cpp:1739</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="cython">
 <h2><a class="toc-backref" href="#id19">cython</a><a class="headerlink" href="#cython" title="Permalink to this headline">¶</a></h2>
-<p>We recommended to use <tt class="docutils literal"><span class="pre">cython</span></tt> to write or wrap high performance code. Please don&#8217;t use <tt class="docutils literal"><span class="pre">cimport</span> <span class="pre">numpy</span></tt>, use <a class="reference external" href="http://docs.cython.org/src/userguide/memoryviews.html">memoryview</a> instead
-Since <tt class="docutils literal"><span class="pre">pytraj</span></tt> will be bundled with AmberTools in Amber, it&#8217;s important that we should commit cythonized file too. The main idea is that user only need C++ compiler and <tt class="docutils literal"><span class="pre">cpptraj</span></tt>, nothing else.</p>
-<p>For some unknow reasons, I (Hai) got segmentation fault if import numpy in the top of the module  when working with <tt class="docutils literal"><span class="pre">*.pyx</span></tt> file. It&#8217;s better to import numpy locally (inside each method).</p>
+<p>We recommended to use <code class="docutils literal"><span class="pre">cython</span></code> to write or wrap high performance code. Please don&#8217;t use <code class="docutils literal"><span class="pre">cimport</span> <span class="pre">numpy</span></code>, use <a class="reference external" href="http://docs.cython.org/src/userguide/memoryviews.html">memoryview</a> instead
+Since <code class="docutils literal"><span class="pre">pytraj</span></code> will be bundled with AmberTools in Amber, it&#8217;s important that we should commit cythonized file too. The main idea is that user only need C++ compiler and <code class="docutils literal"><span class="pre">cpptraj</span></code>, nothing else.</p>
+<p>For some unknow reasons, I (Hai) got segmentation fault if import numpy in the top of the module  when working with <code class="docutils literal"><span class="pre">*.pyx</span></code> file. It&#8217;s better to import numpy locally (inside each method).</p>
 </div>
 <div class="section" id="read-also">
 <h2><a class="toc-backref" href="#id20">Read Also</a><a class="headerlink" href="#read-also" title="Permalink to this headline">¶</a></h2>
@@ -498,8 +501,8 @@ Since <tt class="docutils literal"><span class="pre">pytraj</span></tt> will be 
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 14, 2015.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
+      Last updated on Nov 16, 2015.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

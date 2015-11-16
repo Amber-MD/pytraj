@@ -21,6 +21,13 @@ import sphinx_bootstrap_theme
 html_theme = 'bootstrap'
 html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
 
+try:
+    # rmcgibbo's nice search box
+    import sphinxcontrib
+    has_sphinxcontrib = True
+except ImportError:
+    has_sphinxcontrib = False
+
 # alabaster theme
 #import alabaster
 #html_theme_path = [alabaster.get_path()]
@@ -77,6 +84,9 @@ extensions = ['sphinx.ext.autodoc',
               ]
 
 extensions.append('notebook_sphinxext')
+
+if has_sphinxcontrib:
+    extensions.append('sphinxcontrib.lunrsearch')
 
 autodoc_default_flags = ['members', 'inherited-members']
 

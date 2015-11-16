@@ -5,10 +5,11 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Trajectory &mdash; pytraj 0.1.2.dev12+2e1511c documentation</title>
+    <title>Trajectory &mdash; pytraj 0.1.2.dev12+a3b3a89 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/css/searchbox.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
@@ -16,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.2.dev12+2e1511c',
+        VERSION:     '0.1.2.dev12+a3b3a89',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,11 +26,13 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/0.6.0/lunr.min.js"></script>
+    <script type="text/javascript" src="_static/js/searchbox.js"></script>
     <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+2e1511c documentation" href="index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+a3b3a89 documentation" href="index.html" />
     <link rel="next" title="Topology" href="topology.html" />
     <link rel="prev" title="Installation" href="installation.html" />
 <meta charset='utf-8'>
@@ -38,7 +41,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -51,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+2e1511c</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+a3b3a89</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -155,7 +158,7 @@
       
   <div class="section" id="trajectory">
 <h1><a class="toc-backref" href="#id1">Trajectory</a><a class="headerlink" href="#trajectory" title="Permalink to this headline">¶</a></h1>
-<p>try <tt class="docutils literal"><span class="pre">pytraj</span></tt> online:</p>
+<p>try <code class="docutils literal"><span class="pre">pytraj</span></code> online:</p>
 <a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img src="http://mybinder.org/badge.svg" /></a>
 <div class="contents topic" id="contents">
 <p class="topic-title first">Contents</p>
@@ -171,18 +174,18 @@
 </div>
 <div class="section" id="overview">
 <h2><a class="toc-backref" href="#id2">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<p>There are two types of trajecoties in <tt class="docutils literal"><span class="pre">pytraj</span></tt>.</p>
+<p>There are two types of trajecoties in <code class="docutils literal"><span class="pre">pytraj</span></code>.</p>
 <ul class="simple">
-<li>an immutable <tt class="xref py py-class docutils literal"><span class="pre">pytraj.TrajectoryIterator</span></tt> (work-horse of pytraj).</li>
+<li>an immutable <code class="xref py py-class docutils literal"><span class="pre">pytraj.TrajectoryIterator</span></code> (work-horse of pytraj).</li>
 </ul>
 <p>This class offers out-of-core data store with easiness to load data to memory.</p>
 <ul class="simple">
-<li>a mutable <tt class="xref py py-class docutils literal"><span class="pre">pytraj.Trajectory</span></tt>. This class hold in-memory data. It is suitable for loading a chunk of snapshots.</li>
+<li>a mutable <code class="xref py py-class docutils literal"><span class="pre">pytraj.Trajectory</span></code>. This class hold in-memory data. It is suitable for loading a chunk of snapshots.</li>
 </ul>
 </div>
 <div class="section" id="why-are-there-two-trajectory-classes">
 <h2><a class="toc-backref" href="#id3">Why are there two trajectory classes?</a><a class="headerlink" href="#why-are-there-two-trajectory-classes" title="Permalink to this headline">¶</a></h2>
-<p>See our rationale here <a class="reference internal" href="design_trajectory.html#design-trajectory"><em>Trajectory design</em></a></p>
+<p>See our rationale here <a class="reference internal" href="design_trajectory.html#design-trajectory"><span>Trajectory design</span></a></p>
 </div>
 <div class="section" id="try-it">
 <h2><a class="toc-backref" href="#id4">Try it</a><a class="headerlink" href="#try-it" title="Permalink to this headline">¶</a></h2>
@@ -231,7 +234,7 @@
 <span class="go">&lt;Frame with 12 atoms&gt; [ 14.7721  28.067   16.9504]</span>
 </pre></div>
 </div>
-<p>To load all frames to memory at once, use <tt class="docutils literal"><span class="pre">[]</span></tt> notation:</p>
+<p>To load all frames to memory at once, use <code class="docutils literal"><span class="pre">[]</span></code> notation:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [8]: </span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">8</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">]</span>
 <span class="gr">Out[8]: </span>
 <span class="go">pytraj.Trajectory, 4 frames: </span>
@@ -280,8 +283,8 @@ rmsd to 3rd frame (index starts from 0) for all atoms, just:</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 14, 2015.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
+      Last updated on Nov 16, 2015.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

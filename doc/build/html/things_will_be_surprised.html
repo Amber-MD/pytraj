@@ -5,10 +5,11 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Weird things in pytraj &mdash; pytraj 0.1.2.dev12+2e1511c documentation</title>
+    <title>Weird things in pytraj &mdash; pytraj 0.1.2.dev12+a3b3a89 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/css/searchbox.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
@@ -16,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.2.dev12+2e1511c',
+        VERSION:     '0.1.2.dev12+a3b3a89',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,11 +26,13 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/0.6.0/lunr.min.js"></script>
+    <script type="text/javascript" src="_static/js/searchbox.js"></script>
     <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+2e1511c documentation" href="index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+a3b3a89 documentation" href="index.html" />
     <link rel="up" title="Cookbook" href="cookbook.html" />
     <link rel="next" title="Trajectory warm up" href="trajectory_exercise.html" />
     <link rel="prev" title="Run cpptraj’s batch" href="load_cpptrajstate.html" />
@@ -39,7 +42,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -52,7 +55,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+2e1511c</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+a3b3a89</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -179,12 +182,12 @@
 <span class="go">                       [ 4.466  8.801  1.89 ]</span>
 </pre></div>
 </div>
-<p>Why does this happen? When iterating <tt class="docutils literal"><span class="pre">pytraj.TrajectoryIteatory</span></tt> (by pytraj.iterload),
+<p>Why does this happen? When iterating <code class="docutils literal"><span class="pre">pytraj.TrajectoryIteatory</span></code> (by pytraj.iterload),
 pytraj create a Frame object behaving like a buffer. When getting to next snapshot, new
 coordinates with box will replace the old ones. When reaching final snapshot, the Frame is
 free and all coordinates are set to 0. We intend to design this behaviour since data
 copying is expensive. If you want to keep the coordinates, please make sure to &#8216;copy&#8217;.</p>
-<p>Or you can use <tt class="docutils literal"><span class="pre">pytraj.get_coordinates</span></tt></p>
+<p>Or you can use <code class="docutils literal"><span class="pre">pytraj.get_coordinates</span></code></p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [9]: </span><span class="n">xyz</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">get_coordinates</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -204,8 +207,8 @@ copying is expensive. If you want to keep the coordinates, please make sure to &
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 14, 2015.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
+      Last updated on Nov 16, 2015.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

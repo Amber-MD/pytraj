@@ -5,10 +5,11 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Overview &mdash; pytraj 0.1.2.dev12+2e1511c documentation</title>
+    <title>Overview &mdash; pytraj 0.1.2.dev12+a3b3a89 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/css/searchbox.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
@@ -16,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.2.dev12+2e1511c',
+        VERSION:     '0.1.2.dev12+a3b3a89',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,11 +26,13 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/0.6.0/lunr.min.js"></script>
+    <script type="text/javascript" src="_static/js/searchbox.js"></script>
     <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+2e1511c documentation" href="index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+a3b3a89 documentation" href="index.html" />
     <link rel="next" title="Installation" href="installation.html" />
     <link rel="prev" title="Welcome" href="index.html" />
 <meta charset='utf-8'>
@@ -38,7 +41,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -51,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+2e1511c</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+a3b3a89</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -183,7 +186,7 @@
 </li>
 <li><p class="first"><a class="reference external" href="parallel">support parallel processing</a></p>
 </li>
-<li><p class="first"><a class="reference internal" href="tips.html#process-many-files"><em>able to handle many files at the same time</em></a></p>
+<li><p class="first"><a class="reference internal" href="tips.html#process-many-files"><span>able to handle many files at the same time</span></a></p>
 </li>
 <li><p class="first"><a class="reference external" href="design_trajectory">able to handle very large trajectory</a></p>
 </li>
@@ -198,7 +201,7 @@
 <dt>include many cpptraj features</dt>
 <dd><ul class="first last simple">
 <li>automatic file detection by its <strong>content</strong></li>
-<li>smart <tt class="docutils literal"><span class="pre">autoimage</span></tt> function for PBC simulation.</li>
+<li>smart <code class="docutils literal"><span class="pre">autoimage</span></code> function for PBC simulation.</li>
 <li>... (to be filled soon)</li>
 </ul>
 </dd>
@@ -223,7 +226,7 @@
 </div>
 <div class="section" id="citations">
 <h2><a class="toc-backref" href="#id7">Citations</a><a class="headerlink" href="#citations" title="Permalink to this headline">¶</a></h2>
-<p>if you would like to acknowledge our works, please do consider citing both <tt class="docutils literal"><span class="pre">cpptraj</span></tt> and <tt class="docutils literal"><span class="pre">pytraj</span></tt> papers</p>
+<p>if you would like to acknowledge our works, please do consider citing both <code class="docutils literal"><span class="pre">cpptraj</span></code> and <code class="docutils literal"><span class="pre">pytraj</span></code> papers</p>
 <div class="highlight-python"><div class="highlight"><pre>PTRAJ and CPPTRAJ : Software for Processing and Analysis of Molecular Dynamics Trajectory Data
 Daniel R. Roe and Thomas E. Cheatham, III
 Journal of Chemical Theory and Computation 2013 9 (7), 3084-3095
@@ -234,19 +237,19 @@ Journal of Chemical Theory and Computation 2013 9 (7), 3084-3095
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">list of authors in <tt class="docutils literal"><span class="pre">pytraj</span></tt> is not complete. We will fill it soon.</p>
+<p class="last">list of authors in <code class="docutils literal"><span class="pre">pytraj</span></code> is not complete. We will fill it soon.</p>
 </div>
 </div>
 <div class="section" id="contact">
 <h2><a class="toc-backref" href="#id8">Contact</a><a class="headerlink" href="#contact" title="Permalink to this headline">¶</a></h2>
 <p>We always welcome your contribution, including (but not limited to) adding new code, bug report,
 suggestion about website, doc, ... or anything that comes up. Feel free to contact us.
-Even you do not like <tt class="docutils literal"><span class="pre">pytraj</span></tt> or some of its features, just tell us so we can make it
+Even you do not like <code class="docutils literal"><span class="pre">pytraj</span></code> or some of its features, just tell us so we can make it
 better. Cheers.</p>
 <ul class="simple">
 <li>For bug reports, feature requests, code discussion ... please use the <a class="reference external" href="https://github.com/Amber-MD/pytraj/issues">GitHub issue tracker</a></li>
 <li>For scientific discussion please send email to <a class="reference external" href="http://ambermd.org/#correspondence">amber</a></li>
-<li>For things that directly related to <tt class="docutils literal"><span class="pre">cpptraj</span></tt>, please open <a class="reference external" href="https://github.com/Amber-MD/cpptraj/issues">issue here</a></li>
+<li>For things that directly related to <code class="docutils literal"><span class="pre">cpptraj</span></code>, please open <a class="reference external" href="https://github.com/Amber-MD/cpptraj/issues">issue here</a></li>
 </ul>
 </div>
 </div>
@@ -264,8 +267,8 @@ better. Cheers.</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 14, 2015.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
+      Last updated on Nov 16, 2015.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

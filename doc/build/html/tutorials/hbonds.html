@@ -5,10 +5,11 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Hbond &mdash; pytraj 0.1.2.dev12+2e1511c documentation</title>
+    <title>Hbond &mdash; pytraj 0.1.2.dev12+a3b3a89 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/searchbox.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
@@ -16,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev12+2e1511c',
+        VERSION:     '0.1.2.dev12+a3b3a89',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,11 +26,13 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/0.6.0/lunr.min.js"></script>
+    <script type="text/javascript" src="../_static/js/searchbox.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+2e1511c documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+a3b3a89 documentation" href="../index.html" />
     <link rel="up" title="Advanced examples" href="advanced_examples.html" />
     <link rel="next" title="Endless streaming calculation" href="advanced_endless_streaming.html" />
     <link rel="prev" title="Lysozyme NH order parameters" href="lysozyme_order_parameter_.html" />
@@ -39,7 +42,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -52,7 +55,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+2e1511c</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+a3b3a89</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -150,7 +153,7 @@
       
   <div class="section" id="hbond">
 <span id="hbond-tutorial"></span><h1>Hbond<a class="headerlink" href="#hbond" title="Permalink to this headline">¶</a></h1>
-<p>try <tt class="docutils literal"><span class="pre">pytraj</span></tt> online:</p>
+<p>try <code class="docutils literal"><span class="pre">pytraj</span></code> online:</p>
 <a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img src="http://mybinder.org/badge.svg" /></a>
 <div class="ipynotebook" id="notebook-container">
 
@@ -393,7 +396,7 @@ total hbonds for GLU5 per frame
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&lt;matplotlib.lines.Line2D at 0x2aaaaab26908&gt;]</pre>
+<pre>[&lt;matplotlib.lines.Line2D at 0x2aaaabf9d898&gt;]</pre>
 </div>
 
 </div>
@@ -531,7 +534,7 @@ hbond(traj, mask=&apos;&apos;, solvent_donor=None, solvent_acceptor=None, distan
         automatically search for donors and acceptors.
     solvent_donor : {None, str}, default None
     solvent_acceptor: {None, str}, deafult None
-        if solvent_acceptor and solvent_donor are None, cpptraj only search hbond for 
+        if solvent_acceptor and solvent_donor are None, cpptraj only search hbond for
         if solvent_donor and solvent_acceptor are NOT None, cpptraj will search for hbond
         between solute and solvent too.
     distance : float, default 3.0 (angstrom)
@@ -545,13 +548,13 @@ hbond(traj, mask=&apos;&apos;, solvent_donor=None, solvent_acceptor=None, distan
         - if False, you must specify dtype=&apos;dataset&apos;
     cpp_options : str
         additional cpptraj options. For example you can explicitly specify donormask and
-        acceptormask. 
+        acceptormask.
     
         - If &#96;&#96;donormask&#96;&#96; is specified but not &#96;&#96;acceptormask&#96;&#96;, acceptors will be
           automatically searched for in &#96;&#96;mask&#96;&#96;.
     
         - If &#96;&#96;acceptormask&#96;&#96; is specified but not donormask, donors will be
-        automatically search for in &#96;&#96;mask&#96;&#96;. 
+        automatically search for in &#96;&#96;mask&#96;&#96;.
     
         - If both &#96;&#96;donormask&#96;&#96; and &#96;&#96;acceptormask&#96;&#96; are specified no automatic searching will
           occur.
@@ -560,7 +563,7 @@ hbond(traj, mask=&apos;&apos;, solvent_donor=None, solvent_acceptor=None, distan
     Returns
     -------
     out : DatasetHBond if series is True else return &apos;DatasetList&apos;
-          
+    
     Notes
     -----
     - pytraj use &apos;series&apos; as default. In cpptraj, you need to explicitly specify &apos;series&apos;.
@@ -619,8 +622,8 @@ hbond(traj, mask=&apos;&apos;, solvent_donor=None, solvent_acceptor=None, distan
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 14, 2015.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
+      Last updated on Nov 16, 2015.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

@@ -5,10 +5,11 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.ActionList &mdash; pytraj 0.1.2.dev12+2e1511c documentation</title>
+    <title>pytraj.ActionList &mdash; pytraj 0.1.2.dev12+a3b3a89 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/searchbox.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
@@ -16,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev12+2e1511c',
+        VERSION:     '0.1.2.dev12+a3b3a89',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,11 +26,13 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/0.6.0/lunr.min.js"></script>
+    <script type="text/javascript" src="../_static/js/searchbox.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+2e1511c documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+a3b3a89 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="prev" title="pytraj.parallel" href="pytraj.parallel.html" />
 <meta charset='utf-8'>
@@ -38,7 +41,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -51,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+2e1511c</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+a3b3a89</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -151,8 +154,8 @@
 <script type="text/javascript" src='../_static/cindex.js'></script></div>
 <span class="target" id="module-pytraj.core.action_list"></span><dl class="class">
 <dt id="pytraj.core.action_list.ActionList">
-<em class="property">class </em><tt class="descclassname">pytraj.core.action_list.</tt><tt class="descname">ActionList</tt><big>(</big><em>commands=None</em>, <em>Topology top=None</em>, <em>DatasetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em>, <em>crdinfo={}</em><big>)</big><a class="headerlink" href="#pytraj.core.action_list.ActionList" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<em class="property">class </em><code class="descclassname">pytraj.core.action_list.</code><code class="descname">ActionList</code><span class="sig-paren">(</span><em>commands=None</em>, <em>Topology top=None</em>, <em>DatasetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em>, <em>crdinfo={}</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.action_list.ActionList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p class="rubric">Attributes</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -160,10 +163,10 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.data" title="pytraj.core.action_list.ActionList.data"><tt class="xref py py-obj docutils literal"><span class="pre">data</span></tt></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.data" title="pytraj.core.action_list.ActionList.data"><code class="xref py py-obj docutils literal"><span class="pre">data</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.n_actions" title="pytraj.core.action_list.ActionList.n_actions"><tt class="xref py py-obj docutils literal"><span class="pre">n_actions</span></tt></a></td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.n_actions" title="pytraj.core.action_list.ActionList.n_actions"><code class="xref py py-obj docutils literal"><span class="pre">n_actions</span></code></a></td>
 <td></td>
 </tr>
 </tbody>
@@ -175,26 +178,26 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.add_action" title="pytraj.core.action_list.ActionList.add_action"><tt class="xref py py-obj docutils literal"><span class="pre">add_action</span></tt></a>(self[,&nbsp;action,&nbsp;command,&nbsp;top,&nbsp;...])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.add_action" title="pytraj.core.action_list.ActionList.add_action"><code class="xref py py-obj docutils literal"><span class="pre">add_action</span></code></a>(self[,&nbsp;action,&nbsp;command,&nbsp;top,&nbsp;...])</td>
 <td>Add action to ActionList</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.clear" title="pytraj.core.action_list.ActionList.clear"><tt class="xref py py-obj docutils literal"><span class="pre">clear</span></tt></a>(self)</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.clear" title="pytraj.core.action_list.ActionList.clear"><code class="xref py py-obj docutils literal"><span class="pre">clear</span></code></a>(self)</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.do_actions" title="pytraj.core.action_list.ActionList.do_actions"><tt class="xref py py-obj docutils literal"><span class="pre">do_actions</span></tt></a>(self[,&nbsp;traj])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.do_actions" title="pytraj.core.action_list.ActionList.do_actions"><code class="xref py py-obj docutils literal"><span class="pre">do_actions</span></code></a>(self[,&nbsp;traj])</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.is_empty" title="pytraj.core.action_list.ActionList.is_empty"><tt class="xref py py-obj docutils literal"><span class="pre">is_empty</span></tt></a>(self)</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.is_empty" title="pytraj.core.action_list.ActionList.is_empty"><code class="xref py py-obj docutils literal"><span class="pre">is_empty</span></code></a>(self)</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.process" title="pytraj.core.action_list.ActionList.process"><tt class="xref py py-obj docutils literal"><span class="pre">process</span></tt></a>(self,&nbsp;Topology&nbsp;top[,&nbsp;crdinfo,&nbsp;...])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.process" title="pytraj.core.action_list.ActionList.process"><code class="xref py py-obj docutils literal"><span class="pre">process</span></code></a>(self,&nbsp;Topology&nbsp;top[,&nbsp;crdinfo,&nbsp;...])</td>
 <td></td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
 <dt id="pytraj.core.action_list.ActionList.add_action">
-<tt class="descname">add_action</tt><big>(</big><em>self</em>, <em>action=''</em>, <em>command=''</em>, <em>top=None</em>, <em>DatasetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em>, <em>check_status=False</em><big>)</big><a class="headerlink" href="#pytraj.core.action_list.ActionList.add_action" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add_action</code><span class="sig-paren">(</span><em>self</em>, <em>action=''</em>, <em>command=''</em>, <em>top=None</em>, <em>DatasetList dslist=&lt;???&gt;</em>, <em>DataFileList dflist=&lt;???&gt;</em>, <em>check_status=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.action_list.ActionList.add_action" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add action to ActionList</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -217,53 +220,49 @@
 
 <dl class="method">
 <dt id="pytraj.core.action_list.ActionList.clear">
-<tt class="descname">clear</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#pytraj.core.action_list.ActionList.clear" title="Permalink to this definition">¶</a></dt>
+<code class="descname">clear</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.action_list.ActionList.clear" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="pytraj.core.action_list.ActionList.data">
-<tt class="descname">data</tt><a class="headerlink" href="#pytraj.core.action_list.ActionList.data" title="Permalink to this definition">¶</a></dt>
+<code class="descname">data</code><a class="headerlink" href="#pytraj.core.action_list.ActionList.data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="pytraj.core.action_list.ActionList.do_actions">
-<tt class="descname">do_actions</tt><big>(</big><em>self</em>, <em>traj=&lt;???&gt;</em>, <em>int idx=0</em><big>)</big><a class="headerlink" href="#pytraj.core.action_list.ActionList.do_actions" title="Permalink to this definition">¶</a></dt>
+<code class="descname">do_actions</code><span class="sig-paren">(</span><em>self</em>, <em>traj=&lt;???&gt;</em>, <em>int idx=0</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.action_list.ActionList.do_actions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="pytraj.core.action_list.ActionList.is_empty">
-<tt class="descname">is_empty</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#pytraj.core.action_list.ActionList.is_empty" title="Permalink to this definition">¶</a></dt>
+<code class="descname">is_empty</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.action_list.ActionList.is_empty" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="pytraj.core.action_list.ActionList.n_actions">
-<tt class="descname">n_actions</tt><a class="headerlink" href="#pytraj.core.action_list.ActionList.n_actions" title="Permalink to this definition">¶</a></dt>
+<code class="descname">n_actions</code><a class="headerlink" href="#pytraj.core.action_list.ActionList.n_actions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="pytraj.core.action_list.ActionList.process">
-<tt class="descname">process</tt><big>(</big><em>self</em>, <em>Topology top</em>, <em>crdinfo={}</em>, <em>n_frames_t=0</em>, <em>bool exit_on_error=True</em><big>)</big><a class="headerlink" href="#pytraj.core.action_list.ActionList.process" title="Permalink to this definition">¶</a></dt>
+<code class="descname">process</code><span class="sig-paren">(</span><em>self</em>, <em>Topology top</em>, <em>crdinfo={}</em>, <em>n_frames_t=0</em>, <em>bool exit_on_error=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.action_list.ActionList.process" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pytraj.core.action_list.create_pipeline">
-<tt class="descclassname">pytraj.core.action_list.</tt><tt class="descname">create_pipeline</tt><a class="headerlink" href="#pytraj.core.action_list.create_pipeline" title="Permalink to this definition">¶</a></dt>
-<dd><p>create_pipeline(traj, commands, DatasetList dslist=&lt;???&gt;, frame_indices=None)
-create frame iterator from cpptraj&#8217;s commands.</p>
-<blockquote>
-<div>This method is useful if you want cpptraj pre-processing your Trajectory before
-throwing it to your own method.</div></blockquote>
+<code class="descclassname">pytraj.core.action_list.</code><code class="descname">create_pipeline</code><a class="headerlink" href="#pytraj.core.action_list.create_pipeline" title="Permalink to this definition">¶</a></dt>
+<dd><p>create frame iterator from cpptraj&#8217;s commands.</p>
+<p>This method is useful if you want cpptraj pre-processing your Trajectory before
+throwing it to your own method.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>commands</strong> : a list of strings of cpptraj&#8217;s Action commands</p>
-<blockquote class="last">
-<div><p>traj : Trajectory or any iterable that produces Frame
-dslist : CpptrajDatasetList, optional</p>
-</div></blockquote>
+<p><strong>traj</strong> : Trajectory or any iterable that produces Frame</p>
+<p class="last"><strong>dslist</strong> : CpptrajDatasetList, optional</p>
 </td>
 </tr>
 </tbody>
@@ -300,7 +299,7 @@ EOF
 
 <dl class="attribute">
 <dt id="pytraj.core.action_list.do">
-<tt class="descclassname">pytraj.core.action_list.</tt><tt class="descname">do</tt><big>(</big><em>lines</em>, <em>traj</em>, <em>*args</em>, <em>**kwd</em><big>)</big><a class="headerlink" href="#pytraj.core.action_list.do" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.core.action_list.</code><code class="descname">do</code><span class="sig-paren">(</span><em>lines</em>, <em>traj</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.action_list.do" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -318,8 +317,8 @@ EOF
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 14, 2015.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.<br/>
+      Last updated on Nov 16, 2015.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>
