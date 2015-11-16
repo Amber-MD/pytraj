@@ -49,9 +49,12 @@ class TestAverageFrame(unittest.TestCase):
         out_traj = mean_structure(traj,
                                   mask='@CA',
                                   frame_indices=[0, 3, 7],
-                                  restype='traj')
+                                  dtype='traj')
         assert isinstance(out_traj, Trajectory), 'must be Trajectory'
         aa_eq(out_traj.xyz, frame6.xyz, decimal=3)
+
+        # raise if not trajectory, traj or frame
+        self.assertRaises(ValueError, lambda: pt.mean_structure(traj, dtype='trajxyz'))
 
     def test_autoimage(self):
         traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")

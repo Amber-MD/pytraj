@@ -1171,7 +1171,7 @@ autoimage = do_autoimage
 def mean_structure(traj,
                    mask='',
                    frame_indices=None,
-                   restype='frame',
+                   dtype='frame',
                    autoimage=False,
                    rmsfit=None,
                    top=None):
@@ -1183,7 +1183,7 @@ def mean_structure(traj,
     mask : None or str, default None (all atoms)
     frame_indices : iterable that produces integer, default None, optional
         frame indices
-    restype: str, {'frame', 'traj'}, default 'frame'
+    dtype: str, {'frame', 'traj'}, default 'frame'
         return type, either Frame (does not have Topology information) or 'traj'
     autoimage : bool, default False
         if True, performa autoimage
@@ -1234,12 +1234,14 @@ def mean_structure(traj,
     act.post_process()
 
     frame = dslist[0].get_frame()
-    if restype.lower() == 'frame':
+    if dtype.lower() == 'frame':
         return frame
-    elif restype.lower() == 'traj':
+    elif dtype.lower() in ['traj', 'trajectory']:
         new_top = _top if mask is '' else _top[mask]
         return Trajectory(xyz=frame.xyz.reshape(1, frame.n_atoms, 3).copy(),
                           top=new_top)
+    else:
+        raise ValueError('dtype must be frame or trajectory')
 
 
 get_average_frame = mean_structure
