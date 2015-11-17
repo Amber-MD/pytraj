@@ -30,22 +30,35 @@ def kmeans(traj=None,
         distance metric
     top : Topology, optional, default: None
         only need to provide this Topology if ``traj`` does not have one
-    options : cpptraj's option to save data to files.
+    frame_indices : {None, 1D array-like}, optional
+        if not None, only perform clustering for given indices. Notes that this is
+        different from ``sieve`` keywords.
+    options : str, optional
+        extra cpptraj options controlling output, sieve, ...
 
+    Sieve options::
+
+        [sieve <#> [random [sieveseed <#>]]]
+      
     Output options::
 
-          [out <cnumvtime>] [gracecolor] [summary <summaryfile>] [info <infofile>]
-          [summarysplit <splitfile>] [splitframe <comma-separated frame list>]
-          [clustersvtime <filename> cvtwindow <window size>]
-          [cpopvtime <file> [normpop | normframe]] [lifetime]
-          [sil <silhouette file prefix>]
+        [out <cnumvtime>] [gracecolor] [summary <summaryfile>] [info <infofile>]
+        [summarysplit <splitfile>] [splitframe <comma-separated frame list>]
+        [clustersvtime <filename> cvtwindow <window size>]
+        [cpopvtime <file> [normpop | normframe]] [lifetime]
+        [sil <silhouette file prefix>]
 
     Coordinate output options::
 
-          [ clusterout <trajfileprefix> [clusterfmt <trajformat>] ]
-          [ singlerepout <trajfilename> [singlerepfmt <trajformat>] ]
-          [ repout <repprefix> [repfmt <repfmt>] [repframe] ]
-          [ avgout <avgprefix> [avgfmt <avgfmt>] ]
+        [ clusterout <trajfileprefix> [clusterfmt <trajformat>] ]
+        [ singlerepout <trajfilename> [singlerepfmt <trajformat>] ]
+        [ repout <repprefix> [repfmt <repfmt>] [repframe] ]
+        [ avgout <avgprefix> [avgfmt <avgfmt>] ]
+
+    Notes
+    -----
+    if the distance matrix is large (get memory Error), should add sieve number to
+    ``options`` (check example)
 
     Returns
     -------
@@ -53,12 +66,16 @@ def kmeans(traj=None,
 
     Examples
     --------
+    >>> import pytraj as pt
     >>> from pytraj.cluster import kmeans
+    >>> traj = pt.datafiles.load_tz2()
     >>> kmeans(traj)
-    >>> kmeans(traj, n_clusters=5)
-    >>> kmeans(traj, n_clusters=5, mask='@CA')
-    >>> kmeans(traj, n_clusters=5, mask='@CA')
-    >>> kmeans(traj, n_clusters=5, mask='@CA', kseed=100, metric='dme')
+    array([8, 8, 6, ..., 0, 0, 0], dtype=int32)
+    >>> data = kmeans(traj, n_clusters=5)
+    >>> data = kmeans(traj, n_clusters=5, mask='@CA')
+    >>> data = kmeans(traj, n_clusters=5, mask='@CA')
+    >>> data = kmeans(traj, n_clusters=5, mask='@CA', kseed=100, metric='dme')
+    >>> data = kmeans(traj, n_clusters=5, mask='@CA', kseed=100, metric='rms', options='sieve 5')
     '''
 
     # don't need to _get_topology
@@ -106,11 +123,6 @@ def _dbscan(traj=None,
     Returns
     -------
     1D numpy array of frame indices
-
-    Examples
-    --------
-    >>> from pytraj.cluster import dbscan
-    >>> dbscan(traj)
     '''
 
     # don't need to _get_topology
