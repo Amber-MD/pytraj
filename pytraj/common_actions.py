@@ -841,8 +841,8 @@ def calc_multivector(traj,
 
 @_super_dispatch()
 def volmap(traj,
+           mask,
            grid_spacing,
-           mask='',
            size=None,
            buffer=3.0,
            centermask='*',
@@ -851,7 +851,7 @@ def volmap(traj,
            top=None,
            dtype='ndarray',
            frame_indices=None):
-    '''(cpptraj doc) Grid data as a volumetric map, similar to the
+    '''(combined with cpptraj doc) Grid data as a volumetric map, similar to the
     volmap command in VMD. The density is calculated by treating each atom as a
     3-dimensional Gaussian function whose standard deviation is equal to the van der Waals radius
 
@@ -863,6 +863,9 @@ def volmap(traj,
     size : {None, tuple}, default None
         if tuple, size must have length of 3
     buffer : float, default 3.0 Angstrom
+        buffer distance (Angstrom), by which the edges of the grid should clear every atom
+        of the centermask (or default mask if centermask is omitted) in every direction.
+        The buffer is ignored if the center and size are specified.
     centermask : str
     radscale : float, default 1.36 (to match to VMD calculation)
         factor by which to scale radii (by devision)
@@ -892,7 +895,11 @@ def volmap(traj,
     elif size is not None:
         raise ValueError('size must be None or a tuple. Please check method doc')
 
-    _size = '' if size is None else 'size ' + ','.join([str(ele) for x in size])
+    _size = '' if size is None else 'size ' + ','.join([str(x) for x in size])
+
+    if _size:
+        # ignore buffer
+        _buffer = ''
 
     command = ' '.join((dummy_filename, _grid_spacing, _size, mask, _radscale, _buffer,
                         _centermask, _peakcut))
