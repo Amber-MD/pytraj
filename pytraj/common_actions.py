@@ -269,27 +269,27 @@ def calc_angle(traj=None,
     Examples
     --------
     >>> import pytraj as pt
-    >>> traj = pt.datafiles.load_tz2()
+    >>> traj = pt.datafiles.load_tz2_ortho()
     >>> # calculate angle for three atoms, using amber mask
     >>> pt.angle(traj, '@1 @3 @10')
-    array([ 81.64123577,  57.2023556 ,  82.0960904 , ...,  79.31748553,
-            99.60633345,  79.4666477 ])
+    array([  98.06193365,   95.75979717,  105.59626997,  107.64079091,
+             94.93516228,  102.06028369,  109.3479057 ,  110.11532478,
+            101.86104127,  110.48992512])
 
     >>> # calculate angle for three groups of atoms, using amber mask
-    >>> dist = pt.angle(traj, '@1,37,8 @2,4,6 @5,20')
-
+    >>> angles = pt.angle(traj, '@1,37,8 @2,4,6 @5,20')
 
     >>> # calculate angle between three residues, using amber mask
-    >>> dist = pt.angle(traj, ':1 :10 :20')
+    >>> angles = pt.angle(traj, ':1 :10 :20')
 
     >>> # calculate multiple angles between three residues, using amber mask
     >>> # angle between residue 1, 10, 20, angle between residue 3, 20, 30
     >>> # (when using atom string mask, index starts from 1)
-    >>> dist = pt.angle(traj, [':1 :10 :20', ':3 :20 :30'])
+    >>> angles = pt.angle(traj, [':1 :10 :20', ':3 :20 :30'])
 
     >>> # calculate angle for a series of atoms, using array for atom mask
     >>> # angle between atom 1, 5, 8, distance between atom 4, 10, 20 (index starts from 0)
-    >>> dist = pt.angle(traj, [[1, 5, 8], [4, 10, 20]])
+    >>> angles = pt.angle(traj, [[1, 5, 8], [4, 10, 20]])
     """
     dslist = CpptrajDatasetList()
     act = CpptrajActions.Action_Angle()
@@ -840,17 +840,18 @@ def calc_multivector(traj,
 
 
 @_super_dispatch()
-def calc_volmap(traj,
-                mask='',
-                grid_spacing='0.0. 0.0. 0.0',
-                buffer=3.0,
-                centermask='*',
-                radscale=1.36,
-                peakcut=0.05,
-                top=None,
-                dtype='ndarray',
-                frame_indices=None):
-    '''(cpptraj doc) Grid data as a volumetric map, similar to the
+def volmap(traj,
+           mask,
+           grid_spacing,
+           size=None,
+           buffer=3.0,
+           centermask='*',
+           radscale=1.36,
+           peakcut=0.05,
+           top=None,
+           dtype='ndarray',
+           frame_indices=None):
+    '''(combined with cpptraj doc) Grid data as a volumetric map, similar to the
     volmap command in VMD. The density is calculated by treating each atom as a
     3-dimensional Gaussian function whose standard deviation is equal to the van der Waals radius
 
@@ -858,8 +859,13 @@ def calc_volmap(traj,
     ----------
     mask : {str, array-like}, default all atoms
         the atom selection from which to calculate the number density
-    grid_spacing : str, grid spacing in X-, Y-, Z-dimensions
+    grid_spacing : tuple, grid spacing in X-, Y-, Z-dimensions, require
+    size : {None, tuple}, default None
+        if tuple, size must have length of 3
     buffer : float, default 3.0 Angstrom
+        buffer distance (Angstrom), by which the edges of the grid should clear every atom
+        of the centermask (or default mask if centermask is omitted) in every direction.
+        The buffer is ignored if the center and size are specified.
     centermask : str
     radscale : float, default 1.36 (to match to VMD calculation)
         factor by which to scale radii (by devision)
@@ -872,16 +878,30 @@ def calc_volmap(traj,
     >>> traj = pt.datafiles.load_tz2_ortho()[:]
     >>> # do fitting and centering before perform volmap
     >>> traj = traj.superpose(mask=':1-13').center(':1-13 mass origin')
-    >>> data = pt.volmap(traj, mask=':WAT@O', grid_spacing='0.5 0.5 0.5', buffer=2.0, centermask='!:1-13', radscale=1.36)
+    >>> data = pt.volmap(traj, mask=':WAT@O', grid_spacing=(0.5, 0.5, 0.5), buffer=2.0, centermask='!:1-13', radscale=1.36)
     '''
     dummy_filename = 'dummy_fn.dat'
 
+    assert isinstance(grid_spacing, tuple) and len(grid_spacing) == 3, 'grid_spacing must be a tuple with length=3'
+
+    _grid_spacing = ' '.join([str(x) for x in grid_spacing])
     _radscale = 'radscale ' + str(radscale)
     _buffer = 'buffer ' + str(buffer)
     _peakcut = 'peakcut ' + str(peakcut)
     _centermask = 'centermask ' + centermask
 
-    command = ' '.join((dummy_filename, grid_spacing, mask, _radscale, _buffer,
+    if isinstance(size, tuple):
+        assert len(size) == 3, 'lenghth of size must be 3'
+    elif size is not None:
+        raise ValueError('size must be None or a tuple. Please check method doc')
+
+    _size = '' if size is None else 'size ' + ','.join([str(x) for x in size])
+
+    if _size:
+        # ignore buffer
+        _buffer = ''
+
+    command = ' '.join((dummy_filename, _grid_spacing, _size, mask, _radscale, _buffer,
                         _centermask, _peakcut))
 
     act = CpptrajActions.Action_Volmap()
@@ -892,7 +912,7 @@ def calc_volmap(traj,
     return _get_data_from_dtype(dslist, dtype)
 
 
-volmap = calc_volmap
+calc_volmap = volmap
 
 
 @_register_openmp
@@ -2077,7 +2097,7 @@ def closest(traj=None,
         raise RuntimeError("Topology does not have solvent")
 
     act.read_input(command, top, dslist=dslist)
-    new_top = act.process(top, get_new_top=True)[0]
+    new_top = act.process(top, get_new_top=True)
 
     fiter = _closest_iter(act, traj)
 
@@ -2445,9 +2465,8 @@ def rotate_dihedral(traj=None, mask="", top=None):
     Examples
     --------
     >>> import pytraj as pt
-    >>> from pytraj.testing import get_fn
-    >>> traj = pt.load(*get_fn('tz2'))
-    >>> traj = pt.rotate_dihedral(traj, "3:phi:120") # rotate phi of res 3 to 120 deg
+    >>> traj = pt.datafiles.load_rna()[:]
+    >>> traj = pt.rotate_dihedral(traj, "3:chin:120") # rotate chin of res 3 to 120 deg
     >>> traj = pt.rotate_dihedral(traj, "1:O4':C1':N9:C4:120") # rotate dihedral with given mask
 
     Returns
@@ -2533,8 +2552,8 @@ def set_dihedral(traj, resid='1', dihedral_type=None, deg=0, top=None):
     >>> traj = pt.datafiles.load_tz2()
     >>> # make mutable traj by loading all frames to disk
     >>> traj = traj[:]
-    >>> traj = pt.set_dihedral(traj, resid='1', dihedral_type='delta')
-    >>> traj = pt.set_dihedral(traj, resid=0, dihedral_type='delta')
+    >>> traj = pt.set_dihedral(traj, resid='3', dihedral_type='phi', deg=60)
+    >>> traj = pt.set_dihedral(traj, resid=2, dihedral_type='phi', deg=60)
 
     Returns
     -------

@@ -2,6 +2,7 @@
 
 from __future__ import print_function
 import unittest
+from pytraj import *
 import numpy as np
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
@@ -13,6 +14,8 @@ class TestFrameIndices(unittest.TestCase):
 
     def setUp(self):
         self.traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        self.traj_ortho = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        self.traj_nu = pt.iterload('data/Test_NAstruct/adh026.3.pdb')
 
     def test_frame_indices_from_yield(self):
         '''extensive and seperated testsing
@@ -38,19 +41,24 @@ class TestFrameIndices(unittest.TestCase):
                             for key in dir(pt)
                             if hasattr(pdict[key], '_is_super_dispatched')))
 
-        frame_indices = [0, 5, 2]
+        frame_indices = [0, 2]
 
         # remove 'calc_jcoupling' since does not have kfile on travis
         # remove energy_decomposition since does not have sander
         # remove center, why?
         # remove search_neighbors, why? (got messup with Frame memory owner)
-        excluded_fn = ['calc_jcoupling', 'calc_volmap', 'calc_density',
-                       'energy_decomposition', 'center', 'search_neighbors',
-                       'calc_atomiccorr', 'do_autoimage', 'closest']
+        excluded_fn = [calc_jcoupling, calc_volmap, calc_density,
+                       energy_decomposition, center, search_neighbors,
+                       calc_atomiccorr, autoimage, closest,
+                       calc_volume, ]
+        func_nu= [
+            calc_epsilon, calc_alpha, calc_zeta, calc_beta, calc_nu1, calc_nu2,
+            calc_delta, calc_chin,
+            calc_gamma, ]
 
         # default mask, default ref
         for func in funclist:
-            if func.__name__ not in excluded_fn:
+            if func not in excluded_fn:
                 if func is pt.calc_multivector:
                     data_0 = func(traj,
                                   resrange='1-6',
@@ -59,6 +67,20 @@ class TestFrameIndices(unittest.TestCase):
                     data_1 = func(traj[frame_indices],
                                   resrange='1-6',
                                   names='C N')
+                elif func is pt.volmap:
+                    # use water
+                    data_0 = func(self.traj_ortho,
+                                  mask=':WAT@O',
+                                  grid_spacing=(0.2, 0.2, 0.2),
+                                  centermask='!:1-13',
+                                  frame_indices=frame_indices)
+                    data_1 = func(self.traj_ortho[frame_indices],
+                                  mask=':WAT@O',
+                                  centermask='!:1-13',
+                                  grid_spacing=(0.2, 0.2, 0.2))
+                elif func in func_nu:
+                    data_0 = func(self.traj_nu, frame_indices=frame_indices)
+                    data_1 = func(self.traj_nu[frame_indices])
                 else:
                     data_0 = func(traj, frame_indices=frame_indices)
                     data_1 = func(traj[frame_indices])
@@ -81,10 +103,8 @@ class TestFrameIndices(unittest.TestCase):
                         'must return ndarray or DatasetList or DatasetHBond')
 
         # test excluded fns
-        # calc_atomiccorr
-        # FIXME: why failed?
-        # aa_eq(pt.atomiccorr(traj[frame_indices], '@CA'),
-        #      pt.atomiccorr(traj, '@CA', frame_indices=frame_indices))
+        aa_eq(pt.atomiccorr(traj[frame_indices], '@CA'),
+              pt.atomiccorr(traj, '@CA', frame_indices=frame_indices))
 
 
 if __name__ == "__main__":

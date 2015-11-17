@@ -186,7 +186,7 @@ def get_include_and_lib_dir():
                     time.sleep(1)
                 try:
                     subprocess.check_call(['sh',
-                                           './installs/install_cpptraj.sh', 'github'])
+                                           'scripts/install_cpptraj.sh', 'github'])
                 except CalledProcessError:
                     sys.stderr.write(
                         'can not install libcpptraj, you need to install it manually \n')
@@ -253,7 +253,7 @@ if not list_of_libcpptraj:
             sleep(3)
             try:
                 subprocess.check_call(
-                    ['sh', './installs/install_cpptraj.sh'])
+                    ['sh', 'scripts/install_cpptraj.sh'])
                 cpptraj_include = os.path.join(cpptraj_dir, 'src')
             except CalledProcessError:
                 sys.stderr.write(
