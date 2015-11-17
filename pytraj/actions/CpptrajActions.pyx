@@ -129,12 +129,13 @@ cdef class Action:
         actionsetup_ = _ActionSetup(top.thisptr, crdinfo_, n_frames_t)
         status = self.baseptr.Setup(actionsetup_)
 
+        if status != OK:
+            raise RuntimeError('failed to setup action')
+
         if get_new_top:
             new_top._own_memory = False
             new_top.thisptr[0] = actionsetup_.Top()
-            return (new_top, status)
-        else:
-            return status
+            return new_top
 
     @makesureABC("Action")
     def do_action(self, current_frame=None, int idx=0, get_new_frame=False):

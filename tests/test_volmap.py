@@ -27,7 +27,7 @@ class TestVolmap(unittest.TestCase):
         cpp_data = state.data[-1].values
 
         traj = traj.superpose(mask=':1-13').center(':1-13 mass origin')
-        ds = volmap(traj,
+        ds = pt.volmap(traj,
                     mask=':WAT@O',
                     grid_spacing=(0.5, 0.5, 0.5),
                     buffer=2.0,
@@ -53,6 +53,11 @@ class TestVolmap(unittest.TestCase):
                     centermask='!:1-13',
                     radscale=1.36)
         aa_eq(cpp_data, ds)
+
+        # raise RuntimeError
+        dry_traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
+        self.assertRaises(RuntimeError, lambda: pt.volmap(dry_traj, mask=':WAT@O',
+            grid_spacing=(0.5, 0.5, 0.5)))
 
 
 if __name__ == "__main__":

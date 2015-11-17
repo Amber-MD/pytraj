@@ -13,6 +13,7 @@ class TestFrameIndices(unittest.TestCase):
 
     def setUp(self):
         self.traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        self.traj_ortho = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
 
     def test_frame_indices_from_yield(self):
         '''extensive and seperated testsing
@@ -59,6 +60,17 @@ class TestFrameIndices(unittest.TestCase):
                     data_1 = func(traj[frame_indices],
                                   resrange='1-6',
                                   names='C N')
+                elif func is pt.volmap:
+                    # use water
+                    data_0 = func(self.traj_ortho,
+                                  mask=':WAT@O',
+                                  grid_spacing=(0.2, 0.2, 0.2),
+                                  centermask='!:1-13',
+                                  frame_indices=frame_indices)
+                    data_1 = func(self.traj_ortho[frame_indices],
+                                  mask=':WAT@O',
+                                  centermask='!:1-13',
+                                  grid_spacing=(0.2, 0.2, 0.2))
                 else:
                     data_0 = func(traj, frame_indices=frame_indices)
                     data_1 = func(traj[frame_indices])

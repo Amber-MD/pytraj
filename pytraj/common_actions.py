@@ -2097,7 +2097,7 @@ def closest(traj=None,
         raise RuntimeError("Topology does not have solvent")
 
     act.read_input(command, top, dslist=dslist)
-    new_top = act.process(top, get_new_top=True)[0]
+    new_top = act.process(top, get_new_top=True)
 
     fiter = _closest_iter(act, traj)
 
