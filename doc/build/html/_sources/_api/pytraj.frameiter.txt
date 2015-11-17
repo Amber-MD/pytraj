@@ -9,7 +9,7 @@ pytraj.FrameIter
     
         <script type="text/javascript" src='../_static/cindex.js'></script>
 
-.. autoclass:: pytraj.frameiter.FrameIterator
+.. automodule:: pytraj.frameiter
     :members:
     :undoc-members:
     :show-inheritance:
