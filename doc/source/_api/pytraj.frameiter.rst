@@ -1,7 +1,7 @@
 .. _pytraj.FrameIterator:
 
-pytraj.FrameIter
-================
+pytraj.FrameIterator
+====================
 
 .. container:: custom-index
     
