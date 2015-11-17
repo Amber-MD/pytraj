@@ -90,12 +90,12 @@ Supported methods for ``pmap`` if using pytraj's methods
     :suppress:
 
     import pytraj as pt
-    from pytraj import matrix, vector, nmr
+    from pytraj import matrix, vector, nmr, cluster
     from itertools import chain
     method_list_pmap = []
     method_list_openmp = []
 
-    for method_str in chain(dir(pt), dir(matrix), dir(vector), dir(nmr)):
+    for method_str in chain(dir(pt), dir(matrix), dir(vector), dir(nmr), dir(cluster)):
         try:
             method = getattr(pt, method_str)
             if hasattr(method, '_is_parallelizable') and method._is_parallelizable:
