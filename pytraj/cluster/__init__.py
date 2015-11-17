@@ -1,11 +1,13 @@
 from __future__ import absolute_import
 from pytraj._get_common_objects import _get_topology, _get_data_from_dtype
+from pytraj.decorators import _register_pmap, _register_openmp
 from pytraj._get_common_objects import _super_dispatch
 from pytraj.analyses import CpptrajAnalyses
 from pytraj.datasets.DatasetList import DatasetList as CpptrajDatasetList
 
 
 @_super_dispatch()
+@_register_openmp
 def kmeans(traj=None,
            mask='*',
            n_clusters=10,
@@ -57,8 +59,9 @@ def kmeans(traj=None,
 
     Notes
     -----
-    if the distance matrix is large (get memory Error), should add sieve number to
+    - if the distance matrix is large (get memory Error), should add sieve number to
     ``options`` (check example)
+    - install ``libcpptraj`` with ``-openmp`` flag to speed up this calculation.
 
     Returns
     -------
