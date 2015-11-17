@@ -23,7 +23,7 @@ mkdir lib
 
 echo `pwd`
 
-openmp=`python ../installs/check_openmp.py`
+openmp=`python ../scripts/check_openmp.py`
 echo $openmp
 # turn off openmp. need to install pytraj with openmp too. Too complicated.
 bash ./configure -shared $openmp gnu || bash ./configure -amberlib -shared $openmp gnu ||
