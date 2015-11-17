@@ -17,8 +17,8 @@ try ``pytraj`` online:
     pytraj.trajectory
     pytraj.trajectory_iterator
     pytraj.frame
-    pytraj.Topology
-    pytraj.FrameIter
+    pytraj.topology
+    pytraj.framefter
     pytraj.cluster
     pytraj.common_actions
     pytraj.hbond_analysis
