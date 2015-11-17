@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Analysis &mdash; pytraj 0.1.2.dev12+a3b3a89 documentation</title>
+    <title>Analysis &mdash; pytraj 0.1.2.dev12+082086c documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.2.dev12+a3b3a89',
+        VERSION:     '0.1.2.dev12+082086c',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -32,7 +32,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+a3b3a89 documentation" href="index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+082086c documentation" href="index.html" />
     <link rel="next" title="Nucleic Acid Analysis" href="nucleic_acid.html" />
     <link rel="prev" title="Python tricks that make your life easier" href="tutorials/python_tricks.html" />
 <meta charset='utf-8'>
@@ -54,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+a3b3a89</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+082086c</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -250,30 +250,31 @@ set_nobox for Topology.</p>
 </table>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate angle for three atoms, using amber mask</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@1 @3 @10&#39;</span><span class="p">)</span>
-<span class="go">array([ 81.64123577,  57.2023556 ,  82.0960904 , ...,  79.31748553,</span>
-<span class="go">        99.60633345,  79.4666477 ])</span>
+<span class="go">array([  98.06193365,   95.75979717,  105.59626997,  107.64079091,</span>
+<span class="go">         94.93516228,  102.06028369,  109.3479057 ,  110.11532478,</span>
+<span class="go">        101.86104127,  110.48992512])</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate angle for three groups of atoms, using amber mask</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@1,37,8 @2,4,6 @5,20&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">angles</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@1,37,8 @2,4,6 @5,20&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate angle between three residues, using amber mask</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:1 :10 :20&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">angles</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:1 :10 :20&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate multiple angles between three residues, using amber mask</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># angle between residue 1, 10, 20, angle between residue 3, 20, 30</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># (when using atom string mask, index starts from 1)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;:1 :10 :20&#39;</span><span class="p">,</span> <span class="s">&#39;:3 :20 :30&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">angles</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;:1 :10 :20&#39;</span><span class="p">,</span> <span class="s">&#39;:3 :20 :30&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate angle for a series of atoms, using array for atom mask</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># angle between atom 1, 5, 8, distance between atom 4, 10, 20 (index starts from 0)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">angles</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">]])</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -680,7 +681,7 @@ if <cite>resrange</cite> is array-like, use index starting from 0 (python conven
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.testing</span> <span class="kn">import</span> <span class="n">get_fn</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span> <span class="o">=</span> <span class="n">get_fn</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;!:WAT&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">superpose</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">superpose</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bfactor</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_bfactors</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">byres</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1167,7 +1168,7 @@ occur.</li>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 16, 2015.<br/>
+      Last updated on Nov 17, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>

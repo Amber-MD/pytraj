@@ -19,6 +19,7 @@ try ``pytraj`` online:
     pytraj.frame
     pytraj.Topology
     pytraj.FrameIter
+    pytraj.cluster
     pytraj.common_actions
     pytraj.hbond_analysis
     pytraj.CpptrajState

@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.common_actions &mdash; pytraj 0.1.2.dev12+a3b3a89 documentation</title>
+    <title>pytraj.common_actions &mdash; pytraj 0.1.2.dev12+082086c documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev12+a3b3a89',
+        VERSION:     '0.1.2.dev12+082086c',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -32,9 +32,10 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+a3b3a89 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+082086c documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="next" title="pytraj.hbond" href="pytraj.hbond_analysis.html" />
+    <link rel="prev" title="pytraj.cluster" href="pytraj.cluster.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -54,7 +55,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+a3b3a89</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+082086c</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -111,6 +112,10 @@
             
               
                 
+  <li>
+    <a href="pytraj.cluster.html" title="Previous Chapter: pytraj.cluster"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; pytraj.cluster</span>
+    </a>
+  </li>
   <li>
     <a href="pytraj.hbond_analysis.html" title="Next Chapter: pytraj.hbond"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">pytraj.hbond &raquo;</span>
     </a>
@@ -341,30 +346,31 @@ set_nobox for Topology.</p>
 </table>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate angle for three atoms, using amber mask</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@1 @3 @10&#39;</span><span class="p">)</span>
-<span class="go">array([ 81.64123577,  57.2023556 ,  82.0960904 , ...,  79.31748553,</span>
-<span class="go">        99.60633345,  79.4666477 ])</span>
+<span class="go">array([  98.06193365,   95.75979717,  105.59626997,  107.64079091,</span>
+<span class="go">         94.93516228,  102.06028369,  109.3479057 ,  110.11532478,</span>
+<span class="go">        101.86104127,  110.48992512])</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate angle for three groups of atoms, using amber mask</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@1,37,8 @2,4,6 @5,20&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">angles</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@1,37,8 @2,4,6 @5,20&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate angle between three residues, using amber mask</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:1 :10 :20&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">angles</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:1 :10 :20&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate multiple angles between three residues, using amber mask</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># angle between residue 1, 10, 20, angle between residue 3, 20, 30</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># (when using atom string mask, index starts from 1)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;:1 :10 :20&#39;</span><span class="p">,</span> <span class="s">&#39;:3 :20 :30&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">angles</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;:1 :10 :20&#39;</span><span class="p">,</span> <span class="s">&#39;:3 :20 :30&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate angle for a series of atoms, using array for atom mask</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># angle between atom 1, 5, 8, distance between atom 4, 10, 20 (index starts from 0)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">angles</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">]])</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -565,8 +571,8 @@ like below:</p>
 
 <dl class="function">
 <dt id="pytraj.common_actions.calc_volmap">
-<code class="descclassname">pytraj.common_actions.</code><code class="descname">calc_volmap</code><span class="sig-paren">(</span><em>traj</em>, <em>mask=''</em>, <em>grid_spacing='0.0. 0.0. 0.0'</em>, <em>buffer=3.0</em>, <em>centermask='*'</em>, <em>radscale=1.36</em>, <em>peakcut=0.05</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.common_actions.calc_volmap" title="Permalink to this definition">¶</a></dt>
-<dd><p>(cpptraj doc) Grid data as a volumetric map, similar to the
+<code class="descclassname">pytraj.common_actions.</code><code class="descname">calc_volmap</code><span class="sig-paren">(</span><em>traj</em>, <em>mask</em>, <em>grid_spacing</em>, <em>size=None</em>, <em>buffer=3.0</em>, <em>centermask='*'</em>, <em>radscale=1.36</em>, <em>peakcut=0.05</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.common_actions.calc_volmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>(combined with cpptraj doc) Grid data as a volumetric map, similar to the
 volmap command in VMD. The density is calculated by treating each atom as a
 3-dimensional Gaussian function whose standard deviation is equal to the van der Waals radius</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -577,8 +583,17 @@ volmap command in VMD. The density is calculated by treating each atom as a
 <blockquote>
 <div><p>the atom selection from which to calculate the number density</p>
 </div></blockquote>
-<p><strong>grid_spacing</strong> : str, grid spacing in X-, Y-, Z-dimensions</p>
+<p><strong>grid_spacing</strong> : tuple, grid spacing in X-, Y-, Z-dimensions, require</p>
+<p><strong>size</strong> : {None, tuple}, default None</p>
+<blockquote>
+<div><p>if tuple, size must have length of 3</p>
+</div></blockquote>
 <p><strong>buffer</strong> : float, default 3.0 Angstrom</p>
+<blockquote>
+<div><p>buffer distance (Angstrom), by which the edges of the grid should clear every atom
+of the centermask (or default mask if centermask is omitted) in every direction.
+The buffer is ignored if the center and size are specified.</p>
+</div></blockquote>
 <p><strong>centermask</strong> : str</p>
 <p><strong>radscale</strong> : float, default 1.36 (to match to VMD calculation)</p>
 <blockquote>
@@ -595,7 +610,7 @@ volmap command in VMD. The density is calculated by treating each atom as a
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()[:]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># do fitting and centering before perform volmap</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">superpose</span><span class="p">(</span><span class="n">mask</span><span class="o">=</span><span class="s">&#39;:1-13&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="s">&#39;:1-13 mass origin&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">volmap</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;:WAT@O&#39;</span><span class="p">,</span> <span class="n">grid_spacing</span><span class="o">=</span><span class="s">&#39;0.5 0.5 0.5&#39;</span><span class="p">,</span> <span class="nb">buffer</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">centermask</span><span class="o">=</span><span class="s">&#39;!:1-13&#39;</span><span class="p">,</span> <span class="n">radscale</span><span class="o">=</span><span class="mf">1.36</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">volmap</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;:WAT@O&#39;</span><span class="p">,</span> <span class="n">grid_spacing</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="nb">buffer</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">centermask</span><span class="o">=</span><span class="s">&#39;!:1-13&#39;</span><span class="p">,</span> <span class="n">radscale</span><span class="o">=</span><span class="mf">1.36</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -865,7 +880,7 @@ if <cite>frame</cite> keyword is specified cpptraj/pytraj will take existing T</
 
 <dl class="function">
 <dt id="pytraj.common_actions.get_average_frame">
-<code class="descclassname">pytraj.common_actions.</code><code class="descname">get_average_frame</code><span class="sig-paren">(</span><em>traj</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>restype='frame'</em>, <em>autoimage=False</em>, <em>rmsfit=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.common_actions.get_average_frame" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.common_actions.</code><code class="descname">get_average_frame</code><span class="sig-paren">(</span><em>traj</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>dtype='frame'</em>, <em>autoimage=False</em>, <em>rmsfit=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.common_actions.get_average_frame" title="Permalink to this definition">¶</a></dt>
 <dd><p>get mean structure for a given mask and given frame_indices</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -877,7 +892,7 @@ if <cite>frame</cite> keyword is specified cpptraj/pytraj will take existing T</
 <blockquote>
 <div><p>frame indices</p>
 </div></blockquote>
-<p><strong>restype: str, {&#8216;frame&#8217;, &#8216;traj&#8217;}, default &#8216;frame&#8217;</strong></p>
+<p><strong>dtype: str, {&#8216;frame&#8217;, &#8216;traj&#8217;}, default &#8216;frame&#8217;</strong></p>
 <blockquote>
 <div><p>return type, either Frame (does not have Topology information) or &#8216;traj&#8217;</p>
 </div></blockquote>
@@ -1011,7 +1026,7 @@ if <cite>frame</cite> keyword is specified cpptraj/pytraj will take existing T</
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 16, 2015.<br/>
+      Last updated on Nov 17, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
