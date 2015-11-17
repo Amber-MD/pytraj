@@ -53,7 +53,6 @@ class TestVolmap(unittest.TestCase):
                     centermask='!:1-13',
                     radscale=1.36)
         aa_eq(cpp_data, ds)
-        print(txt.format(cm, size))
 
 
 if __name__ == "__main__":
