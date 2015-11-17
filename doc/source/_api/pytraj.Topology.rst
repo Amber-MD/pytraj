@@ -3,7 +3,7 @@
 pytraj.Topology
 ===============
 
-.. autoclass:: pytraj.Topology.Topology
+.. automodule:: pytraj.topology
     :members:
     :undoc-members:
     :show-inheritance:
