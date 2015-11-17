@@ -269,27 +269,27 @@ def calc_angle(traj=None,
     Examples
     --------
     >>> import pytraj as pt
-    >>> traj = pt.datafiles.load_tz2()
+    >>> traj = pt.datafiles.load_tz2_ortho()
     >>> # calculate angle for three atoms, using amber mask
     >>> pt.angle(traj, '@1 @3 @10')
-    array([ 81.64123577,  57.2023556 ,  82.0960904 , ...,  79.31748553,
-            99.60633345,  79.4666477 ])
+    array([  98.06193365,   95.75979717,  105.59626997,  107.64079091,
+             94.93516228,  102.06028369,  109.3479057 ,  110.11532478,
+            101.86104127,  110.48992512])
 
     >>> # calculate angle for three groups of atoms, using amber mask
-    >>> dist = pt.angle(traj, '@1,37,8 @2,4,6 @5,20')
-
+    >>> angles = pt.angle(traj, '@1,37,8 @2,4,6 @5,20')
 
     >>> # calculate angle between three residues, using amber mask
-    >>> dist = pt.angle(traj, ':1 :10 :20')
+    >>> angles = pt.angle(traj, ':1 :10 :20')
 
     >>> # calculate multiple angles between three residues, using amber mask
     >>> # angle between residue 1, 10, 20, angle between residue 3, 20, 30
     >>> # (when using atom string mask, index starts from 1)
-    >>> dist = pt.angle(traj, [':1 :10 :20', ':3 :20 :30'])
+    >>> angles = pt.angle(traj, [':1 :10 :20', ':3 :20 :30'])
 
     >>> # calculate angle for a series of atoms, using array for atom mask
     >>> # angle between atom 1, 5, 8, distance between atom 4, 10, 20 (index starts from 0)
-    >>> dist = pt.angle(traj, [[1, 5, 8], [4, 10, 20]])
+    >>> angles = pt.angle(traj, [[1, 5, 8], [4, 10, 20]])
     """
     dslist = CpptrajDatasetList()
     act = CpptrajActions.Action_Angle()
@@ -2465,9 +2465,8 @@ def rotate_dihedral(traj=None, mask="", top=None):
     Examples
     --------
     >>> import pytraj as pt
-    >>> from pytraj.testing import get_fn
-    >>> traj = pt.load(*get_fn('tz2'))
-    >>> traj = pt.rotate_dihedral(traj, "3:phi:120") # rotate phi of res 3 to 120 deg
+    >>> traj = pt.datafiles.load_rna()[:]
+    >>> traj = pt.rotate_dihedral(traj, "3:chin:120") # rotate chin of res 3 to 120 deg
     >>> traj = pt.rotate_dihedral(traj, "1:O4':C1':N9:C4:120") # rotate dihedral with given mask
 
     Returns
@@ -2553,8 +2552,8 @@ def set_dihedral(traj, resid='1', dihedral_type=None, deg=0, top=None):
     >>> traj = pt.datafiles.load_tz2()
     >>> # make mutable traj by loading all frames to disk
     >>> traj = traj[:]
-    >>> traj = pt.set_dihedral(traj, resid='1', dihedral_type='delta')
-    >>> traj = pt.set_dihedral(traj, resid=0, dihedral_type='delta')
+    >>> traj = pt.set_dihedral(traj, resid='3', dihedral_type='phi', deg=60)
+    >>> traj = pt.set_dihedral(traj, resid=2, dihedral_type='phi', deg=60)
 
     Returns
     -------

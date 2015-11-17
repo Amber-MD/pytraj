@@ -129,7 +129,9 @@ cdef class Action:
         actionsetup_ = _ActionSetup(top.thisptr, crdinfo_, n_frames_t)
         status = self.baseptr.Setup(actionsetup_)
 
-        if status != OK:
+        if status == ERR:
+            # cpptraj have a bunch of options, so we only check if there is
+            # ERR
             raise RuntimeError('failed to setup action')
 
         if get_new_top:
