@@ -1,11 +1,13 @@
 from __future__ import absolute_import
 from pytraj._get_common_objects import _get_topology, _get_data_from_dtype
+from pytraj.decorators import _register_pmap, _register_openmp
 from pytraj._get_common_objects import _super_dispatch
 from pytraj.analyses import CpptrajAnalyses
 from pytraj.datasets.DatasetList import DatasetList as CpptrajDatasetList
 
 
 @_super_dispatch()
+@_register_openmp
 def kmeans(traj=None,
            mask='*',
            n_clusters=10,
@@ -15,7 +17,7 @@ def kmeans(traj=None,
            metric='rms',
            top=None,
            frame_indices=None,
-           output_options=''):
+           options=''):
     '''perform clustering and return cluster index for each frame
 
     Parameters
@@ -30,22 +32,36 @@ def kmeans(traj=None,
         distance metric
     top : Topology, optional, default: None
         only need to provide this Topology if ``traj`` does not have one
-    output_options : cpptraj's option to save data to files.
+    frame_indices : {None, 1D array-like}, optional
+        if not None, only perform clustering for given indices. Notes that this is
+        different from ``sieve`` keywords.
+    options : str, optional
+        extra cpptraj options controlling output, sieve, ...
 
+    Sieve options::
+
+        [sieve <#> [random [sieveseed <#>]]]
+      
     Output options::
 
-          [out <cnumvtime>] [gracecolor] [summary <summaryfile>] [info <infofile>]
-          [summarysplit <splitfile>] [splitframe <comma-separated frame list>]
-          [clustersvtime <filename> cvtwindow <window size>]
-          [cpopvtime <file> [normpop | normframe]] [lifetime]
-          [sil <silhouette file prefix>]
+        [out <cnumvtime>] [gracecolor] [summary <summaryfile>] [info <infofile>]
+        [summarysplit <splitfile>] [splitframe <comma-separated frame list>]
+        [clustersvtime <filename> cvtwindow <window size>]
+        [cpopvtime <file> [normpop | normframe]] [lifetime]
+        [sil <silhouette file prefix>]
 
     Coordinate output options::
 
-          [ clusterout <trajfileprefix> [clusterfmt <trajformat>] ]
-          [ singlerepout <trajfilename> [singlerepfmt <trajformat>] ]
-          [ repout <repprefix> [repfmt <repfmt>] [repframe] ]
-          [ avgout <avgprefix> [avgfmt <avgfmt>] ]
+        [ clusterout <trajfileprefix> [clusterfmt <trajformat>] ]
+        [ singlerepout <trajfilename> [singlerepfmt <trajformat>] ]
+        [ repout <repprefix> [repfmt <repfmt>] [repframe] ]
+        [ avgout <avgprefix> [avgfmt <avgfmt>] ]
+
+    Notes
+    -----
+    - if the distance matrix is large (get memory Error), should add sieve number to
+    ``options`` (check example)
+    - install ``libcpptraj`` with ``-openmp`` flag to speed up this calculation.
 
     Returns
     -------
@@ -53,12 +69,16 @@ def kmeans(traj=None,
 
     Examples
     --------
+    >>> import pytraj as pt
     >>> from pytraj.cluster import kmeans
+    >>> traj = pt.datafiles.load_tz2()
     >>> kmeans(traj)
-    >>> kmeans(traj, n_clusters=5)
-    >>> kmeans(traj, n_clusters=5, mask='@CA')
-    >>> kmeans(traj, n_clusters=5, mask='@CA')
-    >>> kmeans(traj, n_clusters=5, mask='@CA', kseed=100, metric='dme')
+    array([8, 8, 6, ..., 0, 0, 0], dtype=int32)
+    >>> data = kmeans(traj, n_clusters=5)
+    >>> data = kmeans(traj, n_clusters=5, mask='@CA')
+    >>> data = kmeans(traj, n_clusters=5, mask='@CA')
+    >>> data = kmeans(traj, n_clusters=5, mask='@CA', kseed=100, metric='dme')
+    >>> data = kmeans(traj, n_clusters=5, mask='@CA', kseed=100, metric='rms', options='sieve 5')
     '''
 
     # don't need to _get_topology
@@ -68,66 +88,10 @@ def kmeans(traj=None,
     _maxit = str(maxit)
     _metric = metric
     _mask = mask
-    _output = output_options
+    _output = options
     command = ' '.join((_clusters, _random_point, _kseed, _maxit, _metric,
                         _mask, _output))
     return _cluster(traj, command, top=top, dtype='ndarray')
-
-
-def _dbscan(traj=None,
-            mask='*',
-            minpoints=None,
-            epsilon=0.,
-            sievetoframe=False,
-            random_sieveseed=1,
-            kdist=None,
-            kfile=None,
-            sieve=1,
-            metric='rms',
-            top=None,
-            output_options=''):
-    '''perform clustering and return cluster index for each frame
-
-    Parameters
-    ----------
-    traj : Trajectory-like or iterable that produces Frame
-    mask : str, default: * (all atoms)
-    n_clusters: int, default: 10
-    random_point : bool, default: True
-    maxit : int, default: 100
-        max iterations
-    metric : str, {'rms', 'dme'}
-        distance metric
-    top : Topology, optional, default: None
-        only need to provide this Topology if ``traj`` does not have one
-    output_options : option to save data to files.
-
-
-    Returns
-    -------
-    1D numpy array of frame indices
-
-    Examples
-    --------
-    >>> from pytraj.cluster import dbscan
-    >>> dbscan(traj)
-    '''
-
-    # don't need to _get_topology
-    _top = _get_topology(traj, top)
-    _clusters = 'dbscan minpoints ' + str(minpoints)
-    _mask = mask
-    _epsilon = 'epsilon ' + str(epsilon)
-    _sievetoframe = 'sievetoframe' if sievetoframe else ''
-    _kdist = 'kdist' + str(kdist) if kdist is not None else ''
-    _kfile = kfile if kfile is not None else ''
-    _sieve = 'sieve ' + str(sieve)
-    _metric = metric
-    _random_sieveseed = 'random ' + str(random_sieveseed)
-    _output = output_options
-    command = ' '.join((_clusters, _epsilon, _sievetoframe, _kdist, _sieve,
-                        _kfile, _metric, _random_sieveseed, _mask, _output))
-    return _cluster(traj, command, top=_top, dtype='ndarray')
 
 
 def _cluster(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
@@ -150,7 +114,7 @@ def _cluster(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     # we will get a fresh one (or will get segfault)
     dslist = CpptrajDatasetList()
 
-    dname = '__pytraj_cluster'
+    dname = 'DEFAULT_NAME'
     if traj is not None:
         dslist.add_set("coords", name=dname)
         dslist[0].top = _top

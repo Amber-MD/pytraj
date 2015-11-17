@@ -269,9 +269,11 @@ def superpose(traj, *args, **kwd):
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_ala3()[:]
     >>> traj = pt.superpose(traj)
+    >>> isinstance(traj, pt.Trajectory)
+    True
     '''
     traj.superpose(*args, **kwd)
-
+    return traj
 
 def to_mdtraj(traj, top=None):
     from pytraj.utils.context import goto_temp_folder

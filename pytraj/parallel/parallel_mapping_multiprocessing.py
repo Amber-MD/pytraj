@@ -232,7 +232,7 @@ def _pmap(func, traj, *args, **kwd):
             ):
                 raise RuntimeError(
                     "this method supports both openmp and pmap, but your cpptraj "
-                    "version was installed with openpm. Should not use both openmp and pmap at the "
+                    "version was installed with openmp. Should not use both openmp and pmap at the "
                     "same time. In this case, do not use pmap since openmp is more efficient")
 
         if not isinstance(traj, TrajectoryIterator):

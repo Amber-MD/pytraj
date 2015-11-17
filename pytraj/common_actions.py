@@ -1492,7 +1492,7 @@ def calc_bfactors(traj=None,
     >>> from pytraj.testing import get_fn
     >>> fn, tn = get_fn('tz2')
     >>> traj = pt.load(fn, tn, mask='!:WAT')
-    >>> pt.superpose(traj)
+    >>> traj = pt.superpose(traj)
     >>> bfactor = pt.calc_bfactors(traj, byres=True)
     """
     byres_text = "byres" if byres else ""
