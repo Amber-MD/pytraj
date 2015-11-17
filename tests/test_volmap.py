@@ -28,12 +28,17 @@ class TestVolmap(unittest.TestCase):
         traj = traj.superpose(mask=':1-13').center(':1-13 mass origin')
         ds = volmap(traj,
                     mask=':WAT@O',
-                    grid_spacing='0.5 0.5 0.5',
+                    grid_spacing=(0.5, 0.5, 0.5),
                     buffer=2.0,
                     centermask='!:1-13',
                     radscale=1.36)
 
         aa_eq(cpp_data, ds)
+
+        # assert
+        self.assertRaises(AssertionError, lambda: pt.volmap(traj, grid_spacing='0.5 0.5 0.5'))
+        self.assertRaises(AssertionError, lambda: pt.volmap(traj, grid_spacing=(0.5, 0.5)))
+        self.assertRaises(ValueError, lambda: pt.volmap(traj, grid_spacing=(0.5, 0.5, 0.5), size='20 20 20'))
 
 
 if __name__ == "__main__":

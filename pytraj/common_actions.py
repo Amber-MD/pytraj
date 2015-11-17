@@ -840,16 +840,17 @@ def calc_multivector(traj,
 
 
 @_super_dispatch()
-def calc_volmap(traj,
-                mask='',
-                grid_spacing='0.0. 0.0. 0.0',
-                buffer=3.0,
-                centermask='*',
-                radscale=1.36,
-                peakcut=0.05,
-                top=None,
-                dtype='ndarray',
-                frame_indices=None):
+def volmap(traj,
+           grid_spacing,
+           mask='',
+           size=None,
+           buffer=3.0,
+           centermask='*',
+           radscale=1.36,
+           peakcut=0.05,
+           top=None,
+           dtype='ndarray',
+           frame_indices=None):
     '''(cpptraj doc) Grid data as a volumetric map, similar to the
     volmap command in VMD. The density is calculated by treating each atom as a
     3-dimensional Gaussian function whose standard deviation is equal to the van der Waals radius
@@ -858,7 +859,9 @@ def calc_volmap(traj,
     ----------
     mask : {str, array-like}, default all atoms
         the atom selection from which to calculate the number density
-    grid_spacing : str, grid spacing in X-, Y-, Z-dimensions
+    grid_spacing : tuple, grid spacing in X-, Y-, Z-dimensions, require
+    size : {None, tuple}, default None
+        if tuple, size must have length of 3
     buffer : float, default 3.0 Angstrom
     centermask : str
     radscale : float, default 1.36 (to match to VMD calculation)
@@ -872,16 +875,26 @@ def calc_volmap(traj,
     >>> traj = pt.datafiles.load_tz2_ortho()[:]
     >>> # do fitting and centering before perform volmap
     >>> traj = traj.superpose(mask=':1-13').center(':1-13 mass origin')
-    >>> data = pt.volmap(traj, mask=':WAT@O', grid_spacing='0.5 0.5 0.5', buffer=2.0, centermask='!:1-13', radscale=1.36)
+    >>> data = pt.volmap(traj, mask=':WAT@O', grid_spacing=(0.5, 0.5, 0.5), buffer=2.0, centermask='!:1-13', radscale=1.36)
     '''
     dummy_filename = 'dummy_fn.dat'
 
+    assert isinstance(grid_spacing, tuple) and len(grid_spacing) == 3, 'grid_spacing must be a tuple with length=3'
+
+    _grid_spacing = ' '.join([str(x) for x in grid_spacing])
     _radscale = 'radscale ' + str(radscale)
     _buffer = 'buffer ' + str(buffer)
     _peakcut = 'peakcut ' + str(peakcut)
     _centermask = 'centermask ' + centermask
 
-    command = ' '.join((dummy_filename, grid_spacing, mask, _radscale, _buffer,
+    if isinstance(size, tuple):
+        assert len(size) == 3, 'lenghth of size must be 3'
+    elif size is not None:
+        raise ValueError('size must be None or a tuple. Please check method doc')
+
+    _size = '' if size is None else 'size ' + ','.join([str(ele) for x in size])
+
+    command = ' '.join((dummy_filename, _grid_spacing, _size, mask, _radscale, _buffer,
                         _centermask, _peakcut))
 
     act = CpptrajActions.Action_Volmap()
@@ -892,7 +905,7 @@ def calc_volmap(traj,
     return _get_data_from_dtype(dslist, dtype)
 
 
-volmap = calc_volmap
+calc_volmap = volmap
 
 
 @_register_openmp
