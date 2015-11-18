@@ -4,7 +4,7 @@ from functools import partial
 from collections import OrderedDict
 from pytraj.cpp_options import info as compiled_info
 from pytraj import matrix
-from pytraj import mean_structure
+from pytraj import mean_structure, volmap
 from pytraj import Frame
 from pytraj import ired_vector_and_matrix, rotation_matrix
 from pytraj import NH_order_parameters
@@ -240,9 +240,14 @@ def _pmap(func, traj, *args, **kwd):
 
         if 'dtype' not in kwd and func not in [
                 mean_structure, matrix.dist, matrix.idea,
-                ired_vector_and_matrix, rotation_matrix
+                ired_vector_and_matrix, rotation_matrix,
+                volmap,
         ]:
             kwd['dtype'] = 'dict'
+
+        # keyword
+        if func is volmap:
+            assert kwd.get('size') is not None, 'must provide "size" value'
 
         p = Pool(n_cores)
 
@@ -257,7 +262,7 @@ def _pmap(func, traj, *args, **kwd):
         data = p.map(pfuncs, [rank for rank in range(n_cores)])
         p.close()
 
-        if func in [matrix.dist, matrix.idea]:
+        if func in [matrix.dist, matrix.idea, volmap]:
             mat = np.sum((val[1] * val[2] for val in data)) / traj.n_frames
             return mat
         elif func in [ired_vector_and_matrix, ]:
