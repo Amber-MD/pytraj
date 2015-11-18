@@ -139,6 +139,7 @@ from .common_actions import (
 
 from .matrix import dist
 distance_matrix = dist
+from . import cluster
 
 from .dihedral_analysis import (calc_phi, calc_psi, calc_alpha, calc_beta,
                                 calc_omega, calc_chin, calc_chip, calc_delta,
@@ -274,20 +275,6 @@ def superpose(traj, *args, **kwd):
     '''
     traj.superpose(*args, **kwd)
     return traj
-
-def to_mdtraj(traj, top=None):
-    from pytraj.utils.context import goto_temp_folder
-    import mdtraj as md
-
-    xyz = get_coordinates(traj)
-
-    with goto_temp_folder():
-        if top is None:
-            pdb = 'tmp.pdb'
-            traj[:1].save(pdb)
-            top = md.load_topology(pdb)
-        return md.Trajectory(xyz, top)
-
 
 def set_cpptraj_verbose(cm=True):
     if cm:

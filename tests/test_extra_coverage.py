@@ -23,11 +23,5 @@ class TestExtraCoverage(unittest.TestCase):
         # info
         pt.info()
 
-        try:
-            pt.to_mdtraj(traj)
-        except ImportError:
-            pass
-
-
 if __name__ == "__main__":
     unittest.main()
