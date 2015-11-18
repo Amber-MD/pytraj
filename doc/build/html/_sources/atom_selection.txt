@@ -1,2 +1,0 @@
-Atom mask selection
-===================

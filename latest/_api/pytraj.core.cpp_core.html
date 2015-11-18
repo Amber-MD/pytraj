@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pytraj.core.cpp_core &mdash; pytraj 0.1.2.dev12+a57d4dd documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/searchbox.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.2.dev12+a57d4dd',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/0.6.0/lunr.min.js"></script>
+    <script type="text/javascript" src="../_static/js/searchbox.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="pytraj 0.1.2.dev12+a57d4dd documentation" href="../index.html" />
+    <link rel="up" title="API" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+a57d4dd</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_and_write.html">Read and Write</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cookbook.html">Cookbook</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">pytraj.core.cpp_core</a><ul>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/_api/pytraj.core.cpp_core.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <div class="section" id="pytraj-core-cpp-core">
+<span id="id1"></span><h1>pytraj.core.cpp_core<a class="headerlink" href="#pytraj-core-cpp-core" title="Permalink to this headline">¶</a></h1>
+<div class="custom-index container">
+<script type="text/javascript" src='../_static/cindex.js'></script></div>
+<span class="target" id="module-pytraj.core.cpp_core"></span><dl class="class">
+<dt id="pytraj.core.cpp_core.AtomMask">
+<em class="property">class </em><code class="descclassname">pytraj.core.cpp_core.</code><code class="descname">AtomMask</code><a class="headerlink" href="#pytraj.core.cpp_core.AtomMask" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.AtomMask.indices" title="pytraj.core.cpp_core.AtomMask.indices"><code class="xref py py-obj docutils literal"><span class="pre">indices</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.cpp_core.AtomMask.mask_string" title="pytraj.core.cpp_core.AtomMask.mask_string"><code class="xref py py-obj docutils literal"><span class="pre">mask_string</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.AtomMask.n_atoms" title="pytraj.core.cpp_core.AtomMask.n_atoms"><code class="xref py py-obj docutils literal"><span class="pre">n_atoms</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.cpp_core.AtomMask.n_selected" title="pytraj.core.cpp_core.AtomMask.n_selected"><code class="xref py py-obj docutils literal"><span class="pre">n_selected</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.AtomMask.add_atom" title="pytraj.core.cpp_core.AtomMask.add_atom"><code class="xref py py-obj docutils literal"><span class="pre">add_atom</span></code></a>(self,&nbsp;int&nbsp;atom_num)</td>
+<td>add atom index and sort</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.cpp_core.AtomMask.add_atom_range" title="pytraj.core.cpp_core.AtomMask.add_atom_range"><code class="xref py py-obj docutils literal"><span class="pre">add_atom_range</span></code></a>(self,&nbsp;int&nbsp;begin,&nbsp;int&nbsp;end)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.AtomMask.add_atoms" title="pytraj.core.cpp_core.AtomMask.add_atoms"><code class="xref py py-obj docutils literal"><span class="pre">add_atoms</span></code></a>(self,&nbsp;vector[int]&nbsp;v)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.cpp_core.AtomMask.add_selected_indices" title="pytraj.core.cpp_core.AtomMask.add_selected_indices"><code class="xref py py-obj docutils literal"><span class="pre">add_selected_indices</span></code></a>(self,&nbsp;arr0)</td>
+<td>add atom index without sorting</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.AtomMask.invert_mask" title="pytraj.core.cpp_core.AtomMask.invert_mask"><code class="xref py py-obj docutils literal"><span class="pre">invert_mask</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.cpp_core.AtomMask.is_empty" title="pytraj.core.cpp_core.AtomMask.is_empty"><code class="xref py py-obj docutils literal"><span class="pre">is_empty</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.AtomMask.mask_expression" title="pytraj.core.cpp_core.AtomMask.mask_expression"><code class="xref py py-obj docutils literal"><span class="pre">mask_expression</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.cpp_core.AtomMask.selected_indices" title="pytraj.core.cpp_core.AtomMask.selected_indices"><code class="xref py py-obj docutils literal"><span class="pre">selected_indices</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.core.cpp_core.AtomMask.add_atom">
+<code class="descname">add_atom</code><span class="sig-paren">(</span><em>self</em>, <em>int atom_num</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.AtomMask.add_atom" title="Permalink to this definition">¶</a></dt>
+<dd><p>add atom index and sort</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.AtomMask.add_atom_range">
+<code class="descname">add_atom_range</code><span class="sig-paren">(</span><em>self</em>, <em>int begin</em>, <em>int end</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.AtomMask.add_atom_range" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.AtomMask.add_atoms">
+<code class="descname">add_atoms</code><span class="sig-paren">(</span><em>self</em>, <em>vector[int] v</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.AtomMask.add_atoms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.AtomMask.add_selected_indices">
+<code class="descname">add_selected_indices</code><span class="sig-paren">(</span><em>self</em>, <em>arr0</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.AtomMask.add_selected_indices" title="Permalink to this definition">¶</a></dt>
+<dd><p>add atom index without sorting</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#pytraj.core.cpp_core.AtomMask.add_atom" title="pytraj.core.cpp_core.AtomMask.add_atom"><code class="xref py py-obj docutils literal"><span class="pre">add_atom</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.core.cpp_core.AtomMask.indices">
+<code class="descname">indices</code><a class="headerlink" href="#pytraj.core.cpp_core.AtomMask.indices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.AtomMask.invert_mask">
+<code class="descname">invert_mask</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.AtomMask.invert_mask" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.AtomMask.is_empty">
+<code class="descname">is_empty</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.AtomMask.is_empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.AtomMask.mask_expression">
+<code class="descname">mask_expression</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.AtomMask.mask_expression" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.core.cpp_core.AtomMask.mask_string">
+<code class="descname">mask_string</code><a class="headerlink" href="#pytraj.core.cpp_core.AtomMask.mask_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.core.cpp_core.AtomMask.n_atoms">
+<code class="descname">n_atoms</code><a class="headerlink" href="#pytraj.core.cpp_core.AtomMask.n_atoms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.core.cpp_core.AtomMask.n_selected">
+<code class="descname">n_selected</code><a class="headerlink" href="#pytraj.core.cpp_core.AtomMask.n_selected" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.AtomMask.selected_indices">
+<code class="descname">selected_indices</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.AtomMask.selected_indices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.core.cpp_core.BaseIOtype">
+<em class="property">class </em><code class="descclassname">pytraj.core.cpp_core.</code><code class="descname">BaseIOtype</code><a class="headerlink" href="#pytraj.core.cpp_core.BaseIOtype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.core.cpp_core.DispatchObject">
+<em class="property">class </em><code class="descclassname">pytraj.core.cpp_core.</code><code class="descname">DispatchObject</code><a class="headerlink" href="#pytraj.core.cpp_core.DispatchObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.core.cpp_core.FunctPtr">
+<em class="property">class </em><code class="descclassname">pytraj.core.cpp_core.</code><code class="descname">FunctPtr</code><a class="headerlink" href="#pytraj.core.cpp_core.FunctPtr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.core.cpp_core.FileName">
+<em class="property">class </em><code class="descclassname">pytraj.core.cpp_core.</code><code class="descname">FileName</code><a class="headerlink" href="#pytraj.core.cpp_core.FileName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.FileName.fullname" title="pytraj.core.cpp_core.FileName.fullname"><code class="xref py py-obj docutils literal"><span class="pre">fullname</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="pytraj.core.cpp_core.FileName.fullname">
+<code class="descname">fullname</code><a class="headerlink" href="#pytraj.core.cpp_core.FileName.fullname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.core.cpp_core.CoordinateInfo">
+<em class="property">class </em><code class="descclassname">pytraj.core.cpp_core.</code><code class="descname">CoordinateInfo</code><a class="headerlink" href="#pytraj.core.cpp_core.CoordinateInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.CoordinateInfo.has_box" title="pytraj.core.cpp_core.CoordinateInfo.has_box"><code class="xref py py-obj docutils literal"><span class="pre">has_box</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.cpp_core.CoordinateInfo.has_force" title="pytraj.core.cpp_core.CoordinateInfo.has_force"><code class="xref py py-obj docutils literal"><span class="pre">has_force</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.CoordinateInfo.has_replica_dims" title="pytraj.core.cpp_core.CoordinateInfo.has_replica_dims"><code class="xref py py-obj docutils literal"><span class="pre">has_replica_dims</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.cpp_core.CoordinateInfo.has_temp" title="pytraj.core.cpp_core.CoordinateInfo.has_temp"><code class="xref py py-obj docutils literal"><span class="pre">has_temp</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.CoordinateInfo.has_time" title="pytraj.core.cpp_core.CoordinateInfo.has_time"><code class="xref py py-obj docutils literal"><span class="pre">has_time</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.cpp_core.CoordinateInfo.has_vel" title="pytraj.core.cpp_core.CoordinateInfo.has_vel"><code class="xref py py-obj docutils literal"><span class="pre">has_vel</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.CoordinateInfo.traj_box" title="pytraj.core.cpp_core.CoordinateInfo.traj_box"><code class="xref py py-obj docutils literal"><span class="pre">traj_box</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.core.cpp_core.CoordinateInfo.has_box">
+<code class="descname">has_box</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.CoordinateInfo.has_box" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.CoordinateInfo.has_force">
+<code class="descname">has_force</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.CoordinateInfo.has_force" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.CoordinateInfo.has_replica_dims">
+<code class="descname">has_replica_dims</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.CoordinateInfo.has_replica_dims" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.CoordinateInfo.has_temp">
+<code class="descname">has_temp</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.CoordinateInfo.has_temp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.CoordinateInfo.has_time">
+<code class="descname">has_time</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.CoordinateInfo.has_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.CoordinateInfo.has_vel">
+<code class="descname">has_vel</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.CoordinateInfo.has_vel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.CoordinateInfo.traj_box">
+<code class="descname">traj_box</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.CoordinateInfo.traj_box" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.core.cpp_core.CpptrajFile">
+<em class="property">class </em><code class="descclassname">pytraj.core.cpp_core.</code><code class="descname">CpptrajFile</code><a class="headerlink" href="#pytraj.core.cpp_core.CpptrajFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Original cpptraj doc:
+Class to abstract handling of basic file routines.</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.CpptrajFile.close" title="pytraj.core.cpp_core.CpptrajFile.close"><code class="xref py py-obj docutils literal"><span class="pre">close</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.cpp_core.CpptrajFile.compression" title="pytraj.core.cpp_core.CpptrajFile.compression"><code class="xref py py-obj docutils literal"><span class="pre">compression</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.CpptrajFile.file_size" title="pytraj.core.cpp_core.CpptrajFile.file_size"><code class="xref py py-obj docutils literal"><span class="pre">file_size</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.cpp_core.CpptrajFile.filename" title="pytraj.core.cpp_core.CpptrajFile.filename"><code class="xref py py-obj docutils literal"><span class="pre">filename</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.CpptrajFile.get_line" title="pytraj.core.cpp_core.CpptrajFile.get_line"><code class="xref py py-obj docutils literal"><span class="pre">get_line</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.cpp_core.CpptrajFile.is_open" title="pytraj.core.cpp_core.CpptrajFile.is_open"><code class="xref py py-obj docutils literal"><span class="pre">is_open</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.CpptrajFile.nextline" title="pytraj.core.cpp_core.CpptrajFile.nextline"><code class="xref py py-obj docutils literal"><span class="pre">nextline</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.cpp_core.CpptrajFile.open" title="pytraj.core.cpp_core.CpptrajFile.open"><code class="xref py py-obj docutils literal"><span class="pre">open</span></code></a>(self[,&nbsp;filename,&nbsp;status])</td>
+<td>just like Python file</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.CpptrajFile.open_append" title="pytraj.core.cpp_core.CpptrajFile.open_append"><code class="xref py py-obj docutils literal"><span class="pre">open_append</span></code></a>(self,&nbsp;filename)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.cpp_core.CpptrajFile.open_read" title="pytraj.core.cpp_core.CpptrajFile.open_read"><code class="xref py py-obj docutils literal"><span class="pre">open_read</span></code></a>(self,&nbsp;filename)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.CpptrajFile.open_write" title="pytraj.core.cpp_core.CpptrajFile.open_write"><code class="xref py py-obj docutils literal"><span class="pre">open_write</span></code></a>(self,&nbsp;filename)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.cpp_core.CpptrajFile.open_write_numbered" title="pytraj.core.cpp_core.CpptrajFile.open_write_numbered"><code class="xref py py-obj docutils literal"><span class="pre">open_write_numbered</span></code></a>(self,&nbsp;int&nbsp;numIn)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.CpptrajFile.openfile" title="pytraj.core.cpp_core.CpptrajFile.openfile"><code class="xref py py-obj docutils literal"><span class="pre">openfile</span></code></a>(self,&nbsp;*args)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.core.cpp_core.CpptrajFile.close">
+<code class="descname">close</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.CpptrajFile.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.CpptrajFile.compression">
+<code class="descname">compression</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.CpptrajFile.compression" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.CpptrajFile.file_size">
+<code class="descname">file_size</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.CpptrajFile.file_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.CpptrajFile.filename">
+<code class="descname">filename</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.CpptrajFile.filename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.CpptrajFile.get_line">
+<code class="descname">get_line</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.CpptrajFile.get_line" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.CpptrajFile.is_open">
+<code class="descname">is_open</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.CpptrajFile.is_open" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.CpptrajFile.nextline">
+<code class="descname">nextline</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.CpptrajFile.nextline" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.CpptrajFile.open">
+<code class="descname">open</code><span class="sig-paren">(</span><em>self</em>, <em>filename=''</em>, <em>status='r') just like Python file &gt;&gt;&gt; cpptraj = CpptrajFile() &gt;&gt;&gt; cpptraj.open(&quot;test.dat&quot;</em>, <em>'r'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.CpptrajFile.open" title="Permalink to this definition">¶</a></dt>
+<dd><p>just like Python file
+&gt;&gt;&gt; cpptraj = CpptrajFile()
+&gt;&gt;&gt; cpptraj.open(&#8220;test.dat&#8221;, &#8216;r&#8217;)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.CpptrajFile.open_append">
+<code class="descname">open_append</code><span class="sig-paren">(</span><em>self</em>, <em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.CpptrajFile.open_append" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.CpptrajFile.open_read">
+<code class="descname">open_read</code><span class="sig-paren">(</span><em>self</em>, <em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.CpptrajFile.open_read" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.CpptrajFile.open_write">
+<code class="descname">open_write</code><span class="sig-paren">(</span><em>self</em>, <em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.CpptrajFile.open_write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.CpptrajFile.open_write_numbered">
+<code class="descname">open_write_numbered</code><span class="sig-paren">(</span><em>self</em>, <em>int numIn</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.CpptrajFile.open_write_numbered" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.CpptrajFile.openfile">
+<code class="descname">openfile</code><span class="sig-paren">(</span><em>self</em>, <em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.CpptrajFile.openfile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.core.cpp_core.NameType">
+<em class="property">class </em><code class="descclassname">pytraj.core.cpp_core.</code><code class="descname">NameType</code><a class="headerlink" href="#pytraj.core.cpp_core.NameType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.NameType.truncated_name" title="pytraj.core.cpp_core.NameType.truncated_name"><code class="xref py py-obj docutils literal"><span class="pre">truncated_name</span></code></a></td>
+<td>return string</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.NameType.copy" title="pytraj.core.cpp_core.NameType.copy"><code class="xref py py-obj docutils literal"><span class="pre">copy</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.cpp_core.NameType.match" title="pytraj.core.cpp_core.NameType.match"><code class="xref py py-obj docutils literal"><span class="pre">match</span></code></a>(self,&nbsp;NameType&nbsp;nt)</td>
+<td>return bool</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.NameType.replace_asterisk" title="pytraj.core.cpp_core.NameType.replace_asterisk"><code class="xref py py-obj docutils literal"><span class="pre">replace_asterisk</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.cpp_core.NameType.to_buffer" title="pytraj.core.cpp_core.NameType.to_buffer"><code class="xref py py-obj docutils literal"><span class="pre">to_buffer</span></code></a>(self,&nbsp;char&nbsp;*c)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.core.cpp_core.NameType.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.NameType.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.NameType.match">
+<code class="descname">match</code><span class="sig-paren">(</span><em>self</em>, <em>NameType nt</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.NameType.match" title="Permalink to this definition">¶</a></dt>
+<dd><p>return bool</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.NameType.replace_asterisk">
+<code class="descname">replace_asterisk</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.NameType.replace_asterisk" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.NameType.to_buffer">
+<code class="descname">to_buffer</code><span class="sig-paren">(</span><em>self</em>, <em>char *c</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.NameType.to_buffer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.core.cpp_core.NameType.truncated_name">
+<code class="descname">truncated_name</code><a class="headerlink" href="#pytraj.core.cpp_core.NameType.truncated_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>return string</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.core.cpp_core.Command">
+<em class="property">class </em><code class="descclassname">pytraj.core.cpp_core.</code><code class="descname">Command</code><a class="headerlink" href="#pytraj.core.cpp_core.Command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.Command.dispatch" title="pytraj.core.cpp_core.Command.dispatch"><code class="xref py py-obj docutils literal"><span class="pre">dispatch</span></code></a>(type&nbsp;cls,&nbsp;CpptrajState&nbsp;state,&nbsp;line)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.cpp_core.Command.get_state" title="pytraj.core.cpp_core.Command.get_state"><code class="xref py py-obj docutils literal"><span class="pre">get_state</span></code></a>(type&nbsp;cls,&nbsp;trajin_text)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.Command.get_state_from_string" title="pytraj.core.cpp_core.Command.get_state_from_string"><code class="xref py py-obj docutils literal"><span class="pre">get_state_from_string</span></code></a>(type&nbsp;cls,&nbsp;txt)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.core.cpp_core.Command.dispatch">
+<code class="descname">dispatch</code><span class="sig-paren">(</span><em>type cls</em>, <em>CpptrajState state</em>, <em>line</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.Command.dispatch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.Command.get_state">
+<code class="descname">get_state</code><span class="sig-paren">(</span><em>type cls</em>, <em>trajin_text</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.Command.get_state" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.Command.get_state_from_string">
+<code class="descname">get_state_from_string</code><span class="sig-paren">(</span><em>type cls</em>, <em>txt</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.Command.get_state_from_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.core.cpp_core.CpptrajState">
+<em class="property">class </em><code class="descclassname">pytraj.core.cpp_core.</code><code class="descname">CpptrajState</code><a class="headerlink" href="#pytraj.core.cpp_core.CpptrajState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>CpptrajState hold all data per cpptraj run. This class is for internal use. 
+Check example</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
+<span class="go">parm tz2.parm7</span>
+<span class="go">trajin tz2.nc</span>
+<span class="go">rms</span>
+<span class="go">distance :2 :3</span>
+<span class="go">&#39;&#39;&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">state</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_cpptraj_state</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">state</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="go">CpptrajState, include:</span>
+<span class="go">&lt;datasetlist: 3 datasets&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="go">&lt;pytraj.datasets.DatasetDouble: size=101, key=RMSD_00001&gt;</span>
+<span class="go">values:</span>
+<span class="go">[  2.43182129e-07   4.01623189e+00   6.41421043e+00 ...,   8.27504991e+00</span>
+<span class="go">   8.19405473e+00   7.77917637e+00]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">[&#39;tz2.parm7&#39;, &#39;RMSD_00001&#39;, &#39;Dis_00002&#39;]</span>
+</pre></div>
+</div>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.CpptrajState.data" title="pytraj.core.cpp_core.CpptrajState.data"><code class="xref py py-obj docutils literal"><span class="pre">data</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.cpp_core.CpptrajState.datafilelist" title="pytraj.core.cpp_core.CpptrajState.datafilelist"><code class="xref py py-obj docutils literal"><span class="pre">datafilelist</span></code></a></td>
+<td>datafilelist: pytraj.datafiles.datafiles.DataFileList</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.CpptrajState.datasetlist" title="pytraj.core.cpp_core.CpptrajState.datasetlist"><code class="xref py py-obj docutils literal"><span class="pre">datasetlist</span></code></a></td>
+<td>datasetlist: pytraj.datasets.DatasetList.DatasetList</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.CpptrajState.compute" title="pytraj.core.cpp_core.CpptrajState.compute"><code class="xref py py-obj docutils literal"><span class="pre">compute</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.cpp_core.CpptrajState.is_empty" title="pytraj.core.cpp_core.CpptrajState.is_empty"><code class="xref py py-obj docutils literal"><span class="pre">is_empty</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.CpptrajState.run" title="pytraj.core.cpp_core.CpptrajState.run"><code class="xref py py-obj docutils literal"><span class="pre">run</span></code></a>(self)</td>
+<td>alias of CpptrajState.compute. This is for testing purpose</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.core.cpp_core.CpptrajState.compute">
+<code class="descname">compute</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.CpptrajState.compute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.core.cpp_core.CpptrajState.data">
+<code class="descname">data</code><a class="headerlink" href="#pytraj.core.cpp_core.CpptrajState.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.core.cpp_core.CpptrajState.datafilelist">
+<code class="descname">datafilelist</code><a class="headerlink" href="#pytraj.core.cpp_core.CpptrajState.datafilelist" title="Permalink to this definition">¶</a></dt>
+<dd><p>datafilelist: pytraj.datafiles.datafiles.DataFileList</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.core.cpp_core.CpptrajState.datasetlist">
+<code class="descname">datasetlist</code><a class="headerlink" href="#pytraj.core.cpp_core.CpptrajState.datasetlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>datasetlist: pytraj.datasets.DatasetList.DatasetList</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.CpptrajState.is_empty">
+<code class="descname">is_empty</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.CpptrajState.is_empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.CpptrajState.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.CpptrajState.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of CpptrajState.compute. This is for testing purpose</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.core.cpp_core.ArgList">
+<em class="property">class </em><code class="descclassname">pytraj.core.cpp_core.</code><code class="descname">ArgList</code><a class="headerlink" href="#pytraj.core.cpp_core.ArgList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="docutils">
+<dt>Class: ArgList</dt>
+<dd>Hold a list of string arguments and keeps track of their usage.
+Can be set from an input line using SetList(), with arguments separated 
+by a specified delimiter, or arguments can be added one-by-one with AddArg.
+Arguments can be accessed with the various getX routines,
+where X is specific to certain types, e.g. getNextDouble returns
+the next double, getNextMask returns an atom mask expression (i.e.
+it has :, &#64;, % characters etc). All of the getX routines (along with
+the hasKey routine) mark the argument they access as used, so that
+subsequent calls with these functions will not return the same
+argument over and over.</dd>
+</dl>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.ArgList.n_args" title="pytraj.core.cpp_core.ArgList.n_args"><code class="xref py py-obj docutils literal"><span class="pre">n_args</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.ArgList.command_is" title="pytraj.core.cpp_core.ArgList.command_is"><code class="xref py py-obj docutils literal"><span class="pre">command_is</span></code></a>(self,&nbsp;char&nbsp;*cm)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.cpp_core.ArgList.get_key_double" title="pytraj.core.cpp_core.ArgList.get_key_double"><code class="xref py py-obj docutils literal"><span class="pre">get_key_double</span></code></a>(self,&nbsp;char&nbsp;*key,&nbsp;double&nbsp;defd)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.ArgList.get_key_int" title="pytraj.core.cpp_core.ArgList.get_key_int"><code class="xref py py-obj docutils literal"><span class="pre">get_key_int</span></code></a>(self,&nbsp;char&nbsp;*key,&nbsp;int&nbsp;defint)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.cpp_core.ArgList.get_next_double" title="pytraj.core.cpp_core.ArgList.get_next_double"><code class="xref py py-obj docutils literal"><span class="pre">get_next_double</span></code></a>(self,&nbsp;double&nbsp;defd)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.ArgList.get_next_integer" title="pytraj.core.cpp_core.ArgList.get_next_integer"><code class="xref py py-obj docutils literal"><span class="pre">get_next_integer</span></code></a>(self,&nbsp;defint)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.cpp_core.ArgList.get_next_mask" title="pytraj.core.cpp_core.ArgList.get_next_mask"><code class="xref py py-obj docutils literal"><span class="pre">get_next_mask</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.ArgList.get_next_string" title="pytraj.core.cpp_core.ArgList.get_next_string"><code class="xref py py-obj docutils literal"><span class="pre">get_next_string</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.cpp_core.ArgList.get_next_tag" title="pytraj.core.cpp_core.ArgList.get_next_tag"><code class="xref py py-obj docutils literal"><span class="pre">get_next_tag</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.ArgList.get_string_key" title="pytraj.core.cpp_core.ArgList.get_string_key"><code class="xref py py-obj docutils literal"><span class="pre">get_string_key</span></code></a>(self,&nbsp;c)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.cpp_core.ArgList.has_key" title="pytraj.core.cpp_core.ArgList.has_key"><code class="xref py py-obj docutils literal"><span class="pre">has_key</span></code></a>(self,&nbsp;char&nbsp;*key)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.cpp_core.ArgList.is_empty" title="pytraj.core.cpp_core.ArgList.is_empty"><code class="xref py py-obj docutils literal"><span class="pre">is_empty</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.core.cpp_core.ArgList.command_is">
+<code class="descname">command_is</code><span class="sig-paren">(</span><em>self</em>, <em>char *cm</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.ArgList.command_is" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.ArgList.get_key_double">
+<code class="descname">get_key_double</code><span class="sig-paren">(</span><em>self</em>, <em>char *key</em>, <em>double defd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.ArgList.get_key_double" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.ArgList.get_key_int">
+<code class="descname">get_key_int</code><span class="sig-paren">(</span><em>self</em>, <em>char *key</em>, <em>int defint</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.ArgList.get_key_int" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.ArgList.get_next_double">
+<code class="descname">get_next_double</code><span class="sig-paren">(</span><em>self</em>, <em>double defd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.ArgList.get_next_double" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.ArgList.get_next_integer">
+<code class="descname">get_next_integer</code><span class="sig-paren">(</span><em>self</em>, <em>defint</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.ArgList.get_next_integer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.ArgList.get_next_mask">
+<code class="descname">get_next_mask</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.ArgList.get_next_mask" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.ArgList.get_next_string">
+<code class="descname">get_next_string</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.ArgList.get_next_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.ArgList.get_next_tag">
+<code class="descname">get_next_tag</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.ArgList.get_next_tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.ArgList.get_string_key">
+<code class="descname">get_string_key</code><span class="sig-paren">(</span><em>self</em>, <em>c</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.ArgList.get_string_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.ArgList.has_key">
+<code class="descname">has_key</code><span class="sig-paren">(</span><em>self</em>, <em>char *key</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.ArgList.has_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.core.cpp_core.ArgList.is_empty">
+<code class="descname">is_empty</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.cpp_core.ArgList.is_empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.core.cpp_core.ArgList.n_args">
+<code class="descname">n_args</code><a class="headerlink" href="#pytraj.core.cpp_core.ArgList.n_args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, pytraj developers.<br/>
+      Last updated on Nov 18, 2015.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

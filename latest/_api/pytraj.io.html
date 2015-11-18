@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pytraj.io &mdash; pytraj 0.1.2.dev12+a57d4dd documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/searchbox.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.2.dev12+a57d4dd',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/0.6.0/lunr.min.js"></script>
+    <script type="text/javascript" src="../_static/js/searchbox.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="pytraj 0.1.2.dev12+a57d4dd documentation" href="../index.html" />
+    <link rel="up" title="API" href="index.html" />
+    <link rel="next" title="pytraj.Trajectory" href="pytraj.trajectory.html" />
+    <link rel="prev" title="pytraj" href="pytraj.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+a57d4dd</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_and_write.html">Read and Write</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cookbook.html">Cookbook</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">pytraj.io</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="pytraj.html" title="Previous Chapter: pytraj"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; pytraj</span>
+    </a>
+  </li>
+  <li>
+    <a href="pytraj.trajectory.html" title="Next Chapter: pytraj.Trajectory"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">pytraj.Trajec... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/_api/pytraj.io.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <div class="section" id="pytraj-io">
+<span id="id1"></span><h1>pytraj.io<a class="headerlink" href="#pytraj-io" title="Permalink to this headline">¶</a></h1>
+<div class="custom-index container">
+<script type="text/javascript" src='../_static/cindex.js'></script></div>
+<span class="target" id="module-pytraj.io"></span><dl class="function">
+<dt id="pytraj.io.load">
+<code class="descclassname">pytraj.io.</code><code class="descname">load</code><span class="sig-paren">(</span><em>filename</em>, <em>top=None</em>, <em>frame_indices=None</em>, <em>mask=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>try loading and returning appropriate values. See example below.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str, Trajectory filename</p>
+<p><strong>top</strong> : Topology filename or a Topology</p>
+<p><strong>frame_indices</strong> : {None, array_like}, default None</p>
+<blockquote>
+<div><p>only load frames with given number given in frame_indices</p>
+</div></blockquote>
+<p><strong>mask</strong> : {str, None}, default None</p>
+<blockquote>
+<div><p>if None: load coordinates for all atoms
+if string, load coordinates for given atom mask</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">pytraj.Trajectory</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#pytraj.io.iterload" title="pytraj.io.iterload"><code class="xref py py-obj docutils literal"><span class="pre">iterload</span></code></a></p>
+</div>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>For further slicing options, see pytraj.TrajectoryIterator (created by <code class="docutils literal"><span class="pre">pytraj.iterload</span></code>)</li>
+<li>Also see <cite>pytraj.iterload</cite> for loading a series of trajectories that don&#8217;t fit to
+memory</li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># load netcdf file with given amber parm file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="s">&#39;2koc.parm7&#39;</span><span class="p">)</span> 
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load netcdf file with given amber parm file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="s">&#39;2koc.parm7&#39;</span><span class="p">)</span> 
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load mol2 file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;traj.mol2&#39;</span><span class="p">)</span> <span class="c"># </span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load pdb file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;traj.pdb&#39;</span><span class="p">)</span> 
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load given frame numbers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="s">&#39;2koc.parm7&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="s">&#39;2koc.parm7&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;!@H=&#39;</span><span class="p">)</span> 
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load with frame slice</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="s">&#39;2koc.parm7&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># which is equal to:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="s">&#39;2koc.parm7&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> 
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.io.iterload">
+<code class="descclassname">pytraj.io.</code><code class="descname">iterload</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.iterload" title="Permalink to this definition">¶</a></dt>
+<dd><p>return TrajectoryIterator object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename: {str, list-like of filenames, pattern}</strong></p>
+<blockquote>
+<div><p>input trajectory filename(s). You can use a single filename, a list of filenames
+or a pattern.</p>
+</div></blockquote>
+<p><strong>top</strong> : {str, Topology}</p>
+<blockquote>
+<div><p>input topology. If str, pytraj will load from disk to Topology first</p>
+</div></blockquote>
+<p><strong>frame_slice: tuple or list of tuple</strong></p>
+<blockquote>
+<div><p>specify start, stop, step for each trajectory you want to read.</p>
+<p>cpptraj input:</p>
+<div class="highlight-python"><div class="highlight"><pre>trajin traj0.nc 1 10
+trajin traj1.nc
+</pre></div>
+</div>
+<p>In pytraj, corresponding frame_slice=[(0, 10), (0, -1)]</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">pytraj.TrajectoryIterator</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Unlike <cite>pytraj.load</cite>, you can not arbitarily set <cite>frame_indices</cite>. If you want to do
+so, first load trajectories to TrajectoryIterator object, then do fancy slicing</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># register to load traj.nc from 0-th to 99-th frame</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="s">&#39;prmtop&#39;</span><span class="p">,</span> <span class="n">frame_slice</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)])</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># do fancy indexing to load specific frames to memory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">7</span><span class="p">]]</span> 
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load to disk with given mask</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="s">&#39;!@H=&#39;</span><span class="p">]</span> 
+</pre></div>
+</div>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># load a single filename</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="s">&#39;2koc.parm7&#39;</span><span class="p">)</span> 
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load from a list of filenames</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s">&#39;traj0.nc&#39;</span><span class="p">,</span> <span class="s">&#39;traj1.nc&#39;</span><span class="p">],</span> <span class="s">&#39;2koc.parm7&#39;</span><span class="p">)</span> 
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load all files with a given pattern (sorted)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;./traj*.nc&#39;</span><span class="p">,</span> <span class="s">&#39;2koc.parm7&#39;</span><span class="p">)</span> 
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load from a list of files with given frame step</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># for each file, only register to load from frame 0 to 9 (skip 10), skip every 2 frames</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s">&#39;traj0.nc&#39;</span><span class="p">,</span> <span class="s">&#39;traj1.nc&#39;</span><span class="p">],</span> <span class="s">&#39;2koc.parm7&#39;</span><span class="p">,</span> <span class="n">frame_slice</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">),]</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span> 
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load from frame 0 to 9 for `traj0.nc`</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># load all frames from `traj1.nc`</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s">&#39;traj0.nc&#39;</span><span class="p">,</span> <span class="s">&#39;traj1.nc&#39;</span><span class="p">],</span> <span class="s">&#39;2koc.parm7&#39;</span><span class="p">,</span> <span class="n">frame_slice</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)]</span> 
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.io.load_remd">
+<code class="descclassname">pytraj.io.</code><code class="descname">load_remd</code><span class="sig-paren">(</span><em>filename</em>, <em>top=None</em>, <em>T='300.0'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.load_remd" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pytraj.io.iterload_remd">
+<code class="descclassname">pytraj.io.</code><code class="descname">iterload_remd</code><span class="sig-paren">(</span><em>filename</em>, <em>top=None</em>, <em>T='300.0'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.iterload_remd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load temperature remd trajectory for single temperature.
+Example: Suppose you have replica trajectoris remd.x.00{1-4}.
+You want to load and extract only frames at 300 K, use this method</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<p><strong>top</strong> : {str, Topology}</p>
+<p><strong>T</strong> : {float, str}, default=300.0</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">pytraj.traj.TrajectoryCpptraj</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.io.load_pdb_rcsb">
+<code class="descclassname">pytraj.io.</code><code class="descname">load_pdb_rcsb</code><span class="sig-paren">(</span><em>pdbid</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.load_pdb_rcsb" title="Permalink to this definition">¶</a></dt>
+<dd><p>load pdb file from rcsb website</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pdbid</strong> : str</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>io.loadpdb_rcsb(&#8220;2KOC&#8221;) # popular RNA hairpin</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.io.load_cpptraj_file">
+<code class="descclassname">pytraj.io.</code><code class="descname">load_cpptraj_file</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.load_cpptraj_file" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>fname</strong> : str, name of cpptraj input file</p>
+<blockquote class="last">
+<div><p>(&#8220;cpptraj -i input.txt&#8221; &#8211;&gt; fname = &#8220;input.txt&#8221;)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.io.load_sample_data">
+<code class="descclassname">pytraj.io.</code><code class="descname">load_sample_data</code><span class="sig-paren">(</span><em>data_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.load_sample_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return TrajectoryIterator instance for Ala3 or tz2 data</p>
+<p class="rubric">Notes</p>
+<dl class="docutils">
+<dt>tz2 dataset <span class="classifier-delimiter">:</span> <span class="classifier">$AMBERHOME/AmberTools/test/cpptraj/</span></dt>
+<dd>explicit water, ortho box</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.io.load_ParmEd">
+<code class="descclassname">pytraj.io.</code><code class="descname">load_ParmEd</code><span class="sig-paren">(</span><em>parmed_obj</em>, <em>as_traj=False</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.load_ParmEd" title="Permalink to this definition">¶</a></dt>
+<dd><p>return pytraj&#8217;s Topology or Trajectory objects</p>
+<p>parmed_obj : ParmEd&#8217;s Structure object
+save_and_reload: bool, default True</p>
+<blockquote>
+<div>if True, save <cite>parmed_obj</cite> to mol2 file and reload
+if False, internal convert. Might have bug</div></blockquote>
+<dl class="docutils">
+<dt>as_traj: bool, default False</dt>
+<dd>if True, return pytraj.trajectory.Trajectory
+if False, return Topology</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">parmed</span> <span class="kn">as</span> <span class="nn">pmd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">pmd</span><span class="o">.</span><span class="n">download_PDB</span><span class="p">(</span><span class="s">&quot;1l2y&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">top</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_ParmEd</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">save_and_reload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.io.load_topology">
+<code class="descclassname">pytraj.io.</code><code class="descname">load_topology</code><span class="sig-paren">(</span><em>filename</em>, <em>more_options=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.load_topology" title="Permalink to this definition">¶</a></dt>
+<dd><p>load Topology from a filename or from url or from ParmEd object. Adapted from cpptraj doc.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str, Amber prmtop, pdb, mol2, psf, cif, gromacs topology, sdf, tinker formats</p>
+<p><strong>more_options</strong> : cpptraj options.</p>
+<blockquote class="last">
+<div><p>if filename is a pdb file, more_options = {&#8216;pqr&#8217;, &#8216;noconnect&#8217;}.
+pqr     : Read atomic charge/radius from occupancy/B-factor columns.
+noconect: Do not read CONECT records if present.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>if cpptraj/pytraj does not support specific file format, you still can convert to PDB
+file. cpptraj will do the bond guess based on distance.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># from a filename</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&quot;data/tz2.ortho.parm7&quot;</span><span class="p">)</span>
+<span class="go">&lt;Topology: 5293 atoms, 1704 residues, 1692 mols, PBC with box type = ortho&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># from url</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&quot;http://ambermd.org/tutorials/advanced/tutorial1/files/polyAT.pdb&quot;</span><span class="p">)</span>
+<span class="go">&lt;Topology: 438 atoms, 438 residues, 438 mols, non-PBC&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># from ParmEd object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">parmed</span> <span class="kn">as</span> <span class="nn">pmd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parm</span> <span class="o">=</span> <span class="n">pmd</span><span class="o">.</span><span class="n">load_file</span><span class="p">(</span><span class="s">&#39;m2-c1_f3.mol2&#39;</span><span class="p">)</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">top</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="n">parm</span><span class="p">)</span> 
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># read with more_options</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&#39;1KX5.pdb&#39;</span><span class="p">,</span> <span class="s">&#39;bondsearch 0.2&#39;</span><span class="p">)</span> 
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.io.read_parm">
+<code class="descclassname">pytraj.io.</code><code class="descname">read_parm</code><span class="sig-paren">(</span><em>filename</em>, <em>more_options=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.read_parm" title="Permalink to this definition">¶</a></dt>
+<dd><p>load Topology from a filename or from url or from ParmEd object. Adapted from cpptraj doc.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str, Amber prmtop, pdb, mol2, psf, cif, gromacs topology, sdf, tinker formats</p>
+<p><strong>more_options</strong> : cpptraj options.</p>
+<blockquote class="last">
+<div><p>if filename is a pdb file, more_options = {&#8216;pqr&#8217;, &#8216;noconnect&#8217;}.
+pqr     : Read atomic charge/radius from occupancy/B-factor columns.
+noconect: Do not read CONECT records if present.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>if cpptraj/pytraj does not support specific file format, you still can convert to PDB
+file. cpptraj will do the bond guess based on distance.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># from a filename</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&quot;data/tz2.ortho.parm7&quot;</span><span class="p">)</span>
+<span class="go">&lt;Topology: 5293 atoms, 1704 residues, 1692 mols, PBC with box type = ortho&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># from url</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&quot;http://ambermd.org/tutorials/advanced/tutorial1/files/polyAT.pdb&quot;</span><span class="p">)</span>
+<span class="go">&lt;Topology: 438 atoms, 438 residues, 438 mols, non-PBC&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># from ParmEd object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">parmed</span> <span class="kn">as</span> <span class="nn">pmd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parm</span> <span class="o">=</span> <span class="n">pmd</span><span class="o">.</span><span class="n">load_file</span><span class="p">(</span><span class="s">&#39;m2-c1_f3.mol2&#39;</span><span class="p">)</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">top</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="n">parm</span><span class="p">)</span> 
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># read with more_options</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&#39;1KX5.pdb&#39;</span><span class="p">,</span> <span class="s">&#39;bondsearch 0.2&#39;</span><span class="p">)</span> 
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.io.write_parm">
+<code class="descclassname">pytraj.io.</code><code class="descname">write_parm</code><span class="sig-paren">(</span><em>filename=None</em>, <em>top=None</em>, <em>format='amberparm'</em>, <em>overwrite=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.write_parm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pytraj.io.save">
+<code class="descclassname">pytraj.io.</code><code class="descname">save</code><span class="sig-paren">(</span><em>filename</em>, <em>obj</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>an universal method</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : output filename</p>
+<p><strong>obj</strong> : Topology or Trajetory-like</p>
+<blockquote>
+<div><p>if Topology, write a new Topology to disk
+if Trajetory-like, write a trajectory to disk</p>
+</div></blockquote>
+<p class="last"><strong>*args, **kwd: additional options</strong></p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#pytraj.io.write_traj" title="pytraj.io.write_traj"><code class="xref py py-obj docutils literal"><span class="pre">write_traj</span></code></a>, <a class="reference internal" href="#pytraj.io.write_parm" title="pytraj.io.write_parm"><code class="xref py py-obj docutils literal"><span class="pre">write_parm</span></code></a></p>
+</div>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_ala3</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">TrajectoryIterator</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">top</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">Topology</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># save Topology to a new Topology</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;output/prmtop&#39;</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&#39;output/prmtop&#39;</span><span class="p">),</span> <span class="n">pt</span><span class="o">.</span><span class="n">Topology</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># save TrajectoryIterator to disk</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;output/traj.nc&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;output/traj.nc&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">),</span> <span class="n">pt</span><span class="o">.</span><span class="n">TrajectoryIterator</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.io.write_traj">
+<code class="descclassname">pytraj.io.</code><code class="descname">write_traj</code><span class="sig-paren">(</span><em>filename=''</em>, <em>traj=None</em>, <em>top=None</em>, <em>frame_indices=None</em>, <em>overwrite=False</em>, <em>options=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.write_traj" title="Permalink to this definition">¶</a></dt>
+<dd><p>write Trajectory-like or iterable object to trajectory file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<p><strong>traj</strong> : Trajectory-like or iterator that produces Frame or 3D ndarray with shape=(n_frames, n_atoms, 3)</p>
+<p><strong>top</strong> : Topology, optional, default: None</p>
+<p><strong>frame_indices: array-like or iterator that produces integer, default: None</strong></p>
+<blockquote>
+<div><p>If not None, only write output for given frame indices</p>
+</div></blockquote>
+<p><strong>overwrite: bool, default: False</strong></p>
+<p class="last"><strong>options</strong> : str, additional keywords for extention=&#8217;.pdb&#8217;. See examples.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="68%" />
+<col width="32%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Format</th>
+<th class="head">Extension</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Amber Trajectory</td>
+<td>.crd</td>
+</tr>
+<tr class="row-odd"><td>Amber NetCDF</td>
+<td>.nc</td>
+</tr>
+<tr class="row-even"><td>Amber Restart</td>
+<td>.rst7</td>
+</tr>
+<tr class="row-odd"><td>Amber NetCDF</td>
+<td>.ncrst</td>
+</tr>
+<tr class="row-even"><td>Charmm DCD</td>
+<td>.dcd</td>
+</tr>
+<tr class="row-odd"><td>PDB</td>
+<td>.pdb</td>
+</tr>
+<tr class="row-even"><td>Mol2</td>
+<td>.mol2</td>
+</tr>
+<tr class="row-odd"><td>Scripps</td>
+<td>.binpos</td>
+</tr>
+<tr class="row-even"><td>Gromacs</td>
+<td>.trr</td>
+</tr>
+<tr class="row-odd"><td>SQM Input</td>
+<td>.sqm</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/t.nc&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c"># write to amber netcdf file</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># write to multi pdb files (t.pdb.1, t.pdb.2, ...)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/t.pdb&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s">&#39;multi&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># write all frames to single pdb file and each frame is seperated by &quot;MODEL&quot; word</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/t.pdb&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s">&#39;model&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># write to DCD file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/test.dcd&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># write to netcdf file from 3D numpy array, need to provide Topology</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">xyz</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">xyz</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">top</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/test_xyz.nc&quot;</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/test_xyz.nc&quot;</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.io.read_pickle">
+<code class="descclassname">pytraj.io.</code><code class="descname">read_pickle</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.read_pickle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load pickled pandas object (or any other pickled object) from the specified
+file path</p>
+<p>Warning: Loading pickled data received from untrusted sources can be
+unsafe. See: <a class="reference external" href="http://docs.python.org/2.7/library/pickle.html">http://docs.python.org/2.7/library/pickle.html</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>path</strong> : string</p>
+<blockquote>
+<div><p>File path</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>unpickled</strong> : type of object stored in file</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.io.read_json">
+<code class="descclassname">pytraj.io.</code><code class="descname">read_json</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.read_json" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>path</strong> : string</p>
+<blockquote>
+<div><p>File path</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>dict</strong> : python dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.io.to_pickle">
+<code class="descclassname">pytraj.io.</code><code class="descname">to_pickle</code><span class="sig-paren">(</span><em>obj</em>, <em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.to_pickle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pickle (serialize) object to input file path</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>obj</strong> : any object</p>
+<p><strong>path</strong> : string</p>
+<blockquote class="last">
+<div><p>File path</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.io.to_json">
+<code class="descclassname">pytraj.io.</code><code class="descname">to_json</code><span class="sig-paren">(</span><em>obj</em>, <em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.to_json" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>obj</strong> : any object</p>
+<p><strong>path</strong> : string</p>
+<blockquote class="last">
+<div><p>File path</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, pytraj developers.<br/>
+      Last updated on Nov 18, 2015.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

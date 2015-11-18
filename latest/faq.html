@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Frequently Asked Questions &mdash; pytraj 0.1.2.dev12+a57d4dd documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/css/searchbox.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.2.dev12+a57d4dd',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/0.6.0/lunr.min.js"></script>
+    <script type="text/javascript" src="_static/js/searchbox.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="pytraj 0.1.2.dev12+a57d4dd documentation" href="index.html" />
+    <link rel="next" title="Developer guide for pytraj" href="developer_guide.html" />
+    <link rel="prev" title="What’s new?" href="whatsnew.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+a57d4dd</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_and_write.html">Read and Write</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Frequently Asked Questions</a><ul>
+<li><a class="reference internal" href="#why-do-most-of-examples-use-pytraj-iterload-instead-of-pytraj-load">Why do most of examples use <code class="docutils literal"><span class="pre">pytraj.iterload</span></code> instead of <code class="docutils literal"><span class="pre">pytraj.load</span></code></a></li>
+<li><a class="reference internal" href="#so-does-not-pytraj-support-much-for-in-memory-calculation">So does not <code class="docutils literal"><span class="pre">pytraj</span></code> support much for in-memory calculation?</a></li>
+<li><a class="reference internal" href="#the-difference-between-traj-1-11-2-and-traj-1-11-2">The difference between <code class="docutils literal"><span class="pre">traj[1:11:2]</span></code> and <code class="docutils literal"><span class="pre">traj(1,</span> <span class="pre">11,</span> <span class="pre">2)</span></code>?</a></li>
+<li><a class="reference internal" href="#it-s-too-slow-to-convert-frame-xyz-to-numpy-array-about-3-us-for-only-10-atom-frame">It&#8217;s too slow to convert Frame.xyz to numpy array, about 3 us for only 10 atom-Frame</a></li>
+<li><a class="reference internal" href="#what-s-the-idiom-to-load-data-to-memory-for-specific-atoms">What&#8217;s the idiom to load data to memory for specific atoms?</a></li>
+<li><a class="reference internal" href="#list-comprehensions-give-identical-frames-when-iterating-trajecotry">List comprehensions give identical frames when iterating trajecotry</a></li>
+<li><a class="reference internal" href="#get-undefined-symbol-error-when-import-pytraj">Get undefined symbol error when import <code class="docutils literal"><span class="pre">pytraj</span></code></a></li>
+<li><a class="reference internal" href="#error-could-not-determine-trajectory-format-nc">Error: Could not determine trajectory format &#8221;.nc&#8221;</a></li>
+<li><a class="reference internal" href="#importerror-libhdf5-hl-so-9-cannot-open-shared-object-file">ImportError: libhdf5_hl.so.9: cannot open shared object file</a></li>
+<li><a class="reference internal" href="#valueerror-big-endian-buffer-not-supported-on-little-endian-compiler">ValueError: Big-endian buffer not supported on little-endian compiler</a></li>
+<li><a class="reference internal" href="#importerror-after-cpptraj-update">ImportError after cpptraj update</a></li>
+<li><a class="reference internal" href="#valueerror-buffer-not-c-contiguous">ValueError: Buffer not C contiguous</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="whatsnew.html" title="Previous Chapter: What’s new?"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; What’s new?</span>
+    </a>
+  </li>
+  <li>
+    <a href="developer_guide.html" title="Next Chapter: Developer guide for pytraj"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Developer gui... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/faq.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <div class="section" id="frequently-asked-questions">
+<span id="faq"></span><h1><a class="toc-backref" href="#id1">Frequently Asked Questions</a><a class="headerlink" href="#frequently-asked-questions" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#frequently-asked-questions" id="id1">Frequently Asked Questions</a><ul>
+<li><a class="reference internal" href="#why-do-most-of-examples-use-pytraj-iterload-instead-of-pytraj-load" id="id2">Why do most of examples use <code class="docutils literal"><span class="pre">pytraj.iterload</span></code> instead of <code class="docutils literal"><span class="pre">pytraj.load</span></code></a></li>
+<li><a class="reference internal" href="#so-does-not-pytraj-support-much-for-in-memory-calculation" id="id3">So does not <code class="docutils literal"><span class="pre">pytraj</span></code> support much for in-memory calculation?</a></li>
+<li><a class="reference internal" href="#the-difference-between-traj-1-11-2-and-traj-1-11-2" id="id4">The difference between <code class="docutils literal"><span class="pre">traj[1:11:2]</span></code> and <code class="docutils literal"><span class="pre">traj(1,</span> <span class="pre">11,</span> <span class="pre">2)</span></code>?</a></li>
+<li><a class="reference internal" href="#it-s-too-slow-to-convert-frame-xyz-to-numpy-array-about-3-us-for-only-10-atom-frame" id="id5">It&#8217;s too slow to convert Frame.xyz to numpy array, about 3 us for only 10 atom-Frame</a></li>
+<li><a class="reference internal" href="#what-s-the-idiom-to-load-data-to-memory-for-specific-atoms" id="id6">What&#8217;s the idiom to load data to memory for specific atoms?</a></li>
+<li><a class="reference internal" href="#list-comprehensions-give-identical-frames-when-iterating-trajecotry" id="id7">List comprehensions give identical frames when iterating trajecotry</a></li>
+<li><a class="reference internal" href="#get-undefined-symbol-error-when-import-pytraj" id="id8">Get undefined symbol error when import <code class="docutils literal"><span class="pre">pytraj</span></code></a></li>
+<li><a class="reference internal" href="#error-could-not-determine-trajectory-format-nc" id="id9">Error: Could not determine trajectory format &#8221;.nc&#8221;</a></li>
+<li><a class="reference internal" href="#importerror-libhdf5-hl-so-9-cannot-open-shared-object-file" id="id10">ImportError: libhdf5_hl.so.9: cannot open shared object file</a></li>
+<li><a class="reference internal" href="#valueerror-big-endian-buffer-not-supported-on-little-endian-compiler" id="id11">ValueError: Big-endian buffer not supported on little-endian compiler</a></li>
+<li><a class="reference internal" href="#importerror-after-cpptraj-update" id="id12">ImportError after cpptraj update</a></li>
+<li><a class="reference internal" href="#valueerror-buffer-not-c-contiguous" id="id13">ValueError: Buffer not C contiguous</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="why-do-most-of-examples-use-pytraj-iterload-instead-of-pytraj-load">
+<h2><a class="toc-backref" href="#id2">Why do most of examples use <code class="docutils literal"><span class="pre">pytraj.iterload</span></code> instead of <code class="docutils literal"><span class="pre">pytraj.load</span></code></a><a class="headerlink" href="#why-do-most-of-examples-use-pytraj-iterload-instead-of-pytraj-load" title="Permalink to this headline">¶</a></h2>
+<p>Because we encourage user to use out-of-core calculation for memory saving. Most of
+the time we don&#8217;t need change trajecotry&#8217;s coordinate, so it&#8217;s OK to just use
+immutable trajectory.</p>
+</div>
+<div class="section" id="so-does-not-pytraj-support-much-for-in-memory-calculation">
+<h2><a class="toc-backref" href="#id3">So does not <code class="docutils literal"><span class="pre">pytraj</span></code> support much for in-memory calculation?</a><a class="headerlink" href="#so-does-not-pytraj-support-much-for-in-memory-calculation" title="Permalink to this headline">¶</a></h2>
+<p>Yes, <code class="docutils literal"><span class="pre">pytraj</span></code> does support in-memory calculation very well. Just consider
+<code class="docutils literal"><span class="pre">pytraj.Trajectory</span></code> as a mutable Python&#8217;s list and <code class="docutils literal"><span class="pre">pytraj.TrajectoryIterator</span></code> as
+immutable Python&#8217;s tuple.</p>
+</div>
+<div class="section" id="the-difference-between-traj-1-11-2-and-traj-1-11-2">
+<h2><a class="toc-backref" href="#id4">The difference between <code class="docutils literal"><span class="pre">traj[1:11:2]</span></code> and <code class="docutils literal"><span class="pre">traj(1,</span> <span class="pre">11,</span> <span class="pre">2)</span></code>?</a><a class="headerlink" href="#the-difference-between-traj-1-11-2-and-traj-1-11-2" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">traj[1:11:2]</span></code> returns a new <code class="docutils literal"><span class="pre">pytraj.Trajectory</span></code> while <code class="docutils literal"><span class="pre">traj(1,</span> <span class="pre">11,</span> <span class="pre">2)</span></code> returns a
+FrameIterator for lazy loading. You can use both for analysis.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+
+<span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.parm7&#39;</span><span class="p">)</span>
+
+<span class="gp">In [3]: </span><span class="n">traj</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="gr">Out[3]: </span>
+<span class="go">pytraj.Trajectory, 5 frames: </span>
+<span class="go">Size: 0.000025 (GB)</span>
+<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
+<span class="go">           </span>
+
+<span class="gp">In [4]: </span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+<span class="go">                                                                                                                           Out[4]: array([ 9.57459712,  9.94041   ,  8.91590518,  8.02623709,  8.68518202])</span>
+
+<span class="gp">In [5]: </span><span class="n">traj</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">                                                                                                                                                                                                            Out[5]: </span>
+<span class="go">&lt;FrameIterator with start=1, stop=11, step=2, n_frames=5, </span>
+<span class="go">frame_indices=None, </span>
+<span class="go">mask=None, autoimage=False, rmsfit=None, copy=False&gt; </span>
+
+<span class="gp">In [6]: </span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                           Out[6]: array([ 9.57459712,  9.94041   ,  8.91590518,  8.02623709,  8.68518202])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="it-s-too-slow-to-convert-frame-xyz-to-numpy-array-about-3-us-for-only-10-atom-frame">
+<h2><a class="toc-backref" href="#id5">It&#8217;s too slow to convert Frame.xyz to numpy array, about 3 us for only 10 atom-Frame</a><a class="headerlink" href="#it-s-too-slow-to-convert-frame-xyz-to-numpy-array-about-3-us-for-only-10-atom-frame" title="Permalink to this headline">¶</a></h2>
+<p>It&#8217;s constant time to cast to numpy array. It takes similar time to cast from 1
+million-atom Frame too. This is not problem since you only need cast once without making
+extra data copying.</p>
+</div>
+<div class="section" id="what-s-the-idiom-to-load-data-to-memory-for-specific-atoms">
+<h2><a class="toc-backref" href="#id6">What&#8217;s the idiom to load data to memory for specific atoms?</a><a class="headerlink" href="#what-s-the-idiom-to-load-data-to-memory-for-specific-atoms" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [7]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+
+<span class="gp">In [8]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.parm7&#39;</span><span class="p">)</span>
+
+<span class="gp">In [9]: </span><span class="n">traj</span>
+<span class="gr">Out[9]: </span>
+<span class="go">pytraj.TrajectoryIterator, 101 frames: </span>
+<span class="go">Size: 0.000503 (GB)</span>
+<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
+<span class="go">           </span>
+
+<span class="gp">In [10]: </span><span class="n">traj</span><span class="p">[:</span><span class="mi">8</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">]</span>
+<span class="go">                                                                                                                                     Out[10]: </span>
+<span class="go">pytraj.Trajectory, 8 frames: </span>
+<span class="go">Size: 0.000002 (GB)</span>
+<span class="go">&lt;Topology: 12 atoms, 12 residues, 12 mols, non-PBC&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-comprehensions-give-identical-frames-when-iterating-trajecotry">
+<h2><a class="toc-backref" href="#id7">List comprehensions give identical frames when iterating trajecotry</a><a class="headerlink" href="#list-comprehensions-give-identical-frames-when-iterating-trajecotry" title="Permalink to this headline">¶</a></h2>
+<p>This is our intention for memory saving. Use <code class="docutils literal"><span class="pre">copy</span></code> method.
+(But what do you need list comprehensions for in this case?)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># same frames</span>
+<span class="p">[</span><span class="n">frame</span> <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">]</span>
+
+<span class="c"># different frames</span>
+<span class="p">[</span><span class="n">frame</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-undefined-symbol-error-when-import-pytraj">
+<h2><a class="toc-backref" href="#id8">Get undefined symbol error when import <code class="docutils literal"><span class="pre">pytraj</span></code></a><a class="headerlink" href="#get-undefined-symbol-error-when-import-pytraj" title="Permalink to this headline">¶</a></h2>
+<p>Probably you use old <code class="docutils literal"><span class="pre">libcpptraj</span></code>. You can export LD_LIBRARY_PATH</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># supposed you have libcpptraj in /home/lib/cpptraj/, do</span>
+<span class="nv">$ </span><span class="nb">export </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>/home/lib/cpptraj/:<span class="nv">$LD_LIBRARY_PATH</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="error-could-not-determine-trajectory-format-nc">
+<h2><a class="toc-backref" href="#id9">Error: Could not determine trajectory format &#8221;.nc&#8221;</a><a class="headerlink" href="#error-could-not-determine-trajectory-format-nc" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">libcpptraj</span></code> needs to be installed with NetCDF library. If you encouter this, send us
+email or open issue on github</p>
+</div>
+<div class="section" id="importerror-libhdf5-hl-so-9-cannot-open-shared-object-file">
+<h2><a class="toc-backref" href="#id10">ImportError: libhdf5_hl.so.9: cannot open shared object file</a><a class="headerlink" href="#importerror-libhdf5-hl-so-9-cannot-open-shared-object-file" title="Permalink to this headline">¶</a></h2>
+<p>Something is wrong with <code class="docutils literal"><span class="pre">conda</span></code>. Try <code class="docutils literal"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">libnetcdf</span></code>.</p>
+</div>
+<div class="section" id="valueerror-big-endian-buffer-not-supported-on-little-endian-compiler">
+<h2><a class="toc-backref" href="#id11">ValueError: Big-endian buffer not supported on little-endian compiler</a><a class="headerlink" href="#valueerror-big-endian-buffer-not-supported-on-little-endian-compiler" title="Permalink to this headline">¶</a></h2>
+<p>When you are using memoryview, make sure to use correct type. Just google this error.</p>
+</div>
+<div class="section" id="importerror-after-cpptraj-update">
+<h2><a class="toc-backref" href="#id12">ImportError after cpptraj update</a><a class="headerlink" href="#importerror-after-cpptraj-update" title="Permalink to this headline">¶</a></h2>
+<p>Symtoms:</p>
+<div class="highlight-python"><div class="highlight"><pre>ImportError ... undefined symbol
+</pre></div>
+</div>
+<p>Solution:</p>
+<div class="highlight-python"><div class="highlight"><pre>since pytraj requires cpptraj at both compiling and running time, if you update libcpptraj.so, you need to rebbuild pytraj from fresh.
+
+# supposed you are in pytraj home folder (having README.md, tests, ...)
+rm -rf build
+python setup.py install
+</pre></div>
+</div>
+</div>
+<div class="section" id="valueerror-buffer-not-c-contiguous">
+<h2><a class="toc-backref" href="#id13">ValueError: Buffer not C contiguous</a><a class="headerlink" href="#valueerror-buffer-not-c-contiguous" title="Permalink to this headline">¶</a></h2>
+<p>Symtoms:</p>
+<div class="highlight-python"><div class="highlight"><pre>File &quot;pytraj/cyutils.pyx&quot;, line 76, in _fast_iterptr (pytraj/cyutils.cpp:5078)...
+ValueError: Buffer not C contiguous.
+</pre></div>
+</div>
+<p>Solution:</p>
+<div class="highlight-python"><div class="highlight"><pre>For very fast trajectory iterating, pytraj require coords must be stored in a C contiguous memory block.
+You should try `np.ascontiguousarray`: `xyz = np.ascontiguousarray(xyz)`
+</pre></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, pytraj developers.<br/>
+      Last updated on Nov 18, 2015.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
