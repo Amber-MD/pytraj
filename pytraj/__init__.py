@@ -381,7 +381,7 @@ def select_atoms(mask, topology):
 select = select_atoms
 
 
-def strip_atoms(traj_or_topology, mask):
+def strip(traj_or_topology, mask):
     '''return a new Trajectory or Topology with given mask.
 
     Examples
@@ -390,17 +390,17 @@ def strip_atoms(traj_or_topology, mask):
     >>> traj = pt.datafiles.load_tz2_ortho()
     >>> traj.n_atoms
     5293
-    >>> pt.strip_atoms(traj, '!@CA').n_atoms
+    >>> pt.strip(traj, '!@CA').n_atoms
     12
-    >>> pt.strip_atoms(traj.top, '!@CA').n_atoms
+    >>> pt.strip(traj.top, '!@CA').n_atoms
     12
-    >>> pt.strip_atoms('!@CA', traj.top).n_atoms
+    >>> pt.strip('!@CA', traj.top).n_atoms
     12
     >>> t0 = traj[:3]
-    >>> pt.strip_atoms(t0, '!@CA').n_atoms
+    >>> pt.strip(t0, '!@CA').n_atoms
     12
     >>> fi = pt.iterframe(traj, stop=3)
-    >>> fi = pt.strip_atoms(fi, '!@CA')
+    >>> fi = pt.strip(fi, '!@CA')
     >>> for frame in fi:
     ...    print(frame)
     <Frame with 12 atoms>
@@ -423,10 +423,6 @@ def strip_atoms(traj_or_topology, mask):
     elif hasattr(traj_or_topology, 'mask'):
         traj_or_topology.mask = kept_mask
         return traj_or_topology
-
-
-strip = strip_atoms
-
 
 def run(fi):
     '''shortcut for `for frame in fi: pass`

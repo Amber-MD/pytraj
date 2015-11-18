@@ -25,7 +25,7 @@ class TestTopology(unittest.TestCase):
 
         top = pt.load_topology(filename)
         #
-        top.strip_atoms("!@CA")
+        top.strip("!@CA")
         assert top.n_atoms == 20
 
         for atom in top.atoms:

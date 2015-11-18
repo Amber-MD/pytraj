@@ -491,7 +491,7 @@ cdef class Topology:
             atm = self(mask)
             return self._modify_state_by_mask(atm)
 
-    def strip_atoms(Topology self, mask, copy=False):
+    def strip(Topology self, mask, copy=False):
         """strip atoms with given mask"""
         cdef AtomMask atm
         cdef Topology new_top

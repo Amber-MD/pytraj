@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("data/md1_prod.Tc5b.x", "data/Tc5b.top")
         farray = traj[:]
         traj0_CA = traj[:]
-        traj0_CA.strip_atoms("!@CA")
+        traj0_CA.strip("!@CA")
 
         # test TrajectoryIterator
         for idx, f0 in enumerate(traj(mask='@CA')):

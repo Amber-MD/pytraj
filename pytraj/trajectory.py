@@ -824,7 +824,7 @@ class Trajectory(object):
         '''
         self._xyz = np.zeros((n_frames, n_atoms, 3), dtype='f8')
 
-    def strip_atoms(self, mask):
+    def strip(self, mask):
         return self.strip(mask)
 
     def strip(self, mask):
@@ -845,7 +845,7 @@ class Trajectory(object):
         # AtomMask
         atm = self.top(mask)
         atm.invert_mask()
-        self.top.strip_atoms(mask)
+        self.top.strip(mask)
 
         if self._xyz is not None:
             # need to copy to make contigous memory block
