@@ -845,6 +845,7 @@ def volmap(traj,
            mask,
            grid_spacing,
            size=None,
+           center=None,
            buffer=3.0,
            centermask='*',
            radscale=1.36,
@@ -863,6 +864,8 @@ def volmap(traj,
     grid_spacing : tuple, grid spacing in X-, Y-, Z-dimensions, require
     size : {None, tuple}, default None
         if tuple, size must have length of 3
+    center : {None, tuple}, default None
+        if not None, center is tuple of (x, y, z) of center point
     buffer : float, default 3.0 Angstrom
         buffer distance (Angstrom), by which the edges of the grid should clear every atom
         of the centermask (or default mask if centermask is omitted) in every direction.
@@ -901,8 +904,15 @@ def volmap(traj,
     if _size:
         # ignore buffer
         _buffer = ''
+        # add center
+        if center is not None:
+            _center = 'center ' + ','.join([str(x) for x in center])
+        else:
+            _center = ''
+    else:
+        _center = ''
 
-    command = ' '.join((dummy_filename, _grid_spacing, _size, mask, _radscale, _buffer,
+    command = ' '.join((dummy_filename, _grid_spacing, _center, _size, mask, _radscale, _buffer,
                         _centermask, _peakcut))
 
     act = CpptrajActions.Action_Volmap()
