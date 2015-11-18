@@ -15,7 +15,7 @@ from pytraj import cpptraj_dict
 __all__ = ['command_dispatch', 'AtomMask', 'BaseIOtype', 'DispatchObject',
            'FunctPtr', 'FileName', 'CoordinateInfo',
            'CpptrajFile', 'NameType', 'Command',
-           'CpptrajState', 'ArgList',]
+           'CpptrajState', 'ArgList', ]
 
 cdef class AtomMask(object):
     def __cinit__(self, *args):
@@ -72,9 +72,9 @@ cdef class AtomMask(object):
         cdef vector[int] v = self.thisptr.Selected()
         cdef pyarray a_empty = pyarray('i', [])
         cdef int size = v.size()
-        cdef pyarray arr0 = array.clone(a_empty, size, zero=True) 
+        cdef pyarray arr0 = array.clone(a_empty, size, zero=True)
         cdef int[:] myview = arr0
-        cdef int i 
+        cdef int i
 
         for i in range(size):
             myview[i] = v[i]
@@ -104,6 +104,7 @@ cdef class AtomMask(object):
     property mask_string:
         def __get__(self):
             return self.thisptr.MaskString()
+
         def __set__(self, value):
             self.thisptr.SetMaskString(value.encode())
 
@@ -141,7 +142,7 @@ cdef class AtomMask(object):
         for i in range(int_view.shape[0]):
             self.thisptr.AddSelectedAtom(int_view[i])
 
-    def add_atom(self,int atom_num):
+    def add_atom(self, int atom_num):
         """add atom index and sort"""
         self.thisptr.AddAtom(atom_num)
 
@@ -230,6 +231,7 @@ cdef class CpptrajFile:
     Original cpptraj doc:
     Class to abstract handling of basic file routines.
     """
+
     def __cinit__(self, *args, **kwd):
         """
         >>> cpptraj = CpptrajFile()
@@ -303,7 +305,7 @@ cdef class CpptrajFile:
         status = status.lower()
         filename = filename.encode()
 
-        if status == 'r' or status == 'read': 
+        if status == 'r' or status == 'read':
             self.thisptr.OpenRead(filename)
         elif status == 'a' or status == 'append':
             self.thisptr.OpenAppend(filename)
@@ -328,7 +330,7 @@ cdef class CpptrajFile:
         else:
             accessIn =args[0]
             return self.thisptr.OpenFile(accessIn)
-        
+
     def close(self):
         self.thisptr.CloseFile()
 
@@ -375,7 +377,7 @@ cdef class NameType:
 
     def copy(self):
         cdef NameType nt = NameType()
-        del nt.thisptr 
+        del nt.thisptr
         nt.thisptr = new _NameType(self.thisptr[0])
         return nt
 
@@ -387,7 +389,7 @@ cdef class NameType:
 
     def __repr__(self):
         txt = " <atom type: %s>" % self
-        return txt 
+        return txt
 
     def to_buffer(self, char* c):
         # TODO : what does this method do?
@@ -400,7 +402,7 @@ cdef class NameType:
     def __richcmp__(NameType self, arg, int opt):
         # better way?
         cdef char* c
-        cdef bytes py_bytes 
+        cdef bytes py_bytes
         cdef NameType rhs
 
         if isinstance(arg, string_types):
@@ -466,7 +468,7 @@ cdef class Command:
 
 cdef class CpptrajState:
     """
-    CpptrajState hold all data per cpptraj run. This class is for internal use. 
+    CpptrajState hold all data per cpptraj run. This class is for internal use.
     Check example
 
     Examples
@@ -491,13 +493,14 @@ cdef class CpptrajState:
     ['tz2.parm7', 'RMSD_00001', 'Dis_00002']
 
     """
+
     def __cinit__(self):
         self.thisptr = new _CpptrajState()
         self.datafilelist = DataFileList(_own_memory=False)
         self.datasetlist = DatasetList(_own_memory=False)
 
         # cpptraj will take care of memory deallocating from self.thisptr.PFL(FL, DSL, DFL)
-        # We don't free memory again 
+        # We don't free memory again
         # (example: self.toplist.thisptr and self.thisptr.PFL() point to the same address)
         # create memory view
         self.datasetlist.thisptr = self.thisptr.DSL()
@@ -508,11 +511,13 @@ cdef class CpptrajState:
             del self.thisptr
 
     def __str__(self):
-        return 'CpptrajState, include:\n' + '<datasetlist: {0} datasets>'.format(len(self.data))
+        return 'CpptrajState, include:\n' + \
+            '<datasetlist: {0} datasets>'.format(len(self.data))
 
     property data:
         def __get__(self):
             return self.datasetlist
+
         def __set__(self, DatasetList dslist):
             # do not del memory. don't know why got double-free mem if doing so.
             #del self.datasetlist.thisptr
@@ -520,7 +525,7 @@ cdef class CpptrajState:
 
     def __repr__(self):
         return str(self)
-    
+
     def is_empty(self):
         return self.thisptr.EmptyState()
 
@@ -528,7 +533,7 @@ cdef class CpptrajState:
         # TODO: add trajector instance?
         cdef string filename
         cdef ArgList argIn
-        
+
         if is_ensemble is not None:
             # reading ensemble
             if isinstance(arg_or_filename, ArgList):
@@ -551,7 +556,7 @@ cdef class CpptrajState:
 
     def _add_trajout(self, arg):
         """add trajout file
-        
+
         Parameters
         ---------
         arg : str or ArgList object
@@ -575,10 +580,10 @@ cdef class CpptrajState:
         actobj : Action object or str
         arglist : ArgList object or str
         """
-        # need to explicit casting to FunctPtr because self.thisptr.AddAction need to know type 
+        # need to explicit casting to FunctPtr because self.thisptr.AddAction need to know type
         # of variables
         cdef FunctPtr alloc_funct
-        cdef ArgList _arglist 
+        cdef ArgList _arglist
 
         if isinstance(actobj, string_types):
             # if actobj is string, make Action object
@@ -601,7 +606,7 @@ cdef class CpptrajState:
         """temp doc: add_analysis(self, obj, ArgList arglist)
         obj :: Action or Analysis instance
         """
-        cdef ArgList _arglist 
+        cdef ArgList _arglist
         cdef FunctPtr alloc_funct = <FunctPtr> obj.alloc()
 
         if isinstance(arglist, string_types):
@@ -651,14 +656,20 @@ def _load_batch(txt, traj=None):
             else:
                 raise ValueError('invalid frame_slice')
             if stop == -1:
-                _stop  = 'last'
+                _stop = 'last'
             elif stop < -1:
-                raise RuntimeError('does not support negative stop for load_batch (except -1 (last))')
+                raise RuntimeError(
+                    'does not support negative stop for load_batch (except -1 (last))')
             else:
                 _stop = stop
             # add 1 to start since cpptraj ise 1-based index for trajin
             start = start + 1
-            lines_0.append('trajin {0} {1} {2} {3}\n'.format(fname, str(start), str(_stop), str(step)))
+            lines_0.append(
+                'trajin {0} {1} {2} {3}\n'.format(
+                    fname,
+                    str(start),
+                    str(_stop),
+                    str(step)))
 
         # add parm, trajin to lines
         lines = lines_0 + lines
@@ -677,7 +688,7 @@ cdef class ArgList:
     ========================
     Class: ArgList
         Hold a list of string arguments and keeps track of their usage.
-        Can be set from an input line using SetList(), with arguments separated 
+        Can be set from an input line using SetList(), with arguments separated
         by a specified delimiter, or arguments can be added one-by-one with AddArg.
         Arguments can be accessed with the various getX routines,
         where X is specific to certain types, e.g. getNextDouble returns
@@ -685,14 +696,14 @@ cdef class ArgList:
         it has :, @, % characters etc). All of the getX routines (along with
         the hasKey routine) mark the argument they access as used, so that
         subsequent calls with these functions will not return the same
-        argument over and over. 
+        argument over and over.
 
     pytraj doc:
     =============
     change cpptraj method's name to python style's name
     (hasKey --> has_key)
     """
-    
+
     def __cinit__(self, *args):
         # TODO: need to read cpptraj code for construtor
         cdef string  sinput
@@ -729,7 +740,7 @@ cdef class ArgList:
 
     def command_is(self, char* cm):
         return self.thisptr.CommandIs(cm)
-    
+
     def get_next_string(self):
         key = self.thisptr.GetStringNext()
         return key.decode()

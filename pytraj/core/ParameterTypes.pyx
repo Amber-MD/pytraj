@@ -24,7 +24,7 @@ cdef class AngleType:
     @property
     def indices(self):
         """return atom indices as a python array"""
-        #cdef pyarray arr = pyarray('i', [self.thisptr.Idx(), self.thisptr.A1(),
+        # cdef pyarray arr = pyarray('i', [self.thisptr.Idx(), self.thisptr.A1(),
         #                                 self.thisptr.A2(), self.thisptr.A3()])
         cdef pyarray arr = pyarray('i', [self.thisptr.A1(),
                                          self.thisptr.A2(), self.thisptr.A3()])
@@ -47,7 +47,7 @@ cdef class NonbondParmType:
             # to be added
             #nba = convert_objlist_to_vector(BondType, nba_, NonbondArray)
             #hba = convert_objlist_to_vector(HB_ParmType, hba_, HB_ParmArray)
-            #self.thisptr = new _NonbondParmType(n, nbi, nba, hba)
+            # self.thisptr = new _NonbondParmType(n, nbi, nba, hba)
 
     def __dealloc__(self):
         del self.thisptr
@@ -59,11 +59,11 @@ cdef class NonbondParmType:
     def n_types(self):
         return self.thisptr.Ntypes()
 
-    @property 
+    @property
     def NBindex(self):
         return self.thisptr.NBindex()
 
-    #def  NonbondArray NBarray(self):
+    # def  NonbondArray NBarray(self):
     #    """return list of NonbondType instances?"""
     #    cdef NonbondArray na
     #    cdef NonbondType nbt
@@ -75,13 +75,13 @@ cdef class NonbondParmType:
     #        del nbt.thisptr
     #        # to be added
 
-    #def  HB_ParmArray HBarray(self):
+    # def  HB_ParmArray HBarray(self):
 
-    #def  NonbondType NBarray(self,int i):
+    # def  NonbondType NBarray(self,int i):
 
-    #def  HB_ParmType HBarray(self,int i):
+    # def  HB_ParmType HBarray(self,int i):
 
-    def GetLJindex(self,int type1, int type2):
+    def GetLJindex(self, int type1, int type2):
         return self.thisptr.GetLJindex(type1, type2)
 
 cdef class LES_AtomType:
@@ -91,9 +91,9 @@ cdef class LES_AtomType:
     def __dealloc__(self):
         del self.thisptr
 
-    #def LES_AtomType(self):
+    # def LES_AtomType(self):
 
-    #def LES_AtomType(self,int t, int c, int i):
+    # def LES_AtomType(self,int t, int c, int i):
 
     @property
     def type(self):
@@ -101,7 +101,7 @@ cdef class LES_AtomType:
 
     def copy(self):
         return self.thisptr.Copy()
-    
+
     @property
     def ID(self):
         return self.thisptr.ID()
@@ -109,7 +109,7 @@ cdef class LES_AtomType:
 cdef class AngleParmType:
     def __cinit__(self, arg=None):
         cdef double tk, teq
-        if not arg: 
+        if not arg:
             self.thisptr = new _AngleParmType()
         else:
             if len(arg) == 2:
@@ -122,7 +122,7 @@ cdef class AngleParmType:
     @property
     def Tk(self):
         return self.thisptr.Tk()
- 
+
     @property
     def Teq(self):
         return self.thisptr.Teq()
@@ -130,7 +130,7 @@ cdef class AngleParmType:
 cdef class CmapType:
     def __cinit__(self, arg):
         cdef int a1, a2, a3, a4, a5, i
-        if not arg: 
+        if not arg:
             self.thisptr = new _CmapType()
         else:
             if len(arg) == 6:
@@ -147,7 +147,7 @@ cdef class CmapType:
     @property
     def indices(self):
         """return atom indices as a python array"""
-        #cdef pyarray arr = pyarray('i', [self.thisptr.Idx(), self.thisptr.A1(),
+        # cdef pyarray arr = pyarray('i', [self.thisptr.Idx(), self.thisptr.A1(),
         #                                 self.thisptr.A2(), self.thisptr.A3(),
         #                                 self.thisptr.A4(), self.thisptr.A5()])
         cdef pyarray arr = pyarray('i', [self.thisptr.A1(),
@@ -159,7 +159,7 @@ cdef class CmapType:
 cdef class HB_ParmType:
     def __cinit__(self, arg=None):
         cdef double a, b, c
-        if not arg: 
+        if not arg:
             self.thisptr = new _HB_ParmType()
         else:
             if len(arg) == 3:
@@ -224,27 +224,27 @@ cdef class ChamberParmType:
     def FF_type(self):
         return self.thisptr.FF_Type()
 
-    #def  BondArray UB(self):
+    # def  BondArray UB(self):
 
-    #def  BondParmArray UBparm(self):
+    # def  BondParmArray UBparm(self):
 
-    #def  DihedralArray Impropers(self):
+    # def  DihedralArray Impropers(self):
 
-    #def  DihedralParmArray ImproperParm(self):
+    # def  DihedralParmArray ImproperParm(self):
 
-    #def  NonbondArray LJ14(self):
+    # def  NonbondArray LJ14(self):
 
-    #def  CmapGridArray CmapGrid(self):
+    # def  CmapGridArray CmapGrid(self):
 
-    #def  CmapArray Cmap(self):
+    # def  CmapArray Cmap(self):
 
-    #def SetLJ14(self, NonbondArray nb):
+    # def SetLJ14(self, NonbondArray nb):
     #    self.thisptr.SetLJ14(nb)
 
-    def SetChamber(self,int i, string s):
+    def SetChamber(self, int i, string s):
         self.thisptr.SetChamber(i, s)
 
-    #def SetUB(self, BondArray ub, BondParmArray ubp):
+    # def SetUB(self, BondArray ub, BondParmArray ubp):
     #    self.thisptr.SetUB(ub, ubp)
 
     def SetImproper(self, im_py, imp_py):
@@ -318,13 +318,13 @@ cdef class DihedralType:
         if not arg:
             self.thisptr = new _DihedralType()
         else:
-            #if len(arg) == 5:
+            # if len(arg) == 5:
             #    a1, a2, a3, a4, idx = arg
             #    self.thisptr = new _DihedralType(a1, a2, a3, a4, idx)
-            #elif len(arg) == 6:
+            # elif len(arg) == 6:
             #    a1, a2, a3, a4, idx, dhtype = arg
             #    self.thisptr = new _DihedralType(a1, a2, a3, a4, dhtype, idx)
-            #else:
+            # else:
             #    raise ValueError()
             raise ValueError()
 
@@ -342,7 +342,7 @@ cdef class DihedralType:
     @property
     def indices(self):
         """return atom indices as a python array"""
-        #cdef pyarray arr = pyarray('i', [self.thisptr.Idx(), self.thisptr.A1(), self.thisptr.A2(),
+        # cdef pyarray arr = pyarray('i', [self.thisptr.Idx(), self.thisptr.A1(), self.thisptr.A2(),
         #                                 self.thisptr.A3(), self.thisptr.A4()])
         cdef pyarray arr = pyarray('i', [self.thisptr.A1(), self.thisptr.A2(),
                                          self.thisptr.A3(), self.thisptr.A4()])
@@ -367,13 +367,14 @@ cdef class BondType:
         def __get__(self):
             return self.thisptr.Idx()
 
-        def __set__(self,int i):
+        def __set__(self, int i):
             self.thisptr.SetIdx(i)
 
     @property
     def indices(self):
         """return atom indices as a python array"""
-        #cdef pyarray arr = pyarray('i', [self.thisptr.Idx(), self.thisptr.A1(), self.thisptr.A2()])
+        # cdef pyarray arr = pyarray('i', [self.thisptr.Idx(), self.thisptr.A1(),
+        # self.thisptr.A2()])
         cdef pyarray arr = pyarray('i', [self.thisptr.A1(), self.thisptr.A2()])
         return arr
 
@@ -381,7 +382,7 @@ cdef class BondType:
 cdef class CapParmType:
     def __cinit__(self, arg=None):
         cdef int n
-        cdef double c, x, y, z 
+        cdef double c, x, y, z
         if not arg:
             self.thisptr = new _CapParmType()
         else:
@@ -424,7 +425,7 @@ cdef class DihedralParmType:
             self.thisptr = new _DihedralParmType()
         else:
             if len(arg) == 2:
-                k ,p = arg
+                k, p = arg
                 self.thisptr = new _DihedralParmType(k, p)
             elif len(arg) == 5:
                 k, n, p, e, b = arg
@@ -439,7 +440,7 @@ cdef class DihedralParmType:
     def Pk(self):
         return self.thisptr.Pk()
 
-    @property 
+    @property
     def Pn(self):
         return self.thisptr.Pn()
 
@@ -450,6 +451,7 @@ cdef class DihedralParmType:
     property SCEE:
         def __get__(self):
             return self.thisptr.SCEE()
+
         def __set__(self, double s):
             self.thisptr.SetSCEE(s)
 

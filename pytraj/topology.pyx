@@ -7,7 +7,7 @@ from cython.operator cimport dereference as deref, preincrement as incr
 from libcpp.string cimport string
 from cpython.array cimport array as pyarray
 from cpython cimport array as pyarray_master
-from pytraj.cpp_options import set_world_silent # turn on and off cpptraj's stdout
+from pytraj.cpp_options import set_world_silent  # turn on and off cpptraj's stdout
 
 from collections import namedtuple
 import numpy as np
@@ -31,27 +31,31 @@ else:
 
 __all__ = ['Topology', 'ParmFile']
 
-class SimplifiedAtom(namedtuple('SimplifiedAtom', 'name type element charge mass index atomic_number resname resid')):
+
+class SimplifiedAtom(
+    namedtuple(
+        'SimplifiedAtom',
+        'name type element charge mass index atomic_number resname resid')):
     __slots__ = ()
+
     def __str__(self):
-        return 'SimplifiedAtom(name={}, type={}, element={}, atomic_number={}, index={}, resname={}, resid={})'.format(self.name,
-                self.type,
-                self.element,
-                self.atomic_number,
-                self.index,
-                self.resname,
-                self.resid)
+        return 'SimplifiedAtom(name={}, type={}, element={}, atomic_number={}, index={}, resname={}, resid={})'.format(
+            self.name, self.type, self.element, self.atomic_number, self.index, self.resname, self.resid)
+
     def __repr__(self):
         return str(self)
 
 
-class SimplifiedResidue(namedtuple('SimplifiedResidue', 'name index first_atom_index last_atom_index')):
+class SimplifiedResidue(
+    namedtuple(
+        'SimplifiedResidue',
+        'name index first_atom_index last_atom_index')):
     __slots__ = ()
+
     def __str__(self):
-        return 'SimplifiedResidue(name={}, index={}, atom_range={}-{})'.format(self.name,
-                self.index,
-                self.first_atom_index,
-                self.last_atom_index)
+        return 'SimplifiedResidue(name={}, index={}, atom_range={}-{})'.format(
+            self.name, self.index, self.first_atom_index, self.last_atom_index)
+
     def __repr__(self):
         return str(self)
 
@@ -64,8 +68,11 @@ class SimplifiedTopology(namedtuple('SimplifiedTopology', 'atoms residues')):
     cpptraj does not understand this class (use :class:Topology)
     '''
     __slots__ = ()
+
     def __str__(self):
-        return 'SimplifiedTopology({} atoms, {} residues)'.format(len(self.atoms), len(self.residues))
+        return 'SimplifiedTopology({} atoms, {} residues)'.format(
+            len(self.atoms), len(self.residues))
+
     def __repr__(self):
         return str(self)
 
@@ -92,7 +99,7 @@ cdef class Topology:
             if len(args) == 1:
                 if isinstance(args[0], Topology):
                     tp = args[0]
-                    self.thisptr[0] =  tp.thisptr[0]
+                    self.thisptr[0] = tp.thisptr[0]
                 else:
                     raise ValueError()
             else:
@@ -108,13 +115,13 @@ cdef class Topology:
             box_txt = "PBC with box type = %s" % box.type
         else:
             box_txt = "non-PBC"
-         
+
         tmp = "<%s: %s atoms, %s residues, %s mols, %s>" % (
-                self.__class__.__name__,
-                self.n_atoms,
-                self.n_residues,
-                self.n_mols,
-                box_txt)
+            self.__class__.__name__,
+            self.n_atoms,
+            self.n_residues,
+            self.n_mols,
+            box_txt)
         return tmp
 
     def add_atom(self, Atom atom, Residue residue):
@@ -203,7 +210,7 @@ cdef class Topology:
         Out[31]: <N-atom, resid=0, n_bonds=4>
         """
 
-        cdef Atom atom 
+        cdef Atom atom
         cdef AtomMask atm
         cdef Residue res
         cdef int i
@@ -213,7 +220,7 @@ cdef class Topology:
             # need to explicitly cast to int
             i = <int> idx
             atom = Atom()
-            if i  >= 0:
+            if i >= 0:
                 atom.thisptr[0] = self.thisptr.index_opr(i)
             else:
                 # negative indexing
@@ -236,7 +243,8 @@ cdef class Topology:
         elif isinstance(idx, (list, tuple, range)) or is_array(idx):
             mask = array_to_cpptraj_atommask(idx)
         elif isinstance(idx, Residue):
-            mask = array_to_cpptraj_atommask(range(idx.first_atom_index, idx.last_atom_index))
+            mask = array_to_cpptraj_atommask(
+                range(idx.first_atom_index, idx.last_atom_index))
             return self._get_new_from_mask(mask)
         elif isinstance(idx, Molecule):
             mol = idx
@@ -326,7 +334,8 @@ cdef class Topology:
             atom = deref(ait)
             atoms.append(SimplifiedAtom(name=atom.c_str().strip(),
                                         type=atom.Type().Truncated(),
-                                        element=get_key(atom.Element(), AtomicElementDict),
+                                        element=get_key(
+                                            atom.Element(), AtomicElementDict),
                                         charge=atom.Charge(),
                                         mass=atom.Mass(),
                                         index=idx,
@@ -342,9 +351,9 @@ cdef class Topology:
         while rit != self.thisptr.ResEnd():
             res = deref(rit)
             residues.append(SimplifiedResidue(name=res.c_str().strip(),
-                                               index=idx,
-                                               first_atom_index=res.FirstAtom(),
-                                               last_atom_index=res.LastAtom()))
+                                              index=idx,
+                                              first_atom_index=res.FirstAtom(),
+                                              last_atom_index=res.LastAtom()))
             idx += 1
             incr(rit)
         return SimplifiedTopology(atoms=atoms, residues=residues)
@@ -360,7 +369,7 @@ cdef class Topology:
                 res.thisptr[0] = deref(it)
                 yield res
                 incr(it)
-        
+
     property mols:
         def __get__(self):
             cdef Molecule mol
@@ -377,6 +386,7 @@ cdef class Topology:
         '''return a copy of a list of atoms. If the Topology is large, this method calling
         is every expensive. Make sure to save atomlist.
         '''
+
         def __get__(self):
             return list(self.atoms)
 
@@ -438,9 +448,10 @@ cdef class Topology:
             cdef Box box = Box()
             box.thisptr[0] = self.thisptr.ParmBox()
             return box
+
         def __set__(self, box_or_array):
             cdef Box _box
-            if  isinstance(box_or_array, Box):
+            if isinstance(box_or_array, Box):
                 _box = box_or_array
             else:
                 # try to create box
@@ -544,6 +555,7 @@ cdef class Topology:
 
     property mass:
         '''return a copy of atom masses (numpy 1D array)'''
+
         def __get__(self):
             """return python array of atom masses"""
             cdef Atom atom
@@ -551,6 +563,7 @@ cdef class Topology:
 
     property charge:
         '''return a copy of atom charges (numpy 1D array)'''
+
         def __get__(self):
             return np.asarray([atom.charge for atom in self.atoms])
 
@@ -576,8 +589,8 @@ cdef class Topology:
             arr0.append(count)
         return arr0
 
-    def add_bonds(self, cython.integral [:, ::1] indices):
-        """add bond for pairs of atoms. 
+    def add_bonds(self, cython.integral[:, ::1] indices):
+        """add bond for pairs of atoms.
 
         Parameters
         ----------
@@ -591,8 +604,8 @@ cdef class Topology:
             j, k = indices[i, :]
             self.thisptr.AddBond(j, k)
 
-    def add_angles(self, cython.integral [:, ::1] indices):
-        """add angle for a group of 3 atoms. 
+    def add_angles(self, cython.integral[:, ::1] indices):
+        """add angle for a group of 3 atoms.
 
         Parameters
         ----------
@@ -606,8 +619,8 @@ cdef class Topology:
             j, k, n = indices[i, :]
             self.thisptr.AddAngle(j, k, n)
 
-    def add_dihedrals(self, cython.integral [:, ::1] indices):
-        """add dihedral for a group of 4 atoms. 
+    def add_dihedrals(self, cython.integral[:, ::1] indices):
+        """add dihedral for a group of 4 atoms.
 
         Parameters
         ----------
@@ -678,8 +691,8 @@ cdef class Topology:
             cdef int n_atoms = self.n_atoms
             cdef int i
             cdef NonbondParmType nb = NonbondParmType()
-            cdef pyarray arr = pyarray_master.clone(pyarray('d', []), 
-                               n_atoms, zero=True)
+            cdef pyarray arr = pyarray_master.clone(pyarray('d', []),
+                                                    n_atoms, zero=True)
             cdef double[:] d_view = arr
 
             nb.thisptr[0] = self.thisptr.Nonbond()
@@ -695,14 +708,13 @@ cdef class Topology:
         return self.to_dict()
 
     def __setstate__(self, dict_data):
-        d = dict_data 
+        d = dict_data
 
         # always start molnum at 0.
         MOLNUM = 0
 
-        for idx, (aname, atype, charge, mass, resid, resname, mol_number) in enumerate(zip(d['atom_name'],
-                d['atom_type'], d['atom_charge'], d['atom_mass'], d['resid'],
-                d['resname'], d['mol_number'])):
+        for idx, (aname, atype, charge, mass, resid, resname, mol_number) in enumerate(zip(d['atom_name'], d[
+                'atom_type'], d['atom_charge'], d['atom_mass'], d['resid'], d['resname'], d['mol_number'])):
             atom = Atom(name=aname, type=atype, charge=charge, mass=mass, resid=resid)
             atom.set_mol(mol_number)
             residue = Residue(resname, resid)
@@ -766,7 +778,6 @@ cdef class Topology:
 
         return d
 
-
     def to_dataframe(self):
         import pandas as pd
         cdef:
@@ -789,7 +800,7 @@ cdef class Topology:
                 atomname_arr[idx] = atom.name
                 atomicnumber_arr[idx] = atom.atomic_number
 
-            arr = np.vstack((resid_arr, resname_arr, atomname_arr, 
+            arr = np.vstack((resid_arr, resname_arr, atomname_arr,
                              atomicnumber_arr, mass_arr)).T
             return pd.DataFrame(arr, columns=labels)
         else:
@@ -865,16 +876,17 @@ cdef class ParmFile:
                 arglist = ArgList(more_options)
             else:
                 arglist = <ArgList> more_options
-            self.thisptr.ReadTopology(_top.thisptr[0], filename, arglist.thisptr[0], debug)
+            self.thisptr.ReadTopology(
+                _top.thisptr[0], filename, arglist.thisptr[0], debug)
 
-    def writeparm(self, Topology top=Topology(), filename="default.top", 
+    def writeparm(self, Topology top=Topology(), filename="default.top",
                   ArgList arglist=ArgList(), format=""):
         cdef int debug = 0
         cdef int err
         # change `for` to upper
-        cdef ParmFormatType parmtype 
+        cdef ParmFormatType parmtype
         filename = filename.encode()
-        
+
         if format== "":
             parmtype = UNKNOWN_PARM
         else:
@@ -887,7 +899,8 @@ cdef class ParmFile:
         if top.is_empty():
             raise ValueError("empty topology")
 
-        err = self.thisptr.WriteTopology(top.thisptr[0], filename, arglist.thisptr[0], parmtype, debug)
+        err = self.thisptr.WriteTopology(
+            top.thisptr[0], filename, arglist.thisptr[0], parmtype, debug)
         if err == 1:
             raise ValueError("Not supported or failed to write")
 
@@ -895,4 +908,3 @@ cdef class ParmFile:
         cdef FileName filename = FileName()
         filename.thisptr[0] = self.thisptr.ParmFilename()
         return os.path.abspath(filename)
-

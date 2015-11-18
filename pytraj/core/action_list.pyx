@@ -5,11 +5,13 @@ from ..externals.six import string_types
 from ..action_dict import ActionDict
 from .._shared_methods import iterframe_master
 
+
 def _get_arglist(arg):
     if isinstance(arg, ArgList):
         return arg
     else:
         return ArgList(arg)
+
 
 def create_pipeline(traj, commands, DatasetList dslist=DatasetList(), frame_indices=None):
     '''create frame iterator from cpptraj's commands.
@@ -30,7 +32,7 @@ def create_pipeline(traj, commands, DatasetList dslist=DatasetList(), frame_indi
     >>> for frame in pt.create_pipeline(traj, ['autoimage', 'rms', 'center :1']): print(frame)
 
     Above example is similiar to cpptraj's command::
-     
+
          cpptraj -i EOF<<
          parm tz2.ortho.parm
          trajin tz2.ortho.nc
@@ -62,9 +64,10 @@ def create_pipeline(traj, commands, DatasetList dslist=DatasetList(), frame_indi
     if isinstance(commands, (list, tuple)):
         commands = commands
     elif isinstance(commands, string_types):
-        commands = [line.lstrip().rstrip() for line in commands.split('\n') if line.strip() != '']
+        commands = [line.lstrip().rstrip()
+                    for line in commands.split('\n') if line.strip() != '']
 
-    actlist = ActionList(commands, top=traj.top, dslist=dslist) 
+    actlist = ActionList(commands, top=traj.top, dslist=dslist)
     for frame in iterframe_master(fi):
         actlist.do_actions(frame)
         yield frame
@@ -72,7 +75,6 @@ def create_pipeline(traj, commands, DatasetList dslist=DatasetList(), frame_indi
 
 def do(lines, traj, *args, **kwd):
     cdef DatasetList dslist
-
 
     if isinstance(lines, (list, tuple, string_types)):
         ref = kwd.get('ref')
@@ -164,12 +166,12 @@ cdef class ActionList:
     def clear(self):
         self.thisptr.Clear()
 
-    def add_action(self, action="", 
-                         command="", 
-                         top=None, 
-                         DatasetList dslist=DatasetList(), 
-                         DataFileList dflist=DataFileList(),
-                         check_status=False):
+    def add_action(self, action="",
+                   command="",
+                   top=None,
+                   DatasetList dslist=DatasetList(),
+                   DataFileList dflist=DataFileList(),
+                   check_status=False):
         """Add action to ActionList
 
         Parameters
@@ -177,7 +179,7 @@ cdef class ActionList:
         action : str or Action object
         command : str or ArgList object
         top : str | Topology | TopologyList
-        dslist : DatasetList 
+        dslist : DatasetList
         dflist : DataFileList
         check_status : bool, default=False
             return status of Action (0 or 1) if "True"
@@ -200,7 +202,7 @@ cdef class ActionList:
         # add function pointer: How?
 
         _arglist = _get_arglist(command)
-        status = self.thisptr.AddAction(func.ptr, _arglist.thisptr[0], 
+        status = self.thisptr.AddAction(func.ptr, _arglist.thisptr[0],
                                         actioninit_)
 
         if check_status:
@@ -250,7 +252,7 @@ cdef class ActionList:
             self.thisptr.DoActions(idx, actionframe_)
         else:
             for i, frame in enumerate(iterframe_master(traj)):
-                self.do_actions(frame, i) 
+                self.do_actions(frame, i)
 
     def is_empty(self):
         return self.thisptr.Empty()

@@ -9,3 +9,4 @@
     - yapf --style pep8 ./tests/*py tests/*/*py pytraj/*py pytraj/*/*py
     - autopep8 -a my_file.py -i
     - eradicate -i my_file.py 
+    - cython files: autopep8 pytraj/topology.pyx -i --ignore E226,E225,E123 --max-line-length 90 -a -a -a

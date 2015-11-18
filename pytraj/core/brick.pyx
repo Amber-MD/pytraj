@@ -15,6 +15,7 @@ cdef class Atom:
     >>> # name, type, charge, mass
     >>> H = Atom(name='H', type='H', charge='0.0', mass='1.0', resid=0)
     '''
+
     def __cinit__(self, **kwd):
         cdef NameType aname, atype
 
@@ -46,6 +47,7 @@ cdef class Atom:
     property index:
         def __get__(self):
             return self._index
+
         def __set__(self, int idx):
             self._index = idx
 
@@ -64,33 +66,33 @@ cdef class Atom:
     property resid:
         def __set__(self, int residIn):
             self.thisptr.SetResNum(residIn)
+
         def __get__(self):
             return self.thisptr.ResNum()
 
     def set_mol(self, int mol_num):
-            self.thisptr.SetMol(mol_num)
+        self.thisptr.SetMol(mol_num)
 
     property charge:
         def __set__(self, double qin):
             self.thisptr.SetCharge(qin)
+
         def __get__(self):
             return self.thisptr.Charge()
 
     property gb_radius:
         def __set__(self, double r):
             self.thisptr.SetGBradius(r)
+
         def __get__(self):
             return self.thisptr.GBRadius()
-    
+
     def __str__(self):
         if self.atomic_number > 0:
             name = self.name.strip()
             if name != '':
-                txt = 'Atom(name={}, type={}, atomic_number={}, index={}, resid={})'.format(name,
-                       self.type.strip(),
-                       self.atomic_number,
-                       self.index,
-                       self.resid)
+                txt = 'Atom(name={}, type={}, atomic_number={}, index={}, resid={})'.format(
+                    name, self.type.strip(), self.atomic_number, self.index, self.resid)
             else:
                 txt = 'Atom()'
         else:
@@ -152,7 +154,7 @@ cdef class Atom:
         """
         id1 = id1.upper()
         id2 = id2.upper()
-        return _Atom.GetBondLength(AtomicElementDict[id1], 
+        return _Atom.GetBondLength(AtomicElementDict[id1],
                                    AtomicElementDict[id2])
 
 
@@ -163,12 +165,13 @@ cdef class Residue:
     --------
     >>> Residue('ALA', resid=0, icode=0, chainID=0)
     '''
+
     def __cinit__(self, name='', int resid=0, icode=0, chainID=0):
         cdef NameType resname = NameType(name)
         cdef char icode_ = <int> icode
         cdef char chainID_ = <int> chainID
         self.thisptr = new _Residue(resname.thisptr[0], <int> resid,
-                icode_, chainID_)
+                                    icode_, chainID_)
 
     def __dealloc__(self):
         del self.thisptr
@@ -177,8 +180,8 @@ cdef class Residue:
         if self.n_atoms > 0:
             name = self.name.split()[0]
             txt = "<%s%s, %s atoms>" % (name,
-                                       self.original_resid-1,
-                                       self.n_atoms)
+                                        self.original_resid-1,
+                                        self.n_atoms)
         else:
             txt = '<Emtpy Residue>'
         return txt
@@ -200,6 +203,7 @@ cdef class Residue:
     property original_resid:
         def __get__(self):
             return self.thisptr.OriginalResNum()
+
         def __set__(self, int i):
             self.thisptr.SetOriginalNum(i)
 
@@ -240,10 +244,10 @@ cdef class Molecule:
     def __dealloc__(self):
         del self.thisptr
 
-    def set_first(self,int begin):
+    def set_first(self, int begin):
         self.thisptr.SetFirst(begin)
 
-    def set_last(self,int last):
+    def set_last(self, int last):
         self.thisptr.SetLast(last)
 
     def set_solvent(self):
@@ -266,4 +270,3 @@ cdef class Molecule:
     @property
     def n_atoms(self):
         return self.thisptr.NumAtoms()
-

@@ -11,7 +11,7 @@ from pytraj.externals.six import string_types
 
 cdef class Box(object):
     def __cinit__(self, *args):
-        cdef double[:] boxIn 
+        cdef double[:] boxIn
         cdef Box rhs
         cdef Matrix_3x3 mat
 
@@ -34,8 +34,8 @@ cdef class Box(object):
                     boxIn = args[0]
                 except:
                     boxIn = np.array([item for item in args[0]], dtype='f8')
-                self.thisptr = new _Box(&boxIn[0])
-        else: 
+                self.thisptr = new _Box( &boxIn[0])
+        else:
             raise ValueError("")
 
     def copy(self):
@@ -94,7 +94,7 @@ cdef class Box(object):
         """
         cdef double[:] data = self.data
 
-        self.thisptr.SetBox(&data[0])
+        self.thisptr.SetBox( &data[0])
 
     def set_beta_lengths(self, double beta, double xin, double yin, double zin):
         self.thisptr.SetBetaLengths(beta, xin, yin, zin)
@@ -143,36 +143,42 @@ cdef class Box(object):
     property x:
         def __get__(self):
             return self.thisptr.BoxX()
+
         def __set__(self, double value):
             self.thisptr.SetX(value)
 
     property y:
         def __get__(self):
             return self.thisptr.BoxY()
+
         def __set__(self, double value):
             self.thisptr.SetY(value)
 
     property z:
         def __get__(self):
             return self.thisptr.BoxZ()
+
         def __set__(self, double value):
             self.thisptr.SetZ(value)
 
     property alpha:
         def __get__(self):
             return self.thisptr.Alpha()
+
         def __set__(self, double value):
             self.thisptr.SetAlpha(value)
 
     property beta:
         def __get__(self):
             return self.thisptr.Beta()
+
         def __set__(self, double value):
             self.thisptr.SetBeta(value)
 
     property gamma:
         def __get__(self):
             return self.thisptr.Gamma()
+
         def __set__(self, double value):
             self.thisptr.SetGamma(value)
 

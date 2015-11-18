@@ -19,13 +19,14 @@ cdef class Action:
     >>> act = Action_Radgyr(command='@CA', dslist=dslist, top=traj.top)
     >>> act.do_action(traj)
     '''
+
     def __cinit__(self):
         # don't directly create instance of this ABC class.
         self.n_frames = 0
         self.top_is_processed = False
 
     def __init__(self, command='', Topology top=None, DatasetList dslist=None,
-            DataFileList dflist=DataFileList()):
+                 DataFileList dflist=DataFileList()):
         # __init__ will be called after __cinit__
         # create __init__ to avoid segmentation fault (why? not sure why)
         # don't directly create instance of this ABC class.
@@ -39,7 +40,7 @@ cdef class Action:
             self.process(top)
 
     def __dealloc__(self):
-        # should I del pointer here or in subclass? 
+        # should I del pointer here or in subclass?
         #del self.baseptr
         pass
 
@@ -63,10 +64,10 @@ cdef class Action:
         return self._master(*args, **kwd)
 
     @makesureABC("Action")
-    def read_input(self, command='', 
+    def read_input(self, command='',
                    top=Topology(),
-                   DatasetList dslist=DatasetList(), 
-                   DataFileList dflist=DataFileList(), 
+                   DatasetList dslist=DatasetList(),
+                   DataFileList dflist=DataFileList(),
                    int debug=0):
         """
         Parameters
@@ -81,7 +82,7 @@ cdef class Action:
         """
         cdef ArgList arglist
         cdef RetType i_fail
-        cdef _ActionInit actioninit_ 
+        cdef _ActionInit actioninit_
         actioninit_ = _ActionInit(dslist.thisptr[0], dflist.thisptr[0])
 
         self.top = top
@@ -93,8 +94,8 @@ cdef class Action:
             arglist = <ArgList> command
 
         i_fail = self.baseptr.Init(arglist.thisptr[0],
-                       actioninit_,
-                       debug)
+                                   actioninit_,
+                                   debug)
 
         if i_fail != OK:
             # check before do_action to avoid segfault
@@ -142,10 +143,10 @@ cdef class Action:
     @makesureABC("Action")
     def do_action(self, current_frame=None, int idx=0, get_new_frame=False):
         """
-        Perform action on Frame. 
+        Perform action on Frame.
         Parameters:
         ----------
-        current_frame : Frame instance need to be processed, default=Frame() 
+        current_frame : Frame instance need to be processed, default=Frame()
 
         new_frame : Frame instance, defaul=Frame()
             if action change Frame, you need to have this
@@ -185,19 +186,19 @@ cdef class Action:
         return act
 
     def _master(self, command='',
-                  current_frame=Frame(),
-                  top=Topology(),
-                  dslist=DatasetList(), 
-                  dflist=DataFileList(), 
-                  int debug=0):
+                current_frame=Frame(),
+                top=Topology(),
+                dslist=DatasetList(),
+                dflist=DataFileList(),
+                int debug=0):
         """
         TODO : (do we need this method?)
             + add doc
             + don't work with `chunk_iter`
 
         """
-        self.read_input(command=command, 
-                        top=top, 
+        self.read_input(command=command,
+                        top=top,
                         dslist=dslist,
                         dflist=dflist, debug=debug)
 
@@ -224,7 +225,7 @@ cdef class Action_Angle (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -244,7 +245,7 @@ cdef class Action_AreaPerMol (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -264,7 +265,7 @@ cdef class Action_AtomMap (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -284,7 +285,7 @@ cdef class Action_AtomicCorr (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -304,7 +305,7 @@ cdef class Action_AtomicFluct (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -324,7 +325,7 @@ cdef class Action_AutoImage (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -344,7 +345,7 @@ cdef class Action_Average (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -364,7 +365,7 @@ cdef class Action_Bounds (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -384,7 +385,7 @@ cdef class Action_Box (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -404,7 +405,7 @@ cdef class Action_Center (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -424,7 +425,7 @@ cdef class Action_Channel (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -444,7 +445,7 @@ cdef class Action_CheckChirality (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -464,7 +465,7 @@ cdef class Action_CheckStructure (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -484,7 +485,7 @@ cdef class Action_Closest (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -504,7 +505,7 @@ cdef class Action_ClusterDihedral (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -524,7 +525,7 @@ cdef class Action_Contacts (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -544,7 +545,7 @@ cdef class Action_CreateCrd (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -564,7 +565,7 @@ cdef class Action_DNAionTracker (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -584,7 +585,7 @@ cdef class Action_DSSP (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -604,7 +605,7 @@ cdef class Action_Density (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -624,7 +625,7 @@ cdef class Action_Diffusion (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -663,7 +664,7 @@ cdef class Action_DihedralScan (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -683,7 +684,7 @@ cdef class Action_Dipole (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -703,7 +704,7 @@ cdef class Action_DistRmsd (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -723,13 +724,12 @@ cdef class Action_Distance (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
-    #def NOE_args(self, ArgList argIn, double noe_lbound, double noe_ubound, double noe_rexp):
+    # def NOE_args(self, ArgList argIn, double noe_lbound, double noe_ubound, double noe_rexp):
     #    return self.thisptr.NOE_Args(argIn.thisptr[0], noe_lbound, noe_ubound, noe_rexp)
-
 
 
 cdef class Action_Energy (Action):
@@ -747,7 +747,7 @@ cdef class Action_Energy (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -767,7 +767,7 @@ cdef class Action_FilterByData (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -787,7 +787,7 @@ cdef class Action_FixAtomOrder (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -807,7 +807,7 @@ cdef class Action_Gist (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -827,7 +827,7 @@ cdef class Action_Grid (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -847,7 +847,7 @@ cdef class Action_GridFreeEnergy (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -867,7 +867,7 @@ cdef class Action_Hbond (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -887,7 +887,7 @@ cdef class Action_Image (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -907,7 +907,7 @@ cdef class Action_Jcoupling (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -927,7 +927,7 @@ cdef class Action_LESsplit (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -947,7 +947,7 @@ cdef class Action_LIE (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -967,7 +967,7 @@ cdef class Action_MakeStructure (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -987,7 +987,7 @@ cdef class Action_Mask (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1007,7 +1007,7 @@ cdef class Action_Matrix (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1027,7 +1027,7 @@ cdef class Action_MinImage (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1047,7 +1047,7 @@ cdef class Action_Molsurf (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1067,7 +1067,7 @@ cdef class Action_MultiDihedral (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1087,7 +1087,7 @@ cdef class Action_MultiVector (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1107,7 +1107,7 @@ cdef class Action_NAstruct (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1127,7 +1127,7 @@ cdef class Action_NMRrst (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1147,7 +1147,7 @@ cdef class Action_NativeContacts (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1167,7 +1167,7 @@ cdef class Action_OrderParameter (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1187,7 +1187,7 @@ cdef class Action_Outtraj (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1207,7 +1207,7 @@ cdef class Action_PairDist (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1227,7 +1227,7 @@ cdef class Action_Pairwise (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1247,7 +1247,7 @@ cdef class Action_Principal (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1267,7 +1267,7 @@ cdef class Action_Projection (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1287,7 +1287,7 @@ cdef class Action_Pucker (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1307,7 +1307,7 @@ cdef class Action_Radgyr (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1327,7 +1327,7 @@ cdef class Action_Radial (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1347,7 +1347,7 @@ cdef class Action_RandomizeIons (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1367,7 +1367,7 @@ cdef class Action_ReplicateCell (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1407,7 +1407,7 @@ cdef class Action_Rotate (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1427,7 +1427,7 @@ cdef class Action_RunningAvg (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1447,7 +1447,7 @@ cdef class Action_STFC_Diffusion (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1467,7 +1467,7 @@ cdef class Action_Scale (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1487,7 +1487,7 @@ cdef class Action_SetVelocity (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1507,7 +1507,7 @@ cdef class Action_Spam (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1527,7 +1527,7 @@ cdef class Action_Strip (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1547,7 +1547,7 @@ cdef class Action_Surf (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1567,7 +1567,7 @@ cdef class Action_SymmetricRmsd (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1587,7 +1587,7 @@ cdef class Action_Temperature (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1607,7 +1607,7 @@ cdef class Action_Translate (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1627,7 +1627,7 @@ cdef class Action_Unwrap (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1647,7 +1647,7 @@ cdef class Action_Vector (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1667,7 +1667,7 @@ cdef class Action_VelocityAutoCorr (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1687,7 +1687,7 @@ cdef class Action_Volmap (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1707,7 +1707,7 @@ cdef class Action_Volume (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -1727,7 +1727,7 @@ cdef class Action_Watershell (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 

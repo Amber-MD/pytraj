@@ -26,12 +26,12 @@ cdef class Dataset:
     -------------------------
     Class: Dataset
         Base class that all Dataset types will inherit.
-        Datasets are given certain attributes to make Dataset selection easier; 
+        Datasets are given certain attributes to make Dataset selection easier;
         these are name, index, and aspect. Name is typically associated with the
         action that creates the Dataset, e.g. RMSD or distance. Index is used
-        when and action outputs subsets of data, e.g. with RMSD it is possible to 
+        when and action outputs subsets of data, e.g. with RMSD it is possible to
         output per-residue RMSD, where the Dataset index corresponds to the residue
-        number. Aspect is used to further subdivide output data type; e.g. with 
+        number. Aspect is used to further subdivide output data type; e.g. with
         nucleic acid analysis each base pair (divided by index) has shear,
         stagger etc calculated.
 
@@ -44,18 +44,19 @@ cdef class Dataset:
     def __cinit__(self):
         pass
         # don't create instance for this abstract class
-        #self.baseptr0 = new _Dataset()
+        # self.baseptr0 = new _Dataset()
 
     def __dealloc__(self):
         pass
         # let sub-class do this job
-        #if self.baseptr0 != NULL:
+        # if self.baseptr0 != NULL:
         #    del self.baseptr0
 
     property name:
         def __get__(self):
             name = self.baseptr0.Meta().Name()
             return name.decode()
+
         def __set__(self, name):
             cdef _MetaData meta = self.baseptr0.Meta()
             meta.SetName(name.encode())
@@ -70,6 +71,7 @@ cdef class Dataset:
         def __get__(self):
             _legend = self.baseptr0.Meta().Legend()
             return _legend.decode()
+
         def __set__(self, _legend):
             cdef string s = _legend.encode()
             self.baseptr0.SetLegend(s)
@@ -78,9 +80,10 @@ cdef class Dataset:
         # retire self._legend?
         def __get__(self):
             return self._legend
+
         def __set__(self, _legend):
             self._legend = _legend
-    
+
     property dtype:
         def __get__(self):
             return get_key(self.baseptr0.Type(), DataTypeDict).lower()
@@ -89,7 +92,8 @@ cdef class Dataset:
         cname = self._class_name
         size = self.size
         _legend = self._legend
-        msg0 = """<pytraj.datasets.{0}: size={1}, key={2}> """.format(cname, size, _legend)
+        msg0 = """<pytraj.datasets.{0}: size={1}, key={2}> """.format(
+            cname, size, _legend)
         return msg0
 
     def __repr__(self):
@@ -158,8 +162,10 @@ cdef class Dataset:
     property values:
         '''return a copy or non-copy, depending on data
         '''
+
         def __set__(self, values):
             self.data = values
+
         def __get__(self):
             return np.asarray(self.data)
 
@@ -173,10 +179,10 @@ cdef class Dataset:
 
     def to_dict(self, use_numpy=False):
         if np and use_numpy:
-            return {self._legend : self.values}
+            return {self._legend: self.values}
         if not np and use_numpy:
             raise ImportError("require numpy. Set `use_numpy=False`")
-        return {self._legend : self.tolist()}
+        return {self._legend: self.tolist()}
 
 
 cdef class Dataset1D (Dataset):
@@ -241,7 +247,7 @@ cdef class Dataset1D (Dataset):
 
 cdef class DatasetDouble (Dataset1D):
     def __cinit__(self, *args):
-        # TODO : Use only one pointer? 
+        # TODO : Use only one pointer?
         self.baseptr0 = <_Dataset*> new _DatasetDouble()
         # make sure 3 pointers pointing to the same address?
         self.baseptr_1 = <_Dataset1D*> self.baseptr0
@@ -259,7 +265,7 @@ cdef class DatasetDouble (Dataset1D):
             del self.thisptr
 
     def __getitem__(self, idx):
-        #return self.thisptr.index_opr(idx)
+        # return self.thisptr.index_opr(idx)
         # use self.data so we can use fancy indexing
         return self.data[idx]
 
@@ -267,7 +273,7 @@ cdef class DatasetDouble (Dataset1D):
         cdef double* ptr
         ptr = &(self.thisptr.index_opr(idx))
         ptr[0] = value
-        
+
     def __iter__(self):
         cdef int i
         for i in range(self.size):
@@ -320,7 +326,7 @@ cdef class DatasetFloat (Dataset1D):
 
     def __setitem__(self, idx, value):
         self.data[idx] = value
-        
+
     def __iter__(self):
         cdef int i
         for i in range(self.size):
@@ -362,7 +368,7 @@ cdef class DatasetFloat (Dataset1D):
 
 cdef class DatasetInteger (Dataset1D):
     def __cinit__(self):
-        # TODO : Use only one pointer? 
+        # TODO : Use only one pointer?
         self.baseptr0 = <_Dataset*> new _DatasetInteger()
         # make sure 3 pointers pointing to the same address?
         self.baseptr_1 = <_Dataset1D*> self.baseptr0
@@ -376,14 +382,14 @@ cdef class DatasetInteger (Dataset1D):
             del self.thisptr
 
     def __getitem__(self, idx):
-        #return self.thisptr.index_opr(idx)
+        # return self.thisptr.index_opr(idx)
         cdef int i
 
         if is_int(idx):
             return self.thisptr.index_opr(idx)
         elif isinstance(idx, slice):
             if idx == slice(None):
-                return np.array([self.thisptr.index_opr(i) 
+                return np.array([self.thisptr.index_opr(i)
                                  for i in range(self.size)])
             else:
                 raise NotImplementedError("only support slice(None)")
@@ -394,7 +400,7 @@ cdef class DatasetInteger (Dataset1D):
         cdef int * ptr
         ptr = &(self.thisptr.index_opr(idx))
         ptr[0] = value
-        
+
     def __iter__(self):
         cdef int i
         cdef int size = self.size
@@ -455,7 +461,7 @@ cdef class DatasetString (Dataset1D):
         cdef string* ptr
         ptr = &(self.thisptr.index_opr(idx))
         ptr[0] = value
-        
+
     def __iter__(self):
         cdef int i
         for i in range(self.size):
@@ -467,6 +473,7 @@ cdef class DatasetString (Dataset1D):
     property data:
         def __get__(self):
             return [s.decode() for s in self]
+
         def __set__(self, data):
             self.thisptr.Resize(len(data))
             for i, x in enumerate(data):
@@ -502,7 +509,7 @@ cdef class DatasetVector(Dataset):
         return vec
 
     def __iter__(self):
-        for i in range (self.size):
+        for i in range(self.size):
             yield self[i]
 
     def resize(self, size_t sizeIn):
@@ -540,7 +547,7 @@ cdef class DatasetVector(Dataset):
             self.resize(0)
             for i in range(arr.shape[0]):
                 xyz = arr[i]
-                _vec.Assign(&xyz[0])
+                _vec.Assign( &xyz[0])
                 self.thisptr.AddVxyz(_vec)
 
     def tolist(self):
@@ -558,7 +565,7 @@ cdef class DatasetVector(Dataset):
 
 cdef class Dataset2D (Dataset):
     def __cinit__(self):
-        # since Dataset2D inherits from Dataset, make sure two pointers pointing 
+        # since Dataset2D inherits from Dataset, make sure two pointers pointing
         # to the same address
         self.baseptr_1 = <_Dataset2D*> self.baseptr0
 
@@ -630,13 +637,13 @@ cdef class DatasetMatrixDouble (Dataset2D):
     def append(self, double d):
         return self.thisptr.AddElement(d)
 
-    def set_element(self,size_t x, size_t y, double d):
+    def set_element(self, size_t x, size_t y, double d):
         self.thisptr.SetElement(x, y, d)
 
     def vect(self):
         return self.thisptr.Vect()
 
-    def _allocate_vector(self,size_t vsize):
+    def _allocate_vector(self, size_t vsize):
         self.thisptr.AllocateVector(vsize)
 
     def store_mass(self, Darray mIn):
@@ -649,7 +656,7 @@ cdef class DatasetMatrixDouble (Dataset2D):
     def get_full_matrix(self):
         """return python array with length = n_rows*n_cols"""
         cdef int nr = self.n_rows
-        cdef int nc = self.n_cols 
+        cdef int nc = self.n_cols
         cdef int i, j
         cdef double[:, ::1] arr = np.empty((nr, nc), dtype='f8')
 
@@ -697,7 +704,7 @@ cdef class DatasetMatrixDouble (Dataset2D):
         return np.array(dview)
 
     def to_half_matrix(self):
-        hm = np.zeros((self.n_rows, self.n_cols)) 
+        hm = np.zeros((self.n_rows, self.n_cols))
         mt = self._to_cpptraj_sparse_matrix()
 
         hm[np.triu_indices(self.n_rows, 1)] = mt[mt !=0]
@@ -718,7 +725,7 @@ cdef class DatasetMatrixFloat (Dataset2D):
 
     def get_full_matrix(self):
         cdef int nr = self.n_rows
-        cdef int nc = self.n_cols 
+        cdef int nc = self.n_cols
         cdef int i, j
         cdef float[:, ::1] arr = np.empty((nr, nc), dtype='f4')
 
@@ -734,7 +741,7 @@ cdef class DatasetMatrixFloat (Dataset2D):
     def to_ndarray(self, copy=True):
         # use copy=True to be consistent with Dataset1D
         arr = np.array(self.get_full_matrix()).reshape(
-                             self.n_rows, self.n_cols)
+            self.n_rows, self.n_cols)
         return arr
 
     def to_ndarray(self, copy=True):
@@ -760,7 +767,7 @@ cdef class DatasetMatrixFloat (Dataset2D):
         return np.asarray(dview)
 
     def to_half_matrix(self):
-        hm = np.zeros((self.n_rows, self.n_cols)) 
+        hm = np.zeros((self.n_rows, self.n_cols))
         mt = self._to_cpptraj_sparse_matrix()
 
         hm[np.triu_indices(self.n_rows, 1)] = mt[mt !=0]
@@ -891,12 +898,11 @@ cdef class DatasetModes(Dataset):
         '''
         self.thisptr.SetModes(is_reduced, n_modes, vsize, &eigenvalues[0], &eigenvectors[0])
 
-
     property eigenvalues:
         def __get__(self):
             cdef int i
             return np.array([self.thisptr.Eigenvalue(i) for i in
-                range(self.thisptr.Nmodes())])
+                             range(self.thisptr.Nmodes())])
 
     property eigenvectors:
         def __get__(self):
@@ -905,12 +911,12 @@ cdef class DatasetModes(Dataset):
             cdef int vsize = self.vector_size
 
             return np.array([ptr[i] for i in
-                range(n_modes*vsize)]).reshape(n_modes, vsize)
+                             range(n_modes*vsize)]).reshape(n_modes, vsize)
 
 
 cdef class DatasetMatrix3x3 (Dataset):
     def __cinit__(self):
-        # TODO : Use only one pointer? 
+        # TODO : Use only one pointer?
         self.baseptr0 = <_Dataset*> new _DatasetMatrix3x3()
         # make sure 3 pointers pointing to the same address?
         self.thisptr = <_DatasetMatrix3x3*> self.baseptr0
@@ -934,7 +940,7 @@ cdef class DatasetMatrix3x3 (Dataset):
 
     def __setitem__(self, int idx, double value):
         raise NotImplementedError('does not support setitem')
-        
+
     def __iter__(self):
         """return copy"""
         if self.size <= 0:
@@ -942,7 +948,7 @@ cdef class DatasetMatrix3x3 (Dataset):
         cdef vector[_Matrix_3x3].iterator it = self.thisptr.begin()
         cdef Matrix_3x3 mat
 
-        while it != self.thisptr.end(): 
+        while it != self.thisptr.end():
             mat = Matrix_3x3()
             mat.thisptr[0] = deref(it)
             incr(it)
@@ -970,14 +976,18 @@ cdef class DatasetMatrix3x3 (Dataset):
         if values.ndim == 2:
             self._append_from_2array(values)
         elif values.ndim == 3:
-            self._append_from_2array(values.reshape(values.shape[0], values.shape[1] * values.shape[2]))
+            self._append_from_2array(
+                values.reshape(
+                    values.shape[0],
+                    values.shape[1] *
+                    values.shape[2]))
 
     def _append_from_2array(self, double[:, ::1] arr):
         cdef unsigned int i
 
         for i in range(arr.shape[0]):
-            self.thisptr.AddMat3x3(_Matrix_3x3(&arr[i, 0]))
-        
+            self.thisptr.AddMat3x3(_Matrix_3x3( &arr[i, 0]))
+
 cdef class DatasetMesh (Dataset1D):
     def __cinit__(self):
         self.baseptr0 = <_Dataset*> new _DatasetMesh()
@@ -1008,7 +1018,7 @@ cdef class DatasetMesh (Dataset1D):
             for i in range(size):
                 dview[i, 0], dview[i, 1] = self.thisptr.X(i), self.thisptr.Y(i)
             return np.asarray(dview)
-    
+
     def _append_from_array(self, double[:, ::1] values):
         cdef unsigned int i
 
@@ -1023,7 +1033,7 @@ cdef class DatasetMesh (Dataset1D):
 cdef class DatasetCoords(Dataset):
     def __cinit__(self):
         # abstract class, dont' create new object here
-        #pass
+        # pass
         # make sure that two pointers pointing to the same address
         self.baseptr0 = <_Dataset*> self.baseptr_1
         self._top = Topology()
@@ -1051,7 +1061,7 @@ cdef class DatasetCoords(Dataset):
         """iterately getting Frame instance
         TODO : get memoryview or copy?
         """
-        cdef unsigned int i 
+        cdef unsigned int i
         cdef unsigned int size = self.size
         cdef Frame frame = Frame()
         frame.thisptr[0] = self.baseptr_1.AllocateFrame()
@@ -1074,7 +1084,7 @@ cdef class DatasetCoords(Dataset):
         idx_1 = get_positive_idx(idx, self.size)
         # raise index out of range
         if idx != 0 and idx_1 == 0:
-            # need to check if array has only 1 element. 
+            # need to check if array has only 1 element.
             # arr[0] is  arr[-1]
             if idx != -1:
                 raise ValueError("index is out of range")
@@ -1091,7 +1101,7 @@ cdef class DatasetCoords(Dataset):
             return self._top
 
         def __set__(self, Topology other):
-            #self.baseptr_1.SetTopology(other.thisptr[0])
+            # self.baseptr_1.SetTopology(other.thisptr[0])
             self.baseptr_1.CoordsSetup(other.thisptr[0], self.baseptr_1.CoordsInfo())
 
     def add_frame(self, Frame frame):
@@ -1113,7 +1123,7 @@ cdef class DatasetCoords(Dataset):
         cdef int i, n_frames, n_atoms
         cdef double[:, :, ::1] xyz
 
-        n_frames = self.n_frames 
+        n_frames = self.n_frames
         n_atoms = self.top.n_atoms
         xyz = np.empty((n_frames, n_atoms, 3), dtype='f8')
 
@@ -1192,9 +1202,10 @@ cdef class DatasetCoordsRef (DatasetCoords):
         def __get__(self):
             """"""
             return self.get_frame()
+
         def __set__(self, Frame frame):
             self.thisptr.SetCRD(0, frame.thisptr[0])
-    
+
     property xyz:
         def __get__(self):
             # use np.array to make a copy to avoid memory free
@@ -1218,6 +1229,7 @@ cdef class DatasetTopology(Dataset):
             cdef Topology top = Topology()
             top.thisptr[0] = self.thisptr.Top()
             return top
+
         def __set__(self, Topology top):
             self.thisptr.SetTop(top.thisptr[0])
 
@@ -1230,5 +1242,6 @@ cdef class DatasetTopology(Dataset):
         def __get__(self):
             """"""
             return self._top
+
         def __set__(self, Topology top):
             self._top = top

@@ -13,7 +13,7 @@ from ..core.Box cimport _Box, Box
 
 import numpy as np
 
-__all__ = ['Grid', 'Matrix_3x3', 'distance_', 'torsion',]
+__all__ = ['Grid', 'Matrix_3x3', 'distance_', 'torsion', ]
 
 cdef class Grid:
     def __cinit__(self, *args):
@@ -67,7 +67,7 @@ cdef class Grid:
             nx, ny, nz = self.nx, self.ny, self.nz
             cdef int i, j, k
             cdef cyarray carr = cyarray(shape=(nx, ny, nz),
-                                       itemsize=sizeof(float), format="f")
+                                        itemsize=sizeof(float), format="f")
             cdef float[:, :, :] myview = carr
 
             for i in range(nx):
@@ -85,13 +85,13 @@ cdef class Grid:
 
 cdef class Matrix_3x3:
     def __cinit__(self, Xin=None):
-        """TODO: 
+        """TODO:
              add doc
              Add: mat1 = Matrix_3x3(mat2)
-                  (Cython complains "TypeError: 'src.Matrix_3x3.Matrix_3x3' 
+                  (Cython complains "TypeError: 'src.Matrix_3x3.Matrix_3x3'
                    does not have the buffer interface")
         """
-        cdef double[:] X 
+        cdef double[:] X
         cdef double _xin = 0.
         import numbers
         import itertools
@@ -115,16 +115,16 @@ cdef class Matrix_3x3:
                         _flat_list.append(x0)
                 X = np.asarray(_flat_list, dtype='f8')
             if X.shape[0] == 9:
-                #Takes array of 9, row-major
+                # Takes array of 9, row-major
                 self.thisptr = new _Matrix_3x3(&X[0])
             elif X.shape[0] == 1:
-                #Set all elements to the same number
+                # Set all elements to the same number
                 self.thisptr = new _Matrix_3x3(X[0])
             elif X.shape[0] == 3:
-                #Set Set diagonal
+                # Set Set diagonal
                 x, y, z = X
                 self.thisptr = new _Matrix_3x3(x, y, z)
-            else: 
+            else:
                 raise ValueError("Must be array with length of None, 1, 3 or 9")
 
     def __iter__(self):
@@ -137,7 +137,7 @@ cdef class Matrix_3x3:
 
     def __setitem__(self, idx, value):
         self.buffer2d[idx] = value
-    
+
     def __str__(self):
         txt = "Matrix 3x3: \n"
         for arr in self.buffer2d[:]:
@@ -211,7 +211,7 @@ cdef class Matrix_3x3:
     def zeros(self):
         self.thisptr.Zero()
 
-    def diagonalize(self, Vec3 vect): 
+    def diagonalize(self, Vec3 vect):
         self.thisptr.Diagonalize(vect.thisptr[0])
 
     def diagonalize_sort(self, Vec3 vectds):
@@ -244,7 +244,7 @@ cdef class Matrix_3x3:
             mat_result.thisptr[0] = self.thisptr[0] * mat_other.thisptr[0]
             return mat_result
         else:
-            raise ValueError("Must be either Matrix_3x3 or Vec3") 
+            raise ValueError("Must be either Matrix_3x3 or Vec3")
 
     def calc_rotation_matrix(self, *args):
         """
@@ -265,18 +265,18 @@ cdef class Matrix_3x3:
             raise ValueError('must be "Vec3, theta" or "x, y, z"')
 
     def rotation_angle(self):
-       return self.thisptr.RotationAngle()
+        return self.thisptr.RotationAngle()
 
     def axis_of_rotation(self, theta):
         cdef Vec3 vec = Vec3()
         vec.thisptr[0] = self.thisptr.AxisOfRotation(theta)
-        return vec 
+        return vec
 
     def transpose_mult(self, Matrix_3x3 other):
         cdef Matrix_3x3 result
-        result =  Matrix_3x3()
+        result = Matrix_3x3()
         result.thisptr[0] = self.thisptr.TransposeMult(other.thisptr[0])
-        return result 
+        return result
 
     def tolist(self):
         return [list(x) for x in self.buffer2d[:]]
@@ -312,7 +312,7 @@ cdef class Vec3:
     def __cinit__(self, *args):
         cdef Vec3 vec
         cdef double x, y, z
-        
+
         self._own_memory = True
         if not args:
             self.thisptr = new _Vec3()
@@ -381,18 +381,18 @@ cdef class Vec3:
     def assign(self, double[:] XYZ):
         self.thisptr.Assign(&XYZ[0])
 
-    #def void operator /=(self,double xIn):
+    # def void operator /=(self,double xIn):
     def __idiv__(Vec3 self, double xIn):
         self.thisptr.divequal(xIn)
         return self
 
-    #def Vec3 operator /(self,double xIn):
+    # def Vec3 operator /(self,double xIn):
     def __div__(Vec3 self, double xIn):
         cdef Vec3 vec = Vec3()
         vec.thisptr[0] = self.thisptr[0]/xIn
         return vec
 
-    #def void operator *=(self,double xIn):
+    # def void operator *=(self,double xIn):
     # return "void": really?
     # Got: Segmentation fault (core dumped)
     def __imul__(Vec3 self, double xIn):
@@ -404,7 +404,7 @@ cdef class Vec3:
         cdef double xIn
         if isinstance(arg, Vec3):
             rhs = arg
-            # return "double" 
+            # return "double"
             return self.thisptr[0] * rhs.thisptr[0]
         else:
             # assuming "arg" is either double or int
@@ -455,7 +455,7 @@ cdef class Vec3:
     def __isub__(Vec3 self, arg):
         cdef double xIn
         cdef Vec3 rhs
-       
+
         if isinstance(arg, Vec3):
             rhs = arg
             self.thisptr.subequal(rhs.thisptr[0])
@@ -483,7 +483,7 @@ cdef class Vec3:
 
     def signed_angle(self, Vec3 v1, Vec3 v2):
         return self.thisptr.SignedAngle(v1.thisptr[0], v2.thisptr[0])
- 
+
     def tolist(self):
         return list(self.buffer1d[:])
 
@@ -499,40 +499,43 @@ cdef class Vec3:
     property buffer1d:
         def __get__(self):
             cdef double[:] arr = <double[:3]> self.thisptr.Dptr()
-            return  arr
+            return arr
 
 cdef extern from "DistRoutines.h" nogil:
     ctypedef enum ImagingType:
-        NOIMAGE=0 
+        NOIMAGE=0
         ORTHO
         NONORTHO
-    
+
     double DIST2_ImageNonOrtho "DIST2_ImageNonOrtho"(const _Vec3 &, const _Vec3 &, const _Matrix_3x3 &, const _Matrix_3x3 &)
-    double DIST2_ImageNonOrthoRecip(const _Vec3 &, const _Vec3&, double, int*, const _Matrix_3x3&)
-    double DIST2_ImageOrtho(const _Vec3&, const _Vec3&, const _Box &)
+    double DIST2_ImageNonOrthoRecip(const _Vec3 &, const _Vec3 &, double, int*, const _Matrix_3x3 &)
+    double DIST2_ImageOrtho(const _Vec3 &, const _Vec3 &, const _Box &)
     double DIST2_NoImage_from_ptr "DIST2_NoImage"(const double*, const double*)
-    double DIST2_NoImage( const _Vec3&, const _Vec3& )
-    double DIST_NoImage "DIST2_NoImage"( const _Vec3&, const _Vec3& )
-    double DIST2(const double*, const double*, ImagingType, const _Box &, 
-                 const _Matrix_3x3&, const _Matrix_3x3&)
+    double DIST2_NoImage(const _Vec3 &, const _Vec3 &)
+    double DIST_NoImage "DIST2_NoImage"(const _Vec3 &, const _Vec3 &)
+    double DIST2(const double*, const double*, ImagingType, const _Box &,
+                 const _Matrix_3x3 &, const _Matrix_3x3 &)
 
 
 def distance_(double[:, :, :] p):
-   cdef double[:] out = np.empty(p.shape[0])
-   cdef int i
+    cdef double[:] out = np.empty(p.shape[0])
+    cdef int i
 
-   if p.shape[1] != 2 or p.shape[2] != 3:
-       raise ValueError("shape of input array must be (n_frames, 2, 3)")
+    if p.shape[1] != 2 or p.shape[2] != 3:
+        raise ValueError("shape of input array must be (n_frames, 2, 3)")
 
-   for i in range(p.shape[0]):
-       out[i] = DIST2_NoImage_from_ptr(&p[i, 0, 0], &p[i, 1, 0])
-   return np.sqrt(np.asarray(out))
+    for i in range(p.shape[0]):
+        out[i] = DIST2_NoImage_from_ptr(&p[i, 0, 0], &p[i, 1, 0])
+    return np.sqrt(np.asarray(out))
+
 
 def dist2_image_nonOrtho(Vec3 v1, Vec3 v2, Matrix_3x3 m1, Matrix_3x3 m2):
     return DIST2_ImageNonOrtho(v1.thisptr[0], v2.thisptr[0], m1.thisptr[0], m2.thisptr[0])
 
+
 def dist_noimage(Vec3 v1, Vec3 v2):
     return DIST_NoImage(v1.thisptr[0], v2.thisptr[0])
+
 
 def distance(p1, p2, image=None, image_type=None, *args, **kwd):
     cdef Vec3 v1
@@ -561,17 +564,17 @@ cdef class ImagedAction:
     def __dealloc__(self):
         del self.thisptr
 
-    #def ImagedAction(self):
+    # def ImagedAction(self):
 
-    #def void InitImaging(self,bint imageIn):
+    # def void InitImaging(self,bint imageIn):
 
-    #def void SetupImaging(self,Box::BoxType parmboxtype):
+    # def void SetupImaging(self,Box::BoxType parmboxtype):
 
-    #def bint ImagingEnabled(self):
+    # def bint ImagingEnabled(self):
 
-    #def bint UseImage(self):
+    # def bint UseImage(self):
 
-    #def ImagingType ImageType(self):
+    # def ImagingType ImageType(self):
 
 # distutil: language = c++
 import math
@@ -579,32 +582,34 @@ import math
 cdef extern from "TorsionRoutines.h" nogil:
     # create alias to avoid: ambiguous overloaded method
     double C_Torsion "Torsion" (const double *, const double *, const double *, const double *)
-    double Pucker_AS(const double*, const double*, const double*, const double*, 
-                             const double*, double&)
-    double Pucker_CP(const double*, const double*, const double*, const double*, 
-                             const double*, const double*, int, double&, double&)
+    double Pucker_AS(const double*, const double*, const double*, const double*,
+                     const double*, double &)
+    double Pucker_CP(const double*, const double*, const double*, const double*,
+                     const double*, const double*, int, double &, double &)
     double C_CalcAngle "CalcAngle" (const double*, const double*, const double*)
 
+
 def torsion(double[:, :, :] p):
-   cdef double[:] out = np.empty(p.shape[0])
-   cdef int i
+    cdef double[:] out = np.empty(p.shape[0])
+    cdef int i
 
-   if p.shape[1] != 4 or p.shape[2] != 3:
-       raise ValueError("shape of input array must be (n_frames, 4, 3)")
+    if p.shape[1] != 4 or p.shape[2] != 3:
+        raise ValueError("shape of input array must be (n_frames, 4, 3)")
 
-   for i in range(p.shape[0]):
-       out[i] = math.degrees(C_Torsion(&p[i, 0, 0], &p[i, 1, 0],
-                             &p[i, 2, 0], &p[i, 3, 0]))
-   return np.asarray(out)
+    for i in range(p.shape[0]):
+        out[i] = math.degrees(C_Torsion(&p[i, 0, 0], &p[i, 1, 0],
+                                         &p[i, 2, 0], &p[i, 3, 0]))
+    return np.asarray(out)
+
 
 def angle(double[:, :, :] p):
-   cdef double[:] out = np.empty(p.shape[0])
-   cdef int i
+    cdef double[:] out = np.empty(p.shape[0])
+    cdef int i
 
-   if p.shape[1] != 3 or p.shape[2] != 3:
-       raise ValueError("shape of input array must be (n_frames, 4, 3)")
+    if p.shape[1] != 3 or p.shape[2] != 3:
+        raise ValueError("shape of input array must be (n_frames, 4, 3)")
 
-   for i in range(p.shape[0]):
-       out[i] = math.degrees(C_CalcAngle(&p[i, 0, 0], &p[i, 1, 0],
-                             &p[i, 2, 0]))
-   return np.asarray(out)
+    for i in range(p.shape[0]):
+        out[i] = math.degrees(C_CalcAngle(&p[i, 0, 0], &p[i, 1, 0],
+                                           &p[i, 2, 0]))
+    return np.asarray(out)

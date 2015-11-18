@@ -13,8 +13,10 @@ cdef class DataFile:
             del self.thisptr
 
     def read_data(self, filenameIn, arglist, DatasetList datasetlist):
-        return self.thisptr.ReadDataIn(filenameIn.encode(),
-               ArgList(arglist).thisptr[0], datasetlist.thisptr[0])
+        return self.thisptr.ReadDataIn(
+            filenameIn.encode(),
+            ArgList(arglist).thisptr[0],
+            datasetlist.thisptr[0])
 
 
 cdef class DataFileList:

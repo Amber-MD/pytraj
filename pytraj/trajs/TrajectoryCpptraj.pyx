@@ -92,7 +92,10 @@ cdef class TrajectoryCpptraj:
             # use absolute path so we can go to different folder
             filename = os.path.abspath(filename)
             _arglist = ArgList(arg)
-            self.thisptr.AddSingleTrajin(filename.encode(), _arglist.thisptr[0], tmp_top.thisptr)
+            self.thisptr.AddSingleTrajin(
+                filename.encode(),
+                _arglist.thisptr[0],
+                tmp_top.thisptr)
             self._filelist.append(os.path.abspath(filename))
         else:
             raise ValueError("filename must a a string")
@@ -125,7 +128,7 @@ cdef class TrajectoryCpptraj:
         cdef int n_atoms = self.n_atoms
         cdef int n_frames = self.n_frames
 
-        # use `frame` as buffer 
+        # use `frame` as buffer
         cdef Frame frame = Frame()
 
         # del frame.thisptr # do not do this.
@@ -147,7 +150,7 @@ cdef class TrajectoryCpptraj:
             self.thisptr.CoordsSetup(other.thisptr[0], self.thisptr.CoordsInfo())
 
     def iterframe(self, int start=0, int stop=-1, int step=1, mask=None):
-        '''iterately get Frames with start, stop, step 
+        '''iterately get Frames with start, stop, step
         Parameters
         ---------
         start : int (default = 0)
@@ -169,7 +172,7 @@ cdef class TrajectoryCpptraj:
             _end = stop
 
         if mask is not None:
-        #    del frame.thisptr
+            #    del frame.thisptr
             if isinstance(mask, string_types):
                 atm = self.top(mask)
             else:
@@ -200,7 +203,7 @@ cdef class TrajectoryCpptraj:
         Parameters
         ---------
         start : int (default = 0)
-        chunk : int (default = 1, return Frame instance). 
+        chunk : int (default = 1, return Frame instance).
                 if `chunk` > 1 : return Trajectory instance
         copy_top : bool, default=False
             if False: no Topology copy is done for new (chunk) Trajectory
@@ -236,13 +239,14 @@ cdef class TrajectoryCpptraj:
                 farray._boxes = np.empty((real_n_frames, 6), dtype='f8')
 
                 for idx, frame in enumerate(self.iterframe(start=_tmp_start,
-                                            stop=_tmp_stop)):
+                                                           stop=_tmp_stop)):
                     farray._xyz[idx] = frame.xyz
                     farray._boxes[idx] = frame.box._get_data()
                 yield farray
-                    
+
     def __setitem__(self, idx, value):
-        raise NotImplementedError("Read only Trajectory. Use Trajectory class for __setitem__")
+        raise NotImplementedError(
+            "Read only Trajectory. Use Trajectory class for __setitem__")
 
     def __getitem__(self, idxs):
         # allocate frame for storing data
@@ -257,7 +261,7 @@ cdef class TrajectoryCpptraj:
         cdef idxs_size
 
         frame.thisptr[0] = self.thisptr.AllocateFrame()
-     
+
         if isinstance(idxs, AtomMask):
             # atm = top('@CA')
             # traj[atm]
@@ -292,7 +296,7 @@ cdef class TrajectoryCpptraj:
                 if idxs_size >= 4:
                     raise NotImplementedError("number of elements must me smaller than 4")
                 idx0 = idxs[0]
-     
+
                 idx1 = idxs[1]
                 if isinstance(self[idx0], Frame):
                     frame = self[idx0]
@@ -438,7 +442,7 @@ cdef class TrajectoryCpptraj:
 
     @property
     def metadata(self):
-        '''return a dict of general information 
+        '''return a dict of general information
 
         Examples
         --------
