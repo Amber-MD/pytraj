@@ -268,6 +268,27 @@ class TestCheckValidCommand(unittest.TestCase):
         for word in cpptraj_commands.analysis_commands:
             self.assertRaises(ValueError, lambda: pt.pmap(word, traj, n_cores=2))
 
+class TestVolmap(unittest.TestCase):
+
+    def test_volmap(self):
+        traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+
+        # raise if does not provide size
+        self.assertRaises(AssertionError, lambda: pt.pmap(pt.volmap, traj, mask=':WAT@O',
+                                                          grid_spacing=(0.5, 0.5, 0.5),
+                                                          n_cores=2))
+
+        mask = ':WAT@O'
+        grid_spacing = (0.5, 0.5, 0.5)
+
+        for n_cores in [1, 2, 3]:
+            for size in [(20, 20, 20), (20, 40, 60)]:
+                serial_out = pt.volmap(traj, mask=mask, grid_spacing=grid_spacing, size=size)
+                parallel_out = pt.pmap(pt.volmap, traj, mask=mask, grid_spacing=grid_spacing,
+                                       size=size, n_cores=n_cores)
+                self.assertEqual(serial_out.shape, tuple(2*x for x in size))
+                aa_eq(serial_out, parallel_out)
+
 
 if __name__ == "__main__":
     unittest.main()
