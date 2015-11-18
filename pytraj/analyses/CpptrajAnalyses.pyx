@@ -14,28 +14,29 @@ cdef class Analysis:
     """
     Original cpptraj doc:
     ====================
-        The abstract base class that all other actions inherit. 
+        The abstract base class that all other actions inherit.
         By convention actions have 3 main phases: init, Setup, and DoAnalysis.
         Init is used to initialize the action, make sure that all arguments
         for the action are correct, and add any DataSets/DataFiles which will
         be used by the action. Setup will set up the action for a specific
         Topology file. DoAnalysis will perform the action on a given frame.
-        A fourth function, Print, is for any additional calculations or output 
+        A fourth function, Print, is for any additional calculations or output
         the action may require once all frames are processed.
 
     pytraj doc:
     =============
-    Add new action: add to pytraj/actions/ folder 
+    Add new action: add to pytraj/actions/ folder
                     then update action in pytraj/actions/allactions
                     (TODO : allactions.py might be changed)
     """
+
     def __cinit__(self):
         # don't directly create instance of this ABC class.
         pass
-        #self.baseptr = new _Analysis()
+        # self.baseptr = new _Analysis()
 
     def __dealloc__(self):
-        # should I del pointer here or in subclass? 
+        # should I del pointer here or in subclass?
         #del self.baseptr
         pass
 
@@ -43,9 +44,9 @@ cdef class Analysis:
         return self._master(*args, **kwd)
 
     @makesureABC("Analysis")
-    def read_input(self, command='', 
+    def read_input(self, command='',
                    top=Topology(),
-                   DatasetList dslist=DatasetList(), 
+                   DatasetList dslist=DatasetList(),
                    DataFileList dflist=DataFileList()):
         """
         Parameters
@@ -72,10 +73,10 @@ cdef class Analysis:
         else:
             raise ValueError()
 
-        STATUS = self.baseptr.Setup(arglist.thisptr[0], 
-                       dslist.thisptr, 
-                       dflist.thisptr,
-                       debug)
+        STATUS = self.baseptr.Setup(arglist.thisptr[0],
+                                    dslist.thisptr,
+                                    dflist.thisptr,
+                                    debug)
         if STATUS == ERRANALYSIS:
             raise ValueError()
         else:
@@ -108,7 +109,7 @@ cdef class Analysis_AmdBias (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -128,7 +129,7 @@ cdef class Analysis_AutoCorr (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -148,7 +149,7 @@ cdef class Analysis_Average (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -168,7 +169,7 @@ cdef class Analysis_Clustering (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -188,7 +189,7 @@ cdef class Analysis_Corr (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -208,7 +209,7 @@ cdef class Analysis_CrankShaft (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -228,7 +229,7 @@ cdef class Analysis_CrdFluct (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -248,7 +249,7 @@ cdef class Analysis_CrossCorr (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -268,7 +269,7 @@ cdef class Analysis_Divergence (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -288,7 +289,7 @@ cdef class Analysis_FFT (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -308,7 +309,7 @@ cdef class Analysis_Hist (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -328,7 +329,7 @@ cdef class Analysis_IRED (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -348,7 +349,7 @@ cdef class Analysis_Integrate (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -368,7 +369,7 @@ cdef class Analysis_KDE (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -388,7 +389,7 @@ cdef class Analysis_Lifetime (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -407,7 +408,7 @@ cdef class Analysis_Matrix (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -427,7 +428,7 @@ cdef class Analysis_MeltCurve (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -447,7 +448,7 @@ cdef class Analysis_Modes (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -467,7 +468,7 @@ cdef class Analysis_MultiHist (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -487,7 +488,7 @@ cdef class Analysis_Overlap (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -507,7 +508,7 @@ cdef class Analysis_Regression (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -527,7 +528,7 @@ cdef class Analysis_RemLog (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -548,7 +549,7 @@ cdef class Analysis_Rms2d (Analysis):
         with nogil:
             func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -568,7 +569,7 @@ cdef class Analysis_RmsAvgCorr (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -588,7 +589,7 @@ cdef class Analysis_RunningAvg (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -608,7 +609,7 @@ cdef class Analysis_Spline (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -628,7 +629,7 @@ cdef class Analysis_Statistics (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -648,7 +649,7 @@ cdef class Analysis_Timecorr (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -668,7 +669,7 @@ cdef class Analysis_VectorMath (Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -687,7 +688,7 @@ cdef class Analysis_Rotdif(Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 
@@ -707,7 +708,7 @@ cdef class Analysis_LowestCurve(Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 

@@ -41,8 +41,9 @@ cdef class DatasetList:
     >>> print(dslist)
     >>> print(dslist[0])
     """
+
     def __cinit__(self, _own_memory=True):
-        # _own_memory is a flag to tell pytraj should free memory or let 
+        # _own_memory is a flag to tell pytraj should free memory or let
         # cpptraj does
         # check ./CpptrajState.pyx
         self.thisptr = new _DatasetList()
@@ -125,7 +126,7 @@ cdef class DatasetList:
         """
         cdef Dataset dset = Dataset()
         cdef int start, stop, step
-        cdef object _idx # _idx can be 'int' or 'string'
+        cdef object _idx  # _idx can be 'int' or 'string'
 
         if self.size == 0:
             raise ValueError("size = 0: can not index")
@@ -138,11 +139,11 @@ cdef class DatasetList:
             dtmp._base = self
             return dtmp
         elif isinstance(idx, string_types):
-             # return a list of datasets having idx as legend
-             for d0 in self:
-                 if d0.key.upper() == idx.upper():
-                     d0._base = self
-                     return d0
+            # return a list of datasets having idx as legend
+            for d0 in self:
+                if d0.key.upper() == idx.upper():
+                    d0._base = self
+                    return d0
         elif isinstance(idx, slice):
             # return new view of `self`
             start, stop, step = idx.indices(self.size)
@@ -155,7 +156,7 @@ cdef class DatasetList:
         elif is_array(idx) or isinstance(idx, list):
             new_dslist = self.__class__()
             new_dslist.set_own_memory(False)
-            for _idx in idx: 
+            for _idx in idx:
                 new_dslist.add_existing_set(self[_idx])
             new_dslist._parent_lists_append(self)
             return new_dslist
@@ -185,7 +186,7 @@ cdef class DatasetList:
         if name is not None and idx is not None:
             raise ValueError("name and idx must not be set at the same time")
         else:
-            if dtype is None: 
+            if dtype is None:
                 if name is not None:
                     name = name.encode()
                     dset.baseptr0 = self.thisptr.GetDataSet(name)
@@ -193,8 +194,8 @@ cdef class DatasetList:
                     dset.baseptr0 = self.thisptr.index_opr(idx)
                 return dset
             else:
-                assert idx == None
-                assert name == None
+                assert idx is None
+                assert name is None
                 dtype = dtype.upper()
                 dlist = []
                 for d0 in self:
@@ -251,7 +252,7 @@ cdef class DatasetList:
         metadata.SetName(name.encode())
         traj._own_memory = False
         (<_Dataset*> traj.thisptr).SetMeta(metadata)
-        #self.thisptr.AddCopyOfSet(<_Dataset*> traj.thisptr)
+        # self.thisptr.AddCopyOfSet(<_Dataset*> traj.thisptr)
         self.thisptr.AddSet(<_Dataset*> traj.thisptr)
 
     def get_legends(self):
@@ -370,7 +371,7 @@ cdef class DatasetList:
                 # we use values (might be copy of dataset's iternal data)
                 return OrderedDict((d0.key, d0.values) for d0 in self)
             except ValueError:
-                 raise ValueError("don't know tho to convert to dict")
+                raise ValueError("don't know tho to convert to dict")
 
     @property
     def values(self):
@@ -410,7 +411,7 @@ cdef class DatasetList:
 
     def set_own_memory(self, bint value):
         # we only expose _own_memory in cython (not pure python)
-        # we don't want to change *.pxd signature files since this 
+        # we don't want to change *.pxd signature files since this
         # requires recompiling *pyx codes
         self._own_memory = value
 
@@ -419,7 +420,6 @@ cdef class DatasetList:
         cdef const_iterator it
         cdef Dataset dset
         it = self.thisptr.begin()
-
 
         while it != self.thisptr.end():
             dset = Dataset()

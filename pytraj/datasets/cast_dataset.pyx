@@ -1,16 +1,17 @@
 # distutils: language = c++
-from .cpp_datasets cimport (_Dataset, Dataset, Dataset1D, _Dataset1D, DatasetInteger, _DatasetInteger,
-                          _DatasetFloat, DatasetFloat, DatasetDouble, _DatasetDouble,
-                          DatasetString, _DatasetString, _DatasetVector, DatasetVector,
-                          Dataset2D, _Dataset2D, DatasetMatrixDouble,
-                          _DatasetMatrixDouble, DatasetMatrixFloat, _DatasetMatrixFloat,
-                          Dataset3D, _Dataset3D, DatasetGridFloat, _DatasetGridFloat,
-                          _DatasetModes, DatasetModes,
-                          DatasetMesh, _DatasetMesh, _DatasetMatrix3x3, DatasetMatrix3x3,
-                          _DatasetCoords, DatasetCoords, _DatasetCoordsRef, 
-                          DatasetCoordsRef, _DatasetCoordsCRD, DatasetCoordsCRD,
-                          DatasetTopology, _DatasetTopology)
+from .cpp_datasets cimport(_Dataset, Dataset, Dataset1D, _Dataset1D, DatasetInteger, _DatasetInteger,
+                           _DatasetFloat, DatasetFloat, DatasetDouble, _DatasetDouble,
+                           DatasetString, _DatasetString, _DatasetVector, DatasetVector,
+                           Dataset2D, _Dataset2D, DatasetMatrixDouble,
+                           _DatasetMatrixDouble, DatasetMatrixFloat, _DatasetMatrixFloat,
+                           Dataset3D, _Dataset3D, DatasetGridFloat, _DatasetGridFloat,
+                           _DatasetModes, DatasetModes,
+                           DatasetMesh, _DatasetMesh, _DatasetMatrix3x3, DatasetMatrix3x3,
+                           _DatasetCoords, DatasetCoords, _DatasetCoordsRef,
+                           DatasetCoordsRef, _DatasetCoordsCRD, DatasetCoordsCRD,
+                           DatasetTopology, _DatasetTopology)
 from ..trajs.TrajectoryCpptraj cimport TrajectoryCpptraj, _TrajectoryCpptraj
+
 
 def cast_dataset(dsetin=None, dtype='general'):
     """cast cpptraj's Dataset to other
@@ -20,7 +21,7 @@ def cast_dataset(dsetin=None, dtype='general'):
     ---------
     dset : Dataset instance
     dtype : str (default dtype=None)
-        {'general', 'matrix', '1D', '2D', 'double', 
+        {'general', 'matrix', '1D', '2D', 'double',
          'mesh',
          'matrix_dbl', 'matrix_flt',
          'integer',
@@ -58,7 +59,7 @@ def cast_dataset(dsetin=None, dtype='general'):
     if dtype == '1D':
         newset1D = Dataset1D()
         # need to recast baseptr0
-        newset1D.baseptr0 =  dset.baseptr0
+        newset1D.baseptr0 = dset.baseptr0
         # need to recast baseptr_1
         newset1D._recast_pointers(0)
         return newset1D
@@ -69,7 +70,7 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset2D.baseptr_1 = <_Dataset2D*> dset.baseptr0
         return newset2D
 
-    elif dtype in ['GENERAL', 'DOUBLE']: 
+    elif dtype in ['GENERAL', 'DOUBLE']:
         newset_double = DatasetDouble()
         # since we introduce memory view, we let cpptraj free memory
         newset_double._own_memory = False
@@ -79,7 +80,7 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_double.thisptr = <_DatasetDouble*> dset.baseptr0
         return newset_double
 
-    elif dtype in ['FLOAT']: 
+    elif dtype in ['FLOAT']:
         newset_float = DatasetFloat()
         # since we introduce memory view, we let cpptraj free memory
         newset_float._own_memory = False
@@ -89,7 +90,7 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_float.thisptr = <_DatasetFloat*> dset.baseptr0
         return newset_float
 
-    elif dtype in ['INTEGER']: 
+    elif dtype in ['INTEGER']:
         newset_integer = DatasetInteger()
         # since we introduce memory view, we let cpptraj free memory
         newset_integer._own_memory = False
@@ -99,7 +100,7 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_integer.thisptr = <_DatasetInteger*> dset.baseptr0
         return newset_integer
 
-    elif dtype in ['STRING']: 
+    elif dtype in ['STRING']:
         newset_string = DatasetString()
         # since we introduce memory view, we let cpptraj free memory
         newset_string._own_memory = False
@@ -109,7 +110,7 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_string.thisptr = <_DatasetString*> dset.baseptr0
         return newset_string
 
-    elif dtype in ['XYMESH', 'MESH']: 
+    elif dtype in ['XYMESH', 'MESH']:
         newset_mesh = DatasetMesh()
         # since we introduce memory view, we let cpptraj free memory
         newset_mesh._own_memory = False
@@ -119,7 +120,7 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_mesh.thisptr = <_DatasetMesh*> dset.baseptr0
         return newset_mesh
 
-    elif dtype in ['MODES']: 
+    elif dtype in ['MODES']:
         newset_modes = DatasetModes()
         # since we introduce memory view, we let cpptraj free memory
         newset_modes._own_memory = False
@@ -128,7 +129,7 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_modes.thisptr = <_DatasetModes*> dset.baseptr0
         return newset_modes
 
-    elif dtype in ['VECTOR']: 
+    elif dtype in ['VECTOR']:
         newset_vector = DatasetVector()
         # since we introduce memory view, we let cpptraj free memory
         newset_vector._own_memory = False

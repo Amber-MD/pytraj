@@ -12,12 +12,13 @@ cdef class Trajout:
     ----------
     filename: str
     format: str, optional, default='AMBERTRAJ'
-        output format: %s 
+        output format: %s
         if `format` is not provided, Trajout will decide format based on extension.
         if not `format` and no extension, default format = AMBERTRAJ
     So the priority is format> extension > default
-        
+
     """
+
     def __cinit__(self, *args, **kwd):
         self.thisptr = new _Trajout()
 
@@ -38,17 +39,17 @@ cdef class Trajout:
         print "TrajFormat"
         print TrajFormatDict.keys()
 
-    def open(self, filename='', top=Topology(), format='default', 
+    def open(self, filename='', top=Topology(), format='default',
              options=None, overwrite=False):
 
         cdef ArgList arglist
-        cdef Topology top_ 
+        cdef Topology top_
 
         filename = filename.encode("UTF-8")
         if not overwrite:
             # TODO : what's about 'append'?
             if file_exist(filename):
-                err = "file exist and you're in overwrite=%s mode" % str(overwrite) 
+                err = "file exist and you're in overwrite=%s mode" % str(overwrite)
                 raise RuntimeError(err)
 
         # check Topology
@@ -71,7 +72,7 @@ cdef class Trajout:
         if options:
             if isinstance(options, string_types):
                 inputstring = options
-                arglist = <ArgList> ArgList(inputstring) 
+                arglist = <ArgList> ArgList(inputstring)
             elif isinstance(options, ArgList):
                 arglist = <ArgList> options
             else:

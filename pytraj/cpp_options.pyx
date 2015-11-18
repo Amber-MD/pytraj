@@ -14,6 +14,7 @@ cdef extern from "Cpptraj.h":
 __cpptraj_version__ = CPPTRAJ_VERSION_STRING.decode()
 __cpptraj_internal_version__ = CPPTRAJ_INTERNAL_VERSION.decode()
 
+
 def info():
     cdef string s
 
@@ -24,8 +25,10 @@ cdef extern from "CpptrajStdio.h":
     void SupressErrorMsg(bint)
     void SetWorldSilent(bint)
 
+
 def set_error_silent(turnoff=True):
     SupressErrorMsg(turnoff)
+
 
 def set_world_silent(turnoff=True):
     SetWorldSilent(turnoff)
