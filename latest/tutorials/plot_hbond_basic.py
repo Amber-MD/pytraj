@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[7]:
+# In[6]:
 
 # config to get better plot
 get_ipython().magic('matplotlib inline')
@@ -20,7 +20,7 @@ import warnings # just to avoid any warning to make this notebook prettier
 warnings.filterwarnings('ignore')
 
 
-# In[3]:
+# In[7]:
 
 # import pytraj
 import pytraj as pt
@@ -30,7 +30,7 @@ traj = pt.datafiles.load_tz2()
 traj
 
 
-# In[4]:
+# In[8]:
 
 # find hbond
 hb = pt.hbond(traj)
@@ -40,13 +40,13 @@ print("")
 print(hb.data)
 
 
-# In[5]:
+# In[9]:
 
-dist = pt.distance(traj, hb._amber_mask())
+dist = pt.distance(traj, hb._amber_mask()[0])
 print('all hbond distances: ', dist)
 
 
-# In[6]:
+# In[10]:
 
 sb.color_palette('deep', n_colors=6, desat=0.5)
 sb.set_style(style='white')
