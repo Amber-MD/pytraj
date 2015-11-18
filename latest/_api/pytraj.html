@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj &mdash; pytraj 0.1.2.dev12+0f50e1d documentation</title>
+    <title>pytraj &mdash; pytraj 0.1.2.dev12+8048a1b documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev12+0f50e1d',
+        VERSION:     '0.1.2.dev12+8048a1b',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+0f50e1d documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+8048a1b documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="next" title="pytraj.io" href="pytraj.io.html" />
     <link rel="prev" title="API" href="index.html" />
@@ -55,7 +55,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+0f50e1d</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+8048a1b</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -401,46 +401,17 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">n_atoms</span>
 <span class="go">5293</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">strip_atoms</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;!@CA&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">n_atoms</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;!@CA&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">n_atoms</span>
 <span class="go">12</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">strip_atoms</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="s">&#39;!@CA&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">n_atoms</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="s">&#39;!@CA&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">n_atoms</span>
 <span class="go">12</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">strip_atoms</span><span class="p">(</span><span class="s">&#39;!@CA&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">)</span><span class="o">.</span><span class="n">n_atoms</span>
-<span class="go">12</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t0</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">strip_atoms</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="s">&#39;!@CA&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">n_atoms</span>
-<span class="go">12</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">strip_atoms</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="s">&#39;!@CA&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">fi</span><span class="p">:</span>
-<span class="gp">... </span>   <span class="k">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
-<span class="go">&lt;Frame with 12 atoms&gt;</span>
-<span class="go">&lt;Frame with 12 atoms&gt;</span>
-<span class="go">&lt;Frame with 12 atoms&gt;</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
-<dt id="pytraj.strip_atoms">
-<code class="descclassname">pytraj.</code><code class="descname">strip_atoms</code><span class="sig-paren">(</span><em>traj_or_topology</em>, <em>mask</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.strip_atoms" title="Permalink to this definition">¶</a></dt>
-<dd><p>return a new Trajectory or Topology with given mask.</p>
-<p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">n_atoms</span>
-<span class="go">5293</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">strip_atoms</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;!@CA&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">n_atoms</span>
-<span class="go">12</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">strip_atoms</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="s">&#39;!@CA&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">n_atoms</span>
-<span class="go">12</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">strip_atoms</span><span class="p">(</span><span class="s">&#39;!@CA&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">)</span><span class="o">.</span><span class="n">n_atoms</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s">&#39;!@CA&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">)</span><span class="o">.</span><span class="n">n_atoms</span>
 <span class="go">12</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t0</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">strip_atoms</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="s">&#39;!@CA&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">n_atoms</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="s">&#39;!@CA&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">n_atoms</span>
 <span class="go">12</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">strip_atoms</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="s">&#39;!@CA&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="n">fi</span><span class="p">,</span> <span class="s">&#39;!@CA&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">fi</span><span class="p">:</span>
 <span class="gp">... </span>   <span class="k">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
 <span class="go">&lt;Frame with 12 atoms&gt;</span>
@@ -461,11 +432,6 @@
 </pre></div>
 </div>
 </dd></dl>
-
-<dl class="function">
-<dt id="pytraj.to_mdtraj">
-<code class="descclassname">pytraj.</code><code class="descname">to_mdtraj</code><span class="sig-paren">(</span><em>traj</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.to_mdtraj" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </div>
 
