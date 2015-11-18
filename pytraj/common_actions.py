@@ -2790,10 +2790,28 @@ def _grid(traj,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def transform(traj, commands, frame_indices=None):
+def transform(traj, by, frame_indices=None):
     '''transform pytraj.Trajectory by a series of cpptraj's commands
+
+    Parameters
+    ----------
+    traj : Mutable Trajectory
+    by : list of cpptraj commands
+    frame_indices : {None, array-like}, default None
+        if not None, perform tranformation for specific frames.
+
+    Returns
+    -------
+    transformed Trajectory. Trajectory's coordinates will be inplace-updated
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> # perform 'autoimage', then 'rms', then 'center'
+    >>> traj = pt.transform(traj[:], by=['autoimage', 'rms', 'center :1-5'])
     '''
-    return traj.transform(commands, frame_indices=frame_indices)
+    return traj.transform(by, frame_indices=frame_indices)
 
 
 def lowestcurve(data, points=10, step=0.2):
