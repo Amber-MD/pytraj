@@ -1,6 +1,6 @@
-.. _pytraj.Topology:
+.. _pytraj.fopology:
 
-pytraj.Topology
+pytraj.topology
 ===============
 
 .. container:: custom-index
