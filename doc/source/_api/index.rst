@@ -26,5 +26,6 @@ try ``pytraj`` online:
     pytraj.parallel
     pytraj.core.action_list
     pytraj.core.cpp_core
+    pytraj.core.action_list
     pytraj.datasets.cpp_datasets
     pytraj.energy_decomposition
