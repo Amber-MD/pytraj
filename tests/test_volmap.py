@@ -13,7 +13,7 @@ parm data/tz2.ortho.parm7
 trajin data/tz2.ortho.nc 1 1
 rms first :1-13
 center :1-13 mass origin
-volmap {0} {1}
+volmap {0} {1} {2}
 """
 
 
@@ -22,7 +22,8 @@ class TestVolmap(unittest.TestCase):
     def test_volmap(self):
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")[:1]
         size = ''
-        state = pt.load_cpptraj_state(txt.format(cm, size))
+        center = ''
+        state = pt.load_cpptraj_state(txt.format(cm, size, center))
         state.run()
         cpp_data = state.data[-1].values
 
@@ -42,13 +43,28 @@ class TestVolmap(unittest.TestCase):
         self.assertRaises(ValueError, lambda: pt.volmap(traj, mask=':WAT@O', grid_spacing=(0.5, 0.5, 0.5), size='20 20 20'))
 
         # test size
-        state = pt.load_cpptraj_state(txt.format(cm, 'size 20,20,20'))
+        cm_no_buffer = cm.replace('buffer 2.0', '')
+        state = pt.load_cpptraj_state(txt.format(cm_no_buffer, 'size 20,20,20', ''))
         state.run()
         cpp_data = state.data[-1].values
         ds = volmap(traj,
                     mask=':WAT@O',
                     grid_spacing=(0.5, 0.5, 0.5),
                     size=(20, 20, 20),
+                    buffer=2.0,
+                    centermask='!:1-13',
+                    radscale=1.36)
+        aa_eq(cpp_data, ds)
+
+        # test center
+        state = pt.load_cpptraj_state(txt.format(cm_no_buffer, 'size 20,20,20', 'center 0.5,0.5,0.5'))
+        state.run()
+        cpp_data = state.data[-1].values
+        ds = volmap(traj,
+                    mask=':WAT@O',
+                    grid_spacing=(0.5, 0.5, 0.5),
+                    size=(20, 20, 20),
+                    center=(0.5, 0.5, 0.5),
                     buffer=2.0,
                     centermask='!:1-13',
                     radscale=1.36)
