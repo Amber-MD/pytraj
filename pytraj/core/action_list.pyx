@@ -41,7 +41,7 @@ def create_pipeline(traj, commands, DatasetList dslist=DatasetList(), frame_indi
          center :1
          EOF
 
-    You can desire your own method::
+    You can design your own method::
 
         def new_method(traj, ...):
             for frame in traj:

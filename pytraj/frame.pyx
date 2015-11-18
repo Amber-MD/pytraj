@@ -546,6 +546,8 @@ cdef class Frame (object):
             return np.array(arr)
 
     property box:
+        '''unitcell
+        '''
         def __get__(self):
             '''return unitcell'''
             cdef Box box = Box()
