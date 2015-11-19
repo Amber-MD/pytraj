@@ -223,7 +223,7 @@ from .parallel import _load_batch_pmap
 
 
 def load_batch(traj, txt):
-    '''perform calculation for traj with cpptraj's batch style
+    '''perform calculation for traj with cpptraj's batch style. This is for internal use.
 
     Parameters
     ----------

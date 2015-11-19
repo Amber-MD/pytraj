@@ -95,7 +95,7 @@ def kmeans(traj=None,
     _metric = metric
     _mask = mask
     # turn of cpptraj's cluster info
-    _output = 'noinfo ' + options
+    _output = options
     command = ' '.join((_clusters, _random_point, _kseed, _maxit, _metric,
                         _mask, _output))
     return _cluster(traj, command, top=top, dtype='ndarray')
@@ -131,6 +131,8 @@ def _cluster(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
         command += " crdset {0}".format(dname)
     else:
         pass
+    # do not output cluster info to STDOUT
+    command = command + ' noinfo'
     ana(command, _top, dslist, *args, **kwd)
     # remove frames in dslist to save memory
     dslist.remove_set(dslist[dname])
