@@ -79,7 +79,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../topology.html">Topology</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../read_and_write.html">Read and Write</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../analysis.html">Analysis</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../analysis.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modify_traj.html">Modify trajectory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../atom_mask_selection.html">Atom mask selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../trajectory_slice.html">Fancy indexing of trajectory</a></li>
@@ -424,11 +424,34 @@ set_nobox for Topology.</p>
 <dl class="function">
 <dt id="pytraj.common_actions.calc_matrix">
 <code class="descclassname">pytraj.common_actions.</code><code class="descname">calc_matrix</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.common_actions.calc_matrix" title="Permalink to this definition">¶</a></dt>
-<dd><p class="rubric">Examples</p>
+<dd><p>compute different type of matrices</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>mask</strong> : str, type of matrix and atom mask</p>
+<p><strong>top</strong> : Topology, optional</p>
+<p><strong>dtype: return data type</strong></p>
+<p><strong>frame_indices</strong> : {None, array-like}</p>
+<blockquote class="last">
+<div><p>if not None, perform calculation for given frame indices</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>If user wants to use specify matrix&#8217;s method name, see also <code class="docutils literal"><span class="pre">pytraj.matrix</span></code></p>
+<p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.common_actions</span> <span class="kn">import</span> <span class="n">calc_matrix</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_trpcage</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mat</span> <span class="o">=</span> <span class="n">calc_matrix</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;covar @CA&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># this is equal to</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mat2</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">covar</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_equal</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">mat2</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1594,7 +1617,7 @@ out[1:]: perres rmsd for all given residues
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 18, 2015.<br/>
+      Last updated on Nov 19, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
