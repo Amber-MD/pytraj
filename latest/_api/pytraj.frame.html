@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.frame &mdash; pytraj 0.1.2.dev12+289d7c7 documentation</title>
+    <title>pytraj.frame &mdash; pytraj 0.1.2.dev12+7ec0e4b documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev12+289d7c7',
+        VERSION:     '0.1.2.dev12+7ec0e4b',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+289d7c7 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+7ec0e4b documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -53,7 +53,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+289d7c7</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+7ec0e4b</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -177,15 +177,24 @@ This class is for internal use.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># create an empty Frame</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">Frame</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span><span class="o">.</span><span class="n">n_atoms</span>
+<span class="go">0</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># create a Frame with 304 atoms</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="mi">304</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span><span class="o">.</span><span class="n">n_atoms</span>
+<span class="go">304</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># create an empty Frame then append coordinate</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f0</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">Frame</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span><span class="o">.</span><span class="n">append_xyz</span><span class="p">(</span><span class="n">xyz</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span><span class="o">.</span><span class="n">append_xyz</span><span class="p">(</span><span class="n">f0</span><span class="o">.</span><span class="n">xyz</span><span class="p">)</span>
+<span class="go">&lt;Frame with 223 atoms&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span><span class="o">.</span><span class="n">n_atoms</span> <span class="o">==</span> <span class="n">f0</span><span class="o">.</span><span class="n">n_atoms</span>
+<span class="go">True</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># copy from other Frame</span>
@@ -193,8 +202,9 @@ This class is for internal use.</p>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># create a Frame as a pointer (does not own any memory), used for fast iterating</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c"># 304 atoms, xyz is 3D array</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="mi">304</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">_as_ptr</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">f0</span><span class="o">.</span><span class="n">n_atoms</span><span class="p">,</span> <span class="n">f0</span><span class="o">.</span><span class="n">xyz</span><span class="p">,</span> <span class="n">_as_ptr</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span><span class="o">.</span><span class="n">n_atoms</span> <span class="o">==</span> <span class="n">f0</span><span class="o">.</span><span class="n">n_atoms</span>
+<span class="go">True</span>
 </pre></div>
 </div>
 <p class="rubric">Attributes</p>
@@ -208,13 +218,13 @@ This class is for internal use.</p>
 <td>unitcell</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.coordinates" title="pytraj.frame.Frame.coordinates"><code class="xref py py-obj docutils literal"><span class="pre">coordinates</span></code></a></td>
-<td></td>
+<td>return a copy of Frame&#8217;s coordinates</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.force" title="pytraj.frame.Frame.force"><code class="xref py py-obj docutils literal"><span class="pre">force</span></code></a></td>
-<td></td>
+<td>force, default None</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#pytraj.frame.Frame.mass" title="pytraj.frame.Frame.mass"><code class="xref py py-obj docutils literal"><span class="pre">mass</span></code></a></td>
-<td></td>
+<td>return mass array</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.frame.Frame.n_atoms" title="pytraj.frame.Frame.n_atoms"><code class="xref py py-obj docutils literal"><span class="pre">n_atoms</span></code></a></td>
 <td></td>
@@ -315,6 +325,14 @@ This class is for internal use.</p>
 <dt id="pytraj.frame.Frame.atom">
 <code class="descname">atom</code><span class="sig-paren">(</span><em>self</em>, <em>int atomnum</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.frame.Frame.atom" title="Permalink to this definition">¶</a></dt>
 <dd><p>return xyz coordinates of idx-th atom</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span><span class="o">.</span><span class="n">atom</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="go">array(&#39;d&#39;, [0.27399998903274536, 11.727999687194824, 8.701000213623047])</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="attribute">
@@ -338,7 +356,8 @@ This class is for internal use.</p>
 <dl class="attribute">
 <dt id="pytraj.frame.Frame.coordinates">
 <code class="descname">coordinates</code><a class="headerlink" href="#pytraj.frame.Frame.coordinates" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>return a copy of Frame&#8217;s coordinates</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="pytraj.frame.Frame.copy">
@@ -349,7 +368,8 @@ This class is for internal use.</p>
 <dl class="attribute">
 <dt id="pytraj.frame.Frame.force">
 <code class="descname">force</code><a class="headerlink" href="#pytraj.frame.Frame.force" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>force, default None</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="pytraj.frame.Frame.has_box">
@@ -375,7 +395,8 @@ This class is for internal use.</p>
 <dl class="attribute">
 <dt id="pytraj.frame.Frame.mass">
 <code class="descname">mass</code><a class="headerlink" href="#pytraj.frame.Frame.mass" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>return mass array</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="pytraj.frame.Frame.n_atoms">
@@ -440,6 +461,17 @@ if False: return rmsd</p>
 <dt id="pytraj.frame.Frame.set_nobox">
 <code class="descname">set_nobox</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.frame.Frame.set_nobox" title="Permalink to this definition">¶</a></dt>
 <dd><p>set nobox</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span><span class="o">.</span><span class="n">box</span>
+<span class="go">&lt;Box: ortho, (x, y, z, alpha, beta, gamma) = (35.262779662258, 41.845547679864616, 36.16862952899312, 90.0, 90.0, 90.0)&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span><span class="o">.</span><span class="n">set_nobox</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span><span class="o">.</span><span class="n">box</span>
+<span class="go">&lt;Box: nobox, (x, y, z, alpha, beta, gamma) = (0.0, 0.0, 0.0, 0.0, 0.0, 0.0)&gt;</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="attribute">
