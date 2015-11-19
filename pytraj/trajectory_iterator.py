@@ -127,7 +127,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
                     'First argument is always a trajectory filename'
                     ' or a list of filenames'
                     'must have a non-empty Topology')
-            self.load(filename, self.top, *args, **kwd)
+            self._load(filename, self.top, *args, **kwd)
         if not top and (args or kwd):
             raise ValueError('require a Topology')
 
