@@ -16,5 +16,5 @@ def init_display():
 def make_bar(idx, max_frames):
     '''work with jupyter notebook.
     '''
-    s = "$('div#%s').width('%i%%')" % (divid, 100*(idx+1)/max_frames)
+    s = "$('div#%s').width('%i%%')" % (divid, 100*idx/max_frames)
     display(Javascript(s))
