@@ -190,6 +190,15 @@ class Trajectory(object):
         return self.__str__()
 
     def copy(self):
+        '''return a deep copy of trajectory
+
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> t0 = pt.datafiles.load_rna()[:]
+        >>> isinstance(t0.copy(), pt.Trajectory)
+        True
+        '''
         traj = self.__class__()
         traj.top = self.top.copy()
         traj.xyz = self._xyz.copy()
@@ -397,6 +406,8 @@ class Trajectory(object):
     def append_xyz(self, xyz):
         '''append 3D numpy array
 
+        Examples
+        --------
         >>> import pytraj as pt
         >>> traj = pt.load_sample_data('tz2')
         >>> t0 = pt.Trajectory(top=traj.top)
@@ -406,6 +417,10 @@ class Trajectory(object):
         >>> t0.append_xyz(traj.xyz)
         >>> t0.n_frames
         20
+
+        Notes
+        -----
+        This method is not well optimized for speed.
         '''
         # make sure 3D
         if xyz.ndim != 3:
@@ -483,8 +498,8 @@ class Trajectory(object):
 
         Notes
         -----
-        Can not append TrajectoryIterator object
-        since we use Trajectory in TrajectoryIterator class
+            - Can not append TrajectoryIterator object since we use Trajectory in TrajectoryIterator class
+            - This method is not well optimized for speed.
         """
         if isinstance(other, Frame):
             arr0 = other.xyz.reshape((1, other.n_atoms, 3))
@@ -521,28 +536,43 @@ class Trajectory(object):
                 self.append(frame)
 
     def join(self, other):
-        if isinstance(other, Trajectory):
-            self.append_xyz(other.xyz)
-            if self.unitcells is not None and other.unitcells is not None:
-                self._append_unitcells(other.unitcells)
-        else:
-            ValueError()
-
-    def __call__(self, *args, **kwd):
-        '''shortcut of :function:iterframe
+        '''join two trajectories
 
         Examples
         --------
         >>> import pytraj as pt
-        >>> traj = pt.load_sample_data()
+        >>> traj = pt.datafiles.load_tz2()
+        >>> t0 = traj[:3]
+        >>> t0.n_frames
+        3
+        >>> t1 = traj[5:8]
+        >>> t1.n_frames
+        3
+        >>> t0.join(t1)
+        >>> t0.n_frames
+        6
+        '''
+        self.append_xyz(other.xyz)
+        if self.unitcells is not None and other.unitcells is not None:
+            self._append_unitcells(other.unitcells)
+
+    def __call__(self, *args, **kwd):
+        '''shortcut of ``iterframe`` method
+
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> traj = pt.load_sample_data()[:]
         >>> for f in traj(0, 8, 2): pass
+        >>> # same as
         >>> for f in traj.iterframe(0, 8, 2): pass
 
         '''
         return self.iterframe(*args, **kwd)
 
     def load(self, filename='', indices=None):
-        '''load file or files. It's better to use ``pytraj.load`` method.
+        '''load file or files. This is for internal use. User should always use
+        ``pytraj.load`` (or ``iterload``) method
 
         Examples
         --------
@@ -704,6 +734,8 @@ class Trajectory(object):
         --------
         >>> import pytraj as pt
         >>> traj = pt.datafiles.load_tz2_ortho()[:]
+        >>> traj.xyz[0, 0]
+        array([ 15.55458927,  28.54844856,  17.18908691])
         >>> traj = traj.transform(['autoimage', 'center @CA origin', 'translate x 1.2'])
         >>> traj.xyz[0, 0]
         array([-1.19438073,  8.75046229, -1.82742397])
@@ -851,11 +883,24 @@ class Trajectory(object):
 
     def save(self,
              filename="",
-             format='unknown',
              overwrite=True,
              *args,
              **kwd):
-        _savetraj(self, filename, format, overwrite, *args, **kwd)
+        '''write trajectory to disk with given format.
+
+        See also
+        --------
+        pytraj.write_traj
+
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> traj = pt.datafiles.load_rna()[:]
+        >>> # write to netcdf file
+        >>> traj.save('output/out.nc', overwrite=True)
+
+        '''
+        _savetraj(self, filename, format='unknown', overwrite=overwrite, *args, **kwd)
 
     def iterframe(self,
                   start=0,
@@ -864,9 +909,25 @@ class Trajectory(object):
                   mask=None,
                   autoimage=False,
                   frame_indices=None,
-                  rmsfit=None,
-                  copy=False):
-        '''
+                  rmsfit=None):
+        '''iterate trajectory with given frame_indices or given (start, stop, step)
+
+        Parameters
+        ----------
+        start : int, default 0
+        stop : {None, int}, default None
+            if None, iterate to final frame
+        step : int, default 1
+        mask : {None, str}, default None
+            if None, use all atoms. If not None, use given mask
+        autoimage : bool, default False
+            if True, perform autoimage for each frame
+        rmsfit : {None, int, tuple}, default None
+            if not None, perform superpose each Frame to to reference.
+        frame_indices : {None, array-like}
+            if not None, iterate trajectory for given indices. If frame_indices is given, 
+            (start, stop, step) will be ignored.
+
 
         Examples
         --------
@@ -875,14 +936,12 @@ class Trajectory(object):
         >>> traj = pt.load(*get_fn('tz2'))
         >>> for frame in traj.iterframe(0, 8, 2): pass
         >>> for frame in traj.iterframe(0, 8, 2, autoimage=True): pass
-
         >>> # use negative index
         >>> traj.n_frames
         10
         >>> fi = traj.iterframe(0, -1, 2, autoimage=True)
         >>> fi.n_frames
         5
-
         >>> # mask is atom indices
         >>> fi = traj.iterframe(0, -1, 2, mask=range(100), autoimage=True)
         >>> fi.n_atoms
@@ -942,7 +1001,7 @@ class Trajectory(object):
                              rmsfit=rmsfit,
                              n_frames=n_frames,
                              frame_indices=frame_indices,
-                             copy=copy)
+                             copy=False)
 
     @property
     def _estimated_GB(self):
@@ -963,7 +1022,6 @@ class Trajectory(object):
         >>> import pytraj as pt
         >>> traj = pt.load_sample_data('tz2')
         >>> t0 = pt.Trajectory.from_iterable(traj(3, 8, 2))
-
         >>> from pytraj import create_pipeline
         >>> fi = create_pipeline(traj, ['autoimage', 'rms'])
         >>> t0 = pt.Trajectory.from_iterable(fi, top=traj.top)

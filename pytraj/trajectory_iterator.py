@@ -266,21 +266,36 @@ class TrajectoryIterator(TrajectoryCpptraj):
                   rmsfit=None,
                   copy=False,
                   frame_indices=None):
-        '''
+        '''iterate trajectory with given frame_indices or given (start, stop, step)
+
+        Parameters
+        ----------
+        start : int, default 0
+        stop : {None, int}, default None
+            if None, iterate to final frame
+        step : int, default 1
+        mask : {None, str}, default None
+            if None, use all atoms. If not None, use given mask
+        autoimage : bool, default False
+            if True, perform autoimage for each frame
+        rmsfit : {None, int, tuple}, default None
+            if not None, perform superpose each Frame to to reference.
+        frame_indices : {None, array-like}
+            if not None, iterate trajectory for given indices. If frame_indices is given, 
+            (start, stop, step) will be ignored.
+
         Examples
         --------
         >>> import pytraj as pt
         >>> traj = pt.load_sample_data('tz2')
         >>> for frame in traj.iterframe(0, 8, 2): pass
         >>> for frame in traj.iterframe(0, 8, 2, autoimage=True): pass
-
         >>> # use negative index
         >>> traj.n_frames
         10
         >>> fi = traj.iterframe(0, -1, 2, autoimage=True)
         >>> fi.n_frames
         5
-
         >>> # mask is atom indices
         >>> fi = traj.iterframe(0, -1, 2, mask=range(100), autoimage=True)
         >>> fi.n_atoms
