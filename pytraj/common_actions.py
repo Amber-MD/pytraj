@@ -775,11 +775,28 @@ def calc_rotation_matrix(traj=None,
                          with_rmsd=False):
     '''compute rotation matrix with/without rmsd
 
+    Parameters
+    ----------
+    traj : Trajectory-like
+    ref : {int, Frame}, default 0 (first Frame)
+        reference
+    mask : str, default all atoms
+    mass : bool, default False
+        if True, rmsfit with mass
+    frame_indices : {None, array-like}
+        if not None, compute for given indices
+    top : Topology, optional
+    with_rmsd : bool, default False
+        - if False, return only rotation matrix.
+        - if True, return rotation matrix and rmsd values
+
     Returns
     -------
     out : if with_rmsd=False, return numpy array, shape (n_frames, 3, 3)
           if with_rmsd=True, return a tuple (mat, rmsd)
 
+    Examples
+    --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2()
     >>> mat = pt.calc_rotation_matrix(traj, mask='@CA')
@@ -1328,6 +1345,22 @@ def get_velocity(traj, mask=None, frame_indices=None):
     Examples
     --------
     >>> vels = pt.get_velocity(traj, frame_indices=[0, 3]) # doctest: +SKIP
+
+    Notes
+    -----
+    Since pytraj has limited support for force and velocity info, if user wants to 
+    load both from disk, should iterate the TrajectoryIterator (got by pytraj.iterload method)
+    
+    .. code-block:: python
+
+        import pytraj as pt
+        forces = []
+        velocities = []
+
+        traj = pt.iterload(filename, topology_filename)
+        for frame in traj:
+            forces.append(frame.force)
+            velocities.append(frame.velocity)
     '''
     if mask is None:
         atm_indices = None
