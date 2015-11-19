@@ -159,10 +159,7 @@
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.data" title="pytraj.core.action_list.ActionList.data"><code class="xref py py-obj docutils literal"><span class="pre">data</span></code></a></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.n_actions" title="pytraj.core.action_list.ActionList.n_actions"><code class="xref py py-obj docutils literal"><span class="pre">n_actions</span></code></a></td>
-<td></td>
+<td>Store data (CpptrajDatasetList).</td>
 </tr>
 </tbody>
 </table>
@@ -176,17 +173,11 @@
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.add_action" title="pytraj.core.action_list.ActionList.add_action"><code class="xref py py-obj docutils literal"><span class="pre">add_action</span></code></a>(self[,&nbsp;action,&nbsp;command,&nbsp;top,&nbsp;...])</td>
 <td>Add action to ActionList</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.clear" title="pytraj.core.action_list.ActionList.clear"><code class="xref py py-obj docutils literal"><span class="pre">clear</span></code></a>(self)</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.do_actions" title="pytraj.core.action_list.ActionList.do_actions"><code class="xref py py-obj docutils literal"><span class="pre">do_actions</span></code></a>(self[,&nbsp;traj])</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.is_empty" title="pytraj.core.action_list.ActionList.is_empty"><code class="xref py py-obj docutils literal"><span class="pre">is_empty</span></code></a>(self)</td>
-<td></td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.do_actions" title="pytraj.core.action_list.ActionList.do_actions"><code class="xref py py-obj docutils literal"><span class="pre">do_actions</span></code></a>(self[,&nbsp;traj])</td>
+<td>perform a series of Actions on Frame or Trajectory</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.action_list.ActionList.process" title="pytraj.core.action_list.ActionList.process"><code class="xref py py-obj docutils literal"><span class="pre">process</span></code></a>(self,&nbsp;Topology&nbsp;top[,&nbsp;crdinfo,&nbsp;...])</td>
-<td></td>
+<td>perform Topology checking and some stuff</td>
 </tr>
 </tbody>
 </table>
@@ -211,37 +202,30 @@
 </tr>
 </tbody>
 </table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">act</span> <span class="o">=</span> <span class="n">ActionList</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">act</span><span class="o">.</span><span class="n">add_action</span><span class="p">(</span><span class="s">&#39;radgyr&#39;</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="n">dslist</span><span class="o">=</span><span class="n">dslist</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
-
-<dl class="method">
-<dt id="pytraj.core.action_list.ActionList.clear">
-<code class="descname">clear</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.action_list.ActionList.clear" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="pytraj.core.action_list.ActionList.data">
 <code class="descname">data</code><a class="headerlink" href="#pytraj.core.action_list.ActionList.data" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Store data (CpptrajDatasetList). This is for internal use.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="pytraj.core.action_list.ActionList.do_actions">
 <code class="descname">do_actions</code><span class="sig-paren">(</span><em>self</em>, <em>traj=&lt;???&gt;</em>, <em>int idx=0</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.action_list.ActionList.do_actions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pytraj.core.action_list.ActionList.is_empty">
-<code class="descname">is_empty</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.action_list.ActionList.is_empty" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pytraj.core.action_list.ActionList.n_actions">
-<code class="descname">n_actions</code><a class="headerlink" href="#pytraj.core.action_list.ActionList.n_actions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>perform a series of Actions on Frame or Trajectory</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="pytraj.core.action_list.ActionList.process">
 <code class="descname">process</code><span class="sig-paren">(</span><em>self</em>, <em>Topology top</em>, <em>crdinfo={}</em>, <em>n_frames_t=0</em>, <em>bool exit_on_error=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.action_list.ActionList.process" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>perform Topology checking and some stuff</p>
+</dd></dl>
 
 </dd></dl>
 
