@@ -15,6 +15,50 @@ try:
 except ImportError:
     file_type_info = None
 
+def parallel_info(key=None):
+    '''Parallel info
+
+    Returns
+    -------
+    out: {str, dict}
+        if key is None, return dict of all methods
+        if key is not None, return specific method. key={'openmp', 'pmap'}
+    '''
+    import pytraj as pt
+    from pytraj import matrix, vector, nmr, cluster
+    from itertools import chain
+    methodlist_pmap = []
+    methodlist_openmp = []
+
+    for method_str in chain(dir(pt), dir(matrix), dir(vector), dir(nmr), dir(cluster)):
+        try:
+            method = getattr(pt, method_str)
+            if hasattr(method, '_is_parallelizable') and method._is_parallelizable:
+                methodlist_pmap.append(method)
+            if hasattr(method, '_openmp_capability') and method._openmp_capability:
+                methodlist_openmp.append(method)
+        except AttributeError:
+            pass
+
+    pmap_ = []
+    for method in set(methodlist_pmap):
+        name = str(method).split()[1]
+        #if 'calc_' in name:
+        #    name = name.split('calc_')[-1]
+        pmap_.append(name)
+    supported_pmap_methods = sorted(pmap_)
+
+    openmp_ = []
+    for method in set(methodlist_openmp):
+        name = str(method).split()[1]
+        #if 'calc_' in name:
+        #    name = name.split('calc_')[-1]
+        openmp_.append(name)
+    supported_openmp_methods = sorted(openmp_)
+    d = {'pmap': supported_pmap_methods,
+         'openmp': supported_openmp_methods}
+    return d if key is None else d[key]
+
 
 def info(obj=None):  # pragma: no cover
     """get `help` for obj
@@ -32,7 +76,10 @@ def info(obj=None):  # pragma: no cover
         print("analysis' keys", anal_keys)
     else:
         if isinstance(obj, string_types):
-            if obj in adict.keys():
+            if obj == 'parallel':
+                print(parallel_info())
+                return
+            elif obj in adict.keys():
                 # make Action object
                 _obj = adict[obj]
             elif obj in analdict.keys():

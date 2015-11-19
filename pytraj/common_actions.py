@@ -45,14 +45,26 @@ list_of_cal = ['calc_distance',
                'calc_pairwise_rmsd',
                'calc_density',
                'calc_grid',
-               'calc_temperatures', ]
+               'calc_temperatures',
+               'calc_atomiccorr',
+               'calc_bfactors',
+               'calc_diffusion',
+               'calc_distance_rmsd',
+               'calc_mindist',
+               'calc_pairwise_distance',
+               'calc_rmsd_nofit',
+               'calc_rotation_matrix',]
 
-list_of_do = ['do_translation', 'do_rotation', 'do_autoimage', ]
+list_of_do = ['do_translation', 'do_rotation', 'do_autoimage', 'do_scaling']
 
-list_of_get = ['get_average_frame']
+list_of_get = ['get_average_frame', 'get_velocity']
 
-list_of_the_rest = ['align_principal_axis', 'principal_axes', 'closest',
-                    'native_contacts']
+list_of_the_rest = ['rmsd', 'align_principal_axis', 'principal_axes', 'closest',
+                    'transform', 'native_contacts', 'set_dihedral',
+                    'auto_correlation_function', 'cross_correlation_function',
+                    'check_structure', 'mean_structure', 'lifetime', 'lowestcurve',
+                    'make_structure', 'replicate_cell', 'pucker', 'rmsd_perres',
+                    'timecorr', 'search_neighbors',]
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 

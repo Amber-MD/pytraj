@@ -29,7 +29,7 @@ if PY3:
 else:
     string_types = basestring
 
-__all__ = ['Topology', 'ParmFile']
+__all__ = ['Topology', 'ParmFile', 'SimplifiedTopology', 'SimplifiedAtom', 'SimplifiedResidue']
 
 
 class SimplifiedAtom(
