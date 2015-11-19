@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.common_actions &mdash; pytraj 0.1.2.dev12+c0200b1 documentation</title>
+    <title>pytraj.common_actions &mdash; pytraj 0.1.2.dev12+289d7c7 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev12+c0200b1',
+        VERSION:     '0.1.2.dev12+289d7c7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+c0200b1 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+289d7c7 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="next" title="pytraj.hbond" href="pytraj.hbond_analysis.html" />
     <link rel="prev" title="pytraj.cluster" href="pytraj.cluster.html" />
@@ -55,7 +55,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+c0200b1</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+289d7c7</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -1224,9 +1224,13 @@ load both from disk, should iterate the TrajectoryIterator (got by pytraj.iterlo
 <span class="n">velocities</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">topology_filename</span><span class="p">)</span>
+
 <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">:</span>
     <span class="n">forces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">force</span><span class="p">)</span>
     <span class="n">velocities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">velocity</span><span class="p">)</span>
+
+<span class="c"># Note: pytraj can efficiently load arbitary frame indices to memory</span>
+<span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]):</span> <span class="k">pass</span>
 </pre></div>
 </div>
 <p class="rubric">Examples</p>
