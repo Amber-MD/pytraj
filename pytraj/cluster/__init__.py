@@ -72,13 +72,19 @@ def kmeans(traj=None,
     >>> import pytraj as pt
     >>> from pytraj.cluster import kmeans
     >>> traj = pt.datafiles.load_tz2()
+    >>> # use default options
     >>> kmeans(traj)
     array([8, 8, 6, ..., 0, 0, 0], dtype=int32)
+    >>> # update n_clusters
     >>> data = kmeans(traj, n_clusters=5)
+    >>> # update n_clusters with CA atoms
     >>> data = kmeans(traj, n_clusters=5, mask='@CA')
-    >>> data = kmeans(traj, n_clusters=5, mask='@CA')
+    >>> # specify distance metric
     >>> data = kmeans(traj, n_clusters=5, mask='@CA', kseed=100, metric='dme')
+    >>> # add sieve number for less memory
     >>> data = kmeans(traj, n_clusters=5, mask='@CA', kseed=100, metric='rms', options='sieve 5')
+    >>> # add sieve number for less memory, and specify random seed for sieve
+    >>> data = kmeans(traj, n_clusters=5, mask='@CA', kseed=100, metric='rms', options='sieve 5 sieveseed 1')
     '''
 
     # don't need to _get_topology
