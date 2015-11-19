@@ -15,12 +15,6 @@ try ``pytraj`` online:
     import pytraj as pt
     traj = pt.iterload('data/tz2.ortho.nc', 'data/tz2.ortho.parm7')
 
-.. todo: make a script to write
-
-.. seealso::
-
-    `Methods that modify Trajectory coordinates <modify_traj>`_
-
 .. container:: submodule-index
 
     .. rubric:: Submodules
@@ -31,6 +25,8 @@ try ``pytraj`` online:
        nucleic_acid
        vector_analysis
        matrix_analysis
+       `Methods that modify Trajectory coordinates <modify_traj>`_
+       _api/pytraj.common_actions
 
 
 .. container:: custom-index
