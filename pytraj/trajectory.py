@@ -825,9 +825,6 @@ class Trajectory(object):
         self._xyz = np.zeros((n_frames, n_atoms, 3), dtype='f8')
 
     def strip(self, mask):
-        return self.strip(mask)
-
-    def strip(self, mask):
         '''strip atoms with given mask
 
         Examples
