@@ -731,7 +731,7 @@ class Trajectory(object):
         >>> traj.xyz[0, 0]
         array([-1.19438073,  8.75046229, -1.82742397])
 
-        # which is similiar to below:
+        >>> # which is similiar to below:
         >>> traj2 = pt.datafiles.load_tz2_ortho()[:]
         >>> traj2.xyz[0, 0] # before transforming
         array([ 15.55458927,  28.54844856,  17.18908691])
