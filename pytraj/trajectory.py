@@ -526,27 +526,6 @@ class Trajectory(object):
             for frame in iterframe_master(other):
                 self.append(frame)
 
-    def join(self, other):
-        '''join two trajectories
-
-        Examples
-        --------
-        >>> import pytraj as pt
-        >>> traj = pt.datafiles.load_tz2()
-        >>> t0 = traj[:3]
-        >>> t0.n_frames
-        3
-        >>> t1 = traj[5:8]
-        >>> t1.n_frames
-        3
-        >>> t0.join(t1)
-        >>> t0.n_frames
-        6
-        '''
-        self.append_xyz(other.xyz)
-        if self.unitcells is not None and other.unitcells is not None:
-            self._append_unitcells(other.unitcells)
-
     def __call__(self, *args, **kwd):
         '''shortcut of ``iterframe`` method
 
