@@ -665,7 +665,20 @@ def calc_matrix(traj=None,
                 top=None,
                 dtype='ndarray',
                 frame_indices=None):
-    '''
+    '''compute different type of matrices
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, type of matrix and atom mask
+    top : Topology, optional
+    dtype: return data type
+    frame_indices : {None, array-like}
+        if not None, perform calculation for given frame indices
+
+    Notes
+    -----
+    If user wants to use specify matrix's method name, see also ``pytraj.matrix``
 
     Examples
     --------
@@ -673,6 +686,10 @@ def calc_matrix(traj=None,
     >>> from pytraj.common_actions import calc_matrix
     >>> traj = pt.datafiles.load_trpcage()
     >>> mat = calc_matrix(traj, 'covar @CA')
+    >>> # this is equal to
+    >>> mat2 = pt.matrix.covar(traj, '@CA')
+    >>> import numpy as np
+    >>> np.testing.assert_equal(mat, mat2)
     '''
     act = CpptrajActions.Action_Matrix()
 
