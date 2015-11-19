@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.TrajectoryIterator &mdash; pytraj 0.1.2.dev12+c15e21d documentation</title>
+    <title>pytraj.TrajectoryIterator &mdash; pytraj 0.1.2.dev12+b8637e2 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev12+c15e21d',
+        VERSION:     '0.1.2.dev12+b8637e2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+c15e21d documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+b8637e2 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -53,7 +53,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+c15e21d</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+b8637e2</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -152,6 +152,23 @@
 <dt id="pytraj.trajectory_iterator.TrajectoryIterator">
 <em class="property">class </em><code class="descclassname">pytraj.trajectory_iterator.</code><code class="descname">TrajectoryIterator</code><span class="sig-paren">(</span><em>filename=None</em>, <em>top=None</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pytraj.trajs.TrajectoryCpptraj.TrajectoryCpptraj</span></code></p>
+<p>out-of-core trajectory holder.</p>
+<p class="rubric">Notes</p>
+<p>It&#8217;s a bit tricky to pickle this class. As default, new TrajectoryIterator will
+use original trj filename and top filename. If set _pickle_topology to True, its
+Topology will be pickled (slow but more accurate if you change the topology in the
+fly)</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.testing</span> <span class="kn">import</span> <span class="n">get_fn</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj_name</span><span class="p">,</span> <span class="n">top_name</span> <span class="o">=</span> <span class="n">get_fn</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">TrajectoryIterator</span><span class="p">(</span><span class="n">traj_name</span><span class="p">,</span> <span class="n">top_name</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># user should always use :method:`pytraj.iterload` to load TrajectoryIterator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s">&#39;remd.x.000&#39;</span><span class="p">,</span> <span class="s">&#39;remd.x.001&#39;</span><span class="p">],</span> <span class="s">&#39;input.parm7&#39;</span><span class="p">)</span> 
+</pre></div>
+</div>
 <p class="rubric">Attributes</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -445,7 +462,7 @@ with a single frame_slice or a list of frame_slice</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 18, 2015.<br/>
+      Last updated on Nov 19, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
