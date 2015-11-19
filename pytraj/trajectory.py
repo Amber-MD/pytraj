@@ -36,19 +36,23 @@ class Trajectory(object):
     --------
     >>> import pytraj as pt
     >>> from pytraj.testing import get_fn
-    >>> t0 = pt.load_sample_data('ala3')
     >>> fn, tn = get_fn('ala3')
 
     >>> # load from filename and topology name
     >>> traj = pt.Trajectory(fn, tn)
+    >>> # load from a list of filenames
     >>> traj = pt.Trajectory([fn, fn], tn)
-    >>> traj = pt.Trajectory((fn, fn), tn)
 
-    >>> # load from array
+    >>> # load from 3D array-like
     >>> xyz = traj.xyz
     >>> traj_1 = pt.Trajectory(xyz=xyz, top=traj.top)
+
+    >>> # get new Trajectory with only CA atoms
     >>> traj['@CA'].xyz[:, :, 0]
     array([[  3.970048 ,   7.6400076,  10.1610562]])
+
+    >>> # iterate
+    >>> for frame in traj: pass
     """
 
     def __init__(self, filename=None, top=None, xyz=None):
