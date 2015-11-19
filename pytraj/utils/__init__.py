@@ -36,7 +36,7 @@ def duplicate_traj(orig_traj, n_times):
             traj.load(orig_traj.filelist)
         else:
             # Trajectory
-            traj.join(traj.copy())
+            traj.append(traj.copy())
     return traj
 
 

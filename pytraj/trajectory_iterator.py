@@ -182,7 +182,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
         other.top = self.top.copy()
 
         for fname, frame_slice in zip(self.filelist, self.frame_slice_list):
-            other.load(fname, frame_slice=frame_slice)
+            other._load(fname, frame_slice=frame_slice)
         return other
 
     def _load(self, filename=None, top=None, frame_slice=(0, -1, 1)):

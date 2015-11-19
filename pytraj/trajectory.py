@@ -571,7 +571,7 @@ class Trajectory(object):
             from pytraj import TrajectoryIterator
             ts = TrajectoryIterator()
             ts.top = self.top.copy()
-            ts.load(filename)
+            ts._load(filename)
             if indices is None:
                 self.xyz = ts.xyz
             else:
