@@ -5,7 +5,7 @@ import os
 import re
 from glob import glob
 import numpy as np
-from .trajs.TrajectoryCpptraj import TrajectoryCpptraj
+from .trajs.cpptraj_trajectory import TrajectoryCpptraj
 from .externals.six import string_types
 from .externals.six.moves import range
 from .topology import Topology
@@ -80,27 +80,27 @@ def _make_frame_slices(n_files, original_frame_slice):
 
 
 class TrajectoryIterator(TrajectoryCpptraj):
+    '''out-of-core trajectory holder.
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> from pytraj.testing import get_fn
+    >>> traj_name, top_name = get_fn('tz2')
+    >>> traj = pt.TrajectoryIterator(traj_name, top_name)
+
+    >>> # user should always use :method:`pytraj.iterload` to load TrajectoryIterator
+    >>> traj = pt.iterload(['remd.x.000', 'remd.x.001'], 'input.parm7') # doctest: +SKIP
+
+    Notes
+    -----
+    It's a bit tricky to pickle this class. As default, new TrajectoryIterator will
+    use original trj filename and top filename. If set _pickle_topology to True, its
+    Topology will be pickled (slow but more accurate if you change the topology in the
+    fly)
+    '''
 
     def __init__(self, filename=None, top=None, *args, **kwd):
-        '''out-of-core trajectory holder.
-
-        Examples
-        --------
-        >>> import pytraj as pt
-        >>> from pytraj.testing import get_fn
-        >>> traj_name, top_name = get_fn('tz2')
-        >>> traj = pt.TrajectoryIterator(traj_name, top_name)
-
-        >>> # user should always use :method:`pytraj.iterload` to load TrajectoryIterator
-        >>> traj = pt.iterload(['remd.x.000', 'remd.x.001'], 'input.parm7') # doctest: +SKIP
-
-        Notes
-        -----
-        It's a bit tricky to pickle this class. As default, new TrajectoryIterator will
-        use original trj filename and top filename. If set _pickle_topology to True, its
-        Topology will be pickled (slow but more accurate if you change the topology in the
-        fly)
-        '''
         self._force_load = False
         # use self._chunk to store `chunk` in iterchunk
         # to deallocate memory
@@ -127,7 +127,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
                     'First argument is always a trajectory filename'
                     ' or a list of filenames'
                     'must have a non-empty Topology')
-            self.load(filename, self.top, *args, **kwd)
+            self._load(filename, self.top, *args, **kwd)
         if not top and (args or kwd):
             raise ValueError('require a Topology')
 
@@ -144,7 +144,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
         else:
             # faster
             self.top = _load_Topology(state['_top_filename'])
-        self.load(state['filelist'], frame_slice=state['frame_slice_list'])
+        self._load(state['filelist'], frame_slice=state['frame_slice_list'])
 
     def __getstate__(self):
         '''
@@ -182,10 +182,10 @@ class TrajectoryIterator(TrajectoryCpptraj):
         other.top = self.top.copy()
 
         for fname, frame_slice in zip(self.filelist, self.frame_slice_list):
-            other.load(fname, frame_slice=frame_slice)
+            other._load(fname, frame_slice=frame_slice)
         return other
 
-    def load(self, filename=None, top=None, frame_slice=(0, -1, 1)):
+    def _load(self, filename=None, top=None, frame_slice=(0, -1, 1)):
         """load trajectory/trajectories from filename/filenames
         with a single frame_slice or a list of frame_slice
         """
@@ -195,7 +195,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
             _top = top
 
         if isinstance(filename, string_types) and os.path.exists(filename):
-            super(TrajectoryIterator, self).load(filename, _top, frame_slice)
+            super(TrajectoryIterator, self)._load(filename, _top, frame_slice)
             self.frame_slice_list.append(frame_slice)
         elif isinstance(filename,
                         string_types) and not os.path.exists(filename):
@@ -203,7 +203,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
             if not flist:
                 raise ValueError(
                     "must provie a filename or list of filenames or file pattern")
-            self.load(flist, top=top, frame_slice=frame_slice)
+            self._load(flist, top=top, frame_slice=frame_slice)
         elif isinstance(filename, (list, tuple)):
             filename_list = filename
             full_frame_slice = _make_frame_slices(
@@ -211,7 +211,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
 
             for fname, fslice in zip(filename_list, full_frame_slice):
                 self.frame_slice_list.append(frame_slice)
-                super(TrajectoryIterator, self).load(fname,
+                super(TrajectoryIterator, self)._load(fname,
                                                      _top,
                                                      frame_slice=fslice)
         else:
@@ -231,7 +231,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
         <Topology: 34 atoms, 3 residues, 1 mols, non-PBC>
         >>> new_traj = pt.TrajectoryIterator()
         >>> new_traj.topology = traj.topology
-        >>> new_traj.load(traj.filename)
+        >>> new_traj._load(traj.filename)
         """
         return self.top
 
@@ -266,21 +266,36 @@ class TrajectoryIterator(TrajectoryCpptraj):
                   rmsfit=None,
                   copy=False,
                   frame_indices=None):
-        '''
+        '''iterate trajectory with given frame_indices or given (start, stop, step)
+
+        Parameters
+        ----------
+        start : int, default 0
+        stop : {None, int}, default None
+            if None, iterate to final frame
+        step : int, default 1
+        mask : {None, str}, default None
+            if None, use all atoms. If not None, use given mask
+        autoimage : bool, default False
+            if True, perform autoimage for each frame
+        rmsfit : {None, int, tuple}, default None
+            if not None, perform superpose each Frame to to reference.
+        frame_indices : {None, array-like}
+            if not None, iterate trajectory for given indices. If frame_indices is given, 
+            (start, stop, step) will be ignored.
+
         Examples
         --------
         >>> import pytraj as pt
         >>> traj = pt.load_sample_data('tz2')
         >>> for frame in traj.iterframe(0, 8, 2): pass
         >>> for frame in traj.iterframe(0, 8, 2, autoimage=True): pass
-
         >>> # use negative index
         >>> traj.n_frames
         10
         >>> fi = traj.iterframe(0, -1, 2, autoimage=True)
         >>> fi.n_frames
         5
-
         >>> # mask is atom indices
         >>> fi = traj.iterframe(0, -1, 2, mask=range(100), autoimage=True)
         >>> fi.n_atoms

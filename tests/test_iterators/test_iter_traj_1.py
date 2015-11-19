@@ -112,7 +112,7 @@ class Test(unittest.TestCase):
 
         for frame in traj(mask='@CA'):
             pass
-        top2.strip_atoms("!@CA")
+        top2.strip("!@CA")
         assert frame.n_atoms == top2.n_atoms
 
         for frame in traj():
@@ -123,7 +123,7 @@ class Test(unittest.TestCase):
             pass
 
         f0 = traj[-1]
-        f0.strip_atoms(traj.top('!@CA'))
+        f0.strip(traj.top('!@CA'))
         assert_almost_equal(f0.xyz, frame.xyz)
         assert frame.n_atoms == top2.n_atoms
 
@@ -137,7 +137,7 @@ class Test(unittest.TestCase):
         for frame in farray(mask='@CA'):
             pass
         f0 = traj[-1]
-        f0.strip_atoms(traj.top('!@CA'))
+        f0.strip(traj.top('!@CA'))
         assert_almost_equal(f0.xyz, frame.xyz)
 
 

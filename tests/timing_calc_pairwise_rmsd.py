@@ -24,7 +24,7 @@ print("not using frame_iter")
 traj_iter_list = [traj(mask='@CA'), ]
 
 # ned to get stripped-atom top
-new_top = traj.top.strip_atoms('!@CA', copy=True)
+new_top = traj.top.strip('!@CA', copy=True)
 
 
 @Timer()

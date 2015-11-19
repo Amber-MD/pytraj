@@ -7,7 +7,7 @@ from ..topology cimport _Topology, Topology
 from ..core.cpp_core cimport _ArgList, ArgList
 from ..datasets.DatasetList cimport _DatasetList, DatasetList
 from ..frame cimport _Frame, Frame
-from ..trajs.TrajectoryCpptraj cimport CoordinateInfo
+from ..trajs.cpptraj_trajectory cimport CoordinateInfo
 
 
 cdef extern from "ActionState.h":

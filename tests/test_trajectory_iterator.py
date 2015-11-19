@@ -41,12 +41,12 @@ class TestTrajectoryIterator(unittest.TestCase):
         # memory error if load larger than 1GB for xyz
         traj = pt.datafiles.load_tz2_ortho()
         for _ in range(11):
-            traj.load(traj.filelist)
+            traj._load(traj.filelist)
 
         self.assertRaises(MemoryError, lambda: traj.xyz)
 
         # can not find filename
-        self.assertRaises(ValueError, lambda: traj.load(None))
+        self.assertRaises(ValueError, lambda: traj._load(None))
         # has filename but does not have Topology
         self.assertRaises(
             ValueError,

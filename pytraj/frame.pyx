@@ -546,6 +546,8 @@ cdef class Frame (object):
             return np.array(arr)
 
     property box:
+        '''unitcell
+        '''
         def __get__(self):
             '''return unitcell'''
             cdef Box box = Box()
@@ -792,8 +794,8 @@ cdef class Frame (object):
         vec.thisptr[0] = self.thisptr.CalculateInertia(atm.thisptr[0], Inertia.thisptr[0])
         return vec
 
-    def strip_atoms(Frame self, AtomMask atm):
-        """strip_atoms
+    def strip(self, AtomMask atm):
+        """strip
 
         Parameters
         ----------

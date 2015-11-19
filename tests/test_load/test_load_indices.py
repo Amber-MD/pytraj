@@ -39,38 +39,11 @@ class TestIndices(unittest.TestCase):
             frame_indices=list(range(4)) + list(range(9, 5, -1)) + [4, ])
         aa_eq(traj2[-1].xyz, traj1[4].xyz)
 
-    def test_1(self):
-        traj0 = TrajectoryIterator(filename="data/md1_prod.Tc5b.x",
-                                   top="./data/Tc5b.top")
-        traj = TrajectoryIterator(filename="data/md1_prod.Tc5b.x",
-                                  top="./data/Tc5b.top")[:]
-        aa_eq(traj[0].xyz, traj0[0].xyz)
-
-        traj2 = TrajectoryIterator(filename="data/md1_prod.Tc5b.x",
-                                   top="./data/Tc5b.top")[:][:10]
-        aa_eq(traj2[0].xyz, traj0[0].xyz)
-
-        traj.join((traj[:], traj[0:100], traj[9:3:-1]))
-        traj.join(traj[:])
-
-        for frame in traj:
-            frame.xyz[:] = 0.
-
-        aa_eq(traj[0].xyz.flatten(), array('d',
-                                           [0 for _ in range(traj[0].size)]))
-        aa_eq(traj[-1].xyz.flatten(), array('d',
-                                            [0 for _ in range(traj[0].size)]))
-
     def test_del_top(self):
         # why here? lazy to make another file
         top = pt.load_topology("./data/Tc5b.top")
         top2 = top
         del top
-
-    def test_join_dummy(self):
-        traj0 = TrajectoryIterator(filename="data/md1_prod.Tc5b.x",
-                                   top="./data/Tc5b.top")[:]
-        traj0.join(traj0[:])
 
     def test_load_frame_indices_from_io(self):
         traj0 = pt.load(filename="data/md1_prod.Tc5b.x",

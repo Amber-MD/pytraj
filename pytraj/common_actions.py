@@ -45,14 +45,26 @@ list_of_cal = ['calc_distance',
                'calc_pairwise_rmsd',
                'calc_density',
                'calc_grid',
-               'calc_temperatures', ]
+               'calc_temperatures',
+               'calc_atomiccorr',
+               'calc_bfactors',
+               'calc_diffusion',
+               'calc_distance_rmsd',
+               'calc_mindist',
+               'calc_pairwise_distance',
+               'calc_rmsd_nofit',
+               'calc_rotation_matrix',]
 
-list_of_do = ['do_translation', 'do_rotation', 'do_autoimage', ]
+list_of_do = ['do_translation', 'do_rotation', 'do_autoimage', 'do_scaling']
 
-list_of_get = ['get_average_frame']
+list_of_get = ['get_average_frame', 'get_velocity']
 
-list_of_the_rest = ['align_principal_axis', 'principal_axes', 'closest',
-                    'native_contacts']
+list_of_the_rest = ['rmsd', 'align_principal_axis', 'principal_axes', 'closest',
+                    'transform', 'native_contacts', 'set_dihedral',
+                    'auto_correlation_function', 'cross_correlation_function',
+                    'check_structure', 'mean_structure', 'lifetime', 'lowestcurve',
+                    'make_structure', 'replicate_cell', 'pucker', 'rmsd_perres',
+                    'timecorr', 'search_neighbors',]
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
@@ -653,7 +665,20 @@ def calc_matrix(traj=None,
                 top=None,
                 dtype='ndarray',
                 frame_indices=None):
-    '''
+    '''compute different type of matrices
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, type of matrix and atom mask
+    top : Topology, optional
+    dtype: return data type
+    frame_indices : {None, array-like}
+        if not None, perform calculation for given frame indices
+
+    Notes
+    -----
+    If user wants to use specify matrix's method name, see also ``pytraj.matrix``
 
     Examples
     --------
@@ -661,6 +686,10 @@ def calc_matrix(traj=None,
     >>> from pytraj.common_actions import calc_matrix
     >>> traj = pt.datafiles.load_trpcage()
     >>> mat = calc_matrix(traj, 'covar @CA')
+    >>> # this is equal to
+    >>> mat2 = pt.matrix.covar(traj, '@CA')
+    >>> import numpy as np
+    >>> np.testing.assert_equal(mat, mat2)
     '''
     act = CpptrajActions.Action_Matrix()
 
@@ -754,6 +783,8 @@ def calc_rotation_matrix(traj=None,
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2()
     >>> mat = pt.calc_rotation_matrix(traj, mask='@CA')
+    >>> mat.shape
+    (101, 3, 3)
     '''
     dslist = CpptrajDatasetList()
     _mass = 'mass' if mass else ''
@@ -2790,10 +2821,28 @@ def _grid(traj,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def transform(traj, commands, frame_indices=None):
+def transform(traj, by, frame_indices=None):
     '''transform pytraj.Trajectory by a series of cpptraj's commands
+
+    Parameters
+    ----------
+    traj : Mutable Trajectory
+    by : list of cpptraj commands
+    frame_indices : {None, array-like}, default None
+        if not None, perform tranformation for specific frames.
+
+    Returns
+    -------
+    transformed Trajectory. Trajectory's coordinates will be inplace-updated
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> # perform 'autoimage', then 'rms', then 'center'
+    >>> traj = pt.transform(traj[:], by=['autoimage', 'rms', 'center :1-5'])
     '''
-    return traj.transform(commands, frame_indices=frame_indices)
+    return traj.transform(by, frame_indices=frame_indices)
 
 
 def lowestcurve(data, points=10, step=0.2):

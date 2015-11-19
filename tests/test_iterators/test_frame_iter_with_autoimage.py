@@ -33,7 +33,7 @@ class Test(unittest.TestCase):
         fa3 = fa2.copy()
         # fa3 is a copy of autoimaged fa2. then we strip all but CA atoms
         # just want to make sure we can use `mask`
-        fa3.strip_atoms("!@CA")
+        fa3.strip("!@CA")
         fa4 = Trajectory()
         fa4.top = fa3.top.copy()
 
@@ -49,7 +49,7 @@ class Test(unittest.TestCase):
         fa3 = traj[:]
         fa3.autoimage()
         fa3.rmsfit(5, '@CB')
-        fa3.strip_atoms("!@CA")
+        fa3.strip("!@CA")
 
         fa4 = Trajectory()
         fa4.top = fa3.top.copy()

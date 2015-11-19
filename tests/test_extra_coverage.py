@@ -22,12 +22,10 @@ class TestExtraCoverage(unittest.TestCase):
 
         # info
         pt.info()
-
-        try:
-            pt.to_mdtraj(traj)
-        except ImportError:
-            pass
-
+        pt.info('parallel')
+        pt.misc.parallel_info('pmap')
+        pt.misc.parallel_info('openmp')
+        pt.misc.parallel_info(None)
 
 if __name__ == "__main__":
     unittest.main()

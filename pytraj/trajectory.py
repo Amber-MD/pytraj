@@ -21,50 +21,41 @@ __all__ = ['Trajectory']
 
 
 class Trajectory(object):
+    """Simple in-memory Trajectory. It has only information about 3D coordinates
+    and unitcells (no time, no velocity, no force, ...)
+
+    Parameters
+    ----------
+    filename: str, trajectory filename
+    top : Topology
+    xyz: 3D-array
+        if filename is not given, pytraj will construct Trajectory from given
+        Topology and given xyz array.
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> from pytraj.testing import get_fn
+    >>> fn, tn = get_fn('ala3')
+
+    >>> # load from filename and topology name
+    >>> traj = pt.Trajectory(fn, tn)
+    >>> # load from a list of filenames
+    >>> traj = pt.Trajectory([fn, fn], tn)
+
+    >>> # load from 3D array-like
+    >>> xyz = traj.xyz
+    >>> traj_1 = pt.Trajectory(xyz=xyz, top=traj.top)
+
+    >>> # get new Trajectory with only CA atoms
+    >>> traj['@CA'].xyz[:, :, 0]
+    array([[  3.970048 ,   7.6400076,  10.1610562]])
+
+    >>> # iterate
+    >>> for frame in traj: pass
+    """
 
     def __init__(self, filename=None, top=None, xyz=None):
-        """very simple  in-memory Trajectory. It has only information about 3D coordinates
-        and unitcells (no time, no velocity, no mass, not force, ...)
-
-        Parameters
-        ----------
-        filename: str, trajectory filename
-        top : Topology
-        xyz: 3D-array
-            if filename is not given, pytraj will construct Trajectory from given
-            Topology and given xyz array.
-
-        Attributes
-        ----------
-        xyz :  3D coordinates, dtype=np.float64, shape (n_frames, n_atoms, 3)
-        unitcells : 2D unitcells, dtype=float64, shape (n_frames, 6)
-
-        Methods
-        -------
-        __iter__ : iterable
-        __getitem__ : slicing
-        superpose : superpose to reference
-        autoimage : autoimage
-        iterframe : advanced iterator
-
-        Examples
-        --------
-        >>> import pytraj as pt
-        >>> from pytraj.testing import get_fn
-        >>> t0 = pt.load_sample_data('ala3')
-        >>> fn, tn = get_fn('ala3')
-
-        >>> # load from filename and topology name
-        >>> traj = pt.Trajectory(fn, tn)
-        >>> traj = pt.Trajectory([fn, fn], tn)
-        >>> traj = pt.Trajectory((fn, fn), tn)
-
-        >>> # load from array
-        >>> xyz = traj.xyz
-        >>> traj_1 = pt.Trajectory(xyz=xyz, top=traj.top)
-        >>> traj['@CA'].xyz[:, :, 0]
-        array([[  3.970048 ,   7.6400076,  10.1610562]])
-        """
         self._top = _get_topology(filename, top)
 
         if self._top is None:
@@ -190,6 +181,15 @@ class Trajectory(object):
         return self.__str__()
 
     def copy(self):
+        '''return a deep copy of trajectory
+
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> t0 = pt.datafiles.load_rna()[:]
+        >>> isinstance(t0.copy(), pt.Trajectory)
+        True
+        '''
         traj = self.__class__()
         traj.top = self.top.copy()
         traj.xyz = self._xyz.copy()
@@ -397,6 +397,8 @@ class Trajectory(object):
     def append_xyz(self, xyz):
         '''append 3D numpy array
 
+        Examples
+        --------
         >>> import pytraj as pt
         >>> traj = pt.load_sample_data('tz2')
         >>> t0 = pt.Trajectory(top=traj.top)
@@ -406,6 +408,10 @@ class Trajectory(object):
         >>> t0.append_xyz(traj.xyz)
         >>> t0.n_frames
         20
+
+        Notes
+        -----
+        This method is not well optimized for speed.
         '''
         # make sure 3D
         if xyz.ndim != 3:
@@ -483,8 +489,8 @@ class Trajectory(object):
 
         Notes
         -----
-        Can not append TrajectoryIterator object
-        since we use Trajectory in TrajectoryIterator class
+            - Can not append TrajectoryIterator object since we use Trajectory in TrajectoryIterator class
+            - This method is not well optimized for speed.
         """
         if isinstance(other, Frame):
             arr0 = other.xyz.reshape((1, other.n_atoms, 3))
@@ -520,29 +526,23 @@ class Trajectory(object):
             for frame in iterframe_master(other):
                 self.append(frame)
 
-    def join(self, other):
-        if isinstance(other, Trajectory):
-            self.append_xyz(other.xyz)
-            if self.unitcells is not None and other.unitcells is not None:
-                self._append_unitcells(other.unitcells)
-        else:
-            ValueError()
-
     def __call__(self, *args, **kwd):
-        '''shortcut of :function:iterframe
+        '''shortcut of ``iterframe`` method
 
         Examples
         --------
         >>> import pytraj as pt
-        >>> traj = pt.load_sample_data()
+        >>> traj = pt.load_sample_data()[:]
         >>> for f in traj(0, 8, 2): pass
+        >>> # same as
         >>> for f in traj.iterframe(0, 8, 2): pass
 
         '''
         return self.iterframe(*args, **kwd)
 
     def load(self, filename='', indices=None):
-        '''load file or files. It's better to use ``pytraj.load`` method.
+        '''load file or files. This is for internal use. User should always use
+        ``pytraj.load`` (or ``iterload``) method
 
         Examples
         --------
@@ -571,7 +571,7 @@ class Trajectory(object):
             from pytraj import TrajectoryIterator
             ts = TrajectoryIterator()
             ts.top = self.top.copy()
-            ts.load(filename)
+            ts._load(filename)
             if indices is None:
                 self.xyz = ts.xyz
             else:
@@ -704,11 +704,13 @@ class Trajectory(object):
         --------
         >>> import pytraj as pt
         >>> traj = pt.datafiles.load_tz2_ortho()[:]
+        >>> traj.xyz[0, 0]
+        array([ 15.55458927,  28.54844856,  17.18908691])
         >>> traj = traj.transform(['autoimage', 'center @CA origin', 'translate x 1.2'])
         >>> traj.xyz[0, 0]
         array([-1.19438073,  8.75046229, -1.82742397])
 
-        # which is similiar to below:
+        >>> # which is similiar to below:
         >>> traj2 = pt.datafiles.load_tz2_ortho()[:]
         >>> traj2.xyz[0, 0] # before transforming
         array([ 15.55458927,  28.54844856,  17.18908691])
@@ -824,9 +826,6 @@ class Trajectory(object):
         '''
         self._xyz = np.zeros((n_frames, n_atoms, 3), dtype='f8')
 
-    def strip_atoms(self, mask):
-        return self.strip(mask)
-
     def strip(self, mask):
         '''strip atoms with given mask
 
@@ -845,7 +844,7 @@ class Trajectory(object):
         # AtomMask
         atm = self.top(mask)
         atm.invert_mask()
-        self.top.strip_atoms(mask)
+        self.top.strip(mask)
 
         if self._xyz is not None:
             # need to copy to make contigous memory block
@@ -854,11 +853,24 @@ class Trajectory(object):
 
     def save(self,
              filename="",
-             format='unknown',
              overwrite=True,
              *args,
              **kwd):
-        _savetraj(self, filename, format, overwrite, *args, **kwd)
+        '''write trajectory to disk with given format.
+
+        See also
+        --------
+        pytraj.write_traj
+
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> traj = pt.datafiles.load_rna()[:]
+        >>> # write to netcdf file
+        >>> traj.save('output/out.nc', overwrite=True)
+
+        '''
+        _savetraj(self, filename, format='unknown', overwrite=overwrite, *args, **kwd)
 
     def iterframe(self,
                   start=0,
@@ -867,9 +879,25 @@ class Trajectory(object):
                   mask=None,
                   autoimage=False,
                   frame_indices=None,
-                  rmsfit=None,
-                  copy=False):
-        '''
+                  rmsfit=None):
+        '''iterate trajectory with given frame_indices or given (start, stop, step)
+
+        Parameters
+        ----------
+        start : int, default 0
+        stop : {None, int}, default None
+            if None, iterate to final frame
+        step : int, default 1
+        mask : {None, str}, default None
+            if None, use all atoms. If not None, use given mask
+        autoimage : bool, default False
+            if True, perform autoimage for each frame
+        rmsfit : {None, int, tuple}, default None
+            if not None, perform superpose each Frame to to reference.
+        frame_indices : {None, array-like}
+            if not None, iterate trajectory for given indices. If frame_indices is given, 
+            (start, stop, step) will be ignored.
+
 
         Examples
         --------
@@ -878,14 +906,12 @@ class Trajectory(object):
         >>> traj = pt.load(*get_fn('tz2'))
         >>> for frame in traj.iterframe(0, 8, 2): pass
         >>> for frame in traj.iterframe(0, 8, 2, autoimage=True): pass
-
         >>> # use negative index
         >>> traj.n_frames
         10
         >>> fi = traj.iterframe(0, -1, 2, autoimage=True)
         >>> fi.n_frames
         5
-
         >>> # mask is atom indices
         >>> fi = traj.iterframe(0, -1, 2, mask=range(100), autoimage=True)
         >>> fi.n_atoms
@@ -945,7 +971,7 @@ class Trajectory(object):
                              rmsfit=rmsfit,
                              n_frames=n_frames,
                              frame_indices=frame_indices,
-                             copy=copy)
+                             copy=False)
 
     @property
     def _estimated_GB(self):
@@ -966,7 +992,6 @@ class Trajectory(object):
         >>> import pytraj as pt
         >>> traj = pt.load_sample_data('tz2')
         >>> t0 = pt.Trajectory.from_iterable(traj(3, 8, 2))
-
         >>> from pytraj import create_pipeline
         >>> fi = create_pipeline(traj, ['autoimage', 'rms'])
         >>> t0 = pt.Trajectory.from_iterable(fi, top=traj.top)

@@ -25,7 +25,7 @@ class Test(unittest.TestCase):
         assert frame0._buffer2d[19, 0] == frame0[19, 0] == arr0[19, 0]
 
         frame1 = frame0.copy()
-        frame1.strip_atoms(traj.top("!@CA"))
+        frame1.strip(traj.top("!@CA"))
 
         _f = pt.Frame(frame0, traj.top("@CA"))
         CA_2 = _f[2, :]

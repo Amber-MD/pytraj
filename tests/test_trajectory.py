@@ -133,7 +133,7 @@ class TestTrajectory(unittest.TestCase):
         traj = pt.iterload('data/md1_prod.Tc5b.x', 'data/Tc5b.top')
         traj2 = pt.TrajectoryIterator()
         traj2.top = pt.load_topology("./data/Tc5b.top")
-        traj2.load("./data/md1_prod.Tc5b.x")
+        traj2._load("./data/md1_prod.Tc5b.x")
         farray = traj2[[0, 9, 1]]
         assert farray.n_frames == 3
         assert traj2[0].atom(0) == farray[0].atom(0)
@@ -159,7 +159,7 @@ class TestTrajectory(unittest.TestCase):
     def test_iter_basic(self):
         traj = pt.TrajectoryIterator()
         traj.top = pt.load_topology("./data/Tc5b.top")
-        traj.load("./data/md1_prod.Tc5b.x")
+        traj._load("./data/md1_prod.Tc5b.x")
         for frame in traj:
             pass
 
@@ -168,7 +168,7 @@ class TestTrajectory(unittest.TestCase):
         assert traj.top.is_empty() == True
         traj.top = pt.load_topology("./data/Tc5b.top")
         assert traj.top.is_empty() == False
-        traj.load("./data/md1_prod.Tc5b.x")
+        traj._load("./data/md1_prod.Tc5b.x")
 
     def test_xyz(self):
         traj = pt.datafiles.load_tz2_ortho()

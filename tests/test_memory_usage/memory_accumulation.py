@@ -49,10 +49,10 @@ for traj in tlist[:1]:
             pass
 
     @profile
-    def test_strip_atoms(chunksize=100):
-        print("test_strip_atoms")
+    def test_strip(chunksize=100):
+        print("test_strip")
         for chunk in traj.iterchunk(chunksize=100):
-            chunk.strip_atoms(':WAT')
+            chunk.strip(':WAT')
 
     @profile
     def test_iterchunk(chunksize=100):
@@ -123,7 +123,7 @@ for traj in tlist[:1]:
     func_list = [
         test_iterchunk,  #test_pairwise_rmsd,
         #test_write,
-        #test_strip_atoms,
+        #test_strip,
         #test_closest,
         #test_iter_frame_indices,
         #test_center,

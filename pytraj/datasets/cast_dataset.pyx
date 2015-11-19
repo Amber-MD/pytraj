@@ -10,7 +10,7 @@ from .cpp_datasets cimport(_Dataset, Dataset, Dataset1D, _Dataset1D, DatasetInte
                            _DatasetCoords, DatasetCoords, _DatasetCoordsRef,
                            DatasetCoordsRef, _DatasetCoordsCRD, DatasetCoordsCRD,
                            DatasetTopology, _DatasetTopology)
-from ..trajs.TrajectoryCpptraj cimport TrajectoryCpptraj, _TrajectoryCpptraj
+from ..trajs.cpptraj_trajectory cimport TrajectoryCpptraj, _TrajectoryCpptraj
 
 
 def cast_dataset(dsetin=None, dtype='general'):

@@ -251,9 +251,9 @@ def load_traj(filename=None, top=None, *args, **kwd):
     ts = TrajectoryIterator(top=top)
 
     if 'frame_slice' in kwd.keys():
-        ts.load(filename, frame_slice=kwd['frame_slice'])
+        ts._load(filename, frame_slice=kwd['frame_slice'])
     else:
-        ts.load(filename)
+        ts._load(filename)
 
     return ts
 

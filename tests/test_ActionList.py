@@ -67,9 +67,6 @@ class TestActionList(unittest.TestCase):
                          ArgList("center familiar com :6"),
                          top=top)
 
-        #
-        assert alist.n_actions == 2
-
         # do checking
         alist.process(top)
 
@@ -294,7 +291,7 @@ class TestActionList(unittest.TestCase):
         dslist.add_new('topology', name='mytop')
 
         # add a new topology
-        dslist[0].data = pt.strip_atoms(traj.top, ':WAT')
+        dslist[0].data = pt.strip(traj.top, ':WAT')
         commands = ['autoimage', 'strip :WAT', 'createcrd mycrd', ]
 
         actlist = ActionList(commands, top=traj.top, dslist=dslist)
@@ -313,7 +310,7 @@ class TestActionList(unittest.TestCase):
         dslist.add_new('topology', name='mytop')
 
         # add a new topology
-        dslist[0].data = pt.strip_atoms(traj.top, ':WAT')
+        dslist[0].data = pt.strip(traj.top, ':WAT')
         commands = ['autoimage', 'strip :WAT', 'createcrd mycrd', ]
 
         actlist = Pipeline(commands, top=traj.top, dslist=dslist)

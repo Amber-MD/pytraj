@@ -41,7 +41,7 @@ def create_pipeline(traj, commands, DatasetList dslist=DatasetList(), frame_indi
          center :1
          EOF
 
-    You can desire your own method::
+    You can design your own method::
 
         def new_method(traj, ...):
             for frame in traj:
@@ -115,6 +115,8 @@ cdef class ActionList:
         self.top_is_processed = False
 
     property data:
+        '''Store data (CpptrajDatasetList). This is for internal use.
+        '''
         def __get__(self):
             return self._dslist
 
@@ -137,11 +139,11 @@ cdef class ActionList:
         >>> import pytraj as pt
         >>> from pytraj import ActionList
         >>> list_of_commands = ['autoimage',
-                                'rmsd first @CA',
-                                'hbond :3,8,10']
+        ...                     'rmsd first @CA',
+        ...                     'hbond :3,8,10']
         >>> alist = ActionList(list_of_commands, traj.top, dslist=dslist)
         >>> for frame in traj:
-        >>>     alist.do_actions(frame)
+        ...     alist.do_actions(frame)
         """
         self._dslist = dslist
         self._dflist = dflist
@@ -163,9 +165,6 @@ cdef class ActionList:
         if self.thisptr:
             del self.thisptr
 
-    def clear(self):
-        self.thisptr.Clear()
-
     def add_action(self, action="",
                    command="",
                    top=None,
@@ -183,6 +182,11 @@ cdef class ActionList:
         dflist : DataFileList
         check_status : bool, default=False
             return status of Action (0 or 1) if "True"
+
+        Examples
+        --------
+        >>> act = ActionList()
+        >>> act.add_action('radgyr', '@CA', top=traj.top, dslist=dslist)
         """
         cdef object _action
         cdef int status
@@ -212,6 +216,8 @@ cdef class ActionList:
             return None
 
     def process(self, Topology top, crdinfo={}, n_frames_t=0, bint exit_on_error=True):
+        '''perform Topology checking and some stuff
+        '''
         # let cpptraj free mem
         cdef _ActionSetup actionsetup_
         cdef CoordinateInfo crdinfo_
@@ -236,6 +242,8 @@ cdef class ActionList:
         self.thisptr.SetupActions(actionsetup_, exit_on_error)
 
     def do_actions(self, traj=Frame(), int idx=0):
+        '''perform a series of Actions on Frame or Trajectory
+        '''
         cdef _ActionFrame actionframe_
         cdef Frame frame
         cdef int i
@@ -253,10 +261,3 @@ cdef class ActionList:
         else:
             for i, frame in enumerate(iterframe_master(traj)):
                 self.do_actions(frame, i)
-
-    def is_empty(self):
-        return self.thisptr.Empty()
-
-    @property
-    def n_actions(self):
-        return self.thisptr.Naction()

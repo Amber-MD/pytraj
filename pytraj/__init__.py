@@ -139,6 +139,7 @@ from .common_actions import (
 
 from .matrix import dist
 distance_matrix = dist
+from . import cluster
 
 from .dihedral_analysis import (calc_phi, calc_psi, calc_alpha, calc_beta,
                                 calc_omega, calc_chin, calc_chip, calc_delta,
@@ -164,7 +165,6 @@ from .cpp_options import set_error_silent, set_world_silent
 from .cyutils import _fast_iterptr as iterframe_from_array
 
 # create alias
-dssp_all_residues = dssp_allresidues
 fetch_pdb = load_pdb_rcsb
 rmsd_nofit = calc_rmsd_nofit
 drmsd = distance_rmsd
@@ -203,7 +203,6 @@ watershell = calc_watershell
 mean_structure = get_average_frame
 average_frame = get_average_frame
 load_parmed = load_ParmEd
-from_parmed = load_ParmEd
 mindist = calc_mindist
 # compat with cpptraj
 nativecontacts = native_contacts
@@ -274,20 +273,6 @@ def superpose(traj, *args, **kwd):
     '''
     traj.superpose(*args, **kwd)
     return traj
-
-def to_mdtraj(traj, top=None):
-    from pytraj.utils.context import goto_temp_folder
-    import mdtraj as md
-
-    xyz = get_coordinates(traj)
-
-    with goto_temp_folder():
-        if top is None:
-            pdb = 'tmp.pdb'
-            traj[:1].save(pdb)
-            top = md.load_topology(pdb)
-        return md.Trajectory(xyz, top)
-
 
 def set_cpptraj_verbose(cm=True):
     if cm:
@@ -394,7 +379,7 @@ def select_atoms(mask, topology):
 select = select_atoms
 
 
-def strip_atoms(traj_or_topology, mask):
+def strip(traj_or_topology, mask):
     '''return a new Trajectory or Topology with given mask.
 
     Examples
@@ -403,17 +388,17 @@ def strip_atoms(traj_or_topology, mask):
     >>> traj = pt.datafiles.load_tz2_ortho()
     >>> traj.n_atoms
     5293
-    >>> pt.strip_atoms(traj, '!@CA').n_atoms
+    >>> pt.strip(traj, '!@CA').n_atoms
     12
-    >>> pt.strip_atoms(traj.top, '!@CA').n_atoms
+    >>> pt.strip(traj.top, '!@CA').n_atoms
     12
-    >>> pt.strip_atoms('!@CA', traj.top).n_atoms
+    >>> pt.strip('!@CA', traj.top).n_atoms
     12
     >>> t0 = traj[:3]
-    >>> pt.strip_atoms(t0, '!@CA').n_atoms
+    >>> pt.strip(t0, '!@CA').n_atoms
     12
     >>> fi = pt.iterframe(traj, stop=3)
-    >>> fi = pt.strip_atoms(fi, '!@CA')
+    >>> fi = pt.strip(fi, '!@CA')
     >>> for frame in fi:
     ...    print(frame)
     <Frame with 12 atoms>
@@ -437,10 +422,6 @@ def strip_atoms(traj_or_topology, mask):
         traj_or_topology.mask = kept_mask
         return traj_or_topology
 
-
-strip = strip_atoms
-
-
 def run(fi):
     '''shortcut for `for frame in fi: pass`
 
@@ -459,11 +440,6 @@ def show():
     """
     from matplotlib import pyplot
     pyplot.show()
-
-
-def savefig(fname, *args, **kwd):
-    from matplotlib import pyplot
-    pyplot.savefig(fname, *args, **kwd)
 
 
 def show_versions():

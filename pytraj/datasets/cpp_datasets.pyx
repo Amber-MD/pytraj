@@ -14,7 +14,7 @@ from ..utils import is_int
 from .._shared_methods import _xyz
 from .._shared_methods import my_str_method
 from ..cyutils import get_positive_idx
-from ..trajs.TrajectoryCpptraj import TrajectoryCpptraj
+from ..trajs.cpptraj_trajectory import TrajectoryCpptraj
 from ..topology cimport Topology
 from ..externals.six import string_types
 
@@ -1160,7 +1160,7 @@ cdef class DatasetCoordsCRD (DatasetCoords):
 
     def load(self, filename):
         trajin = TrajectoryCpptraj()
-        trajin.load(filename, self.top)
+        trajin._load(filename, self.top)
 
         for frame in trajin:
             self.append(frame.copy())

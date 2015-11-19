@@ -4,7 +4,7 @@ from ..frame cimport _Frame, Frame
 from ..core.cpp_core cimport _ArgList, ArgList
 from ..topology cimport _Topology, Topology
 from ..cpptraj_dict cimport TrajFormatType
-from .TrajectoryCpptraj cimport CoordinateInfo
+from .cpptraj_trajectory cimport CoordinateInfo
 
 
 cdef extern from "TrajoutList.h": 

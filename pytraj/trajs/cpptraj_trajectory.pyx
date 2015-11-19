@@ -47,7 +47,7 @@ cdef class TrajectoryCpptraj:
         self._filelist = []
         self._own_memory = True
 
-    def load(self, filename=None, top=None, frame_slice=(0, -1, 1)):
+    def _load(self, filename=None, top=None, frame_slice=(0, -1, 1)):
         '''
         filename : a single filename or a list of filenames
         top : Topology-like object
@@ -344,7 +344,7 @@ cdef class TrajectoryCpptraj:
                 return self.tmpfarray
 
     def save(self, filename="", format='unknown', overwrite=True, *args, **kwd):
-        '''conivinent method to save Trajectory
+        '''convenient method to save Trajectory
 
         Examples
         --------
@@ -363,8 +363,14 @@ cdef class TrajectoryCpptraj:
 
     @property
     def xyz(self):
-        '''return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3)
-        We can not return a memoryview since Trajectory is a C++ vector of Frame object
+        '''return a copy of xyz coordinates (ndarray, shape=(n_frames, n_atoms, 3))
+
+        Notes
+        -----
+            - It will be very expensive to call this attribute since pytraj will load all coordinates
+        to memory. This attribute is good for small immutable trajectory.
+
+            -
         '''
         return _xyz(self)
 

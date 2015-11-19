@@ -40,9 +40,9 @@ class TestWriteTraj(unittest.TestCase):
         aa_eq(self.traj.xyz, t0.xyz)
 
     def test_split_and_write_traj(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        fn = "data/md1_prod.Tc5b.x"
+        traj = pt.iterload([fn, fn], "./data/Tc5b.top")
         # duplcate
-        traj.load(traj.filename)
         assert traj.n_frames == 20
         top = traj.top
 
