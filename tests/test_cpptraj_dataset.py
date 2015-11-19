@@ -145,7 +145,7 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
         # TRAJ
         dslist.add_new(dtype='traj', name='my_traj')
         dslist[-1].top = self.traj.top
-        dslist[-1].load(self.traj.filename)
+        dslist[-1]._load(self.traj.filename)
         traj_new = dslist[-1]
         # FIXME: segmentation fault
 

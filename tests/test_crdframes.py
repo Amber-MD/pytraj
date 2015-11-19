@@ -31,7 +31,7 @@ class TestCrdFrames(unittest.TestCase):
 
         traj2 = traj.copy()
         assert traj2.n_frames == traj.n_frames, 'must have the same n_frames'
-        traj2.load(traj.filename, frame_slice=(0, max_frames, 2))
+        traj2._load(traj.filename, frame_slice=(0, max_frames, 2))
         assert traj2.n_frames == 2 * traj.n_frames, 'n_frames must be doubled after reload'
 
         rmsd_1 = pt.rmsd(traj2, ref=0, frame_indices=range(0, 30, 2))

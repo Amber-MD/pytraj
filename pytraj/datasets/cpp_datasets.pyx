@@ -1160,7 +1160,7 @@ cdef class DatasetCoordsCRD (DatasetCoords):
 
     def load(self, filename):
         trajin = TrajectoryCpptraj()
-        trajin.load(filename, self.top)
+        trajin._load(filename, self.top)
 
         for frame in trajin:
             self.append(frame.copy())
