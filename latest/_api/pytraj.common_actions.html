@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.common_actions &mdash; pytraj 0.1.2.dev12+8048a1b documentation</title>
+    <title>pytraj.common_actions &mdash; pytraj 0.1.2.dev12+8c14ed2 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev12+8048a1b',
+        VERSION:     '0.1.2.dev12+8c14ed2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+8048a1b documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+8c14ed2 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="next" title="pytraj.hbond" href="pytraj.hbond_analysis.html" />
     <link rel="prev" title="pytraj.cluster" href="pytraj.cluster.html" />
@@ -55,7 +55,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+8048a1b</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+8c14ed2</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -1087,9 +1087,13 @@ if True, Calculate motion vectors for entire residues (selected atoms in residue
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mat</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_rotation_matrix</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mat</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_rotation_matrix</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mat</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+<p class="last">(101, 3, 3)</p>
 </td>
 </tr>
 </tbody>
