@@ -165,7 +165,6 @@ from .cpp_options import set_error_silent, set_world_silent
 from .cyutils import _fast_iterptr as iterframe_from_array
 
 # create alias
-dssp_all_residues = dssp_allresidues
 fetch_pdb = load_pdb_rcsb
 rmsd_nofit = calc_rmsd_nofit
 drmsd = distance_rmsd
@@ -204,7 +203,6 @@ watershell = calc_watershell
 mean_structure = get_average_frame
 average_frame = get_average_frame
 load_parmed = load_ParmEd
-from_parmed = load_ParmEd
 mindist = calc_mindist
 # compat with cpptraj
 nativecontacts = native_contacts
@@ -442,11 +440,6 @@ def show():
     """
     from matplotlib import pyplot
     pyplot.show()
-
-
-def savefig(fname, *args, **kwd):
-    from matplotlib import pyplot
-    pyplot.savefig(fname, *args, **kwd)
 
 
 def show_versions():

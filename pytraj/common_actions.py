@@ -766,6 +766,8 @@ def calc_rotation_matrix(traj=None,
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2()
     >>> mat = pt.calc_rotation_matrix(traj, mask='@CA')
+    >>> mat.shape
+    (101, 3, 3)
     '''
     dslist = CpptrajDatasetList()
     _mass = 'mass' if mass else ''
