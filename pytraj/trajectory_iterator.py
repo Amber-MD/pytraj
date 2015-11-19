@@ -5,7 +5,7 @@ import os
 import re
 from glob import glob
 import numpy as np
-from .trajs.TrajectoryCpptraj import TrajectoryCpptraj
+from .trajs.cpptraj_trajectory import TrajectoryCpptraj
 from .externals.six import string_types
 from .externals.six.moves import range
 from .topology import Topology
@@ -185,7 +185,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
             other.load(fname, frame_slice=frame_slice)
         return other
 
-    def load(self, filename=None, top=None, frame_slice=(0, -1, 1)):
+    def _load(self, filename=None, top=None, frame_slice=(0, -1, 1)):
         """load trajectory/trajectories from filename/filenames
         with a single frame_slice or a list of frame_slice
         """
@@ -195,7 +195,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
             _top = top
 
         if isinstance(filename, string_types) and os.path.exists(filename):
-            super(TrajectoryIterator, self).load(filename, _top, frame_slice)
+            super(TrajectoryIterator, self)._load(filename, _top, frame_slice)
             self.frame_slice_list.append(frame_slice)
         elif isinstance(filename,
                         string_types) and not os.path.exists(filename):
@@ -203,7 +203,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
             if not flist:
                 raise ValueError(
                     "must provie a filename or list of filenames or file pattern")
-            self.load(flist, top=top, frame_slice=frame_slice)
+            self._load(flist, top=top, frame_slice=frame_slice)
         elif isinstance(filename, (list, tuple)):
             filename_list = filename
             full_frame_slice = _make_frame_slices(
@@ -211,7 +211,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
 
             for fname, fslice in zip(filename_list, full_frame_slice):
                 self.frame_slice_list.append(frame_slice)
-                super(TrajectoryIterator, self).load(fname,
+                super(TrajectoryIterator, self)._load(fname,
                                                      _top,
                                                      frame_slice=fslice)
         else:
@@ -231,7 +231,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
         <Topology: 34 atoms, 3 residues, 1 mols, non-PBC>
         >>> new_traj = pt.TrajectoryIterator()
         >>> new_traj.topology = traj.topology
-        >>> new_traj.load(traj.filename)
+        >>> new_traj._load(traj.filename)
         """
         return self.top
 

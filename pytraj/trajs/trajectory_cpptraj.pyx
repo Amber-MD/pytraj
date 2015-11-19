@@ -47,7 +47,7 @@ cdef class TrajectoryCpptraj:
         self._filelist = []
         self._own_memory = True
 
-    def load(self, filename=None, top=None, frame_slice=(0, -1, 1)):
+    def _load(self, filename=None, top=None, frame_slice=(0, -1, 1)):
         '''
         filename : a single filename or a list of filenames
         top : Topology-like object
