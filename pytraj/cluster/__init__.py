@@ -94,7 +94,8 @@ def kmeans(traj=None,
     _maxit = str(maxit)
     _metric = metric
     _mask = mask
-    _output = options
+    # turn of cpptraj's cluster info
+    _output = 'noinfo ' + options
     command = ' '.join((_clusters, _random_point, _kseed, _maxit, _metric,
                         _mask, _output))
     return _cluster(traj, command, top=top, dtype='ndarray')

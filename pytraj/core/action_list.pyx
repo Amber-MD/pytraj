@@ -76,6 +76,12 @@ def create_pipeline(traj, commands, DatasetList dslist=DatasetList(), frame_indi
 def do(lines, traj, *args, **kwd):
     cdef DatasetList dslist
 
+    if 'progress' in kwd:
+        progress_bar =  kwd.get("progress")
+        kwd.pop('progress')
+    else:
+        progress_bar = False
+
     if isinstance(lines, (list, tuple, string_types)):
         ref = kwd.get('ref')
         if ref is not None:
@@ -99,7 +105,20 @@ def do(lines, traj, *args, **kwd):
         fi = create_pipeline(traj, commands=lines, dslist=dslist)
 
         # just iterate Frame to trigger calculation.
-        for _ in fi:
+        if progress_bar:
+           from pytraj.utils.progress import make_bar, init_display
+           init_display()
+
+        for idx, _ in enumerate(fi):
+            if progress_bar:
+                if hasattr(fi, 'n_frames'):
+                    max_frames = fi.n_frames
+                elif hasattr(traj, 'n_frames'):
+                    max_frames = traj.n_frames
+                else:
+                    # inaccurate max_frames
+                    max_frames = 1000000
+                make_bar(idx, max_frames)
             pass
 
         # remove ref

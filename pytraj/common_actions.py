@@ -1358,9 +1358,13 @@ def get_velocity(traj, mask=None, frame_indices=None):
         velocities = []
 
         traj = pt.iterload(filename, topology_filename)
+
         for frame in traj:
             forces.append(frame.force)
             velocities.append(frame.velocity)
+
+        # Note: pytraj can efficiently load arbitary frame indices to memory
+        for frame in pt.iterframe(traj, frame_indices=[0, 8, 8, 100, 1000]): pass
     '''
     if mask is None:
         atm_indices = None
