@@ -144,7 +144,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
         else:
             # faster
             self.top = _load_Topology(state['_top_filename'])
-        self.load(state['filelist'], frame_slice=state['frame_slice_list'])
+        self._load(state['filelist'], frame_slice=state['frame_slice_list'])
 
     def __getstate__(self):
         '''
