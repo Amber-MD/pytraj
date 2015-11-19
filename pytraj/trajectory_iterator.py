@@ -80,27 +80,27 @@ def _make_frame_slices(n_files, original_frame_slice):
 
 
 class TrajectoryIterator(TrajectoryCpptraj):
+    '''out-of-core trajectory holder.
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> from pytraj.testing import get_fn
+    >>> traj_name, top_name = get_fn('tz2')
+    >>> traj = pt.TrajectoryIterator(traj_name, top_name)
+
+    >>> # user should always use :method:`pytraj.iterload` to load TrajectoryIterator
+    >>> traj = pt.iterload(['remd.x.000', 'remd.x.001'], 'input.parm7') # doctest: +SKIP
+
+    Notes
+    -----
+    It's a bit tricky to pickle this class. As default, new TrajectoryIterator will
+    use original trj filename and top filename. If set _pickle_topology to True, its
+    Topology will be pickled (slow but more accurate if you change the topology in the
+    fly)
+    '''
 
     def __init__(self, filename=None, top=None, *args, **kwd):
-        '''out-of-core trajectory holder.
-
-        Examples
-        --------
-        >>> import pytraj as pt
-        >>> from pytraj.testing import get_fn
-        >>> traj_name, top_name = get_fn('tz2')
-        >>> traj = pt.TrajectoryIterator(traj_name, top_name)
-
-        >>> # user should always use :method:`pytraj.iterload` to load TrajectoryIterator
-        >>> traj = pt.iterload(['remd.x.000', 'remd.x.001'], 'input.parm7') # doctest: +SKIP
-
-        Notes
-        -----
-        It's a bit tricky to pickle this class. As default, new TrajectoryIterator will
-        use original trj filename and top filename. If set _pickle_topology to True, its
-        Topology will be pickled (slow but more accurate if you change the topology in the
-        fly)
-        '''
         self._force_load = False
         # use self._chunk to store `chunk` in iterchunk
         # to deallocate memory
