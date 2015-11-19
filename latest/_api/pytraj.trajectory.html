@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.Trajectory &mdash; pytraj 0.1.2.dev12+aca5848 documentation</title>
+    <title>pytraj.Trajectory &mdash; pytraj 0.1.2.dev12+64f59a0 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev12+aca5848',
+        VERSION:     '0.1.2.dev12+64f59a0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+aca5848 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+64f59a0 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="prev" title="pytraj.io" href="pytraj.io.html" />
 <meta charset='utf-8'>
@@ -54,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+aca5848</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+64f59a0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -263,37 +263,34 @@ Topology and given xyz array.</p>
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.iterframe" title="pytraj.trajectory.Trajectory.iterframe"><code class="xref py py-obj docutils literal"><span class="pre">iterframe</span></code></a>([start,&nbsp;stop,&nbsp;step,&nbsp;mask,&nbsp;...])</td>
 <td>iterate trajectory with given frame_indices or given (start, stop, step)</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.join" title="pytraj.trajectory.Trajectory.join"><code class="xref py py-obj docutils literal"><span class="pre">join</span></code></a>(other)</td>
-<td>join two trajectories</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.load" title="pytraj.trajectory.Trajectory.load"><code class="xref py py-obj docutils literal"><span class="pre">load</span></code></a>([filename,&nbsp;indices])</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.load" title="pytraj.trajectory.Trajectory.load"><code class="xref py py-obj docutils literal"><span class="pre">load</span></code></a>([filename,&nbsp;indices])</td>
 <td>load file or files. This is for internal use. User should always use</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.reverse" title="pytraj.trajectory.Trajectory.reverse"><code class="xref py py-obj docutils literal"><span class="pre">reverse</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.reverse" title="pytraj.trajectory.Trajectory.reverse"><code class="xref py py-obj docutils literal"><span class="pre">reverse</span></code></a>()</td>
 <td>reverse Trajectory</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.rmsfit" title="pytraj.trajectory.Trajectory.rmsfit"><code class="xref py py-obj docutils literal"><span class="pre">rmsfit</span></code></a>(*args,&nbsp;**kwd)</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.rmsfit" title="pytraj.trajectory.Trajectory.rmsfit"><code class="xref py py-obj docutils literal"><span class="pre">rmsfit</span></code></a>(*args,&nbsp;**kwd)</td>
 <td>do the fitting to reference Frame by rotation and translation</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.rotate" title="pytraj.trajectory.Trajectory.rotate"><code class="xref py py-obj docutils literal"><span class="pre">rotate</span></code></a>([command])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.rotate" title="pytraj.trajectory.Trajectory.rotate"><code class="xref py py-obj docutils literal"><span class="pre">rotate</span></code></a>([command])</td>
 <td>do rotation</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.save" title="pytraj.trajectory.Trajectory.save"><code class="xref py py-obj docutils literal"><span class="pre">save</span></code></a>([filename,&nbsp;overwrite])</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.save" title="pytraj.trajectory.Trajectory.save"><code class="xref py py-obj docutils literal"><span class="pre">save</span></code></a>([filename,&nbsp;overwrite])</td>
 <td>write trajectory to disk with given format.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.scale" title="pytraj.trajectory.Trajectory.scale"><code class="xref py py-obj docutils literal"><span class="pre">scale</span></code></a>([command])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.scale" title="pytraj.trajectory.Trajectory.scale"><code class="xref py py-obj docutils literal"><span class="pre">scale</span></code></a>([command])</td>
 <td>do scaling</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.strip" title="pytraj.trajectory.Trajectory.strip"><code class="xref py py-obj docutils literal"><span class="pre">strip</span></code></a>(mask)</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.strip" title="pytraj.trajectory.Trajectory.strip"><code class="xref py py-obj docutils literal"><span class="pre">strip</span></code></a>(mask)</td>
 <td>strip atoms with given mask</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.superpose" title="pytraj.trajectory.Trajectory.superpose"><code class="xref py py-obj docutils literal"><span class="pre">superpose</span></code></a>([ref,&nbsp;mask,&nbsp;frame_indices,&nbsp;mass])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.superpose" title="pytraj.trajectory.Trajectory.superpose"><code class="xref py py-obj docutils literal"><span class="pre">superpose</span></code></a>([ref,&nbsp;mask,&nbsp;frame_indices,&nbsp;mass])</td>
 <td>do the fitting to reference Frame by rotation and translation</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.transform" title="pytraj.trajectory.Trajectory.transform"><code class="xref py py-obj docutils literal"><span class="pre">transform</span></code></a>(commands[,&nbsp;frame_indices])</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.transform" title="pytraj.trajectory.Trajectory.transform"><code class="xref py py-obj docutils literal"><span class="pre">transform</span></code></a>(commands[,&nbsp;frame_indices])</td>
 <td>apply a series of cpptraj commands to trajectory</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.translate" title="pytraj.trajectory.Trajectory.translate"><code class="xref py py-obj docutils literal"><span class="pre">translate</span></code></a>([command])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.translate" title="pytraj.trajectory.Trajectory.translate"><code class="xref py py-obj docutils literal"><span class="pre">translate</span></code></a>([command])</td>
 <td>do translation</td>
 </tr>
 </tbody>
@@ -486,26 +483,6 @@ Topology and given xyz array.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">autoimage</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span><span class="o">.</span><span class="n">n_atoms</span>
 <span class="go">100</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="pytraj.trajectory.Trajectory.join">
-<code class="descname">join</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.Trajectory.join" title="Permalink to this definition">¶</a></dt>
-<dd><p>join two trajectories</p>
-<p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t0</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t0</span><span class="o">.</span><span class="n">n_frames</span>
-<span class="go">3</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t1</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t1</span><span class="o">.</span><span class="n">n_frames</span>
-<span class="go">3</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t0</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t0</span><span class="o">.</span><span class="n">n_frames</span>
-<span class="go">6</span>
 </pre></div>
 </div>
 </dd></dl>
