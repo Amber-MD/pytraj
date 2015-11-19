@@ -67,9 +67,6 @@ class TestActionList(unittest.TestCase):
                          ArgList("center familiar com :6"),
                          top=top)
 
-        #
-        assert alist.n_actions == 2
-
         # do checking
         alist.process(top)
 
