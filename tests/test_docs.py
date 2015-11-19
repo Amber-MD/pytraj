@@ -12,6 +12,8 @@ from pytraj import nucleic_acid_analysis
 from pytraj.externals import get_pysander_energies
 from pytraj import datafiles
 from pytraj import cluster
+from pytraj.core import action_list
+
 
 try:
     import sander
@@ -42,6 +44,7 @@ class TestDoc(unittest.TestCase):
             if has_sander:
                 modules.append(get_pysander_energies)
             additional_list = [
+                action_list,
                 cluster,
                 datafiles,
                 pt.common_actions,

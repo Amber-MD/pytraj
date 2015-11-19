@@ -28,8 +28,8 @@ def create_pipeline(traj, commands, DatasetList dslist=DatasetList(), frame_indi
     Examples
     --------
     >>> import pytraj as pt
-    >>> traj = pt.load_sample_data('tz2')
-    >>> for frame in pt.create_pipeline(traj, ['autoimage', 'rms', 'center :1']): print(frame)
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> for frame in pt.create_pipeline(traj, ['autoimage', 'rms', 'center :1']): pass
 
     Above example is similiar to cpptraj's command::
 
@@ -74,6 +74,35 @@ def create_pipeline(traj, commands, DatasetList dslist=DatasetList(), frame_indi
 
 
 def do(lines, traj, *args, **kwd):
+    """perorm a series of cpptraj's actions on trajectory
+
+    Parameters
+    ----------
+    lines : {str, list of string}
+    traj : Trajectory-like
+    process : {None, int}, default None
+        if not None, there will have progess bar if user is using jupyter notebook.
+        The value of ``progess`` shows how often the bar is displayed. Make sure to choose large ``progess`` number to avoid slowing down
+        your calculation.
+    *args, **kwd : more arguments
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2()
+    >>> # cpptraj command style
+    >>> data = pt.do('''
+    ...              rms
+    ...              radgyr
+    ...              molsurf
+    ...              ''', traj)
+
+    >>> # a list of commands
+    >>> data = pt.do([
+    ...              'rms',
+    ...              'radgyr',
+    ...              'molsurf',], traj)
+    """
     cdef DatasetList dslist
 
     # frequency to make the bar
@@ -159,6 +188,9 @@ cdef class ActionList:
         --------
         >>> import pytraj as pt
         >>> from pytraj import ActionList
+        >>> from pytraj.datasets import CpptrajDatasetList
+        >>> dslist = CpptrajDatasetList()
+        >>> traj = pt.datafiles.load_tz2_ortho()
         >>> list_of_commands = ['autoimage',
         ...                     'rmsd first @CA',
         ...                     'hbond :3,8,10']
@@ -207,7 +239,7 @@ cdef class ActionList:
         Examples
         --------
         >>> act = ActionList()
-        >>> act.add_action('radgyr', '@CA', top=traj.top, dslist=dslist)
+        >>> act.add_action('radgyr', '@CA', top=traj.top, dslist=dslist) # doctest: +SKIP
         """
         cdef object _action
         cdef int status
