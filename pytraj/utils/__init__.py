@@ -33,7 +33,7 @@ def duplicate_traj(orig_traj, n_times):
     for _ in range(n_times - 1):
         if 'Iter' in orig_traj.__class__.__name__:
             # TrajectoryIterator
-            traj.load(orig_traj.filelist)
+            traj._load(orig_traj.filelist)
         else:
             # Trajectory
             traj.append(traj.copy())
