@@ -211,8 +211,7 @@
 <td>iterate trajectory by chunk</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.iterframe" title="pytraj.trajectory_iterator.TrajectoryIterator.iterframe"><code class="xref py py-obj docutils literal"><span class="pre">iterframe</span></code></a>([start,&nbsp;stop,&nbsp;step,&nbsp;mask,&nbsp;...])</td>
-<td><p class="rubric">Examples</p>
-</td>
+<td>iterate trajectory with given frame_indices or given (start, stop, step)</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.load" title="pytraj.trajectory_iterator.TrajectoryIterator.load"><code class="xref py py-obj docutils literal"><span class="pre">load</span></code></a>([filename,&nbsp;top,&nbsp;frame_slice])</td>
 <td>load trajectory/trajectories from filename/filenames</td>
@@ -276,22 +275,50 @@ ref first</p>
 <dl class="method">
 <dt id="pytraj.trajectory_iterator.TrajectoryIterator.iterframe">
 <code class="descname">iterframe</code><span class="sig-paren">(</span><em>start=0</em>, <em>stop=None</em>, <em>step=1</em>, <em>mask=None</em>, <em>autoimage=False</em>, <em>rmsfit=None</em>, <em>copy=False</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.iterframe" title="Permalink to this definition">¶</a></dt>
-<dd><p class="rubric">Examples</p>
+<dd><p>iterate trajectory with given frame_indices or given (start, stop, step)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>start</strong> : int, default 0</p>
+<p><strong>stop</strong> : {None, int}, default None</p>
+<blockquote>
+<div><p>if None, iterate to final frame</p>
+</div></blockquote>
+<p><strong>step</strong> : int, default 1</p>
+<p><strong>mask</strong> : {None, str}, default None</p>
+<blockquote>
+<div><p>if None, use all atoms. If not None, use given mask</p>
+</div></blockquote>
+<p><strong>autoimage</strong> : bool, default False</p>
+<blockquote>
+<div><p>if True, perform autoimage for each frame</p>
+</div></blockquote>
+<p><strong>rmsfit</strong> : {None, int, tuple}, default None</p>
+<blockquote>
+<div><p>if not None, perform superpose each Frame to to reference.</p>
+</div></blockquote>
+<p><strong>frame_indices</strong> : {None, array-like}</p>
+<blockquote class="last">
+<div><p>if not None, iterate trajectory for given indices. If frame_indices is given, 
+(start, stop, step) will be ignored.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span> <span class="k">pass</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">autoimage</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span> <span class="k">pass</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># use negative index</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># use negative index</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">n_frames</span>
 <span class="go">10</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">autoimage</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span><span class="o">.</span><span class="n">n_frames</span>
 <span class="go">5</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># mask is atom indices</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># mask is atom indices</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">autoimage</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span><span class="o">.</span><span class="n">n_atoms</span>
 <span class="go">100</span>
