@@ -1100,27 +1100,46 @@ if True, Calculate motion vectors for entire residues (selected atoms in residue
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : if with_rmsd=False, return numpy array, shape (n_frames, 3, 3)</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>ref</strong> : {int, Frame}, default 0 (first Frame)</p>
 <blockquote>
+<div><p>reference</p>
+</div></blockquote>
+<p><strong>mask</strong> : str, default all atoms</p>
+<p><strong>mass</strong> : bool, default False</p>
+<blockquote>
+<div><p>if True, rmsfit with mass</p>
+</div></blockquote>
+<p><strong>frame_indices</strong> : {None, array-like}</p>
+<blockquote>
+<div><p>if not None, compute for given indices</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology, optional</p>
+<p><strong>with_rmsd</strong> : bool, default False</p>
+<blockquote>
+<div><ul class="simple">
+<li>if False, return only rotation matrix.</li>
+<li>if True, return rotation matrix and rmsd values</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : if with_rmsd=False, return numpy array, shape (n_frames, 3, 3)</p>
+<blockquote class="last">
 <div><p>if with_rmsd=True, return a tuple (mat, rmsd)</p>
 </div></blockquote>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mat</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_rotation_matrix</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mat</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-</div>
-<p class="last">(101, 3, 3)</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mat</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_rotation_matrix</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mat</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(101, 3, 3)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -1197,6 +1216,19 @@ if True, Calculate motion vectors for entire residues (selected atoms in residue
 </tr>
 </tbody>
 </table>
+<p class="rubric">Notes</p>
+<p>Since pytraj has limited support for force and velocity info, if user wants to 
+load both from disk, should iterate the TrajectoryIterator (got by pytraj.iterload method)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="n">forces</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">velocities</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">topology_filename</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">:</span>
+    <span class="n">forces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">force</span><span class="p">)</span>
+    <span class="n">velocities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">velocity</span><span class="p">)</span>
+</pre></div>
+</div>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vels</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">get_velocity</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span> 
 </pre></div>
