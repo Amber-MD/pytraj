@@ -87,44 +87,9 @@ Supported methods for ``pmap`` if using pytraj's methods
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. ipython:: python
-    :suppress:
 
     import pytraj as pt
-    from pytraj import matrix, vector, nmr, cluster
-    from itertools import chain
-    method_list_pmap = []
-    method_list_openmp = []
-
-    for method_str in chain(dir(pt), dir(matrix), dir(vector), dir(nmr), dir(cluster)):
-        try:
-            method = getattr(pt, method_str)
-            if hasattr(method, '_is_parallelizable') and method._is_parallelizable:
-                method_list_pmap.append(method)
-            if hasattr(method, '_openmp_capability') and method._openmp_capability:
-                method_list_openmp.append(method)
-        except AttributeError:
-            pass
-
-    pmap_ = []
-    for method in set(method_list_pmap):
-        name = str(method).split()[1]
-        #if 'calc_' in name:
-        #    name = name.split('calc_')[-1]
-        pmap_.append(name)
-    supported_pmap_methods = sorted(pmap_)
-
-    openmp_ = []
-    for method in set(method_list_openmp):
-        name = str(method).split()[1]
-        #if 'calc_' in name:
-        #    name = name.split('calc_')[-1]
-        openmp_.append(name)
-    supported_openmp_methods = sorted(openmp_)
-
-
-.. ipython:: python
-
-    for method in supported_pmap_methods:
+    for method in pt.misc.parallel_info('pmap'):
         print(method)
 
 Supported methods for ``pmap`` if using cpptraj's command style
@@ -138,7 +103,7 @@ Supported methods for ``openmp``
 
 .. ipython:: python
 
-    for method in supported_openmp_methods:
+    for method in pt.misc.parallel_info('openmp'):
         print(method)
     print("")
 
