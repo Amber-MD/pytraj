@@ -21,50 +21,37 @@ __all__ = ['Trajectory']
 
 
 class Trajectory(object):
+    """Simple in-memory Trajectory. It has only information about 3D coordinates
+    and unitcells (no time, no velocity, no force, ...)
+
+    Parameters
+    ----------
+    filename: str, trajectory filename
+    top : Topology
+    xyz: 3D-array
+        if filename is not given, pytraj will construct Trajectory from given
+        Topology and given xyz array.
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> from pytraj.testing import get_fn
+    >>> t0 = pt.load_sample_data('ala3')
+    >>> fn, tn = get_fn('ala3')
+
+    >>> # load from filename and topology name
+    >>> traj = pt.Trajectory(fn, tn)
+    >>> traj = pt.Trajectory([fn, fn], tn)
+    >>> traj = pt.Trajectory((fn, fn), tn)
+
+    >>> # load from array
+    >>> xyz = traj.xyz
+    >>> traj_1 = pt.Trajectory(xyz=xyz, top=traj.top)
+    >>> traj['@CA'].xyz[:, :, 0]
+    array([[  3.970048 ,   7.6400076,  10.1610562]])
+    """
 
     def __init__(self, filename=None, top=None, xyz=None):
-        """very simple  in-memory Trajectory. It has only information about 3D coordinates
-        and unitcells (no time, no velocity, no mass, not force, ...)
-
-        Parameters
-        ----------
-        filename: str, trajectory filename
-        top : Topology
-        xyz: 3D-array
-            if filename is not given, pytraj will construct Trajectory from given
-            Topology and given xyz array.
-
-        Attributes
-        ----------
-        xyz :  3D coordinates, dtype=np.float64, shape (n_frames, n_atoms, 3)
-        unitcells : 2D unitcells, dtype=float64, shape (n_frames, 6)
-
-        Methods
-        -------
-        __iter__ : iterable
-        __getitem__ : slicing
-        superpose : superpose to reference
-        autoimage : autoimage
-        iterframe : advanced iterator
-
-        Examples
-        --------
-        >>> import pytraj as pt
-        >>> from pytraj.testing import get_fn
-        >>> t0 = pt.load_sample_data('ala3')
-        >>> fn, tn = get_fn('ala3')
-
-        >>> # load from filename and topology name
-        >>> traj = pt.Trajectory(fn, tn)
-        >>> traj = pt.Trajectory([fn, fn], tn)
-        >>> traj = pt.Trajectory((fn, fn), tn)
-
-        >>> # load from array
-        >>> xyz = traj.xyz
-        >>> traj_1 = pt.Trajectory(xyz=xyz, top=traj.top)
-        >>> traj['@CA'].xyz[:, :, 0]
-        array([[  3.970048 ,   7.6400076,  10.1610562]])
-        """
         self._top = _get_topology(filename, top)
 
         if self._top is None:
