@@ -8,6 +8,8 @@ PYTRAJ
 
 http://amber-md.github.io/pytraj
 
+[![pytraj website](./examples/progress_bar.gif)](http://amber-md.github.io/pytraj/latest/index.html)
+
 - pytraj is a Python front-end to cpptraj program (a data analysis for biomolecular simulation)
 - Why using pytraj?
     * It's fast
@@ -20,8 +22,6 @@ http://amber-md.github.io/pytraj
     * It has been extensively tested (>10K lines of testing code)
     * It's portable: you only need to install "libcpptraj" and numpy
 - Note: `pytraj` is still in its infancy and its API might be rapidly changed. But it's not hurt to try :).
-
-[![pytraj website](./examples/progress_bar.gif)](http://amber-md.github.io/pytraj/latest/index.html)
 
 
 Install
