@@ -17,7 +17,8 @@ def kmeans(traj=None,
            metric='rms',
            top=None,
            frame_indices=None,
-           options=''):
+           options='',
+           dtype='ndarray'):
     '''perform clustering and return cluster index for each frame
 
     Parameters
@@ -98,7 +99,7 @@ def kmeans(traj=None,
     _output = options
     command = ' '.join((_clusters, _random_point, _kseed, _maxit, _metric,
                         _mask, _output))
-    return _cluster(traj, command, top=top, dtype='ndarray')
+    return _cluster(traj, command, top=top, dtype=dtype)
 
 
 def _cluster(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
