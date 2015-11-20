@@ -52,20 +52,30 @@ cdef class Frame (object):
     >>> import pytraj as pt
     >>> # create an empty Frame
     >>> frame = pt.Frame()
+    >>> frame.n_atoms
+    0
 
     >>> # create a Frame with 304 atoms
     >>> frame = pt.Frame(304)
+    >>> frame.n_atoms
+    304
 
     >>> # create an empty Frame then append coordinate
+    >>> traj = pt.datafiles.load_tz2()
+    >>> f0 = traj[0]
     >>> frame = pt.Frame()
-    >>> frame.append_xyz(xyz)
+    >>> frame.append_xyz(f0.xyz)
+    <Frame with 223 atoms>
+    >>> frame.n_atoms == f0.n_atoms
+    True
 
     >>> # copy from other Frame
     >>> frame2 = pt.Frame(frame)
 
     >>> # create a Frame as a pointer (does not own any memory), used for fast iterating
-    >>> # 304 atoms, xyz is 3D array
-    >>> frame = pt.Frame(304, xyz, _as_ptr=True)
+    >>> frame = pt.Frame(f0.n_atoms, f0.xyz, _as_ptr=True)
+    >>> frame.n_atoms == f0.n_atoms
+    True
     """
 
     def __cinit__(self, *args, _as_ptr=False):
@@ -236,14 +246,11 @@ cdef class Frame (object):
         >>> from pytraj import io
         >>> traj = io.load_sample_data('tz2')
         >>> f0 = traj[0]
-        >>> f0[0]
-        >>> f0[0, 0]
-        >>> f0[:,  0]
-        >>> f0.top = traj.top
-        >>> f0['@CA']
-        >>> atm = traj.top.select("@CB")
-        >>> f0[atm]
-        >>> f0[atm, 0]
+        >>> data = f0[0]
+        >>> data = f0[0, 0]
+        >>> data = f0[:,  0]
+        >>> data = f0.top = traj.top
+        >>> data = f0['@CA']
         """
         cdef AtomMask atm
         cdef cython.view.array cy_arr
@@ -431,9 +438,9 @@ cdef class Frame (object):
                 return None
 
     property force:
+        """force, default None
+        """
         def __get__(self):
-            """force, default None
-            """
             cdef int n_atoms = self.n_atoms
             if self.has_force():
                 return np.asarray(<double[:n_atoms, :3]> self.thisptr.fAddress())
@@ -441,6 +448,8 @@ cdef class Frame (object):
                 return None
 
     property n_atoms:
+        '''n_atoms
+        '''
         def __get__(self):
             '''
             '''
@@ -463,7 +472,6 @@ cdef class Frame (object):
 
     property time:
         '''time'''
-
         def __get__(self):
             return self.thisptr.Time()
 
@@ -498,7 +506,16 @@ cdef class Frame (object):
             ptr[2] = xyz[3*i + 2]
 
     def atom(self, int atomnum):
-        """return xyz coordinates of idx-th atom"""
+        """return xyz coordinates of idx-th atom
+
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> traj = pt.datafiles.load_tz2()
+        >>> frame = traj[0]
+        >>> frame.atom(10)
+        array('d', [0.27399998903274536, 11.727999687194824, 8.701000213623047])
+        """
         # return XYZ for atomnum
         # cpptraj: return double*
         # use python array to store double*
@@ -517,7 +534,19 @@ cdef class Frame (object):
         return arr
 
     def set_nobox(self):
-        '''set nobox'''
+        '''set nobox
+
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> traj = pt.datafiles.load_tz2_ortho()
+        >>> frame = traj[0]
+        >>> frame.box
+        <Box: ortho, (x, y, z, alpha, beta, gamma) = (35.262779662258, 41.845547679864616, 36.16862952899312, 90.0, 90.0, 90.0)>
+        >>> frame.set_nobox()
+        >>> frame.box
+        <Box: nobox, (x, y, z, alpha, beta, gamma) = (0.0, 0.0, 0.0, 0.0, 0.0, 0.0)>
+        '''
         self._boxview[:] = pyarray('d', [0. for _ in range(6)])
 
     def has_box(self):
@@ -530,14 +559,14 @@ cdef class Frame (object):
         return self.thisptr.HasVelocity()
 
     property coordinates:
+        '''return a copy of Frame's coordinates
+        '''
         def __get__(self):
-            '''return a copy of Frame's coordinates
-            '''
             return np.array(self.xyz)
 
     property mass:
+        """return mass array"""
         def __get__(self):
-            """return mass array"""
             cdef double[:] arr = np.empty(self.n_atoms, dtype='f8')
             cdef int i
 
@@ -547,6 +576,15 @@ cdef class Frame (object):
 
     property box:
         '''unitcell
+
+        Example
+        -------
+        >>> import pytraj as pt
+        >>> frame = pt.Frame(304)
+        >>> frame.box
+        >>> traj = pt.datafiles.load_tz2_ortho()
+        >>> frame = traj[0]
+        >>> frame.box
         '''
         def __get__(self):
             '''return unitcell'''
