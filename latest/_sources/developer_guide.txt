@@ -277,6 +277,12 @@ Since ``pytraj`` will be bundled with AmberTools in Amber, it's important that w
 
 For some unknow reasons, I (Hai) got segmentation fault if import numpy in the top of the module  when working with ``*.pyx`` file. It's better to import numpy locally (inside each method).
 
+Convert gif from video
+----------------------
+
+I (HN) tried different programs to record screen but only http://recordit.co/ works well (easily to export to high quality GIF without using addional program).
+See `demo here <https://raw.githubusercontent.com/Amber-MD/pytraj/master/examples/progress_bar.gif>`_
+
 
 Read Also
 ---------

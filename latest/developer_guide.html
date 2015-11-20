@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Developer guide for pytraj &mdash; pytraj 0.1.2.dev12+7ec0e4b documentation</title>
+    <title>Developer guide for pytraj &mdash; pytraj 0.1.2.dev12+6fd4b01 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.2.dev12+7ec0e4b',
+        VERSION:     '0.1.2.dev12+6fd4b01',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -32,7 +32,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+7ec0e4b documentation" href="index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+6fd4b01 documentation" href="index.html" />
     <link rel="next" title="Misc" href="misc.html" />
     <link rel="prev" title="Frequently Asked Questions" href="faq.html" />
 <meta charset='utf-8'>
@@ -54,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+7ec0e4b</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+6fd4b01</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -119,6 +119,7 @@
 <li><a class="reference internal" href="#code-coverage-how-well-are-your-codes-tested">Code coverage, how well are your codes tested?</a></li>
 <li><a class="reference internal" href="#segmentation-fault-debug">Segmentation fault debug</a></li>
 <li><a class="reference internal" href="#cython">cython</a></li>
+<li><a class="reference internal" href="#convert-gif-from-video">Convert gif from video</a></li>
 <li><a class="reference internal" href="#read-also">Read Also</a></li>
 </ul>
 </li>
@@ -191,7 +192,8 @@
 <li><a class="reference internal" href="#code-coverage-how-well-are-your-codes-tested" id="id17">Code coverage, how well are your codes tested?</a></li>
 <li><a class="reference internal" href="#segmentation-fault-debug" id="id18">Segmentation fault debug</a></li>
 <li><a class="reference internal" href="#cython" id="id19">cython</a></li>
-<li><a class="reference internal" href="#read-also" id="id20">Read Also</a></li>
+<li><a class="reference internal" href="#convert-gif-from-video" id="id20">Convert gif from video</a></li>
+<li><a class="reference internal" href="#read-also" id="id21">Read Also</a></li>
 </ul>
 </li>
 </ul>
@@ -478,8 +480,13 @@ $ # check devtools/travis-ci/upload.sh and .travis.yml files for implementation.
 Since <code class="docutils literal"><span class="pre">pytraj</span></code> will be bundled with AmberTools in Amber, it&#8217;s important that we should commit cythonized file too. The main idea is that user only need C++ compiler and <code class="docutils literal"><span class="pre">cpptraj</span></code>, nothing else.</p>
 <p>For some unknow reasons, I (Hai) got segmentation fault if import numpy in the top of the module  when working with <code class="docutils literal"><span class="pre">*.pyx</span></code> file. It&#8217;s better to import numpy locally (inside each method).</p>
 </div>
+<div class="section" id="convert-gif-from-video">
+<h2><a class="toc-backref" href="#id20">Convert gif from video</a><a class="headerlink" href="#convert-gif-from-video" title="Permalink to this headline">¶</a></h2>
+<p>I (HN) tried different programs to record screen but only <a class="reference external" href="http://recordit.co/">http://recordit.co/</a> works well (easily to export to high quality GIF without using addional program).
+See <a class="reference external" href="https://raw.githubusercontent.com/Amber-MD/pytraj/master/examples/progress_bar.gif">demo here</a></p>
+</div>
 <div class="section" id="read-also">
-<h2><a class="toc-backref" href="#id20">Read Also</a><a class="headerlink" href="#read-also" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id21">Read Also</a><a class="headerlink" href="#read-also" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://github.com/mojyt/cpptraj/blob/master/doc/CpptrajDevlopmentGuide.pdf">cpptraj developer guide</a></p>
 <p><a class="reference external" href="test_cpptraj_api">test cpptraj api change with pytraj on travis</a></p>
 <p><a class="reference external" href="http://scikit-learn.org/stable/developers/">sklearn developer guide</a></p>
@@ -501,7 +508,7 @@ Since <code class="docutils literal"><span class="pre">pytraj</span></code> will
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 19, 2015.<br/>
+      Last updated on Nov 20, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
