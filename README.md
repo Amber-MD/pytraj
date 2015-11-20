@@ -21,6 +21,8 @@ http://amber-md.github.io/pytraj
     * It's portable: you only need to install "libcpptraj" and numpy
 - Note: `pytraj` is still in its infancy and its API might be rapidly changed. But it's not hurt to try :).
 
+[![pytraj website](./examples/progress_bar.gif)](http://amber-md.github.io/pytraj/latest/index.html)
+
 
 Install
 -------
