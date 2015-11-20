@@ -3,15 +3,14 @@ from IPython.display import HTML, Javascript, display
 
 divid = str(uuid.uuid4())
 
-pb = HTML(
-"""
+pb = """
 <div style="border: 1px solid black; width:500px">
-  <div id="%s" style="background-color:blue; width:0%%">&nbsp;</div>
-</div> 
-""" % divid)
+  <div id="{0}" style="background-color:{1}; width:0%%">&nbsp;</div>
+</div>
+"""
 
-def init_display():
-    display(pb)
+def init_display(color='#0080FF'):
+    display(HTML(pb.format(divid, color)))
 
 def make_bar(idx, max_frames):
     '''work with jupyter notebook.
