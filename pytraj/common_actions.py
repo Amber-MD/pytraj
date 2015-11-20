@@ -7,7 +7,7 @@ from pytraj.trajectory_iterator import TrajectoryIterator
 from ._get_common_objects import _get_topology, _get_data_from_dtype, _get_list_of_commands
 from ._get_common_objects import _get_matrix_from_dataset
 from ._get_common_objects import _get_reference_from_traj, _get_fiterator
-from ._get_common_objects import _super_dispatch
+from ._get_common_objects import _super_dispatch, _get_fi_with_dslist
 from .utils import is_array, ensure_not_none_or_string
 from .utils import is_int
 from .utils.context import goto_temp_folder
@@ -1712,6 +1712,9 @@ def calc_center_of_geometry(traj=None,
 calc_COG = calc_center_of_geometry
 
 
+# do not use _super_dispatch here since we did in inside this method
+# to avoid complicated code checking.
+
 @_register_openmp
 def calc_pairwise_rmsd(traj=None,
                        mask="",
@@ -1769,30 +1772,10 @@ def calc_pairwise_rmsd(traj=None,
 
     act = CpptrajAnalyses.Analysis_Rms2d()
 
-    dslist = CpptrajDatasetList()
-    dslist.add_set("coords", "_tmp")
-    # need to set "rmsout" to trick cpptraj not giving error
-    # need " " (space) before crdset too
+    crdname = 'default_coords'
+    dslist, _top, command = _get_fi_with_dslist(traj, mask, frame_indices, top, crdname=crdname)
 
-    if isinstance(traj, (Trajectory, TrajectoryIterator)):
-        # we do atom stripping here before copying to DatasetCoordsCRD to save memory if
-        # loading from TrajectoryIterator
-        fi = traj.iterframe(mask=mask, frame_indices=frame_indices)
-        command = metric
-        # use Topology from fi (could be stripped to save memory)
-        dslist[0].top = fi.top
-        _top = fi.top
-    else:
-        # ignore frame_indices
-        fi = iterframe_master(traj)
-        command = ' '.join((mask, metric))
-        _top = _get_topology(traj, top)
-        dslist[0].top = _top
-
-    command = command + " crdset _tmp rmsout mycrazyoutput"
-
-    for frame in fi:
-        dslist[0].append(frame)
+    command = ' '.join((command, metric, "crdset {} rmsout mycrazyoutput".format(crdname)))
 
     act(command, _top, dslist=dslist)
     # remove dataset coords to free memory
