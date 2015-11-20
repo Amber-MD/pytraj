@@ -1,5 +1,0 @@
-* each file should begin with `example_`
-* make it short: ideally about 30 lines.
-      if you have longer example, put it in ./more_compicated_examples/
-* travis will run all .py files in this folder. So make sure your example runable.
-      check: get_py_files.py

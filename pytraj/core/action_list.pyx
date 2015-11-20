@@ -108,6 +108,12 @@ def do(lines, traj, *args, **kwd):
     # frequency to make the bar
     # None or an int
     freq =  kwd.get("progress")
+    color =  kwd.get("color")
+
+    if color is None:
+        color = '#0080FF'
+    else:
+        kwd.pop('color')
 
     if isinstance(lines, (list, tuple, string_types)):
         ref = kwd.get('ref')
@@ -142,7 +148,7 @@ def do(lines, traj, *args, **kwd):
            else:
                # inaccurate max_frames
                max_frames = 1000000
-           init_display()
+           init_display(color)
 
         for idx, _ in enumerate(fi):
             if freq is not None:
