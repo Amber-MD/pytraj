@@ -8,6 +8,8 @@ PYTRAJ
 
 http://amber-md.github.io/pytraj
 
+[![pytraj website](./examples/progress_bar.gif)](http://amber-md.github.io/pytraj/latest/index.html)
+
 - pytraj is a Python front-end to cpptraj program (a data analysis for biomolecular simulation)
 - Why using pytraj?
     * It's fast
