@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 from pytraj._get_common_objects import _get_topology, _get_data_from_dtype
 from pytraj.decorators import _register_pmap, _register_openmp
-from pytraj._get_common_objects import _super_dispatch
+from pytraj._get_common_objects import _super_dispatch, _get_fi_with_dslist
 from pytraj.analyses import CpptrajAnalyses
 from pytraj.datasets.DatasetList import DatasetList as CpptrajDatasetList
 
@@ -17,7 +17,8 @@ def kmeans(traj=None,
            metric='rms',
            top=None,
            frame_indices=None,
-           options=''):
+           options='',
+           dtype='ndarray'):
     '''perform clustering and return cluster index for each frame
 
     Parameters
@@ -41,7 +42,7 @@ def kmeans(traj=None,
     Sieve options::
 
         [sieve <#> [random [sieveseed <#>]]]
-      
+
     Output options::
 
         [out <cnumvtime>] [gracecolor] [summary <summaryfile>] [info <infofile>]
@@ -86,54 +87,50 @@ def kmeans(traj=None,
     >>> # add sieve number for less memory, and specify random seed for sieve
     >>> data = kmeans(traj, n_clusters=5, mask='@CA', kseed=100, metric='rms', options='sieve 5 sieveseed 1')
     '''
-
     # don't need to _get_topology
     _clusters = 'kmeans clusters ' + str(n_clusters)
     _random_point = 'randompoint' if random_point else ''
     _kseed = 'kseed ' + str(kseed)
     _maxit = str(maxit)
     _metric = metric
-    _mask = mask
     # turn of cpptraj's cluster info
     _output = options
     command = ' '.join((_clusters, _random_point, _kseed, _maxit, _metric,
-                        _mask, _output))
-    return _cluster(traj, command, top=top, dtype='ndarray')
+                        _output))
+    return _cluster(traj, mask, frame_indices=frame_indices, top=top, dtype=dtype, options=command)
 
 
-def _cluster(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
+def _cluster(traj=None, mask="", frame_indices=None, dtype='dataset', top=None, options=''):
     """clustering
 
     Parameters
     ----------
     traj : Trajectory-like or any iterable that produces Frame
-    command : cpptraj command
+    mask : str
+        atom mask
+    frame_indices : {None, array-like}, optional
+    dtype : str
+        return data type
     top : Topology, optional
-    *args, **kwd: optional arguments
+    options: str
+        more cpptraj option
 
     Notes
     -----
     Supported algorithms: kmeans, hieragglo, and dbscan.
     """
-    _top = _get_topology(traj, top)
+    # Note: do not use _super_dispatch here. We use _get_fi_with_dslist
+
     ana = CpptrajAnalyses.Analysis_Clustering()
     # need to creat `dslist` here so that every time `do_clustering` is called,
     # we will get a fresh one (or will get segfault)
-    dslist = CpptrajDatasetList()
+    crdname = 'DEFAULT_NAME'
+    dslist, _top, mask2 = _get_fi_with_dslist(traj, mask, frame_indices, top, crdname=crdname)
 
-    dname = 'DEFAULT_NAME'
-    if traj is not None:
-        dslist.add_set("coords", name=dname)
-        dslist[0].top = _top
-        for frame in traj:
-            # dslist[-1].add_frame(frame)
-            dslist[0].add_frame(frame)
-        command += " crdset {0}".format(dname)
-    else:
-        pass
     # do not output cluster info to STDOUT
-    command = command + ' noinfo'
-    ana(command, _top, dslist, *args, **kwd)
+    command = ' '.join((mask2, "crdset {0}".format(crdname), options, 'noinfo'))
+    ana(command, _top, dslist)
+
     # remove frames in dslist to save memory
-    dslist.remove_set(dslist[dname])
+    dslist.remove_set(dslist[crdname])
     return _get_data_from_dtype(dslist, dtype=dtype)

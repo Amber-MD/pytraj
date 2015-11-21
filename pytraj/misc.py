@@ -15,6 +15,7 @@ try:
 except ImportError:
     file_type_info = None
 
+
 def parallel_info(key=None):
     '''Parallel info
 
@@ -43,7 +44,7 @@ def parallel_info(key=None):
     pmap_ = []
     for method in set(methodlist_pmap):
         name = str(method).split()[1]
-        #if 'calc_' in name:
+        # if 'calc_' in name:
         #    name = name.split('calc_')[-1]
         pmap_.append(name)
     supported_pmap_methods = sorted(pmap_)
@@ -51,7 +52,7 @@ def parallel_info(key=None):
     openmp_ = []
     for method in set(methodlist_openmp):
         name = str(method).split()[1]
-        #if 'calc_' in name:
+        # if 'calc_' in name:
         #    name = name.split('calc_')[-1]
         openmp_.append(name)
     supported_openmp_methods = sorted(openmp_)

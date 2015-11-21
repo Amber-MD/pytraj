@@ -8,6 +8,8 @@ from util import find_class
 '''
 
 CPPTRAJSRC = os.environ['CPPTRAJHOME'] + "/src/"
+
+
 def create_enum_of_dict(fname, mode='', cpptrajsrc=CPPTRAJSRC):
     #cpptrajsrc = os.environ['AMBERHOME'] + "AmberTools/src/cpptraj/src/"
     fname_full = cpptrajsrc + fname
@@ -16,14 +18,14 @@ def create_enum_of_dict(fname, mode='', cpptrajsrc=CPPTRAJSRC):
     tmpindent = " " * 4
     classlist = find_class(cpptrajsrc)
     cpp = CppHeaderParser.CppHeader(fname_full)
-    
+
     make_dict = False
     if mode == 'dict':
         make_dict = True
         tmpindent = ""
     else:
         make_dict = False
-    
+
     # make assumption that there's only one class in header file
     #classname = list(cpp.classes.keys())[0]
     # use -1 for MetaData, else 0
@@ -53,7 +55,7 @@ def create_enum_of_dict(fname, mode='', cpptrajsrc=CPPTRAJSRC):
                     print(indent + '"%s" : %s, ' % (enumvarname, enumvarname))
             if make_dict:
                 print(indent + "}")
-    
+
 if __name__ == '__main__':
     fname = sys.argv[1]
     try:

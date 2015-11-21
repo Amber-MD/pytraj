@@ -9,11 +9,11 @@ if sys.version_info[0] >= 3:
 else:
     import __builtin__ as builtins
 
-MAJOR               = 0
-MINOR               = 1
-MICRO               = 2
-ISRELEASED          = False
-VERSION             = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
+MAJOR = 0
+MINOR = 1
+MICRO = 2
+ISRELEASED = False
+VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 
 
 message_cython = '''
@@ -58,7 +58,7 @@ You can not use --disable-openmp flag with pytraj
 '''
 
 message_serial_cpptraj = '''
-libcpptraj was detected not be installed with openmp. You can recompile it with -openmp flag or 
+libcpptraj was detected not be installed with openmp. You can recompile it with -openmp flag or
 disable openpm install in pytraj by adding --disable-openmp
 
 Example:
@@ -79,6 +79,7 @@ Run test:
     - simple (few seconds): python ./runtests.py simple
     - full (5-10 minutes): python runtests.py
 '''
+
 
 def check_cpptraj_version(header_dir, version=(4, 2, 8)):
     vfile = os.path.join(header_dir, 'Version.h')
@@ -112,7 +113,8 @@ def remind_export_LD_LIBRARY_PATH(build_tag, libdir, pytraj_inside_amber):
 # Return the git revision as a string
 # git_version, get_version_info, write_version_py  was lightly adapted from numpy package
 # http://www.numpy.org/
-# Numpy is licensed under the BSD license, 
+# Numpy is licensed under the BSD license,
+
 
 def git_version():
     def _minimal_ext_cmd(cmd):
@@ -126,7 +128,7 @@ def git_version():
         env['LANGUAGE'] = 'C'
         env['LANG'] = 'C'
         env['LC_ALL'] = 'C'
-        out = subprocess.Popen(cmd, stdout = subprocess.PIPE, env=env).communicate()[0]
+        out = subprocess.Popen(cmd, stdout=subprocess.PIPE, env=env).communicate()[0]
         return out
 
     try:
@@ -139,7 +141,8 @@ def git_version():
 
 # BEFORE importing distutils, remove MANIFEST. distutils doesn't properly
 # update it when the contents of directories change.
-if os.path.exists('MANIFEST'): os.remove('MANIFEST')
+if os.path.exists('MANIFEST'):
+    os.remove('MANIFEST')
 
 # This is a bit hackish: we are setting a global variable so that the main
 # numpy __init__ can detect if it is being loaded by the setup routine, to
@@ -160,7 +163,7 @@ def get_version_info():
             from pytraj.__version__ import git_revision as GIT_REVISION
         except ImportError:
             # FIXME pytraj
-            #raise ImportError("Unable to import git_revision. Try removing " \
+            # raise ImportError("Unable to import git_revision. Try removing " \
             #                  "numpy/version.py and the build directory " \
             #                  "before building.")
             pass
@@ -190,8 +193,8 @@ if not release:
     a = open(filename, 'w')
     try:
         a.write(cnt % {'version': VERSION,
-                       'full_version' : FULLVERSION,
-                       'git_revision' : GIT_REVISION,
+                       'full_version': FULLVERSION,
+                       'git_revision': GIT_REVISION,
                        'isrelease': str(ISRELEASED)})
     finally:
         a.close()
@@ -218,4 +221,3 @@ class CleanCommand(Clean):
             for dirname in dirnames:
                 if dirname == '__pycache__':
                     shutil.rmtree(os.path.join(dirpath, dirname))
-

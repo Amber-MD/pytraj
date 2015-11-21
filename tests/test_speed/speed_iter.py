@@ -25,7 +25,7 @@ def rms2d_():
     state = pt.load_cpptraj_state('''
             parm {0}
             loadcrd md.trj 0 {1} crd_
-            #crdaction crd_ rms2d 
+            #crdaction crd_ rms2d
             rms2d crdset crd_ out test.dat
             '''.format(traj.top.filename, str(n_frames)))
     state.run()

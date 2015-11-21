@@ -18,6 +18,5 @@ class TestForce(unittest.TestCase):
             assert f.has_force(), 'must have force'
 
 
-
 if __name__ == "__main__":
     unittest.main()

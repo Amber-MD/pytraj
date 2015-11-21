@@ -6,8 +6,8 @@ from string import punctuation
 
 counter = Counter()
 with open(sys.argv[1]) as f:
-  for line in f:
-    counter.update(word.strip(punctuation) for word in line.split())
+    for line in f:
+        counter.update(word.strip(punctuation) for word in line.split())
 
 result = dict(counter)
 

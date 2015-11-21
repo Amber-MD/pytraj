@@ -19,6 +19,7 @@ except ImportError:
 
 @unittest.skipIf(not has_sander, 'skip if not having sander')
 class TestUpdateDihedral(unittest.TestCase):
+
     def test_update_dihedral_parm(self):
         traj = pt.iterload("./data/Tc5b.crd", "./data/Tc5b.top")
         p = pmd.load_file(traj.top.filename)

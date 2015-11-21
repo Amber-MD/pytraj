@@ -5,6 +5,7 @@ from pytraj.utils import eq, aa_eq
 
 
 class Test(unittest.TestCase):
+
     def test_load_from_list(self):
         from glob import glob
         pattern = "./data/Test_RemdTraj/rem.nc.*"

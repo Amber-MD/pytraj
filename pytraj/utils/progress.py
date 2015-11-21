@@ -9,11 +9,13 @@ pb = """
 </div>
 """
 
+
 def init_display(color='#0080FF'):
     display(HTML(pb.format(divid, color)))
+
 
 def make_bar(idx, max_frames):
     '''work with jupyter notebook.
     '''
-    s = "$('div#%s').width('%i%%')" % (divid, 100*idx/max_frames)
+    s = "$('div#%s').width('%i%%')" % (divid, 100 * idx / max_frames)
     display(Javascript(s))

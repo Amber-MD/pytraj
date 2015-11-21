@@ -7,7 +7,7 @@ import seaborn as sns
 
 dir_cm = ''
 dir_unmod = ''
-fname = "chin_alpha_gamma.pk" 
+fname = "chin_alpha_gamma.pk"
 df_cm = DataFrame(pd.read_pickle(dir_cm + fname))
 df_unmod = DataFrame(pd.read_pickle(dir_unmod + fname))
 

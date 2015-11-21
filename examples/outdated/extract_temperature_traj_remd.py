@@ -36,7 +36,7 @@ def get_frames_same_T():
     for traj in trajlist:
         for idx, frame in enumerate(traj):
             if frame.temperature == 492.2:
-                # we don't use `append` method since we want to make sure 
+                # we don't use `append` method since we want to make sure
                 # frames are in the order of simulation time
                 f4922[idx] = frame
 
@@ -55,7 +55,7 @@ def get_frames_same_T():
         print("rmsd between pytraj Frame and cpptraj Frame = %s " %
               framepy.rmsd(cpptraj[idx]))
 
-    # FIXME: `rmsd` do the fitting in the fly 
+    # FIXME: `rmsd` do the fitting in the fly
     # coords of frame would be changed
     print("YES, we can reproduce cpptraj output")
 

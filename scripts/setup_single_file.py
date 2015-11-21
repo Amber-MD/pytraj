@@ -10,10 +10,10 @@ pyxfile = "Atom.pyx"
 ext = pyxfile.split(".")[0]
 
 setup(
-      ext_modules = cythonize([
-          Extension(ext, ["Atom.pyx",],
-                    libraries=['cpptraj'],
-                    library_dirs=[cpptraj_include,],
-                    include_dirs=[PXD_include, cpptraj_include, netcdf_include])
-          ])
-     ) 
+    ext_modules=cythonize([
+        Extension(ext, ["Atom.pyx", ],
+                  libraries=['cpptraj'],
+                  library_dirs=[cpptraj_include, ],
+                  include_dirs=[PXD_include, cpptraj_include, netcdf_include])
+    ])
+)

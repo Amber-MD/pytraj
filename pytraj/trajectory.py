@@ -895,7 +895,7 @@ class Trajectory(object):
         rmsfit : {None, int, tuple}, default None
             if not None, perform superpose each Frame to to reference.
         frame_indices : {None, array-like}
-            if not None, iterate trajectory for given indices. If frame_indices is given, 
+            if not None, iterate trajectory for given indices. If frame_indices is given,
             (start, stop, step) will be ignored.
 
 

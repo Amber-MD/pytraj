@@ -16,4 +16,4 @@ pyxfiles = set(pyxfiles)
 cppdir = os.environ['AMBERHOME'] + "/AmberTools/src/cpptraj/src/"
 h_files = set([act.split("/")[-1].split(".")[0] for act in glob(cppdir + "/Action_*")])
 
-print (h_files.difference(pyxfiles))
+print(h_files.difference(pyxfiles))

@@ -212,8 +212,8 @@ class TrajectoryIterator(TrajectoryCpptraj):
             for fname, fslice in zip(filename_list, full_frame_slice):
                 self.frame_slice_list.append(frame_slice)
                 super(TrajectoryIterator, self)._load(fname,
-                                                     _top,
-                                                     frame_slice=fslice)
+                                                      _top,
+                                                      frame_slice=fslice)
         else:
             raise ValueError("filename must a string or a list of string")
 
@@ -281,7 +281,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
         rmsfit : {None, int, tuple}, default None
             if not None, perform superpose each Frame to to reference.
         frame_indices : {None, array-like}
-            if not None, iterate trajectory for given indices. If frame_indices is given, 
+            if not None, iterate trajectory for given indices. If frame_indices is given,
             (start, stop, step) will be ignored.
 
         Examples

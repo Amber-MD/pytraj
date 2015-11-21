@@ -8,6 +8,7 @@ from pytraj.testing import aa_eq
 
 
 class TestIndices(unittest.TestCase):
+
     def test_slice(self):
 
         traj1 = TrajectoryIterator(filename="data/md1_prod.Tc5b.x",

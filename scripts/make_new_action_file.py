@@ -11,6 +11,6 @@ with open("Action_Energy.pxd") as epxd, open("Action_Energy.pyx") as epyx:
     tpyx = epyx.read()
     tpyx = tpyx.replace("Action_Energy", key)
 
-    with open("./tmp/" + key+".pxd", 'w') as newpxd, open("./tmp/" + key+".pyx", 'w') as newpyx:
+    with open("./tmp/" + key + ".pxd", 'w') as newpxd, open("./tmp/" + key + ".pyx", 'w') as newpyx:
         newpxd.write((tpxd))
         newpyx.write((tpyx))

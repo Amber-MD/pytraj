@@ -171,6 +171,7 @@ def calc_linear_interaction_energy(traj=None,
 # alias
 calc_LIE = calc_linear_interaction_energy
 
+
 def _dbscan(traj=None,
             mask='*',
             minpoints=None,
@@ -220,4 +221,3 @@ def _dbscan(traj=None,
     command = ' '.join((_clusters, _epsilon, _sievetoframe, _kdist, _sieve,
                         _kfile, _metric, _random_sieveseed, _mask, _output))
     return _cluster(traj, command, top=_top, dtype='ndarray')
-

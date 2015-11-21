@@ -17,7 +17,7 @@ parm_name = root_dir + "tz2.ortho.parm7"
 
 # load to TrajectoryIterator
 traj = pt.iterload(traj_name, parm_name)
-#print(traj)
+# print(traj)
 
 # mapping different chunk of `traj` in N cores
 # need to provide `comm`

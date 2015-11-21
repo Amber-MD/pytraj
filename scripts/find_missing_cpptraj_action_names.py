@@ -13,7 +13,7 @@ cpptrajhome = os.environ.get('CPPTRAJHOME', '')
 if not cpptrajhome:
     raise EnvironmentError('must set CPPTRAJHOME')
 
-cpptraj_actlist= []
+cpptraj_actlist = []
 cpptraj_analist = []
 
 with open(cpptrajhome + '/src/Command.cpp') as fh:

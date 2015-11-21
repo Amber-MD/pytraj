@@ -7,10 +7,10 @@ python write_analysis_pxd.py {'Analysis_PhiPsi', 'Analysis_TI', 'Analysis_Wavele
 '''
 
 template = '''
-cdef extern from "{0}.h": 
+cdef extern from "{0}.h":
     cdef cppclass _{0} "{0}" (_Analysis) nogil:
-        _{0}() 
-        _DispatchObject * Alloc() 
+        _{0}()
+        _DispatchObject * Alloc()
         void Help()
 
 

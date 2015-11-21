@@ -121,20 +121,20 @@ for traj in tlist[:1]:
         print(idx)
 
     func_list = [
-        test_iterchunk,  #test_pairwise_rmsd,
-        #test_write,
-        #test_strip,
-        #test_closest,
-        #test_iter_frame_indices,
-        #test_center,
-        #test_rmsd,
-        #test_simple_frame_iter,
-        #test_frame_iter_with_mask,
-        #test_autoimage,
-        #test_autoimage_regular,
-        #test_translate_regular,
-        #test_iterchunk,
-        #test_autoimage_iterchunk_0,
+        test_iterchunk,  # test_pairwise_rmsd,
+        # test_write,
+        # test_strip,
+        # test_closest,
+        # test_iter_frame_indices,
+        # test_center,
+        # test_rmsd,
+        # test_simple_frame_iter,
+        # test_frame_iter_with_mask,
+        # test_autoimage,
+        # test_autoimage_regular,
+        # test_translate_regular,
+        # test_iterchunk,
+        # test_autoimage_iterchunk_0,
     ]
 
     estimated_GB = traj._estimated_GB

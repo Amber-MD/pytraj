@@ -13,6 +13,7 @@ traj = io.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
 
 class Test(unittest.TestCase):
+
     def test_0_trajiter(self):
         traj = io.load_sample_data("tz2")
         from pytraj.compat import zip

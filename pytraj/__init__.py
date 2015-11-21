@@ -274,6 +274,7 @@ def superpose(traj, *args, **kwd):
     traj.superpose(*args, **kwd)
     return traj
 
+
 def set_cpptraj_verbose(cm=True):
     if cm:
         set_world_silent(False)
@@ -421,6 +422,7 @@ def strip(traj_or_topology, mask):
     elif hasattr(traj_or_topology, 'mask'):
         traj_or_topology.mask = kept_mask
         return traj_or_topology
+
 
 def run(fi):
     '''shortcut for `for frame in fi: pass`

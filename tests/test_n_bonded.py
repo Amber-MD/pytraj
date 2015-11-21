@@ -13,6 +13,5 @@ class Test(unittest.TestCase):
         top = traj.top
 
 
-
 if __name__ == "__main__":
     unittest.main()

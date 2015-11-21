@@ -10,4 +10,3 @@ for pxd in pxdlist:
                 lines[i] = "#" + lines[i]
     with open("new/" + pxd, 'w') as fhnew:
         fhnew.writelines(lines)
-

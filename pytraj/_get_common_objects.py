@@ -283,3 +283,32 @@ class _super_dispatch(object):
 
         inner._is_super_dispatched = True
         return inner
+
+
+def _get_fi_with_dslist(traj, mask, frame_indices, top, crdname='dataset_coords'):
+    from pytraj import Trajectory, TrajectoryIterator
+    from pytraj.datasets import CpptrajDatasetList
+    from pytraj._shared_methods import iterframe_master
+
+    dslist = CpptrajDatasetList()
+    dslist.add_set("coords", crdname)
+    # need to set "rmsout" to trick cpptraj not giving error
+    # need " " (space) before crdset too
+
+    if isinstance(traj, (Trajectory, TrajectoryIterator)):
+        # we do atom stripping here before copying to DatasetCoordsCRD to save memory if
+        # loading from TrajectoryIterator
+        fi = traj.iterframe(mask=mask, frame_indices=frame_indices)
+        command = ''
+        # use Topology from fi (could be stripped to save memory)
+        dslist[0].top = fi.top
+        _top = fi.top
+    else:
+        # ignore frame_indices
+        fi = iterframe_master(traj)
+        command = mask
+        _top = _get_topology(traj, top)
+        dslist[0].top = _top
+    for frame in fi:
+        dslist[0].append(frame)
+    return dslist, _top, command

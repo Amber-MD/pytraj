@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-'''Aim: 
+'''Aim:
     I need to write *.pxd header files for cython based on Cpptraj *.h header file.
     this script will print list of files that have not been written'''
 
@@ -9,16 +9,16 @@ from glob import glob
 from itertools import chain
 
 pyx_include_dirs = [
-        directory for directory, dirs, files in os.walk('pytraj')
-        if '__init__.pyx' in files or '__init__.pxd' in files
-        or '__init__.py' in files
-        ]
+    directory for directory, dirs, files in os.walk('pytraj')
+    if '__init__.pyx' in files or '__init__.pxd' in files
+    or '__init__.py' in files
+]
 
 pyx_include_patterns = [
-        p+'/*.pyx' for p in pyx_include_dirs ]
+    p + '/*.pyx' for p in pyx_include_dirs]
 
 cpptrajsrc = os.environ['CPPTRAJHOME'] + "/src/"
-print (cpptrajsrc)
+print(cpptrajsrc)
 
 _mypyxlist = [glob(x) for x in pyx_include_patterns]
 mypyxlist = list(chain.from_iterable(_mypyxlist))
@@ -30,5 +30,5 @@ for headercpp in glob(cpptrajsrc + "*.h"):
     tmppyx = root + ".pyx"
     #print (tmppyx)
     if not tmppyx in long_pyx_list:
-        print (root) 
-        #pass
+        print(root)
+        # pass

@@ -1,5 +1,6 @@
 import os
-import subprocess 
+import subprocess
+
 
 def git_version():
     # Return the git revision as a string
@@ -27,4 +28,4 @@ def git_version():
 
     return GIT_REVISION
 
-print (git_version())
+print(git_version())
