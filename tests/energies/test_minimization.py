@@ -15,6 +15,7 @@ except ImportError:
 
 
 class TestMin(unittest.TestCase):
+
     @unittest.skipIf(not has_sander, 'does not have sander. skip')
     def test_0(self):
         if os.path.exists(amberhome):

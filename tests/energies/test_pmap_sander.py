@@ -17,6 +17,7 @@ mm_options = sander.gas_input(8)
 
 @unittest.skipIf(not has_sander, 'skip if not having sander')
 class TestSanderPmap(unittest.TestCase):
+
     def test_sander_pmap_simple(self):
         traj = pt.iterload('./data/md1_prod.Tc5b.x', './data/Tc5b.top')
         fname = traj.top.filename

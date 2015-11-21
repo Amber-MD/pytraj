@@ -7,6 +7,7 @@ from pytraj.testing import aa_eq
 
 
 class Test(unittest.TestCase):
+
     def test_xyz(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame = Frame()

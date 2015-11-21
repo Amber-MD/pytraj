@@ -6,6 +6,7 @@ from pytraj.utils import eq, aa_eq
 
 
 class TestSegmetationFault(unittest.TestCase):
+
     def test_issue807(self):
         # files are provided by Chris Lee
         traj = pt.iterload("./data/issue807/trunc.nc",

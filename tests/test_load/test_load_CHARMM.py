@@ -8,6 +8,7 @@ from pytraj.testing import aa_eq
 
 
 class TestCHARMM(unittest.TestCase):
+
     def test_0(self):
         top = pt.load_topology("./data/ala3.psf")
         reslit = top.residuelist

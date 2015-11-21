@@ -5,6 +5,7 @@ from pytraj.utils import assert_almost_equal as aa_eq
 
 
 class Test(unittest.TestCase):
+
     def test_0(self):
         traj = mdio.loadpdb_rcsb("2KOC")
         # coords of 1st atom of 1st frame

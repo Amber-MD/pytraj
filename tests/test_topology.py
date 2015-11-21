@@ -93,7 +93,6 @@ class TestTopology(unittest.TestCase):
 
         # *
 
-
     def test_basic(self):
         '''slicing, select'''
         top = pt.load_topology("./data/Tc5b.top")

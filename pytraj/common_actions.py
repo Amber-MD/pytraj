@@ -53,7 +53,7 @@ list_of_cal = ['calc_distance',
                'calc_mindist',
                'calc_pairwise_distance',
                'calc_rmsd_nofit',
-               'calc_rotation_matrix',]
+               'calc_rotation_matrix', ]
 
 list_of_do = ['do_translation', 'do_rotation', 'do_autoimage', 'do_scaling']
 
@@ -64,7 +64,7 @@ list_of_the_rest = ['rmsd', 'align_principal_axis', 'principal_axes', 'closest',
                     'auto_correlation_function', 'cross_correlation_function',
                     'check_structure', 'mean_structure', 'lifetime', 'lowestcurve',
                     'make_structure', 'replicate_cell', 'pucker', 'rmsd_perres',
-                    'timecorr', 'search_neighbors',]
+                    'timecorr', 'search_neighbors', ]
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
@@ -1347,9 +1347,9 @@ def get_velocity(traj, mask=None, frame_indices=None):
 
     Notes
     -----
-    Since pytraj has limited support for force and velocity info, if user wants to 
+    Since pytraj has limited support for force and velocity info, if user wants to
     load both from disk, should iterate the TrajectoryIterator (got by pytraj.iterload method)
-    
+
     .. code-block:: python
 
         import pytraj as pt

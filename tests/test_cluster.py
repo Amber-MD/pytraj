@@ -6,6 +6,7 @@ import pytraj.common_actions as pyca
 
 
 class TestClustering(unittest.TestCase):
+
     def test_kmeans(self):
         from pytraj import cluster
 

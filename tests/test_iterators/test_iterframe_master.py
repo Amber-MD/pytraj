@@ -24,6 +24,7 @@ def iter_me(obj, n_frames):
 
 
 class TestIterFrameMaster(unittest.TestCase):
+
     def test_iter(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
@@ -108,6 +109,7 @@ class TestIterFrameMaster(unittest.TestCase):
 
 
 class TestIterFrameFromArray(unittest.TestCase):
+
     def test_iterframe_from_array(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 

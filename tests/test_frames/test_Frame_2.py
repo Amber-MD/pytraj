@@ -15,6 +15,7 @@ FRAME_orig = FRAME.copy()
 
 
 class TestFrame(unittest.TestCase):
+
     def test_fit(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         trajnew = pt.iterload("./data/md1_prod.fit_to_first.Tc5b.x",

@@ -29,7 +29,6 @@ def main():
     parmfile = '../cpptraj/test/Test_IRED/1IEE_A_prot.prmtop'
     trajfile = '../cpptraj/test/Test_IRED/1IEE_A_test.mdcrd'
 
-
     # load to TrajectoryIterator, first 4000 frames
     traj = pt.iterload(trajfile, parmfile)
 

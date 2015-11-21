@@ -20,6 +20,7 @@ except ImportError:
 
 @unittest.skipIf(not has_sander, 'skip if not having sander')
 class TestSander(unittest.TestCase):
+
     @unittest.skipIf(not amberhome, 'skip since there is no AMBERHOME')
     def test_GB(self):
         # compare to saved test: GB

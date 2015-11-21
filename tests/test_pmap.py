@@ -268,6 +268,7 @@ class TestCheckValidCommand(unittest.TestCase):
         for word in cpptraj_commands.analysis_commands:
             self.assertRaises(ValueError, lambda: pt.pmap(word, traj, n_cores=2))
 
+
 class TestVolmap(unittest.TestCase):
 
     def test_volmap(self):
@@ -286,7 +287,7 @@ class TestVolmap(unittest.TestCase):
                 serial_out = pt.volmap(traj, mask=mask, grid_spacing=grid_spacing, size=size)
                 parallel_out = pt.pmap(pt.volmap, traj, mask=mask, grid_spacing=grid_spacing,
                                        size=size, n_cores=n_cores)
-                self.assertEqual(serial_out.shape, tuple(2*x for x in size))
+                self.assertEqual(serial_out.shape, tuple(2 * x for x in size))
                 aa_eq(serial_out, parallel_out)
 
 
