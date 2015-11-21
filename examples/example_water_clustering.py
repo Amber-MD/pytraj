@@ -12,7 +12,7 @@ print(traj)
 wat_traj = traj[':100-500@O']
 
 # you can use below for lazy-loading
-#wat_traj = traj(mask=':100-500@O')
+# wat_traj = traj(mask=':100-500@O')
 # traj(...) will create iterator, like `range(...)` in python
 
 # iterate every frame and do clustering

@@ -2,7 +2,7 @@ from glob import glob
 
 lines = []
 # turn on later
-#testlist = glob("*.py") + glob("./more_compicated_examples/*.py")
+# testlist = glob("*.py") + glob("./more_compicated_examples/*.py")
 testlist = glob("*.py")
 
 # remove ./run_all_and_find_fails.py to avoid infinite loops
@@ -11,7 +11,7 @@ remove_list = ['run_examples.py', 'get_py_files.py',
                'example_randomize_ions.py',
                'example_energy_decomposition.py',
                'example_rotate_dihedral_and_energy_calc.py',
-               'example_rmsd_2trajs.py', # do not have large files on travis
+               'example_rmsd_2trajs.py',  # do not have large files on travis
                'example_kmeans_sklearn.py',
                'example_pca_sklearn_vs_cpptraj.py',
                'example_load_file_from_url.py']

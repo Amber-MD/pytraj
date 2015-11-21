@@ -8,6 +8,7 @@ from pytraj.utils import goto_temp_folder
 
 
 class Test(unittest.TestCase):
+
     def test_1(self):
         # TODO: get absolute path so we can use `goto_temp_folder`
         # if not: wrong dir if using TrajectoryIterator

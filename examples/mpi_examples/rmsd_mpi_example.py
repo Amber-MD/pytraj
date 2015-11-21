@@ -63,7 +63,7 @@ if rank == 0:
     # YES
     #sarr = np.empty((size, traj.n_frames))
     #REF = None
-    #for i in range(size):
+    # for i in range(size):
     #    fname = "remd.x.00" + str(i)
     #    straj = io.load(fname, traj.top)
     #    if i == 0:

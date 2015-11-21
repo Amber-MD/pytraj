@@ -1,7 +1,7 @@
 import pytraj as pt
 
 # turn on this to see cpptraj's stdout
-#pt.set_cpptraj_verbose(True)
+# pt.set_cpptraj_verbose(True)
 
 # use iterload for memory saving
 traj = pt.iterload("../tests/data/md1_prod.Tc5b.x", "../tests/data/Tc5b.top")
