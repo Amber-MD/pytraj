@@ -81,7 +81,6 @@ def _2darray_to_atommask_groups(seq):
 
 
 def _assert_mutable(trajiter):
-    from pytraj import TrajectoryIterator
     if isinstance(trajiter, TrajectoryIterator):
         raise ValueError(
             "This analysis does not support immutable object. Use `pytraj.Trajectory`")
