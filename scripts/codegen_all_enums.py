@@ -7,9 +7,9 @@ try:
 except:
     raise ValueError("must specify keyword for sys.argv[1]")
 
-flist = ['MetaData', 
-        'DataSet',
-        ]
+flist = ['MetaData',
+         'DataSet',
+         ]
 
 for fname in flist:
     fname = fname + ".h"

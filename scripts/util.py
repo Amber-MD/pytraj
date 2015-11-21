@@ -10,6 +10,7 @@ def print_blank_line(num):
     for i in range(num):
         print("")
 
+
 def _to_lower_case(word):
     """convert function name from C/C++ to Python style
     SetTotalFrames --> set_total_frames
@@ -21,22 +22,25 @@ def _to_lower_case(word):
             # don't add "_" to first letter
             try:
                 if i == 0:
-                    x = x.lower()  
-                elif i != 0 and word[i+1].islower():
+                    x = x.lower()
+                elif i != 0 and word[i + 1].islower():
                     x = "_" + x.lower()
-            except: pass
+            except:
+                pass
         newword.append(x)
     return "".join(newword)
+
 
 def func_c_to_py(code):
     for i, line in enumerate(code):
         pattern = "    def (.+?)\("
-        foundlist= re.findall(pattern, line)
+        foundlist = re.findall(pattern, line)
         if foundlist:
             func = foundlist[0]
             print(func)
             newfunc = _to_lower_case(func)
             code[i] = code[i].replace(func, newfunc, 1)
+
 
 def find_class(src):
     # p = re.compile(r'#include "(.+?).h"')
@@ -58,17 +62,17 @@ class Line_codegen:
     # this is OrderedDict
     replace_dict = OrderedDict(
         (
-        ("{", ""),
-        (";", ""),
-        (" ,", ","),
-        (" ( ", "("),
-        (" ) ", ")"),
-        #(" ()", "()"),
-        (" [ ]", "[]"),
-        (" [", "["),
-        (" &", "&"),
-        (")const", ") const"),
-        ("bool", "bint")))
+            ("{", ""),
+            (";", ""),
+            (" ,", ","),
+            (" ( ", "("),
+            (" ) ", ")"),
+            #(" ()", "()"),
+            (" [ ]", "[]"),
+            (" [", "["),
+            (" &", "&"),
+            (")const", ") const"),
+            ("bool", "bint")))
 
     def __init__(self, myline):
         self.myline = myline
@@ -97,18 +101,17 @@ class Line_codegen:
         for classname in classlist:
             if classname in self.myline:
                 cond1 = not re.search("_" + classname, self.myline)
-                #cond2 = re.search(" " + classname, self.myline) 
+                #cond2 = re.search(" " + classname, self.myline)
                 #cond3 = self.myline.startswith(classname+" ")
                 #cond4 = self.myline.startswith(classname+"(")
                 #cond5 = self.myline.startswith(classname+"*")
 
-                #if cond1 and cond2 and cond3 and cond4 and cond5:
+                # if cond1 and cond2 and cond3 and cond4 and cond5:
                 if cond1:
                     self.replace(classname, r"_" + classname)
-    
+
     def replace(self, oldp, newp):
         self.myline = self.myline.replace(oldp, newp)
-
 
     def replace_others(self):
         """
@@ -144,16 +147,16 @@ class Line_codegen:
             self.myline = re.sub(oldword, newword, self.myline)
 
         # change: "vector[int] const&" to "const vector[int]&"
-        # find type in [ ] 
+        # find type in [ ]
         p = re.compile("vector\[(\w+)\] const&")
         words = re.findall(p, self.myline)
         for word in words:
             oldp = "vector[%s] const&" % word
             newp = "const vector[%s]&" % word
             self.replace(oldp, newp)
-    
+
     def remove_word(self):
-        wlist = [" const", " inline", "const", "inline", "&" ]
+        wlist = [" const", " inline", "const", "inline", "&"]
         for word in wlist:
             self.replace(word, "")
 
@@ -161,7 +164,7 @@ class Line_codegen:
         """
         there will be error if having something like this
         _DihedralParmType() : pk_(0 ), pn_(0 ), phase_(0 ), scee_(0 ), scnb_(0)
-        Or 
+        Or
         _DihedralParmType(): pk_(0 ), pn_(0 ), phase_(0 ), scee_(0 ), scnb_(0)
 
         Aim: remove ": pk_(0 ), pn_(0 ), phase_(0 ), scee_(0 ), scnb_(0)"
@@ -180,10 +183,9 @@ class Line_codegen:
         self.replace(") :", "):")
 
     def has_ignored_words(self):
-        wlist = ["#",]
+        wlist = ["#", ]
 
         for word in wlist:
             if word in self.myline:
                 return True
         return False
-

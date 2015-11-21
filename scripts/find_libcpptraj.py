@@ -4,13 +4,14 @@ import os
 import sys
 from glob import glob
 
+
 def find_lib(libname, unique=False):
     """return a list of all library files"""
     paths = os.environ.get('LD_LIBRARY_PATH', '').split(':')
-    paths +=  os.environ.get('AMBERHOME', '').split(':')
-    paths +=  os.environ.get('PYTHONPATH', '').split(':')
-    paths +=  os.environ.get('CPPTRAJHOME', '').split(':')
-    paths +=  os.environ.get('PATH', '').split(':')
+    paths += os.environ.get('AMBERHOME', '').split(':')
+    paths += os.environ.get('PYTHONPATH', '').split(':')
+    paths += os.environ.get('CPPTRAJHOME', '').split(':')
+    paths += os.environ.get('PATH', '').split(':')
 
     # make a copy to avoid looping
     tmp_path = paths[:]
@@ -40,4 +41,4 @@ def find_lib(libname, unique=False):
             return lib_path_list
 
 if __name__ == '__main__':
-    print (find_lib('cpptraj', True))
+    print(find_lib('cpptraj', True))

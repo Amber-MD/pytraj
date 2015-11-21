@@ -14,6 +14,7 @@ from random import shuffle
 import time
 from time import sleep
 
+
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
@@ -40,10 +41,10 @@ try:
     cmdclass['build_ext'] = build_ext
 except ImportError:
     has_cython = False
-    from distutils.command.build_ext import build_ext 
+    from distutils.command.build_ext import build_ext
     cmdclass['build_ext'] = build_ext
     #sys.stderr.write('You must have Cython installed to install pytraj\n')
-    #sys.exit(0)
+    # sys.exit(0)
 
 # check AMBERHOME
 try:
@@ -100,31 +101,31 @@ else:
     but we're trying to dowload and build libcpptraj for you. (5-10 minutes)
     (check ./cpptraj/ folder after installation)
     """
-    print (nice_message)
+    print(nice_message)
     sleep(3)
     os.system("sh ./installs/install_cpptraj_git.sh")
     cpptraj_dir = os.path.join(rootname, "cpptraj")
     cpptraj_include = os.path.join(cpptraj_dir, 'src')
-    libdir =  os.path.join(cpptraj_dir, 'lib')
-    #sys.exit(0)
+    libdir = os.path.join(cpptraj_dir, 'lib')
+    # sys.exit(0)
 
 # get *.pyx files
 pxd_include_dirs = [
-        directory for directory, dirs, files in os.walk('pytraj')
-        if '__init__.pyx' in files or '__init__.pxd' in files
-        or '__init__.py' in files
-        ]
+    directory for directory, dirs, files in os.walk('pytraj')
+    if '__init__.pyx' in files or '__init__.pxd' in files
+    or '__init__.py' in files
+]
 
-pxd_include_patterns = [ 
-        p + '/*.pxd' for p in pxd_include_dirs ]
+pxd_include_patterns = [
+    p + '/*.pxd' for p in pxd_include_dirs]
 
 pyxfiles = []
 for p in pxd_include_dirs:
     pyxfiles.extend([ext.split(".")[0] for ext in glob(p + '/*.pyx') if '.pyx' in ext])
 
 # check command line
-extra_compile_args=['-O0', '-ggdb']
-extra_link_args=['-O0', '-ggdb']
+extra_compile_args = ['-O0', '-ggdb']
+extra_link_args = ['-O0', '-ggdb']
 
 openmp_str = "-openmp"
 if openmp_str in sys.argv:
@@ -134,7 +135,7 @@ if openmp_str in sys.argv:
     with_openmp = True
     sys.argv.remove(openmp_str)
 else:
-    with_openmp = False 
+    with_openmp = False
 
 if with_openmp:
     extra_compile_args.append("-fopenmp")
@@ -143,7 +144,7 @@ if with_openmp:
 KeyErrorTXT = """
 Can not use -faster_build with `install`,
 try  "python ./setup.py build -faster_build
-then "python ./setup.py install" 
+then "python ./setup.py install"
 """
 
 faster_build_str = "-faster_build"
@@ -179,84 +180,86 @@ for ext_name in pyxfiles:
 
     sources = [pyxfile]
     extmod = Extension(ext_name,
-                    sources=sources,
-                    libraries=['cpptraj'],
-                    language='c++',
-                    library_dirs=[libdir,],
-                    include_dirs=[cpptraj_include, pytraj_home],
-                    extra_compile_args=extra_compile_args,
-                    extra_link_args=extra_link_args)
+                       sources=sources,
+                       libraries=['cpptraj'],
+                       language='c++',
+                       library_dirs=[libdir, ],
+                       include_dirs=[cpptraj_include, pytraj_home],
+                       extra_compile_args=extra_compile_args,
+                       extra_link_args=extra_link_args)
 
     extmod.cython_directives = {
-            'embedsignature':True,
-            'boundscheck': False,
-            'wraparound':False,
-            }
+        'embedsignature': True,
+        'boundscheck': False,
+        'wraparound': False,
+    }
     ext_modules.append(extmod)
 
 setup_args = {}
 packages = [
-        'pytraj',
-        'pytraj.utils',
-        'pytraj.actions',
-        'pytraj.analyses',
-        'pytraj.datasets',
-        'pytraj.externals',
-        'pytraj.trajs',
-        'pytraj.datafiles',
-        'pytraj.datafiles.Ala3',
-        'pytraj.datafiles.tz2',
-        'pytraj.plot',
-        'pytraj.math',
-        'pytraj.core',
-        'pytraj.parallel',
-        'pytraj.cluster',
-        'pytraj.sandbox',
-        ]
+    'pytraj',
+    'pytraj.utils',
+    'pytraj.actions',
+    'pytraj.analyses',
+    'pytraj.datasets',
+    'pytraj.externals',
+    'pytraj.trajs',
+    'pytraj.datafiles',
+    'pytraj.datafiles.Ala3',
+    'pytraj.datafiles.tz2',
+    'pytraj.plot',
+    'pytraj.math',
+    'pytraj.core',
+    'pytraj.parallel',
+    'pytraj.cluster',
+    'pytraj.sandbox',
+]
 
 pylen = len('pytraj') + 1
 pxdlist = [p.replace("pytraj/", "") for p in pxd_include_patterns]
 sample_data = ["datafiles/Ala3/Ala3.*", "datafiles/tz2/tz2.*"]
-datalist = pxdlist +  sample_data
+datalist = pxdlist + sample_data
+
 
 def build_func(my_ext):
     return setup(name="pytraj",
-        version=pytraj_version,
-        author="Hai Nguyen",
-        author_email="hainm.comp@gmail.com",
-        url="https://github.com/pytraj/pytraj",
-        packages=packages,
-        description="""Python API for cpptraj: a data analysis package for biomolecular simulation""",
-        license = "BSD License",
-        classifiers=[
-                    'Development Status :: 4 - Beta',
-                    'Operating System :: Unix',
-                    'Operating System :: MacOS',
-                    'Intended Audience :: Science/Research',
-                    'License :: OSI Approved :: BSD License',
-                    'Programming Language :: Python :: 2.6'
-                    'Programming Language :: Python :: 2.7',
-                    'Programming Language :: Python :: 3.3',
-                    'Programming Language :: Python :: 3.4',
-                    'Programming Language :: Cython',
-                    'Programming Language :: C',
-                    'Programming Language :: C++',
-                    'Topic :: Scientific/Engineering'],
-        ext_modules = my_ext,
-        package_data = {'pytraj' : datalist},
-        cmdclass = cmdclass,
-        )
+                 version=pytraj_version,
+                 author="Hai Nguyen",
+                 author_email="hainm.comp@gmail.com",
+                 url="https://github.com/pytraj/pytraj",
+                 packages=packages,
+                 description="""Python API for cpptraj: a data analysis package for biomolecular simulation""",
+                 license="BSD License",
+                 classifiers=[
+                     'Development Status :: 4 - Beta',
+                     'Operating System :: Unix',
+                     'Operating System :: MacOS',
+                     'Intended Audience :: Science/Research',
+                     'License :: OSI Approved :: BSD License',
+                     'Programming Language :: Python :: 2.6'
+                     'Programming Language :: Python :: 2.7',
+                     'Programming Language :: Python :: 3.3',
+                     'Programming Language :: Python :: 3.4',
+                     'Programming Language :: Cython',
+                     'Programming Language :: C',
+                     'Programming Language :: C++',
+                     'Topic :: Scientific/Engineering'],
+                 ext_modules=my_ext,
+                 package_data={'pytraj': datalist},
+                 cmdclass=cmdclass,
+                 )
+
 
 def remind_ld_lib_path(build_tag):
     if build_tag:
         #from scripts.acsii_art import batman
-        print ("")
-        print ("")
+        print("")
+        print("")
         #print (batman)
-        print ("make sure to add %s to your LD_LIBRARY_PATH" % libdir)
-        print ("")
+        print("make sure to add %s to your LD_LIBRARY_PATH" % libdir)
+        print("")
     else:
-        print ("not able to install pytraj")
+        print("not able to install pytraj")
 
 if __name__ == "__main__":
     if not faster_build:
@@ -265,15 +268,15 @@ if __name__ == "__main__":
     else:
         from multiprocessing import cpu_count
         n_cpus = cpu_count()
-        num_each = int(len(ext_modules)/n_cpus)
+        num_each = int(len(ext_modules) / n_cpus)
 
         sub_ext_modules_list = []
         # there is idiom to do this but I am too lazy to think
         for i in range(n_cpus):
-            if i != n_cpus-1:
-                sub_ext_modules_list.append(ext_modules[i*num_each:num_each*(i+1)])
+            if i != n_cpus - 1:
+                sub_ext_modules_list.append(ext_modules[i * num_each:num_each * (i + 1)])
             else:
-                sub_ext_modules_list.append(ext_modules[num_each*i:])
+                sub_ext_modules_list.append(ext_modules[num_each * i:])
 
         from multiprocessing import Pool
         pool = Pool(n_cpus)

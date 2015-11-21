@@ -26,13 +26,13 @@ except:
     pass
 
 for classname in list(cpp.classes.keys()):
-    #create enum
+    # create enum
     if cpp.classes[classname]['enums']['public']:
         for enumlist in cpp.classes[classname]['enums']['public']:
             print(indent + "# %s" % sys.argv[1])
             edictname = enumlist['name']
             if 'Type' in edictname:
-                edictname = edictname.replace("Type","")
+                edictname = edictname.replace("Type", "")
             edictname = edictname + "Dict"
             print(edictname + " = {")
 
@@ -46,4 +46,3 @@ for classname in list(cpp.classes.keys()):
 
             # end dict
             print("}")
-

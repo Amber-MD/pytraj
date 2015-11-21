@@ -10,6 +10,7 @@ Do not use this script for now, got
 import os
 from multiprocessing import Pool
 
+
 def func(rank):
     # openmp
     os.system('python setup.py build_ext --rank=%s -i' % rank)

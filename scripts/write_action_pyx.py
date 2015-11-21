@@ -15,7 +15,7 @@ exlucdedList = ['Rmsd', 'Dihedral']
 for excluded_action in exlucdedList:
     actionlist.remove(excluded_action)
 
-#print actionlist
+# print actionlist
 text = """# distutils: language = c++
 from cython.operator cimport dereference as deref
 
@@ -35,10 +35,10 @@ cdef class Action_ACTION_NAME (Action):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
-""" 
+"""
 
 for action in actionlist:
     tmp = text.replace("ACTION_NAME", action)

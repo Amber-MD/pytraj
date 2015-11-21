@@ -16,4 +16,3 @@ with open(fname, 'r') as fh:
             linegen.replace("typedef", "ctypedef")
             linegen.replace_waka()
             print(linegen.myline)
-

@@ -22,7 +22,7 @@ cdef class {0}(Analysis):
         cdef FunctPtr func = FunctPtr()
         func.ptr = &(self.thisptr.Alloc)
         return func
-        
+
     def help(self):
         self.thisptr.Help()
 '''

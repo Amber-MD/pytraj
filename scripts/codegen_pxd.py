@@ -29,7 +29,7 @@ if short_filename.startswith("Action") or short_filename.startswith("Analysis"):
 # (adding to setup.py seems not work)
 print("# distutils: language = c++")
 
-#add vector, string if having ones
+# add vector, string if having ones
 stdlist = ['vector', 'string']
 with open(filename, 'r') as fh:
     linelist = " ".join(fh.readlines())
@@ -50,7 +50,7 @@ print('cdef extern from "%s": ' % short_filename)
 
 # make assumption that there's only one class in header file
 for classname in list(cpp.classes.keys()):
-    #create enum
+    # create enum
     if cpp.classes[classname]['enums']['public']:
         for enumlist in cpp.classes[classname]['enums']['public']:
             print(indent + "# %s" % sys.argv[1])
@@ -61,7 +61,7 @@ for classname in list(cpp.classes.keys()):
                 enumvarname = enumvar['name']
                 enumvarnameext = classname + "::" + enumvarname
                 print(indent * 2 + '%s "%s"' % (enumvarname, enumvarnameext))
-    
+
     # declare cpp class
     extcl = "_" + classname
     if not need_extra_line:
@@ -86,8 +86,8 @@ for classname in list(cpp.classes.keys()):
 
 for classname in list(cpp.classes.keys()):
     if not need_extra_line:
-        print("cdef class %s:" %classname)
+        print("cdef class %s:" % classname)
     else:
-        print("cdef class %s (%s):" %(classname, actionroot))
-    print("%scdef _%s* thisptr" %(indent, classname))
-    print() 
+        print("cdef class %s (%s):" % (classname, actionroot))
+    print("%scdef _%s* thisptr" % (indent, classname))
+    print()
