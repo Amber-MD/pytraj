@@ -22,7 +22,7 @@ def check_valid_command(commands):
 
     for cm in commands:
         cm = cm.strip()
-        if cm.startswith('rms') and 'refindex' not in cm:
+        if cm.startswith('rms') and 'refindex' not in cm and 'reference' not in cm:
             raise ValueError('must prodive refindex for rms/rmsd command')
         if cm.startswith('matrix'):
             raise ValueError('Not support matrix')

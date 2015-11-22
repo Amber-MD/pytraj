@@ -102,6 +102,32 @@ def do(lines, traj, *args, **kwd):
     ...              'rms',
     ...              'radgyr',
     ...              'molsurf',], traj)
+
+    >>> # a list of commands with reference
+    >>> # need to explicitly add ``reference`` keyword and specify `ref=`
+    >>> # calculate rms and use traj[3] as reference
+    >>> data = pt.do([
+    ...              'rms myrms reference @CA',
+    ...              'radgyr myrg @CA nomax',
+    ...              'molsurf',], traj, ref=traj[3])
+    >>> data['myrms']
+    array([ 3.46476336,  3.4343108 ,  2.94523273, ...,  4.21848857,
+            4.4566457 ,  3.94477017])
+    >>> data['myrms'][3]
+    0.0
+
+    >>> # a list of commands with reference
+    >>> # can also specify 'refindex'
+    >>> # calculate rms and use traj[3] as reference
+    >>> data = pt.do([
+    ...              'rms myrms refindex 0 @CA',
+    ...              'radgyr myrg @CA nomax',
+    ...              'molsurf',], traj, ref=traj[3])
+    >>> data['myrms']
+    array([ 3.46476336,  3.4343108 ,  2.94523273, ...,  4.21848857,
+            4.4566457 ,  3.94477017])
+    >>> data['myrms'][3]
+    0.0
     """
     cdef DatasetList dslist
 

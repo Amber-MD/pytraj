@@ -183,8 +183,15 @@ class TestCpptrajCommandStyle(unittest.TestCase):
                            traj,
                            ref=traj[3],
                            n_cores=n_cores)
+            # another way to get reference
+            data2 = pt.pmap(['rms @CA reference'],
+                           traj,
+                           ref=traj[3],
+                           n_cores=n_cores)
             arr = pt.tools.dict_to_ndarray(data)[0]
+            arr2 = pt.tools.dict_to_ndarray(data2)[0]
             aa_eq(arr, pt.rmsd(traj, 3, '@CA'))
+            aa_eq(arr2, pt.rmsd(traj, 3, '@CA'))
 
             # use 4-th and 5-th Frame for reference
             data = pt.pmap(
