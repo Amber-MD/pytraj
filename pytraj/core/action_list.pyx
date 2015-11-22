@@ -144,7 +144,6 @@ def do(lines, traj, *args, **kwd):
     if isinstance(lines, (list, tuple, string_types)):
         ref = kwd.get('ref')
         if ref is not None:
-            ref = _get_refference(traj, ref)
             if isinstance(ref, Frame):
                 reflist = [ref, ]
             else:
