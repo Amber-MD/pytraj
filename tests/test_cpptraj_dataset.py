@@ -120,7 +120,7 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
         dslist[-1].data = [2, 3]
         aa_eq(dslist[-1].values, [2, 3])
 
-        # double
+        # float
         dslist.add_new(dtype='float', name='my_float')
         dslist[-1].data = [2, 3]
         aa_eq(dslist[-1].values, [2, 3])
