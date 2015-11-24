@@ -27,7 +27,7 @@ crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
 '''
 
 
-class TestProject(unittest.TestCase):
+class TestProjection(unittest.TestCase):
 
     def test_projection(self):
         traj = pt.load("./data/tz2.nc", "./data/tz2.parm7")
