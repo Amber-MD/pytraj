@@ -2691,7 +2691,7 @@ def pca(traj,
         n_vecs=2,
         dtype='ndarray',
         top=None):
-    '''perform PCA analysis.
+    '''perform PCA analysis by following below steps:
 
     - perform rmsfit to first frame with ``mask``
     - compute average frame with ``mask``
