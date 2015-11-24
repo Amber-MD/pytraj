@@ -233,7 +233,9 @@ cdef class TrajectoryCpptraj:
             for (_tmp_start, _tmp_stop) in _split_range(chunksize, start, stop):
                 # always create new Trajectory
                 farray = Trajectory()
-                farray.top = self.top.copy()
+                # do not make Topology copy here to save time.
+                # we don't use farray.top assignment to avoid extra copy
+                farray._top = self.top
                 real_n_frames = len(range(_tmp_start, _tmp_stop))
                 farray._allocate(real_n_frames, farray.top.n_atoms)
                 farray._boxes = np.empty((real_n_frames, 6), dtype='f8')

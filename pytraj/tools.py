@@ -690,3 +690,8 @@ def make_fake_topology(n_atoms):
         residue = Residue('Y', 0)
         top.add_atom(atom, residue)
     return top
+
+def dir_(obj):
+    '''return a list of obj's attributes with no private method
+    '''
+    return [x for x in dir(obj) if not x.startswith('_')]

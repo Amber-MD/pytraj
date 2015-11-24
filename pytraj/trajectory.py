@@ -107,6 +107,7 @@ class Trajectory(object):
     def top(self, value):
         '''Topology
         '''
+        # always make a copy
         self._top = value.copy()
 
     @property
