@@ -135,7 +135,7 @@ from .common_actions import (
     rotate_dihedral, make_structure, scale, clustering_dataset, randomize_ions,
     set_dihedral, crank, closest, search_neighbors, replicate_cell, _rotdif,
     calc_pairdist, _grid, transform, lowestcurve, calc_diffusion, calc_volmap,
-    calc_multivector)
+    calc_multivector, pca)
 
 from .matrix import dist
 distance_matrix = dist
@@ -210,6 +210,7 @@ pair_distribution = pairdist
 lowest_curve = lowestcurve
 diffusion = calc_diffusion
 volmap = calc_volmap
+calc_pca = pca
 
 adict = ActionDict()
 analdict = AnalysisDict()

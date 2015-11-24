@@ -290,8 +290,7 @@ cdef extern from "DataSet_Modes.h":
         const Darray& AvgCrd() const 
         const Darray& Mass() const 
         int NavgCrd() const 
-        double * Avg_FramePtr() 
-        const double * Avg_FramePtr() const 
+        double * AvgFramePtr() 
         void AllocateAvgCoords(int n)
         void SetAvgCoords(const _Dataset2D&)
         int SetModes(bint, int, int, const double *, const double *)

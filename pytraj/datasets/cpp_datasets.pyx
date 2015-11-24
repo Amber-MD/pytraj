@@ -913,6 +913,18 @@ cdef class DatasetModes(Dataset):
             return np.array([ptr[i] for i in
                              range(n_modes*vsize)]).reshape(n_modes, vsize)
 
+    def _allocate_avgcoords(self, int n):
+        self.thisptr.AllocateAvgCoords(n)
+
+    def _set_avg_frame(self, double[:] arr):
+        cdef unsigned int i 
+        cdef double* ptr = self.thisptr.AvgFramePtr() 
+
+        for i in range(arr.shape[0]):
+            ptr[i] = arr[i]
+
+    def _get_avg_crd(self):
+        return self.thisptr.AvgCrd()
 
 cdef class DatasetMatrix3x3 (Dataset):
     def __cinit__(self):

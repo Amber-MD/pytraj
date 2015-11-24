@@ -53,7 +53,8 @@ list_of_cal = ['calc_distance',
                'calc_mindist',
                'calc_pairwise_distance',
                'calc_rmsd_nofit',
-               'calc_rotation_matrix', ]
+               'calc_rotation_matrix', 
+               'calc_pca',]
 
 list_of_do = ['do_translation', 'do_rotation', 'do_autoimage', 'do_scaling']
 
@@ -2256,7 +2257,7 @@ def timecorr(vec0,
              tcorr=10000.,
              norm=False,
              dtype='ndarray'):
-    """TODO: doc. not yet assert to cpptraj's output
+    """compute time correlation.
 
     Parameters
     ----------
@@ -2267,6 +2268,7 @@ def timecorr(vec0,
     tcorr : float, default 10000.
     norm : bool, default False
     """
+    # TODO: doc. not yet assert to cpptraj's output
     act = CpptrajAnalyses.Analysis_Timecorr()
 
     cdslist = CpptrajDatasetList()
@@ -2640,64 +2642,124 @@ def make_structure(traj=None, mask="", top=None):
     act(command, traj, top=_top)
 
 
-def _analyze_modes(data,
-                   mode='',
-                   beg=1,
-                   end=50,
-                   bose=False,
-                   factor=1.0,
-                   maskp=None,
-                   trajout='',
-                   pcmin=None,
-                   pcmax=None,
-                   tmode=None):
-    # TODO: not finished yet
-    '''Perform analysis on calculated Eigenmodes
+@_super_dispatch()
+def _projection(traj,
+                mask,
+                eigenvalues,
+                eigenvectors,
+                scalar_type,
+                average_coords,
+                frame_indices=None,
+                dtype='ndarray',
+                top=None):
+
+    act = CpptrajActions.Action_Projection()
+    dslist = CpptrajDatasetList()
+
+    mode_name = 'my_modes'
+    dslist.add_set('modes', mode_name)
+    is_reduced = False
+    dataset_mode = dslist[-1]
+    n_vectors = len(eigenvalues)
+    dataset_mode._set_modes(is_reduced, n_vectors, eigenvectors.shape[1],
+                          eigenvalues, eigenvectors.flatten())
+    dataset_mode.scalar_type = scalar_type
+
+    dataset_mode._allocate_avgcoords(3*average_coords.shape[0])
+    dataset_mode._set_avg_frame(average_coords.flatten())
+
+    _mask = mask
+    _evecs = 'evecs {}'.format(mode_name)
+    _beg_end = 'beg 1 end {}'.format(n_vectors)
+    command = ' '.join((_evecs, _mask, _beg_end))
+    act(command, traj, top=top, dslist=dslist)
+    dslist._pop(0)
+    return _get_data_from_dtype(dslist, dtype=dtype)
+
+
+@_super_dispatch(has_ref=True)
+def superpose(traj, ref=0, mask='', frame_indices=None, top=None): 
+    act = CpptrajActions.Action_Rmsd()
+    act(mask, traj, top=top)
+    return traj
+
+
+def pca(traj,
+        mask,
+        n_vecs=2,
+        dtype='ndarray',
+        top=None):
+    '''perform PCA analysis.
+
+    - perform rmsfit to first frame with ``mask``
+    - compute average frame with ``mask``
+    - rmsfit to average frame with ``mask``
+    - compute covariance matrix
+    - diagonalize the matrix to get eigenvectors and eigenvalues
+    - perform projection of each frame with mask to each eigenvector 
 
     Parameters
     ----------
-    data :
-    mode : str, {'fluct', 'displ', 'corr', 'eigenval', 'trajout', 'rmsip'}
-        - fluct:    RMS fluctations from normal modes
-        - displ:    Displacement of cartesian coordinates along normal mode directions
-        - corr:     Calculate dipole-dipole correlation functions.
-        - eigenval: Calculate eigenvalue fractions.
-        - trajout:  Calculate pseudo-trajectory along given mode.
-        - rmsip:    Root mean square inner product.
-    beg : int
-    end : int
-    bose : bool, optional
-    factor : optional
-    maskp : a string or list of strings, optional
-    trajout : output filename, optional
+    traj : Trajectory
+        traj must be ``pytraj.Trajectory``, which can be created by ``pytraj.load`` method.
+    mask : str
+        atom mask
+    n_vecs : int, default 2
+        number of eigenvectors. If user want to compute projection for all eigenvectors, 
+        should specify n_vecs=-1 (or a negative number)
+    frame_indices : {None, array-like}
+        if given, only perform analysis for those frames
+    dtype : return datatype
+    top : Topology, optional
+
+    Returns
+    -------
+    projection_data: ndarray, shape=(n_vecs, n_frames)
+    (eigenvalues, eigenvectors)
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2()[:]
+
+    >>> # compute pca for first and second modes
+    >>> pca_data = pt.pca(traj, '!@H=', n_vecs=2)
+    >>> # get projection values
+    >>> pca_data[0] # doctest: +SKIP
+    array([[  4.93425131,  13.80002308,  20.61605835, ..., -57.92280579,
+            -61.25728607, -52.85142136],
+           [  4.03333616,  -6.9132452 , -14.53991318, ...,  -6.757936  ,
+              2.1086719 ,  -3.60922861]], dtype=float32)
+    >>> # get eigenvalues for first 2 modes
+    >>> pca_data[1][0] # doctest: +SKIP
+    array([ 1399.36472919,   240.42342439])
+
+    >>> # compute pca for all modes
+    >>> pca_data = pt.pca(traj, '!@H=', n_vecs=-1)
     '''
-    pass
+    # TODO: move to another file
+    # NOTE: do not need to use _super_dispatch here since we already use in _projection
+    from pytraj import matrix
 
+    traj.superpose(ref=0, mask=mask)
+    avg = mean_structure(traj)
+    traj.superpose(ref=avg, mask=mask)
+    avg2 = mean_structure(traj, mask=mask)
 
-def _projection(traj,
-                mask,
-                modes,
-                scalar_type,
-                frame_indices=None,
-                dtype='dataset',
-                top=None):
-    # TODO: not done yet
-    act = CpptrajActions.Action_Projection()
-    dslist = CpptrajDatasetList()
-    fi = _get_fiterator(traj, frame_indices)
-    _top = _get_topology(traj, top)
+    mat = matrix.covar(traj, mask)
+    if n_vecs < 0:
+        n_vecs = mat.shape[0]
+    else:
+        n_vecs = n_vecs
 
-    dslist.add_set('modes', 'tmp_evecs')
-    is_reduced = False
-    eigenvalues, eigenvectors = modes
-    dslist[-1]._set_modes(is_reduced, len(eigenvalues), eigenvectors.shape[1],
-                          eigenvalues, eigenvectors.flatten())
-    dslist[-1].scalar_type = scalar_type
-    _mask = mask
-    _evecs = 'evecs tmp_evecs'
-    command = ' '.join((_evecs, _mask))
-    act(command, fi, top=_top, dslist=dslist)
-    return _get_data_from_dtype(dslist, dtype=dtype)
+    eigenvalues, eigenvectors = matrix.diagonalize(mat, n_vecs=n_vecs, dtype='tuple')
+    projection_data = _projection(traj, mask=mask, average_coords=avg2.xyz,
+                                  eigenvalues=eigenvalues, 
+                                  eigenvectors=eigenvectors,
+                                  scalar_type='covar', dtype=dtype)
+    return projection_data, (eigenvalues, eigenvectors)
+
+calc_pca = pca
 
 
 @_super_dispatch()
