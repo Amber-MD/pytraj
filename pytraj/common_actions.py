@@ -2257,7 +2257,7 @@ def timecorr(vec0,
              tcorr=10000.,
              norm=False,
              dtype='ndarray'):
-    """TODO: doc. not yet assert to cpptraj's output
+    """compute time correlation.
 
     Parameters
     ----------
@@ -2268,6 +2268,7 @@ def timecorr(vec0,
     tcorr : float, default 10000.
     norm : bool, default False
     """
+    # TODO: doc. not yet assert to cpptraj's output
     act = CpptrajAnalyses.Analysis_Timecorr()
 
     cdslist = CpptrajDatasetList()
@@ -2641,40 +2642,6 @@ def make_structure(traj=None, mask="", top=None):
     act(command, traj, top=_top)
 
 
-def _analyze_modes(data,
-                   mode='',
-                   beg=1,
-                   end=50,
-                   bose=False,
-                   factor=1.0,
-                   maskp=None,
-                   trajout='',
-                   pcmin=None,
-                   pcmax=None,
-                   tmode=None):
-    # TODO: not finished yet
-    '''Perform analysis on calculated Eigenmodes
-
-    Parameters
-    ----------
-    data :
-    mode : str, {'fluct', 'displ', 'corr', 'eigenval', 'trajout', 'rmsip'}
-        - fluct:    RMS fluctations from normal modes
-        - displ:    Displacement of cartesian coordinates along normal mode directions
-        - corr:     Calculate dipole-dipole correlation functions.
-        - eigenval: Calculate eigenvalue fractions.
-        - trajout:  Calculate pseudo-trajectory along given mode.
-        - rmsip:    Root mean square inner product.
-    beg : int
-    end : int
-    bose : bool, optional
-    factor : optional
-    maskp : a string or list of strings, optional
-    trajout : output filename, optional
-    '''
-    pass
-
-
 @_super_dispatch()
 def _projection(traj,
                 mask,
@@ -2708,11 +2675,16 @@ def _projection(traj,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-@_super_dispatch()
+@_super_dispatch(has_ref=True)
+def superpose(traj, ref=0, mask='', frame_indices=None, top=None): 
+    act = CpptrajActions.Action_Rmsd()
+    act(mask, traj, top=top)
+    return traj
+
+
 def pca(traj,
         mask,
         n_vecs=2,
-        frame_indices=None,
         dtype='ndarray',
         top=None):
     '''perform PCA analysis
@@ -2757,11 +2729,12 @@ def pca(traj,
     >>> pca_data = pt.pca(traj, '!@H=', n_vecs=-1)
     '''
     # TODO: move to another file
+    # NOTE: do not need to use _super_dispatch here since we already use in _projection
     from pytraj import matrix
 
-    traj.superpose(mask=mask, ref=0)
+    traj.superpose(ref=0, mask=mask)
     avg = mean_structure(traj)
-    traj.superpose(mask=mask, ref=avg)
+    traj.superpose(ref=avg, mask=mask)
     avg2 = mean_structure(traj, mask=mask)
 
     mat = matrix.covar(traj, mask)
