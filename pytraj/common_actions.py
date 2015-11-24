@@ -1150,7 +1150,7 @@ def calc_jcoupling(traj=None,
     return _get_data_from_dtype(dslist, dtype)
 
 
-def do_translation(traj=None, command="", frame_indices=None, top=None):
+def translate(traj=None, command="", frame_indices=None, top=None):
     '''translate coordinate
 
     Examples
@@ -1168,18 +1168,10 @@ def do_translation(traj=None, command="", frame_indices=None, top=None):
     _top = _get_topology(traj, top)
     fi = _get_fiterator(traj, frame_indices)
 
-    if is_array(command):
-        x, y, z = command
-        _x = "x " + str(x)
-        _y = "y " + str(y)
-        _z = "z " + str(z)
-        _command = " ".join((_x, _y, _z))
-    else:
-        _command = command
-    CpptrajActions.Action_Translate()(_command, fi, top=_top)
+    CpptrajActions.Action_Translate()(command, fi, top=_top)
 
 
-translate = do_translation
+do_translation = translate
 
 
 def do_scaling(traj=None, command="", frame_indices=None, top=None):
@@ -1786,37 +1778,6 @@ def calc_pairwise_rmsd(traj=None,
     else:
         return _get_data_from_dtype(dslist, dtype)
 
-
-@_super_dispatch()
-def calc_density(traj=None,
-                 command="",
-                 top=None,
-                 dtype='ndarray',
-                 *args,
-                 **kwd):
-    # NOTE: trick cpptraj to write to file first and the reload
-
-    with goto_temp_folder():
-
-        def _calc_density(traj, command, *args, **kwd):
-            # TODO: update this method if cpptraj save data to
-            # CpptrajDatasetList
-            dflist = DataFileList()
-
-            tmp_filename = "tmp_pytraj_out.txt"
-            command = "out " + tmp_filename + " " + command
-            act = CpptrajActions.Action_Density()
-            # with goto_temp_folder():
-            act(command, traj, top=top, dflist=dflist)
-            act.post_process()
-            dflist.write_all_datafiles()
-            absolute_path_tmp = os.path.abspath(tmp_filename)
-            return absolute_path_tmp
-
-        dslist = CpptrajDatasetList()
-        fname = _calc_density(traj, command, *args, **kwd)
-        dslist.read_data(fname)
-        return _get_data_from_dtype(dslist, dtype)
 
 
 @_register_pmap
