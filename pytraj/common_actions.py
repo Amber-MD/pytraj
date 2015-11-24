@@ -2648,7 +2648,7 @@ def _projection(traj,
                 eigenvalues,
                 eigenvectors,
                 scalar_type,
-                average_coords,
+                average_coords=None,
                 frame_indices=None,
                 dtype='ndarray',
                 top=None):
@@ -2665,8 +2665,9 @@ def _projection(traj,
                           eigenvalues, eigenvectors.flatten())
     dataset_mode.scalar_type = scalar_type
 
-    dataset_mode._allocate_avgcoords(3*average_coords.shape[0])
-    dataset_mode._set_avg_frame(average_coords.flatten())
+    if average_coords is not None:
+        dataset_mode._allocate_avgcoords(3*average_coords.shape[0])
+        dataset_mode._set_avg_frame(average_coords.flatten())
 
     _mask = mask
     _evecs = 'evecs {}'.format(mode_name)
@@ -2674,6 +2675,7 @@ def _projection(traj,
     command = ' '.join((_evecs, _mask, _beg_end))
     act(command, traj, top=top, dslist=dslist)
     dslist._pop(0)
+
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
