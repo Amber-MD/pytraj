@@ -2660,7 +2660,8 @@ def _projection(traj,
     dslist.add_set('modes', mode_name)
     is_reduced = False
     dataset_mode = dslist[-1]
-    dataset_mode._set_modes(is_reduced, len(eigenvalues), eigenvectors.shape[1],
+    n_vectors = len(eigenvalues)
+    dataset_mode._set_modes(is_reduced, n_vectors, eigenvectors.shape[1],
                           eigenvalues, eigenvectors.flatten())
     dataset_mode.scalar_type = scalar_type
 
@@ -2669,7 +2670,8 @@ def _projection(traj,
 
     _mask = mask
     _evecs = 'evecs {}'.format(mode_name)
-    command = ' '.join((_evecs, _mask))
+    _beg_end = 'beg 1 end {}'.format(n_vectors)
+    command = ' '.join((_evecs, _mask, _beg_end))
     act(command, traj, top=top, dslist=dslist)
     dslist._pop(0)
     return _get_data_from_dtype(dslist, dtype=dtype)
