@@ -58,7 +58,7 @@ class TestProjection(unittest.TestCase):
                                                         eigenvalues=modes.eigenvalues, 
                                                         eigenvectors=modes.eigenvectors,
                                                         scalar_type='covar')
-        aa_eq(projection_data, state.data[-2:].values)
+        aa_eq(np.abs(projection_data), np.abs(state.data[-2:].values), decimal=3)
 
 if __name__ == "__main__":
     unittest.main()

@@ -39,7 +39,8 @@ class TestPCA(unittest.TestCase):
 
         data = pt.pca(traj, mask, n_vecs=2)
         cpp_data = state.data[-2:].values
-        aa_eq(data[0], cpp_data)
+        # use absolute values
+        aa_eq(np.abs(data[0]), np.abs(cpp_data), decimal=3)
 
 if __name__ == "__main__":
     unittest.main()
