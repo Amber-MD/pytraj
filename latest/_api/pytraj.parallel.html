@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.parallel &mdash; pytraj 0.1.2.dev12+6fd4b01 documentation</title>
+    <title>pytraj.parallel &mdash; pytraj 0.1.2.dev12+1e68cc5 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev12+6fd4b01',
+        VERSION:     '0.1.2.dev12+1e68cc5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+6fd4b01 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+1e68cc5 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="next" title="pytraj.ActionList" href="pytraj.core.action_list.html" />
 <meta charset='utf-8'>
@@ -54,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+6fd4b01</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+1e68cc5</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -267,6 +267,16 @@ reload before using <code class="docutils literal"><span class="pre">pytraj.pmap
 <span class="go">         4.89180497e-01]))])</span>
 </pre></div>
 </div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># use reference: if not want to use &#39;refindex&#39;, can use &#39;reference&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># the advantage is you can not specify a list of reference</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">([</span><span class="s">&#39;rms @CA reference&#39;</span><span class="p">],</span> <span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="p">[</span><span class="n">traj</span><span class="p">[</span><span class="mi">3</span><span class="p">],],</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
+<span class="go">OrderedDict([(&#39;RMSD_00001&#39;, array([  2.68820312e-01,   3.11804885e-01,   2.58835452e-01,</span>
+<span class="go">         9.10475988e-08,   2.93310737e-01,   4.10197322e-01,</span>
+<span class="go">         3.96226694e-01,   3.66059215e-01,   3.90890362e-01,</span>
+<span class="go">         4.89180497e-01]))])</span>
+</pre></div>
+</div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># use different references. Need to explicitly use &#39;refindex&#39;, which is index of reflist</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># create a list of references</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">reflist</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">traj</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
@@ -362,7 +372,7 @@ reload before using <code class="docutils literal"><span class="pre">pytraj.pmap
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 20, 2015.<br/>
+      Last updated on Nov 24, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
