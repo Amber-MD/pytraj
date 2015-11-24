@@ -2720,6 +2720,7 @@ def pca(traj,
     Parameters
     ----------
     traj : Trajectory
+        traj must be ``pytraj.Trajectory``, which can be created by ``pytraj.load`` method.
     mask : str
         atom mask
     n_vecs : int, default 2
@@ -2734,6 +2735,26 @@ def pca(traj,
     -------
     projection_data: ndarray, shape=(n_vecs, n_frames)
     (eigenvalues, eigenvectors)
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2()[:]
+
+    >>> # compute pca for first and second modes
+    >>> pca_data = pt.pca(traj, '!@H=', n_vecs=2)
+    >>> # get projection values
+    >>> pca_data[0]
+    array([[  4.93425131,  13.80002308,  20.61605835, ..., -57.92280579,
+            -61.25728607, -52.85142136],
+           [  4.03333616,  -6.9132452 , -14.53991318, ...,  -6.757936  ,
+              2.1086719 ,  -3.60922861]], dtype=float32)
+    >>> # get eigenvalues for first 2 modes
+    >>> pca_data[1][0]
+    array([ 1399.36472919,   240.42342439])
+
+    >>> # compute pca for all modes
+    >>> pca_data = pt.pca(traj, '!@H=', n_vecs=-1)
     '''
     # TODO: move to another file
     from pytraj import matrix
