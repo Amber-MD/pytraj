@@ -24,6 +24,7 @@ If you miss any Python package, try to use ``conda``, example::
     :maxdepth: 2
 
     basic_examples
+    tut_pca
     plot
     mdtraj_adapted
     interface_with_other_packages.rst
