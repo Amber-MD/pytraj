@@ -176,6 +176,19 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
         dslist[-1]._append_from_array(arr)
         aa_eq(dslist[-1].values, arr)
 
+        # modes
+        mat = pt.matrix.covar(self.traj, '@CA')
+        modes = pt.matrix.diagonalize(mat, n_vecs=mat.shape[0])[0]
+        modes2 = modes.__class__()
+        # dummy test to set name and scalar_type
+        # (prepare for pca)
+        modes2.name = 'test_mode'
+        modes2.scalar_type = 'covar'
+        modes2._set_modes(False, mat.shape[0], modes.eigenvectors.shape[0],
+                          modes.eigenvalues, modes.eigenvectors.flatten())
+        aa_eq(modes.eigenvalues, modes2.eigenvalues)
+        aa_eq(modes.eigenvectors, modes2.eigenvectors)
+
 
 if __name__ == "__main__":
     unittest.main()
