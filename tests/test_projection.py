@@ -8,8 +8,8 @@ from pytraj.utils import eq, aa_eq
 command = '''
 # Step one. Generate average structure.
 # RMS-Fit to first frame to remove global translation/rotation.
-parm tz2.parm7
-trajin tz2.nc
+parm data/tz2.parm7
+trajin data/tz2.nc
 rms first !@H=
 average crdset AVG
 run
@@ -29,7 +29,28 @@ crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
 class TestProject(unittest.TestCase):
 
     def test_projection(self):
-        traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        traj = pt.load("./data/tz2.nc", "./data/tz2.parm7")
+
+        state = pt.load_cpptraj_state(command)
+        state.run()
+
+        mask = '!@H='
+        pt.superpose(traj, mask=mask)
+        avg = pt.mean_structure(traj)
+        atom_indices = traj.top(mask).indices
+        strip_avg_coords = avg.xyz[atom_indices]
+        pt.superpose(traj, mask=mask, ref=avg)
+        mat = pt.matrix.covar(traj, mask)
+        modes = pt.matrix.diagonalize(mat, n_vecs=2)[0]
+
+        aa_eq(modes.eigenvalues, state.data['MyEvecs'].eigenvalues)
+        aa_eq(modes.eigenvectors, state.data['MyEvecs'].eigenvectors)
+
+        projection_data = pt.common_actions._projection(traj, mask=mask, average_coords=strip_avg_coords,
+                                                        modes=(modes.eigenvalues, modes.eigenvectors),
+                                                        scalar_type='covar')[1:].values
+        print(projection_data)
+        print(state.data[-2:].values)
 
 
 if __name__ == "__main__":
