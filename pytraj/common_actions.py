@@ -2709,8 +2709,6 @@ def pca(traj,
     n_vecs : int, default 2
         number of eigenvectors. If user want to compute projection for all eigenvectors, 
         should specify n_vecs=-1 (or a negative number)
-    frame_indices : {None, array-like}
-        if given, only perform analysis for those frames
     dtype : return datatype
     top : Topology, optional
 
