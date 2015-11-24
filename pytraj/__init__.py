@@ -127,7 +127,7 @@ from .common_actions import (
     autoimage, calc_angle, calc_dihedral, calc_distance,
     calc_pairwise_distance, calc_center_of_mass, calc_center_of_geometry,
     calc_jcoupling, calc_molsurf, calc_radgyr, calc_rdf, calc_vector,
-    calc_pairwise_rmsd, calc_atomicfluct, calc_bfactors, calc_density,
+    calc_pairwise_rmsd, calc_atomicfluct, calc_bfactors,
     calc_rotation_matrix, calc_watershell, calc_volume, calc_mindist, lifetime,
     get_average_frame, calc_atomiccorr, get_velocity, _dihedral_res,
     native_contacts, auto_correlation_function, principal_axes,
@@ -189,7 +189,6 @@ acorr = auto_correlation_function
 autocorr = auto_correlation_function
 dssp = calc_dssp
 bfactors = calc_bfactors
-density = calc_density
 volume = calc_volume
 radgyr = calc_radgyr
 rdf = calc_rdf
