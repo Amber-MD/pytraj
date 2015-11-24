@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.common_actions &mdash; pytraj 0.1.2.dev12+cbdbaf6 documentation</title>
+    <title>pytraj.common_actions &mdash; pytraj 0.1.2.dev12+4ac6c32 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev12+cbdbaf6',
+        VERSION:     '0.1.2.dev12+4ac6c32',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+cbdbaf6 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+4ac6c32 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="next" title="pytraj.hbond" href="pytraj.hbond_analysis.html" />
     <link rel="prev" title="pytraj.cluster" href="pytraj.cluster.html" />
@@ -55,7 +55,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+cbdbaf6</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+4ac6c32</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -1145,7 +1145,15 @@ if True, Calculate motion vectors for entire residues (selected atoms in residue
 <dl class="function">
 <dt id="pytraj.common_actions.calc_pca">
 <code class="descclassname">pytraj.common_actions.</code><code class="descname">calc_pca</code><span class="sig-paren">(</span><em>traj</em>, <em>mask</em>, <em>n_vecs=2</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.common_actions.calc_pca" title="Permalink to this definition">¶</a></dt>
-<dd><p>perform PCA analysis</p>
+<dd><p>perform PCA analysis.</p>
+<ul class="simple">
+<li>perform rmsfit to first frame with <code class="docutils literal"><span class="pre">mask</span></code></li>
+<li>compute average frame with <code class="docutils literal"><span class="pre">mask</span></code></li>
+<li>rmsfit to average frame with <code class="docutils literal"><span class="pre">mask</span></code></li>
+<li>compute covariance matrix</li>
+<li>diagonalize the matrix to get eigenvectors and eigenvalues</li>
+<li>perform projection of each frame with mask to each eigenvector</li>
+</ul>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1185,13 +1193,13 @@ should specify n_vecs=-1 (or a negative number)</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># compute pca for first and second modes</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pca_data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;!@H=&#39;</span><span class="p">,</span> <span class="n">n_vecs</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># get projection values</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pca_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pca_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> 
 <span class="go">array([[  4.93425131,  13.80002308,  20.61605835, ..., -57.92280579,</span>
 <span class="go">        -61.25728607, -52.85142136],</span>
 <span class="go">       [  4.03333616,  -6.9132452 , -14.53991318, ...,  -6.757936  ,</span>
 <span class="go">          2.1086719 ,  -3.60922861]], dtype=float32)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># get eigenvalues for first 2 modes</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pca_data</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pca_data</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> 
 <span class="go">array([ 1399.36472919,   240.42342439])</span>
 </pre></div>
 </div>
