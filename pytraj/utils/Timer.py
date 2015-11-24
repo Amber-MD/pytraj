@@ -27,7 +27,7 @@ class Timer:
         def inner(*args, **kwd):
             with self:
                 func(*args, **kwd)
-            print(self.time_gap())
+            return self.time_gap()
 
         return inner
 
