@@ -2689,7 +2689,14 @@ def pca(traj,
         n_vecs=2,
         dtype='ndarray',
         top=None):
-    '''perform PCA analysis
+    '''perform PCA analysis.
+
+    - perform rmsfit to first frame with ``mask``
+    - compute average frame with ``mask``
+    - rmsfit to average frame with ``mask``
+    - compute covariance matrix
+    - diagonalize the matrix to get eigenvectors and eigenvalues
+    - perform projection of each frame with mask to each eigenvector 
 
     Parameters
     ----------
