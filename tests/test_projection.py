@@ -51,8 +51,8 @@ class TestProjection(unittest.TestCase):
 
         aa_eq(cpp_arr_crd, avg2.xyz)
 
-        aa_eq(modes.eigenvalues, state.data['MyEvecs'].eigenvalues)
-        aa_eq(modes.eigenvectors, state.data['MyEvecs'].eigenvectors)
+        aa_eq(np.abs(modes.eigenvalues), np.abs(state.data['MyEvecs'].eigenvalues))
+        aa_eq(np.abs(modes.eigenvectors), np.abs(state.data['MyEvecs'].eigenvectors))
 
         projection_data = pt.common_actions._projection(traj, mask=mask, average_coords=avg2.xyz,
                                                         eigenvalues=modes.eigenvalues, 
