@@ -221,3 +221,41 @@ def _dbscan(traj=None,
     command = ' '.join((_clusters, _epsilon, _sievetoframe, _kdist, _sieve,
                         _kfile, _metric, _random_sieveseed, _mask, _output))
     return _cluster(traj, command, top=_top, dtype='ndarray')
+
+#@_super_dispatch()
+def calc_density(traj=None,
+                 command="",
+                 top=None,
+                 dtype='ndarray',
+                 frame_indices=None):
+    # NOTE: trick cpptraj to write to file first and the reload
+    '''
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> pt.density(traj, 'charge')
+    '''
+
+    with goto_temp_folder():
+
+        def _calc_density(traj, command):
+            # TODO: update this method if cpptraj save data to
+            # CpptrajDatasetList
+            dflist = DataFileList()
+
+            tmp_filename = "tmp_pytraj_out.txt"
+            command = "out " + tmp_filename + " " + command
+            act = CpptrajActions.Action_Density()
+            act(command, traj, top=top, dflist=dflist)
+            act.post_process()
+            dflist.write_all_datafiles()
+            absolute_path_tmp = os.path.abspath(tmp_filename)
+            return absolute_path_tmp
+
+        dslist = CpptrajDatasetList()
+        fname = _calc_density(traj, command)
+        dslist.read_data(fname)
+        return _get_data_from_dtype(dslist, dtype)
+

@@ -1,5 +1,4 @@
 from __future__ import absolute_import
-import os
 import numpy as np
 
 from pytraj.trajectory import Trajectory
@@ -8,13 +7,12 @@ from ._get_common_objects import _get_topology, _get_data_from_dtype, _get_list_
 from ._get_common_objects import _get_matrix_from_dataset
 from ._get_common_objects import _get_reference_from_traj, _get_fiterator
 from ._get_common_objects import _super_dispatch, _get_fi_with_dslist
-from .utils import is_array, ensure_not_none_or_string
+from .utils import ensure_not_none_or_string
 from .utils import is_int
 from .utils.context import goto_temp_folder
 from .utils.convert import array_to_cpptraj_atommask
 from .externals.six import string_types
 from .datasets.DatasetList import DatasetList as CpptrajDatasetList
-from .datafiles import DataFileList
 from .datasetlist import DatasetList
 from ._shared_methods import iterframe_master
 from .decorators import _register_pmap, _register_openmp
@@ -43,7 +41,6 @@ list_of_cal = ['calc_distance',
                'calc_center_of_mass',
                'calc_center_of_geometry',
                'calc_pairwise_rmsd',
-               'calc_density',
                'calc_grid',
                'calc_temperatures',
                'calc_atomiccorr',
@@ -1150,7 +1147,7 @@ def calc_jcoupling(traj=None,
     return _get_data_from_dtype(dslist, dtype)
 
 
-def do_translation(traj=None, command="", frame_indices=None, top=None):
+def translate(traj=None, command="", frame_indices=None, top=None):
     '''translate coordinate
 
     Examples
@@ -1168,18 +1165,10 @@ def do_translation(traj=None, command="", frame_indices=None, top=None):
     _top = _get_topology(traj, top)
     fi = _get_fiterator(traj, frame_indices)
 
-    if is_array(command):
-        x, y, z = command
-        _x = "x " + str(x)
-        _y = "y " + str(y)
-        _z = "z " + str(z)
-        _command = " ".join((_x, _y, _z))
-    else:
-        _command = command
-    CpptrajActions.Action_Translate()(_command, fi, top=_top)
+    CpptrajActions.Action_Translate()(command, fi, top=_top)
 
 
-translate = do_translation
+do_translation = translate
 
 
 def do_scaling(traj=None, command="", frame_indices=None, top=None):
@@ -1786,37 +1775,6 @@ def calc_pairwise_rmsd(traj=None,
     else:
         return _get_data_from_dtype(dslist, dtype)
 
-
-@_super_dispatch()
-def calc_density(traj=None,
-                 command="",
-                 top=None,
-                 dtype='ndarray',
-                 *args,
-                 **kwd):
-    # NOTE: trick cpptraj to write to file first and the reload
-
-    with goto_temp_folder():
-
-        def _calc_density(traj, command, *args, **kwd):
-            # TODO: update this method if cpptraj save data to
-            # CpptrajDatasetList
-            dflist = DataFileList()
-
-            tmp_filename = "tmp_pytraj_out.txt"
-            command = "out " + tmp_filename + " " + command
-            act = CpptrajActions.Action_Density()
-            # with goto_temp_folder():
-            act(command, traj, top=top, dflist=dflist)
-            act.post_process()
-            dflist.write_all_datafiles()
-            absolute_path_tmp = os.path.abspath(tmp_filename)
-            return absolute_path_tmp
-
-        dslist = CpptrajDatasetList()
-        fname = _calc_density(traj, command, *args, **kwd)
-        dslist.read_data(fname)
-        return _get_data_from_dtype(dslist, dtype)
 
 
 @_register_pmap
@@ -2648,7 +2606,7 @@ def _projection(traj,
                 eigenvalues,
                 eigenvectors,
                 scalar_type,
-                average_coords,
+                average_coords=None,
                 frame_indices=None,
                 dtype='ndarray',
                 top=None):
@@ -2665,8 +2623,9 @@ def _projection(traj,
                           eigenvalues, eigenvectors.flatten())
     dataset_mode.scalar_type = scalar_type
 
-    dataset_mode._allocate_avgcoords(3*average_coords.shape[0])
-    dataset_mode._set_avg_frame(average_coords.flatten())
+    if average_coords is not None:
+        dataset_mode._allocate_avgcoords(3*average_coords.shape[0])
+        dataset_mode._set_avg_frame(average_coords.flatten())
 
     _mask = mask
     _evecs = 'evecs {}'.format(mode_name)
@@ -2674,6 +2633,7 @@ def _projection(traj,
     command = ' '.join((_evecs, _mask, _beg_end))
     act(command, traj, top=top, dslist=dslist)
     dslist._pop(0)
+
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
@@ -2689,7 +2649,7 @@ def pca(traj,
         n_vecs=2,
         dtype='ndarray',
         top=None):
-    '''perform PCA analysis.
+    '''perform PCA analysis by following below steps:
 
     - perform rmsfit to first frame with ``mask``
     - compute average frame with ``mask``
@@ -2707,8 +2667,6 @@ def pca(traj,
     n_vecs : int, default 2
         number of eigenvectors. If user want to compute projection for all eigenvectors, 
         should specify n_vecs=-1 (or a negative number)
-    frame_indices : {None, array-like}
-        if given, only perform analysis for those frames
     dtype : return datatype
     top : Topology, optional
 
