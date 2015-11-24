@@ -2,6 +2,7 @@
 
 from __future__ import print_function
 import unittest
+import numpy as np
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
 
@@ -33,6 +34,9 @@ class TestProject(unittest.TestCase):
 
         state = pt.load_cpptraj_state(command)
         state.run()
+        cpp_modes = state.data['MyEvecs']
+        cpp_arr_crd = np.array(cpp_modes._get_avg_crd())
+        cpp_arr_crd = cpp_arr_crd.reshape(117, 3)
 
         mask = '!@H='
         pt.superpose(traj, mask=mask)
@@ -40,18 +44,21 @@ class TestProject(unittest.TestCase):
         atom_indices = traj.top(mask).indices
         strip_avg_coords = avg.xyz[atom_indices]
         pt.superpose(traj, mask=mask, ref=avg)
+        avg2 = pt.mean_structure(traj, mask=mask)
+
         mat = pt.matrix.covar(traj, mask)
         modes = pt.matrix.diagonalize(mat, n_vecs=2)[0]
+
+        aa_eq(cpp_arr_crd, avg2.xyz)
 
         aa_eq(modes.eigenvalues, state.data['MyEvecs'].eigenvalues)
         aa_eq(modes.eigenvectors, state.data['MyEvecs'].eigenvectors)
 
-        projection_data = pt.common_actions._projection(traj, mask=mask, average_coords=strip_avg_coords,
-                                                        modes=(modes.eigenvalues, modes.eigenvectors),
-                                                        scalar_type='covar')[1:].values
-        print(projection_data)
-        print(state.data[-2:].values)
-
+        projection_data = pt.common_actions._projection(traj, mask=mask, average_coords=avg2.xyz,
+                                                        eigenvalues=modes.eigenvalues, 
+                                                        eigenvectors=modes.eigenvectors,
+                                                        scalar_type='covar')
+        aa_eq(projection_data, state.data[-2:].values)
 
 if __name__ == "__main__":
     unittest.main()
