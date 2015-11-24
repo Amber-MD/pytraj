@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Principal component analysis &mdash; pytraj 0.1.2.dev12+4796e51 documentation</title>
+    <title>Principal component analysis &mdash; pytraj 0.1.2.dev12+cbdbaf6 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev12+4796e51',
+        VERSION:     '0.1.2.dev12+cbdbaf6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+4796e51 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+cbdbaf6 documentation" href="../index.html" />
     <link rel="up" title="Tutorials" href="index.html" />
     <link rel="next" title="Plots" href="plot.html" />
     <link rel="prev" title="Basic examples" href="basic_examples.html" />
@@ -55,7 +55,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+4796e51</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+cbdbaf6</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -206,7 +206,8 @@
 <span class="nb">print</span><span class="p">(</span><span class="s">&#39;projection values of each frame to first mode = {} </span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s">&#39;projection values of each frame to second mode = {} </span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s">&#39;eigvenvalues of first two modes&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s">&#39;eigvenvalues of first two modes&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;eigvenvectors of first two modes: </span><span class="se">\n</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
 </pre></div>
 
 </div>
@@ -226,7 +227,12 @@ projection values of each frame to second mode = [  4.03333616  -6.9132452  -14.
   -3.60922861] 
 
 eigvenvalues of first two modes [ 1399.36472919   240.42342439]
-eigvenvalues of first two modes [ 1399.36472919   240.42342439]
+
+eigvenvectors of first two modes: 
+ [[ 0.00251526  0.0405033  -0.0084492  ...,  0.04534061 -0.09515649
+  -0.0475896 ]
+ [ 0.0313375   0.12882763 -0.02338202 ..., -0.00380469 -0.04104856
+  -0.04230317]]
 </pre>
 </div>
 </div>

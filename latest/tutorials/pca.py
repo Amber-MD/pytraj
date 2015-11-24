@@ -3,7 +3,7 @@
 
 # ### load trajectory
 
-# In[9]:
+# In[1]:
 
 # load pytraj
 import pytraj as pt
@@ -14,7 +14,7 @@ traj = pt.load('tz2.nc', 'tz2.parm7')
 
 # ### Get the data
 
-# In[10]:
+# In[2]:
 
 # compute pca
 data = pt.pca(traj, mask='!@H=', n_vecs=2)
@@ -22,12 +22,13 @@ data = pt.pca(traj, mask='!@H=', n_vecs=2)
 print('projection values of each frame to first mode = {} \n'.format(data[0][0]))
 print('projection values of each frame to second mode = {} \n'.format(data[0][1]))
 print('eigvenvalues of first two modes', data[1][0])
-print('eigvenvalues of first two modes', data[1][0])
+print("")
+print('eigvenvectors of first two modes: \n', data[1][1])
 
 
 # ### plot
 
-# In[14]:
+# In[3]:
 
 get_ipython().magic('matplotlib inline')
 get_ipython().magic("config InlineBackend.figure_format = 'retina'  # high resolution")
