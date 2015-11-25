@@ -90,3 +90,7 @@ Journal of Chemical Theory and Computation 2013 9 (7), 3084-3095
 License
 -------
 BSD 2-Clause
+
+Experiment: nglview with pytraj in Jupyter notebook
+
+[![pytraj website](./examples/figures/nglview_pytraj.gif)](http://amber-md.github.io/pytraj/latest/index.html)
