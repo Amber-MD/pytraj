@@ -286,7 +286,7 @@ See `demo here <https://raw.githubusercontent.com/Amber-MD/pytraj/master/example
 
 Read Also
 ---------
-`cpptraj developer guide <https://github.com/mojyt/cpptraj/blob/master/doc/CpptrajDevlopmentGuide.pdf>`_
+`cpptraj developer guide <CpptrajDevelopmentGuide.html>`_
 
 `test cpptraj api change with pytraj on travis <test_cpptraj_api>`_
 

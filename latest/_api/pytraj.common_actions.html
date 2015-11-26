@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.common_actions &mdash; pytraj 0.1.2.dev12+4ac6c32 documentation</title>
+    <title>pytraj.common_actions &mdash; pytraj 0.1.2.dev12+d871e3b documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev12+4ac6c32',
+        VERSION:     '0.1.2.dev12+d871e3b',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+4ac6c32 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+d871e3b documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="next" title="pytraj.hbond" href="pytraj.hbond_analysis.html" />
     <link rel="prev" title="pytraj.cluster" href="pytraj.cluster.html" />
@@ -55,7 +55,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+4ac6c32</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+d871e3b</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -903,11 +903,6 @@ if &#8216;half&#8217;: return 1D array, shape=(n_frames*(n_frames-1)/2, )</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="pytraj.common_actions.calc_density">
-<code class="descclassname">pytraj.common_actions.</code><code class="descname">calc_density</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.common_actions.calc_density" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
 <dt id="pytraj.common_actions.calc_grid">
 <code class="descclassname">pytraj.common_actions.</code><code class="descname">calc_grid</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='dataset'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.common_actions.calc_grid" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -1144,8 +1139,8 @@ if True, Calculate motion vectors for entire residues (selected atoms in residue
 
 <dl class="function">
 <dt id="pytraj.common_actions.calc_pca">
-<code class="descclassname">pytraj.common_actions.</code><code class="descname">calc_pca</code><span class="sig-paren">(</span><em>traj</em>, <em>mask='*'</em>, <em>n_vecs=2</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.common_actions.calc_pca" title="Permalink to this definition">¶</a></dt>
-<dd><p>perform PCA analysis.</p>
+<code class="descclassname">pytraj.common_actions.</code><code class="descname">calc_pca</code><span class="sig-paren">(</span><em>traj</em>, <em>mask</em>, <em>n_vecs=2</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.common_actions.calc_pca" title="Permalink to this definition">¶</a></dt>
+<dd><p>perform PCA analysis by following below steps:</p>
 <ul class="simple">
 <li>perform rmsfit to first frame with <code class="docutils literal"><span class="pre">mask</span></code></li>
 <li>compute average frame with <code class="docutils literal"><span class="pre">mask</span></code></li>
@@ -1170,10 +1165,6 @@ if True, Calculate motion vectors for entire residues (selected atoms in residue
 <blockquote>
 <div><p>number of eigenvectors. If user want to compute projection for all eigenvectors, 
 should specify n_vecs=-1 (or a negative number)</p>
-</div></blockquote>
-<p><strong>frame_indices</strong> : {None, array-like}</p>
-<blockquote>
-<div><p>if given, only perform analysis for those frames</p>
 </div></blockquote>
 <p><strong>dtype</strong> : return datatype</p>
 <p><strong>top</strong> : Topology, optional</p>
@@ -1720,7 +1711,7 @@ out[1:]: perres rmsd for all given residues
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Nov 24, 2015.<br/>
+      Last updated on Nov 25, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
