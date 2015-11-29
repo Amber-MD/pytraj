@@ -49,6 +49,7 @@ Welcome
    developer_guide
    misc
    cookbook
+   trajectory_viewer
    api
 
 .. raw:: html
