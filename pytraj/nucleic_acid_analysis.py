@@ -157,7 +157,7 @@ class nupars(object):
         self._dict = adict
 
     def __str__(self):
-        return '<nupars, keys = %s>' % str(self.keys())
+        return '<nupars, keys = {}>'.format(str(self.keys()))
 
     def __repr__(self):
         return str(self)

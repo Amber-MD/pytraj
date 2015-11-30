@@ -497,7 +497,7 @@ def read_gaussian_output(filename=None, top=None):
 
         with goto_temp_folder():
             at = amberhome + "/bin/antechamber"
-            out = "-i %s -fi gout -o tmp.mol2 -fo mol2 -at amber" % fpath
+            out = "-i {} -fi gout -o tmp.mol2 -fo mol2 -at amber".format(fpath)
             cm = " ".join((at, out))
             os.system(cm)
 

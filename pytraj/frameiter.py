@@ -133,11 +133,11 @@ class FrameIterator(object):
 
     def __str__(self):
         root_msg = '<FrameIterator with '
-        root_msg2 = 'start=%s, stop=%s, step=%s, n_frames=%s, \n' % (
+        root_msg2 = 'start={0}, stop={1}, step={2}, n_frames={3}, \n'.format(
             self.start, self.stop, self.step, self.n_frames)
-        root_msg3 = 'frame_indices=%s, \n' % self.frame_indices
+        root_msg3 = 'frame_indices={}, \n'.format(self.frame_indices)
 
-        more_msg = 'mask=%s, autoimage=%s, rmsfit=%s, copy=%s> \n' % (
+        more_msg = 'mask={0}, autoimage={1}, rmsfit={2}, copy={3}> \n' % (
             self.mask, self.autoimage, self.rmsfit, self.copy)
         return "".join((root_msg, root_msg2, root_msg3, more_msg))
 

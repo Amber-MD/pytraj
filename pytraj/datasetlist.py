@@ -142,7 +142,7 @@ class DatasetList(list):
         return [d.dtype for d in self]
 
     def __str__(self):
-        safe_msg = "<pytraj.DatasetList with %s datasets>\n" % self.size
+        safe_msg = "<pytraj.DatasetList with {} datasets>\n".format(self.size)
         if self.size == 0:
             return safe_msg
         msg = "\n\n".join("\n".join((d.key, d.values.__str__())) for d in self)

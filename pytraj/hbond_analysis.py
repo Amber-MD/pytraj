@@ -39,7 +39,7 @@ class DatasetHBond(BaseDataHolder):
 
     def __str__(self):
         root_msg = "<pytraj.hbonds.DatasetHBond"
-        more_info = "donor_aceptor pairs : %s>" % len(self.donor_aceptor)
+        more_info = "donor_aceptor pairs : {}>".format(len(self.donor_aceptor))
         return root_msg + "\n" + more_info
 
     def __repr__(self):

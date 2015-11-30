@@ -50,8 +50,7 @@ def minimize(traj, engine='sander', input=None, top=None):
         for frame in traj:
             pt.write_traj("tmp_frame.rst7", frame, top=_top, overwrite=True)
             os.system(
-                "%s -O -p tmp.prmtop -c tmp_frame.rst7.1 -r min.r -i min.in" %
-                (_engine))
+                "{} -O -p tmp.prmtop -c tmp_frame.rst7.1 -r min.r -i min.in".format(_engine))
             f0 = pt.load("min.r", traj.top)[0]
             # update coords
             frame.xyz[:] = f0.xyz
@@ -60,7 +59,7 @@ def minimize(traj, engine='sander', input=None, top=None):
 leapin = """
 source leaprc.ff14SB
 set default PBradii mbondi3
-x = loadpdb %s
+x = loadpdb {}
 saveamberparm x tmp.top tmp.crd
 quit
 """
@@ -81,7 +80,7 @@ def prmtop_from_tleap(fname, leapin=leapin, verbose=False):
     fname = os.path.abspath(fname)
 
     with goto_temp_folder():
-        leapin = leapin % fname
+        leapin = leapin.format(fname)
 
         with open("_leap.in", 'w') as f:
             f.write(leapin)
