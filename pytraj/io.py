@@ -503,7 +503,7 @@ def loadpdb_rcsb(pdbid):
     --------
         io.loadpdb_rcsb("2KOC") # popular RNA hairpin
     """
-    url = 'http://www.rcsb.org/pdb/files/%s.pdb' % pdbid.upper()
+    url = 'http://www.rcsb.org/pdb/files/{}.pdb'.format(pdbid.upper())
     txt = urlopen(url).read()
     fname = "/tmp/tmppdb.pdb"
     with open(fname, 'w') as fh:
@@ -529,7 +529,7 @@ def download_PDB(pdbid, location="./", overwrite=False):
     if os.path.exists(fname) and not overwrite:
         raise ValueError("must set overwrite to True")
 
-    url = 'http://www.rcsb.org/pdb/files/%s.pdb' % pdbid
+    url = 'http://www.rcsb.org/pdb/files/{}.pdb'.format(pdbid)
     txt = urlopen(url).read()
     with open(fname, 'w') as fh:
         if PY3:

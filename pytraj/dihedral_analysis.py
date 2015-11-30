@@ -23,7 +23,7 @@ from ._get_common_objects import _super_dispatch
 
 @_register_pmap
 @_super_dispatch()
-def calc_%s(traj=None, resrange="",
+def calc_{0}(traj=None, resrange="",
             range360=False,
             top=None, dtype='dataset',
             frame_indices=None):
@@ -87,7 +87,7 @@ def calc_%s(traj=None, resrange="",
         _resrange = ""
 
     dslist = DatasetList()
-    template_command = '%s '
+    template_command = '{1} '
     template_command = " ".join((template_command, _resrange, _range360))
 
     act = Action_MultiDihedral()
@@ -99,9 +99,9 @@ def calc_%s(traj=None, resrange="",
 
 for key in supported_dihedral_types:
     if key != 'multidihedral':
-        my_func_str = template % (key, key)
+        my_func_str = template.format(key, key)
     else:
-        my_func_str = template % (key, " ")
+        my_func_str = template.format(key, " ")
     g_dict = globals()
     exec(my_func_str)
 

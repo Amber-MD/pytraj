@@ -252,9 +252,8 @@ class TrajectoryIterator(TrajectoryCpptraj):
         # check if larger than size_limit_in_GB
         if size_in_GB > self._size_limit_in_GB and not self._force_load:
             raise MemoryError(
-                "you are loading %s GB, larger than size_limit %s GB. "
-                "Please increase traj._size_limit_in_GB or set traj._force_load to True"
-                % (size_in_GB, self._size_limit_in_GB))
+                "you are loading {0} GB, larger than size_limit {1} GB. "
+                "Please increase traj._size_limit_in_GB or set traj._force_load to True".format(size_in_GB, self._size_limit_in_GB))
         return super(TrajectoryIterator, self).xyz
 
     def iterframe(self,

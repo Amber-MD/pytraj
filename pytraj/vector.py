@@ -93,7 +93,7 @@ def vector_mask(traj=None,
 
 _template = '''
 @_register_pmap
-def %s(traj=None, command="", frame_indices=None, dtype='ndarray', top=None):
+def {0}(traj=None, command="", frame_indices=None, dtype='ndarray', top=None):
     """
     Parameters
     ----------
@@ -112,7 +112,7 @@ def %s(traj=None, command="", frame_indices=None, dtype='ndarray', top=None):
     fi = _get_fiterator(traj, frame_indices)
     _top = _get_topology(fi, top)
     dslist = CpptrajDatasetList()
-    template_command = ' %s '
+    template_command = ' {1} '
 
     list_of_commands = _get_list_of_commands(command)
     actlist = ActionList()
@@ -126,7 +126,7 @@ def %s(traj=None, command="", frame_indices=None, dtype='ndarray', top=None):
 '''
 
 for _key in _supported_types:
-    _my_func_str = _template % (_key, _key)
+    _my_func_str = _template.format(_key, _key)
     exec(_my_func_str)
 
 del _key

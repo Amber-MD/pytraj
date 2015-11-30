@@ -147,14 +147,13 @@ def _get_reference_from_traj(traj, ref):
         try:
             return traj[ref]
         except IndexError:
-            raise IndexError("%s does not support indexing" % traj.__str__())
+            raise IndexError("{} does not support indexing".format(traj))
     elif ref is None:
         try:
             return traj[0]
         except IndexError:
             raise IndexError(
-                "If reference is an integer, %s must support indexing" %
-                traj.__str__())
+                "If reference is an integer, {} must support indexing".format(traj))
     elif 'Trajectory' in ref.__class__.__name__:
         assert ref.n_frames == 1, "only support 1-frame Trajectory as reference"
         return ref[0]

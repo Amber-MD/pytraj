@@ -388,7 +388,7 @@ def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
         resid = str(resid + 1)
     else:
         resid = resid
-    m = ' :%s@' % resid
+    m = ' :{}@'.format(resid)
     command = m + m.join(mask)
     return calc_dihedral(traj=traj, mask=command, top=top, dtype=dtype)
 
@@ -1142,7 +1142,7 @@ def calc_jcoupling(traj=None,
     dslist = CpptrajDatasetList()
 
     if kfile is not None:
-        command += " kfile %s" % kfile
+        command += " kfile {}".format(kfile)
     act(command, traj, dslist=dslist, top=top)
     return _get_data_from_dtype(dslist, dtype)
 
@@ -1819,7 +1819,7 @@ def rmsd_perres(traj=None,
         out[1:]: perres rmsd for all given residues
         `out.values` will return corresponding numpy array
     """
-    _range = 'range %s ' % resrange
+    _range = 'range {} '.format(resrange)
     _perresmask = 'perresmask ' + perres_mask if perres_mask is not None else ''
     _perrestcenter = 'perrescenter' if perres_center else ''
     _perrestinvert = 'perresinvert' if perres_invert else ''

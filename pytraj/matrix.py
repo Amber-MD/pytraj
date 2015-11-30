@@ -35,7 +35,7 @@ from .actions import CpptrajActions
 from ._get_common_objects import _super_dispatch, _get_data_from_dtype
 
 @_super_dispatch()
-def %s(traj=None, mask="", top=None, dtype='ndarray', mat_type='full', frame_indices=None):
+def {0}(traj=None, mask="", top=None, dtype='ndarray', mat_type='full', frame_indices=None):
     """Compute matrix
 
     Parameters
@@ -60,7 +60,7 @@ def %s(traj=None, mask="", top=None, dtype='ndarray', mat_type='full', frame_ind
     from .datasets.DatasetList import DatasetList as CpptrajDatasetList
 
     dslist = CpptrajDatasetList()
-    template_mask = '%s '
+    template_mask = '{1} '
     template_mask += mask
 
     act = CpptrajActions.Action_Matrix()
@@ -82,7 +82,7 @@ def %s(traj=None, mask="", top=None, dtype='ndarray', mat_type='full', frame_ind
 '''
 
 for k in mat_keys:
-    my_func_str = template % (k, k)
+    my_func_str = template.format(k, k)
     g_dict = globals()
     exec(my_func_str)
     g_dict[k].__doc__ += __cpptrajdoc__
