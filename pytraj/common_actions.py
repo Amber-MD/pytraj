@@ -1377,24 +1377,25 @@ def get_velocity(traj, mask=None, frame_indices=None):
     return data
 
 
-def randomize_ions(traj=None, command="", top=None):
+@_super_dispatch()
+def randomize_ions(traj=None, mask="", top=None, frame_indices=None):
     """randomize_ions for given Frame with Topology
 
     Parameters
     ----------
     traj : Trajectory-like or a Frame
+        ``traj`` must be mutable
+    mask : str
+        cpptraj command
+    frame_indices : {None, array-like}, optional
     top : Topology, optional (only needed if ``traj`` does not have it)
-
-    Notes
-    -----
-    ``traj`` must be mutable since this method inplace update coordinate
-
     """
-    if not isinstance(command, string_types):
-        command = array_to_cpptraj_atommask(command)
+    command = mask
     _assert_mutable(traj)
+
     act = CpptrajActions.Action_RandomizeIons()
-    act(command, traj, top)
+    act(command, traj, top=top)
+    return traj
 
 
 def clustering_dataset(array_like, command=''):

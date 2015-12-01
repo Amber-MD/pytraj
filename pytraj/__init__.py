@@ -210,6 +210,7 @@ lowest_curve = lowestcurve
 diffusion = calc_diffusion
 volmap = calc_volmap
 calc_pca = pca
+randomizeions = randomize_ions
 
 adict = ActionDict()
 analdict = AnalysisDict()

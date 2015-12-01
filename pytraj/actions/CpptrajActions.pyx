@@ -142,14 +142,13 @@ cdef class Action:
 
     @makesureABC("Action")
     def do_action(self, current_frame=None, int idx=0, get_new_frame=False):
-        """
-        Perform action on Frame.
-        Parameters:
+        """Perform action on Frame
+
+        Parameters
         ----------
         current_frame : Frame instance need to be processed, default=Frame()
-
-        new_frame : Frame instance, defaul=Frame()
-            if action change Frame, you need to have this
+        itx : int, frame index
+        get_new_frame : bool
         """
         # debug
         cdef Frame frame, new_frame
@@ -173,17 +172,7 @@ cdef class Action:
 
     @makesureABC("Action")
     def post_process(self):
-        """Do we need this?"""
         self.baseptr.Print()
-
-    # Do we really need this method?
-    @classmethod
-    def _get_action_from_functptr(cls, FunctPtr funct):
-        cdef Action act = Action()
-        if funct.ptr() == NULL:
-            raise ValueError("NULL pointer")
-        act.baseptr = <_Action*> funct.ptr()
-        return act
 
     def _master(self, command='',
                 current_frame=Frame(),
@@ -191,11 +180,7 @@ cdef class Action:
                 dslist=DatasetList(),
                 dflist=DataFileList(),
                 int debug=0):
-        """
-        TODO : (do we need this method?)
-            + add doc
-            + don't work with `chunk_iter`
-
+        """create shortcut
         """
         self.read_input(command=command,
                         top=top,

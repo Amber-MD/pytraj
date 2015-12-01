@@ -22,12 +22,10 @@ class TestSanderPmap(unittest.TestCase):
         traj = pt.iterload('./data/md1_prod.Tc5b.x', './data/Tc5b.top')
         fname = traj.top.filename
         serial = pt.energy_decomposition(traj, prmtop=fname)['dihedral']
-        parallel = [x[1]['dihedral']
-                    for x in pt.pmap(n_cores=4,
-                                     func=pt.energy_decomposition,
-                                     traj=traj,
-                                     prmtop=fname)]
-        parallel = pt.tools.flatten(parallel)
+        parallel = pt.pmap(n_cores=4,
+                          func=pt.energy_decomposition,
+                          traj=traj,
+                          prmtop=fname)['dihedral']
         aa_eq(serial, parallel)
 
     def test_sander_pmap_with_options(self):
