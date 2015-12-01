@@ -1378,7 +1378,7 @@ def get_velocity(traj, mask=None, frame_indices=None):
 
 
 @_super_dispatch()
-def randomize_ions(traj=None, mask="", top=None, frame_indices=None):
+def randomize_ions(traj, mask, around, by, overlap, seed=1, top=None, frame_indices=None):
     """randomize_ions for given Frame with Topology
 
     Parameters
@@ -1390,7 +1390,11 @@ def randomize_ions(traj=None, mask="", top=None, frame_indices=None):
     frame_indices : {None, array-like}, optional
     top : Topology, optional (only needed if ``traj`` does not have it)
     """
-    command = mask
+    around_ = 'around ' + str(around)
+    by_ = 'by ' + str(by)
+    overlap_ = 'overlap ' + str(overlap)
+    seed_ = 'seed ' + str(seed)
+    command = ' '.join((mask, around_, by_, overlap_, seed_))
     _assert_mutable(traj)
 
     act = CpptrajActions.Action_RandomizeIons()

@@ -15,13 +15,11 @@ class TestRandomizeIons(unittest.TestCase):
         tn = os.path.join(cpptraj_test_dir, 'Test_RandomizeIons', 'adh206.ff10.tip3p.parm7.gz')
         saved_traj_name = os.path.join(cpptraj_test_dir, 'Test_RandomizeIons', 'random.crd.save')
 
-        command = '@Na+ around :1-16 by 5.0 overlap 3.0 seed 113698'
-
         traj = pt.iterload(fn, tn)
         traj_mut = traj[:]
         saved_traj = pt.iterload(saved_traj_name, traj.top)
 
-        pt.randomize_ions(traj_mut, command)
+        pt.randomize_ions(traj_mut, mask='@Na+', around=':1-16', by=5.0, overlap=3.0, seed=113698)
         aa_eq(traj_mut.xyz, saved_traj.xyz, decimal=2)
 
 
