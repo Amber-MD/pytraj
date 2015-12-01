@@ -128,8 +128,6 @@ class TrajectoryIterator(TrajectoryCpptraj):
                     ' or a list of filenames'
                     'must have a non-empty Topology')
             self._load(filename, self.top, *args, **kwd)
-        if not top and (args or kwd):
-            raise ValueError('require a Topology')
 
         self.__dict__.update({
             '_top_filename': self.top.filename,
@@ -453,6 +451,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
 
         >>> # reset stop value to max n_framaes if this number looks 'weird'
         >>> fi = traj._split_iterators(n_chunks=4, mask='@CA', stop=-100)
+        >>> fi = traj._split_iterators(n_chunks=4, mask='@CA', stop=traj.n_frames+100)
         """
 
         assert 0 <= start <= self.n_frames, "0 <= start <= self.n_frames"
