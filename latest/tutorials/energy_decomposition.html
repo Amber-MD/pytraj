@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Energy decomposition with sander and igb8 solvent model &mdash; pytraj 0.1.2.dev12+e49867f documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/searchbox.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.2.dev12+e49867f',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/0.6.0/lunr.min.js"></script>
+    <script type="text/javascript" src="../_static/js/searchbox.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="pytraj 0.1.2.dev12+e49867f documentation" href="../index.html" />
+    <link rel="up" title="Tutorials" href="index.html" />
+    <link rel="next" title="Principal component analysis" href="tut_pca.html" />
+    <link rel="prev" title="Basic examples" href="basic_examples.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+e49867f</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_and_write.html">Read and Write</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory_viewer.html">Trajectory Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Energy decomposition with sander and igb8 solvent model</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="basic_examples.html" title="Previous Chapter: Basic examples"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Basic examples</span>
+    </a>
+  </li>
+  <li>
+    <a href="tut_pca.html" title="Next Chapter: Principal component analysis"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Principal com... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/tutorials/energy_decomposition.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <div class="section" id="energy-decomposition-with-sander-and-igb8-solvent-model">
+<span id="energy-decomposition"></span><h1>Energy decomposition with sander and igb8 solvent model<a class="headerlink" href="#energy-decomposition-with-sander-and-igb8-solvent-model" title="Permalink to this headline">¶</a></h1>
+<div class="ipynotebook" id="notebook-container">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="require">require<a class="anchor-link" href="#require">&#182;</a></h1><ul>
+<li><p>pytraj/cpptraj: <a href="http://amber-md.github.io/pytraj/latest/installation.html#from-source-code">http://amber-md.github.io/pytraj/latest/installation.html#from-source-code</a></p>
+
+<pre><code>  git clone https://github.com/Amber-MD/pytraj
+  cd pytraj
+  python setup.py install</code></pre>
+</li>
+<li><p>libsander (<a href="http://ambermd.org/doc12/Amber15.pdf">http://ambermd.org/doc12/Amber15.pdf</a>): If you have AmberTools15 and already <code>make install</code>, it is likely that you already have <code>libsander</code></p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># load pytraj and load trajectories</span>
+
+<span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.parm7&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>pytraj.TrajectoryIterator, 101 frames: 
+Size: 0.000503 (GB)
+&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;
+           
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># compute the energy with igb=8 (GBneck2 solvation model)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">energy_decomposition</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">igb</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">data</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>OrderedDict([(&apos;constraint&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;dvdl&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;pb&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;gb&apos;,
+              array([-412.53266438, -400.09042163, -439.92701343, ..., -365.74056055,
+                     -395.14074215, -368.44262754])),
+             (&apos;scf&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;les&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;hbond&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;elec&apos;,
+              array([-781.59559933, -807.4891344 , -741.17534022, ..., -835.16025964,
+                     -805.08867184, -825.97031683])),
+             (&apos;amd_boost&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;ct&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;bond&apos;,
+              array([ 0.01531366,  0.01358172,  0.01252056, ...,  0.0154962 ,
+                      0.01510391,  0.0175098 ])),
+             (&apos;noe&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;cmap&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;angle&apos;,
+              array([ 128.54514846,  105.06494493,  103.52028376, ...,   99.46042639,
+                      103.49664937,   98.18016593])),
+             (&apos;disp&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;emap&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;vdw_14&apos;,
+              array([ 52.55761103,  50.03499738,  54.29855009, ...,  50.42610919,
+                      48.27053805,  51.9298654 ])),
+             (&apos;tot&apos;,
+              array([-225.72081333, -259.3103916 , -265.22164221, ..., -282.72357777,
+                     -287.55610458, -293.18137453])),
+             (&apos;vdw&apos;,
+              array([-44.9811844 , -43.77030705, -52.33589852, ..., -70.01048987,
+                     -66.01297848, -67.78679498])),
+             (&apos;angle_ub&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;rism&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;elec_14&apos;,
+              array([ 720.65923256,  731.53353441,  717.35440566, ...,  736.47531336,
+                      732.27034385,  726.61630671])),
+             (&apos;dihedral&apos;,
+              array([ 111.61132908,  105.39241304,   93.03084989, ...,  101.81038715,
+                       94.63365271,   92.27451698])),
+             (&apos;polar&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;imp&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;surf&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.]))])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># get energy you want</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;potential energy&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s">&#39;tot&#39;</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>potential energy [-225.72081333 -259.3103916  -265.22164221 ..., -282.72357777 -287.55610458
+ -293.18137453]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># solvation energy (igb=8)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;solvation energy&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s">&#39;gb&#39;</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>solvation energy [-412.53266438 -400.09042163 -439.92701343 ..., -365.74056055 -395.14074215
+ -368.44262754]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># you can also get other energies.</span>
+<span class="c"># for example: data[&#39;dihedral&#39;]</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&apos;constraint&apos;,
+ &apos;dvdl&apos;,
+ &apos;pb&apos;,
+ &apos;gb&apos;,
+ &apos;scf&apos;,
+ &apos;les&apos;,
+ &apos;hbond&apos;,
+ &apos;elec&apos;,
+ &apos;amd_boost&apos;,
+ &apos;ct&apos;,
+ &apos;bond&apos;,
+ &apos;noe&apos;,
+ &apos;cmap&apos;,
+ &apos;angle&apos;,
+ &apos;disp&apos;,
+ &apos;emap&apos;,
+ &apos;vdw_14&apos;,
+ &apos;tot&apos;,
+ &apos;vdw&apos;,
+ &apos;angle_ub&apos;,
+ &apos;rism&apos;,
+ &apos;elec_14&apos;,
+ &apos;dihedral&apos;,
+ &apos;polar&apos;,
+ &apos;imp&apos;,
+ &apos;surf&apos;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Parallel-calculation">Parallel calculation<a class="anchor-link" href="#Parallel-calculation">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># serial: pt.energy_decomposition(traj, igb=8)</span>
+
+<span class="c"># parallel</span>
+<span class="n">data2</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">func</span><span class="o">=</span><span class="n">pt</span><span class="o">.</span><span class="n">energy_decomposition</span><span class="p">,</span> <span class="n">traj</span><span class="o">=</span><span class="n">traj</span><span class="p">,</span> <span class="n">igb</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">data2</span><span class="p">[</span><span class="s">&#39;gb&#39;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([-412.53266438, -400.09042163, -439.92701343, ..., -365.74056055,
+       -395.14074215, -368.44262754])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+</div><p>(<a class="reference external" href="energy_decomposition.ipynb">energy_decomposition.ipynb</a>; <a class="reference external" href="energy_decomposition_evaluated.ipynb">energy_decomposition_evaluated.ipynb</a>; <a class="reference external" href="energy_decomposition.py">energy_decomposition.py</a>)</p>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, pytraj developers.<br/>
+      Last updated on Dec 01, 2015.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
