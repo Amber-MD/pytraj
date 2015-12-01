@@ -1389,6 +1389,11 @@ def randomize_ions(traj, mask, around, by, overlap, seed=1, top=None, frame_indi
         cpptraj command
     frame_indices : {None, array-like}, optional
     top : Topology, optional (only needed if ``traj`` does not have it)
+    **kwd: other args
+
+    Examples
+    --------
+    >>> pt.randomize_ions(traj, mask='@Na+', around=':1-16', by=5.0, overlap=3.0, seed=113698) # doctest: +SKIP
     """
     around_ = 'around ' + str(around)
     by_ = 'by ' + str(by)
