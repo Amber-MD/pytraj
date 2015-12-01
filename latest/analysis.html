@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Analysis &mdash; pytraj 0.1.2.dev12+e49867f documentation</title>
+    <title>Analysis &mdash; pytraj 0.1.2.dev12+235a2c2 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.2.dev12+e49867f',
+        VERSION:     '0.1.2.dev12+235a2c2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -32,7 +32,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+e49867f documentation" href="index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+235a2c2 documentation" href="index.html" />
     <link rel="next" title="Nucleic Acid Analysis" href="nucleic_acid.html" />
     <link rel="prev" title="Python tricks that make your life easier" href="tutorials/python_tricks.html" />
 <meta charset='utf-8'>
@@ -54,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+e49867f</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+235a2c2</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -1024,11 +1024,16 @@ occur.</li>
 <div><p>cpptraj command</p>
 </div></blockquote>
 <p><strong>frame_indices</strong> : {None, array-like}, optional</p>
-<p class="last"><strong>top</strong> : Topology, optional (only needed if <code class="docutils literal"><span class="pre">traj</span></code> does not have it)</p>
+<p><strong>top</strong> : Topology, optional (only needed if <code class="docutils literal"><span class="pre">traj</span></code> does not have it)</p>
+<p class="last"><strong>**kwd: other args</strong></p>
 </td>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">randomize_ions</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@Na+&#39;</span><span class="p">,</span> <span class="n">around</span><span class="o">=</span><span class="s">&#39;:1-16&#39;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">overlap</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">113698</span><span class="p">)</span> 
+</pre></div>
+</div>
 </dd></dl>
 
 <span class="target" id="crank"></span><dl class="function">
