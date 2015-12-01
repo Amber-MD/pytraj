@@ -1929,10 +1929,10 @@ def calc_rmsd(traj=None,
         dname = cmd.dtype.name
         if 'str' in dname:
             command = cmd
-        elif 'int' in dname or 'object' in dname:
-            if cmd.ndim == 1 and 'object' not in dname:
+        elif 'int' in dname:
+            if cmd.ndim == 1:
                 command = [array_to_cpptraj_atommask(mask), ]
-            elif cmd.ndim == 2 or 'object' in dname:
+            elif cmd.ndim == 2:
                 command = [array_to_cpptraj_atommask(x) for x in mask]
             else:
                 raise ValueError("only support array with ndim=1,2")
