@@ -381,7 +381,7 @@ def select_atoms(mask, topology):
 select = select_atoms
 
 
-def strip(traj_or_topology, mask):
+def strip(obj, mask):
     '''return a new Trajectory or Topology with given mask.
 
     Examples
@@ -406,23 +406,31 @@ def strip(traj_or_topology, mask):
     <Frame with 12 atoms>
     <Frame with 12 atoms>
     <Frame with 12 atoms>
+
+    >>> # raise ValueError
+    >>> pt.strip(0, '@CA')
+    Traceback (most recent call last):
+        ...
+    ValueError: object must be either Trajectory or Topology
     '''
 
-    if isinstance(traj_or_topology, string_types) and not isinstance(
+    if isinstance(obj, string_types) and not isinstance(
             mask, string_types):
-        traj_or_topology, mask = mask, traj_or_topology
+        obj, mask = mask, obj
 
     kept_mask = '!(' + mask + ')'
 
-    if isinstance(traj_or_topology, (Topology, Trajectory)):
+    if isinstance(obj, (Topology, Trajectory)):
         # return new Topology or new Trajectory
-        return traj_or_topology[kept_mask]
-    elif isinstance(traj_or_topology, TrajectoryIterator):
+        return obj[kept_mask]
+    elif isinstance(obj, TrajectoryIterator):
         # return a FrameIterator
-        return traj_or_topology(mask=kept_mask)
-    elif hasattr(traj_or_topology, 'mask'):
-        traj_or_topology.mask = kept_mask
-        return traj_or_topology
+        return obj(mask=kept_mask)
+    elif hasattr(obj, 'mask'):
+        obj.mask = kept_mask
+        return obj
+    else:
+        raise ValueError('object must be either Trajectory or Topology')
 
 
 def run(fi):
