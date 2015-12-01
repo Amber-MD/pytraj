@@ -50,7 +50,7 @@ class TestFrameIndices(unittest.TestCase):
         excluded_fn = [calc_jcoupling, calc_volmap,
                        energy_decomposition, center, search_neighbors,
                        calc_atomiccorr, autoimage, closest,
-                       calc_volume, superpose]
+                       calc_volume, superpose, randomize_ions]
         func_nu = [
             calc_epsilon, calc_alpha, calc_zeta, calc_beta, calc_nu1, calc_nu2,
             calc_delta, calc_chin,
