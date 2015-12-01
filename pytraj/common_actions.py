@@ -62,6 +62,7 @@ list_of_the_rest = ['rmsd', 'align_principal_axis', 'principal_axes', 'closest',
                     'auto_correlation_function', 'cross_correlation_function',
                     'check_structure', 'mean_structure', 'lifetime', 'lowestcurve',
                     'make_structure', 'replicate_cell', 'pucker', 'rmsd_perres',
+                    'randomize_ions',
                     'timecorr', 'search_neighbors', ]
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
