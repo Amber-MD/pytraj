@@ -310,16 +310,9 @@ class Trajectory(object):
             if isinstance(idx, (string_types, AtomMask)):
                 # return a copy
                 # traj['@CA']
-                if isinstance(idx, string_types):
-                    atm = self.top(idx)
-                elif isinstance(idx, AtomMask):
-                    atm = idx
-                if isinstance(atm, AtomMask):
-                    traj.top = self.top._modify_state_by_mask(atm)
-                    arr0 = self._xyz[:, atm.indices]
-                else:
-                    traj.top = self.top
-                    arr0 = self._xyz[idx]
+                atm = self.top(idx) if isinstance(idx, string_types) else idx
+                traj.top = self.top._modify_state_by_mask(atm)
+                arr0 = self._xyz[:, atm.indices]
                 # make copy to create contigous memory block
                 traj._xyz = arr0.copy()
 
@@ -440,6 +433,10 @@ class Trajectory(object):
         >>> traj3._append_unitcells((clen, cangle))
         >>> traj3.unitcells.shape
         (10, 6)
+
+        >>> traj4 = pt.Trajectory(top=traj.top)
+        >>> traj4._append_unitcells(traj.unitcells) 
+        >>> traj4._append_unitcells(traj.unitcells) 
         '''
         if isinstance(box, tuple):
             clen, cangle = box
@@ -487,6 +484,9 @@ class Trajectory(object):
 
         >>> t1 = pt.Trajectory(top=traj.top)
         >>> t1.append(traj)
+
+        >>> t2 = pt.Trajectory(top=traj.top)
+        >>> t2.append(traj.xyz)
 
         Notes
         -----
@@ -541,7 +541,7 @@ class Trajectory(object):
         '''
         return self.iterframe(*args, **kwd)
 
-    def load(self, filename='', indices=None):
+    def load(self, filename=''):
         '''load file or files. This is for internal use. User should always use
         ``pytraj.load`` (or ``iterload``) method
 
@@ -573,13 +573,12 @@ class Trajectory(object):
             ts = TrajectoryIterator()
             ts.top = self.top.copy()
             ts._load(filename)
-            if indices is None:
-                self.xyz = ts.xyz
-            else:
-                self.xyz = ts[indices].xyz
+            self._xyz = ts[:].xyz
         elif isinstance(filename, (list, tuple)):
             for fn in filename:
                 self.load(fn)
+        else:
+            raise ValueError('filename must be string or a list of strings')
 
     def autoimage(self, command=''):
         '''perform autoimage
@@ -847,9 +846,7 @@ class Trajectory(object):
         atm.invert_mask()
         self.top.strip(mask)
 
-        if self._xyz is not None:
-            # need to copy to make contigous memory block
-            self._xyz = np.ascontiguousarray(self._xyz[:, atm.indices])
+        self._xyz = np.ascontiguousarray(self._xyz[:, atm.indices])
         return self
 
     def save(self,
