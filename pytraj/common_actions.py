@@ -2263,8 +2263,15 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
     return _get_data_from_dtype(cdslist[2:], dtype=dtype)
 
 
-def cross_correlation_function(data0, data1, dtype='ndarray'):
-    """
+def xcorr(data0, data1, dtype='ndarray'):
+    """compute cross correlation between two datasets
+
+    Parameters
+    ----------
+    data0 and data1: 1D-array like
+    dtype : return datatype, default 'ndarray'
+
+
     Notes
     -----
     Same as `corr` in cpptraj
@@ -2281,9 +2288,18 @@ def cross_correlation_function(data0, data1, dtype='ndarray'):
     act("d0 d1 out _tmp.out", dslist=cdslist)
     return _get_data_from_dtype(cdslist[2:], dtype=dtype)
 
+cross_correlation_function = xcorr
 
-def auto_correlation_function(data, dtype='ndarray', covar=True):
-    """
+
+def acorr(data, dtype='ndarray', covar=True):
+    """compute autocorrelation
+
+    Parameters
+    ----------
+    data : 1d array-like
+    dtype: return type, default 'ndarray'
+    covar : bool, default True
+
     Notes
     -----
     Same as `autocorr` in cpptraj
@@ -2300,6 +2316,8 @@ def auto_correlation_function(data, dtype='ndarray', covar=True):
     command = "d0 out _tmp.out" + _nocovar
     act(command, dslist=cdslist)
     return _get_data_from_dtype(cdslist[1:], dtype=dtype)
+
+acorr = auto_correlation_function
 
 
 def lifetime(data, cut=0.5, rawcurve=False, more_options='', dtype='ndarray'):
