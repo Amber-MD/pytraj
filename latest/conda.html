@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj Ecosystem &mdash; pytraj 0.1.2.dev12+213dd9d documentation</title>
+    <title>Use conda to manage different Python version &mdash; pytraj 0.1.2.dev12+213dd9d documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -33,6 +33,8 @@
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="pytraj 0.1.2.dev12+213dd9d documentation" href="index.html" />
+    <link rel="next" title="Cookbook" href="cookbook.html" />
+    <link rel="prev" title="Misc" href="misc.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -70,7 +72,7 @@
       aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 </ul>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="trajectory.html">Trajectory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
@@ -85,7 +87,7 @@
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
-<li class="toctree-l1"><a class="reference internal" href="conda.html">Use conda to manage different Python version</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Use conda to manage different Python version</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
 <li class="toctree-l1"><a class="reference internal" href="trajectory_viewer.html">Trajectory Viewer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
@@ -102,11 +104,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">pytraj Ecosystem</a><ul>
-<li><a class="reference internal" href="#interactive">Interactive</a></li>
-<li><a class="reference internal" href="#visualization">Visualization</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#">Use conda to manage different Python version</a></li>
 </ul>
 </ul>
 </li>
@@ -115,6 +113,14 @@
             
               
                 
+  <li>
+    <a href="misc.html" title="Previous Chapter: Misc"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Misc</span>
+    </a>
+  </li>
+  <li>
+    <a href="cookbook.html" title="Next Chapter: Cookbook"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Cookbook &raquo;</span>
+    </a>
+  </li>
               
             
             
@@ -122,7 +128,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="_sources/ecosystem.txt"
+  <a href="_sources/conda.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -146,22 +152,27 @@
   <div class="row">
     <div class="col-md-12">
       
-  <div class="section" id="pytraj-ecosystem">
-<span id="ecosystem"></span><h1>pytraj Ecosystem<a class="headerlink" href="#pytraj-ecosystem" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="interactive">
-<h2>Interactive<a class="headerlink" href="#interactive" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>ipython</li>
-<li>jupyter notebook</li>
+  <div class="section" id="use-conda-to-manage-different-python-version">
+<span id="conda"></span><h1>Use conda to manage different Python version<a class="headerlink" href="#use-conda-to-manage-different-python-version" title="Permalink to this headline">¶</a></h1>
+<p>Supposed you want to switch back and forth among different Python versions (python2.7, 3.4, 3.5, ...), or you
+want to try different environments (with or without numpy):  <code class="docutils literal"><span class="pre">conda</span></code> is solution</p>
+<ul>
+<li><p class="first">install conda: <a class="reference external" href="http://conda.pydata.org/docs/installation.html">http://conda.pydata.org/docs/installation.html</a></p>
+</li>
+<li><p class="first">To create a new enviroment with name of <code class="docutils literal"><span class="pre">your_env_name</span></code>, python version=3.4, preinstall <code class="docutils literal"><span class="pre">numpy</span></code>, <code class="docutils literal"><span class="pre">scipy</span></code>:</p>
+<p>conda create -n your_env_name python=3.4 numpy scipy</p>
+</li>
+<li><p class="first">activate to newly created enviroment:</p>
+<p>source activate your_env_name</p>
+</li>
+<li><p class="first">if you want to install new program in <code class="docutils literal"><span class="pre">your_env_name</span></code>, such as <code class="docutils literal"><span class="pre">matplotlib</span></code>:</p>
+<p>conda install matplotlib</p>
+</li>
+<li><p class="first">return to your original env:</p>
+<p>source deactivate</p>
+</li>
 </ul>
-</div>
-<div class="section" id="visualization">
-<h2>Visualization<a class="headerlink" href="#visualization" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>matplotlib</li>
-<li>seaborn</li>
-</ul>
-</div>
+<p>Read also: <a class="reference external" href="http://conda.pydata.org/docs/using/index.html">http://conda.pydata.org/docs/using/index.html</a></p>
 </div>
 
 

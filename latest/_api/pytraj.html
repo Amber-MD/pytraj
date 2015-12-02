@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj &mdash; pytraj 0.1.2.dev12+35fc55a documentation</title>
+    <title>pytraj &mdash; pytraj 0.1.2.dev12+213dd9d documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.2.dev12+35fc55a',
+        VERSION:     '0.1.2.dev12+213dd9d',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+35fc55a documentation" href="../index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+213dd9d documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="next" title="pytraj.io" href="pytraj.io.html" />
     <link rel="prev" title="API" href="index.html" />
@@ -55,7 +55,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+35fc55a</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+213dd9d</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -88,6 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conda.html">Use conda to manage different Python version</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cookbook.html">Cookbook</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../trajectory_viewer.html">Trajectory Viewer</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a></li>
@@ -390,7 +391,7 @@
 
 <dl class="function">
 <dt id="pytraj.strip">
-<code class="descclassname">pytraj.</code><code class="descname">strip</code><span class="sig-paren">(</span><em>traj_or_topology</em>, <em>mask</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.strip" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">strip</code><span class="sig-paren">(</span><em>obj</em>, <em>mask</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.strip" title="Permalink to this definition">¶</a></dt>
 <dd><p>return a new Trajectory or Topology with given mask.</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
@@ -413,6 +414,13 @@
 <span class="go">&lt;Frame with 12 atoms&gt;</span>
 <span class="go">&lt;Frame with 12 atoms&gt;</span>
 <span class="go">&lt;Frame with 12 atoms&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># raise ValueError</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">ValueError</span>: <span class="n">object must be either Trajectory or Topology</span>
 </pre></div>
 </div>
 </dd></dl>

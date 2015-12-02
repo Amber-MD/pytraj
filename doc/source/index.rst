@@ -48,6 +48,7 @@ Welcome
    faq
    developer_guide
    misc
+   conda
    cookbook
    trajectory_viewer
    api
