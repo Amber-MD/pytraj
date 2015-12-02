@@ -130,12 +130,13 @@ from .common_actions import (
     calc_pairwise_rmsd, calc_atomicfluct, calc_bfactors,
     calc_rotation_matrix, calc_watershell, calc_volume, calc_mindist, lifetime,
     get_average_frame, calc_atomiccorr, get_velocity, _dihedral_res,
-    native_contacts, auto_correlation_function, principal_axes,
-    cross_correlation_function, timecorr, center, translate, rotate,
+    native_contacts, principal_axes,
+    timecorr, center, translate, rotate,
     rotate_dihedral, make_structure, scale, clustering_dataset, randomize_ions,
     set_dihedral, crank, closest, search_neighbors, replicate_cell,
     calc_pairdist, _grid, transform, lowestcurve, calc_diffusion, calc_volmap,
-    calc_multivector, pca)
+    calc_multivector, pca,
+    xcorr, acorr)
 
 from .matrix import dist
 distance_matrix = dist
@@ -183,10 +184,6 @@ pairwise_rmsd = calc_pairwise_rmsd
 rms2d = calc_pairwise_rmsd
 rotation_matrix = calc_rotation_matrix
 multidihedral = calc_multidihedral
-xcorr = cross_correlation_function
-crosscorr = cross_correlation_function
-acorr = auto_correlation_function
-autocorr = auto_correlation_function
 dssp = calc_dssp
 bfactors = calc_bfactors
 volume = calc_volume

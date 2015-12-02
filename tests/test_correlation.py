@@ -21,18 +21,18 @@ class Test(unittest.TestCase):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         dslist = pt.calc_distance(traj, ['@2 @3', '@4, @7'])
 
-        pout = pt.common_actions.cross_correlation_function(dslist[0],
-                                                            dslist[1])
+        pout = pt.xcorr(dslist[0],
+                        dslist[1])
         # corr d0, d1
         aa_eq(pout, cout[2])
 
         # corr d0, d0
-        pout = pt.common_actions.cross_correlation_function(dslist[0],
-                                                            dslist[0])
+        pout = pt.xcorr(dslist[0],
+                        dslist[0])
         aa_eq(pout, cout[3])
 
         # autocorr d0, d0
-        pout = pt.common_actions.auto_correlation_function(dslist[0])
+        pout = pt.acorr(dslist[0])
         aa_eq(pout, cout[3])
 
 

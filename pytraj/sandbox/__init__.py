@@ -308,4 +308,3 @@ def _rotdif(arr,
         arr = arr.reshape(shape[0], shape[1] * shape[2])
     else:
         raise ValueError(msg)
-

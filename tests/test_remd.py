@@ -24,7 +24,7 @@ class TestREMDTemperature(unittest.TestCase):
 
         input_file = 'data/Test_RemdTraj/traj.in'
 
-        state_from_file = pt.load_cpptraj_file(input_file)
+        state_from_file = pt.load_cpptraj_state(input_file)
         state_from_file.run()
         # remove DatasetTopology
         data = state_from_file.data

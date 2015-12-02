@@ -42,7 +42,6 @@ list_of_cal = ['calc_distance',
                'calc_center_of_geometry',
                'calc_pairwise_rmsd',
                'calc_grid',
-               'calc_temperatures',
                'calc_atomiccorr',
                'calc_bfactors',
                'calc_diffusion',
@@ -59,11 +58,12 @@ list_of_get = ['get_average_frame', 'get_velocity']
 
 list_of_the_rest = ['rmsd', 'align_principal_axis', 'principal_axes', 'closest',
                     'transform', 'native_contacts', 'set_dihedral',
-                    'auto_correlation_function', 'cross_correlation_function',
                     'check_structure', 'mean_structure', 'lifetime', 'lowestcurve',
                     'make_structure', 'replicate_cell', 'pucker', 'rmsd_perres',
                     'randomize_ions',
-                    'timecorr', 'search_neighbors', ]
+                    'timecorr', 'search_neighbors',
+                    'xcorr', 'acorr',
+                    ]
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
 
@@ -466,15 +466,14 @@ def calc_dihedral(traj=None,
             act(command, traj, top=_top, dslist=dslist)
             return _get_data_from_dtype(dslist, dtype)
 
-        elif isinstance(command, (list, tuple, np.ndarray)):
+        else:
+            # assume isinstance(command, (list, tuple, np.ndarray)):
             list_of_commands = command
-            from pytraj.core.action_list import ActionList
-            from pytraj.actions.CpptrajActions import Action_Dihedral
             dslist = CpptrajDatasetList()
             actlist = ActionList()
 
             for cm in list_of_commands:
-                actlist.add_action(Action_Dihedral(),
+                actlist.add_action(CpptrajActions.Action_Dihedral(),
                                    cm,
                                    _top,
                                    dslist=dslist,
@@ -1787,27 +1786,6 @@ def calc_pairwise_rmsd(traj=None,
         return _get_data_from_dtype(dslist, dtype)
 
 
-
-@_register_pmap
-@_super_dispatch()
-def calc_temperatures(traj=None,
-                      mask="",
-                      frame_indices=None,
-                      top=None,
-                      dtype='ndarray'):
-    """return 1D python array of temperatures (from velocity) in traj
-    if `frame` keyword is specified cpptraj/pytraj will take existing T
-
-    Default = array of 0.0
-    """
-    dslist = CpptrajDatasetList()
-
-    act = CpptrajActions.Action_Temperature()
-    act(mask, traj, dslist=dslist, top=top)
-
-    return _get_data_from_dtype(dslist, dtype)
-
-
 @_register_pmap
 def rmsd_perres(traj=None,
                 ref=0,
@@ -2260,6 +2238,7 @@ def timecorr(vec0,
 
 def crank(data0, data1, mode='distance', dtype='ndarray'):
     """
+
     Parameters
     ----------
     data0 : array-like
@@ -2284,45 +2263,6 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
     command = ' '.join((mode, 'd0', 'd1'))
     act(command, dslist=cdslist)
     return _get_data_from_dtype(cdslist[2:], dtype=dtype)
-
-
-def cross_correlation_function(data0, data1, dtype='ndarray'):
-    """
-    Notes
-    -----
-    Same as `corr` in cpptraj
-    """
-
-    cdslist = CpptrajDatasetList()
-    cdslist.add_set("double", "d0")
-    cdslist.add_set("double", "d1")
-
-    cdslist[0].data = np.asarray(data0)
-    cdslist[1].data = np.asarray(data1)
-
-    act = CpptrajAnalyses.Analysis_Corr()
-    act("d0 d1 out _tmp.out", dslist=cdslist)
-    return _get_data_from_dtype(cdslist[2:], dtype=dtype)
-
-
-def auto_correlation_function(data, dtype='ndarray', covar=True):
-    """
-    Notes
-    -----
-    Same as `autocorr` in cpptraj
-    """
-
-    _nocovar = " " if covar else " nocovar"
-
-    cdslist = CpptrajDatasetList()
-    cdslist.add_set("double", "d0")
-
-    cdslist[0].data = np.asarray(data)
-
-    act = CpptrajAnalyses.Analysis_AutoCorr()
-    command = "d0 out _tmp.out" + _nocovar
-    act(command, dslist=cdslist)
-    return _get_data_from_dtype(cdslist[1:], dtype=dtype)
 
 
 def lifetime(data, cut=0.5, rawcurve=False, more_options='', dtype='ndarray'):
@@ -2618,7 +2558,7 @@ def _projection(traj,
                 eigenvalues,
                 eigenvectors,
                 scalar_type,
-                average_coords=None,
+                average_coords,
                 frame_indices=None,
                 dtype='ndarray',
                 top=None):
@@ -2635,10 +2575,8 @@ def _projection(traj,
                           eigenvalues, eigenvectors.flatten())
     dataset_mode.scalar_type = scalar_type
 
-    if average_coords is not None:
-        dataset_mode._allocate_avgcoords(3*average_coords.shape[0])
-        dataset_mode._set_avg_frame(average_coords.flatten())
-
+    dataset_mode._allocate_avgcoords(3*average_coords.shape[0])
+    dataset_mode._set_avg_frame(average_coords.flatten())
     _mask = mask
     _evecs = 'evecs {}'.format(mode_name)
     _beg_end = 'beg 1 end {}'.format(n_vectors)
@@ -2866,3 +2804,59 @@ def lowestcurve(data, points=10, step=0.2):
 
     act(command, dslist=dslist)
     return np.array([dslist[-1]._xcrd(), np.array(dslist[-1].values)])
+
+
+def acorr(data, dtype='ndarray', option=''):
+    """compute autocorrelation
+
+    Parameters
+    ----------
+    data : 1d array-like
+    dtype: return type, default 'ndarray'
+    covar : bool, default True
+    option : str
+        more cpptraj options
+
+    Notes
+    -----
+    Same as `autocorr` in cpptraj
+    """
+    cdslist = CpptrajDatasetList()
+    cdslist.add_set("double", "d0")
+
+    cdslist[0].data = np.asarray(data)
+
+    act = CpptrajAnalyses.Analysis_AutoCorr()
+    command = "d0 out _tmp.out"
+    act(command, dslist=cdslist)
+    return _get_data_from_dtype(cdslist[1:], dtype=dtype)
+
+auto_correlation_function = acorr
+
+
+def xcorr(data0, data1, dtype='ndarray'):
+    """compute cross correlation between two datasets
+
+    Parameters
+    ----------
+    data0 and data1: 1D-array like
+    dtype : return datatype, default 'ndarray'
+
+
+    Notes
+    -----
+    Same as `corr` in cpptraj
+    """
+
+    cdslist = CpptrajDatasetList()
+    cdslist.add_set("double", "d0")
+    cdslist.add_set("double", "d1")
+
+    cdslist[0].data = np.asarray(data0)
+    cdslist[1].data = np.asarray(data1)
+
+    act = CpptrajAnalyses.Analysis_Corr()
+    act("d0 d1 out _tmp.out", dslist=cdslist)
+    return _get_data_from_dtype(cdslist[2:], dtype=dtype)
+
+cross_correlation_function = xcorr
