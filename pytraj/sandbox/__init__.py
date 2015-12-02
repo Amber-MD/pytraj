@@ -259,3 +259,53 @@ def calc_density(traj=None,
         dslist.read_data(fname)
         return _get_data_from_dtype(dslist, dtype)
 
+def _rotdif(arr,
+            nvecs=1000,
+            rvecin=None,
+            rseed=80531,
+            order=2,
+            ncorr=-1,
+            tol=1E-6,
+            d0=0.03,
+            nmesh=2,
+            dt=0.002,
+            ti=0.0,
+            tf=-1,
+            itmax=-1.,
+            dtype='ndarray'):
+    '''
+
+    Parameters
+    ----------
+    arr : array-like, shape (n_frames, 3, 3) or (n_frames, 9)
+    '''
+    _nvecs = 'nvecs ' + str(nvecs)
+    _rvecin = 'rvecin ' + rvecin if rvecin is not None else ''
+    _rseed = 'rseed ' + str(rseed)
+    _order = 'order ' + str(order)
+    _ncorr = 'ncorr ' + str(ncorr) if ncorr > 0 else ''
+    _tol = 'tol ' + str(tol)
+    _d0 = 'd0 ' + str(d0)
+    _nmesh = 'nmesh ' + str(nmesh)
+    _dt = 'dt ' + str(dt)
+    _ti = 'ti ' + str(ti)
+    _tf = 'tf ' + str(tf)
+    _itmax = 'itmax ' + str(itmax)
+    _rmatrix = 'rmatrix mymat'
+
+    act = CpptrajAnalyses.Analysis_Rotdif()
+    dslist = CpptrajDatasetList()
+    dslist.add_set('mat3x3', 'mymat')
+
+    arr = np.asarray(arr, dtype='f8')
+    msg = 'array must have shape=(n_frames, 9) or (n_frames, 3, 3)'
+    shape = arr.shape
+    if arr.ndim == 2:
+        assert shape[1] == 9, msg
+    elif arr.ndim == 3:
+        assert shape[1:3] == (3, 3), msg
+        # need to reshape to (n_frames, 9)
+        arr = arr.reshape(shape[0], shape[1] * shape[2])
+    else:
+        raise ValueError(msg)
+
