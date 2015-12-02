@@ -133,7 +133,7 @@ from .common_actions import (
     native_contacts, auto_correlation_function, principal_axes,
     cross_correlation_function, timecorr, center, translate, rotate,
     rotate_dihedral, make_structure, scale, clustering_dataset, randomize_ions,
-    set_dihedral, crank, closest, search_neighbors, replicate_cell, _rotdif,
+    set_dihedral, crank, closest, search_neighbors, replicate_cell,
     calc_pairdist, _grid, transform, lowestcurve, calc_diffusion, calc_volmap,
     calc_multivector, pca)
 
