@@ -466,15 +466,14 @@ def calc_dihedral(traj=None,
             act(command, traj, top=_top, dslist=dslist)
             return _get_data_from_dtype(dslist, dtype)
 
-        elif isinstance(command, (list, tuple, np.ndarray)):
+        else:
+            # assume isinstance(command, (list, tuple, np.ndarray)):
             list_of_commands = command
-            from pytraj.core.action_list import ActionList
-            from pytraj.actions.CpptrajActions import Action_Dihedral
             dslist = CpptrajDatasetList()
             actlist = ActionList()
 
             for cm in list_of_commands:
-                actlist.add_action(Action_Dihedral(),
+                actlist.add_action(CpptrajActions.Action_Dihedral(),
                                    cm,
                                    _top,
                                    dslist=dslist,
@@ -1785,27 +1784,6 @@ def calc_pairwise_rmsd(traj=None,
         return _get_matrix_from_dataset(dslist[0], mat_type)
     else:
         return _get_data_from_dtype(dslist, dtype)
-
-
-
-@_register_pmap
-@_super_dispatch()
-def calc_temperatures(traj=None,
-                      mask="",
-                      frame_indices=None,
-                      top=None,
-                      dtype='ndarray'):
-    """return 1D python array of temperatures (from velocity) in traj
-    if `frame` keyword is specified cpptraj/pytraj will take existing T
-
-    Default = array of 0.0
-    """
-    dslist = CpptrajDatasetList()
-
-    act = CpptrajActions.Action_Temperature()
-    act(mask, traj, dslist=dslist, top=top)
-
-    return _get_data_from_dtype(dslist, dtype)
 
 
 @_register_pmap
