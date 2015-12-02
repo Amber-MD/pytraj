@@ -62,6 +62,7 @@ list_of_the_rest = ['rmsd', 'align_principal_axis', 'principal_axes', 'closest',
                     'auto_correlation_function', 'cross_correlation_function',
                     'check_structure', 'mean_structure', 'lifetime', 'lowestcurve',
                     'make_structure', 'replicate_cell', 'pucker', 'rmsd_perres',
+                    'randomize_ions',
                     'timecorr', 'search_neighbors', ]
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
@@ -1389,6 +1390,11 @@ def randomize_ions(traj, mask, around, by, overlap, seed=1, top=None, frame_indi
         cpptraj command
     frame_indices : {None, array-like}, optional
     top : Topology, optional (only needed if ``traj`` does not have it)
+    **kwd: other args
+
+    Examples
+    --------
+    >>> pt.randomize_ions(traj, mask='@Na+', around=':1-16', by=5.0, overlap=3.0, seed=113698) # doctest: +SKIP
     """
     around_ = 'around ' + str(around)
     by_ = 'by ' + str(by)
@@ -1923,10 +1929,10 @@ def calc_rmsd(traj=None,
         dname = cmd.dtype.name
         if 'str' in dname:
             command = cmd
-        elif 'int' in dname or 'object' in dname:
-            if cmd.ndim == 1 and 'object' not in dname:
+        elif 'int' in dname:
+            if cmd.ndim == 1:
                 command = [array_to_cpptraj_atommask(mask), ]
-            elif cmd.ndim == 2 or 'object' in dname:
+            elif cmd.ndim == 2:
                 command = [array_to_cpptraj_atommask(x) for x in mask]
             else:
                 raise ValueError("only support array with ndim=1,2")

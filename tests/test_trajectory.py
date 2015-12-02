@@ -118,6 +118,10 @@ class TestTrajectory(unittest.TestCase):
 
     def test_raise_construtor(self):
         self.assertRaises(ValueError, lambda: pt.Trajectory(pt.trajectory))
+        # raise if filename is not string or list of string
+        empty_traj = pt.Trajectory()
+        empty_traj.top = pt.datafiles.load_tz2()[:].top
+        self.assertRaises(ValueError, lambda: empty_traj.load(pt.Trajectory))
 
     def test_slice_basic(self):
         traj2 = pt.Trajectory()

@@ -6,6 +6,7 @@ import unittest
 import subprocess
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
+from pytraj.version import version
 
 
 class TestExtraCoverage(unittest.TestCase):
@@ -19,6 +20,7 @@ class TestExtraCoverage(unittest.TestCase):
         pt.show_versions()
         pt._verbose()
         pt._verbose(False)
+        print(version)
 
         # info
         pt.info()

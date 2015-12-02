@@ -32,6 +32,8 @@ def _get_topology(traj, top):
     >>> # find Topology in a list
     >>> isinstance(_get_topology([traj, traj], None), Topology)
     True
+    >>> _get_topology(None, None) is None
+    True
     '''
     if isinstance(top, string_types):
         # if provide a filename, load to Topology

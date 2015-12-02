@@ -9,7 +9,7 @@ from pytraj.utils import eq, aa_eq
 
 class TestNormalDistance(unittest.TestCase):
 
-    def test_0(self):
+    def test_general(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
         mask = ':1@CA :14@CB'
@@ -27,17 +27,18 @@ class TestNormalDistance(unittest.TestCase):
         d5 = pt.calc_distance(traj, arr)
         d6 = pt.calc_distance(fa, arr)
         d7 = pt.calc_distance([fa, traj], arr, n_frames=2 * fa.n_frames)
+        d8 = pt.calc_distance([fa, traj], arr, n_frames=2 * fa.n_frames, dtype='dataset')
         aa_eq(d3, d4)
         aa_eq(d3, d5)
         aa_eq(d3, d6)
         aa_eq(d3.T, d7.T[:fa.n_frames])
         aa_eq(d3.T, d7.T[fa.n_frames:])
+        aa_eq(d7, d8.values)
 
         # raise
         self.assertRaises(ValueError, lambda: pt.dihedrals(traj, [[0, 3, 2]]))
 
-    def test_2(self):
-        # calculate distance without specifying n_frames
+    def test_calculate_distance_without_specifying_n_frames(self):
         # TrajectoryIterator
         import numpy as np
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
