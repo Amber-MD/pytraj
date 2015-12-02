@@ -463,6 +463,7 @@ cdef class Topology:
 
     def set_nobox(self):
         self.box = Box()
+        return self
 
     def _partial_modify_state_by_mask(self, AtomMask m):
         cdef Topology top = Topology()
