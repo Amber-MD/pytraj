@@ -58,7 +58,6 @@ list_of_get = ['get_average_frame', 'get_velocity']
 
 list_of_the_rest = ['rmsd', 'align_principal_axis', 'principal_axes', 'closest',
                     'transform', 'native_contacts', 'set_dihedral',
-                    'auto_correlation_function', 'cross_correlation_function',
                     'check_structure', 'mean_structure', 'lifetime', 'lowestcurve',
                     'make_structure', 'replicate_cell', 'pucker', 'rmsd_perres',
                     'randomize_ions',
@@ -2237,6 +2236,7 @@ def timecorr(vec0,
 
 def crank(data0, data1, mode='distance', dtype='ndarray'):
     """
+
     Parameters
     ----------
     data0 : array-like
@@ -2261,63 +2261,6 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
     command = ' '.join((mode, 'd0', 'd1'))
     act(command, dslist=cdslist)
     return _get_data_from_dtype(cdslist[2:], dtype=dtype)
-
-
-def xcorr(data0, data1, dtype='ndarray'):
-    """compute cross correlation between two datasets
-
-    Parameters
-    ----------
-    data0 and data1: 1D-array like
-    dtype : return datatype, default 'ndarray'
-
-
-    Notes
-    -----
-    Same as `corr` in cpptraj
-    """
-
-    cdslist = CpptrajDatasetList()
-    cdslist.add_set("double", "d0")
-    cdslist.add_set("double", "d1")
-
-    cdslist[0].data = np.asarray(data0)
-    cdslist[1].data = np.asarray(data1)
-
-    act = CpptrajAnalyses.Analysis_Corr()
-    act("d0 d1 out _tmp.out", dslist=cdslist)
-    return _get_data_from_dtype(cdslist[2:], dtype=dtype)
-
-cross_correlation_function = xcorr
-
-
-def acorr(data, dtype='ndarray', covar=True):
-    """compute autocorrelation
-
-    Parameters
-    ----------
-    data : 1d array-like
-    dtype: return type, default 'ndarray'
-    covar : bool, default True
-
-    Notes
-    -----
-    Same as `autocorr` in cpptraj
-    """
-
-    _nocovar = " " if covar else " nocovar"
-
-    cdslist = CpptrajDatasetList()
-    cdslist.add_set("double", "d0")
-
-    cdslist[0].data = np.asarray(data)
-
-    act = CpptrajAnalyses.Analysis_AutoCorr()
-    command = "d0 out _tmp.out" + _nocovar
-    act(command, dslist=cdslist)
-    return _get_data_from_dtype(cdslist[1:], dtype=dtype)
-
-auto_correlation_function = acorr
 
 
 def lifetime(data, cut=0.5, rawcurve=False, more_options='', dtype='ndarray'):
