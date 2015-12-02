@@ -2317,7 +2317,7 @@ def acorr(data, dtype='ndarray', covar=True):
     act(command, dslist=cdslist)
     return _get_data_from_dtype(cdslist[1:], dtype=dtype)
 
-acorr = auto_correlation_function
+auto_correlation_function = acorr
 
 
 def lifetime(data, cut=0.5, rawcurve=False, more_options='', dtype='ndarray'):
