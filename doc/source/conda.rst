@@ -1,7 +1,7 @@
 .. _conda:
 
-Use conda to manage different Python version
---------------------------------------------
+Use conda to manage different Python versions
+---------------------------------------------
 
 Supposed you want to switch back and forth among different Python versions (python2.7, 3.4, 3.5, ...), or you
 want to try different environments (with or without numpy):  ``conda`` is solution
