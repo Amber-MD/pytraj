@@ -40,11 +40,11 @@ script:
     - python ./run_examples.py
     - cd mpi_examples
     - sh run_mpi_examples.sh 4 
-    - cd ../../tests/
 
 after_success:
     - echo "after_success"
-    - sh ../devtools/travis-ci/after_success.sh
+    - cd ../../tests/
+    - coveralls
 
 notifications:
   email: false
