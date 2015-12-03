@@ -49,8 +49,8 @@ list_of_cal = ['calc_distance',
                'calc_mindist',
                'calc_pairwise_distance',
                'calc_rmsd_nofit',
-               'calc_rotation_matrix', 
-               'calc_pca',]
+               'calc_rotation_matrix',
+               'calc_pca', ]
 
 list_of_do = ['do_translation', 'do_rotation', 'do_autoimage', 'do_scaling']
 
@@ -2560,10 +2560,10 @@ def _projection(traj,
     dataset_mode = dslist[-1]
     n_vectors = len(eigenvalues)
     dataset_mode._set_modes(is_reduced, n_vectors, eigenvectors.shape[1],
-                          eigenvalues, eigenvectors.flatten())
+                            eigenvalues, eigenvectors.flatten())
     dataset_mode.scalar_type = scalar_type
 
-    dataset_mode._allocate_avgcoords(3*average_coords.shape[0])
+    dataset_mode._allocate_avgcoords(3 * average_coords.shape[0])
     dataset_mode._set_avg_frame(average_coords.flatten())
     _mask = mask
     _evecs = 'evecs {}'.format(mode_name)
@@ -2587,7 +2587,7 @@ def pca(traj,
     - rmsfit to average frame with ``mask``
     - compute covariance matrix
     - diagonalize the matrix to get eigenvectors and eigenvalues
-    - perform projection of each frame with mask to each eigenvector 
+    - perform projection of each frame with mask to each eigenvector
 
     Parameters
     ----------
@@ -2596,7 +2596,7 @@ def pca(traj,
     mask : str
         atom mask
     n_vecs : int, default 2
-        number of eigenvectors. If user want to compute projection for all eigenvectors, 
+        number of eigenvectors. If user want to compute projection for all eigenvectors,
         should specify n_vecs=-1 (or a negative number)
     dtype : return datatype
     top : Topology, optional
@@ -2643,7 +2643,7 @@ def pca(traj,
 
     eigenvalues, eigenvectors = matrix.diagonalize(mat, n_vecs=n_vecs, dtype='tuple')
     projection_data = _projection(traj, mask=mask, average_coords=avg2.xyz,
-                                  eigenvalues=eigenvalues, 
+                                  eigenvalues=eigenvalues,
                                   eigenvectors=eigenvectors,
                                   scalar_type='covar', dtype=dtype)
     return projection_data, (eigenvalues, eigenvectors)
@@ -2690,7 +2690,6 @@ def calc_atomiccorr(traj,
         act.post_process()
 
     return _get_data_from_dtype(dslist, dtype=dtype)
-
 
 
 def _grid(traj,
