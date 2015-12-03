@@ -10,6 +10,12 @@ class TestVolume(unittest.TestCase):
 
     def test_volume(self):
         traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        state = pt.load_cpptraj_state('''
+        volume''', traj)
+        state.run()
+
+        vol = pt.volume(traj)
+        aa_eq(state.data[-1], vol)
 
 
 if __name__ == "__main__":
