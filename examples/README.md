@@ -10,5 +10,7 @@ Notes for contributing new example file
 
 - make it short: ideally about 30 lines.
 
+- should have detail explanation
+
 - travis will run all .py files in this folder. So make sure your example runable.
       check: get_py_files.py
