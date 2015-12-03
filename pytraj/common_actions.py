@@ -2322,17 +2322,29 @@ def pucker(traj=None,
            range360=False,
            method='altona',
            use_com=True,
-           amplitude=True,
-           offset=None,
-           *args,
-           **kwd):
-    """Note: not validate yet
+           amplitude=False,
+           offset=None):
+    """compute pucker
 
+    Parameters
+    ----------
+    traj : Trajectory-like
+    pucker_mask : str
+    resrange : None or array of int
+    top : Topology, optional
+    dtype : str, return type
+    range360: bool, use 360 or 180 scale
+    method : {'altona', 'cremer'}, default 'altona'
+    use_com : bool
+    amplitude : bool, default False
+    offset : None or float
+
+    Returns
+    -------
+    Dataset
     """
-    from pytraj.compat import range
-
     _top = _get_topology(traj, top)
-    if not resrange:
+    if resrange is None:
         resrange = range(_top.n_residues)
 
     _range360 = "range360" if range360 else ""
@@ -2347,8 +2359,10 @@ def pucker(traj=None,
         name = "pucker_res" + str(res + 1)
         command = " ".join((name, command, _range360, method, geom, amp,
                             _offset))
-        act(command, traj, top=_top, dslist=cdslist, *args, **kwd)
+        act(command, traj, top=_top, dslist=cdslist)
     return _get_data_from_dtype(cdslist, dtype)
+
+calc_pucker = pucker
 
 
 @_super_dispatch()

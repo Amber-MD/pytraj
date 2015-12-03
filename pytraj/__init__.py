@@ -130,6 +130,7 @@ from .common_actions import (
     calc_pairwise_rmsd, calc_atomicfluct, calc_bfactors,
     calc_rotation_matrix, calc_watershell, calc_volume, calc_mindist,
     #lifetime,
+    pucker,
     get_average_frame, calc_atomiccorr, get_velocity, _dihedral_res,
     native_contacts, principal_axes,
     timecorr, center, translate, rotate,
