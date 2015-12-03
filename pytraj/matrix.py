@@ -147,6 +147,8 @@ def diagonalize(mat, n_vecs, dtype='dataset'):
         return (dslist[-1].eigenvalues, dslist[-1].eigenvectors)
     elif dtype == 'dataset':
         return dslist
+    else:
+        raise ValueError('only support dtype of tuple or dataset')
 
 
 def _diag_np(mat, n_vecs):

@@ -47,6 +47,9 @@ class TestDiagMatrix(unittest.TestCase):
         aa_eq(np.abs(data.eigenvectors), np.abs(cpp_evecs))
         aa_eq(np.abs(np_vecs), np.abs(cpp_evecs))
 
+        # test raise if not having supported dtype
+        self.assertRaises(ValueError, lambda: pt.matrix.diagonalize(mat, 3, dtype='ndarray'))
+
         # plot
         def plot_():
             try:
