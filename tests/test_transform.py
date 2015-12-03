@@ -22,6 +22,13 @@ class TestTransformation(unittest.TestCase):
                           'scale x 1.2'])
         aa_eq(t1.xyz, t2.xyz)
 
+        # another way
+        t3 = traj[:]
+        t3.autoimage().center('origin')
+        pt.rotate(t3, 'x 30')
+        pt.scale(t3, 'x 1.2') 
+        aa_eq(t3.xyz, t2.xyz)
+
 
 if __name__ == "__main__":
     unittest.main()
