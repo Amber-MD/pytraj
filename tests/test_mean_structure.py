@@ -36,9 +36,14 @@ class TestAverageFrame(unittest.TestCase):
         # test iter CA
         frame5 = mean_structure(traj[[0, 3, 7]], '@CA', top=traj.top)
 
+        # use atom_indices
+        ca_indices = pt.select('@CA', traj.top)
+        frame5_1 = mean_structure(traj[[0, 3, 7]], ca_indices, top=traj.top)
+
         # test frame_indices
         frame6 = mean_structure(traj, mask='@CA', frame_indices=[0, 3, 7])
         aa_eq(frame5.xyz, frame6.xyz, decimal=3)
+        aa_eq(frame5_1.xyz, frame6.xyz, decimal=3)
 
         xyz_0 = pt.get_coordinates(traj(1, 8, 2))
         xyz_1 = np.array([frame.xyz.copy(

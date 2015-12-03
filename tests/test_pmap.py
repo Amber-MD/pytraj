@@ -72,6 +72,13 @@ class TestNormalPmap(unittest.TestCase):
                     serial_out = flatten(func(traj))
                 aa_eq(pout[0], serial_out)
 
+         # test _worker
+         # need to test this since coverages seems not recognize partial func
+        from pytraj.parallel.parallel_mapping_multiprocessing import _worker
+        data = _worker(rank=2, n_cores=8, func=pt.radgyr, traj=traj, args=(), kwd={'mask': '@CA'}, iter_options={})
+        assert data[0] == 2, 'rank must be 2'
+        assert data[2] == 1, 'n_frames for rank=2 should be 1 (only 10 frames in total)'
+
     def test_different_references(self):
         traj = self.traj
         func = pt.rmsd
@@ -185,9 +192,9 @@ class TestCpptrajCommandStyle(unittest.TestCase):
                            n_cores=n_cores)
             # another way to get reference
             data2 = pt.pmap(['rms @CA reference'],
-                           traj,
-                           ref=traj[3],
-                           n_cores=n_cores)
+                            traj,
+                            ref=traj[3],
+                            n_cores=n_cores)
             arr = pt.tools.dict_to_ndarray(data)[0]
             arr2 = pt.tools.dict_to_ndarray(data2)[0]
             aa_eq(arr, pt.rmsd(traj, 3, '@CA'))
@@ -296,6 +303,17 @@ class TestVolmap(unittest.TestCase):
                                        size=size, n_cores=n_cores)
                 self.assertEqual(serial_out.shape, tuple(2 * x for x in size))
                 aa_eq(serial_out, parallel_out)
+
+
+class TestWorker(unittest.TestCase):
+
+    def test_worker_actlist(self):
+        # just want to exercise all codes
+        from pytraj.parallel import _worker_actlist
+        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        for ref in [None, traj[0], [traj[0], traj[1]]]:
+            data = _worker_actlist(rank=3, n_cores=8, traj=traj, lines=['radgyr @CA', 'vector :3 :7'],
+                                   ref=ref, kwd=dict())
 
 
 if __name__ == "__main__":

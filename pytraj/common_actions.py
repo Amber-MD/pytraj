@@ -49,8 +49,8 @@ list_of_cal = ['calc_distance',
                'calc_mindist',
                'calc_pairwise_distance',
                'calc_rmsd_nofit',
-               'calc_rotation_matrix', 
-               'calc_pca',]
+               'calc_rotation_matrix',
+               'calc_pca', ]
 
 list_of_do = ['do_translation', 'do_rotation', 'do_autoimage', 'do_scaling']
 
@@ -58,7 +58,7 @@ list_of_get = ['get_average_frame', 'get_velocity']
 
 list_of_the_rest = ['rmsd', 'align_principal_axis', 'principal_axes', 'closest',
                     'transform', 'native_contacts', 'set_dihedral',
-                    'check_structure', 'mean_structure', 'lifetime', 'lowestcurve',
+                    'check_structure', 'mean_structure', 'lowestcurve',
                     'make_structure', 'replicate_cell', 'pucker', 'rmsd_perres',
                     'randomize_ions',
                     'timecorr', 'search_neighbors',
@@ -872,10 +872,9 @@ def calc_multivector(traj,
     else:
         if isinstance(names, string_types):
             name1, name2 = names.split()
-        elif isinstance(names, (list, tuple)):
-            name1, name2 = names
         else:
-            name1, name2 = '', ''
+            # try to unpack
+            name1, name2 = names
         _names = ' '.join(('name1', name1, 'name2', name2))
     command = ' '.join((_resrange, _names))
 
@@ -1278,6 +1277,8 @@ def mean_structure(traj,
     -----
     if autoimage=True and having rmsfit, perform autoimage first and do rmsfit
     '''
+    # note: we not yet use @_super_dispatch due to extra 'rmsfit'
+    # TODO: do it.
     _top = _get_topology(traj, top)
     try:
         fi = traj.iterframe(autoimage=autoimage,
@@ -1486,8 +1487,6 @@ def calc_multidihedral(traj=None,
     >>> data = pt.multidihedral(traj, dhtypes='phi psi', resrange=[3, 4, 8])
     """
     if resrange:
-        if is_int(resrange):
-            resrange = [resrange, ]
         if isinstance(resrange, string_types):
             _resrange = "resrange " + str(resrange)
         else:
@@ -1760,6 +1759,9 @@ def calc_pairwise_rmsd(traj=None,
     >>> # use symmetry-corrected RMSD, convert to numpy array
     >>> arr_np = pt.pairwise_rmsd(traj, "@CA", metric="srmsd", dtype='ndarray')
 
+    >>> # use different dtype
+    >>> arr_np = pt.pairwise_rmsd(traj, "@CA", metric="srmsd", dtype='dataset')
+
     Notes
     -----
     Install ``libcpptraj`` with ``openmp`` to get benefit from parallel
@@ -1890,6 +1892,9 @@ def calc_rmsd(traj=None,
     >>> # use atom indices for mask
     >>> data= pt.rmsd(traj, ref=traj[0], mask=range(40), nofit=True)
 
+    >>> # computer rmsd for two maskes
+    >>> data= pt.rmsd(traj, ref=traj[0], mask=[[0, 3, 200], [7, 8, 10, 20]], nofit=True)
+
     Notes
     -----
     if ``traj`` is mutable, its coordinates will be updated
@@ -1913,10 +1918,13 @@ def calc_rmsd(traj=None,
         elif 'int' in dname:
             if cmd.ndim == 1:
                 command = [array_to_cpptraj_atommask(mask), ]
-            elif cmd.ndim == 2:
-                command = [array_to_cpptraj_atommask(x) for x in mask]
             else:
-                raise ValueError("only support array with ndim=1,2")
+                # assume ndim==2
+                command = [array_to_cpptraj_atommask(x) for x in mask]
+        elif 'object' in dname:
+            # different array lens or mix type
+            # dangerous: assume array of two array
+            command = [array_to_cpptraj_atommask(x) for x in mask]
         else:
             raise ValueError("not supported")
 
@@ -1933,7 +1941,6 @@ def calc_rmsd(traj=None,
         if 'savematrices' in _cm:
             if dtype not in ['dataset', 'cpptraj_dataset']:
                 raise ValueError('if savematrices, dtype must be "dataset"')
-            _cm = 'RMDSset ' + _cm
         alist.add_action(CpptrajActions.Action_Rmsd(),
                          _cm,
                          top=_top,
@@ -2185,20 +2192,20 @@ def calc_grid(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def check_structure(traj=None, command="", top=None, *args, **kwd):
+@_super_dispatch()
+def check_structure(traj, mask='', frame_indices=None, top=None):
     """check if the structure is ok or not
 
     Examples
     --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_rna()
-    >>> check_structure(traj[0], top=traj.top)
+    >>> pt.check_structure(traj[0], top=traj.top)
     """
     act = CpptrajActions.Action_CheckStructure()
 
     # cpptraj require output
-    _top = _get_topology(traj, top)
-    act(command, traj, top=_top, *args, **kwd)
+    act(mask, traj, top=top)
 
 
 def timecorr(vec0,
@@ -2249,6 +2256,13 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
     mode : str, {'distance', 'angle'}
     dtype : str
 
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2()
+    >>> distances = pt.distance(traj, [':3 :7', ':8 :12'])
+    >>> out = pt.crank(distances[0], distances[1])
+
     Notes
     -----
     Same as `crank` in cpptraj
@@ -2266,49 +2280,6 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
     command = ' '.join((mode, 'd0', 'd1'))
     act(command, dslist=cdslist)
     return _get_data_from_dtype(cdslist[2:], dtype=dtype)
-
-
-def lifetime(data, cut=0.5, rawcurve=False, more_options='', dtype='ndarray'):
-    """lifetime (adapted lightly from cpptraj doc)
-
-    Parameters
-    ----------
-    data : 1D-array or 2D array-like
-    cut : cutoff to use when determining if data is 'present', default 0.5
-    more_options : str, more cpptraj's options. Check cpptraj's manual.
-    """
-    data = np.asarray(data)
-    if data.ndim == 1:
-        data_ = [data, ]
-    else:
-        data_ = data
-
-    _outname = 'name lifetime_'
-    _cut = 'cut ' + str(cut)
-    _rawcurve = 'rawcurve' if rawcurve else ''
-    # do not sorting dataset's names. We can accessing by indexing them.
-    _nosort = 'nosort'
-
-    namelist = []
-    cdslist = CpptrajDatasetList()
-    for idx, arr in enumerate(data_):
-        # create datasetname so we can reference them
-        name = 'data_' + str(idx)
-        if 'int' in arr.dtype.name:
-            cdslist.add_set("integer", name)
-        else:
-            cdslist.add_set("double", name)
-        cdslist[-1].data = np.asarray(arr)
-        namelist.append(name)
-
-    act = CpptrajAnalyses.Analysis_Lifetime()
-    _cm = ' '.join(namelist)
-    command = " ".join((_cm, _outname, _cut, _rawcurve, _nosort, more_options))
-    act(command, dslist=cdslist)
-
-    for name in namelist:
-        cdslist.remove_set(cdslist[name])
-    return _get_data_from_dtype(cdslist, dtype=dtype)
 
 
 @_super_dispatch()
@@ -2351,17 +2322,29 @@ def pucker(traj=None,
            range360=False,
            method='altona',
            use_com=True,
-           amplitude=True,
-           offset=None,
-           *args,
-           **kwd):
-    """Note: not validate yet
+           amplitude=False,
+           offset=None):
+    """compute pucker
 
+    Parameters
+    ----------
+    traj : Trajectory-like
+    pucker_mask : str
+    resrange : None or array of int
+    top : Topology, optional
+    dtype : str, return type
+    range360: bool, use 360 or 180 scale
+    method : {'altona', 'cremer'}, default 'altona'
+    use_com : bool
+    amplitude : bool, default False
+    offset : None or float
+
+    Returns
+    -------
+    Dataset
     """
-    from pytraj.compat import range
-
     _top = _get_topology(traj, top)
-    if not resrange:
+    if resrange is None:
         resrange = range(_top.n_residues)
 
     _range360 = "range360" if range360 else ""
@@ -2376,8 +2359,10 @@ def pucker(traj=None,
         name = "pucker_res" + str(res + 1)
         command = " ".join((name, command, _range360, method, geom, amp,
                             _offset))
-        act(command, traj, top=_top, dslist=cdslist, *args, **kwd)
+        act(command, traj, top=_top, dslist=cdslist)
     return _get_data_from_dtype(cdslist, dtype)
+
+calc_pucker = pucker
 
 
 @_super_dispatch()
@@ -2575,10 +2560,10 @@ def _projection(traj,
     dataset_mode = dslist[-1]
     n_vectors = len(eigenvalues)
     dataset_mode._set_modes(is_reduced, n_vectors, eigenvectors.shape[1],
-                          eigenvalues, eigenvectors.flatten())
+                            eigenvalues, eigenvectors.flatten())
     dataset_mode.scalar_type = scalar_type
 
-    dataset_mode._allocate_avgcoords(3*average_coords.shape[0])
+    dataset_mode._allocate_avgcoords(3 * average_coords.shape[0])
     dataset_mode._set_avg_frame(average_coords.flatten())
     _mask = mask
     _evecs = 'evecs {}'.format(mode_name)
@@ -2588,13 +2573,6 @@ def _projection(traj,
     dslist._pop(0)
 
     return _get_data_from_dtype(dslist, dtype=dtype)
-
-
-@_super_dispatch(has_ref=True)
-def superpose(traj, ref=0, mask='', frame_indices=None, top=None): 
-    act = CpptrajActions.Action_Rmsd()
-    act(mask, traj, top=top)
-    return traj
 
 
 def pca(traj,
@@ -2609,7 +2587,7 @@ def pca(traj,
     - rmsfit to average frame with ``mask``
     - compute covariance matrix
     - diagonalize the matrix to get eigenvectors and eigenvalues
-    - perform projection of each frame with mask to each eigenvector 
+    - perform projection of each frame with mask to each eigenvector
 
     Parameters
     ----------
@@ -2618,7 +2596,7 @@ def pca(traj,
     mask : str
         atom mask
     n_vecs : int, default 2
-        number of eigenvectors. If user want to compute projection for all eigenvectors, 
+        number of eigenvectors. If user want to compute projection for all eigenvectors,
         should specify n_vecs=-1 (or a negative number)
     dtype : return datatype
     top : Topology, optional
@@ -2665,7 +2643,7 @@ def pca(traj,
 
     eigenvalues, eigenvectors = matrix.diagonalize(mat, n_vecs=n_vecs, dtype='tuple')
     projection_data = _projection(traj, mask=mask, average_coords=avg2.xyz,
-                                  eigenvalues=eigenvalues, 
+                                  eigenvalues=eigenvalues,
                                   eigenvectors=eigenvectors,
                                   scalar_type='covar', dtype=dtype)
     return projection_data, (eigenvalues, eigenvectors)
@@ -2712,7 +2690,6 @@ def calc_atomiccorr(traj,
         act.post_process()
 
     return _get_data_from_dtype(dslist, dtype=dtype)
-
 
 
 def _grid(traj,

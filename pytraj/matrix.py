@@ -114,6 +114,12 @@ def diagonalize(mat, n_vecs, dtype='dataset'):
     >>> mat = pt.matrix.dist(traj, '@CA')
     >>> x = pt.matrix.diagonalize(mat, 4, dtype='tuple')
     >>> x = pt.matrix.diagonalize(mat, 4, dtype='dataset')
+
+    >>> # use cpptraj dataset to save memory
+    >>> mat_cpp = pt.matrix.covar(traj, '@CA', dtype='cpptraj_dataset')[0]
+    >>> x = pt.matrix.diagonalize(mat_cpp, 4, dtype='tuple')
+    >>> print(x[0].shape, x[1].shape)
+    (4,) (4, 36)
     '''
     _vecs = 'vecs ' + str(n_vecs)
     dslist = CpptrajDatasetList()
@@ -127,8 +133,6 @@ def diagonalize(mat, n_vecs, dtype='dataset'):
             vsize=len(arr),
             n_cols=mat.shape[0])
     elif isinstance(mat, cpp_datasets.DatasetMatrixDouble):
-        if mat.kind != 'half':
-            raise ValueError('DatasetMatrixDouble must be half matrix')
         dslist[0]._set_data_half_matrix(mat._to_cpptraj_sparse_matrix(),
                                         vsize=mat.size,
                                         n_cols=mat.n_cols)
@@ -141,6 +145,8 @@ def diagonalize(mat, n_vecs, dtype='dataset'):
         return (dslist[-1].eigenvalues, dslist[-1].eigenvectors)
     elif dtype == 'dataset':
         return dslist
+    else:
+        raise ValueError('only support dtype of tuple or dataset')
 
 
 def _diag_np(mat, n_vecs):

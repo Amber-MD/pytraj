@@ -121,6 +121,15 @@ class TestSimpleRMSD(unittest.TestCase):
         mask = ['@CA', '@CB', ':3-18@CA,C', [0, 3, 5]]
         self.assertRaises(ValueError, lambda: pt.rmsd(traj, mask=mask))
 
+        mask_2 = [[0, 3, 6], range(50)]
+        aa_eq(pt.rmsd(traj, mask=mask_2)[0], pt.rmsd(traj, mask=mask_2[0]))
+        aa_eq(pt.rmsd(traj, mask=mask_2)[1], pt.rmsd(traj, mask=mask_2[1]))
+
+        ca = pt.select('@CA', traj.top)
+        cb = pt.select('@CB', traj.top)
+        aa_eq(pt.rmsd(traj, mask=ca), pt.rmsd(traj, mask=[ca, cb])[0])
+        aa_eq(pt.rmsd(traj, mask=cb), pt.rmsd(traj, mask=[ca, cb])[1])
+
     def test_raise_savematrices_if_not_dataset(self):
         traj = self.traj.copy()
         self.assertRaises(

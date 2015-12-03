@@ -45,10 +45,8 @@ def _worker_actlist(rank,
     # need to make a copy if lines since python's list is dangerous
     # it's easy to mess up with mutable list
     # do not use lines.copy() since this is not available in py2.7
-    if kwd is not None:
-        frame_indices = kwd.pop('frame_indices', None)
-    else:
-        frame_indices = None
+    # Note: dtype is a dummy argument, it is always 'dict'
+    frame_indices = kwd.pop('frame_indices', None)
 
     if frame_indices is None:
         my_iter = traj._split_iterators(n_cores, rank=rank)
@@ -81,10 +79,49 @@ def _worker_actlist(rank,
         pass
 
     # remove ref
-    if dtype == 'dict':
-        return (rank, dslist[len(reflist):].to_dict())
+    return (rank, dslist[len(reflist):].to_dict())
+
+def _load_batch_pmap(n_cores=4,
+                     lines=[],
+                     traj=None,
+                     dtype='dict',
+                     root=0,
+                     mode='multiprocessing',
+                     ref=None,
+                     **kwd):
+    '''mpi or multiprocessing
+    '''
+    if mode == 'multiprocessing':
+        from multiprocessing import Pool
+        pfuncs = partial(_worker_actlist,
+                         n_cores=n_cores,
+                         traj=traj,
+                         dtype=dtype,
+                         lines=lines,
+                         ref=ref,
+                         kwd=kwd)
+        pool = Pool(n_cores)
+        data = pool.map(pfuncs, range(n_cores))
+        pool.close()
+        pool.join()
+        return data
+    elif mode == 'mpi':
+        from mpi4py import MPI
+        comm = MPI.COMM_WORLD
+        rank = comm.rank
+        data_chunk = _worker_actlist(rank=rank,
+                                     n_cores=n_cores,
+                                     traj=traj,
+                                     dtype=dtype,
+                                     lines=lines,
+                                     ref=ref,
+                                     kwd=kwd)
+        # it's ok to use python level `gather` method since we only do this once
+        # only gather data to root, other cores get None
+        data = comm.gather(data_chunk, root=root)
+        return data
     else:
-        raise ValueError('must use dtype="dict"')
+        raise ValueError('only support multiprocessing or mpi')
 
 
 def _worker_state(rank, n_cores=1, traj=None, lines=[], dtype='dict'):
@@ -114,49 +151,3 @@ def _worker_state(rank, n_cores=1, traj=None, lines=[], dtype='dict'):
         return (rank, state.data[2:].to_dict())
     else:
         raise ValueError('must use dtype="dict"')
-
-
-def _load_batch_pmap(n_cores=4,
-                     lines=[],
-                     traj=None,
-                     dtype='dict',
-                     root=0,
-                     mode='multiprocessing',
-                     ref=None,
-                     **kwd):
-    '''mpi or multiprocessing
-    '''
-    if mode == 'multiprocessing':
-        from multiprocessing import Pool
-        # pfuncs = partial(_worker_state, n_cores=n_cores, traj=traj, dtype=dtype,
-        #        lines=lines, ref=ref)
-        pfuncs = partial(_worker_actlist,
-                         n_cores=n_cores,
-                         traj=traj,
-                         dtype=dtype,
-                         lines=lines,
-                         ref=ref,
-                         kwd=kwd)
-        pool = Pool(n_cores)
-        data = pool.map(pfuncs, range(n_cores))
-        pool.close()
-        pool.join()
-        return data
-    elif mode == 'mpi':
-        from mpi4py import MPI
-        comm = MPI.COMM_WORLD
-        rank = comm.rank
-        # data_chunk = _worker_state(rank, n_cores=size, traj=traj, lines=lines, dtype=dtype)
-        data_chunk = _worker_actlist(rank=rank,
-                                     n_cores=n_cores,
-                                     traj=traj,
-                                     dtype=dtype,
-                                     lines=lines,
-                                     ref=ref,
-                                     kwd=kwd)
-        # it's ok to use python level `gather` method since we only do this once
-        # only gather data to root, other cores get None
-        data = comm.gather(data_chunk, root=root)
-        return data
-    else:
-        raise ValueError('only support multiprocessing or mpi')

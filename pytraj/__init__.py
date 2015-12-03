@@ -128,7 +128,9 @@ from .common_actions import (
     calc_pairwise_distance, calc_center_of_mass, calc_center_of_geometry,
     calc_jcoupling, calc_molsurf, calc_radgyr, calc_rdf, calc_vector,
     calc_pairwise_rmsd, calc_atomicfluct, calc_bfactors,
-    calc_rotation_matrix, calc_watershell, calc_volume, calc_mindist, lifetime,
+    calc_rotation_matrix, calc_watershell, calc_volume, calc_mindist,
+    # lifetime,
+    pucker,
     get_average_frame, calc_atomiccorr, get_velocity, _dihedral_res,
     native_contacts, principal_axes,
     timecorr, center, translate, rotate,
@@ -136,7 +138,8 @@ from .common_actions import (
     set_dihedral, crank, closest, search_neighbors, replicate_cell,
     calc_pairdist, _grid, transform, lowestcurve, calc_diffusion, calc_volmap,
     calc_multivector, pca,
-    xcorr, acorr)
+    xcorr, acorr,
+    check_structure)
 
 from .matrix import dist
 distance_matrix = dist
@@ -461,12 +464,3 @@ def show_versions():
     print("cpptraj version = ", __cpptraj_version__)
     print("cpptraj internal version = ", __cpptraj_internal_version__)
     print("cpptraj compiled flag = ", compiled_info())
-
-
-def _get_pytraj_path():
-    '''Return pytraj path
-    >>> 'pytraj' in _get_pytraj_path()
-    True
-    '''
-    cur_dir = os.path.abspath(os.path.dirname(__file__))
-    return cur_dir
