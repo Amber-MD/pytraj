@@ -133,8 +133,6 @@ def diagonalize(mat, n_vecs, dtype='dataset'):
             vsize=len(arr),
             n_cols=mat.shape[0])
     elif isinstance(mat, cpp_datasets.DatasetMatrixDouble):
-        if mat.kind != 'half':
-            raise ValueError('DatasetMatrixDouble must be half matrix')
         dslist[0]._set_data_half_matrix(mat._to_cpptraj_sparse_matrix(),
                                         vsize=mat.size,
                                         n_cols=mat.n_cols)
