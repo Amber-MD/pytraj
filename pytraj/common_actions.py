@@ -2256,6 +2256,13 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
     mode : str, {'distance', 'angle'}
     dtype : str
 
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2()
+    >>> distances = pt.distance(traj, [':3 :7', ':8 :12'])
+    >>> out = pt.crank(distances[0], distances[1])
+
     Notes
     -----
     Same as `crank` in cpptraj
