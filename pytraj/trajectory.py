@@ -115,9 +115,10 @@ class Trajectory(object):
         '''longer name for ``top``
 
         >>> import pytraj as pt
-        >>> traj = pt.datafiles.load_ala3()
+        >>> traj = pt.datafiles.load_ala3()[:]
         >>> traj.topology.n_residues
         3
+        >>> ca_indices = pt.select('@CA', traj.topology)
         '''
         return self.top
 
