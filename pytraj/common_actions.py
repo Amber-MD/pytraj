@@ -2019,6 +2019,7 @@ def align_principal_axis(traj=None, mask="*", top=None, frame_indices=None):
     act = CpptrajActions.Action_Principal()
     command = mask + " dorotation"
     act(command, traj, top=top)
+    return traj
 
 
 def principal_axes(traj=None, mask='*', dorotation=False, mass=True, top=None):

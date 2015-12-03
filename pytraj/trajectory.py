@@ -557,6 +557,10 @@ class Trajectory(object):
         >>> traj.n_atoms
         5293
 
+        >>> # from list/tuple
+        >>> traj.load([fname, fname])
+        >>> traj.load((fname, fname))
+
         Notes
         -----
         It's better to use ``pytraj.load`` method
@@ -975,6 +979,9 @@ class Trajectory(object):
     @property
     def _estimated_GB(self):
         """esimated GB of data will be loaded to memory
+
+        Examples
+        --------
         >>> import pytraj as pt
         >>> traj = pt.load_sample_data('tz2')[:]
         >>> traj._estimated_GB
@@ -1037,20 +1044,6 @@ class Trajectory(object):
     def __del__(self):
         self._xyz = None
         self._boxes = None
-
-    def _apply(self, func):
-        '''
-        >>> import pytraj as pt
-        >>> traj = pt.load_sample_data('ala3')[:]
-        >>> traj.xyz[0, 0]
-        array([  3.32577000e+00,   1.54790900e+00,  -1.60000000e-06])
-        >>> traj._apply(lambda x : x * 2)
-        >>> traj.xyz[0, 0]
-        array([  6.65154000e+00,   3.09581800e+00,  -3.20000000e-06])
-
-        '''
-        for idx, x in enumerate(self.xyz):
-            self.xyz[idx] = func(x)
 
     def __add__(self, other):
         '''merge two trajectories together. Order matter.
