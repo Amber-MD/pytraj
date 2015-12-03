@@ -2625,8 +2625,8 @@ def pca(traj,
 
     Returns
     -------
-    projection_data: ndarray, shape=(n_vecs, n_frames)
-    (eigenvalues, eigenvectors)
+    out1: projection_data, ndarray with shape=(n_vecs, n_frames)
+    out2: tuple of (eigenvalues, eigenvectors)
 
     Examples
     --------
