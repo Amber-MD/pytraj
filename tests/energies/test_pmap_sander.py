@@ -23,9 +23,9 @@ class TestSanderPmap(unittest.TestCase):
         fname = traj.top.filename
         serial = pt.energy_decomposition(traj, prmtop=fname)['dihedral']
         parallel = pt.pmap(n_cores=4,
-                          func=pt.energy_decomposition,
-                          traj=traj,
-                          prmtop=fname)['dihedral']
+                           func=pt.energy_decomposition,
+                           traj=traj,
+                           prmtop=fname)['dihedral']
         aa_eq(serial, parallel)
 
     def test_sander_pmap_with_options(self):

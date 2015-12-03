@@ -18,7 +18,7 @@ class TestPrincipalAxis(unittest.TestCase):
 
         # assert
         saved_frame = pt.iterload("./data/Tc5b.principal_dorotation.rst7",
-                                    traj.top)[0]
+                                  traj.top)[0]
         assert (frame.rmsd_nofit(saved_frame)) < 0.15
 
         cm = 'principal * dorotation mass name pout'

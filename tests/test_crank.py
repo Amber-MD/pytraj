@@ -5,12 +5,13 @@ from pytraj.utils import eq, aa_eq
 import pytraj.common_actions as pyca
 
 cm = '''
-parm data/tz2.parm7 
+parm data/tz2.parm7
 trajin data/tz2.nc
 dihedral phi2 :1@C :2@N :2@CA :2@C type phi
 dihedral phi3 :2@C :3@N :3@CA :3@C type phi
 analyze crankshaft angle phi2 phi3
 '''
+
 
 class TestCrank(unittest.TestCase):
 

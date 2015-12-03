@@ -85,7 +85,6 @@ class TestRDF(unittest.TestCase):
                        maximum=10.0,
                        solute_mask=':5@CD')
 
-
         # do assertion
         aa_eq(data0[1], state.data[1], decimal=7)
         aa_eq(data1[1], state.data[2], decimal=7)

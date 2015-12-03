@@ -691,6 +691,7 @@ def make_fake_topology(n_atoms):
         top.add_atom(atom, residue)
     return top
 
+
 def dir_(obj):
     '''return a list of obj's attributes with no private method
     '''

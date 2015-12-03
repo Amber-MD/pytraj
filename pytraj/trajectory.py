@@ -436,8 +436,8 @@ class Trajectory(object):
         (10, 6)
 
         >>> traj4 = pt.Trajectory(top=traj.top)
-        >>> traj4._append_unitcells(traj.unitcells) 
-        >>> traj4._append_unitcells(traj.unitcells) 
+        >>> traj4._append_unitcells(traj.unitcells)
+        >>> traj4._append_unitcells(traj.unitcells)
         '''
         if isinstance(box, tuple):
             clen, cangle = box
