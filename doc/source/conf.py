@@ -37,6 +37,12 @@ import sphinxcontrib
 #        'searchbox.html',
 #    ]
 #}
+extensions = ['rst2pdf.pdfbuilder']
+pdf_documents = [('index', 'try_pdf', 'Sample rst2pdf doc', 'HN'),]
+# index - master document
+# rst2pdf - name of the generated pdf
+# Sample rst2pdf doc - title of the pdf
+# Your Name - author name in the pdf
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the

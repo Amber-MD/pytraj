@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Analysis &mdash; pytraj 0.1.2.dev12+213dd9d documentation</title>
+    <title>Analysis &mdash; pytraj 0.1.2.dev12+2ca1cc1 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,7 +17,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.2.dev12+213dd9d',
+        VERSION:     '0.1.2.dev12+2ca1cc1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -32,7 +32,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 0.1.2.dev12+213dd9d documentation" href="index.html" />
+    <link rel="top" title="pytraj 0.1.2.dev12+2ca1cc1 documentation" href="index.html" />
     <link rel="next" title="Nucleic Acid Analysis" href="nucleic_acid.html" />
     <link rel="prev" title="Python tricks that make your life easier" href="tutorials/python_tricks.html" />
 <meta charset='utf-8'>
@@ -54,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+213dd9d</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.2.dev12+2ca1cc1</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -377,6 +377,14 @@ if True, not fitting.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;:3-13&#39;</span><span class="p">,</span> <span class="n">nofit</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># use atom indices for mask</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">),</span> <span class="n">nofit</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># computer rmsd for two maskes</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">]],</span> <span class="n">nofit</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <span class="target" id="rmsd-perres"></span><dl class="function">
@@ -456,6 +464,10 @@ if &#8216;half&#8217;: return 1D array, shape=(n_frames*(n_frames-1)/2, )</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate pairwise rmsd for all frames using CA atoms</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># use symmetry-corrected RMSD, convert to numpy array</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">arr_np</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;@CA&quot;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s">&quot;srmsd&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;ndarray&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># use different dtype</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr_np</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;@CA&quot;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s">&quot;srmsd&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;dataset&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -935,33 +947,44 @@ occur.</li>
 </div>
 </dd></dl>
 
-<span class="target" id="lifetime"></span><dl class="function">
-<dt id="pytraj.lifetime">
-<code class="descclassname">pytraj.</code><code class="descname">lifetime</code><span class="sig-paren">(</span><em>adapted lightly from cpptraj doc</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.lifetime" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
+<span class="target" id="auto-correlation-function"></span><dl class="function">
+<dt id="pytraj.acorr">
+<code class="descclassname">pytraj.</code><code class="descname">acorr</code><span class="sig-paren">(</span><em>data</em>, <em>dtype='ndarray'</em>, <em>option=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.acorr" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute autocorrelation</p>
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>data</strong> : 1D-array or 2D array-like</p>
-<p><strong>cut</strong> : cutoff to use when determining if data is &#8216;present&#8217;, default 0.5</p>
-<p class="last"><strong>more_options</strong> : str, more cpptraj&#8217;s options. Check cpptraj&#8217;s manual.</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>data</strong> : 1d array-like</p>
+<p><strong>dtype: return type, default &#8216;ndarray&#8217;</strong></p>
+<p><strong>covar</strong> : bool, default True</p>
+<p><strong>option</strong> : str</p>
+<blockquote class="last">
+<div><p>more cpptraj options</p>
+</div></blockquote>
 </td>
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
-<span class="target" id="auto-correlation-function"></span><dl class="function">
-<dt id="pytraj.acorr">
-<code class="descclassname">pytraj.</code><code class="descname">acorr</code><span class="sig-paren">(</span><em>data</em>, <em>dtype='ndarray'</em>, <em>covar=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.acorr" title="Permalink to this definition">¶</a></dt>
-<dd><p class="rubric">Notes</p>
+<p class="rubric">Notes</p>
 <p>Same as <cite>autocorr</cite> in cpptraj</p>
 </dd></dl>
 
 <span class="target" id="cross-correlation-function"></span><dl class="function">
 <dt id="pytraj.xcorr">
 <code class="descclassname">pytraj.</code><code class="descname">xcorr</code><span class="sig-paren">(</span><em>data0</em>, <em>data1</em>, <em>dtype='ndarray'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.xcorr" title="Permalink to this definition">¶</a></dt>
-<dd><p class="rubric">Notes</p>
+<dd><p>compute cross correlation between two datasets</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>data0 and data1: 1D-array like</strong></p>
+<p class="last"><strong>dtype</strong> : return datatype, default &#8216;ndarray&#8217;</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
 <p>Same as <cite>corr</cite> in cpptraj</p>
 </dd></dl>
 
@@ -988,7 +1011,7 @@ occur.</li>
 <span class="target" id="principal-axes"></span><dl class="function">
 <dt id="pytraj.principal_axes">
 <code class="descclassname">pytraj.</code><code class="descname">principal_axes</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask='*'</em>, <em>dorotation=False</em>, <em>mass=True</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.principal_axes" title="Permalink to this definition">¶</a></dt>
-<dd><p>calculate eigenvalues and eigenvectors</p>
+<dd><p>compute principal axes</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1000,8 +1023,8 @@ occur.</li>
 <p><strong>top</strong> : Topology, optional</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out_0</strong> : numpy array, shape=(n_frames, 3, 3), corresponding eigenvectors</p>
-<p class="last">out_1: numpy array with shape=(n_frames, 3), eigenvalues</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out_0</strong> : numpy array, shape=(n_frames, 3, 3)</p>
+<p class="last">out_1: numpy array with shape=(n_frames, 3)</p>
 </td>
 </tr>
 </tbody>
@@ -1054,6 +1077,13 @@ occur.</li>
 </table>
 <p class="rubric">Notes</p>
 <p>Same as <cite>crank</cite> in cpptraj</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">distances</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;:3 :7&#39;</span><span class="p">,</span> <span class="s">&#39;:8 :12&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">out</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">crank</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">distances</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <span class="target" id="autoimage"></span><dl class="function">
@@ -1069,7 +1099,7 @@ occur.</li>
 
 <span class="target" id="closest"></span><dl class="function">
 <dt id="pytraj.closest">
-<code class="descclassname">pytraj.</code><code class="descname">closest</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask='*'</em>, <em>solvent_mask=None</em>, <em>n_solvents=10</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.closest" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">closest</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask='*'</em>, <em>solvent_mask=None</em>, <em>n_solvents=10</em>, <em>frame_indices=None</em>, <em>dtype='iterator'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.closest" title="Permalink to this definition">¶</a></dt>
 <dd><p>return either a new Trajectory or a frame iterator. Keep only <code class="docutils literal"><span class="pre">n_solvents</span></code> closest to mask</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1078,6 +1108,11 @@ occur.</li>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like | list of Trajectory-like/frames | frame iterator | chunk iterator</p>
 <p><strong>mask: str, default &#8216;*&#8217; (all solute atoms)</strong></p>
 <p><strong>top</strong> : Topology-like object, default=None, optional</p>
+<p><strong>dtype</strong> : {&#8216;iterator&#8217;, &#8216;trajectory&#8217;}, default &#8216;iterator&#8217;</p>
+<blockquote>
+<div><p>if &#8216;iterator&#8217;, return a tuple of Frame iterator and new Toplogy. &#8216;iterator&#8217; is good for streaming large trajectory.
+if &#8216;trajectory&#8217;, return a new Trajectory.</p>
+</div></blockquote>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>out</strong> : (check above)</p>
@@ -1173,7 +1208,7 @@ occur.</li>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Dec 01, 2015.<br/>
+      Last updated on Dec 03, 2015.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
