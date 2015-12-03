@@ -136,7 +136,8 @@ from .common_actions import (
     set_dihedral, crank, closest, search_neighbors, replicate_cell,
     calc_pairdist, _grid, transform, lowestcurve, calc_diffusion, calc_volmap,
     calc_multivector, pca,
-    xcorr, acorr)
+    xcorr, acorr,
+    check_structure)
 
 from .matrix import dist
 distance_matrix = dist

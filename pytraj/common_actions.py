@@ -1937,7 +1937,6 @@ def calc_rmsd(traj=None,
         if 'savematrices' in _cm:
             if dtype not in ['dataset', 'cpptraj_dataset']:
                 raise ValueError('if savematrices, dtype must be "dataset"')
-            _cm = 'RMDSset ' + _cm
         alist.add_action(CpptrajActions.Action_Rmsd(),
                          _cm,
                          top=_top,
@@ -2189,20 +2188,20 @@ def calc_grid(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-def check_structure(traj=None, command="", top=None, *args, **kwd):
+@_super_dispatch()
+def check_structure(traj, mask='', frame_indices=None, top=None):
     """check if the structure is ok or not
 
     Examples
     --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_rna()
-    >>> check_structure(traj[0], top=traj.top)
+    >>> pt.check_structure(traj[0], top=traj.top)
     """
     act = CpptrajActions.Action_CheckStructure()
 
     # cpptraj require output
-    _top = _get_topology(traj, top)
-    act(command, traj, top=_top, *args, **kwd)
+    act(mask, traj, top=top)
 
 
 def timecorr(vec0,
