@@ -46,6 +46,24 @@ class TestClosest(unittest.TestCase):
         fi, top = pt.closest(traj)
         pt.write_traj('output/test.pdb', next(fi), top=top, overwrite=True)
 
+    def test_closest_compared_to_cpptraj(self):
+        traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        state = pt.load_cpptraj_state('''
+        autoimage
+        closest 100 :1-13
+        createcrd mycrd''', traj)
+        state.run()
+
+        fi, top = pt.closest(traj(autoimage=True), mask=':1-13', n_solvents=100)
+        xyz = pt.get_coordinates(fi)
+        t0 = pt.Trajectory(xyz=xyz, top=top)
+        aa_eq(state.data['mycrd'].xyz, t0.xyz)
+        
+
+        # dtype = 'trajectory'
+        t1 = pt.closest(traj(autoimage=True), mask=':1-13', n_solvents=100, dtype='trajectory')
+        aa_eq(state.data['mycrd'].xyz, t1.xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -133,6 +133,7 @@ from .common_actions import (
     pucker,
     get_average_frame, calc_atomiccorr, get_velocity, _dihedral_res,
     native_contacts, principal_axes,
+    align_principal_axis,
     timecorr, center, translate, rotate,
     rotate_dihedral, make_structure, scale, clustering_dataset, randomize_ions,
     set_dihedral, crank, closest, search_neighbors, replicate_cell,
