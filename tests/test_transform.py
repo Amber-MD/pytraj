@@ -30,7 +30,7 @@ class TestTransformation(unittest.TestCase):
         pt.translate(t3, 'x 1.3')
         aa_eq(t3.xyz, t2.xyz)
 
-    def test_align_princila_axis(self):
+    def test_align_principal_axis(self):
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         t0 = traj[:]
         t1 = traj[:]
