@@ -72,6 +72,14 @@ class TestNormalPmap(unittest.TestCase):
                     serial_out = flatten(func(traj))
                 aa_eq(pout[0], serial_out)
 
+         # test _worker
+         # need to test this since coverages seems not recognize partial func
+        from pytraj.parallel.parallel_mapping_multiprocessing import _worker
+        data = _worker(rank=2, n_cores=8, func=pt.radgyr, traj=traj, args=(), kwd={'mask': '@CA'}, iter_options={})
+        assert data[0] == 2, 'rank must be 2'
+        assert data[2] == 1, 'n_frames for rank=2 should be 1 (only 10 frames in total)'
+
+
     def test_different_references(self):
         traj = self.traj
         func = pt.rmsd

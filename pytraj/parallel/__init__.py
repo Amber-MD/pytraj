@@ -125,3 +125,32 @@ def _load_batch_pmap(n_cores=4,
         return data
     else:
         raise ValueError('only support multiprocessing or mpi')
+
+
+def _worker_state(rank, n_cores=1, traj=None, lines=[], dtype='dict'):
+    # need to make a copy if lines since python's list is dangerous
+    # it's easy to mess up with mutable list
+    # do not use lines.copy() since this is not available in py2.7
+    my_lines = [line for line in lines]
+    from pytraj.utils import split_range
+    from pytraj.core.cpp_core import _load_batch
+
+    mylist = split_range(n_cores, 0, traj.n_frames)[rank]
+    start, stop = mylist
+    crdframes_string = 'crdframes ' + ','.join((str(start + 1), str(stop)))
+
+    for idx, line in enumerate(my_lines):
+        if not line.lstrip().startswith('reference'):
+            my_lines[idx] = ' '.join(('crdaction traj', line, crdframes_string
+                                      ))
+
+    my_lines = ['loadtraj name traj', ] + my_lines
+
+    state = _load_batch(my_lines, traj)
+
+    state.run()
+    if dtype == 'dict':
+        # exclude DatasetTopology and TrajectoryCpptraj
+        return (rank, state.data[2:].to_dict())
+    else:
+        raise ValueError('must use dtype="dict"')
