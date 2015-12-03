@@ -308,3 +308,45 @@ def _rotdif(arr,
         arr = arr.reshape(shape[0], shape[1] * shape[2])
     else:
         raise ValueError(msg)
+
+def lifetime(data, cut=0.5, rawcurve=False, more_options='', dtype='ndarray'):
+    """lifetime (adapted lightly from cpptraj doc)
+
+    Parameters
+    ----------
+    data : 1D-array or 2D array-like
+    cut : cutoff to use when determining if data is 'present', default 0.5
+    more_options : str, more cpptraj's options. Check cpptraj's manual.
+    """
+    data = np.asarray(data)
+    if data.ndim == 1:
+        data_ = [data, ]
+    else:
+        data_ = data
+
+    _outname = 'name lifetime_'
+    _cut = 'cut ' + str(cut)
+    _rawcurve = 'rawcurve' if rawcurve else ''
+    # do not sorting dataset's names. We can accessing by indexing them.
+    _nosort = 'nosort'
+
+    namelist = []
+    cdslist = CpptrajDatasetList()
+    for idx, arr in enumerate(data_):
+        # create datasetname so we can reference them
+        name = 'data_' + str(idx)
+        if 'int' in arr.dtype.name:
+            cdslist.add_set("integer", name)
+        else:
+            cdslist.add_set("double", name)
+        cdslist[-1].data = np.asarray(arr)
+        namelist.append(name)
+
+    act = CpptrajAnalyses.Analysis_Lifetime()
+    _cm = ' '.join(namelist)
+    command = " ".join((_cm, _outname, _cut, _rawcurve, _nosort, more_options))
+    act(command, dslist=cdslist)
+
+    for name in namelist:
+        cdslist.remove_set(cdslist[name])
+    return _get_data_from_dtype(cdslist, dtype=dtype)
