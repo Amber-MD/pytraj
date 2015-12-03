@@ -1759,6 +1759,9 @@ def calc_pairwise_rmsd(traj=None,
     >>> # use symmetry-corrected RMSD, convert to numpy array
     >>> arr_np = pt.pairwise_rmsd(traj, "@CA", metric="srmsd", dtype='ndarray')
 
+    >>> # use different dtype
+    >>> arr_np = pt.pairwise_rmsd(traj, "@CA", metric="srmsd", dtype='dataset')
+
     Notes
     -----
     Install ``libcpptraj`` with ``openmp`` to get benefit from parallel
@@ -1889,6 +1892,9 @@ def calc_rmsd(traj=None,
     >>> # use atom indices for mask
     >>> data= pt.rmsd(traj, ref=traj[0], mask=range(40), nofit=True)
 
+    >>> # computer rmsd for two maskes
+    >>> data= pt.rmsd(traj, ref=traj[0], mask=[[0, 3, 200], [7, 8, 10, 20]], nofit=True)
+
     Notes
     -----
     if ``traj`` is mutable, its coordinates will be updated
@@ -1912,10 +1918,9 @@ def calc_rmsd(traj=None,
         elif 'int' in dname:
             if cmd.ndim == 1:
                 command = [array_to_cpptraj_atommask(mask), ]
-            elif cmd.ndim == 2:
-                command = [array_to_cpptraj_atommask(x) for x in mask]
             else:
-                raise ValueError("only support array with ndim=1,2")
+                # assume ndim==2
+                command = [array_to_cpptraj_atommask(x) for x in mask]
         else:
             raise ValueError("not supported")
 
