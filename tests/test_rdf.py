@@ -77,6 +77,15 @@ class TestRDF(unittest.TestCase):
                        maximum=10.0,
                        solute_mask=':5@CD')
 
+        # solvent_mask is array
+        solvent_indices = pt.select(':WAT@O', traj.top)
+        data6 = pt.rdf(traj,
+                       solvent_mask=solvent_indices,
+                       bin_spacing=0.25,
+                       maximum=10.0,
+                       solute_mask=':5@CD')
+
+
         # do assertion
         aa_eq(data0[1], state.data[1], decimal=7)
         aa_eq(data1[1], state.data[2], decimal=7)
@@ -91,6 +100,7 @@ class TestRDF(unittest.TestCase):
 
         steps2 = np.loadtxt('output/radial2.dat').T[0]
         aa_eq(data5[0], steps2)
+        aa_eq(data6[0], steps2)
 
 
 if __name__ == "__main__":
