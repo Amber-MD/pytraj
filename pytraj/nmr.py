@@ -168,6 +168,8 @@ def ired_vector_and_matrix(traj=None,
         out = _get_data_from_dtype(dslist, dtype=dtype)
         if dtype == 'dataset':
             out[-1].values = out[-1].values / out[-1].values[0, 0]
+        else:
+            out = out
         return out
 
 
