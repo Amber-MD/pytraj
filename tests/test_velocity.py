@@ -7,7 +7,7 @@ from pytraj.utils import eq, aa_eq
 
 class TestVelocity(unittest.TestCase):
 
-    def test_mask(self):
+    def test_velocity(self):
         traj = pt.iterload("./data/issue807/trunc.nc",
                            "data/issue807/system.prmtop")
 
@@ -28,6 +28,10 @@ class TestVelocity(unittest.TestCase):
         fi = traj(frame_indices=[0, 2], mask='@O')
         assert vels_.shape == (fi.n_frames, fi.top.n_atoms, 3), 'vels.shape'
         aa_eq(vels, vels_)
+
+        # raise if not having velocity
+        traj2 = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
+        self.assertRaises(ValueError, lambda: pt.get_velocity(traj2))
 
 
 if __name__ == "__main__":
