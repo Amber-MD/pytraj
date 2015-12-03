@@ -872,10 +872,9 @@ def calc_multivector(traj,
     else:
         if isinstance(names, string_types):
             name1, name2 = names.split()
-        elif isinstance(names, (list, tuple)):
-            name1, name2 = names
         else:
-            name1, name2 = '', ''
+            # try to unpack
+            name1, name2 = names
         _names = ' '.join(('name1', name1, 'name2', name2))
     command = ' '.join((_resrange, _names))
 
@@ -1278,6 +1277,8 @@ def mean_structure(traj,
     -----
     if autoimage=True and having rmsfit, perform autoimage first and do rmsfit
     '''
+    # note: we not yet use @_super_dispatch due to extra 'rmsfit'
+    # TODO: do it.
     _top = _get_topology(traj, top)
     try:
         fi = traj.iterframe(autoimage=autoimage,
@@ -1486,8 +1487,6 @@ def calc_multidihedral(traj=None,
     >>> data = pt.multidihedral(traj, dhtypes='phi psi', resrange=[3, 4, 8])
     """
     if resrange:
-        if is_int(resrange):
-            resrange = [resrange, ]
         if isinstance(resrange, string_types):
             _resrange = "resrange " + str(resrange)
         else:
