@@ -51,7 +51,8 @@ class TestFrameIndices(unittest.TestCase):
                        energy_decomposition, center, search_neighbors,
                        calc_atomiccorr, autoimage, closest,
                        calc_volume, superpose, randomize_ions,
-                       check_structure]
+                       check_structure,
+                       align_principal_axis,]
         func_nu = [
             calc_epsilon, calc_alpha, calc_zeta, calc_beta, calc_nu1, calc_nu2,
             calc_delta, calc_chin,
@@ -106,6 +107,17 @@ class TestFrameIndices(unittest.TestCase):
         # test excluded fns
         aa_eq(pt.atomiccorr(traj[frame_indices], '@CA'),
               pt.atomiccorr(traj, '@CA', frame_indices=frame_indices))
+
+        # align_principal_axis
+        indices = [0, 3, 7]
+        t0 = self.traj[:]
+        t1 = self.traj[indices]
+        pt.align_principal_axis(t0, frame_indices=indices)
+        pt.align_principal_axis(t1)
+        aa_eq(t0[indices].xyz, t1.xyz)
+        # make sure that other frames are not affected
+        other_indices = list(set(range(10)) - set(indices))
+        aa_eq(self.traj[other_indices].xyz, t0[other_indices].xyz)
 
 
 if __name__ == "__main__":
