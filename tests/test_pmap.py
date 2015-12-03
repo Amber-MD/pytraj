@@ -305,6 +305,16 @@ class TestVolmap(unittest.TestCase):
                 self.assertEqual(serial_out.shape, tuple(2 * x for x in size))
                 aa_eq(serial_out, parallel_out)
 
+class TestWorker(unittest.TestCase):
+
+    def test_worker_actlist(self):
+        # just want to exercise all codes
+        from pytraj.parallel import _worker_actlist
+        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        for ref in [None, traj[0], [traj[0], traj[1]]]:
+            data = _worker_actlist(rank=3, n_cores=8, traj=traj, lines=['radgyr @CA', 'vector :3 :7'],
+                    ref=ref, kwd=dict())
+
 
 if __name__ == "__main__":
     unittest.main()

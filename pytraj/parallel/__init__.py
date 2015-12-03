@@ -45,6 +45,7 @@ def _worker_actlist(rank,
     # need to make a copy if lines since python's list is dangerous
     # it's easy to mess up with mutable list
     # do not use lines.copy() since this is not available in py2.7
+    # Note: dtype is a dummy argument, it is always 'dict'
     frame_indices = kwd.pop('frame_indices', None)
 
     if frame_indices is None:
@@ -78,11 +79,7 @@ def _worker_actlist(rank,
         pass
 
     # remove ref
-    if dtype == 'dict':
-        return (rank, dslist[len(reflist):].to_dict())
-    else:
-        raise ValueError('must use dtype="dict"')
-
+    return (rank, dslist[len(reflist):].to_dict())
 
 def _load_batch_pmap(n_cores=4,
                      lines=[],
