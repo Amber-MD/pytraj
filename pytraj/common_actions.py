@@ -1921,6 +1921,10 @@ def calc_rmsd(traj=None,
             else:
                 # assume ndim==2
                 command = [array_to_cpptraj_atommask(x) for x in mask]
+        elif 'object' in dname:
+            # different array lens or mix type
+            # dangerous: assume array of two array
+            command = [array_to_cpptraj_atommask(x) for x in mask]
         else:
             raise ValueError("not supported")
 
