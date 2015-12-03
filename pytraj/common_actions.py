@@ -2575,13 +2575,6 @@ def _projection(traj,
     return _get_data_from_dtype(dslist, dtype=dtype)
 
 
-@_super_dispatch(has_ref=True)
-def superpose(traj, ref=0, mask='', frame_indices=None, top=None): 
-    act = CpptrajActions.Action_Rmsd()
-    act(mask, traj, top=top)
-    return traj
-
-
 def pca(traj,
         mask,
         n_vecs=2,
