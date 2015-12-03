@@ -2077,6 +2077,7 @@ def closest(traj=None,
             solvent_mask=None,
             n_solvents=10,
             frame_indices=None,
+            dtype='iterator',
             top=None):
     """return either a new Trajectory or a frame iterator. Keep only ``n_solvents`` closest to mask
 
@@ -2085,6 +2086,9 @@ def closest(traj=None,
     traj : Trajectory-like | list of Trajectory-like/frames | frame iterator | chunk iterator
     mask: str, default '*' (all solute atoms)
     top : Topology-like object, default=None, optional
+    dtype : {'iterator', 'trajectory'}, default 'iterator'
+        if 'iterator', return a tuple of Frame iterator and new Toplogy. 'iterator' is good for streaming large trajectory.
+        if 'trajectory', return a new Trajectory.
 
     Returns
     -------
@@ -2122,7 +2126,11 @@ def closest(traj=None,
 
     fiter = _closest_iter(act, traj)
 
-    return (fiter, new_top.copy())
+    if dtype == 'trajectory':
+        return Trajectory(xyz=np.array([frame.xyz.copy() for frame in fiter]), top=new_top.copy())
+    else:
+        # iterator
+        return (fiter, new_top.copy())
 
 
 @_register_pmap
