@@ -40,6 +40,7 @@ script:
     - python ./run_examples.py
     - cd mpi_examples
     - sh run_mpi_examples.sh 4 
+    - cd ../../
 
 after_success:
     - echo "after_success"
