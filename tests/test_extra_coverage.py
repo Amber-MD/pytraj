@@ -3,6 +3,7 @@
 from __future__ import print_function
 import sys
 import unittest
+import numpy as np
 import subprocess
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
@@ -28,6 +29,10 @@ class TestExtraCoverage(unittest.TestCase):
         pt.misc.parallel_info('pmap')
         pt.misc.parallel_info('openmp')
         pt.misc.parallel_info(None)
+
+        eq([2, 3], [2, 3])
+        # raise if comparing NaN
+        self.assertRaises(ValueError, lambda: aa_eq(np.nan, np.nan))
 
 if __name__ == "__main__":
     unittest.main()

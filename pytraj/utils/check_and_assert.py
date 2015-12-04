@@ -8,18 +8,6 @@ def eq(arr0, arr1):
     assert arr0 == arr1
 
 
-def eq_coords(fa0, fa1):
-    # use this method for very large trajs
-    # use `assert_almost_equal` for `xyz` is to slow since need to copy to xyz
-    # first
-    count = 0
-    import numpy as np
-    for f0, f1 in zip(fa0, fa1):
-        count += 1
-        assert np.any(f0.xyz == f1.xyz) == True
-    assert count == fa0.n_frames == fa1.n_frames
-
-
 def file_exist(filename):
     import os
     return os.path.isfile(filename)
