@@ -37,6 +37,9 @@ exclude_lines =
 
 omit = 
     
+    *.so
+    *.pyx
+    *.pxd
     */externals/*
     */sandbox/*
     */amber_wrapper/*
