@@ -8,16 +8,16 @@ Try online [![Binder](http://mybinder.org/images/logo.svg)](http://mybinder.org/
 Table of Contents
 =================
 
-    * [website](#website)
-    * [Features](#features)
-    * [Demo: Interactive data exploration with Jupyter notebook](#demo-interactive-data-exploration-with-jupyter-notebook)
-    * [Install](#install)
-    * [How to get started?](#how-to-get-started)
-    * [Contributors and Acknowledgement](#contributors-and-acknowledgement)
-    * [Citation](#citation)
-    * [Question/Suggestion?](#questionsuggestion)
-    * [nglview with pytraj in Jupyter notebook](#nglview-with-pytraj-in-jupyter-notebook)
-    * [License](#license)
+* [website](#website)
+* [Features](#features)
+* [Demo: Interactive data exploration with Jupyter notebook](#demo-interactive-data-exploration-with-jupyter-notebook)
+* [Install](#install)
+* [How to get started?](#how-to-get-started)
+* [Contributors and Acknowledgement](#contributors-and-acknowledgement)
+* [Citation](#citation)
+* [Question/Suggestion?](#questionsuggestion)
+* [nglview with pytraj in Jupyter notebook](#nglview-with-pytraj-in-jupyter-notebook)
+* [License](#license)
 
 PYTRAJ
 ------
