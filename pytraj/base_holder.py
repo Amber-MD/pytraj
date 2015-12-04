@@ -39,17 +39,11 @@ class BaseDataHolder(object):
         '''
         return self._dslist.to_dict()
 
-    def _grep(self, key):
-        return self._dslist.grep(key)
-
     def __getitem__(self, idx):
         return self.__class__(self._dslist[idx])
 
     def __iter__(self):
         return self._dslist.__iter__()
-
-    def _append(self, value):
-        self._dslist.append(value)
 
     @property
     def values(self):
