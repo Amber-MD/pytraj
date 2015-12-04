@@ -36,6 +36,11 @@ class Test(unittest.TestCase):
         aa_eq(d3.T, d7.T[:fa.n_frames])
         aa_eq(d3.T, d7.T[fa.n_frames:])
 
+        d8 = pt.angle(traj, mask, dtype='dataset')
+        d9 = pt.tools.dict_to_ndarray(pt.angle(traj, mask, dtype='dict'))
+        aa_eq(d0, d8.values)
+        aa_eq(d0, d9)
+
 
 if __name__ == "__main__":
     unittest.main()

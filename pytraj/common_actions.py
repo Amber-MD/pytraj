@@ -157,14 +157,7 @@ def calc_distance(traj=None,
         if int_2darr.ndim == 1:
             int_2darr = np.atleast_2d(cm_arr)
 
-        if int_2darr.shape[1] != 2:
-            raise ValueError("require int-array with shape=(n_atoms, 2)")
-
-        if n_frames is None:
-            try:
-                n_frames = traj.n_frames
-            except:
-                raise ValueError("require specifying n_frames")
+        n_frames = traj.n_frames if n_frames is None else n_frames
 
         arr = np.empty([n_frames, len(int_2darr)])
 
@@ -348,13 +341,9 @@ def calc_angle(traj=None,
         if int_2darr.shape[1] != 3:
             raise ValueError("require int-array with shape=(n_atoms, 3)")
 
-        if 'n_frames' not in kwd.keys():
-            try:
-                n_frames = traj.n_frames
-            except:
-                raise ValueError("require specifying n_frames")
-        else:
-            n_frames = kwd['n_frames']
+        n_frames = kwd.get('n_frames')
+        n_frames = traj.n_frames if n_frames is None else n_frames
+
         arr = np.empty([n_frames, len(int_2darr)])
         for idx, frame in enumerate(iterframe_master(traj)):
             arr[idx] = frame._angle(int_2darr)
