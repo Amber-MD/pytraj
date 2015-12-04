@@ -80,10 +80,6 @@ Question/Suggestion?
 * code issue and stuff relating directly to `pytraj`, create [Issue](https://github.com/pytraj/pytraj/issues)
 * ask question about data analysis in general, send email to [AMBER Mailing List] (http://lists.ambermd.org/mailman/listinfo/amber)
 
-Support
--------
-* Development version of [cpptraj] (https://github.com/mojyt/cpptraj)
-
 nglview with pytraj in Jupyter notebook
 ---------------------------------------
 
