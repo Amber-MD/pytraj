@@ -9,12 +9,16 @@ PYTRAJ
 ------
 
 pytraj is a Python front-end of cpptraj program (a data analysis package for biomolecular simulation)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+website
+=======
 
 http://amber-md.github.io/pytraj
 
-[![pytraj website](./examples/progress_bar.gif)](http://amber-md.github.io/pytraj/latest/index.html)
+Demo
+====
 
+[![pytraj website](./examples/progress_bar.gif)](http://amber-md.github.io/pytraj/latest/index.html)
 
 Install
 -------
