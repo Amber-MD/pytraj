@@ -72,11 +72,11 @@ Citation
 
 If you would like to acknowledge our work, please cite both ``cpptraj`` and ``pytraj`` papers
 
-- cpptraj : [PTRAJ and CPPTRAJ] (http://pubs.acs.org/doi/abs/10.1021/ct400341p): Software for Processing and Analysis of Molecular Dynamics Trajectory Data
+- ``cpptraj`` paper: [PTRAJ and CPPTRAJ] (http://pubs.acs.org/doi/abs/10.1021/ct400341p): Software for Processing and Analysis of Molecular Dynamics Trajectory Data
 Daniel R. Roe and Thomas E. Cheatham, III
 Journal of Chemical Theory and Computation 2013 9 (7), 3084-3095 
 
-- pytraj : Hai Nguyen et al. (2015) (in preperation)
+- ``pytraj``: Hai Nguyen et al. (2015) (in preperation)
 
 Question/Suggestion?
 --------------------
