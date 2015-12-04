@@ -17,7 +17,6 @@ A Python front-end of [cpptraj program] (https://github.com/Amber-MD/cpptraj) (a
 * [nglview with pytraj in Jupyter notebook](#nglview-with-pytraj-in-jupyter-notebook)
 * [License](#license)
 
-http://amber-md.github.io/pytraj
 
 Features
 --------
