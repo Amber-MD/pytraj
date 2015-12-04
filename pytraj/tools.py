@@ -20,6 +20,8 @@ def estimate_size(n_frames, n_atoms, dtype='f8'):
     >>> traj = pt.datafiles.load_tz2_ortho()
     >>> estimate_size(traj.n_frames, traj.n_atoms, 'f8')
     1.2114715576171875
+    >>> estimate_size(traj.n_frames, traj.n_atoms, 'f4')
+    0.6057357788085938
     '''
     if dtype == 'f8':
         n_bytes = 8
