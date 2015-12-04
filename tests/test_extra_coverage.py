@@ -11,6 +11,8 @@ from pytraj.version import version
 
 
 class TestExtraCoverage(unittest.TestCase):
+    def setUp(self):
+        self.traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
 
     def test_extra_coverage(self):
         '''all kind of tests that do not belong to anywhere else
@@ -36,6 +38,13 @@ class TestExtraCoverage(unittest.TestCase):
 
         dslist = pt.multidihedral(traj)
         string_ = str(dslist[0])
+
+    def test_get_common_objects(self):
+        from pytraj._get_common_objects import _get_reference_from_traj
+        # raises
+        # raise if try to index traj()
+        self.assertRaises(TypeError, lambda: _get_reference_from_traj(self.traj(), 3))
+        self.assertRaises(TypeError, lambda: _get_reference_from_traj(self.traj(), None))
 
 
 if __name__ == "__main__":
