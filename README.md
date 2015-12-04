@@ -1,12 +1,7 @@
 [![Build Status](https://travis-ci.org/Amber-MD/pytraj.svg?branch=master)](https://travis-ci.org/Amber-MD/pytraj)
 [![Binstar Badge](https://binstar.org/ambermd/pytraj-dev/badges/version.svg)](https://binstar.org/ambermd/pytraj-dev/)
 [![Coverage Status](https://coveralls.io/repos/Amber-MD/pytraj/badge.svg?branch=master&service=github)](https://coveralls.io/github/Amber-MD/pytraj?branch=master)
-
-Try online [![Binder](http://mybinder.org/images/logo.svg)](http://mybinder.org/repo/hainm/notebook-pytraj)
------------------------------------------------------------------------------------------------------------
-
-Table of Contents
-=================
+[![Binder](http://mybinder.org/images/logo.svg)](http://mybinder.org/repo/hainm/notebook-pytraj)
 
 * [website](#website)
 * [Features](#features)
