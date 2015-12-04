@@ -24,15 +24,20 @@ Install
 -------
 
 - from source:
-    * git clone https://github.com/amber-md/pytraj
-    * cd pytraj
-    * python ./setup.py install
-    * (Note: pytraj will install the most updated cpptraj)
+
+    ```bash
+    git clone https://github.com/amber-md/pytraj
+    cd pytraj
+    python ./setup.py install
+    # (Note: pytraj will install the most updated cpptraj)
+    ```
+
 - from conda (linux onlye): `conda install -c ambermd pytraj-dev libcpptraj-dev`
 - getting trouble? : [check our webpage](http://amber-md.github.io/pytraj/doc/build/html/installation.html)
 
 How to get started?
 ------------------
+
 - examples: 
 
     ```python
@@ -42,15 +47,6 @@ How to get started?
     pt.dssp(traj, ':2-16')
     ```
 - check our website: [http://amber-md.github.io/pytraj] (http://amber-md.github.io/pytraj)
-
-Question/Suggestion?
---------------------
-* code issue and stuff relating directly to `pytraj`, create [Issue](https://github.com/pytraj/pytraj/issues)
-* ask question about data analysis in general, send email to [AMBER Mailing List] (http://lists.ambermd.org/mailman/listinfo/amber)
-
-Support
--------
-* Development version of [cpptraj] (https://github.com/mojyt/cpptraj)
 
 [Contributors and Acknowledgement] (./contributors/)
 ----------------------------------------------------
@@ -63,6 +59,15 @@ Journal of Chemical Theory and Computation 2013 9 (7), 3084-3095
 
 - pytraj : Hai Nguyen et al. (2015) (in preperation)
 
+Question/Suggestion?
+--------------------
+* code issue and stuff relating directly to `pytraj`, create [Issue](https://github.com/pytraj/pytraj/issues)
+* ask question about data analysis in general, send email to [AMBER Mailing List] (http://lists.ambermd.org/mailman/listinfo/amber)
+
+Support
+-------
+* Development version of [cpptraj] (https://github.com/mojyt/cpptraj)
+
 nglview with pytraj in Jupyter notebook
 ---------------------------------------
 
@@ -71,4 +76,3 @@ nglview with pytraj in Jupyter notebook
 License
 -------
 BSD 2-Clause
-
