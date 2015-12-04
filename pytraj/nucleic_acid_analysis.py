@@ -83,6 +83,9 @@ def nastruct(traj=None,
              30.20827484,  26.48732948],
            [ 36.20665359,  32.58955002,  27.47707367, ...,  33.42843246,
              30.90047073,  33.73724365]]))
+
+    >>> # change dtype
+    >>> data = pt.nastruct(traj, dtype='cpptraj_dataset')
     """
     from pytraj.datasets.DatasetList import DatasetList as CpptrajDatasetList
     from .actions.CpptrajActions import Action_NAstruct

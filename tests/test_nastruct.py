@@ -34,7 +34,11 @@ class TestNastruct(unittest.TestCase):
         data._summary(np.mean, indices=None)
         data._summary(np.mean, indices=[1, ])
         data._summary(np.mean, keys=['major', 'twist'], indices=[1, ])
+        data._summary(np.mean, keys='major', indices=[1, ])
         data._summary(np.std, indices=[1, ])
+        data._summary([np.std, np.mean], indices=[1, ])
+        data._explain()
+        dir(data)
 
         # pickle
         pt.to_pickle(data, 'data/na.pk')
@@ -42,6 +46,9 @@ class TestNastruct(unittest.TestCase):
 
         for key in data.keys():
             aa_eq(data[key][1], na2[key][1])
+
+        # raise
+        self.assertRaises(ValueError, lambda: pt.nastruct(traj, dtype='ndarray'))
 
     def test_nupars_vs_x3dna(self):
         traj = pt.iterload('data/Test_NAstruct/x3dna/rna.pdb')
