@@ -8,7 +8,7 @@ Try online [![Binder](http://mybinder.org/images/logo.svg)](http://mybinder.org/
 PYTRAJ
 ------
 
-pytraj is a Python front-end of cpptraj program (a data analysis package for biomolecular simulation)
+A Python front-end of [cpptraj program] (https://github.com/Amber-MD/cpptraj) (a data analysis package for biomolecular simulation)
 
 website
 =======
@@ -29,10 +29,10 @@ Install
     git clone https://github.com/amber-md/pytraj
     cd pytraj
     python ./setup.py install
-    # (Note: pytraj will install the most updated cpptraj)
+    # Note: pytraj will install the most updated cpptraj. We recommend to have netcdf library.
     ```
 
-- from conda (linux onlye): `conda install -c ambermd pytraj-dev libcpptraj-dev`
+- from conda (linux only): `conda install -c ambermd pytraj-dev libcpptraj-dev`
 - getting trouble? : [check our webpage](http://amber-md.github.io/pytraj/doc/build/html/installation.html)
 
 How to get started?
