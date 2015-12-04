@@ -6,7 +6,6 @@ from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils import eq, aa_eq
 from pytraj.testing import cpptraj_test_dir
-import pytraj.common_actions as pyca
 
 
 class TestDihedral(unittest.TestCase):
@@ -21,7 +20,7 @@ class TestDihedral(unittest.TestCase):
         trajin ./data/md1_prod.Tc5b.x
         dihedral %s
         ''' % mask
-        d0 = pyca.calc_dihedral(traj, mask, dtype='dataset').to_ndarray()
+        d0 = pt.dihedral(traj, mask, dtype='dataset').to_ndarray()
         d1 = pt.dihedral(traj, mask)
         d2 = pt.calc_dihedral(fa, mask)
         state = pt.load_cpptraj_state(txt)
@@ -45,6 +44,11 @@ class TestDihedral(unittest.TestCase):
         aa_eq(d3, d6)
         aa_eq(d3.T, d7.T[:fa.n_frames])
         aa_eq(d3.T, d7.T[fa.n_frames:])
+
+        d8 = pt.dihedral(traj, mask, dtype='dataset')
+        d9 = pt.tools.dict_to_ndarray(pt.dihedral(traj, mask, dtype='dict'))
+        aa_eq(d0, d8.values)
+        aa_eq(d0, d9)
 
         # raise
         self.assertRaises(ValueError, lambda: pt.dihedrals(traj, [[0, 3, 2]]))
