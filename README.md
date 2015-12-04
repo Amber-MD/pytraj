@@ -10,7 +10,7 @@ Table of Contents
 
     * [website](#website)
     * [Features](#features)
-    * [Demo: Interactive data exploration with <a href="http://jupyter.org/">Jupyter notebook</a> ](#demo-interactive-data-exploration-with-jupyter-notebook)
+    * [Demo: Interactive data exploration with Jupyter notebook](#demo-interactive-data-exploration-with-jupyter-notebook)
     * [Install](#install)
     * [How to get started?](#how-to-get-started)
     * [Contributors and Acknowledgement](#contributors-and-acknowledgement)
