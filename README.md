@@ -44,7 +44,7 @@ Install
     ```
 
 - from conda (linux only): `conda install -c ambermd pytraj-dev libcpptraj-dev`
-- getting trouble? : [check our webpage](http://amber-md.github.io/pytraj/doc/build/html/installation.html)
+- getting trouble? : [check our webpage](http://amber-md.github.io/pytraj/latest/installation.html)
 
 How to get started?
 ------------------
