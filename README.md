@@ -15,8 +15,19 @@ website
 
 http://amber-md.github.io/pytraj
 
-Demo
-====
+Features
+--------
+
+- support more than 80 types of data analyses (rmsd, radgyr, autoimage, pca, clustering,...)
+- read/write various file formats
+- fast (core codes were written in C++ and Cython)
+- support parallel calculation (openmp, multiprocessing, mpi, ...)
+- interactive analysis with large trajectory data that does not fit to memory
+- [>> many more with comprehensive tutorials] (http://amber-md.github.io/pytraj)
+
+
+Demo: Interactive data exploration with [Jupyter notebook] (http://jupyter.org/)
+--------------------------------------------------------------------------------
 
 [![pytraj website](./examples/progress_bar.gif)](http://amber-md.github.io/pytraj/latest/index.html)
 
@@ -48,8 +59,10 @@ How to get started?
     ```
 - check our website: [http://amber-md.github.io/pytraj] (http://amber-md.github.io/pytraj)
 
-[Contributors and Acknowledgement] (./contributors/)
-----------------------------------------------------
+Contributors and Acknowledgement
+--------------------------------
+
+[Please check here](./contributors/)
 
 Citation
 --------
