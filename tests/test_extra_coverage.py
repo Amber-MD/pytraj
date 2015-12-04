@@ -34,5 +34,9 @@ class TestExtraCoverage(unittest.TestCase):
         # raise if comparing NaN
         self.assertRaises(ValueError, lambda: aa_eq(np.nan, np.nan))
 
+        dslist = pt.multidihedral(traj)
+        string_ = str(dslist[0])
+
+
 if __name__ == "__main__":
     unittest.main()
