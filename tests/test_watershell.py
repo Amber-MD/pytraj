@@ -16,6 +16,9 @@ class TestWatershell(unittest.TestCase):
         state.run()
         aa_eq(d0.values, state.data[[1, 2]].values)
 
+        # need to provide solute_mask
+        self.assertRaises(ValueError, lambda: pt.watershell(traj))
+
 
 if __name__ == "__main__":
     unittest.main()

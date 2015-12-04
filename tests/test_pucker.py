@@ -29,6 +29,10 @@ class TestPucker(unittest.TestCase):
         aa_eq(data_altona.values, state.data[1:4].values)
         aa_eq(data_cremer.values, state.data[4:].values)
 
+        # resrange=None
+        data_full_residues = pt.pucker(traj, resrange=None)
+        aa_eq(data_full_residues[:3].values, data_altona[:3].values)
+
 
 if __name__ == "__main__":
     unittest.main()

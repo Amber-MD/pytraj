@@ -372,6 +372,8 @@ def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
     >>> from pytraj.common_actions import _dihedral_res
     >>> traj = pt.datafiles.load_tz2()
     >>> data = _dihedral_res(traj, mask=('N', 'CA', 'C', 'O'), resid=0)
+    >>> # use string for resid
+    >>> data = _dihedral_res(traj, mask=('N', 'CA', 'C', 'O'), resid='1')
     '''
 
     if is_int(resid):
@@ -480,13 +482,8 @@ def calc_dihedral(traj=None,
         if int_2darr.shape[1] != 4:
             raise ValueError("require int-array with shape=(n_atoms, 4)")
 
-        if 'n_frames' not in kwd.keys():
-            try:
-                n_frames = traj.n_frames
-            except:
-                raise ValueError("require specifying n_frames")
-        else:
-            n_frames = kwd['n_frames']
+        n_frames = kwd.get('n_frames')
+        n_frames = traj.n_frames if n_frames is None else n_frames
         arr = np.empty([n_frames, len(int_2darr)])
         for idx, frame in enumerate(iterframe_master(traj)):
             arr[idx] = frame._dihedral(int_2darr)
