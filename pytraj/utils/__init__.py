@@ -11,9 +11,6 @@ from .context import goto_temp_folder
 from ..externals.six.moves import range
 from . import convert
 
-# add amberhome
-from .amber_test import amberhome, cpptraj_test_dir, has_amberhome
-
 
 def duplicate_traj(orig_traj, n_times):
     '''
