@@ -211,7 +211,7 @@ def dssp_allatoms(traj, *args, **kwd):
 
     if not PY3:
         new_data = np.empty((traj.n_frames, traj.n_atoms), dtype='S2')
-    else:
+    else: # pragma: no cover
         new_data = np.empty((traj.n_frames, traj.n_atoms), dtype='U2')
 
     simplified = kwd.get('simplified', False)
@@ -272,7 +272,7 @@ def dssp_allresidues(traj, *args, **kwd):
 
     if not PY3:
         new_data = np.empty((traj.n_frames, traj.top.n_residues), dtype='S2')
-    else:
+    else: # pragma no cover
         new_data = np.empty((traj.n_frames, traj.top.n_residues), dtype='U2')
 
     simplified = kwd.get('simplified', False)

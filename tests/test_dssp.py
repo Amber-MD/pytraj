@@ -66,6 +66,13 @@ class TestDSSP(unittest.TestCase):
             mdata = update_mdtraj_dssp(mdata)
             assert_array_equal(data, mdata)
 
+    def test_dssp_allatoms(self):
+        traj = pt.fetch_pdb('1l2y')
+        allatoms_dssp = pt.dssp_allatoms(traj).T
+        allresidues_dssp = pt.dssp_allresidues(traj).T
+        for idx, res in enumerate(traj.top.residues):
+            assert np.all(np.array(allatoms_dssp[res.first_atom_index: res.last_atom_index])
+            == (np.array(allresidues_dssp[idx])))
 
 if __name__ == "__main__":
     unittest.main()
