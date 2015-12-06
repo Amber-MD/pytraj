@@ -147,9 +147,45 @@ txt = '''
 
 
 class TestIred(unittest.TestCase):
-    # TODO: how can I get order paramters?
+
+    def test_simple_for_coverage(self):
+        '''
+        '''
+        traj = pt.iterload(traj_dir, parm_dir)
+        h_indices = pt.select_atoms('@H', traj.top)
+        n_indices = pt.select_atoms('@H', traj.top) - 1
+        nh_indices = list(zip(n_indices, h_indices))
+        vecs_and_mat = pt.ired_vector_and_matrix(traj, nh_indices, dtype='tuple')
+        state_vecs = vecs_and_mat[0]
+        mat_ired = vecs_and_mat[1]
+
+        # get eigenvalues and eigenvectors
+        modes = pt.matrix.diagonalize(mat_ired, n_vecs=len(state_vecs))[0]
+        evals, evecs = modes.eigenvalues, modes.eigenvectors
+
+        data_0 = _ired(state_vecs,
+                     modes=(evals, evecs),
+                     NHbond=True,
+                     tcorr=10000,
+                     tstep=1.)
+
+        data_1 = _ired(state_vecs,
+                     modes=modes,
+                     NHbond=True,
+                     tcorr=10000,
+                     tstep=1)
+
+        for d0, d1 in zip(data_0, data_1):
+            if d0.dtype not in ['modes',]:
+                aa_eq(d0.values, d1.values)
+            else:
+                # modes
+                # values: tuple
+                aa_eq(d0.values[0], d1.values[0])
+                aa_eq(d0.values[1], d1.values[1])
 
     @unittest.skipIf('DNO_MATHLIB' in pt.compiled_info(), 'there is no LAPACK')
+    # TODO: how can I get order paramters?
     def test_ired_need_lapack_cpptraj(self):
         state = pt.load_cpptraj_state(txt)
         state.run()
