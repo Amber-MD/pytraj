@@ -61,9 +61,9 @@ class TestCpptrajDatasetWithMathLib(unittest.TestCase):
 
         # make sure eigenvalues from cpptraj are the same as ones in numpy
         # we calculated only 2 eigenvalues
-        aa_eq(sorted(modes.eigenvalues), np_eg[0][-2:])
-        aa_eq(modes.eigenvectors[0], np_eg[1][:, -1])
-        aa_eq(modes.eigenvectors[1], np_eg[1][:, -2])
+        aa_eq(np.abs(sorted(modes.eigenvalues)), np.abs(np_eg[0][-2:]))
+        aa_eq(np.abs(modes.eigenvectors[0]), np.abs(np_eg[1][:, -1]))
+        aa_eq(np.abs(modes.eigenvectors[1]), np.abs(np_eg[1][:, -2]))
 
 
 class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
