@@ -160,8 +160,6 @@ def _get_ss_per_frame(arr,
                       all_atoms=False):
     if simplified:
         symbol = 'C'
-    else:
-        symbol = '0'
 
     for idx, res in enumerate(top.residues):
         if idx in res_indices:
@@ -211,10 +209,10 @@ def dssp_allatoms(traj, *args, **kwd):
     top = _get_topology(traj, kwd.get('top'))
     res_indices = [int(x.split(':')[-1]) - 1 for x in res_labels]
 
-    if PY3:
-        new_data = np.empty((traj.n_frames, traj.n_atoms), dtype='U2')
-    else:
+    if not PY3:
         new_data = np.empty((traj.n_frames, traj.n_atoms), dtype='S2')
+    else: # pragma: no cover
+        new_data = np.empty((traj.n_frames, traj.n_atoms), dtype='U2')
 
     simplified = kwd.get('simplified', False)
     for fid, arr in enumerate(data):
@@ -272,10 +270,10 @@ def dssp_allresidues(traj, *args, **kwd):
 
     res_indices = [int(x.split(':')[-1]) - 1 for x in res_labels]
 
-    if PY3:
-        new_data = np.empty((traj.n_frames, traj.top.n_residues), dtype='U2')
-    else:
+    if not PY3:
         new_data = np.empty((traj.n_frames, traj.top.n_residues), dtype='S2')
+    else: # pragma no cover
+        new_data = np.empty((traj.n_frames, traj.top.n_residues), dtype='U2')
 
     simplified = kwd.get('simplified', False)
     for fid, arr in enumerate(data):

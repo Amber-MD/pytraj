@@ -159,7 +159,7 @@ def process(path, fromfile, tofile, processor_function, hash_db):
     fullfrompath = os.path.join(path, fromfile)
     fulltopath = os.path.join(path, tofile)
     current_hash = get_hash(fullfrompath, fulltopath)
-    if current_hash == hash_db.get(normpath(fullfrompath), None):
+    if current_hash == hash_db.get(normpath(fullfrompath))
         print('%s has not changed' % fullfrompath)
         return
 

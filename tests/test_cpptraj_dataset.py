@@ -30,8 +30,7 @@ crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
 '''
 
 
-#@unittest.skipIf('DNO_MATHLIB' in pt.compiled_info(), 'there is no LAPACK')
-@unittest.skip('just skip')
+@unittest.skipIf('DNO_MATHLIB' in pt.compiled_info(), 'there is no LAPACK')
 class TestCpptrajDatasetWithMathLib(unittest.TestCase):
 
     def setUp(self):
@@ -62,9 +61,9 @@ class TestCpptrajDatasetWithMathLib(unittest.TestCase):
 
         # make sure eigenvalues from cpptraj are the same as ones in numpy
         # we calculated only 2 eigenvalues
-        aa_eq(sorted(modes.eigenvalues), np_eg[0][-2:])
-        aa_eq(modes.eigenvectors[0], np_eg[1][:, -1])
-        aa_eq(modes.eigenvectors[1], np_eg[1][:, -2])
+        aa_eq(np.abs(sorted(modes.eigenvalues)), np.abs(np_eg[0][-2:]))
+        aa_eq(np.abs(modes.eigenvectors[0]), np.abs(np_eg[1][:, -1]))
+        aa_eq(np.abs(modes.eigenvectors[1]), np.abs(np_eg[1][:, -2]))
 
 
 class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):

@@ -123,6 +123,11 @@ class TestTrajectory(unittest.TestCase):
         empty_traj.top = pt.datafiles.load_tz2()[:].top
         self.assertRaises(ValueError, lambda: empty_traj.load(pt.Trajectory))
 
+        # raise if empty Topology
+        xyz = np.arange(90).astype('f8').reshape(3, 10, 3)
+        self.assertRaises(ValueError, lambda: pt.Trajectory(xyz=xyz, top=pt.Topology()))
+
+
     def test_slice_basic(self):
         traj2 = pt.Trajectory()
         traj2.top = pt.load_topology("./data/Tc5b.top")
@@ -167,11 +172,18 @@ class TestTrajectory(unittest.TestCase):
         for frame in traj:
             pass
 
-    def test_trj_top(self):
+    def test_traj_topology(self):
         traj = pt.TrajectoryIterator()
         assert traj.top.is_empty() == True
         traj.top = pt.load_topology("./data/Tc5b.top")
         assert traj.top.is_empty() == False
+        traj._load("./data/md1_prod.Tc5b.x")
+
+        # use toplogy
+        traj = pt.TrajectoryIterator()
+        assert traj.topology.is_empty() == True
+        traj.topology = pt.load_topology("./data/Tc5b.top")
+        assert traj.topology.is_empty() == False
         traj._load("./data/md1_prod.Tc5b.x")
 
     def test_xyz(self):

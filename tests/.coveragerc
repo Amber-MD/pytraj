@@ -25,6 +25,7 @@ exclude_lines =
     except ImportError
     except NameError
     if PY3
+    if not PY3
     to_dataframe
     if dtype == 'dataframe'
     warn

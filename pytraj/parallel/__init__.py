@@ -141,6 +141,8 @@ def _worker_state(rank, n_cores=1, traj=None, lines=[], dtype='dict'):
             my_lines[idx] = ' '.join(('crdaction traj', line, crdframes_string
                                       ))
 
+    # do not use 'extend' in this case
+    # will get weird output
     my_lines = ['loadtraj name traj', ] + my_lines
 
     state = _load_batch(my_lines, traj)

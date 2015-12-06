@@ -19,23 +19,13 @@ class TestReferenceFrame(unittest.TestCase):
         reference {1} 2 2 [ref1]
         rms ref [ref0]  @CA
         rms ref [ref1]  @CA
-
-        # can not use name now
-        #reference {1} 3 3 name ref0
-        #reference {1} 2 2 name ref1
-        #rms ref ref0  @CA
-        #rms ref ref1  @CA
         '''.format(traj.top.filename, traj.filename)
 
         state = pt.load_cpptraj_state(text)
         state.run()
-        print(state.data.keys())
 
         rmsd_0 = pt.rmsd(traj, ref=2, mask='@CA')
-        print(rmsd_0)
-        print(state.data[-1])
 
-    @unittest.skip('not finished yet')
     def test_reference_2(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
         from pytraj.actions.CpptrajActions import Action_Rmsd
@@ -44,9 +34,11 @@ class TestReferenceFrame(unittest.TestCase):
         ref = traj[2]
         dslist = DatasetList()
         dslist.add_set('ref_frame', 'myref')
+        dslist[-1].top = traj.top
         dslist[-1].add_frame(ref)
-        act('myrmsd ref myref @CA', traj, top=traj.top, dslist=dslist)
-        print(dslist)
+        act('myrmsd refindex 0 @CA', traj, top=traj.top, dslist=dslist)
+        aa_eq(pt.rmsd(traj, ref=traj[2], mask='@CA'),
+              dslist[-1].values)
 
 
 if __name__ == "__main__":

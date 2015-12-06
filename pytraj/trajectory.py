@@ -166,8 +166,7 @@ class Trajectory(object):
     def xyz(self, values):
         '''assign new coordinates for Trajectory
         '''
-        if self.shape[1]:
-            if self.n_atoms != values.shape[1]:
+        if self.shape[1] and self.n_atoms != values.shape[1]:
                 raise ValueError("must have the same number of atoms")
         # make sure dtype='f8'
         values = np.asarray(values, dtype='f8')
