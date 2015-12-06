@@ -263,7 +263,8 @@ class DatasetList(list):
         # dont free mem here
         for d0 in self:
             att = getattr(d0, mode)
-            if isinstance(key, string_types) and re.search(key, att):
+            if isinstance(key, string_types):
+                if re.search(key, att):
                     dtmp.append(d0, copy=copy)
             elif isinstance(key, (list, tuple)):
                 for _key in key:

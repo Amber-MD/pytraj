@@ -17,6 +17,11 @@ from pytraj.actions import CpptrajActions as CA
 
 class TestVectorAnalysisModule(unittest.TestCase):
 
+    def test_vector_raise(self):
+        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        arr = np.arange(100).astype('i4').reshape(2, 25, 2)
+        self.assertRaises(ValueError, lambda: pt.vector.vector_mask(traj, arr))
+
     def test_actionlist(self):
         '''test_actionlist
         '''

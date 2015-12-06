@@ -20,6 +20,7 @@ class TestTools(unittest.TestCase):
 
         # rmsd
         self.assertRaises(ValueError, lambda: pt.tools.rmsd([[2, 3], [4, 6]], [2, 3]))
+        self.assertRaises(ValueError, lambda: pt.tools.rmsd([[2, 3]], [2, 3], flatten=False))
 
         # 
         for frame in pt.tools.split_traj_by_residues(traj, 0, 12):
