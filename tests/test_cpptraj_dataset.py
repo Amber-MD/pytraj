@@ -30,8 +30,8 @@ crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
 '''
 
 
-#@unittest.skipIf('DNO_MATHLIB' in pt.compiled_info(), 'there is no LAPACK')
-@unittest.skip('just skip')
+@unittest.skipIf('DNO_MATHLIB' in pt.compiled_info(), 'there is no LAPACK')
+#@unittest.skip('just skip')
 class TestCpptrajDatasetWithMathLib(unittest.TestCase):
 
     def setUp(self):
