@@ -158,11 +158,10 @@ class TrajectoryIterator(TrajectoryCpptraj):
         >>> traj._pickle_topology = True
         >>> pt.to_pickle(traj, 'output/test.pk')
         '''
+        # slow
+        # Topology is pickable
         if 'top' not in self.__dict__.keys() and self._pickle_topology:
-            # slow
-            # Topology is pickable
-            if self._pickle_topology:
-                self.__dict__.update({'top': self.top})
+            self.__dict__.update({'top': self.top})
 
         return self.__dict__
 
@@ -315,7 +314,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
                 assert len(rmsfit) == 2, (
                     "rmsfit must be a tuple of one (frame,) "
                     "or two elements (frame, mask)")
-            elif isinstance(rmsfit, int) or isinstance(rmsfit, Frame):
+            elif isinstance(rmsfit, (int, Frame)):
                 rmsfit = (rmsfit, '*')
             else:
                 raise ValueError("rmsfit must be a tuple or an integer")
@@ -456,7 +455,8 @@ class TrajectoryIterator(TrajectoryCpptraj):
 
         assert 0 <= start <= self.n_frames, "0 <= start <= self.n_frames"
 
-        if stop <= 0 or stop > self.n_frames:
+        #if stop <= 0 or stop > self.n_frames:
+        if not (0 < stop <= self.n_frames):
             stop = self.n_frames
 
         if rank >= 0:

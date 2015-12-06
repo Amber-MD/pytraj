@@ -34,8 +34,7 @@ else:
 
 possible_path = "../cpptraj/test/"
 
-if not cpptraj_test_dir:
-    if os.path.exists(possible_path):
+if not cpptraj_test_dir and os.path.exists(possible_path):
         cpptraj_test_dir = possible_path
 
 

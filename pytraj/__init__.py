@@ -30,8 +30,7 @@ try:
     # in _find_lib
     from .core import Atom
 except ImportError:
-    if 'linux' in _platform:
-        if not _find_lib("cpptraj"):
+    if 'linux' in _platform and not _find_lib("cpptraj"):
             raise ImportError(
                 "can not find libcpptraj. Make sure to install it "
                 "or export LD_LIBRARY_PATH correctly")

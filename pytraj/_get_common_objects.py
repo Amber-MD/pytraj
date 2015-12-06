@@ -59,8 +59,7 @@ def _get_topology(traj, top):
 def _get_data_from_dtype(d0, dtype='dataset'):
     from pytraj.datasetlist import DatasetList as DSL
 
-    if dtype is None or dtype == 'dataset':
-        if hasattr(d0, 'set_own_memory'):
+    if (dtype is None or dtype == 'dataset') and hasattr(d0, 'set_own_memory'):
             d0.set_own_memory(False)
 
     dtype = dtype.lower()
@@ -228,7 +227,7 @@ class _super_dispatch(object):
             except IndexError:
                 traj = kwd.get('traj')
             frame_indices = kwd.get('frame_indices')
-            ref = kwd.get('ref', None)
+            ref = kwd.get('ref')
             if self.has_ref and ref is None:
                 try:
                     ref = args[1]
@@ -238,7 +237,7 @@ class _super_dispatch(object):
                 # convert to Frame
                 ref = _get_reference_from_traj(traj, ref)
 
-            top = kwd.get('top', None)
+            top = kwd.get('top')
 
             if 'mask' in kwd.keys():
                 mask = kwd.get('mask')

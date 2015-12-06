@@ -58,13 +58,11 @@ class Test(unittest.TestCase):
         count = 0
         for frame0 in traj.iterframe(start=2):
             count += 1
-            pass
         assert_almost_equal(traj[-1].xyz, frame0.xyz)
 
         count = 0
         for frame0 in traj.iterframe(start=2, stop=7):
             count += 1
-            pass
         assert_almost_equal(traj[6].xyz, frame0.xyz)
 
         for frame0 in traj.iterframe():
@@ -86,25 +84,21 @@ class Test(unittest.TestCase):
         count = 0
         for frame0 in traj(start=2, stop=7):
             count += 1
-            pass
         assert_almost_equal(traj[6].xyz, frame0.xyz)
 
         count = 0
         for frame0 in farray(start=2, stop=7):
             count += 1
-            pass
         assert_almost_equal(traj[6].xyz, frame0.xyz)
 
         count = 0
         for frame0 in farray(2, 7, 1):
             count += 1
-            pass
         assert_almost_equal(traj[6].xyz, frame0.xyz)
 
         count = 0
         for frame0 in farray(2, 7, 2):
             count += 1
-            pass
         assert_almost_equal(traj[6].xyz, frame0.xyz)
 
     def test_1(self):

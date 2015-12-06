@@ -271,8 +271,7 @@ list_of_libcpptraj = glob(os.path.join(libdir, 'libcpptraj') + '*')
 output_openmp_check = subprocess.check_output(['nm', list_of_libcpptraj[0]]).decode().split('\n')
 omp_ = [line for line in output_openmp_check if 'get_num_threads' in line.lower()]
 
-if disable_openmp:
-    if omp_:
+if disable_openmp and omp_:
         sys.stderr.write(message_openmp_cpptraj)
         sys.exit(0)
 else:
