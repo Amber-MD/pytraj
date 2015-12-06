@@ -149,7 +149,7 @@ def diagonalize(mat, n_vecs, dtype='dataset'):
         raise ValueError('only support dtype of tuple or dataset')
 
 
-def _diag_np(mat, n_vecs):
+def _diagonalize_np(mat, n_vecs):
     '''have opposite sign with cpptraj
 
     Examples
@@ -157,7 +157,7 @@ def _diag_np(mat, n_vecs):
     >>> import pytraj as pt
     >>> traj = pt.load_sample_data('tz2')
     >>> mat = pt.matrix.dist(traj, '@CA')
-    >>> x = pt.matrix._diag_np(mat, 4)
+    >>> x = pt.matrix._diagonalize_np(mat, 4)
     '''
     evals, evecs = np.linalg.eigh(mat)
     evals = evals[::-1][:n_vecs]
