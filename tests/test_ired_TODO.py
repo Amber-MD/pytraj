@@ -156,6 +156,7 @@ class TestIred(unittest.TestCase):
         n_indices = pt.select_atoms('@H', traj.top) - 1
         nh_indices = list(zip(n_indices, h_indices))
         vecs_and_mat = pt.ired_vector_and_matrix(traj, nh_indices, dtype='tuple')
+        vecs_and_mat = pt.ired_vector_and_matrix(traj, nh_indices, dtype='tuple')
         state_vecs = vecs_and_mat[0]
         mat_ired = vecs_and_mat[1]
 
@@ -183,6 +184,9 @@ class TestIred(unittest.TestCase):
                 # values: tuple
                 aa_eq(d0.values[0], d1.values[0])
                 aa_eq(d0.values[1], d1.values[1])
+
+        # try different dtype
+        out_try_new_dtype = pt.ired_vector_and_matrix(traj, nh_indices, dtype='cpptraj_dataset')
 
     @unittest.skipIf('DNO_MATHLIB' in pt.compiled_info(), 'there is no LAPACK')
     # TODO: how can I get order paramters?
