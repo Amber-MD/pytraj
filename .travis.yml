@@ -38,7 +38,7 @@ script:
     #- python ./run_full_tests.py
     - nosetests --with-coverage --cover-package pytraj -vs test_*.py */test_*.py
     - unset CPPTRAJHOME # for pytraj.tools coverage
-    - nosetests --with-coverage --cover-package pytraj -vs test_doc.py
+    - nosetests --with-coverage --cover-package pytraj -vs test_docs.py
     - cd ../examples
     - python ./run_examples.py
     - cd mpi_examples
