@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[6]:
+# In[1]:
 
 # config to get better plot
 get_ipython().magic('matplotlib inline')
@@ -20,33 +20,46 @@ import warnings # just to avoid any warning to make this notebook prettier
 warnings.filterwarnings('ignore')
 
 
-# In[7]:
+# In[2]:
 
 # import pytraj
 import pytraj as pt
 
 # load sample data
-traj = pt.datafiles.load_tz2()
+traj = pt.iterload('tz2.nc', 'tz2.parm7')
 traj
 
 
-# In[8]:
+# In[3]:
 
 # find hbond
 hb = pt.hbond(traj)
-print('donor - acceptor: ', hb._amber_mask())
 
-print("")
-print(hb.data)
+distance_mask = hb._amber_mask()[0]
+print('hbond distance mask: {} \n '.format(distance_mask))
+
+angle_mask = hb._amber_mask()[1]
+print('hbond angle mask: {} \n'.format(angle_mask))
+
+print("hbond data")
+print(hb.data) # 1: have hbond; 0: does not have hbond
 
 
-# In[9]:
+# In[4]:
 
 dist = pt.distance(traj, hb._amber_mask()[0])
 print('all hbond distances: ', dist)
 
 
-# In[10]:
+# In[5]:
+
+angle = pt.angle(traj, hb._amber_mask()[1])
+angle
+
+
+# ### plot demo
+
+# In[6]:
 
 sb.color_palette('deep', n_colors=6, desat=0.5)
 sb.set_style(style='white')
@@ -58,4 +71,39 @@ plt.colorbar()
 plt.grid()
 plt.xlabel(':1@OG :2@H')
 plt.ylabel(':5@O :3@HG1')
+
+
+# ### Do some statistics
+
+# In[42]:
+
+def stat(hb, data, distance_mask):
+    '''
+    
+    Parameters
+    ----------
+    hb : get from `pt.hbond(traj, ...)`
+    data : either distance or angle
+    distance_mask : distance mask
+    '''
+    import numpy as np
+    arr = hb.data[1:].values == 1
+    
+    std_ = {}
+    mean_ = {}
+    for idx, mask in enumerate(distance_mask):
+        std_[mask] = np.std(data[idx][arr[idx]])
+        mean_[mask] = np.mean(data[idx][arr[idx]])
+    
+    return mean_, std_
+
+
+# In[43]:
+
+stat(hb, dist, distance_mask)
+
+
+# In[41]:
+
+stat(hb, angle, distance_mask)
 
