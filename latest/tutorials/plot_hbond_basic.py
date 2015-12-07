@@ -75,9 +75,9 @@ plt.ylabel(':5@O :3@HG1')
 
 # ### Do some statistics
 
-# In[42]:
+# In[7]:
 
-def stat(hb, data, distance_mask):
+def stat(hb, data, distance_or_angle_mask):
     '''
     
     Parameters
@@ -91,19 +91,19 @@ def stat(hb, data, distance_mask):
     
     std_ = {}
     mean_ = {}
-    for idx, mask in enumerate(distance_mask):
+    for idx, mask in enumerate(distance_or_angle_mask):
         std_[mask] = np.std(data[idx][arr[idx]])
         mean_[mask] = np.mean(data[idx][arr[idx]])
     
     return mean_, std_
 
 
-# In[43]:
+# In[8]:
 
 stat(hb, dist, distance_mask)
 
 
-# In[41]:
+# In[9]:
 
-stat(hb, angle, distance_mask)
+stat(hb, angle, angle_mask)
 
