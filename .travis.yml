@@ -32,10 +32,13 @@ script:
     - source devtools/travis-ci/install_pytraj.sh
     - export LD_LIBRARY_PATH=`pwd`"/cpptraj/lib":$LD_LIBRARY_PATH
     - sh ./devtools/travis-ci/pyflakes_check.sh
+    - export CPPTRAJHOME=`pwd`"/cpptraj/"
     - cd ./tests
     - python ./run_simple_test.py
     #- python ./run_full_tests.py
     - nosetests --with-coverage --cover-package pytraj -vs test_*.py */test_*.py
+    - unset CPPTRAJHOME # for pytraj.tools coverage
+    - nosetests --with-coverage --cover-package pytraj -vs test_docs.py
     - cd ../examples
     - python ./run_examples.py
     - cd mpi_examples
