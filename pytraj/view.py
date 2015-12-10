@@ -26,7 +26,7 @@ def to_chemview(traj): # pragma: no cover
     return top
 
 
-def to_nglview(traj, parmfile=None): # pragma: no cover
+def to_nglview(traj): # pragma: no cover
     '''convert to nglview object
 
     Parameters
@@ -38,16 +38,18 @@ def to_nglview(traj, parmfile=None): # pragma: no cover
     -------
     nglview.Trajectory
 
+    Notes
+    -----
+    need ParmEd
+
     '''
-    # dirty hack
     from io import StringIO
     import nglview as nv
-    from nglview import Trajectory, Structure
-    import parmed as pmd
+    from pytraj.sanbox import to_parmed
 
-    parm = pmd.load_file(parmfile) if parmfile is not None else pmd.load_file(traj.top.filename)
-    parm.coordinates = traj.xyz[0]
-    with StringIO() as x:
-        parm.write_pdb(x)
-        buffer_ = x.getvalue()
+    parm = to_parmed(traj)
+    x = StringIO()
+    parm.write_pdb(x)
+    buffer_ = x.getvalue()
+    x.close()
     return nv.Trajectory(xyz=traj.xyz, topology=nv.Structure(text=buffer_))
