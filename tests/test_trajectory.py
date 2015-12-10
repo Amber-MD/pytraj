@@ -138,7 +138,7 @@ class TestTrajectory(unittest.TestCase):
         fsub = traj2[2:10]
         fsub[0][0] = 100.
 
-    def test_indexing_0(self):
+    def test_indexing(self):
         traj = pt.iterload('data/md1_prod.Tc5b.x', 'data/Tc5b.top')
         traj2 = pt.TrajectoryIterator()
         traj2.top = pt.load_topology("./data/Tc5b.top")
@@ -164,6 +164,19 @@ class TestTrajectory(unittest.TestCase):
         assert traj3.n_frames == 0, 'empty Trajectory, n_frames must be 0'
         self.assertRaises(IndexError, lambda: traj3[0])
         self.assertRaises(IndexError, lambda: traj3.__setitem__(0, traj[3]))
+
+    def test_indexing_at(self):
+        traj = pt.iterload('data/md1_prod.Tc5b.x', 'data/Tc5b.top')
+        t0 = traj[:]
+
+        aa_eq(t0.at(3).xyz, t0[3].xyz)
+        aa_eq(t0.at(slice(None, None, None)).xyz, t0[slice(None, None, None)].xyz)
+
+        at_3 = traj.at(3)
+        aa_eq(at_3.xyz, traj[3].xyz)
+
+        at_all = traj.at(slice(None, None, None))
+        aa_eq(at_all.xyz, traj[slice(None, None, None)].xyz)
 
     def test_iter_basic(self):
         traj = pt.TrajectoryIterator()

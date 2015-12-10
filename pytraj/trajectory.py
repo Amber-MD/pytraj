@@ -1082,3 +1082,6 @@ class Trajectory(object):
         for f1, f2, frame in zip(self, other, traj):
             frame.xyz[:] = np.vstack((f1.xyz, f2.xyz))
         return traj
+
+    def at(self, index):
+        return self[index]
