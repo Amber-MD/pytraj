@@ -353,3 +353,23 @@ def lifetime(data, cut=0.5, rawcurve=False, more_options='', dtype='ndarray'):
 
 # parallel
 
+def to_parmed(traj, all_coords=False):
+    import parmed as pmd
+
+    parm = pmd.Structure()
+    for atom in traj.top.simplify().atoms:
+        p_atom = pmd.Atom(name=atom.name,
+                          type=atom.type,
+                          atomic_number=atom.atomic_number,
+                          charge=atom.charge,
+                          mass=atom.mass)
+        parm.add_atom(p_atom,
+                      resname=atom.resname,
+                      resnum=atom.resid)
+                      #chain=str(atom.molnum))
+    if all_coords:
+        parm.coordinates = traj.xyz
+    else:
+        parm.coordinates = traj.xyz[0]
+    parm.box = traj.top.box
+    return parm

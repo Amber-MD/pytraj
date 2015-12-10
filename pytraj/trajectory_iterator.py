@@ -485,3 +485,6 @@ class TrajectoryIterator(TrajectoryCpptraj):
     @property
     def temperatures(self):
         return np.array([frame.temperature for frame in self])
+
+    def at(self, index):
+        return self[index]

@@ -2,7 +2,7 @@
 '''
 
 
-def to_chemview(traj):
+def to_chemview(traj): # pragma: no cover
     '''Generate topology spec for the MolecularViewer from pytraj. (adapted from chemview code)
 
     Parameters
@@ -24,3 +24,37 @@ def to_chemview(traj):
     ]
 
     return top
+
+
+def to_nglview(traj, parmfile=None): # pragma: no cover
+    '''convert to nglview object
+
+    Parameters
+    ----------
+    traj : pytraj.TrajectoryIterator or Trajectory
+
+    Returns
+    -------
+    nglview.Trajectory
+
+    Notes
+    -----
+    need ParmEd
+
+    '''
+    from io import StringIO
+    import parmed as pmd
+    import nglview as nv
+    from pytraj.sandbox import to_parmed
+
+    if parmfile is None:
+        parm = to_parmed(traj)
+    else:
+        parm = pmd.load_file(parmfile)
+        parm.coordinates = traj[0].xyz
+        parm.box = traj[0].box
+    x = StringIO()
+    parm.write_pdb(x)
+    buffer_ = x.getvalue()
+    x.close()
+    return nv.Trajectory(xyz=traj.xyz, topology=nv.Structure(text=buffer_))

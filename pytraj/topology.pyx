@@ -35,12 +35,12 @@ __all__ = ['Topology', 'ParmFile', 'SimplifiedTopology', 'SimplifiedAtom', 'Simp
 class SimplifiedAtom(
     namedtuple(
         'SimplifiedAtom',
-        'name type element charge mass index atomic_number resname resid')):
+        'name type element charge mass index atomic_number resname resid molnum')):
     __slots__ = ()
 
     def __str__(self):
-        return 'SimplifiedAtom(name={}, type={}, element={}, atomic_number={}, index={}, resname={}, resid={})'.format(
-            self.name, self.type, self.element, self.atomic_number, self.index, self.resname, self.resid)
+        return 'SimplifiedAtom(name={}, type={}, element={}, atomic_number={}, index={}, resname={}, resid={}, molnum={})'.format(
+            self.name, self.type, self.element, self.atomic_number, self.index, self.resname, self.resid, self.molnum)
 
     def __repr__(self):
         return str(self)
@@ -330,8 +330,8 @@ cdef class Topology:
         # get atoms
         ait = self.thisptr.begin()
         while ait != self.thisptr.end():
-            res = self.thisptr.Res(atom.ResNum())
             atom = deref(ait)
+            res = self.thisptr.Res(atom.ResNum())
             atoms.append(SimplifiedAtom(name=atom.c_str().strip(),
                                         type=atom.Type().Truncated(),
                                         element=get_key(
@@ -341,7 +341,8 @@ cdef class Topology:
                                         index=idx,
                                         atomic_number=atom.AtomicNumber(),
                                         resname=res.c_str().strip(),
-                                        resid=res.OriginalResNum()-1))
+                                        resid=res.OriginalResNum()-1,
+                                        molnum=atom.MolNum()))
             idx += 1
             incr(ait)
 
