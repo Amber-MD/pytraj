@@ -363,7 +363,10 @@ def to_parmed(traj, all_coords=False):
                           atomic_number=atom.atomic_number,
                           charge=atom.charge,
                           mass=atom.mass)
-        parm.add_atom(p_atom, atom.resname, atom.resid)
+        parm.add_atom(p_atom,
+                      resname=atom.resname,
+                      resnum=atom.resid)
+                      #chain=str(atom.molnum))
     if all_coords:
         parm.coordinates = traj.xyz
     else:
