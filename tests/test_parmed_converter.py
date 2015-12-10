@@ -20,6 +20,7 @@ class TestParmEdConverter(unittest.TestCase):
             assert atom.type == atom2.type, 'equal type'
             assert atom.mass == atom2.mass , 'equal mass'
             assert atom.atomic_number == atom2.atomic_number, 'equal atomic_number'
+            assert atom.residue.name == atom2.residue.name, 'residue name'
             aa_eq(atom.charge, atom2.charge, decimal=4)
 
 if __name__ == "__main__":

@@ -26,7 +26,7 @@ def to_chemview(traj): # pragma: no cover
     return top
 
 
-def to_nglview(traj): # pragma: no cover
+def to_nglview(traj, parmfile=None): # pragma: no cover
     '''convert to nglview object
 
     Parameters
@@ -43,10 +43,16 @@ def to_nglview(traj): # pragma: no cover
 
     '''
     from io import StringIO
+    import parmed as pmd
     import nglview as nv
     from pytraj.sandbox import to_parmed
 
-    parm = to_parmed(traj)
+    if parmfile is None:
+        parm = to_parmed(traj)
+    else:
+        parm = pmd.load_file(parmfile)
+        parm.coordinates = traj[0].xyz
+        parm.box = traj[0].box
     x = StringIO()
     parm.write_pdb(x)
     buffer_ = x.getvalue()

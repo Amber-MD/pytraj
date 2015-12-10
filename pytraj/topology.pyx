@@ -330,8 +330,8 @@ cdef class Topology:
         # get atoms
         ait = self.thisptr.begin()
         while ait != self.thisptr.end():
-            res = self.thisptr.Res(atom.ResNum())
             atom = deref(ait)
+            res = self.thisptr.Res(atom.ResNum())
             atoms.append(SimplifiedAtom(name=atom.c_str().strip(),
                                         type=atom.Type().Truncated(),
                                         element=get_key(
