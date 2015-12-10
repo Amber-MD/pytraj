@@ -32,7 +32,6 @@ def to_nglview(traj): # pragma: no cover
     Parameters
     ----------
     traj : pytraj.TrajectoryIterator or Trajectory
-    parmfile : Topology file, optional
 
     Returns
     -------
@@ -45,7 +44,7 @@ def to_nglview(traj): # pragma: no cover
     '''
     from io import StringIO
     import nglview as nv
-    from pytraj.sanbox import to_parmed
+    from pytraj.sandbox import to_parmed
 
     parm = to_parmed(traj)
     x = StringIO()
