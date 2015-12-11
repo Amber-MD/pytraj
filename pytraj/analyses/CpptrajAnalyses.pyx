@@ -10,24 +10,9 @@ cdef extern from "Analysis.h":
         OKANALYSIS "Analysis::OK"
         ERRANALYSIS "Analysis::ERR"
 
-cdef class Analysis:
-    """
-    Original cpptraj doc:
-    ====================
-        The abstract base class that all other actions inherit.
-        By convention actions have 3 main phases: init, Setup, and DoAnalysis.
-        Init is used to initialize the action, make sure that all arguments
-        for the action are correct, and add any DataSets/DataFiles which will
-        be used by the action. Setup will set up the action for a specific
-        Topology file. DoAnalysis will perform the action on a given frame.
-        A fourth function, Print, is for any additional calculations or output
-        the action may require once all frames are processed.
 
-    pytraj doc:
-    =============
-    Add new action: add to pytraj/actions/ folder
-                    then update action in pytraj/actions/allactions
-                    (TODO : allactions.py might be changed)
+cdef class Analysis:
+    """calling cpptraj' methods
     """
 
     def __cinit__(self):
@@ -45,7 +30,6 @@ cdef class Analysis:
 
     @makesureABC("Analysis")
     def read_input(self, command='',
-                   top=Topology(),
                    DatasetList dslist=DatasetList(),
                    DataFileList dflist=DataFileList()):
         """
@@ -60,11 +44,12 @@ cdef class Analysis:
             debug option from cpptraj. (Do we need this?)
         """
         cdef ArgList arglist
-        cdef Topology toplist
         cdef debug = 0
         cdef RetType STATUS
+        cdef _AnalysisSetup analysis_setup_
 
-        toplist = top
+        analysis_setup_ = _AnalysisSetup(dslist.thisptr[0], dflist.thisptr[0])
+
 
         if isinstance(command, string_types):
             arglist = ArgList(command)
@@ -74,8 +59,7 @@ cdef class Analysis:
             raise ValueError()
 
         STATUS = self.baseptr.Setup(arglist.thisptr[0],
-                                    dslist.thisptr,
-                                    dflist.thisptr,
+                                    analysis_setup_,
                                     debug)
         if STATUS == ERRANALYSIS:
             raise ValueError()

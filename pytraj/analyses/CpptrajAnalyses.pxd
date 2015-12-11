@@ -7,14 +7,25 @@ from ..core.cpp_core cimport _ArgList, ArgList
 from ..datasets.DatasetList cimport _DatasetList, DatasetList
 from ..frame cimport _Frame, Frame
 
+cdef extern from "ActionState.h":
+    cdef cppclass _ActionInit "ActionInit":
+        _ActionInit()
+        _ActionInit(_DatasetList& dslIn, _DataFileList& dflIn)
+        _DatasetList& DSL()
+        const _DatasetList& DSL()
+        _DatasetList * DslPtr()
+        _DataFileList& DFL()
+        const _DataFileList& DFL()
+        _DatasetList * DSL_Ptr()
+
+ctypedef _ActionInit _AnalysisSetup
+
 
 cdef extern from "Analysis.h": 
-    # Analysis.h
     ctypedef enum RetType "Analysis::RetType":
         pass
     cdef cppclass _Analysis "Analysis" nogil:
-        #virtual ~_Analysis() 
-        RetType Setup(_ArgList&, _DatasetList *, _DataFileList *, int)
+        RetType Setup(_ArgList&, _AnalysisSetup&, int)
         RetType Analyze()
 
 
