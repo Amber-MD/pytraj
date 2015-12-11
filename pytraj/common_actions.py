@@ -91,7 +91,7 @@ def calc_distance(traj=None,
                   frame_indices=None,
                   dtype='ndarray',
                   top=None,
-                  image=True,
+                  image=False,
                   n_frames=None):
     # TODO: add image, noe, ...
     """calculate distance between two maskes
