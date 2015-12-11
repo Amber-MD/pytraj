@@ -8,7 +8,7 @@ from ..topology cimport _Topology, Topology
 from ..frame cimport _Frame, Frame
 from .cpp_core cimport _ArgList, ArgList, _AtomMask, AtomMask
 from ..datasets.DatasetList cimport _DatasetList, DatasetList
-from ..actions.CpptrajActions cimport _ActionInit, _ActionSetup, _ActionFrame, CoordinateInfo
+from ..actions.CpptrajActions cimport _Action, Action, _ActionInit, _ActionSetup, _ActionFrame, CoordinateInfo
 
 cdef extern from "ActionList.h":
     cdef cppclass _ActionList "ActionList":
@@ -16,7 +16,7 @@ cdef extern from "ActionList.h":
         void Clear()
         void SetDebug(int)
         int Debug()
-        int AddAction(DispatchAllocatorType, _ArgList&,
+        int AddAction(_Action*, _ArgList&,
                       _ActionInit&,)
         int SetupActions(_ActionSetup, bint exit_on_error)
         bint DoActions(int, _ActionFrame)

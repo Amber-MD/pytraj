@@ -273,25 +273,23 @@ cdef class ActionList:
         >>> act = ActionList()
         >>> act.add_action('radgyr', '@CA', top=traj.top, dslist=dslist) # doctest: +SKIP
         """
-        cdef object _action
+        cdef Action action_
         cdef int status
         cdef _ActionInit actioninit_
         actioninit_ = _ActionInit(dslist.thisptr[0], dflist.thisptr[0])
 
         if isinstance(action, string_types):
             # create action object from string
-            _action = ActionDict()[action]
+            action_ = ActionDict()[action]
         else:
-            _action = action
+            action_ = action
 
-        cdef FunctPtr func = <FunctPtr> _action.alloc()
         cdef ArgList _arglist
 
         self.top = top
-        # add function pointer: How?
 
         _arglist = _get_arglist(command)
-        status = self.thisptr.AddAction(func.ptr, _arglist.thisptr[0],
+        status = self.thisptr.AddAction(action_.baseptr, _arglist.thisptr[0],
                                         actioninit_)
 
         if check_status:
