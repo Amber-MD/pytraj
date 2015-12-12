@@ -12,8 +12,8 @@ from ..externals.six.moves import range
 from pytraj.externals.six import string_types
 from pytraj import cpptraj_dict
 
-__all__ = ['command_dispatch', 'AtomMask', 'BaseIOtype', 'DispatchObject',
-           'FunctPtr', 'FileName', 'CoordinateInfo',
+__all__ = ['command_dispatch', 'AtomMask',
+           'FileName', 'CoordinateInfo',
            'CpptrajFile', 'NameType', 'Command',
            'CpptrajState', 'ArgList', ]
 
@@ -152,26 +152,6 @@ cdef class AtomMask(object):
     def add_atom_range(self, int begin, int end):
         self.thisptr.AddAtomRange(begin, end)
 
-
-cdef class BaseIOtype:
-    def __cinit__(self):
-        pass
-
-    def __dealloc__(self):
-        pass
-
-
-cdef class DispatchObject:
-    def __cinit__(self):
-        self.thisptr = new _DispatchObject()
-
-    def __dealloc__(self):
-        del self.thisptr
-
-cdef class FunctPtr:
-    def __cinit__(self):
-        # just dummy class
-        pass
 
 cdef class FileName:
 
