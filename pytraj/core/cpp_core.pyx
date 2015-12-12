@@ -510,6 +510,9 @@ cdef class CpptrajState:
         self.thisptr.Run()
         return self
 
+    def run(self):
+        self.thisptr.Run()
+        return self
 
 def _load_batch(txt, traj=None):
     '''return CpptrajState.
