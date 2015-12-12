@@ -204,12 +204,12 @@ cdef class Action_Angle (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -224,12 +224,12 @@ cdef class Action_AreaPerMol (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -244,12 +244,12 @@ cdef class Action_AtomMap (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -264,12 +264,12 @@ cdef class Action_AtomicCorr (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -284,12 +284,12 @@ cdef class Action_AtomicFluct (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -304,12 +304,12 @@ cdef class Action_AutoImage (Action):
         if self.baseptr:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -324,12 +324,12 @@ cdef class Action_Average (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -344,12 +344,12 @@ cdef class Action_Bounds (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -364,12 +364,12 @@ cdef class Action_Box (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -384,12 +384,12 @@ cdef class Action_Center (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -404,12 +404,12 @@ cdef class Action_Channel (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -424,12 +424,12 @@ cdef class Action_CheckChirality (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -444,12 +444,12 @@ cdef class Action_CheckStructure (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -464,12 +464,12 @@ cdef class Action_Closest (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -484,12 +484,12 @@ cdef class Action_ClusterDihedral (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -504,12 +504,12 @@ cdef class Action_Contacts (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -524,12 +524,12 @@ cdef class Action_CreateCrd (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -544,12 +544,12 @@ cdef class Action_DNAionTracker (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -564,12 +564,12 @@ cdef class Action_DSSP (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -584,12 +584,12 @@ cdef class Action_Density (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -604,12 +604,12 @@ cdef class Action_Diffusion (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -623,12 +623,12 @@ cdef class Action_Dihedral (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -643,12 +643,12 @@ cdef class Action_DihedralScan (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -663,12 +663,12 @@ cdef class Action_Dipole (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -683,12 +683,12 @@ cdef class Action_DistRmsd (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -703,12 +703,12 @@ cdef class Action_Distance (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -726,12 +726,12 @@ cdef class Action_Energy (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -746,12 +746,12 @@ cdef class Action_FilterByData (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -766,12 +766,12 @@ cdef class Action_FixAtomOrder (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -786,12 +786,12 @@ cdef class Action_Gist (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -806,12 +806,12 @@ cdef class Action_Grid (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -826,12 +826,12 @@ cdef class Action_GridFreeEnergy (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -846,12 +846,12 @@ cdef class Action_Hbond (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -866,12 +866,12 @@ cdef class Action_Image (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -886,12 +886,12 @@ cdef class Action_Jcoupling (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -906,12 +906,12 @@ cdef class Action_LESsplit (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -926,12 +926,12 @@ cdef class Action_LIE (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -946,12 +946,12 @@ cdef class Action_MakeStructure (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -966,12 +966,12 @@ cdef class Action_Mask (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -986,12 +986,12 @@ cdef class Action_Matrix (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1006,12 +1006,12 @@ cdef class Action_MinImage (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1026,12 +1026,12 @@ cdef class Action_Molsurf (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1046,12 +1046,12 @@ cdef class Action_MultiDihedral (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1066,12 +1066,12 @@ cdef class Action_MultiVector (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1086,12 +1086,12 @@ cdef class Action_NAstruct (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1106,12 +1106,12 @@ cdef class Action_NMRrst (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1126,12 +1126,12 @@ cdef class Action_NativeContacts (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1146,12 +1146,12 @@ cdef class Action_OrderParameter (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1166,12 +1166,12 @@ cdef class Action_Outtraj (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1186,12 +1186,12 @@ cdef class Action_PairDist (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1206,12 +1206,12 @@ cdef class Action_Pairwise (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1226,12 +1226,12 @@ cdef class Action_Principal (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1246,12 +1246,12 @@ cdef class Action_Projection (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1266,12 +1266,12 @@ cdef class Action_Pucker (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1286,12 +1286,12 @@ cdef class Action_Radgyr (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1306,12 +1306,12 @@ cdef class Action_Radial (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1326,12 +1326,12 @@ cdef class Action_RandomizeIons (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1346,12 +1346,12 @@ cdef class Action_ReplicateCell (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1366,12 +1366,12 @@ cdef class Action_Rmsd (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1386,12 +1386,12 @@ cdef class Action_Rotate (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1406,12 +1406,12 @@ cdef class Action_RunningAvg (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1426,12 +1426,12 @@ cdef class Action_STFC_Diffusion (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1446,12 +1446,12 @@ cdef class Action_Scale (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1466,12 +1466,12 @@ cdef class Action_SetVelocity (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1486,12 +1486,12 @@ cdef class Action_Spam (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1506,12 +1506,12 @@ cdef class Action_Strip (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1526,12 +1526,12 @@ cdef class Action_Surf (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1546,12 +1546,12 @@ cdef class Action_SymmetricRmsd (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1566,12 +1566,12 @@ cdef class Action_Temperature (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1586,12 +1586,12 @@ cdef class Action_Translate (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1606,12 +1606,12 @@ cdef class Action_Unwrap (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1626,12 +1626,12 @@ cdef class Action_Vector (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1646,12 +1646,12 @@ cdef class Action_VelocityAutoCorr (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1666,12 +1666,12 @@ cdef class Action_Volmap (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1686,12 +1686,12 @@ cdef class Action_Volume (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1706,12 +1706,12 @@ cdef class Action_Watershell (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -1725,12 +1725,12 @@ cdef class Action_Unstrip (Action):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with ActionList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with ActionList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()

@@ -3390,152 +3390,115 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_8Analysis_8do_anal
 static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_8Analysis_10_master(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwd); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_AmdBias *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_AmdBias *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_AmdBias *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_AmdBias *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_AmdBias *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_AutoCorr *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_AutoCorr *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_AutoCorr *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_AutoCorr *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_AutoCorr *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Average *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Average *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Average *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Average *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Average *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Clustering *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Clustering *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Clustering *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Clustering *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Clustering *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Corr *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Corr *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Corr *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Corr *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Corr *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrankShaft *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrankShaft *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrankShaft *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrankShaft *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrankShaft *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrdFluct *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrdFluct *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrdFluct *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrdFluct *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrdFluct *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrossCorr *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrossCorr *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrossCorr *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrossCorr *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrossCorr *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Divergence *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Divergence *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Divergence *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Divergence *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Divergence *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_FFT *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_FFT *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_FFT *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_FFT *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_FFT *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Hist *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Hist *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Hist *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Hist *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Hist *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_IRED *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_IRED *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_IRED *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_IRED *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_IRED *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Integrate *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Integrate *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Integrate *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Integrate *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Integrate *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_KDE *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_KDE *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_KDE *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_KDE *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_KDE *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Lifetime *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Lifetime *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Lifetime *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Lifetime *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Lifetime *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Matrix *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Matrix *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Matrix *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Matrix *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Matrix *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_MeltCurve *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_MeltCurve *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_MeltCurve *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_MeltCurve *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_MeltCurve *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Modes *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Modes *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Modes *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Modes *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Modes *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_MultiHist *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_MultiHist *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_MultiHist *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_MultiHist *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_MultiHist *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Overlap *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Overlap *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Overlap *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Overlap *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Overlap *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Regression *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Regression *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Regression *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Regression *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Regression *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RemLog *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RemLog *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RemLog *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RemLog *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RemLog *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Rms2d *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Rms2d *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Rms2d *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Rms2d *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Rms2d *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RmsAvgCorr *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RmsAvgCorr *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RmsAvgCorr *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RmsAvgCorr *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RmsAvgCorr *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RunningAvg *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RunningAvg *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RunningAvg *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RunningAvg *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RunningAvg *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Spline *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Spline *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Spline *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Spline *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Spline *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Statistics *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Statistics *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Statistics *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Statistics *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Statistics *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Timecorr *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Timecorr *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Timecorr *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Timecorr *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Timecorr *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_VectorMath *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_VectorMath *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_VectorMath *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_VectorMath *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_VectorMath *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Rotdif *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Rotdif *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Rotdif *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Rotdif *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Rotdif *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_LowestCurve *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_LowestCurve *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_LowestCurve *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_LowestCurve *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_LowestCurve *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_PhiPsi *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_PhiPsi *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_PhiPsi *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_PhiPsi *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_PhiPsi *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_TI *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_TI *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_TI *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_TI *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_TI *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Wavelet *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Wavelet *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Wavelet *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Wavelet *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Wavelet *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CurveFit *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CurveFit *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CurveFit *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CurveFit *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CurveFit *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Multicurve *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Multicurve *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Multicurve *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Multicurve *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Multicurve *__pyx_v_self); /* proto */
 static int __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State___cinit__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_State *__pyx_v_self); /* proto */
 static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_2__dealloc__(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_State *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_State *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_State *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_State *__pyx_v_self); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __pyx_array_obj *__pyx_v_self, PyObject *__pyx_v_shape, Py_ssize_t __pyx_v_itemsize, PyObject *__pyx_v_format, PyObject *__pyx_v_mode, int __pyx_v_allocate_buffer); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array_2__getbuffer__(struct __pyx_array_obj *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_array___pyx_pf_15View_dot_MemoryView_5array_4__dealloc__(struct __pyx_array_obj *__pyx_v_self); /* proto */
@@ -4428,7 +4391,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_2__d
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(88,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -4459,120 +4422,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_2__d
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":90
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_4alloc[] = "Analysis_AmdBias.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_AmdBias *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_AmdBias *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 90, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 90; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":93
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(93,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 93; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 93; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":94
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(94,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 94; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":95
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(95,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 95; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":90
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_AmdBias.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":97
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_6help[] = "Analysis_AmdBias.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_4help[] = "Analysis_AmdBias.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_AmdBias *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_AmdBias *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_AmdBias *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_AmdBias *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -4583,7 +4455,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias
   __Pyx_TraceCall("help", __pyx_f[0], 97, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 97; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":98
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -4593,8 +4465,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":97
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -4732,7 +4604,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_2__
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(108,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 108; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -4763,120 +4635,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_2__
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":110
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_4alloc[] = "Analysis_AutoCorr.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_AutoCorr *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_AutoCorr *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 110, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":113
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(113,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 113; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 113; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":114
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(114,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":115
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(115,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":110
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_AutoCorr.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":117
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_6help[] = "Analysis_AutoCorr.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_4help[] = "Analysis_AutoCorr.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_AutoCorr *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_AutoCorr *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_AutoCorr *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_AutoCorr *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -4887,7 +4668,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCor
   __Pyx_TraceCall("help", __pyx_f[0], 117, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":118
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -4897,8 +4678,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCor
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":117
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -5036,7 +4817,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_2__d
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(128,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 128; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -5067,120 +4848,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_2__d
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":130
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_4alloc[] = "Analysis_Average.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Average *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Average *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 130, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 130; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":133
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(133,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 133; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 133; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":134
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(134,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 134; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":135
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(135,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":130
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_Average.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":137
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_6help[] = "Analysis_Average.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_4help[] = "Analysis_Average.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Average *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Average *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Average *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Average *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -5191,7 +4881,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average
   __Pyx_TraceCall("help", __pyx_f[0], 137, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 137; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":138
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -5201,8 +4891,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":137
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -5340,7 +5030,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_2
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(148,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 148; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -5371,120 +5061,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_2
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":150
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_4alloc[] = "Analysis_Clustering.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Clustering *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Clustering *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 150, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 150; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":153
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(153,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 153; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 153; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":154
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(154,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 154; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":155
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(155,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":150
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_Clustering.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":157
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_6help[] = "Analysis_Clustering.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_4help[] = "Analysis_Clustering.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Clustering *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Clustering *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Clustering *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Clustering *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -5495,7 +5094,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Cluster
   __Pyx_TraceCall("help", __pyx_f[0], 157, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 157; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":158
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -5505,8 +5104,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Cluster
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":157
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -5644,7 +5243,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_2__deal
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(168,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 168; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -5675,120 +5274,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_2__deal
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":170
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_4alloc[] = "Analysis_Corr.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Corr *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Corr *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 170, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 170; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":173
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(173,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":174
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(174,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 174; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":175
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(175,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":170
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_Corr.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":177
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_6help[] = "Analysis_Corr.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_4help[] = "Analysis_Corr.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Corr *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Corr *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Corr *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Corr *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -5799,7 +5307,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_6h
   __Pyx_TraceCall("help", __pyx_f[0], 177, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 177; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":178
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -5809,8 +5317,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_6h
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":177
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -5948,7 +5456,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_2
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(188,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 188; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -5979,120 +5487,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_2
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":190
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_4alloc[] = "Analysis_CrankShaft.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrankShaft *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrankShaft *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 190, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 190; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":193
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(193,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 193; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 193; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":194
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(194,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":195
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(195,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 195; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":190
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_CrankShaft.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":197
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_6help[] = "Analysis_CrankShaft.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_4help[] = "Analysis_CrankShaft.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrankShaft *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrankShaft *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrankShaft *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrankShaft *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -6103,7 +5520,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankSh
   __Pyx_TraceCall("help", __pyx_f[0], 197, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 197; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":198
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -6113,8 +5530,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankSh
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":197
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -6252,7 +5669,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_2__
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(208,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 208; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -6283,120 +5700,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_2__
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":210
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_4alloc[] = "Analysis_CrdFluct.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrdFluct *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrdFluct *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 210, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 210; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":213
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(213,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 213; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 213; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":214
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(214,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 214; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":215
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(215,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 215; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":210
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_CrdFluct.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":217
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_6help[] = "Analysis_CrdFluct.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_4help[] = "Analysis_CrdFluct.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrdFluct *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrdFluct *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrdFluct *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrdFluct *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -6407,7 +5733,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluc
   __Pyx_TraceCall("help", __pyx_f[0], 217, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 217; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":218
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -6417,8 +5743,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluc
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":217
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -6556,7 +5882,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_2_
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(228,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -6587,120 +5913,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_2_
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":230
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_4alloc[] = "Analysis_CrossCorr.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrossCorr *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrossCorr *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 230, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 230; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":233
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(233,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 233; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 233; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":234
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(234,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 234; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":235
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(235,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 235; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":230
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_CrossCorr.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":237
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_6help[] = "Analysis_CrossCorr.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_4help[] = "Analysis_CrossCorr.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrossCorr *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrossCorr *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrossCorr *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrossCorr *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -6711,7 +5946,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCo
   __Pyx_TraceCall("help", __pyx_f[0], 237, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 237; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":238
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -6721,8 +5956,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCo
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":237
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -6860,7 +6095,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_2
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(248,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 248; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -6891,120 +6126,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_2
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":250
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_4alloc[] = "Analysis_Divergence.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Divergence *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Divergence *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 250, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 250; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":253
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(253,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 253; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 253; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":254
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(254,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 254; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":255
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(255,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 255; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":250
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_Divergence.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":257
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_6help[] = "Analysis_Divergence.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_4help[] = "Analysis_Divergence.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Divergence *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Divergence *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Divergence *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Divergence *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -7015,7 +6159,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Diverge
   __Pyx_TraceCall("help", __pyx_f[0], 257, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 257; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":258
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -7025,8 +6169,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Diverge
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":257
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -7164,7 +6308,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_2__deall
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(268,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 268; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -7195,120 +6339,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_2__deall
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":270
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_4alloc[] = "Analysis_FFT.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_FFT *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_FFT *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 270, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 270; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":273
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(273,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 273; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 273; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":274
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(274,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 274; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":275
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(275,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 275; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":270
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_FFT.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":277
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_6help[] = "Analysis_FFT.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_4help[] = "Analysis_FFT.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_FFT *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_FFT *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_FFT *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_FFT *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -7319,7 +6372,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_6he
   __Pyx_TraceCall("help", __pyx_f[0], 277, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 277; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":278
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -7329,8 +6382,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_6he
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":277
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -7468,7 +6521,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_2__deal
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(288,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 288; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -7499,120 +6552,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_2__deal
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":290
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_4alloc[] = "Analysis_Hist.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Hist *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Hist *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 290, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 290; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":293
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(293,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":294
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(294,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":295
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(295,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":290
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_Hist.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":297
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_6help[] = "Analysis_Hist.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_4help[] = "Analysis_Hist.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Hist *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Hist *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Hist *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Hist *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -7623,7 +6585,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_6h
   __Pyx_TraceCall("help", __pyx_f[0], 297, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 297; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":298
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -7633,8 +6595,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_6h
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":297
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -7772,7 +6734,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_2__deal
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(308,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 308; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -7803,120 +6765,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_2__deal
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":310
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_4alloc[] = "Analysis_IRED.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_IRED *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_IRED *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 310, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 310; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":313
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(313,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 313; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 313; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":314
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(314,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 314; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":315
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(315,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 315; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":310
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_IRED.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":317
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_6help[] = "Analysis_IRED.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_4help[] = "Analysis_IRED.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_IRED *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_IRED *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_IRED *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_IRED *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -7927,7 +6798,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_6h
   __Pyx_TraceCall("help", __pyx_f[0], 317, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 317; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":318
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -7937,8 +6808,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_6h
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":317
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -8076,7 +6947,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_2_
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(328,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 328; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -8107,120 +6978,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_2_
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":330
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_4alloc[] = "Analysis_Integrate.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Integrate *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Integrate *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 330, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 330; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":333
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(333,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 333; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 333; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":334
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(334,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 334; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":335
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(335,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 335; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":330
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_Integrate.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":337
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_6help[] = "Analysis_Integrate.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_4help[] = "Analysis_Integrate.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Integrate *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Integrate *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Integrate *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Integrate *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -8231,7 +7011,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integra
   __Pyx_TraceCall("help", __pyx_f[0], 337, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 337; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":338
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -8241,8 +7021,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integra
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":337
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -8380,7 +7160,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_2__deall
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(348,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 348; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -8411,120 +7191,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_2__deall
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":350
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_4alloc[] = "Analysis_KDE.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_KDE *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_KDE *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 350, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 350; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":353
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(353,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 353; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 353; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":354
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(354,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 354; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":355
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(355,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 355; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":350
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_KDE.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":357
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_6help[] = "Analysis_KDE.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_4help[] = "Analysis_KDE.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_KDE *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_KDE *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_KDE *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_KDE *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -8535,7 +7224,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_6he
   __Pyx_TraceCall("help", __pyx_f[0], 357, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 357; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":358
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -8545,8 +7234,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_6he
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":357
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -8684,7 +7373,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_2__
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(368,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 368; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -8715,120 +7404,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_2__
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":370
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_4alloc[] = "Analysis_Lifetime.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Lifetime *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Lifetime *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 370, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 370; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":373
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(373,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 373; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 373; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":374
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(374,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 374; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":375
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(375,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 375; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":370
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_Lifetime.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":377
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_6help[] = "Analysis_Lifetime.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_4help[] = "Analysis_Lifetime.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Lifetime *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Lifetime *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Lifetime *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Lifetime *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -8839,7 +7437,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetim
   __Pyx_TraceCall("help", __pyx_f[0], 377, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 377; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":378
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -8849,8 +7447,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetim
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":377
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -8988,7 +7586,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_2__de
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(387,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 387; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -9019,120 +7617,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_2__de
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":389
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_4alloc[] = "Analysis_Matrix.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Matrix *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Matrix *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 389, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 389; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":392
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(392,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 392; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 392; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":393
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(393,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 393; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":394
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(394,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 394; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":389
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_Matrix.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":396
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_6help[] = "Analysis_Matrix.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_4help[] = "Analysis_Matrix.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Matrix *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Matrix *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Matrix *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Matrix *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -9143,7 +7650,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_
   __Pyx_TraceCall("help", __pyx_f[0], 396, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 396; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":397
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -9153,8 +7660,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":396
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -9292,7 +7799,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_2_
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(407,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 407; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -9323,120 +7830,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_2_
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":409
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_4alloc[] = "Analysis_MeltCurve.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_MeltCurve *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_MeltCurve *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 409, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 409; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":412
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(412,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 412; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 412; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":413
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(413,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 413; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":414
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(414,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 414; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":409
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_MeltCurve.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":416
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_6help[] = "Analysis_MeltCurve.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_4help[] = "Analysis_MeltCurve.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_MeltCurve *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_MeltCurve *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_MeltCurve *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_MeltCurve *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -9447,7 +7863,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCur
   __Pyx_TraceCall("help", __pyx_f[0], 416, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 416; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":417
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -9457,8 +7873,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCur
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":416
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -9596,7 +8012,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_2__dea
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(427,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 427; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -9627,120 +8043,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_2__dea
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":429
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_4alloc[] = "Analysis_Modes.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Modes *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Modes *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 429, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 429; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":432
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(432,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 432; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 432; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":433
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(433,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 433; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":434
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(434,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 434; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":429
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_Modes.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":436
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_6help[] = "Analysis_Modes.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_4help[] = "Analysis_Modes.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Modes *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Modes *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Modes *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Modes *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -9751,7 +8076,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_6
   __Pyx_TraceCall("help", __pyx_f[0], 436, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 436; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":437
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -9761,8 +8086,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_6
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":436
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -9900,7 +8225,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_2_
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(447,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 447; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -9931,120 +8256,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_2_
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":449
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_4alloc[] = "Analysis_MultiHist.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_MultiHist *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_MultiHist *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 449, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 449; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":452
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(452,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 452; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 452; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":453
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(453,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 453; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":454
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(454,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 454; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":449
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_MultiHist.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":456
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_6help[] = "Analysis_MultiHist.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_4help[] = "Analysis_MultiHist.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_MultiHist *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_MultiHist *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_MultiHist *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_MultiHist *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -10055,7 +8289,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHi
   __Pyx_TraceCall("help", __pyx_f[0], 456, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 456; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":457
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -10065,8 +8299,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHi
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":456
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -10204,7 +8438,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_2__d
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(467,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 467; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -10235,120 +8469,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_2__d
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":469
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_4alloc[] = "Analysis_Overlap.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Overlap *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Overlap *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 469, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 469; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":472
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(472,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 472; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 472; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":473
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(473,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 473; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":474
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(474,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 474; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":469
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_Overlap.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":476
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_6help[] = "Analysis_Overlap.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_4help[] = "Analysis_Overlap.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Overlap *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Overlap *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Overlap *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Overlap *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -10359,7 +8502,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap
   __Pyx_TraceCall("help", __pyx_f[0], 476, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 476; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":477
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -10369,8 +8512,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":476
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -10508,7 +8651,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_2
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(487,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 487; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -10539,120 +8682,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_2
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":489
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_4alloc[] = "Analysis_Regression.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Regression *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Regression *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 489, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 489; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":492
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(492,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 492; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 492; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":493
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(493,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 493; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":494
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(494,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 494; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":489
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_Regression.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":496
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_6help[] = "Analysis_Regression.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_4help[] = "Analysis_Regression.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Regression *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Regression *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Regression *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Regression *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -10663,7 +8715,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regress
   __Pyx_TraceCall("help", __pyx_f[0], 496, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 496; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":497
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -10673,8 +8725,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regress
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":496
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -10812,7 +8864,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_2__de
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(507,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 507; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -10843,120 +8895,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_2__de
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":509
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_4alloc[] = "Analysis_RemLog.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RemLog *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RemLog *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 509, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 509; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":512
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(512,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 512; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 512; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":513
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(513,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 513; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":514
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(514,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 514; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":509
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_RemLog.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":516
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_6help[] = "Analysis_RemLog.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_4help[] = "Analysis_RemLog.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RemLog *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RemLog *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RemLog *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RemLog *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -10967,7 +8928,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_
   __Pyx_TraceCall("help", __pyx_f[0], 516, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 516; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":517
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -10977,8 +8938,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":516
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -11116,7 +9077,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_2__dea
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(527,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 527; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -11147,140 +9108,8 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_2__dea
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":529
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_4alloc[] = "Analysis_Rms2d.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Rms2d *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Rms2d *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 529, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 529; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":532
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         with nogil:
- *             func.ptr = &(self.thisptr.Alloc)
- */
-  __Pyx_TraceLine(532,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 532; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 532; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":533
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         with nogil:             # <<<<<<<<<<<<<<
- *             func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(533,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 533; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  {
-      #ifdef WITH_THREAD
-      PyThreadState *_save;
-      Py_UNBLOCK_THREADS
-      #endif
-      /*try:*/ {
-
-        /* "pytraj/analyses/CpptrajAnalyses.pyx":534
- *         cdef FunctPtr func = FunctPtr()
- *         with nogil:
- *             func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-        __Pyx_TraceLine(534,1,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 534; __pyx_clineno = __LINE__; goto __pyx_L4_error;})
-        __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-      }
-
-      /* "pytraj/analyses/CpptrajAnalyses.pyx":533
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         with nogil:             # <<<<<<<<<<<<<<
- *             func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-      __Pyx_TraceLine(533,1,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 533; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-      /*finally:*/ {
-        /*normal exit:*/{
-          #ifdef WITH_THREAD
-          Py_BLOCK_THREADS
-          #endif
-          goto __pyx_L5;
-        }
-        __pyx_L4_error: {
-          #ifdef WITH_THREAD
-          Py_BLOCK_THREADS
-          #endif
-          goto __pyx_L1_error;
-        }
-        __pyx_L5:;
-      }
-  }
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":535
- *         with nogil:
- *             func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(535,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 535; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":529
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_Rms2d.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":537
- *         return func
+ * #        return func
  * 
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
@@ -11288,20 +9117,20 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_4
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_6help[] = "Analysis_Rms2d.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_4help[] = "Analysis_Rms2d.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Rms2d *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Rms2d *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Rms2d *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Rms2d *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -11322,7 +9151,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_6
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":537
- *         return func
+ * #        return func
  * 
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
@@ -11461,7 +9290,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_2
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(548,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 548; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -11492,120 +9321,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_2
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":550
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_4alloc[] = "Analysis_RmsAvgCorr.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RmsAvgCorr *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RmsAvgCorr *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 550, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 550; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":553
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(553,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 553; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 553; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":554
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(554,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 554; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":555
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(555,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 555; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":550
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_RmsAvgCorr.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":557
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_6help[] = "Analysis_RmsAvgCorr.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_4help[] = "Analysis_RmsAvgCorr.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RmsAvgCorr *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RmsAvgCorr *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RmsAvgCorr *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RmsAvgCorr *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -11616,7 +9354,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgC
   __Pyx_TraceCall("help", __pyx_f[0], 557, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 557; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":558
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -11626,8 +9364,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgC
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":557
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -11765,7 +9503,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_2
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(568,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 568; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -11796,120 +9534,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_2
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":570
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_4alloc[] = "Analysis_RunningAvg.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RunningAvg *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RunningAvg *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 570, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 570; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":573
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(573,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 573; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 573; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":574
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(574,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 574; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":575
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(575,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 575; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":570
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_RunningAvg.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":577
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_6help[] = "Analysis_RunningAvg.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_4help[] = "Analysis_RunningAvg.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RunningAvg *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RunningAvg *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RunningAvg *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RunningAvg *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -11920,7 +9567,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Running
   __Pyx_TraceCall("help", __pyx_f[0], 577, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 577; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":578
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -11930,8 +9577,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Running
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":577
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -12069,7 +9716,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_2__de
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(588,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 588; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -12100,120 +9747,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_2__de
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":590
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_4alloc[] = "Analysis_Spline.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Spline *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Spline *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 590, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 590; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":593
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(593,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 593; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 593; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":594
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(594,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 594; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":595
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(595,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 595; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":590
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_Spline.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":597
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_6help[] = "Analysis_Spline.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_4help[] = "Analysis_Spline.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Spline *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Spline *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Spline *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Spline *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -12224,7 +9780,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_
   __Pyx_TraceCall("help", __pyx_f[0], 597, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 597; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":598
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -12234,8 +9790,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":597
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -12373,7 +9929,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_2
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(608,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 608; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -12404,120 +9960,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_2
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":610
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_4alloc[] = "Analysis_Statistics.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Statistics *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Statistics *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 610, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 610; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":613
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(613,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 613; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 613; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":614
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(614,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 614; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":615
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(615,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 615; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":610
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_Statistics.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":617
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_6help[] = "Analysis_Statistics.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_4help[] = "Analysis_Statistics.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Statistics *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Statistics *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Statistics *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Statistics *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -12528,7 +9993,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statist
   __Pyx_TraceCall("help", __pyx_f[0], 617, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 617; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":618
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -12538,8 +10003,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statist
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":617
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -12677,7 +10142,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_2__
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(628,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 628; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -12708,120 +10173,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_2__
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":630
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_4alloc[] = "Analysis_Timecorr.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Timecorr *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Timecorr *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 630, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 630; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":633
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(633,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 633; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 633; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":634
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(634,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 634; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":635
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(635,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 635; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":630
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_Timecorr.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":637
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_6help[] = "Analysis_Timecorr.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_4help[] = "Analysis_Timecorr.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Timecorr *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Timecorr *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Timecorr *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Timecorr *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -12832,7 +10206,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecor
   __Pyx_TraceCall("help", __pyx_f[0], 637, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 637; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":638
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -12842,8 +10216,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecor
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":637
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -12981,7 +10355,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_2
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(648,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 648; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -13012,120 +10386,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_2
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":650
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_4alloc[] = "Analysis_VectorMath.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_VectorMath *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_VectorMath *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 650, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 650; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":653
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(653,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 653; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 653; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":654
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(654,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 654; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":655
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(655,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 655; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":650
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_VectorMath.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":657
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_6help[] = "Analysis_VectorMath.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_4help[] = "Analysis_VectorMath.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_VectorMath *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_VectorMath *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_VectorMath *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_VectorMath *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -13136,7 +10419,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorM
   __Pyx_TraceCall("help", __pyx_f[0], 657, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 657; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":658
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -13146,8 +10429,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorM
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":657
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -13285,7 +10568,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_2__de
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(667,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 667; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -13316,120 +10599,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_2__de
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":669
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_4alloc[] = "Analysis_Rotdif.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Rotdif *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Rotdif *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 669, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 669; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":672
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(672,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 672; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 672; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":673
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(673,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 673; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":674
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(674,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 674; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":669
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_Rotdif.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":676
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_6help[] = "Analysis_Rotdif.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_4help[] = "Analysis_Rotdif.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Rotdif *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Rotdif *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Rotdif *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Rotdif *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -13440,7 +10632,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_
   __Pyx_TraceCall("help", __pyx_f[0], 676, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 676; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":677
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -13450,8 +10642,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":676
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -13589,7 +10781,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(687,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 687; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -13620,120 +10812,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":689
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_4alloc[] = "Analysis_LowestCurve.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_LowestCurve *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_LowestCurve *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 689, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 689; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":692
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(692,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 692; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 692; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":693
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(693,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 693; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":694
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(694,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 694; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":689
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_LowestCurve.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":696
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_6help[] = "Analysis_LowestCurve.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_4help[] = "Analysis_LowestCurve.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_LowestCurve *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_LowestCurve *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_LowestCurve *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_LowestCurve *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -13744,7 +10845,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestC
   __Pyx_TraceCall("help", __pyx_f[0], 696, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 696; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":697
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -13754,8 +10855,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestC
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":696
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -13893,7 +10994,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_2__de
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(707,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 707; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -13924,120 +11025,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_2__de
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":709
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_4alloc[] = "Analysis_PhiPsi.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_PhiPsi *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_PhiPsi *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 709, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 709; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":712
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(712,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 712; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 712; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":713
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(713,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 713; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":714
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(714,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 714; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":709
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_PhiPsi.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":716
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_6help[] = "Analysis_PhiPsi.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_4help[] = "Analysis_PhiPsi.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_PhiPsi *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_PhiPsi *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_PhiPsi *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_PhiPsi *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -14048,7 +11058,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_
   __Pyx_TraceCall("help", __pyx_f[0], 716, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 716; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":717
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -14058,8 +11068,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":716
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -14197,7 +11207,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_2__deallo
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(727,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 727; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -14228,120 +11238,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_2__deallo
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":729
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_4alloc[] = "Analysis_TI.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_TI *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_TI *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 729, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 729; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":732
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(732,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 732; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 732; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":733
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(733,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 733; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":734
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(734,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 734; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":729
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_TI.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":736
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_6help[] = "Analysis_TI.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_4help[] = "Analysis_TI.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_TI *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_TI *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_TI *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_TI *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -14352,7 +11271,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_6hel
   __Pyx_TraceCall("help", __pyx_f[0], 736, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 736; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":737
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -14362,8 +11281,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_6hel
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":736
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -14501,7 +11420,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_2__d
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(747,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 747; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -14532,120 +11451,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_2__d
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":749
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_4alloc[] = "Analysis_Wavelet.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Wavelet *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Wavelet *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 749, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 749; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":752
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(752,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 752; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 752; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":753
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(753,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 753; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":754
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(754,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 754; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":749
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_Wavelet.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":756
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_6help[] = "Analysis_Wavelet.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_4help[] = "Analysis_Wavelet.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Wavelet *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Wavelet *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Wavelet *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Wavelet *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -14656,7 +11484,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet
   __Pyx_TraceCall("help", __pyx_f[0], 756, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 756; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":757
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -14666,8 +11494,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":756
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -14805,7 +11633,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_2__
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(767,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 767; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -14836,120 +11664,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_2__
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":769
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_4alloc[] = "Analysis_CurveFit.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CurveFit *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CurveFit *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 769, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 769; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":772
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(772,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 772; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 772; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":773
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(773,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 773; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":774
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(774,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 774; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":769
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_CurveFit.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":776
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_6help[] = "Analysis_CurveFit.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_4help[] = "Analysis_CurveFit.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CurveFit *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CurveFit *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CurveFit *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CurveFit *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -14960,7 +11697,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFi
   __Pyx_TraceCall("help", __pyx_f[0], 776, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 776; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":777
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -14970,8 +11707,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFi
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":776
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -15109,7 +11846,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_2
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(787,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 787; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -15140,120 +11877,29 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_2
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":789
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_4alloc[] = "Analysis_Multicurve.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Multicurve *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Multicurve *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 789, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 789; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":792
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(792,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 792; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 792; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":793
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(793,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 793; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":794
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(794,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 794; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":789
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_Multicurve.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":796
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_6help[] = "Analysis_Multicurve.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_4help[] = "Analysis_Multicurve.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Multicurve *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Multicurve *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Multicurve *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Multicurve *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -15264,7 +11910,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicu
   __Pyx_TraceCall("help", __pyx_f[0], 796, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 796; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":797
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  * 
@@ -15274,8 +11920,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicu
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":796
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  * 
@@ -15413,7 +12059,7 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_2__dea
  *         if self.baseptr is not NULL:
  *             del self.baseptr             # <<<<<<<<<<<<<<
  * 
- *     def alloc(self):
+ * #    def alloc(self):
  */
     __Pyx_TraceLine(807,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 807; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
     delete __pyx_v_self->__pyx_base.baseptr;
@@ -15444,119 +12090,28 @@ static void __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_2__dea
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pytraj/analyses/CpptrajAnalyses.pyx":809
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_4alloc[] = "Analysis_State.alloc(self)\nreturn a function-pointer object to be used with AnalysisList class\n        ";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_5alloc(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("alloc (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_4alloc(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_State *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_4alloc(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_State *__pyx_v_self) {
-  struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *__pyx_v_func = 0;
-  PyObject *__pyx_r = NULL;
-  __Pyx_TraceDeclarations
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("alloc", 0);
-  __Pyx_TraceCall("alloc", __pyx_f[0], 809, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 809; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":812
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- *         cdef FunctPtr func = FunctPtr()             # <<<<<<<<<<<<<<
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func
- */
-  __Pyx_TraceLine(812,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 812; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_6pytraj_4core_8cpp_core_FunctPtr), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 812; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_func = ((struct __pyx_obj_6pytraj_4core_8cpp_core_FunctPtr *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":813
- *         """
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)             # <<<<<<<<<<<<<<
- *         return func
- * 
- */
-  __Pyx_TraceLine(813,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 813; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __pyx_v_func->ptr = (&__pyx_v_self->thisptr->Alloc);
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":814
- *         cdef FunctPtr func = FunctPtr()
- *         func.ptr = &(self.thisptr.Alloc)
- *         return func             # <<<<<<<<<<<<<<
- * 
- *     def help(self):
- */
-  __Pyx_TraceLine(814,0,{__pyx_filename = __pyx_f[0]; __pyx_lineno = 814; __pyx_clineno = __LINE__; goto __pyx_L1_error;})
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_func));
-  __pyx_r = ((PyObject *)__pyx_v_func);
-  goto __pyx_L0;
-
-  /* "pytraj/analyses/CpptrajAnalyses.pyx":809
- *             del self.baseptr
- * 
- *     def alloc(self):             # <<<<<<<<<<<<<<
- *         """return a function-pointer object to be used with AnalysisList class
- *         """
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("pytraj.analyses.CpptrajAnalyses.Analysis_State.alloc", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_func);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_TraceReturn(__pyx_r, 0);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "pytraj/analyses/CpptrajAnalyses.pyx":816
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_6help[] = "Analysis_State.help(self)";
-static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_7help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_4help[] = "Analysis_State.help(self)";
+static PyObject *__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_5help(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("help (wrapper)", 0);
-  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_6help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_State *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_4help(((struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_State *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_6help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_State *__pyx_v_self) {
+static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_4help(struct __pyx_obj_6pytraj_8analyses_15CpptrajAnalyses_Analysis_State *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -15567,7 +12122,7 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_6
   __Pyx_TraceCall("help", __pyx_f[0], 816, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 816; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":817
- * 
+ * #
  *     def help(self):
  *         self.thisptr.Help()             # <<<<<<<<<<<<<<
  */
@@ -15575,8 +12130,8 @@ static PyObject *__pyx_pf_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_6
   __pyx_v_self->thisptr->Help();
 
   /* "pytraj/analyses/CpptrajAnalyses.pyx":816
- *         return func
- * 
+ * #        return func
+ * #
  *     def help(self):             # <<<<<<<<<<<<<<
  *         self.thisptr.Help()
  */
@@ -28323,8 +24878,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_AmdBia
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_AmdBias[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_AmdBias_4help},
   {0, 0, 0, 0}
 };
 
@@ -28417,8 +24971,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_AutoCo
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_AutoCorr[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_AutoCorr_4help},
   {0, 0, 0, 0}
 };
 
@@ -28511,8 +25064,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Averag
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Average[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Average_4help},
   {0, 0, 0, 0}
 };
 
@@ -28605,8 +25157,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Cluste
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Clustering[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Clustering_4help},
   {0, 0, 0, 0}
 };
 
@@ -28699,8 +25250,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Corr(P
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Corr[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Corr_4help},
   {0, 0, 0, 0}
 };
 
@@ -28793,8 +25343,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrankS
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrankShaft[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_CrankShaft_4help},
   {0, 0, 0, 0}
 };
 
@@ -28887,8 +25436,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrdFlu
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrdFluct[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CrdFluct_4help},
   {0, 0, 0, 0}
 };
 
@@ -28981,8 +25529,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrossC
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CrossCorr[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_CrossCorr_4help},
   {0, 0, 0, 0}
 };
 
@@ -29075,8 +25622,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Diverg
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Divergence[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Divergence_4help},
   {0, 0, 0, 0}
 };
 
@@ -29169,8 +25715,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_FFT(Py
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_FFT[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_FFT_4help},
   {0, 0, 0, 0}
 };
 
@@ -29263,8 +25808,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Hist(P
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Hist[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_Hist_4help},
   {0, 0, 0, 0}
 };
 
@@ -29357,8 +25901,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_IRED(P
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_IRED[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_13Analysis_IRED_4help},
   {0, 0, 0, 0}
 };
 
@@ -29451,8 +25994,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Integr
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Integrate[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_Integrate_4help},
   {0, 0, 0, 0}
 };
 
@@ -29545,8 +26087,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_KDE(Py
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_KDE[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_12Analysis_KDE_4help},
   {0, 0, 0, 0}
 };
 
@@ -29639,8 +26180,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Lifeti
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Lifetime[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Lifetime_4help},
   {0, 0, 0, 0}
 };
 
@@ -29733,8 +26273,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Matrix
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Matrix[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Matrix_4help},
   {0, 0, 0, 0}
 };
 
@@ -29827,8 +26366,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_MeltCu
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_MeltCurve[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MeltCurve_4help},
   {0, 0, 0, 0}
 };
 
@@ -29921,8 +26459,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Modes(
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Modes[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Modes_4help},
   {0, 0, 0, 0}
 };
 
@@ -30015,8 +26552,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_MultiH
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_MultiHist[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_18Analysis_MultiHist_4help},
   {0, 0, 0, 0}
 };
 
@@ -30109,8 +26645,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Overla
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Overlap[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Overlap_4help},
   {0, 0, 0, 0}
 };
 
@@ -30203,8 +26738,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Regres
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Regression[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Regression_4help},
   {0, 0, 0, 0}
 };
 
@@ -30297,8 +26831,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RemLog
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RemLog[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_RemLog_4help},
   {0, 0, 0, 0}
 };
 
@@ -30391,8 +26924,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Rms2d(
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Rms2d[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_Rms2d_4help},
   {0, 0, 0, 0}
 };
 
@@ -30485,8 +27017,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RmsAvg
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RmsAvgCorr[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RmsAvgCorr_4help},
   {0, 0, 0, 0}
 };
 
@@ -30579,8 +27110,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Runnin
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_RunningAvg[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_RunningAvg_4help},
   {0, 0, 0, 0}
 };
 
@@ -30673,8 +27203,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Spline
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Spline[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Spline_4help},
   {0, 0, 0, 0}
 };
 
@@ -30767,8 +27296,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Statis
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Statistics[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Statistics_4help},
   {0, 0, 0, 0}
 };
 
@@ -30861,8 +27389,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Timeco
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Timecorr[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_Timecorr_4help},
   {0, 0, 0, 0}
 };
 
@@ -30955,8 +27482,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Vector
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_VectorMath[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_VectorMath_4help},
   {0, 0, 0, 0}
 };
 
@@ -31049,8 +27575,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Rotdif
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Rotdif[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_Rotdif_4help},
   {0, 0, 0, 0}
 };
 
@@ -31143,8 +27668,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Lowest
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_LowestCurve[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_20Analysis_LowestCurve_4help},
   {0, 0, 0, 0}
 };
 
@@ -31237,8 +27761,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_PhiPsi
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_PhiPsi[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_15Analysis_PhiPsi_4help},
   {0, 0, 0, 0}
 };
 
@@ -31331,8 +27854,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_TI(PyO
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_TI[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_11Analysis_TI_4help},
   {0, 0, 0, 0}
 };
 
@@ -31425,8 +27947,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Wavele
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Wavelet[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_16Analysis_Wavelet_4help},
   {0, 0, 0, 0}
 };
 
@@ -31519,8 +28040,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CurveF
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_CurveFit[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_17Analysis_CurveFit_4help},
   {0, 0, 0, 0}
 };
 
@@ -31613,8 +28133,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Multic
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_Multicurve[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_19Analysis_Multicurve_4help},
   {0, 0, 0, 0}
 };
 
@@ -31707,8 +28226,7 @@ static void __pyx_tp_dealloc_6pytraj_8analyses_15CpptrajAnalyses_Analysis_State(
 }
 
 static PyMethodDef __pyx_methods_6pytraj_8analyses_15CpptrajAnalyses_Analysis_State[] = {
-  {"alloc", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_5alloc, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_4alloc},
-  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_7help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_6help},
+  {"help", (PyCFunction)__pyx_pw_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_5help, METH_NOARGS, __pyx_doc_6pytraj_8analyses_15CpptrajAnalyses_14Analysis_State_4help},
   {0, 0, 0, 0}
 };
 

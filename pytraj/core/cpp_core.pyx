@@ -503,8 +503,8 @@ cdef class CpptrajState:
         # We don't free memory again
         # (example: self.toplist.thisptr and self.thisptr.PFL() point to the same address)
         # create memory view
-        self.datasetlist.thisptr = self.thisptr.DSL()
-        self.datafilelist.thisptr = self.thisptr.DFL()
+        self.datasetlist.thisptr = &self.thisptr.DSL()
+        self.datafilelist.thisptr = &self.thisptr.DFL()
 
     def __dealloc__(self):
         if self.thisptr is not NULL:
@@ -526,109 +526,9 @@ cdef class CpptrajState:
     def __repr__(self):
         return str(self)
 
-    def is_empty(self):
-        return self.thisptr.EmptyState()
-
-    def _add_trajin(self, arg_or_filename, is_ensemble=None):
-        # TODO: add trajector instance?
-        cdef string filename
-        cdef ArgList argIn
-
-        if is_ensemble is not None:
-            # reading ensemble
-            if isinstance(arg_or_filename, ArgList):
-                argIn = arg_or_filename
-            elif isinstance(arg_or_filename, string_types):
-                argIn = ArgList(arg_or_filename)
-            else:
-                raise ValueError("")
-            self.thisptr.AddTrajin(argIn.thisptr[0], is_ensemble)
-        elif isinstance(arg_or_filename, string_types):
-            # reading single file
-            filename = arg_or_filename.encode()
-            self.thisptr.AddTrajin(filename)
-        else:
-            raise NotImplementedError()
-
-    def _run_analyses(self):
-        self.thisptr.RunAnalyses()
-        return self
-
-    def _add_trajout(self, arg):
-        """add trajout file
-
-        Parameters
-        ---------
-        arg : str or ArgList object
-        """
-        cdef string filename
-        cdef ArgList arglist
-
-        if isinstance(arg, ArgList):
-            arglist = arg
-            return self.thisptr.AddTrajout(arglist.thisptr[0])
-        elif isinstance(arg, string_types):
-            filename = arg.encode()
-            return self.thisptr.AddTrajout(filename)
-        else:
-            raise NotImplementedError()
-
-    def _add_action(self, actobj, arglist):
-        """
-        Parameters
-        ---------
-        actobj : Action object or str
-        arglist : ArgList object or str
-        """
-        # need to explicit casting to FunctPtr because self.thisptr.AddAction need to know type
-        # of variables
-        cdef FunctPtr alloc_funct
-        cdef ArgList _arglist
-
-        if isinstance(actobj, string_types):
-            # if actobj is string, make Action object
-            # then cast to FunctPtr
-            from pytraj.action_dict import ADICT
-            alloc_funct = ADICT[actobj]().alloc()
-        else:
-            alloc_funct = <FunctPtr> actobj.alloc()
-
-        if isinstance(arglist, string_types):
-            _arglist = ArgList(arglist)
-        elif isinstance(arglist, ArgList):
-            _arglist = arglist
-        else:
-            raise ValueError("must be string or ArgList object")
-
-        return self.thisptr.AddAction(alloc_funct.ptr, _arglist.thisptr[0])
-
-    def _add_analysis(self, obj, ArgList arglist):
-        """temp doc: add_analysis(self, obj, ArgList arglist)
-        obj :: Action or Analysis instance
-        """
-        cdef ArgList _arglist
-        cdef FunctPtr alloc_funct = <FunctPtr> obj.alloc()
-
-        if isinstance(arglist, string_types):
-            _arglist = ArgList(arglist)
-        elif isinstance(arglist, ArgList):
-            _arglist = arglist
-        else:
-            raise ValueError("must be string or ArgList object")
-
-        return self.thisptr.AddAnalysis(alloc_funct.ptr, _arglist.thisptr[0])
-
-    def run(self):
-        '''alias of CpptrajState.compute. This is for testing purpose
-        '''
-        return self.compute()
-
     def compute(self):
         self.thisptr.Run()
         return self
-
-    def _write_all_datafiles(self):
-        self.thisptr.MasterDataFileWrite()
 
 
 def _load_batch(txt, traj=None):

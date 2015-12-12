@@ -212,8 +212,8 @@ cdef class NameType:
 cdef extern from "CpptrajState.h": 
     cdef cppclass _CpptrajState "CpptrajState":
         _CpptrajState()
-        _DatasetList * DSL()
-        _DataFileList * DFL()
+        _DatasetList& DSL()
+        _DataFileList& DFL()
         int AddTrajin(_ArgList &, bint)
         int AddTrajin(const string&)
         int RunAnalyses()

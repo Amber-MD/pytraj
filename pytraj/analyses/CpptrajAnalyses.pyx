@@ -87,13 +87,13 @@ cdef class Analysis_AmdBias (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -107,13 +107,13 @@ cdef class Analysis_AutoCorr (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -127,13 +127,13 @@ cdef class Analysis_Average (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -147,13 +147,13 @@ cdef class Analysis_Clustering (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -167,13 +167,13 @@ cdef class Analysis_Corr (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -187,13 +187,13 @@ cdef class Analysis_CrankShaft (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -207,13 +207,13 @@ cdef class Analysis_CrdFluct (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -227,13 +227,13 @@ cdef class Analysis_CrossCorr (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -247,13 +247,13 @@ cdef class Analysis_Divergence (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -267,13 +267,13 @@ cdef class Analysis_FFT (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -287,13 +287,13 @@ cdef class Analysis_Hist (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -307,13 +307,13 @@ cdef class Analysis_IRED (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -327,13 +327,13 @@ cdef class Analysis_Integrate (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -347,13 +347,13 @@ cdef class Analysis_KDE (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -367,13 +367,13 @@ cdef class Analysis_Lifetime (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -386,13 +386,13 @@ cdef class Analysis_Matrix (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -406,13 +406,13 @@ cdef class Analysis_MeltCurve (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -426,13 +426,13 @@ cdef class Analysis_Modes (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -446,13 +446,13 @@ cdef class Analysis_MultiHist (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -466,13 +466,13 @@ cdef class Analysis_Overlap (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -486,13 +486,13 @@ cdef class Analysis_Regression (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -506,13 +506,13 @@ cdef class Analysis_RemLog (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -526,13 +526,13 @@ cdef class Analysis_Rms2d (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        with nogil:
-            func.ptr = &(self.thisptr.Alloc)
-        return func
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        with nogil:
+#            func.ptr = &(self.thisptr.Alloc)
+#        return func
 
     def help(self):
         self.thisptr.Help()
@@ -547,13 +547,13 @@ cdef class Analysis_RmsAvgCorr (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -567,13 +567,13 @@ cdef class Analysis_RunningAvg (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -587,13 +587,13 @@ cdef class Analysis_Spline (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -607,13 +607,13 @@ cdef class Analysis_Statistics (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -627,13 +627,13 @@ cdef class Analysis_Timecorr (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -647,13 +647,13 @@ cdef class Analysis_VectorMath (Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -666,13 +666,13 @@ cdef class Analysis_Rotdif(Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -686,13 +686,13 @@ cdef class Analysis_LowestCurve(Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -706,13 +706,13 @@ cdef class Analysis_PhiPsi(Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -726,13 +726,13 @@ cdef class Analysis_TI(Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -746,13 +746,13 @@ cdef class Analysis_Wavelet(Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -766,13 +766,13 @@ cdef class Analysis_CurveFit(Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -786,13 +786,13 @@ cdef class Analysis_Multicurve(Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
 
@@ -806,12 +806,12 @@ cdef class Analysis_State(Analysis):
         if self.baseptr is not NULL:
             del self.baseptr
 
-    def alloc(self):
-        """return a function-pointer object to be used with AnalysisList class
-        """
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
-
+#    def alloc(self):
+#        """return a function-pointer object to be used with AnalysisList class
+#        """
+#        cdef FunctPtr func = FunctPtr()
+#        func.ptr = &(self.thisptr.Alloc)
+#        return func
+#
     def help(self):
         self.thisptr.Help()
