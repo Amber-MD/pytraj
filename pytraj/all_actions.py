@@ -369,7 +369,7 @@ def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
     Examples
     --------
     >>> import pytraj as pt
-    >>> from pytraj.common_actions import _dihedral_res
+    >>> from pytraj.all_actions import _dihedral_res
     >>> traj = pt.datafiles.load_tz2()
     >>> data = _dihedral_res(traj, mask=('N', 'CA', 'C', 'O'), resid=0)
     >>> # use string for resid
@@ -666,9 +666,8 @@ def calc_matrix(traj=None,
     Examples
     --------
     >>> import pytraj as pt
-    >>> from pytraj.common_actions import calc_matrix
     >>> traj = pt.datafiles.load_trpcage()
-    >>> mat = calc_matrix(traj, 'covar @CA')
+    >>> mat = pt.calc_matrix(traj, 'covar @CA')
     >>> # this is equal to
     >>> mat2 = pt.matrix.covar(traj, '@CA')
     >>> import numpy as np
