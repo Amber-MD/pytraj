@@ -59,14 +59,14 @@ def load_cpptraj_output(txt, dtype=None):
     from pytraj.datasetlist import DatasetList
     from pytraj import ArgList
 
-    command_list = list(filter(lambda x: x, txt.split("\n")))
+    commands = list(filter(lambda x: x, txt.split("\n")))
 
-    for idx, line in enumerate(command_list):
+    for idx, line in enumerate(commands):
         if 'parm' in line:
             arglist = ArgList(line)
             # use absolute path
             fname = os.path.abspath(arglist.get_string_key('parm'))
-            command_list[idx] = " ".join(('parm', fname))
+            commands[idx] = " ".join(('parm', fname))
 
         if 'trajin' in line:
             arglist = ArgList(line)
@@ -74,9 +74,9 @@ def load_cpptraj_output(txt, dtype=None):
             relative_fname = arglist.get_string_key('trajin')
             the_rest_of_line = ' '.join(line.split(relative_fname)[1:])
             fname = os.path.abspath(relative_fname)
-            command_list[idx] = " ".join(('trajin', fname, the_rest_of_line))
+            commands[idx] = " ".join(('trajin', fname, the_rest_of_line))
 
-    txt = "\n".join([line for line in command_list])
+    txt = "\n".join([line for line in commands])
     state = _load_batch(txt, traj=None)
 
     state.run()
