@@ -13,7 +13,7 @@ def check_valid_command(commands):
     ----------
     commands : list/tuple of str
     '''
-    from pytraj.cpptraj_commands import analysis_commands
+    from pytraj.c_commands import analysis_commands
 
     if isinstance(commands, string_types):
         commands = [line.strip() for line in commands.split('\n') if line]
