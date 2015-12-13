@@ -6,7 +6,7 @@ import unittest
 from pytraj import *
 import pytraj as pt
 from pytraj.c_action.action_dict import ADICT
-from pytraj.c_trajs import *
+from pytraj.c_traj import *
 from pytraj.datasets import *
 from pytraj.all_actions import *
 
