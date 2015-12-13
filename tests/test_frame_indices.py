@@ -52,7 +52,7 @@ class TestFrameIndices(unittest.TestCase):
                        calc_atomiccorr, autoimage, closest,
                        calc_volume, superpose, randomize_ions,
                        check_structure,
-                       align_principal_axis,]
+                       align_principal_axis, ]
         func_nu = [
             calc_epsilon, calc_alpha, calc_zeta, calc_beta, calc_nu1, calc_nu2,
             calc_delta, calc_chin,

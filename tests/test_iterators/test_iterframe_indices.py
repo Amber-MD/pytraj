@@ -4,7 +4,6 @@ import pytraj as pt
 from pytraj.utils import eq, aa_eq
 
 
-
 class TestIteraframeIndices(unittest.TestCase):
 
     def test_iterframe_indices(self):

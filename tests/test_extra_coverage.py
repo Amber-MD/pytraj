@@ -11,6 +11,7 @@ from pytraj.version import version
 
 
 class TestExtraCoverage(unittest.TestCase):
+
     def setUp(self):
         self.traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
 

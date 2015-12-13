@@ -2,7 +2,6 @@ import unittest
 from pytraj import *
 
 
-
 class Test(unittest.TestCase):
 
     def test_0(self):

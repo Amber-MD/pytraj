@@ -7,7 +7,6 @@ from pytraj.utils import eq, aa_eq
 from pytraj.testing import cpptraj_test_dir
 
 
-
 class TestPrincipalAxis(unittest.TestCase):
 
     def test_do_rotation(self):
