@@ -243,7 +243,7 @@ cdef class TrajectoryCpptraj:
                 for idx, frame in enumerate(self.iterframe(start=_tmp_start,
                                                            stop=_tmp_stop)):
                     farray._xyz[idx] = frame.xyz
-                    farray._boxes[idx] = frame.box.get_data()
+                    farray._boxes[idx] = frame.box._get_data()
                 yield farray
 
     def __setitem__(self, idx, value):
@@ -433,7 +433,7 @@ cdef class TrajectoryCpptraj:
                 # copy coordinates of `self[i]` to j-th frame in `traj`
                 self.thisptr.GetFrame(i, frame.thisptr[0])
                 traj.xyz[j] = frame.xyz
-                traj.unitcells[j] = frame.box.get_data()
+                traj.unitcells[j] = frame.box._get_data()
             return traj
 
     def _iterframe_indices(self, frame_indices):
