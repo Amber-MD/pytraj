@@ -5,7 +5,7 @@ import os
 import re
 from glob import glob
 import numpy as np
-from .c_trajs.c_trajectory import TrajectoryCpptraj
+from .c_traj.c_trajectory import TrajectoryCpptraj
 from .externals.six import string_types
 from .externals.six.moves import range
 from .topology import Topology

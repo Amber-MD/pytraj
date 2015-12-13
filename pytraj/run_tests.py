@@ -3,7 +3,7 @@ from pytraj.base import *
 from pytraj.core import *
 from pytraj.math import *
 from pytraj.externals import *
-from pytraj.c_trajs import *
+from pytraj.c_traj import *
 from pytraj.hbond_ import *
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal

@@ -13,7 +13,7 @@ import numpy as np
 from ..utils import is_int
 from ..shared_methods import _xyz, my_str_method
 from ..cyutils import get_positive_idx
-from ..c_trajs.c_trajectory import TrajectoryCpptraj
+from ..c_traj.c_trajectory import TrajectoryCpptraj
 from ..topology cimport Topology
 from ..externals.six import string_types
 
