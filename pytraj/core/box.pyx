@@ -5,7 +5,7 @@ from cython cimport view
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 
-from pytraj.cpptraj_dict import BoxTypeDict, get_key
+from pytraj.c_dict import BoxTypeDict, get_key
 from pytraj.externals.six import string_types
 
 

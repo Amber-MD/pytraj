@@ -20,7 +20,7 @@ from ..utils import is_int
 from ..datafiles.datafiles import DataFile
 from ..core.cpp_core import ArgList
 
-from pytraj.cpptraj_dict import DataTypeDict
+from pytraj.c_dict import DataTypeDict
 
 __all__ = ['DatasetList']
 

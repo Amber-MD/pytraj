@@ -12,13 +12,13 @@ from pytraj.cpp_options import set_world_silent  # turn on and off cpptraj's std
 from collections import namedtuple
 import numpy as np
 
-from pytraj.cpptraj_dict import get_key, AtomicElementDict
+from pytraj.c_dict import get_key, AtomicElementDict
 from pytraj.utils.check_and_assert import is_int, is_array
 from pytraj.compat import set
 from pytraj.externals.six import PY2, PY3, string_types
 from pytraj.externals.six.moves import range
 from pytraj.utils.check_and_assert import is_int
-from pytraj.cpptraj_dict import ParmFormatDict
+from pytraj.c_dict import ParmFormatDict
 from pytraj.utils.convert import array_to_cpptraj_atommask
 
 PY2 = sys.version_info[0] == 2

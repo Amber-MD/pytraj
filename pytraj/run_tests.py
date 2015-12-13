@@ -69,10 +69,10 @@ def run_tests():
     trajectory.Trajectory()
 
     print("other stuff. throw all tests don't belong anywhere else here")
-    from pytraj import cpptraj_dict
+    from pytraj import c_dict
     from pytraj.misc import get_atts
-    keys = get_atts(cpptraj_dict)
-    cdict = cpptraj_dict.__dict__
+    keys = get_atts(c_dict)
+    cdict = c_dict.__dict__
 
     for key in keys:
         if isinstance(cdict[key], dict):

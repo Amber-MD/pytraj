@@ -1,7 +1,7 @@
 # distutils: language = c++
 
 from __future__ import division
-from ..cpptraj_dict import DataTypeDict, ScalarTypeDict, get_key
+from ..c_dict import DataTypeDict, ScalarTypeDict, get_key
 from ..datafiles.datafiles import DataFileList, DataFile
 
 import operator
