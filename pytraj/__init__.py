@@ -72,7 +72,7 @@ from .math import Vec3
 from .frame import Frame
 from .trajectory import Trajectory
 from .trajectory_iterator import TrajectoryIterator
-from .trajs.Trajout import Trajout
+from .c_trajs.Trajout import Trajout
 from .datasets.cast_dataset import cast_dataset
 from .datasetlist import DatasetList as Dataset
 from . import io
