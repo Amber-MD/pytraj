@@ -18,7 +18,7 @@ from ..externals.six import string_types
 from ..compat import set
 from ..utils import is_int
 from ..datafiles.datafiles import DataFile
-from ..core.cpp_core import ArgList
+from ..core.c_core import ArgList
 
 from pytraj.c_dict import DataTypeDict
 

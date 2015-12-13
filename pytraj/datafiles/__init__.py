@@ -55,7 +55,7 @@ def load_cpptraj_output(txt, dtype=None):
     if dtype is 'ndarray', return ndarray and so on
 
     """
-    from pytraj.core.cpp_core import _load_batch
+    from pytraj.core.c_core import _load_batch
     from pytraj.datasetlist import DatasetList
     from pytraj import ArgList
 
@@ -119,5 +119,5 @@ def load_cpptraj_state(txt, traj=None):
         # txt is a file
         return load_cpptraj_file(txt)
     else:
-        from pytraj.core.cpp_core import _load_batch
+        from pytraj.core.c_core import _load_batch
         return _load_batch(txt, traj=traj)

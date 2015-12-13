@@ -7,7 +7,7 @@ from .utils.check_and_assert import is_int, is_frame_iter
 from .utils.convert import array_to_cpptraj_atommask
 from .externals.six import string_types
 from .externals.six.moves import range
-from .core.cpp_core import AtomMask
+from .core.c_core import AtomMask
 
 # use absolute import here
 from pytraj.get_common_objects import get_topology

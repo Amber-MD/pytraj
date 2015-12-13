@@ -2,7 +2,7 @@
 from libcpp.vector cimport vector
 from libcpp.string cimport string
 #from libcpp.set cimport set
-from pytraj.core.cpp_core cimport _NameType, NameType
+from pytraj.core.c_core cimport _NameType, NameType
 from pytraj.cpp_vector cimport vector as cppvector
 
 
@@ -64,7 +64,7 @@ cdef class Atom:
     cdef bint own_memory
 
 # distutils: language = c++
-from pytraj.core.cpp_core cimport _NameType, NameType
+from pytraj.core.c_core cimport _NameType, NameType
 
 cdef extern from "Residue.h": 
     cdef cppclass _Residue "Residue":

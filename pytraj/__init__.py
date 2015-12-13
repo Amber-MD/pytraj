@@ -63,8 +63,8 @@ from functools import partial
 
 from .externals.six import string_types
 from .core import Atom, Residue, Molecule
-from .core.cpp_core import CpptrajState, ArgList, AtomMask, _load_batch
-from .core.cpp_core import Command
+from .core.c_core import CpptrajState, ArgList, AtomMask, _load_batch
+from .core.c_core import Command
 dispatch = Command.dispatch
 from . import array, c_commands
 from .topology import Topology, ParmFile

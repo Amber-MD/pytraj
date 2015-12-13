@@ -1,12 +1,12 @@
 # distutil: language = c++
 
 from libcpp.string cimport string
-from ..core.cpp_core cimport _DispatchObject, DispatchObject, DispatchAllocatorType, FunctPtr
+from ..core.c_core cimport _DispatchObject, DispatchObject, DispatchAllocatorType, FunctPtr
 from ..core.box cimport Box
 from ..datafiles.datafiles cimport _DataFileList, DataFileList
 from ..topology cimport _Topology, Topology
 from ..frame cimport _Frame, Frame
-from ..core.cpp_core cimport _ArgList, ArgList, _AtomMask, AtomMask
+from ..core.c_core cimport _ArgList, ArgList, _AtomMask, AtomMask
 from ..datasets.c_datasetlist cimport _DatasetList, DatasetList
 from .c_action cimport _Action, Action, _ActionInit, _ActionSetup, _ActionFrame, CoordinateInfo
 

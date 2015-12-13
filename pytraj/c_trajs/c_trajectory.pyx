@@ -2,7 +2,7 @@
 import os
 import numpy as np
 from ..trajectory import Trajectory
-from ..core.cpp_core cimport AtomMask
+from ..core.c_core cimport AtomMask
 from ..core.box cimport Box
 from ..topology cimport Topology
 

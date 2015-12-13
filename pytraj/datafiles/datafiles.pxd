@@ -4,7 +4,7 @@ from libcpp.string cimport string
 from libcpp.vector cimport vector
 
 from ..datasets.c_datasets cimport _Dataset, Dataset
-from ..core.cpp_core cimport _ArgList, ArgList, _ArgList, ArgList, _FileName, FileName
+from ..core.c_core cimport _ArgList, ArgList, _ArgList, ArgList, _FileName, FileName
 from ..datasets.c_datasetlist cimport _DatasetList, DatasetList
 
 

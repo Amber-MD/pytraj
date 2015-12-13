@@ -7,13 +7,13 @@ from .frame import Frame
 from .core.topology_objects import Atom, Residue, Molecule
 from .datafiles.datafiles import DataFileList
 from .c_action.actionlist import ActionList
-from .core.cpp_core import CpptrajState
+from .core.c_core import CpptrajState
 from .datasets.c_datasetlist import DatasetList
 
-from .core.cpp_core import AtomMask
+from .core.c_core import AtomMask
 from .trajectory import Trajectory
 from .topology import Topology
-from .core.cpp_core import ArgList
+from .core.c_core import ArgList
 from .trajectory_iterator import TrajectoryIterator
 from .c_trajs.trajout import Trajout
 from . import c_dict

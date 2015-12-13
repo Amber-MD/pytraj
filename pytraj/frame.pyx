@@ -19,7 +19,7 @@ from libc.string cimport memcpy
 
 import numpy as np
 from pytraj.utils.check_and_assert import is_int
-from pytraj.core.cpp_core import ArgList
+from pytraj.core.c_core import ArgList
 from pytraj.c_trajs.trajout import Trajout
 from pytraj.externals.six import string_types
 
