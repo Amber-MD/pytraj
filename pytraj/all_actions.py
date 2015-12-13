@@ -16,7 +16,7 @@ from .datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 from .datasetlist import DatasetList
 from .shared_methods import iterframe_master
 from .decorators import register_pmap, register_openmp
-from .c_action import c_actions
+from .c_action import c_action
 from .c_analysis import c_analyses
 from .c_action.actionlist import ActionList
 from .utils.convert import array2d_to_cpptraj_maskgroup
@@ -184,7 +184,7 @@ def calc_distance(traj=None,
         for cm in list_of_commands:
             if not image:
                 cm = ' '.join((cm, _noimage))
-            actlist.add_action(c_actions.Action_Distance(),
+            actlist.add_action(c_action.Action_Distance(),
                                cm,
                                _top,
                                dslist=dslist)
@@ -295,7 +295,7 @@ def calc_angle(traj=None,
     >>> angles = pt.angle(traj, [[1, 5, 8], [4, 10, 20]])
     """
     dslist = CpptrajDatasetList()
-    act = c_actions.Action_Angle()
+    act = c_action.Action_Angle()
 
     command = mask
 
@@ -322,7 +322,7 @@ def calc_angle(traj=None,
             actlist = ActionList()
 
             for cm in list_of_commands:
-                actlist.add_action(c_actions.Action_Angle(),
+                actlist.add_action(c_action.Action_Angle(),
                                    cm,
                                    _top,
                                    dslist=dslist,
@@ -435,7 +435,7 @@ def calc_dihedral(traj=None,
     >>> # dihedral angle for atom 1, 5, 8, 10, dihedral for atom 4, 10, 20, 30 (index starts from 0)
     >>> data = pt.dihedral(traj, [[1, 5, 8, 10], [4, 10, 20, 30]])
     """
-    act = c_actions.Action_Dihedral()
+    act = c_action.Action_Dihedral()
     dslist = CpptrajDatasetList()
 
     ensure_not_none_or_string(traj)
@@ -464,7 +464,7 @@ def calc_dihedral(traj=None,
             actlist = ActionList()
 
             for cm in list_of_commands:
-                actlist.add_action(c_actions.Action_Dihedral(),
+                actlist.add_action(c_action.Action_Dihedral(),
                                    cm,
                                    _top,
                                    dslist=dslist,
@@ -512,7 +512,7 @@ def calc_mindist(traj=None,
     '''
 
     traj = get_fiterator(traj, frame_indices)
-    act = c_actions.Action_NativeContacts()
+    act = c_action.Action_NativeContacts()
     dslist = CpptrajDatasetList()
 
     if not isinstance(command, string_types):
@@ -553,7 +553,7 @@ def calc_diffusion(traj,
     array([ 0.        ,  0.87027302,  1.64626022,  2.26262651,  2.98068114,
             3.57075535,  4.07030655,  4.71894512,  5.42302306,  6.01310377])
     '''
-    act = c_actions.Action_Diffusion()
+    act = c_action.Action_Diffusion()
     dslist = CpptrajDatasetList()
 
     _tsep = 'time ' + str(tstep)
@@ -626,7 +626,7 @@ def calc_watershell(traj=None,
 
     dslist = CpptrajDatasetList()
 
-    act = c_actions.Action_Watershell()
+    act = c_action.Action_Watershell()
 
     if _solutemask in [None, '']:
         raise ValueError('must provide solute mask')
@@ -673,7 +673,7 @@ def calc_matrix(traj=None,
     >>> import numpy as np
     >>> np.testing.assert_equal(mat, mat2)
     '''
-    act = c_actions.Action_Matrix()
+    act = c_action.Action_Matrix()
 
     dslist = CpptrajDatasetList()
     act(mask, traj, top=top, dslist=dslist)
@@ -704,7 +704,7 @@ def calc_radgyr(traj=None,
     _nomax = 'nomax' if nomax else ""
     command = " ".join((mask, _nomax))
 
-    act = c_actions.Action_Radgyr()
+    act = c_action.Action_Radgyr()
 
     dslist = CpptrajDatasetList()
     act(command, traj, top=top, dslist=dslist, *args, **kwd)
@@ -739,7 +739,7 @@ def calc_molsurf(traj=None,
     _offset = 'offset ' + str(offset) if offset != 0. else ''
     command = ' '.join((mask, _probe, _offset))
 
-    act = c_actions.Action_Molsurf()
+    act = c_action.Action_Molsurf()
 
     dslist = CpptrajDatasetList()
     act(command, traj, top=top, dslist=dslist)
@@ -790,7 +790,7 @@ def calc_rotation_matrix(traj=None,
 
     command = ' '.join(('tmp', mask, 'savematrices', _mass))
 
-    act = c_actions.Action_Rmsd()
+    act = c_action.Action_Rmsd()
     act(command, [ref, traj], top=top, dslist=dslist)
     mat = dslist[-1].values
     # exclude data for reference
@@ -816,7 +816,7 @@ def calc_volume(traj=None,
     '''
     command = mask
 
-    act = c_actions.Action_Volume()
+    act = c_action.Action_Volume()
 
     dslist = CpptrajDatasetList()
     act(command, traj, top=top, dslist=dslist)
@@ -848,7 +848,7 @@ def calc_multivector(traj,
     >>> vecs = pt.calc_multivector(traj, resrange='1-5', names=('C', 'N'))
     >>> vecs = pt.calc_multivector(traj, resrange='1-5', names='C N')
     '''
-    act = c_actions.Action_MultiVector()
+    act = c_action.Action_MultiVector()
 
     _resrange = 'resrange ' + resrange
     if 'name1' in names or 'name2' in names:
@@ -944,7 +944,7 @@ def volmap(traj,
     command = ' '.join((dummy_filename, _grid_spacing, _center, _size, mask, _radscale, _buffer,
                         _centermask, _peakcut))
 
-    act = c_actions.Action_Volmap()
+    act = c_action.Action_Volmap()
 
     dslist = CpptrajDatasetList()
     act(command, traj, top=top, dslist=dslist)
@@ -1020,7 +1020,7 @@ def calc_rdf(traj=None,
     traj = get_fiterator(traj, frame_indices)
     _top = get_topology(traj, top)
 
-    act = c_actions.Action_Radial()
+    act = c_action.Action_Radial()
 
     if not isinstance(solvent_mask, string_types):
         solvent_mask = array_to_cpptraj_atommask(solvent_mask)
@@ -1081,7 +1081,7 @@ def calc_pairdist(traj,
     >>> data = pt.calc_pairdist(traj)
     '''
     dslist = CpptrajDatasetList()
-    act = c_actions.Action_PairDist()
+    act = c_action.Action_PairDist()
 
     _command = 'mask ' + mask
     _delta = 'delta ' + str(delta)
@@ -1122,7 +1122,7 @@ def calc_jcoupling(traj=None,
     """
     command = mask
 
-    act = c_actions.Action_Jcoupling()
+    act = c_action.Action_Jcoupling()
     dslist = CpptrajDatasetList()
 
     if kfile is not None:
@@ -1149,7 +1149,7 @@ def translate(traj=None, command="", frame_indices=None, top=None):
     _top = get_topology(traj, top)
     fi = get_fiterator(traj, frame_indices)
 
-    c_actions.Action_Translate()(command, fi, top=_top)
+    c_action.Action_Translate()(command, fi, top=_top)
 
 
 do_translation = translate
@@ -1171,7 +1171,7 @@ def do_scaling(traj=None, command="", frame_indices=None, top=None):
     _assert_mutable(traj)
     _top = get_topology(traj, top)
     fi = get_fiterator(traj, frame_indices)
-    c_actions.Action_Scale()(command, fi, top=_top)
+    c_action.Action_Scale()(command, fi, top=_top)
 
 
 scale = do_scaling
@@ -1197,7 +1197,7 @@ def do_rotation(traj=None, command="", frame_indices=None, top=None):
     _top = get_topology(traj, top)
     _assert_mutable(traj)
     fi = get_fiterator(traj, frame_indices)
-    c_actions.Action_Rotate()(command, fi, top=_top)
+    c_action.Action_Rotate()(command, fi, top=_top)
 
 
 rotate = do_rotation
@@ -1212,7 +1212,7 @@ def do_autoimage(traj, command="", frame_indices=None, top=None):
     >>> traj = pt.autoimage(traj)
     '''
     _assert_mutable(traj)
-    c_actions.Action_AutoImage()(command, traj, top=top)
+    c_action.Action_AutoImage()(command, traj, top=top)
     return traj
 
 
@@ -1281,7 +1281,7 @@ def mean_structure(traj,
     # add "crdset s1" to trick cpptraj dump coords to DatSetList
     command = mask + " crdset s1"
 
-    act = c_actions.Action_Average()
+    act = c_action.Action_Average()
     act(command, fi, _top, dslist=dslist)
 
     # need to call this method so cpptraj will write
@@ -1388,7 +1388,7 @@ def randomize_ions(traj, mask, around, by, overlap, seed=1, top=None, frame_indi
     command = ' '.join((mask, around_, by_, overlap_, seed_))
     _assert_mutable(traj)
 
-    act = c_actions.Action_RandomizeIons()
+    act = c_action.Action_RandomizeIons()
     act(command, traj, top=top)
     return traj
 
@@ -1497,7 +1497,7 @@ def calc_multidihedral(traj=None,
     _command = " ".join((d_types, _resrange, dh_types, _range360))
 
     dslist = CpptrajDatasetList()
-    act = c_actions.Action_MultiDihedral()
+    act = c_action.Action_MultiDihedral()
     act(_command, traj, top, dslist=dslist)
     return get_data_from_dtype(dslist, dtype=dtype)
 
@@ -1521,7 +1521,7 @@ def calc_atomicfluct(traj=None,
            [ 40.        ,   0.53717119]])
     '''
     dslist = CpptrajDatasetList()
-    act = c_actions.Action_AtomicFluct()
+    act = c_action.Action_AtomicFluct()
     act(mask, traj, top=top, dslist=dslist)
     act.post_process()
     return get_data_from_dtype(dslist, dtype=dtype)
@@ -1626,7 +1626,7 @@ def calc_vector(traj=None,
     actlist = ActionList()
 
     for command in list_of_commands:
-        act = c_actions.Action_Vector()
+        act = c_action.Action_Vector()
         actlist.add_action(act, command, _top, dslist=dslist)
     actlist.do_actions(fi)
 
@@ -1643,7 +1643,7 @@ def _calc_vector_center(traj=None,
 
     dslist = CpptrajDatasetList()
     dslist.set_own_memory(False)  # need this to avoid segmentation fault
-    act = c_actions.Action_Vector()
+    act = c_action.Action_Vector()
     command = "center " + mask
 
     if mass:
@@ -1922,7 +1922,7 @@ def calc_rmsd(traj=None,
         _cm = cm + opt
         if 'savematrices' in _cm and dtype not in ['dataset', 'cpptraj_dataset']:
                 raise ValueError('if savematrices, dtype must be "dataset"')
-        alist.add_action(c_actions.Action_Rmsd(),
+        alist.add_action(c_action.Action_Rmsd(),
                          _cm,
                          top=_top,
                          dslist=dslist)
@@ -1974,7 +1974,7 @@ def calc_distance_rmsd(traj=None,
     dslist = CpptrajDatasetList()
     command = mask
 
-    act = c_actions.Action_DistRmsd()
+    act = c_action.Action_DistRmsd()
     act(command, [ref, traj], top=top, dslist=dslist)
 
     # exclude ref value
@@ -1997,7 +1997,7 @@ def align_principal_axis(traj=None, mask="*", top=None, frame_indices=None):
     """
     _assert_mutable(traj)
 
-    act = c_actions.Action_Principal()
+    act = c_action.Action_Principal()
     command = mask + " dorotation"
     act(command, traj, top=top)
     return traj
@@ -2020,7 +2020,7 @@ def principal_axes(traj=None, mask='*', dorotation=False, mass=True, top=None):
     out_0 : numpy array, shape=(n_frames, 3, 3)
     out_1: numpy array with shape=(n_frames, 3)
     """
-    act = c_actions.Action_Principal()
+    act = c_action.Action_Principal()
     command = mask
 
     _dorotation = 'dorotation' if dorotation else ''
@@ -2088,7 +2088,7 @@ def closest(traj=None,
 
     command = str(n_solvents) + ' ' + mask
 
-    act = c_actions.Action_Closest()
+    act = c_action.Action_Closest()
 
     if solvent_mask is not None:
         top = top.copy()
@@ -2143,7 +2143,7 @@ def native_contacts(traj=None,
     >>> # use integer array for mask
     >>> data = pt.native_contacts(traj, mask=range(100), mask2=[200, 201], ref=ref, distance=8.0)
     """
-    act = c_actions.Action_NativeContacts()
+    act = c_action.Action_NativeContacts()
     dslist = CpptrajDatasetList()
 
     if not isinstance(mask2, string_types):
@@ -2172,7 +2172,7 @@ def calc_grid(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     """
     """
     # TODO: doc, rename method, move to seperate module?
-    act = c_actions.Action_Grid()
+    act = c_action.Action_Grid()
     dslist = CpptrajDatasetList()
 
     # cpptraj require output
@@ -2192,7 +2192,7 @@ def check_structure(traj, mask='', frame_indices=None, top=None):
     >>> traj = pt.datafiles.load_rna()
     >>> pt.check_structure(traj[0], top=traj.top)
     """
-    act = c_actions.Action_CheckStructure()
+    act = c_action.Action_CheckStructure()
 
     # cpptraj require output
     act(mask, traj, top=top)
@@ -2342,7 +2342,7 @@ def pucker(traj=None,
 
     cdslist = CpptrajDatasetList()
     for res in resrange:
-        act = c_actions.Action_Pucker()
+        act = c_action.Action_Pucker()
         command = " ".join((":" + str(res + 1) + '@' + x for x in pucker_mask))
         name = "pucker_res" + str(res + 1)
         command = " ".join((name, command, _range360, method, geom, amp,
@@ -2402,7 +2402,7 @@ def center(traj=None,
     command = ' '.join((mask, _center, _mass))
     _assert_mutable(traj)
 
-    act = c_actions.Action_Center()
+    act = c_action.Action_Center()
     act(command, traj, top=top)
     return traj
 
@@ -2434,7 +2434,7 @@ def rotate_dihedral(traj=None, mask="", top=None):
     else:
         command = "custom:" + mask
 
-    act = c_actions.Action_MakeStructure()
+    act = c_action.Action_MakeStructure()
 
     act(command, traj, top=_top)
     return traj
@@ -2484,7 +2484,7 @@ def replicate_cell(traj=None, mask="", direction='all', top=None):
             'only support ``direction`` as a string or list/tuple of strings')
     command = ' '.join(('name tmp_cell', _direction, mask))
 
-    act = c_actions.Action_ReplicateCell()
+    act = c_action.Action_ReplicateCell()
     dslist = CpptrajDatasetList()
     act(command, traj, top=_top, dslist=dslist)
     traj = Trajectory(xyz=dslist[0].xyz, top=dslist[0].top)
@@ -2524,7 +2524,7 @@ def make_structure(traj=None, mask="", top=None):
     _top = get_topology(traj, top)
 
     command = mask
-    act = c_actions.Action_MakeStructure()
+    act = c_action.Action_MakeStructure()
     act(command, traj, top=_top)
 
 
@@ -2539,7 +2539,7 @@ def _projection(traj,
                 dtype='ndarray',
                 top=None):
 
-    act = c_actions.Action_Projection()
+    act = c_action.Action_Projection()
     dslist = CpptrajDatasetList()
 
     mode_name = 'my_modes'
@@ -2669,7 +2669,7 @@ def calc_atomiccorr(traj,
     _byres = 'byres' if byres else 'byatom'
     command = ' '.join((_mask, _cut, _min_spacing, _byres))
 
-    act = c_actions.Action_AtomicCorr()
+    act = c_action.Action_AtomicCorr()
     dslist = CpptrajDatasetList()
 
     with goto_temp_folder():
@@ -2703,7 +2703,7 @@ def _grid(traj,
     '''
     _top = get_topology(traj, top)
     fi = get_fiterator(traj, frame_indices)
-    act = c_actions.Action_Bounds()
+    act = c_action.Action_Bounds()
     dslist = CpptrajDatasetList()
     dx, dy, dz = grid_spacing
     _dx = 'dx ' + str(dx) if dx > 0. else ''

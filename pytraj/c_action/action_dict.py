@@ -1,5 +1,5 @@
 from __future__ import print_function
-from . import c_actions as allactions
+from . import c_action as allactions
 
 ADICT = {}
 

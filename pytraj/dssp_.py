@@ -91,7 +91,7 @@ def calc_dssp(traj=None,
     Simlified codes will be mostly used for visulization in other packages.
     """
     from pytraj.datasets.c_datasetlist import DatasetList as CpptrajDatasetList
-    from pytraj.c_action.c_actions import Action_DSSP
+    from pytraj.c_action.c_action import Action_DSSP
 
     command = mask
 

@@ -1,7 +1,7 @@
 from __future__ import absolute_import, print_function, division
 
 import numpy as np
-from .c_action import c_actions
+from .c_action import c_action
 from .datasets import CpptrajDatasetList
 from .decorators import register_pmap
 from .get_common_objects import get_data_from_dtype, super_dispatch
@@ -159,7 +159,7 @@ def hbond(traj,
     >>> # 'GLU5_O-V' mean non-specific hbond between GLU5_O and solvent (:WAT in this case)
     """
     dslist = CpptrajDatasetList()
-    act = c_actions.Action_Hbond()
+    act = c_action.Action_Hbond()
 
     s_donor = "solventdonor " + str(solvent_donor) if solvent_donor else ""
     s_acceptor = "solventacceptor " + \

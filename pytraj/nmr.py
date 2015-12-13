@@ -1,7 +1,7 @@
 import numpy as np
 from .decorators import register_pmap
 from .datasets.c_datasetlist import DatasetList as CpptrajDatasetList
-from .c_action import c_actions
+from .c_action import c_action
 from .c_analysis  import c_analyses
 from .c_action.actionlist import ActionList
 
@@ -151,10 +151,10 @@ def ired_vector_and_matrix(traj=None,
     for command in list_of_commands:
         # tag ired vector
         command += ' ired '
-        act = c_actions.Action_Vector()
+        act = c_action.Action_Vector()
         actlist.add_action(act, command, _top, dslist=dslist)
 
-    act_matired = c_actions.Action_Matrix()
+    act_matired = c_action.Action_Matrix()
     ired_cm = 'ired order ' + str(order)
     actlist.add_action(act_matired, ired_cm, _top, dslist=dslist)
 

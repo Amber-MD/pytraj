@@ -38,7 +38,7 @@ class Test(unittest.TestCase):
 
         funclist = [DataArray,
                     pt.volmap,
-                    pt.c_action.c_actions.Action,
+                    pt.c_action.c_action.Action,
                     pt.create_pipeline,
                     pt.pmap,
                     pt.nastruct,

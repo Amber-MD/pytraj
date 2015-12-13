@@ -601,9 +601,9 @@ class Trajectory(object):
         True
         >>> t0 = t0.autoimage()
         '''
-        from pytraj.c_action import c_actions
+        from pytraj.c_action import c_action
 
-        act = c_actions.Action_AutoImage()
+        act = c_action.Action_AutoImage()
         act(command, self, top=self.top)
         return self
 
@@ -620,9 +620,9 @@ class Trajectory(object):
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.rotate('@CA x 20')
         '''
-        from pytraj.c_action import c_actions
+        from pytraj.c_action import c_action
 
-        act = c_actions.Action_Rotate()
+        act = c_action.Action_Rotate()
         act(command, self, top=self.top)
         return self
 
@@ -639,9 +639,9 @@ class Trajectory(object):
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.translate('@CA x 1.2')
         '''
-        from pytraj.c_action import c_actions
+        from pytraj.c_action import c_action
 
-        act = c_actions.Action_Translate()
+        act = c_action.Action_Translate()
         act(command, self, top=self.top)
         return self
 
@@ -658,9 +658,9 @@ class Trajectory(object):
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.scale('@CA x 1.2')
         '''
-        from pytraj.c_action import c_actions
+        from pytraj.c_action import c_action
 
-        act = c_actions.Action_Scale()
+        act = c_action.Action_Scale()
         act(command, self, top=self.top)
         return self
 
@@ -677,9 +677,9 @@ class Trajectory(object):
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.center('@CA origin')
         '''
-        from pytraj.c_action import c_actions
+        from pytraj.c_action import c_action
 
-        act = c_actions.Action_Center()
+        act = c_action.Action_Center()
         act(command, self, top=self.top)
         return self
 
@@ -692,8 +692,8 @@ class Trajectory(object):
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.align_principal_axis()
         """
-        from pytraj.c_action import c_actions
-        act = c_actions.Action_Principal()
+        from pytraj.c_action import c_action
+        act = c_action.Action_Principal()
 
         command += " dorotation"
         act(command, self, top=self.top)

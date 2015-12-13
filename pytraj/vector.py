@@ -64,7 +64,7 @@ def vector_mask(traj=None,
     from .get_common_objects import get_topology, get_data_from_dtype, get_fiterator
     from .get_common_objects import get_list_of_commands
     from .datasets.c_datasetlist import DatasetList as CpptrajDatasetList
-    from .c_action.c_actions import Action_Vector
+    from .c_action.c_action import Action_Vector
     from .c_action.actionlist import ActionList
 
     fi = get_fiterator(traj, frame_indices)
@@ -106,7 +106,7 @@ def %s(traj=None, command="", frame_indices=None, dtype='ndarray', top=None):
     from .get_common_objects import get_topology, get_data_from_dtype, get_fiterator
     from .get_common_objects import get_list_of_commands
     from .datasets.DatasetList import DatasetList as CpptrajDatasetList
-    from .c_action.c_actions import Action_Vector
+    from .c_action.c_action import Action_Vector
     from .c_action.actionlist import ActionList
 
     fi = get_fiterator(traj, frame_indices)
