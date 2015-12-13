@@ -12,7 +12,7 @@ cdef class Action:
 
     >>> import pytraj as pt
     >>> traj = pt.load_sample_data('tz2')
-    >>> from pytraj.actions.CpptrajActions import Action_Radgyr
+    >>> from pytraj.c_action.c_action import Action_Radgyr
     >>> from pytraj.datasets import DatasetList as CpptrajDataSetList
     >>> from pytraj.datafiles import DataFileList
     >>> dslist = CpptrajDataSetList()

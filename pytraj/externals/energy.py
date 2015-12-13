@@ -207,7 +207,7 @@ def energy_decomposition(traj=None,
     if dtype == 'dict':
         return OrderedDict(new_dict)
     else:
-        from pytraj.datasets.DatasetList import DatasetList
+        from pytraj.datasets.c_datasetlist import DatasetList
 
         dslist = DatasetList()
         size = new_dict['tot'].__len__()

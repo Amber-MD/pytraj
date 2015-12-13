@@ -140,7 +140,8 @@ from .all_actions import (
     calc_pairdist, _grid, transform, lowestcurve, calc_diffusion, calc_volmap,
     calc_multivector, pca,
     xcorr, acorr,
-    check_structure)
+    check_structure,
+    calc_matrix)
 
 from .matrix import dist
 distance_matrix = dist

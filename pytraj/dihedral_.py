@@ -43,7 +43,7 @@ def calc_%s(traj=None, resrange="",
 
     Examples
     --------
-    >>> import pytraj.dihedral_analysis as da
+    >>> import pytraj.dihedral_ as da
     >>> da.calc_phi(traj)
     >>> da.calc_psi(traj, resrange="3-10")
     >>> da.calc_chip(traj, resrange="3-10")
