@@ -353,7 +353,7 @@ packages = [
     'pytraj.c_analysis',
     'pytraj.datasets',
     'pytraj.externals',
-    'pytraj.c_trajs',
+    'pytraj.c_traj',
     'pytraj.datafiles',
     'pytraj.datafiles.ala3',
     'pytraj.datafiles.tz2',
