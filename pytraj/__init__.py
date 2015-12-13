@@ -112,8 +112,8 @@ from . import tools
 # actions and analyses
 from .c_action import c_action as allactions
 from .c_action import c_action
-from .c_analysis import c_analyses as allanalyses
-from .c_analysis import c_analyses
+from .c_analysis import c_analysis as allanalyses
+from .c_analysis import c_analysis
 from . import all_actions
 
 from .dssp_ import calc_dssp, dssp_allatoms, dssp_allresidues

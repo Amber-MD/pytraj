@@ -1,6 +1,6 @@
 from __future__ import print_function, absolute_import
 import numpy as np
-from .c_analysis import c_analyses
+from .c_analysis import c_analysis
 from .datasets import c_datasets
 from .datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 
@@ -136,7 +136,7 @@ def diagonalize(mat, n_vecs, dtype='dataset'):
                                         vsize=mat.size,
                                         n_cols=mat.n_cols)
 
-    act = c_analyses.Analysis_Matrix()
+    act = c_analysis.Analysis_Matrix()
     act(' '.join(('mymat', _vecs)), dslist=dslist)
     dslist._pop(0)
 

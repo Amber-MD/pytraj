@@ -17,7 +17,7 @@ from .datasetlist import DatasetList
 from .shared_methods import iterframe_master
 from .decorators import register_pmap, register_openmp
 from .c_action import c_action
-from .c_analysis import c_analyses
+from .c_analysis import c_analysis
 from .c_action.actionlist import ActionList
 from .utils.convert import array2d_to_cpptraj_maskgroup
 
@@ -1411,7 +1411,7 @@ def clustering_dataset(array_like, command=''):
     dslist.add_set('double', '__array_like')
     dslist[0].resize(len(array_like))
     dslist[0].values[:] = array_like
-    act = c_analyses.Analysis_Clustering()
+    act = c_analysis.Analysis_Clustering()
     command = 'data __array_like ' + command
     act(command, dslist=dslist)
 
@@ -1753,7 +1753,7 @@ def calc_pairwise_rmsd(traj=None,
     if not isinstance(mask, string_types):
         mask = array_to_cpptraj_atommask(mask)
 
-    act = c_analyses.Analysis_Rms2d()
+    act = c_analysis.Analysis_Rms2d()
 
     crdname = 'default_coords'
     dslist, _top, command = get_fi_with_dslist(traj, mask, frame_indices, top, crdname=crdname)
@@ -2217,7 +2217,7 @@ def timecorr(vec0,
     norm : bool, default False
     """
     # TODO: doc. not yet assert to cpptraj's output
-    act = c_analyses.Analysis_Timecorr()
+    act = c_analysis.Analysis_Timecorr()
 
     cdslist = CpptrajDatasetList()
 
@@ -2264,7 +2264,7 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
     cdslist[0].data = np.asarray(data0)
     cdslist[1].data = np.asarray(data1)
 
-    act = c_analyses.Analysis_CrankShaft()
+    act = c_analysis.Analysis_CrankShaft()
     command = ' '.join((mode, 'd0', 'd1'))
     act(command, dslist=cdslist)
     return get_data_from_dtype(cdslist[2:], dtype=dtype)
@@ -2764,7 +2764,7 @@ def lowestcurve(data, points=10, step=0.2):
 
     data = np.asarray(data)
 
-    act = c_analyses.Analysis_LowestCurve()
+    act = c_analysis.Analysis_LowestCurve()
     dslist = CpptrajDatasetList()
 
     dslist.add_new('xymesh', label)
@@ -2794,7 +2794,7 @@ def acorr(data, dtype='ndarray', option=''):
 
     cdslist[0].data = np.asarray(data)
 
-    act = c_analyses.Analysis_AutoCorr()
+    act = c_analysis.Analysis_AutoCorr()
     command = "d0 out _tmp.out"
     act(command, dslist=cdslist)
     return get_data_from_dtype(cdslist[1:], dtype=dtype)
@@ -2823,7 +2823,7 @@ def xcorr(data0, data1, dtype='ndarray'):
     cdslist[0].data = np.asarray(data0)
     cdslist[1].data = np.asarray(data1)
 
-    act = c_analyses.Analysis_Corr()
+    act = c_analysis.Analysis_Corr()
     act("d0 d1 out _tmp.out", dslist=cdslist)
     return get_data_from_dtype(cdslist[2:], dtype=dtype)
 

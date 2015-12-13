@@ -2,7 +2,7 @@ import numpy as np
 from .decorators import register_pmap
 from .datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 from .c_action import c_action
-from .c_analysis  import c_analyses
+from .c_analysis  import c_analysis
 from .c_action.actionlist import ActionList
 
 from .get_common_objects import get_topology, get_data_from_dtype, get_list_of_commands
@@ -65,7 +65,7 @@ def _ired(iredvec,
                             _norm, _drct))
     else:
         command = ' '.join((_modes, _order, _tstep, _tcorr, _norm, _drct))
-    act = c_analyses.Analysis_IRED()
+    act = c_analysis.Analysis_IRED()
     dslist = CpptrajDatasetList()
 
     for idx, dvec in enumerate(iredvec):

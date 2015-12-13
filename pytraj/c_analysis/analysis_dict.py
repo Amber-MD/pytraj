@@ -1,5 +1,5 @@
 from __future__ import print_function
-from pytraj.c_analysis import c_analyses as allanalyses
+from pytraj.c_analysis import c_analysis as allanalyses
 
 ADICT = {}
 

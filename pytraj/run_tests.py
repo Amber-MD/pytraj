@@ -17,7 +17,7 @@ from pytraj import *
 from pytraj.datasets import *
 from pytraj.all_actions import *
 from pytraj.c_action import c_action
-from pytraj.c_analysis import c_analyses
+from pytraj.c_analysis import c_analysis
 
 
 def run_tests():
