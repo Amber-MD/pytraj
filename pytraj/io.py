@@ -15,7 +15,7 @@ from .topology import Topology, ParmFile
 from .trajectory import Trajectory
 from .trajectory_iterator import TrajectoryIterator
 
-from .externals._load_ParmEd import load_ParmEd
+from .externals.load_other_packages import load_ParmEd
 
 from .decorators import ensure_exist
 

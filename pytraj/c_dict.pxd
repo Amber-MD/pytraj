@@ -1,4 +1,5 @@
-    # Traj_PDBfile.h
+'''keywords in cpptraj
+'''
 cdef extern from "Traj_PDBfile.h":
     ctypedef enum PDBWRITEMODE "Traj_PDBfile::PDBWRITEMODE":
         NONE "Traj_PDBfile::NONE"
