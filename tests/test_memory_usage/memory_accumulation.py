@@ -94,7 +94,7 @@ for traj in tlist[:1]:
     def test_translate_regular():
         # OK
         for frame in traj(stop=400):
-            pt.common_actions.translate(frame, '', top=traj.top)
+            pt.translate(frame, '', top=traj.top)
 
     @profile
     def test_rmsd():
