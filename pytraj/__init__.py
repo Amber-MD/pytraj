@@ -109,8 +109,8 @@ load_cpptrajstate = load_cpptraj_state
 from . import tools
 
 # actions and analyses
-from .c_action import CpptrajActions as allactions
-from .c_action import CpptrajActions
+from .c_action import c_actions as allactions
+from .c_action import c_actions
 from .analyses import CpptrajAnalyses as allanalyses
 from .analyses import CpptrajAnalyses
 from . import all_actions

@@ -16,7 +16,7 @@ from pytraj import trajectory
 from pytraj import *
 from pytraj.datasets import *
 from pytraj.all_actions import *
-from pytraj.actions import CpptrajActions
+from pytraj.actions import c_actions
 from pytraj.analyses import CpptrajAnalyses
 
 

@@ -31,7 +31,7 @@ __cpptrajdoc__ = """
 """
 
 template = '''
-from .actions import CpptrajActions
+from .actions import c_actions
 from .get_common_objects import _super_dispatch, _get_data_from_dtype
 
 @_super_dispatch()
@@ -63,7 +63,7 @@ def %s(traj=None, mask="", top=None, dtype='ndarray', mat_type='full', frame_ind
     template_mask = '%s '
     template_mask += mask
 
-    act = CpptrajActions.Action_Matrix()
+    act = c_actions.Action_Matrix()
     act(template_mask, traj, top=top, dslist=dslist)
     # need to call `post_process` so cpptraj can normalize some data
     # check cpptraj's code

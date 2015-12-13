@@ -64,7 +64,7 @@ def calc_%s(traj=None, resrange="",
     """
 
     from .datasets.DatasetList import DatasetList
-    from .actions.CpptrajActions import Action_MultiDihedral
+    from .actions.c_actions import Action_MultiDihedral
     from .get_common_objects import _get_data_from_dtype
     from .compat import string_types
     from .utils import is_int
