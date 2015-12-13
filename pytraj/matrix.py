@@ -1,8 +1,8 @@
 from __future__ import print_function, absolute_import
 import numpy as np
-from .analyses import CpptrajAnalyses
-from .datasets import cpp_datasets
-from .datasets.DatasetList import DatasetList as CpptrajDatasetList
+from .c_analysis import c_analyses
+from .datasets import c_datasets
+from .datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 
 mat_keys = {
     'dist',
@@ -31,10 +31,10 @@ __cpptrajdoc__ = """
 """
 
 template = '''
-from .actions import c_actions
-from .get_common_objects import _super_dispatch, _get_data_from_dtype
+from .c_action import c_actions
+from .get_common_objects import super_dispatch, get_data_from_dtype
 
-@_super_dispatch()
+@super_dispatch()
 def %s(traj=None, mask="", top=None, dtype='ndarray', mat_type='full', frame_indices=None):
     """Compute matrix
 
@@ -57,7 +57,6 @@ def %s(traj=None, mask="", top=None, dtype='ndarray', mat_type='full', frame_ind
     'distcovar_matrix' : 'distcovar',
     'idea_matrix' : 'idea'}
     """
-    from .datasets.DatasetList import DatasetList as CpptrajDatasetList
 
     dslist = CpptrajDatasetList()
     template_mask = '%s '
@@ -78,7 +77,7 @@ def %s(traj=None, mask="", top=None, dtype='ndarray', mat_type='full', frame_ind
         else:
             raise ValueError()
     else:
-        return _get_data_from_dtype(dslist, dtype=dtype)
+        return get_data_from_dtype(dslist, dtype=dtype)
 '''
 
 for k in mat_keys:
@@ -90,10 +89,10 @@ for k in mat_keys:
 del k
 
 exec('''
-from .decorators import _register_pmap, _register_openmp
-dist = _register_pmap(dist)
-idea = _register_pmap(idea)
-covar = _register_openmp(covar)
+from .decorators import register_pmap, register_openmp
+dist = register_pmap(dist)
+idea = register_pmap(idea)
+covar = register_openmp(covar)
 ''')
 
 
@@ -132,12 +131,12 @@ def diagonalize(mat, n_vecs, dtype='dataset'):
             arr.astype('f8'),
             vsize=len(arr),
             n_cols=mat.shape[0])
-    elif isinstance(mat, cpp_datasets.DatasetMatrixDouble):
+    elif isinstance(mat, c_datasets.DatasetMatrixDouble):
         dslist[0]._set_data_half_matrix(mat._to_cpptraj_sparse_matrix(),
                                         vsize=mat.size,
                                         n_cols=mat.n_cols)
 
-    act = CpptrajAnalyses.Analysis_Matrix()
+    act = c_analyses.Analysis_Matrix()
     act(' '.join(('mymat', _vecs)), dslist=dslist)
     dslist._pop(0)
 

@@ -13,11 +13,13 @@ from .core.cpp_core import AtomMask
 from pytraj.get_common_objects import get_topology
 
 from .topology import Topology
-from pytraj.shared_methods import _savetraj, iterframe_master, my_str_method
+from pytraj.shared_methods import iterframe_master, my_str_method
 from .cyutils import _fast_iterptr, _fast_iterptr_withbox
 from .frameiter import FrameIterator
+from .c_trajs.trajout import Trajout
 
 __all__ = ['Trajectory']
+
 
 
 class Trajectory(object):
@@ -56,7 +58,7 @@ class Trajectory(object):
     """
 
     def __init__(self, filename=None, top=None, xyz=None):
-        self._top = _get_topology(filename, top)
+        self._top = get_topology(filename, top)
 
         if self._top is None:
             self._top = Topology()
@@ -872,7 +874,16 @@ class Trajectory(object):
         >>> traj.save('output/out.nc', overwrite=True)
 
         '''
-        _savetraj(self, filename, format='unknown', overwrite=overwrite, *args, **kwd)
+        # note: we do not reuse _savetraj from shared_methods to avoid
+        # circular import (not sure why)
+        with Trajout(filename=filename,
+                     top=self.top,
+                     format=format,
+                     overwrite=overwrite,
+                     *args,
+                     **kwd) as trajout:
+            for idx, frame in enumerate(self):
+                trajout.write(idx, frame)
 
     def iterframe(self,
                   start=0,
@@ -925,10 +936,10 @@ class Trajectory(object):
         else:
             if isinstance(mask, string_types):
                 mask = mask
-                _top = self.top._get_new_from_mask(mask)
+                _top = self.top.get_new_from_mask(mask)
             else:
                 mask = array_to_cpptraj_atommask(mask)
-                _top = self.top._get_new_from_mask(mask)
+                _top = self.top.get_new_from_mask(mask)
 
         if rmsfit is not None:
             if isinstance(rmsfit, tuple):

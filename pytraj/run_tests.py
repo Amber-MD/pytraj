@@ -8,7 +8,7 @@ from pytraj.hbond_ import *
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 from .datafiles.load_samples import load_sample_data
-from pytraj.actions.action_dict import ADICT
+from pytraj.c_action.action_dict import ADICT
 from pytraj.misc import info
 from pytraj.cpp_options import set_world_silent
 from pytraj import trajectory
@@ -16,8 +16,8 @@ from pytraj import trajectory
 from pytraj import *
 from pytraj.datasets import *
 from pytraj.all_actions import *
-from pytraj.actions import c_actions
-from pytraj.analyses import CpptrajAnalyses
+from pytraj.c_action import c_actions
+from pytraj.c_analysis import c_analyses
 
 
 def run_tests():

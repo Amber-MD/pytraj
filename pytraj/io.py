@@ -3,14 +3,14 @@ import os
 import numpy as np
 
 from .externals.six import string_types, PY3
+from .externals.pickle_ import to_pickle, read_pickle
+from .externals.json_ import to_json, read_json
 from .datafiles.load_samples import load_sample_data
-from .externals._pickle import to_pickle, read_pickle
-from .externals._json import to_json, read_json
 from .datafiles.load_cpptraj_file import load_cpptraj_file
 from .shared_methods import iterframe_master
 from .cyutils import _fast_iterptr as iterframe_from_array
 from .cpp_options import set_error_silent
-from .get_common_objects import _get_topology
+from .get_common_objects import get_topology
 from .topology import Topology, ParmFile
 from .trajectory import Trajectory
 from .trajectory_iterator import TrajectoryIterator
@@ -373,7 +373,7 @@ def write_traj(filename="",
     from .frame import Frame
     from .c_trajs.trajout import Trajout
 
-    _top = _get_topology(traj, top)
+    _top = get_topology(traj, top)
     if _top is None:
         raise ValueError("must provide Topology")
 

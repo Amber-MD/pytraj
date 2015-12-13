@@ -2,8 +2,8 @@
 """
 from __future__ import absolute_import
 import numpy as np
-from .get_common_objects import _get_topology, _get_resrange
-from .get_common_objects import _get_reference_from_traj, _get_fiterator
+from .get_common_objects import get_topology, get_resrange
+from .get_common_objects import get_reference_from_traj, get_fiterator
 from pytraj.externals.six import iteritems, string_types
 
 
@@ -91,11 +91,11 @@ def nastruct(traj=None,
     from .actions.c_actions import Action_NAstruct
     from pytraj.array import DataArray
 
-    _resrange = _get_resrange(resrange)
+    _resrange = get_resrange(resrange)
 
-    fi = _get_fiterator(traj, frame_indices)
-    ref = _get_reference_from_traj(traj, ref)
-    _top = _get_topology(traj, top)
+    fi = get_fiterator(traj, frame_indices)
+    ref = get_reference_from_traj(traj, ref)
+    _top = get_topology(traj, top)
     _resmap = "resmap " + resmap if resmap is not None else ""
     _hbcut = "hbcut " + str(hbcut) if hbcut is not None else ""
     _pucker_method = pucker_method

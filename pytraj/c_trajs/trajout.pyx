@@ -1,6 +1,6 @@
 # distutils: language = c++
 from pytraj.externals.six import string_types
-from pytraj.cpptraj_dict import TrajFormatDict
+from pytraj.c_dict import TrajFormatDict
 from pytraj.utils.check_and_assert import file_exist
 
 

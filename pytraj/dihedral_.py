@@ -18,11 +18,11 @@ chinu = {
 }
 
 template = '''
-from .decorators import _register_pmap
-from .get_common_objects import _super_dispatch
+from .decorators import register_pmap
+from .get_common_objects import super_dispatch
 
-@_register_pmap
-@_super_dispatch()
+@register_pmap
+@super_dispatch()
 def calc_%s(traj=None, resrange="",
             range360=False,
             top=None, dtype='dataset',
@@ -63,9 +63,9 @@ def calc_%s(traj=None, resrange="",
     --------
     """
 
-    from .datasets.DatasetList import DatasetList
-    from .actions.c_actions import Action_MultiDihedral
-    from .get_common_objects import _get_data_from_dtype
+    from .datasets.c_datasetlist import DatasetList
+    from .c_action.c_actions import Action_MultiDihedral
+    from .get_common_objects import get_data_from_dtype
     from .compat import string_types
     from .utils import is_int
 
@@ -94,7 +94,7 @@ def calc_%s(traj=None, resrange="",
     # we dont need to set mass here
     act(template_command, traj, top=top, dslist=dslist)
     act.post_process()
-    return _get_data_from_dtype(dslist, dtype=dtype)
+    return get_data_from_dtype(dslist, dtype=dtype)
 '''
 
 for key in supported_dihedral_types:

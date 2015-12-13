@@ -12,12 +12,12 @@ from .utils import is_int
 from .utils.context import goto_temp_folder
 from .utils.convert import array_to_cpptraj_atommask
 from .externals.six import string_types
-from .datasets.DatasetList import DatasetList as CpptrajDatasetList
+from .datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 from .datasetlist import DatasetList
 from .shared_methods import iterframe_master
 from .decorators import register_pmap, register_openmp
 from .c_action import c_actions
-from .c_analysis import CpptrajAnalyses
+from .c_analysis import c_analyses
 from .c_action.action_list import ActionList
 from .utils.convert import array2d_to_cpptraj_maskgroup
 
@@ -85,7 +85,7 @@ def _assert_mutable(trajiter):
             "This analysis does not support immutable object. Use `pytraj.Trajectory`")
 
 
-@_register_pmap
+@register_pmap
 def calc_distance(traj=None,
                   mask="",
                   frame_indices=None,
@@ -247,7 +247,7 @@ def calc_pairwise_distance(traj=None,
                 len(indices_1), len(indices_2), 2))
 
 
-@_register_pmap
+@register_pmap
 def calc_angle(traj=None,
                mask="",
                top=None,
@@ -385,7 +385,7 @@ def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
     return calc_dihedral(traj=traj, mask=command, top=top, dtype=dtype)
 
 
-@_register_pmap
+@register_pmap
 def calc_dihedral(traj=None,
                   mask="",
                   top=None,
@@ -496,7 +496,7 @@ def calc_dihedral(traj=None,
             return get_data_from_dtype(py_dslist, dtype)
 
 
-@_register_pmap
+@register_pmap
 def calc_mindist(traj=None,
                  command="",
                  top=None,
@@ -524,7 +524,7 @@ def calc_mindist(traj=None,
     return get_data_from_dtype(dslist, dtype=dtype)[-1]
 
 
-@_super_dispatch()
+@super_dispatch()
 def calc_diffusion(traj,
                    mask="",
                    tstep=1.0,
@@ -581,8 +581,8 @@ def calc_diffusion(traj,
     return get_data_from_dtype(dslist, dtype=dtype)
 
 
-@_register_pmap
-@_register_openmp
+@register_pmap
+@register_openmp
 def calc_watershell(traj=None,
                     solute_mask='',
                     solvent_mask=':WAT',
@@ -642,7 +642,7 @@ def calc_watershell(traj=None,
     return get_data_from_dtype(dslist, dtype=dtype)
 
 
-@_super_dispatch()
+@super_dispatch()
 def calc_matrix(traj=None,
                 mask="",
                 top=None,
@@ -682,8 +682,8 @@ def calc_matrix(traj=None,
     return get_data_from_dtype(dslist, dtype)
 
 
-@_register_pmap
-@_super_dispatch()
+@register_pmap
+@super_dispatch()
 def calc_radgyr(traj=None,
                 mask="",
                 top=None,
@@ -712,8 +712,8 @@ def calc_radgyr(traj=None,
     return get_data_from_dtype(dslist, dtype)
 
 
-@_register_pmap
-@_super_dispatch()
+@register_pmap
+@super_dispatch()
 def calc_molsurf(traj=None,
                  mask="",
                  probe=1.4,
@@ -747,8 +747,8 @@ def calc_molsurf(traj=None,
     return get_data_from_dtype(dslist, dtype)
 
 
-@_register_pmap
-@_super_dispatch(has_ref=True)
+@register_pmap
+@super_dispatch(has_ref=True)
 def calc_rotation_matrix(traj=None,
                          ref=0,
                          mask="",
@@ -801,7 +801,7 @@ def calc_rotation_matrix(traj=None,
         return mat[1:]
 
 
-@_super_dispatch()
+@super_dispatch()
 def calc_volume(traj=None,
                 mask="",
                 top=None,
@@ -824,7 +824,7 @@ def calc_volume(traj=None,
     return get_data_from_dtype(dslist, dtype)
 
 
-@_super_dispatch()
+@super_dispatch()
 def calc_multivector(traj,
                      resrange,
                      names,
@@ -869,8 +869,8 @@ def calc_multivector(traj,
     return get_data_from_dtype(dslist, dtype)
 
 
-@_register_pmap
-@_super_dispatch()
+@register_pmap
+@super_dispatch()
 def volmap(traj,
            mask,
            grid_spacing,
@@ -956,7 +956,7 @@ def volmap(traj,
 calc_volmap = volmap
 
 
-@_register_openmp
+@register_openmp
 def calc_rdf(traj=None,
              solvent_mask=':WAT@O',
              solute_mask='',
@@ -1057,7 +1057,7 @@ def calc_rdf(traj=None,
     return (np.arange(bin_spacing / 2., maximum, bin_spacing), values)
 
 
-@_super_dispatch()
+@super_dispatch()
 def calc_pairdist(traj,
                   mask="*",
                   delta=0.1,
@@ -1097,7 +1097,7 @@ def calc_pairdist(traj,
 pairdist = calc_pairdist
 
 
-@_super_dispatch()
+@super_dispatch()
 def calc_jcoupling(traj=None,
                    mask="",
                    top=None,
@@ -1204,7 +1204,7 @@ def do_rotation(traj=None, command="", frame_indices=None, top=None):
 rotate = do_rotation
 
 
-@_super_dispatch()
+@super_dispatch()
 def do_autoimage(traj, command="", frame_indices=None, top=None):
     '''perform autoimage and return the coordinate-updated traj
 
@@ -1220,7 +1220,7 @@ def do_autoimage(traj, command="", frame_indices=None, top=None):
 autoimage = do_autoimage
 
 
-@_register_pmap
+@register_pmap
 def mean_structure(traj,
                    mask='',
                    frame_indices=None,
@@ -1263,7 +1263,7 @@ def mean_structure(traj,
     -----
     if autoimage=True and having rmsfit, perform autoimage first and do rmsfit
     '''
-    # note: we not yet use @_super_dispatch due to extra 'rmsfit'
+    # note: we not yet use @super_dispatch due to extra 'rmsfit'
     # TODO: do it.
     _top = get_topology(traj, top)
     try:
@@ -1302,7 +1302,7 @@ def mean_structure(traj,
 get_average_frame = mean_structure
 
 
-@_register_pmap
+@register_pmap
 def get_velocity(traj, mask=None, frame_indices=None):
     '''get velocity for specify frames with given mask
 
@@ -1364,7 +1364,7 @@ def get_velocity(traj, mask=None, frame_indices=None):
     return data
 
 
-@_super_dispatch()
+@super_dispatch()
 def randomize_ions(traj, mask, around, by, overlap, seed=1, top=None, frame_indices=None):
     """randomize_ions for given Frame with Topology
 
@@ -1408,7 +1408,7 @@ def clustering_dataset(array_like, command=''):
     >>> array_like = np.random.randint(0, 10, 1000)
     >>> data = pt.clustering_dataset(array_like, 'clusters 10 epsilon 3.0')
     '''
-    from pytraj.analyses.CpptrajAnalyses import Analysis_Clustering
+    from pytraj.analyses.c_analyses import Analysis_Clustering
 
     dslist = CpptrajDatasetList()
     dslist.add_set('double', '__array_like')
@@ -1421,8 +1421,8 @@ def clustering_dataset(array_like, command=''):
     return np.array(dslist[-1])
 
 
-@_register_pmap
-@_super_dispatch()
+@register_pmap
+@super_dispatch()
 def calc_multidihedral(traj=None,
                        dhtypes=None,
                        resrange=None,
@@ -1505,7 +1505,7 @@ def calc_multidihedral(traj=None,
     return get_data_from_dtype(dslist, dtype=dtype)
 
 
-@_super_dispatch()
+@super_dispatch()
 def calc_atomicfluct(traj=None,
                      mask="",
                      top=None,
@@ -1572,7 +1572,7 @@ def calc_bfactors(traj=None,
                             frame_indices=frame_indices)
 
 
-@_register_pmap
+@register_pmap
 def calc_vector(traj=None,
                 command="",
                 frame_indices=None,
@@ -1636,7 +1636,7 @@ def calc_vector(traj=None,
     return get_data_from_dtype(dslist, dtype=dtype)
 
 
-@_super_dispatch()
+@super_dispatch()
 def _calc_vector_center(traj=None,
                         mask="",
                         top=None,
@@ -1656,7 +1656,7 @@ def _calc_vector_center(traj=None,
     return get_data_from_dtype(dslist, dtype=dtype)
 
 
-@_register_pmap
+@register_pmap
 def calc_center_of_mass(traj=None,
                         mask='',
                         top=None,
@@ -1675,8 +1675,8 @@ def calc_center_of_mass(traj=None,
 calc_COM = calc_center_of_mass
 
 
-@_register_pmap
-@_super_dispatch()
+@register_pmap
+@super_dispatch()
 def calc_center_of_geometry(traj=None,
                             mask="",
                             top=None,
@@ -1698,7 +1698,7 @@ calc_COG = calc_center_of_geometry
 # do not use super_dispatch here since we did in inside this method
 # to avoid complicated code checking.
 
-@_register_openmp
+@register_openmp
 def calc_pairwise_rmsd(traj=None,
                        mask="",
                        metric='rms',
@@ -1756,7 +1756,7 @@ def calc_pairwise_rmsd(traj=None,
     if not isinstance(mask, string_types):
         mask = array_to_cpptraj_atommask(mask)
 
-    act = CpptrajAnalyses.Analysis_Rms2d()
+    act = c_analyses.Analysis_Rms2d()
 
     crdname = 'default_coords'
     dslist, _top, command = get_fi_with_dslist(traj, mask, frame_indices, top, crdname=crdname)
@@ -1773,7 +1773,7 @@ def calc_pairwise_rmsd(traj=None,
         return get_data_from_dtype(dslist, dtype)
 
 
-@_register_pmap
+@register_pmap
 def rmsd_perres(traj=None,
                 ref=0,
                 mask="",
@@ -1812,7 +1812,7 @@ def rmsd_perres(traj=None,
                      dtype=dtype)
 
 
-@_register_pmap
+@register_pmap
 def calc_rmsd_nofit(traj=None,
                     ref=0,
                     mask="",
@@ -1835,7 +1835,7 @@ def calc_rmsd_nofit(traj=None,
                      dtype=dtype)
 
 
-@_register_pmap
+@register_pmap
 def calc_rmsd(traj=None,
               ref=0,
               mask="",
@@ -1942,8 +1942,8 @@ def calc_rmsd(traj=None,
 rmsd = calc_rmsd
 
 
-@_register_pmap
-@_super_dispatch(has_ref=True)
+@register_pmap
+@super_dispatch(has_ref=True)
 def calc_distance_rmsd(traj=None,
                        ref=0,
                        mask='',
@@ -1989,7 +1989,7 @@ def calc_distance_rmsd(traj=None,
 distance_rmsd = calc_distance_rmsd
 
 
-@_super_dispatch()
+@super_dispatch()
 def align_principal_axis(traj=None, mask="*", top=None, frame_indices=None):
     # TODO : does not match with cpptraj output
     # rmsd_nofit ~ 0.5 for md1_prod.Tc5b.x, 1st frame
@@ -2054,8 +2054,8 @@ def _closest_iter(act, traj):
         yield new_frame
 
 
-@_register_openmp
-@_super_dispatch()
+@register_openmp
+@super_dispatch()
 def closest(traj=None,
             mask='*',
             solvent_mask=None,
@@ -2117,8 +2117,8 @@ def closest(traj=None,
         return (fiter, new_top.copy())
 
 
-@_register_pmap
-@_super_dispatch(has_ref=True)
+@register_pmap
+@super_dispatch(has_ref=True)
 def native_contacts(traj=None,
                     ref=0,
                     mask="",
@@ -2170,7 +2170,7 @@ def native_contacts(traj=None,
     return get_data_from_dtype(dslist, dtype=dtype)
 
 
-@_super_dispatch()
+@super_dispatch()
 def calc_grid(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     """
     """
@@ -2185,7 +2185,7 @@ def calc_grid(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     return get_data_from_dtype(dslist, dtype=dtype)
 
 
-@_super_dispatch()
+@super_dispatch()
 def check_structure(traj, mask='', frame_indices=None, top=None):
     """check if the structure is ok or not
 
@@ -2220,7 +2220,7 @@ def timecorr(vec0,
     norm : bool, default False
     """
     # TODO: doc. not yet assert to cpptraj's output
-    act = CpptrajAnalyses.Analysis_Timecorr()
+    act = c_analyses.Analysis_Timecorr()
 
     cdslist = CpptrajDatasetList()
 
@@ -2260,7 +2260,7 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
     -----
     Same as `crank` in cpptraj
     """
-    from pytraj.analyses.CpptrajAnalyses import Analysis_CrankShaft
+    from pytraj.analyses.c_analyses import Analysis_CrankShaft
 
     cdslist = CpptrajDatasetList()
     cdslist.add_set("double", "d0")
@@ -2275,7 +2275,7 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
     return get_data_from_dtype(cdslist[2:], dtype=dtype)
 
 
-@_super_dispatch()
+@super_dispatch()
 def search_neighbors(traj=None,
                      mask='',
                      frame_indices=None,
@@ -2306,7 +2306,7 @@ def search_neighbors(traj=None,
     return get_data_from_dtype(dslist, dtype)
 
 
-@_register_pmap
+@register_pmap
 def pucker(traj=None,
            pucker_mask=("C1'", "C2'", "C3'", "C4'", "O4'"),
            resrange=None,
@@ -2358,7 +2358,7 @@ def pucker(traj=None,
 calc_pucker = pucker
 
 
-@_super_dispatch()
+@super_dispatch()
 def center(traj=None,
            mask="",
            center='box',
@@ -2445,7 +2445,7 @@ def rotate_dihedral(traj=None, mask="", top=None):
     return traj
 
 
-@_register_openmp
+@register_openmp
 def replicate_cell(traj=None, mask="", direction='all', top=None):
     '''create a trajectory where the unit cell is replicated in 1 or more direction (up to 27)
 
@@ -2533,7 +2533,7 @@ def make_structure(traj=None, mask="", top=None):
     act(command, traj, top=_top)
 
 
-@_super_dispatch()
+@super_dispatch()
 def _projection(traj,
                 mask,
                 eigenvalues,
@@ -2644,8 +2644,8 @@ def pca(traj,
 calc_pca = pca
 
 
-@_super_dispatch()
-@_register_openmp
+@super_dispatch()
+@register_openmp
 def calc_atomiccorr(traj,
                     mask='',
                     cut=None,
@@ -2769,7 +2769,7 @@ def lowestcurve(data, points=10, step=0.2):
 
     data = np.asarray(data)
 
-    act = CpptrajAnalyses.Analysis_LowestCurve()
+    act = c_analyses.Analysis_LowestCurve()
     dslist = CpptrajDatasetList()
 
     dslist.add_new('xymesh', label)
@@ -2799,7 +2799,7 @@ def acorr(data, dtype='ndarray', option=''):
 
     cdslist[0].data = np.asarray(data)
 
-    act = CpptrajAnalyses.Analysis_AutoCorr()
+    act = c_analyses.Analysis_AutoCorr()
     command = "d0 out _tmp.out"
     act(command, dslist=cdslist)
     return get_data_from_dtype(cdslist[1:], dtype=dtype)
@@ -2828,7 +2828,7 @@ def xcorr(data0, data1, dtype='ndarray'):
     cdslist[0].data = np.asarray(data0)
     cdslist[1].data = np.asarray(data1)
 
-    act = CpptrajAnalyses.Analysis_Corr()
+    act = c_analyses.Analysis_Corr()
     act("d0 d1 out _tmp.out", dslist=cdslist)
     return get_data_from_dtype(cdslist[2:], dtype=dtype)
 

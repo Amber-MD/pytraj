@@ -66,13 +66,14 @@ from .core import Atom, Residue, Molecule
 from .core.cpp_core import CpptrajState, ArgList, AtomMask, _load_batch
 from .core.cpp_core import Command
 dispatch = Command.dispatch
-from . import array, cpptraj_commands
+from . import array, c_commands
 from .topology import Topology, ParmFile
 from .math import Vec3
 from .frame import Frame
+from .shared_methods import iterframe_master
 from .trajectory import Trajectory
 from .trajectory_iterator import TrajectoryIterator
-from .c_trajs.Trajout import Trajout
+from .c_trajs.trajout import Trajout
 from .datasets.cast_dataset import cast_dataset
 from .datasetlist import DatasetList as Dataset
 from . import io
@@ -111,8 +112,8 @@ from . import tools
 # actions and analyses
 from .c_action import c_actions as allactions
 from .c_action import c_actions
-from .analyses import CpptrajAnalyses as allanalyses
-from .analyses import CpptrajAnalyses
+from .c_analysis import c_analyses as allanalyses
+from .c_analysis import c_analyses
 from . import all_actions
 
 from .dssp_ import calc_dssp, dssp_allatoms, dssp_allresidues
@@ -161,7 +162,6 @@ from .misc import info
 from .run_tests import run_tests
 
 
-from .shared_methods import iterframe_master
 
 # turn off verbose in cpptraj
 # TODO: need to move set_world_silent and set_error_silent to the same file

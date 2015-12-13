@@ -8,7 +8,7 @@ from .core.topology_objects import Atom, Residue, Molecule
 from .datafiles.datafiles import DataFileList
 from .c_action.action_list import ActionList
 from .core.cpp_core import CpptrajState
-from .datasets.DatasetList import DatasetList
+from .datasets.c_datasetlist import DatasetList
 
 from .core.cpp_core import AtomMask
 from .trajectory import Trajectory

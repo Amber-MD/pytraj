@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import sys
-from pytraj.compat import string_types
+from six import string_types
 """replace old key word by new key word in a file and save it to ./tmp/"""
 # for fh in `grep six_2 *py | sed "s/:/ /" | awk '{print $1}'`; do
 # python ../scripts/replace_keyword.py six_2 compat $fh; done
@@ -13,8 +13,6 @@ if isinstance(oldfiles, string_types):
     oldfiles = [oldfiles, ]
 else:
     oldfiles = oldfiles
-
-print(type(oldfiles))
 
 for oldfile in oldfiles:
     with open(oldfile, 'r') as fh:

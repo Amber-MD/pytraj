@@ -1,13 +1,13 @@
 from __future__ import absolute_import
 import numpy as np
-from .get_common_objects import _get_data_from_dtype, _super_dispatch, _get_topology
+from .get_common_objects import get_data_from_dtype, super_dispatch, get_topology
 from pytraj.compat import PY3
 from pytraj import DatasetList, tools
-from .decorators import _register_openmp
+from .decorators import register_openmp
 
 
-@_register_openmp
-@_super_dispatch()
+@register_openmp
+@super_dispatch()
 def calc_dssp(traj=None,
               mask="",
               frame_indices=None,
@@ -117,7 +117,7 @@ def calc_dssp(traj=None,
             simplified=simplified) for arr in arr0]).T
         return np.asarray(keys), ss_array, avg_dict
     else:
-        return _get_data_from_dtype(dslist, dtype=dtype)
+        return get_data_from_dtype(dslist, dtype=dtype)
 
 # _s0 = ['None', 'Para', 'Anti', '3-10', 'Alpha', 'Pi', 'Turn', 'Bend']
 _s1 = ["0", "b", "B", "G", "H", "I", "T", "S"]
@@ -153,7 +153,7 @@ def _to_string_secondary_structure(arr0, simplified=False):
     return np.vectorize(lambda key: ssdict[key])(arr0)
 
 
-def _get_ss_per_frame(arr,
+def get_ss_per_frame(arr,
                       top,
                       res_indices,
                       simplified=False,
@@ -206,7 +206,7 @@ def dssp_allatoms(traj, *args, **kwd):
     calc_dssp
     '''
     res_labels, data = calc_dssp(traj, *args, **kwd)[:2]
-    top = _get_topology(traj, kwd.get('top'))
+    top = get_topology(traj, kwd.get('top'))
     res_indices = [int(x.split(':')[-1]) - 1 for x in res_labels]
 
     if not PY3:
@@ -216,7 +216,7 @@ def dssp_allatoms(traj, *args, **kwd):
 
     simplified = kwd.get('simplified', False)
     for fid, arr in enumerate(data):
-        new_data[fid][:] = tools.flatten(_get_ss_per_frame(arr,
+        new_data[fid][:] = tools.flatten(get_ss_per_frame(arr,
                                                            top,
                                                            res_indices,
                                                            simplified,
@@ -262,7 +262,7 @@ def dssp_allresidues(traj, *args, **kwd):
     calc_dssp
     '''
     res_labels, data = calc_dssp(traj, *args, **kwd)[:2]
-    top = _get_topology(traj, kwd.get('top', None))
+    top = get_topology(traj, kwd.get('top', None))
 
     # do not need to compute again if there is no solvent or weird residues
     if len(res_labels) == top.n_residues:
@@ -277,7 +277,7 @@ def dssp_allresidues(traj, *args, **kwd):
 
     simplified = kwd.get('simplified', False)
     for fid, arr in enumerate(data):
-        new_data[fid][:] = tools.flatten(_get_ss_per_frame(arr,
+        new_data[fid][:] = tools.flatten(get_ss_per_frame(arr,
                                                            top,
                                                            res_indices,
                                                            simplified,

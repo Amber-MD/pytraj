@@ -1,10 +1,10 @@
 from __future__ import absolute_import, print_function, division
 
 import numpy as np
-from .actions import c_actions
+from .c_action import c_actions
 from .datasets import CpptrajDatasetList
-from .decorators import _register_pmap
-from .get_common_objects import _get_data_from_dtype, _super_dispatch
+from .decorators import register_pmap
+from .get_common_objects import get_data_from_dtype, super_dispatch
 from .base_holder import BaseDataHolder
 from .shared_methods import iterframe_master
 
@@ -67,8 +67,8 @@ def _update_key_hbond(_dslist):
             d0.key = 'total_solute_hbonds'
 
 
-@_register_pmap
-@_super_dispatch()
+@register_pmap
+@super_dispatch()
 def hbond(traj,
           mask="",
           solvent_donor=None,
@@ -189,7 +189,7 @@ def hbond(traj,
         return dslist.to_dataframe().T
     elif dtype == 'hbond':
         if series:
-            dslist_new = _get_data_from_dtype(dslist, dtype='dataset')
+            dslist_new = get_data_from_dtype(dslist, dtype='dataset')
             hdata = DatasetHBond(dslist_new)
             hdata._old_keys = old_keys
             return hdata
@@ -197,4 +197,4 @@ def hbond(traj,
             raise ValueError(
                 'series=False does not work with dtype="hbond", try dtype="dataset"')
     else:
-        return _get_data_from_dtype(dslist, dtype=dtype)
+        return get_data_from_dtype(dslist, dtype=dtype)

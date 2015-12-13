@@ -1,7 +1,7 @@
 from pytraj.shared_methods import iterframe_master
-from pytraj.get_common_objects import _get_data_from_dtype, _super_dispatch
+from pytraj.get_common_objects import get_data_from_dtype, super_dispatch
 from pytraj.compat import range
-from pytraj.decorators import _register_pmap
+from pytraj.decorators import register_pmap
 from pytraj.externals.six import string_types
 
 __all__ = ['energy_decomposition']
@@ -12,8 +12,8 @@ def _default_func():
     return array('d', [])
 
 
-@_register_pmap
-@_super_dispatch()
+@register_pmap
+@super_dispatch()
 def energy_decomposition(traj=None,
                          prmtop=None,
                          igb=8,
@@ -216,4 +216,4 @@ def energy_decomposition(traj=None,
             dslist[-1].key = key
             dslist[-1].resize(size)
             dslist[-1].data[:] = new_dict[key]
-        return _get_data_from_dtype(dslist, dtype)
+        return get_data_from_dtype(dslist, dtype)

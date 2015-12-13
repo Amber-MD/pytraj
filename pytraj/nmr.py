@@ -1,12 +1,12 @@
 import numpy as np
-from .decorators import _register_pmap
-from .datasets.DatasetList import DatasetList as CpptrajDatasetList
+from .decorators import register_pmap
+from .datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 from .c_action import c_actions
-from .c_analysis  import CpptrajAnalyses
+from .c_analysis  import c_analyses
 from .c_action.action_list import ActionList
 
-from .get_common_objects import _get_topology, _get_data_from_dtype, _get_list_of_commands
-from .get_common_objects import _get_fiterator
+from .get_common_objects import get_topology, get_data_from_dtype, get_list_of_commands
+from .get_common_objects import get_fiterator
 
 
 def _2darray_to_atommask_groups(seq):
@@ -65,7 +65,7 @@ def _ired(iredvec,
                             _norm, _drct))
     else:
         command = ' '.join((_modes, _order, _tstep, _tcorr, _norm, _drct))
-    act = CpptrajAnalyses.Analysis_IRED()
+    act = c_analyses.Analysis_IRED()
     dslist = CpptrajDatasetList()
 
     for idx, dvec in enumerate(iredvec):
@@ -92,11 +92,11 @@ def _ired(iredvec,
     #    dslist.remove_set(d)
     # values = dslist.values.copy()
     # return values
-    # return _get_data_from_dtype(dslist, dtype=dtype)
+    # return get_data_from_dtype(dslist, dtype=dtype)
     return dslist
 
 
-@_register_pmap
+@register_pmap
 def ired_vector_and_matrix(traj=None,
                            mask="",
                            frame_indices=None,
@@ -133,13 +133,13 @@ def ired_vector_and_matrix(traj=None,
 
     """
     dslist = CpptrajDatasetList()
-    _top = _get_topology(traj, top)
-    fi = _get_fiterator(traj, frame_indices)
+    _top = get_topology(traj, top)
+    fi = get_fiterator(traj, frame_indices)
 
     cm_arr = np.asarray(mask)
 
     if cm_arr.dtype.kind != 'i':
-        list_of_commands = _get_list_of_commands(mask)
+        list_of_commands = get_list_of_commands(mask)
     else:
         if cm_arr.ndim != 2:
             raise ValueError(
@@ -165,7 +165,7 @@ def ired_vector_and_matrix(traj=None,
         mat = mat / mat[0, 0]
         return dslist[:-1].values, mat
     else:
-        out = _get_data_from_dtype(dslist, dtype=dtype)
+        out = get_data_from_dtype(dslist, dtype=dtype)
         if dtype == 'dataset':
             out[-1].values = out[-1].values / out[-1].values[0, 0]
         else:
@@ -176,7 +176,7 @@ def ired_vector_and_matrix(traj=None,
 calc_ired_vector_and_matrix = ired_vector_and_matrix
 
 
-@_register_pmap
+@register_pmap
 def NH_order_parameters(traj,
                         vector_pairs,
                         order=2,

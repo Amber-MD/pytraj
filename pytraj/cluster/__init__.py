@@ -2,12 +2,12 @@ from __future__ import absolute_import
 from pytraj.get_common_objects import get_topology, get_data_from_dtype
 from pytraj.decorators import register_pmap, register_openmp
 from pytraj.get_common_objects import super_dispatch, get_fi_with_dslist
-from pytraj.analyses import CpptrajAnalyses
-from pytraj.datasets.DatasetList import DatasetList as CpptrajDatasetList
+from pytraj.c_analysis import c_analyses
+from pytraj.datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 
 
-@_super_dispatch()
-@_register_openmp
+@super_dispatch()
+@register_openmp
 def kmeans(traj=None,
            mask='*',
            n_clusters=10,
@@ -121,7 +121,7 @@ def _cluster(traj=None, mask="", frame_indices=None, dtype='dataset', top=None, 
     """
     # Note: do not use super_dispatch here. We use get_fi_with_dslist
 
-    ana = CpptrajAnalyses.Analysis_Clustering()
+    ana = c_analyses.Analysis_Clustering()
     # need to creat `dslist` here so that every time `do_clustering` is called,
     # we will get a fresh one (or will get segfault)
     crdname = 'DEFAULT_NAME'

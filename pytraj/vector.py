@@ -1,6 +1,6 @@
 from __future__ import print_function, absolute_import
 import numpy as np
-from .decorators import _register_pmap
+from .decorators import register_pmap
 
 _supported_types = [
     x
@@ -20,7 +20,7 @@ def _2darray_to_atommask_groups(seq):
         yield '@' + str(arr[0] + 1) + ' @' + str(arr[1] + 1)
 
 
-@_register_pmap
+@register_pmap
 def vector_mask(traj=None,
                 mask="",
                 frame_indices=None,
@@ -61,20 +61,20 @@ def vector_mask(traj=None,
     >>> # compute vectors for specific frame indices (0, 4)
     >>> data_vec = va.vector_mask(traj, n_h_pairs, frame_indices=[0, 4], dtype='ndarray')
     """
-    from .get_common_objects import _get_topology, _get_data_from_dtype, _get_fiterator
-    from .get_common_objects import _get_list_of_commands
+    from .get_common_objects import get_topology, get_data_from_dtype, get_fiterator
+    from .get_common_objects import get_list_of_commands
     from .datasets.DatasetList import DatasetList as CpptrajDatasetList
     from .c_action.c_actions import Action_Vector
     from .c_action.action_list import ActionList
 
-    fi = _get_fiterator(traj, frame_indices)
-    _top = _get_topology(fi, top)
+    fi = get_fiterator(traj, frame_indices)
+    _top = get_topology(fi, top)
     dslist = CpptrajDatasetList()
     template_command = ' mask '
 
     cm_arr = np.asarray(mask)
     if cm_arr.dtype.kind != 'i':
-        list_of_commands = _get_list_of_commands(mask)
+        list_of_commands = get_list_of_commands(mask)
     else:
         if cm_arr.ndim != 2:
             raise ValueError(
@@ -88,11 +88,11 @@ def vector_mask(traj=None,
         _command = command + template_command
         actlist.add_action(act, _command, _top, dslist=dslist)
     actlist.do_actions(fi)
-    return _get_data_from_dtype(dslist, dtype=dtype)
+    return get_data_from_dtype(dslist, dtype=dtype)
 
 
 _template = '''
-@_register_pmap
+@register_pmap
 def %s(traj=None, command="", frame_indices=None, dtype='ndarray', top=None):
     """
     Parameters
@@ -103,18 +103,18 @@ def %s(traj=None, command="", frame_indices=None, dtype='ndarray', top=None):
         if specified, only perform calculation with given frames
     top : {str, Topology}, optional, default None
     """
-    from .get_common_objects import _get_topology, _get_data_from_dtype, _get_fiterator
-    from .get_common_objects import _get_list_of_commands
+    from .get_common_objects import get_topology, get_data_from_dtype, get_fiterator
+    from .get_common_objects import get_list_of_commands
     from .datasets.DatasetList import DatasetList as CpptrajDatasetList
     from .c_action.c_actions import Action_Vector
-    from .core.action_list import ActionList
+    from .c_action.action_list import ActionList
 
-    fi = _get_fiterator(traj, frame_indices)
-    _top = _get_topology(fi, top)
+    fi = get_fiterator(traj, frame_indices)
+    _top = get_topology(fi, top)
     dslist = CpptrajDatasetList()
     template_command = ' %s '
 
-    list_of_commands = _get_list_of_commands(command)
+    list_of_commands = get_list_of_commands(command)
     actlist = ActionList()
 
     for command in list_of_commands:
@@ -122,7 +122,7 @@ def %s(traj=None, command="", frame_indices=None, dtype='ndarray', top=None):
         _command = command + template_command
         actlist.add_action(act, _command, _top, dslist=dslist)
     actlist.do_actions(fi)
-    return _get_data_from_dtype(dslist, dtype=dtype)
+    return get_data_from_dtype(dslist, dtype=dtype)
 '''
 
 for _key in _supported_types:

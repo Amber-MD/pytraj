@@ -1,10 +1,5 @@
 # distutils: language = c++
 #
-from pytraj.frame import Frame
-from pytraj.c_trajs.trajout import Trajout
-from pytraj.utils.check_and_assert import is_frame_iter
-from pytraj.frameiter import FrameIterator
-
 __all__ = ['_savetraj', 'iterframe_master', '_xyz', 'my_str_method', '_box']
 
 
@@ -78,6 +73,10 @@ def iterframe_master(obj):
     >>> # create frame iterator from a list of frame iterator and chunk iterator
     >>> for frame in iterframe_master([traj.iterframe(), traj.iterchunk()]): pass
     """
+    from pytraj.frame import Frame
+    from pytraj.c_trajs.trajout import Trajout
+    from pytraj.utils.check_and_assert import is_frame_iter
+    from pytraj.frameiter import FrameIterator
 
     is_frame_iter_but_not_master = (is_frame_iter(obj) and
                                     obj.__name__ is not 'iterframe_master')

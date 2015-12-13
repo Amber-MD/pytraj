@@ -5,10 +5,10 @@
 import unittest
 from pytraj import *
 import pytraj as pt
-from pytraj.actions.action_dict import ADICT
-from pytraj.trajs import *
+from pytraj.c_action.action_dict import ADICT
+from pytraj.c_trajs import *
 from pytraj.datasets import *
-from pytraj.common_actions import *
+from pytraj.all_actions import *
 
 
 class TestRunnable(unittest.TestCase):
