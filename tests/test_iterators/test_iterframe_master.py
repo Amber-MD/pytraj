@@ -2,8 +2,8 @@ import unittest
 import pytraj as pt
 import sys
 from pytraj.testing import aa_eq
-from pytraj.core.cpp_core import Command
-from pytraj.core.cpp_core import CpptrajState
+from pytraj.core.c_core import Command
+from pytraj.core.c_core import CpptrajState
 from pytraj.compat import zip
 from pytraj import iterframe_master
 from pytraj import Frame, Trajectory

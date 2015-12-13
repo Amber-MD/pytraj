@@ -4,7 +4,7 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
-from pytraj._get_common_objects import _super_dispatch
+from pytraj.get_common_objects import super_dispatch
 from pytraj.externals.six import string_types
 
 
@@ -18,21 +18,21 @@ class TestSuperDispatch(unittest.TestCase):
         def func_convert_ref(traj, ref=0, top=None):
             assert isinstance(ref, pt.Frame)
 
-        func = _super_dispatch()(func_convert_ref)
+        func = super_dispatch()(func_convert_ref)
         func(self.traj, ref=-2)
 
         # make sure to insert correct Topology
         def func_convert_top(traj, top=None):
             assert isinstance(top, pt.Topology)
 
-        func = _super_dispatch()(func_convert_top)
+        func = super_dispatch()(func_convert_top)
         func(self.traj, top=None)
 
         # make sure to convert array to Amber mask
         def func_convert_mask_array(traj, top=None, mask=None):
             assert isinstance(mask, string_types)
 
-        func = _super_dispatch()(func_convert_mask_array)
+        func = super_dispatch()(func_convert_mask_array)
         func(self.traj, mask=[0, 3, 7])
 
         # test all: top, mask, ref
@@ -41,16 +41,16 @@ class TestSuperDispatch(unittest.TestCase):
             assert isinstance(ref, pt.Frame)
             assert isinstance(top, pt.Topology)
 
-        func = _super_dispatch()(func_all_3)
+        func = super_dispatch()(func_all_3)
         func(self.traj, ref=3)
 
         # FIXME
         # positional
-        _super_dispatch(has_ref=True)(func_all_3)(self.traj, 3)
+        super_dispatch(has_ref=True)(func_all_3)(self.traj, 3)
         # specify nothing
-        _super_dispatch(has_ref=True)(func_all_3)(self.traj)
+        super_dispatch(has_ref=True)(func_all_3)(self.traj)
 
-    def test_super_dispatch(self):
+    def testsuper_dispatch(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
 
         funclist = [pt.radgyr, pt.molsurf]

@@ -5,7 +5,6 @@ from pytraj.base import *
 from pytraj import adict
 from pytraj.utils import eq, aa_eq
 from pytraj.testing import cpptraj_test_dir
-import pytraj.common_actions as pyca
 
 
 class TestPrincipalAxis(unittest.TestCase):
@@ -14,7 +13,7 @@ class TestPrincipalAxis(unittest.TestCase):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         frame = traj[0]
         f0 = traj[0].copy()
-        pyca.align_principal_axis(frame, "@CA", top=traj.top)
+        pt.align_principal_axis(frame, "@CA", top=traj.top)
 
         # assert
         saved_frame = pt.iterload("./data/Tc5b.principal_dorotation.rst7",

@@ -31,13 +31,13 @@ try:
     from .core import Atom
 except ImportError:
     if 'linux' in _platform and not _find_lib("cpptraj"):
-            raise ImportError(
-                "can not find libcpptraj. Make sure to install it "
-                "or export LD_LIBRARY_PATH correctly")
+        raise ImportError(
+            "can not find libcpptraj. Make sure to install it "
+            "or export LD_LIBRARY_PATH correctly")
 
 try:
     from .core import Atom, Residue, Molecule
-    from .core.action_list import ActionList, create_pipeline, do
+    from .c_action.actionlist import ActionList, create_pipeline, do
     compute = do
     Pipeline = ActionList
 
@@ -63,16 +63,17 @@ from functools import partial
 
 from .externals.six import string_types
 from .core import Atom, Residue, Molecule
-from .core.cpp_core import CpptrajState, ArgList, AtomMask, _load_batch
-from .core.cpp_core import Command
+from .core.c_core import CpptrajState, ArgList, AtomMask, _load_batch
+from .core.c_core import Command
 dispatch = Command.dispatch
-from . import array, cpptraj_commands
+from . import array, c_commands
 from .topology import Topology, ParmFile
 from .math import Vec3
 from .frame import Frame
+from .shared_methods import iterframe_master
 from .trajectory import Trajectory
 from .trajectory_iterator import TrajectoryIterator
-from .trajs.Trajout import Trajout
+from .c_traj.c_trajout import Trajout
 from .datasets.cast_dataset import cast_dataset
 from .datasetlist import DatasetList as Dataset
 from . import io
@@ -109,19 +110,19 @@ load_cpptrajstate = load_cpptraj_state
 from . import tools
 
 # actions and analyses
-from .actions import CpptrajActions as allactions
-from .actions import CpptrajActions
-from .analyses import CpptrajAnalyses as allanalyses
-from .analyses import CpptrajAnalyses
-from . import common_actions
+from .c_action import c_action as allactions
+from .c_action import c_action
+from .c_analysis import c_analysis as allanalyses
+from .c_analysis import c_analysis
+from . import all_actions
 
-from .dssp_analysis import calc_dssp, dssp_allatoms, dssp_allresidues
-from .nucleic_acid_analysis import nastruct
+from .dssp_ import calc_dssp, dssp_allatoms, dssp_allresidues
+from .nucleic_acid_ import nastruct
 from .nmr import ired_vector_and_matrix, _ired, NH_order_parameters
-from .hbond_analysis import hbond
-from .externals.get_pysander_energies import energy_decomposition
+from .hbond_ import hbond
+from .externals.energy import energy_decomposition
 
-from .common_actions import (
+from .all_actions import (
     calc_rmsd_nofit, rmsd, rmsd_perres, distance_rmsd, calc_multidihedral,
     autoimage, calc_angle, calc_dihedral, calc_distance,
     calc_pairwise_distance, calc_center_of_mass, calc_center_of_geometry,
@@ -139,29 +140,28 @@ from .common_actions import (
     calc_pairdist, _grid, transform, lowestcurve, calc_diffusion, calc_volmap,
     calc_multivector, pca,
     xcorr, acorr,
-    check_structure)
+    check_structure,
+    calc_matrix)
 
 from .matrix import dist
 distance_matrix = dist
 from . import cluster
 
-from .dihedral_analysis import (calc_phi, calc_psi, calc_alpha, calc_beta,
-                                calc_omega, calc_chin, calc_chip, calc_delta,
-                                calc_epsilon, calc_gamma, calc_zeta,
-                                calc_omega, calc_nu1, calc_nu2)
+from .dihedral_ import (calc_phi, calc_psi, calc_alpha, calc_beta,
+                        calc_omega, calc_chin, calc_chip, calc_delta,
+                        calc_epsilon, calc_gamma, calc_zeta,
+                        calc_omega, calc_nu1, calc_nu2)
 
-from .action_dict import ActionDict
-from .analysis_dict import AnalysisDict
+from .c_action.action_dict import ActionDict
+from .c_analysis.analysis_dict import AnalysisDict
 from . import matrix
-from . import dihedral_analysis
+from . import dihedral_
 from . import vector
 
 # others
 from .misc import info
 from .run_tests import run_tests
 
-
-from ._shared_methods import iterframe_master
 
 # turn off verbose in cpptraj
 # TODO: need to move set_world_silent and set_error_silent to the same file
@@ -218,8 +218,8 @@ analdict = AnalysisDict()
 # import parallel package after all pytraj or cpptraj's method so we
 # can import them to parallel namespace
 # import _pmap here to be called from nmr module
-from .parallel.parallel_mapping_multiprocessing import pmap, _pmap
-from .parallel.parallel_mapping_mpi import pmap_mpi
+from .parallel.multiprocessing_ import pmap, _pmap
+from .parallel.mpi import pmap_mpi
 from .parallel import _load_batch_pmap
 
 

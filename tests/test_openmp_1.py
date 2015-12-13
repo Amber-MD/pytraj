@@ -5,7 +5,7 @@ from pytraj.utils import Timer
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.datasets import DatasetCoordsCRD
-from pytraj.analyses.CpptrajAnalyses import Analysis_Rms2d
+from pytraj.c_analysis.c_analysis import Analysis_Rms2d
 
 
 class Test(unittest.TestCase):
@@ -34,7 +34,6 @@ class Test(unittest.TestCase):
         @Timer()
         def test_time():
             act("crdset test_traj rmsout ./output/_test_2drms_CRDtest.openmp.dat",
-                traj.top,
                 dslist=dslist,
                 dflist=dflist)
 

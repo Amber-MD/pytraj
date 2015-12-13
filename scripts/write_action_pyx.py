@@ -1,47 +1,44 @@
-import re
-from glob import glob
+#!/usr/bin/env python
 
-pxdlist = glob("Action*.pxd")
+'''
+code generation for Action_*.pyx
+
+CPPTRAJHOME must be set
+'''
+import os
+
+cpptrajhome = os.environ.get('CPPTRAJHOME', '')
+
+if not cpptrajhome:
+    raise EnvironmentError('must set CPPTRAJHOME')
+
 actionlist = []
+cpptraj_analist = []
 
-for pxd in pxdlist:
-    try:
-        action = re.findall("Action_(.+?).pxd", pxd)[0]
-    except:
-        pass
-    actionlist.append(action)
+with open(cpptrajhome + '/src/Command.cpp') as fh:
+    lines = fh.readlines()
+    actionlist += [line.split('\n')[0].split()[1].replace('"', '').replace(',', '').replace('.h', '')
+                        for line in lines if line.startswith('#include "Action_')]
+exlucdedList = ['Action_CreateReservoir',]
 
-exlucdedList = ['Rmsd', 'Dihedral']
 for excluded_action in exlucdedList:
     actionlist.remove(excluded_action)
 
-# print actionlist
-text = """# distutils: language = c++
-from cython.operator cimport dereference as deref
-
-
-cdef class Action_ACTION_NAME (Action):
+text = """
+cdef class {action_name}(Action):
     def __cinit__(self):
-        self.baseptr = <_Action*> new _Action_ACTION_NAME()
-        self.thisptr = <_Action_ACTION_NAME*> self.baseptr
+        self.baseptr = <_Action*> new _{action_name}()
+        self.thisptr = <_{action_name}*> self.baseptr
+        self.own_memory = True
 
     def __dealloc__(self):
-        if self.baseptr is not NULL:
+        if self.baseptr is not NULL and self.own_memory:
             del self.baseptr
-
-    def alloc(self):
-        \"""return a function-pointer object to be used with ActionList class
-        \"""
-        cdef FunctPtr func = FunctPtr()
-        func.ptr = &(self.thisptr.Alloc)
-        return func
 
     def help(self):
         self.thisptr.Help()
 """
 
 for action in actionlist:
-    tmp = text.replace("ACTION_NAME", action)
-    fname = "Action_" + action + ".pyx"
-    with open(fname, 'w') as fh:
-        fh.writelines(tmp)
+    tmp = text.format(action_name=action)
+    print(tmp)

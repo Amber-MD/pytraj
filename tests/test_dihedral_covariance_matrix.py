@@ -3,7 +3,7 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
-from pytraj.common_actions import _projection
+from pytraj.all_actions import _projection
 
 
 class TestDihedralCovarianceMatrix(unittest.TestCase):

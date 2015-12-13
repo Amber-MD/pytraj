@@ -4,7 +4,7 @@ import unittest
 import pytraj as pt
 from pytraj.compat import zip
 from pytraj import Topology
-from pytraj.core.cpp_core import AtomMask
+from pytraj.core.c_core import AtomMask
 from pytraj.base import *
 
 TRAJ = Trajectory("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -125,9 +125,9 @@ class TestTopology(unittest.TestCase):
         for atom, sim_atom in zip(top.atoms, sim_top.atoms):
             assert atom.resname == sim_atom.resname, 'equal resname'
             assert atom.name == sim_atom.name, 'equal resname'
-            assert atom.type == sim_atom.type , 'equal resname'
-            assert atom.charge == sim_atom.charge , 'equal resname'
-            assert atom.mass == sim_atom.mass , 'equal resname'
+            assert atom.type == sim_atom.type, 'equal resname'
+            assert atom.charge == sim_atom.charge, 'equal resname'
+            assert atom.mass == sim_atom.mass, 'equal resname'
 
 if __name__ == "__main__":
     unittest.main()

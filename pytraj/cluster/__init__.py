@@ -1,13 +1,13 @@
 from __future__ import absolute_import
-from pytraj._get_common_objects import _get_topology, _get_data_from_dtype
-from pytraj.decorators import _register_pmap, _register_openmp
-from pytraj._get_common_objects import _super_dispatch, _get_fi_with_dslist
-from pytraj.analyses import CpptrajAnalyses
-from pytraj.datasets.DatasetList import DatasetList as CpptrajDatasetList
+from pytraj.get_common_objects import get_topology, get_data_from_dtype
+from pytraj.decorators import register_pmap, register_openmp
+from pytraj.get_common_objects import super_dispatch, get_fi_with_dslist
+from pytraj.c_analysis import c_analysis
+from pytraj.datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 
 
-@_super_dispatch()
-@_register_openmp
+@super_dispatch()
+@register_openmp
 def kmeans(traj=None,
            mask='*',
            n_clusters=10,
@@ -87,7 +87,7 @@ def kmeans(traj=None,
     >>> # add sieve number for less memory, and specify random seed for sieve
     >>> data = kmeans(traj, n_clusters=5, mask='@CA', kseed=100, metric='rms', options='sieve 5 sieveseed 1')
     '''
-    # don't need to _get_topology
+    # don't need to get_topology
     _clusters = 'kmeans clusters ' + str(n_clusters)
     _random_point = 'randompoint' if random_point else ''
     _kseed = 'kseed ' + str(kseed)
@@ -119,18 +119,18 @@ def _cluster(traj=None, mask="", frame_indices=None, dtype='dataset', top=None, 
     -----
     Supported algorithms: kmeans, hieragglo, and dbscan.
     """
-    # Note: do not use _super_dispatch here. We use _get_fi_with_dslist
+    # Note: do not use super_dispatch here. We use get_fi_with_dslist
 
-    ana = CpptrajAnalyses.Analysis_Clustering()
+    ana = c_analysis.Analysis_Clustering()
     # need to creat `dslist` here so that every time `do_clustering` is called,
     # we will get a fresh one (or will get segfault)
     crdname = 'DEFAULT_NAME'
-    dslist, _top, mask2 = _get_fi_with_dslist(traj, mask, frame_indices, top, crdname=crdname)
+    dslist, _top, mask2 = get_fi_with_dslist(traj, mask, frame_indices, top, crdname=crdname)
 
     # do not output cluster info to STDOUT
     command = ' '.join((mask2, "crdset {0}".format(crdname), options, 'noinfo'))
-    ana(command, _top, dslist)
+    ana(command, dslist)
 
     # remove frames in dslist to save memory
     dslist.remove_set(dslist[crdname])
-    return _get_data_from_dtype(dslist, dtype=dtype)
+    return get_data_from_dtype(dslist, dtype=dtype)

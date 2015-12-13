@@ -349,13 +349,13 @@ setup_args = {}
 packages = [
     'pytraj',
     'pytraj.utils',
-    'pytraj.actions',
-    'pytraj.analyses',
+    'pytraj.c_action',
+    'pytraj.c_analysis',
     'pytraj.datasets',
     'pytraj.externals',
-    'pytraj.trajs',
+    'pytraj.c_traj',
     'pytraj.datafiles',
-    'pytraj.datafiles.Ala3',
+    'pytraj.datafiles.ala3',
     'pytraj.datafiles.tz2',
     'pytraj.datafiles.dpdp',
     'pytraj.datafiles.trpcage',
@@ -369,7 +369,7 @@ packages = [
 
 pylen = len('pytraj') + 1
 pxdlist = [p.replace("pytraj/", "") for p in pxd_include_patterns]
-sample_data = ["datafiles/Ala3/Ala3.*", "datafiles/tz2/tz2.*", "datafiles/rna.pdb",
+sample_data = ["datafiles/ala3/Ala3.*", "datafiles/tz2/tz2.*", "datafiles/rna.pdb",
                "datafiles/trpcage/trpcage*",
                "datafiles/dpdp/DPDP*"]
 datalist = pxdlist + sample_data

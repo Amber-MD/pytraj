@@ -18,7 +18,7 @@ class TestParmEdConverter(unittest.TestCase):
         for atom, atom2 in zip(parm.atoms, parm2.atoms):
             assert atom.name == atom2.name, 'equal name'
             assert atom.type == atom2.type, 'equal type'
-            assert atom.mass == atom2.mass , 'equal mass'
+            assert atom.mass == atom2.mass, 'equal mass'
             assert atom.atomic_number == atom2.atomic_number, 'equal atomic_number'
             assert atom.residue.name == atom2.residue.name, 'residue name'
             aa_eq(atom.charge, atom2.charge, decimal=4)

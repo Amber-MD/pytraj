@@ -5,14 +5,13 @@ from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils import eq, aa_eq
 from pytraj.testing import cpptraj_test_dir, duplicate_traj
-import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):
 
     def test_0(self):
         import numpy as np
-        from pytraj import dihedral_analysis as da
+        from pytraj import dihedral_ as da
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
         # resrange 7, phi psi

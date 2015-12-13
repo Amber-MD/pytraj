@@ -3,21 +3,21 @@ from pytraj.base import *
 from pytraj.core import *
 from pytraj.math import *
 from pytraj.externals import *
-from pytraj.trajs import *
-from pytraj.hbond_analysis import *
+from pytraj.c_traj import *
+from pytraj.hbond_ import *
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 from .datafiles.load_samples import load_sample_data
-from pytraj.action_dict import ADICT
+from pytraj.c_action.action_dict import ADICT
 from pytraj.misc import info
 from pytraj.cpp_options import set_world_silent
 from pytraj import trajectory
 
 from pytraj import *
 from pytraj.datasets import *
-from pytraj.common_actions import *
-from pytraj.actions import CpptrajActions
-from pytraj.analyses import CpptrajAnalyses
+from pytraj.all_actions import *
+from pytraj.c_action import c_action
+from pytraj.c_analysis import c_analysis
 
 
 def run_tests():
@@ -69,10 +69,10 @@ def run_tests():
     trajectory.Trajectory()
 
     print("other stuff. throw all tests don't belong anywhere else here")
-    from pytraj import cpptraj_dict
+    from pytraj import c_dict
     from pytraj.misc import get_atts
-    keys = get_atts(cpptraj_dict)
-    cdict = cpptraj_dict.__dict__
+    keys = get_atts(c_dict)
+    cdict = c_dict.__dict__
 
     for key in keys:
         if isinstance(cdict[key], dict):

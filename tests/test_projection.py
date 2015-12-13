@@ -54,10 +54,10 @@ class TestProjection(unittest.TestCase):
         aa_eq(np.abs(modes.eigenvalues), np.abs(state.data['MyEvecs'].eigenvalues))
         aa_eq(np.abs(modes.eigenvectors), np.abs(state.data['MyEvecs'].eigenvectors))
 
-        projection_data = pt.common_actions._projection(traj, mask=mask, average_coords=avg2.xyz,
-                                                        eigenvalues=modes.eigenvalues,
-                                                        eigenvectors=modes.eigenvectors,
-                                                        scalar_type='covar')
+        projection_data = pt.all_actions._projection(traj, mask=mask, average_coords=avg2.xyz,
+                                                     eigenvalues=modes.eigenvalues,
+                                                     eigenvectors=modes.eigenvectors,
+                                                     scalar_type='covar')
         aa_eq(np.abs(projection_data), np.abs(state.data[-2:].values), decimal=3)
 
 if __name__ == "__main__":

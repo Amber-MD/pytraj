@@ -5,7 +5,7 @@ import unittest
 import pytraj as pt
 import pytraj as pt
 from pytraj.testing import run_docstring
-import pytraj.common_actions as pyca
+
 from pytraj.base import *
 import pytraj as pt
 
@@ -19,9 +19,9 @@ def silly_doc_func():
 class Test(unittest.TestCase):
 
     def test_0(self):
-        from pytraj._shared_methods import iterframe_master as fi
+        from pytraj.shared_methods import iterframe_master as fi
         from pytraj import matrix as ma
-        from pytraj import dihedral_analysis as da
+        from pytraj import dihedral_ as da
         from pytraj import Trajectory
         from pytraj import Frame
         from pytraj.tools import grep_key
@@ -29,6 +29,7 @@ class Test(unittest.TestCase):
         from pytraj.cluster import kmeans
         from pytraj.array import DataArray
         from pytraj import vector as va
+        from pytraj.c_action import c_action
 
         try:
             import parmed
@@ -38,7 +39,7 @@ class Test(unittest.TestCase):
 
         funclist = [DataArray,
                     pt.volmap,
-                    pt.actions.CpptrajActions.Action,
+                    c_action.Action,
                     pt.create_pipeline,
                     pt.pmap,
                     pt.nastruct,

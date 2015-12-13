@@ -2,7 +2,6 @@ import unittest
 import pytraj as pt
 from pytraj import *
 from pytraj.base import *
-from pytraj.common_actions import calc_distance
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal, is_generator
 import numpy as np
@@ -50,8 +49,8 @@ class Test(unittest.TestCase):
         assert i == 2
 
         # action on chunk_iter
-        import pytraj.common_actions as pyca
-        pyca.calc_distance(
+
+        pt.calc_distance(
             [traj.iterchunk(), traj.iterchunk(), traj[0]],
             '@CA @CB',
             top=traj.top)

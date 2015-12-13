@@ -3,7 +3,6 @@ import unittest
 import numpy as np
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
-import pytraj.common_actions as pyca
 
 
 class TestAutoImageAndRotateDihedral(unittest.TestCase):
@@ -126,7 +125,6 @@ class TestTrajectory(unittest.TestCase):
         # raise if empty Topology
         xyz = np.arange(90).astype('f8').reshape(3, 10, 3)
         self.assertRaises(ValueError, lambda: pt.Trajectory(xyz=xyz, top=pt.Topology()))
-
 
     def test_slice_basic(self):
         traj2 = pt.Trajectory()

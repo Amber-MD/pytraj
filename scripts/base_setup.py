@@ -11,7 +11,7 @@ else:
 
 MAJOR = 0
 MINOR = 1
-MICRO = 2
+MICRO = 3
 ISRELEASED = False
 VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 
@@ -81,7 +81,7 @@ Run test:
 '''
 
 
-def check_cpptraj_version(header_dir, version=(4, 2, 8)):
+def check_cpptraj_version(header_dir, version=(4, 2, 9)):
     vfile = os.path.join(header_dir, 'Version.h')
     with open(vfile) as fh:
         for line in fh.readlines():

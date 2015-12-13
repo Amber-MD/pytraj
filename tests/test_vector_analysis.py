@@ -10,9 +10,9 @@ from pytraj import vector as va
 from pytraj import adict
 from pytraj.testing import aa_eq
 from pytraj.testing import cpptraj_test_dir
-from pytraj.datasets.DatasetList import DatasetList
+from pytraj.datasets.c_datasetlist import DatasetList
 from pytraj import ActionList
-from pytraj.actions import CpptrajActions as CA
+from pytraj.c_action import c_action as CA
 
 
 class TestVectorAnalysisModule(unittest.TestCase):

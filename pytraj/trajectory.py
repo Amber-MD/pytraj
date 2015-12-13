@@ -1,21 +1,22 @@
 from __future__ import absolute_import
 
 import numpy as np
-from .core.Box import Box
+from .core.box import Box
 from .frame import Frame
 from .utils.check_and_assert import is_int, is_frame_iter
 from .utils.convert import array_to_cpptraj_atommask
 from .externals.six import string_types
 from .externals.six.moves import range
-from .core.cpp_core import AtomMask
+from .core.c_core import AtomMask
 
 # use absolute import here
-from pytraj._get_common_objects import _get_topology
+from pytraj.get_common_objects import get_topology
 
 from .topology import Topology
-from ._shared_methods import _savetraj, iterframe_master, my_str_method
+from pytraj.shared_methods import iterframe_master, my_str_method
 from .cyutils import _fast_iterptr, _fast_iterptr_withbox
 from .frameiter import FrameIterator
+from .c_traj.c_trajout import Trajout
 
 __all__ = ['Trajectory']
 
@@ -56,7 +57,7 @@ class Trajectory(object):
     """
 
     def __init__(self, filename=None, top=None, xyz=None):
-        self._top = _get_topology(filename, top)
+        self._top = get_topology(filename, top)
 
         if self._top is None:
             self._top = Topology()
@@ -167,7 +168,7 @@ class Trajectory(object):
         '''assign new coordinates for Trajectory
         '''
         if self.shape[1] and self.n_atoms != values.shape[1]:
-                raise ValueError("must have the same number of atoms")
+            raise ValueError("must have the same number of atoms")
         # make sure dtype='f8'
         values = np.asarray(values, dtype='f8')
         if not values.flags['C_CONTIGUOUS']:
@@ -599,9 +600,9 @@ class Trajectory(object):
         True
         >>> t0 = t0.autoimage()
         '''
-        from pytraj.actions import CpptrajActions
+        from pytraj.c_action import c_action
 
-        act = CpptrajActions.Action_AutoImage()
+        act = c_action.Action_AutoImage()
         act(command, self, top=self.top)
         return self
 
@@ -618,9 +619,9 @@ class Trajectory(object):
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.rotate('@CA x 20')
         '''
-        from pytraj.actions import CpptrajActions
+        from pytraj.c_action import c_action
 
-        act = CpptrajActions.Action_Rotate()
+        act = c_action.Action_Rotate()
         act(command, self, top=self.top)
         return self
 
@@ -637,9 +638,9 @@ class Trajectory(object):
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.translate('@CA x 1.2')
         '''
-        from pytraj.actions import CpptrajActions
+        from pytraj.c_action import c_action
 
-        act = CpptrajActions.Action_Translate()
+        act = c_action.Action_Translate()
         act(command, self, top=self.top)
         return self
 
@@ -656,9 +657,9 @@ class Trajectory(object):
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.scale('@CA x 1.2')
         '''
-        from pytraj.actions import CpptrajActions
+        from pytraj.c_action import c_action
 
-        act = CpptrajActions.Action_Scale()
+        act = c_action.Action_Scale()
         act(command, self, top=self.top)
         return self
 
@@ -675,9 +676,9 @@ class Trajectory(object):
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.center('@CA origin')
         '''
-        from pytraj.actions import CpptrajActions
+        from pytraj.c_action import c_action
 
-        act = CpptrajActions.Action_Center()
+        act = c_action.Action_Center()
         act(command, self, top=self.top)
         return self
 
@@ -690,8 +691,8 @@ class Trajectory(object):
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.align_principal_axis()
         """
-        from pytraj.actions import CpptrajActions
-        act = CpptrajActions.Action_Principal()
+        from pytraj.c_action import c_action
+        act = c_action.Action_Principal()
 
         command += " dorotation"
         act(command, self, top=self.top)
@@ -723,7 +724,7 @@ class Trajectory(object):
         >>> traj2.xyz[0, 0] # after transforming
         array([-1.19438073,  8.75046229, -1.82742397])
         '''
-        from pytraj.core.action_list import create_pipeline
+        from pytraj.c_action.actionlist import create_pipeline
         fi = create_pipeline(self, commands, frame_indices=frame_indices)
 
         for _ in fi:
@@ -855,7 +856,7 @@ class Trajectory(object):
 
     def save(self,
              filename="",
-             overwrite=True,
+             overwrite=False,
              *args,
              **kwd):
         '''write trajectory to disk with given format.
@@ -872,7 +873,15 @@ class Trajectory(object):
         >>> traj.save('output/out.nc', overwrite=True)
 
         '''
-        _savetraj(self, filename, format='unknown', overwrite=overwrite, *args, **kwd)
+        # note: we do not reuse _savetraj from shared_methods to avoid
+        # circular import (not sure why)
+        with Trajout(filename=filename,
+                     top=self.top,
+                     overwrite=overwrite,
+                     *args,
+                     **kwd) as trajout:
+            for idx, frame in enumerate(self):
+                trajout.write(idx, frame)
 
     def iterframe(self,
                   start=0,

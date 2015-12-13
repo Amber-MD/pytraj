@@ -45,8 +45,8 @@ class TestSimpleRMSD(unittest.TestCase):
         aa_eq(arr2, cpptraj_rmsd, decimal=3)
         aa_eq(arr3, cpptraj_rmsd, decimal=3)
 
-    def test_superpose_alias(self):
-        '''test_superpose_alias'''
+    def testsuperpose_alias(self):
+        '''testsuperpose_alias'''
         t0 = self.traj[:]
         t1 = self.traj[:]
         pt.transform(t0, ['superpose'])
@@ -249,7 +249,7 @@ class TestActionListRMSD(unittest.TestCase):
         standard_rmsd = pt.rmsd(traj, mask='@CA')
 
         def test_rmsd(input_traj):
-            from pytraj.actions.CpptrajActions import Action_Rmsd
+            from pytraj.c_action.c_action import Action_Rmsd
             from pytraj.datasets import DatasetList
             dslist = DatasetList()
             act = Action_Rmsd()
@@ -261,7 +261,7 @@ class TestActionListRMSD(unittest.TestCase):
             return (dslist.values)
 
         def test_rmsd_actlist(input_traj):
-            from pytraj.actions.CpptrajActions import Action_Rmsd
+            from pytraj.c_action.c_action import Action_Rmsd
             from pytraj import ActionList
             from pytraj.datasets import DatasetList
 

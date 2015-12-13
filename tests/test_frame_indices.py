@@ -7,7 +7,7 @@ import numpy as np
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
 from pytraj.compat import string_types
-from pytraj.hbond_analysis import DatasetHBond
+from pytraj.hbond_ import DatasetHBond
 
 
 class TestFrameIndices(unittest.TestCase):
@@ -39,7 +39,7 @@ class TestFrameIndices(unittest.TestCase):
         pdict = pt.__dict__
         funclist = list(set(pdict[key]
                             for key in dir(pt)
-                            if hasattr(pdict[key], '_is_super_dispatched')))
+                            if hasattr(pdict[key], '_issuper_dispatched')))
 
         frame_indices = [0, 2]
 
@@ -52,7 +52,7 @@ class TestFrameIndices(unittest.TestCase):
                        calc_atomiccorr, autoimage, closest,
                        calc_volume, superpose, randomize_ions,
                        check_structure,
-                       align_principal_axis,]
+                       align_principal_axis, ]
         func_nu = [
             calc_epsilon, calc_alpha, calc_zeta, calc_beta, calc_nu1, calc_nu2,
             calc_delta, calc_chin,

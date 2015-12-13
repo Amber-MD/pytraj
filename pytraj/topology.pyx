@@ -12,13 +12,13 @@ from pytraj.cpp_options import set_world_silent  # turn on and off cpptraj's std
 from collections import namedtuple
 import numpy as np
 
-from pytraj.cpptraj_dict import get_key, AtomicElementDict
+from pytraj.c_dict import get_key, AtomicElementDict
 from pytraj.utils.check_and_assert import is_int, is_array
 from pytraj.compat import set
 from pytraj.externals.six import PY2, PY3, string_types
 from pytraj.externals.six.moves import range
 from pytraj.utils.check_and_assert import is_int
-from pytraj.cpptraj_dict import ParmFormatDict
+from pytraj.c_dict import ParmFormatDict
 from pytraj.utils.convert import array_to_cpptraj_atommask
 
 PY2 = sys.version_info[0] == 2
@@ -137,7 +137,7 @@ cdef class Topology:
         cdef int i
         t = self.copy()
 
-        for i in range(n_times-1):
+        for i in range(n_times - 1):
             t.join(self.copy())
         return t
 
@@ -218,7 +218,7 @@ cdef class Topology:
 
         if is_int(idx):
             # need to explicitly cast to int
-            i = <int> idx
+            i = <int > idx
             atom = Atom()
             if i >= 0:
                 atom.thisptr[0] = self.thisptr.index_opr(i)
@@ -231,7 +231,7 @@ cdef class Topology:
             # self(idx) return AtomMask object
             mask = idx
         elif isinstance(idx, AtomMask):
-            atm = <AtomMask> idx
+            atm = <AtomMask > idx
             # return atom object iterator with given mask
             # self(idx) return AtomMask object
             mask = array_to_cpptraj_atommask(idx.indices)
@@ -341,7 +341,7 @@ cdef class Topology:
                                         index=idx,
                                         atomic_number=atom.AtomicNumber(),
                                         resname=res.c_str().strip(),
-                                        resid=res.OriginalResNum()-1,
+                                        resid=res.OriginalResNum() - 1,
                                         molnum=atom.MolNum()))
             idx += 1
             incr(ait)
@@ -577,7 +577,7 @@ cdef class Topology:
         atom_name : name of the atom
         """
         cdef pyarray arr0 = pyarray('i', [])
-        cdef int i, count=0
+        cdef int i, count = 0
 
         # convert to lower case
         atom_name = atom_name.upper()
@@ -792,7 +792,7 @@ cdef class Topology:
             mass_arr = np.array(self.mass)
             resid_arr = np.empty(n_atoms, dtype='i')
             resname_arr = np.empty(n_atoms, dtype='U4')
-            atomname_arr= np.empty(n_atoms, 'U4')
+            atomname_arr = np.empty(n_atoms, 'U4')
             atomicnumber_arr = np.empty(n_atoms, dtype='i4')
 
             for idx, atom in enumerate(self.atoms):
@@ -867,7 +867,7 @@ cdef class ParmFile:
         """
         cdef ArgList arglist
         cdef debug = 0
-        cdef Topology _top = <Topology> top
+        cdef Topology _top = <Topology > top
 
         filename = filename.encode()
 
@@ -877,7 +877,7 @@ cdef class ParmFile:
             if isinstance(more_options, string_types):
                 arglist = ArgList(more_options)
             else:
-                arglist = <ArgList> more_options
+                arglist = <ArgList > more_options
             self.thisptr.ReadTopology(
                 _top.thisptr[0], filename, arglist.thisptr[0], debug)
 
@@ -889,11 +889,11 @@ cdef class ParmFile:
         cdef ParmFormatType parmtype
         filename = filename.encode()
 
-        if format== "":
+        if format == "":
             parmtype = UNKNOWN_PARM
         else:
             try:
-                format= format.upper()
+                format = format.upper()
                 parmtype = ParmFormatDict[format]
             except:
                 raise ValueError("supported keywords: ", self.formats)

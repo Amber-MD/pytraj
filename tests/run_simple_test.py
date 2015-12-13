@@ -5,10 +5,10 @@
 import unittest
 from pytraj import *
 import pytraj as pt
-from pytraj.action_dict import ADICT
-from pytraj.trajs import *
+from pytraj.c_action.action_dict import ADICT
+from pytraj.c_traj import *
 from pytraj.datasets import *
-from pytraj.common_actions import *
+from pytraj.all_actions import *
 
 
 class TestRunnable(unittest.TestCase):
@@ -36,7 +36,7 @@ class TestRunnable(unittest.TestCase):
             if key not in failed_list:
                 pass
 
-    def test_create_analysis(self):
+    def test_create_(self):
         DatasetList()
         print("try to make all analysis objects")
         from pytraj import analdict
@@ -70,10 +70,10 @@ class TestRunnable(unittest.TestCase):
 
     def test_other(self):
         print("other stuff. throw all tests don't belong anywhere else here")
-        from pytraj import cpptraj_dict
+        from pytraj import c_dict
         from pytraj.misc import get_atts
-        keys = get_atts(cpptraj_dict)
-        cdict = cpptraj_dict.__dict__
+        keys = get_atts(c_dict)
+        cdict = c_dict.__dict__
 
         for key in keys:
             if isinstance(cdict[key], dict):

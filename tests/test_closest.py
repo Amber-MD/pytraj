@@ -58,7 +58,6 @@ class TestClosest(unittest.TestCase):
         xyz = pt.get_coordinates(fi)
         t0 = pt.Trajectory(xyz=xyz, top=top)
         aa_eq(state.data['mycrd'].xyz, t0.xyz)
-        
 
         # dtype = 'trajectory'
         t1 = pt.closest(traj(autoimage=True), mask=':1-13', n_solvents=100, dtype='trajectory')

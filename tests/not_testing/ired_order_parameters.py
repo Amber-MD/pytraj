@@ -2,7 +2,7 @@
 from __future__ import print_function
 import numpy as np
 import pytraj as pt
-from pytraj.common_actions import _ired
+from pytraj.all_actions import _ired
 
 
 def NH_order_paramters(traj, vector_pairs, order=2, tstep=1., tcorr=10000.):
