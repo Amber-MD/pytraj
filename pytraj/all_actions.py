@@ -1408,13 +1408,11 @@ def clustering_dataset(array_like, command=''):
     >>> array_like = np.random.randint(0, 10, 1000)
     >>> data = pt.clustering_dataset(array_like, 'clusters 10 epsilon 3.0')
     '''
-    from pytraj.analyses.c_analyses import Analysis_Clustering
-
     dslist = CpptrajDatasetList()
     dslist.add_set('double', '__array_like')
     dslist[0].resize(len(array_like))
     dslist[0].values[:] = array_like
-    act = Analysis_Clustering()
+    act = c_analyses.Analysis_Clustering()
     command = 'data __array_like ' + command
     act(command, dslist=dslist)
 
@@ -2260,8 +2258,6 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
     -----
     Same as `crank` in cpptraj
     """
-    from pytraj.analyses.c_analyses import Analysis_CrankShaft
-
     cdslist = CpptrajDatasetList()
     cdslist.add_set("double", "d0")
     cdslist.add_set("double", "d1")
@@ -2269,7 +2265,7 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
     cdslist[0].data = np.asarray(data0)
     cdslist[1].data = np.asarray(data1)
 
-    act = Analysis_CrankShaft()
+    act = c_analyses.Analysis_CrankShaft()
     command = ' '.join((mode, 'd0', 'd1'))
     act(command, dslist=cdslist)
     return get_data_from_dtype(cdslist[2:], dtype=dtype)

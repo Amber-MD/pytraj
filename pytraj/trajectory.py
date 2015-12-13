@@ -857,7 +857,7 @@ class Trajectory(object):
 
     def save(self,
              filename="",
-             overwrite=True,
+             overwrite=False,
              *args,
              **kwd):
         '''write trajectory to disk with given format.
@@ -878,7 +878,6 @@ class Trajectory(object):
         # circular import (not sure why)
         with Trajout(filename=filename,
                      top=self.top,
-                     format=format,
                      overwrite=overwrite,
                      *args,
                      **kwd) as trajout:
