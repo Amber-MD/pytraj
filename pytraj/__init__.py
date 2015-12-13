@@ -119,7 +119,7 @@ from .dssp_analysis import calc_dssp, dssp_allatoms, dssp_allresidues
 from .nucleic_acid_analysis import nastruct
 from .nmr import ired_vector_and_matrix, _ired, NH_order_parameters
 from .hbond_analysis import hbond
-from .externals.get_pysander_energies import energy_decomposition
+from .externals.energy import energy_decomposition
 
 from .common_actions import (
     calc_rmsd_nofit, rmsd, rmsd_perres, distance_rmsd, calc_multidihedral,
