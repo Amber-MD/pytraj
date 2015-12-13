@@ -5,7 +5,7 @@ import unittest
 import pytraj as pt
 import pytraj as pt
 from pytraj.testing import run_docstring
-import pytraj.all_actions as pyca
+
 from pytraj.base import *
 import pytraj as pt
 

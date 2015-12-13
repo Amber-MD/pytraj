@@ -5,7 +5,7 @@ from pytraj.base import *
 from pytraj import adict
 from pytraj import io
 from pytraj.utils.check_and_assert import assert_almost_equal as aa_eq
-import pytraj.all_actions as pyca
+
 """
 try not to get segmentation fault error (due to whatever freaking reason)
 """
@@ -27,7 +27,7 @@ class Test(unittest.TestCase):
             fa[idx]
 
     def test_1(self):
-        import pytraj.all_actions as pyca
+        
         pt.search_hbonds(traj)
         pt.search_hbonds(traj, 'series')
         pt.search_hbonds(traj, 'series, nointramol')

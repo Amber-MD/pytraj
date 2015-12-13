@@ -51,7 +51,7 @@ class Test(unittest.TestCase):
 
         # action on chunk_iter
         
-        pyca.calc_distance(
+        pt.calc_distance(
             [traj.iterchunk(), traj.iterchunk(), traj[0]],
             '@CA @CB',
             top=traj.top)

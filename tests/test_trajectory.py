@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
-import pytraj.all_actions as pyca
+
 
 
 class TestAutoImageAndRotateDihedral(unittest.TestCase):
