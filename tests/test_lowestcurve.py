@@ -4,7 +4,7 @@ import unittest
 import numpy as np
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
-from pytraj.analyses import CpptrajAnalyses
+from pytraj.c_analysis import c_analyses
 from pytraj.datasets import CpptrajDatasetList
 
 saved_data = '''

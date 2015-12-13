@@ -39,8 +39,8 @@ class TestExtraCoverage(unittest.TestCase):
         dslist = pt.multidihedral(traj)
         string_ = str(dslist[0])
 
-    def test_get_common_objects(self):
-        from pytraj._get_common_objects import _get_reference_from_traj
+    def testget_common_objects(self):
+        from pytraj.get_common_objects import _get_reference_from_traj
         # raises
         # raise if try to index traj()
         self.assertRaises(TypeError, lambda: _get_reference_from_traj(self.traj(), 3))

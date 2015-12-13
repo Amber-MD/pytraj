@@ -45,8 +45,8 @@ class TestSimpleRMSD(unittest.TestCase):
         aa_eq(arr2, cpptraj_rmsd, decimal=3)
         aa_eq(arr3, cpptraj_rmsd, decimal=3)
 
-    def test_superpose_alias(self):
-        '''test_superpose_alias'''
+    def testsuperpose_alias(self):
+        '''testsuperpose_alias'''
         t0 = self.traj[:]
         t1 = self.traj[:]
         pt.transform(t0, ['superpose'])

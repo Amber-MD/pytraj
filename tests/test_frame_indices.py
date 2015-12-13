@@ -39,7 +39,7 @@ class TestFrameIndices(unittest.TestCase):
         pdict = pt.__dict__
         funclist = list(set(pdict[key]
                             for key in dir(pt)
-                            if hasattr(pdict[key], '_is_super_dispatched')))
+                            if hasattr(pdict[key], '_issuper_dispatched')))
 
         frame_indices = [0, 2]
 

@@ -10,7 +10,7 @@ from pytraj import testing
 from pytraj.datafiles import load_samples
 from pytraj.externals import energy
 from pytraj import frame, datafiles, cluster, nucleic_acid_
-from pytraj.core import action_list
+from pytraj.c_action import action_list
 
 
 try:
@@ -48,7 +48,7 @@ class TestDoc(unittest.TestCase):
                 datafiles,
                 pt.all_actions,
                 pt.topology,
-                pt._get_common_objects,
+                pt.get_common_objects,
                 pt.parallel.multiprocessing_,
                 pt,
                 pt.io,

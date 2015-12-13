@@ -5,7 +5,7 @@ import unittest
 import numpy as np
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
-from pytraj.datasets import cpp_datasets
+from pytraj.datasets import c_datasets
 from pytraj.datasets import CpptrajDatasetList
 
 # used for loading cpptraj state
@@ -87,7 +87,7 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
         mat0 = pt.calc_rotation_matrix(self.traj, ref=0)
 
         shape2d = (mat0.shape[0], mat0.shape[1] * mat0.shape[2])
-        dmat3x3 = cpp_datasets.DatasetMatrix3x3()
+        dmat3x3 = c_datasets.DatasetMatrix3x3()
         dmat3x3._append_from_array(mat0.reshape(shape2d))
         aa_eq(mat0, dmat3x3.values)
 

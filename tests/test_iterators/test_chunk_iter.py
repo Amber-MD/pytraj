@@ -50,7 +50,7 @@ class Test(unittest.TestCase):
         assert i == 2
 
         # action on chunk_iter
-        import pytraj.common_actions as pyca
+        
         pyca.calc_distance(
             [traj.iterchunk(), traj.iterchunk(), traj[0]],
             '@CA @CB',

@@ -29,7 +29,7 @@ class TestReferenceFrame(unittest.TestCase):
     def test_reference_2(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
         from pytraj.c_action.c_actions import Action_Rmsd
-        from pytraj.datasets.DatasetList import DatasetList
+        from pytraj.datasets.c_datasetlist import DatasetList
         act = Action_Rmsd()
         ref = traj[2]
         dslist = DatasetList()
