@@ -115,10 +115,10 @@ from .analyses import CpptrajAnalyses as allanalyses
 from .analyses import CpptrajAnalyses
 from . import all_actions
 
-from .dssp_analysis import calc_dssp, dssp_allatoms, dssp_allresidues
-from .nucleic_acid_analysis import nastruct
+from .dssp_ import calc_dssp, dssp_allatoms, dssp_allresidues
+from .nucleic_acid_ import nastruct
 from .nmr import ired_vector_and_matrix, _ired, NH_order_parameters
-from .hbond_analysis import hbond
+from .hbond_import hbond
 from .externals.energy import energy_decomposition
 
 from .all_actions import (
@@ -145,7 +145,7 @@ from .matrix import dist
 distance_matrix = dist
 from . import cluster
 
-from .dihedral_analysis import (calc_phi, calc_psi, calc_alpha, calc_beta,
+from .dihedral_ import (calc_phi, calc_psi, calc_alpha, calc_beta,
                                 calc_omega, calc_chin, calc_chip, calc_delta,
                                 calc_epsilon, calc_gamma, calc_zeta,
                                 calc_omega, calc_nu1, calc_nu2)
@@ -153,7 +153,7 @@ from .dihedral_analysis import (calc_phi, calc_psi, calc_alpha, calc_beta,
 from .c_action.action_dict import ActionDict
 from .analyses.analysis_dict import AnalysisDict
 from . import matrix
-from . import dihedral_analysis
+from . import dihedral_
 from . import vector
 
 # others
