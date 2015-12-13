@@ -87,8 +87,8 @@ def nastruct(traj=None,
     >>> # change dtype
     >>> data = pt.nastruct(traj, dtype='cpptraj_dataset')
     """
-    from pytraj.datasets.DatasetList import DatasetList as CpptrajDatasetList
-    from .actions.c_actions import Action_NAstruct
+    from pytraj.datasets.c_datasetlist import DatasetList as CpptrajDatasetList
+    from .actions import c_actions
     from pytraj.array import DataArray
 
     _resrange = get_resrange(resrange)
@@ -108,7 +108,7 @@ def nastruct(traj=None,
 
     # need to construct 3 steps so we can pickle this method for parallel
     # not sure why?
-    act = Action_NAstruct(command, top=_top, dslist=dslist)
+    act = c_actions.Action_NAstruct(command, top=_top, dslist=dslist)
     act.do_action(ref)
     act.do_action(fi)
 
