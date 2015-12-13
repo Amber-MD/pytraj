@@ -3,9 +3,9 @@ from __future__ import absolute_import
 from libcpp.string cimport string
 from libcpp.vector cimport vector
 
-from ..datasets.cpp_datasets cimport _Dataset, Dataset
+from ..datasets.c_datasets cimport _Dataset, Dataset
 from ..core.cpp_core cimport _ArgList, ArgList, _ArgList, ArgList, _FileName, FileName
-from ..datasets.DatasetList cimport _DatasetList, DatasetList
+from ..datasets.c_datasetlist cimport _DatasetList, DatasetList
 
 
 cdef extern from "DataFile.h": 

@@ -4,7 +4,7 @@ from __future__ import absolute_import
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from cpython.array cimport array
-from ..trajs.cpptraj_trajectory cimport TrajectoryCpptraj
+from ..c_trajs.cpptraj_trajectory cimport TrajectoryCpptraj
 
 # python level
 import numpy as np

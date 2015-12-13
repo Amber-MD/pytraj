@@ -7,7 +7,7 @@ from ..cpp_vector cimport vector
 
 from .box cimport _Box, Box
 from ..datafiles.datafiles cimport _DataFileList, DataFileList, _DataFile, DataFile
-from ..datasets.DatasetList cimport _DatasetList, DatasetList
+from ..datasets.c_datasetlist cimport _DatasetList, DatasetList
 
 ctypedef _BaseIOtype* (*AllocatorType)()
 ctypedef void (*HelpType)()

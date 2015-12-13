@@ -1,5 +1,5 @@
 # distutils: language = c++
-from .cpp_datasets cimport(_Dataset, Dataset, Dataset1D, _Dataset1D, DatasetInteger, _DatasetInteger,
+from .c_datasets cimport(_Dataset, Dataset, Dataset1D, _Dataset1D, DatasetInteger, _DatasetInteger,
                            _DatasetFloat, DatasetFloat, DatasetDouble, _DatasetDouble,
                            DatasetString, _DatasetString, _DatasetVector, DatasetVector,
                            Dataset2D, _Dataset2D, DatasetMatrixDouble,
@@ -10,7 +10,7 @@ from .cpp_datasets cimport(_Dataset, Dataset, Dataset1D, _Dataset1D, DatasetInte
                            _DatasetCoords, DatasetCoords, _DatasetCoordsRef,
                            DatasetCoordsRef, _DatasetCoordsCRD, DatasetCoordsCRD,
                            DatasetTopology, _DatasetTopology)
-from ..trajs.cpptraj_trajectory cimport TrajectoryCpptraj, _TrajectoryCpptraj
+from ..c_trajs.cpptraj_trajectory cimport TrajectoryCpptraj, _TrajectoryCpptraj
 
 
 def cast_dataset(dsetin=None, dtype='general'):
