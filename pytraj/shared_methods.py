@@ -21,7 +21,7 @@ def _savetraj(self,
                  *args,
                  **kwd) as trajout:
         for idx, frame in enumerate(self):
-            trajout.write(idx, frame, self.top)
+            trajout.write(idx, frame)
 
 
 def _xyz(self):

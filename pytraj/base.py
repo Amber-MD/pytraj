@@ -4,7 +4,7 @@ import baseclasses for pytraj
 from __future__ import absolute_import
 from .datasets.cast_dataset import cast_dataset
 from .frame import Frame
-from .core.brick import Atom, Residue, Molecule
+from .core.topology_objects import Atom, Residue, Molecule
 from .datafiles.datafiles import DataFileList
 from .c_action.action_list import ActionList
 from .core.cpp_core import CpptrajState

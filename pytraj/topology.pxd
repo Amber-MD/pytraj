@@ -1,7 +1,7 @@
 # distutils: language = c++
 
 from .cpp_vector cimport vector as cppvector
-from .core.brick cimport _Atom, Atom, _Residue, Residue, _Molecule, Molecule
+from .core.topology_objects cimport _Atom, Atom, _Residue, Residue, _Molecule, Molecule
 from .core.box cimport _Box, Box, BoxType
 from .core.ParameterTypes cimport *
 from .core.cpp_core cimport (_FileName, FileName, _NameType, NameType)
