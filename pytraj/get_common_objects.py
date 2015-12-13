@@ -15,7 +15,7 @@ def _load_Topology(filename):
     return top
 
 
-def _get_topology(traj, top):
+def get_topology(traj, top):
     '''
 
     >>> import pytraj as pt
@@ -32,7 +32,7 @@ def _get_topology(traj, top):
     >>> # find Topology in a list
     >>> isinstance(_get_topology([traj, traj], None), Topology)
     True
-    >>> _get_topology(None, None) is None
+    >>> get_topology(None, None) is None
     True
     '''
     if isinstance(top, string_types):
@@ -56,7 +56,7 @@ def _get_topology(traj, top):
     return _top
 
 
-def _get_data_from_dtype(d0, dtype='dataset'):
+def get_data_from_dtype(d0, dtype='dataset'):
     from pytraj.datasetlist import DatasetList as DSL
 
     if (dtype is None or dtype == 'dataset') and hasattr(d0, 'set_own_memory'):
@@ -84,16 +84,16 @@ def _get_data_from_dtype(d0, dtype='dataset'):
         raise NotImplementedError()
 
 
-def _get_list_of_commands(mask_or_commands):
+def get_list_of_commands(mask_or_commands):
     '''
 
     Examples
     --------
-    >>> _get_list_of_commands('@CA')
+    >>> get_list_of_commands('@CA')
     ['@CA']
-    >>> _get_list_of_commands(('@CA'))
+    >>> get_list_of_commands(('@CA'))
     ['@CA']
-    >>> _get_list_of_commands(100)
+    >>> get_list_of_commands(100)
     Traceback (most recent call last):
         ...
     ValueError: must be string or list/tuple of strings
@@ -106,7 +106,7 @@ def _get_list_of_commands(mask_or_commands):
         raise ValueError("must be string or list/tuple of strings")
 
 
-def _get_matrix_from_dataset(dset, mat_type='full'):
+def get_matrix_from_dataset(dset, mat_type='full'):
     '''return full or half matrix
 
     Examples
@@ -114,9 +114,9 @@ def _get_matrix_from_dataset(dset, mat_type='full'):
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()
     >>> dset = pt.matrix.dist(traj, '@CA', dtype='cpptraj_dataset')[0]
-    >>> _get_matrix_from_dataset(dset, mat_type='full').shape
+    >>> get_matrix_from_dataset(dset, mat_type='full').shape
     (12, 12)
-    >>> _get_matrix_from_dataset(dset, mat_type='half').shape
+    >>> get_matrix_from_dataset(dset, mat_type='half').shape
     (78,)
     '''
     # dset in DatasetMatrixDouble object
@@ -128,21 +128,21 @@ def _get_matrix_from_dataset(dset, mat_type='full'):
         raise ValueError()
 
 
-def _get_reference_from_traj(traj, ref):
+def get_reference_from_traj(traj, ref):
     '''try best to get reference
 
     Examples
     --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()
-    >>> frame = _get_reference_from_traj(traj, 3)
+    >>> frame = get_reference_from_traj(traj, 3)
     >>> isinstance(frame, pt.Frame)
     True
-    >>> frame = _get_reference_from_traj(traj, None)
+    >>> frame = get_reference_from_traj(traj, None)
     >>> isinstance(frame, pt.Frame)
     True
     >>> ref = traj[5]
-    >>> frame = _get_reference_from_traj(traj, ref)
+    >>> frame = get_reference_from_traj(traj, ref)
     '''
     if isinstance(ref, integer_types):
         try:
@@ -163,27 +163,27 @@ def _get_reference_from_traj(traj, ref):
         return ref
 
 
-def _get_fiterator(traj, frame_indices=None):
+def get_fiterator(traj, frame_indices=None):
     if frame_indices is None:
         return traj
     else:
         return traj.iterframe(frame_indices=frame_indices)
 
 
-def _get_resrange(resrange):
+def get_resrange(resrange):
     '''return resrange as a string
 
     Examples
     --------
-    >>> _get_resrange('1-3')
+    >>> get_resrange('1-3')
     'resrange 1-3'
-    >>> _get_resrange(0)
+    >>> get_resrange(0)
     'resrange 1'
-    >>> _get_resrange(range(3))
+    >>> get_resrange(range(3))
     'resrange 1,2,3'
-    >>> _get_resrange([2, 5, 7])
+    >>> get_resrange([2, 5, 7])
     'resrange 3,6,8'
-    >>> _get_resrange(None)
+    >>> get_resrange(None)
     ''
     '''
     from pytraj.utils import convert, is_int
@@ -201,14 +201,14 @@ def _get_resrange(resrange):
     return _resrange
 
 
-class _super_dispatch(object):
+class super_dispatch(object):
     # TODO: more descriptive method name?
     '''apply a series of functions to ``f``'s args and kwd
 
     - get Topology from a given traj (Trajectory, frame iterator, ...) and top
-        _get_topology(traj, top)
+        get_topology(traj, top)
     - create frame iterator from traj and frame_indices
-        _get_fiterator(traj, frame_indices)
+        get_fiterator(traj, frame_indices)
     - create Amber mask from atom index array
         array_to_cpptraj_atommask(mask)
     - convert int ref to Frame ref
@@ -235,7 +235,7 @@ class _super_dispatch(object):
                     ref = 0
             if 'ref' in kwd.keys() or self.has_ref:
                 # convert to Frame
-                ref = _get_reference_from_traj(traj, ref)
+                ref = get_reference_from_traj(traj, ref)
 
             top = kwd.get('top')
 
@@ -260,19 +260,19 @@ class _super_dispatch(object):
                         has_mask = False
 
             # overwrite
-            kwd['top'] = _get_topology(traj, top)
+            kwd['top'] = get_topology(traj, top)
             if ref is not None:
                 if 'ref' in kwd.keys():
-                    kwd['ref'] = _get_reference_from_traj(traj, ref)
+                    kwd['ref'] = get_reference_from_traj(traj, ref)
                 else:
                     try:
                         args[1] = ref
                     except IndexError:
                         args.append(ref)
             if 'traj' in kwd.keys():
-                kwd['traj'] = _get_fiterator(traj, frame_indices)
+                kwd['traj'] = get_fiterator(traj, frame_indices)
             else:
-                args[0] = _get_fiterator(traj, frame_indices)
+                args[0] = get_fiterator(traj, frame_indices)
             if not isinstance(mask, string_types):
                 mask = array_to_cpptraj_atommask(mask)
             if 'mask' in kwd.keys():
@@ -286,7 +286,7 @@ class _super_dispatch(object):
         return inner
 
 
-def _get_fi_with_dslist(traj, mask, frame_indices, top, crdname='dataset_coords'):
+def get_fi_with_dslist(traj, mask, frame_indices, top, crdname='dataset_coords'):
     from pytraj import Trajectory, TrajectoryIterator
     from pytraj.datasets import CpptrajDatasetList
     from pytraj.shared_methods import iterframe_master
@@ -308,7 +308,7 @@ def _get_fi_with_dslist(traj, mask, frame_indices, top, crdname='dataset_coords'
         # ignore frame_indices
         fi = iterframe_master(traj)
         command = mask
-        _top = _get_topology(traj, top)
+        _top = get_topology(traj, top)
         dslist[0].top = _top
     for frame in fi:
         dslist[0].append(frame)
