@@ -45,7 +45,7 @@ class Test(unittest.TestCase):
             f0.rmsd(f1)
 
     def test_indexing_nonrefernce_DSL(self):
-        from pytraj import dihedral_analysis as da
+        from pytraj import dihedral_ as da
 
         # segmentation fault
         # new DSL

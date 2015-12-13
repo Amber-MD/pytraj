@@ -171,7 +171,7 @@ class FrameIterator(object):
                    **kwd)
 
     def __iter__(self):
-        from pytraj.actions import c_actions
+        from pytraj.c_action import c_actions
         # do not import c_actions in the top to avoid circular importing
         if self.autoimage:
             image_act = c_actions.Action_AutoImage()
@@ -207,7 +207,7 @@ class FrameIterator(object):
             else:
                 frame = frame0
             if self.autoimage:
-                # from pytraj.actions.c_actions import Action_AutoImage
+                # from pytraj.c_action.c_actions import Action_AutoImage
                 # Action_AutoImage()("", frame, self.top)
                 image_act.do_action(frame)
             if need_align:

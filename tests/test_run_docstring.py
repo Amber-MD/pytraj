@@ -21,7 +21,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         from pytraj._shared_methods import iterframe_master as fi
         from pytraj import matrix as ma
-        from pytraj import dihedral_analysis as da
+        from pytraj import dihedral_ as da
         from pytraj import Trajectory
         from pytraj import Frame
         from pytraj.tools import grep_key

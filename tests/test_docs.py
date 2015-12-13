@@ -9,7 +9,7 @@ from pytraj.compat import PY3
 from pytraj import testing
 from pytraj.datafiles import load_samples
 from pytraj.externals import energy
-from pytraj import frame, datafiles, cluster, nucleic_acid_analysis
+from pytraj import frame, datafiles, cluster, nucleic_acid_
 from pytraj.core import action_list
 
 
@@ -52,16 +52,16 @@ class TestDoc(unittest.TestCase):
                 pt.parallel.multiprocessing_,
                 pt,
                 pt.io,
-                nucleic_acid_analysis,
+                nucleic_acid_,
                 load_samples,
                 pt.trajectory,
                 pt.decorators,
-                pt.dssp_analysis,
+                pt.dssp_,
                 datasetlist,
                 pt.array,
                 pt.nmr,
                 check_and_assert,
-                pt.hbond_analysis,
+                pt.hbond_,
                 pt.tools,
                 testing,
                 utils,

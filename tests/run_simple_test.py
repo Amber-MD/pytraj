@@ -36,7 +36,7 @@ class TestRunnable(unittest.TestCase):
             if key not in failed_list:
                 pass
 
-    def test_create_analysis(self):
+    def test_create_(self):
         DatasetList()
         print("try to make all analysis objects")
         from pytraj import analdict
