@@ -489,7 +489,7 @@ def read_gaussian_output(filename=None, top=None):
     gau = cclib.parser.Gaussian(filename)
     go = gau.parse()
 
-    if _top is None: # pragma: no cover
+    if _top is None:  # pragma: no cover
         try:
             amberhome = os.environ['AMBERHOME']
         except KeyError:

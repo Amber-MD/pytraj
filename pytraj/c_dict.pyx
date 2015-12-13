@@ -35,14 +35,14 @@ ScalarTypeDict = {
     "DIHCOVAR": DIHCOVAR,
     "IREDVEC": IREDVEC,
     "UNDEFINED": UNDEFINED,
-    }
+}
 
 PDBWRITEMODEDict = {
     "NONE": NONE,
     "SINGLE": SINGLE,
     "MODEL": MODEL,
     "MULTI": MULTI,
-    }
+}
 
 ParmFormatDict = {
     "AMBERPARM": AMBERPARM,
@@ -133,14 +133,14 @@ AtomicElementDict = {
     "YTTRIUM": YTTRIUM,
     "LUTETIUM": LUTETIUM,
     "EXTRAPT": EXTRAPT,
-    }
+}
 
 MOL2WRITEMODEDict = {
     "NONE": NONE,
     "SINGLE": SINGLE,
     "MOL": MOL,
     "MULTI": MULTI,
-    }
+}
 
 BoxTypeDict = {
     "NOBOX": NOBOX,
@@ -148,7 +148,7 @@ BoxTypeDict = {
     "TRUNCOCT": TRUNCOCT,
     "RHOMBIC": RHOMBIC,
     "NONORTHO": NONORTHO,
-    }
+}
 
 TrajFormatDict = {
     "AMBERNETCDF": AMBERNETCDF,
@@ -168,7 +168,7 @@ TrajFormatDict = {
     "SQM": SQM,
     "SDF": SDF,
     "CONFLIB": CONFLIB,
-    }
+}
 
 DataTypeDict = {
     "UNKNOWN_DATA ": UNKNOWN_DATASET,
@@ -195,9 +195,9 @@ DataTypeDict = {
     "MAT3X3": MAT3X3,
     "MATRIX3X3": MAT3X3,
     "TOPOLOGY": TOPOLOGY,
-    }
+}
 
 RetActionDict = {
     "OK": OKACTION,
     "ERR": ERRACTION,
-    }
+}

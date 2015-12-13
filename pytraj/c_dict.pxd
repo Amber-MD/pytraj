@@ -173,7 +173,7 @@ cdef extern from "TrajectoryFile.h":
         CONFLIB "TrajectoryFile::CONFLIB"
         UNKNOWN_TRAJ "TrajectoryFile::UNKNOWN_TRAJ"
 
-cdef extern from "DataSet.h": 
+cdef extern from "DataSet.h":
     # DataSet.h
     ctypedef enum DataType "DataSet::DataType":
         UNKNOWN_DATASET "DataSet::UNKNOWN_DATA"

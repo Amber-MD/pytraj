@@ -2,7 +2,7 @@ import numpy as np
 from .decorators import register_pmap
 from .datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 from .c_action import c_action
-from .c_analysis  import c_analysis
+from .c_analysis import c_analysis
 from .c_action.actionlist import ActionList
 
 from .get_common_objects import get_topology, get_data_from_dtype, get_list_of_commands

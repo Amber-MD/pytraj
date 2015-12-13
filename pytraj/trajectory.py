@@ -21,7 +21,6 @@ from .c_traj.c_trajout import Trajout
 __all__ = ['Trajectory']
 
 
-
 class Trajectory(object):
     """Simple in-memory Trajectory. It has only information about 3D coordinates
     and unitcells (no time, no velocity, no force, ...)
@@ -169,7 +168,7 @@ class Trajectory(object):
         '''assign new coordinates for Trajectory
         '''
         if self.shape[1] and self.n_atoms != values.shape[1]:
-                raise ValueError("must have the same number of atoms")
+            raise ValueError("must have the same number of atoms")
         # make sure dtype='f8'
         values = np.asarray(values, dtype='f8')
         if not values.flags['C_CONTIGUOUS']:

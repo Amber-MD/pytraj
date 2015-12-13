@@ -1921,7 +1921,7 @@ def calc_rmsd(traj=None,
     for cm in command:
         _cm = cm + opt
         if 'savematrices' in _cm and dtype not in ['dataset', 'cpptraj_dataset']:
-                raise ValueError('if savematrices, dtype must be "dataset"')
+            raise ValueError('if savematrices, dtype must be "dataset"')
         alist.add_action(c_action.Action_Rmsd(),
                          _cm,
                          top=_top,

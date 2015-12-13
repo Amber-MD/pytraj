@@ -31,9 +31,9 @@ try:
     from .core import Atom
 except ImportError:
     if 'linux' in _platform and not _find_lib("cpptraj"):
-            raise ImportError(
-                "can not find libcpptraj. Make sure to install it "
-                "or export LD_LIBRARY_PATH correctly")
+        raise ImportError(
+            "can not find libcpptraj. Make sure to install it "
+            "or export LD_LIBRARY_PATH correctly")
 
 try:
     from .core import Atom, Residue, Molecule
@@ -147,9 +147,9 @@ distance_matrix = dist
 from . import cluster
 
 from .dihedral_ import (calc_phi, calc_psi, calc_alpha, calc_beta,
-                                calc_omega, calc_chin, calc_chip, calc_delta,
-                                calc_epsilon, calc_gamma, calc_zeta,
-                                calc_omega, calc_nu1, calc_nu2)
+                        calc_omega, calc_chin, calc_chip, calc_delta,
+                        calc_epsilon, calc_gamma, calc_zeta,
+                        calc_omega, calc_nu1, calc_nu2)
 
 from .c_action.action_dict import ActionDict
 from .c_analysis.analysis_dict import AnalysisDict
@@ -160,7 +160,6 @@ from . import vector
 # others
 from .misc import info
 from .run_tests import run_tests
-
 
 
 # turn off verbose in cpptraj
