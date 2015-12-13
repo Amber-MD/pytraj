@@ -18,7 +18,7 @@ from ._shared_methods import iterframe_master
 from .decorators import _register_pmap, _register_openmp
 from .actions import CpptrajActions
 from .analyses import CpptrajAnalyses
-from .core.action_list import ActionList
+from .actions.action_list import ActionList
 from .utils.convert import array2d_to_cpptraj_maskgroup
 
 list_of_cal = ['calc_distance',
@@ -1621,7 +1621,6 @@ def calc_vector(traj=None,
     >>> comlist = ['ucellx', 'boxcenter', 'box']
     >>> data = pt.calc_vector(traj, comlist)
     """
-    from pytraj.core.action_list import ActionList
 
     dslist = CpptrajDatasetList()
     _top = _get_topology(traj, top)

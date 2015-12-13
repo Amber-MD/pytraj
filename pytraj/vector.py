@@ -65,7 +65,7 @@ def vector_mask(traj=None,
     from ._get_common_objects import _get_list_of_commands
     from .datasets.DatasetList import DatasetList as CpptrajDatasetList
     from .actions.CpptrajActions import Action_Vector
-    from .core.action_list import ActionList
+    from .actions.action_list import ActionList
 
     fi = _get_fiterator(traj, frame_indices)
     _top = _get_topology(fi, top)

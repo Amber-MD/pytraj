@@ -12,9 +12,33 @@ from ..datasets.DatasetList cimport _DatasetList, DatasetList
 ctypedef _BaseIOtype* (*AllocatorType)()
 ctypedef void (*HelpType)()
 
-cdef extern from "Command.h": 
-    ctypedef enum RetType "Command::RetType":
+cdef extern from "CpptrajState.h": 
+    ctypedef enum RetType "CpptrajState::RetType":
         pass
+    cdef cppclass _CpptrajState "CpptrajState":
+        _CpptrajState()
+        _DatasetList& DSL()
+        _DataFileList& DFL()
+        int AddTrajin(_ArgList &, bint)
+        int AddTrajin(const string&)
+        int RunAnalyses()
+        inline int AddTrajout "AddOutputTrajectory" (const _ArgList&)
+        inline int AddTrajout "AddOutputTrajectory" (const string&)
+        int AddReference(const string&, _ArgList &)
+        inline int AddReference(const string&)
+        inline int AddAction(DispatchAllocatorType, _ArgList &)
+        inline int AddAnalysis(DispatchAllocatorType, _ArgList &)
+        int TrajLength(const string&, const vector[string]&)
+        int Run()
+        void MasterDataFileWrite()
+        bint EmptyState()
+
+cdef class CpptrajState:
+    cdef _CpptrajState* thisptr
+    cdef public DataFileList datafilelist
+    cdef public DatasetList datasetlist
+
+cdef extern from "Command.h": 
     cdef cppclass _Command "Command":
         @staticmethod
         RetType ProcessInput(_CpptrajState&, const string&)
@@ -209,29 +233,6 @@ cdef extern from "NameType.h":
 cdef class NameType:
         cdef _NameType* thisptr
 
-cdef extern from "CpptrajState.h": 
-    cdef cppclass _CpptrajState "CpptrajState":
-        _CpptrajState()
-        _DatasetList& DSL()
-        _DataFileList& DFL()
-        int AddTrajin(_ArgList &, bint)
-        int AddTrajin(const string&)
-        int RunAnalyses()
-        inline int AddTrajout "AddOutputTrajectory" (const _ArgList&)
-        inline int AddTrajout "AddOutputTrajectory" (const string&)
-        int AddReference(const string&, _ArgList &)
-        inline int AddReference(const string&)
-        inline int AddAction(DispatchAllocatorType, _ArgList &)
-        inline int AddAnalysis(DispatchAllocatorType, _ArgList &)
-        int TrajLength(const string&, const vector[string]&)
-        int Run()
-        void MasterDataFileWrite()
-        bint EmptyState()
-
-cdef class CpptrajState:
-    cdef _CpptrajState* thisptr
-    cdef public DataFileList datafilelist
-    cdef public DatasetList datasetlist
 
 cdef extern from "ArgList.h": 
     cdef cppclass _ArgList "ArgList":

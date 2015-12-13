@@ -1,5 +1,5 @@
 from __future__ import print_function
-from pytraj.actions import CpptrajActions as allactions
+from . import CpptrajActions as allactions
 
 ADICT = {}
 

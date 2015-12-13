@@ -129,7 +129,7 @@ def _cluster(traj=None, mask="", frame_indices=None, dtype='dataset', top=None, 
 
     # do not output cluster info to STDOUT
     command = ' '.join((mask2, "crdset {0}".format(crdname), options, 'noinfo'))
-    ana(command, _top, dslist)
+    ana(command, dslist)
 
     # remove frames in dslist to save memory
     dslist.remove_set(dslist[crdname])

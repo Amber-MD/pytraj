@@ -37,7 +37,7 @@ except ImportError:
 
 try:
     from .core import Atom, Residue, Molecule
-    from .core.action_list import ActionList, create_pipeline, do
+    from .actions.action_list import ActionList, create_pipeline, do
     compute = do
     Pipeline = ActionList
 
@@ -150,7 +150,7 @@ from .dihedral_analysis import (calc_phi, calc_psi, calc_alpha, calc_beta,
                                 calc_epsilon, calc_gamma, calc_zeta,
                                 calc_omega, calc_nu1, calc_nu2)
 
-from .action_dict import ActionDict
+from .actions.action_dict import ActionDict
 from .analysis_dict import AnalysisDict
 from . import matrix
 from . import dihedral_analysis

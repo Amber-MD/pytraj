@@ -5,7 +5,7 @@
 import unittest
 from pytraj import *
 import pytraj as pt
-from pytraj.action_dict import ADICT
+from pytraj.actions.action_dict import ADICT
 from pytraj.trajs import *
 from pytraj.datasets import *
 from pytraj.common_actions import *

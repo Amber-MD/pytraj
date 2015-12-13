@@ -3,7 +3,7 @@ from .decorators import _register_pmap
 from .datasets.DatasetList import DatasetList as CpptrajDatasetList
 from .actions import CpptrajActions
 from .analyses import CpptrajAnalyses
-from pytraj.core.action_list import ActionList
+from pytraj.actions.action_list import ActionList
 
 from ._get_common_objects import _get_topology, _get_data_from_dtype, _get_list_of_commands
 from ._get_common_objects import _get_fiterator
