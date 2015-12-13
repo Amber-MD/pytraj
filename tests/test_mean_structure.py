@@ -4,7 +4,7 @@ import numpy as np
 import pytraj as pt
 from pytraj.base import *
 from pytraj import adict
-from pytraj.common_actions import *
+from pytraj.all_actions import *
 from pytraj.testing import aa_eq
 from pytraj import Trajectory
 from pytraj import mean_structure

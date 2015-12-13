@@ -9,7 +9,7 @@ from libcpp.string cimport string
 from cpython.array cimport array
 
 from ..frame cimport Frame, _Frame
-from ..core.Box cimport _Box, Box
+from ..core.box cimport _Box, Box
 
 import numpy as np
 

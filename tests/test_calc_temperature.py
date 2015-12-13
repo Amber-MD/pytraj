@@ -1,6 +1,5 @@
 import unittest
 from pytraj import *
-import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):

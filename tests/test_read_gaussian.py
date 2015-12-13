@@ -2,7 +2,6 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
-import pytraj.common_actions as pyca
 
 
 try:
@@ -10,6 +9,7 @@ try:
     has_cclib = True
 except ImportError:
     has_cclib = False
+
 
 class TestReadGaussianOutput(unittest.TestCase):
 

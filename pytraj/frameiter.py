@@ -171,10 +171,10 @@ class FrameIterator(object):
                    **kwd)
 
     def __iter__(self):
-        from pytraj.actions import CpptrajActions
-        # do not import CpptrajActions in the top to avoid circular importing
+        from pytraj.c_action import c_action
+        # do not import c_action in the top to avoid circular importing
         if self.autoimage:
-            image_act = CpptrajActions.Action_AutoImage()
+            image_act = c_action.Action_AutoImage()
             image_act.read_input("", top=self.original_top)
             image_act.process(self.original_top)
         if self.rmsfit is not None:
@@ -185,7 +185,7 @@ class FrameIterator(object):
                 # make a copy to avoid changing ref
                 ref = ref.copy()
                 image_act.do_action(ref)
-            rmsd_act = CpptrajActions.Action_Rmsd()
+            rmsd_act = c_action.Action_Rmsd()
             rmsd_act.read_input(mask_for_rmsfit, top=self.original_top)
             rmsd_act.process(self.original_top)
             # creat first frame to trick cpptraj to align to this.
@@ -207,7 +207,7 @@ class FrameIterator(object):
             else:
                 frame = frame0
             if self.autoimage:
-                # from pytraj.actions.CpptrajActions import Action_AutoImage
+                # from pytraj.c_action.c_action import Action_AutoImage
                 # Action_AutoImage()("", frame, self.top)
                 image_act.do_action(frame)
             if need_align:

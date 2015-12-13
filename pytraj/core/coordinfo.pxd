@@ -1,5 +1,5 @@
 # distutils: language = c++
-from ..core.Box cimport _Box
+from ..core.box cimport _Box
 
 
 cdef extern from "CoordinateInfo.h": 

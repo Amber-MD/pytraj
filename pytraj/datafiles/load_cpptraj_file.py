@@ -5,7 +5,7 @@ for compatibility with cpptraj
 >>> isinstance(state, CpptrajState)
 """
 from __future__ import absolute_import
-from ..core.cpp_core import Command
+from ..core.c_core import Command
 from ..decorators import ensure_exist
 
 

@@ -4,12 +4,12 @@ from collections import OrderedDict
 import numpy as np
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
-import pytraj.common_actions as pyca
+
 from pytraj.tools import flatten
 from pytraj import matrix
 from pytraj.compat import set
 from pytraj.parallel import _load_batch_pmap
-from pytraj import cpptraj_commands
+from pytraj import c_commands
 
 
 class TestNormalPmap(unittest.TestCase):
@@ -74,7 +74,7 @@ class TestNormalPmap(unittest.TestCase):
 
          # test _worker
          # need to test this since coverages seems not recognize partial func
-        from pytraj.parallel.parallel_mapping_multiprocessing import _worker
+        from pytraj.parallel.multiprocessing_ import _worker
         data = _worker(rank=2, n_cores=8, func=pt.radgyr, traj=traj, args=(), kwd={'mask': '@CA'}, iter_options={})
         assert data[0] == 2, 'rank must be 2'
         assert data[2] == 1, 'n_frames for rank=2 should be 1 (only 10 frames in total)'
@@ -159,7 +159,7 @@ class TestParallelMapForMatrix(unittest.TestCase):
 
 class TestCpptrajCommandStyle(unittest.TestCase):
 
-    def test_cpptraj_command_style(self):
+    def test_c_command_style(self):
         traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
 
         angle_ = pt.angle(traj, ':3 :4 :5')
@@ -257,13 +257,13 @@ class TestFrameIndices(unittest.TestCase):
                                        traj,
                                        '@CA',
                                        frame_indices=frame_indices)
-                parallel_out_cpptraj_style = pt.pmap(
+                parallel_out_c_style = pt.pmap(
                     ['radgyr @CA nomax'],
                     traj,
                     frame_indices=frame_indices)
                 aa_eq(serial_out, pt.tools.dict_to_ndarray(parallel_out))
                 aa_eq(serial_out,
-                      pt.tools.dict_to_ndarray(parallel_out_cpptraj_style))
+                      pt.tools.dict_to_ndarray(parallel_out_c_style))
 
 
 class TestCheckValidCommand(unittest.TestCase):
@@ -278,8 +278,8 @@ class TestCheckValidCommand(unittest.TestCase):
         # does not support matrix
         self.assertRaises(ValueError, lambda: pt.pmap(['matrix'], traj, n_cores=2))
 
-        # do not accept any cpptraj analysis command
-        for word in cpptraj_commands.analysis_commands:
+        # do not accept any c analysis command
+        for word in c_commands.analysis_commands:
             self.assertRaises(ValueError, lambda: pt.pmap(word, traj, n_cores=2))
 
 

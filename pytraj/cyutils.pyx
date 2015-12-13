@@ -1,7 +1,7 @@
 cimport cython
 from cython cimport view
 from .frame cimport Frame, _Frame
-from .core.Box cimport _Box, Box
+from .core.box cimport _Box, Box
 from .topology cimport Topology
 
 
@@ -85,7 +85,7 @@ def _fast_iterptr(double[:, :, :] xyz, int n_atoms, indices, Topology topology=N
         frame._set_mass_from_array(mass)
 
     for i in indices:
-        frame.thisptr.SetXptr(n_atoms, &xyz[i, 0, 0])
+        frame.thisptr.SetXptr(n_atoms, & xyz[i, 0, 0])
         yield frame
 
 
@@ -103,6 +103,6 @@ def _fast_iterptr_withbox(double[:, :, :] xyz, double[:, :] boxes, int n_atoms, 
         frame._set_mass_from_array(mass)
 
     for i in indices:
-        frame.thisptr.SetXptr(n_atoms, &xyz[i, 0, 0])
-        frame.thisptr.SetBox(_Box( &boxes[i, 0]))
+        frame.thisptr.SetXptr(n_atoms, & xyz[i, 0, 0])
+        frame.thisptr.SetBox(_Box( & boxes[i, 0]))
         yield frame

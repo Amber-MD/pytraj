@@ -3,7 +3,6 @@ import os
 import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
-import pytraj.common_actions as pyca
 from pytraj.utils import has_
 from pytraj.testing import amberhome
 

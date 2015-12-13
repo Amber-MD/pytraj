@@ -5,7 +5,7 @@ import os
 import re
 from glob import glob
 import numpy as np
-from .trajs.cpptraj_trajectory import TrajectoryCpptraj
+from .c_traj.c_trajectory import TrajectoryCpptraj
 from .externals.six import string_types
 from .externals.six.moves import range
 from .topology import Topology
@@ -13,7 +13,7 @@ from .frame import Frame
 from .utils import is_int
 from .cyutils import get_positive_idx
 from .frameiter import FrameIterator
-from ._get_common_objects import _load_Topology
+from .get_common_objects import _load_Topology
 from .utils import split_range
 from .utils.convert import array_to_cpptraj_atommask
 
@@ -455,7 +455,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
 
         assert 0 <= start <= self.n_frames, "0 <= start <= self.n_frames"
 
-        #if stop <= 0 or stop > self.n_frames:
+        # if stop <= 0 or stop > self.n_frames:
         if not (0 < stop <= self.n_frames):
             stop = self.n_frames
 

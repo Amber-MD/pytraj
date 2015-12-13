@@ -3,19 +3,19 @@ import os
 import numpy as np
 
 from .externals.six import string_types, PY3
+from .externals.pickle_ import to_pickle, read_pickle
+from .externals.json_ import to_json, read_json
 from .datafiles.load_samples import load_sample_data
-from .externals._pickle import to_pickle, read_pickle
-from .externals._json import to_json, read_json
 from .datafiles.load_cpptraj_file import load_cpptraj_file
-from ._shared_methods import iterframe_master
+from .shared_methods import iterframe_master
 from .cyutils import _fast_iterptr as iterframe_from_array
 from .cpp_options import set_error_silent
-from ._get_common_objects import _get_topology
+from .get_common_objects import get_topology
 from .topology import Topology, ParmFile
 from .trajectory import Trajectory
 from .trajectory_iterator import TrajectoryIterator
 
-from .externals._load_ParmEd import load_ParmEd
+from .externals.load_other_packages import load_ParmEd
 
 from .decorators import ensure_exist
 
@@ -283,8 +283,7 @@ def iterload_remd(filename, top=None, T="300.0"):
     -----
 
     """
-    from pytraj.core.cpp_core import CpptrajState, Command
-    dispatch = Command.dispatch
+    from pytraj.core.c_core import CpptrajState, Command
 
     state = CpptrajState()
 
@@ -299,8 +298,9 @@ def iterload_remd(filename, top=None, T="300.0"):
     state.data['remdtop']._top = top
 
     # load trajin
-    dispatch(state, trajin)
-    dispatch(state, 'loadtraj name remdtraj')
+    with Command() as cm:
+        cm.dispatch(state, trajin)
+        cm.dispatch(state, 'loadtraj name remdtraj')
 
     # state.data.remove_set(state.data['remdtop'])
     traj = state.data[-1]
@@ -371,9 +371,9 @@ def write_traj(filename="",
     >>> pt.write_traj("output/test_xyz.nc", xyz, top=traj.top, overwrite=True)
     """
     from .frame import Frame
-    from .trajs.Trajout import Trajout
+    from .c_traj.c_trajout import Trajout
 
-    _top = _get_topology(traj, top)
+    _top = get_topology(traj, top)
     if _top is None:
         raise ValueError("must provide Topology")
 

@@ -2,7 +2,7 @@
 '''
 
 
-def to_chemview(traj): # pragma: no cover
+def to_chemview(traj):  # pragma: no cover
     '''Generate topology spec for the MolecularViewer from pytraj. (adapted from chemview code)
 
     Parameters
@@ -26,7 +26,7 @@ def to_chemview(traj): # pragma: no cover
     return top
 
 
-def to_nglview(traj, parmfile=None): # pragma: no cover
+def to_nglview(traj, parmfile=None):  # pragma: no cover
     '''convert to nglview object
 
     Parameters

@@ -6,7 +6,6 @@ from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils import eq, aa_eq, Timer
 from pytraj.testing import cpptraj_test_dir
-import pytraj.common_actions as pyca
 
 
 class Test(unittest.TestCase):

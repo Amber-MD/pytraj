@@ -8,9 +8,9 @@ import doctest
 from pytraj.compat import PY3
 from pytraj import testing
 from pytraj.datafiles import load_samples
-from pytraj.externals import get_pysander_energies
-from pytraj import frame, datafiles, cluster, nucleic_acid_analysis
-from pytraj.core import action_list
+from pytraj.externals import energy
+from pytraj import frame, datafiles, cluster, nucleic_acid_
+from pytraj.c_action import actionlist
 
 
 try:

@@ -13,7 +13,7 @@ def check_valid_command(commands):
     ----------
     commands : list/tuple of str
     '''
-    from pytraj.cpptraj_commands import analysis_commands
+    from pytraj.c_commands import analysis_commands
 
     if isinstance(commands, string_types):
         commands = [line.strip() for line in commands.split('\n') if line]
@@ -81,6 +81,7 @@ def _worker_actlist(rank,
     # remove ref
     return (rank, dslist[len(reflist):].to_dict())
 
+
 def _load_batch_pmap(n_cores=4,
                      lines=[],
                      traj=None,
@@ -130,7 +131,7 @@ def _worker_state(rank, n_cores=1, traj=None, lines=[], dtype='dict'):
     # do not use lines.copy() since this is not available in py2.7
     my_lines = [line for line in lines]
     from pytraj.utils import split_range
-    from pytraj.core.cpp_core import _load_batch
+    from pytraj.core.c_core import _load_batch
 
     mylist = split_range(n_cores, 0, traj.n_frames)[rank]
     start, stop = mylist

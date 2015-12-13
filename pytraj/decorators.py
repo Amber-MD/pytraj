@@ -5,7 +5,7 @@ from functools import wraps
 # we duplicate code from .utils.check_and_assert here to avoid circular import
 
 
-def _register_pmap(f):
+def register_pmap(f):
     @wraps(f)
     def inner(*args, **kwd):
         return f(*args, **kwd)
@@ -14,7 +14,7 @@ def _register_pmap(f):
     return inner
 
 
-def _register_openmp(f):
+def register_openmp(f):
     @wraps(f)
     def inner(*args, **kwd):
         return f(*args, **kwd)

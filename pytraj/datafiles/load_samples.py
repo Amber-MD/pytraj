@@ -20,7 +20,7 @@ def load_sample_data(data_name=None):
         explicit water, ortho box
     """
     data_dict = {
-        'ala3': ["Ala3/Ala3.crd", "Ala3/Ala3.top"],
+        'ala3': ["ala3/Ala3.crd", "ala3/Ala3.top"],
         'tz2': ["tz2/tz2.ortho.nc", "tz2/tz2.ortho.parm7"],
         'tz2_dry': ["tz2/tz2.nc", "tz2/tz2.parm7"],
         'rna': ["rna.pdb", "rna.pdb"],

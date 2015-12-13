@@ -14,7 +14,7 @@ class TestTools(unittest.TestCase):
         # as_2darray
         assert pt.tools.as_2darray(traj).ndim == 2, 'ndim must be 2'
 
-        # 
+        #
         self.assertRaises(ValueError, lambda: pt.tools.rmsd_1darray([3, 2], [[2, 3], [4, 6]]))
         self.assertRaises(ValueError, lambda: pt.tools.rmsd_1darray([[2, 3], [4, 6]], [2, 3]))
 
@@ -22,7 +22,7 @@ class TestTools(unittest.TestCase):
         self.assertRaises(ValueError, lambda: pt.tools.rmsd([[2, 3], [4, 6]], [2, 3]))
         self.assertRaises(ValueError, lambda: pt.tools.rmsd([[2, 3]], [2, 3], flatten=False))
 
-        # 
+        #
         for frame in pt.tools.split_traj_by_residues(traj, 0, 12):
             pass
 

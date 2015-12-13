@@ -49,7 +49,7 @@ def write_traj(filename, traj=None, mode='', frame_indices=None):
     Examples
     --------
     '''
-    from pytraj.actions.CpptrajActions import Action_Outtraj
+    from pytraj.c_action.c_action import Action_Outtraj
 
     command = ' '.join((filename, mode))
     fi = traj if frame_indices is None else traj.iterframe(
@@ -73,7 +73,7 @@ class Trajout:
     '''
 
     def __init__(self, filename, mode='', top=None):
-        from pytraj.actions.CpptrajActions import Action_Outtraj
+        from pytraj.c_action.c_action import Action_Outtraj
         self._outtraj = Action_Outtraj()
         command = ' '.join((filename, mode))
         self._outtraj.read_input(command, top=top)
@@ -89,10 +89,10 @@ class Trajout:
         pass
 
 # for testing
-from pytraj._get_common_objects import (_get_data_from_dtype, _get_topology,
-                                        _get_reference_from_traj,
-                                        _get_fiterator)
-from pytraj.actions import CpptrajActions
+from pytraj.get_common_objects import (get_data_from_dtype, get_topology,
+                                       get_reference_from_traj,
+                                       get_fiterator)
+from pytraj.c_action import c_action
 from pytraj.datasets import CpptrajDatasetList
 from pytraj.compat import string_types
 from pytraj.utils.convert import array_to_cpptraj_atommask
@@ -113,13 +113,13 @@ def _dispatch_traj_ref_top_frame_indices(f):
             mask = args[1]
 
         # overwrite
-        kwd['top'] = _get_topology(traj, top)
+        kwd['top'] = get_topology(traj, top)
         if ref is not None:
-            kwd['ref'] = _get_reference_from_traj(traj, ref)
+            kwd['ref'] = get_reference_from_traj(traj, ref)
         if 'traj' in kwd.keys():
-            kwd['traj'] = _get_fiterator(traj, frame_indices)
+            kwd['traj'] = get_fiterator(traj, frame_indices)
         else:
-            args[0] = _get_fiterator(traj, frame_indices)
+            args[0] = get_fiterator(traj, frame_indices)
         if not isinstance(mask, string_types):
             mask = array_to_cpptraj_atommask(mask)
         if 'mask' in kwd.keys():
@@ -144,14 +144,14 @@ def _toy_radgyr(traj,
     >>> import pytraj as pt
     >>> pt.mindist(traj, '@CA @H')
     '''
-    act = CpptrajActions.Action_Radgyr()
+    act = c_action.Action_Radgyr()
     dslist = CpptrajDatasetList()
 
     _nomax = 'nomax' if nomax else ''
     mask = ' '.join((mask, _nomax))
 
     act(mask, traj, top=top, dslist=dslist)
-    return _get_data_from_dtype(dslist, dtype=dtype)
+    return get_data_from_dtype(dslist, dtype=dtype)
 
 
 def calc_linear_interaction_energy(traj=None,
@@ -162,11 +162,11 @@ def calc_linear_interaction_energy(traj=None,
                                    *args,
                                    **kwd):
     command = mask
-    act = CpptrajActions.Action_LIE()
+    act = c_action.Action_LIE()
 
     dslist = CpptrajDatasetList()
     act(command, traj, top=top, dslist=dslist, *args, **kwd)
-    return _get_data_from_dtype(dslist, dtype)
+    return get_data_from_dtype(dslist, dtype)
 
 # alias
 calc_LIE = calc_linear_interaction_energy
@@ -206,8 +206,8 @@ def _dbscan(traj=None,
     1D numpy array of frame indices
     '''
 
-    # don't need to _get_topology
-    _top = _get_topology(traj, top)
+    # don't need to get_topology
+    _top = get_topology(traj, top)
     _clusters = 'dbscan minpoints ' + str(minpoints)
     _mask = mask
     _epsilon = 'epsilon ' + str(epsilon)
@@ -223,6 +223,8 @@ def _dbscan(traj=None,
     return _cluster(traj, command, top=_top, dtype='ndarray')
 
 #@_super_dispatch()
+
+
 def calc_density(traj=None,
                  command="",
                  top=None,
@@ -247,7 +249,7 @@ def calc_density(traj=None,
 
             tmp_filename = "tmp_pytraj_out.txt"
             command = "out " + tmp_filename + " " + command
-            act = CpptrajActions.Action_Density()
+            act = c_action.Action_Density()
             act(command, traj, top=top, dflist=dflist)
             act.post_process()
             dflist.write_all_datafiles()
@@ -257,7 +259,8 @@ def calc_density(traj=None,
         dslist = CpptrajDatasetList()
         fname = _calc_density(traj, command)
         dslist.read_data(fname)
-        return _get_data_from_dtype(dslist, dtype)
+        return get_data_from_dtype(dslist, dtype)
+
 
 def _rotdif(arr,
             nvecs=1000,
@@ -309,6 +312,7 @@ def _rotdif(arr,
     else:
         raise ValueError(msg)
 
+
 def lifetime(data, cut=0.5, rawcurve=False, more_options='', dtype='ndarray'):
     """lifetime (adapted lightly from cpptraj doc)
 
@@ -349,9 +353,10 @@ def lifetime(data, cut=0.5, rawcurve=False, more_options='', dtype='ndarray'):
 
     for name in namelist:
         cdslist.remove_set(cdslist[name])
-    return _get_data_from_dtype(cdslist, dtype=dtype)
+    return get_data_from_dtype(cdslist, dtype=dtype)
 
 # parallel
+
 
 def to_parmed(traj, all_coords=False):
     import parmed as pmd
@@ -366,7 +371,7 @@ def to_parmed(traj, all_coords=False):
         parm.add_atom(p_atom,
                       resname=atom.resname,
                       resnum=atom.resid)
-                      #chain=str(atom.molnum))
+        # chain=str(atom.molnum))
     if all_coords:
         parm.coordinates = traj.xyz
     else:
