@@ -5,7 +5,6 @@ import pytraj as pt
 from pytraj.utils import eq, aa_eq
 
 
-
 class TestAutoImageAndRotateDihedral(unittest.TestCase):
 
     def test_autoimage_rotatedihedral(self):
@@ -126,7 +125,6 @@ class TestTrajectory(unittest.TestCase):
         # raise if empty Topology
         xyz = np.arange(90).astype('f8').reshape(3, 10, 3)
         self.assertRaises(ValueError, lambda: pt.Trajectory(xyz=xyz, top=pt.Topology()))
-
 
     def test_slice_basic(self):
         traj2 = pt.Trajectory()

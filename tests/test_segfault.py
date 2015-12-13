@@ -27,7 +27,7 @@ class Test(unittest.TestCase):
             fa[idx]
 
     def test_1(self):
-        
+
         pt.search_hbonds(traj)
         pt.search_hbonds(traj, 'series')
         pt.search_hbonds(traj, 'series, nointramol')

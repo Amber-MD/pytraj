@@ -4,7 +4,6 @@ import pytraj as pt
 from pytraj.utils import eq, aa_eq
 
 
-
 class TestClustering(unittest.TestCase):
 
     def test_kmeans(self):

@@ -455,7 +455,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
 
         assert 0 <= start <= self.n_frames, "0 <= start <= self.n_frames"
 
-        #if stop <= 0 or stop > self.n_frames:
+        # if stop <= 0 or stop > self.n_frames:
         if not (0 < stop <= self.n_frames):
             stop = self.n_frames
 

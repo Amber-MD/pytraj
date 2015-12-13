@@ -165,19 +165,19 @@ class TestIred(unittest.TestCase):
         evals, evecs = modes.eigenvalues, modes.eigenvectors
 
         data_0 = _ired(state_vecs,
-                     modes=(evals, evecs),
-                     NHbond=True,
-                     tcorr=10000,
-                     tstep=1.)
+                       modes=(evals, evecs),
+                       NHbond=True,
+                       tcorr=10000,
+                       tstep=1.)
 
         data_1 = _ired(state_vecs,
-                     modes=modes,
-                     NHbond=True,
-                     tcorr=10000,
-                     tstep=1)
+                       modes=modes,
+                       NHbond=True,
+                       tcorr=10000,
+                       tstep=1)
 
         for d0, d1 in zip(data_0, data_1):
-            if d0.dtype not in ['modes',]:
+            if d0.dtype not in ['modes', ]:
                 aa_eq(d0.values, d1.values)
             else:
                 # modes
