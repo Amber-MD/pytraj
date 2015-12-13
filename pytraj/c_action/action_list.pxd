@@ -2,7 +2,7 @@
 
 from libcpp.string cimport string
 from ..core.cpp_core cimport _DispatchObject, DispatchObject, DispatchAllocatorType, FunctPtr
-from ..core.Box cimport Box
+from ..core.box cimport Box
 from ..datafiles.datafiles cimport _DataFileList, DataFileList
 from ..topology cimport _Topology, Topology
 from ..frame cimport _Frame, Frame

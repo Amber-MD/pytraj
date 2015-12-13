@@ -3,7 +3,7 @@ import os
 import numpy as np
 from ..trajectory import Trajectory
 from ..core.cpp_core cimport AtomMask
-from ..core.Box cimport Box
+from ..core.box cimport Box
 from ..topology cimport Topology
 
 from ..cyutils import get_positive_idx

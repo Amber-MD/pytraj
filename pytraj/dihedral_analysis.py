@@ -52,7 +52,7 @@ def calc_%s(traj=None, resrange="",
     >>> da.calc_multidihedral(traj, resrange="3-10")
     >>> da.calc_multidihedral(traj, resrange=range(5, 10))
     >>> # assert
-    >>> from pytraj import common_actions as pyca
+    >>> from pytraj import all_actions as pyca
     >>> phi0 = pyca.calc_multidihedral(traj, "phi", dtype='dataset')
     >>> phi1 = da.calc_phi(traj, dtype='dataset')
     >>> from pytraj.testing import aa_eq

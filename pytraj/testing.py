@@ -55,7 +55,7 @@ def make_random_frame(n_atoms=10000):
 
 header_doc = '''
 import pytraj as pt
-import pytraj.common_actions as pyca
+import pytraj.all_actions as pyca
 traj = pt.load_sample_data("tz2")
 '''
 

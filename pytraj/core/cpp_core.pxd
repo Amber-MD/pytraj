@@ -5,7 +5,7 @@ from libcpp.string cimport string
 from posix.unistd cimport off_t
 from ..cpp_vector cimport vector
 
-from .Box cimport _Box, Box
+from .box cimport _Box, Box
 from ..datafiles.datafiles cimport _DataFileList, DataFileList, _DataFile, DataFile
 from ..datasets.DatasetList cimport _DatasetList, DatasetList
 

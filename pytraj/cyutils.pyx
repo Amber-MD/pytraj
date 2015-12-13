@@ -1,7 +1,7 @@
 cimport cython
 from cython cimport view
 from .frame cimport Frame, _Frame
-from .core.Box cimport _Box, Box
+from .core.box cimport _Box, Box
 from .topology cimport Topology
 
 

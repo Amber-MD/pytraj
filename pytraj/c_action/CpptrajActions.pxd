@@ -1,7 +1,7 @@
 # distutils: language = c++
 from libcpp.string cimport string
 from ..core.cpp_core cimport (_DispatchObject, DispatchObject,  FunctPtr)
-from ..core.Box cimport Box
+from ..core.box cimport Box
 from ..datafiles.datafiles cimport  _DataFileList, DataFileList
 from ..topology cimport _Topology, Topology
 from ..core.cpp_core cimport _ArgList, ArgList

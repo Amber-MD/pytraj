@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 
 import numpy as np
-from .core.Box import Box
+from .core.box import Box
 from .frame import Frame
 from .utils.check_and_assert import is_int, is_frame_iter
 from .utils.convert import array_to_cpptraj_atommask
