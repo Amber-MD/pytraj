@@ -5,7 +5,7 @@ from pytraj.base import *
 from pytraj import adict
 from pytraj.utils import eq, aa_eq
 from pytraj.testing import cpptraj_test_dir
-import pytraj.common_actions as pyca
+import pytraj.all_actions as pyca
 
 
 class TestPrincipalAxis(unittest.TestCase):

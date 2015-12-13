@@ -5,7 +5,7 @@ from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils import eq, aa_eq
 from pytraj.testing import cpptraj_test_dir, duplicate_traj
-import pytraj.common_actions as pyca
+import pytraj.all_actions as pyca
 
 
 class Test(unittest.TestCase):

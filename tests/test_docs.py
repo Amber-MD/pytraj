@@ -46,7 +46,7 @@ class TestDoc(unittest.TestCase):
                 action_list,
                 cluster,
                 datafiles,
-                pt.common_actions,
+                pt.all_actions,
                 pt.topology,
                 pt._get_common_objects,
                 pt.parallel.multiprocessing_,

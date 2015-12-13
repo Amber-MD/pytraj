@@ -5,7 +5,7 @@ import unittest
 import pytraj as pt
 import pytraj as pt
 from pytraj.testing import run_docstring
-import pytraj.common_actions as pyca
+import pytraj.all_actions as pyca
 from pytraj.base import *
 import pytraj as pt
 
@@ -38,7 +38,7 @@ class Test(unittest.TestCase):
 
         funclist = [DataArray,
                     pt.volmap,
-                    pt.actions.CpptrajActions.Action,
+                    pt.c_action.c_actions.Action,
                     pt.create_pipeline,
                     pt.pmap,
                     pt.nastruct,

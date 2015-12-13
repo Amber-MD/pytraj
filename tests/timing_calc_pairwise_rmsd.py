@@ -1,6 +1,6 @@
 from pytraj import io
 from pytraj.utils import Timer
-import pytraj.common_actions as pyca
+import pytraj.all_actions as pyca
 from pytraj._shared_methods import iterframe_master
 import numpy as np
 from numpy.testing import assert_almost_equal as aa_equal

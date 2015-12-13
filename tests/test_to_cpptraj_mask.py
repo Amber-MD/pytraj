@@ -2,7 +2,7 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
-import pytraj.common_actions as pyca
+import pytraj.all_actions as pyca
 
 
 class Test(unittest.TestCase):

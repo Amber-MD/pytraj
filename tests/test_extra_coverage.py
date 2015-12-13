@@ -46,9 +46,9 @@ class TestExtraCoverage(unittest.TestCase):
         self.assertRaises(TypeError, lambda: _get_reference_from_traj(self.traj(), 3))
         self.assertRaises(TypeError, lambda: _get_reference_from_traj(self.traj(), None))
 
-    def test_common_actions(self):
-        from pytraj import common_actions
-        self.assertRaises(ValueError, lambda: common_actions._assert_mutable(self.traj))
+    def test_all_actions(self):
+        from pytraj import all_actions
+        self.assertRaises(ValueError, lambda: all_actions._assert_mutable(self.traj))
 
 
 if __name__ == "__main__":

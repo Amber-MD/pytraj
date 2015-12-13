@@ -4,7 +4,7 @@ from collections import OrderedDict
 import numpy as np
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
-import pytraj.common_actions as pyca
+import pytraj.all_actions as pyca
 from pytraj.tools import flatten
 from pytraj import matrix
 from pytraj.compat import set

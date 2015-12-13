@@ -18,7 +18,7 @@ class TestAutoImage(unittest.TestCase):
         aa_eq(fsaved.xyz, f0.xyz, decimal=3)
 
     def test_2(self):
-        from pytraj.common_actions import do_autoimage
+        from pytraj.all_actions import do_autoimage
         # test do_autoimage
         traj = pt.iterload("./data/tz2.truncoct.nc",
                            "./data/tz2.truncoct.parm7")
