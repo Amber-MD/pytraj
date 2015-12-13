@@ -6,7 +6,7 @@ from .math.cpp_math cimport _Vec3, Vec3, _Matrix_3x3, Matrix_3x3
 from .core.topology_objects cimport _Atom, Atom
 from .core.box cimport _Box, Box, BoxType
 from .topology cimport _Topology, Topology
-from .core.cpp_core cimport _CoordinateInfo, CoordinateInfo, _AtomMask, AtomMask
+from .core.c_core cimport _CoordinateInfo, CoordinateInfo, _AtomMask, AtomMask
 
 ctypedef vector[float] CRDtype
 ctypedef vector[double] Darray
