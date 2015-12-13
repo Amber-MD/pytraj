@@ -22,15 +22,15 @@ def get_topology(traj, top):
     >>> from pytraj import Topology
     >>> traj = pt.datafiles.load_rna()
     >>> top_filename = traj.top.filename
-    >>> isinstance(_get_topology(traj, None), Topology)
+    >>> isinstance(get_topology(traj, None), Topology)
     True
-    >>> isinstance(_get_topology(traj, top_filename), Topology)
+    >>> isinstance(get_topology(traj, top_filename), Topology)
     True
     >>> top = traj.top
-    >>> isinstance(_get_topology(traj, top), Topology)
+    >>> isinstance(get_topology(traj, top), Topology)
     True
     >>> # find Topology in a list
-    >>> isinstance(_get_topology([traj, traj], None), Topology)
+    >>> isinstance(get_topology([traj, traj], None), Topology)
     True
     >>> get_topology(None, None) is None
     True

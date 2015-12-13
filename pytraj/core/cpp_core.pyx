@@ -10,7 +10,7 @@ from ..cyutils import _int_array1d_like_to_memview
 from ..externals.six import string_types
 from ..externals.six.moves import range
 from pytraj.externals.six import string_types
-from pytraj import cpptraj_dict
+from pytraj import c_dict
 
 __all__ = ['command_dispatch', 'AtomMask',
            'FileName', 'CoordinateInfo',

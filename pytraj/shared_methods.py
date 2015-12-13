@@ -1,7 +1,7 @@
 # distutils: language = c++
 #
 from pytraj.frame import Frame
-from pytraj.c_trajs.Trajout import Trajout
+from pytraj.c_trajs.trajout import Trajout
 from pytraj.utils.check_and_assert import is_frame_iter
 from pytraj.frameiter import FrameIterator
 
