@@ -289,6 +289,8 @@ cdef class ActionList:
         self.top = top
 
         _arglist = _get_arglist(command)
+        # let ActionList free memory
+        action_.own_memory = False
         status = self.thisptr.AddAction(action_.baseptr, _arglist.thisptr[0],
                                         actioninit_)
 

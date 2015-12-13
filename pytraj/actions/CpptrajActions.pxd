@@ -65,6 +65,8 @@ cdef class Action:
     cdef public object _dslist
     cdef public object _dflist
     cdef public object _command
+    # create pointer to pass to ActionList
+    cdef bint own_memory
 
 
 cdef extern from "Action_Angle.h": 
