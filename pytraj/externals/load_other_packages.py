@@ -4,8 +4,6 @@ from ..utils.context import goto_temp_folder
 from .six import string_types
 
 
-
-
 def load_ParmEd(parmed_obj, as_traj=False, **kwd):
     """return pytraj's Topology or Trajectory objects
 
