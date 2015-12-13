@@ -7,7 +7,6 @@ from pytraj.utils import eq, aa_eq
 from pytraj.testing import cpptraj_test_dir, duplicate_traj
 
 
-
 class Test(unittest.TestCase):
 
     def test_0(self):

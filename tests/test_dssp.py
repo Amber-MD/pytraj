@@ -72,7 +72,7 @@ class TestDSSP(unittest.TestCase):
         allresidues_dssp = pt.dssp_allresidues(traj).T
         for idx, res in enumerate(traj.top.residues):
             assert np.all(np.array(allatoms_dssp[res.first_atom_index: res.last_atom_index])
-            == (np.array(allresidues_dssp[idx])))
+                          == (np.array(allresidues_dssp[idx])))
 
 if __name__ == "__main__":
     unittest.main()

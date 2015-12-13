@@ -35,7 +35,7 @@ else:
 possible_path = "../cpptraj/test/"
 
 if not cpptraj_test_dir and os.path.exists(possible_path):
-        cpptraj_test_dir = possible_path
+    cpptraj_test_dir = possible_path
 
 
 def make_random_frame(n_atoms=10000):

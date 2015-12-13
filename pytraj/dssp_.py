@@ -154,10 +154,10 @@ def _to_string_secondary_structure(arr0, simplified=False):
 
 
 def get_ss_per_frame(arr,
-                      top,
-                      res_indices,
-                      simplified=False,
-                      all_atoms=False):
+                     top,
+                     res_indices,
+                     simplified=False,
+                     all_atoms=False):
     if simplified:
         symbol = 'C'
 
@@ -211,16 +211,16 @@ def dssp_allatoms(traj, *args, **kwd):
 
     if not PY3:
         new_data = np.empty((traj.n_frames, traj.n_atoms), dtype='S2')
-    else: # pragma: no cover
+    else:  # pragma: no cover
         new_data = np.empty((traj.n_frames, traj.n_atoms), dtype='U2')
 
     simplified = kwd.get('simplified', False)
     for fid, arr in enumerate(data):
         new_data[fid][:] = tools.flatten(get_ss_per_frame(arr,
-                                                           top,
-                                                           res_indices,
-                                                           simplified,
-                                                           all_atoms=True))
+                                                          top,
+                                                          res_indices,
+                                                          simplified,
+                                                          all_atoms=True))
     return new_data
 
 
@@ -272,14 +272,14 @@ def dssp_allresidues(traj, *args, **kwd):
 
     if not PY3:
         new_data = np.empty((traj.n_frames, traj.top.n_residues), dtype='S2')
-    else: # pragma no cover
+    else:  # pragma no cover
         new_data = np.empty((traj.n_frames, traj.top.n_residues), dtype='U2')
 
     simplified = kwd.get('simplified', False)
     for fid, arr in enumerate(data):
         new_data[fid][:] = tools.flatten(get_ss_per_frame(arr,
-                                                           top,
-                                                           res_indices,
-                                                           simplified,
-                                                           all_atoms=False))
+                                                          top,
+                                                          res_indices,
+                                                          simplified,
+                                                          all_atoms=False))
     return new_data

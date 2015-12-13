@@ -90,9 +90,9 @@ class Trajout:
 
 # for testing
 from pytraj.get_common_objects import (get_data_from_dtype, get_topology,
-                                        get_reference_from_traj,
-                                        get_fiterator)
-from pytraj.c_action  import c_action
+                                       get_reference_from_traj,
+                                       get_fiterator)
+from pytraj.c_action import c_action
 from pytraj.datasets import CpptrajDatasetList
 from pytraj.compat import string_types
 from pytraj.utils.convert import array_to_cpptraj_atommask
@@ -223,6 +223,8 @@ def _dbscan(traj=None,
     return _cluster(traj, command, top=_top, dtype='ndarray')
 
 #@_super_dispatch()
+
+
 def calc_density(traj=None,
                  command="",
                  top=None,
@@ -258,6 +260,7 @@ def calc_density(traj=None,
         fname = _calc_density(traj, command)
         dslist.read_data(fname)
         return get_data_from_dtype(dslist, dtype)
+
 
 def _rotdif(arr,
             nvecs=1000,
@@ -309,6 +312,7 @@ def _rotdif(arr,
     else:
         raise ValueError(msg)
 
+
 def lifetime(data, cut=0.5, rawcurve=False, more_options='', dtype='ndarray'):
     """lifetime (adapted lightly from cpptraj doc)
 
@@ -353,6 +357,7 @@ def lifetime(data, cut=0.5, rawcurve=False, more_options='', dtype='ndarray'):
 
 # parallel
 
+
 def to_parmed(traj, all_coords=False):
     import parmed as pmd
 
@@ -366,7 +371,7 @@ def to_parmed(traj, all_coords=False):
         parm.add_atom(p_atom,
                       resname=atom.resname,
                       resnum=atom.resid)
-                      #chain=str(atom.molnum))
+        # chain=str(atom.molnum))
     if all_coords:
         parm.coordinates = traj.xyz
     else:

@@ -4,12 +4,12 @@ import pytraj as pt
 from pytraj.utils import eq, aa_eq
 
 
-
 try:
     import cclib
     has_cclib = True
 except ImportError:
     has_cclib = False
+
 
 class TestReadGaussianOutput(unittest.TestCase):
 

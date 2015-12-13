@@ -49,7 +49,7 @@ class Test(unittest.TestCase):
         assert i == 2
 
         # action on chunk_iter
-        
+
         pt.calc_distance(
             [traj.iterchunk(), traj.iterchunk(), traj[0]],
             '@CA @CB',
