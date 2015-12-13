@@ -13,7 +13,7 @@ from .frame import Frame
 from .utils import is_int
 from .cyutils import get_positive_idx
 from .frameiter import FrameIterator
-from ._get_common_objects import _load_Topology
+from .get_common_objects import _load_Topology
 from .utils import split_range
 from .utils.convert import array_to_cpptraj_atommask
 

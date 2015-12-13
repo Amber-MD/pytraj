@@ -2,8 +2,8 @@
 """
 from __future__ import absolute_import
 import numpy as np
-from ._get_common_objects import _get_topology, _get_resrange
-from ._get_common_objects import _get_reference_from_traj, _get_fiterator
+from .get_common_objects import _get_topology, _get_resrange
+from .get_common_objects import _get_reference_from_traj, _get_fiterator
 from pytraj.externals.six import iteritems, string_types
 
 

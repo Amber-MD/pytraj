@@ -1,7 +1,7 @@
 """Load mdtraj traj object
 """
 from __future__ import absolute_import
-from .._get_common_objects import _load_Topology
+from ..get_common_objects import _load_Topology
 
 
 def load_mdtraj(m_traj, autoconvert=False, top=None):

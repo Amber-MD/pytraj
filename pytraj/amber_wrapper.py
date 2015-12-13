@@ -1,7 +1,7 @@
 import os
 import pytraj as pt
 from pytraj.utils.context import goto_temp_folder
-from pytraj._get_common_objects import _get_topology
+from pytraj.get_common_objects import _get_topology
 
 MIN_IN = """
 min.in

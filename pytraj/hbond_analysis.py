@@ -4,9 +4,9 @@ import numpy as np
 from .actions import CpptrajActions
 from .datasets import CpptrajDatasetList
 from .decorators import _register_pmap
-from ._get_common_objects import _get_data_from_dtype, _super_dispatch
+from .get_common_objects import _get_data_from_dtype, _super_dispatch
 from .base_holder import BaseDataHolder
-from ._shared_methods import iterframe_master
+from .shared_methods import iterframe_master
 
 __all__ = ['DatasetHBond', 'hbond']
 

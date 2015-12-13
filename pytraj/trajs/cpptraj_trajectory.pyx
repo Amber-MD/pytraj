@@ -8,7 +8,7 @@ from ..topology cimport Topology
 
 from ..cyutils import get_positive_idx
 from pytraj.externals.six import string_types
-from .._shared_methods import (my_str_method, _xyz, _savetraj, _box)
+from ..shared_methods import (my_str_method, _xyz, _savetraj, _box)
 from ..utils.check_and_assert import ensure_exist
 from ..utils.check_and_assert import is_array, is_range
 

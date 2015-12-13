@@ -32,7 +32,7 @@ __cpptrajdoc__ = """
 
 template = '''
 from .actions import CpptrajActions
-from ._get_common_objects import _super_dispatch, _get_data_from_dtype
+from .get_common_objects import _super_dispatch, _get_data_from_dtype
 
 @_super_dispatch()
 def %s(traj=None, mask="", top=None, dtype='ndarray', mat_type='full', frame_indices=None):

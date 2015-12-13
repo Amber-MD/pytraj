@@ -89,7 +89,7 @@ class Trajout:
         pass
 
 # for testing
-from pytraj._get_common_objects import (_get_data_from_dtype, _get_topology,
+from pytraj.get_common_objects import (_get_data_from_dtype, _get_topology,
                                         _get_reference_from_traj,
                                         _get_fiterator)
 from pytraj.actions import CpptrajActions

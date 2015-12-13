@@ -61,8 +61,8 @@ def vector_mask(traj=None,
     >>> # compute vectors for specific frame indices (0, 4)
     >>> data_vec = va.vector_mask(traj, n_h_pairs, frame_indices=[0, 4], dtype='ndarray')
     """
-    from ._get_common_objects import _get_topology, _get_data_from_dtype, _get_fiterator
-    from ._get_common_objects import _get_list_of_commands
+    from .get_common_objects import _get_topology, _get_data_from_dtype, _get_fiterator
+    from .get_common_objects import _get_list_of_commands
     from .datasets.DatasetList import DatasetList as CpptrajDatasetList
     from .actions.CpptrajActions import Action_Vector
     from .actions.action_list import ActionList
@@ -103,8 +103,8 @@ def %s(traj=None, command="", frame_indices=None, dtype='ndarray', top=None):
         if specified, only perform calculation with given frames
     top : {str, Topology}, optional, default None
     """
-    from ._get_common_objects import _get_topology, _get_data_from_dtype, _get_fiterator
-    from ._get_common_objects import _get_list_of_commands
+    from .get_common_objects import _get_topology, _get_data_from_dtype, _get_fiterator
+    from .get_common_objects import _get_list_of_commands
     from .datasets.DatasetList import DatasetList as CpptrajDatasetList
     from .actions.CpptrajActions import Action_Vector
     from .core.action_list import ActionList

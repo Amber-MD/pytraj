@@ -3,7 +3,7 @@ from cython.operator cimport dereference as deref
 
 from ..externals.six import string_types
 from .action_dict import ActionDict
-from .._shared_methods import iterframe_master
+from ..shared_methods import iterframe_master
 
 
 def _get_arglist(arg):

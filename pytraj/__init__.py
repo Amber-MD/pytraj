@@ -151,7 +151,7 @@ from .dihedral_analysis import (calc_phi, calc_psi, calc_alpha, calc_beta,
                                 calc_omega, calc_nu1, calc_nu2)
 
 from .actions.action_dict import ActionDict
-from .analysis_dict import AnalysisDict
+from .analyses.analysis_dict import AnalysisDict
 from . import matrix
 from . import dihedral_analysis
 from . import vector
@@ -161,7 +161,7 @@ from .misc import info
 from .run_tests import run_tests
 
 
-from ._shared_methods import iterframe_master
+from .shared_methods import iterframe_master
 
 # turn off verbose in cpptraj
 # TODO: need to move set_world_silent and set_error_silent to the same file

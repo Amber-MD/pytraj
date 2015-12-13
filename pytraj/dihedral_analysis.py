@@ -19,7 +19,7 @@ chinu = {
 
 template = '''
 from .decorators import _register_pmap
-from ._get_common_objects import _super_dispatch
+from .get_common_objects import _super_dispatch
 
 @_register_pmap
 @_super_dispatch()
@@ -65,7 +65,7 @@ def calc_%s(traj=None, resrange="",
 
     from .datasets.DatasetList import DatasetList
     from .actions.CpptrajActions import Action_MultiDihedral
-    from ._get_common_objects import _get_data_from_dtype
+    from .get_common_objects import _get_data_from_dtype
     from .compat import string_types
     from .utils import is_int
 

@@ -3,10 +3,10 @@ import numpy as np
 
 from pytraj.trajectory import Trajectory
 from pytraj.trajectory_iterator import TrajectoryIterator
-from ._get_common_objects import _get_topology, _get_data_from_dtype, _get_list_of_commands
-from ._get_common_objects import _get_matrix_from_dataset
-from ._get_common_objects import _get_reference_from_traj, _get_fiterator
-from ._get_common_objects import _super_dispatch, _get_fi_with_dslist
+from .get_common_objects import _get_topology, _get_data_from_dtype, _get_list_of_commands
+from .get_common_objects import _get_matrix_from_dataset
+from .get_common_objects import _get_reference_from_traj, _get_fiterator
+from .get_common_objects import _super_dispatch, _get_fi_with_dslist
 from .utils import ensure_not_none_or_string
 from .utils import is_int
 from .utils.context import goto_temp_folder
@@ -14,7 +14,7 @@ from .utils.convert import array_to_cpptraj_atommask
 from .externals.six import string_types
 from .datasets.DatasetList import DatasetList as CpptrajDatasetList
 from .datasetlist import DatasetList
-from ._shared_methods import iterframe_master
+from .shared_methods import iterframe_master
 from .decorators import _register_pmap, _register_openmp
 from .actions import CpptrajActions
 from .analyses import CpptrajAnalyses

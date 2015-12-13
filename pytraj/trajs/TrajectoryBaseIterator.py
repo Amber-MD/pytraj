@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 from abc import ABCMeta, abstractmethod
 from pytraj.externals.six import add_metaclass
-from pytraj._shared_methods import my_str_method
+from pytraj.shared_methods import my_str_method
 
 
 @add_metaclass(ABCMeta)

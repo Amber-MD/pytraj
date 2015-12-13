@@ -5,8 +5,8 @@ from .actions import CpptrajActions
 from .analyses import CpptrajAnalyses
 from pytraj.actions.action_list import ActionList
 
-from ._get_common_objects import _get_topology, _get_data_from_dtype, _get_list_of_commands
-from ._get_common_objects import _get_fiterator
+from .get_common_objects import _get_topology, _get_data_from_dtype, _get_list_of_commands
+from .get_common_objects import _get_fiterator
 
 
 def _2darray_to_atommask_groups(seq):

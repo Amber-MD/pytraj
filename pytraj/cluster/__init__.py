@@ -1,7 +1,7 @@
 from __future__ import absolute_import
-from pytraj._get_common_objects import _get_topology, _get_data_from_dtype
+from pytraj.get_common_objects import _get_topology, _get_data_from_dtype
 from pytraj.decorators import _register_pmap, _register_openmp
-from pytraj._get_common_objects import _super_dispatch, _get_fi_with_dslist
+from pytraj.get_common_objects import _super_dispatch, _get_fi_with_dslist
 from pytraj.analyses import CpptrajAnalyses
 from pytraj.datasets.DatasetList import DatasetList as CpptrajDatasetList
 

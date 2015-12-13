@@ -1,4 +1,4 @@
-from .._get_common_objects import _load_Topology
+from ..get_common_objects import _load_Topology
 from ..utils.context import goto_temp_folder
 from .six import string_types
 
