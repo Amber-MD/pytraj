@@ -49,7 +49,7 @@ def write_traj(filename, traj=None, mode='', frame_indices=None):
     Examples
     --------
     '''
-    from pytraj.c_action.c_actions import Action_Outtraj
+    from pytraj.c_action.c_action import Action_Outtraj
 
     command = ' '.join((filename, mode))
     fi = traj if frame_indices is None else traj.iterframe(
@@ -73,7 +73,7 @@ class Trajout:
     '''
 
     def __init__(self, filename, mode='', top=None):
-        from pytraj.c_action.c_actions import Action_Outtraj
+        from pytraj.c_action.c_action import Action_Outtraj
         self._outtraj = Action_Outtraj()
         command = ' '.join((filename, mode))
         self._outtraj.read_input(command, top=top)
@@ -92,7 +92,7 @@ class Trajout:
 from pytraj.get_common_objects import (get_data_from_dtype, get_topology,
                                         get_reference_from_traj,
                                         get_fiterator)
-from pytraj.c_action  import c_actions
+from pytraj.c_action  import c_action
 from pytraj.datasets import CpptrajDatasetList
 from pytraj.compat import string_types
 from pytraj.utils.convert import array_to_cpptraj_atommask
@@ -144,7 +144,7 @@ def _toy_radgyr(traj,
     >>> import pytraj as pt
     >>> pt.mindist(traj, '@CA @H')
     '''
-    act = c_actions.Action_Radgyr()
+    act = c_action.Action_Radgyr()
     dslist = CpptrajDatasetList()
 
     _nomax = 'nomax' if nomax else ''
@@ -162,7 +162,7 @@ def calc_linear_interaction_energy(traj=None,
                                    *args,
                                    **kwd):
     command = mask
-    act = c_actions.Action_LIE()
+    act = c_action.Action_LIE()
 
     dslist = CpptrajDatasetList()
     act(command, traj, top=top, dslist=dslist, *args, **kwd)
@@ -247,7 +247,7 @@ def calc_density(traj=None,
 
             tmp_filename = "tmp_pytraj_out.txt"
             command = "out " + tmp_filename + " " + command
-            act = c_actions.Action_Density()
+            act = c_action.Action_Density()
             act(command, traj, top=top, dflist=dflist)
             act.post_process()
             dflist.write_all_datafiles()
