@@ -935,10 +935,10 @@ class Trajectory(object):
         else:
             if isinstance(mask, string_types):
                 mask = mask
-                _top = self.top.get_new_from_mask(mask)
+                _top = self.top._get_new_from_mask(mask)
             else:
                 mask = array_to_cpptraj_atommask(mask)
-                _top = self.top.get_new_from_mask(mask)
+                _top = self.top._get_new_from_mask(mask)
 
         if rmsfit is not None:
             if isinstance(rmsfit, tuple):

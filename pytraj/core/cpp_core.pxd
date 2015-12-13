@@ -41,6 +41,10 @@ cdef class CpptrajState:
 cdef extern from "Command.h": 
     cdef cppclass _Command "Command":
         @staticmethod
+        void Init()
+        @staticmethod
+        void Free()
+        @staticmethod
         RetType ProcessInput(_CpptrajState&, const string&)
         @staticmethod
         RetType Dispatch(_CpptrajState&, const string&)

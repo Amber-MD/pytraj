@@ -284,7 +284,6 @@ def iterload_remd(filename, top=None, T="300.0"):
 
     """
     from pytraj.core.cpp_core import CpptrajState, Command
-    dispatch = Command.dispatch
 
     state = CpptrajState()
 
@@ -299,8 +298,9 @@ def iterload_remd(filename, top=None, T="300.0"):
     state.data['remdtop']._top = top
 
     # load trajin
-    dispatch(state, trajin)
-    dispatch(state, 'loadtraj name remdtraj')
+    with Command() as cm:
+        cm.dispatch(state, trajin)
+        cm.dispatch(state, 'loadtraj name remdtraj')
 
     # state.data.remove_set(state.data['remdtop'])
     traj = state.data[-1]

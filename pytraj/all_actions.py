@@ -1761,7 +1761,7 @@ def calc_pairwise_rmsd(traj=None,
 
     command = ' '.join((command, metric, "crdset {} rmsout mycrazyoutput".format(crdname)))
 
-    act(command, _top, dslist=dslist)
+    act(command, dslist=dslist)
     # remove dataset coords to free memory
     dslist.remove_set(dslist[0])
 

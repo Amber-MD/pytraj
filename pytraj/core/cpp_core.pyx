@@ -12,7 +12,7 @@ from ..externals.six.moves import range
 from pytraj.externals.six import string_types
 from pytraj import c_dict
 
-__all__ = ['command_dispatch', 'AtomMask',
+__all__ = ['AtomMask',
            'FileName', 'CoordinateInfo',
            'CpptrajFile', 'NameType', 'Command',
            'CpptrajState', 'ArgList', ]
@@ -428,6 +428,15 @@ cdef class Command:
         del self.thisptr
 
     @classmethod
+    def __enter__(self):
+        _Command.Init()
+        return self
+
+    @classmethod
+    def __exit__(self,*args):
+        _Command.Free()
+
+    @classmethod
     def get_state(cls, trajin_text):
         cdef CpptrajState cppstate = CpptrajState()
         trajin_text = trajin_text.encode()
@@ -559,9 +568,11 @@ def _load_batch(txt, traj=None):
     else:
         lines = lines
 
+    _Command.Init()
     for idx, line in enumerate(lines):
         if not line.startswith('#'):
             _Command.Dispatch(state.thisptr[0], line.encode())
+    _Command.Free()
     return state
 
 
