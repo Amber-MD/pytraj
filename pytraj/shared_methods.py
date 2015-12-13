@@ -75,7 +75,6 @@ def iterframe_master(obj):
     >>> for frame in iterframe_master([traj.iterframe(), traj.iterchunk()]): pass
     """
     from pytraj.frame import Frame
-    from pytraj.c_trajs.trajout import Trajout
     from pytraj.utils.check_and_assert import is_frame_iter
     from pytraj.frameiter import FrameIterator
 
