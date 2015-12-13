@@ -17,4 +17,5 @@ def load_cpptraj_file(filename):
     fname : str, name of cpptraj input file
         ("cpptraj -i input.txt" --> fname = "input.txt")
     """
-    return Command.get_state(filename)
+    with Command() as cm:
+        return cm.get_state(filename)

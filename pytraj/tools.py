@@ -648,7 +648,7 @@ def split_and_write_traj(self,
     --------
     >>> import pytraj as pt
     >>> traj = pt.load_sample_data('tz2')
-    >>> split_and_write_traj(traj, n_chunks=3, root_name='output/trajx')
+    >>> split_and_write_traj(traj, n_chunks=3, root_name='output/trajx', overwrite=True)
     '''
 
     chunksize = self.n_frames // n_chunks

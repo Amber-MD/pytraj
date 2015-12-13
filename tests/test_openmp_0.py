@@ -33,7 +33,6 @@ class Test(unittest.TestCase):
 
         with Timer() as t:
             act("crdset test_traj rmsout ./output/_test_2drms_CRDtest.openmp.dat",
-                traj.top,
                 dslist=dslist,
                 dflist=dflist)
 

@@ -34,7 +34,6 @@ class Test(unittest.TestCase):
         @Timer()
         def test_time():
             act("crdset test_traj rmsout ./output/_test_2drms_CRDtest.openmp.dat",
-                traj.top,
                 dslist=dslist,
                 dflist=dflist)
 
