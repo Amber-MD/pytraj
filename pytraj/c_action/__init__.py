@@ -1,9 +1,9 @@
 """"""
 from __future__ import absolute_import
-from pytraj.actions import CpptrajActions
+from . import c_actions
 
 actionlist = []
-for act in CpptrajActions.__dict__.keys():
+for act in c_actions.__dict__.keys():
     if 'Action' in act:
         actionlist.append(act)
 
