@@ -16,9 +16,9 @@ from .datasets.DatasetList import DatasetList as CpptrajDatasetList
 from .datasetlist import DatasetList
 from .shared_methods import iterframe_master
 from .decorators import _register_pmap, _register_openmp
-from .actions import CpptrajActions
-from .analyses import CpptrajAnalyses
-from .actions.action_list import ActionList
+from .c_action import CpptrajActions
+from .c_analysis import CpptrajAnalyses
+from .c_action.action_list import ActionList
 from .utils.convert import array2d_to_cpptraj_maskgroup
 
 list_of_cal = ['calc_distance',

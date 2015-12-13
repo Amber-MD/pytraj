@@ -1,9 +1,9 @@
 import numpy as np
 from .decorators import _register_pmap
 from .datasets.DatasetList import DatasetList as CpptrajDatasetList
-from .actions import CpptrajActions
-from .analyses import CpptrajAnalyses
-from pytraj.actions.action_list import ActionList
+from .c_action import CpptrajActions
+from .c_analysis  import CpptrajAnalyses
+from .c_action.action_list import ActionList
 
 from .get_common_objects import _get_topology, _get_data_from_dtype, _get_list_of_commands
 from .get_common_objects import _get_fiterator

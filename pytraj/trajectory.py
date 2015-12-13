@@ -599,7 +599,7 @@ class Trajectory(object):
         True
         >>> t0 = t0.autoimage()
         '''
-        from pytraj.actions import CpptrajActions
+        from pytraj.c_action import CpptrajActions
 
         act = CpptrajActions.Action_AutoImage()
         act(command, self, top=self.top)
@@ -618,7 +618,7 @@ class Trajectory(object):
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.rotate('@CA x 20')
         '''
-        from pytraj.actions import CpptrajActions
+        from pytraj.c_action import CpptrajActions
 
         act = CpptrajActions.Action_Rotate()
         act(command, self, top=self.top)
@@ -637,7 +637,7 @@ class Trajectory(object):
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.translate('@CA x 1.2')
         '''
-        from pytraj.actions import CpptrajActions
+        from pytraj.c_action import CpptrajActions
 
         act = CpptrajActions.Action_Translate()
         act(command, self, top=self.top)
@@ -656,7 +656,7 @@ class Trajectory(object):
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.scale('@CA x 1.2')
         '''
-        from pytraj.actions import CpptrajActions
+        from pytraj.c_action import CpptrajActions
 
         act = CpptrajActions.Action_Scale()
         act(command, self, top=self.top)
@@ -675,7 +675,7 @@ class Trajectory(object):
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.center('@CA origin')
         '''
-        from pytraj.actions import CpptrajActions
+        from pytraj.c_action import CpptrajActions
 
         act = CpptrajActions.Action_Center()
         act(command, self, top=self.top)
@@ -690,7 +690,7 @@ class Trajectory(object):
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.align_principal_axis()
         """
-        from pytraj.actions import CpptrajActions
+        from pytraj.c_action import CpptrajActions
         act = CpptrajActions.Action_Principal()
 
         command += " dorotation"
@@ -723,7 +723,7 @@ class Trajectory(object):
         >>> traj2.xyz[0, 0] # after transforming
         array([-1.19438073,  8.75046229, -1.82742397])
         '''
-        from pytraj.actions.action_list import create_pipeline
+        from pytraj.c_action.action_list import create_pipeline
         fi = create_pipeline(self, commands, frame_indices=frame_indices)
 
         for _ in fi:

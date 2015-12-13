@@ -37,7 +37,7 @@ except ImportError:
 
 try:
     from .core import Atom, Residue, Molecule
-    from .actions.action_list import ActionList, create_pipeline, do
+    from .c_action.action_list import ActionList, create_pipeline, do
     compute = do
     Pipeline = ActionList
 
@@ -109,8 +109,8 @@ load_cpptrajstate = load_cpptraj_state
 from . import tools
 
 # actions and analyses
-from .actions import CpptrajActions as allactions
-from .actions import CpptrajActions
+from .c_action import CpptrajActions as allactions
+from .c_action import CpptrajActions
 from .analyses import CpptrajAnalyses as allanalyses
 from .analyses import CpptrajAnalyses
 from . import common_actions
@@ -150,7 +150,7 @@ from .dihedral_analysis import (calc_phi, calc_psi, calc_alpha, calc_beta,
                                 calc_epsilon, calc_gamma, calc_zeta,
                                 calc_omega, calc_nu1, calc_nu2)
 
-from .actions.action_dict import ActionDict
+from .c_action.action_dict import ActionDict
 from .analyses.analysis_dict import AnalysisDict
 from . import matrix
 from . import dihedral_analysis
