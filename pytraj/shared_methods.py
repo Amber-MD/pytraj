@@ -9,6 +9,7 @@ def _savetraj(self,
               overwrite=False,
               *args,
               **kwd):
+    from pytraj.c_trajs.trajout import Trajout
     with Trajout(filename=filename,
                  top=self.top,
                  format=format,
