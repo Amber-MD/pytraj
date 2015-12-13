@@ -3,7 +3,7 @@ from .decorators import register_pmap
 from .datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 from .c_action import c_actions
 from .c_analysis  import c_analyses
-from .c_action.action_list import ActionList
+from .c_action.actionlist import ActionList
 
 from .get_common_objects import get_topology, get_data_from_dtype, get_list_of_commands
 from .get_common_objects import get_fiterator

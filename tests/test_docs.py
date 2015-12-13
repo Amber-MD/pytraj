@@ -10,7 +10,7 @@ from pytraj import testing
 from pytraj.datafiles import load_samples
 from pytraj.externals import energy
 from pytraj import frame, datafiles, cluster, nucleic_acid_
-from pytraj.c_action import action_list
+from pytraj.c_action import actionlist
 
 
 try:
@@ -43,7 +43,7 @@ class TestDoc(unittest.TestCase):
                 modules.append(energy)
             additional_list = [
                 frame,
-                action_list,
+                actionlist,
                 cluster,
                 datafiles,
                 pt.all_actions,

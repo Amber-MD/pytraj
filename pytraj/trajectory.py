@@ -725,7 +725,7 @@ class Trajectory(object):
         >>> traj2.xyz[0, 0] # after transforming
         array([-1.19438073,  8.75046229, -1.82742397])
         '''
-        from pytraj.c_action.action_list import create_pipeline
+        from pytraj.c_action.actionlist import create_pipeline
         fi = create_pipeline(self, commands, frame_indices=frame_indices)
 
         for _ in fi:

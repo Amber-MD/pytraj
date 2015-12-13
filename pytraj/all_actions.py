@@ -18,7 +18,7 @@ from .shared_methods import iterframe_master
 from .decorators import register_pmap, register_openmp
 from .c_action import c_actions
 from .c_analysis import c_analyses
-from .c_action.action_list import ActionList
+from .c_action.actionlist import ActionList
 from .utils.convert import array2d_to_cpptraj_maskgroup
 
 list_of_cal = ['calc_distance',
