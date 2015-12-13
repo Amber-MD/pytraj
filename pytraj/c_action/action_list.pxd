@@ -7,8 +7,8 @@ from ..datafiles.datafiles cimport _DataFileList, DataFileList
 from ..topology cimport _Topology, Topology
 from ..frame cimport _Frame, Frame
 from ..core.cpp_core cimport _ArgList, ArgList, _AtomMask, AtomMask
-from ..datasets.DatasetList cimport _DatasetList, DatasetList
-from .CpptrajActions cimport _Action, Action, _ActionInit, _ActionSetup, _ActionFrame, CoordinateInfo
+from ..datasets.c_datasetlist cimport _DatasetList, DatasetList
+from .c_actions cimport _Action, Action, _ActionInit, _ActionSetup, _ActionFrame, CoordinateInfo
 
 cdef extern from "ActionList.h":
     cdef cppclass _ActionList "ActionList":

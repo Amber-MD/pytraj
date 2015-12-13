@@ -15,7 +15,7 @@ from .trajectory import Trajectory
 from .topology import Topology
 from .core.cpp_core import ArgList
 from .trajectory_iterator import TrajectoryIterator
-from .c_trajs.Trajout import Trajout
+from .c_trajs.trajout import Trajout
 from . import c_dict
 
 __all__ = ['Atom', 'Residue', 'Molecule', 'Topology', 'Frame', 'Trajectory',

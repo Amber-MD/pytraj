@@ -4,7 +4,7 @@ from ..core.cpp_core cimport (_DispatchObject, DispatchObject,  FunctPtr)
 from ..datafiles.datafiles cimport  _DataFileList, DataFileList
 from ..topology cimport _Topology, Topology
 from ..core.cpp_core cimport _ArgList, ArgList
-from ..datasets.DatasetList cimport _DatasetList, DatasetList
+from ..datasets.c_datasetlist cimport _DatasetList, DatasetList
 from ..frame cimport _Frame, Frame
 
 cdef extern from "ActionState.h":

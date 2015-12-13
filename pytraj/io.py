@@ -371,7 +371,7 @@ def write_traj(filename="",
     >>> pt.write_traj("output/test_xyz.nc", xyz, top=traj.top, overwrite=True)
     """
     from .frame import Frame
-    from .trajs.Trajout import Trajout
+    from .c_trajs.trajout import Trajout
 
     _top = _get_topology(traj, top)
     if _top is None:
