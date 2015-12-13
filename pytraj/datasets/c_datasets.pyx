@@ -11,8 +11,7 @@ from cython.view cimport array as cyarray
 # python level
 import numpy as np
 from ..utils import is_int
-from ..shared_methods import _xyz
-from ..shared_methods import my_str_method
+from ..shared_methods import _xyz, my_str_method
 from ..cyutils import get_positive_idx
 from ..trajs.cpptraj_trajectory import TrajectoryCpptraj
 from ..topology cimport Topology
