@@ -72,10 +72,10 @@ class TestNormalPmap(unittest.TestCase):
                     serial_out = flatten(func(traj))
                 aa_eq(pout[0], serial_out)
 
-         # test _worker
+         # test worker
          # need to test this since coverages seems not recognize partial func
-        from pytraj.parallel.multiprocessing_ import _worker
-        data = _worker(rank=2, n_cores=8, func=pt.radgyr, traj=traj, args=(), kwd={'mask': '@CA'}, iter_options={})
+        from pytraj.parallel.multiprocessing_ import worker
+        data = worker(rank=2, n_cores=8, func=pt.radgyr, traj=traj, args=(), kwd={'mask': '@CA'}, iter_options={})
         assert data[0] == 2, 'rank must be 2'
         assert data[2] == 1, 'n_frames for rank=2 should be 1 (only 10 frames in total)'
 
@@ -307,13 +307,33 @@ class TestVolmap(unittest.TestCase):
 
 class TestWorker(unittest.TestCase):
 
-    def test_worker_actlist(self):
+    def testworker_actlist(self):
         # just want to exercise all codes
-        from pytraj.parallel import _worker_actlist
+        from pytraj.parallel import worker_actlist
         traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
         for ref in [None, traj[0], [traj[0], traj[1]]]:
-            data = _worker_actlist(rank=3, n_cores=8, traj=traj, lines=['radgyr @CA', 'vector :3 :7'],
+            data = worker_actlist(rank=3, n_cores=8, traj=traj, lines=['radgyr @CA', 'vector :3 :7'],
                                    ref=ref, kwd=dict())
+
+def change_10_atoms(traj):
+    for frame in traj:
+        frame.xyz[:10] += 1.
+        yield frame
+
+
+class TestInserNewFunction(unittest.TestCase):
+
+    def test_insert_new_function(self):
+        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+
+        # create mutable Trajectory
+        t0 = traj[:]
+        for frame in t0:
+            frame.xyz[:10] += 1.
+
+        data_parallel = pt.pmap(pt.radgyr, traj, n_cores=2, apply=change_10_atoms)
+        data_serial = pt.radgyr(t0)
+        aa_eq(data_parallel['RoG_00000'], data_serial)
 
 
 if __name__ == "__main__":

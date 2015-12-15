@@ -35,7 +35,7 @@ def check_valid_command(commands):
                     'analysis in serial')
 
 
-def _worker_actlist(rank,
+def worker_actlist(rank,
                     n_cores=2,
                     traj=None,
                     lines=[],
@@ -94,7 +94,7 @@ def _load_batch_pmap(n_cores=4,
     '''
     if mode == 'multiprocessing':
         from multiprocessing import Pool
-        pfuncs = partial(_worker_actlist,
+        pfuncs = partial(worker_actlist,
                          n_cores=n_cores,
                          traj=traj,
                          dtype=dtype,
@@ -110,7 +110,7 @@ def _load_batch_pmap(n_cores=4,
         from mpi4py import MPI
         comm = MPI.COMM_WORLD
         rank = comm.rank
-        data_chunk = _worker_actlist(rank=rank,
+        data_chunk = worker_actlist(rank=rank,
                                      n_cores=n_cores,
                                      traj=traj,
                                      dtype=dtype,
@@ -125,7 +125,7 @@ def _load_batch_pmap(n_cores=4,
         raise ValueError('only support multiprocessing or mpi')
 
 
-def _worker_state(rank, n_cores=1, traj=None, lines=[], dtype='dict'):
+def worker_state(rank, n_cores=1, traj=None, lines=[], dtype='dict'):
     # need to make a copy if lines since python's list is dangerous
     # it's easy to mess up with mutable list
     # do not use lines.copy() since this is not available in py2.7
