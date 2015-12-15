@@ -688,9 +688,7 @@ def calc_radgyr(traj=None,
                 top=None,
                 nomax=True,
                 frame_indices=None,
-                dtype='ndarray',
-                *args,
-                **kwd):
+                dtype='ndarray'):
     '''calc radgyr
 
     Examples
@@ -701,13 +699,13 @@ def calc_radgyr(traj=None,
     >>> data = pt.radgyr(traj, '!:WAT', nomax=False)
     >>> data = pt.radgyr(traj, '@CA', frame_indices=[2, 4, 6])
     '''
-    _nomax = 'nomax' if nomax else ""
-    command = " ".join((mask, _nomax))
+    nomax_ = 'nomax' if nomax else ""
+    command = " ".join((mask, nomax_))
 
     act = c_action.Action_Radgyr()
 
     dslist = CpptrajDatasetList()
-    act(command, traj, top=top, dslist=dslist, *args, **kwd)
+    act(command, traj, top=top, dslist=dslist)
     return get_data_from_dtype(dslist, dtype)
 
 

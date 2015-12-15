@@ -72,10 +72,10 @@ class TestNormalPmap(unittest.TestCase):
                     serial_out = flatten(func(traj))
                 aa_eq(pout[0], serial_out)
 
-         # test _worker
+         # test worker
          # need to test this since coverages seems not recognize partial func
-        from pytraj.parallel.multiprocessing_ import _worker
-        data = _worker(rank=2, n_cores=8, func=pt.radgyr, traj=traj, args=(), kwd={'mask': '@CA'}, iter_options={})
+        from pytraj.parallel.multiprocessing_ import worker
+        data = worker(rank=2, n_cores=8, func=pt.radgyr, traj=traj, args=(), kwd={'mask': '@CA'}, iter_options={})
         assert data[0] == 2, 'rank must be 2'
         assert data[2] == 1, 'n_frames for rank=2 should be 1 (only 10 frames in total)'
 
@@ -307,12 +307,12 @@ class TestVolmap(unittest.TestCase):
 
 class TestWorker(unittest.TestCase):
 
-    def test_worker_actlist(self):
+    def testworker_actlist(self):
         # just want to exercise all codes
-        from pytraj.parallel import _worker_actlist
+        from pytraj.parallel import worker_actlist
         traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
         for ref in [None, traj[0], [traj[0], traj[1]]]:
-            data = _worker_actlist(rank=3, n_cores=8, traj=traj, lines=['radgyr @CA', 'vector :3 :7'],
+            data = worker_actlist(rank=3, n_cores=8, traj=traj, lines=['radgyr @CA', 'vector :3 :7'],
                                    ref=ref, kwd=dict())
 
 

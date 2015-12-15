@@ -13,17 +13,18 @@ from pytraj.tools import concat_dict
 from pytraj.externals.six import string_types
 
 
-def _worker(rank,
-            n_cores=None,
-            func=None,
-            traj=None,
-            args=None,
-            kwd=None,
-            iter_options={}):
+def worker(rank,
+           n_cores=None,
+           func=None,
+           traj=None,
+           args=None,
+           kwd=None,
+           iter_options={}):
     # need to unpack args and kwd
     mask = iter_options.get('mask')
     rmsfit = iter_options.get('rmsfit')
     autoimage = iter_options.get('autoimage', False)
+    iter_func = iter_options.get('func')
     frame_indices = kwd.pop('frame_indices', None)
 
     if frame_indices is None:
@@ -38,8 +39,20 @@ def _worker(rank,
                                  mask=mask,
                                  rmsfit=rmsfit,
                                  autoimage=autoimage)
-    data = func(my_iter, *args, **kwd)
-    return (rank, data, my_iter.n_frames)
+    n_frames = my_iter.n_frames
+    kwd_cp = {}
+    kwd_cp.update(kwd)
+
+    if iter_func is not None:
+        final_iter = iter_func(my_iter)
+        top = my_iter.top
+        kwd_cp['top'] = my_iter.top
+    else:
+        final_iter = my_iter
+
+    data = func(final_iter, *args, **kwd_cp)
+    return (rank, data, n_frames)
+
 
 
 def _pmap(func, traj, *args, **kwd):
@@ -260,7 +273,7 @@ def _pmap(func, traj, *args, **kwd):
 
         p = Pool(n_cores)
 
-        pfuncs = partial(_worker,
+        pfuncs = partial(worker,
                          n_cores=n_cores,
                          func=func,
                          traj=traj,

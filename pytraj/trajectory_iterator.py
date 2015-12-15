@@ -436,8 +436,24 @@ class TrajectoryIterator(TrajectoryCpptraj):
                          mask=None,
                          autoimage=False,
                          rmsfit=None,
-                         rank=0):
+                         rank=0,
+                         func=None):
         """simple splitting `self` to n_chunks FrameIterator objects
+
+        Parameters
+        ----------
+        n_chunks : int, default 1
+            number of chunks
+        start, stop, step: int, default (0, -1, 1)
+        mask : {None, str}, default None
+            if given, iterate only atom in `mask`
+        autoimage : bool, default False
+            if True, do autoimage
+        rmsfit : {None, Frame, int}, default None
+            if given, perform rmsfit to reference. If autoimage=True and rmsfit is given, always perform autoimage first
+        rank : rank
+        func : {None, function}, default None
+            if given, coordinates will be modified by this func.
 
         Examples
         --------

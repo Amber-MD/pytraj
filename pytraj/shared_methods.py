@@ -85,7 +85,7 @@ def iterframe_master(obj):
     elif isinstance(obj, FrameIterator):
         for frame in obj:
             yield frame
-    elif hasattr(obj, 'n_frames') or is_frame_iter_but_not_master:
+    elif hasattr(obj, 'n_frames') and not isinstance(obj, Frame):
         # traj-like or frame_iter or _frame_iter
         for frame in obj:
             yield frame
