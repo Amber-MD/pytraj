@@ -221,6 +221,7 @@ analdict = AnalysisDict()
 from .parallel.multiprocessing_ import pmap, _pmap
 from .parallel.mpi import pmap_mpi
 from .parallel import _load_batch_pmap
+from . import view
 
 
 def load_batch(traj, txt):
