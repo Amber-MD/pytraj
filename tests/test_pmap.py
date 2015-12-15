@@ -315,6 +315,26 @@ class TestWorker(unittest.TestCase):
             data = worker_actlist(rank=3, n_cores=8, traj=traj, lines=['radgyr @CA', 'vector :3 :7'],
                                    ref=ref, kwd=dict())
 
+def change_10_atoms(traj):
+    for frame in traj:
+        frame.xyz[:10] += 1.
+        yield frame
+
+
+class TestInserNewFunction(unittest.TestCase):
+
+    def test_insert_new_function(self):
+        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+
+        # create mutable Trajectory
+        t0 = traj[:]
+        for frame in t0:
+            frame.xyz[:10] += 1.
+
+        data_parallel = pt.pmap(pt.radgyr, traj, n_cores=2, apply=change_10_atoms)
+        data_serial = pt.radgyr(t0)
+        aa_eq(data_parallel['RoG_00000'], data_serial)
+
 
 if __name__ == "__main__":
     unittest.main()

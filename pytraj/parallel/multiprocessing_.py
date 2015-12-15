@@ -19,12 +19,13 @@ def worker(rank,
            traj=None,
            args=None,
            kwd=None,
-           iter_options={}):
+           iter_options={},
+           apply=None):
     # need to unpack args and kwd
     mask = iter_options.get('mask')
     rmsfit = iter_options.get('rmsfit')
     autoimage = iter_options.get('autoimage', False)
-    iter_func = iter_options.get('func')
+    iter_func = apply
     frame_indices = kwd.pop('frame_indices', None)
 
     if frame_indices is None:
@@ -210,21 +211,13 @@ def _pmap(func, traj, *args, **kwd):
     from multiprocessing import Pool
     from pytraj import TrajectoryIterator
 
-    if 'n_cores' in kwd.keys():
-        n_cores = kwd['n_cores']
-        kwd.pop('n_cores')
-    else:
-        # 2 cores
-        n_cores = 2
+    n_cores = kwd.pop('n_cores') if 'n_cores' in kwd else 2
+    iter_options = kwd.pop('iter_options') if 'iter_options' in kwd else {}
+    apply = kwd.pop('apply') if 'apply' in kwd else None
+
     if n_cores <= 0:
         # use all available cores
         n_cores = cpu_count()
-
-    if 'iter_options' in kwd.keys():
-        iter_options = kwd['iter_options']
-        kwd.pop('iter_options')
-    else:
-        iter_options = {}
 
     if isinstance(func, (list, tuple, string_types)):
         # assume using _load_batch_pmap
@@ -279,7 +272,8 @@ def _pmap(func, traj, *args, **kwd):
                          traj=traj,
                          args=args,
                          kwd=kwd,
-                         iter_options=iter_options)
+                         iter_options=iter_options,
+                         apply=apply)
 
         data = p.map(pfuncs, [rank for rank in range(n_cores)])
         p.close()
