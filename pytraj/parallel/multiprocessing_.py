@@ -46,7 +46,6 @@ def worker(rank,
 
     if iter_func is not None:
         final_iter = iter_func(my_iter)
-        top = my_iter.top
         kwd_cp['top'] = my_iter.top
     else:
         final_iter = my_iter

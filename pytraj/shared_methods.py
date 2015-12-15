@@ -75,11 +75,8 @@ def iterframe_master(obj):
     >>> for frame in iterframe_master([traj.iterframe(), traj.iterchunk()]): pass
     """
     from pytraj.frame import Frame
-    from pytraj.utils.check_and_assert import is_frame_iter
     from pytraj.frameiter import FrameIterator
 
-    is_frame_iter_but_not_master = (is_frame_iter(obj) and
-                                    obj.__name__ is not 'iterframe_master')
     if isinstance(obj, Frame):
         yield obj
     elif isinstance(obj, FrameIterator):
