@@ -1,4 +1,269 @@
 
+<!DOCTYPE html>
 
 
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pytraj.cluster &mdash; pytraj 0.1.3.dev12+53f3cab documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/searchbox.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.3.dev12+53f3cab',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/0.6.0/lunr.min.js"></script>
+    <script type="text/javascript" src="../_static/js/searchbox.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="pytraj 0.1.3.dev12+53f3cab documentation" href="../index.html" />
+    <link rel="up" title="API" href="index.html" />
+    <link rel="next" title="pytraj.all_actions" href="pytraj.all_actions.html" />
+    <link rel="prev" title="pytraj.topology" href="pytraj.topology.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
 
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.3.dev12+53f3cab</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_and_write.html">Read and Write</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conda.html">Use conda to manage different Python versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory_viewer.html">Trajectory Viewer</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">pytraj.cluster</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="pytraj.topology.html" title="Previous Chapter: pytraj.topology"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; pytraj.topology</span>
+    </a>
+  </li>
+  <li>
+    <a href="pytraj.all_actions.html" title="Next Chapter: pytraj.all_actions"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">pytraj.all_ac... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/_api/pytraj.cluster.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <div class="section" id="pytraj-cluster">
+<span id="id1"></span><h1>pytraj.cluster<a class="headerlink" href="#pytraj-cluster" title="Permalink to this headline">¶</a></h1>
+<div class="custom-index container">
+<script type="text/javascript" src='../_static/cindex.js'></script></div>
+<span class="target" id="module-pytraj.cluster"></span><dl class="function">
+<dt id="pytraj.cluster.kmeans">
+<code class="descclassname">pytraj.cluster.</code><code class="descname">kmeans</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask='*'</em>, <em>n_clusters=10</em>, <em>random_point=True</em>, <em>kseed=1</em>, <em>maxit=100</em>, <em>metric='rms'</em>, <em>top=None</em>, <em>frame_indices=None</em>, <em>options=''</em>, <em>dtype='ndarray'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.cluster.kmeans" title="Permalink to this definition">¶</a></dt>
+<dd><p>perform clustering and return cluster index for each frame</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or iterable that produces Frame</p>
+<p><strong>mask</strong> : str, default: * (all atoms)</p>
+<p><strong>n_clusters: int, default: 10</strong></p>
+<p><strong>random_point</strong> : bool, default: True</p>
+<p><strong>maxit</strong> : int, default: 100</p>
+<blockquote>
+<div><p>max iterations</p>
+</div></blockquote>
+<p><strong>metric</strong> : str, {&#8216;rms&#8217;, &#8216;dme&#8217;}</p>
+<blockquote>
+<div><p>distance metric</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology, optional, default: None</p>
+<blockquote>
+<div><p>only need to provide this Topology if <code class="docutils literal"><span class="pre">traj</span></code> does not have one</p>
+</div></blockquote>
+<p><strong>frame_indices</strong> : {None, 1D array-like}, optional</p>
+<blockquote>
+<div><p>if not None, only perform clustering for given indices. Notes that this is
+different from <code class="docutils literal"><span class="pre">sieve</span></code> keywords.</p>
+</div></blockquote>
+<p><strong>options</strong> : str, optional</p>
+<blockquote>
+<div><p>extra cpptraj options controlling output, sieve, ...</p>
+</div></blockquote>
+<p><strong>Sieve options::</strong></p>
+<blockquote>
+<div><p>[sieve &lt;#&gt; [random [sieveseed &lt;#&gt;]]]</p>
+</div></blockquote>
+<p><strong>Output options::</strong></p>
+<blockquote>
+<div><p>[out &lt;cnumvtime&gt;] [gracecolor] [summary &lt;summaryfile&gt;] [info &lt;infofile&gt;]
+[summarysplit &lt;splitfile&gt;] [splitframe &lt;comma-separated frame list&gt;]
+[clustersvtime &lt;filename&gt; cvtwindow &lt;window size&gt;]
+[cpopvtime &lt;file&gt; [normpop | normframe]] [lifetime]
+[sil &lt;silhouette file prefix&gt;]</p>
+</div></blockquote>
+<p><strong>Coordinate output options::</strong></p>
+<blockquote>
+<div><p>[ clusterout &lt;trajfileprefix&gt; [clusterfmt &lt;trajformat&gt;] ]
+[ singlerepout &lt;trajfilename&gt; [singlerepfmt &lt;trajformat&gt;] ]
+[ repout &lt;repprefix&gt; [repfmt &lt;repfmt&gt;] [repframe] ]
+[ avgout &lt;avgprefix&gt; [avgfmt &lt;avgfmt&gt;] ]</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">1D numpy array of frame indices</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>if the distance matrix is large (get memory Error), should add sieve number to</li>
+</ul>
+<p><code class="docutils literal"><span class="pre">options</span></code> (check example)
+- install <code class="docutils literal"><span class="pre">libcpptraj</span></code> with <code class="docutils literal"><span class="pre">-openmp</span></code> flag to speed up this calculation.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.cluster</span> <span class="kn">import</span> <span class="n">kmeans</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># use default options</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kmeans</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+<span class="go">array([8, 8, 6, ..., 0, 0, 0], dtype=int32)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># update n_clusters</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">kmeans</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># update n_clusters with CA atoms</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">kmeans</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># specify distance metric</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">kmeans</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">kseed</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s">&#39;dme&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># add sieve number for less memory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">kmeans</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">kseed</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s">&#39;rms&#39;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s">&#39;sieve 5&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># add sieve number for less memory, and specify random seed for sieve</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">kmeans</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">kseed</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s">&#39;rms&#39;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s">&#39;sieve 5 sieveseed 1&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, pytraj developers.<br/>
+      Last updated on Dec 16, 2015.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4a0+.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

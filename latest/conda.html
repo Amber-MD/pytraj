@@ -1,4 +1,210 @@
 
+<!DOCTYPE html>
 
 
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Use conda to manage different Python versions &mdash; pytraj 0.1.3.dev12+53f3cab documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/css/searchbox.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.3.dev12+53f3cab',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/0.6.0/lunr.min.js"></script>
+    <script type="text/javascript" src="_static/js/searchbox.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="pytraj 0.1.3.dev12+53f3cab documentation" href="index.html" />
+    <link rel="next" title="Cookbook" href="cookbook.html" />
+    <link rel="prev" title="Misc" href="misc.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
 
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.3.dev12+53f3cab</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_and_write.html">Read and Write</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Use conda to manage different Python versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_viewer.html">Trajectory Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Use conda to manage different Python versions</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="misc.html" title="Previous Chapter: Misc"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Misc</span>
+    </a>
+  </li>
+  <li>
+    <a href="cookbook.html" title="Next Chapter: Cookbook"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Cookbook &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/conda.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <div class="section" id="use-conda-to-manage-different-python-versions">
+<span id="conda"></span><h1>Use conda to manage different Python versions<a class="headerlink" href="#use-conda-to-manage-different-python-versions" title="Permalink to this headline">¶</a></h1>
+<p>Supposed you want to switch back and forth among different Python versions (python2.7, 3.4, 3.5, ...), or you
+want to try different environments (with or without numpy):  <code class="docutils literal"><span class="pre">conda</span></code> is solution</p>
+<ul>
+<li><p class="first">install conda: <a class="reference external" href="http://conda.pydata.org/docs/installation.html">http://conda.pydata.org/docs/installation.html</a></p>
+<div class="highlight-python"><div class="highlight"><pre>Note: if you have Anaconda installed, conda is already there.
+</pre></div>
+</div>
+</li>
+<li><p class="first">To create a new enviroment with name of <code class="docutils literal"><span class="pre">your_env_name</span></code>, python version=3.4, preinstall <code class="docutils literal"><span class="pre">numpy</span></code>, <code class="docutils literal"><span class="pre">scipy</span></code></p>
+<div class="highlight-python"><div class="highlight"><pre>conda create -n your_env_name python=3.4 numpy scipy
+</pre></div>
+</div>
+</li>
+<li><p class="first">activate to newly created enviroment</p>
+<div class="highlight-python"><div class="highlight"><pre>source activate your_env_name
+</pre></div>
+</div>
+</li>
+<li><p class="first">if you want to install new program in <code class="docutils literal"><span class="pre">your_env_name</span></code>, such as <code class="docutils literal"><span class="pre">matplotlib</span></code></p>
+<div class="highlight-python"><div class="highlight"><pre>conda install matplotlib
+</pre></div>
+</div>
+</li>
+<li><p class="first">return to your original env</p>
+<div class="highlight-python"><div class="highlight"><pre>source deactivate
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Read also: <a class="reference external" href="http://conda.pydata.org/docs/using/index.html">http://conda.pydata.org/docs/using/index.html</a></p>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, pytraj developers.<br/>
+      Last updated on Dec 16, 2015.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4a0+.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

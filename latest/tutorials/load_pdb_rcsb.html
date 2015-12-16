@@ -1,4 +1,276 @@
 
+<!DOCTYPE html>
 
 
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Fetch pdb &mdash; pytraj 0.1.3.dev12+53f3cab documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/searchbox.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.3.dev12+53f3cab',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/0.6.0/lunr.min.js"></script>
+    <script type="text/javascript" src="../_static/js/searchbox.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="pytraj 0.1.3.dev12+53f3cab documentation" href="../index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
 
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.3.dev12+53f3cab</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_and_write.html">Read and Write</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conda.html">Use conda to manage different Python versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory_viewer.html">Trajectory Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Fetch pdb</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/tutorials/load_pdb_rcsb.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <div class="section" id="fetch-pdb">
+<span id="load-pdb-rcsb"></span><h1>Fetch pdb<a class="headerlink" href="#fetch-pdb" title="Permalink to this headline">¶</a></h1>
+<div class="ipynotebook" id="notebook-container">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># it&#39;s simple as long as you have internet and you&#39;re allowed to download</span>
+
+<span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">loadpdb_rcsb</span><span class="p">(</span><span class="s">&quot;2KOC&quot;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="s">&quot;coords of firs 10 atoms of 1st frame from pytraj&quot;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="mi">10</span><span class="p">])</span>
+
+<span class="nb">print</span> <span class="p">()</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s">&quot;calc_rmsd&quot;</span><span class="p">)</span>
+<span class="c"># print (traj.calc_rmsd(ref=0)) # all atoms, ref=first_frame</span>
+<span class="c"># use numpy to have prettier print</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pytraj.common_actions</span> <span class="k">as</span> <span class="nn">pyca</span>
+<span class="n">arr0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">pyca</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">arr0</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>pytraj.Trajectory, 20 frames: 
+Size: 0.000202 (GB)
+&lt;Topology: 451 atoms, 14 residues, 1 mols, PBC with box type = ortho&gt;
+           
+coords of firs 10 atoms of 1st frame from pytraj
+[[ -8.886  -5.163   9.647]
+ [-10.305  -4.745  10.229]
+ [-10.282  -3.296  10.528]
+ ..., 
+ [-12.908  -5.127   6.888]
+ [-11.018  -6.335   6.182]
+ [-10.515  -7.653   5.962]]
+
+calc_rmsd
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansired">---------------------------------------------------------------------------</span>
+<span class="ansired">ImportError</span>                               Traceback (most recent call last)
+<span class="ansigreen">&lt;ipython-input-1-72b8881ef354&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
+<span class="ansigreen">     14</span> <span class="ansired"># use numpy to have prettier print</span><span class="ansiyellow"></span><span class="ansiyellow"></span>
+<span class="ansigreen">     15</span> <span class="ansigreen">import</span> numpy <span class="ansigreen">as</span> np<span class="ansiyellow"></span>
+<span class="ansigreen">---&gt; 16</span><span class="ansiyellow"> </span><span class="ansigreen">import</span> pytraj<span class="ansiyellow">.</span>common_actions <span class="ansigreen">as</span> pyca<span class="ansiyellow"></span>
+<span class="ansigreen">     17</span> arr0 <span class="ansiyellow">=</span> np<span class="ansiyellow">.</span>asarray<span class="ansiyellow">(</span>pyca<span class="ansiyellow">.</span>rmsd<span class="ansiyellow">(</span>traj<span class="ansiyellow">,</span> ref<span class="ansiyellow">=</span>traj<span class="ansiyellow">[</span><span class="ansicyan">0</span><span class="ansiyellow">]</span><span class="ansiyellow">)</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">     18</span> print <span class="ansiyellow">(</span>arr0<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+
+<span class="ansired">ImportError</span>: No module named &apos;pytraj.common_actions&apos;</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="coords-of-firs-10-atoms-of-1st-frame-from-rbsb">coords of firs 10 atoms of 1st frame from rbsb<a class="anchor-link" href="#coords-of-firs-10-atoms-of-1st-frame-from-rbsb">&#182;</a></h1><h1 id="http://www.rcsb.org/pdb/files/2KOC.pdb"><a href="http://www.rcsb.org/pdb/files/2KOC.pdb">http://www.rcsb.org/pdb/files/2KOC.pdb</a><a class="anchor-link" href="#http://www.rcsb.org/pdb/files/2KOC.pdb">&#182;</a></h1>
+<pre><code>ATOM      1  OP3   G A   1      -8.886  -5.163   9.647  1.00 10.00           O  
+ATOM      2  P     G A   1     -10.305  -4.745  10.229  1.00 10.00           P  
+ATOM      3  OP1   G A   1     -10.282  -3.296  10.528  1.00 10.00           O  
+ATOM      4  OP2   G A   1     -10.676  -5.703  11.297  1.00 10.00           O  
+ATOM      5  O5'   G A   1     -11.278  -4.981   8.995  1.00 10.00           O  
+ATOM      6  C5'   G A   1     -11.721  -6.288   8.650  1.00 10.00           C  
+ATOM      7  C4'   G A   1     -12.147  -6.326   7.203  1.00 10.00           C  
+ATOM      8  O4'   G A   1     -12.908  -5.127   6.888  1.00 10.00           O  
+ATOM      9  C3'   G A   1     -11.018  -6.335   6.182  1.00 10.00           C  
+ATOM     10  O3'   G A   1     -10.515  -7.653   5.962  1.00 10.00           O</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src='http://www.rcsb.org/pdb/images/2koc_asym_r_500.jpg'></p>
+
+</div>
+</div>
+</div>
+</div><p>(<a class="reference external" href="load_pdb_from_rcsb.ipynb">load_pdb_from_rcsb.ipynb</a>; <a class="reference external" href="load_pdb_from_rcsb_evaluated.ipynb">load_pdb_from_rcsb_evaluated.ipynb</a>; <a class="reference external" href="load_pdb_from_rcsb.py">load_pdb_from_rcsb.py</a>)</p>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, pytraj developers.<br/>
+      Last updated on Dec 16, 2015.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4a0+.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

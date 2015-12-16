@@ -1,4 +1,245 @@
 
+<!DOCTYPE html>
 
 
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Tutorials adapted from mdtraj &mdash; pytraj 0.1.3.dev12+53f3cab documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/css/searchbox.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.3.dev12+53f3cab',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/0.6.0/lunr.min.js"></script>
+    <script type="text/javascript" src="_static/js/searchbox.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="pytraj 0.1.3.dev12+53f3cab documentation" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
 
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.3.dev12+53f3cab</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_and_write.html">Read and Write</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Use conda to manage different Python versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_viewer.html">Trajectory Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Tutorials adapted from <code class="docutils literal"><span class="pre">mdtraj</span></code></a><ul>
+<li><a class="reference internal" href="#clustering-with-scipy">Clustering with scipy</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/mdtraj_adapted.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <div class="section" id="tutorials-adapted-from-mdtraj">
+<h1><a class="toc-backref" href="#id1">Tutorials adapted from <code class="docutils literal"><span class="pre">mdtraj</span></code></a><a class="headerlink" href="#tutorials-adapted-from-mdtraj" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="table">
+<p class="topic-title first">Table</p>
+<ul class="simple">
+<li><a class="reference internal" href="#tutorials-adapted-from-mdtraj" id="id1">Tutorials adapted from <code class="docutils literal"><span class="pre">mdtraj</span></code></a><ul>
+<li><a class="reference internal" href="#clustering-with-scipy" id="id2">Clustering with scipy</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="clustering-with-scipy">
+<h2><a class="toc-backref" href="#id2">Clustering with scipy</a><a class="headerlink" href="#clustering-with-scipy" title="Permalink to this headline">¶</a></h2>
+<p>This example is adapted from <a class="reference external" href="http://mdtraj.org/latest/examples/clustering.html">mdtraj</a></p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="gp">In [2]: </span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="gp">   ...:</span> <span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="gp">   ...:</span> <span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">   ...:</span> 
+<span class="go">---------------------------------------------------------------------------</span>
+<span class="go">NotImplementedError                       Traceback (most recent call last)</span>
+<span class="go">&lt;ipython-input-2-e27d371d6baa&gt; in &lt;module&gt;()</span>
+<span class="go">----&gt; 1 get_ipython().magic(&#39;matplotlib inline&#39;)</span>
+
+<span class="go">/home/haichit/anaconda3/lib/python3.4/site-packages/IPython/core/interactiveshell.py in magic(self, arg_s)</span>
+<span class="go">   2334         magic_name, _, magic_arg_s = arg_s.partition(&#39; &#39;)</span>
+<span class="go">   2335         magic_name = magic_name.lstrip(prefilter.ESC_MAGIC)</span>
+<span class="go">-&gt; 2336         return self.run_line_magic(magic_name, magic_arg_s)</span>
+<span class="go">   2337 </span>
+<span class="go">   2338     #-------------------------------------------------------------------------</span>
+
+<span class="go">/home/haichit/anaconda3/lib/python3.4/site-packages/IPython/core/interactiveshell.py in run_line_magic(self, magic_name, line)</span>
+<span class="go">   2255                 kwargs[&#39;local_ns&#39;] = sys._getframe(stack_depth).f_locals</span>
+<span class="go">   2256             with self.builtin_trap:</span>
+<span class="go">-&gt; 2257                 result = fn(*args,**kwargs)</span>
+<span class="go">   2258             return result</span>
+<span class="go">   2259 </span>
+
+<span class="go">/home/haichit/anaconda3/lib/python3.4/site-packages/IPython/core/magics/pylab.py in matplotlib(self, line)</span>
+
+<span class="go">/home/haichit/anaconda3/lib/python3.4/site-packages/IPython/core/magic.py in &lt;lambda&gt;(f, *a, **k)</span>
+<span class="go">    191     # but it&#39;s overkill for just that one bit of state.</span>
+<span class="go">    192     def magic_deco(arg):</span>
+<span class="go">--&gt; 193         call = lambda f, *a, **k: f(*a, **k)</span>
+<span class="go">    194 </span>
+<span class="go">    195         if callable(arg):</span>
+
+<span class="go">/home/haichit/anaconda3/lib/python3.4/site-packages/IPython/core/magics/pylab.py in matplotlib(self, line)</span>
+<span class="go">     98             print(&quot;Available matplotlib backends: %s&quot; % backends_list)</span>
+<span class="go">     99         else:</span>
+<span class="go">--&gt; 100             gui, backend = self.shell.enable_matplotlib(args.gui)</span>
+<span class="go">    101             self._show_matplotlib_backend(args.gui, backend)</span>
+<span class="go">    102 </span>
+
+<span class="go">/home/haichit/anaconda3/lib/python3.4/site-packages/IPython/core/interactiveshell.py in enable_matplotlib(self, gui)</span>
+<span class="go">   3135         # Now we must activate the gui pylab wants to use, and fix %run to take</span>
+<span class="go">   3136         # plot updates into account</span>
+<span class="go">-&gt; 3137         self.enable_gui(gui)</span>
+<span class="go">   3138         self.magics_manager.registry[&#39;ExecutionMagics&#39;].default_runner = \</span>
+<span class="go">   3139             pt.mpl_runner(self.safe_execfile)</span>
+
+<span class="go">/home/haichit/anaconda3/lib/python3.4/site-packages/IPython/core/interactiveshell.py in enable_gui(self, gui)</span>
+<span class="go">   3094 </span>
+<span class="go">   3095     def enable_gui(self, gui=None):</span>
+<span class="go">-&gt; 3096         raise NotImplementedError(&#39;Implement enable_gui in a subclass&#39;)</span>
+<span class="go">   3097     </span>
+<span class="go">   3098     def enable_matplotlib(self, gui=None):</span>
+
+<span class="go">NotImplementedError: Implement enable_gui in a subclass</span>
+
+</pre></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, pytraj developers.<br/>
+      Last updated on Dec 16, 2015.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4a0+.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
