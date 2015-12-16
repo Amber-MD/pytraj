@@ -15,6 +15,10 @@
     border-left: 2px #35A9DE solid;
 }
 
+.admonition.overview {
+    border-left: 2px #35A9DE solid;
+}
+
 .admonition.warning {
     border-color: #F89E2E;
     border-left: 2px #F89E2E solid;
