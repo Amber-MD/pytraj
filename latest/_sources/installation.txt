@@ -171,3 +171,20 @@ we highly recommend to install anaconda that has all good python packages (``cyt
 + download file: For example, we downloaded ``Anaconda3-2.1.0-Linux-x86_64.sh`` (Python3
   version)
 + just run ``bash Anaconda3-2.1.0-Linux-x86_64.sh`` and follow instruction. That's it, you have a Python eco-system here.
+
+
+install and run jupyter noteook
+-------------------------------
+
+.. code-block:: bash
+
+    # install
+    conda install notebook
+
+    # run
+    jupyter notebook
+    
+    # or run
+    jupyter notebook {your_notebook_name}.ipynb
+
+If you want to run Jupyter notebook remotely, check :ref:`remote_jupyter_notebook`
