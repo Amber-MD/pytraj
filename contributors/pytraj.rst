@@ -12,6 +12,7 @@ Contributors
 ============
 
 **Jason Swails**: fix segmentation fault for DataSetList when using `groupby` (see Acknowledgement too)
+**Daniel R. Roe**: All things related to C++ (API design, debug, ...)
 
 Acknowledgement
 ===============
