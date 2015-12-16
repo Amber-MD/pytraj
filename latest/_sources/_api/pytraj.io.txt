@@ -9,6 +9,8 @@ pytraj.io
     
         <script type="text/javascript" src='../_static/cindex.js'></script>
 
+.. currentmodule:: pytraj.io
+
 .. automodule:: pytraj.io
     :members:
     :undoc-members:
