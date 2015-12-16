@@ -13,12 +13,7 @@
 
 .admonition.note {
     border-left: 2px #35A9DE solid;
-    border-left: 2px #35A9DE solid;
-    border-bottom: 2px #35A9DE solid;
-}
-
-.admonition.overview {
-    border-left: 2px #35A9DE solid;
+    border-right: 2px #35A9DE solid;
 }
 
 .admonition.warning {
