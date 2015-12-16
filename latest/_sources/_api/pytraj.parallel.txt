@@ -18,7 +18,7 @@ pytraj.parallel
 
 .. _pytraj.pmap:
 
-.. automodule:: pytraj.parallel.parallel_mapping_multiprocessing
+.. automodule:: pytraj.parallel.multiprocessing_
     :members:
     :undoc-members:
     :show-inheritance:
@@ -26,7 +26,7 @@ pytraj.parallel
 
 .. _pytraj.pmap_mpi:
 
-.. automodule:: pytraj.parallel.parallel_mapping_mpi
+.. automodule:: pytraj.parallel.mpi
     :members:
     :undoc-members:
     :show-inheritance:

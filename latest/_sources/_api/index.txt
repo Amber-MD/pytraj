@@ -20,12 +20,11 @@ try ``pytraj`` online:
     pytraj.topology
     pytraj.framefter
     pytraj.cluster
-    pytraj.common_actions
+    pytraj.all_actions
     pytraj.hbond_analysis
     pytraj.CpptrajState
     pytraj.parallel
-    pytraj.core.action_list
-    pytraj.core.cpp_core
-    pytraj.core.action_list
-    pytraj.datasets.cpp_datasets
+    pytraj.c_ation.action_list
+    pytraj.core.c_core
+    pytraj.datasets.c_dataset
     pytraj.energy_decomposition
