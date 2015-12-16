@@ -4,8 +4,8 @@
 # In[3]:
 
 import pytraj as pt
-#traj = pt.iterload('tz2.ortho.nc', 'tz2.ortho.parm7')
-traj = pt.iterload('data/tz2.ortho.nc', 'data/tz2.ortho.parm7')
+traj = pt.iterload('tz2.ortho.nc', 'tz2.ortho.parm7')
+#traj = pt.iterload('data/tz2.ortho.nc', 'data/tz2.ortho.parm7')
 traj
 
 

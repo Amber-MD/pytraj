@@ -1,7 +1,7 @@
 .. _pytraj.commmon_actions:
 
-pytraj.common_actions
-=====================
+pytraj.all_actions
+==================
 
 .. container:: custom-index
     
@@ -22,7 +22,7 @@ pytraj.common_actions
    pt.calc_pca(...) is the same as pt.pca(...)
 
 
-.. automodule:: pytraj.common_actions
+.. automodule:: pytraj.all_actions
     :members:
     :undoc-members:
     :show-inheritance:

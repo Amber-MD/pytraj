@@ -1,7 +1,7 @@
-.. _pytraj.core.action_list:
+.. _pytraj.core.c_core:
 
-pytraj.ActionList
-=================
+pytraj.core.c_core
+==================
 
 .. container:: custom-index
     
@@ -9,7 +9,7 @@ pytraj.ActionList
     
         <script type="text/javascript" src='../_static/cindex.js'></script>
 
-.. automodule:: pytraj.core.action_list
+.. automodule:: pytraj.core.c_core
     :members:
     :undoc-members:
     :show-inheritance:
