@@ -1,4 +1,4 @@
-.. _pytraj.fopology:
+.. _pytraj.topology:
 
 pytraj.topology
 ===============
