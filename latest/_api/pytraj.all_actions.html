@@ -1,0 +1,1808 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pytraj.all_actions &mdash; pytraj 0.1.3.dev12+53f3cab documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/searchbox.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.3.dev12+53f3cab',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/0.6.0/lunr.min.js"></script>
+    <script type="text/javascript" src="../_static/js/searchbox.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="pytraj 0.1.3.dev12+53f3cab documentation" href="../index.html" />
+    <link rel="up" title="API" href="index.html" />
+    <link rel="next" title="pytraj.hbond" href="pytraj.hbond_analysis.html" />
+    <link rel="prev" title="pytraj.cluster" href="pytraj.cluster.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.3.dev12+53f3cab</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_and_write.html">Read and Write</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conda.html">Use conda to manage different Python versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory_viewer.html">Trajectory Viewer</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">pytraj.all_actions</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="pytraj.cluster.html" title="Previous Chapter: pytraj.cluster"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; pytraj.cluster</span>
+    </a>
+  </li>
+  <li>
+    <a href="pytraj.hbond_analysis.html" title="Next Chapter: pytraj.hbond"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">pytraj.hbond &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/_api/pytraj.all_actions.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+  <div class="section" id="pytraj-all-actions">
+<span id="pytraj-commmon-actions"></span><h1>pytraj.all_actions<a class="headerlink" href="#pytraj-all-actions" title="Permalink to this headline">¶</a></h1>
+<div class="custom-index container">
+<script type="text/javascript" src='../_static/cindex.js'></script></div>
+<p><strong>note</strong></p>
+<ul class="simple">
+<li>just need to import pytraj and use the method</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="n">pt</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul>
+<li><p class="first">Most of the methods&#8217; names start with &#8216;<a href="#id1"><span class="problematic" id="id2">calc_</span></a>&#8216; but use can ignore &#8216;<a href="#id3"><span class="problematic" id="id4">calc_</span></a>&#8216;. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>pt.calc_pca(...) is the same as pt.pca(...)
+</pre></div>
+</div>
+</li>
+</ul>
+<span class="target" id="module-pytraj.all_actions"></span><dl class="function">
+<dt id="pytraj.all_actions.do_translation">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">do_translation</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.do_translation" title="Permalink to this definition">¶</a></dt>
+<dd><p>translate coordinate</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># load to mutable trajectory by `load` method</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.testing</span> <span class="kn">import</span> <span class="n">get_fn</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span> <span class="o">=</span> <span class="n">get_fn</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># do transform traj and return itself</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA x 120.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.do_rotation">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">do_rotation</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.do_rotation" title="Permalink to this definition">¶</a></dt>
+<dd><p class="rubric">Notes</p>
+<p><code class="docutils literal"><span class="pre">rotate</span></code> is an alias of <code class="docutils literal"><span class="pre">do_rotation</span></code></p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># load to mutable trajectory by `load` method</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.testing</span> <span class="kn">import</span> <span class="n">get_fn</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span> <span class="o">=</span> <span class="n">get_fn</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># do transform traj and return itself</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;x 90&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.do_autoimage">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">do_autoimage</code><span class="sig-paren">(</span><em>traj</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.do_autoimage" title="Permalink to this definition">¶</a></dt>
+<dd><p>perform autoimage and return the coordinate-updated traj</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()[:]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">autoimage</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.do_scaling">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">do_scaling</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.do_scaling" title="Permalink to this definition">¶</a></dt>
+<dd><p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># load to mutable trajectory by `load` method</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.testing</span> <span class="kn">import</span> <span class="n">get_fn</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span> <span class="o">=</span> <span class="n">get_fn</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># do transform traj and return itself</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA x 1.2&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_distance">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_distance</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em>, <em>image=False</em>, <em>n_frames=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate distance between two maskes</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like, list of Trajectory, list of Frames</p>
+<p><strong>mask</strong> : str or a list of string or a 2D array-like of integers</p>
+<p><strong>frame_indices</strong> : array-like, optional, default None</p>
+<p><strong>dtype</strong> : return type, default &#8216;ndarray&#8217;</p>
+<p><strong>top</strong> : Topology, optional</p>
+<p><strong>image</strong> : bool, default True</p>
+<p><strong>n_frames</strong> : int, optional, default None</p>
+<blockquote>
+<div><p>only need to provide n_frames if <code class="docutils literal"><span class="pre">traj</span></code> does not have this info</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">1D ndarray if mask is a string</p>
+<p class="last">2D ndarray, shape (n_atom_pairs, n_frames) if mask is a list of strings or an array</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Be careful with Topology. If your topology has Box info but your traj does not, you
+would get weird output ([0.0, ...]). Make sure to use <cite>image=False</cite> in this method or
+set_nobox for Topology.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate distance for two atoms, using amber mask</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@1 @3&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate distance for two groups of atoms, using amber mask</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@1,37,8 @2,4,6&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate distance between two residues, using amber mask</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:1 :10&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate multiple distances between two residues, using amber mask</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># distance between residue 1 and 10, distance between residue 3 and 20</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># (when using atom string mask, index starts from 1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;:1 :10&#39;</span><span class="p">,</span> <span class="s">&#39;:3 :20&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate distance for a series of atoms, using array for atom mask</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># distance between atom 1 and 5, distance between atom 4 and 10 (index starts from 0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">10</span><span class="p">]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_dihedral">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_dihedral</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_dihedral" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate dihedral angle between two maskes</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like, list of Trajectory, list of Frames</p>
+<p><strong>mask</strong> : str or array</p>
+<p><strong>top</strong> : Topology, optional</p>
+<p><strong>dtype</strong> : return type, defaul &#8216;ndarray&#8217;</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">1D ndarray if mask is a string</p>
+<p class="last">2D ndarray, shape (n_atom_pairs, n_frames) if mask is a list of strings or an array</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate dihedral angle for four atoms, using amber mask</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">dihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@1 @3 @10 @20&#39;</span><span class="p">)</span>
+<span class="go">array([ 23.32244362,  23.5386922 ,  14.26831569,  14.58865946,</span>
+<span class="go">        23.98675475,  26.18419185,   6.06982926,  13.57158505,</span>
+<span class="go">        16.59013076,  29.99131573])</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate dihedral angle for four groups of atoms, using amber mask</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@1,37,8 @2,4,6 @5,20 @21,22&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate dihedral angle for four residues, using amber mask</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:1 :10 :20 :22&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate multiple dihedral angles for four residues, using amber mask</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># angle for residue 1, 10, 20, 30; angle between residue 3, 20, 30, 40</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># (when using atom string mask, index starts from 1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">dihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;:1 :10 :20 :30&#39;</span><span class="p">,</span> <span class="s">&#39;:3 :20 :30 :40&#39;</span><span class="p">])</span>
+<span class="go">array([[-166.81829116, -160.19029669, -158.56560062, ..., -169.10064772,</span>
+<span class="go">        -158.81655586, -165.28873555],</span>
+<span class="go">       [  -0.60994639,    0.78261235,    1.86394369, ...,    1.21170489,</span>
+<span class="go">          -1.16762607,   -3.08412049]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate dihedral angle for a series of atoms, using array for atom mask</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># dihedral angle for atom 1, 5, 8, 10, dihedral for atom 4, 10, 20, 30 (index starts from 0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_radgyr">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_radgyr</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>nomax=True</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_radgyr" title="Permalink to this definition">¶</a></dt>
+<dd><p>calc radgyr</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;!:WAT&#39;</span><span class="p">,</span> <span class="n">nomax</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_angle">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_angle</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_angle" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate angle between two maskes</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like, list of Trajectory, list of Frames</p>
+<p><strong>mask</strong> : str or array</p>
+<p><strong>top</strong> : Topology, optional</p>
+<p><strong>dtype</strong> : return type, defaul &#8216;ndarray&#8217;</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">1D ndarray if mask is a string</p>
+<p class="last">2D ndarray, shape (n_atom_pairs, n_frames) if mask is a list of strings or an array</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate angle for three atoms, using amber mask</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@1 @3 @10&#39;</span><span class="p">)</span>
+<span class="go">array([  98.06193365,   95.75979717,  105.59626997,  107.64079091,</span>
+<span class="go">         94.93516228,  102.06028369,  109.3479057 ,  110.11532478,</span>
+<span class="go">        101.86104127,  110.48992512])</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate angle for three groups of atoms, using amber mask</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">angles</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@1,37,8 @2,4,6 @5,20&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate angle between three residues, using amber mask</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">angles</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:1 :10 :20&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate multiple angles between three residues, using amber mask</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># angle between residue 1, 10, 20, angle between residue 3, 20, 30</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># (when using atom string mask, index starts from 1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">angles</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;:1 :10 :20&#39;</span><span class="p">,</span> <span class="s">&#39;:3 :20 :30&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate angle for a series of atoms, using array for atom mask</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># angle between atom 1, 5, 8, distance between atom 4, 10, 20 (index starts from 0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">angles</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_molsurf">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_molsurf</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>probe=1.4</em>, <em>offset=0.0</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_molsurf" title="Permalink to this definition">¶</a></dt>
+<dd><p>calc molsurf</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">molsurf</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="go">array([ 458.51409637,  459.64784573,  456.54690793,  467.72939574,</span>
+<span class="go">        462.45908781,  458.70327554,  454.40514806,  455.15015576,</span>
+<span class="go">        468.70566447,  456.0058624 ])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">molsurf</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;!:WAT&#39;</span><span class="p">)</span>
+<span class="go">array([ 1079.1395679 ,  1090.79759341,  1069.65127413,  1096.0810919 ,</span>
+<span class="go">        1091.65862234,  1091.68906298,  1085.53105392,  1069.22510187,</span>
+<span class="go">        1079.70803583,  1075.8151414 ])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_volume">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_volume</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_volume" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate volume</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vol</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_volume</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_matrix">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_matrix</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute different type of matrices</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>mask</strong> : str, type of matrix and atom mask</p>
+<p><strong>top</strong> : Topology, optional</p>
+<p><strong>dtype: return data type</strong></p>
+<p><strong>frame_indices</strong> : {None, array-like}</p>
+<blockquote class="last">
+<div><p>if not None, perform calculation for given frame indices</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>If user wants to use specify matrix&#8217;s method name, see also <code class="docutils literal"><span class="pre">pytraj.matrix</span></code></p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_trpcage</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mat</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_matrix</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;covar @CA&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># this is equal to</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mat2</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">covar</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_equal</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">mat2</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_jcoupling">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_jcoupling</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>kfile=None</em>, <em>dtype='dataset'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_jcoupling" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : any things that make <cite>frame_iter_master</cite> returning Frame object</p>
+<p><strong>command</strong> : str, default &#8220;&#8221;</p>
+<blockquote>
+<div><p>cpptraj&#8217;s command/mask</p>
+</div></blockquote>
+<p><strong>kfile</strong> : str, default None, optional</p>
+<blockquote>
+<div><p>Dir for Karplus file. If &#8220;None&#8221;, use $AMBERHOME dir</p>
+</div></blockquote>
+<p><strong>dtype</strong> : str, {&#8216;dataset&#8217;, ...}, default &#8216;dataset&#8217;</p>
+<p class="last"><strong>*args, **kwd: optional</strong></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_jcoupling</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:1-12&#39;</span><span class="p">,</span> <span class="n">kfile</span><span class="o">=</span><span class="s">&#39;data/Karplus.txt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_watershell">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_watershell</code><span class="sig-paren">(</span><em>traj=None</em>, <em>solute_mask=''</em>, <em>solvent_mask=':WAT'</em>, <em>lower=3.4</em>, <em>upper=5.0</em>, <em>image=True</em>, <em>dtype='dataset'</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_watershell" title="Permalink to this definition">¶</a></dt>
+<dd><p>(adapted from cpptraj doc): Calculate numbers of waters in 1st and 2nd solvation shells
+(defined by &lt;lower cut&gt; (default 3.4 Ang.) and &lt;upper cut&gt; (default 5.0 Ang.)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>solute_mask: solute mask</strong></p>
+<p><strong>solvent_mask: solvent mask</strong></p>
+<p><strong>lower</strong> : double, default 3.4</p>
+<blockquote>
+<div><p>lower cut distance</p>
+</div></blockquote>
+<p><strong>upper</strong> : double, default 5.0</p>
+<blockquote>
+<div><p>upper cut distance</p>
+</div></blockquote>
+<p><strong>image</strong> : bool, defaul True</p>
+<blockquote>
+<div><p>do autoimage if True</p>
+</div></blockquote>
+<p><strong>dtype</strong> : return type, defaul &#8216;dataset&#8217;</p>
+<p class="last"><strong>top</strong> : Topology, optional</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>This method is not validated with cpptraj&#8217;s output yet</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">watershell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">solute_mask</span><span class="o">=</span><span class="s">&#39;!:WAT&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">watershell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">solute_mask</span><span class="o">=</span><span class="s">&#39;!:WAT&#39;</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mf">10.</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_vector">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_vector</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>perform vector calculation. See example below. Same as &#8216;vector&#8217; command in cpptraj.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or iterable that produces <code class="xref py py-class docutils literal"><span class="pre">pytraj.Frame</span></code></p>
+<p><strong>command</strong> : str or a list of strings, cpptraj command</p>
+<p><strong>frame_indices</strong> : array-like, optional, default None</p>
+<blockquote>
+<div><p>only perform calculation for given frame indices</p>
+</div></blockquote>
+<p><strong>dtype</strong> : output&#8217;s dtype, default &#8216;ndarray&#8217;</p>
+<p><strong>top</strong> : Topology, optional, default None</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : numpy ndarray, shape (n_frames, 3) if command is a string</p>
+<blockquote class="last">
+<div><p>numpy ndarray, shape (n_vectors, n_frames, 3) if command is a list of strings</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>It&#8217;s faster to calculate with a list of commands.
+For example, if you need to perform 3 calculations for &#8216;ucellx&#8217;, &#8216;boxcenter&#8217;, &#8216;box&#8217;
+like below:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;ucellx&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;boxcenter&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;box&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You should use a list of commands for faster calculation.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">comlist</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;ucellx&#39;</span><span class="p">,</span> <span class="s">&#39;boxcenter&#39;</span><span class="p">,</span> <span class="s">&#39;box&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">comlist</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;@CA @CB&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[(</span><span class="s">&quot;@CA @CB&quot;</span><span class="p">),])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;principal z&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;principal x&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;ucellx&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;boxcenter&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;box&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_multivector">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_multivector</code><span class="sig-paren">(</span><em>traj</em>, <em>resrange</em>, <em>names</em>, <em>top=None</em>, <em>dtype='dataset'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_multivector" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>resrange</strong> : str, residue range</p>
+<p><strong>names</strong> : {str, tuple of str}</p>
+<p><strong>top</strong> : Topology, optional</p>
+<p><strong>dtype</strong> : str, default &#8216;dataset&#8217;</p>
+<p class="last"><strong>frame_indices</strong> : {None, 1D array-like}, optional, default None</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vecs</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_multivector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">resrange</span><span class="o">=</span><span class="s">&#39;1-5&#39;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;C&#39;</span><span class="p">,</span> <span class="s">&#39;N&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vecs</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_multivector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">resrange</span><span class="o">=</span><span class="s">&#39;1-5&#39;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="s">&#39;C N&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_volmap">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_volmap</code><span class="sig-paren">(</span><em>traj</em>, <em>mask</em>, <em>grid_spacing</em>, <em>size=None</em>, <em>center=None</em>, <em>buffer=3.0</em>, <em>centermask='*'</em>, <em>radscale=1.36</em>, <em>peakcut=0.05</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_volmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>(combined with cpptraj doc) Grid data as a volumetric map, similar to the
+volmap command in VMD. The density is calculated by treating each atom as a
+3-dimensional Gaussian function whose standard deviation is equal to the van der Waals radius</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mask</strong> : {str, array-like}, default all atoms</p>
+<blockquote>
+<div><p>the atom selection from which to calculate the number density</p>
+</div></blockquote>
+<p><strong>grid_spacing</strong> : tuple, grid spacing in X-, Y-, Z-dimensions, require</p>
+<p><strong>size</strong> : {None, tuple}, default None</p>
+<blockquote>
+<div><p>if tuple, size must have length of 3</p>
+</div></blockquote>
+<p><strong>center</strong> : {None, tuple}, default None</p>
+<blockquote>
+<div><p>if not None, center is tuple of (x, y, z) of center point</p>
+</div></blockquote>
+<p><strong>buffer</strong> : float, default 3.0 Angstrom</p>
+<blockquote>
+<div><p>buffer distance (Angstrom), by which the edges of the grid should clear every atom
+of the centermask (or default mask if centermask is omitted) in every direction.
+The buffer is ignored if the center and size are specified.</p>
+</div></blockquote>
+<p><strong>centermask</strong> : str</p>
+<p><strong>radscale</strong> : float, default 1.36 (to match to VMD calculation)</p>
+<blockquote>
+<div><p>factor by which to scale radii (by devision)</p>
+</div></blockquote>
+<p class="last"><strong>peakcut</strong> : float</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># load all frames to memory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()[:]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># do fitting and centering before perform volmap</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">superpose</span><span class="p">(</span><span class="n">mask</span><span class="o">=</span><span class="s">&#39;:1-13&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="s">&#39;:1-13 mass origin&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">volmap</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;:WAT@O&#39;</span><span class="p">,</span> <span class="n">grid_spacing</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="nb">buffer</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">centermask</span><span class="o">=</span><span class="s">&#39;!:1-13&#39;</span><span class="p">,</span> <span class="n">radscale</span><span class="o">=</span><span class="mf">1.36</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_rdf">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_rdf</code><span class="sig-paren">(</span><em>traj=None</em>, <em>solvent_mask=':WAT&#64;O'</em>, <em>solute_mask=''</em>, <em>maximum=10.0</em>, <em>bin_spacing=0.5</em>, <em>image=True</em>, <em>density=0.033456</em>, <em>center_solvent=False</em>, <em>center_solute=False</em>, <em>intramol=True</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_rdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute radial distribtion function. Doc was adapted lightly from cpptraj doc</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like, require</p>
+<p><strong>solvent_mask</strong> : solvent mask, default None, required</p>
+<p><strong>bin_spacing</strong> : float, default 0.5, optional</p>
+<blockquote>
+<div><p>bin spacing</p>
+</div></blockquote>
+<p><strong>maximum</strong> : float, default 10., optional</p>
+<blockquote>
+<div><p>max bin value</p>
+</div></blockquote>
+<p><strong>solute_mask: str, default None, optional</strong></p>
+<blockquote>
+<div><p>if specified, calculate RDF of all atoms in solvent_mask to each atom in solute_mask</p>
+</div></blockquote>
+<p><strong>image</strong> : bool, default True, optional</p>
+<blockquote>
+<div><p>if False, do not image distance</p>
+</div></blockquote>
+<p><strong>density</strong> : float, default 0.033456 molecules / A^3, optional</p>
+<p><strong>volume</strong> : determine density for normalization from average volume of input frames</p>
+<p><strong>center_solvent</strong> : bool, default False, optional</p>
+<blockquote>
+<div><p>if True, calculate RDF from geometric center of atoms in solvent_mask to all atoms in solute_mask</p>
+</div></blockquote>
+<p><strong>center_solute</strong> : bool, default False, optional</p>
+<blockquote>
+<div><p>if True, calculate RDF from geometric center of atoms in solute_mask to all atoms in solvent_mask</p>
+</div></blockquote>
+<p><strong>intramol</strong> : bool, default True, optional</p>
+<blockquote>
+<div><p>if False, ignore intra-molecular distances</p>
+</div></blockquote>
+<p><strong>frame_indices</strong> : array-like, default None, optional</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a tuple of bin_centers, rdf values</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>install <code class="docutils literal"><span class="pre">pytraj</span></code> and <code class="docutils literal"><span class="pre">libcpptraj</span></code> with openmp to speed up calculation</li>
+<li>do not use this method with pytraj.pmap</li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rdf</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">solvent_mask</span><span class="o">=</span><span class="s">&#39;:WAT@O&#39;</span><span class="p">,</span> <span class="n">bin_spacing</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">solute_mask</span><span class="o">=</span><span class="s">&#39;:WAT@O&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([ 0.25,  0.75,  1.25, ...,  8.75,  9.25,  9.75])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">array([ 0.        ,  0.        ,  0.        , ...,  0.95620052,</span>
+<span class="go">        0.95267934,  0.95135242])</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># use array-like mask</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">atom_indices</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s">&#39;:WAT@O&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rdf</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">solvent_mask</span><span class="o">=</span><span class="s">&#39;:WAT@O&#39;</span><span class="p">,</span> <span class="n">bin_spacing</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">solute_mask</span><span class="o">=</span><span class="n">atom_indices</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_pairdist">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_pairdist</code><span class="sig-paren">(</span><em>traj</em>, <em>mask='*'</em>, <em>delta=0.1</em>, <em>dtype='ndarray'</em>, <em>top=None</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_pairdist" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute pair distribution function</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>mask</strong> : str, default all atoms</p>
+<p><strong>delta</strong> : float, default 0.1</p>
+<p><strong>dtype</strong> : str, default &#8216;ndarray&#8217;</p>
+<blockquote>
+<div><p>dtype of return data</p>
+</div></blockquote>
+<p class="last"><strong>top</strong> : Topology, optional</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_pairdist</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_multidihedral">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_multidihedral</code><span class="sig-paren">(</span><em>traj=None</em>, <em>dhtypes=None</em>, <em>resrange=None</em>, <em>define_new_type=None</em>, <em>range360=False</em>, <em>dtype='dataset'</em>, <em>top=None</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_multidihedral" title="Permalink to this definition">¶</a></dt>
+<dd><p>perform dihedral search</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like object</p>
+<p><strong>dhtypes</strong> : dihedral type, default None</p>
+<blockquote>
+<div><p>if None, calculate all supported dihedrals</p>
+</div></blockquote>
+<p><strong>resrange</strong> : str | array-like</p>
+<blockquote>
+<div><p>residue range for searching. If <cite>resrange</cite> is string, use index starting with 1
+(cpptraj convertion)
+if <cite>resrange</cite> is array-like, use index starting from 0 (python convention)</p>
+</div></blockquote>
+<p><strong>define_new_type</strong> : str</p>
+<blockquote>
+<div><p>define new type for searching</p>
+</div></blockquote>
+<p><strong>range360</strong> : bool, default False</p>
+<blockquote>
+<div><p>if True: use 0-360</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology | str, optional</p>
+<blockquote>
+<div><p>only need to have &#8216;top&#8217; if can not find it in <cite>traj</cite></p>
+</div></blockquote>
+<p><strong>*arg and **kwd: additional arguments (for advanced users)</strong></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">pytraj.DatasetList (use <cite>values</cite> attribute to get raw <cite>numpy</cite> array)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Dataset lables show residue number in 1-based index</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;phi psi&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">resrange</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">range360</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">resrange</span><span class="o">=</span><span class="s">&#39;1,3,5&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">dhtypes</span><span class="o">=</span><span class="s">&#39;phi psi&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">dhtypes</span><span class="o">=</span><span class="s">&#39;phi psi&#39;</span><span class="p">,</span> <span class="n">resrange</span><span class="o">=</span><span class="s">&#39;3-7&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">dhtypes</span><span class="o">=</span><span class="s">&#39;phi psi&#39;</span><span class="p">,</span> <span class="n">resrange</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_atomicfluct">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_atomicfluct</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_atomicfluct" title="Permalink to this definition">¶</a></dt>
+<dd><p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_atomicfluct</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+<span class="go">array([[  5.        ,   0.61822273],</span>
+<span class="go">       [ 16.        ,   0.5627449 ],</span>
+<span class="go">       [ 40.        ,   0.53717119]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_COM">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_COM</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_COM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_center_of_mass">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_center_of_mass</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_center_of_mass" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_center_of_geometry">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_center_of_geometry</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_center_of_geometry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_pairwise_rmsd">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_pairwise_rmsd</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>metric='rms'</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_pairwise_rmsd" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate pairwise rmsd with different metrics.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or iterable object</p>
+<p><strong>mask</strong> : mask</p>
+<blockquote>
+<div><p>if mask is &#8220;&#8221;, use all atoms</p>
+</div></blockquote>
+<p><strong>metric</strong> : {&#8216;rms&#8217;, &#8216;dme&#8217;, &#8216;srmsd&#8217;, &#8216;nofit&#8217;}</p>
+<blockquote>
+<div><p>if &#8216;rms&#8217;, perform rms fit
+if &#8216;dme&#8217;, use distance RMSD
+if &#8216;srmsd&#8217;, use symmetry-corrected RMSD
+if &#8216;nofit&#8217;, perform rmsd without fitting</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology, optional, default=None</p>
+<p><strong>dtype: ndarray</strong></p>
+<blockquote>
+<div><p>return type</p>
+</div></blockquote>
+<p><strong>mat_type</strong> : str, {&#8216;full&#8217;, &#8216;half&#8217;}</p>
+<blockquote>
+<div><p>if &#8216;full&#8217;: return 2D array, shape=(n_frames, n_frames)
+if &#8216;half&#8217;: return 1D array, shape=(n_frames*(n_frames-1)/2, )</p>
+</div></blockquote>
+<p class="last"><strong>*args, **kwd: optional (for advanced user)</strong></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Install <code class="docutils literal"><span class="pre">libcpptraj</span></code> with <code class="docutils literal"><span class="pre">openmp</span></code> to get benefit from parallel</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate pairwise rmsd for all frames using CA atoms, use `dme` (distance RMSD)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># convert to numpy array</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr_np</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;@CA&quot;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s">&quot;dme&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;ndarray&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate pairwise rmsd for all frames using CA atoms, nofit for RMSD</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># convert to numpy array</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr_np</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;@CA&quot;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s">&quot;nofit&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;ndarray&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate pairwise rmsd for all frames using CA atoms</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># use symmetry-corrected RMSD, convert to numpy array</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr_np</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;@CA&quot;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s">&quot;srmsd&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;ndarray&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># use different dtype</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr_np</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;@CA&quot;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s">&quot;srmsd&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;dataset&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_grid">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_grid</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='dataset'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_grid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_atomiccorr">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_atomiccorr</code><span class="sig-paren">(</span><em>traj</em>, <em>mask=''</em>, <em>cut=None</em>, <em>min_spacing=None</em>, <em>byres=True</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_atomiccorr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate average correlations between the motion of atoms in mask.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>mask</strong> : atom mask</p>
+<p><strong>cut</strong> : {None, float}, default None</p>
+<blockquote>
+<div><p>if not None, only print correlations with absolute value greater than cut</p>
+</div></blockquote>
+<p><strong>min_spacing</strong> : {None, float}, default None</p>
+<blockquote>
+<div><p>if not None, only calculate correlations for motion vectors spaced min_spacing apart</p>
+</div></blockquote>
+<p><strong>byres</strong> : bool, default False</p>
+<blockquote class="last">
+<div><p>if False, compute atomic motion vetor
+if True, Calculate motion vectors for entire residues (selected atoms in residues only).</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_bfactors">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_bfactors</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>byres=True</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_bfactors" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate pseudo bfactor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj: Trajectory-like</strong></p>
+<p><strong>mask: str, mask</strong></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">if dtype is &#8216;ndarray&#8217; (default), return a numpy array</p>
+<p class="last">with shape=(n_atoms/n_residues, 2) ([atom_or_residue_idx, value])</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.testing</span> <span class="kn">import</span> <span class="n">get_fn</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span> <span class="o">=</span> <span class="n">get_fn</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;!:WAT&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">superpose</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bfactor</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_bfactors</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">byres</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_diffusion">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_diffusion</code><span class="sig-paren">(</span><em>traj</em>, <em>mask=''</em>, <em>tstep=1.0</em>, <em>individual=False</em>, <em>top=None</em>, <em>dtype='dataset'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_diffusion" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate diffusion</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or iterator</p>
+<p><strong>mask</strong> : str, default &#8216;&#8217; (all atoms)</p>
+<p><strong>tstep</strong> : float, time step between frames, default 1.0 ps</p>
+<p><strong>individual</strong> : bool, default False</p>
+<p><strong>top</strong> : Topology, optional</p>
+<p><strong>dtype</strong> : str, default &#8216;dataset&#8217;</p>
+<p class="last"><strong>frame_indices</strong> : array or None</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">diffusion</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;dict&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">[</span><span class="s">&#39;X&#39;</span><span class="p">]</span>
+<span class="go">array([ 0.        ,  0.87027302,  1.64626022,  2.26262651,  2.98068114,</span>
+<span class="go">        3.57075535,  4.07030655,  4.71894512,  5.42302306,  6.01310377])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_distance_rmsd">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_distance_rmsd</code><span class="sig-paren">(</span><em>traj=None</em>, <em>ref=0</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_distance_rmsd" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute distance rmsd between traj and reference</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or iterator that produces Frame</p>
+<p><strong>ref</strong> : {int, Frame}, default 0 (1st Frame)</p>
+<p><strong>mask</strong> : str</p>
+<p><strong>top</strong> : Topology or str, optional, default None</p>
+<p><strong>dtype</strong> : return dtype, default &#8216;ndarray&#8217;</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">1D ndarray if dtype is &#8216;ndarray&#8217; (default)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># compute distance_rmsd to last frame</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">distance_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># compute distance_rmsd to first frame with mask = &#39;@CA&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">distance_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_mindist">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_mindist</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_mindist" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate mindist</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">mindist</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA @H&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_pairwise_distance">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_pairwise_distance</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask_1=''</em>, <em>mask_2=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_pairwise_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate pairwise distance between atoms in mask_1 and atoms in mask_2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or iterable that produces Frame</p>
+<p><strong>mask_1: string or 1D array-like</strong></p>
+<p><strong>mask_2: string or 1D array-like</strong></p>
+<p><strong>...</strong></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out_1</strong> : numpy array, shape (n_frames, n_atom_1, n_atom_2)</p>
+<p class="last"><strong>out_2</strong> : atom pairs, shape=(n_atom_1, n_atom_2, 2)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>This method is only fast for small number of atoms.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mat</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_pairwise_distance</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">,</span> <span class="s">&#39;@CB&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_rmsd_nofit">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_rmsd_nofit</code><span class="sig-paren">(</span><em>traj=None</em>, <em>ref=0</em>, <em>mask=''</em>, <em>mass=False</em>, <em>frame_indices=None</em>, <em>top=None</em>, <em>dtype='ndarray'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_rmsd_nofit" title="Permalink to this definition">¶</a></dt>
+<dd><div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><code class="xref py py-obj docutils literal"><span class="pre">calc_rmsd</span></code></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_rotation_matrix">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_rotation_matrix</code><span class="sig-paren">(</span><em>traj=None</em>, <em>ref=0</em>, <em>mask=''</em>, <em>mass=False</em>, <em>frame_indices=None</em>, <em>top=None</em>, <em>with_rmsd=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_rotation_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute rotation matrix with/without rmsd</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>ref</strong> : {int, Frame}, default 0 (first Frame)</p>
+<blockquote>
+<div><p>reference</p>
+</div></blockquote>
+<p><strong>mask</strong> : str, default all atoms</p>
+<p><strong>mass</strong> : bool, default False</p>
+<blockquote>
+<div><p>if True, rmsfit with mass</p>
+</div></blockquote>
+<p><strong>frame_indices</strong> : {None, array-like}</p>
+<blockquote>
+<div><p>if not None, compute for given indices</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology, optional</p>
+<p><strong>with_rmsd</strong> : bool, default False</p>
+<blockquote>
+<div><ul class="simple">
+<li>if False, return only rotation matrix.</li>
+<li>if True, return rotation matrix and rmsd values</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : if with_rmsd=False, return numpy array, shape (n_frames, 3, 3)</p>
+<blockquote class="last">
+<div><p>if with_rmsd=True, return a tuple (mat, rmsd)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mat</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_rotation_matrix</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mat</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(101, 3, 3)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_pca">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_pca</code><span class="sig-paren">(</span><em>traj</em>, <em>mask</em>, <em>n_vecs=2</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_pca" title="Permalink to this definition">¶</a></dt>
+<dd><p>perform PCA analysis by following below steps:</p>
+<ul class="simple">
+<li>perform rmsfit to first frame with <code class="docutils literal"><span class="pre">mask</span></code></li>
+<li>compute average frame with <code class="docutils literal"><span class="pre">mask</span></code></li>
+<li>rmsfit to average frame with <code class="docutils literal"><span class="pre">mask</span></code></li>
+<li>compute covariance matrix</li>
+<li>diagonalize the matrix to get eigenvectors and eigenvalues</li>
+<li>perform projection of each frame with mask to each eigenvector</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory</p>
+<blockquote>
+<div><p>traj must be <code class="docutils literal"><span class="pre">pytraj.Trajectory</span></code>, which can be created by <code class="docutils literal"><span class="pre">pytraj.load</span></code> method.</p>
+</div></blockquote>
+<p><strong>mask</strong> : str</p>
+<blockquote>
+<div><p>atom mask</p>
+</div></blockquote>
+<p><strong>n_vecs</strong> : int, default 2</p>
+<blockquote>
+<div><p>number of eigenvectors. If user want to compute projection for all eigenvectors,
+should specify n_vecs=-1 (or a negative number)</p>
+</div></blockquote>
+<p><strong>dtype</strong> : return datatype</p>
+<p><strong>top</strong> : Topology, optional</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">out1: projection_data, ndarray with shape=(n_vecs, n_frames)</p>
+<p class="last">out2: tuple of (eigenvalues, eigenvectors)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()[:]</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># compute pca for first and second modes</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pca_data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;!@H=&#39;</span><span class="p">,</span> <span class="n">n_vecs</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># get projection values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pca_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> 
+<span class="go">array([[  4.93425131,  13.80002308,  20.61605835, ..., -57.92280579,</span>
+<span class="go">        -61.25728607, -52.85142136],</span>
+<span class="go">       [  4.03333616,  -6.9132452 , -14.53991318, ...,  -6.757936  ,</span>
+<span class="go">          2.1086719 ,  -3.60922861]], dtype=float32)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># get eigenvalues for first 2 modes</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pca_data</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> 
+<span class="go">array([ 1399.36472919,   240.42342439])</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># compute pca for all modes</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pca_data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;!@H=&#39;</span><span class="p">,</span> <span class="n">n_vecs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.get_average_frame">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">get_average_frame</code><span class="sig-paren">(</span><em>traj</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>dtype='frame'</em>, <em>autoimage=False</em>, <em>rmsfit=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.get_average_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>get mean structure for a given mask and given frame_indices</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or iterable that produces Frame</p>
+<p><strong>mask</strong> : None or str, default None (all atoms)</p>
+<p><strong>frame_indices</strong> : iterable that produces integer, default None, optional</p>
+<blockquote>
+<div><p>frame indices</p>
+</div></blockquote>
+<p><strong>dtype: str, {&#8216;frame&#8217;, &#8216;traj&#8217;}, default &#8216;frame&#8217;</strong></p>
+<blockquote>
+<div><p>return type, either Frame (does not have Topology information) or &#8216;traj&#8217;</p>
+</div></blockquote>
+<p><strong>autoimage</strong> : bool, default False</p>
+<blockquote>
+<div><p>if True, performa autoimage</p>
+</div></blockquote>
+<p><strong>rmsfit</strong> : object, {Frame, int, tuple, None}, default None</p>
+<blockquote class="last">
+<div><p>if rmsfit is not None, perform rms fit to reference.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>if autoimage=True and having rmsfit, perform autoimage first and do rmsfit</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># get average structure from whole traj, all atoms</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">mean_structure</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># get average structure from several frames, &#39;@CA&#39; atoms&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">mean_structure</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># get average structure but do autoimage and rmsfit to 1st Frame</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">mean_structure</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="n">autoimage</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">rmsfit</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># get average structure but do autoimage and rmsfit to 1st Frame.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">mean_structure</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="n">autoimage</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">rmsfit</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.get_velocity">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">get_velocity</code><span class="sig-paren">(</span><em>traj</em>, <em>mask=None</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.get_velocity" title="Permalink to this definition">¶</a></dt>
+<dd><p>get velocity for specify frames with given mask</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or iterable that produces Frame</p>
+<p><strong>mask</strong> : str, default None (use all atoms), optional</p>
+<blockquote>
+<div><p>atom mask</p>
+</div></blockquote>
+<p><strong>frame_indices</strong> : iterable that produces integer, default None, optional</p>
+<blockquote class="last">
+<div><p>if not None, only get velocity for given frame indices</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Since pytraj has limited support for force and velocity info, if user wants to
+load both from disk, should iterate the TrajectoryIterator (got by pytraj.iterload method)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="n">forces</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">velocities</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">topology_filename</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">:</span>
+    <span class="n">forces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">force</span><span class="p">)</span>
+    <span class="n">velocities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">velocity</span><span class="p">)</span>
+
+<span class="c"># Note: pytraj can efficiently load arbitary frame indices to memory</span>
+<span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]):</span> <span class="k">pass</span>
+</pre></div>
+</div>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vels</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">get_velocity</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span> 
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.rmsd">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">rmsd</code><span class="sig-paren">(</span><em>traj=None</em>, <em>ref=0</em>, <em>mask=''</em>, <em>nofit=False</em>, <em>mass=False</em>, <em>frame_indices=None</em>, <em>top=None</em>, <em>dtype='ndarray'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.rmsd" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate rmsd</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>ref</strong> : {Frame, int}, default=0 (first frame)</p>
+<blockquote>
+<div><p>Reference frame or index.</p>
+</div></blockquote>
+<p><strong>mask</strong> : str or 1D array-like of string or 1D or 2D array-like</p>
+<blockquote>
+<div><p>Atom mask/indices</p>
+</div></blockquote>
+<p><strong>nofit</strong> : bool, default False</p>
+<blockquote>
+<div><p>if False, perform fitting (rotation and translation).
+if <code class="docutils literal"><span class="pre">traj</span></code> is mutable, its coordinates will be updated
+if True, not fitting.</p>
+</div></blockquote>
+<p><strong>top</strong> : {Topology, str}, default None, optional</p>
+<p class="last"><strong>dtype</strong> : return data type, default=&#8217;ndarray&#8217;</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>if <code class="docutils literal"><span class="pre">traj</span></code> is mutable, its coordinates will be updated</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_trpcage</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># all atoms, do fitting, using ref=traj[-3]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=-</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># rmsd for 3 maskes, do fitting, using ref=traj[0] (defaul)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;@CA&#39;</span><span class="p">,</span> <span class="s">&#39;@C&#39;</span><span class="p">,</span> <span class="s">&#39;:3-18@CA&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;dataset&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># rmsd to first frame, use mass &#39;:3-13&#39; but do not perorm fitting</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;:3-13&#39;</span><span class="p">,</span> <span class="n">nofit</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># use atom indices for mask</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">),</span> <span class="n">nofit</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># computer rmsd for two maskes</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">]],</span> <span class="n">nofit</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.align_principal_axis">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">align_principal_axis</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask='*'</em>, <em>top=None</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.align_principal_axis" title="Permalink to this definition">¶</a></dt>
+<dd><p class="rubric">Notes</p>
+<p>apply for mutatble traj (Trajectory, Frame)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.principal_axes">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">principal_axes</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask='*'</em>, <em>dorotation=False</em>, <em>mass=True</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.principal_axes" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute principal axes</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>mask</strong> : str, default &#8216;*&#8217; (all atoms)</p>
+<p><strong>mass: bool, defaul True</strong></p>
+<p><strong>if `dorotation`, the system will be aligned along principal axes (apply for mutable system)</strong></p>
+<p><strong>top</strong> : Topology, optional</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out_0</strong> : numpy array, shape=(n_frames, 3, 3)</p>
+<p class="last">out_1: numpy array with shape=(n_frames, 3)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.closest">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">closest</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask='*'</em>, <em>solvent_mask=None</em>, <em>n_solvents=10</em>, <em>frame_indices=None</em>, <em>dtype='iterator'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.closest" title="Permalink to this definition">¶</a></dt>
+<dd><p>return either a new Trajectory or a frame iterator. Keep only <code class="docutils literal"><span class="pre">n_solvents</span></code> closest to mask</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like | list of Trajectory-like/frames | frame iterator | chunk iterator</p>
+<p><strong>mask: str, default &#8216;*&#8217; (all solute atoms)</strong></p>
+<p><strong>top</strong> : Topology-like object, default=None, optional</p>
+<p><strong>dtype</strong> : {&#8216;iterator&#8217;, &#8216;trajectory&#8217;}, default &#8216;iterator&#8217;</p>
+<blockquote>
+<div><p>if &#8216;iterator&#8217;, return a tuple of Frame iterator and new Toplogy. &#8216;iterator&#8217; is good for streaming large trajectory.
+if &#8216;trajectory&#8217;, return a new Trajectory.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>out</strong> : (check above)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># obtain new traj, keeping only closest 100 waters</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># to residues 1 to 13 (index starts from 1) by distance to the first atom of water</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">closest</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">n_solvents</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.transform">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">transform</code><span class="sig-paren">(</span><em>traj</em>, <em>by</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>transform pytraj.Trajectory by a series of cpptraj&#8217;s commands</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Mutable Trajectory</p>
+<p><strong>by</strong> : list of cpptraj commands</p>
+<p><strong>frame_indices</strong> : {None, array-like}, default None</p>
+<blockquote>
+<div><p>if not None, perform tranformation for specific frames.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">transformed Trajectory. Trajectory&#8217;s coordinates will be inplace-updated</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># perform &#39;autoimage&#39;, then &#39;rms&#39;, then &#39;center&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">traj</span><span class="p">[:],</span> <span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;autoimage&#39;</span><span class="p">,</span> <span class="s">&#39;rms&#39;</span><span class="p">,</span> <span class="s">&#39;center :1-5&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.native_contacts">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">native_contacts</code><span class="sig-paren">(</span><em>traj=None</em>, <em>ref=0</em>, <em>mask=''</em>, <em>mask2=''</em>, <em>dtype='dataset'</em>, <em>distance=7.0</em>, <em>image=True</em>, <em>include_solvent=False</em>, <em>byres=False</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.native_contacts" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute native contacts</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># use 1st frame as reference, don&#39;t need specify ref Frame</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">native_contacts</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># explicitly specify reference, specify distance cutoff</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">native_contacts</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="mf">8.0</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># use integer array for mask</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">native_contacts</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">mask2</span><span class="o">=</span><span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">201</span><span class="p">],</span> <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="mf">8.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.set_dihedral">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">set_dihedral</code><span class="sig-paren">(</span><em>traj</em>, <em>resid='1'</em>, <em>dihedral_type=None</em>, <em>deg=0</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.set_dihedral" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">updated traj</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># make mutable traj by loading all frames to disk</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[:]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">set_dihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">resid</span><span class="o">=</span><span class="s">&#39;3&#39;</span><span class="p">,</span> <span class="n">dihedral_type</span><span class="o">=</span><span class="s">&#39;phi&#39;</span><span class="p">,</span> <span class="n">deg</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">set_dihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">resid</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dihedral_type</span><span class="o">=</span><span class="s">&#39;phi&#39;</span><span class="p">,</span> <span class="n">deg</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.check_structure">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">check_structure</code><span class="sig-paren">(</span><em>traj</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.check_structure" title="Permalink to this definition">¶</a></dt>
+<dd><p>check if the structure is ok or not</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_rna</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">check_structure</span><span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.mean_structure">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">mean_structure</code><span class="sig-paren">(</span><em>traj</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>dtype='frame'</em>, <em>autoimage=False</em>, <em>rmsfit=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.mean_structure" title="Permalink to this definition">¶</a></dt>
+<dd><p>get mean structure for a given mask and given frame_indices</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or iterable that produces Frame</p>
+<p><strong>mask</strong> : None or str, default None (all atoms)</p>
+<p><strong>frame_indices</strong> : iterable that produces integer, default None, optional</p>
+<blockquote>
+<div><p>frame indices</p>
+</div></blockquote>
+<p><strong>dtype: str, {&#8216;frame&#8217;, &#8216;traj&#8217;}, default &#8216;frame&#8217;</strong></p>
+<blockquote>
+<div><p>return type, either Frame (does not have Topology information) or &#8216;traj&#8217;</p>
+</div></blockquote>
+<p><strong>autoimage</strong> : bool, default False</p>
+<blockquote>
+<div><p>if True, performa autoimage</p>
+</div></blockquote>
+<p><strong>rmsfit</strong> : object, {Frame, int, tuple, None}, default None</p>
+<blockquote class="last">
+<div><p>if rmsfit is not None, perform rms fit to reference.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>if autoimage=True and having rmsfit, perform autoimage first and do rmsfit</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># get average structure from whole traj, all atoms</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">mean_structure</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># get average structure from several frames, &#39;@CA&#39; atoms&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">mean_structure</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># get average structure but do autoimage and rmsfit to 1st Frame</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">mean_structure</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="n">autoimage</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">rmsfit</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># get average structure but do autoimage and rmsfit to 1st Frame.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frame</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">mean_structure</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="n">autoimage</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">rmsfit</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.lowestcurve">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">lowestcurve</code><span class="sig-paren">(</span><em>data</em>, <em>points=10</em>, <em>step=0.2</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.lowestcurve" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate lowest curve for data</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.make_structure">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">make_structure</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.make_structure" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.replicate_cell">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">replicate_cell</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>direction='all'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.replicate_cell" title="Permalink to this definition">¶</a></dt>
+<dd><p>create a trajectory where the unit cell is replicated in 1 or more direction (up to 27)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or Frame iterator</p>
+<p><strong>mask</strong> : str, default: &#8220;&#8221;</p>
+<blockquote>
+<div><p>if default, using all atoms
+else: given mask</p>
+</div></blockquote>
+<p><strong>direction: {&#8216;all&#8217;, &#8216;dir&#8217;} or list/tuple of &lt;XYZ&gt; (below)</strong></p>
+<blockquote>
+<div><p>if &#8216;all&#8217;, replicate cell once in all possible directions
+if &#8216;dir&#8217;, need to specify the direction with format &#8216;dir &lt;XYZ&gt;&#8217;, where each X (Y, Z)
+is either 0, 1 or -1 (see example below)</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology, optional, default: None</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>traj</strong> : pytraj.Trajectory</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">replicate_cell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s">&#39;all&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">replicate_cell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s">&#39;dir 001 dir 111&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">replicate_cell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s">&#39;dir 001 dir 1-10&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">replicate_cell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s">&#39;dir 001 dir 1-10&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># similiar usage</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">replicate_cell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;001&#39;</span><span class="p">,</span> <span class="s">&#39;0-10&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">replicate_cell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;001&#39;</span><span class="p">,</span> <span class="s">&#39;0-10&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.pucker">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">pucker</code><span class="sig-paren">(</span><em>traj=None</em>, <em>pucker_mask=(&quot;C1'&quot;</em>, <em>&quot;C2'&quot;</em>, <em>&quot;C3'&quot;</em>, <em>&quot;C4'&quot;</em>, <em>&quot;O4'&quot;)</em>, <em>resrange=None</em>, <em>top=None</em>, <em>dtype='dataset'</em>, <em>range360=False</em>, <em>method='altona'</em>, <em>use_com=True</em>, <em>amplitude=False</em>, <em>offset=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.pucker" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute pucker</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>pucker_mask</strong> : str</p>
+<p><strong>resrange</strong> : None or array of int</p>
+<p><strong>top</strong> : Topology, optional</p>
+<p><strong>dtype</strong> : str, return type</p>
+<p><strong>range360: bool, use 360 or 180 scale</strong></p>
+<p><strong>method</strong> : {&#8216;altona&#8217;, &#8216;cremer&#8217;}, default &#8216;altona&#8217;</p>
+<p><strong>use_com</strong> : bool</p>
+<p><strong>amplitude</strong> : bool, default False</p>
+<p><strong>offset</strong> : None or float</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Dataset</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.rmsd_perres">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">rmsd_perres</code><span class="sig-paren">(</span><em>traj=None</em>, <em>ref=0</em>, <em>mask=''</em>, <em>mass=False</em>, <em>resrange=None</em>, <em>perres_mask=None</em>, <em>perres_center=False</em>, <em>perres_invert=False</em>, <em>frame_indices=None</em>, <em>top=None</em>, <em>dtype='dataset'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.rmsd_perres" title="Permalink to this definition">¶</a></dt>
+<dd><p>superpose <code class="docutils literal"><span class="pre">traj</span></code> to <code class="docutils literal"><span class="pre">ref</span></code> with <cite>mask</cite>, then calculate nofit rms for residues
+in <cite>resrange</cite> with given <cite>perresmask</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : pytraj.DatasetList, shape=(1+n_residues, n_frames)</p>
+<blockquote class="last">
+<div><p>out[0]: regular rmsd
+out[1:]: perres rmsd for all given residues
+<cite>out.values</cite> will return corresponding numpy array</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.randomize_ions">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">randomize_ions</code><span class="sig-paren">(</span><em>traj</em>, <em>mask</em>, <em>around</em>, <em>by</em>, <em>overlap</em>, <em>seed=1</em>, <em>top=None</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.randomize_ions" title="Permalink to this definition">¶</a></dt>
+<dd><p>randomize_ions for given Frame with Topology</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or a Frame</p>
+<blockquote>
+<div><p><code class="docutils literal"><span class="pre">traj</span></code> must be mutable</p>
+</div></blockquote>
+<p><strong>mask</strong> : str</p>
+<blockquote>
+<div><p>cpptraj command</p>
+</div></blockquote>
+<p><strong>frame_indices</strong> : {None, array-like}, optional</p>
+<p><strong>top</strong> : Topology, optional (only needed if <code class="docutils literal"><span class="pre">traj</span></code> does not have it)</p>
+<p class="last"><strong>**kwd: other args</strong></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">randomize_ions</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@Na+&#39;</span><span class="p">,</span> <span class="n">around</span><span class="o">=</span><span class="s">&#39;:1-16&#39;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">overlap</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">113698</span><span class="p">)</span> 
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.timecorr">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">timecorr</code><span class="sig-paren">(</span><em>vec0</em>, <em>vec1</em>, <em>order=2</em>, <em>tstep=1.0</em>, <em>tcorr=10000.0</em>, <em>norm=False</em>, <em>dtype='ndarray'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.timecorr" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute time correlation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>vec0</strong> : 2D array-like, shape=(n_frames, 3)</p>
+<p><strong>vec1</strong> : 2D array-like, shape=(n_frames, 3)</p>
+<p><strong>order</strong> : int, default 2</p>
+<p><strong>tstep</strong> : float, default 1.</p>
+<p><strong>tcorr</strong> : float, default 10000.</p>
+<p class="last"><strong>norm</strong> : bool, default False</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.search_neighbors">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">search_neighbors</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>dtype='dataset'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.search_neighbors" title="Permalink to this definition">¶</a></dt>
+<dd><p>search neighbors</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><span class="xref std std-ref">pytraj.DatasetList</span>, is a list of atom index arrays for each frame.</p>
+<p class="last">Those arrays might not have the same lenghth</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">indices</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_neighbors</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:5&lt;@5.0&#39;</span><span class="p">)</span> <span class="c"># around residue 5 with 5.0 cutoff</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.xcorr">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">xcorr</code><span class="sig-paren">(</span><em>data0</em>, <em>data1</em>, <em>dtype='ndarray'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.xcorr" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute cross correlation between two datasets</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>data0 and data1: 1D-array like</strong></p>
+<p class="last"><strong>dtype</strong> : return datatype, default &#8216;ndarray&#8217;</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Same as <cite>corr</cite> in cpptraj</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.acorr">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">acorr</code><span class="sig-paren">(</span><em>data</em>, <em>dtype='ndarray'</em>, <em>option=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.acorr" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute autocorrelation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>data</strong> : 1d array-like</p>
+<p><strong>dtype: return type, default &#8216;ndarray&#8217;</strong></p>
+<p><strong>covar</strong> : bool, default True</p>
+<p><strong>option</strong> : str</p>
+<blockquote class="last">
+<div><p>more cpptraj options</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Same as <cite>autocorr</cite> in cpptraj</p>
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, pytraj developers.<br/>
+      Last updated on Dec 16, 2015.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4a0+.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
