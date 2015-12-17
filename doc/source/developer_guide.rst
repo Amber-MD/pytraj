@@ -158,6 +158,8 @@ There are some tricks:
 
     source/tutorials/*rst
 
+.. note:: to update layout for website, should modify 'source/_static/my-styles.css' file.
+
 How to make a tutorial and include it in pytraj's website
 ---------------------------------------------------------
 
