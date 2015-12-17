@@ -38,7 +38,7 @@ def check_valid_command(commands):
 def worker_actlist(rank,
                     n_cores=2,
                     traj=None,
-                    lines=[],
+                    lines=None,
                     dtype='dict',
                     ref=None,
                     kwd=None):
@@ -46,6 +46,8 @@ def worker_actlist(rank,
     # it's easy to mess up with mutable list
     # do not use lines.copy() since this is not available in py2.7
     # Note: dtype is a dummy argument, it is always 'dict'
+    if lines is None:
+        lines = []
     frame_indices = kwd.pop('frame_indices', None)
 
     if frame_indices is None:
@@ -83,7 +85,7 @@ def worker_actlist(rank,
 
 
 def _load_batch_pmap(n_cores=4,
-                     lines=[],
+                     lines=None,
                      traj=None,
                      dtype='dict',
                      root=0,
@@ -92,6 +94,8 @@ def _load_batch_pmap(n_cores=4,
                      **kwd):
     '''mpi or multiprocessing
     '''
+    if lines is None:
+        lines = []
     if mode == 'multiprocessing':
         from multiprocessing import Pool
         pfuncs = partial(worker_actlist,
@@ -125,10 +129,12 @@ def _load_batch_pmap(n_cores=4,
         raise ValueError('only support multiprocessing or mpi')
 
 
-def worker_state(rank, n_cores=1, traj=None, lines=[], dtype='dict'):
+def worker_state(rank, n_cores=1, traj=None, lines=None, dtype='dict'):
     # need to make a copy if lines since python's list is dangerous
     # it's easy to mess up with mutable list
     # do not use lines.copy() since this is not available in py2.7
+    if lines is None:
+        lines = []
     my_lines = [line for line in lines]
     from pytraj.utils import split_range
     from pytraj.core.c_core import _load_batch
