@@ -19,9 +19,11 @@ def worker(rank,
            traj=None,
            args=None,
            kwd=None,
-           iter_options={},
+           iter_options=None,
            apply=None):
     # need to unpack args and kwd
+    if iter_options is None:
+        iter_options = {}
     mask = iter_options.get('mask')
     rmsfit = iter_options.get('rmsfit')
     autoimage = iter_options.get('autoimage', False)

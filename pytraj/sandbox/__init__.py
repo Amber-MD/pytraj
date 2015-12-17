@@ -21,13 +21,15 @@ def set_top(traj, top):
     traj.top = top
 
 
-def translate(traj, mask, anchor, to_point=[0.0, 0.0, 0.0]):
+def translate(traj, mask, anchor, to_point=None):
     '''translate a group of atoms in mask by moving anchor mask to given point
 
     Returns
     -------
     updated traj
     '''
+    if to_point is None:
+        to_point = [0.0, 0.0, 0.0]
     indices = traj.top.select(mask)
 
     for frame in traj:
