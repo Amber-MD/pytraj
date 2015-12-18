@@ -49,7 +49,9 @@ Contributors
 Citations
 ---------
 
-if you would like to acknowledge our works, please do consider citing both ``cpptraj`` and ``pytraj`` papers ::
+if you find this project useful and would like to acknowledge our works, please cite both ``cpptraj`` and ``pytraj`` papers
+
+::
 
     PTRAJ and CPPTRAJ : Software for Processing and Analysis of Molecular Dynamics Trajectory Data
     Daniel R. Roe and Thomas E. Cheatham, III
@@ -57,9 +59,7 @@ if you would like to acknowledge our works, please do consider citing both ``cpp
     
 ::
 
-    pytraj (https://github.com/Amber-MD/pytraj), Hai Nguyen,  et al. (2015) (in preperation)
-
-.. note:: list of authors in ``pytraj`` is not complete. We will fill it soon.
+    pytraj (https://github.com/Amber-MD/pytraj), Hai Nguyen, Daniel R. Roe, Jason Swails, David A. Case (2015) (in preperation)
 
 
 Contact
