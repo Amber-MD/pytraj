@@ -9,16 +9,15 @@ from __future__ import print_function
 import os
 import sys
 from glob import glob
+from itertools import chain
 
 
 def find_lib(libname, unique=False):
     """return a list of all library files"""
-    paths = os.environ.get('LD_LIBRARY_PATH', '').split(':')
-    paths += os.environ.get('AMBERHOME', '').split(':')
-    paths += os.environ.get('PYTHONPATH', '').split(':')
-    paths += os.environ.get('CPPTRAJHOME', '').split(':')
-    paths += os.environ.get('PATH', '').split(':')
-    paths += os.environ.get('ANACONDAHOME', '').split(':')
+
+    envlist = ['LD_LIBRARY_PATH', 'AMBERHOME', 'PYTHONPATH',
+               'CPPTRAJHOME', 'PATH', 'ANCONDAHOME']
+    paths = list(chain.from_iterable([os.environ.get(env_name, '').split(':') for env_name in envlist]))
 
     anconda_dir = os.environ.get('ANCONDAHOME', '')
 
@@ -47,10 +46,8 @@ def find_lib(libname, unique=False):
 
 if __name__ == '__main__':
     import sys
-    import argparse
 
     if len(sys.argv) == 1:
-        print(__doc__)
         sys.exit(0)
 
     print(find_lib(sys.argv[1]))
