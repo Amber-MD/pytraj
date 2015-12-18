@@ -1,3 +1,9 @@
+'''
+Example: python find_lib.py sander
+'''
+
+#!/usr/bin/env python
+
 from __future__ import print_function
 
 import os
@@ -40,6 +46,11 @@ def find_lib(libname, unique=False):
 
 
 if __name__ == '__main__':
-    #print(find_lib('cpptraj', True))
-    #print(find_lib('libcpptraj', True))
-    print(find_lib('libcpptraj.so', True))
+    import sys
+    import argparse
+
+    if len(sys.argv) == 1:
+        print(__doc__)
+        sys.exit(0)
+
+    print(find_lib(sys.argv[1]))
