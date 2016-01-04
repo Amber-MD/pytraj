@@ -428,16 +428,17 @@ def write_parm(filename=None, top=None, format='amberparm', overwrite=False):
     parm.writeparm(filename=filename, top=top, format=format)
 
 
-def load_topology(filename, more_options=''):
+def load_topology(filename, option=''):
     """load Topology from a filename or from url or from ParmEd object. Adapted from cpptraj doc.
 
     Parameters
     ----------
     filename : str, Amber prmtop, pdb, mol2, psf, cif, gromacs topology, sdf, tinker formats
-    more_options : cpptraj options.
-        if filename is a pdb file, more_options = {'pqr', 'noconnect'}.
-        pqr     : Read atomic charge/radius from occupancy/B-factor columns.
-        noconect: Do not read CONECT records if present.
+    option : cpptraj options.
+        if filename is a pdb file, option = {'pqr', 'noconnect'}.
+
+        - pqr     : Read atomic charge/radius from occupancy/B-factor columns.
+        - noconect: Do not read CONECT records if present.
 
     Notes
     -----
@@ -451,25 +452,20 @@ def load_topology(filename, more_options=''):
     >>> pt.load_topology("data/tz2.ortho.parm7")
     <Topology: 5293 atoms, 1704 residues, 1692 mols, PBC with box type = ortho>
 
-    >>> # from ParmEd object
-    >>> import parmed as pmd
-    >>> parm = pmd.load_file('m2-c1_f3.mol2') # doctest: +SKIP
-    >>> top = pt.load_topology(parm) # doctest: +SKIP
-
-    >>> # read with more_options
+    >>> # read with option
     >>> pt.load_topology('1KX5.pdb', 'bondsearch 0.2') # doctest: +SKIP
     """
     top = Topology()
 
     # always read box info from pdb
-    more_options = ' '.join(('readbox', more_options))
+    option = ' '.join(('readbox', option))
 
     if isinstance(filename, string_types):
         parm = ParmFile()
         set_error_silent(True)
         parm.readparm(filename=filename,
                       top=top,
-                      more_options=more_options)
+                      option=option)
         set_error_silent(False)
     else:
         raise ValueError('filename must be a string')
