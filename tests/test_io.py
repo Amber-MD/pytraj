@@ -42,12 +42,6 @@ class TestIO(unittest.TestCase):
         t2 = pt.load(fn, tn, mask='@CA', frame_indices=[3, 8])
         aa_eq(t2.xyz, traj[[3, 8], '@CA'].xyz)
 
-        # load http
-        t2 = pt.load(
-            'https://raw.githubusercontent.com/ParmEd/ParmEd/master/test/files/2koc.pdb')
-        assert t2.n_atoms == 451, '2koc, 451 atoms'
-        assert isinstance(
-            t2, pt.Trajectory), 'must be Trajectory when loading 2koc.pdb'
 
     def test_save_traj_from_file(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:5]
@@ -286,11 +280,6 @@ class TestIO(unittest.TestCase):
         self.assertRaises(
             ValueError,
             lambda: pt.io.download_PDB('1l2y', 'output/', overwrite=False))
-
-    def test_load_https(self):
-        top = pt.io.load_topology(
-            'https://raw.githubusercontent.com/ParmEd/ParmEd/master/test/files/2koc.pdb')
-        assert top.n_atoms == 451, '2koc'
 
     def test_short_save(self):
         pt.iterload('data/tz2.nc', 'data/tz2.parm7').save('output/mini.nc',

@@ -451,10 +451,6 @@ def load_topology(filename, more_options=''):
     >>> pt.load_topology("data/tz2.ortho.parm7")
     <Topology: 5293 atoms, 1704 residues, 1692 mols, PBC with box type = ortho>
 
-    >>> # from url
-    >>> pt.load_topology("http://ambermd.org/tutorials/advanced/tutorial1/files/polyAT.pdb")
-    <Topology: 438 atoms, 438 residues, 438 mols, non-PBC>
-
     >>> # from ParmEd object
     >>> import parmed as pmd
     >>> parm = pmd.load_file('m2-c1_f3.mol2') # doctest: +SKIP
@@ -469,16 +465,12 @@ def load_topology(filename, more_options=''):
     more_options = ' '.join(('readbox', more_options))
 
     if isinstance(filename, string_types):
-        if filename.startswith('http://') or filename.startswith('https://'):
-            import parmed as pmd
-            return load_ParmEd(pmd.load_file(filename))
-        else:
-            parm = ParmFile()
-            set_error_silent(True)
-            parm.readparm(filename=filename,
-                          top=top,
-                          more_options=more_options)
-            set_error_silent(False)
+        parm = ParmFile()
+        set_error_silent(True)
+        parm.readparm(filename=filename,
+                      top=top,
+                      more_options=more_options)
+        set_error_silent(False)
     else:
         raise ValueError('filename must be a string')
 
