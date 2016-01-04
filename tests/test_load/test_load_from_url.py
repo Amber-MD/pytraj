@@ -6,7 +6,8 @@ from pytraj.utils import eq, aa_eq
 
 class TestURL(unittest.TestCase):
 
-    def test_0(self):
+    @unittest.skip('not reliable test')
+    def test_url(self):
         try:
             import parmed as pmd
             url = "http://ambermd.org/tutorials/advanced/tutorial1/files/polyAT.pdb"
