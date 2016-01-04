@@ -49,7 +49,8 @@ class TestWriteTraj(unittest.TestCase):
         # test TrajectoryIterator object
         pt.tools.split_and_write_traj(traj,
                                       n_chunks=4,
-                                      root_name='./output/trajiterx')
+                                      root_name='./output/trajiterx',
+                                      overwrite=True)
         flist = sorted(glob("./output/trajiterx*"))
         traj4 = pt.iterload(flist, top)
         aa_eq(traj4.xyz, traj.xyz)
@@ -58,7 +59,8 @@ class TestWriteTraj(unittest.TestCase):
         pt.tools.split_and_write_traj(traj,
                                       4,
                                       root_name='./output/ts',
-                                      ext='dcd')
+                                      ext='dcd',
+                                      overwrite=True)
         flist = sorted(glob("./output/ts.*.dcd"))
         traj4 = pt.iterload(flist, top)
         aa_eq(traj4.xyz, traj.xyz)
