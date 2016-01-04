@@ -9,9 +9,9 @@ if sys.version_info[0] >= 3:
 else:
     import __builtin__ as builtins
 
-MAJOR = 0
-MINOR = 1
-MICRO = 3
+MAJOR = 1
+MINOR = 0
+MICRO = 0
 ISRELEASED = False
 VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 
@@ -171,7 +171,7 @@ def get_version_info():
         GIT_REVISION = "Unknown"
 
     if not ISRELEASED:
-        FULLVERSION += '.dev12+' + GIT_REVISION[:7]
+        FULLVERSION += '.dev1+' + GIT_REVISION[:7]
 
     return FULLVERSION, GIT_REVISION
 
