@@ -10,9 +10,6 @@ def load_ParmEd(parmed_obj, as_traj=False, **kwd):
     Parameters
     ---------
     parmed_obj : ParmEd's Structure object
-    save_and_reload: bool, default True
-        if True, save `parmed_obj` to mol2 file and reload
-        if False, internal convert. Might have bug
     as_traj: bool, default False
         if True, return pytraj.trajectory.Trajectory
         if False, return Topology
@@ -20,7 +17,7 @@ def load_ParmEd(parmed_obj, as_traj=False, **kwd):
     >>> import parmed as pmd
     >>> import pytraj as pt
     >>> p = pmd.download_PDB("1l2y")
-    >>> top = pt.load_ParmEd(p, save_and_reload=True)
+    >>> top = pt.load_ParmEd(p)
     """
     import parmed as pmd
     from parmed.amber import AmberParm
