@@ -10,6 +10,18 @@ try ``pytraj`` online:
 
 .. contents::
 
+How to run pytraj
+-----------------
+
+There are two modes to run pytraj: script mode and interactive mode.
+
+- script mode: you need to write code in a file (for example: ``my_file.py``) and use ``python`` to run your file::
+
+      python my_file.py
+
+- interactive mode: we suggest to use ``ipython`` or ``jupyter notebook`` to explore data interactively.
+Example of jupyter notebook: :ref:`plot_rdf_tz2_ortho`
+
 Load a Topology and Trajectory
 ------------------------------
 

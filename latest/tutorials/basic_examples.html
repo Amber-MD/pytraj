@@ -106,6 +106,7 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">Basic examples</a><ul>
+<li><a class="reference internal" href="#how-to-run-pytraj">How to run pytraj</a></li>
 <li><a class="reference internal" href="#load-a-topology-and-trajectory">Load a Topology and Trajectory</a></li>
 <li><a class="reference internal" href="#select-atoms">Select atoms</a></li>
 <li><a class="reference internal" href="#dssp-analysis">DSSP analysis</a></li>
@@ -169,18 +170,33 @@
 <p class="topic-title first">Contents</p>
 <ul class="simple">
 <li><a class="reference internal" href="#basic-examples" id="id2">Basic examples</a><ul>
-<li><a class="reference internal" href="#load-a-topology-and-trajectory" id="id3">Load a Topology and Trajectory</a></li>
-<li><a class="reference internal" href="#select-atoms" id="id4">Select atoms</a></li>
-<li><a class="reference internal" href="#dssp-analysis" id="id5">DSSP analysis</a></li>
-<li><a class="reference internal" href="#hbond-analysis" id="id6">Hbond analysis</a></li>
-<li><a class="reference internal" href="#fetch-pdb" id="id7">Fetch pdb</a></li>
-<li><a class="reference internal" href="#more-examples" id="id8">More examples</a></li>
+<li><a class="reference internal" href="#how-to-run-pytraj" id="id3">How to run pytraj</a></li>
+<li><a class="reference internal" href="#load-a-topology-and-trajectory" id="id4">Load a Topology and Trajectory</a></li>
+<li><a class="reference internal" href="#select-atoms" id="id5">Select atoms</a></li>
+<li><a class="reference internal" href="#dssp-analysis" id="id6">DSSP analysis</a></li>
+<li><a class="reference internal" href="#hbond-analysis" id="id7">Hbond analysis</a></li>
+<li><a class="reference internal" href="#fetch-pdb" id="id8">Fetch pdb</a></li>
+<li><a class="reference internal" href="#more-examples" id="id9">More examples</a></li>
 </ul>
 </li>
 </ul>
 </div>
+<div class="section" id="how-to-run-pytraj">
+<h2><a class="toc-backref" href="#id3">How to run pytraj</a><a class="headerlink" href="#how-to-run-pytraj" title="Permalink to this headline">¶</a></h2>
+<p>There are two modes to run pytraj: script mode and interactive mode.</p>
+<ul>
+<li><p class="first">script mode: you need to write code in a file (for example: <code class="docutils literal"><span class="pre">my_file.py</span></code>) and use <code class="docutils literal"><span class="pre">python</span></code> to run your file:</p>
+<div class="highlight-python"><div class="highlight"><pre>python my_file.py
+</pre></div>
+</div>
+</li>
+<li><p class="first">interactive mode: we suggest to use <code class="docutils literal"><span class="pre">ipython</span></code> or <code class="docutils literal"><span class="pre">jupyter</span> <span class="pre">notebook</span></code> to explore data interactively.</p>
+</li>
+</ul>
+<p>Example of jupyter notebook: <span class="xref std std-ref">plot_rdf_tz2_ortho</span></p>
+</div>
 <div class="section" id="load-a-topology-and-trajectory">
-<h2><a class="toc-backref" href="#id3">Load a Topology and Trajectory</a><a class="headerlink" href="#load-a-topology-and-trajectory" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">Load a Topology and Trajectory</a><a class="headerlink" href="#load-a-topology-and-trajectory" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
 <span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.parm7&#39;</span><span class="p">)</span>
@@ -194,7 +210,7 @@
 </div>
 </div>
 <div class="section" id="select-atoms">
-<h2><a class="toc-backref" href="#id4">Select atoms</a><a class="headerlink" href="#select-atoms" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">Select atoms</a><a class="headerlink" href="#select-atoms" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [4]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
 <span class="gp">In [5]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.parm7&#39;</span><span class="p">)</span>
@@ -214,7 +230,7 @@
 </div>
 </div>
 <div class="section" id="dssp-analysis">
-<h2><a class="toc-backref" href="#id5">DSSP analysis</a><a class="headerlink" href="#dssp-analysis" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">DSSP analysis</a><a class="headerlink" href="#dssp-analysis" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [10]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
 <span class="gp">In [11]: </span><span class="n">pdb</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_pdb_rcsb</span><span class="p">(</span><span class="s">&quot;1l2y&quot;</span><span class="p">)</span>
@@ -232,7 +248,8 @@
 <span class="go">       [&#39;0&#39;, &#39;T&#39;, &#39;H&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;]], </span>
 <span class="go">      dtype=&#39;&lt;U1&#39;), &lt;pytraj.DatasetList with 8 datasets&gt;</span>
 <span class="go">none_avg</span>
-<span class="go">[ 0.3   0.25  0.35 ...,  0.3   0.3   0.3 ]</span>
+<span class="go">[ 0.30000001  0.25        0.34999999 ...,  0.30000001  0.30000001</span>
+<span class="go">  0.30000001]</span>
 
 <span class="go">para_avg</span>
 <span class="go">[ 0.  0.  0. ...,  0.  0.  0.]</span>
@@ -242,7 +259,7 @@
 <span class="go">...</span>
 
 <span class="go">turn_avg</span>
-<span class="go">[ 0.1   0.15  0.1  ...,  0.1   0.05  0.15]</span>
+<span class="go">[ 0.1         0.15000001  0.1        ...,  0.1         0.05        0.15000001]</span>
 
 <span class="go">bend_avg</span>
 <span class="go">[ 0.05  0.1   0.05 ...,  0.05  0.1   0.05])</span>
@@ -250,7 +267,7 @@
 </div>
 </div>
 <div class="section" id="hbond-analysis">
-<h2><a class="toc-backref" href="#id6">Hbond analysis</a><a class="headerlink" href="#hbond-analysis" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7">Hbond analysis</a><a class="headerlink" href="#hbond-analysis" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="c"># search hbonds for all residues</span>
 <span class="gp">In [14]: </span><span class="n">hbonds</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">pdb</span><span class="p">)</span>
 
@@ -292,7 +309,7 @@
 </div>
 </div>
 <div class="section" id="fetch-pdb">
-<span id="load-pdb-rcsb"></span><h2><a class="toc-backref" href="#id7">Fetch pdb</a><a class="headerlink" href="#fetch-pdb" title="Permalink to this headline">¶</a></h2>
+<span id="load-pdb-rcsb"></span><h2><a class="toc-backref" href="#id8">Fetch pdb</a><a class="headerlink" href="#fetch-pdb" title="Permalink to this headline">¶</a></h2>
 <div class="ipynotebook" id="notebook-container">
 
 <div class="cell border-box-sizing code_cell rendered">
@@ -401,7 +418,7 @@ ATOM     10  O3'   G A   1     -10.515  -7.653   5.962  1.00 10.00           O</
 </div><p>(<a class="reference external" href="load_pdb_from_rcsb.ipynb">load_pdb_from_rcsb.ipynb</a>; <a class="reference external" href="load_pdb_from_rcsb_evaluated.ipynb">load_pdb_from_rcsb_evaluated.ipynb</a>; <a class="reference external" href="load_pdb_from_rcsb.py">load_pdb_from_rcsb.py</a>)</p>
 </div>
 <div class="section" id="more-examples">
-<h2><a class="toc-backref" href="#id8">More examples</a><a class="headerlink" href="#more-examples" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">More examples</a><a class="headerlink" href="#more-examples" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://github.com/Amber-MD/pytraj/tree/master/examples">check our github page</a></p>
 </div>
 </div>
@@ -419,7 +436,7 @@ ATOM     10  O3'   G A   1     -10.515  -7.653   5.962  1.00 10.00           O</
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Jan 04, 2016.<br/>
+      Last updated on Jan 05, 2016.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
