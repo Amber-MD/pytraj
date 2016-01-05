@@ -22,8 +22,6 @@ There are two modes to run pytraj: script mode and interactive mode.
 
 - interactive mode: we suggest to use ``ipython`` or ``jupyter notebook`` to explore data interactively.
   
-Example of jupyter notebook: `<radial_distribution_function_of_water_>`
-
 Load a Topology and Trajectory
 ------------------------------
 
