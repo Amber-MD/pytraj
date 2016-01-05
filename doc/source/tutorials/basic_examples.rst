@@ -10,6 +10,7 @@ try ``pytraj`` online:
 
 .. contents::
 
+
 How to run pytraj
 -----------------
 
@@ -20,7 +21,7 @@ There are two modes to run pytraj: script mode and interactive mode.
       python my_file.py
 
 - interactive mode: we suggest to use ``ipython`` or ``jupyter notebook`` to explore data interactively.
-Example of jupyter notebook: :ref:`plot_rdf_tz2_ortho`
+  Example of jupyter notebook: :ref:`radial_distribution_function_of_water_`
 
 Load a Topology and Trajectory
 ------------------------------
