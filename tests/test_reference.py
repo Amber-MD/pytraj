@@ -33,7 +33,7 @@ class TestReferenceFrame(unittest.TestCase):
         act = Action_Rmsd()
         ref = traj[2]
         dslist = DatasetList()
-        dslist.add_set('ref_frame', 'myref')
+        dslist.add('ref_frame', 'myref')
         dslist[-1].top = traj.top
         dslist[-1].add_frame(ref)
         act('myrmsd refindex 0 @CA', traj, top=traj.top, dslist=dslist)

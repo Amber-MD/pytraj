@@ -25,7 +25,7 @@ class Test(unittest.TestCase):
         trajin = "./data/md1_prod.Tc5b.x"
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
 
-        dslist.add_set("coords", "test_traj")
+        dslist.add("coords", "test_traj")
         dslist[0].top = traj.top
         for i in range(45):
             dslist[0].load(traj.filename)

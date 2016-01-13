@@ -217,7 +217,7 @@ class TestActionList(unittest.TestCase):
         dslist = CpptrajDatasetList()
         actlist = ActionList(commands, traj.top, dslist=dslist)
 
-        d0 = dslist.add_set('ref_frame', 'my_ref')
+        d0 = dslist.add('ref_frame', 'my_ref')
         d0.add_frame(traj[3])
 
         for frame in traj:

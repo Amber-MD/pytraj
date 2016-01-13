@@ -293,7 +293,7 @@ def iterload_remd(filename, top=None, T="300.0"):
         top = read_parm(top)
     else:
         top = top
-    state.data.add_set('topology', 'remdtop')
+    state.data.add('topology', 'remdtop')
     # set topology
     state.data['remdtop']._top = top
 

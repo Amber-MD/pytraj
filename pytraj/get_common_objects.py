@@ -294,7 +294,7 @@ def get_fi_with_dslist(traj, mask, frame_indices, top, crdname='dataset_coords')
     from pytraj.shared_methods import iterframe_master
 
     dslist = CpptrajDatasetList()
-    dslist.add_set("coords", crdname)
+    dslist.add("coords", crdname)
     # need to set "rmsout" to trick cpptraj not giving error
     # need " " (space) before crdset too
 

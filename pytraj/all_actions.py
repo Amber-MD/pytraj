@@ -1406,7 +1406,7 @@ def clustering_dataset(array_like, command=''):
     >>> data = pt.clustering_dataset(array_like, 'clusters 10 epsilon 3.0')
     '''
     dslist = CpptrajDatasetList()
-    dslist.add_set('double', '__array_like')
+    dslist.add('double', '__array_like')
     dslist[0].resize(len(array_like))
     dslist[0].values[:] = array_like
     act = c_analysis.Analysis_Clustering()
@@ -1680,7 +1680,7 @@ def calc_center_of_geometry(traj=None,
 
     atom_mask_obj = top(mask)
     dslist = CpptrajDatasetList()
-    dslist.add_set("vector")
+    dslist.add("vector")
 
     for frame in iterframe_master(traj):
         dslist[0].append(frame.center_of_geometry(atom_mask_obj))
@@ -2157,7 +2157,7 @@ def native_contacts(traj=None,
 
     _command = " ".join(('ref myframe', command, _distance, _noimage,
                          _includesolvent, _byres))
-    dslist.add_set('ref_frame', 'myframe')
+    dslist.add('ref_frame', 'myframe')
     dslist[0].add_frame(ref)
     dslist[0].top = top
     act(_command, traj, top=top, dslist=dslist)
@@ -2220,8 +2220,8 @@ def timecorr(vec0,
 
     cdslist = CpptrajDatasetList()
 
-    cdslist.add_set("vector", "_vec0")
-    cdslist.add_set("vector", "_vec1")
+    cdslist.add("vector", "_vec0")
+    cdslist.add("vector", "_vec1")
     cdslist[0].data = np.asarray(vec0).astype('f8')
     cdslist[1].data = np.asarray(vec1).astype('f8')
 
@@ -2257,8 +2257,8 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
     Same as `crank` in cpptraj
     """
     cdslist = CpptrajDatasetList()
-    cdslist.add_set("double", "d0")
-    cdslist.add_set("double", "d1")
+    cdslist.add("double", "d0")
+    cdslist.add("double", "d1")
 
     cdslist[0].data = np.asarray(data0)
     cdslist[1].data = np.asarray(data1)
@@ -2542,7 +2542,7 @@ def _projection(traj,
     dslist = CpptrajDatasetList()
 
     mode_name = 'my_modes'
-    dslist.add_set('modes', mode_name)
+    dslist.add('modes', mode_name)
     is_reduced = False
     dataset_mode = dslist[-1]
     n_vectors = len(eigenvalues)
@@ -2789,7 +2789,7 @@ def acorr(data, dtype='ndarray', option=''):
     Same as `autocorr` in cpptraj
     """
     cdslist = CpptrajDatasetList()
-    cdslist.add_set("double", "d0")
+    cdslist.add("double", "d0")
 
     cdslist[0].data = np.asarray(data)
 
@@ -2816,8 +2816,8 @@ def xcorr(data0, data1, dtype='ndarray'):
     """
 
     cdslist = CpptrajDatasetList()
-    cdslist.add_set("double", "d0")
-    cdslist.add_set("double", "d1")
+    cdslist.add("double", "d0")
+    cdslist.add("double", "d1")
 
     cdslist[0].data = np.asarray(data0)
     cdslist[1].data = np.asarray(data1)

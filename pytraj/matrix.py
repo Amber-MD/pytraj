@@ -122,7 +122,7 @@ def diagonalize(mat, n_vecs, dtype='dataset'):
     '''
     _vecs = 'vecs ' + str(n_vecs)
     dslist = CpptrajDatasetList()
-    dslist.add_set('matrix_dbl', 'mymat')
+    dslist.add('matrix_dbl', 'mymat')
 
     if isinstance(mat, np.ndarray):
         indices = np.triu_indices(mat.shape[0])
