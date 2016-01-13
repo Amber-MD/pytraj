@@ -3,7 +3,7 @@
 from __future__ import absolute_import
 import numpy as np
 from .get_common_objects import get_topology, get_resrange
-from .get_common_objects import get_reference_from_traj, get_fiterator
+from .get_common_objects import get_reference, get_fiterator
 from pytraj.externals.six import iteritems, string_types
 
 
@@ -94,7 +94,7 @@ def nastruct(traj=None,
     _resrange = get_resrange(resrange)
 
     fi = get_fiterator(traj, frame_indices)
-    ref = get_reference_from_traj(traj, ref)
+    ref = get_reference(traj, ref)
     _top = get_topology(traj, top)
     _resmap = "resmap " + resmap if resmap is not None else ""
     _hbcut = "hbcut " + str(hbcut) if hbcut is not None else ""

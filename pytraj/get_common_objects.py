@@ -128,27 +128,27 @@ def get_matrix_from_dataset(dset, mat_type='full'):
         raise ValueError()
 
 
-def get_reference_from_traj(traj, ref):
+def get_reference(traj, ref):
     '''try best to get reference
 
     Examples
     --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()
-    >>> frame = get_reference_from_traj(traj, 3)
+    >>> frame = get_reference(traj, 3)
     >>> isinstance(frame, pt.Frame)
     True
-    >>> frame = get_reference_from_traj(traj, None)
+    >>> frame = get_reference(traj, None)
     >>> isinstance(frame, pt.Frame)
     True
     >>> ref = traj[5]
-    >>> frame = get_reference_from_traj(traj, ref)
+    >>> frame = get_reference(traj, ref)
     '''
     if isinstance(ref, integer_types):
         try:
             return traj[ref]
         except TypeError:
-            raise TypeError("%s does not support indexing" % traj.__str__())
+            raise TypeError("%s does not support indexing" % str(traj))
     elif ref is None:
         try:
             return traj[0]
@@ -214,8 +214,9 @@ class super_dispatch(object):
     - convert int ref to Frame ref
     '''
 
-    def __init__(self, has_ref=False):
+    def __init__(self, has_ref=False, refindex=None):
         self.has_ref = has_ref
+        self.refindex = refindex
 
     def __call__(self, f):
         @wraps(f)
@@ -230,12 +231,12 @@ class super_dispatch(object):
             ref = kwd.get('ref')
             if self.has_ref and ref is None:
                 try:
-                    ref = args[1]
+                    ref = args[self.refindex] if self.refindex is not None else args[2]
                 except IndexError:
                     ref = 0
             if 'ref' in kwd.keys() or self.has_ref:
                 # convert to Frame
-                ref = get_reference_from_traj(traj, ref)
+                ref = get_reference(traj, ref)
 
             top = kwd.get('top')
 
@@ -243,27 +244,19 @@ class super_dispatch(object):
                 mask = kwd.get('mask')
                 has_mask = True
             else:
-                # mask is always 2nd argument if there is no ref
-                if not self.has_ref:
-                    try:
-                        mask = args[1]
-                        has_mask = True
-                    except IndexError:
-                        mask = '*'
-                        has_mask = False
-                else:
-                    try:
-                        mask = args[2]
-                        has_mask = True
-                    except IndexError:
-                        mask = '*'
-                        has_mask = False
+                # mask is always 2nd argument
+                try:
+                    mask = args[2]
+                    has_mask = True
+                except IndexError:
+                    mask = '*'
+                    has_mask = False
 
             # overwrite
             kwd['top'] = get_topology(traj, top)
             if ref is not None:
                 if 'ref' in kwd.keys():
-                    kwd['ref'] = get_reference_from_traj(traj, ref)
+                    kwd['ref'] = get_reference(traj, ref)
                 else:
                     try:
                         args[1] = ref

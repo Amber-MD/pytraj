@@ -19,7 +19,7 @@ class TestBasic(unittest.TestCase):
         aa_eq(arr0, f0[0])
         aa_eq(arr1, f1[0])
 
-        f1.rmsfit(f0)
+        f1.rmsfit(ref=f0)
 
         # expect reference `f0` xyz are not changed
         aa_eq(arr0, f0[0])
@@ -32,10 +32,8 @@ class TestBasic(unittest.TestCase):
         aa_eq(f1.xyz, f1saved.xyz, decimal=3)
 
         farray = traj[:]
-        farray.rmsfit(traj[0])
+        farray.rmsfit(ref=traj[0])
         aa_eq(farray[1].xyz, f1saved.xyz, decimal=3)
-
-        farray.rmsfit('first')
 
     def test_0(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
@@ -49,7 +47,7 @@ class TestBasic(unittest.TestCase):
         assert rmsd_0 != rmsd_0_nofit
 
         # do fitting
-        f1.rmsfit(f0)
+        f1.rmsfit(ref=f0)
         rmsd_1 = f1.rmsd(f0)
         rmsd_1_nofit = f1.rmsd_nofit(f0)
 
@@ -57,7 +55,7 @@ class TestBasic(unittest.TestCase):
         # fit)
         assert rmsd_1 - rmsd_1_nofit < 1E-3
 
-        farray.rmsfit(f0)
+        farray.rmsfit(ref=f0)
         assert rmsd_1 - farray[1].rmsd_nofit(f0) < 1E-3
 
     def test_1(self):
@@ -77,9 +75,9 @@ class TestBasic(unittest.TestCase):
         farray = traj[:]
 
         aa_eq(farray[0].xyz, first.xyz)
-        farray.rmsfit(first, "*", mass=False)
+        farray.rmsfit(ref=first, mask="*", mass=False)
         farray2 = traj[:]
-        farray2.superpose(first, "*", mass=False)
+        farray2.superpose(ref=first, mask="*", mass=False)
 
         for i, _f0 in enumerate(farray):
             _f1 = trajsaved[i]
@@ -123,8 +121,8 @@ class TestBasic(unittest.TestCase):
         traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
         t0 = traj[:]
         t1 = traj[:]
-        pt.rmsd(t0, traj[0], mask='@CA')
-        pt.superpose(t1, traj[0], mask='@CA')
+        pt.rmsd(t0, ref=traj[0], mask='@CA')
+        pt.superpose(t1, ref=traj[0], mask='@CA')
         aa_eq(t0.xyz, t1.xyz)
 
 

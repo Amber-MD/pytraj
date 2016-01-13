@@ -41,11 +41,11 @@ class TestExtraCoverage(unittest.TestCase):
         string_ = str(dslist[0])
 
     def testget_common_objects(self):
-        from pytraj.get_common_objects import get_reference_from_traj
+        from pytraj.get_common_objects import get_reference
         # raises
         # raise if try to index traj()
-        self.assertRaises(TypeError, lambda: get_reference_from_traj(self.traj(), 3))
-        self.assertRaises(TypeError, lambda: get_reference_from_traj(self.traj(), None))
+        self.assertRaises(TypeError, lambda: get_reference(self.traj(), 3))
+        self.assertRaises(TypeError, lambda: get_reference(self.traj(), None))
 
     def test_all_actions(self):
         from pytraj import all_actions

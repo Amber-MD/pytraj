@@ -413,7 +413,10 @@ class TestActionList(unittest.TestCase):
                                 ['autoimage', 'rms refindex 0 @CA'],
                                 dslist=dslist)
         xyz = np.array([frame.xyz.copy() for frame in fi])
-        t0 = traj[:].autoimage().superpose(traj[3], '@CA')
+        t0 = (traj[:]
+              .autoimage()
+              .superpose(ref=traj[3], mask='@CA'))
+        print('ok')
         aa_eq(xyz, t0.xyz)
 
         t1 = traj[:].autoimage()

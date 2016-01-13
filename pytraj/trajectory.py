@@ -10,7 +10,7 @@ from .externals.six.moves import range
 from .core.c_core import AtomMask
 
 # use absolute import here
-from pytraj.get_common_objects import get_topology
+from pytraj.get_common_objects import get_topology, get_reference
 
 from .topology import Topology
 from pytraj.shared_methods import iterframe_master, my_str_method
@@ -795,31 +795,22 @@ class Trajectory(object):
         >>> from pytraj.testing import get_fn
         >>> traj = pt.load(*get_fn('tz2'))
         >>> traj = traj.superpose() # fit to 1st frame
-        >>> traj = traj.superpose(0) # fit to 1st frame, explitly specify
-        >>> traj = traj.superpose(-1, '@CA') # fit to last frame using @CA atoms
+        >>> traj = traj.superpose(ref=0) # fit to 1st frame, explitly specify
+        >>> traj = traj.superpose(ref=-1, mask='@CA') # fit to last frame using @CA atoms
         """
         # not yet dealed with `mass` and box
-
-        if isinstance(ref, Frame):
-            ref_frame = ref
-        elif is_int(ref):
-            i = ref
-            ref_frame = self[i]
-        else:
-            # first
-            ref_frame = self[0]
-
+        ref = get_reference(self, ref)
         atm = self.top(mask)
 
         fi = self if frame_indices is not None else self.iterframe(
             frame_indices=frame_indices)
 
         if mass:
-            ref_frame.set_mass(self.top)
+            ref.set_mass(self.top)
         for idx, frame in enumerate(fi):
             if mass:
                 frame.set_mass(self.top)
-            _, mat, v1, v2 = frame.rmsd(ref_frame,
+            _, mat, v1, v2 = frame.rmsd(ref,
                                         atm,
                                         get_mvv=True,
                                         mass=mass)

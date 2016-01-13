@@ -5,7 +5,7 @@ from pytraj.trajectory import Trajectory
 from pytraj.trajectory_iterator import TrajectoryIterator
 from .get_common_objects import get_topology, get_data_from_dtype, get_list_of_commands
 from .get_common_objects import get_matrix_from_dataset
-from .get_common_objects import get_reference_from_traj, get_fiterator
+from .get_common_objects import get_reference, get_fiterator
 from .get_common_objects import super_dispatch, get_fi_with_dslist
 from .utils import ensure_not_none_or_string
 from .utils import is_int
@@ -1910,7 +1910,7 @@ def calc_rmsd(traj=None,
 
     _top = get_topology(traj, top)
 
-    ref = get_reference_from_traj(traj, ref)
+    ref = get_reference(traj, ref)
     fi = get_fiterator(traj, frame_indices)
 
     alist = ActionList()
@@ -2113,11 +2113,11 @@ def closest(traj=None,
 
 
 @register_pmap
-@super_dispatch(has_ref=True)
+@super_dispatch()
 def native_contacts(traj=None,
                     mask="",
-                    ref=0,
                     mask2="",
+                    ref=0,
                     dtype='dataset',
                     distance=7.0,
                     image=True,
@@ -2141,6 +2141,7 @@ def native_contacts(traj=None,
     >>> # use integer array for mask
     >>> data = pt.native_contacts(traj, mask=range(100), mask2=[200, 201], ref=ref, distance=8.0)
     """
+    ref = get_reference(traj, ref)
     act = c_action.Action_NativeContacts()
     dslist = CpptrajDatasetList()
 

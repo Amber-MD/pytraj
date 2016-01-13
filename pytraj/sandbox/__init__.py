@@ -92,7 +92,7 @@ class Trajout:
 
 # for testing
 from pytraj.get_common_objects import (get_data_from_dtype, get_topology,
-                                       get_reference_from_traj,
+                                       get_reference,
                                        get_fiterator)
 from pytraj.c_action import c_action
 from pytraj.datasets import CpptrajDatasetList
@@ -117,7 +117,7 @@ def _dispatch_traj_ref_top_frame_indices(f):
         # overwrite
         kwd['top'] = get_topology(traj, top)
         if ref is not None:
-            kwd['ref'] = get_reference_from_traj(traj, ref)
+            kwd['ref'] = get_reference(traj, ref)
         if 'traj' in kwd.keys():
             kwd['traj'] = get_fiterator(traj, frame_indices)
         else:
