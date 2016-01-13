@@ -799,6 +799,8 @@ class Trajectory(object):
         >>> traj = traj.superpose(ref=-1, mask='@CA') # fit to last frame using @CA atoms
         """
         # not yet dealed with `mass` and box
+        if not isinstance(mask, string_types):
+            mask = array_to_cpptraj_atommask(mask)
         ref = get_reference(self, ref)
         atm = self.top(mask)
 
