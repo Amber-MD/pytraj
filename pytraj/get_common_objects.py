@@ -221,6 +221,14 @@ class super_dispatch(object):
         import inspect
 
         args_spec = inspect.getfullargspec(f)
+        n_default = len(args_spec.defaults) if args_spec.defaults else 0
+        try:
+            kwargs_spec = dict((k, v) for (k, v) in
+                                zip(args_spec.args[-n_default:],
+                                    args_spec.defaults))
+        except TypeError:
+            kwargs_spec = {}
+
         has_ref = 'ref' in args_spec.args
         has_mask = 'mask' in args_spec.args
 
@@ -233,10 +241,10 @@ class super_dispatch(object):
             except IndexError:
                 traj = kwargs.get('traj')
 
-            ref = kwargs.get('ref')
+            ref = kwargs.get('ref', kwargs_spec.get('ref'))
             frame_indices = kwargs.get('frame_indices')
             top = kwargs.get('top')
-            mask = kwargs.get('mask')
+            mask = kwargs.get('mask', kwargs_spec.get('mask'))
 
             if has_ref:
                 if ref is None:
@@ -245,13 +253,6 @@ class super_dispatch(object):
                     except IndexError:
                         ref = 0
                 ref = get_reference(traj, ref)
-
-            if has_mask and 'mask' not in kwargs:
-                try:
-                    mask = args[1]
-                except IndexError:
-                    mask = ''
-                    args.append(mask)
 
             # update traj to args or kwargs
             if 'traj' in kwargs:
@@ -273,7 +274,10 @@ class super_dispatch(object):
                 kwargs['mask'] = mask
             else:
                 if has_mask:
-                    args[1] = mask
+                    try:
+                        args[1] = mask
+                    except IndexError:
+                        args.append(mask)
             return f(*args, **kwargs)
 
         inner._is_super_dispatched = True

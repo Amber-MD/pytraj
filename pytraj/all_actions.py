@@ -517,10 +517,10 @@ def calc_mindist(traj=None,
 
     if not isinstance(command, string_types):
         command = array2d_to_cpptraj_maskgroup(command)
-    _command = "mindist " + command
+    command_ = "mindist " + command
     traj = get_fiterator(traj, frame_indices)
     _top = get_topology(traj, top)
-    act(_command, traj, top=_top, dslist=c_dslist)
+    act(command_, traj, top=_top, dslist=c_dslist)
     return get_data_from_dtype(c_dslist, dtype=dtype)[-1]
 
 
@@ -1047,7 +1047,7 @@ def calc_rdf(traj=None,
     act(command, traj, top=_top, dslist=c_dslist)
     act.post_process()
 
-    # make a copy sine dslist[-1].values return view of its data
+    # make a copy sine c_dslist[-1].values return view of its data
     # c_dslist will be freed
     values = np.array(c_dslist[-1].values)
     # return (bin_centers, values)
@@ -1057,6 +1057,7 @@ def calc_rdf(traj=None,
 @super_dispatch()
 def calc_pairdist(traj,
                   mask="*",
+                  mask2='',
                   delta=0.1,
                   dtype='ndarray',
                   top=None,
@@ -1081,9 +1082,10 @@ def calc_pairdist(traj,
     c_dslist = CpptrajDatasetList()
     act = c_action.Action_PairDist()
 
-    _command = 'mask ' + mask
-    _delta = 'delta ' + str(delta)
-    command = ' '.join((_command, _delta))
+    mask_ = 'mask ' + mask
+    mask2_ = 'mask2 ' + str(mask2) if mask2 else ''
+    delta_ = 'delta ' + str(delta)
+    command = ' '.join((mask_, mask2_, delta_))
 
     act(command, traj, top=top, dslist=c_dslist)
     act.post_process()
@@ -1404,7 +1406,7 @@ def clustering_dataset(array_like, command=''):
     >>> data = pt.clustering_dataset(array_like, 'clusters 10 epsilon 3.0')
     '''
     c_dslist = CpptrajDatasetList()
-    dslist.add('double', '__array_like')
+    c_dslist.add('double', '__array_like')
     c_dslist[0].resize(len(array_like))
     c_dslist[0].values[:] = array_like
     act = c_analysis.Analysis_Clustering()
@@ -1489,11 +1491,11 @@ def calc_multidihedral(traj=None,
     else:
         _range360 = ''
 
-    _command = " ".join((d_types, _resrange, dh_types, _range360))
+    command_ = " ".join((d_types, _resrange, dh_types, _range360))
 
     c_dslist = CpptrajDatasetList()
     act = c_action.Action_MultiDihedral()
-    act(_command, traj, top, dslist=c_dslist)
+    act(command_, traj, top, dslist=c_dslist)
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
@@ -1556,9 +1558,9 @@ def calc_bfactors(traj=None,
     # do not use super_dispatch again
     if not isinstance(mask, string_types):
         mask = array_to_cpptraj_atommask(mask)
-    _command = " ".join((mask, byres_text, "bfactor"))
+    command_ = " ".join((mask, byres_text, "bfactor"))
     return calc_atomicfluct(traj=traj,
-                            mask=_command,
+                            mask=command_,
                             top=top,
                             dtype=dtype,
                             frame_indices=frame_indices)
@@ -1637,7 +1639,7 @@ def _calc_vector_center(traj=None,
                         frame_indices=None):
 
     c_dslist = CpptrajDatasetList()
-    dslist.set_own_memory(False)  # need this to avoid segmentation fault
+    c_dslist.set_own_memory(False)  # need this to avoid segmentation fault
     act = c_action.Action_Vector()
     command = "center " + mask
 
@@ -1677,7 +1679,7 @@ def calc_center_of_geometry(traj=None,
 
     atom_mask_obj = top(mask)
     c_dslist = CpptrajDatasetList()
-    dslist.add("vector")
+    c_dslist.add("vector")
 
     for frame in iterframe_master(traj):
         c_dslist[0].append(frame.center_of_geometry(atom_mask_obj))
@@ -2151,13 +2153,13 @@ def native_contacts(traj=None,
     _includesolvent = "includesolvent" if include_solvent else ""
     _byres = "byresidue" if byres else ""
 
-    _command = " ".join(('ref myframe', command, _distance, _noimage,
+    command_ = " ".join(('ref myframe', command, _distance, _noimage,
                          _includesolvent, _byres))
-    dslist.add('ref_frame', 'myframe')
+    c_dslist.add('ref_frame', 'myframe')
     c_dslist[0].add_frame(ref)
     c_dslist[0].top = top
-    act(_command, traj, top=top, dslist=c_dslist)
-    dslist._pop(0)
+    act(command_, traj, top=top, dslist=c_dslist)
+    c_dslist._pop(0)
 
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
@@ -2292,7 +2294,7 @@ def search_neighbors(traj=None,
 
     for idx, frame in enumerate(iterframe_master(traj)):
         top.set_distance_mask_reference(frame)
-        dslist.append({str(idx): np.asarray(top.select(mask))})
+        c_dslist.append({str(idx): np.asarray(top.select(mask))})
     return get_data_from_dtype(c_dslist, dtype)
 
 
@@ -2482,7 +2484,7 @@ def replicate_cell(traj=None, mask="", direction='all', top=None):
     act = c_action.Action_ReplicateCell()
     c_dslist = CpptrajDatasetList()
     act(command, traj, top=_top, dslist=c_dslist)
-    traj = Trajectory(xyz=dslist[0].xyz, top=dslist[0].top)
+    traj = Trajectory(xyz=c_dslist[0].xyz, top=c_dslist[0].top)
 
     return traj
 
@@ -2538,9 +2540,10 @@ def _projection(traj,
     c_dslist = CpptrajDatasetList()
 
     mode_name = 'my_modes'
-    dslist.add('modes', mode_name)
+    c_dslist.add('modes', mode_name)
+
     is_reduced = False
-    dataset_mode = dslist[-1]
+    dataset_mode = c_dslist[-1]
     n_vectors = len(eigenvalues)
     dataset_mode._set_modes(is_reduced, n_vectors, eigenvectors.shape[1],
                             eigenvalues, eigenvectors.flatten())
@@ -2548,12 +2551,15 @@ def _projection(traj,
 
     dataset_mode._allocate_avgcoords(3 * average_coords.shape[0])
     dataset_mode._set_avg_frame(average_coords.flatten())
+
     _mask = mask
     _evecs = 'evecs {}'.format(mode_name)
     _beg_end = 'beg 1 end {}'.format(n_vectors)
+
     command = ' '.join((_evecs, _mask, _beg_end))
     act(command, traj, top=top, dslist=c_dslist)
-    dslist._pop(0)
+
+    c_dslist._pop(0)
 
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
@@ -2762,8 +2768,8 @@ def lowestcurve(data, points=10, step=0.2):
     act = c_analysis.Analysis_LowestCurve()
     c_dslist = CpptrajDatasetList()
 
-    dslist.add_new('xymesh', label)
-    dslist[0]._append_from_array(data.T)
+    c_dslist.add_new('xymesh', label)
+    c_dslist[0]._append_from_array(data.T)
 
     act(command, dslist=c_dslist)
     return np.array([dslist[-1]._xcrd(), np.array(dslist[-1].values)])
