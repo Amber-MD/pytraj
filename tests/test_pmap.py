@@ -197,8 +197,8 @@ class TestCpptrajCommandStyle(unittest.TestCase):
                             n_cores=n_cores)
             arr = pt.tools.dict_to_ndarray(data)[0]
             arr2 = pt.tools.dict_to_ndarray(data2)[0]
-            aa_eq(arr, pt.rmsd(traj, 3, '@CA'))
-            aa_eq(arr2, pt.rmsd(traj, 3, '@CA'))
+            aa_eq(arr, pt.rmsd(traj, ref=3, mask='@CA'))
+            aa_eq(arr2, pt.rmsd(traj, ref=3, mask='@CA'))
 
             # use 4-th and 5-th Frame for reference
             data = pt.pmap(
@@ -207,10 +207,10 @@ class TestCpptrajCommandStyle(unittest.TestCase):
                 ref=[traj[3], traj[4]],
                 n_cores=n_cores)
             arr = pt.tools.dict_to_ndarray(data)[0]
-            aa_eq(arr, pt.rmsd(traj, 3, '@CA'))
+            aa_eq(arr, pt.rmsd(traj, '@CA', 3))
 
             arr1 = pt.tools.dict_to_ndarray(data)[1]
-            aa_eq(arr1, pt.rmsd(traj, 4, '@CB'))
+            aa_eq(arr1, pt.rmsd(traj, ref=4, mask='@CB'))
 
             # no ref
             data = pt.pmap(['radgyr', ], traj, n_cores=n_cores)

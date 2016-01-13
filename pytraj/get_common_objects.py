@@ -275,9 +275,14 @@ class super_dispatch(object):
             else:
                 if has_mask:
                     try:
-                        args[1] = mask
+                        if 'traj' in kwargs:
+                            args[0] = mask
+                        else:
+                            args[1] = mask
                     except IndexError:
                         args.append(mask)
+            print('args = {0}, kwargs = {1}'.format(args, kwargs))
+            print('traj = {0}, ref={1}, mask={2}'.format(traj, ref, mask))
             return f(*args, **kwargs)
 
         inner._is_super_dispatched = True

@@ -1203,7 +1203,10 @@ rotate = do_rotation
 
 
 @super_dispatch()
-def do_autoimage(traj, mask="", frame_indices=None, top=None):
+def do_autoimage(traj=None,
+                 mask="",
+                 frame_indices=None, 
+                 top=None):
     '''perform autoimage and return the coordinate-updated traj
 
     >>> import pytraj as pt
