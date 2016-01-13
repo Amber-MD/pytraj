@@ -246,7 +246,7 @@ class super_dispatch(object):
             else:
                 # mask is always 2nd argument
                 try:
-                    mask = args[2]
+                    mask = args[1]
                     has_mask = True
                 except IndexError:
                     mask = '*'
