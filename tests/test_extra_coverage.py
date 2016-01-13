@@ -47,6 +47,9 @@ class TestExtraCoverage(unittest.TestCase):
         self.assertRaises(TypeError, lambda: get_reference(self.traj(), 3))
         self.assertRaises(TypeError, lambda: get_reference(self.traj(), None))
 
+        # specify wrong mask
+        self.assertRaises(TypeError, lambda: pt.superpose(self.traj[:], 3))
+
     def test_all_actions(self):
         from pytraj import all_actions
         self.assertRaises(ValueError, lambda: all_actions._assert_mutable(self.traj))
