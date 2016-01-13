@@ -214,11 +214,16 @@ class super_dispatch(object):
     - convert int ref to Frame ref
     '''
 
-    def __init__(self, has_ref=False, refindex=None):
-        self.has_ref = has_ref
+    def __init__(self, refindex=None):
         self.refindex = refindex
 
     def __call__(self, f):
+        import inspect
+
+        args_spec = inspect.getfullargspec(f)
+        has_ref = 'ref' in args_spec.args
+        has_mask = 'mask' in args_spec.args
+
         @wraps(f)
         def inner(*args, **kwargs):
             args = list(args)
@@ -227,46 +232,26 @@ class super_dispatch(object):
                 traj = kwargs.get('traj', args[0])
             except IndexError:
                 traj = kwargs.get('traj')
-            frame_indices = kwargs.get('frame_indices')
+
             ref = kwargs.get('ref')
+            frame_indices = kwargs.get('frame_indices')
+            top = kwargs.get('top')
+            mask = kwargs.get('mask')
 
-            if self.has_ref and ref is None:
-                try:
-                    ref = args[self.refindex] if self.refindex is not None else args[2]
-                except IndexError:
-                    ref = 0
-
-            if 'ref' in kwargs.keys() or self.has_ref:
-                # convert to Frame
-                # overwrite ref
+            if has_ref:
+                if ref is None:
+                    try:
+                        ref = args[self.refindex] if self.refindex is not None else args[2]
+                    except IndexError:
+                        ref = 0
                 ref = get_reference(traj, ref)
 
-            top = kwargs.get('top')
-
-            if 'mask' in kwargs.keys():
-                mask = kwargs.get('mask')
-                has_mask = True
-            else:
-                # mask is always 2nd argument
+            if has_mask and 'mask' not in kwargs:
                 try:
                     mask = args[1]
-                    has_mask = True
                 except IndexError:
-                    mask = '*'
-                    has_mask = False
-
-            # update topology to kwargs
-            kwargs['top'] = get_topology(traj, top)
-
-            # update reference to args or kwargs
-            if ref is not None:
-                if 'ref' in kwargs:
-                    kwargs['ref'] = get_reference(traj, ref)
-                else:
-                    try:
-                        args[1] = ref
-                    except IndexError:
-                        args.append(ref)
+                    mask = ''
+                    args.append(mask)
 
             # update traj to args or kwargs
             if 'traj' in kwargs:
@@ -274,8 +259,15 @@ class super_dispatch(object):
             else:
                 args[0] = get_fiterator(traj, frame_indices)
 
+            # update topology to kwargs
+            kwargs['top'] = get_topology(traj, top)
+
+            # update reference to args or kwargs
+            if has_ref:
+                kwargs['ref'] = get_reference(traj, ref)
+
             # update mask to args or kwargs
-            if not isinstance(mask, string_types):
+            if has_mask and not isinstance(mask, string_types):
                 mask = array_to_cpptraj_atommask(mask)
             if 'mask' in kwargs:
                 kwargs['mask'] = mask

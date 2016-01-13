@@ -180,7 +180,7 @@ class TestIO(unittest.TestCase):
                                  frame_indices=[0, 5],
                                  autoimage=True,
                                  rmsfit=ref)
-        aa_eq(traj[[0, 5]].autoimage().superpose(ref).xyz, xyz)
+        aa_eq(traj[[0, 5]].autoimage().superpose(ref=ref).xyz, xyz)
 
         xyz = pt.get_coordinates(traj,
                                  frame_indices=range(3),
@@ -227,7 +227,7 @@ class TestIO(unittest.TestCase):
                                  frame_indices=[0, 5],
                                  autoimage=True,
                                  rmsfit=ref)
-        aa_eq(traj2[[0, 5]].autoimage().superpose(ref).xyz, xyz)
+        aa_eq(traj2[[0, 5]].autoimage().superpose(ref=ref).xyz, xyz)
 
     def test_load_and_save_topology(self):
         top = self.traj_tz2_ortho.top

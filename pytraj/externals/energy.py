@@ -155,14 +155,14 @@ def energy_decomposition(traj=None,
     if prmtop is None:
         try:
             # try to load from file by taking top.filename
-            _prmtop = top.filename
+            prmtop_ = top.filename
         except AttributeError:
             raise ValueError("prmtop must be AmberParm object in ParmEd")
     else:
         # Structure, string
-        _prmtop = prmtop
+        prmtop_ = prmtop
 
-    if not hasattr(_prmtop, 'coordinates') or _prmtop.coordinates is None:
+    if not hasattr(prmtop_, 'coordinates') or prmtop_.coordinates is None:
         try:
             # if `traj` is Trajectory-like (not frame_iter), try to take 1st
             # coords
@@ -172,7 +172,7 @@ def energy_decomposition(traj=None,
             coords = [0. for _ in range(top.n_atoms * 3)]
     else:
         # use default coords in `AmberParm`
-        coords = _prmtop.coordinates
+        coords = prmtop_.coordinates
 
     if top.has_box():
         box = top.box.tolist()
@@ -181,7 +181,7 @@ def energy_decomposition(traj=None,
         box = None
         has_box = False
 
-    with sander.setup(_prmtop, coords, box, inp, qm_options):
+    with sander.setup(prmtop_, coords, box, inp, qm_options):
         for frame in iterframe_master(traj):
             if has_box:
                 sander.set_box(*frame.box.tolist())
