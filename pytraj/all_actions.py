@@ -254,7 +254,7 @@ def calc_angle(traj=None,
                dtype='ndarray',
                frame_indices=None,
                *args,
-               **kwd):
+               **kwargs):
     """calculate angle between two maskes
 
     Parameters
@@ -310,11 +310,11 @@ def calc_angle(traj=None,
             # need to remove 'n_frames' keyword since Action._master does not use
             # it
             try:
-                del kwd['n_frames']
+                del kwargs['n_frames']
             except KeyError:
                 pass
             # cpptraj mask for action
-            act(command, traj, top=_top, dslist=dslist, *args, **kwd)
+            act(command, traj, top=_top, dslist=dslist, *args, **kwargs)
             return get_data_from_dtype(dslist, dtype)
         elif isinstance(command, (list, tuple, np.ndarray)):
             list_of_commands = command
@@ -327,7 +327,7 @@ def calc_angle(traj=None,
                                    _top,
                                    dslist=dslist,
                                    *args,
-                                   **kwd)
+                                   **kwargs)
             actlist.do_actions(traj)
             return get_data_from_dtype(dslist, dtype)
 
@@ -341,7 +341,7 @@ def calc_angle(traj=None,
         if int_2darr.shape[1] != 3:
             raise ValueError("require int-array with shape=(n_atoms, 3)")
 
-        n_frames = kwd.get('n_frames')
+        n_frames = kwargs.get('n_frames')
         n_frames = traj.n_frames if n_frames is None else n_frames
 
         arr = np.empty([n_frames, len(int_2darr)])
@@ -392,7 +392,7 @@ def calc_dihedral(traj=None,
                   dtype='ndarray',
                   frame_indices=None,
                   *args,
-                  **kwd):
+                  **kwargs):
     """calculate dihedral angle between two maskes
 
     Parameters
@@ -450,7 +450,7 @@ def calc_dihedral(traj=None,
             # need to remove 'n_frames' keyword since Action._master does not use
             # it
             try:
-                del kwd['n_frames']
+                del kwargs['n_frames']
             except:
                 pass
             # cpptraj mask for action
@@ -469,7 +469,7 @@ def calc_dihedral(traj=None,
                                    _top,
                                    dslist=dslist,
                                    *args,
-                                   **kwd)
+                                   **kwargs)
             actlist.do_actions(traj)
             return get_data_from_dtype(dslist, dtype)
     else:
@@ -482,7 +482,7 @@ def calc_dihedral(traj=None,
         if int_2darr.shape[1] != 4:
             raise ValueError("require int-array with shape=(n_atoms, 4)")
 
-        n_frames = kwd.get('n_frames')
+        n_frames = kwargs.get('n_frames')
         n_frames = traj.n_frames if n_frames is None else n_frames
         arr = np.empty([n_frames, len(int_2darr)])
         for idx, frame in enumerate(iterframe_master(traj)):
@@ -746,7 +746,7 @@ def calc_molsurf(traj=None,
 
 @register_pmap
 @super_dispatch(has_ref=True)
-def calc_rotation_matrix(traj=None,
+def calc_rotation_matrix(traj,
                          mask="",
                          ref=0,
                          mass=False,
@@ -1110,7 +1110,7 @@ def calc_jcoupling(traj=None,
     kfile : str, default None, optional
         Dir for Karplus file. If "None", use $AMBERHOME dir
     dtype : str, {'dataset', ...}, default 'dataset'
-    *args, **kwd: optional
+    *args, **kwargs: optional
 
     Examples
     --------
@@ -1373,7 +1373,7 @@ def randomize_ions(traj, mask, around, by, overlap, seed=1, top=None, frame_indi
         cpptraj command
     frame_indices : {None, array-like}, optional
     top : Topology, optional (only needed if ``traj`` does not have it)
-    **kwd: other args
+    **kwargs: other args
 
     Examples
     --------
@@ -1443,7 +1443,7 @@ def calc_multidihedral(traj=None,
         if True: use 0-360
     top : Topology | str, optional
         only need to have 'top' if can not find it in `traj`
-    *arg and **kwd: additional arguments (for advanced users)
+    *arg and **kwargs: additional arguments (for advanced users)
 
 
     Returns
@@ -1719,7 +1719,7 @@ def calc_pairwise_rmsd(traj=None,
     mat_type : str, {'full', 'half'}
         if 'full': return 2D array, shape=(n_frames, n_frames)
         if 'half': return 1D array, shape=(n_frames*(n_frames-1)/2, )
-    *args, **kwd: optional (for advanced user)
+    *args, **kwargs: optional (for advanced user)
 
     Examples
     --------
@@ -2113,7 +2113,7 @@ def closest(traj=None,
 
 
 @register_pmap
-@super_dispatch()
+@super_dispatch(has_ref=True, refindex=3)
 def native_contacts(traj=None,
                     mask="",
                     mask2="",
@@ -2167,7 +2167,7 @@ def native_contacts(traj=None,
 
 
 @super_dispatch()
-def calc_grid(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
+def calc_grid(traj=None, command="", top=None, dtype='dataset', *args, **kwargs):
     """
     """
     # TODO: doc, rename method, move to seperate module?
@@ -2177,7 +2177,7 @@ def calc_grid(traj=None, command="", top=None, dtype='dataset', *args, **kwd):
     # cpptraj require output
     command = "tmp_pytraj_grid_output.txt " + command
     with goto_temp_folder():
-        act(command, traj, dslist=dslist, top=top, *args, **kwd)
+        act(command, traj, dslist=dslist, top=top, *args, **kwargs)
     return get_data_from_dtype(dslist, dtype=dtype)
 
 

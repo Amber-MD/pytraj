@@ -203,7 +203,7 @@ def get_resrange(resrange):
 
 class super_dispatch(object):
     # TODO: more descriptive method name?
-    '''apply a series of functions to ``f``'s args and kwd
+    '''apply a series of functions to ``f``'s args and kwargs
 
     - get Topology from a given traj (Trajectory, frame iterator, ...) and top
         get_topology(traj, top)
@@ -220,28 +220,31 @@ class super_dispatch(object):
 
     def __call__(self, f):
         @wraps(f)
-        def inner(*args, **kwd):
+        def inner(*args, **kwargs):
             args = list(args)
             # traj is always 1st argument
             try:
-                traj = kwd.get('traj', args[0])
+                traj = kwargs.get('traj', args[0])
             except IndexError:
-                traj = kwd.get('traj')
-            frame_indices = kwd.get('frame_indices')
-            ref = kwd.get('ref')
+                traj = kwargs.get('traj')
+            frame_indices = kwargs.get('frame_indices')
+            ref = kwargs.get('ref')
+
             if self.has_ref and ref is None:
                 try:
                     ref = args[self.refindex] if self.refindex is not None else args[2]
                 except IndexError:
                     ref = 0
-            if 'ref' in kwd.keys() or self.has_ref:
+
+            if 'ref' in kwargs.keys() or self.has_ref:
                 # convert to Frame
+                # overwrite ref
                 ref = get_reference(traj, ref)
 
-            top = kwd.get('top')
+            top = kwargs.get('top')
 
-            if 'mask' in kwd.keys():
-                mask = kwd.get('mask')
+            if 'mask' in kwargs.keys():
+                mask = kwargs.get('mask')
                 has_mask = True
             else:
                 # mask is always 2nd argument
@@ -252,28 +255,34 @@ class super_dispatch(object):
                     mask = '*'
                     has_mask = False
 
-            # overwrite
-            kwd['top'] = get_topology(traj, top)
+            # update topology to kwargs
+            kwargs['top'] = get_topology(traj, top)
+
+            # update reference to args or kwargs
             if ref is not None:
-                if 'ref' in kwd.keys():
-                    kwd['ref'] = get_reference(traj, ref)
+                if 'ref' in kwargs:
+                    kwargs['ref'] = get_reference(traj, ref)
                 else:
                     try:
                         args[1] = ref
                     except IndexError:
                         args.append(ref)
-            if 'traj' in kwd.keys():
-                kwd['traj'] = get_fiterator(traj, frame_indices)
+
+            # update traj to args or kwargs
+            if 'traj' in kwargs:
+                kwargs['traj'] = get_fiterator(traj, frame_indices)
             else:
                 args[0] = get_fiterator(traj, frame_indices)
+
+            # update mask to args or kwargs
             if not isinstance(mask, string_types):
                 mask = array_to_cpptraj_atommask(mask)
-            if 'mask' in kwd.keys():
-                kwd['mask'] = mask
+            if 'mask' in kwargs:
+                kwargs['mask'] = mask
             else:
                 if has_mask:
                     args[1] = mask
-            return f(*args, **kwd)
+            return f(*args, **kwargs)
 
         inner._is_super_dispatched = True
         return inner
