@@ -747,8 +747,8 @@ def calc_molsurf(traj=None,
 @register_pmap
 @super_dispatch(has_ref=True)
 def calc_rotation_matrix(traj=None,
-                         ref=0,
                          mask="",
+                         ref=0,
                          mass=False,
                          frame_indices=None,
                          top=None,
@@ -1770,8 +1770,8 @@ def calc_pairwise_rmsd(traj=None,
 
 @register_pmap
 def rmsd_perres(traj=None,
-                ref=0,
                 mask="",
+                ref=0,
                 mass=False,
                 resrange=None,
                 perres_mask=None,
@@ -1798,8 +1798,8 @@ def rmsd_perres(traj=None,
     cm = " ".join((mask, 'perres', _range, _perresmask, _perrestcenter,
                    _perrestinvert))
     return calc_rmsd(traj=traj,
-                     ref=ref,
                      mask=cm,
+                     ref=ref,
                      nofit=False,
                      mass=mass,
                      frame_indices=frame_indices,
@@ -1809,8 +1809,8 @@ def rmsd_perres(traj=None,
 
 @register_pmap
 def calc_rmsd_nofit(traj=None,
-                    ref=0,
                     mask="",
+                    ref=0,
                     mass=False,
                     frame_indices=None,
                     top=None,
@@ -1821,8 +1821,8 @@ def calc_rmsd_nofit(traj=None,
     calc_rmsd
     '''
     return calc_rmsd(traj=traj,
-                     ref=ref,
                      mask=mask,
+                     ref=ref,
                      mass=mass,
                      nofit=True,
                      frame_indices=frame_indices,
@@ -1832,8 +1832,8 @@ def calc_rmsd_nofit(traj=None,
 
 @register_pmap
 def calc_rmsd(traj=None,
-              ref=0,
               mask="",
+              ref=0,
               nofit=False,
               mass=False,
               frame_indices=None,
@@ -1940,8 +1940,8 @@ rmsd = calc_rmsd
 @register_pmap
 @super_dispatch(has_ref=True)
 def calc_distance_rmsd(traj=None,
-                       ref=0,
                        mask='',
+                       ref=0,
                        top=None,
                        dtype='ndarray',
                        frame_indices=None):
@@ -2115,8 +2115,8 @@ def closest(traj=None,
 @register_pmap
 @super_dispatch(has_ref=True)
 def native_contacts(traj=None,
-                    ref=0,
                     mask="",
+                    ref=0,
                     mask2="",
                     dtype='dataset',
                     distance=7.0,
