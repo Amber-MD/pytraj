@@ -86,7 +86,7 @@ def vector_mask(traj=None,
     for command in list_of_commands:
         act = Action_Vector()
         _command = command + template_command
-        actlist.add_action(act, _command, _top, dslist=dslist)
+        actlist.add(act, _command, _top, dslist=dslist)
     actlist.compute(fi)
     return get_data_from_dtype(dslist, dtype=dtype)
 
@@ -120,7 +120,7 @@ def %s(traj=None, command="", frame_indices=None, dtype='ndarray', top=None):
     for command in list_of_commands:
         act = Action_Vector()
         _command = command + template_command
-        actlist.add_action(act, _command, _top, dslist=dslist)
+        actlist.add(act, _command, _top, dslist=dslist)
     actlist.compute(fi)
     return get_data_from_dtype(dslist, dtype=dtype)
 '''

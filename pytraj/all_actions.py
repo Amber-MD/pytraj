@@ -184,10 +184,10 @@ def calc_distance(traj=None,
         for cm in list_of_commands:
             if not image:
                 cm = ' '.join((cm, _noimage))
-            actlist.add_action(c_action.Action_Distance(),
-                               cm,
-                               _top,
-                               dslist=c_dslist)
+            actlist.add(c_action.Action_Distance(),
+                        cm,
+                        _top,
+                        dslist=c_dslist)
 
         actlist.compute(traj)
         return get_data_from_dtype(c_dslist, dtype)
@@ -322,12 +322,12 @@ def calc_angle(traj=None,
             actlist = ActionList()
 
             for cm in list_of_commands:
-                actlist.add_action(c_action.Action_Angle(),
-                                   cm,
-                                   _top,
-                                   dslist=c_dslist,
-                                   *args,
-                                   **kwargs)
+                actlist.add(c_action.Action_Angle(),
+                            cm,
+                            _top,
+                            dslist=c_dslist,
+                            *args,
+                            **kwargs)
             actlist.compute(traj)
             return get_data_from_dtype(c_dslist, dtype)
 
@@ -464,12 +464,12 @@ def calc_dihedral(traj=None,
             actlist = ActionList()
 
             for cm in list_of_commands:
-                actlist.add_action(c_action.Action_Dihedral(),
-                                   cm,
-                                   _top,
-                                   dslist=c_dslist,
-                                   *args,
-                                   **kwargs)
+                actlist.add(c_action.Action_Dihedral(),
+                            cm,
+                            _top,
+                            dslist=c_dslist,
+                            *args,
+                            **kwargs)
             actlist.compute(traj)
             return get_data_from_dtype(c_dslist, dtype)
     else:
@@ -1205,7 +1205,7 @@ rotate = do_rotation
 @super_dispatch()
 def do_autoimage(traj,
                  mask="",
-                 frame_indices=None, 
+                 frame_indices=None,
                  top=None):
     '''perform autoimage and return the coordinate-updated traj
 
@@ -1627,7 +1627,7 @@ def calc_vector(traj=None,
 
     for command in list_of_commands:
         act = c_action.Action_Vector()
-        actlist.add_action(act, command, _top, dslist=c_dslist)
+        actlist.add(act, command, _top, dslist=c_dslist)
     actlist.compute(fi)
 
     return get_data_from_dtype(c_dslist, dtype=dtype)
@@ -1921,10 +1921,10 @@ def calc_rmsd(traj=None,
         _cm = cm + opt
         if 'savematrices' in _cm and dtype not in ['dataset', 'cpptraj_dataset']:
             raise ValueError('if savematrices, dtype must be "dataset"')
-        alist.add_action(c_action.Action_Rmsd(),
-                         _cm,
-                         top=_top,
-                         dslist=c_dslist)
+        alist.add(c_action.Action_Rmsd(),
+                  _cm,
+                  top=_top,
+                  dslist=c_dslist)
 
     alist.compute(ref)
     alist.compute(fi)
