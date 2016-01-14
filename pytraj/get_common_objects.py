@@ -220,7 +220,11 @@ class super_dispatch(object):
     def __call__(self, f):
         import inspect
 
-        args_spec = inspect.getfullargspec(f)
+        try:
+            args_spec = inspect.getfullargspec(f)
+        except AttributeError:
+            # py2
+            args_spec = inspect.getargspec(f)
         n_default = len(args_spec.defaults) if args_spec.defaults else 0
         try:
             kwargs_spec = dict((k, v) for (k, v) in
