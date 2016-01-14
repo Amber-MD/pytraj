@@ -31,10 +31,10 @@ class TestVectorAnalysisModule(unittest.TestCase):
         mask_list = ['@CB @CA', '@CA @H']
 
         for mask in mask_list:
-            actlist.add_action(CA.Action_Vector(),
-                               mask,
-                               traj.top,
-                               dslist=dslist)
+            actlist.add(CA.Action_Vector(),
+                        mask,
+                        traj.top,
+                        dslist=dslist)
         actlist.compute(traj)
 
         dslist2 = pt.calc_vector(traj, mask_list)

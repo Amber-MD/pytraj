@@ -42,7 +42,6 @@ class TestIO(unittest.TestCase):
         t2 = pt.load(fn, tn, mask='@CA', frame_indices=[3, 8])
         aa_eq(t2.xyz, traj[[3, 8], '@CA'].xyz)
 
-
     def test_save_traj_from_file(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:5]
         pt.write_traj(filename="./output/test_0.binpos",

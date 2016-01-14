@@ -152,11 +152,11 @@ def ired_vector_and_matrix(traj=None,
         # tag ired vector
         command += ' ired '
         act = c_action.Action_Vector()
-        actlist.add_action(act, command, _top, dslist=dslist)
+        actlist.add(act, command, _top, dslist=dslist)
 
     act_matired = c_action.Action_Matrix()
     ired_cm = 'ired order ' + str(order)
-    actlist.add_action(act_matired, ired_cm, _top, dslist=dslist)
+    actlist.add(act_matired, ired_cm, _top, dslist=dslist)
 
     actlist.compute(fi)
 

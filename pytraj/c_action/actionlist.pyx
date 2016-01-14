@@ -243,14 +243,14 @@ cdef class ActionList:
                     action = command.split(" ", 1)[0]
                     cm = ''
                 action = action.rstrip().lstrip()
-                self.add_action(action, command=cm,
+                self.add(action, command=cm,
                                 top=top, dslist=dslist, dflist=dflist)
 
     def __dealloc__(self):
         if self.thisptr:
             del self.thisptr
 
-    def add_action(self, action="",
+    def add(self, action="",
                    command="",
                    top=None,
                    DatasetList dslist=DatasetList(),
@@ -270,8 +270,8 @@ cdef class ActionList:
 
         Examples
         --------
-        >>> act = ActionList()
-        >>> act.add_action('radgyr', '@CA', top=traj.top, dslist=dslist) # doctest: +SKIP
+        >>> actlist = ActionList()
+        >>> actlist.add('radgyr', '@CA', top=traj.top, dslist=dslist) # doctest: +SKIP
         """
         cdef Action action_
         cdef int status

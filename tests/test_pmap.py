@@ -313,7 +313,8 @@ class TestWorker(unittest.TestCase):
         traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
         for ref in [None, traj[0], [traj[0], traj[1]]]:
             data = worker_actlist(rank=3, n_cores=8, traj=traj, lines=['radgyr @CA', 'vector :3 :7'],
-                                   ref=ref, kwd=dict())
+                                  ref=ref, kwd=dict())
+
 
 def change_10_atoms(traj):
     for frame in traj:

@@ -37,23 +37,23 @@ def get_topology(traj, top):
     '''
     if isinstance(top, string_types):
         # if provide a filename, load to Topology
-        _top = _load_Topology(top)
+        top_ = _load_Topology(top)
     elif top is None:
         # if user does not provide Topology, try to find it in traj
         if hasattr(traj, 'top'):
-            _top = traj.top
+            top_ = traj.top
         else:
             # list, tuple of traj objects
             try:
                 for tmp in traj:
                     if hasattr(tmp, 'top'):
-                        _top = tmp.top
+                        top_ = tmp.top
                         break
             except TypeError:
-                _top = None
+                top_ = None
     else:
-        _top = top
-    return _top
+        top_ = top
+    return top_
 
 
 def get_data_from_dtype(d0, dtype='dataset'):
@@ -228,8 +228,8 @@ class super_dispatch(object):
         n_default = len(args_spec.defaults) if args_spec.defaults else 0
         try:
             kwargs_spec = dict((k, v) for (k, v) in
-                                zip(args_spec.args[-n_default:],
-                                    args_spec.defaults))
+                               zip(args_spec.args[-n_default:],
+                                   args_spec.defaults))
         except TypeError:
             kwargs_spec = {}
 
@@ -320,13 +320,13 @@ def get_fi_with_dslist(traj, mask, frame_indices, top, crdname='dataset_coords')
         command = ''
         # use Topology from fi (could be stripped to save memory)
         dslist[0].top = fi.top
-        _top = fi.top
+        top_ = fi.top
     else:
         # ignore frame_indices
         fi = iterframe_master(traj)
         command = mask
-        _top = get_topology(traj, top)
-        dslist[0].top = _top
+        top_ = get_topology(traj, top)
+        dslist[0].top = top_
     for frame in fi:
         dslist[0].append(frame)
-    return dslist, _top, command
+    return dslist, top_, command
