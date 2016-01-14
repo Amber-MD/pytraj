@@ -229,6 +229,8 @@ class super_dispatch(object):
         except TypeError:
             kwargs_spec = {}
 
+        print(f, kwargs_spec)
+
         has_ref = 'ref' in args_spec.args
         has_mask = 'mask' in args_spec.args
 
@@ -281,8 +283,9 @@ class super_dispatch(object):
                             args[1] = mask
                     except IndexError:
                         args.append(mask)
-            print('args = {0}, kwargs = {1}'.format(args, kwargs))
-            print('traj = {0}, ref={1}, mask={2}'.format(traj, ref, mask))
+            # debug
+            # print('args = {0}, kwargs = {1}'.format(args, kwargs))
+            # print('traj = {0}, ref={1}, mask={2}'.format(traj, ref, mask))
             return f(*args, **kwargs)
 
         inner._is_super_dispatched = True

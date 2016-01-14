@@ -204,7 +204,7 @@ def calc_pairwise_distance(traj=None,
                            top=None,
                            dtype='ndarray',
                            frame_indices=None):
-    '''calculate pairwise distance between atoms in mask_1 and atoms in mask_2
+    '''compute pairwise distance between atoms in mask_1 and atoms in mask_2
 
     Parameters
     ----------
@@ -357,7 +357,7 @@ def calc_angle(traj=None,
 
 
 def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
-    '''calculate dihedral within a single residue. For internal use only.
+    '''compute dihedral within a single residue. For internal use only.
 
     Parameters
     ----------
@@ -502,7 +502,7 @@ def calc_mindist(traj=None,
                  top=None,
                  dtype='ndarray',
                  frame_indices=None):
-    '''calculate mindist
+    '''compute mindist
 
     Examples
     --------
@@ -532,7 +532,7 @@ def calc_diffusion(traj,
                    top=None,
                    dtype='dataset',
                    frame_indices=None):
-    '''calculate diffusion
+    '''compute diffusion
 
     Parameters
     ----------
@@ -784,9 +784,9 @@ def calc_rotation_matrix(traj=None,
     (101, 3, 3)
     '''
     c_dslist = CpptrajDatasetList()
-    _mass = 'mass' if mass else ''
+    mass_ = 'mass' if mass else ''
 
-    command = ' '.join(('tmp', mask, 'savematrices', _mass))
+    command = ' '.join(('tmp', mask, 'savematrices', mass_))
 
     act = c_action.Action_Rmsd()
     act(command, [ref, traj], top=top, dslist=c_dslist)
@@ -804,7 +804,7 @@ def calc_volume(traj=None,
                 top=None,
                 dtype='ndarray',
                 frame_indices=None):
-    '''calculate volume
+    '''compute volume
 
     Examples
     --------
@@ -915,32 +915,32 @@ def volmap(traj,
 
     assert isinstance(grid_spacing, tuple) and len(grid_spacing) == 3, 'grid_spacing must be a tuple with length=3'
 
-    _grid_spacing = ' '.join([str(x) for x in grid_spacing])
-    _radscale = 'radscale ' + str(radscale)
-    _buffer = 'buffer ' + str(buffer)
-    _peakcut = 'peakcut ' + str(peakcut)
-    _centermask = 'centermask ' + centermask
+    grid_spacing_ = ' '.join([str(x) for x in grid_spacing])
+    radscale_ = 'radscale ' + str(radscale)
+    buffer_ = 'buffer ' + str(buffer)
+    peakcut_ = 'peakcut ' + str(peakcut)
+    centermask_ = 'centermask ' + centermask
 
     if isinstance(size, tuple):
         assert len(size) == 3, 'lenghth of size must be 3'
     elif size is not None:
         raise ValueError('size must be None or a tuple. Please check method doc')
 
-    _size = '' if size is None else 'size ' + ','.join([str(x) for x in size])
+    size_ = '' if size is None else 'size ' + ','.join([str(x) for x in size])
 
-    if _size:
+    if size_:
         # ignore buffer
-        _buffer = ''
+        buffer_ = ''
         # add center
         if center is not None:
-            _center = 'center ' + ','.join([str(x) for x in center])
+            center_ = 'center ' + ','.join([str(x) for x in center])
         else:
-            _center = ''
+            center_ = ''
     else:
-        _center = ''
+        center_ = ''
 
-    command = ' '.join((dummy_filename, _grid_spacing, _center, _size, mask, _radscale, _buffer,
-                        _centermask, _peakcut))
+    command = ' '.join((dummy_filename, grid_spacing_, center_, size_, mask, radscale_, buffer_,
+                        centermask_, peakcut_))
 
     act = c_action.Action_Volmap()
 
@@ -1883,8 +1883,8 @@ def calc_rmsd(traj=None,
     """
 
     _nofit = ' nofit ' if nofit else ''
-    _mass = ' mass ' if mass else ''
-    opt = _nofit + _mass
+    mass_ = ' mass ' if mass else ''
+    opt = _nofit + mass_
 
     if isinstance(mask, string_types):
         command = [mask, ]
@@ -2023,12 +2023,12 @@ def principal_axes(traj=None, mask='*', dorotation=False, mass=True, top=None):
     command = mask
 
     _dorotation = 'dorotation' if dorotation else ''
-    _mass = 'mass' if mass else ''
+    mass_ = 'mass' if mass else ''
 
     if 'name' not in command:
         command += ' name pout'
 
-    command = ' '.join((command, _dorotation, _mass))
+    command = ' '.join((command, _dorotation, mass_))
 
     _top = get_topology(traj, top)
     c_dslist = CpptrajDatasetList()
@@ -2226,12 +2226,11 @@ def timecorr(vec0,
     c_dslist[0].data = np.asarray(vec0).astype('f8')
     c_dslist[1].data = np.asarray(vec1).astype('f8')
 
-    _order = "order " + str(order)
-    _tstep = "tstep " + str(tstep)
-    _tcorr = "tcorr " + str(tcorr)
-    _norm = "norm" if norm else ""
-    command = " ".join(('vec1 _vec0 vec2 _vec1', _order, _tstep, _tcorr, _norm
-                        ))
+    order_ = "order " + str(order)
+    tstep_ = "tstep " + str(tstep)
+    tcorr_ = "tcorr " + str(tcorr)
+    norm_ = "norm" if norm else ""
+    command = " ".join(('vec1 _vec0 vec2 _vec1', order_, tstep_, tcorr_, norm_))
     act(command, dslist=c_dslist)
     return get_data_from_dtype(c_dslist[2:], dtype=dtype)
 
@@ -2341,13 +2340,16 @@ def pucker(traj=None,
     _offset = "offset " + str(offset) if offset else ""
 
     c_dslist = CpptrajDatasetList()
+
     for res in resrange:
-        act = c_action.Action_Pucker()
         command = " ".join((":" + str(res + 1) + '@' + x for x in pucker_mask))
         name = "pucker_res" + str(res + 1)
         command = " ".join((name, command, _range360, method, geom, amp,
                             _offset))
+
+        act = c_action.Action_Pucker()
         act(command, traj, top=_top, dslist=c_dslist)
+
     return get_data_from_dtype(c_dslist, dtype)
 
 calc_pucker = pucker
@@ -2397,9 +2399,9 @@ def center(traj=None,
     """
     if center.lower() not in ['box', 'origin']:
         raise ValueError('center must be box or origin')
-    _center = '' if center == 'box' else center
-    _mass = 'mass' if mass else ''
-    command = ' '.join((mask, _center, _mass))
+    center_ = '' if center == 'box' else center
+    mass_ = 'mass' if mass else ''
+    command = ' '.join((mask, center_, mass_))
     _assert_mutable(traj)
 
     act = c_action.Action_Center()
@@ -2643,8 +2645,8 @@ def pca(traj,
 calc_pca = pca
 
 
-@super_dispatch()
 @register_openmp
+@super_dispatch()
 def calc_atomiccorr(traj,
                     mask='',
                     cut=None,
@@ -2653,7 +2655,7 @@ def calc_atomiccorr(traj,
                     frame_indices=None,
                     dtype='ndarray',
                     top=None):
-    '''Calculate average correlations between the motion of atoms in mask.
+    '''compute average correlations between the motion of atoms in mask.
 
     Parameters
     ----------
@@ -2749,7 +2751,7 @@ def transform(traj, by, frame_indices=None):
 
 
 def lowestcurve(data, points=10, step=0.2):
-    '''calculate lowest curve for data
+    '''compute lowest curve for data
 
     Paramters
     ---------
@@ -2761,18 +2763,18 @@ def lowestcurve(data, points=10, step=0.2):
     ------
     2d array
     '''
-    _points = 'points ' + str(points)
-    _step = 'step ' + str(step)
+    points_ = 'points ' + str(points)
+    step_ = 'step ' + str(step)
     label = 'mydata'
-    command = ' '.join((label, _points, _step))
+    command = ' '.join((label, points_, step_))
 
     data = np.asarray(data)
 
-    act = c_analysis.Analysis_LowestCurve()
     c_dslist = CpptrajDatasetList()
-
-    c_dslist.add_new('xymesh', label)
+    c_dslist.add('xymesh', label)
     c_dslist[0]._append_from_array(data.T)
+
+    act = c_analysis.Analysis_LowestCurve()
 
     act(command, dslist=c_dslist)
     return np.array([dslist[-1]._xcrd(), np.array(dslist[-1].values)])
