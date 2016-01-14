@@ -48,7 +48,7 @@ class Test(unittest.TestCase):
             pass
 
         # test rmsfit
-        trajectory_t0.rmsfit(0)
+        trajectory_t0.rmsfit(ref=0)
 
 
 if __name__ == "__main__":

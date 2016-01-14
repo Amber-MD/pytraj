@@ -248,7 +248,7 @@ class super_dispatch(object):
             frame_indices = kwargs.get('frame_indices')
             top = kwargs.get('top')
 
-            if has_mask_arg and not mask:
+            if has_mask_arg and mask is '':
                 if has_traj_arg:
                     try:
                         mask = args[0]
@@ -288,12 +288,7 @@ class super_dispatch(object):
                 kwargs['mask'] = mask
             else:
                 if has_mask_arg:
-                    if 'traj' in kwargs:
-                        try:
-                            args[0] = mask
-                        except IndexError:
-                            args.append(mask)
-                    else:
+                    if 'traj' not in kwargs:
                         try:
                             args[1] = mask
                         except IndexError:

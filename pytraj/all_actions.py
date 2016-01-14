@@ -1203,7 +1203,7 @@ rotate = do_rotation
 
 
 @super_dispatch()
-def do_autoimage(traj=None,
+def do_autoimage(traj,
                  mask="",
                  frame_indices=None, 
                  top=None):
@@ -1986,7 +1986,7 @@ distance_rmsd = calc_distance_rmsd
 
 
 @super_dispatch()
-def align_principal_axis(traj=None, mask="*", top=None, frame_indices=None):
+def align_principal_axis(traj=None, mask="*", top=None, frame_indices=None, mass=False):
     # TODO : does not match with cpptraj output
     # rmsd_nofit ~ 0.5 for md1_prod.Tc5b.x, 1st frame
     """
@@ -1996,8 +1996,10 @@ def align_principal_axis(traj=None, mask="*", top=None, frame_indices=None):
     """
     _assert_mutable(traj)
 
+    mass_ = 'mass' if mass else ''
+
     act = c_action.Action_Principal()
-    command = mask + " dorotation"
+    command = ' '.join((mask, " dorotation", mass_))
     act(command, traj, top=top)
     return traj
 

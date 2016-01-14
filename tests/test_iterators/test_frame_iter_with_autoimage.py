@@ -49,7 +49,7 @@ class Test(unittest.TestCase):
 
         fa3 = traj[:]
         fa3.autoimage()
-        fa3.rmsfit(5, '@CB')
+        fa3.rmsfit(ref=5, mask='@CB')
         fa3.strip("!@CA")
 
         fa4 = Trajectory()

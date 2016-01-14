@@ -105,6 +105,7 @@ from .datasetlist import DatasetList
 
 # alias
 load_cpptrajstate = load_cpptraj_state
+load_state = load_cpptraj_state
 
 # tool
 from . import tools

@@ -38,7 +38,7 @@ class Test_iterchunk_autoimage(unittest.TestCase):
 
         fa0 = traj[-2:]
         ref00 = traj[0]
-        fa0.rmsfit(ref00, self.mask)
+        fa0.rmsfit(ref=ref00, mask=self.mask)
         aa_eq(chunk.xyz, fa0.xyz)
 
     def test_rmsfit_with_autoimage(self):
