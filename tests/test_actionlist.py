@@ -64,8 +64,8 @@ class TestActionList(unittest.TestCase):
         # add two actions: Action_Strip and Action_Distance
         alist.add(allactions.Action_Center(), ArgList(":2-11"), top=top)
         alist.add(allactions.Action_Image(),
-                         ArgList("center familiar com :6"),
-                         top=top)
+                  ArgList("center familiar com :6"),
+                  top=top)
 
         # do checking
         alist.check_topology(top)
@@ -103,17 +103,17 @@ class TestActionList(unittest.TestCase):
         alist = ActionList()
         # add two actions: Action_Dihedral and Action_Distance
         alist.add(adict['distance'],
-                         ":2@CA :10@CA out ./output/_dist.out", traj.top,
-                         dslist, dflist)
+                  ":2@CA :10@CA out ./output/_dist.out", traj.top,
+                  dslist, dflist)
         alist.add(adict['dihedral'],
-                         ":2@CA :3@CA :4@CA :5@CA out ./output/_dih.out",
-                         traj.top, dslist, dflist)
+                  ":2@CA :3@CA :4@CA :5@CA out ./output/_dih.out",
+                  traj.top, dslist, dflist)
 
         # using string for action 'dssp'
         alist.add('dssp', "out ./output/_dssp_alist.out", traj.top,
-                         dslist, dflist)
+                  dslist, dflist)
         alist.add('matrix', "out ./output/_mat_alist.out", traj.top,
-                         dslist, dflist)
+                  dslist, dflist)
         # does not work with `strip` (output traj have the same n_atoms as originl traj)
         # turn off for now
         # Error: Could not get associated topology for ./output/test_trajout.nc
@@ -130,8 +130,8 @@ class TestActionList(unittest.TestCase):
         # creat ActionList to hold actions
         alist = ActionList()
         alist.add(adict['distance'],
-                         ":2@CA :10@CA out ./output/_dist.out", traj.top,
-                         dslist, dflist)
+                  ":2@CA :10@CA out ./output/_dist.out", traj.top,
+                  dslist, dflist)
         alist.compute([traj.iterchunk()])
         assert len(dslist) == 1
         assert dslist[0].size == traj.n_frames
@@ -144,9 +144,9 @@ class TestActionList(unittest.TestCase):
 
         for mask in mask_list:
             actlist.add(CA.Action_Angle(),
-                               mask,
-                               traj.top,
-                               dslist=dslist)
+                        mask,
+                        traj.top,
+                        dslist=dslist)
         actlist.compute(traj)
 
         dslist2 = pt.calc_angle(traj, mask_list)
@@ -167,9 +167,9 @@ class TestActionList(unittest.TestCase):
 
         for mask in mask_list:
             actlist.add(CA.Action_Dihedral(),
-                               mask,
-                               traj.top,
-                               dslist=dslist)
+                        mask,
+                        traj.top,
+                        dslist=dslist)
         actlist.compute(traj)
 
         dslist2 = pt.calc_dihedral(traj, mask_list)
@@ -190,9 +190,9 @@ class TestActionList(unittest.TestCase):
 
         for mask in mask_list:
             actlist.add(CA.Action_Distance(),
-                               mask,
-                               traj.top,
-                               dslist=dslist)
+                        mask,
+                        traj.top,
+                        dslist=dslist)
         actlist.compute(traj)
 
         dslist2 = pt.calc_distance(traj, mask_list)
@@ -410,8 +410,8 @@ class TestActionList(unittest.TestCase):
         ref.append(traj[3])
 
         fi = pt.pipe(traj,
-                                ['autoimage', 'rms refindex 0 @CA'],
-                                dslist=dslist)
+                     ['autoimage', 'rms refindex 0 @CA'],
+                     dslist=dslist)
         xyz = np.array([frame.xyz.copy() for frame in fi])
         t0 = (traj[:]
               .autoimage()

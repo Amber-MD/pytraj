@@ -269,9 +269,9 @@ class TestActionListRMSD(unittest.TestCase):
             dslist = DatasetList()
             act = Action_Rmsd()
             alist.add(act,
-                             'first @CA',
-                             top=input_traj.top,
-                             dslist=dslist)
+                      'first @CA',
+                      top=input_traj.top,
+                      dslist=dslist)
 
             for frame in input_traj:
                 alist.compute(frame)
