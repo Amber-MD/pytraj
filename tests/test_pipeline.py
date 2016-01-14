@@ -11,10 +11,10 @@ class TestPipeline(unittest.TestCase):
     def test_pieline(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
 
-        fi = pt.create_pipeline(traj, ['autoimage', ])
+        fi = pt.pipe(traj, ['autoimage', ])
         aa_eq(pt.get_coordinates(fi), traj[:].autoimage().xyz)
 
-        fi = pt.create_pipeline(traj, ['autoimage', ], frame_indices=[3, 5])
+        fi = pt.pipe(traj, ['autoimage', ], frame_indices=[3, 5])
         aa_eq(pt.get_coordinates(fi), traj[[3, 5]].autoimage().xyz)
 
 

@@ -633,7 +633,7 @@ def get_coordinates(iterable,
     (4, 5293, 3)
 
     >>> # create frame iterator with some given cpptraj's commands
-    >>> fi = pt.create_pipeline(traj, ['autoimage', 'rms', 'center :1-6 origin'])
+    >>> fi = pt.pipe(traj, ['autoimage', 'rms', 'center :1-6 origin'])
     >>> xyz = pt.get_coordinates(fi)
     >>> xyz.shape
     (10, 5293, 3)

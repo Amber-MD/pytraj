@@ -371,29 +371,29 @@ class TestActionList(unittest.TestCase):
         saved_rmsd_ = pt.rmsd_nofit(t0, ref=ref)
         aa_eq(rmsd_nofit_after_fitting, saved_rmsd_)
 
-    def test_create_pipeline(self):
+    def test_pipe(self):
         traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
 
         # from TrajectoryIterator
-        fi = pt.create_pipeline(traj, ['autoimage', 'rms'])
+        fi = pt.pipe(traj, ['autoimage', 'rms'])
         xyz = np.array([frame.xyz.copy() for frame in fi])
         t0 = traj[:].autoimage().superpose()
         aa_eq(xyz, t0.xyz)
 
         # from FrameIterator
-        fi = pt.create_pipeline(traj(), ['autoimage', 'rms'])
+        fi = pt.pipe(traj(), ['autoimage', 'rms'])
         xyz = np.array([frame.xyz.copy() for frame in fi])
         t0 = traj[:].autoimage().superpose()
         aa_eq(xyz, t0.xyz)
 
         # from FrameIterator with indices
-        fi = pt.create_pipeline(traj(0, 8, 2), ['autoimage', 'rms'])
+        fi = pt.pipe(traj(0, 8, 2), ['autoimage', 'rms'])
         xyz = np.array([frame.xyz.copy() for frame in fi])
         t0 = traj[:8:2].autoimage().superpose()
         aa_eq(xyz, t0.xyz)
 
         # from TrajectoryIterator, cpptraj's command style
-        fi = pt.create_pipeline(traj, '''
+        fi = pt.pipe(traj, '''
         autoimage
         rms''')
         xyz = np.array([frame.xyz.copy() for frame in fi])
@@ -409,7 +409,7 @@ class TestActionList(unittest.TestCase):
         ref.top = traj.top
         ref.append(traj[3])
 
-        fi = pt.create_pipeline(traj,
+        fi = pt.pipe(traj,
                                 ['autoimage', 'rms refindex 0 @CA'],
                                 dslist=dslist)
         xyz = np.array([frame.xyz.copy() for frame in fi])

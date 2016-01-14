@@ -724,8 +724,8 @@ class Trajectory(object):
         >>> traj2.xyz[0, 0] # after transforming
         array([-1.19438073,  8.75046229, -1.82742397])
         '''
-        from pytraj.c_action.actionlist import create_pipeline
-        fi = create_pipeline(self, commands, frame_indices=frame_indices)
+        from pytraj.c_action.actionlist import pipe
+        fi = pipe(self, commands, frame_indices=frame_indices)
 
         for _ in fi:
             pass
@@ -1006,8 +1006,8 @@ class Trajectory(object):
         >>> import pytraj as pt
         >>> traj = pt.load_sample_data('tz2')
         >>> t0 = pt.Trajectory.from_iterable(traj(3, 8, 2))
-        >>> from pytraj import create_pipeline
-        >>> fi = create_pipeline(traj, ['autoimage', 'rms'])
+        >>> from pytraj import pipe
+        >>> fi = pipe(traj, ['autoimage', 'rms'])
         >>> t0 = pt.Trajectory.from_iterable(fi, top=traj.top)
         >>> t0.n_frames
         10

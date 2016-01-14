@@ -73,7 +73,7 @@ class TestIO(unittest.TestCase):
             lambda: pt.write_traj("./output/test_0.nc", None, overwrite=True))
 
         # raise if _top is None
-        fi = pt.create_pipeline(traj, ['autoimage', ])
+        fi = pt.pipe(traj, ['autoimage', ])
         self.assertRaises(
             ValueError,
             lambda: pt.write_traj("./output/test_0.nc", traj=fi, overwrite=True))
@@ -192,7 +192,7 @@ class TestIO(unittest.TestCase):
         aa_eq(xyz, traj['@CA'].xyz)
 
         # slow
-        fi = pt.create_pipeline(traj, ['autoimage'])
+        fi = pt.pipe(traj, ['autoimage'])
         aa_eq(pt.get_coordinates(fi), traj[:].autoimage().xyz)
 
         # raise
