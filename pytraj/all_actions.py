@@ -2779,7 +2779,7 @@ def lowestcurve(data, points=10, step=0.2):
     act = c_analysis.Analysis_LowestCurve()
 
     act(command, dslist=c_dslist)
-    return np.array([dslist[-1]._xcrd(), np.array(dslist[-1].values)])
+    return np.array([c_dslist[-1]._xcrd(), np.array(c_dslist[-1].values)])
 
 
 def acorr(data, dtype='ndarray', option=''):
