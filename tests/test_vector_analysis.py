@@ -35,7 +35,7 @@ class TestVectorAnalysisModule(unittest.TestCase):
                                mask,
                                traj.top,
                                dslist=dslist)
-        actlist.do_actions(traj)
+        actlist.compute(traj)
 
         dslist2 = pt.calc_vector(traj, mask_list)
         dslist4 = va.vector_mask(traj, mask_list)

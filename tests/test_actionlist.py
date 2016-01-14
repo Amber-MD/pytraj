@@ -68,7 +68,7 @@ class TestActionList(unittest.TestCase):
                          top=top)
 
         # do checking
-        alist.process(top)
+        alist.check_topology(top)
 
         farray2 = Trajectory()
         frame0 = Frame()
@@ -81,7 +81,7 @@ class TestActionList(unittest.TestCase):
             # perform actions for each frame
             # we make a copy since we want to keep orginal Frame
             frame0 = frame.copy()
-            alist.do_actions(frame0)
+            alist.compute(frame0)
 
             # we need to keep the modified frame in farray2
             farray2.append(frame0)
@@ -117,7 +117,7 @@ class TestActionList(unittest.TestCase):
         # does not work with `strip` (output traj have the same n_atoms as originl traj)
         # turn off for now
         # Error: Could not get associated topology for ./output/test_trajout.nc
-        # alist.do_actions([traj[[0, 1]], traj, traj.iterchunk(chunksize=4,
+        # alist.compute([traj[[0, 1]], traj, traj.iterchunk(chunksize=4,
         #                                                     stop=8),
         #                  traj.iterframe()])
 
@@ -132,7 +132,7 @@ class TestActionList(unittest.TestCase):
         alist.add_action(adict['distance'],
                          ":2@CA :10@CA out ./output/_dist.out", traj.top,
                          dslist, dflist)
-        alist.do_actions([traj.iterchunk()])
+        alist.compute([traj.iterchunk()])
         assert len(dslist) == 1
         assert dslist[0].size == traj.n_frames
 
@@ -147,7 +147,7 @@ class TestActionList(unittest.TestCase):
                                mask,
                                traj.top,
                                dslist=dslist)
-        actlist.do_actions(traj)
+        actlist.compute(traj)
 
         dslist2 = pt.calc_angle(traj, mask_list)
 
@@ -170,7 +170,7 @@ class TestActionList(unittest.TestCase):
                                mask,
                                traj.top,
                                dslist=dslist)
-        actlist.do_actions(traj)
+        actlist.compute(traj)
 
         dslist2 = pt.calc_dihedral(traj, mask_list)
 
@@ -193,7 +193,7 @@ class TestActionList(unittest.TestCase):
                                mask,
                                traj.top,
                                dslist=dslist)
-        actlist.do_actions(traj)
+        actlist.compute(traj)
 
         dslist2 = pt.calc_distance(traj, mask_list)
         aa_eq(dslist.values, dslist2)
@@ -221,7 +221,7 @@ class TestActionList(unittest.TestCase):
         d0.add_frame(traj[3])
 
         for frame in traj:
-            actlist.do_actions(frame)
+            actlist.compute(frame)
 
         aa_eq(pt.rmsd(traj, mask='@CA'), dslist[0])
         aa_eq(pt.distance(traj, ':3 :7'), dslist[1])
@@ -254,7 +254,7 @@ class TestActionList(unittest.TestCase):
         actlist = ActionList(commands, traj.top, dslist=dslist)
 
         for frame in traj:
-            actlist.do_actions(frame)
+            actlist.compute(frame)
 
         aa_eq(pt.rmsd(traj, mask='@CA'), dslist[0])
         aa_eq(pt.distance(traj, ':3 :7'), dslist[1])
@@ -274,7 +274,7 @@ class TestActionList(unittest.TestCase):
         actlist = ActionList(commands, top=traj.top)
 
         for frame in traj:
-            actlist.do_actions(frame)
+            actlist.compute(frame)
 
         aa_eq(pt.rmsd(traj, mask='@CA'), actlist.data[0])
         aa_eq(pt.distance(traj, ':3 :7'), actlist.data[1])
@@ -297,7 +297,7 @@ class TestActionList(unittest.TestCase):
         actlist = ActionList(commands, top=traj.top, dslist=dslist)
 
         for frame in traj:
-            actlist.do_actions(frame)
+            actlist.compute(frame)
 
         aa_eq(dslist['mycrd'].xyz,
               pt.get_coordinates(traj,
@@ -316,7 +316,7 @@ class TestActionList(unittest.TestCase):
         actlist = Pipeline(commands, top=traj.top, dslist=dslist)
 
         for frame in traj:
-            actlist.do_actions(frame)
+            actlist.compute(frame)
 
         aa_eq(dslist['mycrd'].xyz,
               pt.get_coordinates(traj,
@@ -333,7 +333,7 @@ class TestActionList(unittest.TestCase):
 
         def get_frameiter(actlist, traj):
             for frame in traj:
-                actlist.do_actions(frame)
+                actlist.compute(frame)
                 yield frame
 
         def do_extra(fi):
@@ -359,7 +359,7 @@ class TestActionList(unittest.TestCase):
             '''create a frame iterator with pre-processed by cpptraj
             '''
             for frame in traj:
-                actlist.do_actions(frame)
+                actlist.compute(frame)
                 yield frame
 
         ref = traj[3]

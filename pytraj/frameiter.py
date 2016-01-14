@@ -176,7 +176,7 @@ class FrameIterator(object):
         if self.autoimage:
             image_act = c_action.Action_AutoImage()
             image_act.read_input("", top=self.original_top)
-            image_act.process(self.original_top)
+            image_act.check_topology(self.original_top)
         if self.rmsfit is not None:
             ref, mask_for_rmsfit = self.rmsfit
             need_align = True
@@ -184,12 +184,12 @@ class FrameIterator(object):
                 # need to do autoimage for ref too
                 # make a copy to avoid changing ref
                 ref = ref.copy()
-                image_act.do_action(ref)
+                image_act.compute(ref)
             rmsd_act = c_action.Action_Rmsd()
             rmsd_act.read_input(mask_for_rmsfit, top=self.original_top)
-            rmsd_act.process(self.original_top)
+            rmsd_act.check_topology(self.original_top)
             # creat first frame to trick cpptraj to align to this.
-            rmsd_act.do_action(ref)
+            rmsd_act.compute(ref)
         else:
             need_align = False
             ref, mask_for_rmsfit = None, None
@@ -209,10 +209,10 @@ class FrameIterator(object):
             if self.autoimage:
                 # from pytraj.c_action.c_action import Action_AutoImage
                 # Action_AutoImage()("", frame, self.top)
-                image_act.do_action(frame)
+                image_act.compute(frame)
             if need_align:
                 # trick cpptraj to fit to 1st frame (=ref)
-                rmsd_act.do_action(frame)
+                rmsd_act.compute(frame)
             if self.mask is not None:
                 frame2 = Frame(frame, atm)
                 yield frame2

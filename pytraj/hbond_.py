@@ -175,10 +175,10 @@ def hbond(traj,
 
     # need to get correct frame number
     act.read_input(command, top=top, dslist=dslist)
-    act.process(top)
+    act.check_topology(top)
 
     for idx, frame in enumerate(iterframe_master(traj)):
-        act.do_action(frame, idx=idx)
+        act.compute(frame, idx=idx)
 
     act.post_process()
 
