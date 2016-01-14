@@ -41,7 +41,7 @@ try ``pytraj`` online:
     # perform the actions, only a single frame is loaded
     # data is saved to dslist
     for frame in traj:
-        actlist.do_actions(frame)
+        actlist.compute(frame)
         # you can plug your own function here to
         # your_funct(frame, ...)
     dslist
