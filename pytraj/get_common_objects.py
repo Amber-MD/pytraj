@@ -229,8 +229,6 @@ class super_dispatch(object):
         except TypeError:
             kwargs_spec = {}
 
-        print(f, kwargs_spec)
-
         has_ref = 'ref' in args_spec.args
         has_mask = 'mask' in args_spec.args
 
@@ -238,15 +236,15 @@ class super_dispatch(object):
         def inner(*args, **kwargs):
             args = list(args)
             # traj is always 1st argument
-            try:
-                traj = kwargs.get('traj', args[0])
-            except IndexError:
+            if 'traj' in kwargs:
                 traj = kwargs.get('traj')
+            else:
+                traj = args[0]
 
+            mask = kwargs.get('mask', kwargs_spec.get('mask'))
             ref = kwargs.get('ref', kwargs_spec.get('ref'))
             frame_indices = kwargs.get('frame_indices')
             top = kwargs.get('top')
-            mask = kwargs.get('mask', kwargs_spec.get('mask'))
 
             if has_ref:
                 if ref is None:
@@ -283,9 +281,6 @@ class super_dispatch(object):
                             args[1] = mask
                     except IndexError:
                         args.append(mask)
-            # debug
-            # print('args = {0}, kwargs = {1}'.format(args, kwargs))
-            # print('traj = {0}, ref={1}, mask={2}'.format(traj, ref, mask))
             return f(*args, **kwargs)
 
         inner._is_super_dispatched = True
