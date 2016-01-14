@@ -69,7 +69,7 @@ def pipe(traj, commands, DatasetList dslist=DatasetList(), frame_indices=None):
 
     actlist = ActionList(commands, top=traj.top, dslist=dslist)
     for frame in iterframe_master(fi):
-        actlist.do_actions(frame)
+        actlist.compute(frame)
         yield frame
 
 
@@ -228,7 +228,7 @@ cdef class ActionList:
         ...                     'hbond :3,8,10']
         >>> alist = ActionList(list_of_commands, traj.top, dslist=dslist)
         >>> for frame in traj:
-        ...     alist.do_actions(frame)
+        ...     alist.compute(frame)
         """
         self._dslist = dslist
         self._dflist = dflist
@@ -326,7 +326,7 @@ cdef class ActionList:
         actionsetup_ = _ActionSetup(top.thisptr, crdinfo_, n_frames_t)
         self.thisptr.SetupActions(actionsetup_, exit_on_error)
 
-    def do_actions(self, traj=Frame(), int idx=0):
+    def compute(self, traj=Frame(), int idx=0):
         '''perform a series of Actions on Frame or Trajectory
         '''
         cdef _ActionFrame actionframe_
@@ -345,4 +345,4 @@ cdef class ActionList:
             self.thisptr.DoActions(idx, actionframe_)
         else:
             for i, frame in enumerate(iterframe_master(traj)):
-                self.do_actions(frame, i)
+                self.compute(frame, i)

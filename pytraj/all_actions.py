@@ -571,7 +571,7 @@ def calc_diffusion(traj,
     act.check_topology(top)
     for idx, frame in enumerate(traj):
         # do not need mass
-        act.do_action(frame, idx=idx)
+        act.compute(frame, idx=idx)
     act.post_process()
 
     # make the label nicer
@@ -2048,7 +2048,7 @@ def _closest_iter(act, traj):
     '''
 
     for frame in iterframe_master(traj):
-        new_frame = act.do_action(frame, get_new_frame=True)
+        new_frame = act.compute(frame, get_new_frame=True)
         yield new_frame
 
 
