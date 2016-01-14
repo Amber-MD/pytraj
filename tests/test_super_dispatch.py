@@ -36,7 +36,7 @@ class TestSuperDispatch(unittest.TestCase):
         func(self.traj, mask=[0, 3, 7])
 
         # test all: top, mask, ref
-        def func_all_3(traj, ref=0, top=None, mask=''):
+        def func_all_3(traj, mask='', ref=0, top=None):
             assert isinstance(mask, string_types)
             assert isinstance(ref, pt.Frame)
             assert isinstance(top, pt.Topology)
@@ -44,11 +44,9 @@ class TestSuperDispatch(unittest.TestCase):
         func = super_dispatch()(func_all_3)
         func(self.traj, ref=3)
 
-        # FIXME
-        # positional
-        super_dispatch(has_ref=True)(func_all_3)(self.traj, 3)
+        super_dispatch()(func_all_3)(self.traj, ref=3)
         # specify nothing
-        super_dispatch(has_ref=True)(func_all_3)(self.traj)
+        super_dispatch()(func_all_3)(self.traj)
 
     def testsuper_dispatch(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
@@ -59,6 +57,8 @@ class TestSuperDispatch(unittest.TestCase):
             atom_indices = pt.select_atoms(mask, traj.top)
             # mask
             aa_eq(func(traj, mask=mask), func(traj, mask=atom_indices))
+            # specify traj=traj
+            aa_eq(func(traj=traj, mask=mask), func(traj, mask=atom_indices))
 
             # frame_indices with mask
             frame_indices = [0, 5, 8]

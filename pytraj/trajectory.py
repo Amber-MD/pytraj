@@ -10,7 +10,7 @@ from .externals.six.moves import range
 from .core.c_core import AtomMask
 
 # use absolute import here
-from pytraj.get_common_objects import get_topology
+from pytraj.get_common_objects import get_topology, get_reference
 
 from .topology import Topology
 from pytraj.shared_methods import iterframe_master, my_str_method
@@ -724,8 +724,8 @@ class Trajectory(object):
         >>> traj2.xyz[0, 0] # after transforming
         array([-1.19438073,  8.75046229, -1.82742397])
         '''
-        from pytraj.c_action.actionlist import create_pipeline
-        fi = create_pipeline(self, commands, frame_indices=frame_indices)
+        from pytraj.c_action.actionlist import pipe
+        fi = pipe(self, commands, frame_indices=frame_indices)
 
         for _ in fi:
             pass
@@ -774,7 +774,7 @@ class Trajectory(object):
         """
         return self.superpose(*args, **kwd)
 
-    def superpose(self, ref=None, mask="*", frame_indices=None, mass=False):
+    def superpose(self, mask="*", ref=None, frame_indices=None, mass=False):
         """do the fitting to reference Frame by rotation and translation
 
         Parameters
@@ -795,31 +795,24 @@ class Trajectory(object):
         >>> from pytraj.testing import get_fn
         >>> traj = pt.load(*get_fn('tz2'))
         >>> traj = traj.superpose() # fit to 1st frame
-        >>> traj = traj.superpose(0) # fit to 1st frame, explitly specify
-        >>> traj = traj.superpose(-1, '@CA') # fit to last frame using @CA atoms
+        >>> traj = traj.superpose(ref=0) # fit to 1st frame, explitly specify
+        >>> traj = traj.superpose(ref=-1, mask='@CA') # fit to last frame using @CA atoms
         """
         # not yet dealed with `mass` and box
-
-        if isinstance(ref, Frame):
-            ref_frame = ref
-        elif is_int(ref):
-            i = ref
-            ref_frame = self[i]
-        else:
-            # first
-            ref_frame = self[0]
-
+        if not isinstance(mask, string_types):
+            mask = array_to_cpptraj_atommask(mask)
+        ref = get_reference(self, ref)
         atm = self.top(mask)
 
         fi = self if frame_indices is not None else self.iterframe(
             frame_indices=frame_indices)
 
         if mass:
-            ref_frame.set_mass(self.top)
+            ref.set_mass(self.top)
         for idx, frame in enumerate(fi):
             if mass:
                 frame.set_mass(self.top)
-            _, mat, v1, v2 = frame.rmsd(ref_frame,
+            _, mat, v1, v2 = frame.rmsd(ref,
                                         atm,
                                         get_mvv=True,
                                         mass=mass)
@@ -1006,8 +999,8 @@ class Trajectory(object):
         >>> import pytraj as pt
         >>> traj = pt.load_sample_data('tz2')
         >>> t0 = pt.Trajectory.from_iterable(traj(3, 8, 2))
-        >>> from pytraj import create_pipeline
-        >>> fi = create_pipeline(traj, ['autoimage', 'rms'])
+        >>> from pytraj import pipe
+        >>> fi = pipe(traj, ['autoimage', 'rms'])
         >>> t0 = pt.Trajectory.from_iterable(fi, top=traj.top)
         >>> t0.n_frames
         10

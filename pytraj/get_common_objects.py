@@ -128,27 +128,27 @@ def get_matrix_from_dataset(dset, mat_type='full'):
         raise ValueError()
 
 
-def get_reference_from_traj(traj, ref):
+def get_reference(traj, ref):
     '''try best to get reference
 
     Examples
     --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()
-    >>> frame = get_reference_from_traj(traj, 3)
+    >>> frame = get_reference(traj, 3)
     >>> isinstance(frame, pt.Frame)
     True
-    >>> frame = get_reference_from_traj(traj, None)
+    >>> frame = get_reference(traj, None)
     >>> isinstance(frame, pt.Frame)
     True
     >>> ref = traj[5]
-    >>> frame = get_reference_from_traj(traj, ref)
+    >>> frame = get_reference(traj, ref)
     '''
     if isinstance(ref, integer_types):
         try:
             return traj[ref]
         except TypeError:
-            raise TypeError("%s does not support indexing" % traj.__str__())
+            raise TypeError("%s does not support indexing" % str(traj))
     elif ref is None:
         try:
             return traj[0]
@@ -203,7 +203,7 @@ def get_resrange(resrange):
 
 class super_dispatch(object):
     # TODO: more descriptive method name?
-    '''apply a series of functions to ``f``'s args and kwd
+    '''apply a series of functions to ``f``'s args and kwargs
 
     - get Topology from a given traj (Trajectory, frame iterator, ...) and top
         get_topology(traj, top)
@@ -214,73 +214,90 @@ class super_dispatch(object):
     - convert int ref to Frame ref
     '''
 
-    def __init__(self, has_ref=False):
-        self.has_ref = has_ref
+    def __init__(self, refindex=None):
+        self.refindex = refindex
 
     def __call__(self, f):
+        import inspect
+
+        try:
+            args_spec = inspect.getfullargspec(f)
+        except AttributeError:
+            # py2
+            args_spec = inspect.getargspec(f)
+        n_default = len(args_spec.defaults) if args_spec.defaults else 0
+        try:
+            kwargs_spec = dict((k, v) for (k, v) in
+                                zip(args_spec.args[-n_default:],
+                                    args_spec.defaults))
+        except TypeError:
+            kwargs_spec = {}
+
+        has_ref_arg = 'ref' in args_spec.args
+        has_mask_arg = 'mask' in args_spec.args
+
         @wraps(f)
-        def inner(*args, **kwd):
+        def inner(*args, **kwargs):
             args = list(args)
             # traj is always 1st argument
-            try:
-                traj = kwd.get('traj', args[0])
-            except IndexError:
-                traj = kwd.get('traj')
-            frame_indices = kwd.get('frame_indices')
-            ref = kwd.get('ref')
-            if self.has_ref and ref is None:
-                try:
-                    ref = args[1]
-                except IndexError:
-                    ref = 0
-            if 'ref' in kwd.keys() or self.has_ref:
-                # convert to Frame
-                ref = get_reference_from_traj(traj, ref)
-
-            top = kwd.get('top')
-
-            if 'mask' in kwd.keys():
-                mask = kwd.get('mask')
-                has_mask = True
+            if 'traj' in kwargs:
+                traj = kwargs.get('traj')
+                has_traj_arg = True
             else:
-                # mask is always 2nd argument if there is no ref
-                if not self.has_ref:
+                traj = args[0]
+                has_traj_arg = False
+
+            mask = kwargs.get('mask', kwargs_spec.get('mask'))
+            ref = kwargs.get('ref', kwargs_spec.get('ref'))
+            frame_indices = kwargs.get('frame_indices')
+            top = kwargs.get('top')
+
+            if has_mask_arg and mask is '':
+                if has_traj_arg:
+                    try:
+                        mask = args[0]
+                    except IndexError:
+                        mask = ''
+                else:
                     try:
                         mask = args[1]
-                        has_mask = True
                     except IndexError:
-                        mask = '*'
-                        has_mask = False
-                else:
-                    try:
-                        mask = args[2]
-                        has_mask = True
-                    except IndexError:
-                        mask = '*'
-                        has_mask = False
+                        mask = ''
 
-            # overwrite
-            kwd['top'] = get_topology(traj, top)
-            if ref is not None:
-                if 'ref' in kwd.keys():
-                    kwd['ref'] = get_reference_from_traj(traj, ref)
-                else:
+            if has_ref_arg:
+                if ref is None:
                     try:
-                        args[1] = ref
+                        ref = args[self.refindex] if self.refindex is not None else args[2]
                     except IndexError:
-                        args.append(ref)
-            if 'traj' in kwd.keys():
-                kwd['traj'] = get_fiterator(traj, frame_indices)
+                        ref = 0
+                ref = get_reference(traj, ref)
+
+            # update traj to args or kwargs
+            if 'traj' in kwargs:
+                kwargs['traj'] = get_fiterator(traj, frame_indices)
             else:
                 args[0] = get_fiterator(traj, frame_indices)
-            if not isinstance(mask, string_types):
+
+            # update topology to kwargs
+            kwargs['top'] = get_topology(traj, top)
+
+            # update reference to args or kwargs
+            if has_ref_arg:
+                kwargs['ref'] = get_reference(traj, ref)
+
+            # update mask to args or kwargs
+            if has_mask_arg and not isinstance(mask, string_types):
                 mask = array_to_cpptraj_atommask(mask)
-            if 'mask' in kwd.keys():
-                kwd['mask'] = mask
+            if 'mask' in kwargs:
+                kwargs['mask'] = mask
             else:
-                if has_mask:
-                    args[1] = mask
-            return f(*args, **kwd)
+                if has_mask_arg:
+                    if 'traj' not in kwargs:
+                        try:
+                            args[1] = mask
+                        except IndexError:
+                            args.append(mask)
+            return f(*args, **kwargs)
 
         inner._is_super_dispatched = True
         return inner
@@ -292,7 +309,7 @@ def get_fi_with_dslist(traj, mask, frame_indices, top, crdname='dataset_coords')
     from pytraj.shared_methods import iterframe_master
 
     dslist = CpptrajDatasetList()
-    dslist.add_set("coords", crdname)
+    dslist.add("coords", crdname)
     # need to set "rmsout" to trick cpptraj not giving error
     # need " " (space) before crdset too
 

@@ -23,7 +23,7 @@ class TestState(unittest.TestCase):
             s = load_batch(traj, text)
             s.run()
 
-            rmsd0 = pt.rmsd(traj, 0, '@CA')
+            rmsd0 = pt.rmsd(traj, '@CA', ref=0)
             r0 = pt.radgyr(traj, '@CA')
             s.data._pop(0)
             aa_eq(rmsd0, s.data[0])
@@ -37,7 +37,7 @@ class TestState(unittest.TestCase):
             s.run()
             s.data._pop(0)
 
-            rmsd0 = pt.rmsd(traj, 0, '@CA')
+            rmsd0 = pt.rmsd(traj, '@CA', ref=0)
             r0 = pt.radgyr(traj, '@CA')
             aa_eq(rmsd0, s.data[0])
             aa_eq(r0, s.data[1])

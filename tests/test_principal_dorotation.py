@@ -11,22 +11,24 @@ class TestPrincipalAxis(unittest.TestCase):
 
     def test_do_rotation(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        frame = traj[0]
-        f0 = traj[0].copy()
-        pt.align_principal_axis(frame, "@CA", top=traj.top)
 
-        # assert
-        saved_frame = pt.iterload("./data/Tc5b.principal_dorotation.rst7",
-                                  traj.top)[0]
-        assert (frame.rmsd_nofit(saved_frame)) < 0.15
-
-        cm = 'principal * dorotation mass name pout'
+        cm = '''
+        principal * dorotation mass name pout
+        createcrd myname
+        '''
         state = pt.load_cpptraj_state(cm, traj)
         state.run()
-        data = pt.principal_axes(traj, mask='*', dorotation=True, mass=True)
+
+        mut_traj_0 = traj[:]
+        mut_traj_1 = traj[:]
+
+        data = pt.principal_axes(mut_traj_0, mask='*', dorotation=True, mass=True)
+        pt.align_principal_axis(mut_traj_1, mask='*', mass=True)
+
         aa_eq(data[0], state.data[1].values)
         aa_eq(data[1], state.data[2].values)
-
+        aa_eq(state.data[-1].xyz, mut_traj_0.xyz)
+        aa_eq(state.data[-1].xyz, mut_traj_1.xyz)
 
 if __name__ == "__main__":
     unittest.main()

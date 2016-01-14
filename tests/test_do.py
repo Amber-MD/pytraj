@@ -14,7 +14,7 @@ class TestDo(unittest.TestCase):
         ref0 = pt.autoimage(traj[0], top=traj.top)
         ref1 = pt.autoimage(traj[1], top=traj.top)
 
-        data = pt.tools.dict_to_ndarray(pt.do(
+        data = pt.tools.dict_to_ndarray(pt.compute(
             ['autoimage', 'radgyr nomax @CA', 'rms refindex 0',
              'rms refindex 1'],
             traj,
@@ -26,7 +26,7 @@ class TestDo(unittest.TestCase):
         aa_eq(pt.rmsd(t0, ref=ref1), data[2])
 
         # pytraj's method
-        aa_eq(pt.do(pt.radgyr, t0, '@CA'), data[0])
+        aa_eq(pt.compute(pt.radgyr, t0, '@CA'), data[0])
 
 
 if __name__ == "__main__":

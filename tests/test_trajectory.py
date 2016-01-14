@@ -233,7 +233,7 @@ class TestTrajectory(unittest.TestCase):
         '''test_from_iterables, tests are ind its doc. Test raise here
         '''
         traj = pt.datafiles.load_tz2_ortho()
-        fi = pt.create_pipeline(traj, ['autoimage'])
+        fi = pt.pipe(traj, ['autoimage'])
         # does not have Topology info
         self.assertRaises(ValueError, lambda: pt.Trajectory.from_iterable(fi))
 

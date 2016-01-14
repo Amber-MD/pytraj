@@ -13,7 +13,7 @@ def _get_arglist(arg):
         return ArgList(arg)
 
 
-def create_pipeline(traj, commands, DatasetList dslist=DatasetList(), frame_indices=None):
+def pipe(traj, commands, DatasetList dslist=DatasetList(), frame_indices=None):
     '''create frame iterator from cpptraj's commands.
 
     This method is useful if you want cpptraj pre-processing your Trajectory before
@@ -29,7 +29,7 @@ def create_pipeline(traj, commands, DatasetList dslist=DatasetList(), frame_indi
     --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()
-    >>> for frame in pt.create_pipeline(traj, ['autoimage', 'rms', 'center :1']): pass
+    >>> for frame in pt.pipe(traj, ['autoimage', 'rms', 'center :1']): pass
 
     Above example is similiar to cpptraj's command::
 
@@ -47,7 +47,7 @@ def create_pipeline(traj, commands, DatasetList dslist=DatasetList(), frame_indi
             for frame in traj:
                 do_some_thing_fun_with(frame)
 
-        fi = pt.create_pipeline(traj, ['autoimage', 'rms', 'center :1'])
+        fi = pt.pipe(traj, ['autoimage', 'rms', 'center :1'])
 
         # perform action with pre-processed frames (already autoimaged, then rms fit to
         # 1st frame, then center at box center.
@@ -161,7 +161,7 @@ def do(lines, traj, *args, **kwd):
                 ref_dset.add_frame(ref_)
 
         # create Frame generator
-        fi = create_pipeline(traj, commands=lines, dslist=dslist)
+        fi = pipe(traj, commands=lines, dslist=dslist)
 
         # just iterate Frame to trigger calculation.
         # this code is for fun.

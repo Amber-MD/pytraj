@@ -70,12 +70,12 @@ def _ired(iredvec,
 
     for idx, dvec in enumerate(iredvec):
         name = 'ired_' + str(idx)
-        dslist.add_set('vector', name)
+        dslist.add('vector', name)
         dslist[-1].scalar_type = 'iredvec'
         dslist[-1].data = np.asarray(dvec, dtype='f8')
 
     # add data to DatasetModes
-    dslist.add_set('modes', 'mymodes')
+    dslist.add('modes', 'mymodes')
     is_reduced = False  # ?
     if hasattr(modes, 'eigenvalues') and hasattr(modes, 'eigenvectors'):
         eigenvalues = modes.eigenvalues

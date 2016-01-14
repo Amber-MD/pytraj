@@ -6,13 +6,13 @@ traj = pt.iterload("../tests/data/tz2.ortho.nc",
 print(traj)
 
 # perform rmsd calculation to first frame, all atoms
-pt.rmsd(traj, 0)
+pt.rmsd(traj, ref=0)
 
 # perform rmsd calculation to last frame, all atoms but H
-pt.rmsd(traj, -1, mask='!@H=')
+pt.rmsd(traj, mask='!@H=', ref=-1)
 
 # perform rmsd calculation to last frame, CA atoms
-pt.rmsd(traj, -1, '@CA')
+pt.rmsd(traj, '@CA', ref=-1)
 
 # perform rmsd calculation to stripped-atom reference
 pt.rmsd(traj(mask='@CA'), ref=traj[2:3, '@CA'])

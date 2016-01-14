@@ -234,7 +234,7 @@ cdef class DatasetList:
         dset.baseptr0 = self.thisptr.AddSet(DataTypeDict[dtype], name, default_name)
         return cast_dataset(dset, dtype=dset.dtype)
 
-    def add_set(self, *args, **kwd):
+    def add(self, *args, **kwd):
         '''alias of self.add_new
         '''
         return self.add_new(*args, **kwd)
