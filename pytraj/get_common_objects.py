@@ -229,8 +229,8 @@ class super_dispatch(object):
         except TypeError:
             kwargs_spec = {}
 
-        has_ref = 'ref' in args_spec.args
-        has_mask = 'mask' in args_spec.args
+        has_ref_arg = 'ref' in args_spec.args
+        has_mask_arg = 'mask' in args_spec.args
 
         @wraps(f)
         def inner(*args, **kwargs):
@@ -238,15 +238,29 @@ class super_dispatch(object):
             # traj is always 1st argument
             if 'traj' in kwargs:
                 traj = kwargs.get('traj')
+                has_traj_arg = True
             else:
                 traj = args[0]
+                has_traj_arg = False
 
             mask = kwargs.get('mask', kwargs_spec.get('mask'))
             ref = kwargs.get('ref', kwargs_spec.get('ref'))
             frame_indices = kwargs.get('frame_indices')
             top = kwargs.get('top')
 
-            if has_ref:
+            if has_mask_arg and not mask:
+                if has_traj_arg:
+                    try:
+                        mask = args[0]
+                    except IndexError:
+                        mask = ''
+                else:
+                    try:
+                        mask = args[1]
+                    except IndexError:
+                        mask = ''
+
+            if has_ref_arg:
                 if ref is None:
                     try:
                         ref = args[self.refindex] if self.refindex is not None else args[2]
@@ -264,23 +278,26 @@ class super_dispatch(object):
             kwargs['top'] = get_topology(traj, top)
 
             # update reference to args or kwargs
-            if has_ref:
+            if has_ref_arg:
                 kwargs['ref'] = get_reference(traj, ref)
 
             # update mask to args or kwargs
-            if has_mask and not isinstance(mask, string_types):
+            if has_mask_arg and not isinstance(mask, string_types):
                 mask = array_to_cpptraj_atommask(mask)
             if 'mask' in kwargs:
                 kwargs['mask'] = mask
             else:
-                if has_mask:
-                    try:
-                        if 'traj' in kwargs:
+                if has_mask_arg:
+                    if 'traj' in kwargs:
+                        try:
                             args[0] = mask
-                        else:
+                        except IndexError:
+                            args.append(mask)
+                    else:
+                        try:
                             args[1] = mask
-                    except IndexError:
-                        args.append(mask)
+                        except IndexError:
+                            args.append(mask)
             return f(*args, **kwargs)
 
         inner._is_super_dispatched = True
