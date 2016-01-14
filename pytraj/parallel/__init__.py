@@ -1,7 +1,7 @@
 import numpy as np
 from functools import partial
 from pytraj import Frame
-from pytraj import create_pipeline
+from pytraj import pipe
 from pytraj.datasets import CpptrajDatasetList
 from pytraj.externals.six import string_types
 
@@ -74,7 +74,7 @@ def worker_actlist(rank,
             ref_dset.add_frame(ref_)
 
     # create Frame generator
-    fi = create_pipeline(my_iter, commands=lines, dslist=dslist)
+    fi = pipe(my_iter, commands=lines, dslist=dslist)
 
     # just iterate Frame to trigger calculation.
     for _ in fi:

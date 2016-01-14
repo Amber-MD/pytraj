@@ -37,7 +37,7 @@ except ImportError:
 
 try:
     from .core import Atom, Residue, Molecule
-    from .c_action.actionlist import ActionList, create_pipeline, do
+    from .c_action.actionlist import ActionList, pipe, do
     compute = do
     Pipeline = ActionList
 
@@ -439,7 +439,7 @@ def run(fi):
 
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()
-    >>> fi = pt.create_pipeline(traj, ['autoimage', 'rms', 'center :1-13'])
+    >>> fi = pt.pipe(traj, ['autoimage', 'rms', 'center :1-13'])
     >>> pt.run(fi)
     '''
     for _ in fi:
