@@ -274,7 +274,7 @@ class TestActionListRMSD(unittest.TestCase):
                              dslist=dslist)
 
             for frame in input_traj:
-                alist.computes(frame)
+                alist.compute(frame)
             return (dslist.values)
 
         rmsd0 = test_rmsd(traj)

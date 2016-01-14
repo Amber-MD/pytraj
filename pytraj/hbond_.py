@@ -178,7 +178,7 @@ def hbond(traj,
     act.check_topology(top)
 
     for idx, frame in enumerate(iterframe_master(traj)):
-        act.do_action(frame, idx=idx)
+        act.compute(frame, idx=idx)
 
     act.post_process()
 

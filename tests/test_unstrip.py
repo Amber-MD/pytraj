@@ -19,7 +19,7 @@ class TestUnstrip(unittest.TestCase):
             top=traj.top,
             dslist=dslist)
 
-        actlist.computes(traj)
+        actlist.compute(traj)
 
         # make sure that after stripping and unstrip the Frame coords are restored
         aa_eq(pt.radgyr(traj), dslist.values)
@@ -29,7 +29,7 @@ class TestUnstrip(unittest.TestCase):
             ['strip !@CA', 'radgyr nomax'],
             top=traj.top,
             dslist=dslist2)
-        actlist2.computes(traj)
+        actlist2.compute(traj)
         # make sure get correct radgyr after stripping all but CA atoms
         aa_eq(dslist2.values, pt.radgyr(traj, '@CA'))
 
