@@ -42,8 +42,8 @@ class Test(unittest.TestCase):
 
         try:
             import mdtraj as md
-            pt.rmsd(t0, 0)
-            pt.rmsd(trajectory_t0, 0)
+            pt.rmsd(t0, ref=0)
+            pt.rmsd(trajectory_t0, ref=0)
         except ImportError:
             pass
 

@@ -10,7 +10,7 @@ print(traj)
 print(pt.rmsd(traj, ref=-1, mask='@CA nofit'))
 
 # superpose to last frame with mask='@CA'
-traj.superpose(-1, '@CA')
+traj.superpose(ref=-1, mask='@CA')
 
 # make sure we DID superpose by calculate rmsd
 print(pt.rmsd(traj, ref=-1, mask='@CA nofit'))

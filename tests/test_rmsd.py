@@ -64,7 +64,7 @@ class TestSimpleRMSD(unittest.TestCase):
         m_traj = md.load_mdcrd("./data/md1_prod.Tc5b.x", m_top)
         m_traj.xyz = m_traj.xyz * 10  # convert `nm` to `Angstrom` unit
 
-        arr0 = pt.rmsd(traj, 0)
+        arr0 = pt.rmsd(traj, ref=0)
         arr1 = pt.rmsd(traj, ref=0)
         arr2 = pt.rmsd(traj, )
         a_md0 = md.rmsd(m_traj, m_traj, 0)
