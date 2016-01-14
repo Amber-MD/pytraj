@@ -176,7 +176,7 @@ class FrameIterator(object):
         if self.autoimage:
             image_act = c_action.Action_AutoImage()
             image_act.read_input("", top=self.original_top)
-            image_act.process(self.original_top)
+            image_act.check_topology(self.original_top)
         if self.rmsfit is not None:
             ref, mask_for_rmsfit = self.rmsfit
             need_align = True
@@ -187,7 +187,7 @@ class FrameIterator(object):
                 image_act.do_action(ref)
             rmsd_act = c_action.Action_Rmsd()
             rmsd_act.read_input(mask_for_rmsfit, top=self.original_top)
-            rmsd_act.process(self.original_top)
+            rmsd_act.check_topology(self.original_top)
             # creat first frame to trick cpptraj to align to this.
             rmsd_act.do_action(ref)
         else:

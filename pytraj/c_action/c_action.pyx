@@ -17,7 +17,7 @@ cdef class Action:
     >>> from pytraj.datafiles import DataFileList
     >>> dslist = CpptrajDataSetList()
     >>> act = Action_Radgyr(command='@CA', dslist=dslist, top=traj.top)
-    >>> act.do_action(traj)
+    >>> act.compute(traj)
     '''
 
     def __cinit__(self):
@@ -37,7 +37,7 @@ cdef class Action:
 
         if top is not None and dslist is not None:
             self.read_input(command, top=top, dslist=dslist, dflist=dflist)
-            self.process(top)
+            self.check_topology(top)
 
     def __dealloc__(self):
         # should I del pointer here or in subclass?
@@ -98,13 +98,13 @@ cdef class Action:
                                    debug)
 
         if i_fail != OK:
-            # check before do_action to avoid segfault
+            # check before compute to avoid segfault
             raise ValueError("")
         else:
             return i_fail
 
     @makesureABC("Action")
-    def process(self, Topology top=Topology(), crdinfo={}, n_frames_t=0, get_new_top=False):
+    def check_topology(self, Topology top=Topology(), crdinfo={}, n_frames_t=0, get_new_top=False):
         """pass coordinate_info
 
         Parameters:
@@ -141,7 +141,7 @@ cdef class Action:
             return new_top
 
     @makesureABC("Action")
-    def do_action(self, current_frame=None, int idx=0, get_new_frame=False):
+    def compute(self, current_frame=None, int idx=0, get_new_frame=False):
         """Perform action on Frame
 
         Parameters
@@ -168,7 +168,7 @@ cdef class Action:
                 return new_frame
         else:
             for frame in iterframe_master(current_frame):
-                self.do_action(frame, idx=idx)
+                self.compute(frame, idx=idx)
 
     @makesureABC("Action")
     def post_process(self):
@@ -187,8 +187,8 @@ cdef class Action:
                         dslist=dslist,
                         dflist=dflist, debug=debug)
 
-        self.process(top=top)
-        self.do_action(current_frame)
+        self.check_topology(top=top)
+        self.compute(current_frame)
         return dslist
 
     def reset_counter(self):

@@ -300,7 +300,7 @@ cdef class ActionList:
         else:
             return None
 
-    def process(self, Topology top, crdinfo={}, n_frames_t=0, bint exit_on_error=True):
+    def check_topology(self, Topology top, crdinfo={}, n_frames_t=0, bint exit_on_error=True):
         '''perform Topology checking and some stuff
         '''
         # let cpptraj free mem
@@ -334,7 +334,7 @@ cdef class ActionList:
         cdef int i
 
         if not self.top_is_processed:
-            self.process(self.top)
+            self.check_topology(self.top)
             # make sure to make top_is_processed True after processing
             # if not, pytraj will try to setup for every Frame
             self.top_is_processed = True

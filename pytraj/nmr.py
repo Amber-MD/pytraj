@@ -158,7 +158,7 @@ def ired_vector_and_matrix(traj=None,
     ired_cm = 'ired order ' + str(order)
     actlist.add_action(act_matired, ired_cm, _top, dslist=dslist)
 
-    actlist.do_actions(fi)
+    actlist.compute(fi)
 
     if dtype == 'tuple':
         mat = dslist[-1].values

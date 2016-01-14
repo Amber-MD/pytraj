@@ -189,7 +189,7 @@ def calc_distance(traj=None,
                                _top,
                                dslist=c_dslist)
 
-        actlist.do_actions(traj)
+        actlist.compute(traj)
         return get_data_from_dtype(c_dslist, dtype)
 
     else:
@@ -328,7 +328,7 @@ def calc_angle(traj=None,
                                    dslist=c_dslist,
                                    *args,
                                    **kwargs)
-            actlist.do_actions(traj)
+            actlist.compute(traj)
             return get_data_from_dtype(c_dslist, dtype)
 
     else:
@@ -470,7 +470,7 @@ def calc_dihedral(traj=None,
                                    dslist=c_dslist,
                                    *args,
                                    **kwargs)
-            actlist.do_actions(traj)
+            actlist.compute(traj)
             return get_data_from_dtype(c_dslist, dtype)
     else:
         # ndarray
@@ -568,7 +568,7 @@ def calc_diffusion(traj,
     # but cpptraj need correct frame idx
 
     act.read_input(command, top=top, dslist=c_dslist)
-    act.process(top)
+    act.check_topology(top)
     for idx, frame in enumerate(traj):
         # do not need mass
         act.do_action(frame, idx=idx)
@@ -1628,7 +1628,7 @@ def calc_vector(traj=None,
     for command in list_of_commands:
         act = c_action.Action_Vector()
         actlist.add_action(act, command, _top, dslist=c_dslist)
-    actlist.do_actions(fi)
+    actlist.compute(fi)
 
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
@@ -1926,8 +1926,8 @@ def calc_rmsd(traj=None,
                          top=_top,
                          dslist=c_dslist)
 
-    alist.do_actions(ref)
-    alist.do_actions(fi)
+    alist.compute(ref)
+    alist.compute(fi)
 
     dnew = DatasetList(c_dslist)
     for d in dnew:
@@ -2104,7 +2104,7 @@ def closest(traj=None,
         raise RuntimeError("Topology does not have solvent")
 
     act.read_input(command, top, dslist=c_dslist)
-    new_top = act.process(top, get_new_top=True)
+    new_top = act.check_topology(top, get_new_top=True)
 
     fiter = _closest_iter(act, traj)
 
