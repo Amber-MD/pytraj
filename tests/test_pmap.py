@@ -74,8 +74,8 @@ class TestNormalPmap(unittest.TestCase):
 
          # test worker
          # need to test this since coverages seems not recognize partial func
-        from pytraj.parallel.multiprocessing_ import worker
-        data = worker(rank=2, n_cores=8, func=pt.radgyr, traj=traj, args=(), kwd={'mask': '@CA'}, iter_options={})
+        from pytraj.parallel.multiprocessing_ import worker_byfunc
+        data = worker_byfunc(rank=2, n_cores=8, func=pt.radgyr, traj=traj, args=(), kwd={'mask': '@CA'}, iter_options={})
         assert data[0] == 2, 'rank must be 2'
         assert data[2] == 1, 'n_frames for rank=2 should be 1 (only 10 frames in total)'
 
