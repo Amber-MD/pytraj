@@ -15,50 +15,6 @@ from pytraj.externals.six import string_types
 from .base import worker_byfunc
 
 
-def worker_byfunc(rank,
-           n_cores=None,
-           func=None,
-           traj=None,
-           args=None,
-           kwd=None,
-           iter_options=None,
-           apply=None):
-    # need to unpack args and kwd
-    if iter_options is None:
-        iter_options = {}
-    mask = iter_options.get('mask')
-    rmsfit = iter_options.get('rmsfit')
-    autoimage = iter_options.get('autoimage', False)
-    iter_func = apply
-    frame_indices = kwd.pop('frame_indices', None)
-
-    if frame_indices is None:
-        my_iter = traj._split_iterators(n_cores,
-                                        rank=rank,
-                                        mask=mask,
-                                        rmsfit=rmsfit,
-                                        autoimage=autoimage)
-    else:
-        my_indices = np.array_split(frame_indices, n_cores)[rank]
-        my_iter = traj.iterframe(frame_indices=my_indices,
-                                 mask=mask,
-                                 rmsfit=rmsfit,
-                                 autoimage=autoimage)
-    n_frames = my_iter.n_frames
-    kwd_cp = {}
-    kwd_cp.update(kwd)
-
-    if iter_func is not None:
-        final_iter = iter_func(my_iter)
-        kwd_cp['top'] = my_iter.top
-    else:
-        final_iter = my_iter
-
-    data = func(final_iter, *args, **kwd_cp)
-    return (rank, data, n_frames)
-
-
-
 def _pmap(func, traj, *args, **kwd):
     '''use python's multiprocessing to accelerate calculation. Limited calculations.
 
@@ -206,7 +162,7 @@ def _pmap(func, traj, *args, **kwd):
 
     if isinstance(func, (list, tuple, string_types)):
         # assume using _load_batch_pmap
-        from pytraj.parallel.base import _load_batch_pmap, check_valid_command
+        from pytraj.parallel.base import _load_batch_pmap
         #check_valid_command(func)
         data = _load_batch_pmap(n_cores=n_cores,
                                 traj=traj,
