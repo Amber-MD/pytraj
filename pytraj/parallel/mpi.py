@@ -19,13 +19,12 @@ def pmap_mpi(func, traj, *args, **kwd):
         $ # create test_radgyr.py file
         $ cat > test_radgyr.py <<EOF
         import pytraj as pt
-        from pytraj.parallel import pmap_mpi
         from mpi4py import MPI
         comm = MPI.COMM_WORLD
 
         traj = pt.iterload('tz2.nc', 'tz2.parm7')
 
-        result_arr = pmap_mpi(pt.radgyr, traj, "@CA")
+        result_arr = pt.pmap_mpi(pt.radgyr, traj, "@CA")
 
         if comm.rank == 0:
             # save data to disk to read later by pytraj.read_pickle
@@ -65,7 +64,7 @@ def pmap_mpi(func, traj, *args, **kwd):
             total = concat_dict(x for x in total)
     else:
         # cpptraj command style
-        from pytraj.parallel import _load_batch_pmap
+        from pytraj.parallel.base import _load_batch_pmap
         total = _load_batch_pmap(n_cores=n_cores,
                                  traj=traj,
                                  lines=func,

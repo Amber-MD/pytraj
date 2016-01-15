@@ -221,7 +221,7 @@ analdict = AnalysisDict()
 # import _pmap here to be called from nmr module
 from .parallel.multiprocessing_ import pmap, _pmap
 from .parallel.mpi import pmap_mpi
-from .parallel import _load_batch_pmap
+from .parallel.base import _load_batch_pmap
 from . import view
 
 

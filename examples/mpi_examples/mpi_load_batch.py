@@ -11,7 +11,7 @@ comm = MPI.COMM_WORLD
 
 # you are free to update anything below here
 # _load_batch_pmap is temp method name, will be changed in future
-from pytraj.parallel import _load_batch_pmap
+from pytraj.parallel.base import _load_batch_pmap
 
 root_dir = "../../tests/data/"
 traj_name = root_dir + "tz2.nc"

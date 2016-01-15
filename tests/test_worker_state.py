@@ -4,7 +4,7 @@ import unittest
 from functools import partial
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
-from pytraj.parallel import worker_state
+from pytraj.parallel.base import worker_state
 from pytraj.tools import concat_dict
 
 
