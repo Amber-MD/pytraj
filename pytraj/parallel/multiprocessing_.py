@@ -95,7 +95,7 @@ def _pmap(func, traj, *args, **kwd):
     If using pytraj syntax::
 
         If calculation require a reference structure, users need to explicit provide reference
-        as a Frame (not an integer number). For example, pt.pmap(4, pt.rmsd, traj, ref=-3)
+        as a Frame (not an integer number). For example, pt.pmap(pt.rmsd, traj, ref=-3, n_cores=3)
         won't work, use ``ref=traj[3]`` instead.
 
     If using cpptraj syntax::
@@ -106,7 +106,7 @@ def _pmap(func, traj, *args, **kwd):
         frame in original traj. Specifing `refindex 0` will direct pytraj to send `ref` to
         all the cores.
 
-        pt.pmap(['autoimage', 'rms refindex 0'], traj, ref=traj[0])
+        pt.pmap(['autoimage', 'rms refindex 0'], traj, ref=(traj[0],))
 
         pytraj only supports limited cpptraj's Actions (not Analysis, checm Amber15 manual
         about Action and Analysis), say no  to 'matrix', 'atomicfluct', ... or any action
@@ -129,7 +129,7 @@ def _pmap(func, traj, *args, **kwd):
 
     vs::
 
-        In [1]: pt.pmap(4, pt.radgyr, traj)
+        In [1]: pt.pmap(pt.radgyr, traj, n_cores=4)
         Out[1]:
         OrderedDict([('RoG_00000',
                       array([ 18.91114428,  18.93654996,  18.84969884,  18.90449256,
@@ -179,30 +179,14 @@ def _pmap(func, traj, *args, **kwd):
     >>> # `refindex 0` is equal to `reflist[0]`
     >>> # `refindex 1` is equal to `reflist[1]`
     >>> data = pt.pmap(['rms @CA refindex 0', 'rms !@H= refindex 1'], traj, ref=reflist, n_cores=2)
-    >>> data
-    OrderedDict([('RMSD_00002', array([  2.68820312e-01,   3.11804885e-01,   2.58835452e-01,
-             9.10475988e-08,   2.93310737e-01,   4.10197322e-01,
-             3.96226694e-01,   3.66059215e-01,   3.90890362e-01,
-             4.89180497e-01])), ('RMSD_00003', array([  1.17102654e+01,   1.07412683e+01,   8.77663285e+00,
-             8.17606134e+00,   6.47116798e-07,   8.88683731e+00,
-             1.06206160e+01,   1.09855368e+01,   1.13693451e+01,
-             1.15623929e+01]))])
     >>> # convert to ndarray
-    >>> pt.tools.dict_to_ndarray(data)
-    array([[  0.26882031,   0.31180488,   0.25883545, ...,   0.36605922,
-              0.39089036,   0.4891805 ],
-           [ 11.71026542,  10.74126835,   8.77663285, ...,  10.9855368 ,
-             11.36934506,  11.56239288]])
+    >>> data_arr = pt.tools.dict_to_ndarray(data)
 
     >>> # perform parallel calculation with given frame_indices
     >>> traj = pt.datafiles.load_tz2()
-    >>> pt.pmap(pt.radgyr, traj, '@CA', frame_indices=range(10, 50), n_cores=4)
-    OrderedDict([('RoG_00000', array([ 6.90993314,  7.87518156,  8.57775535, ...,  9.29585981,
-            9.53138062,  9.19155977]))])
+    >>> data = pt.pmap(pt.radgyr, traj, '@CA', frame_indices=range(10, 50), n_cores=4)
     >>> # serial version
-    >>> pt.radgyr(traj, '@CA', frame_indices=range(10, 50))
-    array([ 6.90993314,  7.87518156,  8.57775535, ...,  9.29585981,
-            9.53138062,  9.19155977])
+    >>> data = pt.radgyr(traj, '@CA', frame_indices=range(10, 50))
 
 
     See also
