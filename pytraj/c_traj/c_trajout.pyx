@@ -27,11 +27,15 @@ cdef class TrajectoryWriter:
         print TrajFormatDict.keys()
 
     def open(self, filename='', top=Topology(),
-             options=None, overwrite=False):
+             format='infer',
+             options='', overwrite=False):
         '''
         filename : str, output filename
         top : Topology
-        options : str, additional keywords
+        format : str, default 'infer'
+            if 'infer', determine file format based on extension.
+            If can not detect extension, use AMBER mdcrd format
+        options : str, additional keywords for writing file (good for pdb, mol2, ...)
         overwrite : bool, default False
         '''
 
@@ -54,6 +58,11 @@ cdef class TrajectoryWriter:
 
         local_dict = TrajFormatDict.copy()
         local_dict.get("", "")
+
+        if format.lower() == 'infer':
+            options += ''
+        else:
+            options = ' '.join((format.lower(), options))
 
         if options:
             if isinstance(options, string_types):

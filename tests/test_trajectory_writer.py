@@ -25,7 +25,7 @@ class TestTrajectoryWriter(unittest.TestCase):
 
         # add more frames
         for i in range(5, 8):
-            trajout.write(i, farray[i], farray.top)
+            trajout.write(farray[i])
 
         trajout.close()
 
@@ -61,11 +61,11 @@ class TestTrajectoryWriter(unittest.TestCase):
                          frame_indices=list(range(10)))
         pt.write_traj("./output/test_write_output.x",
                    farray,
-                   farray.top,
+                   top=farray.top,
                    overwrite=True)
         pt.write_traj("./output/test_pdb_1.dummyext",
                    farray[0],
-                   farray.top,
+                   top=farray.top,
                    overwrite=True)
 
         # test 'save'

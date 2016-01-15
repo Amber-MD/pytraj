@@ -316,6 +316,7 @@ def load_remd(filename, top=None, T="300.0"):
 
 def write_traj(filename="",
                traj=None,
+               format='infer',
                top=None,
                frame_indices=None,
                overwrite=False,
@@ -326,6 +327,8 @@ def write_traj(filename="",
     ----------
     filename : str
     traj : Trajectory-like or iterator that produces Frame or 3D ndarray with shape=(n_frames, n_atoms, 3)
+    format : str, default 'infer'
+        if 'inter', detect format based on extension. If can not detect, use amber mdcdf format.
     top : Topology, optional, default: None
     frame_indices: array-like or iterator that produces integer, default: None
         If not None, only write output for given frame indices
@@ -383,6 +386,7 @@ def write_traj(filename="",
     if not isinstance(traj, np.ndarray):
         with TrajectoryWriter(filename=filename,
                      top=_top,
+                     format=format,
                      overwrite=overwrite,
                      options=options) as trajout:
             if isinstance(traj, Frame):
