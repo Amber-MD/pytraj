@@ -8,7 +8,7 @@ from pytraj.utils import eq, aa_eq
 from pytraj.tools import flatten
 from pytraj import matrix
 from pytraj.compat import set
-from pytraj.parallel import _load_batch_pmap
+from pytraj.parallel.base import _load_batch_pmap, worker_by_actlist
 from pytraj import c_commands
 
 
@@ -269,12 +269,32 @@ class TestFrameIndices(unittest.TestCase):
 class TestCheckValidCommand(unittest.TestCase):
 
     def test_check_valid_command(self):
+        from pytraj.parallel.base import check_valid_command
+        assert check_valid_command(['rms', ]) == (['rms refindex 0 '], True)
+        assert check_valid_command(['distrmsd', ]) == (['distrmsd refindex 0 '], True)
+        assert check_valid_command(['nativecontacts', ]) == (['nativecontacts refindex 0 '], True)
+        assert check_valid_command(['nastruct', ]) == (['nastruct refindex 0 '], True)
+        assert check_valid_command(['symmetricrmsd', ]) == (['symmetricrmsd refindex 0 '], True)
         traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
 
-        # must provide refindex
-        self.assertRaises(ValueError, lambda: pt.pmap(['rms'], traj, n_cores=2))
-        self.assertRaises(ValueError, lambda: pt.pmap(('rms',), traj, n_cores=2))
-        self.assertRaises(ValueError, lambda: pt.pmap('rms', traj, n_cores=2))
+        aa_eq(pt.tools.dict_to_ndarray(
+            pt.pmap(['rmsd'], traj, ref=traj[3], n_cores=3)),
+            pt.rmsd(traj, ref=traj[3]))
+
+        # provide refindex
+        aa_eq(pt.tools.dict_to_ndarray(
+            pt.pmap(['rmsd refindex 0'], traj, ref=traj[3], n_cores=3)),
+            pt.rmsd(traj, ref=traj[3]))
+
+        aa_eq(pt.tools.dict_to_ndarray(
+            pt.pmap(['rmsd refindex 0'], traj, ref=[traj[3], traj[0]], n_cores=3)),
+            pt.rmsd(traj, ref=traj[3]))
+
+        # if user does not provide reference, need to give it to them
+        aa_eq(pt.tools.dict_to_ndarray(
+            pt.pmap(['rmsd'], traj, n_cores=3)),
+            pt.rmsd(traj, ref=traj[0]))
+
         # does not support matrix
         self.assertRaises(ValueError, lambda: pt.pmap(['matrix'], traj, n_cores=2))
 
@@ -307,13 +327,12 @@ class TestVolmap(unittest.TestCase):
 
 class TestWorker(unittest.TestCase):
 
-    def testworker_actlist(self):
+    def testworker_by_actlist(self):
         # just want to exercise all codes
-        from pytraj.parallel import worker_actlist
         traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
         for ref in [None, traj[0], [traj[0], traj[1]]]:
-            data = worker_actlist(rank=3, n_cores=8, traj=traj, lines=['radgyr @CA', 'vector :3 :7'],
-                                  ref=ref, kwd=dict())
+            data = worker_by_actlist(rank=3, n_cores=8, traj=traj, lines=['radgyr @CA', 'vector :3 :7'],
+                                     ref=ref, kwd=dict())
 
 
 def change_10_atoms(traj):

@@ -12,8 +12,10 @@ from multiprocessing import cpu_count
 from pytraj.tools import concat_dict
 from pytraj.externals.six import string_types
 
+from .base import worker_byfunc
 
-def worker(rank,
+
+def worker_byfunc(rank,
            n_cores=None,
            func=None,
            traj=None,
@@ -203,8 +205,6 @@ def _pmap(func, traj, *args, **kwd):
             9.53138062,  9.19155977])
 
 
-
-
     See also
     --------
     pytraj.pmap_mpi
@@ -223,7 +223,7 @@ def _pmap(func, traj, *args, **kwd):
     if isinstance(func, (list, tuple, string_types)):
         # assume using _load_batch_pmap
         from pytraj.parallel.base import _load_batch_pmap, check_valid_command
-        check_valid_command(func)
+        #check_valid_command(func)
         data = _load_batch_pmap(n_cores=n_cores,
                                 traj=traj,
                                 lines=func,
@@ -267,7 +267,7 @@ def _pmap(func, traj, *args, **kwd):
 
         p = Pool(n_cores)
 
-        pfuncs = partial(worker,
+        pfuncs = partial(worker_byfunc,
                          n_cores=n_cores,
                          func=func,
                          traj=traj,
