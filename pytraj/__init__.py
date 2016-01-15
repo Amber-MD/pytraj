@@ -73,7 +73,7 @@ from .frame import Frame
 from .shared_methods import iterframe_master
 from .trajectory import Trajectory
 from .trajectory_iterator import TrajectoryIterator
-from .c_traj.c_trajout import Trajout
+from .c_traj.c_trajout import TrajectoryWriter
 from .datasets.cast_dataset import cast_dataset
 from .datasetlist import DatasetList as Dataset
 from . import io

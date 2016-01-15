@@ -21,6 +21,7 @@ cdef class TrajectoryWriter:
 
     def __cinit__(self, *args, **kwd):
         self.thisptr = new _Trajout()
+        self.count = 0
 
         if args or kwd:
             self.open(*args, **kwd)
@@ -87,11 +88,8 @@ cdef class TrajectoryWriter:
     def close(self):
         self.thisptr.EndTraj()
 
-    def write(self, *args, **kwd):
-        self.write_frame(*args, **kwd)
-
-    def write_frame(self, int idx=0, Frame frame=Frame(), *args, **kwd):
-        """write trajout for Frame with given Topology
+    def write(self, Frame frame):
+        """
 
         Parameters
         ----------
@@ -99,4 +97,5 @@ cdef class TrajectoryWriter:
 
         *args, **kwd: just dummy
         """
-        self.thisptr.WriteFrame(idx, frame.thisptr[0])
+        self.thisptr.WriteFrame(self.count, frame.thisptr[0])
+        self.count += 1

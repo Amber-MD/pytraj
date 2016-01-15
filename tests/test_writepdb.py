@@ -16,7 +16,7 @@ class Test(unittest.TestCase):
         mdio.write_traj("test_1.dcd", traj[0], top=traj.top, overwrite=True)
 
         with TrajectoryWriter("./output/test_1", overwrite=True) as trajout:
-            trajout.write(frame=traj[0])
+            trajout.write(traj[0])
 
     def test_1(self):
         # TODO: get absolute path so we can use `goto_temp_folder`

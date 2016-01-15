@@ -18,3 +18,4 @@ cdef extern from "TrajoutList.h":
 
 cdef class TrajectoryWriter:
     cdef _Trajout* thisptr
+    cdef unsigned int count
