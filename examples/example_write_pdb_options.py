@@ -1,7 +1,7 @@
 import unittest
 from pytraj.base import *
 from pytraj import io as mdio
-from pytraj import Trajout
+from pytraj import TrajectoryWriter
 from glob import glob
 from pytraj.testing import aa_eq
 from pytraj.utils import goto_temp_folder
@@ -14,7 +14,7 @@ class Test(unittest.TestCase):
         # if not: wrong dir if using TrajectoryIterator
         traj = mdio.iterload("../tests/data/md1_prod.Tc5b.x",
                              "../tests/data/Tc5b.top")[:]
-        trajout = Trajout()
+        trajout = TrajectoryWriter()
         # multiple pdb in multiple files, using `save` method in traj
         with goto_temp_folder():
             basename = "test_pdb_files.pdb"
