@@ -371,7 +371,7 @@ def write_traj(filename="",
     >>> pt.write_traj("output/test_xyz.nc", xyz, top=traj.top, overwrite=True)
     """
     from .frame import Frame
-    from .c_traj.c_trajout import Trajout
+    from .c_traj.c_trajout import TrajectoryWriter
 
     _top = get_topology(traj, top)
     if _top is None:
@@ -381,7 +381,7 @@ def write_traj(filename="",
         raise ValueError("Need non-empty traj and top files")
 
     if not isinstance(traj, np.ndarray):
-        with Trajout(filename=filename,
+        with TrajectoryWriter(filename=filename,
                      top=_top,
                      overwrite=overwrite,
                      options=options) as trajout:
@@ -389,18 +389,18 @@ def write_traj(filename="",
                 if frame_indices is not None:
                     raise ValueError(
                         "frame indices does not work with single Frame")
-                trajout.write(0, traj)
+                trajout.write(traj)
             else:
                 if frame_indices is not None:
                     if isinstance(traj, (list, tuple, Frame)):
                         raise NotImplementedError(
                             "must be Trajectory or TrajectoryIterator instance")
-                    for idx, frame in enumerate(traj.iterframe(frame_indices=frame_indices)):
-                        trajout.write(idx, frame)
+                    for frame in traj.iterframe(frame_indices=frame_indices):
+                        trajout.write(frame)
 
                 else:
-                    for idx, frame in enumerate(iterframe_master(traj)):
-                        trajout.write(idx, frame)
+                    for frame in iterframe_master(traj):
+                        trajout.write(frame)
     else:
         # is ndarray, shape=(n_frames, n_atoms, 3)
         # create frame iterator
@@ -411,13 +411,13 @@ def write_traj(filename="",
             0]) if frame_indices is None else frame_indices
         fi = iterframe_from_array(xyz, _top.n_atoms, _frame_indices, _top)
 
-        with Trajout(filename=filename,
+        with TrajectoryWriter(filename=filename,
                      top=_top,
                      overwrite=overwrite,
                      options=options) as trajout:
 
-            for idx, frame in enumerate(fi):
-                trajout.write(idx, frame)
+            for frame in fi:
+                trajout.write(frame)
 
 
 def write_parm(filename=None, top=None, format='amberparm', overwrite=False):

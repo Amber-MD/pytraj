@@ -62,15 +62,15 @@ def write_traj(filename, traj=None, mode='', frame_indices=None):
     act(command, fi, top=_top)
 
 
-class Trajout:
+class TrajectoryWriter:
     # give wrong n_atoms for last frame. Why?
     '''
     Examples
     --------
 
-    >>> with Trajout('test.pdb', mode='model', top=top) trajout:
-    >>>     for idx, frame in enumerate(traj):
-    >>>         trajout.write_frame(idx, frame)
+    >>> with TrajectoryWriter('test.pdb', mode='model', top=top) trajout:
+    >>>     for frame in traj:
+    >>>         trajout.write(frame)
 
     '''
 
@@ -81,7 +81,7 @@ class Trajout:
         self._outtraj.read_input(command, top=top)
         self._outtraj.process(top)
 
-    def write_frame(self, frame):
+    def write(self, frame):
         self._outtraj.do_action(frame)
 
     def __enter__(self):

@@ -16,5 +16,5 @@ cdef extern from "TrajoutList.h":
         int WriteFrame "WriteTrajout"(int, const _Frame&)
         int SetupTrajWrite "SetupTrajout"(_Topology*, CoordinateInfo, int)
 
-cdef class Trajout:
+cdef class TrajectoryWriter:
     cdef _Trajout* thisptr

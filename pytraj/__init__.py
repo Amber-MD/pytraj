@@ -97,6 +97,9 @@ from .io import (load,
                  to_pickle,
                  to_json, )
 
+# alias
+write_trajectory = write_traj
+
 load_from_frame_iter = _load_from_frame_iter
 
 # dataset stuff

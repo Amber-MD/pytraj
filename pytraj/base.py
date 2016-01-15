@@ -15,10 +15,10 @@ from .trajectory import Trajectory
 from .topology import Topology
 from .core.c_core import ArgList
 from .trajectory_iterator import TrajectoryIterator
-from .c_traj.c_trajout import Trajout
+from .c_traj.c_trajout import TrajectoryWriter
 from . import c_dict
 
 __all__ = ['Atom', 'Residue', 'Molecule', 'Topology', 'Frame', 'Trajectory',
            'TrajectoryIterator', 'AtomMask', 'ArgList', 'CpptrajState',
-           'DatasetList', 'DataFileList', 'ActionList', 'Trajout',
+           'DatasetList', 'DataFileList', 'ActionList', 'TrajectoryWriter',
            'cast_dataset', 'c_dict']

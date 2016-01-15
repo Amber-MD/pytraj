@@ -4,7 +4,7 @@ from pytraj.c_dict import TrajFormatDict
 from pytraj.utils.check_and_assert import file_exist
 
 
-cdef class Trajout:
+cdef class TrajectoryWriter:
     formats = TrajFormatDict.keys()
     """Writing output
 
@@ -13,7 +13,7 @@ cdef class Trajout:
     filename: str
     format: str, optional, default='AMBERTRAJ'
         output format: %s
-        if `format` is not provided, Trajout will decide format based on extension.
+        if `format` is not provided, TrajectoryWriter will decide format based on extension.
         if not `format` and no extension, default format = AMBERTRAJ
     So the priority is format> extension > default
 
