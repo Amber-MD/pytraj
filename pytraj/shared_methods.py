@@ -5,19 +5,16 @@ __all__ = ['_savetraj', 'iterframe_master', '_xyz', 'my_str_method', '_box']
 
 def _savetraj(self,
               filename="",
-              format='unknown',
               overwrite=False,
-              *args,
               **kwd):
-    from pytraj.c_traj.c_trajout import Trajout
-    with Trajout(filename=filename,
+    from pytraj.c_traj.c_trajout import TrajectoryWriter
+
+    with TrajectoryWriter(filename=filename,
                  top=self.top,
-                 format=format,
                  overwrite=overwrite,
-                 *args,
                  **kwd) as trajout:
-        for idx, frame in enumerate(self):
-            trajout.write(idx, frame)
+        for frame in self:
+            trajout.write(frame)
 
 
 def _xyz(self):

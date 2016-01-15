@@ -4,23 +4,10 @@ from pytraj.c_dict import TrajFormatDict
 from pytraj.utils.check_and_assert import file_exist
 
 
-cdef class Trajout:
-    formats = TrajFormatDict.keys()
-    """Writing output
-
-    Parameters
-    ----------
-    filename: str
-    format: str, optional, default='AMBERTRAJ'
-        output format: %s
-        if `format` is not provided, Trajout will decide format based on extension.
-        if not `format` and no extension, default format = AMBERTRAJ
-    So the priority is format> extension > default
-
-    """
-
+cdef class TrajectoryWriter:
     def __cinit__(self, *args, **kwd):
         self.thisptr = new _Trajout()
+        self.count = 0
 
         if args or kwd:
             self.open(*args, **kwd)
@@ -39,8 +26,18 @@ cdef class Trajout:
         print "TrajFormat"
         print TrajFormatDict.keys()
 
-    def open(self, filename='', top=Topology(), format='default',
-             options=None, overwrite=False):
+    def open(self, filename='', top=Topology(),
+             format='infer',
+             options='', overwrite=False):
+        '''
+        filename : str, output filename
+        top : Topology
+        format : str, default 'infer'
+            if 'infer', determine file format based on extension.
+            If can not detect extension, use AMBER mdcrd format
+        options : str, additional keywords for writing file (good for pdb, mol2, ...)
+        overwrite : bool, default False
+        '''
 
         cdef ArgList arglist
         cdef Topology top_
@@ -61,13 +58,11 @@ cdef class Trajout:
 
         local_dict = TrajFormatDict.copy()
         local_dict.get("", "")
-        # make upper case in case user uses lower ones
-        format= format.upper()
 
-        if format == "PDB" or format == "MOL2":
-            # add 'FILE' the end
-            # 'PDBFILE' 'MOL2FILE'
-            format += 'FILE'
+        if format.lower() == 'infer':
+            options += ''
+        else:
+            options = ' '.join((format.lower(), options))
 
         if options:
             if isinstance(options, string_types):
@@ -87,11 +82,8 @@ cdef class Trajout:
     def close(self):
         self.thisptr.EndTraj()
 
-    def write(self, *args, **kwd):
-        self.write_frame(*args, **kwd)
-
-    def write_frame(self, int idx=0, Frame frame=Frame(), *args, **kwd):
-        """write trajout for Frame with given Topology
+    def write(self, Frame frame):
+        """
 
         Parameters
         ----------
@@ -99,4 +91,9 @@ cdef class Trajout:
 
         *args, **kwd: just dummy
         """
-        self.thisptr.WriteFrame(idx, frame.thisptr[0])
+        self.thisptr.WriteFrame(self.count, frame.thisptr[0])
+        self.count += 1
+
+    @classmethod
+    def get_formats(cls):
+        return list(TrajFormatDict.keys())

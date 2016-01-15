@@ -73,7 +73,7 @@ from .frame import Frame
 from .shared_methods import iterframe_master
 from .trajectory import Trajectory
 from .trajectory_iterator import TrajectoryIterator
-from .c_traj.c_trajout import Trajout
+from .c_traj.c_trajout import TrajectoryWriter
 from .datasets.cast_dataset import cast_dataset
 from .datasetlist import DatasetList as Dataset
 from . import io
@@ -96,6 +96,9 @@ from .io import (load,
                  read_json,
                  to_pickle,
                  to_json, )
+
+# alias
+write_trajectory = write_traj
 
 load_from_frame_iter = _load_from_frame_iter
 

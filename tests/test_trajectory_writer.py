@@ -2,7 +2,6 @@ import unittest
 import pytraj as pt
 import numpy as np
 from pytraj.base import *
-from pytraj.io import write_traj
 from pytraj import io as mdio
 from pytraj.testing import aa_eq
 
@@ -11,31 +10,31 @@ farray = pt.load("data/md1_prod.Tc5b.x",
                  frame_indices=list(range(10)))
 
 
-class TestTrajout(unittest.TestCase):
+class TestTrajectoryWriter(unittest.TestCase):
 
     def test_0(self):
         farray = pt.load("data/md1_prod.Tc5b.x",
                          "./data/Tc5b.top",
                          frame_indices=list(range(10)))
         frame0 = farray[0]
-        trajout = Trajout()
+        trajout = TrajectoryWriter()
         trajout.open(filename="./output/test.x",
                      top=farray.top,
                      overwrite=True)
-        trajout.write(0, frame0, farray.top)
+        trajout.write(frame0)
 
         # add more frames
         for i in range(5, 8):
-            trajout.write(i, farray[i], farray.top)
+            trajout.write(farray[i])
 
         trajout.close()
 
     def test_1_with_statement(self):
         frame0 = farray[0]
-        with Trajout(filename="./output/test_trajout_withstatement.x",
+        with TrajectoryWriter(filename="./output/test_trajout_withstatement.x",
                      top=farray.top,
                      overwrite=True) as trajout:
-            trajout.write(0, frame0, farray.top)
+            trajout.write(frame0)
 
         # reload
         farray2 = Trajectory("./output/test_trajout_withstatement.x",
@@ -50,23 +49,23 @@ class TestTrajout(unittest.TestCase):
 
     def test_3_write_PDBFILE(self):
         frame0 = farray[0]
-        with Trajout(filename="./output/test_0.pdb",
+        with TrajectoryWriter(filename="./output/test_0.pdb",
                      top=farray.top,
                      overwrite=True) as trajout:
-            trajout.write(0, frame0, farray.top)
+            trajout.write(frame0)
 
     def test_4(self):
         """test write Trajectory"""
         farray = pt.load("data/md1_prod.Tc5b.x",
                          "./data/Tc5b.top",
                          frame_indices=list(range(10)))
-        write_traj("./output/test_write_output.x",
+        pt.write_traj("./output/test_write_output.x",
                    farray,
-                   farray.top,
+                   top=farray.top,
                    overwrite=True)
-        write_traj("./output/test_pdb_1.dummyext",
+        pt.write_traj("./output/test_pdb_1.dummyext",
                    farray[0],
-                   farray.top,
+                   top=farray.top,
                    overwrite=True)
 
         # test 'save'

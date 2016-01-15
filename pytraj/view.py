@@ -57,4 +57,5 @@ def to_nglview(traj, parmfile=None):  # pragma: no cover
     parm.write_pdb(x)
     buffer_ = x.getvalue()
     x.close()
-    return nv.Trajectory(xyz=traj.xyz, topology=nv.Structure(text=buffer_))
+    ngl_traj = nv.Trajectory(xyz=traj.xyz, topology=nv.Structure(text=buffer_))
+    return nv.TrajectoryViewer(ngl_traj)

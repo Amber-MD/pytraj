@@ -2,7 +2,7 @@ import unittest
 import pytraj as pt
 from pytraj.base import *
 from pytraj import io as mdio
-from pytraj import Trajout
+from pytraj import TrajectoryWriter
 from glob import glob
 from pytraj.testing import aa_eq
 from pytraj.utils import goto_temp_folder
@@ -15,14 +15,14 @@ class Test(unittest.TestCase):
         mdio.write_traj("test_1.pdb", traj[0], top=traj.top, overwrite=True)
         mdio.write_traj("test_1.dcd", traj[0], top=traj.top, overwrite=True)
 
-        with Trajout("./output/test_1", overwrite=True) as trajout:
-            trajout.write(frame=traj[0], top=traj.top)
+        with TrajectoryWriter("./output/test_1", overwrite=True) as trajout:
+            trajout.write(traj[0])
 
     def test_1(self):
         # TODO: get absolute path so we can use `goto_temp_folder`
         # if not: wrong dir if using TrajectoryIterator
         traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
-        trajout = Trajout()
+        trajout = TrajectoryWriter()
 
         # multiple pdb in multiple files, using `save` method in traj
         with goto_temp_folder():
