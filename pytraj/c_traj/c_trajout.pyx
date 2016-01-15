@@ -5,20 +5,6 @@ from pytraj.utils.check_and_assert import file_exist
 
 
 cdef class TrajectoryWriter:
-    formats = TrajFormatDict.keys()
-    """Writing output
-
-    Parameters
-    ----------
-    filename: str
-    format: str, optional, default='AMBERTRAJ'
-        output format: %s
-        if `format` is not provided, TrajectoryWriter will decide format based on extension.
-        if not `format` and no extension, default format = AMBERTRAJ
-    So the priority is format> extension > default
-
-    """
-
     def __cinit__(self, *args, **kwd):
         self.thisptr = new _Trajout()
         self.count = 0
@@ -40,8 +26,14 @@ cdef class TrajectoryWriter:
         print "TrajFormat"
         print TrajFormatDict.keys()
 
-    def open(self, filename='', top=Topology(), format='default',
+    def open(self, filename='', top=Topology(),
              options=None, overwrite=False):
+        '''
+        filename : str, output filename
+        top : Topology
+        options : str, additional keywords
+        overwrite : bool, default False
+        '''
 
         cdef ArgList arglist
         cdef Topology top_
@@ -62,13 +54,6 @@ cdef class TrajectoryWriter:
 
         local_dict = TrajFormatDict.copy()
         local_dict.get("", "")
-        # make upper case in case user uses lower ones
-        format= format.upper()
-
-        if format == "PDB" or format == "MOL2":
-            # add 'FILE' the end
-            # 'PDBFILE' 'MOL2FILE'
-            format += 'FILE'
 
         if options:
             if isinstance(options, string_types):
@@ -99,3 +84,7 @@ cdef class TrajectoryWriter:
         """
         self.thisptr.WriteFrame(self.count, frame.thisptr[0])
         self.count += 1
+
+    @classmethod
+    def get_formats(cls):
+        return list(TrajFormatDict.keys())

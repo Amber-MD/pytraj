@@ -345,7 +345,7 @@ cdef class TrajectoryCpptraj:
                 self.tmpfarray = frame
                 return self.tmpfarray
 
-    def save(self, filename="", format='unknown', overwrite=True, *args, **kwd):
+    def save(self, filename="", overwrite=True, **kwd):
         '''convenient method to save Trajectory
 
         Examples
@@ -355,7 +355,7 @@ cdef class TrajectoryCpptraj:
         >>> # save to AMBER netcdf file
         >>> traj.save('traj.nc')
         '''
-        _savetraj(self, filename, format, overwrite, *args, **kwd)
+        _savetraj(self, filename, overwrite=overwrite, **kwd)
 
     @property
     def unitcells(self):
