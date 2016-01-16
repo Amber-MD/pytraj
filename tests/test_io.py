@@ -287,6 +287,64 @@ class TestIO(unittest.TestCase):
             'output/mini.nc',
             'data/tz2.parm7').n_frames == 101, 'must be 101 frames'
 
+    def test_formats(self):
+        '''make sure to save correct format
+        '''
+        def assert_has_exptected_line_textfile(expected_line, line_index, fn='output/test'):
+            with open(fn, 'r') as fh:
+                lines = [fh.readline() for _ in range(3)]
+            # print(lines)
+            assert expected_line in lines[line_index]
+
+        def assert_has_exptected_line_binaryfile(expected_line, fn='output/test'):
+            with open(fn, 'rb') as fh:
+                buffer_ = fh.read()
+            # print(buffer_)
+            assert expected_line.encode() in buffer_
+                
+        traj = pt.datafiles.load_tz2()
+        fn = 'output/test'
+
+        # pdb
+        traj.save(fn, format='pdb', overwrite=True)
+        expected_line = 'ATOM      1  N   SER     1      -1.889   9.159   7.569'
+        assert_has_exptected_line_textfile(expected_line, 0, fn)
+
+        # mol2
+        traj.save(fn, format='mol2', overwrite=True)
+        expected_line = 'Cpptraj generated mol2 file'
+        assert_has_exptected_line_textfile(expected_line, 1, fn)
+
+        # mdcrd
+        traj.save(fn, format='mdcrd', overwrite=True)
+        expected_line = 'Cpptraj Generated trajectory'
+        assert_has_exptected_line_textfile(expected_line, 0, fn)
+
+        # netcdf
+        traj.save(fn, format='netcdf', overwrite=True)
+        expected_line = 'CDF'
+        assert_has_exptected_line_binaryfile(expected_line, fn)
+
+        # dcd
+        traj.save(fn, format='dcd', overwrite=True)
+        expected_line = 'Cpptraj generated dcd file'
+        assert_has_exptected_line_binaryfile(expected_line, fn)
+
+        # cif, not supported
+        # traj.save(fn, format='cif', overwrite=True)
+        # expected_line = 'Cpptraj generated cif file'
+        # assert_has_exptected_line_textfile(expected_line, 1, fn)
+
+        # trr
+        # TODO: cpptraj put wrong title
+        #traj.save(fn, format='trr', overwrite=True)
+        #expected_line = 'Cpptraj generated trr file'
+        #assert_has_exptected_line_binaryfile(expected_line, fn)
+
+    def tearDown(self):
+        import os
+        #os.unlink('output/test')
+
 
 if __name__ == "__main__":
     unittest.main()
