@@ -2579,7 +2579,7 @@ def pca(traj,
         top=None):
     '''perform PCA analysis by following below steps:
 
-    - perform rmsfit to first frame or ref (if provided) with ``mask``
+    - perform rmsfit to average structure or given reference (if provided) with ``mask``
     - compute average frame with ``mask``
     - rmsfit to average frame with ``mask``
     - compute covariance matrix
@@ -2596,7 +2596,8 @@ def pca(traj,
         number of eigenvectors. If user want to compute projection for all eigenvectors,
         should specify n_vecs=-1 (or a negative number)
     ref : {None, Frame, int}, default None
-        if None, fit to 1st frame else fit to given reference
+        if None, trajectory will be superposed to average structure
+        if is Frame or integer value, trajectory will be superposed to given reference
     dtype : return datatype
     top : Topology, optional
 
