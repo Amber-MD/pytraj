@@ -2579,9 +2579,8 @@ def pca(traj,
         top=None):
     '''perform PCA analysis by following below steps:
 
-    - perform rmsfit to average structure or given reference (if provided) with ``mask``
-    - compute average frame with ``mask``
-    - rmsfit to average frame with ``mask``
+    - perform rmsfit to average structure (but first doing rmsfit to 1st frame to remove rotation and translation)
+      or perform rmsfit to given reference (if provided) with ``mask``
     - compute covariance matrix
     - diagonalize the matrix to get eigenvectors and eigenvalues
     - perform projection of each frame with mask to each eigenvector
