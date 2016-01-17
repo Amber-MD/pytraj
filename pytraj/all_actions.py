@@ -2581,7 +2581,7 @@ def pca(traj,
         top=None):
     '''perform PCA analysis by following below steps:
 
-    - (optional) perform rmsfit to reference if needed)
+    - (optional) perform rmsfit to reference if needed
     - compute covariance matrix
     - diagonalize the matrix to get eigenvectors and eigenvalues
     - perform projection of each frame with mask to each eigenvector
@@ -2601,7 +2601,7 @@ def pca(traj,
     ref : {None, Frame, int}, default None
         if None, trajectory will be superposed to average structure
         if is Frame or integer value, trajectory will be superposed to given reference
-    ref_mask : {None, str}, default None (use `mask`
+    ref_mask : {None, str}, default None (use `mask`)
         if None, use `mask` for fitting
         if str, use this given mask for fitting
     dtype : return datatype
@@ -2631,6 +2631,12 @@ def pca(traj,
 
     >>> # compute pca for all modes
     >>> pca_data = pt.pca(traj, '!@H=', n_vecs=-1)
+
+    >>> # does not perform fitting
+    >>> data = pt.pca(traj, mask='!@H=', fit=False)
+
+    >>> # provide different mask for fitting
+    >>> data = pt.pca(traj, mask='!@H=', fit=True, ref=0, ref_mask='@CA')
     '''
     # TODO: move to another file
     # NOTE: do not need to use super_dispatch here since we already use in _projection
