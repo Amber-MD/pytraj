@@ -2574,11 +2574,12 @@ def _projection(traj,
 def pca(traj,
         mask,
         n_vecs=2,
+        ref=None,
         dtype='ndarray',
         top=None):
     '''perform PCA analysis by following below steps:
 
-    - perform rmsfit to first frame with ``mask``
+    - perform rmsfit to first frame or ref (if provided) with ``mask``
     - compute average frame with ``mask``
     - rmsfit to average frame with ``mask``
     - compute covariance matrix
@@ -2594,6 +2595,8 @@ def pca(traj,
     n_vecs : int, default 2
         number of eigenvectors. If user want to compute projection for all eigenvectors,
         should specify n_vecs=-1 (or a negative number)
+    ref : {None, Frame, int}, default None
+        if None, fit to 1st frame else fit to given reference
     dtype : return datatype
     top : Topology, optional
 
@@ -2626,9 +2629,13 @@ def pca(traj,
     # NOTE: do not need to use super_dispatch here since we already use in _projection
     from pytraj import matrix
 
-    traj.superpose(ref=0, mask=mask)
-    avg = mean_structure(traj)
-    traj.superpose(ref=avg, mask=mask)
+    if ref is None:
+        traj.superpose(ref=0, mask=mask)
+        avg = mean_structure(traj)
+        traj.superpose(ref=avg, mask=mask)
+    else:
+        ref = get_reference(traj, ref)
+        traj.superpose(ref=ref, mask=mask)
     avg2 = mean_structure(traj, mask=mask)
 
     mat = matrix.covar(traj, mask)
