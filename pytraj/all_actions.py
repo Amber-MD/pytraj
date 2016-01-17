@@ -2574,13 +2574,14 @@ def _projection(traj,
 def pca(traj,
         mask,
         n_vecs=2,
+        fit=True,
         ref=None,
+        ref_mask=None,
         dtype='ndarray',
         top=None):
     '''perform PCA analysis by following below steps:
 
-    - perform rmsfit to average structure (but first doing rmsfit to 1st frame to remove rotation and translation)
-      or perform rmsfit to given reference (if provided) with ``mask``
+    - (optional) perform rmsfit to reference if needed)
     - compute covariance matrix
     - diagonalize the matrix to get eigenvectors and eigenvalues
     - perform projection of each frame with mask to each eigenvector
@@ -2590,13 +2591,19 @@ def pca(traj,
     traj : Trajectory
         traj must be ``pytraj.Trajectory``, which can be created by ``pytraj.load`` method.
     mask : str
-        atom mask
+        atom mask for covariance matrix and projection
     n_vecs : int, default 2
         number of eigenvectors. If user want to compute projection for all eigenvectors,
         should specify n_vecs=-1 (or a negative number)
+    fit : bool, default True
+        if True, perform fitting before compute covariance matrix
+        if False, no fitting (keep rotation and translation). In this case, `pytraj` will ignore `ref` argument.
     ref : {None, Frame, int}, default None
         if None, trajectory will be superposed to average structure
         if is Frame or integer value, trajectory will be superposed to given reference
+    ref_mask : {None, str}, default None (use `mask`
+        if None, use `mask` for fitting
+        if str, use this given mask for fitting
     dtype : return datatype
     top : Topology, optional
 
@@ -2629,15 +2636,20 @@ def pca(traj,
     # NOTE: do not need to use super_dispatch here since we already use in _projection
     from pytraj import matrix
 
+    ref_mask_ = ref_mask if ref_mask is not None else mask
+
     if not isinstance(traj, Trajectory):
         raise ValueError('must be Trajectory object, not {}'.format(traj.__class__.__name__))
-    if ref is None:
-        traj.superpose(ref=0, mask=mask)
-        avg = mean_structure(traj)
-        traj.superpose(ref=avg, mask=mask)
-    else:
-        ref = get_reference(traj, ref)
-        traj.superpose(ref=ref, mask=mask)
+
+    if fit:
+        if ref is None:
+            traj.superpose(ref=0, mask=ref_mask_)
+            avg = mean_structure(traj)
+            traj.superpose(ref=avg, mask=ref_mask_)
+        else:
+            ref = get_reference(traj, ref)
+            traj.superpose(ref=ref, mask=ref_mask_)
+
     avg2 = mean_structure(traj, mask=mask)
 
     mat = matrix.covar(traj, mask)
