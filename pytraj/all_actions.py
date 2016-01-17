@@ -2629,6 +2629,8 @@ def pca(traj,
     # NOTE: do not need to use super_dispatch here since we already use in _projection
     from pytraj import matrix
 
+    if not isinstance(traj, Trajectory):
+        raise ValueError('must be Trajectory object, not {}'.format(traj.__class__.__name__))
     if ref is None:
         traj.superpose(ref=0, mask=mask)
         avg = mean_structure(traj)

@@ -73,6 +73,10 @@ class TestPCA(unittest.TestCase):
         # use absolute values
         aa_eq(np.abs(data[0]), np.abs(cpp_data), decimal=3)
 
+    def test_pca_raise(self):
+        traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
+        self.assertRaises(ValueError, lambda: pt.pca(traj, n_vecs=2, mask='@CA'))
+
 
 if __name__ == "__main__":
     unittest.main()
