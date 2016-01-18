@@ -234,8 +234,8 @@ for p in pxd_include_dirs:
                      if '.pyx' in ext])
 
 # check command line
-extra_compile_args = ['-O0', '-ggdb', '-Wl,--no-undefined']
-extra_link_args = ['-O0', '-ggdb', '-Wl,--no-undefined']
+extra_compile_args = ['-O0', '-ggdb',]
+extra_link_args = ['-O0', '-ggdb',]
 
 list_of_libcpptraj = glob(os.path.join(libdir, 'libcpptraj') + '*')
 if not list_of_libcpptraj:
