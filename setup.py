@@ -30,22 +30,35 @@ if sys.version_info < (2, 6):
     sys.stderr.write('You must have at least Python 2.6 for pytraj\n')
     sys.exit(0)
 
+try:
+    sys.argv.remove('--amber-release')
+    amber_release = True
+except ValueError:
+    amber_release = False
+
 # python setup.py clean
 cmdclass = {'clean': CleanCommand}
 
-# cython version >= 0.21 for now.
-try:
-    import Cython
-    from Cython.Distutils import build_ext
-    from Cython.Build import cythonize
-    has_cython = True
-    cmdclass['build_ext'] = build_ext
-    if Cython.__version__ < '0.21':
+if not amber_release:
+    # if pytraj is not in released version of amber, must cythonize files
+    # else use pre-compiled files
+    # cython version >= 0.21 for now.
+    try:
+        import Cython
+        from Cython.Distutils import build_ext
+        from Cython.Build import cythonize
+        has_cython = True
+        cmdclass['build_ext'] = build_ext
+        if Cython.__version__ < '0.21':
+            sys.stderr.write(message_cython)
+            sys.exit(0)
+    except ImportError:
         sys.stderr.write(message_cython)
         sys.exit(0)
-except ImportError:
-    sys.stderr.write(message_cython)
-    sys.exit(0)
+
+else:
+    # assume does not need Cython
+    has_cython = False
 
 try:
     sys.argv.remove('--disable-openmp')
@@ -234,8 +247,8 @@ for p in pxd_include_dirs:
                      if '.pyx' in ext])
 
 # check command line
-extra_compile_args = ['-O0', '-ggdb',]
-extra_link_args = ['-O0', '-ggdb',]
+extra_compile_args = ['-O0', '-ggdb', '-Wl,--no-undefined']
+extra_link_args = ['-O0', '-ggdb', '-Wl,--no-undefined']
 
 list_of_libcpptraj = glob(os.path.join(libdir, 'libcpptraj') + '*')
 if not list_of_libcpptraj:
@@ -317,7 +330,7 @@ if debug:
 else:
     define_macros = []
 
-if not do_clean:
+if not do_clean and not amber_release:
     cythonize(
         [pfile + '.pyx' for pfile in pyxfiles],
         nthreads=int(os.environ.get('NUM_THREADS', 4)),

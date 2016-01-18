@@ -1,4 +1,4 @@
 #!bin/sh
 
 # create this file to hide output
-python setup.py install
+python setup.py install --amber-release
