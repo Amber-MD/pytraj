@@ -10,7 +10,7 @@ pip install conda
 conda install --yes conda-build jinja2 anaconda-client pip
 
 # create myenv
-conda create -y -n myenv python=$PYTHON_VERSION numpy h5py mpi4py libnetcdf
+conda create -y -n myenv python=$PYTHON_VERSION numpy cython h5py mpi4py libnetcdf
 
 source activate myenv
 conda install --yes anaconda-client coverage pyflakes
