@@ -45,3 +45,5 @@ Try to open notebook
 
 .. image:: ../images/remote_jupyter_shot_2.png
    :height: 500
+
+.. notes:: you can specify any available port number (in this example, we randomly chose --port=8889)
