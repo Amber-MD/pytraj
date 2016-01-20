@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Energy decomposition with sander and igb8 solvent model &mdash; pytraj 1.0.0.dev1+2ed4bd1 documentation</title>
+    <title>Energy decomposition with sander and igb8 solvent model &mdash; pytraj 1.0.0.dev1+9fe6335 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.0.dev1+2ed4bd1',
+        VERSION:     '1.0.0.dev1+9fe6335',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.0.dev1+2ed4bd1 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.0.dev1+9fe6335 documentation" href="../index.html" />
     <link rel="up" title="Tutorials" href="index.html" />
     <link rel="next" title="Closest solvents" href="closest_waters_.html" />
     <link rel="prev" title="Basic examples" href="basic_examples.html" />
@@ -54,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.0.dev1+2ed4bd1</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.0.dev1+9fe6335</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -229,49 +229,56 @@ Size: 0.000503 (GB)
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansired">---------------------------------------------------------------------------</span>
-<span class="ansired">ImportError</span>                               Traceback (most recent call last)
-<span class="ansigreen">/home/haichit/anaconda3/envs/py35_nocython/lib/python3.5/site-packages/pytraj/externals/energy.py</span> in <span class="ansicyan">energy_decomposition</span><span class="ansiblue">(traj, prmtop, igb, mm_options, qm_options, mode, dtype, frame_indices, top)</span>
-<span class="ansigreen">    131</span>     <span class="ansigreen">try</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 132</span><span class="ansiyellow">         </span><span class="ansigreen">import</span> sander<span class="ansiyellow"></span>
-<span class="ansigreen">    133</span>     <span class="ansigreen">except</span> ImportError<span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
 
-<span class="ansired">ImportError</span>: No module named &apos;sander&apos;
 
-During handling of the above exception, another exception occurred:
-
-<span class="ansired">ImportError</span>                               Traceback (most recent call last)
-<span class="ansigreen">&lt;ipython-input-2-d6ad523f1ff0&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
-<span class="ansigreen">      1</span> <span class="ansired"># compute the energy with igb=8 (GBneck2 solvation model)</span><span class="ansiyellow"></span><span class="ansiyellow"></span>
-<span class="ansigreen">----&gt; 2</span><span class="ansiyellow"> </span>data <span class="ansiyellow">=</span> pt<span class="ansiyellow">.</span>energy_decomposition<span class="ansiyellow">(</span>traj<span class="ansiyellow">,</span> igb<span class="ansiyellow">=</span><span class="ansicyan">8</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">      3</span> data<span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py35_nocython/lib/python3.5/site-packages/pytraj/decorators.py</span> in <span class="ansicyan">inner</span><span class="ansiblue">(*args, **kwd)</span>
-<span class="ansigreen">      9</span>     <span class="ansiyellow">@</span>wraps<span class="ansiyellow">(</span>f<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">     10</span>     <span class="ansigreen">def</span> inner<span class="ansiyellow">(</span><span class="ansiyellow">*</span>args<span class="ansiyellow">,</span> <span class="ansiyellow">**</span>kwd<span class="ansiyellow">)</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">---&gt; 11</span><span class="ansiyellow">         </span><span class="ansigreen">return</span> f<span class="ansiyellow">(</span><span class="ansiyellow">*</span>args<span class="ansiyellow">,</span> <span class="ansiyellow">**</span>kwd<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">     12</span> <span class="ansiyellow"></span>
-<span class="ansigreen">     13</span>     inner<span class="ansiyellow">.</span>_is_parallelizable <span class="ansiyellow">=</span> <span class="ansigreen">True</span><span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py35_nocython/lib/python3.5/site-packages/pytraj/get_common_objects.py</span> in <span class="ansicyan">inner</span><span class="ansiblue">(*args, **kwargs)</span>
-<span class="ansigreen">    298</span>                         <span class="ansigreen">except</span> IndexError<span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">    299</span>                             args<span class="ansiyellow">.</span>append<span class="ansiyellow">(</span>mask<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 300</span><span class="ansiyellow">             </span><span class="ansigreen">return</span> f<span class="ansiyellow">(</span><span class="ansiyellow">*</span>args<span class="ansiyellow">,</span> <span class="ansiyellow">**</span>kwargs<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    301</span> <span class="ansiyellow"></span>
-<span class="ansigreen">    302</span>         inner<span class="ansiyellow">.</span>_is_super_dispatched <span class="ansiyellow">=</span> <span class="ansigreen">True</span><span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py35_nocython/lib/python3.5/site-packages/pytraj/externals/energy.py</span> in <span class="ansicyan">energy_decomposition</span><span class="ansiblue">(traj, prmtop, igb, mm_options, qm_options, mode, dtype, frame_indices, top)</span>
-<span class="ansigreen">    132</span>         <span class="ansigreen">import</span> sander<span class="ansiyellow"></span>
-<span class="ansigreen">    133</span>     <span class="ansigreen">except</span> ImportError<span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 134</span><span class="ansiyellow">         </span><span class="ansigreen">raise</span> ImportError<span class="ansiyellow">(</span><span class="ansiblue">&quot;need both &#96;pysander&#96; installed. Check Ambertools15&quot;</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    135</span> <span class="ansiyellow"></span>
-<span class="ansigreen">    136</span>     ddict <span class="ansiyellow">=</span> defaultdict<span class="ansiyellow">(</span>_default_func<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-
-<span class="ansired">ImportError</span>: need both &#96;pysander&#96; installed. Check Ambertools15</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>OrderedDict([(&apos;amd_boost&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;angle&apos;,
+              array([ 128.54514846,  105.06494493,  103.52028376, ...,   99.46042639,
+                      103.49664937,   98.18016593])),
+             (&apos;hbond&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;ct&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;noe&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;dvdl&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;vdw_14&apos;,
+              array([ 52.55761103,  50.03499738,  54.29855009, ...,  50.42610919,
+                      48.27053805,  51.9298654 ])),
+             (&apos;rism&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;pb&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;surf&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;tot&apos;,
+              array([-225.72081333, -259.3103916 , -265.22164221, ..., -282.72357777,
+                     -287.55610458, -293.18137453])),
+             (&apos;bond&apos;,
+              array([ 0.01531366,  0.01358172,  0.01252056, ...,  0.0154962 ,
+                      0.01510391,  0.0175098 ])),
+             (&apos;polar&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;angle_ub&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;constraint&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;dihedral&apos;,
+              array([ 111.61132908,  105.39241304,   93.03084989, ...,  101.81038715,
+                       94.63365271,   92.27451698])),
+             (&apos;vdw&apos;,
+              array([-44.9811844 , -43.77030705, -52.33589852, ..., -70.01048987,
+                     -66.01297848, -67.78679498])),
+             (&apos;elec&apos;,
+              array([-781.59559933, -807.4891344 , -741.17534022, ..., -835.16025964,
+                     -805.08867184, -825.97031683])),
+             (&apos;gb&apos;,
+              array([-412.53266438, -400.09042163, -439.92701343, ..., -365.74056055,
+                     -395.14074215, -368.44262754])),
+             (&apos;cmap&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;imp&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;les&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;elec_14&apos;,
+              array([ 720.65923256,  731.53353441,  717.35440566, ...,  736.47531336,
+                      732.27034385,  726.61630671])),
+             (&apos;emap&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;disp&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;scf&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.]))])</pre>
 </div>
+
 </div>
 
 </div>
@@ -296,15 +303,10 @@ During handling of the above exception, another exception occurred:
 
 
 <div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansired">---------------------------------------------------------------------------</span>
-<span class="ansired">NameError</span>                                 Traceback (most recent call last)
-<span class="ansigreen">&lt;ipython-input-3-16fd3c6626ca&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
-<span class="ansigreen">      1</span> <span class="ansired"># get energy you want</span><span class="ansiyellow"></span><span class="ansiyellow"></span>
-<span class="ansigreen">----&gt; 2</span><span class="ansiyellow"> </span>print<span class="ansiyellow">(</span><span class="ansiblue">&apos;potential energy&apos;</span><span class="ansiyellow">,</span> data<span class="ansiyellow">[</span><span class="ansiblue">&apos;tot&apos;</span><span class="ansiyellow">]</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-
-<span class="ansired">NameError</span>: name &apos;data&apos; is not defined</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>potential energy [-225.72081333 -259.3103916  -265.22164221 ..., -282.72357777 -287.55610458
+ -293.18137453]
+</pre>
 </div>
 </div>
 
@@ -330,15 +332,10 @@ During handling of the above exception, another exception occurred:
 
 
 <div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansired">---------------------------------------------------------------------------</span>
-<span class="ansired">NameError</span>                                 Traceback (most recent call last)
-<span class="ansigreen">&lt;ipython-input-4-da37a496e385&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
-<span class="ansigreen">      1</span> <span class="ansired"># solvation energy (igb=8)</span><span class="ansiyellow"></span><span class="ansiyellow"></span>
-<span class="ansigreen">----&gt; 2</span><span class="ansiyellow"> </span>print<span class="ansiyellow">(</span><span class="ansiblue">&apos;solvation energy&apos;</span><span class="ansiyellow">,</span> data<span class="ansiyellow">[</span><span class="ansiblue">&apos;gb&apos;</span><span class="ansiyellow">]</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-
-<span class="ansired">NameError</span>: name &apos;data&apos; is not defined</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>solvation energy [-412.53266438 -400.09042163 -439.92701343 ..., -365.74056055 -395.14074215
+ -368.44262754]
+</pre>
 </div>
 </div>
 
@@ -364,18 +361,38 @@ During handling of the above exception, another exception occurred:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansired">---------------------------------------------------------------------------</span>
-<span class="ansired">NameError</span>                                 Traceback (most recent call last)
-<span class="ansigreen">&lt;ipython-input-5-b4b8a35470e0&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
-<span class="ansigreen">      1</span> <span class="ansired"># you can also get other energies.</span><span class="ansiyellow"></span><span class="ansiyellow"></span>
-<span class="ansigreen">      2</span> <span class="ansired"># for example: data[&apos;dihedral&apos;]</span><span class="ansiyellow"></span><span class="ansiyellow"></span>
-<span class="ansigreen">----&gt; 3</span><span class="ansiyellow"> </span>list<span class="ansiyellow">(</span>data<span class="ansiyellow">.</span>keys<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
 
-<span class="ansired">NameError</span>: name &apos;data&apos; is not defined</pre>
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&apos;amd_boost&apos;,
+ &apos;angle&apos;,
+ &apos;hbond&apos;,
+ &apos;ct&apos;,
+ &apos;noe&apos;,
+ &apos;dvdl&apos;,
+ &apos;vdw_14&apos;,
+ &apos;rism&apos;,
+ &apos;pb&apos;,
+ &apos;surf&apos;,
+ &apos;tot&apos;,
+ &apos;bond&apos;,
+ &apos;polar&apos;,
+ &apos;angle_ub&apos;,
+ &apos;constraint&apos;,
+ &apos;dihedral&apos;,
+ &apos;vdw&apos;,
+ &apos;elec&apos;,
+ &apos;gb&apos;,
+ &apos;cmap&apos;,
+ &apos;imp&apos;,
+ &apos;les&apos;,
+ &apos;elec_14&apos;,
+ &apos;emap&apos;,
+ &apos;disp&apos;,
+ &apos;scf&apos;]</pre>
 </div>
+
 </div>
 
 </div>
@@ -411,75 +428,14 @@ During handling of the above exception, another exception occurred:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansired">---------------------------------------------------------------------------</span>
-<span class="ansired">RemoteTraceback</span>                           Traceback (most recent call last)
-<span class="ansired">RemoteTraceback</span>: 
-&quot;&quot;&quot;
-Traceback (most recent call last):
-  File &quot;/home/haichit/anaconda3/envs/py35_nocython/lib/python3.5/site-packages/pytraj/externals/energy.py&quot;, line 132, in energy_decomposition
-    import sander
-ImportError: No module named &apos;sander&apos;
+<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
 
-During handling of the above exception, another exception occurred:
 
-Traceback (most recent call last):
-  File &quot;/home/haichit/anaconda3/envs/py35_nocython/lib/python3.5/multiprocessing/pool.py&quot;, line 119, in worker
-    result = (True, func(*args, **kwds))
-  File &quot;/home/haichit/anaconda3/envs/py35_nocython/lib/python3.5/multiprocessing/pool.py&quot;, line 44, in mapstar
-    return list(map(*args))
-  File &quot;/home/haichit/anaconda3/envs/py35_nocython/lib/python3.5/site-packages/pytraj/parallel/base.py&quot;, line 103, in worker_byfunc
-    data = func(final_iter, *args, **kwd_cp)
-  File &quot;/home/haichit/anaconda3/envs/py35_nocython/lib/python3.5/site-packages/pytraj/decorators.py&quot;, line 11, in inner
-    return f(*args, **kwd)
-  File &quot;/home/haichit/anaconda3/envs/py35_nocython/lib/python3.5/site-packages/pytraj/get_common_objects.py&quot;, line 300, in inner
-    return f(*args, **kwargs)
-  File &quot;/home/haichit/anaconda3/envs/py35_nocython/lib/python3.5/site-packages/pytraj/externals/energy.py&quot;, line 134, in energy_decomposition
-    raise ImportError(&quot;need both &#96;pysander&#96; installed. Check Ambertools15&quot;)
-ImportError: need both &#96;pysander&#96; installed. Check Ambertools15
-&quot;&quot;&quot;
-
-The above exception was the direct cause of the following exception:
-
-<span class="ansired">ImportError</span>                               Traceback (most recent call last)
-<span class="ansigreen">&lt;ipython-input-6-e8efe1eafcce&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
-<span class="ansigreen">      2</span> <span class="ansiyellow"></span>
-<span class="ansigreen">      3</span> <span class="ansired"># parallel</span><span class="ansiyellow"></span><span class="ansiyellow"></span>
-<span class="ansigreen">----&gt; 4</span><span class="ansiyellow"> </span>data2 <span class="ansiyellow">=</span> pt<span class="ansiyellow">.</span>pmap<span class="ansiyellow">(</span>func<span class="ansiyellow">=</span>pt<span class="ansiyellow">.</span>energy_decomposition<span class="ansiyellow">,</span> traj<span class="ansiyellow">=</span>traj<span class="ansiyellow">,</span> igb<span class="ansiyellow">=</span><span class="ansicyan">8</span><span class="ansiyellow">,</span> n_cores<span class="ansiyellow">=</span><span class="ansicyan">4</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">      5</span> data2<span class="ansiyellow">[</span><span class="ansiblue">&apos;gb&apos;</span><span class="ansiyellow">]</span><span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py35_nocython/lib/python3.5/site-packages/pytraj/parallel/multiprocessing_.py</span> in <span class="ansicyan">pmap</span><span class="ansiblue">(func, traj, *args, **kwd)</span>
-<span class="ansigreen">    248</span> <span class="ansigreen">def</span> pmap<span class="ansiyellow">(</span>func<span class="ansiyellow">=</span><span class="ansigreen">None</span><span class="ansiyellow">,</span> traj<span class="ansiyellow">=</span><span class="ansigreen">None</span><span class="ansiyellow">,</span> <span class="ansiyellow">*</span>args<span class="ansiyellow">,</span> <span class="ansiyellow">**</span>kwd<span class="ansiyellow">)</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">    249</span>     <span class="ansigreen">if</span> func <span class="ansiyellow">!=</span> NH_order_parameters<span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 250</span><span class="ansiyellow">         </span><span class="ansigreen">return</span> _pmap<span class="ansiyellow">(</span>func<span class="ansiyellow">,</span> traj<span class="ansiyellow">,</span> <span class="ansiyellow">*</span>args<span class="ansiyellow">,</span> <span class="ansiyellow">**</span>kwd<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    251</span>     <span class="ansigreen">else</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">    252</span>         <span class="ansigreen">if</span> <span class="ansiblue">&apos;n_cores&apos;</span> <span class="ansigreen">in</span> kwd<span class="ansiyellow">.</span>keys<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py35_nocython/lib/python3.5/site-packages/pytraj/parallel/multiprocessing_.py</span> in <span class="ansicyan">_pmap</span><span class="ansiblue">(func, traj, *args, **kwd)</span>
-<span class="ansigreen">    217</span>                          apply=apply)
-<span class="ansigreen">    218</span> <span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 219</span><span class="ansiyellow">         </span>data <span class="ansiyellow">=</span> p<span class="ansiyellow">.</span>map<span class="ansiyellow">(</span>pfuncs<span class="ansiyellow">,</span> <span class="ansiyellow">[</span>rank <span class="ansigreen">for</span> rank <span class="ansigreen">in</span> range<span class="ansiyellow">(</span>n_cores<span class="ansiyellow">)</span><span class="ansiyellow">]</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    220</span>         p<span class="ansiyellow">.</span>close<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    221</span> <span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py35_nocython/lib/python3.5/multiprocessing/pool.py</span> in <span class="ansicyan">map</span><span class="ansiblue">(self, func, iterable, chunksize)</span>
-<span class="ansigreen">    258</span>         <span class="ansigreen">in</span> a list that <span class="ansigreen">is</span> returned<span class="ansiyellow">.</span><span class="ansiyellow"></span>
-<span class="ansigreen">    259</span>         &apos;&apos;&apos;
-<span class="ansigreen">--&gt; 260</span><span class="ansiyellow">         </span><span class="ansigreen">return</span> self<span class="ansiyellow">.</span>_map_async<span class="ansiyellow">(</span>func<span class="ansiyellow">,</span> iterable<span class="ansiyellow">,</span> mapstar<span class="ansiyellow">,</span> chunksize<span class="ansiyellow">)</span><span class="ansiyellow">.</span>get<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    261</span> <span class="ansiyellow"></span>
-<span class="ansigreen">    262</span>     <span class="ansigreen">def</span> starmap<span class="ansiyellow">(</span>self<span class="ansiyellow">,</span> func<span class="ansiyellow">,</span> iterable<span class="ansiyellow">,</span> chunksize<span class="ansiyellow">=</span><span class="ansigreen">None</span><span class="ansiyellow">)</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py35_nocython/lib/python3.5/multiprocessing/pool.py</span> in <span class="ansicyan">get</span><span class="ansiblue">(self, timeout)</span>
-<span class="ansigreen">    606</span>             <span class="ansigreen">return</span> self<span class="ansiyellow">.</span>_value<span class="ansiyellow"></span>
-<span class="ansigreen">    607</span>         <span class="ansigreen">else</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 608</span><span class="ansiyellow">             </span><span class="ansigreen">raise</span> self<span class="ansiyellow">.</span>_value<span class="ansiyellow"></span>
-<span class="ansigreen">    609</span> <span class="ansiyellow"></span>
-<span class="ansigreen">    610</span>     <span class="ansigreen">def</span> _set<span class="ansiyellow">(</span>self<span class="ansiyellow">,</span> i<span class="ansiyellow">,</span> obj<span class="ansiyellow">)</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-
-<span class="ansired">ImportError</span>: need both &#96;pysander&#96; installed. Check Ambertools15</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>array([-412.53266438, -400.09042163, -439.92701343, ..., -365.74056055,
+       -395.14074215, -368.44262754])</pre>
 </div>
+
 </div>
 
 </div>

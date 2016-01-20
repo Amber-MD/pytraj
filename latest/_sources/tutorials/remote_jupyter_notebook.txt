@@ -19,7 +19,7 @@ To make the connection faster, you can follow below instructions:
 
 - In remote host, open the terminal, change directory to where you have your notebooks and type::
 
-    ipython notebook --no-browser --port=8889
+    jupyter notebook --no-browser --port=8889
 
     # you should leave the this open
 

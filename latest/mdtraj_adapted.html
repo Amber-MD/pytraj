@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Tutorials adapted from mdtraj &mdash; pytraj 1.0.0.dev1+2ed4bd1 documentation</title>
+    <title>Tutorials adapted from mdtraj &mdash; pytraj 1.0.0.dev1+9fe6335 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0.0.dev1+2ed4bd1',
+        VERSION:     '1.0.0.dev1+9fe6335',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.0.dev1+2ed4bd1 documentation" href="index.html" />
+    <link rel="top" title="pytraj 1.0.0.dev1+9fe6335 documentation" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -51,7 +51,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.0.dev1+2ed4bd1</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.0.dev1+9fe6335</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -170,14 +170,14 @@
 <span class="go">&lt;ipython-input-2-e27d371d6baa&gt; in &lt;module&gt;()</span>
 <span class="go">----&gt; 1 get_ipython().magic(&#39;matplotlib inline&#39;)</span>
 
-<span class="go">/home/haichit/anaconda3/envs/py35_nocython/lib/python3.5/site-packages/IPython/core/interactiveshell.py in magic(self, arg_s)</span>
+<span class="go">/home/haichit/anaconda3/lib/python3.5/site-packages/IPython/core/interactiveshell.py in magic(self, arg_s)</span>
 <span class="go">   2334         magic_name, _, magic_arg_s = arg_s.partition(&#39; &#39;)</span>
 <span class="go">   2335         magic_name = magic_name.lstrip(prefilter.ESC_MAGIC)</span>
 <span class="go">-&gt; 2336         return self.run_line_magic(magic_name, magic_arg_s)</span>
 <span class="go">   2337 </span>
 <span class="go">   2338     #-------------------------------------------------------------------------</span>
 
-<span class="go">/home/haichit/anaconda3/envs/py35_nocython/lib/python3.5/site-packages/IPython/core/interactiveshell.py in run_line_magic(self, magic_name, line)</span>
+<span class="go">/home/haichit/anaconda3/lib/python3.5/site-packages/IPython/core/interactiveshell.py in run_line_magic(self, magic_name, line)</span>
 <span class="go">   2255                 kwargs[&#39;local_ns&#39;] = sys._getframe(stack_depth).f_locals</span>
 <span class="go">   2256             with self.builtin_trap:</span>
 <span class="go">-&gt; 2257                 result = fn(*args,**kwargs)</span>
@@ -186,28 +186,28 @@
 
 <span class="go">&lt;decorator-gen-106&gt; in matplotlib(self, line)</span>
 
-<span class="go">/home/haichit/anaconda3/envs/py35_nocython/lib/python3.5/site-packages/IPython/core/magic.py in &lt;lambda&gt;(f, *a, **k)</span>
+<span class="go">/home/haichit/anaconda3/lib/python3.5/site-packages/IPython/core/magic.py in &lt;lambda&gt;(f, *a, **k)</span>
 <span class="go">    191     # but it&#39;s overkill for just that one bit of state.</span>
 <span class="go">    192     def magic_deco(arg):</span>
 <span class="go">--&gt; 193         call = lambda f, *a, **k: f(*a, **k)</span>
 <span class="go">    194 </span>
 <span class="go">    195         if callable(arg):</span>
 
-<span class="go">/home/haichit/anaconda3/envs/py35_nocython/lib/python3.5/site-packages/IPython/core/magics/pylab.py in matplotlib(self, line)</span>
+<span class="go">/home/haichit/anaconda3/lib/python3.5/site-packages/IPython/core/magics/pylab.py in matplotlib(self, line)</span>
 <span class="go">     98             print(&quot;Available matplotlib backends: %s&quot; % backends_list)</span>
 <span class="go">     99         else:</span>
 <span class="go">--&gt; 100             gui, backend = self.shell.enable_matplotlib(args.gui)</span>
 <span class="go">    101             self._show_matplotlib_backend(args.gui, backend)</span>
 <span class="go">    102 </span>
 
-<span class="go">/home/haichit/anaconda3/envs/py35_nocython/lib/python3.5/site-packages/IPython/core/interactiveshell.py in enable_matplotlib(self, gui)</span>
+<span class="go">/home/haichit/anaconda3/lib/python3.5/site-packages/IPython/core/interactiveshell.py in enable_matplotlib(self, gui)</span>
 <span class="go">   3135         # Now we must activate the gui pylab wants to use, and fix %run to take</span>
 <span class="go">   3136         # plot updates into account</span>
 <span class="go">-&gt; 3137         self.enable_gui(gui)</span>
 <span class="go">   3138         self.magics_manager.registry[&#39;ExecutionMagics&#39;].default_runner = \</span>
 <span class="go">   3139             pt.mpl_runner(self.safe_execfile)</span>
 
-<span class="go">/home/haichit/anaconda3/envs/py35_nocython/lib/python3.5/site-packages/IPython/core/interactiveshell.py in enable_gui(self, gui)</span>
+<span class="go">/home/haichit/anaconda3/lib/python3.5/site-packages/IPython/core/interactiveshell.py in enable_gui(self, gui)</span>
 <span class="go">   3094 </span>
 <span class="go">   3095     def enable_gui(self, gui=None):</span>
 <span class="go">-&gt; 3096         raise NotImplementedError(&#39;Implement enable_gui in a subclass&#39;)</span>
