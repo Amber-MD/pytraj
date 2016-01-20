@@ -10,6 +10,8 @@ def to_chemview(traj):  # pragma: no cover
     traj : pytraj.Trajectory or pytraj.TrajectoryIterator
     '''
     import pytraj as pt
+    from chemview import TrajectoryViewer
+
     top = {}
     top['atom_types'] = [a.element[1] for a in traj.topology.atoms]
     top['atom_names'] = [a.name for a in traj.topology.atoms]
@@ -23,7 +25,7 @@ def to_chemview(traj):  # pragma: no cover
         for r in traj.topology.residues
     ]
 
-    return top
+    return TrajectoryViewer(traj.xyz, top)
 
 
 def to_nglview(traj, parmfile=None):  # pragma: no cover
