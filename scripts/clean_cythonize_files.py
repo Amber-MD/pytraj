@@ -18,7 +18,7 @@ for p in pxd_include_dirs:
 print("move old cythonized files to ./trash folder")
 for ext_name in pyxfiles:
     pyxfile = ext_name + ".cpp"
-    sofile = ext_name + ".so"
+    sofile = ext_name + "*.so"
 
     for f in [pyxfile, sofile]:
         do_this = "mv %s trash" % f

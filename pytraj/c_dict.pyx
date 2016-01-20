@@ -1,4 +1,4 @@
-# distutils: language = c+
+# distutils: language = c++
 
 
 def get_key(value, dict Dict):

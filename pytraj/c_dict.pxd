@@ -1,3 +1,5 @@
+# distutils: language = c++
+
 '''keywords in cpptraj
 '''
 cdef extern from "Traj_PDBfile.h":
