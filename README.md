@@ -2,8 +2,8 @@
 
 2. Install some programs by running:
 
-    $ conda install sphinx numpy matplotlib seaborn numpy jupyter notebook runipy --yes
-    $ pip install sphinx_bootstrap_theme
+    $ conda install sphinx numpy matplotlib seaborn jupyter notebook runipy --yes
+    $ pip install sphinx_bootstrap_theme line_profiler memory_profiler
 
 3. Notes
 

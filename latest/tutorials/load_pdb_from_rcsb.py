@@ -18,8 +18,7 @@ print ("calc_rmsd")
 # print (traj.calc_rmsd(ref=0)) # all atoms, ref=first_frame
 # use numpy to have prettier print
 import numpy as np
-import pytraj.common_actions as pyca
-arr0 = np.asarray(pyca.rmsd(traj, ref=traj[0]))
+arr0 = np.asarray(pt.rmsd(traj, ref=traj[0]))
 print (arr0)
 
 
