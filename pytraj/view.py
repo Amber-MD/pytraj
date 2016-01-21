@@ -44,7 +44,10 @@ def to_nglview(traj, parmfile=None):  # pragma: no cover
     need ParmEd
 
     '''
-    from io import StringIO
+    try:
+        from io import StringIO
+    except ImportError:
+        from cStringIO import StringIO
     import parmed as pmd
     import nglview as nv
     from pytraj.sandbox import to_parmed
