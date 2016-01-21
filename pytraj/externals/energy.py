@@ -212,7 +212,7 @@ def energy_decomposition(traj=None,
         dslist = DatasetList()
         size = new_dict['tot'].__len__()
         for key in new_dict.keys():
-            dslist.add_set('double')
+            dslist.add('double')
             dslist[-1].key = key
             dslist[-1].resize(size)
             dslist[-1].data[:] = new_dict[key]
