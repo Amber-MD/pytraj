@@ -343,8 +343,8 @@ cdef class ActionList:
         if isinstance(traj, Frame):
             frame = <Frame> traj
             actionframe_ = _ActionFrame(frame.thisptr, trajout_index)
-            self.n_frames += 1
             self.thisptr.DoActions(self.n_frames, actionframe_)
+            self.n_frames += 1
         else:
             for frame in iterframe_master(traj):
                 self.compute(frame)
