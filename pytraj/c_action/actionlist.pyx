@@ -195,6 +195,7 @@ cdef class ActionList:
     def __cinit__(self):
         self.thisptr = new _ActionList()
         self.top_is_processed = False
+        self.n_frames = 0
 
     property data:
         '''Store data (CpptrajDatasetList). This is for internal use.
@@ -326,12 +327,12 @@ cdef class ActionList:
         actionsetup_ = _ActionSetup(top.thisptr, crdinfo_, n_frames_t)
         self.thisptr.SetupActions(actionsetup_, exit_on_error)
 
-    def compute(self, traj=Frame(), int idx=0):
+    def compute(self, traj=Frame()):
         '''perform a series of Actions on Frame or Trajectory
         '''
         cdef _ActionFrame actionframe_
         cdef Frame frame
-        cdef int i
+        cdef int trajout_index = 0 
 
         if not self.top_is_processed:
             self.check_topology(self.top)
@@ -341,8 +342,9 @@ cdef class ActionList:
 
         if isinstance(traj, Frame):
             frame = <Frame> traj
-            actionframe_ = _ActionFrame(frame.thisptr)
-            self.thisptr.DoActions(idx, actionframe_)
+            actionframe_ = _ActionFrame(frame.thisptr, trajout_index)
+            self.n_frames += 1
+            self.thisptr.DoActions(self.n_frames, actionframe_)
         else:
-            for i, frame in enumerate(iterframe_master(traj)):
-                self.compute(frame, i)
+            for frame in iterframe_master(traj):
+                self.compute(frame)
