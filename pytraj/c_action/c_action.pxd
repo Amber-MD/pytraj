@@ -36,7 +36,7 @@ cdef extern from "ActionState.h":
 
     cdef cppclass _ActionFrame "ActionFrame":
         _ActionFrame()
-        _ActionFrame(_Frame * fIn)
+        _ActionFrame(_Frame * fIn, int trajout_index)
         const _Frame& Frm() const
         _Frame& ModifyFrm()
         _Frame * _FramePtr()

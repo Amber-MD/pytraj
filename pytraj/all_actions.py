@@ -569,9 +569,9 @@ def calc_diffusion(traj,
 
     act.read_input(command, top=top, dslist=c_dslist)
     act.check_topology(top)
-    for idx, frame in enumerate(traj):
+    for frame in traj:
         # do not need mass
-        act.compute(frame, idx=idx)
+        act.compute(frame)
     act.post_process()
 
     # make the label nicer

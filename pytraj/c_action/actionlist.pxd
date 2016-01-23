@@ -38,3 +38,4 @@ cdef class ActionList:
     cdef public object _dslist
     cdef public object _dflist
     cdef public object _crdinfo
+    cdef public unsigned int n_frames

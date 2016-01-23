@@ -141,7 +141,7 @@ cdef class Action:
             return new_top
 
     @makesureABC("Action")
-    def compute(self, current_frame=None, int idx=0, get_new_frame=False):
+    def compute(self, current_frame=None, get_new_frame=False):
         """Perform action on Frame
 
         Parameters
@@ -158,8 +158,8 @@ cdef class Action:
 
         if isinstance(current_frame, Frame):
             frame = <Frame> current_frame
-            actframe_ = _ActionFrame(frame.thisptr)
-            self.baseptr.DoAction(idx, actframe_)
+            actframe_ = _ActionFrame(frame.thisptr, self.n_frames)
+            self.baseptr.DoAction(self.n_frames, actframe_)
             self.n_frames += 1
 
             if get_new_frame:
@@ -168,7 +168,7 @@ cdef class Action:
                 return new_frame
         else:
             for frame in iterframe_master(current_frame):
-                self.compute(frame, idx=idx)
+                self.compute(frame)
 
     @makesureABC("Action")
     def post_process(self):

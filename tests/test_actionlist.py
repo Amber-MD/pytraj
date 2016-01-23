@@ -133,6 +133,7 @@ class TestActionList(unittest.TestCase):
                   ":2@CA :10@CA out ./output/_dist.out", traj.top,
                   dslist, dflist)
         alist.compute([traj.iterchunk()])
+        print('dslist', dslist[0].size)
         assert len(dslist) == 1
         assert dslist[0].size == traj.n_frames
 
