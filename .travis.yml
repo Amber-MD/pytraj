@@ -29,7 +29,6 @@ install:
     - python --version
 
 script:
-    - (git clone https://github.com/drroe/cpptraj && cd cpptraj && git checkout parallel_trajin)
     - source devtools/travis-ci/install_pytraj.sh
     - export LD_LIBRARY_PATH=`pwd`"/cpptraj/lib":$LD_LIBRARY_PATH
     - sh ./devtools/travis-ci/pyflakes_check.sh
