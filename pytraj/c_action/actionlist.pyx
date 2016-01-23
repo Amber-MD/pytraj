@@ -322,8 +322,6 @@ cdef class ActionList:
 
         crdinfo_ = CoordinateInfo(box.thisptr[0], has_velocity, has_time, has_force)
 
-        #top._own_memory = False
-
         actionsetup_ = _ActionSetup(top.thisptr, crdinfo_, n_frames_t)
         self.thisptr.SetupActions(actionsetup_, exit_on_error)
 
@@ -332,7 +330,6 @@ cdef class ActionList:
         '''
         cdef _ActionFrame actionframe_
         cdef Frame frame
-        cdef int trajout_index = 0 
 
         if not self.top_is_processed:
             self.check_topology(self.top)
@@ -342,7 +339,7 @@ cdef class ActionList:
 
         if isinstance(traj, Frame):
             frame = <Frame> traj
-            actionframe_ = _ActionFrame(frame.thisptr, trajout_index)
+            actionframe_ = _ActionFrame(frame.thisptr, self.n_frames)
             self.thisptr.DoActions(self.n_frames, actionframe_)
             self.n_frames += 1
         else:
