@@ -93,5 +93,6 @@ How to get raw coordinates?
 See also
 --------
 
-`Trajectory warming up <_trajectory_excercise>`_
-`Fancy indexing <trajectory_slice>`_
+- `Trajectory warming up <trajectory_excercise>`_
+
+- `Fancy indexing <trajectory_slice>`_

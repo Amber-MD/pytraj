@@ -12,6 +12,8 @@ try ``pytraj`` online:
 
 Supported
 
+.. notes:: pytraj does not support writing trajectory in parallel. Please check cpptraj manual for this option.
+
 .. contents::
 
 .. ipython:: python
