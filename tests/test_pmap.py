@@ -195,10 +195,25 @@ class TestCpptrajCommandStyle(unittest.TestCase):
                             traj,
                             ref=traj[3],
                             n_cores=n_cores)
+            # use int for ref
+            data3 = pt.pmap(pt.rmsd,
+                            traj,
+                            ref=3,
+                            mask='@CA',
+                            n_cores=n_cores)
+            # use int for ref: use cpptraj's commmand style
+            data4 = pt.pmap(['rms @CA reference'],
+                            traj,
+                            ref=3,
+                            n_cores=n_cores)
             arr = pt.tools.dict_to_ndarray(data)[0]
             arr2 = pt.tools.dict_to_ndarray(data2)[0]
+            arr3 = pt.tools.dict_to_ndarray(data3)[0]
+            arr4 = pt.tools.dict_to_ndarray(data4)[0]
             aa_eq(arr, pt.rmsd(traj, ref=3, mask='@CA'))
             aa_eq(arr2, pt.rmsd(traj, ref=3, mask='@CA'))
+            aa_eq(arr3, pt.rmsd(traj, ref=3, mask='@CA'))
+            aa_eq(arr4, pt.rmsd(traj, ref=3, mask='@CA'))
 
             # use 4-th and 5-th Frame for reference
             data = pt.pmap(

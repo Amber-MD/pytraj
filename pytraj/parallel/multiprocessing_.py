@@ -11,6 +11,7 @@ from pytraj import NH_order_parameters
 from multiprocessing import cpu_count
 from pytraj.tools import concat_dict
 from pytraj.externals.six import string_types
+from pytraj.get_common_objects import get_reference
 
 from .base import worker_byfunc
 
@@ -48,21 +49,7 @@ def _pmap(func, traj, *args, **kwd):
     There are two modes in this method, use pytraj's methods (pytraj.rmsd, pytraj.radgyr,
     ...) or use cpptraj's command text syntax ('autoimage', 'rms', ...)
 
-    If using pytraj syntax::
-
-        If calculation require a reference structure, users need to explicit provide reference
-        as a Frame (not an integer number). For example, pt.pmap(pt.rmsd, traj, ref=-3, n_cores=3)
-        won't work, use ``ref=traj[3]`` instead.
-
     If using cpptraj syntax::
-
-        user need to specify `refindex` whenever use reference. For example, if user wants
-        to superpose to first frame and do not specify `refindex 0`, cpptraj will
-        superpose a chunk of traj in each core to 1st frame in that chunk, not the first
-        frame in original traj. Specifing `refindex 0` will direct pytraj to send `ref` to
-        all the cores.
-
-        pt.pmap(['autoimage', 'rms refindex 0'], traj, ref=(traj[0],))
 
         pytraj only supports limited cpptraj's Actions (not Analysis, checm Amber15 manual
         about Action and Analysis), say no  to 'matrix', 'atomicfluct', ... or any action
@@ -159,6 +146,10 @@ def _pmap(func, traj, *args, **kwd):
     if n_cores <= 0:
         # use all available cores
         n_cores = cpu_count()
+
+    # update reference
+    if 'ref' in kwd:
+        kwd['ref'] = get_reference(traj, kwd['ref'])
 
     if isinstance(func, (list, tuple, string_types)):
         # assume using _load_batch_pmap
