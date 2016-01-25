@@ -1,4 +1,4 @@
-.. _trajectory_excercise:
+.. _trajectory_exercise:
 
 
 Trajectory warm up
