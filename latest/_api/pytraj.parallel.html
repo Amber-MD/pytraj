@@ -199,22 +199,8 @@ frame_indices must be pickable so is can be sent to different cores.</p>
 n_cores=1, 2, 3, 4 to see if the data makes sense or not.</p>
 <p>There are two modes in this method, use pytraj&#8217;s methods (pytraj.rmsd, pytraj.radgyr,
 ...) or use cpptraj&#8217;s command text syntax (&#8216;autoimage&#8217;, &#8216;rms&#8217;, ...)</p>
-<p>If using pytraj syntax:</p>
-<div class="highlight-python"><div class="highlight"><pre>If calculation require a reference structure, users need to explicit provide reference
-as a Frame (not an integer number). For example, pt.pmap(pt.rmsd, traj, ref=-3, n_cores=3)
-won&#39;t work, use ``ref=traj[3]`` instead.
-</pre></div>
-</div>
 <p>If using cpptraj syntax:</p>
-<div class="highlight-python"><div class="highlight"><pre>user need to specify `refindex` whenever use reference. For example, if user wants
-to superpose to first frame and do not specify `refindex 0`, cpptraj will
-superpose a chunk of traj in each core to 1st frame in that chunk, not the first
-frame in original traj. Specifing `refindex 0` will direct pytraj to send `ref` to
-all the cores.
-
-pt.pmap([&#39;autoimage&#39;, &#39;rms refindex 0&#39;], traj, ref=(traj[0],))
-
-pytraj only supports limited cpptraj&#39;s Actions (not Analysis, checm Amber15 manual
+<div class="highlight-python"><div class="highlight"><pre>pytraj only supports limited cpptraj&#39;s Actions (not Analysis, checm Amber15 manual
 about Action and Analysis), say no  to &#39;matrix&#39;, &#39;atomicfluct&#39;, ... or any action
 that results output depending on the number of frames.
 </pre></div>
