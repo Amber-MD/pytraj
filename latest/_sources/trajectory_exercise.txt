@@ -20,8 +20,11 @@ Register to load from disk with frame stride
 
 .. ipython:: python
 
-    # start=0, stop=8, step=2
-    pt.iterload('tz2.nc', 'tz2.parm7', frame_slice=(0, 8, 2))
+    # specify start=2, stop=50, step=2
+    pt.iterload('tz2.nc', 'tz2.parm7', frame_slice=(2, 50, 2))
+
+    # skip every 2 frames with stride option
+    pt.iterload('tz2.nc', 'tz2.parm7', stride=2)
 
 
 Register to load several files from disk
@@ -45,6 +48,9 @@ Register to load several files from disk with frame stride
 
     # please note that pytraj skip last frame (to follow Python's convention).
     # if you specify (0, 5), pytraj will take frames from 0 to 4 (skip 5)
+
+    # use stride to simplify loading if do not need to specif start and stop frames
+    pt.iterload(['tz2.0.nc', 'tz2.1.nc'], 'tz2.parm7', stride=3)
 
 
 Fancy indexing
