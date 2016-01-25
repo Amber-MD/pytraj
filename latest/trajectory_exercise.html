@@ -243,15 +243,13 @@
 <span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
 <span class="go">           </span>
 
-<span class="c"># similiar to cpptraj style</span>
-<span class="c"># parm tz2.parm7</span>
-<span class="c"># trajin tz2.0.nc 1 8 2</span>
-<span class="c"># trajin tz2.1.nc 1 5 1</span>
-<span class="c"># please note that pytraj skip last frame (to follow Python&#39;s convention).</span>
-<span class="c"># if you specify (0, 5), pytraj will take frames from 0 to 4 (skip 5)</span>
-<span class="c"># use stride to simplify loading if do not need to specif start and stop frames</span>
+</pre></div>
+</div>
+<div class="highlight-ipython"><div class="highlight"><pre></pre></div>
+</div>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="c"># use stride to simplify loading if do not need to specif start and stop frames</span>
 <span class="gp">In [8]: </span><span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s">&#39;tz2.0.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.1.nc&#39;</span><span class="p">],</span> <span class="s">&#39;tz2.parm7&#39;</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="go">                                                                                                                                   Out[8]: </span>
+<span class="gr">Out[8]: </span>
 <span class="go">pytraj.TrajectoryIterator, 68 frames: </span>
 <span class="go">Size: 0.000339 (GB)</span>
 <span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
