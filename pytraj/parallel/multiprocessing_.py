@@ -11,6 +11,7 @@ from pytraj import NH_order_parameters
 from multiprocessing import cpu_count
 from pytraj.tools import concat_dict
 from pytraj.externals.six import string_types
+from pytraj.get_common_objects import get_reference
 
 from .base import worker_byfunc
 
@@ -159,6 +160,10 @@ def _pmap(func, traj, *args, **kwd):
     if n_cores <= 0:
         # use all available cores
         n_cores = cpu_count()
+
+    # update reference
+    if 'ref' in kwd:
+        kwd['ref'] = get_reference(traj, kwd['ref'])
 
     if isinstance(func, (list, tuple, string_types)):
         # assume using _load_batch_pmap
