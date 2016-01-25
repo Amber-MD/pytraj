@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 import pytraj as pt
 from pytraj import Topology, Trajectory, TrajectoryIterator
-from pytraj.testing import aa_eq
+from pytraj.testing import aa_eq, get_fn, get_remd_fn
 
 try:
     import scipy
@@ -18,9 +18,59 @@ class TestIO(unittest.TestCase):
         self.traj_tz2_ortho = pt.iterload("data/tz2.ortho.nc",
                                           "data/tz2.ortho.parm7")
 
+    def test_iterload_comprehensive(self):
+        fn, tn = ("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+
+        # frame_slice 
+        t0 = pt.iterload(fn, tn, frame_slice=(0, -1, 0))
+        aa_eq(self.traj_tz2_ortho.xyz, t0.xyz)
+
+        t0 = pt.iterload(fn, tn, frame_slice=(0, -1, 2))
+        aa_eq(self.traj_tz2_ortho.xyz[::2], t0.xyz)
+
+        # stride
+        t0 = pt.iterload(fn, tn, stride=2)
+        aa_eq(self.traj_tz2_ortho.xyz[::2], t0.xyz)
+
+        # stride, ignore frame_slice
+        t0 = pt.iterload(fn, tn, stride=2, frame_slice=(0, -1, 3))
+        aa_eq(self.traj_tz2_ortho.xyz[::2], t0.xyz)
+
+        # stride, load two files
+        t0 = pt.iterload([fn, fn], tn, stride=2)
+        xyz_2 = np.vstack((self.traj_tz2_ortho.xyz[::2], self.traj_tz2_ortho.xyz[::2]))
+        aa_eq(xyz_2, t0.xyz)
+
+        # stride, load two files, ignore frame_slice
+        t0 = pt.iterload([fn, fn], tn, stride=2, frame_slice=[(0, -1, 5), (0, -1, 2)])
+        xyz_2 = np.vstack((self.traj_tz2_ortho.xyz[::2], self.traj_tz2_ortho.xyz[::2]))
+        aa_eq(xyz_2, t0.xyz)
+
+        # stride, 4 trajs
+        filenames, tn = get_remd_fn('remd_ala2')
+        t0 = pt.iterload(filenames, tn, stride=3)
+        # add frame_slice
+        t1 = pt.iterload(filenames, tn, frame_slice=[(0, -1, 3),]*4)
+        xyz_expected = np.vstack([pt.iterload(fn, tn)[::3].xyz for fn in filenames])
+        aa_eq(xyz_expected, t0.xyz)
+        aa_eq(xyz_expected, t1.xyz)
+
+        # stride, 4 trajs, ignore frame_slice
+        filenames, tn = get_remd_fn('remd_ala2')
+        t0 = pt.iterload(filenames, tn, stride=3, frame_slice=(0 -1, 4))
+        xyz_expected = np.vstack([pt.iterload(fn, tn)[::3].xyz for fn in filenames])
+        aa_eq(xyz_expected, t0.xyz)
+
+
     def test_load_comprehensive(self):
         traj = self.traj_tz2_ortho
         fn, tn = ("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+
+        # load from filelist
+        t0 = pt.load([fn, fn], tn)
+        n_frames_half = int(t0.n_frames / 2)
+        aa_eq(traj.xyz, t0[:n_frames_half].xyz)
+        aa_eq(traj.xyz, t0[n_frames_half:].xyz)
 
         # frame_slice
         t0 = pt.io.load_traj(fn, tn, frame_slice=(0, 3))
@@ -41,6 +91,18 @@ class TestIO(unittest.TestCase):
         # mask and frame_indices
         t2 = pt.load(fn, tn, mask='@CA', frame_indices=[3, 8])
         aa_eq(t2.xyz, traj[[3, 8], '@CA'].xyz)
+
+        # stride
+        t2 = pt.load(fn, tn, stride=2)
+        aa_eq(t2.xyz, traj[::2].xyz)
+
+        # stride with mask
+        t2 = pt.load(fn, tn, stride=2, mask='@CA')
+        aa_eq(t2.xyz, traj[::2, '@CA'].xyz)
+
+        # stride, ignore frame_indices if stride is given
+        t2 = pt.load(fn, tn, stride=2, frame_indices=[2, 5, 8])
+        aa_eq(t2.xyz, traj[::2].xyz)
 
     def test_save_traj_from_file(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:5]

@@ -116,6 +116,16 @@ def get_fn(txt):
     return traj.filename, traj.top.filename
 
 
+def get_remd_fn(txt):
+    """
+
+    >>> fnlist, tn = get_remd_fn('remd_ala2')
+    """
+    from pytraj import load_sample_data
+    traj = load_sample_data(txt)
+    return traj.filelist, traj.top.filename
+
+
 if __name__ == "__main__":
     print(amberhome)
     print(cpptraj_test_dir)

@@ -43,7 +43,7 @@ __all__ = ['load',
            'to_json', ]
 
 
-def load(filename, top=None, frame_indices=None, mask=None):
+def load(filename, top=None, frame_indices=None, mask=None, stride=None):
     """try loading and returning appropriate values. See example below.
 
     Parameters
@@ -52,6 +52,9 @@ def load(filename, top=None, frame_indices=None, mask=None):
     top : Topology filename or a Topology
     frame_indices : {None, array_like}, default None
         only load frames with given number given in frame_indices
+    stride : {None, int}, default None
+        if given, frame will be skip every `stride`.
+        Note: if bot frame_indices and stride are given, `frame_indices` will be ignored.
     mask : {str, None}, default None
         if None: load coordinates for all atoms
         if string, load coordinates for given atom mask
@@ -77,9 +80,6 @@ def load(filename, top=None, frame_indices=None, mask=None):
     >>> # load netcdf file with given amber parm file
     >>> traj = pt.load('traj.nc', '2koc.parm7') # doctest: +SKIP
 
-    >>> # load netcdf file with given amber parm file
-    >>> traj = pt.load('traj.nc', '2koc.parm7') # doctest: +SKIP
-
     >>> # load mol2 file
     >>> traj = pt.load('traj.mol2') # # doctest: +SKIP
 
@@ -87,37 +87,65 @@ def load(filename, top=None, frame_indices=None, mask=None):
     >>> traj = pt.load('traj.pdb') # doctest: +SKIP
 
     >>> # load given frame numbers
-    >>> traj = pt.load('traj.nc', top='2koc.parm7', frame_indices=[0, 3, 5, 12, 20]) # doctest: +SKIP
-    >>> traj = pt.load('traj.nc', top='2koc.parm7', frame_indices=[0, 3, 5, 12, 20], mask='!@H=') # doctest: +SKIP
+    >>> from pytraj.testing import get_fn
+    >>> fn, tn = get_fn('tz2_dry')
+    >>> traj = pt.load(fn, top=tn, frame_indices=[0, 3, 5, 12, 20])
+    >>> traj = pt.load(fn, top=tn, frame_indices=[0, 3, 5, 12, 20], mask='!@H=')
 
     >>> # load with frame slice
-    >>> traj = pt.load('traj.nc', top='2koc.parm7', frame_indices=slice(0, 10, 2)) # doctest: +SKIP
+    >>> traj = pt.load(fn, tn, frame_indices=slice(0, 10, 2))
     >>> # which is equal to:
-    >>> traj = pt.load('traj.nc', top='2koc.parm7', frame_indices=range(0, 10, 2)) # doctest: +SKIP
-    """
-    if isinstance(filename, string_types) and filename.startswith(
-            'http://') or filename.startswith('https://'):
-        return load_ParmEd(filename, as_traj=True, structure=True)
-    else:
-        # load to TrajectoryIterator object first
-        traj = load_traj(filename, top)
+    >>> traj = pt.load(fn, tn, frame_indices=range(0, 10, 2))
 
-        # do the slicing and other thinkgs if needed.
-        if isinstance(frame_indices, tuple):
-            frame_indices = list(frame_indices)
-        if frame_indices is None and mask is None:
+    >>> # load with stride
+    >>> traj = pt.load(fn, tn)
+    >>> traj.n_frames
+    101
+    >>> traj = pt.load(fn, tn, stride=5)
+    >>> traj.n_frames
+    21
+
+    >>> # load with stride for more than one filename
+    >>> traj = pt.load([fn, fn], tn, stride=5)
+    >>> traj.n_frames
+    42
+    >>> traj.n_atoms
+    223
+
+    >>> # load with stride for more than one filename, and with mask
+    >>> traj = pt.load([fn, fn], tn, stride=5, mask='@CA')
+    >>> traj.n_frames
+    42
+    >>> traj.n_atoms
+    12
+    """
+    # load to TrajectoryIterator object first
+    # do not use frame_indices_ here so we can optimize the slicing speed
+    traj = load_traj(filename, top, stride=stride)
+
+    # do the slicing and other things if needed.
+    if stride is not None:
+        if mask is None:
+            return traj[:]
+        else:
+            return traj[mask]
+    else:
+        frame_indices_ = frame_indices
+        if isinstance(frame_indices_, tuple):
+            frame_indices_ = list(frame_indices_)
+        if frame_indices_ is None and mask is None:
             # load all
             return traj[:]
-        elif frame_indices is None and mask is not None:
+        elif frame_indices_ is None and mask is not None:
             # load all frames with given mask
             # eg: traj['@CA']
             return traj[mask]
-        elif frame_indices is not None and mask is None:
+        elif frame_indices_ is not None and mask is None:
             # eg. traj[[0, 3, 7]]
-            return traj[frame_indices]
+            return traj[frame_indices_]
         else:
             # eg. traj[[0, 3, 7], '@CA']
-            return traj[frame_indices, mask]
+            return traj[frame_indices_, mask]
 
 
 def iterload(*args, **kwd):
@@ -139,6 +167,9 @@ def iterload(*args, **kwd):
             trajin traj1.nc
 
         In pytraj, corresponding frame_slice=[(0, 10), (0, -1)]
+    stride : {None, int}, default None
+        if not None, trajectories will be strided.
+        Note: if both stride and frame_slice are not None, frame_slice will be ignored
 
     Returns
     -------
@@ -147,7 +178,6 @@ def iterload(*args, **kwd):
     Examples
     --------
     >>> import pytraj as pt
-    >>> # load a single filename
     >>> traj = pt.iterload('traj.nc', '2koc.parm7') # doctest: +SKIP
 
     >>> # load from a list of filenames
@@ -162,7 +192,14 @@ def iterload(*args, **kwd):
 
     >>> # load from frame 0 to 9 for `traj0.nc`
     >>> # load all frames from `traj1.nc`
-    >>> traj = pt.iterload(['traj0.nc', 'traj1.nc'], '2koc.parm7', frame_slice=[(0, 10), (0, -1)] # doctest: +SKIP
+    >>> traj = pt.iterload(['traj0.nc', 'traj1.nc'], '2koc.parm7', frame_slice=[(0, 10), (0, -1)]) # doctest: +SKIP
+
+    >>> # use stride, skip every 2 frames
+    >>> from pytraj.testing import get_remd_fn
+    >>> filenames, topology_filename = get_remd_fn('remd_ala2')
+    >>> [fn.split('/')[-1] for fn in filenames]
+    ['rem.nc.000', 'rem.nc.001', 'rem.nc.002', 'rem.nc.003']
+    >>> traj = pt.iterload(filenames, topology_filename, stride=2)
 
     Notes
     -----
@@ -250,7 +287,9 @@ def load_traj(filename=None, top=None, *args, **kwd):
         top = load_topology(filename)
     ts = TrajectoryIterator(top=top)
 
-    if 'frame_slice' in kwd.keys():
+    if 'stride' in kwd:
+        ts._load(filename, stride=kwd['stride'])
+    elif 'frame_slice' in kwd:
         ts._load(filename, frame_slice=kwd['frame_slice'])
     else:
         ts._load(filename)

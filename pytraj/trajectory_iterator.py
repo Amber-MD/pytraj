@@ -182,34 +182,46 @@ class TrajectoryIterator(TrajectoryCpptraj):
             other._load(fname, frame_slice=frame_slice)
         return other
 
-    def _load(self, filename=None, top=None, frame_slice=(0, -1, 1)):
+    def _load(self, filename=None, top=None, frame_slice=(0, -1, 1), stride=None):
         """load trajectory/trajectories from filename/filenames
         with a single frame_slice or a list of frame_slice
+
+        Notes
+        -----
+        if stride is not None, frame_slice will be ignored
         """
         if not top:
-            _top = self.top
+            top_ = self.top
         else:
-            _top = top
+            top_ = top
+
+        frame_slice_ = frame_slice if stride is None else (0, -1, stride)
 
         if isinstance(filename, string_types) and os.path.exists(filename):
-            super(TrajectoryIterator, self)._load(filename, _top, frame_slice)
-            self.frame_slice_list.append(frame_slice)
+            super(TrajectoryIterator, self)._load(filename, top_, frame_slice_)
+            self.frame_slice_list.append(frame_slice_)
         elif isinstance(filename,
                         string_types) and not os.path.exists(filename):
+
             flist = sort_filename_by_number(glob(filename))
             if not flist:
                 raise ValueError(
                     "must provie a filename or list of filenames or file pattern")
-            self._load(flist, top=top, frame_slice=frame_slice)
+                frame_slice_ = [(0, -1, stride),] * len(flist) if stride is not None else frame_slice_
+            self._load(flist, top=top, frame_slice=frame_slice_)
         elif isinstance(filename, (list, tuple)):
-            filename_list = filename
-            full_frame_slice = _make_frame_slices(
-                len(filename_list), frame_slice)
+            flist = filename
 
-            for fname, fslice in zip(filename_list, full_frame_slice):
+            if stride is None:
+                full_frame_slice = _make_frame_slices(
+                    len(flist), frame_slice)
+            else:
+                full_frame_slice = [(0, -1, stride),] * len(flist)
+
+            for fname, fslice in zip(flist, full_frame_slice):
                 self.frame_slice_list.append(frame_slice)
                 super(TrajectoryIterator, self)._load(fname,
-                                                      _top,
+                                                      top_,
                                                       frame_slice=fslice)
         else:
             raise ValueError("filename must a string or a list of string")
@@ -300,14 +312,14 @@ class TrajectoryIterator(TrajectoryCpptraj):
         '''
 
         if mask is None:
-            _top = self.top
+            top_ = self.top
         else:
             if isinstance(mask, string_types):
                 mask = mask
-                _top = self.top._get_new_from_mask(mask)
+                top_ = self.top._get_new_from_mask(mask)
             else:
                 mask = array_to_cpptraj_atommask(mask)
-                _top = self.top._get_new_from_mask(mask)
+                top_ = self.top._get_new_from_mask(mask)
 
         if rmsfit is not None:
             if isinstance(rmsfit, tuple):
@@ -347,7 +359,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
 
         return FrameIterator(frame_iter_super,
                              original_top=self.top,
-                             new_top=_top,
+                             new_top=top_,
                              start=start,
                              stop=stop,
                              step=step,
