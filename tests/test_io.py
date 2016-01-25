@@ -66,6 +66,12 @@ class TestIO(unittest.TestCase):
         traj = self.traj_tz2_ortho
         fn, tn = ("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
 
+        # load from filelist
+        t0 = pt.load([fn, fn], tn)
+        n_frames_half = int(t0.n_frames / 2)
+        aa_eq(traj.xyz, t0[:n_frames_half].xyz)
+        aa_eq(traj.xyz, t0[n_frames_half:].xyz)
+
         # frame_slice
         t0 = pt.io.load_traj(fn, tn, frame_slice=(0, 3))
         aa_eq(self.traj_tz2_ortho[:3].xyz, t0.xyz)
