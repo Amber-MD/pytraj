@@ -18,6 +18,9 @@ class TestExtraCoverage(unittest.TestCase):
     def test_datafiles(self):
         traj = pt.datafiles.load_remd_ala2()
         assert len(traj.filelist) == 4, 'should have 4 replica trajs'
+        filenames = [fn.split('/')[-1] for fn in traj.filelist]
+        assert ['rem.nc.000', 'rem.nc.001', 'rem.nc.002', 'rem.nc.003'] == filenames, \
+        'must have 4 replica trajs (rem.nc*)'
 
     def test_extra_coverage(self):
         '''all kind of tests that do not belong to anywhere else

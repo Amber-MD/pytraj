@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 import pytraj as pt
 from pytraj import Topology, Trajectory, TrajectoryIterator
-from pytraj.testing import aa_eq
+from pytraj.testing import aa_eq, get_fn, get_remd_fn
 
 try:
     import scipy
@@ -45,6 +45,21 @@ class TestIO(unittest.TestCase):
         t0 = pt.iterload([fn, fn], tn, stride=2, frame_slice=[(0, -1, 5), (0, -1, 2)])
         xyz_2 = np.vstack((self.traj_tz2_ortho.xyz[::2], self.traj_tz2_ortho.xyz[::2]))
         aa_eq(xyz_2, t0.xyz)
+
+        # stride, 4 trajs
+        filenames, tn = get_remd_fn('remd_ala2')
+        t0 = pt.iterload(filenames, tn, stride=3)
+        # add frame_slice
+        t1 = pt.iterload(filenames, tn, frame_slice=[(0, -1, 3),]*4)
+        xyz_expected = np.vstack([pt.iterload(fn, tn)[::3].xyz for fn in filenames])
+        aa_eq(xyz_expected, t0.xyz)
+        aa_eq(xyz_expected, t1.xyz)
+
+        # stride, 4 trajs, ignore frame_slice
+        filenames, tn = get_remd_fn('remd_ala2')
+        t0 = pt.iterload(filenames, tn, stride=3, frame_slice=(0 -1, 4))
+        xyz_expected = np.vstack([pt.iterload(fn, tn)[::3].xyz for fn in filenames])
+        aa_eq(xyz_expected, t0.xyz)
 
 
     def test_load_comprehensive(self):
