@@ -9,27 +9,39 @@ try ``pytraj`` online:
 
 .. contents::
 
+.. notes:: For Linux user, we highly recommend install pytraj via `conda`
+
+Supported platforms
+-------------------
+- Linux
+- OSX
+
+Supported Python versions
+-------------------------
+- 2.7, 3.4, 3.5
+
 Requires
 --------
-if you install ``pytraj`` via ``conda``, conda will automatically install those libraries for you.
 
-`numpy <http://www.numpy.org/>`_
+- libnetcdf, bzip2, gzip (`sudo apt-get install libbz2-dev libnetcdf-dev`)
 
-`cython <http://cython.org/>`_, version >= 0.23
+- `numpy <http://www.numpy.org/>`_
 
-``python 2.7, 3.4, 3.5``
+- `cython <http://cython.org/>`_, version >= 0.23
+
+- ``python 2.7, 3.4, 3.5``
 
 Install
 -------
 
-from conda
-~~~~~~~~~~
+from conda (Linux only)
+~~~~~~~~~~~~~~~~~~~~~~~
 
 We higly recommend install ``pytraj`` by `conda <http://conda.pydata.org/docs/intro.html>`_
 
 .. code-block:: bash
 
-    conda install -c ambermd pytraj-dev libcpptraj-dev
+    conda install -c ambermd pytraj-dev
 
 This takes only less than 30 seconds.
 
