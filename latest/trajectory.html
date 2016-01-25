@@ -253,11 +253,75 @@ rmsd to 3rd frame (index starts from 0) for all atoms, just:</p>
 </pre></div>
 </div>
 <p>You have TB of data and want to speed up your calculation, just add more cpus</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [10]: </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="o">=</span><span class="n">traj</span><span class="p">)</span>
-<span class="gr">Out[10]: </span>
-<span class="go">OrderedDict([(&#39;RoG_00000&#39;,</span>
-<span class="go">              array([ 18.9111,  18.9365,  18.8497,  18.9045,  18.8569,  18.8892,</span>
-<span class="go">                      18.943 ,  18.8888,  18.9167,  18.8707]))])</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [10]: </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="go">---------------------------------------------------------------------------</span>
+<span class="go">RemoteTraceback                           Traceback (most recent call last)</span>
+<span class="go">RemoteTraceback: </span>
+<span class="go">&quot;&quot;&quot;</span>
+<span class="go">Traceback (most recent call last):</span>
+<span class="go">  File &quot;/u1/haichit/pytraj_git/pytraj/pytraj/get_common_objects.py&quot;, line 149, in get_reference</span>
+<span class="go">    return traj[ref]</span>
+<span class="go">TypeError: &#39;FrameIterator&#39; object does not support indexing</span>
+
+<span class="go">During handling of the above exception, another exception occurred:</span>
+
+<span class="go">Traceback (most recent call last):</span>
+<span class="go">  File &quot;/home/haichit/anaconda3/lib/python3.5/multiprocessing/pool.py&quot;, line 119, in worker</span>
+<span class="go">    result = (True, func(*args, **kwds))</span>
+<span class="go">  File &quot;/home/haichit/anaconda3/lib/python3.5/multiprocessing/pool.py&quot;, line 44, in mapstar</span>
+<span class="go">    return list(map(*args))</span>
+<span class="go">  File &quot;/u1/haichit/pytraj_git/pytraj/pytraj/parallel/base.py&quot;, line 103, in worker_byfunc</span>
+<span class="go">    data = func(final_iter, *args, **kwd_cp)</span>
+<span class="go">  File &quot;/u1/haichit/pytraj_git/pytraj/pytraj/decorators.py&quot;, line 11, in inner</span>
+<span class="go">    return f(*args, **kwd)</span>
+<span class="go">  File &quot;/u1/haichit/pytraj_git/pytraj/pytraj/all_actions.py&quot;, line 1914, in calc_rmsd</span>
+<span class="go">    ref = get_reference(traj, ref)</span>
+<span class="go">  File &quot;/u1/haichit/pytraj_git/pytraj/pytraj/get_common_objects.py&quot;, line 151, in get_reference</span>
+<span class="go">    raise TypeError(&quot;%s does not support indexing&quot; % str(traj))</span>
+<span class="go">TypeError: &lt;FrameIterator with start=4, stop=6, step=1, n_frames=2, </span>
+<span class="go">frame_indices=None, </span>
+<span class="go">mask=None, autoimage=False, rmsfit=None, copy=False&gt; </span>
+<span class="go"> does not support indexing</span>
+<span class="go">&quot;&quot;&quot;</span>
+
+<span class="go">The above exception was the direct cause of the following exception:</span>
+
+<span class="go">TypeError                                 Traceback (most recent call last)</span>
+<span class="go">&lt;ipython-input-10-55fd99700579&gt; in &lt;module&gt;()</span>
+<span class="go">----&gt; 1 pt.pmap(pt.rmsd, traj, ref=3, n_cores=4)</span>
+
+<span class="go">/u1/haichit/pytraj_git/pytraj/pytraj/parallel/multiprocessing_.py in pmap(func, traj, *args, **kwd)</span>
+<span class="go">    248 def pmap(func=None, traj=None, *args, **kwd):</span>
+<span class="go">    249     if func != NH_order_parameters:</span>
+<span class="go">--&gt; 250         return _pmap(func, traj, *args, **kwd)</span>
+<span class="go">    251     else:</span>
+<span class="go">    252         if &#39;n_cores&#39; in kwd.keys():</span>
+
+<span class="go">/u1/haichit/pytraj_git/pytraj/pytraj/parallel/multiprocessing_.py in _pmap(func, traj, *args, **kwd)</span>
+<span class="go">    217                          apply=apply)</span>
+<span class="go">    218 </span>
+<span class="go">--&gt; 219         data = p.map(pfuncs, [rank for rank in range(n_cores)])</span>
+<span class="go">    220         p.close()</span>
+<span class="go">    221 </span>
+
+<span class="go">/home/haichit/anaconda3/lib/python3.5/multiprocessing/pool.py in map(self, func, iterable, chunksize)</span>
+<span class="go">    258         in a list that is returned.</span>
+<span class="go">    259         &#39;&#39;&#39;</span>
+<span class="go">--&gt; 260         return self._map_async(func, iterable, mapstar, chunksize).get()</span>
+<span class="go">    261 </span>
+<span class="go">    262     def starmap(self, func, iterable, chunksize=None):</span>
+
+<span class="go">/home/haichit/anaconda3/lib/python3.5/multiprocessing/pool.py in get(self, timeout)</span>
+<span class="go">    606             return self._value</span>
+<span class="go">    607         else:</span>
+<span class="go">--&gt; 608             raise self._value</span>
+<span class="go">    609 </span>
+<span class="go">    610     def _set(self, i, obj):</span>
+
+<span class="go">TypeError: &lt;FrameIterator with start=4, stop=6, step=1, n_frames=2, </span>
+<span class="go">frame_indices=None, </span>
+<span class="go">mask=None, autoimage=False, rmsfit=None, copy=False&gt; </span>
+<span class="go"> does not support indexing</span>
 </pre></div>
 </div>
 <p>How to get raw coordinates?</p>

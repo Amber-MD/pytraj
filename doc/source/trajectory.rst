@@ -81,7 +81,7 @@ You have TB of data and want to speed up your calculation, just add more cpus
 
 .. ipython:: python
 
-    pt.pmap(n_cores=4, func=pt.radgyr, traj=traj)
+    pt.pmap(pt.rmsd, traj, ref=3, n_cores=4)
 
 How to get raw coordinates?
 
