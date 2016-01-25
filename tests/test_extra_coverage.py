@@ -15,6 +15,10 @@ class TestExtraCoverage(unittest.TestCase):
     def setUp(self):
         self.traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
 
+    def test_datafiles(self):
+        traj = pt.datafiles.load_remd_ala2()
+        assert len(traj.filelist) == 4, 'should have 4 replica trajs'
+
     def test_extra_coverage(self):
         '''all kind of tests that do not belong to anywhere else
         '''

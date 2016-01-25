@@ -359,7 +359,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
 
         return FrameIterator(frame_iter_super,
                              original_top=self.top,
-                             new_top=_top,
+                             new_top=top_,
                              start=start,
                              stop=stop,
                              step=step,
