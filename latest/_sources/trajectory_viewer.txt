@@ -8,4 +8,4 @@ Trajectory Viewer
     or `try this online <http://mybinder.org/repo/hainm/notebook-pytraj/>`_
 
 | 
-.. image:: images/nglview_pytraj.gif 
+.. image:: images/nglview_pytraj.png
