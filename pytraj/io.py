@@ -391,8 +391,7 @@ def write_traj(filename="",
     SQM Input            .sqm
     ===================  =========
 
-    'options' for writing to pdb format (cptraj manual)
-    ---------------------------------------------------
+    'options' for writing to pdb format (cptraj manual)::
 
         dumpq:       Write atom charge/GB radius in occupancy/B-factor columns (PQR format)."
         parse:       Write atom charge/PARSE radius in occupancy/B-factor columns (PQR format)."
@@ -435,15 +434,13 @@ def write_traj(filename="",
     >>> top2 = pt.tools.make_fake_topology(n_atoms)
     >>> pt.write_traj("output/test_xyz_fake_top.nc", xyz, top=top2, overwrite=True)
 
-    'options' for writing to amber netcdf format (cptraj manual)
-    ------------------------------------------------------------
+    'options' for writing to amber netcdf format (cptraj manual)::
 
         remdtraj: Write temperature to trajectory (makes REMD trajectory)."
         velocity: Write velocities to trajectory."
         force: Write forces to trajectory.");
 
-    'options' for writing to amber netcdf restart format(cptraj manual)
-    -------------------------------------------------------------------
+    'options' for writing to amber netcdf restart format(cptraj manual)::
 
         novelocity: Do not write velocities to restart file."
         notime:     Do not write time to restart file."
@@ -451,17 +448,15 @@ def write_traj(filename="",
         time0:      Time for first frame (default 1.0)."
         dt:         Time step for subsequent frames, t=(time0+frame)*dt; (default 1.0)");
 
-    'options' for writing to mol2 format (cptraj manual)
-    ----------------------------------------------------
+    'options' for writing to mol2 format (cptraj manual)::
 
         single   : Write to a single file."
         multi    : Write each frame to a separate file."
         sybyltype: Convert Amber atom types (if present) to SYBYL types.");
 
-    'options'  for other formats
-    ----------------------------
+    'options'  for other formats::
 
-    please check http://ambermd.org/doc12/Amber15.pdf
+        please check http://ambermd.org/doc12/Amber15.pdf
     """
     from .frame import Frame
     from .c_traj.c_trajout import TrajectoryWriter
