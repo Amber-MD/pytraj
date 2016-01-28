@@ -36,6 +36,15 @@ try:
 except ValueError:
     amber_release = False
 
+try:
+    sys.argv.remove('--phenix')
+    use_phenix_python = True
+    phenix_python_lib = os.path.join(os.environ.get('PHENIX'),
+                                     'base/lib/')
+except ValueError:
+    use_phenix_python = False
+    phenix_python_lib = ''
+
 # python setup.py clean
 cmdclass = {'clean': CleanCommand}
 
@@ -337,6 +346,8 @@ if not do_clean and not amber_release:
         compiler_directives=cython_directives,
     )
 
+library_dirs = [libdir,] if not use_phenix_python else [libdir, phenix_python_lib]
+
 ext_modules = []
 for ext_name in pyxfiles:
     if has_cython:
@@ -354,7 +365,7 @@ for ext_name in pyxfiles:
                        sources=sources,
                        libraries=['cpptraj'],
                        language='c++',
-                       library_dirs=[libdir, ],
+                       library_dirs=library_dirs,
                        define_macros=define_macros,
                        include_dirs=[cpptraj_include, pytraj_home],
                        extra_compile_args=extra_compile_args,
