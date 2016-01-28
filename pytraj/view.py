@@ -28,39 +28,18 @@ def to_chemview(traj):  # pragma: no cover
     return TrajectoryViewer(traj.xyz, top)
 
 
-def to_nglview(traj, parmfile=None):  # pragma: no cover
+def to_nglview(traj, **kwd):  # pragma: no cover
     '''convert to nglview object
 
     Parameters
     ----------
     traj : pytraj.TrajectoryIterator or Trajectory
+    **kwd : additional arguments for nglview
 
     Returns
     -------
-    nglview.Trajectory
-
-    Notes
-    -----
-    need ParmEd
-
+    nglview.NGLWidget
     '''
-    try:
-        from io import StringIO
-    except ImportError:
-        from cStringIO import StringIO
-    import parmed as pmd
     import nglview as nv
-    from pytraj.sandbox import to_parmed
 
-    if parmfile is None:
-        parm = to_parmed(traj)
-    else:
-        parm = pmd.load_file(parmfile)
-        parm.coordinates = traj[0].xyz
-        parm.box = traj[0].box
-    x = StringIO()
-    parm.write_pdb(x)
-    buffer_ = x.getvalue()
-    x.close()
-    ngl_traj = nv.Trajectory(xyz=traj.xyz, topology=nv.Structure(text=buffer_))
-    return nv.TrajectoryViewer(ngl_traj)
+    return nv.show_pytraj(traj, **kwd)
