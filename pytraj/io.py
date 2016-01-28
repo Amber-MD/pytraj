@@ -430,6 +430,11 @@ def write_traj(filename="",
     >>> pt.write_traj("output/test_xyz.nc", xyz, top=traj.top, overwrite=True)
     >>> pt.write_traj("output/test_xyz.nc", xyz, top=traj.top, overwrite=True)
 
+    >>> # you can make a fake Topology to write xyz coordinates too
+    >>> n_atoms = xyz.shape[1]
+    >>> top2 = pt.tools.make_fake_topology(n_atoms)
+    >>> pt.write_traj("output/test_xyz_fake_top.nc", xyz, top=top2, overwrite=True)
+
     'options' for writing to amber netcdf format (cptraj manual)
     ------------------------------------------------------------
 
