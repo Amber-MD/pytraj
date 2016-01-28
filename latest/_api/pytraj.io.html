@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.io &mdash; pytraj 1.0.0.dev1+ed6dec5 documentation</title>
+    <title>pytraj.io &mdash; pytraj 1.0.0.dev1+eb46a8a documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.0.dev1+ed6dec5',
+        VERSION:     '1.0.0.dev1+eb46a8a',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.0.dev1+ed6dec5 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.0.dev1+eb46a8a documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="next" title="pytraj.Trajectory" href="pytraj.trajectory.html" />
     <link rel="prev" title="pytraj" href="pytraj.html" />
@@ -54,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.0.dev1+ed6dec5</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.0.dev1+eb46a8a</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -617,6 +617,23 @@ if Trajetory-like, write a trajectory to disk</p>
 </tr>
 </tbody>
 </table>
+<p>&#8216;options&#8217; for writing to pdb format (cptraj manual):</p>
+<div class="highlight-python"><div class="highlight"><pre>dumpq:       Write atom charge/GB radius in occupancy/B-factor columns (PQR format).&quot;
+parse:       Write atom charge/PARSE radius in occupancy/B-factor columns (PQR format).&quot;
+vdw:         Write atom charge/VDW radius in occupancy/B-factor columns (PQR format).&quot;
+pdbres:      Use PDB V3 residue names.&quot;
+pdbatom:     Use PDB V3 atom names.&quot;
+pdbv3:       Use PDB V3 residue/atom names.&quot;
+teradvance:  Increment record (atom) # for TER records (default no).&quot;
+terbyres:    Print TER cards based on residue sequence instead of molecules.&quot;
+model:       Write to single file separated by MODEL records.&quot;
+multi:       Write each frame to separate files.&quot;
+chainid &lt;c&gt;: Write character &#39;c&#39; in chain ID column.&quot;
+sg &lt;group&gt;:  Space group for CRYST1 record, only if box coordinates written.&quot;
+include_ep:  Include extra points.&quot;
+conect:      Write CONECT records using bond information.&quot;);
+</pre></div>
+</div>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
@@ -640,6 +657,36 @@ if Trajetory-like, write a trajectory to disk</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">top</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/test_xyz.nc&quot;</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/test_xyz.nc&quot;</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># you can make a fake Topology to write xyz coordinates too</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n_atoms</span> <span class="o">=</span> <span class="n">xyz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">top2</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">make_fake_topology</span><span class="p">(</span><span class="n">n_atoms</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/test_xyz_fake_top.nc&quot;</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">top2</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>&#8216;options&#8217; for writing to amber netcdf format (cptraj manual):</p>
+<div class="highlight-python"><div class="highlight"><pre>remdtraj: Write temperature to trajectory (makes REMD trajectory).&quot;
+velocity: Write velocities to trajectory.&quot;
+force: Write forces to trajectory.&quot;);
+</pre></div>
+</div>
+<p>&#8216;options&#8217; for writing to amber netcdf restart format(cptraj manual):</p>
+<div class="highlight-python"><div class="highlight"><pre>novelocity: Do not write velocities to restart file.&quot;
+notime:     Do not write time to restart file.&quot;
+remdtraj:   Write temperature to restart file.&quot;
+time0:      Time for first frame (default 1.0).&quot;
+dt:         Time step for subsequent frames, t=(time0+frame)*dt; (default 1.0)&quot;);
+</pre></div>
+</div>
+<p>&#8216;options&#8217; for writing to mol2 format (cptraj manual):</p>
+<div class="highlight-python"><div class="highlight"><pre>single   : Write to a single file.&quot;
+multi    : Write each frame to a separate file.&quot;
+sybyltype: Convert Amber atom types (if present) to SYBYL types.&quot;);
+</pre></div>
+</div>
+<p>&#8216;options&#8217;  for other formats:</p>
+<div class="highlight-python"><div class="highlight"><pre>please check http://ambermd.org/doc12/Amber15.pdf
 </pre></div>
 </div>
 </dd></dl>
