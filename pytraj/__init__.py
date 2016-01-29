@@ -130,7 +130,7 @@ from .all_actions import (
     calc_rmsd_nofit, rmsd, rmsd_perres, distance_rmsd, calc_multidihedral,
     autoimage, calc_angle, calc_dihedral, calc_distance,
     calc_pairwise_distance, calc_center_of_mass, calc_center_of_geometry,
-    calc_jcoupling, calc_molsurf, calc_radgyr, calc_rdf, calc_vector,
+    calc_jcoupling, calc_surf, calc_molsurf, calc_radgyr, calc_rdf, calc_vector,
     calc_pairwise_rmsd, calc_atomicfluct, calc_bfactors,
     calc_rotation_matrix, calc_watershell, calc_volume, calc_mindist,
     # lifetime,
@@ -199,6 +199,7 @@ rdf = calc_rdf
 pairdist = calc_pairdist
 multivector = calc_multivector
 atomiccorr = calc_atomiccorr
+surf = calc_surf
 molsurf = calc_molsurf
 center_of_mass = calc_center_of_mass
 center_of_geometry = calc_center_of_geometry
