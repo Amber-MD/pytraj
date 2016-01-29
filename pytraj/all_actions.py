@@ -25,6 +25,7 @@ list_of_cal = ['calc_distance',
                'calc_dihedral',
                'calc_radgyr',
                'calc_angle',
+               'calc_surf',
                'calc_molsurf',
                'calc_volume',
                'calc_matrix',
@@ -703,6 +704,30 @@ def calc_radgyr(traj=None,
     command = " ".join((mask, nomax_))
 
     act = c_action.Action_Radgyr()
+
+    c_dslist = CpptrajDatasetList()
+    act(command, traj, top=top, dslist=c_dslist)
+    return get_data_from_dtype(c_dslist, dtype)
+
+
+@register_pmap
+@super_dispatch()
+def calc_surf(traj=None,
+              mask="",
+              dtype='ndarray',
+              frame_indices=None,
+              top=None):
+    '''calc surf (LCPO method)
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> data = pt.surf(traj, '@CA')
+    '''
+    act = c_action.Action_Surf()
+
+    command = mask
 
     c_dslist = CpptrajDatasetList()
     act(command, traj, top=top, dslist=c_dslist)

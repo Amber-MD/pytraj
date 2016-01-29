@@ -7,8 +7,11 @@ from pytraj.utils import eq, aa_eq
 
 class TestMolsurf(unittest.TestCase):
 
+    def setUp(self):
+        self.traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+
     def test_molsurf(self):
-        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        traj = self.traj
 
         text = '''
         parm {0}
@@ -28,6 +31,22 @@ class TestMolsurf(unittest.TestCase):
             aa_eq(pt.molsurf(traj, mask), cpp_data[0])
             aa_eq(pt.molsurf(traj, mask, probe=1.2), cpp_data[1])
             aa_eq(pt.molsurf(traj, mask, probe=1.2, offset=0.3), cpp_data[2])
+
+    def test_surf(self):
+        traj = self.traj
+
+        text = '''
+        parm {0}
+        trajin {1}
+        surf @CA
+        '''.format(traj.top.filename, traj.filename)
+
+        state = pt.load_cpptraj_state(text)
+        state.run()
+        cpp_data = state.data[1:].values
+
+        atom_indices = traj.top.select("@CA")
+        aa_eq(pt.surf(traj, '@CA'), cpp_data)
 
 
 if __name__ == "__main__":
