@@ -33,20 +33,21 @@ class TestMolsurf(unittest.TestCase):
             aa_eq(pt.molsurf(traj, mask, probe=1.2, offset=0.3), cpp_data[2])
 
     def test_surf(self):
-        traj = self.traj
+        traj = pt.iterload('data/DPDP.nc', 'data/DPDP.parm7')
 
         text = '''
         parm {0}
         trajin {1}
-        surf @CA
+        surf :1-12
         '''.format(traj.top.filename, traj.filename)
 
         state = pt.load_cpptraj_state(text)
         state.run()
         cpp_data = state.data[1:].values
 
-        atom_indices = traj.top.select("@CA")
-        aa_eq(pt.surf(traj, '@CA'), cpp_data)
+        atom_indices = traj.top.select(":1-12")
+        aa_eq(pt.surf(traj, ':1-12'), cpp_data)
+        aa_eq(pt.surf(traj, atom_indices), cpp_data)
 
 
 if __name__ == "__main__":
