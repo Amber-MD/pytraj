@@ -57,11 +57,11 @@ For Mac user, you need to follow ``conda`` website.
 from source code (easy way)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Alternatively, user can install ``pytraj`` from source code in `github``::
-
     git clone https://github.com/Amber-MD/pytraj
     cd pytraj
     python ./setup.py install
+
+    # note: pytraj will automatically install cpptraj first.
 
 Depend on your machine, the fresh installation (``libcpptraj`` + ``pytraj``) could take 2 to 4 minutes.
 
