@@ -105,6 +105,3 @@ Welcome
 
 .. image:: http://mybinder.org/images/logo.svg
    :target: http://mybinder.org/repo/hainm/notebook-pytraj
-
-.. image:: http://ambermd.org/Amber15_cover.png
-   :target: http://ambermd.org/
