@@ -7,15 +7,15 @@ Trajectory Viewer
 
     or `try this online <http://mybinder.org/repo/hainm/notebook-pytraj/>`_
 
-    Require: jupyter notebook, nglview
+Requirement: jupyter notebook, nglview::
 
-        # install notebook via conda.
-        conda install jupyter notebook
+    # install notebook via conda.
+    conda install jupyter notebook
 
-        # install nglview
-        git clone https://github.com/arose/nglview
-        cd nglview
-        python setup.py install
+    # install nglview
+    git clone https://github.com/arose/nglview
+    cd nglview
+    python setup.py install
 
 | 
 .. image:: images/nglview_pytraj.png
