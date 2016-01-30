@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.all_actions &mdash; pytraj 1.0.0.dev1+eb46a8a documentation</title>
+    <title>pytraj.all_actions &mdash; pytraj 1.0.0.dev1+24b030a documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.0.dev1+eb46a8a',
+        VERSION:     '1.0.0.dev1+24b030a',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.0.dev1+eb46a8a documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.0.dev1+24b030a documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="next" title="pytraj.hbond" href="pytraj.hbond_analysis.html" />
     <link rel="prev" title="pytraj.cluster" href="pytraj.cluster.html" />
@@ -54,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.0.dev1+eb46a8a</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.0.dev1+24b030a</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -403,6 +403,18 @@ set_nobox for Topology.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># calculate angle for a series of atoms, using array for atom mask</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># angle between atom 1, 5, 8, distance between atom 4, 10, 20 (index starts from 0)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">angles</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.all_actions.calc_surf">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_surf</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_surf" title="Permalink to this definition">¶</a></dt>
+<dd><p>calc surf (LCPO method)</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">surf</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1814,7 +1826,7 @@ out[1:]: perres rmsd for all given residues
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Jan 28, 2016.<br/>
+      Last updated on Jan 29, 2016.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>

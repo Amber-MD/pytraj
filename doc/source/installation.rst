@@ -18,7 +18,7 @@ Supported platforms
 
 Supported Python versions
 -------------------------
-- 2.7, 3.4, 3.5
+- 2.7, >=3.4
 
 Requires
 --------
@@ -54,8 +54,8 @@ For Mac user, you need to follow ``conda`` website.
     $ sh Miniconda3-latest-Linux-x86_64.sh
 
 
-from source code
-~~~~~~~~~~~~~~~~
+from source code (easy way)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Alternatively, user can install ``pytraj`` from source code in `github``::
 
@@ -64,6 +64,30 @@ Alternatively, user can install ``pytraj`` from source code in `github``::
     python ./setup.py install
 
 Depend on your machine, the fresh installation (``libcpptraj`` + ``pytraj``) could take 2 to 4 minutes.
+
+from source code (hard way - expert only)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Sometimes you want to install `libcpptraj.so` by yourself.
+
+- First, download cpptraj::
+
+    git clone https://github.com/Amber-MD/cpptraj
+    cd cpptraj
+    bash configure -shared -openmp gnu
+    make libcpptraj -j4
+
+    # please check bash configure --full-help for other options.
+    # check: https://github.com/Amber-MD/cpptraj too
+    export CPPTRAJHOME=`pwd`
+
+- Then, install ``pytraj`` ::
+
+    # cd to any folder you want to store pytraj code
+    # then
+    git clone https://github.com/Amber-MD/pytraj
+    cd pytraj
+    python ./setup.py install
 
 Update pytraj
 -------------
