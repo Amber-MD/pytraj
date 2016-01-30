@@ -81,7 +81,7 @@ Welcome
 
    </div>
    <div class="col-md-3">
-   <h2>Install Jupyter notebook for interactive data exploration</h2>
+   <h3>Jupyter notebook</h3>
 
 .. image:: http://jupyter.org/assets/jupyterpreview.png
    :target: http://jupyter.org/
@@ -91,7 +91,7 @@ Welcome
 
    </div>
    <div class="col-md-3">
-   <h2>Install Python packages with Anaconda</h2>
+   <h3>Python packages with Anaconda</h3>
 
 .. image:: https://www.continuum.io/sites/all/themes/continuum_foundation/images/logos/logo-anaconda.svg
    :target: https://www.continuum.io/
@@ -101,7 +101,7 @@ Welcome
 
    </div>
    <div class="col-md-3">
-   <h2>Try pytraj online</h2>
+   <h3>Try pytraj online</h3>
 
 .. image:: http://mybinder.org/images/logo.svg
    :target: http://mybinder.org/repo/hainm/notebook-pytraj
