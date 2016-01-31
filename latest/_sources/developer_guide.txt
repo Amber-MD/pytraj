@@ -19,8 +19,7 @@ Our github repo
 
 How to contribute code?
 
-- Please read general instruction about git control in `pandas website
-<http://pandas.pydata.org/pandas-docs/stable/contributing.html#version-control-git-and-github>`_
+- Please read general instruction about git control in `pandas website <http://pandas.pydata.org/pandas-docs/stable/contributing.html#version-control-git-and-github>`_
 
 - Basic steps
 

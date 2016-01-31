@@ -174,50 +174,47 @@
     <div class="col-md-12 content">
       
   <div class="section" id="developer-guide-for-pytraj">
-<h1><a class="toc-backref" href="#id3">Developer guide for pytraj</a><a class="headerlink" href="#developer-guide-for-pytraj" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id1">Developer guide for pytraj</a><a class="headerlink" href="#developer-guide-for-pytraj" title="Permalink to this headline">¶</a></h1>
 <div class="contents topic" id="contents">
 <p class="topic-title first">Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#developer-guide-for-pytraj" id="id3">Developer guide for pytraj</a><ul>
-<li><a class="reference internal" href="#general-philosophy" id="id4">General philosophy</a></li>
-<li><a class="reference internal" href="#our-github-repo" id="id5">Our github repo</a></li>
-<li><a class="reference internal" href="#python-style-guide" id="id6">Python style guide</a></li>
-<li><a class="reference internal" href="#python-2-and-3-compat" id="id7">Python 2 and 3 compat</a></li>
-<li><a class="reference internal" href="#conda-build-to-upload-to-anaconda-server" id="id8">conda build to upload to anaconda server</a></li>
-<li><a class="reference internal" href="#install" id="id9">Install</a></li>
-<li><a class="reference internal" href="#add-new-method-to-pytraj" id="id10">Add new method to pytraj</a></li>
-<li><a class="reference internal" href="#write-your-code-for-pytraj-s-parallel-pmap" id="id11">Write your code for pytraj&#8217;s parallel pmap</a></li>
-<li><a class="reference internal" href="#test-your-code" id="id12">Test your code</a></li>
-<li><a class="reference internal" href="#external-codes" id="id13">External codes</a></li>
-<li><a class="reference internal" href="#licence-info" id="id14">Licence info</a></li>
-<li><a class="reference internal" href="#build-doc" id="id15">Build doc</a></li>
-<li><a class="reference internal" href="#how-to-make-a-tutorial-and-include-it-in-pytraj-s-website" id="id16">How to make a tutorial and include it in pytraj&#8217;s website</a></li>
-<li><a class="reference internal" href="#push-pytraj-and-libcpptraj-to-anaconda-org-after-successful-build-on-travis" id="id17">Push pytraj and libcpptraj to anaconda.org after successful build on travis</a></li>
-<li><a class="reference internal" href="#code-coverage-how-well-are-your-codes-tested" id="id18">Code coverage, how well are your codes tested?</a></li>
-<li><a class="reference internal" href="#segmentation-fault-debug" id="id19">Segmentation fault debug</a></li>
-<li><a class="reference internal" href="#cython" id="id20">cython</a></li>
-<li><a class="reference internal" href="#convert-gif-from-video" id="id21">Convert gif from video</a></li>
-<li><a class="reference internal" href="#read-also" id="id22">Read Also</a></li>
+<li><a class="reference internal" href="#developer-guide-for-pytraj" id="id1">Developer guide for pytraj</a><ul>
+<li><a class="reference internal" href="#general-philosophy" id="id2">General philosophy</a></li>
+<li><a class="reference internal" href="#our-github-repo" id="id3">Our github repo</a></li>
+<li><a class="reference internal" href="#python-style-guide" id="id4">Python style guide</a></li>
+<li><a class="reference internal" href="#python-2-and-3-compat" id="id5">Python 2 and 3 compat</a></li>
+<li><a class="reference internal" href="#conda-build-to-upload-to-anaconda-server" id="id6">conda build to upload to anaconda server</a></li>
+<li><a class="reference internal" href="#install" id="id7">Install</a></li>
+<li><a class="reference internal" href="#add-new-method-to-pytraj" id="id8">Add new method to pytraj</a></li>
+<li><a class="reference internal" href="#write-your-code-for-pytraj-s-parallel-pmap" id="id9">Write your code for pytraj&#8217;s parallel pmap</a></li>
+<li><a class="reference internal" href="#test-your-code" id="id10">Test your code</a></li>
+<li><a class="reference internal" href="#external-codes" id="id11">External codes</a></li>
+<li><a class="reference internal" href="#licence-info" id="id12">Licence info</a></li>
+<li><a class="reference internal" href="#build-doc" id="id13">Build doc</a></li>
+<li><a class="reference internal" href="#how-to-make-a-tutorial-and-include-it-in-pytraj-s-website" id="id14">How to make a tutorial and include it in pytraj&#8217;s website</a></li>
+<li><a class="reference internal" href="#push-pytraj-and-libcpptraj-to-anaconda-org-after-successful-build-on-travis" id="id15">Push pytraj and libcpptraj to anaconda.org after successful build on travis</a></li>
+<li><a class="reference internal" href="#code-coverage-how-well-are-your-codes-tested" id="id16">Code coverage, how well are your codes tested?</a></li>
+<li><a class="reference internal" href="#segmentation-fault-debug" id="id17">Segmentation fault debug</a></li>
+<li><a class="reference internal" href="#cython" id="id18">cython</a></li>
+<li><a class="reference internal" href="#convert-gif-from-video" id="id19">Convert gif from video</a></li>
+<li><a class="reference internal" href="#read-also" id="id20">Read Also</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="general-philosophy">
-<h2><a class="toc-backref" href="#id4">General philosophy</a><a class="headerlink" href="#general-philosophy" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id2">General philosophy</a><a class="headerlink" href="#general-philosophy" title="Permalink to this headline">¶</a></h2>
 <p>Try your best to follow instruction below but you do not need to strictly follow. Instead, you&#8217;re welcome to make suggestions/changes.
 If you have questions, do not hesitate to ask. Don&#8217;t be afraid that your
 code does not look right or pretty. We can discuss by openning an <a class="reference external" href="https://github.com/Amber-MD/pytraj/issues">issue</a></p>
 <p>If having any suggestions, open an issue too.</p>
 </div>
 <div class="section" id="our-github-repo">
-<h2><a class="toc-backref" href="#id5">Our github repo</a><a class="headerlink" href="#our-github-repo" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3">Our github repo</a><a class="headerlink" href="#our-github-repo" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://github.com/Amber-MD/pytraj/">github.com/Amber-MD/pytraj</a></p>
 <p>How to contribute code?</p>
 <ul class="simple">
-<li>Please read general instruction about git control in <a href="#id1"><span class="problematic" id="id2">`</span></a>pandas website</li>
-</ul>
-<p>&lt;<a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/contributing.html#version-control-git-and-github">http://pandas.pydata.org/pandas-docs/stable/contributing.html#version-control-git-and-github</a>&gt;`_</p>
-<ul class="simple">
+<li>Please read general instruction about git control in <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/contributing.html#version-control-git-and-github">pandas website</a></li>
 <li>Basic steps<ul>
 <li>make an account on <a class="reference external" href="https://github.com/">github</a></li>
 <li>fork our repo: help <a class="reference external" href="https://help.github.com/articles/fork-a-repo/">here</a></li>
@@ -242,11 +239,11 @@ code does not look right or pretty. We can discuss by openning an <a class="refe
 <p>Above is very minimal instruction to start up. Please google for further detail.</p>
 </div>
 <div class="section" id="python-style-guide">
-<h2><a class="toc-backref" href="#id6">Python style guide</a><a class="headerlink" href="#python-style-guide" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">Python style guide</a><a class="headerlink" href="#python-style-guide" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p class="first">Please try to follow <a class="reference external" href="http://www.python.org/dev/peps/pep-0008/">PEP8</a></p>
 </li>
-<li><p class="first">I (Hai) often use <a href="#id23"><span class="problematic" id="id24">`https://pypi.python.org/pypi/autopep8`_</span></a> to format my code:</p>
+<li><p class="first">I (Hai) often use <a href="#id21"><span class="problematic" id="id22">`https://pypi.python.org/pypi/autopep8`_</span></a> to format my code:</p>
 <div class="highlight-python"><div class="highlight"><pre>autopep8 -a -i your_file.py
 </pre></div>
 </div>
@@ -257,7 +254,7 @@ Please read <a class="reference external" href="https://github.com/numpy/numpy/b
 </ul>
 </div>
 <div class="section" id="python-2-and-3-compat">
-<h2><a class="toc-backref" href="#id7">Python 2 and 3 compat</a><a class="headerlink" href="#python-2-and-3-compat" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">Python 2 and 3 compat</a><a class="headerlink" href="#python-2-and-3-compat" title="Permalink to this headline">¶</a></h2>
 <p>Use <a class="reference external" href="http://pythonhosted.org/six/">six</a> to write your compat code.
 We put all common stuff in <a class="reference external" href="https://github.com/Amber-MD/pytraj/blob/master/pytraj/compat.py">pytraj.compat</a></p>
 <div class="admonition note">
@@ -266,7 +263,7 @@ We put all common stuff in <a class="reference external" href="https://github.co
 </div>
 </div>
 <div class="section" id="conda-build-to-upload-to-anaconda-server">
-<h2><a class="toc-backref" href="#id8">conda build to upload to anaconda server</a><a class="headerlink" href="#conda-build-to-upload-to-anaconda-server" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">conda build to upload to anaconda server</a><a class="headerlink" href="#conda-build-to-upload-to-anaconda-server" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p class="first">conda recipe:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ git clone https://github.com/Amber-MD/conda-recipes
@@ -282,7 +279,7 @@ $ # use run_build.sh (instead of conda build pytraj/) because we build 3 times f
 </ul>
 </div>
 <div class="section" id="install">
-<h2><a class="toc-backref" href="#id9">Install</a><a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7">Install</a><a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
 <p>To speed up installation, please try to build in parallel.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>python ./setup.py build faster
 <span class="nv">$ </span>python ./setup.py install
@@ -291,11 +288,11 @@ $ # use run_build.sh (instead of conda build pytraj/) because we build 3 times f
 </div>
 </div>
 <div class="section" id="add-new-method-to-pytraj">
-<h2><a class="toc-backref" href="#id10">Add new method to pytraj</a><a class="headerlink" href="#add-new-method-to-pytraj" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id8">Add new method to pytraj</a><a class="headerlink" href="#add-new-method-to-pytraj" title="Permalink to this headline">¶</a></h2>
 <p>Check <code class="docutils literal"><span class="pre">pytraj.all_actions</span></code> for example.</p>
 </div>
 <div class="section" id="write-your-code-for-pytraj-s-parallel-pmap">
-<h2><a class="toc-backref" href="#id11">Write your code for pytraj&#8217;s parallel pmap</a><a class="headerlink" href="#write-your-code-for-pytraj-s-parallel-pmap" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">Write your code for pytraj&#8217;s parallel pmap</a><a class="headerlink" href="#write-your-code-for-pytraj-s-parallel-pmap" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">new_method</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
     <span class="c">#  make sure to use frame iterator like below</span>
     <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">:</span>
@@ -317,7 +314,7 @@ $ # use run_build.sh (instead of conda build pytraj/) because we build 3 times f
 </div>
 </div>
 <div class="section" id="test-your-code">
-<h2><a class="toc-backref" href="#id12">Test your code</a><a class="headerlink" href="#test-your-code" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id10">Test your code</a><a class="headerlink" href="#test-your-code" title="Permalink to this headline">¶</a></h2>
 <p>New method, new change must have testing code.</p>
 <p>Currently, all testing codes are in <strong>pytraj/tests/</strong> folder.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>tests
@@ -338,15 +335,15 @@ $ # use run_build.sh (instead of conda build pytraj/) because we build 3 times f
 </div>
 </div>
 <div class="section" id="external-codes">
-<h2><a class="toc-backref" href="#id13">External codes</a><a class="headerlink" href="#external-codes" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id11">External codes</a><a class="headerlink" href="#external-codes" title="Permalink to this headline">¶</a></h2>
 <p>Try to put all external codes (<code class="docutils literal"><span class="pre">six.py</span></code>, ...) in <code class="docutils literal"><span class="pre">pytraj/externals/</span></code> folder.</p>
 </div>
 <div class="section" id="licence-info">
-<h2><a class="toc-backref" href="#id14">Licence info</a><a class="headerlink" href="#licence-info" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id12">Licence info</a><a class="headerlink" href="#licence-info" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal"><span class="pre">pytraj</span></code> always welcomes code contribution. It&#8217;s recommended to put your name in the code you write. However, for the sake of clearness, just put something very short, like <code class="docutils literal"><span class="pre">Copyright</span> <span class="pre">(c)</span> <span class="pre">2010-2013</span> <span class="pre">your_first_and_last_name</span></code> and give full details of your contribution, license in <code class="docutils literal"><span class="pre">pytraj/licenses/</span></code> folder.</p>
 </div>
 <div class="section" id="build-doc">
-<h2><a class="toc-backref" href="#id15">Build doc</a><a class="headerlink" href="#build-doc" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">Build doc</a><a class="headerlink" href="#build-doc" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">make sure to install pytraj, cpptraj, numpy, ipython, matplotlib, memory_profiler, psutil. Install <a class="reference external" href="https://github.com/ryan-roemer/sphinx-bootstrap-theme">sphinx-bootstrap-theme too</a></p>
@@ -383,7 +380,7 @@ $ # use run_build.sh (instead of conda build pytraj/) because we build 3 times f
 </div>
 </div>
 <div class="section" id="how-to-make-a-tutorial-and-include-it-in-pytraj-s-website">
-<h2><a class="toc-backref" href="#id16">How to make a tutorial and include it in pytraj&#8217;s website</a><a class="headerlink" href="#how-to-make-a-tutorial-and-include-it-in-pytraj-s-website" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id14">How to make a tutorial and include it in pytraj&#8217;s website</a><a class="headerlink" href="#how-to-make-a-tutorial-and-include-it-in-pytraj-s-website" title="Permalink to this headline">¶</a></h2>
 <p>I (Hai) prefer to use ipython notebook to write tutorial and include it in website. sphinx will run the notebook, convert to html file, insert it in correct page.
 But let&#8217;s start with different ways to make a tutorial. First, make sure to:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ git checkout gh-pages
@@ -420,7 +417,7 @@ $ # (basically you just need to use .. raw:: html directive)
 Click <code class="docutils literal"><span class="pre">Source</span></code> in that page for raw code.</p>
 </div>
 <div class="section" id="push-pytraj-and-libcpptraj-to-anaconda-org-after-successful-build-on-travis">
-<h2><a class="toc-backref" href="#id17">Push pytraj and libcpptraj to anaconda.org after successful build on travis</a><a class="headerlink" href="#push-pytraj-and-libcpptraj-to-anaconda-org-after-successful-build-on-travis" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id15">Push pytraj and libcpptraj to anaconda.org after successful build on travis</a><a class="headerlink" href="#push-pytraj-and-libcpptraj-to-anaconda-org-after-successful-build-on-travis" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This &#8216;push&#8217; is for those who have permision to log in to ambermd account on anaconda.org</p>
@@ -470,7 +467,7 @@ $ # check devtools/travis-ci/upload.sh and .travis.yml files for implementation.
 </ul>
 </div>
 <div class="section" id="code-coverage-how-well-are-your-codes-tested">
-<h2><a class="toc-backref" href="#id18">Code coverage, how well are your codes tested?</a><a class="headerlink" href="#code-coverage-how-well-are-your-codes-tested" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id16">Code coverage, how well are your codes tested?</a><a class="headerlink" href="#code-coverage-how-well-are-your-codes-tested" title="Permalink to this headline">¶</a></h2>
 <p>It&#8217;s good to measure how well you code is tested. Basically, you should write all possible tests to make sure all (most) lines of codes executed:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ nosetests -vs  --processes 6 --process-timeout 200 --with-coverage --cover-package pytraj
 </pre></div>
@@ -496,7 +493,7 @@ $ # check devtools/travis-ci/upload.sh and .travis.yml files for implementation.
 <p>This means that this method has never been tested. So just write a test case for it to increase the coverage score.</p>
 </div>
 <div class="section" id="segmentation-fault-debug">
-<h2><a class="toc-backref" href="#id19">Segmentation fault debug</a><a class="headerlink" href="#segmentation-fault-debug" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id17">Segmentation fault debug</a><a class="headerlink" href="#segmentation-fault-debug" title="Permalink to this headline">¶</a></h2>
 <p>Use <code class="docutils literal"><span class="pre">gdb</span></code></p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>gdb python
 <span class="o">(</span>gdb<span class="o">)</span> run your_python_script.py
@@ -509,18 +506,18 @@ $ # check devtools/travis-ci/upload.sh and .travis.yml files for implementation.
 </div>
 </div>
 <div class="section" id="cython">
-<h2><a class="toc-backref" href="#id20">cython</a><a class="headerlink" href="#cython" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id18">cython</a><a class="headerlink" href="#cython" title="Permalink to this headline">¶</a></h2>
 <p>We recommended to use <code class="docutils literal"><span class="pre">cython</span></code> to write or wrap high performance code. Please don&#8217;t use <code class="docutils literal"><span class="pre">cimport</span> <span class="pre">numpy</span></code>, use <a class="reference external" href="http://docs.cython.org/src/userguide/memoryviews.html">memoryview</a> instead
 Since <code class="docutils literal"><span class="pre">pytraj</span></code> will be bundled with AmberTools in Amber, it&#8217;s important that we should commit cythonized file too. The main idea is that user only need C++ compiler and <code class="docutils literal"><span class="pre">cpptraj</span></code>, nothing else.</p>
 <p>For some unknow reasons, I (Hai) got segmentation fault if import numpy in the top of the module  when working with <code class="docutils literal"><span class="pre">*.pyx</span></code> file. It&#8217;s better to import numpy locally (inside each method).</p>
 </div>
 <div class="section" id="convert-gif-from-video">
-<h2><a class="toc-backref" href="#id21">Convert gif from video</a><a class="headerlink" href="#convert-gif-from-video" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id19">Convert gif from video</a><a class="headerlink" href="#convert-gif-from-video" title="Permalink to this headline">¶</a></h2>
 <p>I (HN) tried different programs to record screen but only <a class="reference external" href="http://recordit.co/">http://recordit.co/</a> works well (easily to export to high quality GIF without using addional program).
 See <a class="reference external" href="https://raw.githubusercontent.com/Amber-MD/pytraj/master/examples/progress_bar.gif">demo here</a></p>
 </div>
 <div class="section" id="read-also">
-<h2><a class="toc-backref" href="#id22">Read Also</a><a class="headerlink" href="#read-also" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id20">Read Also</a><a class="headerlink" href="#read-also" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="CpptrajDevelopmentGuide.html">cpptraj developer guide</a></p>
 <p><a class="reference external" href="test_cpptraj_api">test cpptraj api change with pytraj on travis</a></p>
 <p><a class="reference external" href="http://scikit-learn.org/stable/developers/">sklearn developer guide</a></p>
