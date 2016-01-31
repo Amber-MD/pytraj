@@ -46,4 +46,4 @@ If you miss any Python package, try to use ``conda``, example::
 .. toctree::
     :maxdepth: 1
 
-    python_tricks
+    ../cookbook
