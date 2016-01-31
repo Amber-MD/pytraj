@@ -82,7 +82,7 @@ Write PDB file to netcdf format (require Netcdf lib)
     pt.write_traj('mypdb.nc', traj=pdb, overwrite=True)
 
     # can also use the shortcut
-    pdb.save('mypdb.nc')
+    pdb.save('mypdb.nc', overwrite=True)
 
 
 Fancy indexing

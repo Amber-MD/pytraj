@@ -301,24 +301,7 @@
 <span class="gp">In [14]: </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&#39;mypdb.nc&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="o">=</span><span class="n">pdb</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
 <span class="c"># can also use the shortcut</span>
-<span class="gp">In [15]: </span><span class="n">pdb</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;mypdb.nc&#39;</span><span class="p">)</span>
-<span class="go">---------------------------------------------------------------------------</span>
-<span class="go">RuntimeError                              Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-15-3df4c5506d2f&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 pdb.save(&#39;mypdb.nc&#39;)</span>
-
-<span class="go">/u1/haichit/pytraj_git/pytraj/pytraj/trajectory.py in save(self, filename, overwrite, *args, **kwd)</span>
-<span class="go">    873                      overwrite=overwrite,</span>
-<span class="go">    874                      *args,</span>
-<span class="go">--&gt; 875                      **kwd) as trajout:</span>
-<span class="go">    876             for frame in self:</span>
-<span class="go">    877                 trajout.write(frame)</span>
-
-<span class="go">/u1/haichit/pytraj_git/pytraj/pytraj/c_traj/c_trajout.pyx in pytraj.c_traj.c_trajout.TrajectoryWriter.__cinit__ (pytraj/c_traj/c_trajout.cpp:2839)()</span>
-
-<span class="go">/u1/haichit/pytraj_git/pytraj/pytraj/c_traj/c_trajout.pyx in pytraj.c_traj.c_trajout.TrajectoryWriter.open (pytraj/c_traj/c_trajout.cpp:3458)()</span>
-
-<span class="go">RuntimeError: file exist and you&#39;re in overwrite=False mode</span>
+<span class="gp">In [15]: </span><span class="n">pdb</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;mypdb.nc&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
