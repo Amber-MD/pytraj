@@ -56,6 +56,37 @@ Register to load several files from disk with frame stride
     # use stride to simplify loading if do not need to specif start and stop frames
     pt.iterload(['tz2.0.nc', 'tz2.1.nc'], 'tz2.parm7', stride=3)
 
+Write to disk
+-------------
+
+.. ipython:: python
+
+    pt.write_traj('my_traj.nc', traj, overwrite=True)
+
+Extract coordinates from PDB structure
+--------------------------------------
+
+.. ipython:: python
+
+    pdb = pt.fetch_pdb('1ES7')
+
+    # get coordinates for CA atoms
+    pdb['@CA'].xyz
+
+    # another way with more memory efficient
+    pt.get_coordinates(pdb, mask='@CA')
+
+Write PDB file to netcdf format (require Netcdf lib)
+----------------------------------------------------
+
+.. ipython:: python
+
+    pdb = pt.fetch_pdb('1ES7')
+    pt.write_traj('mypdb.nc', traj=pdb, overwrite=True)
+
+    # can also use the shortcut
+    pdb.save('mypdb.nc')
+
 
 Fancy indexing
 --------------
@@ -100,8 +131,8 @@ Iterate a part of trajectory
     for frame in pt.iterframe(traj, frame_indices=[0, 5, 20, 50], mask='@CA'):
         print(frame)
 
-Do computing
-------------
+Perform calculation
+-------------------
 
 .. ipython:: python
     
@@ -116,8 +147,8 @@ Convert data to pandas DataFrame
 
     df = pt.multidihedral(traj, resrange='3-7', dtype='dataframe')
     type(df)
-    df.head()
-    df.tail()
+    df.head(1)
+    df.tail(1)
 
 Convert to different file format
 --------------------------------
@@ -128,12 +159,12 @@ Convert to different file format
     pt.write_traj('traj.dcd', traj, overwrite=True)
 
 
-Combine with cpptraj commmand style
+Combine with cpptraj command style
 -----------------------------------
 
 .. ipython:: python
 
-    pt.do(['rms', 'radgyr @CA nomax', 'distance :3 :7'], traj)
+    pt.compute(['rms', 'radgyr @CA nomax', 'distance :3 :7'], traj)
 
 Convert out-of-core TrajectoryIterator to in-memory Trajectory
 --------------------------------------------------------------
