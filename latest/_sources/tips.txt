@@ -156,7 +156,7 @@ pickle data
 
 Sometimes you need to perform very long analysis (hours), you need to save the output to
 disk to do further analysis. You have options to save data to different files and write
-code to load the data back. However, you can use ``pytraj.to_pickle`` nad
+code to load the data back. However, you can use ``pytraj.to_pickle`` and
 ``pytraj.read_pickle`` to save the state of data. Check the example:
 
 .. ipython:: python
@@ -169,29 +169,43 @@ code to load the data back. However, you can use ``pytraj.to_pickle`` nad
     pt.read_pickle('my_data.pk')
     # note: do not read_pickle from files that don't belong to you. It's not secure.
 
-speed up calculation with parallel (mpi4py)
-------------------------------------------
-
-Just experimental code, try it with your own risk
+speed up calculation with parallel: using MPI
+---------------------------------------------
 
 .. code-block:: bash
 
     $ cat radgyr_mpi.py
     import pytraj as pt
     
-    # add extra lines
-    from pytraj.parallel import map_mpi
+    # import mpi4py to get rank of each core
     from mpi4py import MPI
     comm = MPI.COMM_WORLD
     
+    # load trajectory to each core. Use iterload to save memory
     traj = pt.iterload('md.nc', 'tc5bwat.top')
-    data = map_mpi(pt.radgyr, traj, '@CA')
+
+    # compute radgyr by sending this function to `pt.pmap_mpi`
+    data = pt.pmap_mpi(pt.radgyr, traj, '@CA')
     
+    # data is sent to first core (rank=0)
     if comm.rank == 0:
+        # save data
         pt.to_pickle(data, 'data.pk')
 
     $ # run
     $ mpirun -n 4 python radgyr_mpi.py
+    # you can reload data by `pt.read_pickle('data.pk')
+
+speed up calculation with parallel: multiple cores
+--------------------------------------------------
+
+.. ipython:: python
+    
+    # send pt.radgyr method to `pt.pmap` function
+    # need to specify the number of cores
+    # (choose wisely)
+
+    pt.pmap(pt.radgyr, traj, '@CA', n_cores=4)
 
  
 read cpptraj manual

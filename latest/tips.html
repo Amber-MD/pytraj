@@ -78,7 +78,7 @@
 <li class="toctree-l1"><a class="reference internal" href="trajectory.html#overview">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
 <li class="toctree-l1"><a class="reference internal" href="read_and_write.html">Read and Write</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="atom_mask_selection.html">Atom mask selection</a></li>
@@ -113,7 +113,8 @@
 <li><a class="reference internal" href="#memory-saving">memory saving</a></li>
 <li><a class="reference internal" href="#convert-trajectory">convert trajectory</a></li>
 <li><a class="reference internal" href="#pickle-data">pickle data</a></li>
-<li><a class="reference internal" href="#speed-up-calculation-with-parallel-mpi4py">speed up calculation with parallel (mpi4py)</a></li>
+<li><a class="reference internal" href="#speed-up-calculation-with-parallel-using-mpi">speed up calculation with parallel: using MPI</a></li>
+<li><a class="reference internal" href="#speed-up-calculation-with-parallel-multiple-cores">speed up calculation with parallel: multiple cores</a></li>
 <li><a class="reference internal" href="#read-cpptraj-manual">read cpptraj manual</a></li>
 </ul>
 </li>
@@ -177,8 +178,9 @@
 <li><a class="reference internal" href="#memory-saving" id="id8">memory saving</a></li>
 <li><a class="reference internal" href="#convert-trajectory" id="id9">convert trajectory</a></li>
 <li><a class="reference internal" href="#pickle-data" id="id10">pickle data</a></li>
-<li><a class="reference internal" href="#speed-up-calculation-with-parallel-mpi4py" id="id11">speed up calculation with parallel (mpi4py)</a></li>
-<li><a class="reference internal" href="#read-cpptraj-manual" id="id12">read cpptraj manual</a></li>
+<li><a class="reference internal" href="#speed-up-calculation-with-parallel-using-mpi" id="id11">speed up calculation with parallel: using MPI</a></li>
+<li><a class="reference internal" href="#speed-up-calculation-with-parallel-multiple-cores" id="id12">speed up calculation with parallel: multiple cores</a></li>
+<li><a class="reference internal" href="#read-cpptraj-manual" id="id13">read cpptraj manual</a></li>
 </ul>
 </li>
 </ul>
@@ -209,7 +211,8 @@
 <span class="gp">In [9]: </span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
 
 <span class="gp">In [10]: </span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="go">[  9.4451   9.5746  10.1923 ...,   7.4834   7.4324   7.6204]</span>
+<span class="go">[  9.4451051    9.57459712  10.19233494 ...,   7.48343543   7.43238185</span>
+<span class="go">   7.62039157]</span>
 </pre></div>
 </div>
 <p>However, <code class="docutils literal"><span class="pre">pytraj</span></code> offer shorter (and easy?) way to do</p>
@@ -223,7 +226,8 @@
 
 <span class="c"># that&#39;s it</span>
 <span class="gp">In [14]: </span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="go">[  9.4451   9.5746  10.1923 ...,   7.4834   7.4324   7.6204]</span>
+<span class="go">[  9.4451051    9.57459712  10.19233494 ...,   7.48343543   7.43238185</span>
+<span class="go">   7.62039157]</span>
 </pre></div>
 </div>
 <p><code class="docutils literal"><span class="pre">pytraj</span></code> will auto-allocate <code class="docutils literal"><span class="pre">data</span></code> too</p>
@@ -233,7 +237,8 @@
 <span class="gp">In [16]: </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">trajlist</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">trajlist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
 
 <span class="gp">In [17]: </span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="go">[  9.4451   9.5746  10.1923 ...,   7.4834   7.4324   7.6204]</span>
+<span class="go">[  9.4451051    9.57459712  10.19233494 ...,   7.48343543   7.43238185</span>
+<span class="go">   7.62039157]</span>
 </pre></div>
 </div>
 </div>
@@ -319,20 +324,20 @@ trajin traj4.nc <span class="m">1</span> <span class="m">100</span> 10
 <p>If memory is critical, do not load all frames into memory.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="c"># DO this (only a single frame will be loaded to memory)</span>
 <span class="gp">In [31]: </span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">301</span><span class="p">])</span>
-<span class="gr">Out[31]: </span><span class="n">array</span><span class="p">([</span> <span class="mf">9.4451</span><span class="p">,</span>  <span class="mf">7.4324</span><span class="p">,</span>  <span class="mf">7.4834</span><span class="p">,</span>  <span class="mf">7.4324</span><span class="p">])</span>
+<span class="gr">Out[31]: </span><span class="n">array</span><span class="p">([</span> <span class="mf">9.4451051</span> <span class="p">,</span>  <span class="mf">7.43238185</span><span class="p">,</span>  <span class="mf">7.48343543</span><span class="p">,</span>  <span class="mf">7.43238185</span><span class="p">])</span>
 
 <span class="c"># DON&#39;T do this if you want to save memory (all 4 frames will be loaded to memory)</span>
 <span class="gp">In [32]: </span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">301</span><span class="p">]])</span>
-<span class="go">                                                     Out[32]: array([ 9.4451,  7.4324,  7.4834,  7.4324])</span>
+<span class="go">                                                                     Out[32]: array([ 9.4451051 ,  7.43238185,  7.48343543,  7.43238185])</span>
 
 <span class="gp">In [33]: </span><span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">301</span><span class="p">])</span>
-<span class="go">                                                                                                          Out[33]: </span>
+<span class="go">                                                                                                                                          Out[33]: </span>
 <span class="go">&lt;FrameIterator with start=None, stop=None, step=None, n_frames=4, </span>
 <span class="go">frame_indices=[0, 200, 300, 301], </span>
 <span class="go">mask=None, autoimage=False, rmsfit=None, copy=False&gt; </span>
 
 <span class="gp">In [34]: </span><span class="n">traj</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">301</span><span class="p">]]</span>
-<span class="go">                                                                                                                                                                                                                                                                                Out[34]: </span>
+<span class="go">                                                                                                                                                                                                                                                                                                                Out[34]: </span>
 <span class="go">pytraj.Trajectory, 4 frames: </span>
 <span class="go">Size: 0.000020 (GB)</span>
 <span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
@@ -369,7 +374,7 @@ Line <span class="c">#    Mem usage    Increment   Line Contents</span>
 <h2><a class="toc-backref" href="#id10">pickle data</a><a class="headerlink" href="#pickle-data" title="Permalink to this headline">¶</a></h2>
 <p>Sometimes you need to perform very long analysis (hours), you need to save the output to
 disk to do further analysis. You have options to save data to different files and write
-code to load the data back. However, you can use <code class="docutils literal"><span class="pre">pytraj.to_pickle</span></code> nad
+code to load the data back. However, you can use <code class="docutils literal"><span class="pre">pytraj.to_pickle</span></code> and
 <code class="docutils literal"><span class="pre">pytraj.read_pickle</span></code> to save the state of data. Check the example:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [35]: </span><span class="n">traj3</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_pdb_rcsb</span><span class="p">(</span><span class="s">&#39;1l2y&#39;</span><span class="p">)</span>
 
@@ -387,7 +392,8 @@ code to load the data back. However, you can use <code class="docutils literal">
 <span class="go">        [&#39;0&#39;, &#39;0&#39;, &#39;S&#39;, &#39;0&#39;, &#39;0&#39;]], </span>
 <span class="go">       dtype=&#39;&lt;U1&#39;), &lt;pytraj.DatasetList with 8 datasets&gt;</span>
 <span class="go">none_avg</span>
-<span class="go">[ 1.   0.8  0.8 ...,  1.   0.8  0.8]</span>
+<span class="go">[ 1.          0.80000001  0.80000001 ...,  1.          0.80000001</span>
+<span class="go">  0.80000001]</span>
 
 <span class="go">para_avg</span>
 <span class="go">[ 0.  0.  0. ...,  0.  0.  0.]</span>
@@ -417,7 +423,8 @@ code to load the data back. However, you can use <code class="docutils literal">
 <span class="go">        [&#39;0&#39;, &#39;0&#39;, &#39;S&#39;, &#39;0&#39;, &#39;0&#39;]], </span>
 <span class="go">       dtype=&#39;&lt;U1&#39;), &lt;pytraj.DatasetList with 8 datasets&gt;</span>
 <span class="go">none_avg</span>
-<span class="go">[ 1.   0.8  0.8 ...,  1.   0.8  0.8]</span>
+<span class="go">[ 1.          0.80000001  0.80000001 ...,  1.          0.80000001</span>
+<span class="go">  0.80000001]</span>
 
 <span class="go">para_avg</span>
 <span class="go">[ 0.  0.  0. ...,  0.  0.  0.]</span>
@@ -435,30 +442,47 @@ code to load the data back. However, you can use <code class="docutils literal">
 </pre></div>
 </div>
 </div>
-<div class="section" id="speed-up-calculation-with-parallel-mpi4py">
-<h2><a class="toc-backref" href="#id11">speed up calculation with parallel (mpi4py)</a><a class="headerlink" href="#speed-up-calculation-with-parallel-mpi4py" title="Permalink to this headline">¶</a></h2>
-<p>Just experimental code, try it with your own risk</p>
+<div class="section" id="speed-up-calculation-with-parallel-using-mpi">
+<h2><a class="toc-backref" href="#id11">speed up calculation with parallel: using MPI</a><a class="headerlink" href="#speed-up-calculation-with-parallel-using-mpi" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cat radgyr_mpi.py
 import pytraj as pt
 
-<span class="c"># add extra lines</span>
-from pytraj.parallel import map_mpi
+<span class="c"># import mpi4py to get rank of each core</span>
 from mpi4py import MPI
 <span class="nv">comm</span> <span class="o">=</span> MPI.COMM_WORLD
 
+<span class="c"># load trajectory to each core. Use iterload to save memory</span>
 <span class="nv">traj</span> <span class="o">=</span> pt.iterload<span class="o">(</span><span class="s1">&#39;md.nc&#39;</span>, <span class="s1">&#39;tc5bwat.top&#39;</span><span class="o">)</span>
-<span class="nv">data</span> <span class="o">=</span> map_mpi<span class="o">(</span>pt.radgyr, traj, <span class="s1">&#39;@CA&#39;</span><span class="o">)</span>
 
+<span class="c"># compute radgyr by sending this function to `pt.pmap_mpi`</span>
+<span class="nv">data</span> <span class="o">=</span> pt.pmap_mpi<span class="o">(</span>pt.radgyr, traj, <span class="s1">&#39;@CA&#39;</span><span class="o">)</span>
+
+<span class="c"># data is sent to first core (rank=0)</span>
 <span class="k">if</span> comm.rank <span class="o">==</span> 0:
+    <span class="c"># save data</span>
     pt.to_pickle<span class="o">(</span>data, <span class="s1">&#39;data.pk&#39;</span><span class="o">)</span>
 
 <span class="nv">$ </span><span class="c"># run</span>
 <span class="nv">$ </span>mpirun -n <span class="m">4</span> python radgyr_mpi.py
+<span class="c"># you can reload data by `pt.read_pickle(&#39;data.pk&#39;)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="speed-up-calculation-with-parallel-multiple-cores">
+<h2><a class="toc-backref" href="#id12">speed up calculation with parallel: multiple cores</a><a class="headerlink" href="#speed-up-calculation-with-parallel-multiple-cores" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="c"># send pt.radgyr method to `pt.pmap` function</span>
+<span class="c"># need to specify the number of cores</span>
+<span class="c"># (choose wisely)</span>
+<span class="gp">In [40]: </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="gr">Out[40]: </span>
+<span class="go">OrderedDict([(&#39;RoG_00000&#39;,</span>
+<span class="go">              array([ 8.10916061,  7.7643485 ,  8.09693108, ...,  6.38061648,</span>
+<span class="go">                      6.24139008,  6.48994552]))])</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="read-cpptraj-manual">
-<h2><a class="toc-backref" href="#id12">read cpptraj manual</a><a class="headerlink" href="#read-cpptraj-manual" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">read cpptraj manual</a><a class="headerlink" href="#read-cpptraj-manual" title="Permalink to this headline">¶</a></h2>
 <p>This does not work with ipython-notebook but it&#8217;s still good for interactive ipython</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">In</span> <span class="p">[</span><span class="mi">106</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="n">In</span> <span class="p">[</span><span class="mi">107</span><span class="p">]:</span> <span class="n">pt</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;radgyr&#39;</span><span class="p">)</span>
@@ -482,7 +506,7 @@ from mpi4py import MPI
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Jan 29, 2016.<br/>
+      Last updated on Jan 31, 2016.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
