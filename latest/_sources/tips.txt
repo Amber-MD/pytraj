@@ -184,7 +184,7 @@ speed up calculation with parallel: using MPI
     # load trajectory to each core. Use iterload to save memory
     traj = pt.iterload('md.nc', 'tc5bwat.top')
 
-    # compute radgyr by sending this function to `pt.pmap_mpi`
+    # compute radgyr by sending this method to pt.pmap_mpi function
     data = pt.pmap_mpi(pt.radgyr, traj, '@CA')
     
     # data is sent to first core (rank=0)

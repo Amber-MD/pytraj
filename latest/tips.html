@@ -454,7 +454,7 @@ code to load the data back. However, you can use <code class="docutils literal">
 <span class="s"># load trajectory to each core. Use iterload to save memory</span>
 <span class="s">traj = pt.iterload(&#39;md.nc&#39;, &#39;tc5bwat.top&#39;)</span>
 
-<span class="s"># compute radgyr by sending this function to `pt.pmap_mpi`</span>
+<span class="s"># compute radgyr by sending this method to pt.pmap_mpi function</span>
 <span class="s">data = pt.pmap_mpi(pt.radgyr, traj, &#39;@CA&#39;)</span>
 
 <span class="s"># data is sent to first core (rank=0)</span>
