@@ -174,7 +174,7 @@ speed up calculation with parallel: using MPI
 
 .. code-block:: bash
 
-    $ cat radgyr_mpi.py
+    $ cat > radgyr_mpi.py <<EOF
     import pytraj as pt
     
     # import mpi4py to get rank of each core
@@ -191,6 +191,8 @@ speed up calculation with parallel: using MPI
     if comm.rank == 0:
         # save data
         pt.to_pickle(data, 'data.pk')
+
+    EOF
 
     $ # run
     $ mpirun -n 4 python radgyr_mpi.py
