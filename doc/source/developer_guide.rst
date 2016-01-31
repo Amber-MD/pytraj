@@ -47,7 +47,7 @@ Examples: I forked amber-md/pytraj repo to my account hainm/pytraj
     $ # use git add and git commit to record new change (google please)
 
     $ # then push the code to your repo on github
-    $ git push orgigin your_feature_name
+    $ git push origin your_feature_name
     $ # then make a pull request to amber-md/pytraj
     $ # (sounds complicated but not really, just try it and feel free to ask us for any questions)
 
