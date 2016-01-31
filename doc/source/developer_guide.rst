@@ -29,7 +29,8 @@ How to contribute code?
   - clone your fork to your computer
   - make a new branch
   - make change, do testing, commmit, push to your fork on github
-  - make pull request
+  - make pull request (PR)
+  - After code reviewing, you might need to add/update code. Just push code the the same PR.
 
 Examples: I forked amber-md/pytraj repo to my account hainm/pytraj
 
@@ -43,15 +44,18 @@ Examples: I forked amber-md/pytraj repo to my account hainm/pytraj
     $ # make changes, do testing, ...
     $ # do any work on this branch and make pull request
 
-Above is very minimal instruction, it's better to google.
+Above is very minimal instruction to start up. Please google for further detail.
 
 Python style guide
 ------------------
-Try to follow `PEP8 <http://www.python.org/dev/peps/pep-0008/>`_
+- Please try to follow `PEP8 <http://www.python.org/dev/peps/pep-0008/>`_
 
-Try to read `numpy doc <https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt>`_
+- I (Hai) often use `https://pypi.python.org/pypi/autopep8`_ to format my code::
 
-I (Hai) often use `yapf <https://github.com/google/yapf>`_ to format my code.
+      autopep8 -a -i your_file.py
+
+- Each method should have clear doc (good for both users and other developers to understand what you mean).
+  Please read `numpy doc <https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt>`_
 
 Python 2 and 3 compat
 ---------------------
@@ -59,6 +63,19 @@ Use `six <http://pythonhosted.org/six/>`_ to write your compat code.
 We put all common stuff in `pytraj.compat <https://github.com/Amber-MD/pytraj/blob/master/pytraj/compat.py>`_
 
 .. note:: currently, I (Hai) are only working on Python3 since it's much better Python2 (google why).
+
+conda build to upload to anaconda server
+----------------------------------------
+
+- conda recipe::
+
+    $ git clone https://github.com/Amber-MD/conda-recipes
+    $ cd conda-recipes
+    $ # build libcpptraj if needed
+    $ conda build libcpptraj/
+    $ # then build pytraj
+    $ ./pytraj/run_build.sh
+    $ # use run_build.sh (instead of conda build pytraj/) because we build 3 times for py27, py34, py35
 
 Install
 -------
@@ -72,7 +89,7 @@ To speed up installation, please try to build in parallel.
 
 Add new method to pytraj
 ------------------------
-Check ``pytraj.common_actions`` for example.
+Check ``pytraj.all_actions`` for example.
 
 Write your code for pytraj's parallel pmap
 ------------------------------------------
