@@ -45,6 +45,15 @@ Select atoms
     n_indices = pt.select_atoms(traj.top, '@N')
     n_indices
 
+Distance between two COMs
+-------------------------
+
+.. ipython:: python
+
+    # compute distance between COM of (residue 1 to 3) and COM of (residue 5 to 8)
+    pt.distance(traj, ':1-3 :5-8')
+
+
 DSSP analysis
 -------------
 
