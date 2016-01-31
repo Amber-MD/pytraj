@@ -38,10 +38,18 @@ Examples: I forked amber-md/pytraj repo to my account hainm/pytraj
     $ # download my branch to my computer
     $ git clone https://github.com/hainm/pytraj/
     $ cd pytraj
+
+    $ # create a new branch
     $ git branch your_feature_name
     $ git checkout your_feature_name
+
     $ # make changes, do testing, ...
-    $ # do any work on this branch and make pull request
+    $ # use git add and git commit to record new change (google please)
+
+    $ # then push the code to your repo on github
+    $ git push orgigin your_feature_name
+    $ # then make a pull request to amber-md/pytraj
+    $ # (sounds complicated but not really, just try it and feel free to ask us for any questions)
 
 Above is very minimal instruction to start up. Please google for further detail.
 
