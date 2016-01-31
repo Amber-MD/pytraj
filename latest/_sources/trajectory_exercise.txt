@@ -45,9 +45,6 @@ Register to load several files from disk with frame stride
     # parm tz2.parm7
     # trajin tz2.0.nc 1 8 2
     # trajin tz2.1.nc 1 5 1
-
-.. ipython:: python
-
     # please note that pytraj skip last frame (to follow Python's convention).
     # if you specify (0, 5), pytraj will take frames from 0 to 4 (skip 5)
 
