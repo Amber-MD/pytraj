@@ -26,7 +26,11 @@ try ``pytraj`` online:
        vector_analysis
        matrix_analysis
        `Methods that modify Trajectory coordinates <modify_traj>`_
-       _api/pytraj.common_actions
+
+    .. toctree::
+       :maxdepth: 1
+
+       _api/pytraj.all_actions
 
 
 .. container:: custom-index
