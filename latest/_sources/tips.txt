@@ -182,7 +182,7 @@ speed up calculation with parallel: using MPI
     comm = MPI.COMM_WORLD
     
     # load trajectory to each core. Use iterload to save memory
-    traj = pt.iterload('md.nc', 'tc5bwat.top')
+    traj = pt.iterload('tz2.nc', 'tz2.parm7')
 
     # compute radgyr by sending this method to pt.pmap_mpi function
     data = pt.pmap_mpi(pt.radgyr, traj, '@CA')
@@ -190,8 +190,8 @@ speed up calculation with parallel: using MPI
     # data is sent to first core (rank=0)
     if comm.rank == 0:
         # save data
-        pt.to_pickle(data, 'data.pk')
-
+        # pt.to_pickle(data, 'data.pk')
+        print(data)
     EOF
 
     $ # run

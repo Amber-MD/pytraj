@@ -452,7 +452,7 @@ code to load the data back. However, you can use <code class="docutils literal">
 <span class="s">comm = MPI.COMM_WORLD</span>
 
 <span class="s"># load trajectory to each core. Use iterload to save memory</span>
-<span class="s">traj = pt.iterload(&#39;md.nc&#39;, &#39;tc5bwat.top&#39;)</span>
+<span class="s">traj = pt.iterload(&#39;tz2.nc&#39;, &#39;tz2.parm7&#39;)</span>
 
 <span class="s"># compute radgyr by sending this method to pt.pmap_mpi function</span>
 <span class="s">data = pt.pmap_mpi(pt.radgyr, traj, &#39;@CA&#39;)</span>
@@ -460,8 +460,8 @@ code to load the data back. However, you can use <code class="docutils literal">
 <span class="s"># data is sent to first core (rank=0)</span>
 <span class="s">if comm.rank == 0:</span>
 <span class="s">    # save data</span>
-<span class="s">    pt.to_pickle(data, &#39;data.pk&#39;)</span>
-
+<span class="s">    # pt.to_pickle(data, &#39;data.pk&#39;)</span>
+<span class="s">    print(data)</span>
 <span class="s">EOF</span>
 
 <span class="nv">$ </span><span class="c"># run</span>
