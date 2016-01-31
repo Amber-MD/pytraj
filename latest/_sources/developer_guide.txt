@@ -57,7 +57,7 @@ Python style guide
 ------------------
 - Please try to follow `PEP8 <http://www.python.org/dev/peps/pep-0008/>`_
 
-- I (Hai) often use `https://pypi.python.org/pypi/autopep8`_ to format my code::
+- I (Hai) often use `autopep8 <https://pypi.python.org/pypi/autopep8>`_ to format my code::
 
       autopep8 -a -i your_file.py
 
