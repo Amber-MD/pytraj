@@ -401,7 +401,59 @@ If method supports openmp, use openmp.</p>
 <h3><a class="toc-backref" href="#id10">Distributed: using MPI (via mpi4py)</a><a class="headerlink" href="#distributed-using-mpi-via-mpi4py" title="Permalink to this headline">¶</a></h3>
 <img alt="_images/bench_pmap_mpi.png" src="_images/bench_pmap_mpi.png" />
 <p>Script for multiprocessing</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">cpu_count</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+<span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">&quot;max cores = {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cpu_count</span><span class="p">()))</span>
+<span class="n">filenames</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s">&#39;mdx/md*.nc&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span>
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="n">filenames</span><span class="p">,</span> <span class="s">&#39;prmtop&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+
+<span class="n">mask</span> <span class="o">=</span> <span class="s">&#39;!:WAT,Na+&#39;</span>
+
+<span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">)</span>
+<span class="n">t_serial</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
+<span class="c"># print(&#39;serial time = &#39;, t_serial)</span>
+
+<span class="n">func</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span>
+
+<span class="c"># for n_cores in [1, 2, 4, 6, 8, 16, 20, 24]:</span>
+<span class="k">for</span> <span class="n">n_cores</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]:</span>
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+    <span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="n">n_cores</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">t_par</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">n_cores</span><span class="p">,</span> <span class="n">t_serial</span> <span class="o">/</span> <span class="n">t_par</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>Script for MPI</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">fromm</span> <span class="n">glob</span> <span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+<span class="kn">from</span> <span class="nn">mpi4py</span> <span class="kn">import</span> <span class="n">MPI</span>
+
+<span class="n">comm</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span>
+
+<span class="c"># need to run program in serial and update serial time</span>
+<span class="n">serial_time</span> <span class="o">=</span> <span class="mf">45.</span>
+
+<span class="n">filenames</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s">&#39;mdx/md*.nc&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span>
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="n">filenames</span><span class="p">,</span> <span class="s">&#39;prmtop&#39;</span><span class="p">)</span>
+
+<span class="n">mask</span> <span class="o">=</span> <span class="s">&#39;!:WAT,Na+&#39;</span>
+
+<span class="n">func</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span>
+
+<span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pmap_mpi</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">t_par</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
+
+<span class="k">if</span> <span class="n">comm</span><span class="o">.</span><span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">serial_time</span><span class="o">/</span><span class="n">t_par</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="pmap-api-doc">

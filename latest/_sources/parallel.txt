@@ -125,7 +125,7 @@ Distributed: using MPI (via mpi4py)
 
 Script for multiprocessing
 
-.. python::
+.. code-block:: python
 
     from multiprocessing import cpu_count
     from glob import glob
@@ -155,7 +155,7 @@ Script for multiprocessing
 
 Script for MPI
 
-.. python::
+.. code-block:: python
 
     fromm glob import glob
     import pytraj as pt
