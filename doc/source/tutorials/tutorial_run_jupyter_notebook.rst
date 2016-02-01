@@ -30,4 +30,4 @@ How to run Jupyter notebook
 
 - Example:
 
-.. image:: images/tutorial_autoimage.png
+.. image:: ../images/tutorial_autoimage.png
