@@ -8,13 +8,13 @@ PYTRAJ
 A Python front-end of [cpptraj program] (https://github.com/Amber-MD/cpptraj) (a data analysis package for biomolecular simulation): http://amber-md.github.io/pytraj
 
 * [Features](#features)
-* [Demo: Interactive data exploration with Jupyter notebook](#demo-interactive-data-exploration-with-jupyter-notebook)
 * [Install](#install)
 * [How to get started?](#how-to-get-started)
 * [Contributors and Acknowledgement](#contributors-and-acknowledgement)
 * [Citation](#citation)
 * [Question/Suggestion?](#questionsuggestion)
 * [nglview with pytraj in Jupyter notebook](#nglview-with-pytraj-in-jupyter-notebook)
+* [Demo: Interactive data exploration with Jupyter notebook](#demo-interactive-data-exploration-with-jupyter-notebook)
 * [License](#license)
 
 
@@ -28,11 +28,6 @@ Features
 - interactive analysis with large trajectory data that does not fit to memory
 - [>> many more with comprehensive tutorials] (http://amber-md.github.io/pytraj)
 
-
-Demo: Interactive data exploration with [Jupyter notebook] (http://jupyter.org/)
---------------------------------------------------------------------------------
-
-[![pytraj website](./examples/progress_bar.gif)](http://amber-md.github.io/pytraj/latest/index.html)
 
 Install
 -------
@@ -87,6 +82,12 @@ nglview with pytraj in Jupyter notebook
 ---------------------------------------
 
 [![pytraj website](./examples/figures/nglview_pytraj_autoimage.png)](http://amber-md.github.io/pytraj/latest/index.html)
+
+Demo: Interactive data exploration with [Jupyter notebook] (http://jupyter.org/)
+--------------------------------------------------------------------------------
+
+[![pytraj website](./examples/progress_bar.gif)](http://amber-md.github.io/pytraj/latest/index.html)
+
 
 License
 -------
