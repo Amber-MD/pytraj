@@ -18,6 +18,8 @@ Install
    # https://www.continuum.io/downloads, you don't need to install jupyter notebook again.
    conda install jupyter notebook
 
+   # further detail: http://jupyter.org/
+
 Download notebook
 ~~~~~~~~~~~~~~~~~
  
