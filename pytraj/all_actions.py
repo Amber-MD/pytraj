@@ -53,7 +53,7 @@ list_of_cal = ['calc_distance',
                'calc_rotation_matrix',
                'calc_pca', ]
 
-list_of_do = ['do_translation', 'do_rotation', 'do_autoimage', 'do_scaling']
+list_of_do = ['translate', 'rotate', 'autoimage', 'scale']
 
 list_of_get = ['get_average_frame', 'get_velocity']
 
@@ -596,10 +596,6 @@ def calc_watershell(traj=None,
     """(adapted from cpptraj doc): Calculate numbers of waters in 1st and 2nd solvation shells
     (defined by <lower cut> (default 3.4 Ang.) and <upper cut> (default 5.0 Ang.)
 
-    Notes
-    -----
-    This method is not validated with cpptraj's output yet
-
     Parameters
     ----------
     traj : Trajectory-like
@@ -1128,7 +1124,8 @@ def calc_jcoupling(traj=None,
                    kfile=None,
                    dtype='dataset',
                    frame_indices=None):
-    """
+    """compute j-coupling
+
     Parameters
     ----------
     traj : any things that make `frame_iter_master` returning Frame object
@@ -1201,7 +1198,7 @@ def do_scaling(traj=None, command="", frame_indices=None, top=None):
 scale = do_scaling
 
 
-def do_rotation(traj=None, command="", frame_indices=None, top=None):
+def rotate(traj=None, command="", frame_indices=None, top=None):
     '''
 
     Examples
@@ -1224,7 +1221,7 @@ def do_rotation(traj=None, command="", frame_indices=None, top=None):
     c_action.Action_Rotate()(command, fi, top=_top)
 
 
-rotate = do_rotation
+do_rotation = rotate
 
 
 @super_dispatch()
@@ -1684,6 +1681,17 @@ def calc_center_of_mass(traj=None,
                         top=None,
                         dtype='ndarray',
                         frame_indices=None):
+    '''compute center of mass
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2()
+    >>> # compute center of mass residue 3 for first 2 frames.
+    >>> pt.calc_center_of_mass(traj(stop=2), ':3')
+    array([[-0.661702  ,  6.69124347,  3.35159413],
+           [ 0.5620708 ,  7.82263042, -0.72707798]])
+    '''
     # note: do not use super_dispatch for this method since
     # we already use for _calc_vector_center
     return _calc_vector_center(traj=traj,

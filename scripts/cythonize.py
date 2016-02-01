@@ -3,6 +3,10 @@ import sys
 from Cython.Build import cythonize
 from glob import glob
 
+if Cython.__version__ < '0.21':
+    sys.stderr.write('require cython verion >=0.21')
+    sys.exit(0)
+
 DEBUG = False
 
 pxd_include_dirs = [
