@@ -110,11 +110,7 @@ Welcome
 
    </div>
 
-
-.. raw:: html
-
-   <br>
-   <h3>Interative data analysis</h3>
-   </br>
+|
+|
 
 .. image:: images/tutorial_autoimage.png
