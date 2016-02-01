@@ -3,7 +3,7 @@
 pytraj Ecosystem
 ================
 
-.. notes:: all of below programs can be easily install from ``conda``.
+.. note:: all of below programs can be easily install from ``conda``.
 
 Interactive
 -----------

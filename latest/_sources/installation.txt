@@ -9,7 +9,7 @@ try ``pytraj`` online:
 
 .. contents::
 
-.. notes:: For Linux user, we highly recommend install pytraj via `conda`
+.. note:: For Linux user, we highly recommend install pytraj via `conda`
 
 Supported platforms
 -------------------

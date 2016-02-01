@@ -12,7 +12,7 @@ try ``pytraj`` online:
 
 Supported
 
-.. notes:: pytraj does not support writing trajectory in parallel. Please check cpptraj manual for this option.
+.. note:: pytraj does not support writing trajectory in parallel. Please check cpptraj manual for this option.
 
 .. contents::
 
@@ -24,7 +24,7 @@ Supported
     traj = pt.iterload('data/tz2.ortho.nc', 'data/tz2.ortho.parm7')
     np.set_printoptions(precision=4, suppress=True)
 
-.. notes:: This is experimental design, syntax might be changed.
+.. note:: This is experimental design, syntax might be changed.
 
 
 Example: parallel calculation with single action
