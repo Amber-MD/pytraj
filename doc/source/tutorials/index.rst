@@ -24,6 +24,7 @@ If you miss any Python package, try to use ``conda``, example::
     :maxdepth: 2
 
     basic_examples
+    tutorial_run_jupyter_notebook
     energy_decomposition
     closest_waters_
     tut_pca
