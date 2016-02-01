@@ -112,7 +112,7 @@ If method supports openmp, use openmp.
 Benchmark
 ---------
 
-.. note:: info
+System info::
 
     format: AMBER netcdf file
 
