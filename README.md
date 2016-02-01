@@ -86,7 +86,7 @@ Question/Suggestion?
 nglview with pytraj in Jupyter notebook
 ---------------------------------------
 
-[![pytraj website](./examples/figures/nglview_pytraj.gif)](http://amber-md.github.io/pytraj/latest/index.html)
+[![pytraj website](./examples/figures/nglview_pytraj_autoimage.png)](http://amber-md.github.io/pytraj/latest/index.html)
 
 License
 -------
