@@ -38,10 +38,13 @@ Run
    # or use AMBER16 distribution
    amber.ipython notebook pca_evaluated.ipython
 
+.. note:: To create a new notebook, use `ipython notebook`
+
 See also
 ~~~~~~~~
 
 Run Jupyter notebook `remotely <remote_jupyter_notebook>`_
+
 
 Example
 ~~~~~~~
