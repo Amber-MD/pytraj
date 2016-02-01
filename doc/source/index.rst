@@ -105,3 +105,9 @@ Welcome
 
 .. image:: http://mybinder.org/images/logo.svg
    :target: http://mybinder.org/repo/hainm/notebook-pytraj
+
+.. raw:: html
+
+   </div>
+
+.. image:: images/tutorial_autoimage.png
