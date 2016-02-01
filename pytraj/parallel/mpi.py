@@ -1,6 +1,7 @@
 import numpy as np
 from pytraj.utils import split_range
 from pytraj.tools import concat_dict
+from pytraj.get_common_objects import get_reference
 
 
 def pmap_mpi(func, traj, *args, **kwd):
@@ -44,6 +45,10 @@ def pmap_mpi(func, traj, *args, **kwd):
     comm = MPI.COMM_WORLD
     n_cores = comm.size
     rank = comm.rank
+
+    # update reference
+    if 'ref' in kwd:
+        kwd['ref'] = get_reference(traj, kwd['ref'])
 
     if not isinstance(func, (list, tuple)):
         # split traj to ``n_cores`` chunks, perform calculation
