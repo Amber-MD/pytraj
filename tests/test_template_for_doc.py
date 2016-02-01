@@ -32,7 +32,7 @@ class TestDoc(unittest.TestCase):
 
     def test_doc(self):
         from pytraj.parallel import multiprocessing_
-        modules = [pt.io, ]
+        modules = [pt.all_actions, ]
         if PY3:
             assert get_total_errors(
                 modules) == 0, 'doctest: failed_count must be 0'
