@@ -82,7 +82,7 @@ Question/Suggestion?
 * code issue and stuff relating directly to `pytraj`, create [Issue](https://github.com/pytraj/pytraj/issues)
 * ask question about data analysis in general, send email to [AMBER Mailing List] (http://lists.ambermd.org/mailman/listinfo/amber)
 
-nglview with pytraj in Jupyter notebook
+[nglview](https://github.com/arose/nglview) with pytraj in Jupyter notebook
 ---------------------------------------
 
 [![pytraj website](./examples/figures/nglview_pytraj_autoimage.png)](http://amber-md.github.io/pytraj/latest/index.html)
