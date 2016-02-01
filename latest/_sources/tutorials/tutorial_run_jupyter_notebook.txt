@@ -35,6 +35,8 @@ Run
    # tz2.{nc, parm7} can be downloaded from
    # https://github.com/Amber-MD/pytraj/tree/master/tests/data
 
+   # or: $AMBERHOME/AmberTools/test/cpptraj/ if you are using AMBER
+
    ipython notebook pca_evaluated.ipynb
 
    # or use AMBER16 distribution
