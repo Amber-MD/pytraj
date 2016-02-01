@@ -27,6 +27,7 @@ If you miss any Python package, try to use ``conda``, example::
     energy_decomposition
     closest_waters_
     tut_pca
+    tutorial_autoimage
     tutorial_parallel
     plot
     mdtraj_adapted
