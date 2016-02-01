@@ -53,7 +53,4 @@ If you miss any Python package, try to use ``conda``, example::
     :maxdepth: 1
 
     ../cookbook
-
-.. toctree::
-    :maxdepth: 1
     tutorial_run_jupyter_notebook
