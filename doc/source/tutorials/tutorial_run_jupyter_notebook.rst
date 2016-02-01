@@ -40,13 +40,14 @@ Run
 
 .. note:: To create a new notebook, use `ipython notebook`
 
+Example
+~~~~~~~
+
+`PCA analysis <tut_pca>`_
+
 See also
 ~~~~~~~~
 
 Run Jupyter notebook `remotely <remote_jupyter_notebook>`_
 
-
-Example
-~~~~~~~
-
-`PCA analysis <tut_pca>`_
+.. image:: ../images/tutorial_autoimage.png
