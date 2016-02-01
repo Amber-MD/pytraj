@@ -112,6 +112,17 @@ If method supports openmp, use openmp.
 Benchmark
 ---------
 
+.. note:: info
+
+    format: AMBER netcdf file
+
+    pytraj.TrajectoryIterator, 200000 frames: 
+    Size: 58.150291 (GB)
+    <Topology: 13008 atoms, 4189 residues, 4174 mols, PBC with box type = truncoct>
+
+    method: pytraj.rmsd (please check the script below)
+
+
 Multiprocessing
 ~~~~~~~~~~~~~~~
 
