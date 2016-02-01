@@ -12,4 +12,4 @@ try ``pytraj`` online:
 
 .. notes:: require installing `nglview <https://github.com/arose/nglview>`_ for visualization
 
-.. image:: images/tutorial_autoimage.png
+.. image:: ../images/tutorial_autoimage.png
