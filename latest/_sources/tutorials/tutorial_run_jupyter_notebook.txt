@@ -23,10 +23,10 @@ How to run Jupyter notebook
    # or use AMBER16 distribution
    amber.ipython notebook pca_evaluated.ipython
 
-- See also::
+- See also
 
-   Run Jupyter notebook `remotely <remote_jupyter_notebook>`_
+Run Jupyter notebook `remotely <remote_jupyter_notebook>`_
 
-- Example:
+- Example 
 
-.. image:: ../images/tutorial_autoimage.png
+.. notebook:: data/pca.ipynb
