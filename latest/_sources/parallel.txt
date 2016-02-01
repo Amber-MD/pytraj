@@ -120,3 +120,9 @@ pmap doc
 ~~~~~~~~
 
 :ref:`API <pytraj.pmap>`
+
+Benchmark
+~~~~~~~~~
+
+.. notebook:: data/pmap_scaling/parallel_benchmark.ipynb
+   :skip_exceptions:

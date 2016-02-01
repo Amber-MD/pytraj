@@ -114,6 +114,7 @@
 <li><a class="reference internal" href="#supported-methods-for-openmp">Supported methods for <code class="docutils literal"><span class="pre">openmp</span></code></a></li>
 <li><a class="reference internal" href="#rule-of-thumb-for-choosing-pmap-or-openmp">Rule of thumb for choosing <code class="docutils literal"><span class="pre">pmap</span></code> or <code class="docutils literal"><span class="pre">openmp</span></code>?</a></li>
 <li><a class="reference internal" href="#pmap-doc">pmap doc</a></li>
+<li><a class="reference internal" href="#benchmark">Benchmark</a></li>
 </ul>
 </li>
 </ul>
@@ -186,6 +187,7 @@
 <li><a class="reference internal" href="#supported-methods-for-openmp" id="id8">Supported methods for <code class="docutils literal"><span class="pre">openmp</span></code></a></li>
 <li><a class="reference internal" href="#rule-of-thumb-for-choosing-pmap-or-openmp" id="id9">Rule of thumb for choosing <code class="docutils literal"><span class="pre">pmap</span></code> or <code class="docutils literal"><span class="pre">openmp</span></code>?</a></li>
 <li><a class="reference internal" href="#pmap-doc" id="id10">pmap doc</a></li>
+<li><a class="reference internal" href="#benchmark" id="id11">Benchmark</a></li>
 </ul>
 </li>
 </ul>
@@ -399,6 +401,133 @@ If method supports openmp, use openmp.</p>
 <div class="section" id="pmap-doc">
 <h3><a class="toc-backref" href="#id10">pmap doc</a><a class="headerlink" href="#pmap-doc" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="_api/pytraj.parallel.html#pytraj-pmap"><span>API</span></a></p>
+</div>
+<div class="section" id="benchmark">
+<h3><a class="toc-backref" href="#id11">Benchmark</a><a class="headerlink" href="#benchmark" title="Permalink to this headline">¶</a></h3>
+<div class="ipynotebook" id="notebook-container">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="System">System<a class="anchor-link" href="#System">&#182;</a></h2><div class="highlight"><pre><span class="n">pytraj</span><span class="o">.</span><span class="n">TrajectoryIterator</span><span class="p">,</span> <span class="mi">200000</span> <span class="n">frames</span><span class="p">:</span> 
+<span class="n">Size</span><span class="p">:</span> <span class="mf">58.150291</span> <span class="p">(</span><span class="n">GB</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">Topology</span><span class="p">:</span> <span class="mi">13008</span> <span class="n">atoms</span><span class="p">,</span> <span class="mi">4189</span> <span class="n">residues</span><span class="p">,</span> <span class="mi">4174</span> <span class="n">mols</span><span class="p">,</span> <span class="n">PBC</span> <span class="k">with</span> <span class="n">box</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">truncoct</span><span class="o">&gt;</span>
+
+<span class="n">format</span><span class="p">:</span> <span class="n">netcdf</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Multiprocessing">Multiprocessing<a class="anchor-link" href="#Multiprocessing">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./bench_pmap_casegroup.png"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Distributed:-using-MPI-(via-mpi4py)">Distributed: using MPI (via mpi4py)<a class="anchor-link" href="#Distributed:-using-MPI-(via-mpi4py)">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./bench_pmap_mpi.png"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="script-for-multiprocessing">script for multiprocessing<a class="anchor-link" href="#script-for-multiprocessing">&#182;</a></h3><div class="highlight"><pre><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">cpu_count</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+<span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">&quot;max cores = {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cpu_count</span><span class="p">()))</span>
+<span class="n">filenames</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s">&#39;mdx/md*.nc&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span>
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="n">filenames</span><span class="p">,</span> <span class="s">&#39;prmtop&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+
+<span class="n">mask</span> <span class="o">=</span> <span class="s">&#39;!:WAT,Na+&#39;</span>
+
+<span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">)</span>
+<span class="n">t_serial</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
+<span class="c"># print(&#39;serial time = &#39;, t_serial)</span>
+
+<span class="n">func</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span>
+
+<span class="c"># for n_cores in [1, 2, 4, 6, 8, 16, 20, 24]:</span>
+<span class="k">for</span> <span class="n">n_cores</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]:</span>
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+    <span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="n">n_cores</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">t_par</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">n_cores</span><span class="p">,</span> <span class="n">t_serial</span> <span class="o">/</span> <span class="n">t_par</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="script-for-MPI">script for MPI<a class="anchor-link" href="#script-for-MPI">&#182;</a></h3><div class="highlight"><pre><span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+<span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+<span class="kn">from</span> <span class="nn">mpi4py</span> <span class="kn">import</span> <span class="n">MPI</span>
+
+<span class="n">comm</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span>
+
+<span class="c"># need to run program in serial and update serial time</span>
+<span class="n">serial_time</span> <span class="o">=</span> <span class="mf">45.</span>
+
+<span class="n">filenames</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="s">&#39;mdx/md*.nc&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span>
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="n">filenames</span><span class="p">,</span> <span class="s">&#39;prmtop&#39;</span><span class="p">)</span>
+
+<span class="n">mask</span> <span class="o">=</span> <span class="s">&#39;!:WAT,Na+&#39;</span>
+
+<span class="n">func</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span>
+
+<span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pmap_mpi</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">t_par</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
+
+<span class="k">if</span> <span class="n">comm</span><span class="o">.</span><span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">serial_time</span><span class="o">/</span><span class="n">t_par</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+</div><p>(<a class="reference external" href="parallel_benchmark.ipynb">parallel_benchmark.ipynb</a>; <a class="reference external" href="parallel_benchmark_evaluated.ipynb">parallel_benchmark_evaluated.ipynb</a>; <a class="reference external" href="parallel_benchmark.py">parallel_benchmark.py</a>)</p>
 </div>
 </div>
 </div>
