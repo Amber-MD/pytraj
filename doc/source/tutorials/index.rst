@@ -24,7 +24,6 @@ If you miss any Python package, try to use ``conda``, example::
     :maxdepth: 2
 
     basic_examples
-    tutorial_run_jupyter_notebook
     energy_decomposition
     closest_waters_
     tut_pca
@@ -33,7 +32,6 @@ If you miss any Python package, try to use ``conda``, example::
     plot
     mdtraj_adapted
     interface_with_other_packages.rst
-
 
 .. raw:: html
 
@@ -55,3 +53,7 @@ If you miss any Python package, try to use ``conda``, example::
     :maxdepth: 1
 
     ../cookbook
+
+.. toctree::
+    :maxdepth: 1
+    tutorial_run_jupyter_notebook
