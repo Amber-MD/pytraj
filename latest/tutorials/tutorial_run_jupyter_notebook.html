@@ -157,26 +157,32 @@
 <span id="tutorial-run-jupyter-notebook"></span><h1>How to run Jupyter notebook<a class="headerlink" href="#how-to-run-jupyter-notebook" title="Permalink to this headline">¶</a></h1>
 <ul>
 <li><p class="first">Install:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># if you already install python via Anaconda distribution</span>
-<span class="c"># https://www.continuum.io/downloads, you don&#39;t need to install jupyter notebook again.</span>
+<div class="highlight-python"><div class="highlight"><pre># if you already install python via Anaconda distribution
+# https://www.continuum.io/downloads, you don&#39;t need to install jupyter notebook again.
+conda install jupyter notebook
 </pre></div>
 </div>
-<p>conda install jupyter notebook</p>
 </li>
 <li><p class="first">Download notebook:</p>
-<p>wget  <a class="reference external" href="http://amber-md.github.io/pytraj/latest/tutorials/pca_evaluated.ipynb">http://amber-md.github.io/pytraj/latest/tutorials/pca_evaluated.ipynb</a></p>
-</li>
-<li><p class="first">Run:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># tz2.{nc, parm7} can be downloaded from</span>
-<span class="c"># https://github.com/Amber-MD/pytraj/tree/master/tests/data</span>
+<div class="highlight-python"><div class="highlight"><pre>wget  http://amber-md.github.io/pytraj/latest/tutorials/pca_evaluated.ipynb
 </pre></div>
 </div>
-<p>ipython notebook pca_evaluated.ipynb</p>
-<p># or use AMBER16 distribution
-amber.ipython notebook pca_evaluated.ipython</p>
 </li>
-<li><p class="first">See also</p>
-<p>Run Jupyter notebook <a class="reference external" href="tutorial_run_jupyter_notebook">remotely</a></p>
+<li><p class="first">Run:</p>
+<div class="highlight-python"><div class="highlight"><pre># tz2.{nc, parm7} can be downloaded from
+# https://github.com/Amber-MD/pytraj/tree/master/tests/data
+
+ipython notebook pca_evaluated.ipynb
+
+# or use AMBER16 distribution
+amber.ipython notebook pca_evaluated.ipython
+</pre></div>
+</div>
+</li>
+<li><p class="first">See also:</p>
+<div class="highlight-python"><div class="highlight"><pre>Run Jupyter notebook `remotely &lt;remote_jupyter_notebook&gt;`_
+</pre></div>
+</div>
 </li>
 <li><p class="first">Example:</p>
 </li>
