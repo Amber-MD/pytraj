@@ -24,18 +24,11 @@ Supported
     traj = pt.iterload('data/tz2.ortho.nc', 'data/tz2.ortho.parm7')
     np.set_printoptions(precision=4, suppress=True)
 
-Disclaimer
-----------
+.. notes:: This is experimental design, syntax might be changed.
 
-This is experimental design, syntax might be changed.
-
-single action with single trajectory
-------------------------------------
-
-``pytraj`` use `python multiprocessing <https://docs.python.org/3/library/multiprocessing.html>`_, so users don't need to install extra package.
 
 Example: parallel calculation with single action
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------------
 
 .. ipython:: python
 
@@ -46,7 +39,7 @@ Example: parallel calculation with single action
     pt.pmap(pt.radgyr, traj, n_cores=4)
 
 Example: parallel calculation with cpptraj's command style
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------------------------------
 
 **Rule of thumb**: Only support limited cpptraj's actions (not analysis). For now, there
 is no list of supported actions yet but you can perform any action in parallel if the
@@ -86,7 +79,7 @@ vector, multidihedral, ...
 
 
 Supported methods for ``pmap`` if using pytraj's methods
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------------------------------
 
 .. ipython:: python
 
@@ -95,13 +88,13 @@ Supported methods for ``pmap`` if using pytraj's methods
         print(method)
 
 Supported methods for ``pmap`` if using cpptraj's command style
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------------------------------------------
 
 **coming soon**
 
 
 Supported methods for ``openmp``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------
 
 .. ipython:: python
 
@@ -111,18 +104,18 @@ Supported methods for ``openmp``
 
 
 Rule of thumb for choosing ``pmap`` or ``openmp``?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------------------------
 
 Always try to install ``pytraj`` and ``cpptraj`` with ``-openmp`` flag.
 If method supports openmp, use openmp.
-
-pmap doc
-~~~~~~~~
-
-:ref:`API <pytraj.pmap>`
 
 Benchmark
 ~~~~~~~~~
 
 .. notebook:: data/pmap_scaling/parallel_benchmark.ipynb
    :skip_exceptions:
+
+pmap API doc
+------------
+
+:ref:`API <pytraj.pmap>`
