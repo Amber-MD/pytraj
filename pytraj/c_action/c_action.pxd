@@ -322,16 +322,6 @@ cdef class Action_Dihedral(Action):
     cdef _Action_Dihedral* thisptr
 
 
-cdef extern from "Action_DihedralScan.h": 
-    cdef cppclass _Action_DihedralScan "Action_DihedralScan" (_Action) nogil:
-        _Action_DihedralScan() 
-        _DispatchObject * Alloc() 
-        void Help() 
-
-cdef class Action_DihedralScan (Action):
-    cdef _Action_DihedralScan* thisptr
-
-
 cdef extern from "Action_Dipole.h": 
     cdef cppclass _Action_Dipole "Action_Dipole" (_Action) nogil:
         _Action_Dipole() 
