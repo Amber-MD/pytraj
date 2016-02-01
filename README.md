@@ -22,9 +22,9 @@ Features
 --------
 
 - support more than 80 types of data analyses (rmsd, radgyr, autoimage, pca, clustering,...)
-- read/write various file formats
+- read/write various file formats (.nc, .dcd, .trr, .pdb, .mol2, ...)
 - fast (core codes were written in C++ and Cython)
-- support parallel calculation (openmp, multiprocessing, mpi, ...)
+- support parallel calculation with trivial installation (openmp, multiprocessing, mpi, ...)
 - interactive analysis with large trajectory data that does not fit to memory
 - [>> many more with comprehensive tutorials] (http://amber-md.github.io/pytraj)
 
@@ -41,8 +41,12 @@ Install
     # Note: pytraj will install the most updated cpptraj. We recommend to have netcdf library.
     ```
 
-- from conda (linux only): `conda install -c ambermd pytraj-dev libcpptraj-dev`
+- from conda (develop version for linux): `conda install -c ambermd pytraj-dev`
+
+- from AMBER suite distribution [http://ambermd.org/](http://ambermd.org/)
+
 - getting trouble? : [check our webpage](http://amber-md.github.io/pytraj/latest/installation.html)
+
 
 How to get started?
 ------------------
