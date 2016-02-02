@@ -2608,11 +2608,8 @@ def projection(traj,
     >>> # scalar_type = 'covar'
     >>> scalar_type = 'covar'
     >>> data = pt.projection(traj, '@CA', eigenvalues=eigenvalues, eigenvectors=eigenvectors, scalar_type=scalar_type)
-    >>> print(data)
-    [[  4.11560583   1.99866486  -0.6097123  ..., -14.91564465 -13.89163017
-      -13.96969795]
-     [ -6.43627644  -8.26449871  -6.79240274 ...,  -0.11096976   2.22575927
-        1.41125226]]
+    >>> data.shape
+    (2, 101)
     '''
 
     act = c_action.Action_Projection()
