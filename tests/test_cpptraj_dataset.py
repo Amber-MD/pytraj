@@ -177,7 +177,7 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
 
         # modes
         mat = pt.matrix.covar(self.traj, '@CA')
-        modes = pt.matrix.diagonalize(mat, n_vecs=mat.shape[0])[0]
+        modes = pt.matrix.diagonalize(mat, n_vecs=mat.shape[0], dtype='dataset')[0]
         modes2 = modes.__class__()
         # dummy test to set name and scalar_type
         # (prepare for pca)

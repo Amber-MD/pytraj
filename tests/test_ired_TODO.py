@@ -161,8 +161,8 @@ class TestIred(unittest.TestCase):
         mat_ired = vecs_and_mat[1]
 
         # get eigenvalues and eigenvectors
-        modes = pt.matrix.diagonalize(mat_ired, n_vecs=len(state_vecs))[0]
-        evals, evecs = modes.eigenvalues, modes.eigenvectors
+        modes = pt.matrix.diagonalize(mat_ired, n_vecs=len(state_vecs))
+        evals, evecs = modes
 
         data_0 = _ired(state_vecs,
                        modes=(evals, evecs),

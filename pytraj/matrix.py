@@ -96,14 +96,14 @@ covar = register_openmp(covar)
 ''')
 
 
-def diagonalize(mat, n_vecs, dtype='dataset'):
+def diagonalize(mat, n_vecs, dtype='tuple'):
     '''diagonalize matrix and return (eigenvalues, eigenvectors)
 
     Parameters
     ----------
     mat : 2D ndarray or DatasetMatrixDouble
     n_vecs : number of output vectors
-    dtype : 'tuple' or 'dataset'
+    dtype : str, {'tuple', 'dataset'}, default 'tuple'
         if 'tuple', return a tuple (eigenvalues, eigenvectors). If 'dataset' return CpptrajDataseList
 
     Examples
