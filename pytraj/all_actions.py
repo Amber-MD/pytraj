@@ -3,10 +3,9 @@ import numpy as np
 
 from pytraj.trajectory import Trajectory
 from pytraj.trajectory_iterator import TrajectoryIterator
-from .get_common_objects import get_topology, get_data_from_dtype, get_list_of_commands
-from .get_common_objects import get_matrix_from_dataset
-from .get_common_objects import get_reference, get_fiterator
-from .get_common_objects import super_dispatch, get_fi_with_dslist
+from .get_common_objects import (get_topology, get_data_from_dtype, get_list_of_commands,
+                                 get_matrix_from_dataset, get_reference, get_fiterator,
+                                 super_dispatch, get_fi_with_dslist)
 from .utils import ensure_not_none_or_string
 from .utils import is_int
 from .utils.context import goto_temp_folder
@@ -64,6 +63,7 @@ list_of_the_rest = ['rmsd', 'align_principal_axis', 'principal_axes', 'closest',
                     'randomize_ions',
                     'timecorr', 'search_neighbors',
                     'xcorr', 'acorr',
+                    'projection',
                     ]
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
@@ -2566,15 +2566,54 @@ def make_structure(traj=None, mask="", top=None):
 
 
 @super_dispatch()
-def _projection(traj,
-                mask,
-                eigenvalues,
-                eigenvectors,
-                scalar_type,
-                average_coords,
-                frame_indices=None,
-                dtype='ndarray',
-                top=None):
+def projection(traj,
+               mask='',
+               eigenvalues=None,
+               eigenvectors=None,
+               scalar_type='covar',
+               average_coords=None,
+               frame_indices=None,
+               dtype='ndarray',
+               top=None):
+    '''compute projection along given eigenvectors
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : atom mask, either string or array-like
+    eigenvalues : 1D array-like
+    eigenvectors : 2D array-like
+    scalar_type : str, {'covar', 'mwcovar', }, default 'covar'
+        make sure to provide correct scalar_type.
+        Note: not yet support 'dihcovar' and 'idea'
+    average_coords : 3D array-like, optional, default None
+        average coordinates. If 'None', pytraj will compute mean_structure with given mask
+    frame_indices : array-like
+        If not None, compute projection for given frames.
+    dtype : str, return data type, default 'ndarray'
+    top : Topology, optional, default None
+
+    Returns
+    -------
+    projection_data : ndarray, shape=(n_vecs, n_frames)
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2()
+    >>> mat = pt.matrix.covar(traj, '@CA')
+    >>> eigenvalues, eigenvectors = pt.matrix.diagonalize(mat, 2)
+
+    >>> # since we compute covariance matrix, we need to specify
+    >>> # scalar_type = 'covar'
+    >>> scalar_type = 'covar'
+    >>> data = pt.projection(traj, '@CA', eigenvalues=eigenvalues, eigenvectors=eigenvectors, scalar_type=scalar_type)
+    >>> print(data)
+    [[  4.11560583   1.99866486  -0.6097123  ..., -14.91564465 -13.89163017
+      -13.96969795]
+     [ -6.43627644  -8.26449871  -6.79240274 ...,  -0.11096976   2.22575927
+        1.41125226]]
+    '''
 
     act = c_action.Action_Projection()
     c_dslist = CpptrajDatasetList()
@@ -2589,14 +2628,20 @@ def _projection(traj,
                             eigenvalues, eigenvectors.flatten())
     dataset_mode.scalar_type = scalar_type
 
-    dataset_mode._allocate_avgcoords(3 * average_coords.shape[0])
-    dataset_mode._set_avg_frame(average_coords.flatten())
+    if average_coords is not None:
+        dataset_mode._allocate_avgcoords(3 * average_coords.shape[0])
+        dataset_mode._set_avg_frame(average_coords.flatten())
+    else:
+        frame = mean_structure(traj, mask)
+        average_coords = frame.xyz
+        dataset_mode._allocate_avgcoords(3 * average_coords.shape[0])
+        dataset_mode._set_avg_frame(average_coords.flatten())
 
-    _mask = mask
-    _evecs = 'evecs {}'.format(mode_name)
-    _beg_end = 'beg 1 end {}'.format(n_vectors)
+    mask_ = mask
+    evecs_ = 'evecs {}'.format(mode_name)
+    beg_end_ = 'beg 1 end {}'.format(n_vectors)
 
-    command = ' '.join((_evecs, _mask, _beg_end))
+    command = ' '.join((evecs_, mask_, beg_end_))
     act(command, traj, top=top, dslist=c_dslist)
 
     c_dslist._pop(0)
@@ -2672,7 +2717,7 @@ def pca(traj,
     >>> data = pt.pca(traj, mask='!@H=', fit=True, ref=0, ref_mask='@CA')
     '''
     # TODO: move to another file
-    # NOTE: do not need to use super_dispatch here since we already use in _projection
+    # NOTE: do not need to use super_dispatch here since we already use in projection
     from pytraj import matrix
 
     ref_mask_ = ref_mask if ref_mask is not None else mask
@@ -2698,10 +2743,10 @@ def pca(traj,
         n_vecs = n_vecs
 
     eigenvalues, eigenvectors = matrix.diagonalize(mat, n_vecs=n_vecs, dtype='tuple')
-    projection_data = _projection(traj, mask=mask, average_coords=avg2.xyz,
-                                  eigenvalues=eigenvalues,
-                                  eigenvectors=eigenvectors,
-                                  scalar_type='covar', dtype=dtype)
+    projection_data = projection(traj, mask=mask, average_coords=avg2.xyz,
+                                 eigenvalues=eigenvalues,
+                                 eigenvectors=eigenvectors,
+                                 scalar_type='covar', dtype=dtype)
     return projection_data, (eigenvalues, eigenvectors)
 
 calc_pca = pca

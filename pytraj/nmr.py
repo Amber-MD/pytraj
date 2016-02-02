@@ -228,7 +228,7 @@ def NH_order_parameters(traj,
     mat_ired = vecs_and_mat[1]
 
     # get eigenvalues and eigenvectors
-    modes = matrix.diagonalize(mat_ired, n_vecs=len(state_vecs))[0]
+    modes = matrix.diagonalize(mat_ired, n_vecs=len(state_vecs), dtype='dataset')[0]
     evals, evecs = modes.eigenvalues, modes.eigenvectors
 
     data = _ired(state_vecs,
