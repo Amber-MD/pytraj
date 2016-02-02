@@ -33,8 +33,8 @@ class TestDiagMatrix(unittest.TestCase):
                                    mat.n_cols)
 
         # OK
-        data = matrix.diagonalize(mat.values, n_vecs=6)[-1]
-        data2 = matrix.diagonalize(mat, n_vecs=6)[-1]
+        data = matrix.diagonalize(mat.values, n_vecs=6, dtype='dataset')[-1]
+        data2 = matrix.diagonalize(mat, n_vecs=6, dtype='dataset')[0]
         aa_eq(data.eigenvalues, cpp_evals, decimal=10)
         aa_eq(data2.eigenvalues, cpp_evals, decimal=10)
 

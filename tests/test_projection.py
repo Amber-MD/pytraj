@@ -80,8 +80,8 @@ class TestProjection(unittest.TestCase):
 
         data = pt.all_actions.projection(traj, '@CA', eigenvalues, eigenvectors,
                                           scalar_type=scalar_type)
-        aa_eq(state.data['Mode1'], data[0])
-        aa_eq(state.data['Mode2'], data[1])
+        aa_eq(np.abs(state.data['Mode1'].values), np.abs(data[0]))
+        aa_eq(np.abs(state.data['Mode2'].values), np.abs(data[1]))
         assert data.shape == (2, traj.n_frames)
 
 if __name__ == "__main__":
