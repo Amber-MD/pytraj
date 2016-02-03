@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Plot H-bond distances &mdash; pytraj 1.0.0.dev1+ff5531f documentation</title>
+    <title>Plot H-bond distances &mdash; pytraj 1.0.0.dev1+c2e4fb7 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.0.dev1+ff5531f',
+        VERSION:     '1.0.0.dev1+c2e4fb7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.0.dev1+ff5531f documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.0.dev1+c2e4fb7 documentation" href="../index.html" />
     <link rel="up" title="Plots" href="plot.html" />
     <link rel="next" title="Plot correlation matrix" href="plot_correlation_matrix.html" />
     <link rel="prev" title="Plots" href="plot.html" />
@@ -54,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.0.dev1+ff5531f</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.0.dev1+c2e4fb7</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -195,8 +195,8 @@
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>/home/haichit/anaconda3/lib/python3.5/site-packages/scipy/_lib/decorator.py:205: DeprecationWarning: inspect.getargspec() is deprecated, use inspect.signature() instead
-  first = inspect.getargspec(caller)[0][0]  # first arg
+<pre>/home/haichit/anaconda3/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
+  warnings.warn(self.msg_depr % (key, alt_key))
 </pre>
 </div>
 </div>
@@ -250,10 +250,10 @@ Size: 0.000503 (GB)
 <div class=" highlight hl-ipython3"><pre><span class="c"># find hbond</span>
 <span class="n">hb</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">hbond</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
 
-<span class="n">distance_mask</span> <span class="o">=</span> <span class="n">hb</span><span class="o">.</span><span class="n">_amber_mask</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">distance_mask</span> <span class="o">=</span> <span class="n">hb</span><span class="o">.</span><span class="n">get_amber_mask</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 <span class="nb">print</span><span class="p">(</span><span class="s">&#39;hbond distance mask: {} </span><span class="se">\n</span><span class="s"> &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distance_mask</span><span class="p">))</span>
 
-<span class="n">angle_mask</span> <span class="o">=</span> <span class="n">hb</span><span class="o">.</span><span class="n">_amber_mask</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">angle_mask</span> <span class="o">=</span> <span class="n">hb</span><span class="o">.</span><span class="n">get_amber_mask</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
 <span class="nb">print</span><span class="p">(</span><span class="s">&#39;hbond angle mask: {} </span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">angle_mask</span><span class="p">))</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s">&quot;hbond data&quot;</span><span class="p">)</span>
@@ -306,7 +306,7 @@ GLY7_O-TRP9_N-H
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">dist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">hb</span><span class="o">.</span><span class="n">_amber_mask</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">dist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">hb</span><span class="o">.</span><span class="n">get_amber_mask</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="s">&#39;all hbond distances: &#39;</span><span class="p">,</span> <span class="n">dist</span><span class="p">)</span>
 </pre></div>
 
@@ -346,7 +346,7 @@ GLY7_O-TRP9_N-H
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">angle</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">hb</span><span class="o">.</span><span class="n">_amber_mask</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">angle</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">hb</span><span class="o">.</span><span class="n">get_amber_mask</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">angle</span>
 </pre></div>
 
@@ -421,7 +421,7 @@ GLY7_O-TRP9_N-H
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.text.Text at 0x2aaada696080&gt;</pre>
+<pre>&lt;matplotlib.text.Text at 0x2aaad8d9af60&gt;</pre>
 </div>
 
 </div>
@@ -2385,7 +2385,7 @@ AAAAAElFTkSuQmCC
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Feb 02, 2016.<br/>
+      Last updated on Feb 03, 2016.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>

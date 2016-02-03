@@ -35,10 +35,10 @@ traj
 # find hbond
 hb = pt.hbond(traj)
 
-distance_mask = hb._amber_mask()[0]
+distance_mask = hb.get_amber_mask()[0]
 print('hbond distance mask: {} \n '.format(distance_mask))
 
-angle_mask = hb._amber_mask()[1]
+angle_mask = hb.get_amber_mask()[1]
 print('hbond angle mask: {} \n'.format(angle_mask))
 
 print("hbond data")
@@ -47,13 +47,13 @@ print(hb.data) # 1: have hbond; 0: does not have hbond
 
 # In[4]:
 
-dist = pt.distance(traj, hb._amber_mask()[0])
+dist = pt.distance(traj, hb.get_amber_mask()[0])
 print('all hbond distances: ', dist)
 
 
 # In[5]:
 
-angle = pt.angle(traj, hb._amber_mask()[1])
+angle = pt.angle(traj, hb.get_amber_mask()[1])
 angle
 
 
