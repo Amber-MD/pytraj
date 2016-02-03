@@ -34,7 +34,7 @@ def to_amber_mask(txtlist):
 
 
 class DatasetHBond(BaseDataHolder):
-    """Hold data for hbond analysis
+    """Hold data for hbond analysis.
     """
 
     def __str__(self):
@@ -94,6 +94,11 @@ def hbond(traj,
     Hydrogen bond is defined as A-HD, where A is acceptor heavy atom, H is hydrogen, D is
     donor heavy atom. Hydrogen bond is formed when A to D distance < distance cutoff and A-H-D angle
     > angle cutoff; if `angle` < 0 it is ignored.
+
+    Notes
+    -----
+    This pytraj's method provides limited data processing for hbond. If you need any extra analysis, please
+    use cpptraj.
 
     Parameters
     ----------
