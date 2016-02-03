@@ -12,3 +12,6 @@ interface_with_mdtraj.ipynb) to avoid dependency when building this doc.
 Only html file is included.
 
 To run specific notebook without opening it, use `runipy your_notebook.ipynb`
+
+4. If you want to include html file in .rst file, please make a copy to latest/ folder too
+(have not figured out why sphinx did not properly copy files yet)

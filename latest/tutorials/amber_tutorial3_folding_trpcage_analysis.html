@@ -153,9 +153,18 @@
   <div class="row">
     <div class="col-md-12 content">
       
-  <div class="section" id="data-analysis-for-trp-cage-folding-md-trajectory">
-<span id="trpcage-folding-analysis"></span><h1>Data analysis for trp-cage folding MD trajectory<a class="headerlink" href="#data-analysis-for-trp-cage-folding-md-trajectory" title="Permalink to this headline">¶</a></h1>
-<p>try <code class="docutils literal"><span class="pre">pytraj</span></code> online:</p>
+  <div class="line-block" id="trpcage-folding-analysis">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+<div class="section" id="data-analysis-for-trp-cage-folding-md-trajectory">
+<h1>Data analysis for trp-cage folding MD trajectory<a class="headerlink" href="#data-analysis-for-trp-cage-folding-md-trajectory" title="Permalink to this headline">¶</a></h1>
+<p>You can try this tutorial online:</p>
+<div class="highlight-python"><div class="highlight"><pre>- click binder icon
+- Choose &quot;File&quot; then &quot;New Notebook&quot;
+- copy and paste each command and click Cell--&gt;Run (or Ctrl-Enter)
+</pre></div>
+</div>
 <a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img src="http://mybinder.org/images/logo.svg" /></a>
 <div class="line-block">
 <div class="line"><br /></div>
@@ -374,11 +383,11 @@ div#notebook {
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="c"># uncomment below to download, untar files.</span>
 
-<span class="c">#!wget http://ambermd.org/tutorials/basic/tutorial3/files/production.tar.gz</span>
-<span class="c">#!wget http://ambermd.org/tutorials/basic/tutorial3/files/TC5b.prmtop</span>
-<span class="c">#!mv TC5b.prmtop production/</span>
-<span class="c">#!tar -xf ./production.tar.gz</span>
-<span class="c">#! wget http://ambermd.org/tutorials/basic/tutorial3/files/lowest_energy_struct.pdb.2455 production/</span>
+<span class="c"># !wget http://ambermd.org/tutorials/basic/tutorial3/files/production.tar.gz</span>
+<span class="c"># !wget http://ambermd.org/tutorials/basic/tutorial3/files/TC5b.prmtop</span>
+<span class="c"># !mv TC5b.prmtop production/</span>
+<span class="c"># !tar -xf ./production.tar.gz</span>
+<span class="c"># ! wget http://ambermd.org/tutorials/basic/tutorial3/files/lowest_energy_struct.pdb.2455 production/</span>
 <span class="c"># !mv lowest_energy_struct.pdb.2455 production/</span>
 <span class="o">!</span>ls production/
 </pre></div>
@@ -4210,7 +4219,7 @@ Size: 0.000007 (GB)
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.text.Text at 0x2aaae7326278&gt;</pre>
+<pre>&lt;matplotlib.text.Text at 0x2aaae73351d0&gt;</pre>
 </div>
 
 </div>
@@ -4612,7 +4621,7 @@ EARBKEAUgyAIglCAKAZBEAShAFEMgiAIQgH/H1RM/fMjiggqAAAAAElFTkSuQmCC
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&lt;matplotlib.lines.Line2D at 0x2aaae73b08d0&gt;]</pre>
+<pre>[&lt;matplotlib.lines.Line2D at 0x2aaae73be898&gt;]</pre>
 </div>
 
 </div>
@@ -5083,7 +5092,7 @@ donor_aceptor pairs : 486&gt;</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.colorbar.Colorbar at 0x2aaafc05c780&gt;</pre>
+<pre>&lt;matplotlib.colorbar.Colorbar at 0x2aaaf805ae80&gt;</pre>
 </div>
 
 </div>
@@ -5990,7 +5999,7 @@ myGCbbBtbGxshgi2wbaxsbEZItgG28bGxmaI8P8BNTr7euTUUOwAAAAASUVORK5CYII=
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="c"># stats</span>
-<span class="n">h_dist</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<span class="n">h_dist</span><span class="p">[[</span><span class="s">&#39;:1@OD1 :2@H&#39;</span><span class="p">,</span> <span class="s">&#39;:8@O :11@H&#39;</span><span class="p">,</span> <span class="s">&#39;:16@O :16@HE&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -6012,47 +6021,11 @@ myGCbbBtbGxshgi2wbaxsbEZItgG28bGxmaI8P8BNTr7euTUUOwAAAAASUVORK5CYII=
       <th>:1@OD1 :2@H</th>
       <th>:8@O :11@H</th>
       <th>:16@O :16@HE</th>
-      <th>:16@O :16@HH21</th>
-      <th>:12@O :15@H</th>
-      <th>:10@O :16@HH21</th>
-      <th>:9@OD1 :10@H</th>
-      <th>:12@O :14@H</th>
-      <th>:17@O :16@HE</th>
-      <th>:17@O :16@HH21</th>
-      <th>...</th>
-      <th>:11@O :16@H</th>
-      <th>:5@O :16@HH11</th>
-      <th>:18@O :6@HE1</th>
-      <th>:11@O :15@H</th>
-      <th>:2@O :20@H</th>
-      <th>:14@O :11@H</th>
-      <th>:6@NE1 :20@H</th>
-      <th>:16@O :14@H</th>
-      <th>:1@O :20@H</th>
-      <th>:5@NE2 :1@HD22</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>count</th>
-      <td>50000.000000</td>
-      <td>50000.000000</td>
-      <td>50000.000000</td>
-      <td>50000.000000</td>
-      <td>50000.000000</td>
-      <td>50000.000000</td>
-      <td>50000.000000</td>
-      <td>50000.000000</td>
-      <td>50000.000000</td>
-      <td>50000.000000</td>
-      <td>...</td>
-      <td>50000.000000</td>
-      <td>50000.000000</td>
-      <td>50000.000000</td>
-      <td>50000.000000</td>
-      <td>50000.000000</td>
-      <td>50000.000000</td>
-      <td>50000.000000</td>
       <td>50000.000000</td>
       <td>50000.000000</td>
       <td>50000.000000</td>
@@ -6062,172 +6035,45 @@ myGCbbBtbGxshgi2wbaxsbEZItgG28bGxmaI8P8BNTr7euTUUOwAAAAASUVORK5CYII=
       <td>3.497438</td>
       <td>5.384411</td>
       <td>5.260892</td>
-      <td>6.871186</td>
-      <td>2.691470</td>
-      <td>7.896430</td>
-      <td>4.806445</td>
-      <td>3.000442</td>
-      <td>5.842839</td>
-      <td>7.049697</td>
-      <td>...</td>
-      <td>5.549820</td>
-      <td>8.618404</td>
-      <td>7.901075</td>
-      <td>5.742750</td>
-      <td>13.030228</td>
-      <td>9.994091</td>
-      <td>9.978559</td>
-      <td>5.875091</td>
-      <td>14.339777</td>
-      <td>10.340851</td>
     </tr>
     <tr>
       <th>std</th>
       <td>0.983849</td>
       <td>1.442871</td>
       <td>1.389453</td>
-      <td>1.577477</td>
-      <td>1.071461</td>
-      <td>3.972324</td>
-      <td>0.649736</td>
-      <td>0.435496</td>
-      <td>1.868090</td>
-      <td>2.357809</td>
-      <td>...</td>
-      <td>1.432182</td>
-      <td>2.059423</td>
-      <td>3.230941</td>
-      <td>1.008086</td>
-      <td>4.562747</td>
-      <td>1.412447</td>
-      <td>3.241633</td>
-      <td>1.054174</td>
-      <td>6.022885</td>
-      <td>3.226749</td>
     </tr>
     <tr>
       <th>min</th>
       <td>1.644560</td>
       <td>1.811608</td>
       <td>1.648349</td>
-      <td>1.995952</td>
-      <td>1.622839</td>
-      <td>1.624577</td>
-      <td>1.690438</td>
-      <td>1.635916</td>
-      <td>1.619257</td>
-      <td>1.595782</td>
-      <td>...</td>
-      <td>1.682516</td>
-      <td>1.808268</td>
-      <td>1.703661</td>
-      <td>1.759154</td>
-      <td>1.874620</td>
-      <td>1.888668</td>
-      <td>1.926273</td>
-      <td>1.959305</td>
-      <td>1.723943</td>
-      <td>2.123781</td>
     </tr>
     <tr>
       <th>25%</th>
       <td>2.724144</td>
       <td>4.646580</td>
       <td>4.074415</td>
-      <td>5.558070</td>
-      <td>2.077899</td>
-      <td>5.296069</td>
-      <td>4.376737</td>
-      <td>2.752425</td>
-      <td>4.866850</td>
-      <td>5.930966</td>
-      <td>...</td>
-      <td>4.566259</td>
-      <td>7.513432</td>
-      <td>5.993242</td>
-      <td>5.342290</td>
-      <td>9.303610</td>
-      <td>9.648259</td>
-      <td>7.749804</td>
-      <td>5.302430</td>
-      <td>8.373914</td>
-      <td>8.132758</td>
     </tr>
     <tr>
       <th>50%</th>
       <td>3.305591</td>
       <td>5.598265</td>
       <td>5.260824</td>
-      <td>6.857723</td>
-      <td>2.288898</td>
-      <td>6.160766</td>
-      <td>4.955284</td>
-      <td>3.019603</td>
-      <td>5.869063</td>
-      <td>6.964953</td>
-      <td>...</td>
-      <td>5.203775</td>
-      <td>8.466327</td>
-      <td>7.008542</td>
-      <td>5.636099</td>
-      <td>12.583573</td>
-      <td>10.251976</td>
-      <td>9.429277</td>
-      <td>5.725180</td>
-      <td>14.116375</td>
-      <td>10.212492</td>
     </tr>
     <tr>
       <th>75%</th>
       <td>4.291924</td>
       <td>6.154997</td>
       <td>6.261976</td>
-      <td>7.981071</td>
-      <td>2.709509</td>
-      <td>9.530538</td>
-      <td>5.290851</td>
-      <td>3.270971</td>
-      <td>7.223211</td>
-      <td>8.783462</td>
-      <td>...</td>
-      <td>6.567888</td>
-      <td>9.322821</td>
-      <td>8.569227</td>
-      <td>5.995614</td>
-      <td>16.627177</td>
-      <td>10.734142</td>
-      <td>11.331592</td>
-      <td>6.299126</td>
-      <td>19.487733</td>
-      <td>12.577430</td>
     </tr>
     <tr>
       <th>max</th>
       <td>6.212335</td>
       <td>9.442201</td>
       <td>8.120241</td>
-      <td>9.947891</td>
-      <td>8.757400</td>
-      <td>20.005378</td>
-      <td>6.466101</td>
-      <td>5.331711</td>
-      <td>10.150820</td>
-      <td>11.768551</td>
-      <td>...</td>
-      <td>10.954459</td>
-      <td>23.759383</td>
-      <td>25.077294</td>
-      <td>10.817565</td>
-      <td>30.668472</td>
-      <td>13.954714</td>
-      <td>25.387879</td>
-      <td>10.497357</td>
-      <td>33.255347</td>
-      <td>22.130377</td>
     </tr>
   </tbody>
 </table>
-<p>8 rows × 486 columns</p>
 </div>
 </div>
 
@@ -6258,7 +6104,7 @@ myGCbbBtbGxshgi2wbaxsbEZItgG28bGxmaI8P8BNTr7euTUUOwAAAAASUVORK5CYII=
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x2aaafc0bb8d0&gt;</pre>
+<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x2aaae73c8dd8&gt;</pre>
 </div>
 
 </div>
