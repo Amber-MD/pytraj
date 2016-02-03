@@ -1,5 +1,6 @@
 import os
 import sys
+import Cython
 from Cython.Build import cythonize
 from glob import glob
 
