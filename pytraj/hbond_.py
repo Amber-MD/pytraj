@@ -161,15 +161,21 @@ def hbond(traj,
     donor_aceptor pairs : 2>
     >>> data.donor_aceptor
     ['LYS8_O-GLU5_N-H', 'GLU5_O-LYS8_N-H']
+
+    >>> # get raw data, ndarray with shape=(n_hbonds+1, n_frames)
+    >>> # first array shows the total solute hbonds and other arrays shows
+    >>> # if hbond exists (1) or non-exists (0) for each frame
     >>> data.values
     array([[2, 2, 0, ..., 1, 1, 1],
            [1, 1, 0, ..., 1, 1, 1],
            [1, 1, 0, ..., 0, 0, 0]], dtype=int32)
+
     >>> # search hbond including solvent
     >>> hbonds = pt.search_hbonds(traj, ':5,8', solvent_donor=':WAT@O', solvent_acceptor=':WAT')
     >>> hbonds
     <pytraj.hbonds.DatasetHBond
     donor_aceptor pairs : 8>
+
     >>> hbonds.donor_aceptor
     ['LYS8_O-GLU5_N-H', 'GLU5_O-LYS8_N-H', 'LYS8_HZ1-V', 'LYS8_HZ2-V', 'GLU5_OE2-V', 'GLU5_O-V', 'GLU5_OE1-V', 'LYS8_HZ3-V']
     >>> # 'GLU5_O-V' mean non-specific hbond between GLU5_O and solvent (:WAT in this case)
