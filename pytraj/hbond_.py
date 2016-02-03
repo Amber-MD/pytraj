@@ -51,7 +51,16 @@ class DatasetHBond(BaseDataHolder):
         '''
         return self.data.grep(["solventhb", "solutehb"], mode='aspect').keys()
 
-    def _amber_mask(self):
+    def total_solute_hbonds(self):
+        '''return total solute hbonds
+
+        See also: DatasetHBond.data.keys()
+        '''
+        return self.data.to_dict()['total_total_solute_hbonds']
+
+    def get_amber_mask(self):
+        '''return a list of distance mask and angle mask
+        '''
         return np.array(list(to_amber_mask(self._old_keys))).T
 
 
@@ -77,7 +86,7 @@ def hbond(traj,
           angle=135.,
           image=False,
           series=True,
-          cpp_options='',
+          options='',
           dtype='hbond',
           frame_indices=None,
           top=None):
@@ -106,7 +115,7 @@ def hbond(traj,
     series : bool, default True
         - output time series (array of 1 and 0) for hbond or not.
         - if False, you must specify dtype='dataset'
-    cpp_options : str
+    options : str
         additional cpptraj options. For example you can explicitly specify donormask and
         acceptormask.
 
@@ -168,7 +177,7 @@ def hbond(traj,
     _angle = 'angle ' + str(angle)
     _image = 'image' if image else ''
     _series = 'series' if series else ''
-    _options = cpp_options
+    _options = options
 
     command = " ".join((_series, mask, s_donor, s_acceptor, _dist, _angle,
                         _image, _options))
