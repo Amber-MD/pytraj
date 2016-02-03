@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Plot H-bond distances &mdash; pytraj 1.0.0.dev1+c2e4fb7 documentation</title>
+    <title>Plot H-bond distances &mdash; pytraj 1.0.0.dev1+4aca87f documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.0.dev1+c2e4fb7',
+        VERSION:     '1.0.0.dev1+4aca87f',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.0.dev1+c2e4fb7 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.0.dev1+4aca87f documentation" href="../index.html" />
     <link rel="up" title="Plots" href="plot.html" />
     <link rel="next" title="Plot correlation matrix" href="plot_correlation_matrix.html" />
     <link rel="prev" title="Plots" href="plot.html" />
@@ -54,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.0.dev1+c2e4fb7</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.0.dev1+4aca87f</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -421,7 +421,7 @@ GLY7_O-TRP9_N-H
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.text.Text at 0x2aaad8d9af60&gt;</pre>
+<pre>&lt;matplotlib.text.Text at 0x2aaad8ed2f60&gt;</pre>
 </div>
 
 </div>
@@ -2250,6 +2250,7 @@ AAAAAElFTkSuQmCC
     <span class="n">std_</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">mean_</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">mask</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">distance_or_angle_mask</span><span class="p">):</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;@&#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">)</span>
         <span class="n">std_</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="n">arr</span><span class="p">[</span><span class="n">idx</span><span class="p">]])</span>
         <span class="n">mean_</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="n">arr</span><span class="p">[</span><span class="n">idx</span><span class="p">]])</span>
     
@@ -2281,32 +2282,32 @@ AAAAAElFTkSuQmCC
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>({&apos;:10@O :10@HG1&apos;: 1.9748354521175817,
-  &apos;:10@O :12@HZ1&apos;: 1.9821660107151913,
-  &apos;:10@O :12@HZ2&apos;: 1.9919561276430415,
-  &apos;:10@OG1 :12@HZ1&apos;: 2.0933974614821733,
-  &apos;:10@OG1 :8@HZ3&apos;: 2.0318465603995195,
-  &apos;:1@OG :2@H&apos;: 1.9877602413078141,
-  &apos;:2@O :4@H&apos;: 2.024368646624378,
-  &apos;:3@O :1@H3&apos;: 2.1474342032636846,
-  &apos;:3@OG1 :6@HD21&apos;: 1.9911275635014065,
-  &apos;:5@O :3@HG1&apos;: 1.9397412032380126,
-  &apos;:5@OE2 :6@H&apos;: 1.8608969749703308,
-  &apos;:6@O :8@H&apos;: 2.0379229960419041,
-  &apos;:7@O :9@H&apos;: 2.0647911659846647},
- {&apos;:10@O :10@HG1&apos;: 0.15869117394166915,
-  &apos;:10@O :12@HZ1&apos;: 0.066799383615652963,
-  &apos;:10@O :12@HZ2&apos;: 0.0,
-  &apos;:10@OG1 :12@HZ1&apos;: 0.0,
-  &apos;:10@OG1 :8@HZ3&apos;: 0.0,
-  &apos;:1@OG :2@H&apos;: 0.075559413677526596,
-  &apos;:2@O :4@H&apos;: 0.0,
-  &apos;:3@O :1@H3&apos;: 0.0,
-  &apos;:3@OG1 :6@HD21&apos;: 0.072596777856622746,
-  &apos;:5@O :3@HG1&apos;: 0.0,
-  &apos;:5@OE2 :6@H&apos;: 0.046113957599139832,
-  &apos;:6@O :8@H&apos;: 0.0,
-  &apos;:7@O :9@H&apos;: 0.0})</pre>
+<pre>({&apos;:10_O :10_HG1&apos;: 1.9748354521175817,
+  &apos;:10_O :12_HZ1&apos;: 1.9821660107151913,
+  &apos;:10_O :12_HZ2&apos;: 1.9919561276430415,
+  &apos;:10_OG1 :12_HZ1&apos;: 2.0933974614821733,
+  &apos;:10_OG1 :8_HZ3&apos;: 2.0318465603995195,
+  &apos;:1_OG :2_H&apos;: 1.9877602413078141,
+  &apos;:2_O :4_H&apos;: 2.024368646624378,
+  &apos;:3_O :1_H3&apos;: 2.1474342032636846,
+  &apos;:3_OG1 :6_HD21&apos;: 1.9911275635014065,
+  &apos;:5_O :3_HG1&apos;: 1.9397412032380126,
+  &apos;:5_OE2 :6_H&apos;: 1.8608969749703308,
+  &apos;:6_O :8_H&apos;: 2.0379229960419041,
+  &apos;:7_O :9_H&apos;: 2.0647911659846647},
+ {&apos;:10_O :10_HG1&apos;: 0.15869117394166915,
+  &apos;:10_O :12_HZ1&apos;: 0.066799383615652963,
+  &apos;:10_O :12_HZ2&apos;: 0.0,
+  &apos;:10_OG1 :12_HZ1&apos;: 0.0,
+  &apos;:10_OG1 :8_HZ3&apos;: 0.0,
+  &apos;:1_OG :2_H&apos;: 0.075559413677526596,
+  &apos;:2_O :4_H&apos;: 0.0,
+  &apos;:3_O :1_H3&apos;: 0.0,
+  &apos;:3_OG1 :6_HD21&apos;: 0.072596777856622746,
+  &apos;:5_O :3_HG1&apos;: 0.0,
+  &apos;:5_OE2 :6_H&apos;: 0.046113957599139832,
+  &apos;:6_O :8_H&apos;: 0.0,
+  &apos;:7_O :9_H&apos;: 0.0})</pre>
 </div>
 
 </div>
@@ -2335,32 +2336,32 @@ AAAAAElFTkSuQmCC
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>({&apos;:10@O :10@HG1 :10@OG1&apos;: 138.92086564596366,
-  &apos;:10@O :12@HZ1 :12@NZ&apos;: 148.28773893308082,
-  &apos;:10@O :12@HZ2 :12@NZ&apos;: 137.44328883519057,
-  &apos;:10@OG1 :12@HZ1 :12@NZ&apos;: 141.56305755865677,
-  &apos;:10@OG1 :8@HZ3 :8@NZ&apos;: 147.54884869246948,
-  &apos;:1@OG :2@H :2@N&apos;: 137.97842992484198,
-  &apos;:2@O :4@H :4@N&apos;: 145.91068614258742,
-  &apos;:3@O :1@H3 :1@N&apos;: 137.2488324606623,
-  &apos;:3@OG1 :6@HD21 :6@ND2&apos;: 155.89624053475271,
-  &apos;:5@O :3@HG1 :3@OG1&apos;: 161.50380087671053,
-  &apos;:5@OE2 :6@H :6@N&apos;: 160.68310341915685,
-  &apos;:6@O :8@H :8@N&apos;: 151.75294915997674,
-  &apos;:7@O :9@H :9@N&apos;: 149.91384027241048},
- {&apos;:10@O :10@HG1 :10@OG1&apos;: 2.9717056812209393,
-  &apos;:10@O :12@HZ1 :12@NZ&apos;: 1.2669718312419604,
-  &apos;:10@O :12@HZ2 :12@NZ&apos;: 0.0,
-  &apos;:10@OG1 :12@HZ1 :12@NZ&apos;: 0.0,
-  &apos;:10@OG1 :8@HZ3 :8@NZ&apos;: 0.0,
-  &apos;:1@OG :2@H :2@N&apos;: 4.1608017031247275,
-  &apos;:2@O :4@H :4@N&apos;: 0.0,
-  &apos;:3@O :1@H3 :1@N&apos;: 0.0,
-  &apos;:3@OG1 :6@HD21 :6@ND2&apos;: 6.6837505843576395,
-  &apos;:5@O :3@HG1 :3@OG1&apos;: 0.0,
-  &apos;:5@OE2 :6@H :6@N&apos;: 9.3388091911946418,
-  &apos;:6@O :8@H :8@N&apos;: 0.0,
-  &apos;:7@O :9@H :9@N&apos;: 0.0})</pre>
+<pre>({&apos;:10_O :10_HG1 :10_OG1&apos;: 138.92086564596366,
+  &apos;:10_O :12_HZ1 :12_NZ&apos;: 148.28773893308082,
+  &apos;:10_O :12_HZ2 :12_NZ&apos;: 137.44328883519057,
+  &apos;:10_OG1 :12_HZ1 :12_NZ&apos;: 141.56305755865677,
+  &apos;:10_OG1 :8_HZ3 :8_NZ&apos;: 147.54884869246948,
+  &apos;:1_OG :2_H :2_N&apos;: 137.97842992484198,
+  &apos;:2_O :4_H :4_N&apos;: 145.91068614258742,
+  &apos;:3_O :1_H3 :1_N&apos;: 137.2488324606623,
+  &apos;:3_OG1 :6_HD21 :6_ND2&apos;: 155.89624053475271,
+  &apos;:5_O :3_HG1 :3_OG1&apos;: 161.50380087671053,
+  &apos;:5_OE2 :6_H :6_N&apos;: 160.68310341915685,
+  &apos;:6_O :8_H :8_N&apos;: 151.75294915997674,
+  &apos;:7_O :9_H :9_N&apos;: 149.91384027241048},
+ {&apos;:10_O :10_HG1 :10_OG1&apos;: 2.9717056812209393,
+  &apos;:10_O :12_HZ1 :12_NZ&apos;: 1.2669718312419604,
+  &apos;:10_O :12_HZ2 :12_NZ&apos;: 0.0,
+  &apos;:10_OG1 :12_HZ1 :12_NZ&apos;: 0.0,
+  &apos;:10_OG1 :8_HZ3 :8_NZ&apos;: 0.0,
+  &apos;:1_OG :2_H :2_N&apos;: 4.1608017031247275,
+  &apos;:2_O :4_H :4_N&apos;: 0.0,
+  &apos;:3_O :1_H3 :1_N&apos;: 0.0,
+  &apos;:3_OG1 :6_HD21 :6_ND2&apos;: 6.6837505843576395,
+  &apos;:5_O :3_HG1 :3_OG1&apos;: 0.0,
+  &apos;:5_OE2 :6_H :6_N&apos;: 9.3388091911946418,
+  &apos;:6_O :8_H :8_N&apos;: 0.0,
+  &apos;:7_O :9_H :9_N&apos;: 0.0})</pre>
 </div>
 
 </div>

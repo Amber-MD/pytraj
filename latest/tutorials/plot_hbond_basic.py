@@ -92,6 +92,7 @@ def stat(hb, data, distance_or_angle_mask):
     std_ = {}
     mean_ = {}
     for idx, mask in enumerate(distance_or_angle_mask):
+        mask = mask.replace('@', '_')
         std_[mask] = np.std(data[idx][arr[idx]])
         mean_[mask] = np.mean(data[idx][arr[idx]])
     
