@@ -891,16 +891,25 @@ occur.</li>
 <span class="go">donor_aceptor pairs : 2&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">donor_aceptor</span>
 <span class="go">[&#39;LYS8_O-GLU5_N-H&#39;, &#39;GLU5_O-LYS8_N-H&#39;]</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># get raw data, ndarray with shape=(n_hbonds+1, n_frames)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># first array shows the total solute hbonds and other arrays shows</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># if hbond exists (1) or non-exists (0) for each frame</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">values</span>
 <span class="go">array([[2, 2, 0, ..., 1, 1, 1],</span>
 <span class="go">       [1, 1, 0, ..., 1, 1, 1],</span>
 <span class="go">       [1, 1, 0, ..., 0, 0, 0]], dtype=int32)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c"># search hbond including solvent</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># search hbond including solvent</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">hbonds</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:5,8&#39;</span><span class="p">,</span> <span class="n">solvent_donor</span><span class="o">=</span><span class="s">&#39;:WAT@O&#39;</span><span class="p">,</span> <span class="n">solvent_acceptor</span><span class="o">=</span><span class="s">&#39;:WAT&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">hbonds</span>
 <span class="go">&lt;pytraj.hbonds.DatasetHBond</span>
 <span class="go">donor_aceptor pairs : 8&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">hbonds</span><span class="o">.</span><span class="n">donor_aceptor</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">hbonds</span><span class="o">.</span><span class="n">donor_aceptor</span>
 <span class="go">[&#39;LYS8_O-GLU5_N-H&#39;, &#39;GLU5_O-LYS8_N-H&#39;, &#39;LYS8_HZ1-V&#39;, &#39;LYS8_HZ2-V&#39;, &#39;GLU5_OE2-V&#39;, &#39;GLU5_O-V&#39;, &#39;GLU5_OE1-V&#39;, &#39;LYS8_HZ3-V&#39;]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># &#39;GLU5_O-V&#39; mean non-specific hbond between GLU5_O and solvent (:WAT in this case)</span>
 </pre></div>
