@@ -43,6 +43,7 @@ If you miss any Python package, try to use ``conda``, example::
     :maxdepth: 2
 
     advanced_examples
+    amber_tutorial3_folding_trpcage_analysis
 
 .. toctree::
     :maxdepth: 1
