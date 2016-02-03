@@ -34,7 +34,7 @@ def to_amber_mask(txtlist):
 
 
 class DatasetHBond(BaseDataHolder):
-    """Hold data for hbond analysis
+    """Hold data for hbond analysis.
     """
 
     def __str__(self):
@@ -51,7 +51,16 @@ class DatasetHBond(BaseDataHolder):
         '''
         return self.data.grep(["solventhb", "solutehb"], mode='aspect').keys()
 
-    def _amber_mask(self):
+    def total_solute_hbonds(self):
+        '''return total solute hbonds
+
+        See also: DatasetHBond.data.keys()
+        '''
+        return self.data.to_dict()['total_solute_hbonds']
+
+    def get_amber_mask(self):
+        '''return a list of distance mask and angle mask
+        '''
         return np.array(list(to_amber_mask(self._old_keys))).T
 
 
@@ -77,7 +86,7 @@ def hbond(traj,
           angle=135.,
           image=False,
           series=True,
-          cpp_options='',
+          options='',
           dtype='hbond',
           frame_indices=None,
           top=None):
@@ -85,6 +94,13 @@ def hbond(traj,
     Hydrogen bond is defined as A-HD, where A is acceptor heavy atom, H is hydrogen, D is
     donor heavy atom. Hydrogen bond is formed when A to D distance < distance cutoff and A-H-D angle
     > angle cutoff; if `angle` < 0 it is ignored.
+
+    Notes
+    -----
+    This pytraj's method provides limited data processing for hbond. If you need any extra analysis, please
+    use cpptraj.
+
+    Also, the usage of this method might be changed in the future (so don't be suprised).
 
     Parameters
     ----------
@@ -104,9 +120,9 @@ def hbond(traj,
     dtype : return output's type, default 'hbond'
     image : bool, default False
     series : bool, default True
-        - output time series (array of 1 and 0) for hbond or not.
+        - output time series (array of 1 and 0) for hbond or not (highly recommend to use this default value)
         - if False, you must specify dtype='dataset'
-    cpp_options : str
+    options : str
         additional cpptraj options. For example you can explicitly specify donormask and
         acceptormask.
 
@@ -145,15 +161,21 @@ def hbond(traj,
     donor_aceptor pairs : 2>
     >>> data.donor_aceptor
     ['LYS8_O-GLU5_N-H', 'GLU5_O-LYS8_N-H']
+
+    >>> # get raw data, ndarray with shape=(n_hbonds+1, n_frames)
+    >>> # first array shows the total solute hbonds and other arrays shows
+    >>> # if hbond exists (1) or non-exists (0) for each frame
     >>> data.values
     array([[2, 2, 0, ..., 1, 1, 1],
            [1, 1, 0, ..., 1, 1, 1],
            [1, 1, 0, ..., 0, 0, 0]], dtype=int32)
+
     >>> # search hbond including solvent
     >>> hbonds = pt.search_hbonds(traj, ':5,8', solvent_donor=':WAT@O', solvent_acceptor=':WAT')
     >>> hbonds
     <pytraj.hbonds.DatasetHBond
     donor_aceptor pairs : 8>
+
     >>> hbonds.donor_aceptor
     ['LYS8_O-GLU5_N-H', 'GLU5_O-LYS8_N-H', 'LYS8_HZ1-V', 'LYS8_HZ2-V', 'GLU5_OE2-V', 'GLU5_O-V', 'GLU5_OE1-V', 'LYS8_HZ3-V']
     >>> # 'GLU5_O-V' mean non-specific hbond between GLU5_O and solvent (:WAT in this case)
@@ -168,7 +190,7 @@ def hbond(traj,
     _angle = 'angle ' + str(angle)
     _image = 'image' if image else ''
     _series = 'series' if series else ''
-    _options = cpp_options
+    _options = options
 
     command = " ".join((_series, mask, s_donor, s_acceptor, _dist, _angle,
                         _image, _options))

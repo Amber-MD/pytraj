@@ -54,8 +54,8 @@ class TestSearchHbonds(unittest.TestCase):
         distance_cutoff = 2.5
         angle_cutoff = 135.
         hb = pt.search_hbonds(traj)
-        distances = pt.distance(traj, hb._amber_mask()[0])
-        angles = pt.angles(traj, hb._amber_mask()[1])
+        distances = pt.distance(traj, hb.get_amber_mask()[0])
+        angles = pt.angles(traj, hb.get_amber_mask()[1])
         dist_indices = np.where(distances > distance_cutoff)
         angle_indices = np.where(angles < angle_cutoff)
         print('FILL ME', dist_indices, angle_indices)
@@ -68,6 +68,8 @@ class TestSearchHbonds(unittest.TestCase):
 
         donor_aceptors = pt.search_hbonds(traj, ':9,16').donor_aceptor
         assert saved_donor_aceptors == donor_aceptors, 'saved_donor_aceptors'
+
+        aa_eq(hb.total_solute_hbonds(), hb.data['total_solute_hbonds'])
 
 
 if __name__ == "__main__":
