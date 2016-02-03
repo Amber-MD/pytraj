@@ -56,7 +56,7 @@ class DatasetHBond(BaseDataHolder):
 
         See also: DatasetHBond.data.keys()
         '''
-        return self.data.to_dict()['total_total_solute_hbonds']
+        return self.data.to_dict()['total_solute_hbonds']
 
     def get_amber_mask(self):
         '''return a list of distance mask and angle mask
