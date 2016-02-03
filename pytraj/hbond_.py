@@ -120,7 +120,7 @@ def hbond(traj,
     dtype : return output's type, default 'hbond'
     image : bool, default False
     series : bool, default True
-        - output time series (array of 1 and 0) for hbond or not.
+        - output time series (array of 1 and 0) for hbond or not (highly recommend to use this default value)
         - if False, you must specify dtype='dataset'
     options : str
         additional cpptraj options. For example you can explicitly specify donormask and
