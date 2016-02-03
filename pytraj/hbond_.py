@@ -100,6 +100,8 @@ def hbond(traj,
     This pytraj's method provides limited data processing for hbond. If you need any extra analysis, please
     use cpptraj.
 
+    Also, the usage of this method might be changed in the future (so don't be suprised).
+
     Parameters
     ----------
     traj : Trajectory-like
