@@ -11,11 +11,11 @@ class TestIndices(unittest.TestCase):
 
     def test_slice(self):
 
-        traj1 = TrajectoryIterator(filename="data/md1_prod.Tc5b.x",
+        traj1 = TrajectoryIterator(filename="data/Tc5b.x",
                                    top="./data/Tc5b.top")
         frame_indices = slice(9, 6, -1)
 
-        traj0 = pt.load(filename="./data/md1_prod.Tc5b.x",
+        traj0 = pt.load(filename="./data/Tc5b.x",
                         top=pt.load_topology("./data/Tc5b.top"),
                         frame_indices=frame_indices)
 
@@ -35,7 +35,7 @@ class TestIndices(unittest.TestCase):
         # make sure we don't suport other frame_indices
         traj2 = Trajectory()
         traj2 = pt.load(
-            filename="./data/md1_prod.Tc5b.x",
+            filename="./data/Tc5b.x",
             top=pt.load_topology("./data/Tc5b.top"),
             frame_indices=list(range(4)) + list(range(9, 5, -1)) + [4, ])
         aa_eq(traj2[-1].xyz, traj1[4].xyz)
@@ -47,14 +47,14 @@ class TestIndices(unittest.TestCase):
         del top
 
     def test_load_frame_indices_from_io(self):
-        traj0 = pt.load(filename="data/md1_prod.Tc5b.x",
+        traj0 = pt.load(filename="data/Tc5b.x",
                         top="./data/Tc5b.top",
                         frame_indices=(1, 3, 7))
-        trajCA = pt.load(filename="data/md1_prod.Tc5b.x",
+        trajCA = pt.load(filename="data/Tc5b.x",
                          top="./data/Tc5b.top",
                          frame_indices=(1, 3, 7),
                          mask='@CA')
-        trajreadonly = pt.iterload(filename="data/md1_prod.Tc5b.x",
+        trajreadonly = pt.iterload(filename="data/Tc5b.x",
                                    top="./data/Tc5b.top")
         trajCA_10frames = trajreadonly['@CA']
 
@@ -69,7 +69,7 @@ class TestIndices(unittest.TestCase):
         aa_eq(trajCA[2].xyz, trajCA_10frames[7].xyz)
 
     def test_load_mask(self):
-        traj = pt.iterload(filename="data/md1_prod.Tc5b.x",
+        traj = pt.iterload(filename="data/Tc5b.x",
                            top="./data/Tc5b.top")
         t0 = pt.load(traj.filename, traj.top.filename, mask='@CA')
         aa_eq(traj['@CA'].xyz, t0.xyz)

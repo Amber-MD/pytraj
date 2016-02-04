@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
 
     def test_0(self):
         import numpy as np
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 
         # 3 atoms x 2
         arr = np.array([[12, 13, 15], [16, 17, 18]])
