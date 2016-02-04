@@ -4,7 +4,7 @@ import pytraj as pt
 # pt.set_cpptraj_verbose(True)
 
 # use iterload for memory saving
-traj = pt.iterload("../tests/data/md1_prod.Tc5b.x", "../tests/data/Tc5b.top")
+traj = pt.iterload("../tests/data/Tc5b.x", "../tests/data/Tc5b.top")
 
 # for example you're only interested in a single Frame
 # let's load it to memory

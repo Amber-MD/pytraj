@@ -7,7 +7,7 @@ from pytraj import Topology
 from pytraj.core.c_core import AtomMask
 from pytraj.base import *
 
-TRAJ = Trajectory("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+TRAJ = Trajectory("./data/Tc5b.x", "./data/Tc5b.top")
 
 
 class TestTopology(unittest.TestCase):
@@ -60,7 +60,7 @@ class TestTopology(unittest.TestCase):
         arr0 = top.atom_indices("@CA")
 
     def test_len(self):
-        traj = Trajectory("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = Trajectory("./data/Tc5b.x", "./data/Tc5b.top")
         top = traj.top
         assert len(top) == top.n_atoms
 

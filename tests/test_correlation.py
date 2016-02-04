@@ -7,7 +7,9 @@ from pytraj.utils import eq, aa_eq
 class Test(unittest.TestCase):
 
     def test_0(self):
-        trajin = pt.datafiles.tc5b_trajin + """
+        cm = """
+        parm data/Tc5b.top
+        trajin data/Tc5b.x
         distance d0 @2 @3
         distance d1 @4 @7
         corr d0 d1 out test.out
@@ -15,9 +17,10 @@ class Test(unittest.TestCase):
         """
 
         # exclude DatasetTopology (1st)
-        cout = pt.datafiles.load_cpptraj_output(trajin)[1:]
+        state = pt.datafiles.load_cpptraj_state(cm).run()
+        cout = state.data[1:]
 
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         dslist = pt.calc_distance(traj, ['@2 @3', '@4, @7'])
 
         pout = pt.xcorr(dslist[0],

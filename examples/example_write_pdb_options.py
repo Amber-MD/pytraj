@@ -12,7 +12,7 @@ class Test(unittest.TestCase):
     def test_1(self):
         # TODO: get absolute path so we can use `goto_temp_folder`
         # if not: wrong dir if using TrajectoryIterator
-        traj = mdio.iterload("../tests/data/md1_prod.Tc5b.x",
+        traj = mdio.iterload("../tests/data/Tc5b.x",
                              "../tests/data/Tc5b.top")[:]
         trajout = TrajectoryWriter()
         # multiple pdb in multiple files, using `save` method in traj

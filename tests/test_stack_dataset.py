@@ -8,7 +8,7 @@ from pytraj.utils import eq, aa_eq
 from pytraj.testing import cpptraj_test_dir
 from pytraj.datasetlist import stack
 
-traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 
 
 class Test(unittest.TestCase):

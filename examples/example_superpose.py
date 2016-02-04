@@ -3,7 +3,7 @@ import pytraj as pt
 # to update coordinates, we need to load all data to memory
 # so we use `load` method instead of `iterload`
 
-traj = pt.load("../tests/data/md1_prod.Tc5b.x", "../tests/data/Tc5b.top")
+traj = pt.load("../tests/data/Tc5b.x", "../tests/data/Tc5b.top")
 print(traj)
 
 # nofit rmsd before fitting

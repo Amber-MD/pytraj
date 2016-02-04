@@ -7,7 +7,7 @@ from pytraj.utils import eq, aa_eq
 class Test(unittest.TestCase):
 
     def test_0(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         from pytraj.utils import convert as cv
         arange = cv.array_to_cpptraj_range(range(7))
 

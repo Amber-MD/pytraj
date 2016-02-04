@@ -8,7 +8,7 @@ from pytraj.testing import aa_eq
 class TestBasic(unittest.TestCase):
 
     def test_frame_fit(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         f0 = traj[0]
         f1 = traj[1]
 
@@ -36,7 +36,7 @@ class TestBasic(unittest.TestCase):
         aa_eq(farray[1].xyz, f1saved.xyz, decimal=3)
 
     def test_0(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         farray = traj[:]
         f0 = traj[0]
         f0saved = f0.copy()
@@ -61,7 +61,7 @@ class TestBasic(unittest.TestCase):
     def test_1(self):
 
         # load frames to immutable traj
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         trajsaved = pt.iterload("./data/fit_to_1stframe.Tc5b.x",
                                 "./data/Tc5b.top")
 

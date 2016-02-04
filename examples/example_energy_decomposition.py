@@ -13,7 +13,7 @@ def main():
     # http://ambermd.org/#AmberTools
     # more info about `sanderapi` in Amber15 manual
     # http://ambermd.org/doc12/Amber15.pdf (page 341)
-    traj = io.iterload("../tests/data/md1_prod.Tc5b.x",
+    traj = io.iterload("../tests/data/Tc5b.x",
                        "../tests/data/Tc5b.top")
     print(traj)
     edict0 = pyca.energy_decomposition(parm="../tests/data/Tc5b.top",

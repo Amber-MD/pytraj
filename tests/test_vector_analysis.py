@@ -18,7 +18,7 @@ from pytraj.c_action import c_action as CA
 class TestVectorAnalysisModule(unittest.TestCase):
 
     def test_vector_raise(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         arr = np.arange(100).astype('i4').reshape(2, 25, 2)
         self.assertRaises(ValueError, lambda: pt.vector.vector_mask(traj, arr))
 
@@ -27,7 +27,7 @@ class TestVectorAnalysisModule(unittest.TestCase):
         '''
         dslist = DatasetList()
         actlist = ActionList()
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         mask_list = ['@CB @CA', '@CA @H']
 
         for mask in mask_list:

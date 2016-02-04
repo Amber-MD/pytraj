@@ -9,7 +9,7 @@ from pytraj.utils.check_and_assert import assert_almost_equal as aa_eq
 """
 try not to get segmentation fault error (due to whatever freaking reason)
 """
-traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 
 
 class Test(unittest.TestCase):

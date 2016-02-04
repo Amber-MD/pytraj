@@ -11,7 +11,7 @@ from pytraj.testing import aa_eq
 class Test(unittest.TestCase):
 
     def test_0(self):
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         farray = traj[:]
 
         for i, f0 in enumerate(traj):
@@ -102,7 +102,7 @@ class Test(unittest.TestCase):
         assert_almost_equal(traj[6].xyz, frame0.xyz)
 
     def test_1(self):
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         top2 = traj.top.copy()
 
         for frame in traj(mask='@CA'):
@@ -127,7 +127,7 @@ class Test(unittest.TestCase):
         assert frame.n_atoms == traj[0].n_atoms
 
     def test_IterWithMask(self):
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         farray = traj[:]
         for frame in farray(mask='@CA'):
             pass

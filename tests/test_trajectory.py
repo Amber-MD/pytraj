@@ -69,7 +69,7 @@ class TestAppend(unittest.TestCase):
     def test_append_trajectory(self):
         # test append
         traj = pt.Trajectory()
-        t = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        t = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         traj.top = t.top
 
         # append single Frame
@@ -129,18 +129,18 @@ class TestTrajectory(unittest.TestCase):
     def test_slice_basic(self):
         traj2 = pt.Trajectory()
         traj2.top = pt.load_topology("./data/Tc5b.top")
-        traj2.load("./data/md1_prod.Tc5b.x")
-        traj2.load("./data/md1_prod.Tc5b.x")
-        traj2.load("./data/md1_prod.Tc5b.x")
-        traj2.load("./data/md1_prod.Tc5b.x")
+        traj2.load("./data/Tc5b.x")
+        traj2.load("./data/Tc5b.x")
+        traj2.load("./data/Tc5b.x")
+        traj2.load("./data/Tc5b.x")
         fsub = traj2[2:10]
         fsub[0][0] = 100.
 
     def test_indexing(self):
-        traj = pt.iterload('data/md1_prod.Tc5b.x', 'data/Tc5b.top')
+        traj = pt.iterload('data/Tc5b.x', 'data/Tc5b.top')
         traj2 = pt.TrajectoryIterator()
         traj2.top = pt.load_topology("./data/Tc5b.top")
-        traj2._load("./data/md1_prod.Tc5b.x")
+        traj2._load("./data/Tc5b.x")
         farray = traj2[[0, 9, 1]]
         assert farray.n_frames == 3
         assert traj2[0].atom(0) == farray[0].atom(0)
@@ -164,7 +164,7 @@ class TestTrajectory(unittest.TestCase):
         self.assertRaises(IndexError, lambda: traj3.__setitem__(0, traj[3]))
 
     def test_indexing_at(self):
-        traj = pt.iterload('data/md1_prod.Tc5b.x', 'data/Tc5b.top')
+        traj = pt.iterload('data/Tc5b.x', 'data/Tc5b.top')
         t0 = traj[:]
 
         aa_eq(t0.at(3).xyz, t0[3].xyz)
@@ -179,7 +179,7 @@ class TestTrajectory(unittest.TestCase):
     def test_iter_basic(self):
         traj = pt.TrajectoryIterator()
         traj.top = pt.load_topology("./data/Tc5b.top")
-        traj._load("./data/md1_prod.Tc5b.x")
+        traj._load("./data/Tc5b.x")
         for frame in traj:
             pass
 
@@ -188,14 +188,14 @@ class TestTrajectory(unittest.TestCase):
         assert traj.top.is_empty() == True
         traj.top = pt.load_topology("./data/Tc5b.top")
         assert traj.top.is_empty() == False
-        traj._load("./data/md1_prod.Tc5b.x")
+        traj._load("./data/Tc5b.x")
 
         # use toplogy
         traj = pt.TrajectoryIterator()
         assert traj.topology.is_empty() == True
         traj.topology = pt.load_topology("./data/Tc5b.top")
         assert traj.topology.is_empty() == False
-        traj._load("./data/md1_prod.Tc5b.x")
+        traj._load("./data/Tc5b.x")
 
     def test_xyz(self):
         traj = pt.datafiles.load_tz2_ortho()
@@ -257,7 +257,7 @@ class TestTrajectory(unittest.TestCase):
         aa_eq(pt.tools.merge_trajs(traj1, traj2).xyz, (traj1 + trajiter).xyz)
 
     def test_allocate_frames(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         traj2 = pt.Trajectory()
         traj2._allocate(traj.n_frames, traj.n_atoms)
         assert (traj2.shape == traj.shape)
@@ -270,7 +270,7 @@ class TestTrajectory(unittest.TestCase):
 class TestSaveToDisk(unittest.TestCase):
 
     def test_basic_saving(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 
         fa = traj[:]
         fname = "./output/test_savemethod.x"
@@ -290,7 +290,7 @@ class TestSaveToDisk(unittest.TestCase):
             aa_eq(f0.xyz, f0new2.xyz)
 
     def test_fancy_save(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         traj[1:8].save("./output/test_fancy_save_frame1_7.x", overwrite=True)
 
         fanew = pt.iterload("./output/test_fancy_save_frame1_7.x", traj.top)
@@ -303,7 +303,7 @@ class TestSaveToDisk(unittest.TestCase):
 class TestSetitem(unittest.TestCase):
 
     def test_setitem(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
 
         # single value

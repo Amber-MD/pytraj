@@ -9,7 +9,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         import numpy as np
 
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         traj2 = traj[:]
         d1 = pt.calc_center_of_mass(traj, dtype='dataset')
         d2 = pt.calc_center_of_mass(traj2, dtype='dataset')

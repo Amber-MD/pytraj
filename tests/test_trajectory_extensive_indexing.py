@@ -10,7 +10,7 @@ refilename = "./data/Tc5b.nat.crd"
 trajin = """
 """
 
-ts = pt.iterload('data/md1_prod.Tc5b.x', 'data/Tc5b.top')
+ts = pt.iterload('data/Tc5b.x', 'data/Tc5b.top')
 
 # create Trajectory to store Frame
 FARRAY = Trajectory()

@@ -22,8 +22,8 @@ class Test(unittest.TestCase):
         dslist = DatasetList()
         dflist = DataFileList()
 
-        trajin = "./data/md1_prod.Tc5b.x"
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        trajin = "./data/Tc5b.x"
+        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 
         dslist.add("coords", "test_traj")
         dslist[0].top = traj.top

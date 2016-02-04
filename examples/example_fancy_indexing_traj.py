@@ -1,6 +1,6 @@
 from pytraj import io as mdio
 
-traj = mdio.load("../tests/data/md1_prod.Tc5b.x", "../tests/data/Tc5b.top")[:]
+traj = mdio.load("../tests/data/Tc5b.x", "../tests/data/Tc5b.top")[:]
 # get x coord of 0-th atom of 0-th frame
 print(traj[0, 0, 0])
 

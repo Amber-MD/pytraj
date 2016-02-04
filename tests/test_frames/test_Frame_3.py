@@ -10,7 +10,7 @@ from array import array
 class Test(unittest.TestCase):
 
     def test_0(self):
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
         assert frame0._buffer2d[0, 0] == frame0[0, 0]
         assert frame0._buffer2d[0, 1] == frame0[0, 1]
@@ -39,13 +39,13 @@ class Test(unittest.TestCase):
         aa_eq(frame0._buffer2d[1:3, 0], array('d', frame0._buffer2d[1:3, 0]))
 
     def test_1(self):
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
         frame0[1:5, 2] = list(range(100, 104))
         frame0[0, :] = list(range(3))
 
     def test_magic_methods(self):
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
         frame1 = frame0.copy()
         frame1 += frame1

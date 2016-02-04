@@ -5,7 +5,7 @@ from pytraj.base import *
 from pytraj import io as mdio
 from pytraj.testing import aa_eq
 
-farray = pt.load("data/md1_prod.Tc5b.x",
+farray = pt.load("data/Tc5b.x",
                  "./data/Tc5b.top",
                  frame_indices=list(range(10)))
 
@@ -13,7 +13,7 @@ farray = pt.load("data/md1_prod.Tc5b.x",
 class TestTrajectoryWriter(unittest.TestCase):
 
     def test_0(self):
-        farray = pt.load("data/md1_prod.Tc5b.x",
+        farray = pt.load("data/Tc5b.x",
                          "./data/Tc5b.top",
                          frame_indices=list(range(10)))
         frame0 = farray[0]
@@ -56,7 +56,7 @@ class TestTrajectoryWriter(unittest.TestCase):
 
     def test_4(self):
         """test write Trajectory"""
-        farray = pt.load("data/md1_prod.Tc5b.x",
+        farray = pt.load("data/Tc5b.x",
                          "./data/Tc5b.top",
                          frame_indices=list(range(10)))
         pt.write_traj("./output/test_write_output.x",

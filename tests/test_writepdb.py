@@ -11,7 +11,7 @@ from pytraj.utils import goto_temp_folder
 class Test(unittest.TestCase):
 
     def test_0(self):
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         mdio.write_traj("test_1.pdb", traj[0], top=traj.top, overwrite=True)
         mdio.write_traj("test_1.dcd", traj[0], top=traj.top, overwrite=True)
 
@@ -21,7 +21,7 @@ class Test(unittest.TestCase):
     def test_1(self):
         # TODO: get absolute path so we can use `goto_temp_folder`
         # if not: wrong dir if using TrajectoryIterator
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
+        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")[:]
         trajout = TrajectoryWriter()
 
         # multiple pdb in multiple files, using `save` method in traj

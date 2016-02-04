@@ -7,7 +7,7 @@ from pytraj.utils import eq, aa_eq
 class Test(unittest.TestCase):
 
     def test_0(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 
         traj(0, 8, 2, mask='@CA').save('output/test0.nc', overwrite=True)
         pt.write_traj('./output/test1.nc',

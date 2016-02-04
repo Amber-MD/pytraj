@@ -6,7 +6,7 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 class TestIterator(unittest.TestCase):
 
     def test_frame_iterator(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 
         frame = traj[0]
 

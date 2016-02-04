@@ -40,7 +40,7 @@ class TestWriteTraj(unittest.TestCase):
         aa_eq(self.traj.xyz, t0.xyz)
 
     def test_split_and_write_traj(self):
-        fn = "data/md1_prod.Tc5b.x"
+        fn = "data/Tc5b.x"
         traj = pt.iterload([fn, fn], "./data/Tc5b.top")
         # duplcate
         assert traj.n_frames == 20
@@ -66,7 +66,7 @@ class TestWriteTraj(unittest.TestCase):
         aa_eq(traj4.xyz, traj.xyz)
 
     def test_raise(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 
         # list
         self.assertRaises(

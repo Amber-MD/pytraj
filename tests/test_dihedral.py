@@ -12,12 +12,12 @@ class TestDihedral(unittest.TestCase):
 
     def test_dihedral(self):
         import numpy as np
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
         mask = ':2@CA :14@CA :15@CA :16@CA'
         txt = '''
         parm ./data/Tc5b.top
-        trajin ./data/md1_prod.Tc5b.x
+        trajin ./data/Tc5b.x
         dihedral %s
         ''' % mask
         d0 = pt.dihedral(traj, mask, dtype='dataset').to_ndarray()
