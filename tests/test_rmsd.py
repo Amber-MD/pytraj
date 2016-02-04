@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+import warnings
+
 import unittest
 import numpy as np
 import pytraj as pt
@@ -6,6 +8,7 @@ from pytraj.base import *
 from pytraj.utils import has_
 from pytraj.testing import aa_eq
 from pytraj import Trajectory, TrajectoryIterator
+from pytraj.datasets import CpptrajDatasetList
 
 
 class TestSimpleRMSD(unittest.TestCase):
@@ -53,11 +56,31 @@ class TestSimpleRMSD(unittest.TestCase):
         pt.transform(t1, ['rms'])
         aa_eq(t0.xyz, t1.xyz)
 
+    def test_reference_with_different_topology_basic_no_assertion(self):
+        traj1 = pt.iterload(filename="./data/md1_prod.Tc5b.x",
+                           top="./data/Tc5b.top")
+        traj2 = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
+
+        dslist = CpptrajDatasetList()
+        dslist.add('reference', name='myref')
+
+        dslist[0].top = traj2.top
+        dslist[0].add_frame(traj2[0])
+
+        actlist = pt.ActionList(['rmsd @1-11 @CB ref myref'], top=traj1.top,
+                                dslist=dslist)
+        for frame in traj1:
+            actlist.compute(frame)
+
+        # raise if ref_mask is given but not mask
+        self.assertRaises(ValueError, lambda:
+                pt.rmsd(traj1, ref=3, ref_mask='@CB'))
+        self.assertRaises(ValueError, lambda:
+                pt.rmsd(traj1, ref=traj2[:1], ref_mask='@CB'))
+
     @unittest.skipIf(not has_('mdtraj'), 'does not have mdtraj')
     def test_ComparetoMDtraj(self):
-        # use `mdtraj` for rerefence values
         import mdtraj as md
-        from pytraj import Trajectory
         traj = pt.load(filename="./data/md1_prod.Tc5b.x",
                        top="./data/Tc5b.top")
         m_top = md.load_prmtop("./data/Tc5b.top")
@@ -244,7 +267,7 @@ class TestPairwiseRMSD(unittest.TestCase):
 
 class TestActionListRMSD(unittest.TestCase):
 
-    def test_0(self):
+    def test_actionlist(self):
         traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
         standard_rmsd = pt.rmsd(traj, mask='@CA')
 

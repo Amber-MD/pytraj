@@ -146,7 +146,7 @@ def calc_distance(traj=None,
     command = mask
 
     traj = get_fiterator(traj, frame_indices)
-    _top = get_topology(traj, top)
+    top_ = get_topology(traj, top)
     _noimage = 'noimage' if not image else ''
 
     cm_arr = np.asarray(command)
@@ -187,7 +187,7 @@ def calc_distance(traj=None,
                 cm = ' '.join((cm, _noimage))
             actlist.add(c_action.Action_Distance(),
                         cm,
-                        _top,
+                        top_,
                         dslist=c_dslist)
 
         actlist.compute(traj)
@@ -231,16 +231,16 @@ def calc_pairwise_distance(traj=None,
     '''
     from itertools import product
 
-    _top = get_topology(traj, top)
-    indices_1 = _top.select(mask_1) if isinstance(mask_1,
+    top_ = get_topology(traj, top)
+    indices_1 = top_.select(mask_1) if isinstance(mask_1,
                                                   string_types) else mask_1
-    indices_2 = _top.select(mask_2) if isinstance(mask_2,
+    indices_2 = top_.select(mask_2) if isinstance(mask_2,
                                                   string_types) else mask_2
     arr = np.array(list(product(indices_1, indices_2)))
     mat = calc_distance(traj,
                         mask=arr,
                         dtype=dtype,
-                        top=_top,
+                        top=top_,
                         frame_indices=frame_indices)
     mat = mat.T
     return (mat.reshape(mat.shape[0], len(indices_1), len(indices_2)),
@@ -303,7 +303,7 @@ def calc_angle(traj=None,
     ensure_not_none_or_string(traj)
 
     traj = get_fiterator(traj, frame_indices)
-    _top = get_topology(traj, top)
+    top_ = get_topology(traj, top)
     cm_arr = np.asarray(command)
 
     if 'int' not in cm_arr.dtype.name:
@@ -315,7 +315,7 @@ def calc_angle(traj=None,
             except KeyError:
                 pass
             # cpptraj mask for action
-            act(command, traj, top=_top, dslist=c_dslist, *args, **kwargs)
+            act(command, traj, top=top_, dslist=c_dslist, *args, **kwargs)
             return get_data_from_dtype(c_dslist, dtype)
         elif isinstance(command, (list, tuple, np.ndarray)):
             list_of_commands = command
@@ -325,7 +325,7 @@ def calc_angle(traj=None,
             for cm in list_of_commands:
                 actlist.add(c_action.Action_Angle(),
                             cm,
-                            _top,
+                            top_,
                             dslist=c_dslist,
                             *args,
                             **kwargs)
@@ -443,7 +443,7 @@ def calc_dihedral(traj=None,
     command = mask
 
     traj = get_fiterator(traj, frame_indices)
-    _top = get_topology(traj, top)
+    top_ = get_topology(traj, top)
     cm_arr = np.asarray(command)
 
     if 'int' not in cm_arr.dtype.name:
@@ -455,7 +455,7 @@ def calc_dihedral(traj=None,
             except:
                 pass
             # cpptraj mask for action
-            act(command, traj, top=_top, dslist=c_dslist)
+            act(command, traj, top=top_, dslist=c_dslist)
             return get_data_from_dtype(c_dslist, dtype)
 
         else:
@@ -467,7 +467,7 @@ def calc_dihedral(traj=None,
             for cm in list_of_commands:
                 actlist.add(c_action.Action_Dihedral(),
                             cm,
-                            _top,
+                            top_,
                             dslist=c_dslist,
                             *args,
                             **kwargs)
@@ -520,8 +520,8 @@ def calc_mindist(traj=None,
         command = array2d_to_cpptraj_maskgroup(command)
     command_ = "mindist " + command
     traj = get_fiterator(traj, frame_indices)
-    _top = get_topology(traj, top)
-    act(command_, traj, top=_top, dslist=c_dslist)
+    top_ = get_topology(traj, top)
+    act(command_, traj, top=top_, dslist=c_dslist)
     return get_data_from_dtype(c_dslist, dtype=dtype)[-1]
 
 
@@ -618,7 +618,7 @@ def calc_watershell(traj=None,
     >>> data = pt.watershell(traj, solute_mask='!:WAT', lower=5.0, upper=10.)
     """
     _solutemask = solute_mask
-    _top = get_topology(traj, top)
+    top_ = get_topology(traj, top)
     fi = get_fiterator(traj, frame_indices)
 
     c_dslist = CpptrajDatasetList()
@@ -755,8 +755,8 @@ def calc_molsurf(traj=None,
             1079.70803583,  1075.8151414 ])
     '''
     _probe = 'probe ' + str(probe)
-    _offset = 'offset ' + str(offset) if offset != 0. else ''
-    command = ' '.join((mask, _probe, _offset))
+    offset_ = 'offset ' + str(offset) if offset != 0. else ''
+    command = ' '.join((mask, _probe, offset_))
 
     act = c_action.Action_Molsurf()
 
@@ -1037,7 +1037,7 @@ def calc_rdf(traj=None,
     '''
 
     traj = get_fiterator(traj, frame_indices)
-    _top = get_topology(traj, top)
+    top_ = get_topology(traj, top)
 
     act = c_action.Action_Radial()
 
@@ -1167,7 +1167,7 @@ def translate(traj=None, command="", frame_indices=None, top=None):
     '''
     _assert_mutable(traj)
 
-    _top = get_topology(traj, top)
+    top_ = get_topology(traj, top)
     fi = get_fiterator(traj, frame_indices)
 
     c_action.Action_Translate()(command, fi, top=_top)
@@ -1190,7 +1190,7 @@ def do_scaling(traj=None, command="", frame_indices=None, top=None):
     >>> traj = pt.scale(traj, '@CA x 1.2')
     '''
     _assert_mutable(traj)
-    _top = get_topology(traj, top)
+    top_ = get_topology(traj, top)
     fi = get_fiterator(traj, frame_indices)
     c_action.Action_Scale()(command, fi, top=_top)
 
@@ -1215,7 +1215,7 @@ def rotate(traj=None, command="", frame_indices=None, top=None):
     -----
     ``rotate`` is an alias of ``do_rotation``
     '''
-    _top = get_topology(traj, top)
+    top_ = get_topology(traj, top)
     _assert_mutable(traj)
     fi = get_fiterator(traj, frame_indices)
     c_action.Action_Rotate()(command, fi, top=_top)
@@ -1288,7 +1288,7 @@ def mean_structure(traj,
     '''
     # note: we not yet use @super_dispatch due to extra 'rmsfit'
     # TODO: do it.
-    _top = get_topology(traj, top)
+    top_ = get_topology(traj, top)
     try:
         fi = traj.iterframe(autoimage=autoimage,
                             rmsfit=rmsfit,
@@ -1306,7 +1306,7 @@ def mean_structure(traj,
     command = mask + " crdset s1"
 
     act = c_action.Action_Average()
-    act(command, fi, _top, dslist=c_dslist)
+    act(command, fi, top_, dslist=c_dslist)
 
     # need to call this method so cpptraj will write
     act.post_process()
@@ -1315,7 +1315,7 @@ def mean_structure(traj,
     if dtype.lower() == 'frame':
         return frame
     elif dtype.lower() in ['traj', 'trajectory']:
-        new_top = _top if mask is '' else _top[mask]
+        new_top = top_ if mask is '' else _top[mask]
         return Trajectory(xyz=frame.xyz.reshape(1, frame.n_atoms, 3).copy(),
                           top=new_top)
     else:
@@ -1642,14 +1642,14 @@ def calc_vector(traj=None,
     """
 
     c_dslist = CpptrajDatasetList()
-    _top = get_topology(traj, top)
+    top_ = get_topology(traj, top)
     list_of_commands = get_list_of_commands(command)
     fi = get_fiterator(traj, frame_indices)
     actlist = ActionList()
 
     for command in list_of_commands:
         act = c_action.Action_Vector()
-        actlist.add(act, command, _top, dslist=c_dslist)
+        actlist.add(act, command, top_, dslist=c_dslist)
     actlist.compute(fi)
 
     return get_data_from_dtype(c_dslist, dtype=dtype)
@@ -1788,7 +1788,7 @@ def calc_pairwise_rmsd(traj=None,
     act = c_analysis.Analysis_Rms2d()
 
     crdname = 'default_coords'
-    c_dslist, _top, command = get_fi_with_dslist(traj, mask, frame_indices, top, crdname=crdname)
+    c_dslist, top_, command = get_fi_with_dslist(traj, mask, frame_indices, top, crdname=crdname)
 
     command = ' '.join((command, metric, "crdset {} rmsout mycrazyoutput".format(crdname)))
 
@@ -1848,7 +1848,7 @@ def calc_rmsd_nofit(traj=None,
                     mass=False,
                     frame_indices=None,
                     top=None,
-                    dtype='ndarray'):
+                    dtype='ndarray', **kwd):
     '''
     See also
     --------
@@ -1861,27 +1861,30 @@ def calc_rmsd_nofit(traj=None,
                      nofit=True,
                      frame_indices=frame_indices,
                      top=top,
-                     dtype=dtype)
+                     dtype=dtype, **kwd)
 
 
 @register_pmap
-def calc_rmsd(traj=None,
-              mask="",
-              ref=0,
-              nofit=False,
-              mass=False,
-              frame_indices=None,
-              top=None,
-              dtype='ndarray'):
-    """calculate rmsd
+def rmsd(traj=None,
+         mask="",
+         ref=0,
+         ref_mask='',
+         nofit=False,
+         mass=False,
+         frame_indices=None,
+         top=None,
+         dtype='ndarray'):
+    """compute rmsd
 
     Parameters
     ----------
     traj : Trajectory-like
-    ref : {Frame, int}, default=0 (first frame)
-        Reference frame or index.
     mask : str or 1D array-like of string or 1D or 2D array-like
         Atom mask/indices
+    ref : {Frame, int}, default=0 (first frame)
+        Reference frame or index.
+    ref_mask: str, optional
+        if given, use it instead of `mask`
     nofit : bool, default False
         if False, perform fitting (rotation and translation).
         if ``traj`` is mutable, its coordinates will be updated
@@ -1915,9 +1918,15 @@ def calc_rmsd(traj=None,
 
     """
 
-    _nofit = ' nofit ' if nofit else ''
+    nofit_ = ' nofit ' if nofit else ''
     mass_ = ' mass ' if mass else ''
-    opt = _nofit + mass_
+    options = nofit_ + mass_
+
+    if ref_mask:
+        if not mask:
+            raise ValueError('mask must be provided if ref_mask is given')
+        if not isinstance(ref_mask, string_types):
+            ref_mask = array_to_cpptraj_atommask(ref_mask)
 
     if isinstance(mask, string_types):
         command = [mask, ]
@@ -1942,7 +1951,7 @@ def calc_rmsd(traj=None,
         else:
             raise ValueError("not supported")
 
-    _top = get_topology(traj, top)
+    top_ = get_topology(traj, top)
 
     ref = get_reference(traj, ref)
     fi = get_fiterator(traj, frame_indices)
@@ -1950,25 +1959,32 @@ def calc_rmsd(traj=None,
     alist = ActionList()
     c_dslist = CpptrajDatasetList()
 
+    ref_top = ref if ref.top else top_
+    c_dslist.add('reference', name='myref')
+    c_dslist[-1].top = ref_top
+    c_dslist[-1].add_frame(ref)
+
+    ref_mask = ' '.join((ref_mask, 'ref myref'))
+
     for cm in command:
-        _cm = cm + opt
-        if 'savematrices' in _cm and dtype not in ['dataset', 'cpptraj_dataset']:
+        cm_ = ' '.join((cm, ref_mask, options))
+        if 'savematrices' in cm_ and dtype not in ['dataset', 'cpptraj_dataset']:
             raise ValueError('if savematrices, dtype must be "dataset"')
         alist.add(c_action.Action_Rmsd(),
-                  _cm,
-                  top=_top,
+                  cm_,
+                  top=top_,
                   dslist=c_dslist)
 
-    alist.compute(ref)
     alist.compute(fi)
 
+    # pop Reference Dataset
+    c_dslist._pop(0)
+
     dnew = DatasetList(c_dslist)
-    for d in dnew:
-        d.values = d.values[1:]
     return get_data_from_dtype(dnew, dtype=dtype)
 
 # alias for `calc_rmsd`
-rmsd = calc_rmsd
+calc_rmsd = rmsd
 
 
 @register_pmap
@@ -2065,9 +2081,9 @@ def principal_axes(traj=None, mask='*', dorotation=False, mass=True, top=None):
 
     command = ' '.join((command, _dorotation, mass_))
 
-    _top = get_topology(traj, top)
+    top_ = get_topology(traj, top)
     c_dslist = CpptrajDatasetList()
-    act(command, traj, _top, dslist=c_dslist)
+    act(command, traj, top_, dslist=c_dslist)
     return (c_dslist[0].values, c_dslist[1].values)
 
 
@@ -2365,14 +2381,14 @@ def pucker(traj=None,
     -------
     Dataset
     """
-    _top = get_topology(traj, top)
+    top_ = get_topology(traj, top)
     if resrange is None:
         resrange = range(_top.n_residues)
 
     _range360 = "range360" if range360 else ""
     geom = "geom" if not use_com else ""
     amp = "amplitude" if amplitude else ""
-    _offset = "offset " + str(offset) if offset else ""
+    offset_ = "offset " + str(offset) if offset else ""
 
     c_dslist = CpptrajDatasetList()
 
@@ -2380,10 +2396,10 @@ def pucker(traj=None,
         command = " ".join((":" + str(res + 1) + '@' + x for x in pucker_mask))
         name = "pucker_res" + str(res + 1)
         command = " ".join((name, command, _range360, method, geom, amp,
-                            _offset))
+                            offset_))
 
         act = c_action.Action_Pucker()
-        act(command, traj, top=_top, dslist=c_dslist)
+        act(command, traj, top=top_, dslist=c_dslist)
 
     return get_data_from_dtype(c_dslist, dtype)
 
@@ -2464,7 +2480,7 @@ def rotate_dihedral(traj=None, mask="", top=None):
     Syntax and method's name might be changed
     """
     _assert_mutable(traj)
-    _top = get_topology(traj, top)
+    top_ = get_topology(traj, top)
 
     if "custom:" in mask:
         command = mask
@@ -2510,7 +2526,7 @@ def replicate_cell(traj=None, mask="", direction='all', top=None):
     >>> new_traj = pt.replicate_cell(traj, direction=('001', '0-10'))
     >>> new_traj = pt.replicate_cell(traj, direction=['001', '0-10'])
     '''
-    _top = get_topology(traj, top)
+    top_ = get_topology(traj, top)
     if isinstance(direction, string_types):
         _direction = direction
     elif isinstance(direction, (list, tuple)):
@@ -2523,7 +2539,7 @@ def replicate_cell(traj=None, mask="", direction='all', top=None):
 
     act = c_action.Action_ReplicateCell()
     c_dslist = CpptrajDatasetList()
-    act(command, traj, top=_top, dslist=c_dslist)
+    act(command, traj, top=top_, dslist=c_dslist)
     traj = Trajectory(xyz=c_dslist[0].xyz, top=c_dslist[0].top)
 
     return traj
@@ -2545,7 +2561,7 @@ def set_dihedral(traj, resid='1', dihedral_type=None, deg=0, top=None):
     -------
     updated traj
     '''
-    _top = get_topology(traj, top)
+    top_ = get_topology(traj, top)
 
     if not isinstance(resid, string_types):
         resid = str(resid + 1)
@@ -2558,7 +2574,7 @@ def set_dihedral(traj, resid='1', dihedral_type=None, deg=0, top=None):
 
 def make_structure(traj=None, mask="", top=None):
     _assert_mutable(traj)
-    _top = get_topology(traj, top)
+    top_ = get_topology(traj, top)
 
     command = mask
     act = c_action.Action_MakeStructure()
@@ -2811,20 +2827,20 @@ def _grid(traj,
     dtype : str, default 'ndarray'
         output data type
     '''
-    _top = get_topology(traj, top)
+    top_ = get_topology(traj, top)
     fi = get_fiterator(traj, frame_indices)
     act = c_action.Action_Bounds()
     c_dslist = CpptrajDatasetList()
     dx, dy, dz = grid_spacing
-    _dx = 'dx ' + str(dx) if dx > 0. else ''
-    _dy = 'dy ' + str(dy) if dy > 0. else ''
-    _dz = 'dz ' + str(dz) if dz > 0. else ''
-    _offset = 'offset ' + str(offset)
-    command = ' '.join((mask, 'out tmp_bounds.dat', _dx, _dy, _dz,
-                        'name grid_', _offset))
+    dx_ = 'dx ' + str(dx) if dx > 0. else ''
+    dy_ = 'dy ' + str(dy) if dy > 0. else ''
+    dz_ = 'dz ' + str(dz) if dz > 0. else ''
+    offset_ = 'offset ' + str(offset)
+    command = ' '.join((mask, 'out tmp_bounds.dat', dx_, dy_, dz_,
+                        'name grid_', offset_))
 
     with goto_temp_folder():
-        act(command, fi, top=_top, dslist=c_dslist)
+        act(command, fi, top=top_, dslist=c_dslist)
     act.post_process()
 
     return get_data_from_dtype(c_dslist, dtype=dtype)
