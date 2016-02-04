@@ -23,7 +23,7 @@ trajin %s
 """
 
 pairlist = {
-    'tc5b_trajin': ["./data/md1_prod.Tc5b.x", "./data/Tc5b.top"],
+    'tc5b_trajin': ["./data/Tc5b.x", "./data/Tc5b.top"],
     'DPDP_trajin': ["./data/DPDP.nc", "./data/DPDP.parm7"],
     'tz2_ortho_trajin': ["./data/tz2.ortho.nc", "./data/tz2.ortho.parm7"],
 }
