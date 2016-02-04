@@ -169,8 +169,8 @@ def calc_distance(traj=None,
         if dtype == 'ndarray':
             return arr
         else:
-            py_dslist = DatasetList({'distance': arr})
-            return get_data_from_dtype(py_dslist, dtype)
+            dslist = DatasetList({'distance': arr})
+            return get_data_from_dtype(dslist, dtype)
 
     elif isinstance(command, (list, tuple, string_types, np.ndarray)):
         # create a list
@@ -565,7 +565,7 @@ def calc_diffusion(traj,
     command = ' '.join((mask, label, _tsep, _individual))
 
     # normally we just need
-    # act(command, traj, top=_top, dslist=c_dslist)
+    # act(command, traj, top=top_, dslist=c_dslist)
     # but cpptraj need correct frame idx
 
     act.read_input(command, top=top, dslist=c_dslist)
@@ -635,7 +635,7 @@ def calc_watershell(traj=None,
     _upper = 'upper ' + str(upper)
     command = ' '.join((_solutemask, _lower, _upper, _noimage, _solventmask))
 
-    act(command, fi, top=_top, dslist=c_dslist)
+    act(command, fi, top=top_, dslist=c_dslist)
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
@@ -1065,7 +1065,7 @@ def calc_rdf(traj=None,
          _solventmask, _noimage, _density, _center1, _center2, _nointramol))
 
     c_dslist = CpptrajDatasetList()
-    act(command, traj, top=_top, dslist=c_dslist)
+    act(command, traj, top=top_, dslist=c_dslist)
     act.post_process()
 
     # make a copy sine c_dslist[-1].values return view of its data
@@ -1170,7 +1170,7 @@ def translate(traj=None, command="", frame_indices=None, top=None):
     top_ = get_topology(traj, top)
     fi = get_fiterator(traj, frame_indices)
 
-    c_action.Action_Translate()(command, fi, top=_top)
+    c_action.Action_Translate()(command, fi, top=top_)
 
 
 do_translation = translate
@@ -1192,7 +1192,7 @@ def do_scaling(traj=None, command="", frame_indices=None, top=None):
     _assert_mutable(traj)
     top_ = get_topology(traj, top)
     fi = get_fiterator(traj, frame_indices)
-    c_action.Action_Scale()(command, fi, top=_top)
+    c_action.Action_Scale()(command, fi, top=top_)
 
 
 scale = do_scaling
@@ -1218,7 +1218,7 @@ def rotate(traj=None, command="", frame_indices=None, top=None):
     top_ = get_topology(traj, top)
     _assert_mutable(traj)
     fi = get_fiterator(traj, frame_indices)
-    c_action.Action_Rotate()(command, fi, top=_top)
+    c_action.Action_Rotate()(command, fi, top=top_)
 
 
 do_rotation = rotate
@@ -1813,7 +1813,7 @@ def rmsd_perres(traj=None,
                 perres_invert=False,
                 frame_indices=None,
                 top=None,
-                dtype='dataset'):
+                dtype='dataset', **kwd):
     """superpose ``traj`` to ``ref`` with `mask`, then calculate nofit rms for residues
     in `resrange` with given `perresmask`
 
@@ -1824,21 +1824,21 @@ def rmsd_perres(traj=None,
         out[1:]: perres rmsd for all given residues
         `out.values` will return corresponding numpy array
     """
-    _range = 'range %s ' % resrange
-    _perresmask = 'perresmask ' + perres_mask if perres_mask is not None else ''
-    _perrestcenter = 'perrescenter' if perres_center else ''
-    _perrestinvert = 'perresinvert' if perres_invert else ''
+    range_ = 'range %s ' % resrange
+    perresmask_ = 'perresmask ' + perres_mask if perres_mask is not None else ''
+    perrestcenter_ = 'perrescenter' if perres_center else ''
+    perrestinvert_ = 'perresinvert' if perres_invert else ''
 
-    cm = " ".join((mask, 'perres', _range, _perresmask, _perrestcenter,
-                   _perrestinvert))
-    return calc_rmsd(traj=traj,
-                     mask=cm,
-                     ref=ref,
-                     nofit=False,
-                     mass=mass,
-                     frame_indices=frame_indices,
-                     top=top,
-                     dtype=dtype)
+    cm = " ".join((mask, 'perres', range_, perresmask_, perrestcenter_,
+                   perrestinvert_))
+    return rmsd(traj=traj,
+                mask=cm,
+                ref=ref,
+                nofit=False,
+                mass=mass,
+                frame_indices=frame_indices,
+                top=top,
+                dtype=dtype, **kwd)
 
 
 @register_pmap
@@ -1892,6 +1892,10 @@ def rmsd(traj=None,
     top : {Topology, str}, default None, optional
     dtype : return data type, default='ndarray'
 
+    Notes
+    -----
+    if traj and ref has diffrent n_atoms, make sure to update ref.top
+
 
     Examples
     --------
@@ -1909,12 +1913,17 @@ def rmsd(traj=None,
     >>> # use atom indices for mask
     >>> data= pt.rmsd(traj, ref=traj[0], mask=range(40), nofit=True)
 
-    >>> # computer rmsd for two maskes
-    >>> data= pt.rmsd(traj, ref=traj[0], mask=[[0, 3, 200], [7, 8, 10, 20]], nofit=True)
+    >>> # compute rmsd (and align) with reference having different atoms
+    >>> trpcage_traj = pt.datafiles.load_trpcage()[:]
+    >>> tz2_traj = pt.datafiles.load_tz2()[:1]
+    >>> data = pt.rmsd(trpcage_traj, mask='@1-10', ref=tz2_traj, ref_mask='@11-20')
+    >>> data
+    array([ 2.16203842,  2.28859396,  2.15817654, ...,  2.20767189,
+            2.30087764,  1.92654945])
 
     Notes
     -----
-    if ``traj`` is mutable, its coordinates will be updated
+    if ``traj`` is mutable, its coordinates will be updated.
 
     """
 
@@ -1959,7 +1968,7 @@ def rmsd(traj=None,
     alist = ActionList()
     c_dslist = CpptrajDatasetList()
 
-    ref_top = ref if ref.top else top_
+    ref_top = ref.top if ref.top else top_
     c_dslist.add('reference', name='myref')
     c_dslist[-1].top = ref_top
     c_dslist[-1].add_frame(ref)
@@ -2489,7 +2498,7 @@ def rotate_dihedral(traj=None, mask="", top=None):
 
     act = c_action.Action_MakeStructure()
 
-    act(command, traj, top=_top)
+    act(command, traj, top=top_)
     return traj
 
 
@@ -2568,7 +2577,7 @@ def set_dihedral(traj, resid='1', dihedral_type=None, deg=0, top=None):
     deg = str(deg)
 
     command = ':'.join((dihedral_type, resid, dihedral_type, deg))
-    make_structure(traj, command, top=_top)
+    make_structure(traj, command, top=top_)
     return traj
 
 
@@ -2578,7 +2587,7 @@ def make_structure(traj=None, mask="", top=None):
 
     command = mask
     act = c_action.Action_MakeStructure()
-    act(command, traj, top=_top)
+    act(command, traj, top=top_)
 
 
 @super_dispatch()
