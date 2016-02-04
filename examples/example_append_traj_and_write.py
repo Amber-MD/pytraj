@@ -2,7 +2,7 @@ from itertools import chain
 import pytraj as pt
 import os
 
-traj = pt.iterload("../tests/data/md1_prod.Tc5b.x", "../tests/data/Tc5b.top")
+traj = pt.iterload("../tests/data/Tc5b.x", "../tests/data/Tc5b.top")
 
 # write new traj with frames from 0 to 2, and 5 to 8
 # skip last frame to follow python's convention.

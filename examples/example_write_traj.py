@@ -1,6 +1,6 @@
 import pytraj as pt
 
-traj = pt.load("../tests/data/md1_prod.Tc5b.x", "../tests/data/Tc5b.top")
+traj = pt.load("../tests/data/Tc5b.x", "../tests/data/Tc5b.top")
 
 # etract first 10 frames and write to CHARMM format
 subtraj = traj[:10]
