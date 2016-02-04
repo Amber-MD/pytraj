@@ -9,12 +9,16 @@ class Test(unittest.TestCase):
     def test_0(self):
 
         # center of mass
-        trajin = pt.datafiles.tc5b_trajin + """
+        trajin = """
+        parm data/Tc5b.top
+        trajin data/Tc5b.x
         vector center v0
         timecorr vec1 v0
         """
 
-        cpptraj_output = pt.datafiles.load_cpptraj_output(trajin)
+        state = pt.load_cpptraj_state(trajin)
+        state.run()
+        cpptraj_output = state.data
 
         traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         dslist0 = pt.center_of_mass(traj)
@@ -22,26 +26,33 @@ class Test(unittest.TestCase):
         aa_eq(data, cpptraj_output[-1].values)
 
         # 2 vectors
-        trajin = pt.datafiles.tc5b_trajin + """
+        cm = """
+        parm data/Tc5b.top
+        trajin data/Tc5b.x
         vector v0 :2 :5
         vector v1 :3 :7
         timecorr vec1 v0 vec2 v1
         """
-
-        cpptraj_output = pt.datafiles.load_cpptraj_output(trajin)
+        state = pt.load_cpptraj_state(cm)
+        state.run()
+        cpptraj_output = state.data
 
         dslist0 = pt.calc_vector(traj, [':2 :5', ':3 :7'])
         data = pt.timecorr(dslist0[0], dslist0[1])
         aa_eq(data, cpptraj_output[-1].values)
 
         # corrplane
-        trajin = pt.datafiles.tc5b_trajin + """
+        cm = """
+        parm data/Tc5b.top
+        trajin data/Tc5b.x
         vector v0 @2,@5,@9 corrplane
         vector v1 @3,@7,@20 corrplane
         timecorr vec1 v0 vec2 v1
         """
 
-        cpptraj_output = pt.datafiles.load_cpptraj_output(trajin)
+        state = pt.load_cpptraj_state(cm)
+        state.run()
+        cpptraj_output = state.data
 
         dslist0 = pt.calc_vector(traj,
                                  ['@2,@5,@9 corrplane', '@3,@7,@20 corrplane'])

@@ -1315,7 +1315,7 @@ def mean_structure(traj,
     if dtype.lower() == 'frame':
         return frame
     elif dtype.lower() in ['traj', 'trajectory']:
-        new_top = top_ if mask is '' else _top[mask]
+        new_top = top_ if mask is '' else top_[mask]
         return Trajectory(xyz=frame.xyz.reshape(1, frame.n_atoms, 3).copy(),
                           top=new_top)
     else:
@@ -2392,7 +2392,7 @@ def pucker(traj=None,
     """
     top_ = get_topology(traj, top)
     if resrange is None:
-        resrange = range(_top.n_residues)
+        resrange = range(top_.n_residues)
 
     _range360 = "range360" if range360 else ""
     geom = "geom" if not use_com else ""
