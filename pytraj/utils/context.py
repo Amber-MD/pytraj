@@ -5,7 +5,7 @@ from shutil import rmtree
 
 
 @contextmanager
-def goto_temp_folder():
+def tempfolder():
     my_temp = tempfile.mkdtemp()
     cwd = os.getcwd()
     os.chdir(my_temp)

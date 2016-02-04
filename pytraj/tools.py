@@ -482,7 +482,7 @@ def read_gaussian_output(filename=None, top=None):
     """
     import cclib
     from pytraj.trajectory import Trajectory
-    from pytraj.utils.context import goto_temp_folder
+    from pytraj.utils.context import tempfolder
     from pytraj.get_common_objects import get_topology
 
     _top = get_topology(None, top)
@@ -497,7 +497,7 @@ def read_gaussian_output(filename=None, top=None):
 
         fpath = os.path.abspath(filename)
 
-        with goto_temp_folder():
+        with tempfolder():
             at = amberhome + "/bin/antechamber"
             out = "-i %s -fi gout -o tmp.mol2 -fo mol2 -at amber" % fpath
             cm = " ".join((at, out))

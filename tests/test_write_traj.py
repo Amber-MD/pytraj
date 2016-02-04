@@ -4,7 +4,7 @@ from glob import glob
 import pytraj as pt
 from pytraj.testing import eq, aa_eq
 from pytraj.testing import cpptraj_test_dir
-from pytraj.utils import goto_temp_folder
+from pytraj.utils import tempfolder
 
 
 class TestWriteTraj(unittest.TestCase):
@@ -16,7 +16,7 @@ class TestWriteTraj(unittest.TestCase):
         traj = self.traj.copy()
         assert traj[0].has_box() == True
 
-        with goto_temp_folder():
+        with tempfolder():
             # write traj with nobox info
             fname = "traj_nobox.nc"
             pt.write_traj(fname, traj, options='nobox')

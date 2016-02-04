@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 from ..get_common_objects import _load_Topology
-from ..utils.context import goto_temp_folder
+from ..utils.context import tempfolder
 from .six import string_types
 
 
@@ -26,7 +26,7 @@ def load_ParmEd(parmed_obj, as_traj=False, **kwd):
         # reserve **kwd for `structure=True`
         parmed_obj = pmd.load_file(parmed_obj, **kwd)
     # faster
-    with goto_temp_folder():
+    with tempfolder():
         if isinstance(parmed_obj, AmberParm):
             fname = 'tmp.parm7'
         else:
@@ -51,12 +51,12 @@ def to_ParmEd(pytraj_top):
     # TODO: exten to gromacs, charmm too
     # need to change extension
     """convert to ParmEd object"""
-    from pytraj.utils.context import goto_temp_folder
+    from pytraj.utils.context import tempfolder
     from pytraj.Topology import ParmFile
     import parmed as chem
 
     # I am not a fan of saving/loading again but this might be best choice
-    with goto_temp_folder():
+    with tempfolder():
         fname = "tmp_pytrajtop.prmtop"
         ParmFile().writeparm(pytraj_top, fname, format="")
         return chem.load_file(fname)

@@ -1,6 +1,6 @@
 import os
 import pytraj as pt
-from pytraj.utils.context import goto_temp_folder
+from pytraj.utils.context import tempfolder
 from pytraj.get_common_objects import get_topology
 
 MIN_IN = """
@@ -41,7 +41,7 @@ def minimize(traj, engine='sander', input=None, top=None):
     else:
         _engine = engine
 
-    with goto_temp_folder():
+    with tempfolder():
         with open("min.in", 'w') as fh:
             fh.write(min_in)
 
@@ -71,16 +71,15 @@ def prmtop_from_tleap(fname, leapin=leapin, verbose=False):
     import subprocess
     import pytraj as pt
 
-    try:
-        amberhome = os.environ['AMBERHOME']
-    except KeyError:
-        raise KeyError("must set AMBERHOME")
+    amberhome = os.environ.get('AMBERHOME')
+    if amberhome is None:
+        raise RuntimeError('must set AMBERHOME')
 
     tleap = amberhome + '/bin/tleap'
 
     fname = os.path.abspath(fname)
 
-    with goto_temp_folder():
+    with tempfolder():
         leapin = leapin % fname
 
         with open("_leap.in", 'w') as f:
