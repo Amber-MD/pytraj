@@ -18,7 +18,7 @@ from pytraj.testing import cpptraj_test_dir
 class TestActionList(unittest.TestCase):
 
     def test_distances(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:]
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")[:]
 
         trajin = pt.datafiles.tc5b_trajin + """
         distance @CB @CA
@@ -95,7 +95,7 @@ class TestActionList(unittest.TestCase):
 
     def test_run_1(self):
         # load traj
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         dslist = CpptrajDatasetList()
         dflist = DataFileList()
 
@@ -123,7 +123,7 @@ class TestActionList(unittest.TestCase):
 
     def test_run_2(self):
         # load traj
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         dslist = CpptrajDatasetList()
         dflist = DataFileList()
 
@@ -140,7 +140,7 @@ class TestActionList(unittest.TestCase):
     def test_run_3(self):
         dslist = CpptrajDatasetList()
         actlist = ActionList()
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         mask_list = ['@CB @CA @N', '@CA @H @N']
 
         for mask in mask_list:
@@ -163,7 +163,7 @@ class TestActionList(unittest.TestCase):
     def test_run_4(self):
         dslist = CpptrajDatasetList()
         actlist = ActionList()
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         mask_list = ['@CB @CA @N @H', '@CA @H @N @H=']
 
         for mask in mask_list:
@@ -184,7 +184,7 @@ class TestActionList(unittest.TestCase):
         aa_eq(dslist3_1, dslist[1].to_ndarray())
 
     def test_run_5(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         mask_list = ('@CB @CA', '@CA @H')
         dslist = CpptrajDatasetList()
         actlist = ActionList()
@@ -200,7 +200,7 @@ class TestActionList(unittest.TestCase):
         aa_eq(dslist.values, dslist2)
 
     def test_6(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         mask_list = ('@CB @CA', '@CA @H')
         dslist = pt.calc_distance(traj, mask_list)
         dslist3_0 = pt.calc_distance(traj, mask_list[0])
@@ -210,7 +210,7 @@ class TestActionList(unittest.TestCase):
         aa_eq(dslist3_1, dslist[1])
 
     def test_constructor_from_command_list_TrajectoryIterator(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 
         commands = ['rmsd @CA', 'distance :3 :7', 'distance     :3 :7',
                     'vector :2 :3']
@@ -267,7 +267,7 @@ class TestActionList(unittest.TestCase):
 
     def test_constructor_from_command_list_TrajectoryIterator_no_DatasetList(
             self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 
         commands = ['rmsd @CA', 'distance :3 :7', 'distance     :3 :7',
                     'vector :2 :3']

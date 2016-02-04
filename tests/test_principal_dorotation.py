@@ -10,7 +10,7 @@ from pytraj.testing import cpptraj_test_dir
 class TestPrincipalAxis(unittest.TestCase):
 
     def test_do_rotation(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 
         cm = '''
         principal * dorotation mass name pout

@@ -13,7 +13,7 @@ from pytraj import mean_structure
 class TestAverageFrame(unittest.TestCase):
 
     def test_comprehensive(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         # make sure we DO reproducing cpptraj output
         f_saved = pt.iterload("./data/avg.Tc5b.pdb", traj.top)[0]
 

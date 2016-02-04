@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
         import numpy as np
 
         # load 2 frames
-        traj = pt.iterload("./data/md1_prod.Tc5b.x",
+        traj = pt.iterload("./data/Tc5b.x",
                            "./data/Tc5b.top",
                            frame_slice=(0, 2))
 
@@ -39,7 +39,7 @@ class Test(unittest.TestCase):
         import numpy as np
 
         # load 2 frames
-        traj = pt.iterload("./data/md1_prod.Tc5b.x",
+        traj = pt.iterload("./data/Tc5b.x",
                            "./data/Tc5b.top",
                            frame_slice=(0, 2))
 

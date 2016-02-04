@@ -17,7 +17,7 @@ FRAME_orig = FRAME.copy()
 class TestFrame(unittest.TestCase):
 
     def test_fit(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         trajnew = pt.iterload("./data/md1_prod.fit_to_first.Tc5b.x",
                               "./data/Tc5b.top")
 
@@ -56,7 +56,7 @@ class TestFrame(unittest.TestCase):
 
     def test_rmsd_return_mat_vec_vec(self):
         # TODO : add assert
-        farray = Trajectory("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        farray = Trajectory("./data/Tc5b.x", "./data/Tc5b.top")
         frame0 = farray[0]
         rmsd, mat, v1, v2 = frame0.rmsd(farray[1], get_mvv=True)
         assert abs(rmsd - 10.3964) < 1E-3

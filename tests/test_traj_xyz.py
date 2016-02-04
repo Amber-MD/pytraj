@@ -11,7 +11,7 @@ from pytraj.testing import aa_eq
 class Test(unittest.TestCase):
 
     def test_0(self):
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         if has_("numpy"):
             import numpy as np
             from numpy.testing import assert_almost_equal

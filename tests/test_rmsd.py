@@ -14,10 +14,10 @@ from pytraj.datasets import CpptrajDatasetList
 class TestSimpleRMSD(unittest.TestCase):
 
     def setUp(self):
-        self.traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        self.traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 
     def test_fit_and_then_nofit(self):
-        traj = pt.iterload("data/md1_prod.Tc5b.x", "data/Tc5b.top")
+        traj = pt.iterload("data/Tc5b.x", "data/Tc5b.top")
         t0 = traj[:]
         pt.superpose(t0, ref=traj[3], mask='@CA')
         rmsd_0 = pt.rmsd_nofit(traj, ref=traj[3], mask='@CB')
@@ -25,7 +25,7 @@ class TestSimpleRMSD(unittest.TestCase):
         aa_eq(rmsd_1, rmsd_0)
 
     def test_rmsd_with_mask(self):
-        TRAJ = pt.iterload(filename="./data/md1_prod.Tc5b.x",
+        TRAJ = pt.iterload(filename="./data/Tc5b.x",
                            top="./data/Tc5b.top")
         cpptraj_rmsd = np.loadtxt(
             "./data/rmsd_to_firstFrame_CA_allres.Tc5b.dat",
@@ -56,11 +56,12 @@ class TestSimpleRMSD(unittest.TestCase):
         pt.transform(t1, ['rms'])
         aa_eq(t0.xyz, t1.xyz)
 
-    def test_reference_with_different_topology_basic_no_assertion(self):
-        traj1 = pt.iterload(filename="./data/md1_prod.Tc5b.x",
+    def test_reference_with_different_topology_basic(self):
+        traj1 = pt.iterload(filename="./data/Tc5b.x",
                            top="./data/Tc5b.top")
         traj2 = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
 
+        # re-establish ActionList
         dslist = CpptrajDatasetList()
         dslist.add('reference', name='myref')
 
@@ -78,13 +79,20 @@ class TestSimpleRMSD(unittest.TestCase):
         self.assertRaises(ValueError, lambda:
                 pt.rmsd(traj1, ref=traj2[:1], ref_mask='@CB'))
 
+        # assert to cpptraj
+        cm = '''
+        parm data/Tc5b.top
+        trajin data/Tc5b.x
+        '''
+
+
     @unittest.skipIf(not has_('mdtraj'), 'does not have mdtraj')
     def test_ComparetoMDtraj(self):
         import mdtraj as md
-        traj = pt.load(filename="./data/md1_prod.Tc5b.x",
+        traj = pt.load(filename="./data/Tc5b.x",
                        top="./data/Tc5b.top")
         m_top = md.load_prmtop("./data/Tc5b.top")
-        m_traj = md.load_mdcrd("./data/md1_prod.Tc5b.x", m_top)
+        m_traj = md.load_mdcrd("./data/Tc5b.x", m_top)
         m_traj.xyz = m_traj.xyz * 10  # convert `nm` to `Angstrom` unit
 
         arr0 = pt.rmsd(traj, ref=0)
@@ -245,12 +253,12 @@ class TestPairwiseRMSD(unittest.TestCase):
         funclist = [pt.iterload, pt.load]
         txt = '''
         parm ./data/Tc5b.top
-        trajin ./data/md1_prod.Tc5b.x
+        trajin ./data/Tc5b.x
         rms2d @CA metric_holder rmsout tmp.out
         '''
 
         for func in funclist:
-            traj = func("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+            traj = func("./data/Tc5b.x", "./data/Tc5b.top")
             for metric in ['rms', 'nofit', 'dme']:
                 d0 = pt.pairwise_rmsd(traj(mask='@CA'), metric=metric)
                 d1 = pt.pairwise_rmsd(traj, mask='@CA', metric=metric)
@@ -268,7 +276,7 @@ class TestPairwiseRMSD(unittest.TestCase):
 class TestActionListRMSD(unittest.TestCase):
 
     def test_actionlist(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         standard_rmsd = pt.rmsd(traj, mask='@CA')
 
         def test_rmsd(input_traj):

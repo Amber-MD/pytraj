@@ -92,7 +92,7 @@ class TestPickleTrajectoryIterator(unittest.TestCase):
     def test_trajiter(self):
         for _pickle_topology in [True, False]:
             for frame_slice in [(0, 8, 2), (0, 10, 1)]:
-                traj = pt.iterload("data/md1_prod.Tc5b.x",
+                traj = pt.iterload("data/Tc5b.x",
                                    "data/Tc5b.top",
                                    frame_slice=frame_slice)
                 traj._pickle_topology = _pickle_topology
@@ -113,7 +113,7 @@ class TestPickleFrame(unittest.TestCase):
         self.traj = pt.iterload("./data/Test_NAstruct/x3dna/rna.pdb")
 
     def test_frame(self):
-        traj = pt.iterload("data/md1_prod.Tc5b.x", "data/Tc5b.top")
+        traj = pt.iterload("data/Tc5b.x", "data/Tc5b.top")
         frame = traj[0]
 
         pt.to_pickle(frame, 'output/frame.pk')
@@ -137,7 +137,7 @@ class TestPickleFrame(unittest.TestCase):
 class TestPickleDatasetList(unittest.TestCase):
 
     def test_pickle_datasetlist(self):
-        traj = pt.iterload("data/md1_prod.Tc5b.x", "data/Tc5b.top")
+        traj = pt.iterload("data/Tc5b.x", "data/Tc5b.top")
         dslist = pt.multidihedral(traj)
         pt.to_pickle(dslist, 'output/ds.pk')
         dslist2 = pt.read_pickle('output/ds.pk')

@@ -15,7 +15,7 @@ from pytraj import c_commands
 class TestNormalPmap(unittest.TestCase):
 
     def setUp(self):
-        self.traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        self.traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 
     def test_raise(self):
         # if func is not support pmap
@@ -45,7 +45,7 @@ class TestNormalPmap(unittest.TestCase):
         pt.radgyr._is_parallelizable = True
 
     def test_general(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 
         # with mask
         saved_data = pt.radgyr(traj, '@CA')

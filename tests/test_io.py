@@ -105,7 +105,7 @@ class TestIO(unittest.TestCase):
         aa_eq(t2.xyz, traj[::2].xyz)
 
     def test_save_traj_from_file(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")[:5]
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")[:5]
         pt.write_traj(filename="./output/test_0.binpos",
                       traj=traj,
                       top="./data/Tc5b.top",
@@ -159,7 +159,7 @@ class TestIO(unittest.TestCase):
         top = pt.load_topology("./data/Tc5b.top")
         assert isinstance(top, Topology) == True
 
-        traj = pt.iterload(filename="./data/md1_prod.Tc5b.x",
+        traj = pt.iterload(filename="./data/Tc5b.x",
                            top="./data/Tc5b.top")
 
         is_traj = (isinstance(traj, TrajectoryIterator) or
@@ -178,7 +178,7 @@ class TestIO(unittest.TestCase):
 
     def test_load_and_save_0(self):
         # need to load to Trajectory to save
-        traj = pt.iterload(filename="./data/md1_prod.Tc5b.x",
+        traj = pt.iterload(filename="./data/Tc5b.x",
                            top="./data/Tc5b.top")[:]
 
         indices = list(range(2, 3, 5)) + [3, 7, 9, 8]
@@ -198,10 +198,10 @@ class TestIO(unittest.TestCase):
     def test_load_and_save_1(self):
         # do not support frame_indices for TrajectoryIterator
         self.assertRaises(ValueError, lambda: pt.iterload(
-            filename="./data/md1_prod.Tc5b.x",
+            filename="./data/Tc5b.x",
             top="./data/Tc5b.top", frame_indices=[0, 5]))
 
-        traj = pt.iterload(filename="./data/md1_prod.Tc5b.x",
+        traj = pt.iterload(filename="./data/Tc5b.x",
                            top="./data/Tc5b.top")
 
         indices = list(range(2, 4)) + [3, 7, 9, 8]

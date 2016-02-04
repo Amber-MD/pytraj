@@ -6,7 +6,7 @@ import pytraj.io as mdio
 class TestPyCpptrajIO(unittest.TestCase):
 
     def test_load_and_save_0(self):
-        traj = mdio.iterload(filename="./data/md1_prod.Tc5b.x",
+        traj = mdio.iterload(filename="./data/Tc5b.x",
                              top="./data/Tc5b.top")[:10]
         indices = list(range(2, 3, 5)) + [3, 8, 9, 8]
 

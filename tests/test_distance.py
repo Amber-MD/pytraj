@@ -10,7 +10,7 @@ from pytraj.utils import eq, aa_eq
 class TestNormalDistance(unittest.TestCase):
 
     def test_general(self):
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
         mask = ':1@CA :14@CB'
         d0 = pt.calc_distance(traj, mask)
@@ -41,7 +41,7 @@ class TestNormalDistance(unittest.TestCase):
     def test_calculate_distance_without_specifying_n_frames(self):
         # TrajectoryIterator
         import numpy as np
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         arr = pt.distance(traj(stop=4), [0, 5])
         arr1 = pt.distance(traj(stop=4), [0, 5], n_frames=4)
         assert np.all(arr == arr1)

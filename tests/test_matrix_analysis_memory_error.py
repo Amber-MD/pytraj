@@ -13,7 +13,7 @@ class Test(unittest.TestCase):
         # TODO: 1D or 2D matrix?
         import numpy as np
         from pytraj import matrix as ma
-        traj = io.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = io.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         saved_data = np.loadtxt("./data/tc5b.matrix_CA.dat")
 
         arr0 = ma.dist(traj, '@CA', dtype='dataset').to_dict()['Mat_00000']

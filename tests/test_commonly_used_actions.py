@@ -35,10 +35,10 @@ class TestGeometry(unittest.TestCase):
 
     def test_radgyr(self):
         traj = pt.iterload(top="./data/Tc5b.top",
-                           filename='data/md1_prod.Tc5b.x', )
+                           filename='data/Tc5b.x', )
         txt = '''
         parm ./data/Tc5b.top
-        trajin ./data/md1_prod.Tc5b.x
+        trajin ./data/Tc5b.x
         radgyr @CA nomax
         radgyr nomax
         radgyr !@H= nomax

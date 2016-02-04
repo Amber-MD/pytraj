@@ -16,7 +16,7 @@ class Test(unittest.TestCase):
 
         cpptraj_output = pt.datafiles.load_cpptraj_output(trajin)
 
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         dslist0 = pt.center_of_mass(traj)
         data = pt.timecorr(dslist0, dslist0)
         aa_eq(data, cpptraj_output[-1].values)

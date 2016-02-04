@@ -17,7 +17,7 @@ class Test(unittest.TestCase):
         # exclude DatasetTopology (1st)
         cout = pt.datafiles.load_cpptraj_output(trajin)[1:]
 
-        traj = pt.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         dslist = pt.calc_distance(traj, ['@2 @3', '@4, @7'])
 
         pout = pt.xcorr(dslist[0],
