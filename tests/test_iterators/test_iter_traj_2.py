@@ -8,7 +8,7 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 class Test(unittest.TestCase):
 
     def test_0(self):
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 
         start, stop, stride = 0, 8, 2
         indices = list(range(start, stop, stride))
@@ -24,14 +24,14 @@ class Test(unittest.TestCase):
                 traj.end_traj()
 
     def test_1(self):
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         count = 0
         for farray in traj.iterchunk(chunksize=4):
             count += 1
 
     def test_2(self):
         from pytraj import iterframe_master as frame_iter
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         farray = traj[:]
         count = 0
         for frame in frame_iter(traj):
@@ -45,7 +45,7 @@ class Test(unittest.TestCase):
 
     def test_3(self):
         from pytraj import iterframe_master as frame_iter
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 
         count = 0
         for frame in traj.iterframe():

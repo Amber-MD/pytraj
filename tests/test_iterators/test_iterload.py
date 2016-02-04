@@ -12,8 +12,8 @@ from pytraj.compat import izip
 class Test(unittest.TestCase):
 
     def test_0(self):
-        traj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
-        itertraj = mdio.iterload("./data/md1_prod.Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        itertraj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 
         for idx, (f0, f1) in enumerate(izip(traj, itertraj)):
             assert_almost_equal(f0.xyz, f1.xyz)

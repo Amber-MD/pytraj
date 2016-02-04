@@ -18,7 +18,7 @@ mm_options = sander.gas_input(8)
 class TestSanderPmap(unittest.TestCase):
 
     def test_sander_pmap_simple(self):
-        traj = pt.iterload('./data/md1_prod.Tc5b.x', './data/Tc5b.top')
+        traj = pt.iterload('./data/Tc5b.x', './data/Tc5b.top')
         fname = traj.top.filename
         serial = pt.energy_decomposition(traj, prmtop=fname)['dihedral']
         parallel = pt.pmap(n_cores=4,
@@ -34,7 +34,7 @@ class TestSanderPmap(unittest.TestCase):
         mm_options = sander.gas_input(8)
         '''
 
-        traj = pt.iterload('./data/md1_prod.Tc5b.x', './data/Tc5b.top')
+        traj = pt.iterload('./data/Tc5b.x', './data/Tc5b.top')
 
         for code in [code_global, code_local]:
             data_parallel = pt.pmap(pt.energy_decomposition,
