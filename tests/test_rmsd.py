@@ -80,10 +80,26 @@ class TestSimpleRMSD(unittest.TestCase):
                 pt.rmsd(traj1, ref=traj2[:1], ref_mask='@CB'))
 
         # assert to cpptraj
+        tc5b_traj = traj1[:]
+        tz2_traj = traj2[:1]
+
         cm = '''
-        parm data/Tc5b.top
-        trajin data/Tc5b.x
+        parm data/Tc5b.top [tc5b]
+        trajin data/Tc5b.x [tc5b]
+        parm data/tz2.parm7 [tz2]
+        reference data/tz2.nc parm [tz2] 1 [myref]
+        rms myrmsd ref [myref] @1-10 @11-20
         '''
+        state = pt.load_cpptraj_state(cm)
+        state.run()
+
+        expected_rmsd = state.data[-1].values
+        print(tc5b_traj[0].xyz)
+        rmsd_data = pt.rmsd(tc5b_traj, mask='@1-10',
+                            ref=tz2_traj,
+                            ref_mask='@11-20')
+        print(tc5b_traj[0].xyz)
+        aa_eq(expected_rmsd, rmsd_data)
 
 
     @unittest.skipIf(not has_('mdtraj'), 'does not have mdtraj')
