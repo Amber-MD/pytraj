@@ -23,11 +23,11 @@ from scripts.base_setup import check_cpptraj_version, write_version_py, get_vers
 from scripts.base_setup import remind_export_LD_LIBRARY_PATH
 from scripts.base_setup import (message_openmp_cpptraj, message_serial_cpptraj, message_auto_install,
                                 message_cython)
-from scripts.base_setup import CleanCommand
+from scripts.base_setup import CleanCommand, ISRELEASED
 
 # python version >= 2.6
 if sys.version_info < (2, 6):
-    sys.stderr.write('You must have at least Python 2.6 for pytraj\n')
+    print('You must have at least Python 2.6 for pytraj\n')
     sys.exit(0)
 
 try:
@@ -48,7 +48,9 @@ except ValueError:
 # python setup.py clean
 cmdclass = {'clean': CleanCommand}
 
-if not amber_release:
+if ISRELEASED:
+    need_cython = False
+else:
     # if pytraj is not in released version of amber, must cythonize files
     # else use pre-compiled files
     # cython version >= 0.21 for now.
@@ -56,18 +58,14 @@ if not amber_release:
         import Cython
         from Cython.Distutils import build_ext
         from Cython.Build import cythonize
-        has_cython = True
+        need_cython = True
         cmdclass['build_ext'] = build_ext
         if Cython.__version__ < '0.21':
-            sys.stderr.write(message_cython)
+            print(message_cython)
             sys.exit(0)
     except ImportError:
-        sys.stderr.write(message_cython)
+        print(message_cython)
         sys.exit(0)
-
-else:
-    # assume does not need Cython
-    has_cython = False
 
 try:
     sys.argv.remove('--disable-openmp')
@@ -140,10 +138,10 @@ if faster_build_str in sys.argv:
     faster_build = True
     sys.argv.remove(faster_build_str)
     if "install" in sys.argv:
-        sys.stderr.write(KeyErrorText)
+        print(KeyErrorText)
         sys.exit(0)
     if 'build' not in sys.argv:
-        sys.stderr.write('faster must come with build')
+        print('faster must come with build')
         sys.exit(0)
 else:
     faster_build = False
@@ -210,7 +208,7 @@ def get_include_and_lib_dir():
                     subprocess.check_call(['sh',
                                            'scripts/install_cpptraj.sh', 'github'])
                 except CalledProcessError:
-                    sys.stderr.write(
+                    print(
                         'can not install libcpptraj, you need to install it manually \n')
                     sys.exit(0)
             cpptraj_dir = os.path.join(rootname, "cpptraj")
@@ -262,7 +260,7 @@ extra_link_args = ['-O0', '-ggdb',]
 list_of_libcpptraj = glob(os.path.join(libdir, 'libcpptraj') + '*')
 if not list_of_libcpptraj:
     if has_cpptrajhome:
-        sys.stderr.write(
+        print(
             '$CPPTRAJHOME exists but there is no libcpptraj in $CPPTRAJHOME/lib \n'
             'There are two solutions: \n'
             '1. unset CPPTRAJHOME and `python setup.py install` again. We will install libcpptraj for you. \n'
@@ -278,11 +276,11 @@ if not list_of_libcpptraj:
                     ['sh', 'scripts/install_cpptraj.sh'])
                 cpptraj_include = os.path.join(cpptraj_dir, 'src')
             except CalledProcessError:
-                sys.stderr.write(
+                print(
                     'can not install libcpptraj, you need to install it manually \n')
                 sys.exit(0)
         else:
-            sys.stderr.write('can not find libcpptraj in $CPPTRAJHOME/lib. '
+            print('can not find libcpptraj in $CPPTRAJHOME/lib. '
                              'You need to install ``libcpptraj`` manually. ')
             sys.exit(0)
 
@@ -295,13 +293,13 @@ omp_ = [line for line in output_openmp_check if 'get_num_threads' in line.lower(
 
 if disable_openmp:
     if omp_:
-        sys.stderr.write(message_openmp_cpptraj)
+        print(message_openmp_cpptraj)
         sys.exit(0)
     else:
         pass
 else:
     if not omp_:
-        sys.stderr.write(message_serial_cpptraj)
+        print(message_serial_cpptraj)
         sys.exit(0)
     extra_compile_args.append("-fopenmp")
     extra_link_args.append("-fopenmp")
@@ -339,7 +337,7 @@ if debug:
 else:
     define_macros = []
 
-if not do_clean and not amber_release:
+if not do_clean and not ISRELEASED:
     cythonize(
         [pfile + '.pyx' for pfile in pyxfiles],
         nthreads=int(os.environ.get('NUM_THREADS', 4)),
@@ -350,7 +348,7 @@ library_dirs = [libdir,] if not use_phenix_python else [libdir, phenix_python_li
 
 ext_modules = []
 for ext_name in pyxfiles:
-    if has_cython:
+    if need_cython:
         ext = ".pyx"
     else:
         ext = ".cpp"

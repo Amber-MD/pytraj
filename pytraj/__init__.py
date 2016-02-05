@@ -6,6 +6,9 @@ from sys import platform as _platform
 import sys
 import os
 
+from .version import version
+__version__ = version
+
 # checking cpptraj version first
 from .cpp_options import info as compiled_info
 from .cpp_options import __cpptraj_version__
@@ -466,7 +469,7 @@ def show_versions():
     from pytraj import version
     print(sys.version)
     print('')
-    print("pytraj version = ", version.version)
+    print("pytraj version = ", version)
     print("cpptraj version = ", __cpptraj_version__)
     print("cpptraj internal version = ", __cpptraj_internal_version__)
     print("cpptraj compiled flag = ", compiled_info())

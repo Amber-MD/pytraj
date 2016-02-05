@@ -242,7 +242,7 @@ def calc_density(traj=None,
     >>> pt.density(traj, 'charge')
     '''
 
-    with goto_temp_folder():
+    with tempfolder():
 
         def _calc_density(traj, command):
             # TODO: update this method if cpptraj save data to

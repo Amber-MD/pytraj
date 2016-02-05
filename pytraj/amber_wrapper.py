@@ -1,6 +1,6 @@
 import os
 import pytraj as pt
-from pytraj.utils.context import goto_temp_folder
+from pytraj.utils.context import tempfolder
 from pytraj.get_common_objects import get_topology
 
 MIN_IN = """
@@ -41,7 +41,7 @@ def minimize(traj, engine='sander', input=None, top=None):
     else:
         _engine = engine
 
-    with goto_temp_folder():
+    with tempfolder():
         with open("min.in", 'w') as fh:
             fh.write(min_in)
 
@@ -57,41 +57,62 @@ def minimize(traj, engine='sander', input=None, top=None):
             frame.xyz[:] = f0.xyz
 
 
-leapin = """
+leap_template = """
 source leaprc.ff14SB
 set default PBradii mbondi3
-x = loadpdb %s
-saveamberparm x tmp.top tmp.crd
+x = loadpdb {pdbfile}
+saveamberparm x {pdbfile}.prmtop {pdbfile}.rst7
 quit
 """
 
 
-def prmtop_from_tleap(fname, leapin=leapin, verbose=False):
+def prmtop_from_tleap(filename, leapin=None, verbose=False):
+    '''make prmtop file from pdb
+
+    Parameters
+    ----------
+    filename : str, pdb filename
+    leapin : str, optional, default None
+        leap input
+        if None, use::
+
+            source leaprc.ff14SB
+            set default PBradii mbondi3
+            x = loadpdb {pdbfile}
+            saveamberparm x {pdbfile}.prmtop {pdbfile}.rst7
+            quit
+    verbose : bool, default False
+        if False, suppress tleap output
+    '''
     import os
     import subprocess
     import pytraj as pt
 
-    try:
-        amberhome = os.environ['AMBERHOME']
-    except KeyError:
-        raise KeyError("must set AMBERHOME")
+    if leapin is None:
+        leapin = leap_template
+
+    amberhome = os.environ.get('AMBERHOME')
+    if amberhome is None:
+        raise RuntimeError('must set AMBERHOME')
 
     tleap = amberhome + '/bin/tleap'
 
-    fname = os.path.abspath(fname)
+    filename = os.path.abspath(filename)
 
-    with goto_temp_folder():
-        leapin = leapin % fname
+    with tempfolder():
+        leapin = leapin.format(pdbfile=filename)
 
-        with open("_leap.in", 'w') as f:
+        with open("tmp_leap.in", 'w') as f:
             f.write(leapin)
 
         with open(os.devnull, 'wb') as devnull:
             if not verbose:
                 subprocess.check_call(
-                    [tleap, ' -f _leap.in'],
+                    [tleap, ' -f tmp_leap.in'],
                     stdout=devnull,
                     stderr=subprocess.STDOUT)
             else:
-                subprocess.check_call([tleap, ' -f _leap.in'])
+                x = subprocess.check_call([tleap, ' -f tmp_leap.in'])
+        if verbose:
+            print(x)
         return pt.load_topology("tmp.top")

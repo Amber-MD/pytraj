@@ -7,7 +7,7 @@ from .check_and_assert import _import, is_int
 from .check_and_assert import has_, is_array
 from .check_and_assert import ensure_not_none_or_string
 from .Timer import Timer
-from .context import goto_temp_folder
+from .context import tempfolder
 from ..externals.six.moves import range
 from . import convert
 

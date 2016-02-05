@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 import os
 from ..trajectory_iterator import TrajectoryIterator
-from ..utils.context import goto_temp_folder
+from ..utils.context import tempfolder
 from .datafiles import DataFile, DataFileList
 from .load_samples import *
 from .load_cpptraj_file import load_cpptraj_file

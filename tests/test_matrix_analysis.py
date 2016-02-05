@@ -4,7 +4,7 @@ import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
 from pytraj.testing import cpptraj_test_dir
-from pytraj.utils import goto_temp_folder
+from pytraj.utils import tempfolder
 
 not_byres = '''
 matrix correl @N @C out mtest.4.dat
@@ -45,7 +45,7 @@ class TestMatrixConprehensive(unittest.TestCase):
         crd_file = matrix_test_dir + "/1rrb_vac.mdcrd"
         traj = pt.iterload(crd_file, top_file)
 
-        with goto_temp_folder():
+        with tempfolder():
             state = pt.load_cpptraj_state(all_commands, traj)
             state.run()
 

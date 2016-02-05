@@ -305,22 +305,6 @@ class TestIO(unittest.TestCase):
         # raise
         self.assertRaises(ValueError, lambda: pt.load_topology(100))
 
-    @unittest.skipIf(not has_scipy, 'skip since does not have scipy')
-    def test_load_netcdf(self):
-        fname = 'data/tz2.ortho.nc'
-        tname = 'data/tz2.ortho.parm7'
-        saved_traj = pt.iterload(fname, tname)
-
-        # load all
-        traj = pt.io._load_netcdf(fname, tname)
-        aa_eq(saved_traj.xyz, traj.xyz)
-        aa_eq(saved_traj.unitcells, traj.unitcells)
-
-        # load some
-        traj = pt.io._load_netcdf(fname, tname, frame_indices=range(5))
-        aa_eq(saved_traj[range(5)].xyz, traj.xyz)
-        aa_eq(saved_traj.unitcells[range(5)], traj.unitcells)
-
     def test_single_frame(self):
         traj = pt.load_sample_data('tz2')
         frame = pt.io.load_frame(traj.filename, traj.top.filename, 3)

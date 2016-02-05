@@ -27,7 +27,7 @@ class TestUpdateDihedral(unittest.TestCase):
 
         fname = "tmp.parm7"
 
-        with pt.utils.context.goto_temp_folder():
+        with pt.utils.context.tempfolder():
             for k in range(20, 100):
                 p.bonds[3].type.k = k
                 p.remake_parm()

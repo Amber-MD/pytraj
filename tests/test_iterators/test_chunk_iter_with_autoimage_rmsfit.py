@@ -1,7 +1,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
-from pytraj.utils.context import goto_temp_folder
+from pytraj.utils.context import tempfolder
 from pytraj.utils import eq, aa_eq
 from pytraj.utils import Timer
 from pytraj.compat import zip
@@ -72,7 +72,7 @@ class Test_iterchunk_autoimage(unittest.TestCase):
         trajout tmp.nc
         '''.format(traj.top.filename, traj.filename, self.mask)
 
-        with goto_temp_folder():
+        with tempfolder():
             state = pt.datafiles.load_cpptraj_output(txt, dtype='state')
             state.run()
             # need to load to memory (not iterload)

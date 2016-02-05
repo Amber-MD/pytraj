@@ -8,7 +8,7 @@ from .get_common_objects import (get_topology, get_data_from_dtype, get_list_of_
                                  super_dispatch, get_fi_with_dslist)
 from .utils import ensure_not_none_or_string
 from .utils import is_int
-from .utils.context import goto_temp_folder
+from .utils.context import tempfolder
 from .utils.convert import array_to_cpptraj_atommask
 from .externals.six import string_types
 from .datasets.c_datasetlist import DatasetList as CpptrajDatasetList
@@ -2237,7 +2237,7 @@ def calc_grid(traj=None, command="", top=None, dtype='dataset'):
 
     # cpptraj require output
     command = "tmp_pytraj_grid_output.txt " + command
-    with goto_temp_folder():
+    with tempfolder():
         act(command, traj, dslist=c_dslist, top=top)
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
@@ -2807,7 +2807,7 @@ def calc_atomiccorr(traj,
     act = c_action.Action_AtomicCorr()
     c_dslist = CpptrajDatasetList()
 
-    with goto_temp_folder():
+    with tempfolder():
         act(command, traj, top=top, dslist=c_dslist)
         # need to post_process for this Action
         act.post_process()
@@ -2848,7 +2848,7 @@ def _grid(traj,
     command = ' '.join((mask, 'out tmp_bounds.dat', dx_, dy_, dz_,
                         'name grid_', offset_))
 
-    with goto_temp_folder():
+    with tempfolder():
         act(command, fi, top=top_, dslist=c_dslist)
     act.post_process()
 
