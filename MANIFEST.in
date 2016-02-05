@@ -1,9 +1,8 @@
 graft scripts
-include runtests.py changes.rst
+graft pytraj
 graft devtools
 graft tests
 graft examples
 graft contributors
 graft licenses
-recursive-include pytraj *cpp
-recursive-include pytraj *pyx
+include runtests.py changes.rst
