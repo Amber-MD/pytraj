@@ -181,6 +181,16 @@ class TestSimpleRMSD(unittest.TestCase):
             ValueError,
             lambda: pt.rmsd(traj, mask='@CA savematrices', dtype='ndarray'))
 
+    def test_not_update_coordinates(self):
+        traj = self.traj[:]
+        data = pt.rmsd(traj, ref=3, update_coordinate=False)
+
+        # make sure coordinates are not updated
+        aa_eq(traj.xyz, self.traj.xyz)
+
+        # make sure give the same rmsd values
+        aa_eq(pt.rmsd(traj, ref=3), data)
+
 
 class TestRMSDPerRes(unittest.TestCase):
 

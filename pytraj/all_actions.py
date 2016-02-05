@@ -1871,6 +1871,7 @@ def rmsd(traj=None,
          ref_mask='',
          nofit=False,
          mass=False,
+         update_coordinate=True,
          frame_indices=None,
          top=None,
          dtype='ndarray'):
@@ -1889,12 +1890,21 @@ def rmsd(traj=None,
         if False, perform fitting (rotation and translation).
         if ``traj`` is mutable, its coordinates will be updated
         if True, not fitting.
+    mass : bool, default False
+        if True, include mass
+    update_coordinate : bool, default True
+        if True, coordinates will be updated. But this only apply to mutable Trajectory
+        if False (same as `nomod` in cpptraj), no modification
+    frame_indices : int 1D array-like, default None
+        if not None, only compute rmsd for given frame indices
     top : {Topology, str}, default None, optional
     dtype : return data type, default='ndarray'
 
     Notes
     -----
-    if traj and ref has diffrent n_atoms, make sure to update ref.top
+
+    - if traj and ref has diffrent n_atoms, make sure to update ref.top
+    - you can use `pytraj.rmsd` to superpose structure (use update_coordinate=True)
 
 
     Examples
@@ -1927,9 +1937,10 @@ def rmsd(traj=None,
 
     """
 
-    nofit_ = ' nofit ' if nofit else ''
-    mass_ = ' mass ' if mass else ''
-    options = nofit_ + mass_
+    nofit_ = 'nofit' if nofit else ''
+    mass_ = 'mass' if mass else ''
+    nomod_ = 'nomod' if not update_coordinate else ''
+    options = ' '.join((nofit_ + mass_, nomod_))
 
     if ref_mask:
         if not mask:
