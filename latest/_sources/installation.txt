@@ -57,6 +57,8 @@ For Mac user, you need to follow ``conda`` website.
 from source code (easy way)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. code-block:: bash
+
     git clone https://github.com/Amber-MD/pytraj
     cd pytraj
     python ./setup.py install
