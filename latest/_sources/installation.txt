@@ -23,13 +23,10 @@ Supported Python versions
 Requires
 --------
 
-- libnetcdf, bzip2, gzip (`sudo apt-get install libbz2-dev libnetcdf-dev`)
-
-- `numpy <http://www.numpy.org/>`_
-
-- `cython <http://cython.org/>`_, version >= 0.23
-
 - ``python 2.7, 3.4, 3.5``
+
+-  `cython <http://cython.org/>`_, version >= 0.23. Cython is only required if installing development version.
+
 
 Install
 -------
