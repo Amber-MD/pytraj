@@ -1,0 +1,4 @@
+#!/bin/bash
+
+python scripts/cythonize.py
+python setup.py sdist
