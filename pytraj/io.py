@@ -221,51 +221,6 @@ def iterload(*args, **kwd):
     return load_traj(*args, **kwd)
 
 
-def _load_netcdf(filename,
-                 top,
-                 frame_indices=None,
-                 engine='scipy'):  # pragma: no cover
-    '''simply read all data to memory. Use this if you want to load data few times
-    faster (and  you know what you are doing).
-    '''
-    from pytraj import trajectory
-    traj = trajectory.Trajectory(top=top)
-
-    if engine == 'scipy':
-        from scipy import io
-        fh = io.netcdf_file(filename, mmap=False)
-        data = fh.variables['coordinates'].data
-        try:
-            clen = fh.variables['cell_lengths'].data
-            cangle = fh.variables['cell_angles'].data
-        except KeyError:
-            clen = None
-            cangle = None
-    if engine == 'netcdf4':
-        import netCDF4
-        fh = netCDF4.Dataset(filename)
-        data = fh.variables['coordinates']
-        try:
-            clen = fh.variables['cell_lengths']
-            cangle = fh.variables['cell_angles']
-        except KeyError:
-            clen = None
-            cangle = None
-    if clen is not None and cangle is not None:
-        clen = np.ascontiguousarray(clen, dtype='f8')
-        cangle = np.ascontiguousarray(cangle, dtype='f8')
-    if frame_indices is None:
-        traj.xyz = np.ascontiguousarray(data, dtype='f8')
-    else:
-        traj.xyz = np.ascontiguousarray(data, dtype='f8')[frame_indices]
-        if clen is not None:
-            clen = clen[frame_indices]
-            cangle = cangle[frame_indices]
-    if clen is not None:
-        traj._append_unitcells((clen, cangle))
-    return traj
-
-
 def load_traj(filename=None, top=None, *args, **kwd):
     """load trajectory from filename
 
