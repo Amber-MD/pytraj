@@ -339,7 +339,7 @@ if debug:
 else:
     define_macros = []
 
-if not do_clean and not amber_release:
+if not do_clean and not ISRELEASED:
     cythonize(
         [pfile + '.pyx' for pfile in pyxfiles],
         nthreads=int(os.environ.get('NUM_THREADS', 4)),

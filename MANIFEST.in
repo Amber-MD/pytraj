@@ -6,3 +6,4 @@ graft examples
 graft contributors
 graft licenses
 recursive-include pytraj *cpp
+recursive-include pytraj *pyx
