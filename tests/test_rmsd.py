@@ -191,6 +191,21 @@ class TestSimpleRMSD(unittest.TestCase):
         # make sure give the same rmsd values
         aa_eq(pt.rmsd(traj, ref=3), data)
 
+    def test_combine_nofit_mass_nomod(self):
+        cm = '''
+        parm data/tz2.parm7
+        trajin data/tz2.nc
+        rms @CA nofit mass nomod
+        '''
+        state = pt.load_cpptraj_state(cm)
+        state.run()
+
+        unmut_traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
+        mut_traj = unmut_traj[:]
+
+        data = pt.rmsd(mut_traj, mask='@CA', mass=True, nofit=True, update_coordinate=False)
+        aa_eq(data, state.data[-1])
+
 
 class TestRMSDPerRes(unittest.TestCase):
 

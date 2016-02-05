@@ -1940,7 +1940,7 @@ def rmsd(traj=None,
     nofit_ = 'nofit' if nofit else ''
     mass_ = 'mass' if mass else ''
     nomod_ = 'nomod' if not update_coordinate else ''
-    options = ' '.join((nofit_ + mass_, nomod_))
+    options = ' '.join((nofit_, mass_, nomod_))
 
     if ref_mask:
         if not mask:
