@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.all_actions &mdash; pytraj 1.0.0.dev1+1bbc186 documentation</title>
+    <title>pytraj.all_actions &mdash; pytraj 1.0.0.dev1+0ec1b99 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.0.dev1+1bbc186',
+        VERSION:     '1.0.0.dev1+0ec1b99',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.0.dev1+1bbc186 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.0.dev1+0ec1b99 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="next" title="pytraj.hbond" href="pytraj.hbond_analysis.html" />
     <link rel="prev" title="pytraj.cluster" href="pytraj.cluster.html" />
@@ -54,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.0.dev1+1bbc186</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.0.dev1+0ec1b99</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -1120,7 +1120,7 @@ if True, Calculate motion vectors for entire residues (selected atoms in residue
 
 <dl class="function">
 <dt id="pytraj.all_actions.calc_rmsd_nofit">
-<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_rmsd_nofit</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>ref=0</em>, <em>mass=False</em>, <em>frame_indices=None</em>, <em>top=None</em>, <em>dtype='ndarray'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_rmsd_nofit" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">calc_rmsd_nofit</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>ref=0</em>, <em>mass=False</em>, <em>frame_indices=None</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.calc_rmsd_nofit" title="Permalink to this definition">¶</a></dt>
 <dd><div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last"><code class="xref py py-obj docutils literal"><span class="pre">calc_rmsd</span></code></p>
@@ -1360,20 +1360,24 @@ load both from disk, should iterate the TrajectoryIterator (got by pytraj.iterlo
 
 <dl class="function">
 <dt id="pytraj.all_actions.rmsd">
-<code class="descclassname">pytraj.all_actions.</code><code class="descname">rmsd</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>ref=0</em>, <em>nofit=False</em>, <em>mass=False</em>, <em>frame_indices=None</em>, <em>top=None</em>, <em>dtype='ndarray'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.rmsd" title="Permalink to this definition">¶</a></dt>
-<dd><p>calculate rmsd</p>
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">rmsd</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>ref=0</em>, <em>ref_mask=''</em>, <em>nofit=False</em>, <em>mass=False</em>, <em>frame_indices=None</em>, <em>top=None</em>, <em>dtype='ndarray'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.rmsd" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute rmsd</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>mask</strong> : str or 1D array-like of string or 1D or 2D array-like</p>
+<blockquote>
+<div><p>Atom mask/indices</p>
+</div></blockquote>
 <p><strong>ref</strong> : {Frame, int}, default=0 (first frame)</p>
 <blockquote>
 <div><p>Reference frame or index.</p>
 </div></blockquote>
-<p><strong>mask</strong> : str or 1D array-like of string or 1D or 2D array-like</p>
+<p><strong>ref_mask: str, optional</strong></p>
 <blockquote>
-<div><p>Atom mask/indices</p>
+<div><p>if given, use it instead of <cite>mask</cite></p>
 </div></blockquote>
 <p><strong>nofit</strong> : bool, default False</p>
 <blockquote>
@@ -1388,7 +1392,7 @@ if True, not fitting.</p>
 </tbody>
 </table>
 <p class="rubric">Notes</p>
-<p>if <code class="docutils literal"><span class="pre">traj</span></code> is mutable, its coordinates will be updated</p>
+<p>if <code class="docutils literal"><span class="pre">traj</span></code> is mutable, its coordinates will be updated.</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_trpcage</span><span class="p">()</span>
@@ -1408,8 +1412,13 @@ if True, not fitting.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">),</span> <span class="n">nofit</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># computer rmsd for two maskes</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">]],</span> <span class="n">nofit</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># compute rmsd (and align) with reference having different atoms</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trpcage_traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_trpcage</span><span class="p">()[:]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tz2_traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()[:</span><span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">trpcage_traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@1-10&#39;</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">tz2_traj</span><span class="p">,</span> <span class="n">ref_mask</span><span class="o">=</span><span class="s">&#39;@11-20&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
+<span class="go">array([ 2.16203842,  2.28859396,  2.15817654, ...,  2.20767189,</span>
+<span class="go">        2.30087764,  1.92654945])</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1700,7 +1709,7 @@ is either 0, 1 or -1 (see example below)</p>
 
 <dl class="function">
 <dt id="pytraj.all_actions.rmsd_perres">
-<code class="descclassname">pytraj.all_actions.</code><code class="descname">rmsd_perres</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>ref=0</em>, <em>mass=False</em>, <em>resrange=None</em>, <em>perres_mask=None</em>, <em>perres_center=False</em>, <em>perres_invert=False</em>, <em>frame_indices=None</em>, <em>top=None</em>, <em>dtype='dataset'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.rmsd_perres" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">rmsd_perres</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>ref=0</em>, <em>mass=False</em>, <em>resrange=None</em>, <em>perres_mask=None</em>, <em>perres_center=False</em>, <em>perres_invert=False</em>, <em>frame_indices=None</em>, <em>top=None</em>, <em>dtype='dataset'</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.rmsd_perres" title="Permalink to this definition">¶</a></dt>
 <dd><p>superpose <code class="docutils literal"><span class="pre">traj</span></code> to <code class="docutils literal"><span class="pre">ref</span></code> with <cite>mask</cite>, then calculate nofit rms for residues
 in <cite>resrange</cite> with given <cite>perresmask</cite></p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1896,7 +1905,7 @@ Note: not yet support &#8216;dihcovar&#8217; and &#8216;idea&#8217;</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Feb 03, 2016.<br/>
+      Last updated on Feb 05, 2016.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
