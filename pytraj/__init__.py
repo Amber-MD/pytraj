@@ -469,7 +469,7 @@ def show_versions():
     from pytraj import version
     print(sys.version)
     print('')
-    print("pytraj version = ", version.version)
+    print("pytraj version = ", version)
     print("cpptraj version = ", __cpptraj_version__)
     print("cpptraj internal version = ", __cpptraj_internal_version__)
     print("cpptraj compiled flag = ", compiled_info())
