@@ -6,6 +6,9 @@ from sys import platform as _platform
 import sys
 import os
 
+from .version import version
+__version__ = version
+
 # checking cpptraj version first
 from .cpp_options import info as compiled_info
 from .cpp_options import __cpptraj_version__

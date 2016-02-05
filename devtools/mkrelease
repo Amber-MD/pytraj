@@ -1,4 +1,5 @@
 #!/bin/bash
 
+git clean -fdx .
 python scripts/cythonize.py
 python setup.py sdist

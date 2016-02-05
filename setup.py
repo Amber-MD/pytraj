@@ -25,8 +25,6 @@ from scripts.base_setup import (message_openmp_cpptraj, message_serial_cpptraj, 
                                 message_cython)
 from scripts.base_setup import CleanCommand, ISRELEASED
 
-ISRELEASED = True
-
 # python version >= 2.6
 if sys.version_info < (2, 6):
     print('You must have at least Python 2.6 for pytraj\n')
