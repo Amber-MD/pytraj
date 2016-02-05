@@ -25,7 +25,10 @@ Requires
 
 - python 2.7, >=3.4
 
-- `cython <http://cython.org/>`_, version >= 0.23. Cython is only required if installing development version.
+- `cython <http://cython.org/>`_, >= 0.23. Cython is only required if installing development version::
+
+    pip install cython
+    ( or conda install cython)
 
 
 Install
