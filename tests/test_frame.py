@@ -1,4 +1,4 @@
-mport unittest
+import unittest
 import pytraj as pt
 from array import array
 import numpy as np
