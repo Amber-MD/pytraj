@@ -1,5 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env python
 
-git clean -fdx .
-python scripts/cythonize.py
-python setup.py sdist
+import os
+
+os.system('git clean -fdx .')
+os.system('python scripts/cythonize.py')
+os.system('python setup.py sdist')
