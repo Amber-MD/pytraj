@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.all_actions &mdash; pytraj 1.0.0.dev1+0ec1b99 documentation</title>
+    <title>pytraj.all_actions &mdash; pytraj 1.0.0.dev1+82859f4 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.0.dev1+0ec1b99',
+        VERSION:     '1.0.0.dev1+82859f4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.0.dev1+0ec1b99 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.0.dev1+82859f4 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="next" title="pytraj.hbond" href="pytraj.hbond_analysis.html" />
     <link rel="prev" title="pytraj.cluster" href="pytraj.cluster.html" />
@@ -54,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.0.dev1+0ec1b99</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.0.dev1+82859f4</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -1360,7 +1360,7 @@ load both from disk, should iterate the TrajectoryIterator (got by pytraj.iterlo
 
 <dl class="function">
 <dt id="pytraj.all_actions.rmsd">
-<code class="descclassname">pytraj.all_actions.</code><code class="descname">rmsd</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>ref=0</em>, <em>ref_mask=''</em>, <em>nofit=False</em>, <em>mass=False</em>, <em>frame_indices=None</em>, <em>top=None</em>, <em>dtype='ndarray'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.rmsd" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">rmsd</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>ref=0</em>, <em>ref_mask=''</em>, <em>nofit=False</em>, <em>mass=False</em>, <em>update_coordinate=True</em>, <em>frame_indices=None</em>, <em>top=None</em>, <em>dtype='ndarray'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.rmsd" title="Permalink to this definition">¶</a></dt>
 <dd><p>compute rmsd</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1384,6 +1384,19 @@ load both from disk, should iterate the TrajectoryIterator (got by pytraj.iterlo
 <div><p>if False, perform fitting (rotation and translation).
 if <code class="docutils literal"><span class="pre">traj</span></code> is mutable, its coordinates will be updated
 if True, not fitting.</p>
+</div></blockquote>
+<p><strong>mass</strong> : bool, default False</p>
+<blockquote>
+<div><p>if True, include mass</p>
+</div></blockquote>
+<p><strong>update_coordinate</strong> : bool, default True</p>
+<blockquote>
+<div><p>if True, coordinates will be updated. But this only apply to mutable Trajectory
+if False (same as <cite>nomod</cite> in cpptraj), no modification</p>
+</div></blockquote>
+<p><strong>frame_indices</strong> : int 1D array-like, default None</p>
+<blockquote>
+<div><p>if not None, only compute rmsd for given frame indices</p>
 </div></blockquote>
 <p><strong>top</strong> : {Topology, str}, default None, optional</p>
 <p class="last"><strong>dtype</strong> : return data type, default=&#8217;ndarray&#8217;</p>
@@ -1905,7 +1918,7 @@ Note: not yet support &#8216;dihcovar&#8217; and &#8216;idea&#8217;</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Feb 05, 2016.<br/>
+      Last updated on Feb 09, 2016.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>

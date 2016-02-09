@@ -78,6 +78,9 @@ Sometimes you want to install `libcpptraj.so` by yourself.
     git clone https://github.com/Amber-MD/cpptraj
     cd cpptraj
     bash configure -shared -openmp gnu
+
+    # if you are AMBER user, you can add -amberlib
+    bash configure -shared -openmp -amberlib gnu
     make libcpptraj -j4
 
     # please check bash configure --full-help for other options.
@@ -97,7 +100,7 @@ from `pip`
 
 Since pytraj depends on libcpptraj, install via pip is not easier than intall from source code.
 
-However, if you still want to do it, make sure to install libcpptraj by yourself and set CPPPTRAJHOME (see above step), then::
+However, if you still want to do it, make sure to install libcpptraj by yourself and set CPPTRAJHOME (see above step), then::
 
     pip install https://github.com/Amber-MD/pytraj/archive/master.zip
 

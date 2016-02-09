@@ -116,8 +116,8 @@ copyright = '2015, pytraj developers'
 # built documents.
 #
 # The short X.Y version.
-from pytraj import version as __version__
-version = __version__.version
+from pytraj import __version__
+version = __version__
 # The full version, including alpha/beta/rc tags.
 release = version
 
