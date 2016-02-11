@@ -11,6 +11,7 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     ./configure $BUILD_FLAGS clang
     make libcpptraj -j4
     cd ../
-else
     python setup.py install --disable-openmp
+else
+    python setup.py install
 fi
