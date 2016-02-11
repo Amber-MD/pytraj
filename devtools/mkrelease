@@ -4,4 +4,18 @@ import os
 
 os.system('git clean -fdx .')
 os.system('python scripts/cythonize.py')
+
+# change to release status 
+with open('scripts/base_setup.py', 'r') as fh:
+    old_content = fh.read()
+    new_content = old_content.replace('ISRELEASED = False', 'ISRELEASED = True') 
+
+with open('scripts/tmp.py', 'w') as fh:
+    fh.write(new_content)
+
+os.system('mv scripts/tmp.py scripts/base_setup.py')
+
 os.system('python setup.py sdist')
+
+# restore to ISRELEASED = False
+os.system('git checkout scripts/base_setup.py')

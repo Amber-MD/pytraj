@@ -288,7 +288,11 @@ if not list_of_libcpptraj:
 # Is `nm` everywhere?
 # need to get list_of_libcpptraj again (in case we just install libcpptraj.so)
 list_of_libcpptraj = glob(os.path.join(libdir, 'libcpptraj') + '*')
-output_openmp_check = subprocess.check_output(['nm', list_of_libcpptraj[0]]).decode().split('\n')
+try:
+    output_openmp_check = subprocess.check_output(['nm', list_of_libcpptraj[0]]).decode().split('\n')
+except IndexError:
+    print("It seems that there is no libcpptraj. Please intall it")
+    sys.exit(0)
 omp_ = [line for line in output_openmp_check if 'get_num_threads' in line.lower()]
 
 if disable_openmp:
