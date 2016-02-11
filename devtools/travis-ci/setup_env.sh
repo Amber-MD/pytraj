@@ -22,10 +22,10 @@ conda install --yes anaconda-client coverage pyflakes
 conda install mdtraj -c omnia --yes
 
 # install other packages here
-pip install coveralls
-pip install coverage
-pip install nose
-pip install git+git://github.com/ParmEd/ParmEd
-pip install memory_profiler
-pip install psutil
-pip install cclib
+# pip install coveralls
+# pip install coverage
+# pip install nose
+# pip install git+git://github.com/ParmEd/ParmEd
+# pip install memory_profiler
+# pip install psutil
+# pip install cclib
