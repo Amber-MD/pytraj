@@ -382,15 +382,9 @@ class TestIO(unittest.TestCase):
         # assert_has_exptected_line_textfile(expected_line, 1, fn)
 
         # trr
-        # TODO: cpptraj put wrong title
-        #traj.save(fn, format='trr', overwrite=True)
-        #expected_line = 'Cpptraj generated trr file'
-        #assert_has_exptected_line_binaryfile(expected_line, fn)
-
-    def tearDown(self):
-        import os
-        #os.unlink('output/test')
-
+        traj.save(fn, format='trr', overwrite=True)
+        expected_line = 'Cpptraj generated TRR file'
+        assert_has_exptected_line_binaryfile(expected_line, fn)
 
 if __name__ == "__main__":
     unittest.main()
