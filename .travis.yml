@@ -36,8 +36,11 @@ install:
 
 script:
     - source devtools/travis-ci/install_pytraj.sh
-    - export LD_LIBRARY_PATH=`pwd`"/cpptraj/lib":$LD_LIBRARY_PATH
-    - export DYLD_LIBRARY_PATH=`pwd`"/cpptraj/lib":$DYLD_LIBRARY_PATH
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+        export DYLD_LIBRARY_PATH=`pwd`"/cpptraj/lib":$DYLD_LIBRARY_PATH
+      else
+        export LD_LIBRARY_PATH=`pwd`"/cpptraj/lib":$LD_LIBRARY_PATH
+      fi
     - sh ./devtools/travis-ci/pyflakes_check.sh
     - export CPPTRAJHOME=`pwd`"/cpptraj/"
     - cd ./tests
