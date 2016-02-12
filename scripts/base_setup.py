@@ -5,6 +5,7 @@ import shutil
 import subprocess
 from distutils.command.clean import clean as Clean
 from subprocess import CalledProcessError
+from glob import glob
 
 if sys.version_info[0] >= 3:
     import builtins
@@ -239,26 +240,28 @@ def try_updating_libcpptraj(cpptraj_home,
             '1. unset CPPTRAJHOME and `python setup.py install` again. We will install libcpptraj for you. \n'
             '2. Or you need to install libcpptraj in $CPPTRAJHOME/lib \n')
         sys.exit(0)
-    if do_install or do_build:
-        if has_cpptraj_in_current_folder:
-            print(
-                'can not find libcpptraj but found ./cpptraj folder, trying to reinstall it to ./cpptraj/lib/ \n')
-            time.sleep(3)
-            try:
-                cpptraj_dir = './cpptraj/'
-                subprocess.check_call(
-                    ['sh', 'scripts/install_cpptraj.sh'])
-                cpptraj_include = os.path.join(cpptraj_dir, 'src')
-
-                return glob(os.path.join(cpptraj_libdir, 'libcpptraj') + '*')
-            except CalledProcessError:
+    else:
+        if do_install or do_build:
+            if has_cpptraj_in_current_folder:
                 print(
-                    'can not install libcpptraj, you need to install it manually \n')
+                    'can not find libcpptraj but found ./cpptraj folder, trying to reinstall it to ./cpptraj/lib/ \n')
+                time.sleep(3)
+                try:
+                    cpptraj_dir = './cpptraj/'
+                    cpptraj_libdir = cpptraj_dir + '/lib/'
+                    subprocess.check_call(
+                        ['sh', 'scripts/install_cpptraj.sh'])
+                    cpptraj_include = os.path.join(cpptraj_dir, 'src')
+
+                    return glob(os.path.join(cpptraj_libdir, 'libcpptraj') + '*')
+                except CalledProcessError:
+                    print(
+                        'can not install libcpptraj, you need to install it manually \n')
+                    sys.exit(0)
+            else:
+                print('can not find libcpptraj in $CPPTRAJHOME/lib. '
+                                 'You need to install ``libcpptraj`` manually. ')
                 sys.exit(0)
-        else:
-            print('can not find libcpptraj in $CPPTRAJHOME/lib. '
-                             'You need to install ``libcpptraj`` manually. ')
-            sys.exit(0)
 
 
 def add_openmp_flag(disable_openmp,
