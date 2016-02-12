@@ -15,11 +15,11 @@ else:
 MAJOR = 1
 MINOR = 0
 MICRO = 0
-ISRELEASED = False
+ISRELEASED = True
 VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 
 
-message_cython = '''
+message_cython = """
 Building from source requires cython >= 0.21
 
 Either try:
@@ -31,7 +31,7 @@ the most updated cython)
 
     http://conda.pydata.org/docs/download.html)
 
-'''
+"""
 
 message_auto_install = """
 Can not find cpptraj header and libcpptraj files.
@@ -299,7 +299,7 @@ def check_cython(ISRELEASED, cmdclass, min_version='0.21'):
     if ISRELEASED:
         # ./devtools/mkrelease
         need_cython = False
-        cmdclass, cythonize = None, None
+        cythonize = None
     else:
         try:
             import Cython
