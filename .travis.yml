@@ -37,7 +37,8 @@ install:
 script:
     - source devtools/travis-ci/install_pytraj.sh
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-        export DYLD_LIBRARY_PATH=`pwd`"/cpptraj/lib":$DYLD_LIBRARY_PATH
+        export DYLD_FALLBACK_LIBRARY_PATH=`pwd`"/cpptraj/lib":$DYLD_FALLBACK_LIBRARY_PATH
+        # export DYLD_LIBRARY_PATH=`pwd`"/cpptraj/lib":$DYLD_LIBRARY_PATH
       else
         export LD_LIBRARY_PATH=`pwd`"/cpptraj/lib":$LD_LIBRARY_PATH;
       fi
