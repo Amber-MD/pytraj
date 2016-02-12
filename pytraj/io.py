@@ -402,6 +402,7 @@ def write_traj(filename="",
         remdtraj:   Write temperature to restart file."
         time0:      Time for first frame (default 1.0)."
         dt:         Time step for subsequent frames, t=(time0+frame)*dt; (default 1.0)");
+        keepext     Keep filename extension; write '<name>.<num>.<ext>' instead (example: myfile.1.rst7)
 
     'options' for writing to mol2 format (cptraj manual)::
 

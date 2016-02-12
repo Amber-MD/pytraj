@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import os
 import unittest
 import numpy as np
 import pytraj as pt
@@ -385,6 +386,21 @@ class TestIO(unittest.TestCase):
         traj.save(fn, format='trr', overwrite=True)
         expected_line = 'Cpptraj generated TRR file'
         assert_has_exptected_line_binaryfile(expected_line, fn)
+
+    def test_options(self):
+        '''specify cpptraj options
+        '''
+
+        # restart, keep extension
+        try:
+            os.remove('output/test.rst7')
+        except OSError:
+            pass
+
+        pt._verbose()
+        self.traj_tz2_ortho[:1].save('output/test.rst7', options='keepext')
+        pt._verbose(False)
+        assert os.path.exists('output/test.1.rst7')
 
 if __name__ == "__main__":
     unittest.main()
