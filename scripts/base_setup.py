@@ -251,7 +251,6 @@ def try_updating_libcpptraj(cpptraj_home,
                     cpptraj_libdir = cpptraj_dir + '/lib/'
                     subprocess.check_call(
                         ['sh', 'scripts/install_cpptraj.sh'])
-                    cpptraj_include = os.path.join(cpptraj_dir, 'src')
 
                     return glob(os.path.join(cpptraj_libdir, 'libcpptraj') + '*')
                 except CalledProcessError:
@@ -269,7 +268,7 @@ def add_openmp_flag(disable_openmp,
                     extra_compile_args,
                     extra_link_args):
     if disable_openmp:
-        if omp_:
+        if system_has_openmp:
             print(message_openmp_cpptraj)
             sys.exit(0)
         else:

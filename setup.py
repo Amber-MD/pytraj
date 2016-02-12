@@ -10,9 +10,7 @@
 
 import os
 import sys
-import time
 import subprocess
-from subprocess import CalledProcessError
 from distutils.core import setup
 from distutils.extension import Extension
 from glob import glob
@@ -21,8 +19,6 @@ from glob import glob
 from scripts.base_setup import (check_flag, check_cpptraj_version, write_version_py, get_version_info,
                                 get_pyx_pxd, get_include_and_lib_dir, do_what, check_cython)
 from scripts.base_setup import (add_openmp_flag, try_updating_libcpptraj, remind_export_LD_LIBRARY_PATH)
-from scripts.base_setup import (message_openmp_cpptraj, message_serial_cpptraj, message_auto_install,
-                                message_cython)
 from scripts.base_setup import CleanCommand, ISRELEASED
 
 # python version >= 2.6
