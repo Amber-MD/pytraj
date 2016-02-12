@@ -11,7 +11,6 @@
 import os
 import sys
 import time
-from time import sleep
 import subprocess
 from subprocess import CalledProcessError
 from distutils.core import setup
@@ -19,7 +18,8 @@ from distutils.extension import Extension
 from glob import glob
 
 # local import
-from scripts.base_setup import check_cpptraj_version, write_version_py, get_version_info
+from scripts.base_setup import (check_flag, check_cpptraj_version, write_version_py, get_version_info,
+                                get_include_and_lib_dir, do_what)
 from scripts.base_setup import remind_export_LD_LIBRARY_PATH
 from scripts.base_setup import (message_openmp_cpptraj, message_serial_cpptraj, message_auto_install,
                                 message_cython)
@@ -29,21 +29,48 @@ from scripts.base_setup import CleanCommand, ISRELEASED
 if sys.version_info < (2, 6):
     print('You must have at least Python 2.6 for pytraj\n')
     sys.exit(0)
+amber_release = check_flag('--amber_release')
+disable_openmp = check_flag('--disable-openmp')
+debug = check_flag('--debug')
+use_phenix_python = check_flag('--phenix')
+create_tar_file = True if 'sdist' in sys.argv else False
+amber_home = os.environ.get('AMBERHOME')
+has_amber_home = True if amber_home is not None else False
+rootname = os.getcwd()
+pytraj_home = rootname + "/pytraj/"
+cpptraj_home = os.environ.get('CPPTRAJHOME', '')
+has_cpptraj_in_current_folder = os.path.exists("./cpptraj/")
 
-try:
-    sys.argv.remove('--amber-release')
-    amber_release = True
-except ValueError:
-    amber_release = False
+phenix_python_lib = os.path.join(os.environ.get('PHENIX'),
+                                 'base/lib/') if use_phenix_python else ''
+pytraj_dir = os.path.abspath(os.path.dirname(__file__))
+do_install, do_build = do_what(pytraj_dir)
+cpptraj_dir, cpptraj_include, cpptraj_libdir, pytraj_inside_amber = get_include_and_lib_dir(rootname, cpptraj_home,
+        has_cpptraj_in_current_folder, do_install, do_build, pytraj_dir)
+list_of_libcpptraj = glob(os.path.join(cpptraj_libdir, 'libcpptraj') + '*')
+do_clean = (len(sys.argv) == 2 and 'clean' in sys.argv)
 
-try:
-    sys.argv.remove('--phenix')
-    use_phenix_python = True
-    phenix_python_lib = os.path.join(os.environ.get('PHENIX'),
-                                     'base/lib/')
-except ValueError:
-    use_phenix_python = False
-    phenix_python_lib = ''
+cython_directives = {
+    'embedsignature': True,
+    'boundscheck': False,
+    'wraparound': False,
+}
+
+if debug:
+    cython_directives.update({
+        'profile': True,
+        'linetrace': True,
+        'binding': True})
+    define_macros = [('CYTHON_TRACE', 1), ]
+else:
+    define_macros = []
+
+# get INSTALLTYPE type from amber
+installtype = os.environ.get("INSTALLTYPE", "")
+
+if installtype:
+    sys.argv.remove(installtype)
+
 
 # python setup.py clean
 cmdclass = {'clean': CleanCommand}
@@ -51,9 +78,6 @@ cmdclass = {'clean': CleanCommand}
 if ISRELEASED:
     need_cython = False
 else:
-    # if pytraj is not in released version of amber, must cythonize files
-    # else use pre-compiled files
-    # cython version >= 0.21 for now.
     try:
         import Cython
         from Cython.Distutils import build_ext
@@ -67,46 +91,11 @@ else:
         print(message_cython)
         sys.exit(0)
 
-try:
-    sys.argv.remove('--disable-openmp')
-    disable_openmp = True
-except ValueError:
-    disable_openmp = False
-
-try:
-    sys.argv.remove('--debug')
-    # for profiling, optimizing code
-    debug = True
-except ValueError:
-    debug = False
-
-if len(sys.argv) == 2 and 'clean' in sys.argv:
-    do_clean = True
-else:
-    do_clean = False
-
 
 def read(fname):
     # must be in this setup file
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
-
-def split_range(n_chunks, start, stop):
-    '''split a given range to n_chunks
-
-    Examples
-    --------
-    >>> split_range(3, 0, 10)
-    [(0, 3), (3, 6), (6, 10)]
-    '''
-    chunksize = (stop - start) // n_chunks
-
-    for i in range(n_chunks):
-        if i < n_chunks - 1:
-            _stop = start + (i + 1) * chunksize
-        else:
-            _stop = stop
-        yield (start + i * chunksize, _stop)
 
 if sys.platform == 'darwin':
     # copied from ParmEd
@@ -117,14 +106,11 @@ if sys.platform == 'darwin':
     os.environ['CXX'] = 'clang++'
     os.environ['CC'] = 'clang'
 
-PYTRAJ_DIR = os.path.abspath(os.path.dirname(__file__))
 # update new version
 write_version_py()
 # read newly added version.py file
 FULLVERSION, GIT_REVISION = get_version_info()
 
-rootname = os.getcwd()
-pytraj_home = rootname + "/pytraj/"
 
 KeyErrorText = """
 Can not use -faster_build with `install`,
@@ -147,98 +133,6 @@ else:
     faster_build = False
 
 
-# check AMBERHOME
-try:
-    amberhome = os.environ['AMBERHOME']
-    has_amberhome = True
-except KeyError:
-    has_amberhome = False
-
-# check CPPTRAJHOME or "./cpptraj" folder
-try:
-    cpptrajhome = os.environ['CPPTRAJHOME']
-    has_cpptrajhome = True
-except KeyError:
-    has_cpptrajhome = False
-
-has_cpptraj_in_current_folder = os.path.exists("./cpptraj/")
-
-
-def get_include_and_lib_dir():
-    # check if has environment variables
-    CPPTRAJ_LIBDIR = os.environ.get('CPPTRAJ_LIBDIR', '')
-    CPPTRAJ_HEADERDIR = os.environ.get('CPPTRAJ_HEADERDIR', '')
-    if os.path.join('AmberTools', 'src') in PYTRAJ_DIR:
-        # install pytraj inside AMBER
-        AMBERHOME = os.environ.get('AMBERHOME', '')
-        if not AMBERHOME:
-            raise EnvironmentError('must set AMBERHOME if you want to install pytraj '
-                                   'inside AMBER')
-        # overwrite CPPTRAJ_HEADERDIR, CPPTRAJ_LIBDIR
-        CPPTRAJ_LIBDIR = os.path.join(AMBERHOME, 'lib')
-        CPPTRAJ_HEADERDIR = os.path.join(AMBERHOME, 'AmberTools', 'src', 'cpptraj', 'src')
-
-        pytraj_inside_amber = True
-    else:
-        pytraj_inside_amber = False
-
-    if CPPTRAJ_LIBDIR and CPPTRAJ_HEADERDIR:
-        cpptraj_include = CPPTRAJ_HEADERDIR
-        libdir = CPPTRAJ_LIBDIR
-        cpptraj_dir = ''
-    else:
-        if has_cpptrajhome:
-            # use libcpptraj and header files in CPPTRAJHOME (/lib, /src)
-            cpptraj_dir = cpptrajhome
-            cpptraj_include = cpptraj_dir + "/src/"
-            libdir = cpptrajhome + "/lib/"
-        elif has_cpptraj_in_current_folder:
-            cpptraj_dir = os.path.abspath("./cpptraj/")
-            cpptraj_include = cpptraj_dir + "/src/"
-            libdir = cpptraj_dir + "/lib/"
-        else:
-
-            if do_install or do_build:
-                print(message_auto_install)
-                for i in range(0, 3):
-                    sys.stdout.write('.')
-                    sys.stdout.flush()
-                    time.sleep(1)
-                try:
-                    subprocess.check_call(['sh',
-                                           'scripts/install_cpptraj.sh', 'github'])
-                except CalledProcessError:
-                    print(
-                        'can not install libcpptraj, you need to install it manually \n')
-                    sys.exit(0)
-            cpptraj_dir = os.path.join(rootname, "cpptraj")
-            cpptraj_include = os.path.join(cpptraj_dir, 'src')
-            libdir = os.path.join(cpptraj_dir, 'lib')
-    return cpptraj_dir, cpptraj_include, libdir, pytraj_inside_amber
-
-
-def do_what():
-    # this checking should be here, after checking openmp and other stuff
-    if len(sys.argv) == 2 and sys.argv[1] == 'install':
-        do_install = True
-    elif len(sys.argv) == 3 and sys.argv[1] == 'install' and os.path.join('AmberTools',
-                                                                          'src') in PYTRAJ_DIR:
-        # install pytraj in $AMBERHOME
-        # do not use pytraj_inside_amber here in we call `do_what()` before calling get_include_and_lib_dir()
-        # don't mess this up
-        # $(PYTHON) setup.py install $(PYTHON_INSTALL)
-        do_install = True
-    else:
-        do_install = False
-
-    if len(sys.argv) == 2 and sys.argv[1] == 'build':
-        do_build = True
-    else:
-        do_build = False
-    return do_install, do_build
-
-do_install, do_build = do_what()
-cpptraj_dir, cpptraj_include, libdir, pytraj_inside_amber = get_include_and_lib_dir()
 
 # get *.pyx files
 pxd_include_dirs = [
@@ -254,12 +148,12 @@ for p in pxd_include_dirs:
                      if '.pyx' in ext])
 
 # check command line
-extra_compile_args = ['-O0', '-ggdb',]
-extra_link_args = ['-O0', '-ggdb',]
+extra_compile_args = ['-O0', '-ggdb', ]
+extra_link_args = ['-O0', '-ggdb', ]
 
-list_of_libcpptraj = glob(os.path.join(libdir, 'libcpptraj') + '*')
+list_of_libcpptraj = glob(os.path.join(cpptraj_libdir, 'libcpptraj') + '*')
 if not list_of_libcpptraj:
-    if has_cpptrajhome:
+    if cpptraj_home:
         print(
             '$CPPTRAJHOME exists but there is no libcpptraj in $CPPTRAJHOME/lib \n'
             'There are two solutions: \n'
@@ -270,7 +164,7 @@ if not list_of_libcpptraj:
         if has_cpptraj_in_current_folder:
             print(
                 'can not find libcpptraj but found ./cpptraj folder, trying to reinstall it to ./cpptraj/lib/ \n')
-            sleep(3)
+            time.sleep(3)
             try:
                 subprocess.check_call(
                     ['sh', 'scripts/install_cpptraj.sh'])
@@ -281,65 +175,35 @@ if not list_of_libcpptraj:
                 sys.exit(0)
         else:
             print('can not find libcpptraj in $CPPTRAJHOME/lib. '
-                             'You need to install ``libcpptraj`` manually. ')
+                  'You need to install ``libcpptraj`` manually. ')
             sys.exit(0)
 
 # check if libcpptraj.so was installed with openmp or not.
 # Is `nm` everywhere?
 # need to get list_of_libcpptraj again (in case we just install libcpptraj.so)
-list_of_libcpptraj = glob(os.path.join(libdir, 'libcpptraj') + '*')
-try:
-    output_openmp_check = subprocess.check_output(['nm', list_of_libcpptraj[0]]).decode().split('\n')
-except IndexError:
-    print("It seems that there is no libcpptraj. Please intall it")
-    sys.exit(0)
-omp_ = [line for line in output_openmp_check if 'get_num_threads' in line.lower()]
-
-if disable_openmp:
-    if omp_:
-        print(message_openmp_cpptraj)
+if not create_tar_file:
+    try:
+        output_openmp_check = subprocess.check_output(['nm', list_of_libcpptraj[0]]).decode().split('\n')
+    except IndexError:
+        print("It seems that there is no libcpptraj. Please intall it")
         sys.exit(0)
+    omp_ = [line for line in output_openmp_check if 'get_num_threads' in line.lower()]
+
+    if disable_openmp:
+        if omp_:
+            print(message_openmp_cpptraj)
+            sys.exit(0)
+        else:
+            pass
     else:
-        pass
-else:
-    if not omp_:
-        print(message_serial_cpptraj)
-        sys.exit(0)
-    extra_compile_args.append("-fopenmp")
-    extra_link_args.append("-fopenmp")
+        if not omp_:
+            print(message_serial_cpptraj)
+            sys.exit(0)
+        extra_compile_args.append("-fopenmp")
+        extra_link_args.append("-fopenmp")
 
-# since we added "INSTALLTYPE" after setup.py file, we need
-# to remove it if having one
-installtype = os.environ.get("INSTALLTYPE", "")
-try:
-    sys.argv.remove(installtype)
-except ValueError:
-    pass
-
-# check cpptraj version to make sure pytraj and cpptraj sync
-# V4.2.8
 check_cpptraj_version(cpptraj_include, (4, 2, 8))
 
-# pre-cythonize files in parallel
-# Note: only turn on below for debugging or profiling performance
-# - profile
-# - linetrace
-# - binding
-# define_macros
-cython_directives = {
-    'embedsignature': True,
-    'boundscheck': False,
-    'wraparound': False,
-}
-
-if debug:
-    cython_directives.update({
-        'profile': True,
-        'linetrace': True,
-        'binding': True})
-    define_macros = [('CYTHON_TRACE', 1), ]
-else:
-    define_macros = []
 
 if not do_clean and not ISRELEASED:
     cythonize(
@@ -348,7 +212,7 @@ if not do_clean and not ISRELEASED:
         compiler_directives=cython_directives,
     )
 
-library_dirs = [libdir,] if not use_phenix_python else [libdir, phenix_python_lib]
+library_dirs = [cpptraj_libdir, ] if not use_phenix_python else [cpptraj_libdir, phenix_python_lib]
 
 ext_modules = []
 for ext_name in pyxfiles:
@@ -408,7 +272,7 @@ sample_data = ["datafiles/ala3/Ala3.*",
 datalist = pxdlist + sample_data
 
 
-def build_func(my_ext):
+def build_func(ext_modules):
     return setup(
         name="pytraj",
         version=FULLVERSION,
@@ -428,35 +292,12 @@ def build_func(my_ext):
             'Programming Language :: Cython', 'Programming Language :: C',
             'Programming Language :: C++', 'Topic :: Scientific/Engineering'
         ],
-        ext_modules=my_ext,
+        ext_modules=ext_modules,
         package_data={'pytraj': datalist},
         cmdclass=cmdclass, )
 
 
 if __name__ == "__main__":
-    if not faster_build:
-        build_tag = build_func(ext_modules)
-        if do_install:
-            remind_export_LD_LIBRARY_PATH(build_tag, libdir, pytraj_inside_amber)
-    else:
-        from multiprocessing import cpu_count
-        n_cpus = cpu_count()
-        num_each = int(len(ext_modules) / n_cpus)
-
-        sub_ext_modules_list = []
-        # there is idiom to do this but I am too lazy to think
-        for i in range(n_cpus):
-            if i != n_cpus - 1:
-                sub_ext_modules_list.append(
-                    ext_modules[i * num_each:num_each * (i + 1)])
-            else:
-                sub_ext_modules_list.append(ext_modules[num_each * i:])
-
-        from multiprocessing.pool import ThreadPool as Pool
-        pool = Pool(n_cpus)
-        pool.map(build_func, sub_ext_modules_list)
-        try:
-            p.close()
-            p.join()
-        except AttributeError:
-            pass
+    build_tag = build_func(ext_modules)
+    if do_install:
+        remind_export_LD_LIBRARY_PATH(build_tag, cpptraj_libdir, pytraj_inside_amber)
