@@ -19,7 +19,7 @@ from glob import glob
 
 # local import
 from scripts.base_setup import (check_flag, check_cpptraj_version, write_version_py, get_version_info,
-                                get_include_and_lib_dir, do_what, check_cython)
+                                get_pyx_pxd, get_include_and_lib_dir, do_what, check_cython)
 from scripts.base_setup import (add_openmp_flag, try_updating_libcpptraj, remind_export_LD_LIBRARY_PATH)
 from scripts.base_setup import (message_openmp_cpptraj, message_serial_cpptraj, message_auto_install,
                                 message_cython)
@@ -93,20 +93,7 @@ if sys.platform == 'darwin':
 
 # get *.pyx files
 
-def get_pyx_pxd():
-    pxd_include_dirs = [
-        directory for directory, dirs, files in os.walk('pytraj') if '__init__.pyx'
-        in files or '__init__.pxd' in files or '__init__.py' in files
-    ]
-    
-    pxd_include_patterns = [p + '/*.pxd' for p in pxd_include_dirs]
-    
-    pyxfiles = []
-    for p in pxd_include_dirs:
-        pyxfiles.extend([ext.split(".")[0] for ext in glob(p + '/*.pyx')
-                         if '.pyx' in ext])
-    pxdfiles = [p.replace("pytraj/", "") for p in pxd_include_patterns]
-    return pyxfiles, pxdfiles
+pyxfiles, pxdfiles = get_pyx_pxd()
 
 if not libcpptraj_files:
     libcpptraj_files = try_updating_libcpptraj(cpptraj_home,

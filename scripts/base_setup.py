@@ -281,6 +281,21 @@ def add_openmp_flag(disable_openmp,
         # make copy
         return (extra_compile_args[:] + ["-fopenmp",], extra_link_args[:] + ["-fopenmp",])
 
+def get_pyx_pxd():
+    pxd_include_dirs = [
+        directory for directory, dirs, files in os.walk('pytraj') if '__init__.pyx'
+        in files or '__init__.pxd' in files or '__init__.py' in files
+    ]
+    
+    pxd_include_patterns = [p + '/*.pxd' for p in pxd_include_dirs]
+    
+    pyxfiles = []
+    for p in pxd_include_dirs:
+        pyxfiles.extend([ext.split(".")[0] for ext in glob(p + '/*.pyx')
+                         if '.pyx' in ext])
+    pxdfiles = [p.replace("pytraj/", "") for p in pxd_include_patterns]
+    return pyxfiles, pxdfiles
+
 def check_cython(ISRELEASED, cmdclass, min_version='0.21'):
     if ISRELEASED:
         # ./devtools/mkrelease
