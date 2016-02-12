@@ -48,6 +48,8 @@ after_success:
     - echo "after_success"
     - cd ../../tests/
     - python ./devtools/mkrelease # test
+    - conda remove cython
+    - pip install dist/*gz
     - coveralls
 
 notifications:
