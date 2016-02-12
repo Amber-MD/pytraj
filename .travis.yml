@@ -51,7 +51,7 @@ after_success:
     - cd ../
     - python ./devtools/mkrelease # test
     - conda remove cython --y
-    - pip install dist/*gz
+    - pip install dist/*gz || exit 1
 
 notifications:
   email: false
