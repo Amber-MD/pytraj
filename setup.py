@@ -53,9 +53,10 @@ FULLVERSION, GIT_REVISION = get_version_info()
 # python setup.py clean
 cmdclass = {'clean': CleanCommand}
 need_cython, cmdclass, cythonize  = check_cython(ISRELEASED, cmdclass, min_version='0.21')
+print(cmdclass)
 
-extra_compile_args_ = ['-O0', '-ggdb', ]
-extra_link_args_ = ['-O0', '-ggdb', ]
+extra_compile_args = ['-O0', '-ggdb', ]
+extra_link_args = ['-O0', '-ggdb', ]
 
 cython_directives = {
     'embedsignature': True,
@@ -109,7 +110,7 @@ system_has_openmp = [line for line in output_openmp_check if 'get_num_threads' i
 
 if not create_tar_file_for_release:
     extra_compile_args, extra_link_args = add_openmp_flag(disable_openmp,
-        system_has_openmp, extra_compile_args_, extra_link_args_)
+        system_has_openmp, extra_compile_args, extra_link_args)
 
 check_cpptraj_version(cpptraj_include, (4, 2, 8))
 
@@ -203,7 +204,7 @@ def build_func(ext_modules):
         ],
         ext_modules=ext_modules,
         package_data={'pytraj': datalist},
-        cmdclass=cmdclass, )
+        cmdclass=cmdclass,)
 
 
 if __name__ == "__main__":

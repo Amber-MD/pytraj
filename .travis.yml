@@ -48,7 +48,7 @@ after_success:
     - echo "after_success"
     - cd ../../tests/
     - python ./devtools/mkrelease # test
-    - conda remove cython
+    - conda remove cython --y
     - pip install dist/*gz
     - coveralls
 
