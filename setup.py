@@ -20,7 +20,7 @@ from glob import glob
 # local import
 from scripts.base_setup import (check_flag, check_cpptraj_version, write_version_py, get_version_info,
                                 get_include_and_lib_dir, do_what)
-from scripts.base_setup import remind_export_LD_LIBRARY_PATH
+from scripts.base_setup import (try_updating_libcpptraj, remind_export_LD_LIBRARY_PATH)
 from scripts.base_setup import (message_openmp_cpptraj, message_serial_cpptraj, message_auto_install,
                                 message_cython)
 from scripts.base_setup import CleanCommand, ISRELEASED
@@ -29,26 +29,29 @@ from scripts.base_setup import CleanCommand, ISRELEASED
 if sys.version_info < (2, 6):
     print('You must have at least Python 2.6 for pytraj\n')
     sys.exit(0)
+
 amber_release = check_flag('--amber_release')
 disable_openmp = check_flag('--disable-openmp')
 debug = check_flag('--debug')
 use_phenix_python = check_flag('--phenix')
-create_tar_file = True if 'sdist' in sys.argv else False
+create_tar_file_for_release = True if 'sdist' in sys.argv else False
 amber_home = os.environ.get('AMBERHOME')
 has_amber_home = True if amber_home is not None else False
 rootname = os.getcwd()
 pytraj_home = rootname + "/pytraj/"
 cpptraj_home = os.environ.get('CPPTRAJHOME', '')
 has_cpptraj_in_current_folder = os.path.exists("./cpptraj/")
-
 phenix_python_lib = os.path.join(os.environ.get('PHENIX'),
                                  'base/lib/') if use_phenix_python else ''
 pytraj_dir = os.path.abspath(os.path.dirname(__file__))
 do_install, do_build = do_what(pytraj_dir)
 cpptraj_dir, cpptraj_include, cpptraj_libdir, pytraj_inside_amber = get_include_and_lib_dir(rootname, cpptraj_home,
         has_cpptraj_in_current_folder, do_install, do_build, pytraj_dir)
-list_of_libcpptraj = glob(os.path.join(cpptraj_libdir, 'libcpptraj') + '*')
+libcpptraj_files = glob(os.path.join(cpptraj_libdir, 'libcpptraj') + '*')
 do_clean = (len(sys.argv) == 2 and 'clean' in sys.argv)
+write_version_py()
+FULLVERSION, GIT_REVISION = get_version_info()
+
 
 cython_directives = {
     'embedsignature': True,
@@ -76,6 +79,7 @@ if installtype:
 cmdclass = {'clean': CleanCommand}
 
 if ISRELEASED:
+    # ./devtools/mkrelease
     need_cython = False
 else:
     try:
@@ -106,34 +110,6 @@ if sys.platform == 'darwin':
     os.environ['CXX'] = 'clang++'
     os.environ['CC'] = 'clang'
 
-# update new version
-write_version_py()
-# read newly added version.py file
-FULLVERSION, GIT_REVISION = get_version_info()
-
-
-KeyErrorText = """
-Can not use -faster_build with `install`,
-try  "python setup.py build faster_build
-then "python setup.py install"
-"""
-
-faster_build_str = "faster"
-if faster_build_str in sys.argv:
-    # try using multiple cores
-    faster_build = True
-    sys.argv.remove(faster_build_str)
-    if "install" in sys.argv:
-        print(KeyErrorText)
-        sys.exit(0)
-    if 'build' not in sys.argv:
-        print('faster must come with build')
-        sys.exit(0)
-else:
-    faster_build = False
-
-
-
 # get *.pyx files
 pxd_include_dirs = [
     directory for directory, dirs, files in os.walk('pytraj') if '__init__.pyx'
@@ -151,59 +127,14 @@ for p in pxd_include_dirs:
 extra_compile_args = ['-O0', '-ggdb', ]
 extra_link_args = ['-O0', '-ggdb', ]
 
-list_of_libcpptraj = glob(os.path.join(cpptraj_libdir, 'libcpptraj') + '*')
-if not list_of_libcpptraj:
-    if cpptraj_home:
-        print(
-            '$CPPTRAJHOME exists but there is no libcpptraj in $CPPTRAJHOME/lib \n'
-            'There are two solutions: \n'
-            '1. unset CPPTRAJHOME and `python setup.py install` again. We will install libcpptraj for you. \n'
-            '2. Or you need to install libcpptraj in $CPPTRAJHOME/lib \n')
-        sys.exit(0)
-    if do_install or do_build:
-        if has_cpptraj_in_current_folder:
-            print(
-                'can not find libcpptraj but found ./cpptraj folder, trying to reinstall it to ./cpptraj/lib/ \n')
-            time.sleep(3)
-            try:
-                subprocess.check_call(
-                    ['sh', 'scripts/install_cpptraj.sh'])
-                cpptraj_include = os.path.join(cpptraj_dir, 'src')
-            except CalledProcessError:
-                print(
-                    'can not install libcpptraj, you need to install it manually \n')
-                sys.exit(0)
-        else:
-            print('can not find libcpptraj in $CPPTRAJHOME/lib. '
-                  'You need to install ``libcpptraj`` manually. ')
-            sys.exit(0)
+if not libcpptraj_files:
+    libcpptraj_files = try_updating_libcpptraj(cpptraj_home,
+            do_install, do_build, has_cpptraj_in_current_folder)
 
-# check if libcpptraj.so was installed with openmp or not.
-# Is `nm` everywhere?
-# need to get list_of_libcpptraj again (in case we just install libcpptraj.so)
-if not create_tar_file:
-    try:
-        output_openmp_check = subprocess.check_output(['nm', list_of_libcpptraj[0]]).decode().split('\n')
-    except IndexError:
-        print("It seems that there is no libcpptraj. Please intall it")
-        sys.exit(0)
-    omp_ = [line for line in output_openmp_check if 'get_num_threads' in line.lower()]
-
-    if disable_openmp:
-        if omp_:
-            print(message_openmp_cpptraj)
-            sys.exit(0)
-        else:
-            pass
-    else:
-        if not omp_:
-            print(message_serial_cpptraj)
-            sys.exit(0)
-        extra_compile_args.append("-fopenmp")
-        extra_link_args.append("-fopenmp")
+if not create_tar_file_for_release:
+    add_flag_if_openmp(extra_compile_args, extra_link_args, libcpptraj_files)
 
 check_cpptraj_version(cpptraj_include, (4, 2, 8))
-
 
 if not do_clean and not ISRELEASED:
     cythonize(
