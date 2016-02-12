@@ -279,7 +279,7 @@ def add_openmp_flag(disable_openmp,
             print(message_serial_cpptraj)
             sys.exit(0)
         # make copy
-        return (extra_compile_args[:] + ["-fopenmp",], extra_link_args[:] + ["fopenmp",])
+        return (extra_compile_args[:] + ["-fopenmp",], extra_link_args[:] + ["-fopenmp",])
 
 
 def get_include_and_lib_dir(rootname, cpptrajhome, has_cpptraj_in_current_folder, do_install, do_build, PYTRAJ_DIR):
