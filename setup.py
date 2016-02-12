@@ -19,7 +19,7 @@ from glob import glob
 
 # local import
 from scripts.base_setup import (check_flag, check_cpptraj_version, write_version_py, get_version_info,
-                                get_include_and_lib_dir, do_what)
+                                get_include_and_lib_dir, do_what, check_cython)
 from scripts.base_setup import (add_openmp_flag, try_updating_libcpptraj, remind_export_LD_LIBRARY_PATH)
 from scripts.base_setup import (message_openmp_cpptraj, message_serial_cpptraj, message_auto_install,
                                 message_cython)
@@ -50,7 +50,10 @@ do_clean = (len(sys.argv) == 2 and 'clean' in sys.argv)
 write_version_py()
 FULLVERSION, GIT_REVISION = get_version_info()
 
-# check command line
+# python setup.py clean
+cmdclass = {'clean': CleanCommand}
+need_cython, cmdclass  = check_cython(ISRELEASED, cmdclass, min_version='0.21')
+
 extra_compile_args_ = ['-O0', '-ggdb', ]
 extra_link_args_ = ['-O0', '-ggdb', ]
 
@@ -74,28 +77,6 @@ installtype = os.environ.get("INSTALLTYPE", "")
 
 if installtype:
     sys.argv.remove(installtype)
-
-
-# python setup.py clean
-cmdclass = {'clean': CleanCommand}
-
-if ISRELEASED:
-    # ./devtools/mkrelease
-    need_cython = False
-else:
-    try:
-        import Cython
-        from Cython.Distutils import build_ext
-        from Cython.Build import cythonize
-        need_cython = True
-        cmdclass['build_ext'] = build_ext
-        if Cython.__version__ < '0.21':
-            print(message_cython)
-            sys.exit(0)
-    except ImportError:
-        print(message_cython)
-        sys.exit(0)
-
 
 def read(fname):
     # must be in this setup file

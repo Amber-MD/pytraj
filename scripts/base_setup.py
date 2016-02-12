@@ -281,6 +281,25 @@ def add_openmp_flag(disable_openmp,
         # make copy
         return (extra_compile_args[:] + ["-fopenmp",], extra_link_args[:] + ["-fopenmp",])
 
+def check_cython(ISRELEASED, cmdclass, min_version='0.21'):
+    if ISRELEASED:
+        # ./devtools/mkrelease
+        need_cython = False
+    else:
+        try:
+            import Cython
+            from Cython.Distutils import build_ext
+            from Cython.Build import cythonize
+            need_cython = True
+            cmdclass['build_ext'] = build_ext
+            if Cython.__version__ < min_version:
+                print(message_cython)
+                sys.exit(0)
+        except ImportError:
+            print(message_cython)
+            sys.exit(0)
+    return need_cython, cmdclass
+
 
 def get_include_and_lib_dir(rootname, cpptrajhome, has_cpptraj_in_current_folder, do_install, do_build, PYTRAJ_DIR):
     # check if has environment variables
