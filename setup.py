@@ -20,7 +20,7 @@ from glob import glob
 # local import
 from scripts.base_setup import (check_flag, check_cpptraj_version, write_version_py, get_version_info,
                                 get_include_and_lib_dir, do_what)
-from scripts.base_setup import (try_updating_libcpptraj, remind_export_LD_LIBRARY_PATH)
+from scripts.base_setup import (add_openmp_flag, try_updating_libcpptraj, remind_export_LD_LIBRARY_PATH)
 from scripts.base_setup import (message_openmp_cpptraj, message_serial_cpptraj, message_auto_install,
                                 message_cython)
 from scripts.base_setup import CleanCommand, ISRELEASED
@@ -50,6 +50,9 @@ do_clean = (len(sys.argv) == 2 and 'clean' in sys.argv)
 write_version_py()
 FULLVERSION, GIT_REVISION = get_version_info()
 
+# check command line
+extra_compile_args_ = ['-O0', '-ggdb', ]
+extra_link_args_ = ['-O0', '-ggdb', ]
 
 cython_directives = {
     'embedsignature': True,
@@ -121,16 +124,21 @@ for p in pxd_include_dirs:
     pyxfiles.extend([ext.split(".")[0] for ext in glob(p + '/*.pyx')
                      if '.pyx' in ext])
 
-# check command line
-extra_compile_args = ['-O0', '-ggdb', ]
-extra_link_args = ['-O0', '-ggdb', ]
-
 if not libcpptraj_files:
     libcpptraj_files = try_updating_libcpptraj(cpptraj_home,
             do_install, do_build, has_cpptraj_in_current_folder)
 
+try:
+    output_openmp_check = subprocess.check_output(['nm', libcpptraj_files[0]]).decode().split('\n')
+except IndexError:
+    print("It seems that there is no libcpptraj. Please intall it")
+    sys.exit(0)
+
+system_has_openmp = [line for line in output_openmp_check if 'get_num_threads' in line.lower()]
+
 if not create_tar_file_for_release:
-    add_flag_if_openmp(extra_compile_args, extra_link_args, libcpptraj_files)
+    extra_compile_args, extra_link_args = add_openmp_flag(disable_openmp,
+        system_has_openmp, extra_compile_args_, extra_link_args_)
 
 check_cpptraj_version(cpptraj_include, (4, 2, 8))
 

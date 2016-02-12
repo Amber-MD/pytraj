@@ -228,6 +228,57 @@ def do_what(PYTRAJ_DIR):
     return do_install, do_build
 
 
+def try_updating_libcpptraj(cpptraj_home,
+                            do_install,
+                            do_build, 
+                            has_cpptraj_in_current_folder):
+    if cpptraj_home:
+        print(
+            '$CPPTRAJHOME exists but there is no libcpptraj in $CPPTRAJHOME/lib \n'
+            'There are two solutions: \n'
+            '1. unset CPPTRAJHOME and `python setup.py install` again. We will install libcpptraj for you. \n'
+            '2. Or you need to install libcpptraj in $CPPTRAJHOME/lib \n')
+        sys.exit(0)
+    if do_install or do_build:
+        if has_cpptraj_in_current_folder:
+            print(
+                'can not find libcpptraj but found ./cpptraj folder, trying to reinstall it to ./cpptraj/lib/ \n')
+            time.sleep(3)
+            try:
+                cpptraj_dir = './cpptraj/'
+                subprocess.check_call(
+                    ['sh', 'scripts/install_cpptraj.sh'])
+                cpptraj_include = os.path.join(cpptraj_dir, 'src')
+
+                return glob(os.path.join(cpptraj_libdir, 'libcpptraj') + '*')
+            except CalledProcessError:
+                print(
+                    'can not install libcpptraj, you need to install it manually \n')
+                sys.exit(0)
+        else:
+            print('can not find libcpptraj in $CPPTRAJHOME/lib. '
+                             'You need to install ``libcpptraj`` manually. ')
+            sys.exit(0)
+
+
+def add_openmp_flag(disable_openmp,
+                    system_has_openmp,
+                    extra_compile_args,
+                    extra_link_args):
+    if disable_openmp:
+        if omp_:
+            print(message_openmp_cpptraj)
+            sys.exit(0)
+        else:
+            pass
+    else:
+        if not system_has_openmp:
+            print(message_serial_cpptraj)
+            sys.exit(0)
+        # make copy
+        return (extra_compile_args[:] + ["-fopenmp",], extra_link_args[:] + ["fopenmp",])
+
+
 def get_include_and_lib_dir(rootname, cpptrajhome, has_cpptraj_in_current_folder, do_install, do_build, PYTRAJ_DIR):
     # check if has environment variables
     CPPTRAJ_LIBDIR = os.environ.get('CPPTRAJ_LIBDIR', '')
