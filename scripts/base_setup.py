@@ -285,6 +285,7 @@ def check_cython(ISRELEASED, cmdclass, min_version='0.21'):
     if ISRELEASED:
         # ./devtools/mkrelease
         need_cython = False
+        cmdclass, cythonize = None, None
     else:
         try:
             import Cython
@@ -298,7 +299,7 @@ def check_cython(ISRELEASED, cmdclass, min_version='0.21'):
         except ImportError:
             print(message_cython)
             sys.exit(0)
-    return need_cython, cmdclass
+    return need_cython, cmdclass, cythonize
 
 
 def get_include_and_lib_dir(rootname, cpptrajhome, has_cpptraj_in_current_folder, do_install, do_build, PYTRAJ_DIR):

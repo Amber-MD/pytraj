@@ -52,7 +52,7 @@ FULLVERSION, GIT_REVISION = get_version_info()
 
 # python setup.py clean
 cmdclass = {'clean': CleanCommand}
-need_cython, cmdclass  = check_cython(ISRELEASED, cmdclass, min_version='0.21')
+need_cython, cmdclass, cythonize  = check_cython(ISRELEASED, cmdclass, min_version='0.21')
 
 extra_compile_args_ = ['-O0', '-ggdb', ]
 extra_link_args_ = ['-O0', '-ggdb', ]
@@ -82,7 +82,6 @@ def read(fname):
     # must be in this setup file
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
-
 if sys.platform == 'darwin':
     # copied from ParmEd
     # You *need* to use clang and clang++ for extensions on a Mac;
@@ -93,17 +92,21 @@ if sys.platform == 'darwin':
     os.environ['CC'] = 'clang'
 
 # get *.pyx files
-pxd_include_dirs = [
-    directory for directory, dirs, files in os.walk('pytraj') if '__init__.pyx'
-    in files or '__init__.pxd' in files or '__init__.py' in files
-]
 
-pxd_include_patterns = [p + '/*.pxd' for p in pxd_include_dirs]
-
-pyxfiles = []
-for p in pxd_include_dirs:
-    pyxfiles.extend([ext.split(".")[0] for ext in glob(p + '/*.pyx')
-                     if '.pyx' in ext])
+def get_pyx_pxd():
+    pxd_include_dirs = [
+        directory for directory, dirs, files in os.walk('pytraj') if '__init__.pyx'
+        in files or '__init__.pxd' in files or '__init__.py' in files
+    ]
+    
+    pxd_include_patterns = [p + '/*.pxd' for p in pxd_include_dirs]
+    
+    pyxfiles = []
+    for p in pxd_include_dirs:
+        pyxfiles.extend([ext.split(".")[0] for ext in glob(p + '/*.pyx')
+                         if '.pyx' in ext])
+    pxdfiles = [p.replace("pytraj/", "") for p in pxd_include_patterns]
+    return pyxfiles, pxdfiles
 
 if not libcpptraj_files:
     libcpptraj_files = try_updating_libcpptraj(cpptraj_home,
@@ -122,6 +125,8 @@ if not create_tar_file_for_release:
         system_has_openmp, extra_compile_args_, extra_link_args_)
 
 check_cpptraj_version(cpptraj_include, (4, 2, 8))
+
+pyxfiles, pxdfiles = get_pyx_pxd()
 
 if not do_clean and not ISRELEASED:
     cythonize(
@@ -180,14 +185,13 @@ packages = [
 ]
 
 pylen = len('pytraj') + 1
-pxdlist = [p.replace("pytraj/", "") for p in pxd_include_patterns]
 sample_data = ["datafiles/ala3/Ala3.*",
                "datafiles/tz2/tz2.*",
                "datafiles/rna.pdb",
                "datafiles/trpcage/trpcage*",
                "datafiles/remd_ala2/*",
                "datafiles/dpdp/DPDP*"]
-datalist = pxdlist + sample_data
+datalist = pxdfiles + sample_data
 
 
 def build_func(ext_modules):
