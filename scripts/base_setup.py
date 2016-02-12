@@ -1,8 +1,11 @@
 import os
 import sys
+import time
 import shutil
 import subprocess
 from distutils.command.clean import clean as Clean
+from subprocess import CalledProcessError
+from glob import glob
 
 if sys.version_info[0] >= 3:
     import builtins
@@ -80,6 +83,12 @@ Run test:
     - full (5-10 minutes): python runtests.py
 '''
 
+def check_flag(key):
+    try:
+        sys.argv.remove(key)
+        return True
+    except ValueError:
+        return False
 
 def check_cpptraj_version(header_dir, version=(4, 2, 9)):
     vfile = os.path.join(header_dir, 'Version.h')
@@ -198,6 +207,166 @@ if not release:
                        'isrelease': str(ISRELEASED)})
     finally:
         a.close()
+
+def do_what(PYTRAJ_DIR):
+    # this checking should be here, after checking openmp and other stuff
+    if len(sys.argv) == 2 and sys.argv[1] == 'install':
+        do_install = True
+    elif len(sys.argv) == 3 and sys.argv[1] == 'install' and os.path.join('AmberTools',
+                                                                          'src') in PYTRAJ_DIR:
+        # install pytraj in $AMBERHOME
+        # do not use pytraj_inside_amber here in we call `do_what()` before calling get_include_and_lib_dir()
+        # don't mess this up
+        # $(PYTHON) setup.py install $(PYTHON_INSTALL)
+        do_install = True
+    else:
+        do_install = False
+
+    if len(sys.argv) == 2 and sys.argv[1] == 'build':
+        do_build = True
+    else:
+        do_build = False
+    return do_install, do_build
+
+
+def try_updating_libcpptraj(cpptraj_home,
+                            do_install,
+                            do_build, 
+                            has_cpptraj_in_current_folder):
+    if cpptraj_home:
+        print(
+            '$CPPTRAJHOME exists but there is no libcpptraj in $CPPTRAJHOME/lib \n'
+            'There are two solutions: \n'
+            '1. unset CPPTRAJHOME and `python setup.py install` again. We will install libcpptraj for you. \n'
+            '2. Or you need to install libcpptraj in $CPPTRAJHOME/lib \n')
+        sys.exit(0)
+    else:
+        if do_install or do_build:
+            if has_cpptraj_in_current_folder:
+                print(
+                    'can not find libcpptraj but found ./cpptraj folder, trying to reinstall it to ./cpptraj/lib/ \n')
+                time.sleep(3)
+                try:
+                    cpptraj_dir = './cpptraj/'
+                    cpptraj_libdir = cpptraj_dir + '/lib/'
+                    subprocess.check_call(
+                        ['sh', 'scripts/install_cpptraj.sh'])
+
+                    return glob(os.path.join(cpptraj_libdir, 'libcpptraj') + '*')
+                except CalledProcessError:
+                    print(
+                        'can not install libcpptraj, you need to install it manually \n')
+                    sys.exit(0)
+            else:
+                print('can not find libcpptraj in $CPPTRAJHOME/lib. '
+                                 'You need to install ``libcpptraj`` manually. ')
+                sys.exit(0)
+
+
+def add_openmp_flag(disable_openmp,
+                    system_has_openmp,
+                    extra_compile_args,
+                    extra_link_args):
+    if disable_openmp:
+        if system_has_openmp:
+            print(message_openmp_cpptraj)
+            sys.exit(0)
+        else:
+            pass
+    else:
+        if not system_has_openmp:
+            print(message_serial_cpptraj)
+            sys.exit(0)
+        # make copy
+        return (extra_compile_args[:] + ["-fopenmp",], extra_link_args[:] + ["-fopenmp",])
+
+def get_pyx_pxd():
+    pxd_include_dirs = [
+        directory for directory, dirs, files in os.walk('pytraj') if '__init__.pyx'
+        in files or '__init__.pxd' in files or '__init__.py' in files
+    ]
+    
+    pxd_include_patterns = [p + '/*.pxd' for p in pxd_include_dirs]
+    
+    pyxfiles = []
+    for p in pxd_include_dirs:
+        pyxfiles.extend([ext.split(".")[0] for ext in glob(p + '/*.pyx')
+                         if '.pyx' in ext])
+    pxdfiles = [p.replace("pytraj/", "") for p in pxd_include_patterns]
+    return pyxfiles, pxdfiles
+
+def check_cython(ISRELEASED, cmdclass, min_version='0.21'):
+    if ISRELEASED:
+        # ./devtools/mkrelease
+        need_cython = False
+        cmdclass, cythonize = None, None
+    else:
+        try:
+            import Cython
+            from Cython.Distutils import build_ext
+            from Cython.Build import cythonize
+            need_cython = True
+            cmdclass['build_ext'] = build_ext
+            if Cython.__version__ < min_version:
+                print(message_cython)
+                sys.exit(0)
+        except ImportError:
+            print(message_cython)
+            sys.exit(0)
+    return need_cython, cmdclass, cythonize
+
+
+def get_include_and_lib_dir(rootname, cpptrajhome, has_cpptraj_in_current_folder, do_install, do_build, PYTRAJ_DIR):
+    # check if has environment variables
+    CPPTRAJ_LIBDIR = os.environ.get('CPPTRAJ_LIBDIR', '')
+    CPPTRAJ_HEADERDIR = os.environ.get('CPPTRAJ_HEADERDIR', '')
+    if os.path.join('AmberTools', 'src') in PYTRAJ_DIR:
+        # install pytraj inside AMBER
+        AMBERHOME = os.environ.get('AMBERHOME', '')
+        if not AMBERHOME:
+            raise EnvironmentError('must set AMBERHOME if you want to install pytraj '
+                                   'inside AMBER')
+        # overwrite CPPTRAJ_HEADERDIR, CPPTRAJ_LIBDIR
+        CPPTRAJ_LIBDIR = os.path.join(AMBERHOME, 'lib')
+        CPPTRAJ_HEADERDIR = os.path.join(AMBERHOME, 'AmberTools', 'src', 'cpptraj', 'src')
+
+        pytraj_inside_amber = True
+    else:
+        pytraj_inside_amber = False
+
+    if CPPTRAJ_LIBDIR and CPPTRAJ_HEADERDIR:
+        cpptraj_include = CPPTRAJ_HEADERDIR
+        libdir = CPPTRAJ_LIBDIR
+        cpptraj_dir = ''
+    else:
+        if cpptrajhome:
+            # use libcpptraj and header files in CPPTRAJHOME (/lib, /src)
+            cpptraj_dir = cpptrajhome
+            cpptraj_include = cpptraj_dir + "/src/"
+            libdir = cpptrajhome + "/lib/"
+        elif has_cpptraj_in_current_folder:
+            cpptraj_dir = os.path.abspath("./cpptraj/")
+            cpptraj_include = cpptraj_dir + "/src/"
+            libdir = cpptraj_dir + "/lib/"
+        else:
+
+            if do_install or do_build:
+                print(message_auto_install)
+                for i in range(0, 3):
+                    sys.stdout.write('.')
+                    sys.stdout.flush()
+                    time.sleep(1)
+                try:
+                    subprocess.check_call(['sh',
+                                           'scripts/install_cpptraj.sh', 'github'])
+                except CalledProcessError:
+                    print(
+                        'can not install libcpptraj, you need to install it manually \n')
+                    sys.exit(0)
+            cpptraj_dir = os.path.join(rootname, "cpptraj")
+            cpptraj_include = os.path.join(cpptraj_dir, 'src')
+            libdir = os.path.join(cpptraj_dir, 'lib')
+    return cpptraj_dir, cpptraj_include, libdir, pytraj_inside_amber
 
 
 # CleanCommand was copied and lightly adapted from scikit-learn package
