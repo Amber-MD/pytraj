@@ -36,9 +36,11 @@ if has_numpy and find_lib('openblas'):
     build_flag = '--with-netcdf={prefix} --with-blas={prefix} --with-bzlib={prefix} --with-zlib={prefix} -openblas -noarpack'.format(prefix=prefix)
 elif has_numpy:
     try:
-        prefix = np.__config__.blas_opt_info['library_dirs'][0]
-        build_flag = '-noarpack --with-blas={prefix} --with-lapack={prefix}'.format(prefix=prefix)
-    except KeyError, IndexError:
+        blas_prefix = np.__config__.blas_opt_info['library_dirs'][0].strip('lib')
+        lapack_prefix = np.__config__.lapack_opt_info['library_dirs'][0].strip('lib')
+        print(blas_prefix, lapack_prefix)
+        build_flag = '-noarpack --with-blas={blas_prefix} --with-lapack={lapack_prefix}'.format(blas_prefix=blas_prefix, lapack_prefix=lapack_prefix)
+    except (KeyError, IndexError):
         build_flag = '-noarpack'
 else:
     # user gets lucky?
