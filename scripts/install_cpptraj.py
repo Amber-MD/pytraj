@@ -31,12 +31,15 @@ amberhome = os.environ.get('AMBERHOME', '')
 amberlib = '-amberlib' if amberhome else ''
 
 if has_numpy and find_lib('openblas'):
-   prefix = sys.base_prefix
-   # likely having openblas?
-   build_flag = '--with-netcdf={prefix} --with-blas={prefix} --with-bzlib={prefix} --with-zlib={prefix} -openblas -noarpack'.format(prefix=prefix)
+    prefix = sys.base_prefix
+    # likely having openblas?
+    build_flag = '--with-netcdf={prefix} --with-blas={prefix} --with-bzlib={prefix} --with-zlib={prefix} -openblas -noarpack'.format(prefix=prefix)
+elif has_numpy:
+    prefix = np.__config__.blas_opt_info['library_dirs']
+    build_flag = '-noarpack --with-blas={prefix} --with-lapack={prefix}'.format(prefix=prefix)
 else:
-   # user gets lucky?
-   build_flag = '-noarpack'
+    # user gets lucky?
+    build_flag = '-noarpack'
 
 build_flag = ' '.join((build_flag, amberlib, openmp_flag))
 print('build_flag = ', build_flag)
