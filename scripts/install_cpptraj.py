@@ -18,7 +18,7 @@ except IndexError:
     install_type = ''
 
 try:
-    import numpy
+    import numpy as np
     has_numpy = True
 except ImportError:
     has_numpy = False
