@@ -3,6 +3,7 @@ from __future__ import print_function
 import os, sys
 sys.path.append('./scripts')
 from check_openmp import get_openmp_flag
+from .find_lib import find_lib
 
 try:
     install_type = sys.argv[1]
@@ -10,24 +11,18 @@ except IndexError:
     install_type = ''
 
 try:
-    import conda
-    has_conda = True
-except ImportError:
-    has_conda = False
-
-try:
     import numpy
     has_numpy = True
 except ImportError:
     has_numpy = False
 
-if has_conda and has_numpy:
-    prefix = sys.base_prefix
-    # likely having openblas?
-    build_flag = '--with-netcdf={prefix} --with-blas={prefix} --with-bzlib={prefix} --with-zlib={prefix} -openblas -noarpack'.format(prefix=prefix)
+if has_numpy and find_lib('openblas'):
+   prefix = sys.base_prefix
+   # likely having openblas?
+   build_flag = '--with-netcdf={prefix} --with-blas={prefix} --with-bzlib={prefix} --with-zlib={prefix} -openblas -noarpack'.format(prefix=prefix)
 else:
-    build_flag = ''
-
+   # user gets lucky?
+   build_flag = ''
 
 cwd = os.getcwd()
 
