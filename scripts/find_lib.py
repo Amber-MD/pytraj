@@ -18,7 +18,6 @@ def find_lib(libname, unique=False):
     envlist = ['LD_LIBRARY_PATH', 'AMBERHOME', 'PYTHONPATH',
                'CPPTRAJHOME', 'PATH', 'ANCONDAHOME']
     paths = list(chain.from_iterable([os.environ.get(env_name, '').split(':') for env_name in envlist] + [[sys.prefix,]]))
-    print(paths)
 
     anconda_dir = os.environ.get('ANCONDAHOME', '')
 
