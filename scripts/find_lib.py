@@ -11,9 +11,12 @@ import sys
 from glob import glob
 from itertools import chain
 
-if 'miniconda' in sys.base_prefix.lower():
-    miniconda_dir = sys.base_prefix
-else:
+try:
+    if 'miniconda' in sys.base_prefix.lower():
+        miniconda_dir = sys.base_prefix
+    else:
+        miniconda_dir = ''
+except AttributeError:
     miniconda_dir = ''
 
 
