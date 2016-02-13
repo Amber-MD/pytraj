@@ -33,8 +33,6 @@ compiler = os.environ.get('COMPILER', 'gnu')
 amberhome = os.environ.get('AMBERHOME', '')
 amberlib = '-amberlib' if amberhome else ''
 
-print('openblas', find_lib('openblas'))
-
 if has_numpy and find_lib('openblas'):
     prefix = sys.prefix
     # likely having openblas?
@@ -77,8 +75,9 @@ config = dict(compiler=compiler,
 
 try:
     # assume that user has all required softwares
-    subprocess.check_call('bash configure -shared {openmp_flag} {amberlib} {compiler}'.format(openmp_flag=openmp_flag,
-                                                                                              compiler=compiler, amberlib=amberlib), shell=True)
+    cmd = 'bash configure -shared {openmp_flag} {amberlib} {compiler}'.format(openmp_flag=openmp_flag, compiler=compiler, amberlib=amberlib)
+    print('cmd', cmd)
+    subprocess.check_call(cmd, shell=True)
 except CalledProcessError:
     print('build_flag = ', build_flag)
     os.system('bash configure -shared {build_flag} {compiler} || exit 1'.format(**config))
