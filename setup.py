@@ -15,11 +15,12 @@ from distutils.core import setup
 from distutils.extension import Extension
 from glob import glob
 
+
 # local import
 from scripts.base_setup import (check_flag, check_cpptraj_version, write_version_py, get_version_info,
                                 get_pyx_pxd, get_include_and_lib_dir, do_what, check_cython)
 from scripts.base_setup import (add_openmp_flag, try_updating_libcpptraj, remind_export_LD_LIBRARY_PATH)
-from scripts.base_setup import CleanCommand, ISRELEASED
+from scripts.base_setup import CleanCommand, ISRELEASED, message_pip_need_cpptraj_home
 
 # python version >= 2.6
 if sys.version_info < (2, 6):
@@ -34,6 +35,11 @@ create_tar_file_for_release = True if 'sdist' in sys.argv else False
 rootname = os.getcwd()
 pytraj_home = rootname + "/pytraj/"
 cpptraj_home = os.environ.get('CPPTRAJHOME', '')
+
+if not cpptraj_home and any('pip' in arg for arg in sys.argv):
+    # if pip, require to set CPPTRAJHOME
+    raise EnvironmentError(message_pip_need_cpptraj_home)
+
 has_cpptraj_in_current_folder = os.path.exists("./cpptraj/")
 phenix_python_lib = os.path.join(os.environ.get('PHENIX'),
                                  'base/lib/') if use_phenix_python else ''

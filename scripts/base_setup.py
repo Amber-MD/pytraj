@@ -32,6 +32,19 @@ the most updated cython)
     http://conda.pydata.org/docs/download.html)
 
 """
+message_pip_need_cpptraj_home = """
+
+installing from pip require to pre-install libcpptraj and to set CPPTRAJHOME
+
+An example of installing libcpptraj:
+
+$ git clone https://github.com/Amber-MD/cpptraj/
+$ cd cpptraj
+$ export CPPTRAJHOME=`pwd`
+$ ./configure -shared -openmp gnu
+$ make libcpptraj -j8
+
+"""
 
 message_auto_install = """
 Can not find cpptraj header and libcpptraj files.
@@ -250,7 +263,7 @@ def try_updating_libcpptraj(cpptraj_home,
                     cpptraj_dir = './cpptraj/'
                     cpptraj_libdir = cpptraj_dir + '/lib/'
                     subprocess.check_call(
-                        ['sh', 'scripts/install_cpptraj.sh'])
+                        ['./scripts/install_cpptraj.py'])
 
                     return glob(os.path.join(cpptraj_libdir, 'libcpptraj') + '*')
                 except CalledProcessError:
@@ -357,8 +370,8 @@ def get_include_and_lib_dir(rootname, cpptrajhome, has_cpptraj_in_current_folder
                     sys.stdout.flush()
                     time.sleep(1)
                 try:
-                    subprocess.check_call(['sh',
-                                           'scripts/install_cpptraj.sh', 'github'])
+                    subprocess.check_call([
+                                           './scripts/install_cpptraj.py', 'github'])
                 except CalledProcessError:
                     print(
                         'can not install libcpptraj, you need to install it manually \n')
