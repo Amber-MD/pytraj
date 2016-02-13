@@ -13,6 +13,8 @@ from itertools import chain
 
 if 'miniconda' in sys.base_prefix.lower():
     miniconda_dir = sys.base_prefix
+else:
+    miniconda_dir = ''
 
 
 def find_lib(libname, unique=False):

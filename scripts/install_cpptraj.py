@@ -38,7 +38,7 @@ else:
    # user gets lucky?
    build_flag = '-noarpack'
 
-build_flag = ' '.join((build_flag, amberlib, openmp_flag)
+build_flag = ' '.join((build_flag, amberlib, openmp_flag))
 print('build_flag = ', build_flag)
 
 if install_type == 'github':
