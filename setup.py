@@ -101,6 +101,7 @@ if not create_tar_file_for_release:
     if not libcpptraj_files:
         libcpptraj_files = try_updating_libcpptraj(cpptraj_home,
                 do_install, do_build, has_cpptraj_in_current_folder)
+    print('libcpptraj_files', libcpptraj_files)
     
     try:
         output_openmp_check = subprocess.check_output(['nm', libcpptraj_files[0]]).decode().split('\n')
@@ -108,10 +109,11 @@ if not create_tar_file_for_release:
         print("It seems that there is no libcpptraj. Please intall it")
         sys.exit(0)
     
-    system_has_openmp = [line for line in output_openmp_check if 'get_num_threads' in line.lower()]
+    libcpptraj_has_openmp = ([line for line in output_openmp_check if 'get_num_threads' in line.lower()]  != [])
+    print('libcpptraj_has_openmp', libcpptraj_has_openmp)
     
     extra_compile_args, extra_link_args = add_openmp_flag(disable_openmp,
-        system_has_openmp, extra_compile_args, extra_link_args)
+        libcpptraj_has_openmp, extra_compile_args, extra_link_args)
     
     check_cpptraj_version(cpptraj_include, (4, 2, 8))
     

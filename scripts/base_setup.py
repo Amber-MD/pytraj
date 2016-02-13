@@ -15,7 +15,7 @@ else:
 MAJOR = 1
 MINOR = 0
 MICRO = 0
-ISRELEASED = False
+ISRELEASED = True
 VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 
 
@@ -277,17 +277,18 @@ def try_updating_libcpptraj(cpptraj_home,
 
 
 def add_openmp_flag(disable_openmp,
-                    system_has_openmp,
+                    libcpptraj_has_openmp,
                     extra_compile_args,
                     extra_link_args):
     if disable_openmp:
-        if system_has_openmp:
+        if libcpptraj_has_openmp:
             print(message_openmp_cpptraj)
             sys.exit(0)
         else:
-            pass
+            return (extra_compile_args, extra_link_args)
+
     else:
-        if not system_has_openmp:
+        if not libcpptraj_has_openmp:
             print(message_serial_cpptraj)
             sys.exit(0)
         # make copy
