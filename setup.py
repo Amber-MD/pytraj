@@ -55,7 +55,6 @@ FULLVERSION, GIT_REVISION = get_version_info()
 # python setup.py clean
 cmdclass = {'clean': CleanCommand}
 need_cython, cmdclass, cythonize  = check_cython(ISRELEASED, cmdclass, min_version='0.21')
-print(cmdclass)
 
 extra_compile_args = ['-O0', '-ggdb', ]
 extra_link_args = ['-O0', '-ggdb', ]
