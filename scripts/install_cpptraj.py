@@ -75,7 +75,7 @@ config = dict(compiler=compiler,
 
 try:
     # assume that user has all required softwares
-    cmd = 'bash configure -shared {openmp_flag} {amberlib} {compiler}'.format(openmp_flag=openmp_flag, compiler=compiler, amberlib=amberlib)
+    cmd = 'bash configure -shared {openmp_flag} {amberlib} -noarpack {compiler}'.format(openmp_flag=openmp_flag, compiler=compiler, amberlib=amberlib)
     print('cmd', cmd)
     subprocess.check_call(cmd, shell=True)
 except CalledProcessError:
