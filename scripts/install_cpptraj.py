@@ -6,6 +6,13 @@ from check_openmp import get_openmp_flag
 from find_lib import find_lib
 
 try:
+    sys.argv.remove('-openmp')
+    openmp_flag = '-openmp'
+    assert get_openmp_flag(), 'your system must support openmp'
+except ValueError:
+    openmp_flag = ''
+
+try:
     install_type = sys.argv[1]
 except IndexError:
     install_type = ''
@@ -47,13 +54,10 @@ try:
 except FileExistsError:
     pass
 
-openmp = get_openmp_flag()
-print(openmp)
-
 # turn off openmp. need to install pytraj with openmp too. Too complicated.
 config = dict(compiler=compiler,
               amberlib=amberlib,
-              openmp=openmp,
+              openmp=openmp_flag,
               build_flag=build_flag)
 
 os.system('bash configure -shared {build_flag} {openmp} {amberlib} {compiler} || exit 1'.format(**config))
