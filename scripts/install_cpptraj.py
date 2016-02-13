@@ -31,6 +31,8 @@ else:
    # user gets lucky?
    build_flag = ''
 
+print('build_flag', build_flag)
+
 cwd = os.getcwd()
 
 compiler = os.environ.get('COMPILER', 'gnu')
