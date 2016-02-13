@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 from __future__ import print_function
-import os, sys
+import os
+import sys
+import subprocess
+from subprocess import CalledProcessError
 sys.path.append('./scripts')
 from check_openmp import get_openmp_flag
 from find_lib import find_lib
@@ -35,12 +38,13 @@ print('openblas', find_lib('openblas'))
 if has_numpy and find_lib('openblas'):
     prefix = sys.prefix
     # likely having openblas?
-    build_flag = '--with-netcdf={prefix} --with-blas={prefix} --with-bzlib={prefix} --with-zlib={prefix} -openblas -noarpack'.format(prefix=prefix)
+    build_flag = '--with-netcdf={prefix} --with-blas={prefix} \
+                  --with-bzlib={prefix} --with-zlib={prefix} \
+                  -openblas -noarpack'.format(prefix=prefix)
 elif has_numpy:
     try:
         blas_prefix = np.__config__.blas_opt_info['library_dirs'][0].strip('lib')
         lapack_prefix = np.__config__.lapack_opt_info['library_dirs'][0].strip('lib')
-        print(blas_prefix, lapack_prefix)
         build_flag = '-noarpack --with-blas={blas_prefix} --with-lapack={lapack_prefix}'.format(blas_prefix=blas_prefix, lapack_prefix=lapack_prefix)
     except (KeyError, IndexError):
         build_flag = '-noarpack'
@@ -49,7 +53,6 @@ else:
     build_flag = '-noarpack'
 
 build_flag = ' '.join((build_flag, amberlib, openmp_flag))
-print('build_flag = ', build_flag)
 
 if install_type == 'github':
     print('install libcpptraj from github')
@@ -72,11 +75,17 @@ except FileExistsError:
 config = dict(compiler=compiler,
               build_flag=build_flag)
 
-os.system('bash configure -shared {build_flag} {compiler} || exit 1'.format(**config))
+try:
+    # assume that user has all required softwares
+    subprocess.check_call('bash configure -shared {openmp_flag} {amberlib} {compiler}'.format(openmp_flag=openmp_flag,
+                                                                                              compiler=compiler, amberlib=amberlib), shell=True)
+except CalledProcessError:
+    print('build_flag = ', build_flag)
+    os.system('bash configure -shared {build_flag} {compiler} || exit 1'.format(**config))
 
 os.system('make libcpptraj -j8 || exit 1')
 os.chdir(cwd)
 
 print("make sure to 'export CPPTRAJHOME=$CPPTRAJHOME'"
-"and 'export LD_LIBRARY_PATH=$CPPTRAJHOME/lib:\$LD_LIBRARY_PATH'"
-"then 'python ./setup.py install'")
+      "and 'export LD_LIBRARY_PATH=$CPPTRAJHOME/lib:\$LD_LIBRARY_PATH'"
+      "then 'python ./setup.py install'")
