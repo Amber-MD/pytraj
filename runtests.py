@@ -4,6 +4,9 @@ import sys
 import os
 import time
 
+bin = sys.prefix + '/bin/'
+print(bin)
+
 # from: http://ascii.co.uk/art/batman
 art = r'''
                 |    |              _.-7
@@ -79,9 +82,9 @@ if do_simple_test:
     sys.exit(0)
 else:
     if with_coverage:
-        os.system("nosetests --with-coverage --cover-package pytraj -vs .")
+        os.system("{bin}/nosetests --with-coverage --cover-package pytraj -vs .".format(bin=bin))
     else:
-        os.system("nosetests -vs .")
+        os.system("{bin}/nosetests -vs .".format(bin=bin))
 
 print('\nHAPPY COMPUTING')
 print(art)

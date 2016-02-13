@@ -74,7 +74,7 @@ You can not use --disable-openmp flag with pytraj
 '''
 
 message_serial_cpptraj = '''
-libcpptraj was detected not be installed with openmp. You can recompile it with -openmp flag or
+libcpptraj was NOT detected to be installed with openmp. You can recompile it with -openmp flag or
 disable openpm install in pytraj by adding --disable-openmp
 
 Example:
@@ -193,7 +193,7 @@ def get_version_info():
         GIT_REVISION = "Unknown"
 
     if not ISRELEASED:
-        FULLVERSION += '.dev1+' + GIT_REVISION[:7]
+        FULLVERSION += '-beta0'
 
     return FULLVERSION, GIT_REVISION
 
@@ -248,12 +248,11 @@ def try_updating_libcpptraj(cpptraj_home,
                             has_cpptraj_in_current_folder,
                             openmp_flag):
     if cpptraj_home:
-        print(
+        raise ValueError(
             '$CPPTRAJHOME exists but there is no libcpptraj in $CPPTRAJHOME/lib \n'
             'There are two solutions: \n'
             '1. unset CPPTRAJHOME and `python setup.py install` again. We will install libcpptraj for you. \n'
             '2. Or you need to install libcpptraj in $CPPTRAJHOME/lib \n')
-        sys.exit(0)
     else:
         if do_install or do_build:
             if has_cpptraj_in_current_folder:
@@ -283,15 +282,13 @@ def add_openmp_flag(disable_openmp,
                     extra_link_args):
     if disable_openmp:
         if libcpptraj_has_openmp:
-            print(message_openmp_cpptraj)
-            sys.exit(0)
+            raise ValueError(message_openmp_cpptraj)
         else:
             return (extra_compile_args, extra_link_args)
 
     else:
         if not libcpptraj_has_openmp:
-            print(message_serial_cpptraj)
-            sys.exit(0)
+            raise ValueError(message_serial_cpptraj)
         # make copy
         return (extra_compile_args[:] + ["-fopenmp",], extra_link_args[:] + ["-fopenmp",])
 

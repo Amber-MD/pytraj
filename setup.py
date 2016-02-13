@@ -52,6 +52,7 @@ libcpptraj_files = glob(os.path.join(cpptraj_libdir, 'libcpptraj') + '*')
 do_clean = (len(sys.argv) == 2 and 'clean' in sys.argv)
 write_version_py()
 FULLVERSION, GIT_REVISION = get_version_info()
+print(FULLVERSION)
 
 # python setup.py clean
 cmdclass = {'clean': CleanCommand}
