@@ -193,7 +193,7 @@ def get_version_info():
         GIT_REVISION = "Unknown"
 
     if not ISRELEASED:
-        FULLVERSION += '.dev1+' + GIT_REVISION[:7]
+        FULLVERSION += '-beta0'
 
     return FULLVERSION, GIT_REVISION
 
