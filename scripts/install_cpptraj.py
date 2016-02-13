@@ -30,6 +30,8 @@ compiler = os.environ.get('COMPILER', 'gnu')
 amberhome = os.environ.get('AMBERHOME', '')
 amberlib = '-amberlib' if amberhome else ''
 
+print('openblas', find_lib('openblas'))
+
 if has_numpy and find_lib('openblas'):
     prefix = sys.prefix
     # likely having openblas?
