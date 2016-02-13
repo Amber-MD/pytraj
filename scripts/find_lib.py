@@ -11,13 +11,16 @@ import sys
 from glob import glob
 from itertools import chain
 
+if 'miniconda' in sys.base_prefix.lower():
+    miniconda_dir = sys.base_prefix
+
 
 def find_lib(libname, unique=False):
     """return a list of all library files"""
 
     envlist = ['LD_LIBRARY_PATH', 'AMBERHOME', 'PYTHONPATH',
                'CPPTRAJHOME', 'PATH', 'ANCONDAHOME']
-    paths = list(chain.from_iterable([os.environ.get(env_name, '').split(':') for env_name in envlist]))
+    paths = list(chain.from_iterable([os.environ.get(env_name, '').split(':') for env_name in envlist] + [miniconda_dir,]))
 
     anconda_dir = os.environ.get('ANCONDAHOME', '')
 

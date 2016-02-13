@@ -23,21 +23,23 @@ try:
 except ImportError:
     has_numpy = False
 
-if has_numpy and find_lib('openblas'):
-   prefix = sys.base_prefix
-   # likely having openblas?
-   build_flag = '--with-netcdf={prefix} --with-blas={prefix} --with-bzlib={prefix} --with-zlib={prefix} -openblas -noarpack'.format(prefix=prefix)
-else:
-   # user gets lucky?
-   build_flag = ''
-
-print('build_flag', build_flag)
 
 cwd = os.getcwd()
 
 compiler = os.environ.get('COMPILER', 'gnu')
 amberhome = os.environ.get('AMBERHOME', '')
 amberlib = '-amberlib' if amberhome else ''
+
+if has_numpy and find_lib('openblas'):
+   prefix = sys.base_prefix
+   # likely having openblas?
+   build_flag = '--with-netcdf={prefix} --with-blas={prefix} --with-bzlib={prefix} --with-zlib={prefix} -openblas -noarpack'.format(prefix=prefix)
+else:
+   # user gets lucky?
+   build_flag = '-noarpack'
+
+build_flag = ' '.join((build_flag, amberlib, openmp_flag)
+print('build_flag = ', build_flag)
 
 if install_type == 'github':
     print('install libcpptraj from github')
@@ -58,11 +60,9 @@ except FileExistsError:
 
 # turn off openmp. need to install pytraj with openmp too. Too complicated.
 config = dict(compiler=compiler,
-              amberlib=amberlib,
-              openmp=openmp_flag,
               build_flag=build_flag)
 
-os.system('bash configure -shared {build_flag} {openmp} {amberlib} {compiler} || exit 1'.format(**config))
+os.system('bash configure -shared {build_flag} {compiler} || exit 1'.format(**config))
 
 os.system('make libcpptraj -j8 || exit 1')
 os.chdir(cwd)
