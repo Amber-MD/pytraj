@@ -6,29 +6,48 @@ from check_openmp import get_openmp_flag
 from find_lib import find_lib
 
 try:
+    sys.argv.remove('-openmp')
+    openmp_flag = '-openmp'
+    assert get_openmp_flag(), 'your system must support openmp'
+except ValueError:
+    openmp_flag = ''
+
+try:
     install_type = sys.argv[1]
 except IndexError:
     install_type = ''
 
 try:
-    import numpy
+    import numpy as np
     has_numpy = True
 except ImportError:
     has_numpy = False
 
-if has_numpy and find_lib('openblas'):
-   prefix = sys.base_prefix
-   # likely having openblas?
-   build_flag = '--with-netcdf={prefix} --with-blas={prefix} --with-bzlib={prefix} --with-zlib={prefix} -openblas -noarpack'.format(prefix=prefix)
-else:
-   # user gets lucky?
-   build_flag = ''
 
 cwd = os.getcwd()
 
 compiler = os.environ.get('COMPILER', 'gnu')
 amberhome = os.environ.get('AMBERHOME', '')
 amberlib = '-amberlib' if amberhome else ''
+
+if has_numpy and find_lib('openblas'):
+    prefix = sys.base_prefix
+    # likely having openblas?
+    build_flag = '--with-netcdf={prefix} --with-blas={prefix} --with-bzlib={prefix} --with-zlib={prefix} -openblas -noarpack'.format(prefix=prefix)
+elif has_numpy:
+    try:
+        blas_prefix = np.__config__.blas_opt_info['library_dirs'][0].strip('lib')
+        lapack_prefix = np.__config__.lapack_opt_info['library_dirs'][0].strip('lib')
+        print(blas_prefix, lapack_prefix)
+        build_flag = '-noarpack --with-blas={blas_prefix} --with-lapack={lapack_prefix}'.format(blas_prefix=blas_prefix, lapack_prefix=lapack_prefix)
+    except (KeyError, IndexError):
+        build_flag = '-noarpack'
+else:
+    # user gets lucky?
+    build_flag = '-noarpack'
+
+build_flag = ' '.join((build_flag, amberlib, openmp_flag))
+print('build_flag = ', build_flag)
 
 if install_type == 'github':
     print('install libcpptraj from github')
@@ -47,16 +66,11 @@ try:
 except FileExistsError:
     pass
 
-openmp = get_openmp_flag()
-print(openmp)
-
 # turn off openmp. need to install pytraj with openmp too. Too complicated.
 config = dict(compiler=compiler,
-              amberlib=amberlib,
-              openmp=openmp,
               build_flag=build_flag)
 
-os.system('bash configure -shared {build_flag} {openmp} {amberlib} {compiler} || exit 1'.format(**config))
+os.system('bash configure -shared {build_flag} {compiler} || exit 1'.format(**config))
 
 os.system('make libcpptraj -j8 || exit 1')
 os.chdir(cwd)

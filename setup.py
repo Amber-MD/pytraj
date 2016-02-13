@@ -29,6 +29,7 @@ if sys.version_info < (2, 6):
 
 amber_release = check_flag('--amber_release')
 disable_openmp = check_flag('--disable-openmp')
+openmp_flag = '-openmp' if not disable_openmp else ''
 debug = check_flag('--debug')
 use_phenix_python = check_flag('--phenix')
 create_tar_file_for_release = True if 'sdist' in sys.argv else False
@@ -46,7 +47,7 @@ phenix_python_lib = os.path.join(os.environ.get('PHENIX'),
 pytraj_dir = os.path.abspath(os.path.dirname(__file__))
 do_install, do_build = do_what(pytraj_dir)
 cpptraj_dir, cpptraj_include, cpptraj_libdir, pytraj_inside_amber = get_include_and_lib_dir(rootname, cpptraj_home,
-        has_cpptraj_in_current_folder, do_install, do_build, pytraj_dir)
+        has_cpptraj_in_current_folder, do_install, do_build, pytraj_dir, openmp_flag)
 libcpptraj_files = glob(os.path.join(cpptraj_libdir, 'libcpptraj') + '*')
 do_clean = (len(sys.argv) == 2 and 'clean' in sys.argv)
 write_version_py()
@@ -100,7 +101,8 @@ pyxfiles, pxdfiles = get_pyx_pxd()
 if not create_tar_file_for_release:
     if not libcpptraj_files:
         libcpptraj_files = try_updating_libcpptraj(cpptraj_home,
-                do_install, do_build, has_cpptraj_in_current_folder)
+                do_install, do_build, has_cpptraj_in_current_folder, openmp_flag)
+    print('libcpptraj_files', libcpptraj_files)
     
     try:
         output_openmp_check = subprocess.check_output(['nm', libcpptraj_files[0]]).decode().split('\n')
@@ -108,10 +110,10 @@ if not create_tar_file_for_release:
         print("It seems that there is no libcpptraj. Please intall it")
         sys.exit(0)
     
-    system_has_openmp = [line for line in output_openmp_check if 'get_num_threads' in line.lower()]
+    libcpptraj_has_openmp = ([line for line in output_openmp_check if 'get_num_threads' in line.lower()]  != [])
     
     extra_compile_args, extra_link_args = add_openmp_flag(disable_openmp,
-        system_has_openmp, extra_compile_args, extra_link_args)
+        libcpptraj_has_openmp, extra_compile_args, extra_link_args)
     
     check_cpptraj_version(cpptraj_include, (4, 2, 8))
     
