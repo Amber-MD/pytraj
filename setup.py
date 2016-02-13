@@ -98,58 +98,62 @@ if sys.platform == 'darwin':
 
 pyxfiles, pxdfiles = get_pyx_pxd()
 
-if not libcpptraj_files:
-    libcpptraj_files = try_updating_libcpptraj(cpptraj_home,
-            do_install, do_build, has_cpptraj_in_current_folder)
-
-try:
-    output_openmp_check = subprocess.check_output(['nm', libcpptraj_files[0]]).decode().split('\n')
-except IndexError:
-    print("It seems that there is no libcpptraj. Please intall it")
-    sys.exit(0)
-
-system_has_openmp = [line for line in output_openmp_check if 'get_num_threads' in line.lower()]
-
 if not create_tar_file_for_release:
+    if not libcpptraj_files:
+        libcpptraj_files = try_updating_libcpptraj(cpptraj_home,
+                do_install, do_build, has_cpptraj_in_current_folder)
+    
+    try:
+        output_openmp_check = subprocess.check_output(['nm', libcpptraj_files[0]]).decode().split('\n')
+    except IndexError:
+        print("It seems that there is no libcpptraj. Please intall it")
+        sys.exit(0)
+    
+    system_has_openmp = [line for line in output_openmp_check if 'get_num_threads' in line.lower()]
+    
     extra_compile_args, extra_link_args = add_openmp_flag(disable_openmp,
         system_has_openmp, extra_compile_args, extra_link_args)
+    
+    check_cpptraj_version(cpptraj_include, (4, 2, 8))
+    
+    pyxfiles, pxdfiles = get_pyx_pxd()
+    
+    if not do_clean and not ISRELEASED:
+        cythonize(
+            [pfile + '.pyx' for pfile in pyxfiles],
+            nthreads=int(os.environ.get('NUM_THREADS', 4)),
+            compiler_directives=cython_directives,
+        )
+    
+    library_dirs = [cpptraj_libdir, ] if not use_phenix_python else [cpptraj_libdir, phenix_python_lib]
+    
+    ext_modules = []
+    for ext_name in pyxfiles:
+        if need_cython:
+            ext = ".pyx"
+        else:
+            ext = ".cpp"
+        pyxfile = ext_name + ext
+    
+        # replace "/" by "." get module
+        if "/" in ext_name:
+            ext_name = ext_name.replace("/", ".")
+    
+        sources = [pyxfile]
+        extmod = Extension(ext_name,
+                           sources=sources,
+                           libraries=['cpptraj'],
+                           language='c++',
+                           library_dirs=library_dirs,
+                           define_macros=define_macros,
+                           include_dirs=[cpptraj_include, pytraj_home],
+                           extra_compile_args=extra_compile_args,
+                           extra_link_args=extra_link_args)
+        ext_modules.append(extmod)
 
-check_cpptraj_version(cpptraj_include, (4, 2, 8))
-
-pyxfiles, pxdfiles = get_pyx_pxd()
-
-if not do_clean and not ISRELEASED:
-    cythonize(
-        [pfile + '.pyx' for pfile in pyxfiles],
-        nthreads=int(os.environ.get('NUM_THREADS', 4)),
-        compiler_directives=cython_directives,
-    )
-
-library_dirs = [cpptraj_libdir, ] if not use_phenix_python else [cpptraj_libdir, phenix_python_lib]
-
-ext_modules = []
-for ext_name in pyxfiles:
-    if need_cython:
-        ext = ".pyx"
-    else:
-        ext = ".cpp"
-    pyxfile = ext_name + ext
-
-    # replace "/" by "." get module
-    if "/" in ext_name:
-        ext_name = ext_name.replace("/", ".")
-
-    sources = [pyxfile]
-    extmod = Extension(ext_name,
-                       sources=sources,
-                       libraries=['cpptraj'],
-                       language='c++',
-                       library_dirs=library_dirs,
-                       define_macros=define_macros,
-                       include_dirs=[cpptraj_include, pytraj_home],
-                       extra_compile_args=extra_compile_args,
-                       extra_link_args=extra_link_args)
-    ext_modules.append(extmod)
+else:
+    # just need to create tar file for sdist
+    ext_modules = []
 
 setup_args = {}
 packages = [
