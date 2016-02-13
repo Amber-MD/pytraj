@@ -3,7 +3,7 @@ from __future__ import print_function
 import os, sys
 sys.path.append('./scripts')
 from check_openmp import get_openmp_flag
-from .find_lib import find_lib
+from find_lib import find_lib
 
 try:
     install_type = sys.argv[1]
