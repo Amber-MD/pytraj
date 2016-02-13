@@ -30,7 +30,7 @@ compiler = os.environ.get('COMPILER', 'gnu')
 amberhome = os.environ.get('AMBERHOME', '')
 amberlib = '-amberlib' if amberhome else ''
 
-if has_nmpy and find_lib('openblas'):
+if has_numpy and find_lib('openblas'):
     prefix = sys.prefix
     # likely having openblas?
     build_flag = '--with-netcdf={prefix} --with-blas={prefix} --with-bzlib={prefix} --with-zlib={prefix} -openblas -noarpack'.format(prefix=prefix)
