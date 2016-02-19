@@ -2274,7 +2274,7 @@ def check_structure(traj, mask='', options='', frame_indices=None, top=None, dty
     --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_rna()
-    >>> pt.check_structure(traj[0], top=traj.top)
+    >>> failures = pt.check_structure(traj[0], top=traj.top)
     """
     act = c_action.Action_CheckStructure()
     command = ' '.join((mask, options))
