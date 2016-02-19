@@ -175,6 +175,8 @@ from .cpp_options import set_error_silent, set_world_silent
 from .cyutils import _fast_iterptr as iterframe_from_array
 
 # create alias
+check_overlap = check_structure
+checkoverlap = check_structure
 fetch_pdb = load_pdb_rcsb
 rmsd_nofit = calc_rmsd_nofit
 drmsd = distance_rmsd

@@ -327,7 +327,7 @@ def write_traj(filename="",
     frame_indices: array-like or iterator that produces integer, default: None
         If not None, only write output for given frame indices
     overwrite: bool, default: False
-    options : str, additional keywords for extention='.pdb'. See examples.
+    options : str, additional cpptraj keywords
 
     Notes
     -----
@@ -517,7 +517,7 @@ def load_topology(filename, option=''):
 
     if top.n_atoms == 0:
         raise RuntimeError(
-            'n_atoms = 0: make sure to load correct filename '
+            'n_atoms = 0: make sure to load correct Topology filename '
             'or load supported topology (pdb, amber parm, psf, ...)')
     return top
 

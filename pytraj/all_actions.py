@@ -2254,19 +2254,34 @@ def calc_grid(traj=None, command="", top=None, dtype='dataset'):
 
 
 @super_dispatch()
-def check_structure(traj, mask='', frame_indices=None, top=None):
+def check_structure(traj, mask='', options='', frame_indices=None, top=None, dtype='ndarray'):
     """check if the structure is ok or not
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask: str, default all atoms
+    options : str, default ''
+        extra cpptraj options
+    dtype : str, default 'ndarray'
+
+    Returns
+    -------
+    out : 1D-array
+        number of problems for each frame
 
     Examples
     --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_rna()
-    >>> pt.check_structure(traj[0], top=traj.top)
+    >>> failures = pt.check_structure(traj[0], top=traj.top)
     """
     act = c_action.Action_CheckStructure()
+    command = ' '.join((mask, options))
+    c_dslist = CpptrajDatasetList()
 
-    # cpptraj require output
-    act(mask, traj, top=top)
+    act(command, traj, top=top, dslist=c_dslist)
+    return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
 def timecorr(vec0,
