@@ -43,6 +43,7 @@ script:
       fi
     - sh ./devtools/travis-ci/pyflakes_check.sh
     - export CPPTRAJHOME=`pwd`"/cpptraj/"
+    - ls $CPPTRAJHOME/lib/
     - cd ./tests
     - python ./run_simple_test.py
     - nosetests --with-coverage --cover-package pytraj -vs test_*.py */test_*.py
