@@ -19,7 +19,7 @@ ISRELEASED = False
 VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 
 
-message_cython = '''
+message_cython = """
 Building from source requires cython >= 0.21
 
 Either try:
@@ -31,7 +31,20 @@ the most updated cython)
 
     http://conda.pydata.org/docs/download.html)
 
-'''
+"""
+message_pip_need_cpptraj_home = """
+
+installing from pip require to pre-install libcpptraj and to set CPPTRAJHOME
+
+An example of installing libcpptraj:
+
+$ git clone https://github.com/Amber-MD/cpptraj/
+$ cd cpptraj
+$ export CPPTRAJHOME=`pwd`
+$ ./configure -shared -openmp gnu
+$ make libcpptraj -j8
+
+"""
 
 message_auto_install = """
 Can not find cpptraj header and libcpptraj files.
@@ -61,7 +74,7 @@ You can not use --disable-openmp flag with pytraj
 '''
 
 message_serial_cpptraj = '''
-libcpptraj was detected not be installed with openmp. You can recompile it with -openmp flag or
+libcpptraj was NOT detected to be installed with openmp. You can recompile it with -openmp flag or
 disable openpm install in pytraj by adding --disable-openmp
 
 Example:
@@ -180,7 +193,7 @@ def get_version_info():
         GIT_REVISION = "Unknown"
 
     if not ISRELEASED:
-        FULLVERSION += '.dev1+' + GIT_REVISION[:7]
+        FULLVERSION += '-beta0'
 
     return FULLVERSION, GIT_REVISION
 
@@ -232,14 +245,14 @@ def do_what(PYTRAJ_DIR):
 def try_updating_libcpptraj(cpptraj_home,
                             do_install,
                             do_build, 
-                            has_cpptraj_in_current_folder):
+                            has_cpptraj_in_current_folder,
+                            openmp_flag):
     if cpptraj_home:
-        print(
+        raise ValueError(
             '$CPPTRAJHOME exists but there is no libcpptraj in $CPPTRAJHOME/lib \n'
             'There are two solutions: \n'
             '1. unset CPPTRAJHOME and `python setup.py install` again. We will install libcpptraj for you. \n'
             '2. Or you need to install libcpptraj in $CPPTRAJHOME/lib \n')
-        sys.exit(0)
     else:
         if do_install or do_build:
             if has_cpptraj_in_current_folder:
@@ -250,7 +263,7 @@ def try_updating_libcpptraj(cpptraj_home,
                     cpptraj_dir = './cpptraj/'
                     cpptraj_libdir = cpptraj_dir + '/lib/'
                     subprocess.check_call(
-                        ['sh', 'scripts/install_cpptraj.sh'])
+                        ['./scripts/install_cpptraj.py', openmp_flag])
 
                     return glob(os.path.join(cpptraj_libdir, 'libcpptraj') + '*')
                 except CalledProcessError:
@@ -264,19 +277,18 @@ def try_updating_libcpptraj(cpptraj_home,
 
 
 def add_openmp_flag(disable_openmp,
-                    system_has_openmp,
+                    libcpptraj_has_openmp,
                     extra_compile_args,
                     extra_link_args):
     if disable_openmp:
-        if system_has_openmp:
-            print(message_openmp_cpptraj)
-            sys.exit(0)
+        if libcpptraj_has_openmp:
+            raise ValueError(message_openmp_cpptraj)
         else:
-            pass
+            return (extra_compile_args, extra_link_args)
+
     else:
-        if not system_has_openmp:
-            print(message_serial_cpptraj)
-            sys.exit(0)
+        if not libcpptraj_has_openmp:
+            raise ValueError(message_serial_cpptraj)
         # make copy
         return (extra_compile_args[:] + ["-fopenmp",], extra_link_args[:] + ["-fopenmp",])
 
@@ -299,7 +311,7 @@ def check_cython(ISRELEASED, cmdclass, min_version='0.21'):
     if ISRELEASED:
         # ./devtools/mkrelease
         need_cython = False
-        cmdclass, cythonize = None, None
+        cythonize = None
     else:
         try:
             import Cython
@@ -316,7 +328,7 @@ def check_cython(ISRELEASED, cmdclass, min_version='0.21'):
     return need_cython, cmdclass, cythonize
 
 
-def get_include_and_lib_dir(rootname, cpptrajhome, has_cpptraj_in_current_folder, do_install, do_build, PYTRAJ_DIR):
+def get_include_and_lib_dir(rootname, cpptrajhome, has_cpptraj_in_current_folder, do_install, do_build, PYTRAJ_DIR, openmp_flag):
     # check if has environment variables
     CPPTRAJ_LIBDIR = os.environ.get('CPPTRAJ_LIBDIR', '')
     CPPTRAJ_HEADERDIR = os.environ.get('CPPTRAJ_HEADERDIR', '')
@@ -357,8 +369,8 @@ def get_include_and_lib_dir(rootname, cpptrajhome, has_cpptraj_in_current_folder
                     sys.stdout.flush()
                     time.sleep(1)
                 try:
-                    subprocess.check_call(['sh',
-                                           'scripts/install_cpptraj.sh', 'github'])
+                    subprocess.check_call([
+                                           './scripts/install_cpptraj.py', 'github', openmp_flag])
                 except CalledProcessError:
                     print(
                         'can not install libcpptraj, you need to install it manually \n')

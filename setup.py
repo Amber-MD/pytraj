@@ -15,11 +15,12 @@ from distutils.core import setup
 from distutils.extension import Extension
 from glob import glob
 
+
 # local import
 from scripts.base_setup import (check_flag, check_cpptraj_version, write_version_py, get_version_info,
                                 get_pyx_pxd, get_include_and_lib_dir, do_what, check_cython)
 from scripts.base_setup import (add_openmp_flag, try_updating_libcpptraj, remind_export_LD_LIBRARY_PATH)
-from scripts.base_setup import CleanCommand, ISRELEASED
+from scripts.base_setup import CleanCommand, ISRELEASED, message_pip_need_cpptraj_home
 
 # python version >= 2.6
 if sys.version_info < (2, 6):
@@ -28,28 +29,34 @@ if sys.version_info < (2, 6):
 
 amber_release = check_flag('--amber_release')
 disable_openmp = check_flag('--disable-openmp')
+openmp_flag = '-openmp' if not disable_openmp else ''
 debug = check_flag('--debug')
 use_phenix_python = check_flag('--phenix')
 create_tar_file_for_release = True if 'sdist' in sys.argv else False
 rootname = os.getcwd()
 pytraj_home = rootname + "/pytraj/"
 cpptraj_home = os.environ.get('CPPTRAJHOME', '')
+
+if not cpptraj_home and any('pip' in arg for arg in sys.argv):
+    # if pip, require to set CPPTRAJHOME
+    raise EnvironmentError(message_pip_need_cpptraj_home)
+
 has_cpptraj_in_current_folder = os.path.exists("./cpptraj/")
 phenix_python_lib = os.path.join(os.environ.get('PHENIX'),
                                  'base/lib/') if use_phenix_python else ''
 pytraj_dir = os.path.abspath(os.path.dirname(__file__))
 do_install, do_build = do_what(pytraj_dir)
 cpptraj_dir, cpptraj_include, cpptraj_libdir, pytraj_inside_amber = get_include_and_lib_dir(rootname, cpptraj_home,
-        has_cpptraj_in_current_folder, do_install, do_build, pytraj_dir)
+        has_cpptraj_in_current_folder, do_install, do_build, pytraj_dir, openmp_flag)
 libcpptraj_files = glob(os.path.join(cpptraj_libdir, 'libcpptraj') + '*')
 do_clean = (len(sys.argv) == 2 and 'clean' in sys.argv)
 write_version_py()
 FULLVERSION, GIT_REVISION = get_version_info()
+print(FULLVERSION)
 
 # python setup.py clean
 cmdclass = {'clean': CleanCommand}
 need_cython, cmdclass, cythonize  = check_cython(ISRELEASED, cmdclass, min_version='0.21')
-print(cmdclass)
 
 extra_compile_args = ['-O0', '-ggdb', ]
 extra_link_args = ['-O0', '-ggdb', ]
@@ -92,58 +99,63 @@ if sys.platform == 'darwin':
 
 pyxfiles, pxdfiles = get_pyx_pxd()
 
-if not libcpptraj_files:
-    libcpptraj_files = try_updating_libcpptraj(cpptraj_home,
-            do_install, do_build, has_cpptraj_in_current_folder)
-
-try:
-    output_openmp_check = subprocess.check_output(['nm', libcpptraj_files[0]]).decode().split('\n')
-except IndexError:
-    print("It seems that there is no libcpptraj. Please intall it")
-    sys.exit(0)
-
-system_has_openmp = [line for line in output_openmp_check if 'get_num_threads' in line.lower()]
-
 if not create_tar_file_for_release:
+    if not libcpptraj_files:
+        libcpptraj_files = try_updating_libcpptraj(cpptraj_home,
+                do_install, do_build, has_cpptraj_in_current_folder, openmp_flag)
+    print('libcpptraj_files', libcpptraj_files)
+    
+    try:
+        output_openmp_check = subprocess.check_output(['nm', libcpptraj_files[0]]).decode().split('\n')
+    except IndexError:
+        print("It seems that there is no libcpptraj. Please intall it")
+        sys.exit(0)
+    
+    libcpptraj_has_openmp = ([line for line in output_openmp_check if 'get_num_threads' in line.lower()]  != [])
+    
     extra_compile_args, extra_link_args = add_openmp_flag(disable_openmp,
-        system_has_openmp, extra_compile_args, extra_link_args)
+        libcpptraj_has_openmp, extra_compile_args, extra_link_args)
+    
+    check_cpptraj_version(cpptraj_include, (4, 2, 8))
+    
+    pyxfiles, pxdfiles = get_pyx_pxd()
+    
+    if not do_clean and not ISRELEASED:
+        cythonize(
+            [pfile + '.pyx' for pfile in pyxfiles],
+            nthreads=int(os.environ.get('NUM_THREADS', 4)),
+            compiler_directives=cython_directives,
+        )
+    
+    library_dirs = [cpptraj_libdir, ] if not use_phenix_python else [cpptraj_libdir, phenix_python_lib]
+    
+    ext_modules = []
+    for ext_name in pyxfiles:
+        if need_cython:
+            ext = ".pyx"
+        else:
+            ext = ".cpp"
+        pyxfile = ext_name + ext
+    
+        # replace "/" by "." get module
+        if "/" in ext_name:
+            ext_name = ext_name.replace("/", ".")
+    
+        sources = [pyxfile]
+        extmod = Extension(ext_name,
+                           sources=sources,
+                           libraries=['cpptraj'],
+                           language='c++',
+                           library_dirs=library_dirs,
+                           define_macros=define_macros,
+                           include_dirs=[cpptraj_include, pytraj_home],
+                           extra_compile_args=extra_compile_args,
+                           extra_link_args=extra_link_args)
+        ext_modules.append(extmod)
 
-check_cpptraj_version(cpptraj_include, (4, 2, 8))
-
-pyxfiles, pxdfiles = get_pyx_pxd()
-
-if not do_clean and not ISRELEASED:
-    cythonize(
-        [pfile + '.pyx' for pfile in pyxfiles],
-        nthreads=int(os.environ.get('NUM_THREADS', 4)),
-        compiler_directives=cython_directives,
-    )
-
-library_dirs = [cpptraj_libdir, ] if not use_phenix_python else [cpptraj_libdir, phenix_python_lib]
-
-ext_modules = []
-for ext_name in pyxfiles:
-    if need_cython:
-        ext = ".pyx"
-    else:
-        ext = ".cpp"
-    pyxfile = ext_name + ext
-
-    # replace "/" by "." get module
-    if "/" in ext_name:
-        ext_name = ext_name.replace("/", ".")
-
-    sources = [pyxfile]
-    extmod = Extension(ext_name,
-                       sources=sources,
-                       libraries=['cpptraj'],
-                       language='c++',
-                       library_dirs=library_dirs,
-                       define_macros=define_macros,
-                       include_dirs=[cpptraj_include, pytraj_home],
-                       extra_compile_args=extra_compile_args,
-                       extra_link_args=extra_link_args)
-    ext_modules.append(extmod)
+else:
+    # just need to create tar file for sdist
+    ext_modules = []
 
 setup_args = {}
 packages = [

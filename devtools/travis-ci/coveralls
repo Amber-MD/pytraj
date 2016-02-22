@@ -1,0 +1,6 @@
+#!/usr/bin/env python
+
+import os
+
+if float(os.environ.get('PYTHON_VERSION')) >= 3.4:
+    os.system('coveralls')

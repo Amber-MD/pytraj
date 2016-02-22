@@ -327,7 +327,7 @@ def write_traj(filename="",
     frame_indices: array-like or iterator that produces integer, default: None
         If not None, only write output for given frame indices
     overwrite: bool, default: False
-    options : str, additional keywords for extention='.pdb'. See examples.
+    options : str, additional cpptraj keywords
 
     Notes
     -----
@@ -402,6 +402,7 @@ def write_traj(filename="",
         remdtraj:   Write temperature to restart file."
         time0:      Time for first frame (default 1.0)."
         dt:         Time step for subsequent frames, t=(time0+frame)*dt; (default 1.0)");
+        keepext     Keep filename extension; write '<name>.<num>.<ext>' instead (example: myfile.1.rst7)
 
     'options' for writing to mol2 format (cptraj manual)::
 
@@ -516,7 +517,7 @@ def load_topology(filename, option=''):
 
     if top.n_atoms == 0:
         raise RuntimeError(
-            'n_atoms = 0: make sure to load correct filename '
+            'n_atoms = 0: make sure to load correct Topology filename '
             'or load supported topology (pdb, amber parm, psf, ...)')
     return top
 
