@@ -41,7 +41,8 @@ Install
     # linux
     python ./setup.py install
  
-    # osx
+    # osx: pytraj will use clang to compile cython extension.
+    # if you want to change compiler, please check setup.py file
     python setup.py install --disable-openmp
     # Note: pytraj will install the most updated cpptraj. We recommend to have netcdf library.
     ```
