@@ -37,7 +37,12 @@ Install
     ```bash
     git clone https://github.com/amber-md/pytraj
     cd pytraj
+
+    # linux
     python ./setup.py install
+ 
+    # osx
+    python setup.py install --disable-openmp
     # Note: pytraj will install the most updated cpptraj. We recommend to have netcdf library.
     ```
 
