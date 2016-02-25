@@ -48,7 +48,7 @@ Install
 
 - from conda (develop version for linux): `conda install -c ambermd pytraj-dev`
 
-- from AMBER suite distribution [http://ambermd.org/](http://ambermd.org/)
+- from AMBER suite distribution [http://ambermd.org/](http://ambermd.org/). AMBER16 will be available soon (around April 2016).
 
 - getting trouble? : [check our webpage](http://amber-md.github.io/pytraj/latest/installation.html)
 
