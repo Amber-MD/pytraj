@@ -251,8 +251,12 @@ def install_libcpptraj(openmp_flag, from_github=False):
         # auto
         compiler_env = ''
     github = 'github' if from_github else ''
-    subprocess.check_call(
-      [compiler_env, './scripts/install_cpptraj.py', github, openmp_flag])
+    options = dict(compiler_env=compiler_env,
+                   github=github,
+                   openmp_flag=openmp_flag)
+    cmd = "{compiler_env} python ./scripts/install_cpptraj.py {github} {openmp_flag}".format(**options)
+    print('cmd', cmd)
+    subprocess.check_call(cmd, shell=True)
 
 def try_updating_libcpptraj(cpptraj_home,
                             do_install,

@@ -61,7 +61,7 @@ else:
 try:
     os.chdir('./cpptraj')
 except FileNotFoundError:
-    raise FileNotFoundError('please try ./scripts/install_cpptraj.py github')
+    raise FileNotFoundError('please try python ./scripts/install_cpptraj.py github')
 os.environ['CPPTRAJHOME'] = os.getcwd()
 
 try:
