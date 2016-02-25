@@ -62,7 +62,13 @@ from source code (easy way)
 
     git clone https://github.com/Amber-MD/pytraj
     cd pytraj
+
+    # linux
     python ./setup.py install
+
+    # osx: pytraj will use clang to compile cython extension.
+    # if you want to change compiler, please check setup.py file
+    python setup.py install --disable-openmp
 
     # note: pytraj will automatically install cpptraj first.
 

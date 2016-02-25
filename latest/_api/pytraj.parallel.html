@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.parallel &mdash; pytraj 1.0.0.dev1+82859f4 documentation</title>
+    <title>pytraj.parallel &mdash; pytraj 1.0.0-beta0 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.0.dev1+82859f4',
+        VERSION:     '1.0.0-beta0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.0.dev1+82859f4 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.0-beta0 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="next" title="pytraj.core.c_core" href="pytraj.core.c_core.html" />
 <meta charset='utf-8'>
@@ -53,7 +53,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.0.dev1+82859f4</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.0-beta0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -151,7 +151,7 @@
   <div class="section" id="pytraj-parallel">
 <span id="id1"></span><h1>pytraj.parallel<a class="headerlink" href="#pytraj-parallel" title="Permalink to this headline">¶</a></h1>
 <p><code class="docutils literal"><span class="pre">pmap</span></code> is as simple as</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -200,7 +200,7 @@ n_cores=1, 2, 3, 4 to see if the data makes sense or not.</p>
 <p>There are two modes in this method, use pytraj&#8217;s methods (pytraj.rmsd, pytraj.radgyr,
 ...) or use cpptraj&#8217;s command text syntax (&#8216;autoimage&#8217;, &#8216;rms&#8217;, ...)</p>
 <p>If using cpptraj syntax:</p>
-<div class="highlight-python"><div class="highlight"><pre>pytraj only supports limited cpptraj&#39;s Actions (not Analysis, checm Amber15 manual
+<div class="highlight-python"><div class="highlight"><pre><span></span>pytraj only supports limited cpptraj&#39;s Actions (not Analysis, checm Amber15 manual
 about Action and Analysis), say no  to &#39;matrix&#39;, &#39;atomicfluct&#39;, ... or any action
 that results output depending on the number of frames.
 </pre></div>
@@ -215,11 +215,11 @@ chunk in each core and then send data back to master. Note that we are using Pyt
 built-in multiprocessing module, so you can use this method interactively in Ipython
 and ipython/jupyter notebook. This behavior is different from using MPI, in which you
 need to write a script, escaping ipython ession and type something like:</p>
-<div class="highlight-python"><div class="highlight"><pre>mpirun -n 4 python my_script.py
+<div class="highlight-python"><div class="highlight"><pre><span></span>mpirun -n 4 python my_script.py
 </pre></div>
 </div>
 <p>vs:</p>
-<div class="highlight-python"><div class="highlight"><pre>In [1]: pt.pmap(pt.radgyr, traj, n_cores=4)
+<div class="highlight-python"><div class="highlight"><pre><span></span>In [1]: pt.pmap(pt.radgyr, traj, n_cores=4)
 Out[1]:
 OrderedDict([(&#39;RoG_00000&#39;,
               array([ 18.91114428,  18.93654996,  18.84969884,  18.90449256,
@@ -232,22 +232,22 @@ OrderedDict([(&#39;RoG_00000&#39;,
 traj.top.filename, so if you need to update Topology (in the fly), save it to disk and
 reload before using <code class="docutils literal"><span class="pre">pytraj.pmap</span></code></p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># use iter_options</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">iter_options</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;autoimage&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s">&#39;rmsfit&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">)}</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># use iter_options</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iter_options</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;autoimage&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s1">&#39;rmsfit&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;@CA&#39;</span><span class="p">)}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">mean_structure</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">iter_options</span><span class="o">=</span><span class="n">iter_options</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># cpptraj command style</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">([</span><span class="s">&#39;distance :3 :7&#39;</span><span class="p">,</span> <span class="s">&#39;vector mask :3 :12&#39;</span><span class="p">],</span> <span class="n">traj</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># cpptraj command style</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">([</span><span class="s1">&#39;distance :3 :7&#39;</span><span class="p">,</span> <span class="s1">&#39;vector mask :3 :12&#39;</span><span class="p">],</span> <span class="n">traj</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># use reference. Need to explicitly use &#39;refindex&#39;, which is index of reflist</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">([</span><span class="s">&#39;rms @CA refindex 0&#39;</span><span class="p">],</span> <span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="p">[</span><span class="n">traj</span><span class="p">[</span><span class="mi">3</span><span class="p">],],</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># use reference. Need to explicitly use &#39;refindex&#39;, which is index of reflist</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">([</span><span class="s1">&#39;rms @CA refindex 0&#39;</span><span class="p">],</span> <span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="p">[</span><span class="n">traj</span><span class="p">[</span><span class="mi">3</span><span class="p">],],</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
 <span class="go">OrderedDict([(&#39;RMSD_00001&#39;, array([  2.68820312e-01,   3.11804885e-01,   2.58835452e-01,</span>
 <span class="go">         9.10475988e-08,   2.93310737e-01,   4.10197322e-01,</span>
@@ -255,9 +255,9 @@ reload before using <code class="docutils literal"><span class="pre">pytraj.pmap
 <span class="go">         4.89180497e-01]))])</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># use reference: if not want to use &#39;refindex&#39;, can use &#39;reference&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c"># the advantage is you can not specify a list of reference</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">([</span><span class="s">&#39;rms @CA reference&#39;</span><span class="p">],</span> <span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="p">[</span><span class="n">traj</span><span class="p">[</span><span class="mi">3</span><span class="p">],],</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># use reference: if not want to use &#39;refindex&#39;, can use &#39;reference&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># the advantage is you can not specify a list of reference</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">([</span><span class="s1">&#39;rms @CA reference&#39;</span><span class="p">],</span> <span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="p">[</span><span class="n">traj</span><span class="p">[</span><span class="mi">3</span><span class="p">],],</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
 <span class="go">OrderedDict([(&#39;RMSD_00001&#39;, array([  2.68820312e-01,   3.11804885e-01,   2.58835452e-01,</span>
 <span class="go">         9.10475988e-08,   2.93310737e-01,   4.10197322e-01,</span>
@@ -265,22 +265,22 @@ reload before using <code class="docutils literal"><span class="pre">pytraj.pmap
 <span class="go">         4.89180497e-01]))])</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># use different references. Need to explicitly use &#39;refindex&#39;, which is index of reflist</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c"># create a list of references</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># use different references. Need to explicitly use &#39;refindex&#39;, which is index of reflist</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># create a list of references</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">reflist</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">traj</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c"># make sure to specify `refindex`</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c"># `refindex 0` is equal to `reflist[0]`</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c"># `refindex 1` is equal to `reflist[1]`</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">([</span><span class="s">&#39;rms @CA refindex 0&#39;</span><span class="p">,</span> <span class="s">&#39;rms !@H= refindex 1&#39;</span><span class="p">],</span> <span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">reflist</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c"># convert to ndarray</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># make sure to specify `refindex`</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># `refindex 0` is equal to `reflist[0]`</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># `refindex 1` is equal to `reflist[1]`</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">([</span><span class="s1">&#39;rms @CA refindex 0&#39;</span><span class="p">,</span> <span class="s1">&#39;rms !@H= refindex 1&#39;</span><span class="p">],</span> <span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">reflist</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># convert to ndarray</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data_arr</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">dict_to_ndarray</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># perform parallel calculation with given frame_indices</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># perform parallel calculation with given frame_indices</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c"># serial version</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># serial version</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -301,8 +301,8 @@ reload before using <code class="docutils literal"><span class="pre">pytraj.pmap
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="c"># create test_radgyr.py file</span>
-<span class="nv">$ </span>cat &gt; test_radgyr.py <span class="s">&lt;&lt;EOF</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="c1"># create test_radgyr.py file</span>
+$ cat &gt; test_radgyr.py <span class="s">&lt;&lt;EOF</span>
 <span class="s">import pytraj as pt</span>
 <span class="s">from mpi4py import MPI</span>
 <span class="s">comm = MPI.COMM_WORLD</span>
@@ -317,8 +317,8 @@ reload before using <code class="docutils literal"><span class="pre">pytraj.pmap
 <span class="s">    print(result_arr)</span>
 <span class="s">EOF</span>
 
-<span class="nv">$ </span><span class="c"># run in parallel</span>
-<span class="nv">$ </span>mpirun -n <span class="m">4</span> python ./test_radgyr.py
+$ <span class="c1"># run in parallel</span>
+$ mpirun -n <span class="m">4</span> python ./test_radgyr.py
 <span class="o">[</span>array<span class="o">([</span> 8.10916061,  7.7643485 ,  8.09693108, ...,  9.70825678,
         9.3161563 ,  8.86720964<span class="o">])</span>, array<span class="o">([</span> 8.82037273,  8.89008289,  9.48540176, ...,  9.29585981,
         9.53138062,  9.19155977<span class="o">])</span>, array<span class="o">([</span> 9.13735723,  8.94651001,  8.97810478, ...,  7.68751186,
@@ -343,8 +343,8 @@ reload before using <code class="docutils literal"><span class="pre">pytraj.pmap
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Feb 09, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
+      Last updated on Feb 25, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
     </p>
   </div>
 </footer>

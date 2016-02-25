@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.core.c_core &mdash; pytraj 1.0.0.dev1+82859f4 documentation</title>
+    <title>pytraj.core.c_core &mdash; pytraj 1.0.0-beta0 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.0.dev1+82859f4',
+        VERSION:     '1.0.0-beta0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.0.dev1+82859f4 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.0-beta0 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="prev" title="pytraj.parallel" href="pytraj.parallel.html" />
 <meta charset='utf-8'>
@@ -53,7 +53,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.0.dev1+82859f4</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.0-beta0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -375,130 +375,6 @@
 </dd></dl>
 
 <dl class="class">
-<dt id="pytraj.core.c_core.CpptrajFile">
-<em class="property">class </em><code class="descclassname">pytraj.core.c_core.</code><code class="descname">CpptrajFile</code><a class="headerlink" href="#pytraj.core.c_core.CpptrajFile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
-<p>Original cpptraj doc:
-Class to abstract handling of basic file routines.</p>
-<p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.c_core.CpptrajFile.close" title="pytraj.core.c_core.CpptrajFile.close"><code class="xref py py-obj docutils literal"><span class="pre">close</span></code></a>(self)</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.c_core.CpptrajFile.compression" title="pytraj.core.c_core.CpptrajFile.compression"><code class="xref py py-obj docutils literal"><span class="pre">compression</span></code></a>(self)</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.c_core.CpptrajFile.file_size" title="pytraj.core.c_core.CpptrajFile.file_size"><code class="xref py py-obj docutils literal"><span class="pre">file_size</span></code></a>(self)</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.c_core.CpptrajFile.filename" title="pytraj.core.c_core.CpptrajFile.filename"><code class="xref py py-obj docutils literal"><span class="pre">filename</span></code></a>(self)</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.c_core.CpptrajFile.get_line" title="pytraj.core.c_core.CpptrajFile.get_line"><code class="xref py py-obj docutils literal"><span class="pre">get_line</span></code></a>(self)</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.c_core.CpptrajFile.is_open" title="pytraj.core.c_core.CpptrajFile.is_open"><code class="xref py py-obj docutils literal"><span class="pre">is_open</span></code></a>(self)</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.c_core.CpptrajFile.nextline" title="pytraj.core.c_core.CpptrajFile.nextline"><code class="xref py py-obj docutils literal"><span class="pre">nextline</span></code></a>(self)</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.c_core.CpptrajFile.open" title="pytraj.core.c_core.CpptrajFile.open"><code class="xref py py-obj docutils literal"><span class="pre">open</span></code></a>(self[,&nbsp;filename,&nbsp;status])</td>
-<td>just like Python file</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.c_core.CpptrajFile.open_append" title="pytraj.core.c_core.CpptrajFile.open_append"><code class="xref py py-obj docutils literal"><span class="pre">open_append</span></code></a>(self,&nbsp;filename)</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.c_core.CpptrajFile.open_read" title="pytraj.core.c_core.CpptrajFile.open_read"><code class="xref py py-obj docutils literal"><span class="pre">open_read</span></code></a>(self,&nbsp;filename)</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.c_core.CpptrajFile.open_write" title="pytraj.core.c_core.CpptrajFile.open_write"><code class="xref py py-obj docutils literal"><span class="pre">open_write</span></code></a>(self,&nbsp;filename)</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.c_core.CpptrajFile.open_write_numbered" title="pytraj.core.c_core.CpptrajFile.open_write_numbered"><code class="xref py py-obj docutils literal"><span class="pre">open_write_numbered</span></code></a>(self,&nbsp;int&nbsp;numIn)</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.c_core.CpptrajFile.openfile" title="pytraj.core.c_core.CpptrajFile.openfile"><code class="xref py py-obj docutils literal"><span class="pre">openfile</span></code></a>(self,&nbsp;*args)</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<dl class="method">
-<dt id="pytraj.core.c_core.CpptrajFile.close">
-<code class="descname">close</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.c_core.CpptrajFile.close" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pytraj.core.c_core.CpptrajFile.compression">
-<code class="descname">compression</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.c_core.CpptrajFile.compression" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pytraj.core.c_core.CpptrajFile.file_size">
-<code class="descname">file_size</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.c_core.CpptrajFile.file_size" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pytraj.core.c_core.CpptrajFile.filename">
-<code class="descname">filename</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.c_core.CpptrajFile.filename" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pytraj.core.c_core.CpptrajFile.get_line">
-<code class="descname">get_line</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.c_core.CpptrajFile.get_line" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pytraj.core.c_core.CpptrajFile.is_open">
-<code class="descname">is_open</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.c_core.CpptrajFile.is_open" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pytraj.core.c_core.CpptrajFile.nextline">
-<code class="descname">nextline</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.c_core.CpptrajFile.nextline" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pytraj.core.c_core.CpptrajFile.open">
-<code class="descname">open</code><span class="sig-paren">(</span><em>self</em>, <em>filename=''</em>, <em>status='r') just like Python file &gt;&gt;&gt; cpptraj = CpptrajFile() &gt;&gt;&gt; cpptraj.open(&quot;test.dat&quot;</em>, <em>'r'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.c_core.CpptrajFile.open" title="Permalink to this definition">¶</a></dt>
-<dd><p>just like Python file
-&gt;&gt;&gt; cpptraj = CpptrajFile()
-&gt;&gt;&gt; cpptraj.open(&#8220;test.dat&#8221;, &#8216;r&#8217;)</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pytraj.core.c_core.CpptrajFile.open_append">
-<code class="descname">open_append</code><span class="sig-paren">(</span><em>self</em>, <em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.c_core.CpptrajFile.open_append" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pytraj.core.c_core.CpptrajFile.open_read">
-<code class="descname">open_read</code><span class="sig-paren">(</span><em>self</em>, <em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.c_core.CpptrajFile.open_read" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pytraj.core.c_core.CpptrajFile.open_write">
-<code class="descname">open_write</code><span class="sig-paren">(</span><em>self</em>, <em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.c_core.CpptrajFile.open_write" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pytraj.core.c_core.CpptrajFile.open_write_numbered">
-<code class="descname">open_write_numbered</code><span class="sig-paren">(</span><em>self</em>, <em>int numIn</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.c_core.CpptrajFile.open_write_numbered" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pytraj.core.c_core.CpptrajFile.openfile">
-<code class="descname">openfile</code><span class="sig-paren">(</span><em>self</em>, <em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.core.c_core.CpptrajFile.openfile" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
 <dt id="pytraj.core.c_core.NameType">
 <em class="property">class </em><code class="descclassname">pytraj.core.c_core.</code><code class="descname">NameType</code><a class="headerlink" href="#pytraj.core.c_core.NameType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
@@ -610,8 +486,8 @@ Class to abstract handling of basic file routines.</p>
 <p>CpptrajState hold all data per cpptraj run. This class is for internal use.
 Check example</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">text</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
 <span class="go">parm tz2.parm7</span>
 <span class="go">trajin tz2.nc</span>
 <span class="go">rms</span>
@@ -840,8 +716,8 @@ argument over and over.</dd>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Feb 09, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
+      Last updated on Feb 25, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
     </p>
   </div>
 </footer>
