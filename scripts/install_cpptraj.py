@@ -50,7 +50,12 @@ else:
     # user gets lucky?
     build_flag = '-noarpack'
 
-build_flag = ' '.join((build_flag, amberlib, openmp_flag))
+if sys.platform == 'darwin':
+    macAccelerate = '-macAccelerate'
+else:
+    macAccelerate = ''
+
+build_flag = ' '.join((build_flag, macAccelerate, amberlib, openmp_flag))
 
 if install_type == 'github':
     print('install libcpptraj from github')
