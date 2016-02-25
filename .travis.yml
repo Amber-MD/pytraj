@@ -5,7 +5,7 @@ matrix:
     # - { os: linux, env: PYTHON_VERSION=2.7 }
     # - { os: linux, env: PYTHON_VERSION=3.4 }
     # - { os: linux, env: PYTHON_VERSION=3.5 }
-    - { os: osx, env: PYTHON_VERSION=3.5 BUILD_FLAGS="-macAccelerate -shared --with-fftw3=/usr/local --with-netcdf=/usr/local -noarpack"}
+    - { os: osx, env: PYTHON_VERSION=2.7 }
 
 sudo: false
 
@@ -23,6 +23,7 @@ addons:
     packages:
     - g++
     - gfortran
+    - clang
     - libz-dev
     - libbz2-dev
     - libblas-dev
