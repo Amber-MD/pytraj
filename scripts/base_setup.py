@@ -244,6 +244,15 @@ def do_what(PYTRAJ_DIR):
         do_build = False
     return do_install, do_build
 
+def install_libcpptraj(openmp_flag, from_github=False):
+    if sys.platform == 'darwin':
+        compiler_env = 'COMPILER=clang'
+    else:
+        # auto
+        compiler_env = ''
+    github = 'github' if from_github else ''
+    subprocess.check_call(
+      [compiler_env, './scripts/install_cpptraj.py', github, openmp_flag])
 
 def try_updating_libcpptraj(cpptraj_home,
                             do_install,
@@ -265,9 +274,7 @@ def try_updating_libcpptraj(cpptraj_home,
                 try:
                     cpptraj_dir = './cpptraj/'
                     cpptraj_libdir = cpptraj_dir + '/lib/'
-                    subprocess.check_call(
-                        ['./scripts/install_cpptraj.py', openmp_flag])
-
+                    install_libcpptraj(openmp_flag, from_github=False)
                     return glob(os.path.join(cpptraj_libdir, 'libcpptraj') + '*')
                 except CalledProcessError:
                     print(
@@ -372,8 +379,7 @@ def get_include_and_lib_dir(rootname, cpptrajhome, has_cpptraj_in_current_folder
                     sys.stdout.flush()
                     time.sleep(1)
                 try:
-                    subprocess.check_call([
-                                           './scripts/install_cpptraj.py', 'github', openmp_flag])
+                    install_libcpptraj(openmp_flag, from_github=True)
                 except CalledProcessError:
                     print(
                         'can not install libcpptraj, you need to install it manually \n')

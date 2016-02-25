@@ -69,7 +69,6 @@ try:
 except FileExistsError:
     pass
 
-# turn off openmp. need to install pytraj with openmp too. Too complicated.
 config = dict(compiler=compiler,
               build_flag=build_flag)
 
