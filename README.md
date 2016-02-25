@@ -37,13 +37,19 @@ Install
     ```bash
     git clone https://github.com/amber-md/pytraj
     cd pytraj
+
+    # linux
     python ./setup.py install
+ 
+    # osx: pytraj will use clang to compile cython extension.
+    # if you want to change compiler, please check setup.py file
+    python setup.py install --disable-openmp
     # Note: pytraj will install the most updated cpptraj. We recommend to have netcdf library.
     ```
 
 - from conda (develop version for linux): `conda install -c ambermd pytraj-dev`
 
-- from AMBER suite distribution [http://ambermd.org/](http://ambermd.org/)
+- from AMBER suite distribution [http://ambermd.org/](http://ambermd.org/). AMBER16 will be available soon (around April 2016).
 
 - getting trouble? : [check our webpage](http://amber-md.github.io/pytraj/latest/installation.html)
 

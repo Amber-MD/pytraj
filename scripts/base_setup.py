@@ -74,8 +74,11 @@ You can not use --disable-openmp flag with pytraj
 '''
 
 message_serial_cpptraj = '''
-libcpptraj was NOT detected to be installed with openmp. You can recompile it with -openmp flag or
-disable openpm install in pytraj by adding --disable-openmp
+libcpptraj was NOT installed with openmp. You can recompile it with -openmp flag or
+disable openmp install in pytraj by adding --disable-openmp
+
+Note: For osx users, pytraj uses clang for compiling cython extension and '--disable-openmp' flag
+must be specified. If experienced users want to hack, please check setup.py file.
 
 Example:
     - Turn off openmp in pytraj: python setup.py install --disable-openmp
