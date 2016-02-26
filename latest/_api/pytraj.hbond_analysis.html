@@ -169,8 +169,8 @@
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.hbond_.DatasetHBond.data" title="pytraj.hbond_.DatasetHBond.data"><code class="xref py py-obj docutils literal"><span class="pre">data</span></code></a></td>
 <td>return pytraj.DatasetList</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.hbond_.DatasetHBond.donor_aceptor" title="pytraj.hbond_.DatasetHBond.donor_aceptor"><code class="xref py py-obj docutils literal"><span class="pre">donor_aceptor</span></code></a></td>
-<td>return a list of donor and aceptor</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.hbond_.DatasetHBond.donor_acceptor" title="pytraj.hbond_.DatasetHBond.donor_acceptor"><code class="xref py py-obj docutils literal"><span class="pre">donor_acceptor</span></code></a></td>
+<td>return a list of donor and acceptor</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.hbond_.DatasetHBond.values" title="pytraj.hbond_.DatasetHBond.values"><code class="xref py py-obj docutils literal"><span class="pre">values</span></code></a></td>
 <td>return raw numpy array</td>
@@ -202,9 +202,9 @@
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pytraj.hbond_.DatasetHBond.donor_aceptor">
-<code class="descname">donor_aceptor</code><a class="headerlink" href="#pytraj.hbond_.DatasetHBond.donor_aceptor" title="Permalink to this definition">¶</a></dt>
-<dd><p>return a list of donor and aceptor</p>
+<dt id="pytraj.hbond_.DatasetHBond.donor_acceptor">
+<code class="descname">donor_acceptor</code><a class="headerlink" href="#pytraj.hbond_.DatasetHBond.donor_acceptor" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a list of donor and acceptor</p>
 </dd></dl>
 
 <dl class="method">
@@ -313,8 +313,8 @@ occur.</li>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;:5,8&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
 <span class="go">&lt;pytraj.hbonds.DatasetHBond</span>
-<span class="go">donor_aceptor pairs : 2&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">donor_aceptor</span>
+<span class="go">donor_acceptor pairs : 2&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">donor_acceptor</span>
 <span class="go">[&#39;LYS8_O-GLU5_N-H&#39;, &#39;GLU5_O-LYS8_N-H&#39;]</span>
 </pre></div>
 </div>
@@ -331,10 +331,10 @@ occur.</li>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">hbonds</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;:5,8&#39;</span><span class="p">,</span> <span class="n">solvent_donor</span><span class="o">=</span><span class="s1">&#39;:WAT@O&#39;</span><span class="p">,</span> <span class="n">solvent_acceptor</span><span class="o">=</span><span class="s1">&#39;:WAT&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">hbonds</span>
 <span class="go">&lt;pytraj.hbonds.DatasetHBond</span>
-<span class="go">donor_aceptor pairs : 8&gt;</span>
+<span class="go">donor_acceptor pairs : 8&gt;</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">hbonds</span><span class="o">.</span><span class="n">donor_aceptor</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">hbonds</span><span class="o">.</span><span class="n">donor_acceptor</span>
 <span class="go">[&#39;LYS8_O-GLU5_N-H&#39;, &#39;GLU5_O-LYS8_N-H&#39;, &#39;LYS8_HZ1-V&#39;, &#39;LYS8_HZ2-V&#39;, &#39;GLU5_OE2-V&#39;, &#39;GLU5_O-V&#39;, &#39;GLU5_OE1-V&#39;, &#39;LYS8_HZ3-V&#39;]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># &#39;GLU5_O-V&#39; mean non-specific hbond between GLU5_O and solvent (:WAT in this case)</span>
 </pre></div>
@@ -356,7 +356,7 @@ occur.</li>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Feb 25, 2016.<br/>
+      Last updated on Feb 26, 2016.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
     </p>
   </div>
