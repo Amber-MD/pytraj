@@ -4,7 +4,7 @@ import os
 import sys
 import subprocess
 from subprocess import CalledProcessError
-sys.path.append('./scripts')
+sys.path.append('scripts')
 from check_openmp import get_openmp_flag
 from find_lib import find_lib
 
@@ -27,68 +27,64 @@ except ImportError:
     has_numpy = False
 
 
-cwd = os.getcwd()
+def get_compiler_and_build_flag():
+    compiler = os.environ.get('COMPILER', 'gnu')
+    amberhome = os.environ.get('AMBERHOME', '')
+    amberlib = '-amberlib' if amberhome else ''
+    
+    if has_numpy and find_lib('openblas'):
+        prefix = sys.prefix
+        # likely having openblas?
+        build_flag_ = '--with-netcdf={prefix} --with-blas={prefix} \
+                       --with-bzlib={prefix} --with-zlib={prefix} \
+                       -openblas -noarpack'.format(prefix=prefix)
+    elif has_numpy:
+        try:
+            blas_prefix = np.__config__.blas_opt_info['library_dirs'][0].strip('lib')
+            lapack_prefix = np.__config__.lapack_opt_info['library_dirs'][0].strip('lib')
+            build_flag_ = '-noarpack --with-blas={blas_prefix} --with-lapack={lapack_prefix}'.format(blas_prefix=blas_prefix, lapack_prefix=lapack_prefix)
+        except (KeyError, IndexError):
+            build_flag_ = '-noarpack'
+    else:
+        # user gets lucky?
+        build_flag_ = '-noarpack'
+    
+    if sys.platform == 'darwin':
+        build_flag = '-shared -macAccelerate --with-fftw3=/usr/local --with-netcdf=/usr/local -noarpack'
+    else:
+        build_flag = ' '.join(('-shared', build_flag_, amberlib, openmp_flag))
+    
+    if install_type == 'github':
+        print('install libcpptraj from github')
+        os.system('git clone https://github.com/Amber-MD/cpptraj')
+    else:
+        print('install libcpptraj from current ./cpptraj folder')
+    return compiler, build_flag
 
-compiler = os.environ.get('COMPILER', 'gnu')
-amberhome = os.environ.get('AMBERHOME', '')
-amberlib = '-amberlib' if amberhome else ''
-
-if has_numpy and find_lib('openblas'):
-    prefix = sys.prefix
-    # likely having openblas?
-    build_flag = '--with-netcdf={prefix} --with-blas={prefix} \
-                  --with-bzlib={prefix} --with-zlib={prefix} \
-                  -openblas -noarpack'.format(prefix=prefix)
-elif has_numpy:
+def install_libcpptraj(compiler, build_flag):
+    cwd = os.getcwd()
     try:
-        blas_prefix = np.__config__.blas_opt_info['library_dirs'][0].strip('lib')
-        lapack_prefix = np.__config__.lapack_opt_info['library_dirs'][0].strip('lib')
-        build_flag = '-noarpack --with-blas={blas_prefix} --with-lapack={lapack_prefix}'.format(blas_prefix=blas_prefix, lapack_prefix=lapack_prefix)
-    except (KeyError, IndexError):
-        build_flag = '-noarpack'
-else:
-    # user gets lucky?
-    build_flag = '-noarpack'
-
-if sys.platform == 'darwin':
-    macAccelerate = '-macAccelerate'
-else:
-    macAccelerate = ''
-
-build_flag = ' '.join((build_flag, macAccelerate, amberlib, openmp_flag))
-
-if install_type == 'github':
-    print('install libcpptraj from github')
-    os.system('git clone https://github.com/Amber-MD/cpptraj')
-else:
-    print('install libcpptraj from current ./cpptraj folder')
-
-try:
-    os.chdir('./cpptraj')
-except FileNotFoundError:
-    raise FileNotFoundError('please try python ./scripts/install_cpptraj.py github')
-os.environ['CPPTRAJHOME'] = os.getcwd()
-
-try:
-    os.mkdir('./lib')
-except FileExistsError:
-    pass
-
-config = dict(compiler=compiler,
-              build_flag=build_flag)
-
-try:
-    # assume that user has all required softwares
-    cmd = 'bash configure -shared {openmp_flag} {amberlib} -noarpack {compiler}'.format(openmp_flag=openmp_flag, compiler=compiler, amberlib=amberlib)
-    print('cmd', cmd)
-    subprocess.check_call(cmd, shell=True)
-except CalledProcessError:
+        os.chdir('./cpptraj')
+    except FileNotFoundError:
+        raise FileNotFoundError('please try python scripts/install_cpptraj.py github')
+    os.environ['CPPTRAJHOME'] = os.getcwd()
+    
+    try:
+        os.mkdir('./lib')
+    except FileExistsError:
+        pass
+    
     print('build_flag = ', build_flag)
-    os.system('bash configure -shared {build_flag} {compiler} || exit 1'.format(**config))
+    os.system('bash configure {build_flag} {compiler} || exit 1'.format(**config))
+    os.system('make libcpptraj -j8 || exit 1')
+    os.chdir(cwd)
+    print("make sure to 'export CPPTRAJHOME=$CPPTRAJHOME'"
+          "and 'export LD_LIBRARY_PATH=$CPPTRAJHOME/lib:\$LD_LIBRARY_PATH'"
+          "then 'python ./setup.py install'")
 
-os.system('make libcpptraj -j8 || exit 1')
-os.chdir(cwd)
 
-print("make sure to 'export CPPTRAJHOME=$CPPTRAJHOME'"
-      "and 'export LD_LIBRARY_PATH=$CPPTRAJHOME/lib:\$LD_LIBRARY_PATH'"
-      "then 'python ./setup.py install'")
+if __name__ == '__main__':
+    compiler, build_flag = get_compiler_and_build_flag()
+    config = dict(compiler=compiler,
+                  build_flag=build_flag)
+    install_libcpptraj(compiler, build_flag)
