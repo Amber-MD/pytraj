@@ -25,10 +25,10 @@ def to_amber_mask(txtlist):
             mask = mask.replace("_", " ").replace("-", " ").split()
             donor_mask = ''.join((':', mask[1]))
             second_res = mask[3].split('@')[0]
-            aceptor_mask = ':' + "".join((second_res, '@', mask[4]))
+            acceptor_mask = ':' + "".join((second_res, '@', mask[4]))
             another = ' :' + mask[3]
 
-            distance_mask = ' '.join((donor_mask, aceptor_mask))
+            distance_mask = ' '.join((donor_mask, acceptor_mask))
             angle_mask = ''.join((distance_mask, another))
             yield distance_mask, angle_mask
 
@@ -39,15 +39,15 @@ class DatasetHBond(BaseDataHolder):
 
     def __str__(self):
         root_msg = "<pytraj.hbonds.DatasetHBond"
-        more_info = "donor_aceptor pairs : %s>" % len(self.donor_aceptor)
+        more_info = "donor_acceptor pairs : %s>" % len(self.donor_acceptor)
         return root_msg + "\n" + more_info
 
     def __repr__(self):
         return str(self)
 
     @property
-    def donor_aceptor(self):
-        '''return a list of donor and aceptor
+    def donor_acceptor(self):
+        '''return a list of donor and acceptor
         '''
         return self.data.grep(["solventhb", "solutehb"], mode='aspect').keys()
 
@@ -158,8 +158,8 @@ def hbond(traj,
     >>> data = pt.search_hbonds(traj, ':5,8')
     >>> data
     <pytraj.hbonds.DatasetHBond
-    donor_aceptor pairs : 2>
-    >>> data.donor_aceptor
+    donor_acceptor pairs : 2>
+    >>> data.donor_acceptor
     ['LYS8_O-GLU5_N-H', 'GLU5_O-LYS8_N-H']
 
     >>> # get raw data, ndarray with shape=(n_hbonds+1, n_frames)
@@ -174,9 +174,9 @@ def hbond(traj,
     >>> hbonds = pt.search_hbonds(traj, ':5,8', solvent_donor=':WAT@O', solvent_acceptor=':WAT')
     >>> hbonds
     <pytraj.hbonds.DatasetHBond
-    donor_aceptor pairs : 8>
+    donor_acceptor pairs : 8>
 
-    >>> hbonds.donor_aceptor
+    >>> hbonds.donor_acceptor
     ['LYS8_O-GLU5_N-H', 'GLU5_O-LYS8_N-H', 'LYS8_HZ1-V', 'LYS8_HZ2-V', 'GLU5_OE2-V', 'GLU5_O-V', 'GLU5_OE1-V', 'LYS8_HZ3-V']
     >>> # 'GLU5_O-V' mean non-specific hbond between GLU5_O and solvent (:WAT in this case)
     """
