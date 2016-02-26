@@ -21,6 +21,12 @@ source activate myenv
 conda install --yes anaconda-client coverage pyflakes
 conda install mdtraj -c omnia --yes
 
+if [ "$TRAVIS_OS_NAME" = "osx" ]; then
+    conda install netCDF4 -y
+    conda update libnetcdf -y
+    conda update netCDF4 -y
+fi
+
 # install other packages here
 # pip install coveralls
 # pip install coverage
