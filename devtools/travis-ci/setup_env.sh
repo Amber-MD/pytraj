@@ -1,6 +1,11 @@
 #!/bin/sh
 
-wget http://repo.continuum.io/miniconda/Miniconda-3.7.0-Linux-x86_64.sh -O miniconda.sh
+if [ "$TRAVIS_OS_NAME" = "osx" ]; then
+    wget http://repo.continuum.io/miniconda/Miniconda-3.7.0-MacOSX-x86_64.sh -O miniconda.sh;
+else
+    wget http://repo.continuum.io/miniconda/Miniconda-3.7.0-Linux-x86_64.sh -O miniconda.sh;
+fi
+
 bash miniconda.sh -b
 
 export PATH=$HOME/miniconda/bin:$PATH
@@ -14,9 +19,15 @@ conda create -y -n myenv python=$PYTHON_VERSION numpy cython h5py mpi4py libnetc
 
 source activate myenv
 conda install --yes anaconda-client coverage pyflakes
-conda install mdtraj -c omnia --yes
+
+if [ "$TRAVIS_OS_NAME" = "osx" ]; then
+    conda install netcdf4 -y
+    conda update libnetcdf -y
+    conda update netcdf4 -y
+fi
 
 # install other packages here
+conda install mdtraj -c omnia --yes
 pip install coveralls
 pip install coverage
 pip install nose

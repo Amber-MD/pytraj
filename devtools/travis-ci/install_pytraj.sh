@@ -2,4 +2,9 @@
 
 # create this file to hide output
 # python setup.py install --amber-release
-python setup.py install
+
+if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+    python setup.py install --disable-openmp
+else
+    python setup.py install
+fi

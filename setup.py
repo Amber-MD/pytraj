@@ -21,6 +21,7 @@ from scripts.base_setup import (check_flag, check_cpptraj_version, write_version
                                 get_pyx_pxd, get_include_and_lib_dir, do_what, check_cython)
 from scripts.base_setup import (add_openmp_flag, try_updating_libcpptraj, remind_export_LD_LIBRARY_PATH)
 from scripts.base_setup import CleanCommand, ISRELEASED, message_pip_need_cpptraj_home
+from scripts.install_libcpptraj import DEFAULT_MAC_COMPILER # clang
 
 # python version >= 2.6
 if sys.version_info < (2, 6):
@@ -92,10 +93,8 @@ if sys.platform == 'darwin':
     # Anaconda does annoying stuff that breaks this, since their distutils
     # automatically tries to use "gcc", which would conflict with the MacPorts
     # gcc... sigh.
-    os.environ['CXX'] = 'clang++'
-    os.environ['CC'] = 'clang'
-
-# get *.pyx files
+    os.environ['CXX'] = DEFAULT_MAC_COMPILER + '++'
+    os.environ['CC'] = DEFAULT_MAC_COMPILER
 
 pyxfiles, pxdfiles = get_pyx_pxd()
 

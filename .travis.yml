@@ -1,14 +1,20 @@
-language: python
+language: cpp
 
-env:
-  matrix:
-    - PYTHON_VERSION=2.7
-    - PYTHON_VERSION=3.4
-    - PYTHON_VERSION=3.5
-  global:
-    - secure: JLFg6mbavHoSfqApsTUnE39ZtrEuv76UUsBwMJy3b8lp1s6dBwmbmEBm9VYb4wttCSKOd3BcuRd4lo5+Oxp25tKvLLg86P0PE6/cjn7vz3RAQ/qQhbEBUEV0nJkuKMCFpQPu8LGPY2oiRyPr4OGwfWdLzgYolMAxWtS6cCqAyPk=
+matrix:
+  include:
+    - { os: linux, env: PYTHON_VERSION=2.7 }
+    - { os: linux, env: PYTHON_VERSION=3.4 }
+    - { os: linux, env: PYTHON_VERSION=3.5 }
+    # - { os: osx, env: PYTHON_VERSION=2.7 }
 
 sudo: false
+
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      brew tap homebrew/science;
+      brew update;
+      brew install netcdf fftw;
+    fi
 
 addons:
   apt:
@@ -17,6 +23,7 @@ addons:
     packages:
     - g++
     - gfortran
+    - clang
     - libz-dev
     - libbz2-dev
     - libblas-dev
@@ -30,12 +37,17 @@ install:
 
 script:
     - source devtools/travis-ci/install_pytraj.sh
-    - export LD_LIBRARY_PATH=`pwd`"/cpptraj/lib":$LD_LIBRARY_PATH
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+        export DYLD_FALLBACK_LIBRARY_PATH=`pwd`"/cpptraj/lib":$DYLD_FALLBACK_LIBRARY_PATH
+        export LD_LIBRARY_PATH=`pwd`"/cpptraj/lib":$LD_LIBRARY_PATH;
+      else
+        export LD_LIBRARY_PATH=`pwd`"/cpptraj/lib":$LD_LIBRARY_PATH;
+      fi
     - sh ./devtools/travis-ci/pyflakes_check.sh
     - export CPPTRAJHOME=`pwd`"/cpptraj/"
+    - ls $CPPTRAJHOME/lib/
     - cd ./tests
     - python ./run_simple_test.py
-    #- python ./run_full_tests.py
     - nosetests --with-coverage --cover-package pytraj -vs test_*.py */test_*.py
     - unset CPPTRAJHOME # for pytraj.tools coverage
     - nosetests --with-coverage --cover-package pytraj -vs test_docs.py
