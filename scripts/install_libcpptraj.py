@@ -8,27 +8,33 @@ sys.path.append('scripts')
 from check_openmp import get_openmp_flag
 from find_lib import find_lib
 
-try:
-    sys.argv.remove('-openmp')
-    openmp_flag = '-openmp'
-    assert get_openmp_flag(), 'your system must support openmp'
-except ValueError:
-    openmp_flag = ''
 
-try:
-    install_type = sys.argv[1]
-except IndexError:
-    install_type = ''
-
-try:
-    import numpy as np
-    has_numpy = True
-except ImportError:
-    has_numpy = False
+DEFAULT_MAC_BUILD = '-shared -macAccelerate --with-fftw3=/usr/local --with-netcdf=/usr/local -noarpack'
+DEFAULT_MAC_COMPILER = 'clang'
 
 
 def get_compiler_and_build_flag():
+    try:
+        sys.argv.remove('-openmp')
+        openmp_flag = '-openmp'
+        assert get_openmp_flag(), 'your system must support openmp'
+    except ValueError:
+        openmp_flag = ''
+    
+    try:
+        install_type = sys.argv[1]
+    except IndexError:
+        install_type = ''
+    
+    try:
+        import numpy as np
+        has_numpy = True
+    except ImportError:
+        has_numpy = False
+
     compiler = os.environ.get('COMPILER', 'gnu')
+    if sys.platform == 'darwin':
+        compiler = DEFAULT_MAC_COMPILER
     amberhome = os.environ.get('AMBERHOME', '')
     amberlib = '-amberlib' if amberhome else ''
     
@@ -50,7 +56,7 @@ def get_compiler_and_build_flag():
         build_flag_ = '-noarpack'
     
     if sys.platform == 'darwin':
-        build_flag = '-shared -macAccelerate --with-fftw3=/usr/local --with-netcdf=/usr/local -noarpack'
+        build_flag = DEFAULT_MAC_BUILD
     else:
         build_flag = ' '.join(('-shared', build_flag_, amberlib, openmp_flag))
     
@@ -75,7 +81,7 @@ def install_libcpptraj(compiler, build_flag):
         pass
     
     print('build_flag = ', build_flag)
-    os.system('bash configure {build_flag} {compiler} || exit 1'.format(**config))
+    os.system('bash configure {build_flag} {compiler} || exit 1'.format(build_flag=build_flag, compiler=compiler))
     os.system('make libcpptraj -j8 || exit 1')
     os.chdir(cwd)
     print("make sure to 'export CPPTRAJHOME=$CPPTRAJHOME'"
@@ -85,6 +91,4 @@ def install_libcpptraj(compiler, build_flag):
 
 if __name__ == '__main__':
     compiler, build_flag = get_compiler_and_build_flag()
-    config = dict(compiler=compiler,
-                  build_flag=build_flag)
     install_libcpptraj(compiler, build_flag)

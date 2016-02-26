@@ -245,17 +245,11 @@ def do_what(PYTRAJ_DIR):
     return do_install, do_build
 
 def install_libcpptraj(openmp_flag, from_github=False):
-    if sys.platform == 'darwin':
-        compiler_env = 'COMPILER=clang'
-    else:
-        # auto
-        compiler_env = ''
     github = 'github' if from_github else ''
-    options = dict(compiler_env=compiler_env,
-                   github=github,
+    options = dict(github=github,
                    openmp_flag=openmp_flag)
-    cmd = "{compiler_env} python ./scripts/install_cpptraj.py {github} {openmp_flag}".format(**options)
-    print('cmd', cmd)
+    cmd = "python scripts/install_libcpptraj.py {github} {openmp_flag}".format(**options)
+    print('command = ', cmd)
     subprocess.check_call(cmd, shell=True)
 
 def try_updating_libcpptraj(cpptraj_home,
