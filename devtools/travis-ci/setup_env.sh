@@ -21,9 +21,9 @@ source activate myenv
 conda install --yes anaconda-client coverage pyflakes
 
 if [ "$TRAVIS_OS_NAME" = "osx" ]; then
-    conda install netCDF4 -y
+    conda install netcdf4 -y
     conda update libnetcdf -y
-    conda update netCDF4 -y
+    conda update netcdf4 -y
 fi
 
 # install other packages here
