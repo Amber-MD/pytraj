@@ -93,8 +93,11 @@ if sys.platform == 'darwin':
     # Anaconda does annoying stuff that breaks this, since their distutils
     # automatically tries to use "gcc", which would conflict with the MacPorts
     # gcc... sigh.
-    os.environ['CXX'] = DEFAULT_MAC_COMPILER + '++'
-    os.environ['CC'] = DEFAULT_MAC_COMPILER
+
+    # haichit: turn off for testing
+    # os.environ['CXX'] = DEFAULT_MAC_COMPILER + '++'
+    # os.environ['CC'] = DEFAULT_MAC_COMPILER
+    pass
 
 pyxfiles, pxdfiles = get_pyx_pxd()
 

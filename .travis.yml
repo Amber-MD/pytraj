@@ -2,10 +2,10 @@ language: cpp
 
 matrix:
   include:
-    - { os: linux, env: PYTHON_VERSION=2.7 }
-    - { os: linux, env: PYTHON_VERSION=3.4 }
-    - { os: linux, env: PYTHON_VERSION=3.5 }
-    # - { os: osx, env: PYTHON_VERSION=2.7 }
+    # - { os: linux, env: PYTHON_VERSION=2.7 }
+    # - { os: linux, env: PYTHON_VERSION=3.4 }
+    # - { os: linux, env: PYTHON_VERSION=3.5 }
+    - { os: osx, env: PYTHON_VERSION=2.7 }
 
 sudo: false
 
@@ -38,7 +38,6 @@ install:
 script:
     - source devtools/travis-ci/install_pytraj.sh
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-        export DYLD_FALLBACK_LIBRARY_PATH=`pwd`"/cpptraj/lib":$DYLD_FALLBACK_LIBRARY_PATH
         export LD_LIBRARY_PATH=`pwd`"/cpptraj/lib":$LD_LIBRARY_PATH;
       else
         export LD_LIBRARY_PATH=`pwd`"/cpptraj/lib":$LD_LIBRARY_PATH;
@@ -47,6 +46,7 @@ script:
     - export CPPTRAJHOME=`pwd`"/cpptraj/"
     - ls $CPPTRAJHOME/lib/
     - cd ./tests
+    - python -c 'import pytraj as pt'
     - python ./run_simple_test.py
     - nosetests --with-coverage --cover-package pytraj -vs test_*.py */test_*.py
     - unset CPPTRAJHOME # for pytraj.tools coverage
