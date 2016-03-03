@@ -60,14 +60,14 @@ class TestSearchHbonds(unittest.TestCase):
         angle_indices = np.where(angles < angle_cutoff)
         print('FILL ME', dist_indices, angle_indices)
 
-        saved_donor_aceptors = ['ASP9_OD2-ARG16_NH1-HH12',
+        saved_donor_acceptors = ['ASP9_OD2-ARG16_NH1-HH12',
                                 'ASP9_OD2-ARG16_NH2-HH22',
                                 'ASP9_OD2-ARG16_NE-HE',
                                 'ASP9_OD2-ARG16_NH2-HH21',
                                 'ASP9_OD2-ARG16_NH1-HH11']
 
-        donor_aceptors = pt.search_hbonds(traj, ':9,16').donor_aceptor
-        assert saved_donor_aceptors == donor_aceptors, 'saved_donor_aceptors'
+        donor_acceptors = pt.search_hbonds(traj, ':9,16').donor_acceptor
+        assert saved_donor_acceptors == donor_acceptors, 'saved_donor_acceptors'
 
         aa_eq(hb.total_solute_hbonds(), hb.data['total_solute_hbonds'])
 

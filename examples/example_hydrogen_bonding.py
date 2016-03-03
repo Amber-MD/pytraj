@@ -5,5 +5,5 @@ print(pdb)
 
 h = pt.search_hbonds(pdb)
 print(h)
-print(h.donor_aceptor)
+print(h.donor_acceptor)
 print('total solute hbonds: ', h.data['total_solute_hbonds'])
