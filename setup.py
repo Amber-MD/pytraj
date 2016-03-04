@@ -21,7 +21,7 @@ from scripts.base_setup import (check_flag, check_cpptraj_version, write_version
                                 get_pyx_pxd, get_include_and_lib_dir, do_what, check_cython)
 from scripts.base_setup import (add_openmp_flag, try_updating_libcpptraj, remind_export_LD_LIBRARY_PATH)
 from scripts.base_setup import CleanCommand, ISRELEASED, message_pip_need_cpptraj_home
-from scripts.install_libcpptraj import DEFAULT_MAC_COMPILER # clang
+from scripts.install_libcpptraj import DEFAULT_MAC_COMPILER, DEFAULT_LINUX_COMPILER
 
 # python version >= 2.6
 if sys.version_info < (2, 6):
@@ -88,21 +88,25 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 if sys.platform == 'darwin':
-    # copied from ParmEd
-    # You *need* to use clang and clang++ for extensions on a Mac;
-    # Anaconda does annoying stuff that breaks this, since their distutils
-    # automatically tries to use "gcc", which would conflict with the MacPorts
-    # gcc... sigh.
-
-    # haichit: turn off for testing
-    # os.environ['CXX'] = DEFAULT_MAC_COMPILER + '++'
-    # os.environ['CC'] = DEFAULT_MAC_COMPILER
     is_osx = True
-    pass
 else:
     is_osx = False
-    
 
+COMPILER = os.environ.get('COMPILER')
+
+if COMPILER is None and is_osx:
+    COMPILER = DEFAULT_MAC_COMPILER
+    os.environ['CXX'] = COMPILER + '++'
+    os.environ['CC'] = COMPILER
+elif COMPILER is 'gnu' and is_osx:
+    os.environ['CXX'] = 'g++'
+    os.environ['CC'] = 'g'
+elif COMPILER == 'clang':
+    os.environ['CXX'] = COMPILER + '++'
+    os.environ['CC'] = COMPILER
+else:
+    pass
+    
 pyxfiles, pxdfiles = get_pyx_pxd()
 
 if not create_tar_file_for_release:
@@ -137,9 +141,9 @@ if not create_tar_file_for_release:
     
     library_dirs = [cpptraj_libdir, ] if not use_phenix_python else [cpptraj_libdir, phenix_python_lib]
 
-    if is_osx:
-    # if True:
-        osx_rpath = '-rpath={}'.format(os.path.abspath(library_dirs[0]))
+    # if is_osx:
+    if True:
+        osx_rpath = '-Wl,-rpath={},--no-as-needed'.format(os.path.abspath(library_dirs[0]))
         extra_link_args.append(osx_rpath)
     
     ext_modules = []
