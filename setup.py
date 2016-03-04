@@ -100,7 +100,7 @@ if COMPILER is None and is_osx:
     os.environ['CC'] = COMPILER
 elif COMPILER is 'gnu' and is_osx:
     os.environ['CXX'] = 'g++'
-    os.environ['CC'] = 'g'
+    os.environ['CC'] = 'gcc'
 elif COMPILER == 'clang':
     os.environ['CXX'] = COMPILER + '++'
     os.environ['CC'] = COMPILER
