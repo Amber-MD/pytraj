@@ -82,7 +82,8 @@ def install_libcpptraj(compiler, build_flag):
     
     print('build_flag = ', build_flag)
     os.system('bash configure {build_flag} {compiler} || exit 1'.format(build_flag=build_flag, compiler=compiler))
-    os.system('make libcpptraj -j8 || exit 1')
+    # os.system('make libcpptraj -j8 || exit 1')
+    os.system('make libcpptraj || exit 1')
     os.chdir(cwd)
     print("make sure to 'export CPPTRAJHOME=$CPPTRAJHOME'"
           "and 'export LD_LIBRARY_PATH=$CPPTRAJHOME/lib:\$LD_LIBRARY_PATH'"
