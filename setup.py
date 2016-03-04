@@ -151,6 +151,7 @@ if not create_tar_file_for_release:
                            libraries=['cpptraj'],
                            language='c++',
                            library_dirs=library_dirs,
+                           runtime_library_dirs=['./cpptraj/lib',]
                            define_macros=define_macros,
                            include_dirs=[cpptraj_include, pytraj_home],
                            extra_compile_args=extra_compile_args,
