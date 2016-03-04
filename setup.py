@@ -97,7 +97,11 @@ if sys.platform == 'darwin':
     # haichit: turn off for testing
     # os.environ['CXX'] = DEFAULT_MAC_COMPILER + '++'
     # os.environ['CC'] = DEFAULT_MAC_COMPILER
+    is_osx = True
     pass
+else:
+    is_osx = False
+    
 
 pyxfiles, pxdfiles = get_pyx_pxd()
 
@@ -119,6 +123,11 @@ if not create_tar_file_for_release:
     
     extra_compile_args, extra_link_args = add_openmp_flag(disable_openmp,
         libcpptraj_has_openmp, extra_compile_args, extra_link_args)
+
+    if is_osx:
+        osx_rpath = '-rpath {}'.format(os.path.abspath(library_dirs[0]))
+        extra_link_args.append(osx_rpath)
+        extra_compile_args.append(osx_rpath)
     
     check_cpptraj_version(cpptraj_include, (4, 2, 8))
     
