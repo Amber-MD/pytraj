@@ -136,8 +136,11 @@ if not create_tar_file_for_release:
         )
     
     library_dirs = [cpptraj_libdir, ] if not use_phenix_python else [cpptraj_libdir, phenix_python_lib]
-    if is_osx:
-        osx_rpath = '-rpath {}'.format(os.path.abspath(library_dirs[0]))
+
+    # if is_osx:
+    if True:
+        # osx_rpath = '-rpath{}'.format(os.path.abspath(library_dirs[0]))
+        osx_rpath = '-rpath'
         extra_link_args.append(osx_rpath)
         extra_compile_args.append(osx_rpath)
     
