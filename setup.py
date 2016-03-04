@@ -140,9 +140,9 @@ if not create_tar_file_for_release:
     # if is_osx:
     if True:
         # osx_rpath = '-rpath{}'.format(os.path.abspath(library_dirs[0]))
-        osx_rpath = '-rpath'
+        osx_rpath = '-rpath={}'.format(os.path.abspath(library_dirs[0]))
         extra_link_args.append(osx_rpath)
-        extra_compile_args.append(osx_rpath)
+        # extra_compile_args.append(osx_rpath)
     
     ext_modules = []
     for ext_name in pyxfiles:
