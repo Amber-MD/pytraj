@@ -141,11 +141,6 @@ if not create_tar_file_for_release:
     
     library_dirs = [cpptraj_libdir, ] if not use_phenix_python else [cpptraj_libdir, phenix_python_lib]
 
-    # if is_osx:
-    if True:
-        osx_rpath = '-Wl,-rpath={},--no-as-needed'.format(os.path.abspath(library_dirs[0]))
-        extra_link_args.append(osx_rpath)
-    
     ext_modules = []
     for ext_name in pyxfiles:
         if need_cython:
