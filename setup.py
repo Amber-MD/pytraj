@@ -87,8 +87,10 @@ def read(fname):
     # must be in this setup file
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
+libraries = ['cpptraj',]
 if sys.platform == 'darwin':
     is_osx = True
+    libraries.append('stdc++')
 else:
     is_osx = False
 
@@ -156,7 +158,7 @@ if not create_tar_file_for_release:
         sources = [pyxfile]
         extmod = Extension(ext_name,
                            sources=sources,
-                           libraries=['cpptraj'],
+                           libraries=libraries,
                            language='c++',
                            library_dirs=library_dirs,
                            runtime_library_dirs=[os.path.abspath(path) for path in library_dirs],
