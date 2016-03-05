@@ -9,7 +9,7 @@ Modify trajectory
 - translate_
 - scale_
 - rotate_
-- tranform_
+- transform_
 - autoimage_
 - rotate_dihedral_
 - replicate_cell_ 
