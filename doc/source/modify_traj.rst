@@ -4,11 +4,13 @@ Modify trajectory
 =================
 
 - rmsd_
+- superpose_
 - center_
 - translate_
 - scale_
-- autoimage_
 - rotate_
+- tranform_
+- autoimage_
 - rotate_dihedral_
 - replicate_cell_ 
 
@@ -16,6 +18,9 @@ Modify trajectory
 
 .. _rmsd:
 .. autofunction:: rmsd
+
+.. _superpose:
+.. autofunction:: superpose
 
 .. _center:
 .. autofunction:: center
@@ -26,11 +31,14 @@ Modify trajectory
 .. _scale:
 .. autofunction:: scale
 
+.. _rotate:
+.. autofunction:: rotate
+
 .. _autoimage:
 .. autofunction:: autoimage
 
-.. _rotate:
-.. autofunction:: rotate
+.. _transform:
+.. autofunction:: transform
 
 .. _rotate_dihedral:
 .. autofunction:: rotate_dihedral
