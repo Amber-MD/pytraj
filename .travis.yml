@@ -49,7 +49,8 @@ script:
     # - export DYLD_LIBRARY_PATH=$CPPTRAJHOME/lib/
     # - cp $CPPTRAJHOME/lib/libcpptraj.* /Users/travis/miniconda/envs/myenv/lib/
     # - install_name_tool -id libcpptraj.dylib $CPPTRAJHOME/lib/libcpptraj.dylib
-    - install_name_tool -id $CPPTRAJHOME/lib/libcpptraj.dylib libcpptraj.dylib
+    # - install_name_tool -id libcpptraj.dylib $CPPTRAJHOME/lib/libcpptraj.dylib
+    - install_name_tool -change $CPPTRAJHOME/lib/libcpptraj.dylib @rpath/libcpptraj.dylib
     - otool -L /Users/travis/miniconda/envs/myenv/lib/python2.7/site-packages/pytraj/cpp_options.so
     # - sudo ln -s $CPPTRAJHOME/lib/libcpptraj.dylib /usr/local/lib/libcpptraj.dylib
     - cd ./tests
