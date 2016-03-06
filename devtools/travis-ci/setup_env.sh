@@ -27,7 +27,11 @@ if [ "$TRAVIS_OS_NAME" = "osx" ]; then
 fi
 
 # install other packages here
+# conda
 conda install mdtraj -c omnia --yes
+conda install pysander -c ambermd --yes
+
+# pip
 pip install coveralls
 pip install coverage
 pip install nose
