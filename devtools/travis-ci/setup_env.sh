@@ -29,7 +29,7 @@ fi
 # install other packages here
 # conda
 conda install mdtraj -c omnia --yes
-conda install pysander -c ambermd --yes
+# conda install pysander -c ambermd --yes
 
 # pip
 pip install coveralls

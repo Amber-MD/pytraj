@@ -23,6 +23,7 @@ addons:
     packages:
     - g++
     - gfortran
+    - libgfortran
     - clang
     - libz-dev
     - libbz2-dev
