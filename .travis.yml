@@ -7,7 +7,7 @@ matrix:
     - { os: linux, env: PYTHON_VERSION=3.5 }
     # - { os: osx, env: PYTHON_VERSION=3.4 }
 
-sudo: true
+sudo: false
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
@@ -44,9 +44,9 @@ script:
       fi
     - sh ./devtools/travis-ci/pyflakes_check.sh
     - export CPPTRAJHOME=`pwd`"/cpptraj/"
-    - ls $CPPTRAJHOME/lib/
-    - which python
-    - cd ./tests
+    - cd tests/fake_amberhome/
+    - export AMBERHOME=`pwd`
+    - cd ../
     - python -c 'import pytraj as pt'
     - python ./run_simple_test.py
     - nosetests --with-coverage --cover-package pytraj -vs test_*.py */test_*.py
