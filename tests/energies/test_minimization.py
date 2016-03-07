@@ -12,10 +12,13 @@ try:
 except ImportError:
     has_sander = False
 
+has_sander_exe = os.path.exists(amberhome + '/bin/sander')
+print('has_sander_exe', has_sander_exe)
+
 
 class TestMin(unittest.TestCase):
 
-    @unittest.skipIf(not has_sander, 'does not have sander. skip')
+    @unittest.skipIf(not has_sander or not has_sander_exe, 'does not have libsander/sander. skip')
     def test_0(self):
         if os.path.exists(amberhome):
             from pytraj.amber_wrapper import minimize
