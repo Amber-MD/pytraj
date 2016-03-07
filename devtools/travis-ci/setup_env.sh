@@ -9,29 +9,17 @@ fi
 bash miniconda.sh -b
 
 export PATH=$HOME/miniconda/bin:$PATH
-# install stable version
-pip install conda
-
 conda install --yes conda-build jinja2 anaconda-client pip
 
 # create myenv
-conda create -y -n myenv python=$PYTHON_VERSION numpy cython h5py mpi4py libnetcdf
+conda create -y -n myenv python=$PYTHON_VERSION numpy cython h5py libnetcdf mpi4py
 
 source activate myenv
 conda install --yes anaconda-client coverage pyflakes
 
-if [ "$TRAVIS_OS_NAME" = "osx" ]; then
-    conda install netcdf4 -y
-    conda update libnetcdf -y
-    conda update netcdf4 -y
-fi
-
 # install other packages here
-# conda
-conda install mdtraj -c omnia --yes
-# conda install pysander -c ambermd --yes
-
-# pip
+# conda install mdtraj -c omnia --yes
+conda install pysander -c ambermd --yes
 pip install coveralls
 pip install coverage
 pip install nose
