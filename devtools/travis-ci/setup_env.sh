@@ -19,7 +19,8 @@ conda install --yes anaconda-client coverage pyflakes
 
 # install other packages here
 # conda install mdtraj -c omnia --yes
-pip install git+git://github.com/ParmEd/ParmEd
+
+# pysander comes with ParmEd
 conda install pysander -c ambermd --yes
 pip install coveralls
 pip install coverage
