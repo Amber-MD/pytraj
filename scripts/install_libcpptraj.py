@@ -11,6 +11,7 @@ from find_lib import find_lib
 
 DEFAULT_MAC_BUILD = '-shared -macAccelerate --with-fftw3=/usr/local --with-netcdf=/usr/local -noarpack'
 DEFAULT_MAC_COMPILER = 'clang'
+DEFAULT_LINUX_COMPILER = 'gnu'
 
 
 def get_compiler_and_build_flag():
@@ -32,28 +33,32 @@ def get_compiler_and_build_flag():
     except ImportError:
         has_numpy = False
 
-    compiler = os.environ.get('COMPILER', 'gnu')
-    if sys.platform == 'darwin':
-        compiler = DEFAULT_MAC_COMPILER
+    default_compiler = DEFAULT_MAC_COMPILER if sys.platform == 'darwin' else DEFAULT_LINUX_COMPILER
+    compiler = os.environ.get('COMPILER', default_compiler)
+    print('using compiler = {}'.format(compiler))
+
     amberhome = os.environ.get('AMBERHOME', '')
     amberlib = '-amberlib' if amberhome else ''
     
-    if has_numpy and find_lib('openblas'):
-        prefix = sys.prefix
-        # likely having openblas?
-        build_flag_ = '--with-netcdf={prefix} --with-blas={prefix} \
-                       --with-bzlib={prefix} --with-zlib={prefix} \
-                       -openblas -noarpack'.format(prefix=prefix)
-    elif has_numpy:
-        try:
-            blas_prefix = np.__config__.blas_opt_info['library_dirs'][0].strip('lib')
-            lapack_prefix = np.__config__.lapack_opt_info['library_dirs'][0].strip('lib')
-            build_flag_ = '-noarpack --with-blas={blas_prefix} --with-lapack={lapack_prefix}'.format(blas_prefix=blas_prefix, lapack_prefix=lapack_prefix)
-        except (KeyError, IndexError):
-            build_flag_ = '-noarpack'
+    if amberlib:
+        build_flag_ = amberlib
     else:
-        # user gets lucky?
-        build_flag_ = '-noarpack'
+        if has_numpy and find_lib('openblas'):
+            prefix = sys.prefix
+            # likely having openblas?
+            build_flag_ = '--with-netcdf={prefix} --with-blas={prefix} \
+                           --with-bzlib={prefix} --with-zlib={prefix} \
+                           -openblas -noarpack'.format(prefix=prefix)
+        elif has_numpy:
+            try:
+                blas_prefix = np.__config__.blas_opt_info['library_dirs'][0].strip('lib')
+                lapack_prefix = np.__config__.lapack_opt_info['library_dirs'][0].strip('lib')
+                build_flag_ = '-noarpack --with-blas={blas_prefix} --with-lapack={lapack_prefix}'.format(blas_prefix=blas_prefix, lapack_prefix=lapack_prefix)
+            except (KeyError, IndexError):
+                build_flag_ = '-noarpack'
+        else:
+            # user gets lucky?
+            build_flag_ = '-noarpack'
     
     if sys.platform == 'darwin':
         build_flag = DEFAULT_MAC_BUILD
@@ -81,8 +86,11 @@ def install_libcpptraj(compiler, build_flag):
         pass
     
     print('build_flag = ', build_flag)
-    os.system('bash configure {build_flag} {compiler} || exit 1'.format(build_flag=build_flag, compiler=compiler))
-    os.system('make libcpptraj -j8 || exit 1')
+    cm = 'bash configure {build_flag} {compiler} || exit 1'.format(build_flag=build_flag, compiler=compiler)
+    print('build commmand = ', cm)
+    os.system(cm)
+    # os.system('make libcpptraj -j8 || exit 1')
+    os.system('make libcpptraj || exit 1')
     os.chdir(cwd)
     print("make sure to 'export CPPTRAJHOME=$CPPTRAJHOME'"
           "and 'export LD_LIBRARY_PATH=$CPPTRAJHOME/lib:\$LD_LIBRARY_PATH'"
