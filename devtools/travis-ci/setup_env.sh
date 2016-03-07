@@ -19,7 +19,7 @@ source activate myenv
 conda install --yes anaconda-client coverage pyflakes
 
 # install other packages here
-conda install mdtraj -c omnia --yes
+# conda install mdtraj -c omnia --yes
 conda install pysander -c ambermd --yes
 pip install coveralls
 pip install coverage
