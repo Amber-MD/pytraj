@@ -12,8 +12,7 @@ export PATH=$HOME/miniconda/bin:$PATH
 conda install --yes conda-build jinja2 anaconda-client pip
 
 # create myenv
-# conda create -y -n myenv python=$PYTHON_VERSION numpy cython h5py mpi4py libnetcdf
-conda create -y -n myenv python=$PYTHON_VERSION numpy cython h5py libnetcdf
+conda create -y -n myenv python=$PYTHON_VERSION numpy cython h5py libnetcdf mpi4py
 
 source activate myenv
 conda install --yes anaconda-client coverage pyflakes
