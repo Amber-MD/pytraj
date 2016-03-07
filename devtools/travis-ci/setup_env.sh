@@ -19,11 +19,11 @@ source activate myenv
 conda install --yes anaconda-client coverage pyflakes
 
 # install other packages here
-# conda install mdtraj -c omnia --yes
-# pip install coveralls
-# pip install coverage
-# pip install nose
-# pip install git+git://github.com/ParmEd/ParmEd
-# pip install memory_profiler
-# pip install psutil
-# pip install cclib
+conda install mdtraj -c omnia --yes
+pip install coveralls
+pip install coverage
+pip install nose
+pip install git+git://github.com/ParmEd/ParmEd
+pip install memory_profiler
+pip install psutil
+pip install cclib
