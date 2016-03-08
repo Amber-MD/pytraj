@@ -16,7 +16,9 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
         install_name_tool -change "@rpath/$name" "$CPPTRAJHOME/lib/$name" $x
     done
     echo "done building"
+    echo "install pytraj"
+    python setup.py install --disable-openmp
+else
+    python setup.py install
 fi
 
-echo "install pytraj"
-python setup.py install
