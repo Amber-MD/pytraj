@@ -20,6 +20,8 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     echo "done building"
     echo "install pytraj"
     python setup.py install --disable-openmp
+    echo "copying libcpptraj"
+    sudo cp $CPPTRAJHOME/lib/libcpptraj.dylib /usr/local/lib/
 else
     python setup.py install
 fi
