@@ -10,10 +10,13 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     export CPPTRAJHOME=`pwd`
     cd ..
 
+    echo "update @rpath for libcpptraj"
     for x in $(find build/ -name '*.so'); do
         name="libcpptraj.dylib"
         install_name_tool -change "@rpath/$name" "$CPPTRAJHOME/lib/$name" $x
     done
-else
-    python setup.py install
+    echo "done building"
 fi
+
+echo "install pytraj"
+python setup.py install
