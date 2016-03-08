@@ -130,6 +130,9 @@ if not create_tar_file_for_release:
     extra_compile_args, extra_link_args = add_openmp_flag(disable_openmp,
         libcpptraj_has_openmp, extra_compile_args, extra_link_args)
 
+    extra_link_args += ['-Wl,-rpath,{}'.format(cpptraj_libdir)]
+    print('extra_link_args', extra_link_args)
+
     check_cpptraj_version(cpptraj_include, (4, 2, 8))
     
     pyxfiles, pxdfiles = get_pyx_pxd()
