@@ -11,7 +11,7 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     cd ..
 
     for x in $(find build/ -name '*.so'); do
-        name = "libcpptraj.dylib"
+        name="libcpptraj.dylib"
         install_name_tool -change "@rpath/$name" "$CPPTRAJHOME/lib/$name" $x
     done
 else
