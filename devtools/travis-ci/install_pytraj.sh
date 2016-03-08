@@ -13,8 +13,9 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     echo "update @rpath for libcpptraj"
     for x in $(find build/ -name '*.so'); do
         name="libcpptraj.dylib"
-        install_name_tool -change "@rpath/$name" "$CPPTRAJHOME/lib/$name" $x
-        install_name_tool -id "@rpath/$name" "$CPPTRAJHOME/lib/$name"
+        install_name_tool -change $name $CPPTRAJHOME/lib/$name $x
+        # install_name_tool -change "@rpath/$name" "$CPPTRAJHOME/lib/$name" $x
+        # install_name_tool -id "@rpath/$name" "$CPPTRAJHOME/lib/$name"
     done
     echo "done building"
     echo "install pytraj"
