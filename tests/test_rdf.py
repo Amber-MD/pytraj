@@ -23,6 +23,7 @@ class TestRDF(unittest.TestCase):
         radial output/cRadial.agr 0.5 20.0 :3 :WAT@O noimage
         radial output/radial.dat 0.5 10.0 :5@CD :WAT@O
         radial output/radial2.dat 0.25 10.0 :5@CD :WAT@O
+        radial output/radial2.dat 0.25 10.0 :5@CD :WAT@O volume
         '''
 
         # get data directly from cpptraj
@@ -85,12 +86,21 @@ class TestRDF(unittest.TestCase):
                        maximum=10.0,
                        solute_mask=':5@CD')
 
+        # volume
+        data7 = pt.rdf(traj,
+                       solvent_mask=':WAT@O',
+                       bin_spacing=0.25,
+                       maximum=10.0,
+                       solute_mask=':5@CD',
+                       volume=True)
+
         # do assertion
         aa_eq(data0[1], state.data[1], decimal=7)
         aa_eq(data1[1], state.data[2], decimal=7)
         aa_eq(data2[1], state.data[3], decimal=7)
         aa_eq(data3[1], state.data[4], decimal=7)
         aa_eq(data4[1], state.data[5], decimal=7)
+        aa_eq(data7[1], state.data[8], decimal=7)
 
         # default solvent mask :WAT@O
         aa_eq(data01[1], state.data[1], decimal=7)

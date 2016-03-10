@@ -104,7 +104,7 @@ def calc_distance(traj=None,
     frame_indices : array-like, optional, default None
     dtype : return type, default 'ndarray'
     top : Topology, optional
-    image : bool, default True
+    image : bool, default False
     n_frames : int, optional, default None
         only need to provide n_frames if ``traj`` does not have this info
 
@@ -982,6 +982,7 @@ def calc_rdf(traj=None,
              bin_spacing=0.5,
              image=True,
              density=0.033456,
+             volume=False,
              center_solvent=False,
              center_solute=False,
              intramol=True,
@@ -1047,12 +1048,13 @@ def calc_rdf(traj=None,
     if not isinstance(solute_mask, string_types) and solute_mask is not None:
         solute_mask = array_to_cpptraj_atommask(solute_mask)
 
-    _spacing = str(bin_spacing)
+    spacing_ = str(bin_spacing)
     _maximum = str(maximum)
     _solventmask = solvent_mask
     _solutemask = solute_mask
     _noimage = 'noimage' if not image else ''
     _density = 'density ' + str(density) if density is not None else ''
+    volume_ = 'volume' if volume else ''
     _center1 = 'center1' if center_solvent else ''
     _center2 = 'center2' if center_solute else ''
     _nointramol = 'nointramol' if not intramol else ''
@@ -1061,8 +1063,8 @@ def calc_rdf(traj=None,
     # the order between _solventmask and _solutemask is swapped compared
     # to cpptraj's doc (to get correct result)
     command = ' '.join(
-        ("pytraj_tmp_output.agr", _spacing, _maximum, _solutemask,
-         _solventmask, _noimage, _density, _center1, _center2, _nointramol))
+        ("pytraj_tmp_output.agr", spacing_, _maximum, _solutemask,
+         _solventmask, _noimage, _density, volume_, _center1, _center2, _nointramol))
 
     c_dslist = CpptrajDatasetList()
     act(command, traj, top=top_, dslist=c_dslist)
