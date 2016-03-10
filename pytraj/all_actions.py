@@ -1063,8 +1063,8 @@ def calc_rdf(traj=None,
     # the order between _solventmask and _solutemask is swapped compared
     # to cpptraj's doc (to get correct result)
     command = ' '.join(
-        ("pytraj_tmp_output.agr", spacing_, _maximum, _solutemask,
-         _solventmask, _noimage, _density, volume_, _center1, _center2, _nointramol))
+        ("pytraj_tmp_output.agr", spacing_, _maximum, _solventmask, _solutemask,
+         _noimage, _density, volume_, _center1, _center2, _nointramol))
 
     c_dslist = CpptrajDatasetList()
     act(command, traj, top=top_, dslist=c_dslist)

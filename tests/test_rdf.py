@@ -32,66 +32,66 @@ class TestRDF(unittest.TestCase):
 
         # get data from pytraj
         data0 = pt.rdf(traj,
-                       solvent_mask=':WAT@O',
+                       solute_mask=':WAT@O',
                        bin_spacing=0.5,
                        maximum=10.0,
-                       solute_mask=':5@CD')
+                       solvent_mask=':5@CD')
 
         data01 = pt.rdf(traj,
-                        solvent_mask=':WAT@O',
+                        solvent_mask=':5@CD',
+                        solute_mask=':WAT@O',
                         bin_spacing=0.5,
-                        maximum=10.0,
-                        solute_mask=':5@CD')
+                        maximum=10.0)
 
         data1 = pt.rdf(traj,
-                       solvent_mask=':WAT@O',
+                       solvent_mask=':5',
+                       solute_mask=':WAT@O',
                        bin_spacing=0.5,
                        maximum=10.0,
-                       center_solvent=True,
-                       solute_mask=':5')
+                       center_solvent=True)
 
         data2 = pt.rdf(traj,
-                       solvent_mask=':WAT@O',
+                       solvent_mask=':5',
+                       solute_mask=':WAT@O',
                        bin_spacing=0.5,
                        maximum=10.0,
-                       center_solute=True,
-                       solute_mask=':5')
+                       center_solute=True)
 
         data3 = pt.rdf(traj,
-                       solvent_mask=':WAT@O',
+                       solvent_mask=':3',
+                       solute_mask=':WAT@O',
                        bin_spacing=0.5,
                        maximum=20.0,
-                       center_solute=False,
-                       solute_mask=':3')
+                       center_solute=False)
 
         data4 = pt.rdf(traj,
-                       solvent_mask=':WAT@O',
+                       solvent_mask=':3',
+                       solute_mask=':WAT@O',
                        bin_spacing=0.5,
                        maximum=20.0,
                        center_solute=False,
-                       image=False,
-                       solute_mask=':3')
+                       image=False)
 
         data5 = pt.rdf(traj,
-                       solvent_mask=':WAT@O',
+                       solute_mask=':WAT@O',
                        bin_spacing=0.25,
                        maximum=10.0,
-                       solute_mask=':5@CD')
+                       solvent_mask=':5@CD')
 
         # solvent_mask is array
         solvent_indices = pt.select(':WAT@O', traj.top)
         data6 = pt.rdf(traj,
-                       solvent_mask=solvent_indices,
+                       solvent_mask=':5@CD',
+                       solute_mask=solvent_indices,
                        bin_spacing=0.25,
-                       maximum=10.0,
-                       solute_mask=':5@CD')
+                       maximum=10.0)
 
         # volume
         data7 = pt.rdf(traj,
-                       solvent_mask=':WAT@O',
+                       solvent_mask=':5@CD',
+                       solute_mask=':WAT@O',
                        bin_spacing=0.25,
                        maximum=10.0,
-                       solute_mask=':5@CD',
                        volume=True)
 
         # do assertion
