@@ -47,7 +47,7 @@ Install
     # Note: pytraj will install the most updated cpptraj. We recommend to have netcdf library.
     ```
 
-- from conda (develop version for linux): `conda install -c ambermd pytraj-dev`
+- from conda (develop version for linux): `conda install -c https://conda.anaconda.org/ambermd pytraj-dev`
 
 - from AMBER suite distribution [http://ambermd.org/](http://ambermd.org/). AMBER16 will be available soon (around April 2016).
 
