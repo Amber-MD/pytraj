@@ -104,7 +104,7 @@ def calc_distance(traj=None,
     frame_indices : array-like, optional, default None
     dtype : return type, default 'ndarray'
     top : Topology, optional
-    image : bool, default True
+    image : bool, default False
     n_frames : int, optional, default None
         only need to provide n_frames if ``traj`` does not have this info
 
