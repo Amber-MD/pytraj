@@ -50,12 +50,13 @@ class TestAtomicFluct(unittest.TestCase):
         state.run()
 
         # use `load` method
-        traj = pt.load("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        t0 = pt.load("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         data = pt.rmsf(traj, '@CA')
         aa_eq(data, state.data[-2].values)
         # make sure that traj's coordinates were not altered
         # https://github.com/Amber-MD/pytraj/issues/1166
-        aa_eq(pt.distance(traj, ':3 :7'), state.data[-1])
+        aa_eq(pt.distance(t0, ':3 :7'), state.data[-1])
+        aa_eq(traj.xyz, t0.xyz)
 
 
 if __name__ == "__main__":
