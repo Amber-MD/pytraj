@@ -1527,7 +1527,7 @@ def calc_multidihedral(traj=None,
 
 
 @super_dispatch()
-def calc_atomicfluct(traj=None,
+def atomicfluct(traj=None,
                      mask="",
                      top=None,
                      dtype='ndarray',
@@ -1538,7 +1538,7 @@ def calc_atomicfluct(traj=None,
     --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()
-    >>> data = pt.calc_atomicfluct(traj, '@CA')
+    >>> data = pt.atomicfluct(traj, '@CA')
     >>> data[:3]
     array([[  5.        ,   0.61822273],
            [ 16.        ,   0.5627449 ],
@@ -1549,6 +1549,8 @@ def calc_atomicfluct(traj=None,
     act(mask, traj, top=top, dslist=c_dslist)
     act.post_process()
     return get_data_from_dtype(c_dslist, dtype=dtype)
+
+calc_atomicfluct = atomicfluct
 
 
 def calc_bfactors(traj=None,
