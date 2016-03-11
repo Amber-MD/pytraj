@@ -133,11 +133,12 @@ from .all_actions import (
     autoimage, calc_angle, calc_dihedral, calc_distance,
     calc_pairwise_distance, calc_center_of_mass, calc_center_of_geometry,
     calc_jcoupling, calc_surf, calc_molsurf, calc_radgyr, calc_rdf, calc_vector,
-    calc_pairwise_rmsd, calc_atomicfluct, calc_bfactors,
+    calc_pairwise_rmsd, calc_atomicfluct, atomicfluct, calc_bfactors,
     calc_rotation_matrix, calc_watershell, calc_volume, calc_mindist,
+    calc_atomiccorr,
     # lifetime,
     pucker,
-    get_average_frame, calc_atomiccorr, get_velocity, _dihedral_res,
+    get_average_frame, get_velocity, _dihedral_res,
     native_contacts, principal_axes,
     align_principal_axis,
     timecorr, center, translate, rotate,
@@ -189,7 +190,6 @@ angles = calc_angle
 dihedral = calc_dihedral
 dihedrals = calc_dihedral
 jcoupling = calc_jcoupling
-calc_RMSF = calc_atomicfluct
 rmsf = calc_atomicfluct
 pairwise_rmsd = calc_pairwise_rmsd
 rms2d = calc_pairwise_rmsd
