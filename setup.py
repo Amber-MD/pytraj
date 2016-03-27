@@ -21,7 +21,6 @@ from scripts.base_setup import (check_flag, check_cpptraj_version, write_version
                                 get_pyx_pxd, get_include_and_lib_dir, do_what, check_cython)
 from scripts.base_setup import (add_openmp_flag, try_updating_libcpptraj, remind_export_LD_LIBRARY_PATH)
 from scripts.base_setup import CleanCommand, ISRELEASED, message_pip_need_cpptraj_home
-from scripts.install_libcpptraj import DEFAULT_MAC_COMPILER, DEFAULT_LINUX_COMPILER
 
 # python version >= 2.6
 if sys.version_info < (2, 6):
@@ -88,28 +87,7 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 libraries = ['cpptraj',]
-if sys.platform == 'darwin':
-    is_osx = True
-    libraries.append('stdc++')
-else:
-    is_osx = False
-
-COMPILER = os.environ.get('COMPILER')
-
-if COMPILER is None and is_osx:
-    COMPILER = DEFAULT_MAC_COMPILER
-    os.environ['CXX'] = COMPILER + '++'
-    os.environ['CC'] = COMPILER
-elif COMPILER is 'gnu' and is_osx:
-    os.environ['CXX'] = 'g++'
-    os.environ['CC'] = 'gcc'
-elif COMPILER == 'clang':
-    os.environ['CXX'] = COMPILER + '++'
-    os.environ['CC'] = COMPILER
-else:
-    pass
-    
-pyxfiles, pxdfiles = get_pyx_pxd()
+is_osx = (sys.platform == 'darwin')
 
 if not create_tar_file_for_release:
     if not libcpptraj_files:
