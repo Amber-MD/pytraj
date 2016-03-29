@@ -1,6 +1,6 @@
 #!/bin/sh
 
-#wrapp vim for openning two files
+#wrap vim for opening two files
 
 pxd=$1
 cpptrajsrc="$CPPTRAJHOME/src/"

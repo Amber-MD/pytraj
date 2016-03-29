@@ -1,6 +1,6 @@
 #!/bin/sh
 
-#wrap vim for openning two files
+#wrap vim for opening two files
 
 #rootname=$1
 #cpptrajsrc=$AMBERHOME"/AmberTools/src/cpptraj/src/"

@@ -98,7 +98,7 @@ else:
     python ./setup.py install
 
     ...
-    but we're trying to dowload and build libcpptraj for you. (5-10 minutes)
+    but we're trying to download and build libcpptraj for you. (5-10 minutes)
     (check ./cpptraj/ folder after installation)
     """
     print(nice_message)
