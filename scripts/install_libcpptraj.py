@@ -90,7 +90,7 @@ def install_libcpptraj(cpptraj_compiler_option, build_flag):
 
     try:
         os.mkdir('./lib')
-    except FileExistsError:
+    except OSError:
         pass
 
     cm = 'bash configure {build_flag} {compiler} || exit 1'.format(
