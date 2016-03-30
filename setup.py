@@ -21,7 +21,7 @@ from scripts.base_setup import (check_flag, check_cpptraj_version, write_version
                                 get_pyx_pxd, get_include_and_lib_dir, do_what, check_cython)
 from scripts.base_setup import (add_openmp_flag, try_updating_libcpptraj, remind_export_LD_LIBRARY_PATH)
 from scripts.base_setup import CleanCommand, ISRELEASED, message_pip_need_cpptraj_home
-from scripts.install_libcpptraj import DEFAULT_MAC_COMPILER, DEFAULT_LINUX_COMPILER
+from scripts.install_libcpptraj import DEFAULT_MAC_CCOMPILER, DEFAULT_MAC_CXXCOMPILER # clang
 
 # python version >= 2.6
 if sys.version_info < (2, 6):
@@ -59,8 +59,8 @@ print(FULLVERSION)
 cmdclass = {'clean': CleanCommand}
 need_cython, cmdclass, cythonize  = check_cython(ISRELEASED, cmdclass, min_version='0.21')
 
-extra_compile_args = ['-O0', '-ggdb', ]
-extra_link_args = ['-O0', '-ggdb', ]
+extra_compile_args = ['-O0', '-ggdb']
+extra_link_args = ['-O0', '-ggdb']
 
 cython_directives = {
     'embedsignature': True,
@@ -87,28 +87,19 @@ def read(fname):
     # must be in this setup file
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
-libraries = ['cpptraj',]
 if sys.platform == 'darwin':
-    is_osx = True
-    libraries.append('stdc++')
-else:
-    is_osx = False
+    os.environ['CXX'] = DEFAULT_MAC_CXXCOMPILER
+    os.environ['CC'] = DEFAULT_MAC_CCOMPILER
+    # See which c++ lib we need to link to... sigh.
+    import distutils.sysconfig as sc
+    osxver = tuple(int(x) for x in
+                   sc.get_config_var('MACOSX_DEPLOYMENT_TARGET').split('.') if x)
+    if osxver < (10, 8):
+        extra_compile_args.extend(['-stdlib=libstdc++',
+                                   '-mmacosx-version-min=%d.%d' % osxver])
+        extra_link_args.extend(['-stdlib=libstdc++',
+                                '-mmacosx-version-min=%d.%d' % osxver])
 
-COMPILER = os.environ.get('COMPILER')
-
-if COMPILER is None and is_osx:
-    COMPILER = DEFAULT_MAC_COMPILER
-    os.environ['CXX'] = COMPILER + '++'
-    os.environ['CC'] = COMPILER
-elif COMPILER is 'gnu' and is_osx:
-    os.environ['CXX'] = 'g++'
-    os.environ['CC'] = 'gcc'
-elif COMPILER == 'clang':
-    os.environ['CXX'] = COMPILER + '++'
-    os.environ['CC'] = COMPILER
-else:
-    pass
-    
 pyxfiles, pxdfiles = get_pyx_pxd()
 
 if not create_tar_file_for_release:
@@ -116,31 +107,31 @@ if not create_tar_file_for_release:
         libcpptraj_files = try_updating_libcpptraj(cpptraj_home,
                 do_install, do_build, has_cpptraj_in_current_folder, openmp_flag)
     print('libcpptraj_files', libcpptraj_files)
-    
+
     try:
         output_openmp_check = subprocess.check_output(['nm', libcpptraj_files[0]]).decode().split('\n')
     except IndexError:
-        print("It seems that there is no libcpptraj. Please intall it")
+        print("Warning:  It seems that there is no libcpptraj. Please install it")
         sys.exit(0)
-    
+
     libcpptraj_has_openmp = ([line for line in output_openmp_check if 'get_num_threads' in line.lower()]  != [])
     if libcpptraj_has_openmp and sys.platform == 'darwin':
         raise OSError("pytraj does not (yet) support openmp in osx. Please recompile libcpptraj without openmp")
-    
+
     extra_compile_args, extra_link_args = add_openmp_flag(disable_openmp,
         libcpptraj_has_openmp, extra_compile_args, extra_link_args)
 
     check_cpptraj_version(cpptraj_include, (4, 2, 8))
-    
+
     pyxfiles, pxdfiles = get_pyx_pxd()
-    
+
     if not do_clean and not ISRELEASED:
         cythonize(
             [pfile + '.pyx' for pfile in pyxfiles],
             nthreads=int(os.environ.get('NUM_THREADS', 4)),
             compiler_directives=cython_directives,
         )
-    
+
     library_dirs = [cpptraj_libdir, ] if not use_phenix_python else [cpptraj_libdir, phenix_python_lib]
 
     ext_modules = []
@@ -150,15 +141,15 @@ if not create_tar_file_for_release:
         else:
             ext = ".cpp"
         pyxfile = ext_name + ext
-    
+
         # replace "/" by "." get module
         if "/" in ext_name:
             ext_name = ext_name.replace("/", ".")
-    
+
         sources = [pyxfile]
         extmod = Extension(ext_name,
                            sources=sources,
-                           libraries=libraries,
+                           libraries=['cpptraj'],
                            language='c++',
                            library_dirs=library_dirs,
                            define_macros=define_macros,

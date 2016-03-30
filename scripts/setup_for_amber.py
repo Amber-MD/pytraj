@@ -13,19 +13,15 @@ from distutils.extension import Extension
 from random import shuffle
 import time
 from time import sleep
+from scripts.install_libcpptraj import DEFAULT_MAC_CCOMPILER, DEFAULT_MAC_CXXCOMPILER
 
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 if sys.platform == 'darwin':
-    # copied from ParmEd
-    # You *need* to use clang and clang++ for extensions on a Mac;
-    # Anaconda does annoying stuff that breaks this, since their distutils
-    # automatically tries to use "gcc", which would conflict with the MacPorts
-    # gcc... sigh.
-    os.environ['CXX'] = 'clang++'
-    os.environ['CC'] = 'clang'
+    os.environ['CXX'] = DEFAULT_MAC_CXXCOMPILER
+    os.environ['CC'] = DEFAULT_MAC_COMPILER
 
 rootname = os.getcwd()
 pytraj_home = rootname + "/pytraj/"
