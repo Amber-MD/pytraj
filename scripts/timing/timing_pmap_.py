@@ -42,7 +42,7 @@ def matrix_():
         print('n_cores = ', n_cores)
         print(traj)
         x = pt.pmap(n_cores, pt.matrix.dist, traj, '@P', dtype='ndarray')
-        # make sure to reproduce serial verion
+        # make sure to reproduce serial version
         #data = np.sum((v[1] * v[2] for  v in x), axis=0)
         #return data / traj.n_frames
         return x

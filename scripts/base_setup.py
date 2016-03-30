@@ -20,6 +20,8 @@ VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 
 
 message_cython = """
+Warning:  pytraj was not installed !
+
 Building from source requires cython >= 0.21
 
 Either try:
@@ -48,7 +50,7 @@ $ make libcpptraj -j8
 
 message_auto_install = """
 Can not find cpptraj header and libcpptraj files.
-We're trying to dowload and build libcpptraj for you, would take about 5-10 minutes.
+We're trying to download and build libcpptraj for you, would take about 5-10 minutes.
 You can check ./cpptraj/ folder after installation.
 
 To avoid auto-installation
