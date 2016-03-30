@@ -23,6 +23,7 @@ if sys.platform.startswith('darwin'):
         DEFAULT_MAC_CCOMPILER = "/usr/bin/gcc"
         DEFAULT_MAC_CXXCOMPILER = "/usr/bin/g++"
 
+
 def get_compiler_and_build_flag():
     try:
         sys.argv.remove('-openmp')
@@ -42,9 +43,10 @@ def get_compiler_and_build_flag():
     except ImportError:
         has_numpy = False
 
-    compiler = os.environ.get('COMPILER', 'gnu')
-    if sys.platform == 'darwin':
-        compiler = DEFAULT_MAC_CCOMPILER
+    # better name for CPPTRAJ_COMPILER_OPTION?
+    # cpptraj: ./configure gnu
+    # e.g: CPPTRAJ_COMPILER_OPTION=gnu python ./scripts/install_libcpptraj.py
+    cpptraj_compiler_option = os.environ.get('CPPTRAJ_COMPILER_OPTION', 'gnu')  # intel | pgi | clang | cray?
     amberhome = os.environ.get('AMBERHOME', '')
     amberlib = '-amberlib' if amberhome else ''
 
@@ -75,9 +77,10 @@ def get_compiler_and_build_flag():
         os.system('git clone https://github.com/Amber-MD/cpptraj')
     else:
         print('install libcpptraj from current ./cpptraj folder')
-    return compiler, build_flag
+    return cpptraj_compiler_option, build_flag
 
-def install_libcpptraj(compiler, build_flag):
+
+def install_libcpptraj(cpptraj_compiler_option, build_flag):
     cwd = os.getcwd()
     try:
         os.chdir('./cpptraj')
@@ -90,8 +93,10 @@ def install_libcpptraj(compiler, build_flag):
     except FileExistsError:
         pass
 
-    print('build_flag = ', build_flag)
-    os.system('bash configure {build_flag} {compiler} || exit 1'.format(build_flag=build_flag, compiler=compiler))
+    cm = 'bash configure {build_flag} {compiler} || exit 1'.format(
+            build_flag=build_flag, compiler=cpptraj_compiler_option)
+    print('build command: ', cm)
+    os.system(cm)
     os.system('make libcpptraj -j8 || exit 1')
     os.chdir(cwd)
     print("make sure to 'export CPPTRAJHOME=$CPPTRAJHOME'"
@@ -100,5 +105,5 @@ def install_libcpptraj(compiler, build_flag):
 
 
 if __name__ == '__main__':
-    compiler, build_flag = get_compiler_and_build_flag()
-    install_libcpptraj(compiler, build_flag)
+    cpptraj_compiler_option, build_flag = get_compiler_and_build_flag()
+    install_libcpptraj(cpptraj_compiler_option, build_flag)
