@@ -1,4 +1,5 @@
 from __future__ import print_function
+import sys
 import unittest
 from collections import OrderedDict
 import numpy as np
@@ -12,6 +13,7 @@ from pytraj.parallel.base import _load_batch_pmap, worker_by_actlist
 from pytraj import c_commands
 
 
+@unittest.skipIf(sys.platform is not 'linux', 'pmap for linux')
 class TestNormalPmap(unittest.TestCase):
 
     def setUp(self):
