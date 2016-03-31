@@ -9,7 +9,7 @@ from check_openmp import get_openmp_flag
 from find_lib import find_lib
 
 
-DEFAULT_MAC_BUILD = '{CPPTRAJ_CXX} -shared -macAccelerate --with-fftw3=/usr/local --with-netcdf=/usr/local -noarpack'
+DEFAULT_MAC_BUILD = '-shared -macAccelerate --with-fftw3=/usr/local --with-netcdf=/usr/local -noarpack'
 
 DEFAULT_MAC_CCOMPILER = 'clang'
 DEFAULT_MAC_CXXCOMPILER = 'clang++'
@@ -88,7 +88,7 @@ def get_compiler_and_build_flag():
         build_flag_ = '-noarpack'
 
     if IS_OSX:
-        build_flag = DEFAULT_MAC_BUILD.format(CPPTRAJ_CXX=CPPTRAJ_CXX)
+        build_flag = DEFAULT_MAC_BUILD
     else:
         build_flag = ' '.join(('-shared', build_flag_, amberlib, openmp_flag))
 
