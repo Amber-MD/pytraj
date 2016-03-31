@@ -15,9 +15,6 @@ export AMBERHOME=`pwd`
 # go back to tests folder
 cd ..
 
-if [ "$PLATFORM" = "linux" ]; then
-    export LD_LIBRARY_PATH=`pwd`"/cpptraj/lib":$LD_LIBRARY_PATH
-
 # print info
 python run_simple_test.py || exit 1
 

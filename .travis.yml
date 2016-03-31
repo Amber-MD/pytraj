@@ -38,6 +38,9 @@ install:
 
 script:
     - source devtools/travis-ci/install_pytraj.sh
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+        export LD_LIBRARY_PATH=`pwd`"/cpptraj/lib":$LD_LIBRARY_PATH
+      fi
     - source devtools/travis-ci/run_tests.sh
 
 after_success:
