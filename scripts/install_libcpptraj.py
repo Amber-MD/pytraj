@@ -59,14 +59,15 @@ def get_compiler_and_build_flag():
     if has_numpy and find_lib('openblas'):
         prefix = sys.prefix
         # likely having openblas?
-        build_flag_ = '--with-netcdf={prefix} --with-blas={prefix} \
-                       --with-bzlib={prefix} --with-zlib={prefix} \
-                       -openblas -noarpack'.format(prefix=prefix)
+        build_flag_ = ('--with-netcdf={prefix} --with-blas={prefix} '
+                      '--with-bzlib={prefix} --with-zlib={prefix} '
+                      '-openblas -noarpack'.format(prefix=prefix))
     elif has_numpy:
         try:
             blas_prefix = np.__config__.blas_opt_info['library_dirs'][0].strip('lib')
             lapack_prefix = np.__config__.lapack_opt_info['library_dirs'][0].strip('lib')
-            build_flag_ = '-noarpack --with-blas={blas_prefix} --with-lapack={lapack_prefix}'.format(blas_prefix=blas_prefix, lapack_prefix=lapack_prefix)
+            build_flag_ = ('-noarpack --with-blas={blas_prefix} --with-lapack={lapack_prefix}'
+                .format(blas_prefix=blas_prefix, lapack_prefix=lapack_prefix))
         except (KeyError, IndexError):
             build_flag_ = '-noarpack'
     else:
@@ -89,6 +90,8 @@ def get_compiler_and_build_flag():
 def fix_rpath():
     if sys.platform == 'darwin':
         os.system('(cd lib && install_name_tool -id `pwd`/libcpptraj.dylib libcpptraj.dylib)')
+    else:
+        pass
 
 def install_libcpptraj(cpptraj_compiler_option, build_flag):
     cwd = os.getcwd()
