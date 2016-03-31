@@ -48,7 +48,7 @@ script:
 
 after_success:
     - echo "after_success"
-    - cd ../../tests/
+    - cd tests/
     - ../devtools/travis-ci/coveralls
 
 notifications:
