@@ -86,6 +86,10 @@ def get_compiler_and_build_flag():
     return cpptraj_compiler_option, build_flag
 
 
+def fix_rpath():
+    if sys.platform == 'darwin':
+        os.system('(cd lib && install_name_tool -id `pwd`/libcpptraj.dylib libcpptraj.dylib)')
+
 def install_libcpptraj(cpptraj_compiler_option, build_flag):
     cwd = os.getcwd()
     try:
@@ -104,6 +108,7 @@ def install_libcpptraj(cpptraj_compiler_option, build_flag):
     print('build command: ', cm)
     os.system(cm)
     os.system('make libcpptraj -j8 || exit 1')
+    fix_rpath()
     os.chdir(cwd)
     print("make sure to 'export CPPTRAJHOME=$CPPTRAJHOME'"
           "and 'export LD_LIBRARY_PATH=$CPPTRAJHOME/lib:\$LD_LIBRARY_PATH'"
