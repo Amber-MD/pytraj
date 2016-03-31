@@ -5,4 +5,4 @@ graft tests
 graft examples
 graft contributors
 graft licenses
-include runtests.py changes.rst
+include run_tests.py changes.rst

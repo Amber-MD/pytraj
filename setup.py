@@ -124,8 +124,8 @@ if not create_tar_file_for_release:
     if sys.platform.startswith('linux'):
         # set rpath
         sys.stdout.write('set rpath to {}\n'.format(cpptraj_libdir))
-        extra_link_args.append('-Wl,-rpath,{}'.format(cpptraj_libdir))
-        extra_compile_args.append('-Wl,-rpath,{}'.format(cpptraj_libdir))
+        extra_link_args.append('-Wl,-rpath={}'.format(cpptraj_libdir))
+        extra_compile_args.append('-Wl,-rpath={}'.format(cpptraj_libdir))
 
     check_cpptraj_version(cpptraj_include, (4, 2, 8))
 

@@ -97,8 +97,8 @@ make sure to add {0} to your LD_LIBRARY_PATH
     - Notes: you can move `libcpptraj.so` to any where you want, just properly add it to $LD_LIBRARY_PATH
 
 Run test:
-    - simple (few seconds): python ./runtests.py simple
-    - full (5-10 minutes): python runtests.py
+    - simple (few seconds): python ./run_tests.py simple
+    - full (5-10 minutes): python run_tests.py
 '''
 
 def check_flag(key):
