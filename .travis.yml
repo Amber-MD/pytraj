@@ -38,13 +38,7 @@ install:
 
 script:
     - source devtools/travis-ci/install_pytraj.sh
-    - export LD_LIBRARY_PATH=`pwd`"/cpptraj/lib":$LD_LIBRARY_PATH
-    - sh ./devtools/travis-ci/pyflakes_check.sh
-    - export CPPTRAJHOME=`pwd`"/cpptraj/"
-    - cd tests/fake_amberhome/
-    - export AMBERHOME=`pwd`
-    - cd ../../
-    - source ./devtools/travis-ci/run_tests.sh
+    - source devtools/travis-ci/run_tests.sh
 
 after_success:
     - echo "after_success"
