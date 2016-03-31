@@ -13,6 +13,10 @@ DEFAULT_MAC_BUILD = '-shared -macAccelerate --with-fftw3=/usr/local --with-netcd
 
 DEFAULT_MAC_CCOMPILER = 'clang'
 DEFAULT_MAC_CXXCOMPILER = 'clang++'
+
+CPPTRAJ_CXX = ' '
+IS_OSX = (sys.platform == 'darwin')
+
 if sys.platform.startswith('darwin'):
     # Hack to fix conda
     import distutils.sysconfig as sc
@@ -22,6 +26,21 @@ if sys.platform.startswith('darwin'):
         # than an absolute path).
         DEFAULT_MAC_CCOMPILER = "/usr/bin/gcc"
         DEFAULT_MAC_CXXCOMPILER = "/usr/bin/g++"
+
+        # Warning: dirty hack to use libstdc++
+        CPPTRAJ_CXX = '-stdlib=libstdc++'
+
+def add_CPPTRAJ_CXX_to_config(fn, CPPTRAJ_CXX=CPPTRAJ_CXX):
+    with open(fn, 'r') as fconfig:
+        lines = fconfig.readlines()
+
+    with open('tmp.h', 'w') as fh:
+        for idx, line in enumerate(lines):
+            if line.startswith('CXX='):
+                print('line', line)
+                lines[idx] = ' '.join((line.strip(), CPPTRAJ_CXX, '\n'))
+        fh.write(''.join(lines))
+    os.system('mv tmp.h {}'.format(fn))
 
 
 def get_compiler_and_build_flag():
@@ -53,21 +72,22 @@ def get_compiler_and_build_flag():
     if has_numpy and find_lib('openblas'):
         prefix = sys.prefix
         # likely having openblas?
-        build_flag_ = '--with-netcdf={prefix} --with-blas={prefix} \
-                       --with-bzlib={prefix} --with-zlib={prefix} \
-                       -openblas -noarpack'.format(prefix=prefix)
+        build_flag_ = ('--with-netcdf={prefix} --with-blas={prefix} '
+                      '--with-bzlib={prefix} --with-zlib={prefix} '
+                      '-openblas -noarpack'.format(prefix=prefix))
     elif has_numpy:
         try:
             blas_prefix = np.__config__.blas_opt_info['library_dirs'][0].strip('lib')
             lapack_prefix = np.__config__.lapack_opt_info['library_dirs'][0].strip('lib')
-            build_flag_ = '-noarpack --with-blas={blas_prefix} --with-lapack={lapack_prefix}'.format(blas_prefix=blas_prefix, lapack_prefix=lapack_prefix)
+            build_flag_ = ('-noarpack --with-blas={blas_prefix} --with-lapack={lapack_prefix}'
+                .format(blas_prefix=blas_prefix, lapack_prefix=lapack_prefix))
         except (KeyError, IndexError):
             build_flag_ = '-noarpack'
     else:
         # user gets lucky?
         build_flag_ = '-noarpack'
 
-    if sys.platform == 'darwin':
+    if IS_OSX:
         build_flag = DEFAULT_MAC_BUILD
     else:
         build_flag = ' '.join(('-shared', build_flag_, amberlib, openmp_flag))
@@ -79,6 +99,12 @@ def get_compiler_and_build_flag():
         print('install libcpptraj from current ./cpptraj folder')
     return cpptraj_compiler_option, build_flag
 
+
+def fix_rpath():
+    if IS_OSX:
+        os.system('(cd lib && install_name_tool -id `pwd`/libcpptraj.dylib libcpptraj.dylib)')
+    else:
+        pass
 
 def install_libcpptraj(cpptraj_compiler_option, build_flag):
     cwd = os.getcwd()
@@ -97,7 +123,10 @@ def install_libcpptraj(cpptraj_compiler_option, build_flag):
             build_flag=build_flag, compiler=cpptraj_compiler_option)
     print('build command: ', cm)
     os.system(cm)
+    if IS_OSX:
+        add_CPPTRAJ_CXX_to_config('config.h', CPPTRAJ_CXX)
     os.system('make libcpptraj -j8 || exit 1')
+    fix_rpath()
     os.chdir(cwd)
     print("make sure to 'export CPPTRAJHOME=$CPPTRAJHOME'"
           "and 'export LD_LIBRARY_PATH=$CPPTRAJHOME/lib:\$LD_LIBRARY_PATH'"

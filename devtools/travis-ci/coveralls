@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import sys
 
-if float(os.environ.get('PYTHON_VERSION')) >= 3.4:
+if float(os.environ.get('PYTHON_VERSION')) >= 3.4 and sys.platform == 'linux':
     os.system('coveralls')

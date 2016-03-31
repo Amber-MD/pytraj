@@ -1,4 +1,5 @@
 from __future__ import print_function
+import sys
 import unittest
 from collections import OrderedDict
 import numpy as np
@@ -12,6 +13,7 @@ from pytraj.parallel.base import _load_batch_pmap, worker_by_actlist
 from pytraj import c_commands
 
 
+@unittest.skipIf(sys.platform != 'linux', 'pmap for linux')
 class TestNormalPmap(unittest.TestCase):
 
     def setUp(self):
@@ -113,6 +115,7 @@ class TestNormalPmap(unittest.TestCase):
             aa_eq(radgyr_[0], saved_radgyr)
 
 
+@unittest.skipIf(sys.platform != 'linux', 'pmap for linux')
 class TestParallelMapForMatrix(unittest.TestCase):
 
     def test_matrix_module(self):
@@ -157,6 +160,7 @@ class TestParallelMapForMatrix(unittest.TestCase):
             aa_eq(saved_rmsd, rmsd_)
 
 
+@unittest.skipIf(sys.platform != 'linux', 'pmap for linux')
 class TestCpptrajCommandStyle(unittest.TestCase):
 
     def test_c_command_style(self):
@@ -233,6 +237,7 @@ class TestCpptrajCommandStyle(unittest.TestCase):
             aa_eq(arr, pt.radgyr(traj))
 
 
+@unittest.skipIf(sys.platform != 'linux', 'pmap for linux')
 class TestParallelMapForAverageStructure(unittest.TestCase):
 
     def test_pmap_average_structure(self):
@@ -245,6 +250,7 @@ class TestParallelMapForAverageStructure(unittest.TestCase):
             aa_eq(frame.xyz, saved_xyz)
 
 
+@unittest.skipIf(sys.platform != 'linux', 'pmap for linux')
 class TestLoadBathPmap(unittest.TestCase):
 
     def test_load_batch(self):
@@ -255,6 +261,7 @@ class TestLoadBathPmap(unittest.TestCase):
             lambda: _load_batch_pmap(n_cores=4, lines=['autoimage'], traj=None, dtype='dict', root=0, mode='xyz', ref=None))
 
 
+@unittest.skipIf(sys.platform != 'linux', 'pmap for linux')
 class TestFrameIndices(unittest.TestCase):
 
     def test_frame_indices(self):
@@ -281,6 +288,7 @@ class TestFrameIndices(unittest.TestCase):
                       pt.tools.dict_to_ndarray(parallel_out_c_style))
 
 
+@unittest.skipIf(sys.platform != 'linux', 'pmap for linux')
 class TestCheckValidCommand(unittest.TestCase):
 
     def test_check_valid_command(self):
@@ -318,6 +326,7 @@ class TestCheckValidCommand(unittest.TestCase):
             self.assertRaises(ValueError, lambda: pt.pmap(word, traj, n_cores=2))
 
 
+@unittest.skipIf(sys.platform != 'linux', 'pmap for linux')
 class TestVolmap(unittest.TestCase):
 
     def test_volmap(self):
@@ -340,6 +349,7 @@ class TestVolmap(unittest.TestCase):
                 aa_eq(serial_out, parallel_out)
 
 
+@unittest.skipIf(sys.platform != 'linux', 'pmap for linux')
 class TestWorker(unittest.TestCase):
 
     def testworker_by_actlist(self):
@@ -356,6 +366,7 @@ def change_10_atoms(traj):
         yield frame
 
 
+@unittest.skipIf(sys.platform != 'linux', 'pmap for linux')
 class TestInserNewFunction(unittest.TestCase):
 
     def test_insert_new_function(self):

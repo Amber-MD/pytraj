@@ -1,11 +1,8 @@
 #!/bin/sh
 
-if [[ $CPPTRAJ_ANACONDA == "NO" ]]; then
-    # build libcpptraj on travis
-    conda build devtools/conda-recipe/libcpptraj
-    conda install $HOME/miniconda/conda-bld/linux-64/libcpptraj-dev-* --yes
+platform=`python -c "import sys; print(sys.platform)"`
+if [ $platform != 'linux' ]; then
+    echo "do nothing, let pytraj handle"
 else
-    # install from anaconda
-    # this is for testingg lapack, arpack, blas
-    conda install -c ambermd libcpptraj-dev --force --yes
+   python scripts/install_libcpptraj.py
 fi

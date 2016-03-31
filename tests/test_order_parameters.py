@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from __future__ import print_function
 import numpy as np
+import sys
 import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
@@ -10,6 +11,7 @@ from pytraj.testing import cpptraj_test_dir
 
 class TestNHOrderParamters(unittest.TestCase):
 
+    @unittest.skipIf(sys.platform != 'linux', 'pmap for linux')
     @unittest.skipIf('DNO_MATHLIB' in pt.compiled_info(), 'there is no LAPACK')
     def test_nh_paramters(self):
         parmfile = cpptraj_test_dir + '/Test_IRED/1IEE_A_prot.prmtop'

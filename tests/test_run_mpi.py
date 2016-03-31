@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from __future__ import print_function
+import sys
 import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
@@ -8,6 +9,7 @@ import subprocess
 from glob import glob
 
 
+@unittest.skipIf(sys.platform == 'darwin', 'no test on osx for mpi')
 class TestRunMPI(unittest.TestCase):
 
     def test_all_mpi_scripts(self):
