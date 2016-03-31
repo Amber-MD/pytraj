@@ -5,3 +5,5 @@ import sys
 
 if float(os.environ.get('PYTHON_VERSION')) >= 3.4 and sys.platform == 'linux':
     os.system('coveralls')
+else:
+    print('only perform coverage reporting for Python version >= 3.4 on Linux')

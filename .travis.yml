@@ -43,17 +43,8 @@ script:
     - export CPPTRAJHOME=`pwd`"/cpptraj/"
     - cd tests/fake_amberhome/
     - export AMBERHOME=`pwd`
-    - cd ../
-    - python -c 'import pytraj as pt'
-    - python ./run_simple_test.py
-    # - nosetests -vs .
-    - nosetests --with-coverage --cover-package pytraj -vs test_*.py */test_*.py
-    - unset CPPTRAJHOME # for pytraj.tools coverage
-    - nosetests --with-coverage --cover-package pytraj -vs test_docs.py
-    - cd ../examples
-    - python ./run_examples.py
-    - cd mpi_examples
-    - sh run_mpi_examples.sh 4 
+    - cd ../../
+    - source ./devtools/travis-ci/run_tests.sh
 
 after_success:
     - echo "after_success"
