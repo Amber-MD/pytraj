@@ -84,13 +84,13 @@ def install_libcpptraj(cpptraj_compiler_option, build_flag):
     cwd = os.getcwd()
     try:
         os.chdir('./cpptraj')
-    except FileNotFoundError:
-        raise FileNotFoundError('please try python scripts/install_cpptraj.py github')
+    except OSError:
+        raise OSError('please try python scripts/install_cpptraj.py github')
     os.environ['CPPTRAJHOME'] = os.getcwd()
 
     try:
         os.mkdir('./lib')
-    except FileExistsError:
+    except OSError:
         pass
 
     cm = 'bash configure {build_flag} {compiler} || exit 1'.format(
