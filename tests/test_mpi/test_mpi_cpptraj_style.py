@@ -1,6 +1,6 @@
 # always add those lines to your code
+import sys
 import numpy as np
-from mpi4py import MPI
 import pytraj as pt
 from pytraj.testing import aa_eq
 

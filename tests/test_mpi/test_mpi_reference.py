@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import sys
 import pytraj as pt
 from pytraj.testing import aa_eq
 

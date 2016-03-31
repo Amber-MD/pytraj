@@ -2,6 +2,7 @@
 # mpirun -n 4 your_script.py
 
 # always add those lines to your code
+import sys
 import pytraj as pt
 from pytraj.testing import aa_eq
 
