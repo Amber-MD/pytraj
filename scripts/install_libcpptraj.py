@@ -15,6 +15,7 @@ DEFAULT_MAC_CCOMPILER = 'clang'
 DEFAULT_MAC_CXXCOMPILER = 'clang++'
 
 CPPTRAJ_CXX = ' '
+IS_OSX = (sys.platform == 'darwin')
 
 if sys.platform.startswith('darwin'):
     # Hack to fix conda
@@ -27,7 +28,19 @@ if sys.platform.startswith('darwin'):
         DEFAULT_MAC_CXXCOMPILER = "/usr/bin/g++"
 
         # Warning: dirty hack to use libstdc++
-        CPPTRAJ_CXX = 'CXX="g++ -stdlib=libstdc++"'
+        CPPTRAJ_CXX = '-stdlib=libstdc++'
+
+def add_CPPTRAJ_CXX_to_config(fn, CPPTRAJ_CXX=CPPTRAJ_CXX):
+    with open(fn, 'r') as fconfig:
+        lines = fconfig.readlines()
+
+    with open('tmp.h', 'w') as fh:
+        for idx, line in enumerate(lines):
+            if line.startswith('CXX='):
+                print('line', line)
+                lines[idx] = ' '.join((line.strip(), CPPTRAJ_CXX, '\n'))
+        fh.write(''.join(lines))
+    os.system('mv tmp.h {}'.format(fn))
 
 
 def get_compiler_and_build_flag():
@@ -74,7 +87,7 @@ def get_compiler_and_build_flag():
         # user gets lucky?
         build_flag_ = '-noarpack'
 
-    if sys.platform == 'darwin':
+    if IS_OSX:
         build_flag = DEFAULT_MAC_BUILD.format(CPPTRAJ_CXX=CPPTRAJ_CXX)
     else:
         build_flag = ' '.join(('-shared', build_flag_, amberlib, openmp_flag))
@@ -88,7 +101,7 @@ def get_compiler_and_build_flag():
 
 
 def fix_rpath():
-    if sys.platform == 'darwin':
+    if IS_OSX:
         os.system('(cd lib && install_name_tool -id `pwd`/libcpptraj.dylib libcpptraj.dylib)')
     else:
         pass
@@ -110,6 +123,8 @@ def install_libcpptraj(cpptraj_compiler_option, build_flag):
             build_flag=build_flag, compiler=cpptraj_compiler_option)
     print('build command: ', cm)
     os.system(cm)
+    if IS_OSX:
+        add_CPPTRAJ_CXX_to_config('config.h', CPPTRAJ_CXX)
     os.system('make libcpptraj -j8 || exit 1')
     fix_rpath()
     os.chdir(cwd)
