@@ -4,7 +4,12 @@
 # always add those lines to your code
 import pytraj as pt
 from pytraj.testing import aa_eq
-from mpi4py import MPI
+
+try:
+    from mpi4py import MPI
+except ImportError:
+    sys.stderr('skip if not having mpi4py')
+    sys.exit(0)
 
 # create ``comm`` so you can have the info about n_cpus, cpu id
 comm = MPI.COMM_WORLD

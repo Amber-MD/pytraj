@@ -2,7 +2,12 @@
 
 import pytraj as pt
 from pytraj.testing import aa_eq
-from mpi4py import MPI
+
+try:
+    from mpi4py import MPI
+except ImportError:
+    sys.stderr('skip if not having mpi4py')
+    sys.exit(0)
 
 comm = MPI.COMM_WORLD
 
