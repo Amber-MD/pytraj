@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 from __future__ import print_function
+
+import sys
 import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
@@ -30,6 +32,7 @@ class TestDoc(unittest.TestCase):
     '''testing for light modules
     '''
 
+    @unittest.skipIf(sys.platform == 'darwin', 'linux testing only')
     def test_doc(self):
         from pytraj.utils import convert
         from pytraj import frameiter, vector, datasetlist, base_holder
