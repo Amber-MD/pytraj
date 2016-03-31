@@ -41,7 +41,8 @@ Install
     # linux
     python ./setup.py install
  
-    # osx: not yet, please use conda (below)
+    # osx: not well tested (yet)
+    python ./setup.py install --disable-openmp
     ```
 
 - from conda (develop version for linux, osx): `conda install -c https://conda.anaconda.org/ambermd pytraj-dev`

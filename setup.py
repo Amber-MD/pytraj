@@ -19,7 +19,7 @@ from glob import glob
 # local import
 from scripts.base_setup import (check_flag, check_cpptraj_version, write_version_py, get_version_info,
                                 get_pyx_pxd, get_include_and_lib_dir, do_what, check_cython)
-from scripts.base_setup import (add_openmp_flag, try_updating_libcpptraj, remind_export_LD_LIBRARY_PATH)
+from scripts.base_setup import (add_openmp_flag, try_updating_libcpptraj)
 from scripts.base_setup import CleanCommand, ISRELEASED, message_pip_need_cpptraj_home
 from scripts.install_libcpptraj import DEFAULT_MAC_CCOMPILER, DEFAULT_MAC_CXXCOMPILER # clang
 
@@ -121,6 +121,12 @@ if not create_tar_file_for_release:
     extra_compile_args, extra_link_args = add_openmp_flag(disable_openmp,
         libcpptraj_has_openmp, extra_compile_args, extra_link_args)
 
+    if sys.platform.startswith('linux'):
+        # set rpath
+        sys.stdout.write('set rpath to {}\n'.format(cpptraj_libdir))
+        extra_link_args.append('-Wl,-rpath={}'.format(cpptraj_libdir))
+        extra_compile_args.append('-Wl,-rpath={}'.format(cpptraj_libdir))
+
     check_cpptraj_version(cpptraj_include, (4, 2, 8))
 
     pyxfiles, pxdfiles = get_pyx_pxd()
@@ -221,6 +227,4 @@ def build_func(ext_modules):
 
 
 if __name__ == "__main__":
-    build_tag = build_func(ext_modules)
-    if do_install:
-        remind_export_LD_LIBRARY_PATH(build_tag, cpptraj_libdir, pytraj_inside_amber)
+    build_func(ext_modules)

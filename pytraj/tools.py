@@ -445,9 +445,6 @@ def split_traj_by_residues(traj, start=0, stop=-1, step=1):
 
 def find_lib(libname):
     """return a list of all library files
-
-    >>> list(find_lib('cpptraj'))[0].split('/')[-1]
-    'libcpptraj.so'
     """
     paths = os.environ.get('LD_LIBRARY_PATH', '').split(':')
     lib_path_list = []
