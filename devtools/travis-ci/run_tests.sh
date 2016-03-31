@@ -1,8 +1,7 @@
 #!/bin/sh
 
-python -c 'import pytraj as pt'
 cd tests
-python ./run_simple_test.py
+python run_simple_test.py
 
 PLATFORM=`python -c 'import sys; print(sys.platform)'`
 echo "PLATFORM =" $PLATFORM
