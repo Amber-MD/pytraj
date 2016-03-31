@@ -9,10 +9,13 @@ from check_openmp import get_openmp_flag
 from find_lib import find_lib
 
 
-DEFAULT_MAC_BUILD = '-shared -macAccelerate --with-fftw3=/usr/local --with-netcdf=/usr/local -noarpack'
+DEFAULT_MAC_BUILD = '{CPPTRAJ_CXX} -shared -macAccelerate --with-fftw3=/usr/local --with-netcdf=/usr/local -noarpack'
 
 DEFAULT_MAC_CCOMPILER = 'clang'
 DEFAULT_MAC_CXXCOMPILER = 'clang++'
+
+CPPTRAJ_CXX = ' '
+
 if sys.platform.startswith('darwin'):
     # Hack to fix conda
     import distutils.sysconfig as sc
@@ -22,6 +25,9 @@ if sys.platform.startswith('darwin'):
         # than an absolute path).
         DEFAULT_MAC_CCOMPILER = "/usr/bin/gcc"
         DEFAULT_MAC_CXXCOMPILER = "/usr/bin/g++"
+
+        # Warning: dirty hack to use libstdc++
+        CPPTRAJ_CXX = 'CXX="g++ -stdlib=libstdc++"'
 
 
 def get_compiler_and_build_flag():
@@ -68,7 +74,7 @@ def get_compiler_and_build_flag():
         build_flag_ = '-noarpack'
 
     if sys.platform == 'darwin':
-        build_flag = DEFAULT_MAC_BUILD
+        build_flag = DEFAULT_MAC_BUILD.format(CPPTRAJ_CXX=CPPTRAJ_CXX)
     else:
         build_flag = ' '.join(('-shared', build_flag_, amberlib, openmp_flag))
 
