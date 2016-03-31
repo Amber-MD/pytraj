@@ -18,9 +18,7 @@ source activate myenv
 conda install --yes anaconda-client coverage pyflakes
 
 # install other packages here
-# conda install mdtraj -c omnia --yes
-
-# pysander comes with ParmEd
+pip install https://github.com/ParmEd/ParmEd/archive/2.0.5.tar.gz
 conda install pysander -c ambermd --yes
 pip install coveralls
 pip install coverage
