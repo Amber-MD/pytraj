@@ -9,7 +9,8 @@ from check_openmp import get_openmp_flag
 from find_lib import find_lib
 
 
-DEFAULT_MAC_BUILD = '-shared -macAccelerate --with-fftw3=/usr/local --with-netcdf=/usr/local -noarpack'
+# DEFAULT_MAC_BUILD = '-shared -macAccelerate --with-fftw3=/usr/local --with-netcdf=/usr/local -noarpack'
+DEFAULT_MAC_BUILD = '-shared -macAccelerate -noarpack'
 
 DEFAULT_MAC_CCOMPILER = 'clang'
 DEFAULT_MAC_CXXCOMPILER = 'clang++'
@@ -119,20 +120,30 @@ def install_libcpptraj(cpptraj_compiler_option, build_flag):
     except OSError:
         pass
 
-    cm = 'bash configure {build_flag} {compiler} || exit 1'.format(
-            build_flag=build_flag, compiler=cpptraj_compiler_option)
+
+    if cpptraj_compiler_option == 'clang' and sys.platform == 'darwin':
+        cxx_overwrite = 'CXX="clang++ -stdlib=libstdc++"'
+    else:
+        cxx_overwrite = ''
+
+    cm = 'bash configure {build_flag} {compiler} {cxx_overwrite}|| exit 1'.format(
+            build_flag=build_flag, compiler=cpptraj_compiler_option, cxx_overwrite=cxx_overwrite)
+
     print('build command: ', cm)
     os.system(cm)
+
     if IS_OSX:
         add_CPPTRAJ_CXX_to_config('config.h', CPPTRAJ_CXX)
+
     os.system('make libcpptraj -j8 || exit 1')
     fix_rpath()
     os.chdir(cwd)
+
     print("make sure to 'export CPPTRAJHOME=$CPPTRAJHOME'"
           "and 'export LD_LIBRARY_PATH=$CPPTRAJHOME/lib:\$LD_LIBRARY_PATH'"
           "then 'python ./setup.py install'")
 
-
 if __name__ == '__main__':
     cpptraj_compiler_option, build_flag = get_compiler_and_build_flag()
     install_libcpptraj(cpptraj_compiler_option, build_flag)
+
