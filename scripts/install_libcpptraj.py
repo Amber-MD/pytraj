@@ -9,7 +9,8 @@ from check_openmp import get_openmp_flag
 from find_lib import find_lib
 
 
-DEFAULT_MAC_BUILD = '-shared -macAccelerate --with-fftw3=/usr/local --with-netcdf=/usr/local -noarpack'
+# DEFAULT_MAC_BUILD = '-shared -macAccelerate --with-fftw3=/usr/local --with-netcdf=/usr/local -noarpack'
+DEFAULT_MAC_BUILD = '-shared -macAccelerate -noarpack'
 
 DEFAULT_MAC_CCOMPILER = 'clang'
 DEFAULT_MAC_CXXCOMPILER = 'clang++'
