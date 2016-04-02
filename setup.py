@@ -94,7 +94,7 @@ if sys.platform == 'darwin':
     import distutils.sysconfig as sc
     osxver = tuple(int(x) for x in
                    sc.get_config_var('MACOSX_DEPLOYMENT_TARGET').split('.') if x)
-    if osxver < (10, 8):
+    if osxver < (10, 9):
         extra_compile_args.extend(['-stdlib=libstdc++',
                                    '-mmacosx-version-min=%d.%d' % osxver])
         extra_link_args.extend(['-stdlib=libstdc++',
