@@ -95,10 +95,14 @@ if sys.platform == 'darwin':
     osxver = tuple(int(x) for x in
                    sc.get_config_var('MACOSX_DEPLOYMENT_TARGET').split('.') if x)
     if osxver < (10, 9):
-        extra_compile_args.extend(['-stdlib=libstdc++',
-                                   '-mmacosx-version-min=%d.%d' % osxver])
-        extra_link_args.extend(['-stdlib=libstdc++',
-                                '-mmacosx-version-min=%d.%d' % osxver])
+        import platform
+        minorosxver = int(platform.mac_ver()[0].split('.')[1])
+        if minorosxver > 8:
+            # OS X 10.8 and earlier do not understand this flag.
+            extra_compile_args.extend(['-stdlib=libstdc++',
+                                       '-mmacosx-version-min=%d.%d' % osxver])
+            extra_link_args.extend(['-stdlib=libstdc++',
+                                    '-mmacosx-version-min=%d.%d' % osxver])
 
 pyxfiles, pxdfiles = get_pyx_pxd()
 
