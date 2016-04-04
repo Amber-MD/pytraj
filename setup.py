@@ -11,8 +11,11 @@
 import os
 import sys
 import subprocess
-from distutils.core import setup
-from distutils.extension import Extension
+try:
+    from setuptools import setup, Extension
+except ImportError:
+    from distutils.core import setup
+    from distutils.extension import Extension
 from glob import glob
 
 
