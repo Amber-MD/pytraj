@@ -47,6 +47,8 @@ Install
 
 - from conda (develop version for linux, osx): `conda install -c https://conda.anaconda.org/ambermd pytraj-dev`
 
+- from pip (only build for python 3.5): `pip install -i https://pypi.anaconda.org/ambermd/simple pytraj`
+
 - from AMBER suite distribution [http://ambermd.org/](http://ambermd.org/). AMBER16 will be available soon (around April 2016).
 
 - getting trouble? : [check our webpage](http://amber-md.github.io/pytraj/latest/installation.html)
