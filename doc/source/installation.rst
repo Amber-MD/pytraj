@@ -119,6 +119,8 @@ pytraj is included in AMBER16, which will be released soon (2016): ambermd.org
 Update pytraj
 -------------
 
+Rule of thumb: using the same tool to install/update (upgrade)
+
 from conda
 ~~~~~~~~~~
 If you install ``pytraj`` by conda, you can update it easily
@@ -126,6 +128,14 @@ If you install ``pytraj`` by conda, you can update it easily
 .. code-block:: bash
 
     conda update -c ambermd pytraj-dev libcpptraj-dev --force
+
+from pip
+~~~~~~~~
+
+.. code-block:: bash
+
+    pip install --upgrade pytraj
+
 
 from github 
 ~~~~~~~~~~~

@@ -118,12 +118,13 @@
 </li>
 <li><a class="reference internal" href="#update-pytraj">Update pytraj</a><ul>
 <li><a class="reference internal" href="#from-conda">from conda</a></li>
+<li><a class="reference internal" href="#from-pip">from pip</a></li>
 <li><a class="reference internal" href="#from-github">from github</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#uninstall">Uninstall</a><ul>
 <li><a class="reference internal" href="#id1">from conda</a></li>
-<li><a class="reference internal" href="#from-pip">from pip</a></li>
+<li><a class="reference internal" href="#id2">from pip</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
@@ -184,42 +185,43 @@
     <div class="col-md-12 content">
       
   <div class="section" id="installation">
-<h1><a class="toc-backref" href="#id2">Installation</a><a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id3">Installation</a><a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
 <p>try <code class="docutils literal"><span class="pre">pytraj</span></code> online:</p>
 <a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img src="http://mybinder.org/badge.svg" /></a>
 <div class="contents topic" id="contents">
 <p class="topic-title first">Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#installation" id="id2">Installation</a><ul>
-<li><a class="reference internal" href="#supported-platforms" id="id3">Supported platforms</a></li>
-<li><a class="reference internal" href="#supported-python-versions" id="id4">Supported Python versions</a></li>
-<li><a class="reference internal" href="#requires" id="id5">Requires</a></li>
-<li><a class="reference internal" href="#install" id="id6">Install</a><ul>
-<li><a class="reference internal" href="#from-conda-linux-ox" id="id7">from conda (Linux, OX)</a></li>
-<li><a class="reference internal" href="#from-pip-linux" id="id8">from pip (Linux)</a></li>
-<li><a class="reference internal" href="#from-source-code-easy-way-linux-osx" id="id9">from source code (easy way: Linux, OSX)</a></li>
-<li><a class="reference internal" href="#from-source-code-hard-way-expert-only" id="id10">from source code (hard way - expert only)</a></li>
-<li><a class="reference internal" href="#from-amber-distribution-linux-osx" id="id11">from AMBER distribution (Linux, OSX)</a></li>
+<li><a class="reference internal" href="#installation" id="id3">Installation</a><ul>
+<li><a class="reference internal" href="#supported-platforms" id="id4">Supported platforms</a></li>
+<li><a class="reference internal" href="#supported-python-versions" id="id5">Supported Python versions</a></li>
+<li><a class="reference internal" href="#requires" id="id6">Requires</a></li>
+<li><a class="reference internal" href="#install" id="id7">Install</a><ul>
+<li><a class="reference internal" href="#from-conda-linux-ox" id="id8">from conda (Linux, OX)</a></li>
+<li><a class="reference internal" href="#from-pip-linux" id="id9">from pip (Linux)</a></li>
+<li><a class="reference internal" href="#from-source-code-easy-way-linux-osx" id="id10">from source code (easy way: Linux, OSX)</a></li>
+<li><a class="reference internal" href="#from-source-code-hard-way-expert-only" id="id11">from source code (hard way - expert only)</a></li>
+<li><a class="reference internal" href="#from-amber-distribution-linux-osx" id="id12">from AMBER distribution (Linux, OSX)</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#update-pytraj" id="id12">Update pytraj</a><ul>
-<li><a class="reference internal" href="#from-conda" id="id13">from conda</a></li>
-<li><a class="reference internal" href="#from-github" id="id14">from github</a></li>
+<li><a class="reference internal" href="#update-pytraj" id="id13">Update pytraj</a><ul>
+<li><a class="reference internal" href="#from-conda" id="id14">from conda</a></li>
+<li><a class="reference internal" href="#from-pip" id="id15">from pip</a></li>
+<li><a class="reference internal" href="#from-github" id="id16">from github</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#uninstall" id="id15">Uninstall</a><ul>
-<li><a class="reference internal" href="#id1" id="id16">from conda</a></li>
-<li><a class="reference internal" href="#from-pip" id="id17">from pip</a></li>
+<li><a class="reference internal" href="#uninstall" id="id17">Uninstall</a><ul>
+<li><a class="reference internal" href="#id1" id="id18">from conda</a></li>
+<li><a class="reference internal" href="#id2" id="id19">from pip</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#troubleshooting" id="id18">Troubleshooting</a><ul>
-<li><a class="reference internal" href="#permission-denied" id="id19">Permission denied</a></li>
-<li><a class="reference internal" href="#image-not-found-osx" id="id20">Image not found (OSX)</a></li>
+<li><a class="reference internal" href="#troubleshooting" id="id20">Troubleshooting</a><ul>
+<li><a class="reference internal" href="#permission-denied" id="id21">Permission denied</a></li>
+<li><a class="reference internal" href="#image-not-found-osx" id="id22">Image not found (OSX)</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#install-ipython-and-its-notebook-for-interactive-data-exploration" id="id21">install ipython and its notebook for interactive data exploration</a></li>
-<li><a class="reference internal" href="#install-anaconda-for-all-python-packages" id="id22">install anaconda for all python packages</a></li>
-<li><a class="reference internal" href="#install-and-run-jupyter-noteook" id="id23">install and run jupyter noteook</a></li>
+<li><a class="reference internal" href="#install-ipython-and-its-notebook-for-interactive-data-exploration" id="id23">install ipython and its notebook for interactive data exploration</a></li>
+<li><a class="reference internal" href="#install-anaconda-for-all-python-packages" id="id24">install anaconda for all python packages</a></li>
+<li><a class="reference internal" href="#install-and-run-jupyter-noteook" id="id25">install and run jupyter noteook</a></li>
 </ul>
 </li>
 </ul>
@@ -229,20 +231,20 @@
 <p class="last">For Linux user, we highly recommend install pytraj via <cite>conda</cite></p>
 </div>
 <div class="section" id="supported-platforms">
-<h2><a class="toc-backref" href="#id3">Supported platforms</a><a class="headerlink" href="#supported-platforms" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">Supported platforms</a><a class="headerlink" href="#supported-platforms" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Linux</li>
 <li>OSX</li>
 </ul>
 </div>
 <div class="section" id="supported-python-versions">
-<h2><a class="toc-backref" href="#id4">Supported Python versions</a><a class="headerlink" href="#supported-python-versions" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">Supported Python versions</a><a class="headerlink" href="#supported-python-versions" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>2.7, &gt;=3.4</li>
 </ul>
 </div>
 <div class="section" id="requires">
-<h2><a class="toc-backref" href="#id5">Requires</a><a class="headerlink" href="#requires" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">Requires</a><a class="headerlink" href="#requires" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p class="first">python 2.7, &gt;=3.4</p>
 </li>
@@ -258,9 +260,9 @@
 </ul>
 </div>
 <div class="section" id="install">
-<h2><a class="toc-backref" href="#id6">Install</a><a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7">Install</a><a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="from-conda-linux-ox">
-<h3><a class="toc-backref" href="#id7">from conda (Linux, OX)</a><a class="headerlink" href="#from-conda-linux-ox" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id8">from conda (Linux, OX)</a><a class="headerlink" href="#from-conda-linux-ox" title="Permalink to this headline">¶</a></h3>
 <p>We higly recommend install <code class="docutils literal"><span class="pre">pytraj</span></code> by <a class="reference external" href="http://conda.pydata.org/docs/intro.html">conda</a></p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>conda install -c ambermd pytraj-dev
 </pre></div>
@@ -274,13 +276,13 @@ $ sh Miniconda3-latest-Linux-x86_64.sh
 </div>
 </div>
 <div class="section" id="from-pip-linux">
-<h3><a class="toc-backref" href="#id8">from pip (Linux)</a><a class="headerlink" href="#from-pip-linux" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id9">from pip (Linux)</a><a class="headerlink" href="#from-pip-linux" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>pip install pytraj
 </pre></div>
 </div>
 </div>
 <div class="section" id="from-source-code-easy-way-linux-osx">
-<h3><a class="toc-backref" href="#id9">from source code (easy way: Linux, OSX)</a><a class="headerlink" href="#from-source-code-easy-way-linux-osx" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id10">from source code (easy way: Linux, OSX)</a><a class="headerlink" href="#from-source-code-easy-way-linux-osx" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/Amber-MD/pytraj
 <span class="nb">cd</span> pytraj
 
@@ -296,7 +298,7 @@ python setup.py install --disable-openmp
 <p>Depend on your machine, the fresh installation (<code class="docutils literal"><span class="pre">libcpptraj</span></code> + <code class="docutils literal"><span class="pre">pytraj</span></code>) could take 2 to 4 minutes.</p>
 </div>
 <div class="section" id="from-source-code-hard-way-expert-only">
-<h3><a class="toc-backref" href="#id10">from source code (hard way - expert only)</a><a class="headerlink" href="#from-source-code-hard-way-expert-only" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id11">from source code (hard way - expert only)</a><a class="headerlink" href="#from-source-code-hard-way-expert-only" title="Permalink to this headline">¶</a></h3>
 <p>Sometimes you want to install <cite>libcpptraj.so</cite> by yourself.</p>
 <ul>
 <li><p class="first">First, download cpptraj:</p>
@@ -326,21 +328,28 @@ python ./setup.py install
 </ul>
 </div>
 <div class="section" id="from-amber-distribution-linux-osx">
-<h3><a class="toc-backref" href="#id11">from AMBER distribution (Linux, OSX)</a><a class="headerlink" href="#from-amber-distribution-linux-osx" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id12">from AMBER distribution (Linux, OSX)</a><a class="headerlink" href="#from-amber-distribution-linux-osx" title="Permalink to this headline">¶</a></h3>
 <p>pytraj is included in AMBER16, which will be released soon (2016): ambermd.org</p>
 </div>
 </div>
 <div class="section" id="update-pytraj">
-<h2><a class="toc-backref" href="#id12">Update pytraj</a><a class="headerlink" href="#update-pytraj" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">Update pytraj</a><a class="headerlink" href="#update-pytraj" title="Permalink to this headline">¶</a></h2>
+<p>Rule of thumb: using the same tool to install/update (upgrade)</p>
 <div class="section" id="from-conda">
-<h3><a class="toc-backref" href="#id13">from conda</a><a class="headerlink" href="#from-conda" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id14">from conda</a><a class="headerlink" href="#from-conda" title="Permalink to this headline">¶</a></h3>
 <p>If you install <code class="docutils literal"><span class="pre">pytraj</span></code> by conda, you can update it easily</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>conda update -c ambermd pytraj-dev libcpptraj-dev --force
 </pre></div>
 </div>
 </div>
+<div class="section" id="from-pip">
+<h3><a class="toc-backref" href="#id15">from pip</a><a class="headerlink" href="#from-pip" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>pip install --upgrade pytraj
+</pre></div>
+</div>
+</div>
 <div class="section" id="from-github">
-<h3><a class="toc-backref" href="#id14">from github</a><a class="headerlink" href="#from-github" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id16">from github</a><a class="headerlink" href="#from-github" title="Permalink to this headline">¶</a></h3>
 <p>if you install from source code and want to update the development code in github, try to
 follow below.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="c1"># make sure to go to pytraj folder (which has README.md, ./tests ...)</span>
@@ -357,25 +366,25 @@ $ make libcpptraj
 </div>
 </div>
 <div class="section" id="uninstall">
-<h2><a class="toc-backref" href="#id15">Uninstall</a><a class="headerlink" href="#uninstall" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id17">Uninstall</a><a class="headerlink" href="#uninstall" title="Permalink to this headline">¶</a></h2>
 <p>Rule of thumb: using the same tool to install/uninstall</p>
 <div class="section" id="id1">
-<h3><a class="toc-backref" href="#id16">from conda</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id18">from conda</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ conda remove pytraj-dev libcpptraj-dev
 </pre></div>
 </div>
 </div>
-<div class="section" id="from-pip">
-<h3><a class="toc-backref" href="#id17">from pip</a><a class="headerlink" href="#from-pip" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id2">
+<h3><a class="toc-backref" href="#id19">from pip</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ pip uninstall pytraj
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="troubleshooting">
-<h2><a class="toc-backref" href="#id18">Troubleshooting</a><a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id20">Troubleshooting</a><a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="permission-denied">
-<h3><a class="toc-backref" href="#id19">Permission denied</a><a class="headerlink" href="#permission-denied" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id21">Permission denied</a><a class="headerlink" href="#permission-denied" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code> is standard process to install a new Python package.
 But if you are new to Python and got <code class="docutils literal"><span class="pre">permission</span> <span class="pre">denied</span></code> error, try to install <code class="docutils literal"><span class="pre">pytraj</span></code> in your home folder.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># install pytraj in $HOME/.local</span>
@@ -390,19 +399,19 @@ python ./setup.py install --prefix<span class="o">=</span>your_favorite_dir
 <p>If you want to see further options, check <code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span> <span class="pre">--help</span></code></p>
 </div>
 <div class="section" id="image-not-found-osx">
-<h3><a class="toc-backref" href="#id20">Image not found (OSX)</a><a class="headerlink" href="#image-not-found-osx" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id22">Image not found (OSX)</a><a class="headerlink" href="#image-not-found-osx" title="Permalink to this headline">¶</a></h3>
 <p>Please try to install from conda or from AMBER distribution or from source code. No pip yet please.</p>
 </div>
 </div>
 <div class="section" id="install-ipython-and-its-notebook-for-interactive-data-exploration">
-<h2><a class="toc-backref" href="#id21">install ipython and its notebook for interactive data exploration</a><a class="headerlink" href="#install-ipython-and-its-notebook-for-interactive-data-exploration" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id23">install ipython and its notebook for interactive data exploration</a><a class="headerlink" href="#install-ipython-and-its-notebook-for-interactive-data-exploration" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="http://ipython.org/">ipython</a> and its notebook is great program for interactive exloration of MD data.
 Curious about how the notebook looks like? check out our <a class="reference external" href="http://amber-md.github.io/pytraj/doc/build/html/tutorials/tut_pairwise_rmsd.html">pairwise rmsd tutorial</a></p>
 <p>If you are using <code class="docutils literal"><span class="pre">anaconda</span></code>, just type <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">notebook</span></code>. If you have not haved ipython and its notebook, try <code class="docutils literal"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">ipython</span></code>
 For further instruction and information about <code class="docutils literal"><span class="pre">ipython-notebook</span></code>, please check its website.</p>
 </div>
 <div class="section" id="install-anaconda-for-all-python-packages">
-<h2><a class="toc-backref" href="#id22">install anaconda for all python packages</a><a class="headerlink" href="#install-anaconda-for-all-python-packages" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id24">install anaconda for all python packages</a><a class="headerlink" href="#install-anaconda-for-all-python-packages" title="Permalink to this headline">¶</a></h2>
 <p>we highly recommend to install anaconda that has all good python packages (<code class="docutils literal"><span class="pre">cython</span></code>, <code class="docutils literal"><span class="pre">numpy</span></code>, <code class="docutils literal"><span class="pre">sklearn</span></code>, <code class="docutils literal"><span class="pre">pandas</span></code>, ...). Anaconda is totally free.</p>
 <ul class="simple">
 <li>go to <a class="reference external" href="http://continuum.io/downloads#py34">its website</a>, choose your platform and
@@ -413,7 +422,7 @@ version)</li>
 </ul>
 </div>
 <div class="section" id="install-and-run-jupyter-noteook">
-<h2><a class="toc-backref" href="#id23">install and run jupyter noteook</a><a class="headerlink" href="#install-and-run-jupyter-noteook" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id25">install and run jupyter noteook</a><a class="headerlink" href="#install-and-run-jupyter-noteook" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># install</span>
 conda install notebook
 
