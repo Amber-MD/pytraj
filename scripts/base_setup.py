@@ -38,7 +38,8 @@ the most updated cython)
 """
 message_pip_need_cpptraj_home = """
 
-installing from pip require to pre-install libcpptraj and to set CPPTRAJHOME
+installing from pip for python 2.7 in Linux or any version in OSX 
+requires to pre-install libcpptraj and to set CPPTRAJHOME
 
 An example of installing libcpptraj:
 
@@ -48,6 +49,11 @@ $ export CPPTRAJHOME=`pwd`
 $ ./configure -shared -openmp gnu
 $ make libcpptraj -j8
 
+How to install pytraj in seconds without installing libcpptraj by yourself?
+
+Either:
+    - Use python >= 3.4 (Linux): pip install pytraj
+    - Use conda (Linux, osx): conda install -c ambermd pytraj-dev 
 """
 
 message_auto_install = """
