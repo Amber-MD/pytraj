@@ -56,8 +56,16 @@ For Mac user, you need to follow ``conda`` website.
     $ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
     $ sh Miniconda3-latest-Linux-x86_64.sh
 
-from pip (Linux)
-~~~~~~~~~~~~~~~~
+from pip (Linux, OSX)
+~~~~~~~~~~~~~~~~~~~~~
+
+Note: 
+
+- Recommend to use python >= 3.4
+
+- Recommend to use pip >= 8.1
+  
+- Does not work with python 2 + osx combination
 
 .. code-block:: bash
     
