@@ -86,13 +86,23 @@ conda build to upload to anaconda server
 
 Install
 -------
-To speed up installation, please try to build in parallel.
+
+- from source
 
 .. code-block:: bash
 
-    $ python ./setup.py build faster
     $ python ./setup.py install
-    # if not see faster building or use only 1 core, use Ctrl-C and retry
+
+- building wheel for Linux and then upload to pypi: need auditwheel, twine
+
+.. code-block:: bash
+
+    $ python -m pip wheel ./pytraj-1.0.3.tar.gz
+    $ auditwheel repair pytraj-1.0.3-cp27-cp27mu-linux_x86_64.whl
+    $ twine upload wheelhouse/pytraj-1.0.3-cp27-cp27mu-manylinux1_x86_64.whl
+
+    $ # want to upload slightly modified version: change "1.0.3" to "1.0.3.1" (or similiar)
+
 
 Add new method to pytraj
 ------------------------

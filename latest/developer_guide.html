@@ -288,10 +288,20 @@ $ # use run_build.sh (instead of conda build pytraj/) because we build 3 times f
 </div>
 <div class="section" id="install">
 <h2><a class="toc-backref" href="#id7">Install</a><a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
-<p>To speed up installation, please try to build in parallel.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ python ./setup.py build faster
-$ python ./setup.py install
-<span class="c1"># if not see faster building or use only 1 core, use Ctrl-C and retry</span>
+<ul class="simple">
+<li>from source</li>
+</ul>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ python ./setup.py install
+</pre></div>
+</div>
+<ul class="simple">
+<li>building wheel for Linux and then upload to pypi: need auditwheel, twine</li>
+</ul>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ python -m pip wheel ./pytraj-1.0.3.tar.gz
+$ auditwheel repair pytraj-1.0.3-cp27-cp27mu-linux_x86_64.whl
+$ twine upload wheelhouse/pytraj-1.0.3-cp27-cp27mu-manylinux1_x86_64.whl
+
+$ <span class="c1"># want to upload slightly modified version: change &quot;1.0.3&quot; to &quot;1.0.3.1&quot; (or similiar)</span>
 </pre></div>
 </div>
 </div>
