@@ -213,7 +213,6 @@ def build_func(ext_modules):
         name="pytraj",
         version=FULLVERSION,
         author="Hai Nguyen",
-        url="amber-md.github.io/pytraj",
         url="https://github.com/Amber-MD/pytraj",
         packages=packages,
         description="""Python API for cpptraj: a data analysis package for biomolecular simulation""",
