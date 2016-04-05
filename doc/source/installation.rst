@@ -31,12 +31,14 @@ Requires
 
     # conda install cython
 
+- numpy
+
 
 Install
 -------
 
-from conda (Linux only)
-~~~~~~~~~~~~~~~~~~~~~~~
+from conda (Linux, OX)
+~~~~~~~~~~~~~~~~~~~~~~
 
 We higly recommend install ``pytraj`` by `conda <http://conda.pydata.org/docs/intro.html>`_
 
@@ -54,9 +56,16 @@ For Mac user, you need to follow ``conda`` website.
     $ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
     $ sh Miniconda3-latest-Linux-x86_64.sh
 
+from pip (Linux)
+~~~~~~~~~~~~~~~~
 
-from source code (easy way)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. code-block:: bash
+    
+    pip install pytraj
+
+
+from source code (easy way: Linux, OSX)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
@@ -66,8 +75,7 @@ from source code (easy way)
     # linux
     python ./setup.py install
 
-    # osx: pytraj will use clang to compile cython extension.
-    # if you want to change compiler, please check setup.py file
+    # osx:
     python setup.py install --disable-openmp
 
     # note: pytraj will automatically install cpptraj first.
@@ -110,6 +118,11 @@ However, if you still want to do it, make sure to install libcpptraj by yourself
 
     pip install https://github.com/Amber-MD/pytraj/archive/master.zip
 
+from AMBER distribution (Linux, OSX)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+pytraj is included in AMBER16, which will be released soon (2016): ambermd.org
+
 
 Update pytraj
 -------------
@@ -120,7 +133,7 @@ If you install ``pytraj`` by conda, you can update it easily
 
 .. code-block:: bash
 
-    conda update -c ambermd pytraj-dev libcpptraj-dev
+    conda update -c ambermd pytraj-dev libcpptraj-dev --force
 
 from github 
 ~~~~~~~~~~~
@@ -145,12 +158,21 @@ if you install ``pytraj`` via github and want to update ``cpptraj``
 Uninstall
 ---------
 
+Rule of thumb: using the same tool to install/uninstall
+
 from conda
 ~~~~~~~~~~
 
 .. code-block:: bash
 
     $ conda remove pytraj-dev libcpptraj-dev
+
+from pip
+~~~~~~~~
+
+.. code-block:: bash
+
+    $ pip uninstall pytraj
     
 
 Troubleshooting
