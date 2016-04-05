@@ -109,14 +109,6 @@ Sometimes you want to install `libcpptraj.so` by yourself.
     cd pytraj
     python ./setup.py install
 
-from `pip`
-~~~~~~~~~
-
-Since pytraj depends on libcpptraj, install via pip is not easier than intall from source code.
-
-However, if you still want to do it, make sure to install libcpptraj by yourself and set CPPTRAJHOME (see above step), then::
-
-    pip install https://github.com/Amber-MD/pytraj/archive/master.zip
 
 from AMBER distribution (Linux, OSX)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
