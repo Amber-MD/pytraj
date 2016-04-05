@@ -96,7 +96,7 @@ Install
 Build wheel for Linux and then upload to pypi
 ---------------------------------------------
 
-Need: auditwheel, twine
+Need: auditwheel (require python >= 3.4), twine
 
 .. code-block:: bash
 
@@ -105,6 +105,14 @@ Need: auditwheel, twine
     $ twine upload wheelhouse/pytraj-1.0.3-cp27-cp27mu-manylinux1_x86_64.whl
 
     $ # want to upload slightly modified version: change "1.0.3" to "1.0.3.1" (or similiar)
+
+Trick:
+
+    - Use conda to create different python envs, then build corresponding wheel, then use auditwheel to repair all the wheels
+
+    - You don't need to activate new env, just specify python exe path::
+
+        $ ~/anaconda3/envs/py27_pypi/bin/python -m pip wheel ...
 
 
 Add new method to pytraj

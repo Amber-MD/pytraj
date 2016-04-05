@@ -299,7 +299,7 @@ $ # use run_build.sh (instead of conda build pytraj/) because we build 3 times f
 </div>
 <div class="section" id="build-wheel-for-linux-and-then-upload-to-pypi">
 <h2><a class="toc-backref" href="#id8">Build wheel for Linux and then upload to pypi</a><a class="headerlink" href="#build-wheel-for-linux-and-then-upload-to-pypi" title="Permalink to this headline">¶</a></h2>
-<p>Need: auditwheel, twine</p>
+<p>Need: auditwheel (require python &gt;= 3.4), twine</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ python -m pip wheel ./pytraj-1.0.3.tar.gz
 $ auditwheel repair pytraj-1.0.3-cp27-cp27mu-linux_x86_64.whl
 $ twine upload wheelhouse/pytraj-1.0.3-cp27-cp27mu-manylinux1_x86_64.whl
@@ -307,6 +307,18 @@ $ twine upload wheelhouse/pytraj-1.0.3-cp27-cp27mu-manylinux1_x86_64.whl
 $ <span class="c1"># want to upload slightly modified version: change &quot;1.0.3&quot; to &quot;1.0.3.1&quot; (or similiar)</span>
 </pre></div>
 </div>
+<p>Trick:</p>
+<blockquote>
+<div><ul>
+<li><p class="first">Use conda to create different python envs, then build corresponding wheel, then use auditwheel to repair all the wheels</p>
+</li>
+<li><p class="first">You don&#8217;t need to activate new env, just specify python exe path:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ ~/anaconda3/envs/py27_pypi/bin/python -m pip wheel ...
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
 </div>
 <div class="section" id="add-new-method-to-pytraj">
 <h2><a class="toc-backref" href="#id9">Add new method to pytraj</a><a class="headerlink" href="#add-new-method-to-pytraj" title="Permalink to this headline">¶</a></h2>
