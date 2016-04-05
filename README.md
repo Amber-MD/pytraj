@@ -32,7 +32,9 @@ Features
 Install
 -------
 
-- from source:
+Support platforms: Linux (source, conda, pip, AMBER), OSX (source, conda, AMBER)
+
+- from source code:
 
     ```bash
     git clone https://github.com/amber-md/pytraj
@@ -47,7 +49,7 @@ Install
 
 - from conda (develop version for linux, osx): `conda install -c https://conda.anaconda.org/ambermd pytraj-dev`
 
-- from pip (only build for python 3.5): `pip install -i https://pypi.anaconda.org/ambermd/simple pytraj`
+- from pip (only has wheel build for Linux): `pip install pytraj`
 
 - from AMBER suite distribution [http://ambermd.org/](http://ambermd.org/). AMBER16 will be available soon (around April 2016).
 
