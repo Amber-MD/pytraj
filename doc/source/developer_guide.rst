@@ -93,7 +93,10 @@ Install
 
     $ python ./setup.py install
 
-- building wheel for Linux and then upload to pypi: need auditwheel, twine
+Build wheel for Linux and then upload to pypi
+---------------------------------------------
+
+Need: auditwheel, twine
 
 .. code-block:: bash
 
