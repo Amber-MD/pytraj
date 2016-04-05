@@ -11,6 +11,7 @@
 import os
 import sys
 import subprocess
+import shutil
 try:
     from setuptools import setup, Extension
 except ImportError:
@@ -40,8 +41,9 @@ create_tar_file_for_release = True if 'sdist' in sys.argv else False
 rootname = os.getcwd()
 pytraj_home = rootname + "/pytraj/"
 cpptraj_home = os.environ.get('CPPTRAJHOME', '')
+use_pip = any('pip' in arg for arg in sys.argv)
 
-if not cpptraj_home and any('pip' in arg for arg in sys.argv):
+if not cpptraj_home and use_pip:
     # if pip, require to set CPPTRAJHOME
     raise EnvironmentError(message_pip_need_cpptraj_home)
 
@@ -151,6 +153,17 @@ if not create_tar_file_for_release:
 
     library_dirs = [cpptraj_libdir, ] if not use_phenix_python else [cpptraj_libdir, phenix_python_lib]
 
+    if sys.platform.startswith('darwin') and use_pip:
+        # ship with libcpptraj.dylib in pytraj/lib/
+        try:
+            os.mkdir('pytraj/lib')
+        except OSError:
+            pass
+
+        shutil.copy('{}/libcpptraj.dylib'.format(cpptraj_libdir), 'pytraj/lib')
+        os.system('install_name_tool -id @rpath/libcpptraj.dylib pytraj/lib/libcpptraj.dylib')
+        library_dirs = ['pytraj/lib',]
+
     ext_modules = []
     for ext_name in pyxfiles:
         if need_cython:
@@ -209,8 +222,11 @@ sample_data = ["datafiles/ala3/Ala3.*",
                "datafiles/trpcage/trpcage*",
                "datafiles/remd_ala2/*",
                "datafiles/dpdp/DPDP*"]
+
 datalist = pxdfiles + sample_data
 
+if sys.platform.startswith('darwin') and use_pip:
+    datalist.append('lib/libcpptraj.dylib')
 
 def build_func(ext_modules):
     return setup(
