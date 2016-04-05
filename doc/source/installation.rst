@@ -61,11 +61,9 @@ from pip (Linux, OSX)
 
 Note: 
 
-- Recommend to use python >= 3.4
-
-- Recommend to use pip >= 8.1
+- Recommend to use python >= 3.4, pip >= 8.1
   
-- Does not work with python 2 + osx combination
+- osx: no wheel for python 2.7
 
 .. code-block:: bash
     
