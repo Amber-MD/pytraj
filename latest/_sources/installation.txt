@@ -188,41 +188,10 @@ But if you are new to Python and got ``permission denied`` error, try to install
 
 If you want to see further options, check ``python setup.py install --help``
 
-undefined symbol error
-~~~~~~~~~~~~~~~~~~~~~~
+Image not found (OSX)
+~~~~~~~~~~~~~~~~~~~~~
 
-For end users, install pytraj is very straigh forward by ``python setup.y install``. But
-for whom wants to catch up the development of pytraj, you might get ``undefined symbol
-error`` when install new code. This happens you need to keep `pytraj` and `cpptraj` syncs. Sometimes `cpptraj` API is changed and you need to
-update `pytraj` code (by ``git pull``) and then recompile pytraj from fresh.
-
-If you already tried hard to install but not successful, it's better to remove old pytraj installation (NOT pytraj source
-code) and remove all the old `libcpptraj.so` files (come from conda install or from using ``python setup.py install``...)
-
-- First, remove all `libcpptraj.so` files. You can find their dir by using::
-      
-    locate libcpptraj.so
-
-- Then, remove build directory::
-
-   rm -rf build
-
-- Remove installed folder, example::
-
-   rm -rf /home/anaconda3/lib/python3.4/site-packages/pytraj/
-
-- Recompile `libcpptraj.so`::
-
-  cd cpptraj
-
-  make libcpptraj
-
-- Go back to `pytraj` source::
-
-  python setup.py install
-
-If above steps do not solve your probrem, please contact us.
-
+Please try to install from conda or from AMBER distribution or from source code. No pip yet please.
 
 install ipython and its notebook for interactive data exploration
 -----------------------------------------------------------------

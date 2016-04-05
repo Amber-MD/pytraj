@@ -128,7 +128,7 @@
 </li>
 <li><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
 <li><a class="reference internal" href="#permission-denied">Permission denied</a></li>
-<li><a class="reference internal" href="#undefined-symbol-error">undefined symbol error</a></li>
+<li><a class="reference internal" href="#image-not-found-osx">Image not found (OSX)</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#install-ipython-and-its-notebook-for-interactive-data-exploration">install ipython and its notebook for interactive data exploration</a></li>
@@ -214,7 +214,7 @@
 </li>
 <li><a class="reference internal" href="#troubleshooting" id="id18">Troubleshooting</a><ul>
 <li><a class="reference internal" href="#permission-denied" id="id19">Permission denied</a></li>
-<li><a class="reference internal" href="#undefined-symbol-error" id="id20">undefined symbol error</a></li>
+<li><a class="reference internal" href="#image-not-found-osx" id="id20">Image not found (OSX)</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#install-ipython-and-its-notebook-for-interactive-data-exploration" id="id21">install ipython and its notebook for interactive data exploration</a></li>
@@ -389,39 +389,9 @@ python ./setup.py install --prefix<span class="o">=</span>your_favorite_dir
 </div>
 <p>If you want to see further options, check <code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span> <span class="pre">--help</span></code></p>
 </div>
-<div class="section" id="undefined-symbol-error">
-<h3><a class="toc-backref" href="#id20">undefined symbol error</a><a class="headerlink" href="#undefined-symbol-error" title="Permalink to this headline">¶</a></h3>
-<p>For end users, install pytraj is very straigh forward by <code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.y</span> <span class="pre">install</span></code>. But
-for whom wants to catch up the development of pytraj, you might get <code class="docutils literal"><span class="pre">undefined</span> <span class="pre">symbol</span>
-<span class="pre">error</span></code> when install new code. This happens you need to keep <cite>pytraj</cite> and <cite>cpptraj</cite> syncs. Sometimes <cite>cpptraj</cite> API is changed and you need to
-update <cite>pytraj</cite> code (by <code class="docutils literal"><span class="pre">git</span> <span class="pre">pull</span></code>) and then recompile pytraj from fresh.</p>
-<p>If you already tried hard to install but not successful, it&#8217;s better to remove old pytraj installation (NOT pytraj source
-code) and remove all the old <cite>libcpptraj.so</cite> files (come from conda install or from using <code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code>...)</p>
-<ul>
-<li><p class="first">First, remove all <cite>libcpptraj.so</cite> files. You can find their dir by using:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>locate libcpptraj.so
-</pre></div>
-</div>
-</li>
-<li><p class="first">Then, remove build directory:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>rm -rf build
-</pre></div>
-</div>
-</li>
-<li><p class="first">Remove installed folder, example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>rm -rf /home/anaconda3/lib/python3.4/site-packages/pytraj/
-</pre></div>
-</div>
-</li>
-<li><p class="first">Recompile <cite>libcpptraj.so</cite>:</p>
-<p>cd cpptraj</p>
-<p>make libcpptraj</p>
-</li>
-<li><p class="first">Go back to <cite>pytraj</cite> source:</p>
-<p>python setup.py install</p>
-</li>
-</ul>
-<p>If above steps do not solve your probrem, please contact us.</p>
+<div class="section" id="image-not-found-osx">
+<h3><a class="toc-backref" href="#id20">Image not found (OSX)</a><a class="headerlink" href="#image-not-found-osx" title="Permalink to this headline">¶</a></h3>
+<p>Please try to install from conda or from AMBER distribution or from source code. No pip yet please.</p>
 </div>
 </div>
 <div class="section" id="install-ipython-and-its-notebook-for-interactive-data-exploration">
