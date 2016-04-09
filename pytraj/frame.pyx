@@ -145,31 +145,10 @@ cdef class Frame (object):
     def __del__(self):
         del self.thisptr
 
-    def _same_coords_as(self, Frame other):
-        """check if two frames having the same coords"""
-        return (self.coords == other.coords)
-
     def copy(self):
         """return a deep copy of Frame"""
         cdef Frame frame = Frame(self)
         return frame
-
-    def _set_from_crd(self, CRDtype farray, *args):
-        """"""
-        cdef int numCrd, numBoxCrd
-        cdef bint hasVel
-        cdef AtomMask mask
-
-        if len(args) == 3:
-            numCrd, numBoxCrd, hasVel = args
-            self.thisptr.SetFromCRD(farray, numCrd, numBoxCrd, hasVel)
-        elif len(args) == 4:
-            mask, numCrd, numBoxCrd, hasVel = args
-            self.thisptr.SetFromCRD(farray, mask.thisptr[0], numCrd, numBoxCrd, hasVel)
-        else:
-            # TODO : shape checking
-            numCrd = len(farray)
-            self.thisptr.SetFromCRD(farray, numCrd, 0, False)
 
     def append_xyz(self, double[:, :] xyz):
         """append 3D array and return itself
