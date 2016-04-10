@@ -154,21 +154,6 @@
       
   <div class="section" id="trajectory-viewer">
 <h1>Trajectory Viewer<a class="headerlink" href="#trajectory-viewer" title="Permalink to this headline">¶</a></h1>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>Still work in progress. Please see source code in <a class="reference external" href="https://github.com/arose/nglview/">https://github.com/arose/nglview/</a></p>
-<p class="last">or <a class="reference external" href="http://mybinder.org/repo/hainm/notebook-pytraj/">try this online</a></p>
-</div>
-<p>Requirement: jupyter notebook, nglview:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span># install notebook via conda.
-conda install jupyter notebook
-
-# install nglview
-git clone https://github.com/arose/nglview
-cd nglview
-python setup.py install
-</pre></div>
-</div>
 <img alt="_images/ngl.png" src="_images/ngl.png" />
 <div class="line-block">
 <div class="line"><br /></div>
@@ -198,7 +183,20 @@ python setup.py install
 
 </script>
 
-<div id="viewport" style="max-width:100%; height:400px;"></div></div>
+<div id="viewport" style="max-width:100%; height:400px;"></div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Still work in progress. Please see source code in <a class="reference external" href="https://github.com/arose/nglview/">https://github.com/arose/nglview/</a></p>
+<p class="last">or <a class="reference external" href="http://mybinder.org/repo/hainm/notebook-pytraj/">try this online</a></p>
+</div>
+<p>Requirement: jupyter notebook, nglview:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span># install notebook via conda.
+conda install jupyter notebook
+
+# install nglview
+pip install git+https://github.com/arose/nglview
+</pre></div>
+</div>
+</div>
 
 
     </div>
