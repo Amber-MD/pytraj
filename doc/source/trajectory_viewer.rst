@@ -18,8 +18,6 @@ Requirement: jupyter notebook, nglview::
     python setup.py install
 
 | 
-.. image:: images/nglview_pytraj.png
-
 .. raw:: html
 
     <script src="_static/ngl.embedded.min.js">
