@@ -20,14 +20,14 @@ Requirement: jupyter notebook, nglview::
 | 
 .. raw:: html
 
-    <script src="_static/ngl.embedded.min.js">
+    <script src="ngl.embedded.min.js">
     </script>
     
     <script>
     
       if( !Detector.webgl ) Detector.addGetWebGLMessage();
     
-      NGL.mainScriptFilePath = "_static/ngl.embedded.min.js";
+      NGL.mainScriptFilePath = "ngl.embedded.min.js";
     
       function onInit(){
           var stage = new NGL.Stage( "viewport" );
