@@ -109,8 +109,3 @@ Welcome
 .. raw:: html
 
    </div>
-
-|
-|
-
-.. image:: images/tutorial_autoimage.png
