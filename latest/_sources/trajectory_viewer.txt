@@ -10,6 +10,8 @@ Trajectory Viewer
     
     <script>
     
+      // adapted from NGL and MDAnalysis websites
+
       if( !Detector.webgl ) Detector.addGetWebGLMessage();
     
       NGL.mainScriptFilePath = "ngl.embedded.min.js";
