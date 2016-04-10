@@ -10,8 +10,8 @@
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
     
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="pytraj 1.0.3-beta0 documentation" href="../index.html" />
     <link rel="up" title="Tutorials" href="index.html" />
@@ -234,7 +234,9 @@
 <h2><a class="toc-backref" href="#id6">Distance between two COMs</a><a class="headerlink" href="#distance-between-two-coms" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="c"># compute distance between COM of (residue 1 to 3) and COM of (residue 5 to 8)</span>
 <span class="gp">In [10]: </span><span class="n">pt</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;:1-3 :5-8&#39;</span><span class="p">)</span>
-<span class="gr">Out[10]: </span><span class="n">array</span><span class="p">([</span> <span class="mf">12.0518</span><span class="p">,</span>   <span class="mf">9.0688</span><span class="p">,</span>   <span class="mf">8.4039</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span>  <span class="mf">11.2076</span><span class="p">,</span>   <span class="mf">8.7337</span><span class="p">,</span>  <span class="mf">10.04</span>  <span class="p">])</span>
+<span class="gr">Out[10]: </span>
+<span class="go">array([ 12.05177307,   9.0687678 ,   8.40387078, ...,  11.20758584,</span>
+<span class="go">         8.73365734,  10.04000583])</span>
 </pre></div>
 </div>
 </div>
@@ -243,162 +245,35 @@
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [11]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
 <span class="gp">In [12]: </span><span class="n">pdb</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_pdb_rcsb</span><span class="p">(</span><span class="s2">&quot;1l2y&quot;</span><span class="p">)</span>
-<span class="go">---------------------------------------------------------------------------</span>
-<span class="go">OSError                                   Traceback (most recent call last)</span>
-<span class="go">/home/haichit/anaconda3/lib/python3.5/urllib/request.py in do_open(self, http_class, req, **http_conn_args)</span>
-<span class="go">   1239             try:</span>
-<span class="go">-&gt; 1240                 h.request(req.get_method(), req.selector, req.data, headers)</span>
-<span class="go">   1241             except OSError as err: # timeout error</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/http/client.py in request(self, method, url, body, headers)</span>
-<span class="go">   1082         &quot;&quot;&quot;Send a complete request to the server.&quot;&quot;&quot;</span>
-<span class="go">-&gt; 1083         self._send_request(method, url, body, headers)</span>
-<span class="go">   1084 </span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/http/client.py in _send_request(self, method, url, body, headers)</span>
-<span class="go">   1127             body = body.encode(&#39;iso-8859-1&#39;)</span>
-<span class="go">-&gt; 1128         self.endheaders(body)</span>
-<span class="go">   1129 </span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/http/client.py in endheaders(self, message_body)</span>
-<span class="go">   1078             raise CannotSendHeader()</span>
-<span class="go">-&gt; 1079         self._send_output(message_body)</span>
-<span class="go">   1080 </span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/http/client.py in _send_output(self, message_body)</span>
-<span class="go">    910 </span>
-<span class="go">--&gt; 911         self.send(msg)</span>
-<span class="go">    912         if message_body is not None:</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/http/client.py in send(self, data)</span>
-<span class="go">    853             if self.auto_open:</span>
-<span class="go">--&gt; 854                 self.connect()</span>
-<span class="go">    855             else:</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/http/client.py in connect(self)</span>
-<span class="go">    825         self.sock = self._create_connection(</span>
-<span class="go">--&gt; 826             (self.host,self.port), self.timeout, self.source_address)</span>
-<span class="go">    827         self.sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/socket.py in create_connection(address, timeout, source_address)</span>
-<span class="go">    710     if err is not None:</span>
-<span class="go">--&gt; 711         raise err</span>
-<span class="go">    712     else:</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/socket.py in create_connection(address, timeout, source_address)</span>
-<span class="go">    701                 sock.bind(source_address)</span>
-<span class="go">--&gt; 702             sock.connect(sa)</span>
-<span class="go">    703             return sock</span>
-
-<span class="go">OSError: [Errno 113] No route to host</span>
-
-<span class="go">During handling of the above exception, another exception occurred:</span>
-
-<span class="go">URLError                                  Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-12-310b8842ff13&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 pdb = pt.load_pdb_rcsb(&quot;1l2y&quot;)</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/site-packages/pytraj-1.0.3b0-py3.5-linux-x86_64.egg/pytraj/io.py in loadpdb_rcsb(pdbid)</span>
-<span class="go">    538     &quot;&quot;&quot;</span>
-<span class="go">    539     url = &#39;http://www.rcsb.org/pdb/files/%s.pdb&#39; % pdbid.upper()</span>
-<span class="go">--&gt; 540     txt = urlopen(url).read()</span>
-<span class="go">    541     fname = &quot;/tmp/tmppdb.pdb&quot;</span>
-<span class="go">    542     with open(fname, &#39;w&#39;) as fh:</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/urllib/request.py in urlopen(url, data, timeout, cafile, capath, cadefault, context)</span>
-<span class="go">    160     else:</span>
-<span class="go">    161         opener = _opener</span>
-<span class="go">--&gt; 162     return opener.open(url, data, timeout)</span>
-<span class="go">    163 </span>
-<span class="go">    164 def install_opener(opener):</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/urllib/request.py in open(self, fullurl, data, timeout)</span>
-<span class="go">    469         for processor in self.process_response.get(protocol, []):</span>
-<span class="go">    470             meth = getattr(processor, meth_name)</span>
-<span class="go">--&gt; 471             response = meth(req, response)</span>
-<span class="go">    472 </span>
-<span class="go">    473         return response</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/urllib/request.py in http_response(self, request, response)</span>
-<span class="go">    579         if not (200 &lt;= code &lt; 300):</span>
-<span class="go">    580             response = self.parent.error(</span>
-<span class="go">--&gt; 581                 &#39;http&#39;, request, response, code, msg, hdrs)</span>
-<span class="go">    582 </span>
-<span class="go">    583         return response</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/urllib/request.py in error(self, proto, *args)</span>
-<span class="go">    501             http_err = 0</span>
-<span class="go">    502         args = (dict, proto, meth_name) + args</span>
-<span class="go">--&gt; 503         result = self._call_chain(*args)</span>
-<span class="go">    504         if result:</span>
-<span class="go">    505             return result</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/urllib/request.py in _call_chain(self, chain, kind, meth_name, *args)</span>
-<span class="go">    441         for handler in handlers:</span>
-<span class="go">    442             func = getattr(handler, meth_name)</span>
-<span class="go">--&gt; 443             result = func(*args)</span>
-<span class="go">    444             if result is not None:</span>
-<span class="go">    445                 return result</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/urllib/request.py in http_error_302(self, req, fp, code, msg, headers)</span>
-<span class="go">    684         fp.close()</span>
-<span class="go">    685 </span>
-<span class="go">--&gt; 686         return self.parent.open(new, timeout=req.timeout)</span>
-<span class="go">    687 </span>
-<span class="go">    688     http_error_301 = http_error_303 = http_error_307 = http_error_302</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/urllib/request.py in open(self, fullurl, data, timeout)</span>
-<span class="go">    463             req = meth(req)</span>
-<span class="go">    464 </span>
-<span class="go">--&gt; 465         response = self._open(req, data)</span>
-<span class="go">    466 </span>
-<span class="go">    467         # post-process response</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/urllib/request.py in _open(self, req, data)</span>
-<span class="go">    481         protocol = req.type</span>
-<span class="go">    482         result = self._call_chain(self.handle_open, protocol, protocol +</span>
-<span class="go">--&gt; 483                                   &#39;_open&#39;, req)</span>
-<span class="go">    484         if result:</span>
-<span class="go">    485             return result</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/urllib/request.py in _call_chain(self, chain, kind, meth_name, *args)</span>
-<span class="go">    441         for handler in handlers:</span>
-<span class="go">    442             func = getattr(handler, meth_name)</span>
-<span class="go">--&gt; 443             result = func(*args)</span>
-<span class="go">    444             if result is not None:</span>
-<span class="go">    445                 return result</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/urllib/request.py in http_open(self, req)</span>
-<span class="go">   1266 </span>
-<span class="go">   1267     def http_open(self, req):</span>
-<span class="go">-&gt; 1268         return self.do_open(http.client.HTTPConnection, req)</span>
-<span class="go">   1269 </span>
-<span class="go">   1270     http_request = AbstractHTTPHandler.do_request_</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/urllib/request.py in do_open(self, http_class, req, **http_conn_args)</span>
-<span class="go">   1240                 h.request(req.get_method(), req.selector, req.data, headers)</span>
-<span class="go">   1241             except OSError as err: # timeout error</span>
-<span class="go">-&gt; 1242                 raise URLError(err)</span>
-<span class="go">   1243             r = h.getresponse()</span>
-<span class="go">   1244         except:</span>
-
-<span class="go">URLError: &lt;urlopen error [Errno 113] No route to host&gt;</span>
 
 <span class="gp">In [13]: </span><span class="n">result</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">pdb</span><span class="p">)</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ---------------------------------------------------------------------------</span>
-<span class="go">NameError                                 Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-13-85550344a425&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 result = pt.dssp(pdb)</span>
-
-<span class="go">NameError: name &#39;pdb&#39; is not defined</span>
 
 <span class="gp">In [14]: </span><span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ---------------------------------------------------------------------------</span>
-<span class="go">NameError                                 Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-14-35147d8b1bd5&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 print(result)</span>
+<span class="go">(array([&#39;ASN:1&#39;, &#39;LEU:2&#39;, &#39;TYR:3&#39;, ..., &#39;PRO:18&#39;, &#39;PRO:19&#39;, &#39;SER:20&#39;], </span>
+<span class="go">      dtype=&#39;&lt;U6&#39;), array([[&#39;0&#39;, &#39;H&#39;, &#39;H&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
+<span class="go">       [&#39;0&#39;, &#39;T&#39;, &#39;H&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
+<span class="go">       [&#39;0&#39;, &#39;0&#39;, &#39;H&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
+<span class="go">       ..., </span>
+<span class="go">       [&#39;0&#39;, &#39;H&#39;, &#39;H&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
+<span class="go">       [&#39;0&#39;, &#39;0&#39;, &#39;H&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
+<span class="go">       [&#39;0&#39;, &#39;T&#39;, &#39;H&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;]], </span>
+<span class="go">      dtype=&#39;&lt;U1&#39;), &lt;pytraj.DatasetList with 8 datasets&gt;</span>
+<span class="go">none_avg</span>
+<span class="go">[ 0.30000001  0.25        0.34999999 ...,  0.30000001  0.30000001</span>
+<span class="go">  0.30000001]</span>
 
-<span class="go">NameError: name &#39;result&#39; is not defined</span>
+<span class="go">para_avg</span>
+<span class="go">[ 0.  0.  0. ...,  0.  0.  0.]</span>
+
+<span class="go">anti_avg</span>
+<span class="go">[ 0.  0.  0. ...,  0.  0.  0.]</span>
+<span class="go">...</span>
+
+<span class="go">turn_avg</span>
+<span class="go">[ 0.1         0.15000001  0.1        ...,  0.1         0.05        0.15000001]</span>
+
+<span class="go">bend_avg</span>
+<span class="go">[ 0.05  0.1   0.05 ...,  0.05  0.1   0.05])</span>
 </pre></div>
 </div>
 </div>
@@ -406,54 +281,41 @@
 <h2><a class="toc-backref" href="#id8">Hbond analysis</a><a class="headerlink" href="#hbond-analysis" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="c"># search hbonds for all residues</span>
 <span class="gp">In [15]: </span><span class="n">hbonds</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">pdb</span><span class="p">)</span>
-<span class="go">---------------------------------------------------------------------------</span>
-<span class="go">NameError                                 Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-15-584487b21c1f&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 hbonds = pt.search_hbonds(pdb)</span>
-
-<span class="go">NameError: name &#39;pdb&#39; is not defined</span>
 
 <span class="gp">In [16]: </span><span class="n">hbonds</span>
-<span class="go">                                                                                                                                                                                                                                                                                   ---------------------------------------------------------------------------</span>
-<span class="go">NameError                                 Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-16-1eaf880e7b69&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 hbonds</span>
-
-<span class="go">NameError: name &#39;hbonds&#39; is not defined</span>
+<span class="gr">Out[16]: </span>
+<span class="go">&lt;pytraj.hbonds.DatasetHBond</span>
+<span class="go">donor_acceptor pairs : 31&gt;</span>
 
 <span class="c"># print first few hbond</span>
-<span class="gp">In [17]: </span><span class="n">hbonds</span><span class="o">.</span><span class="n">donor_aceptor</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ---------------------------------------------------------------------------</span>
-<span class="go">NameError                                 Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-17-74f4e334e37b&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 hbonds.donor_aceptor[:5]</span>
-
-<span class="go">NameError: name &#39;hbonds&#39; is not defined</span>
+<span class="gp">In [17]: </span><span class="n">hbonds</span><span class="o">.</span><span class="n">donor_acceptor</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+<span class="go">                                                                 Out[17]: </span>
+<span class="go">[&#39;ASN1_O-GLN5_N-H&#39;,</span>
+<span class="go"> &#39;ARG16_O-TRP6_NE1-HE1&#39;,</span>
+<span class="go"> &#39;TYR3_O-LEU7_N-H&#39;,</span>
+<span class="go"> &#39;ILE4_O-LYS8_N-H&#39;,</span>
+<span class="go"> &#39;LEU7_O-GLY10_N-H&#39;]</span>
 
 <span class="gp">In [18]: </span><span class="n">hbonds</span><span class="o">.</span><span class="n">values</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ---------------------------------------------------------------------------</span>
-<span class="go">NameError                                 Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-18-4ecb1e3e910f&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 hbonds.values</span>
-
-<span class="go">NameError: name &#39;hbonds&#39; is not defined</span>
+<span class="go">                                                                                                                                                                                     Out[18]: </span>
+<span class="go">array([[6, 7, 8, ..., 7, 6, 6],</span>
+<span class="go">       [1, 0, 0, ..., 0, 0, 0],</span>
+<span class="go">       [1, 1, 1, ..., 1, 1, 1],</span>
+<span class="go">       ..., </span>
+<span class="go">       [0, 0, 0, ..., 0, 0, 0],</span>
+<span class="go">       [0, 0, 0, ..., 0, 0, 0],</span>
+<span class="go">       [0, 0, 0, ..., 0, 0, 0]], dtype=int32)</span>
 
 <span class="c"># search hbonds between residue 9 and 16</span>
 <span class="gp">In [19]: </span><span class="n">h</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">pdb</span><span class="p">,</span> <span class="s1">&#39;:9,16&#39;</span><span class="p">)</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ---------------------------------------------------------------------------</span>
-<span class="go">NameError                                 Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-19-60e513539a8f&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 h = pt.search_hbonds(pdb, &#39;:9,16&#39;)</span>
 
-<span class="go">NameError: name &#39;pdb&#39; is not defined</span>
-
-<span class="gp">In [20]: </span><span class="n">h</span><span class="o">.</span><span class="n">donor_aceptor</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ---------------------------------------------------------------------------</span>
-<span class="go">NameError                                 Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-20-b3d56806f357&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 h.donor_aceptor</span>
-
-<span class="go">NameError: name &#39;h&#39; is not defined</span>
+<span class="gp">In [20]: </span><span class="n">h</span><span class="o">.</span><span class="n">donor_acceptor</span>
+<span class="gr">Out[20]: </span>
+<span class="go">[&#39;ASP9_OD2-ARG16_NH1-HH12&#39;,</span>
+<span class="go"> &#39;ASP9_OD2-ARG16_NH2-HH22&#39;,</span>
+<span class="go"> &#39;ASP9_OD2-ARG16_NE-HE&#39;,</span>
+<span class="go"> &#39;ASP9_OD2-ARG16_NH2-HH21&#39;,</span>
+<span class="go"> &#39;ASP9_OD2-ARG16_NH1-HH11&#39;]</span>
 </pre></div>
 </div>
 </div>
@@ -494,152 +356,24 @@
 
 
 <div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansired">---------------------------------------------------------------------------</span>
-<span class="ansired">OSError</span>                                   Traceback (most recent call last)
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.5/urllib/request.py</span> in <span class="ansicyan">do_open</span><span class="ansiblue">(self, http_class, req, **http_conn_args)</span>
-<span class="ansigreen">   1239</span>             <span class="ansigreen">try</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">-&gt; 1240</span><span class="ansiyellow">                 </span>h<span class="ansiyellow">.</span>request<span class="ansiyellow">(</span>req<span class="ansiyellow">.</span>get_method<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow">,</span> req<span class="ansiyellow">.</span>selector<span class="ansiyellow">,</span> req<span class="ansiyellow">.</span>data<span class="ansiyellow">,</span> headers<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">   1241</span>             <span class="ansigreen">except</span> OSError <span class="ansigreen">as</span> err<span class="ansiyellow">:</span> <span class="ansired"># timeout error</span><span class="ansiyellow"></span>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>pytraj.Trajectory, 20 frames: 
+Size: 0.000202 (GB)
+&lt;Topology: 451 atoms, 14 residues, 1 mols, PBC with box type = ortho&gt;
+           
+coords of firs 10 atoms of 1st frame from pytraj
+[[ -8.886  -5.163   9.647]
+ [-10.305  -4.745  10.229]
+ [-10.282  -3.296  10.528]
+ ..., 
+ [-12.908  -5.127   6.888]
+ [-11.018  -6.335   6.182]
+ [-10.515  -7.653   5.962]]
 
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.5/http/client.py</span> in <span class="ansicyan">request</span><span class="ansiblue">(self, method, url, body, headers)</span>
-<span class="ansigreen">   1082</span>         <span class="ansiblue">&quot;&quot;&quot;Send a complete request to the server.&quot;&quot;&quot;</span><span class="ansiyellow"></span>
-<span class="ansigreen">-&gt; 1083</span><span class="ansiyellow">         </span>self<span class="ansiyellow">.</span>_send_request<span class="ansiyellow">(</span>method<span class="ansiyellow">,</span> url<span class="ansiyellow">,</span> body<span class="ansiyellow">,</span> headers<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">   1084</span> <span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.5/http/client.py</span> in <span class="ansicyan">_send_request</span><span class="ansiblue">(self, method, url, body, headers)</span>
-<span class="ansigreen">   1127</span>             body <span class="ansiyellow">=</span> body<span class="ansiyellow">.</span>encode<span class="ansiyellow">(</span><span class="ansiblue">&apos;iso-8859-1&apos;</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">-&gt; 1128</span><span class="ansiyellow">         </span>self<span class="ansiyellow">.</span>endheaders<span class="ansiyellow">(</span>body<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">   1129</span> <span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.5/http/client.py</span> in <span class="ansicyan">endheaders</span><span class="ansiblue">(self, message_body)</span>
-<span class="ansigreen">   1078</span>             <span class="ansigreen">raise</span> CannotSendHeader<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">-&gt; 1079</span><span class="ansiyellow">         </span>self<span class="ansiyellow">.</span>_send_output<span class="ansiyellow">(</span>message_body<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">   1080</span> <span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.5/http/client.py</span> in <span class="ansicyan">_send_output</span><span class="ansiblue">(self, message_body)</span>
-<span class="ansigreen">    910</span> <span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 911</span><span class="ansiyellow">         </span>self<span class="ansiyellow">.</span>send<span class="ansiyellow">(</span>msg<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    912</span>         <span class="ansigreen">if</span> message_body <span class="ansigreen">is</span> <span class="ansigreen">not</span> <span class="ansigreen">None</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.5/http/client.py</span> in <span class="ansicyan">send</span><span class="ansiblue">(self, data)</span>
-<span class="ansigreen">    853</span>             <span class="ansigreen">if</span> self<span class="ansiyellow">.</span>auto_open<span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 854</span><span class="ansiyellow">                 </span>self<span class="ansiyellow">.</span>connect<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    855</span>             <span class="ansigreen">else</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.5/http/client.py</span> in <span class="ansicyan">connect</span><span class="ansiblue">(self)</span>
-<span class="ansigreen">    825</span>         self.sock = self._create_connection(
-<span class="ansigreen">--&gt; 826</span><span class="ansiyellow">             (self.host,self.port), self.timeout, self.source_address)
-</span><span class="ansigreen">    827</span>         self<span class="ansiyellow">.</span>sock<span class="ansiyellow">.</span>setsockopt<span class="ansiyellow">(</span>socket<span class="ansiyellow">.</span>IPPROTO_TCP<span class="ansiyellow">,</span> socket<span class="ansiyellow">.</span>TCP_NODELAY<span class="ansiyellow">,</span> <span class="ansicyan">1</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.5/socket.py</span> in <span class="ansicyan">create_connection</span><span class="ansiblue">(address, timeout, source_address)</span>
-<span class="ansigreen">    710</span>     <span class="ansigreen">if</span> err <span class="ansigreen">is</span> <span class="ansigreen">not</span> <span class="ansigreen">None</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 711</span><span class="ansiyellow">         </span><span class="ansigreen">raise</span> err<span class="ansiyellow"></span>
-<span class="ansigreen">    712</span>     <span class="ansigreen">else</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.5/socket.py</span> in <span class="ansicyan">create_connection</span><span class="ansiblue">(address, timeout, source_address)</span>
-<span class="ansigreen">    701</span>                 sock<span class="ansiyellow">.</span>bind<span class="ansiyellow">(</span>source_address<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 702</span><span class="ansiyellow">             </span>sock<span class="ansiyellow">.</span>connect<span class="ansiyellow">(</span>sa<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    703</span>             <span class="ansigreen">return</span> sock<span class="ansiyellow"></span>
-
-<span class="ansired">OSError</span>: [Errno 113] No route to host
-
-During handling of the above exception, another exception occurred:
-
-<span class="ansired">URLError</span>                                  Traceback (most recent call last)
-<span class="ansigreen">&lt;ipython-input-1-733d57bfa397&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
-<span class="ansigreen">      3</span> <span class="ansigreen">import</span> pytraj <span class="ansigreen">as</span> pt<span class="ansiyellow"></span>
-<span class="ansigreen">      4</span> <span class="ansiyellow"></span>
-<span class="ansigreen">----&gt; 5</span><span class="ansiyellow"> </span>traj <span class="ansiyellow">=</span> pt<span class="ansiyellow">.</span>io<span class="ansiyellow">.</span>loadpdb_rcsb<span class="ansiyellow">(</span><span class="ansiblue">&quot;2KOC&quot;</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">      6</span> print <span class="ansiyellow">(</span>traj<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">      7</span> <span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.5/site-packages/pytraj-1.0.3b0-py3.5-linux-x86_64.egg/pytraj/io.py</span> in <span class="ansicyan">loadpdb_rcsb</span><span class="ansiblue">(pdbid)</span>
-<span class="ansigreen">    538</span>     &quot;&quot;&quot;
-<span class="ansigreen">    539</span>     url <span class="ansiyellow">=</span> <span class="ansiblue">&apos;http://www.rcsb.org/pdb/files/%s.pdb&apos;</span> <span class="ansiyellow">%</span> pdbid<span class="ansiyellow">.</span>upper<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 540</span><span class="ansiyellow">     </span>txt <span class="ansiyellow">=</span> urlopen<span class="ansiyellow">(</span>url<span class="ansiyellow">)</span><span class="ansiyellow">.</span>read<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    541</span>     fname <span class="ansiyellow">=</span> <span class="ansiblue">&quot;/tmp/tmppdb.pdb&quot;</span><span class="ansiyellow"></span>
-<span class="ansigreen">    542</span>     <span class="ansigreen">with</span> open<span class="ansiyellow">(</span>fname<span class="ansiyellow">,</span> <span class="ansiblue">&apos;w&apos;</span><span class="ansiyellow">)</span> <span class="ansigreen">as</span> fh<span class="ansiyellow">:</span><span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.5/urllib/request.py</span> in <span class="ansicyan">urlopen</span><span class="ansiblue">(url, data, timeout, cafile, capath, cadefault, context)</span>
-<span class="ansigreen">    160</span>     <span class="ansigreen">else</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">    161</span>         opener <span class="ansiyellow">=</span> _opener<span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 162</span><span class="ansiyellow">     </span><span class="ansigreen">return</span> opener<span class="ansiyellow">.</span>open<span class="ansiyellow">(</span>url<span class="ansiyellow">,</span> data<span class="ansiyellow">,</span> timeout<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    163</span> <span class="ansiyellow"></span>
-<span class="ansigreen">    164</span> <span class="ansigreen">def</span> install_opener<span class="ansiyellow">(</span>opener<span class="ansiyellow">)</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.5/urllib/request.py</span> in <span class="ansicyan">open</span><span class="ansiblue">(self, fullurl, data, timeout)</span>
-<span class="ansigreen">    469</span>         <span class="ansigreen">for</span> processor <span class="ansigreen">in</span> self<span class="ansiyellow">.</span>process_response<span class="ansiyellow">.</span>get<span class="ansiyellow">(</span>protocol<span class="ansiyellow">,</span> <span class="ansiyellow">[</span><span class="ansiyellow">]</span><span class="ansiyellow">)</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">    470</span>             meth <span class="ansiyellow">=</span> getattr<span class="ansiyellow">(</span>processor<span class="ansiyellow">,</span> meth_name<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 471</span><span class="ansiyellow">             </span>response <span class="ansiyellow">=</span> meth<span class="ansiyellow">(</span>req<span class="ansiyellow">,</span> response<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    472</span> <span class="ansiyellow"></span>
-<span class="ansigreen">    473</span>         <span class="ansigreen">return</span> response<span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.5/urllib/request.py</span> in <span class="ansicyan">http_response</span><span class="ansiblue">(self, request, response)</span>
-<span class="ansigreen">    579</span>         <span class="ansigreen">if</span> <span class="ansigreen">not</span> <span class="ansiyellow">(</span><span class="ansicyan">200</span> <span class="ansiyellow">&lt;=</span> code <span class="ansiyellow">&lt;</span> <span class="ansicyan">300</span><span class="ansiyellow">)</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">    580</span>             response = self.parent.error(
-<span class="ansigreen">--&gt; 581</span><span class="ansiyellow">                 &apos;http&apos;, request, response, code, msg, hdrs)
-</span><span class="ansigreen">    582</span> <span class="ansiyellow"></span>
-<span class="ansigreen">    583</span>         <span class="ansigreen">return</span> response<span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.5/urllib/request.py</span> in <span class="ansicyan">error</span><span class="ansiblue">(self, proto, *args)</span>
-<span class="ansigreen">    501</span>             http_err <span class="ansiyellow">=</span> <span class="ansicyan">0</span><span class="ansiyellow"></span>
-<span class="ansigreen">    502</span>         args <span class="ansiyellow">=</span> <span class="ansiyellow">(</span>dict<span class="ansiyellow">,</span> proto<span class="ansiyellow">,</span> meth_name<span class="ansiyellow">)</span> <span class="ansiyellow">+</span> args<span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 503</span><span class="ansiyellow">         </span>result <span class="ansiyellow">=</span> self<span class="ansiyellow">.</span>_call_chain<span class="ansiyellow">(</span><span class="ansiyellow">*</span>args<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    504</span>         <span class="ansigreen">if</span> result<span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">    505</span>             <span class="ansigreen">return</span> result<span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.5/urllib/request.py</span> in <span class="ansicyan">_call_chain</span><span class="ansiblue">(self, chain, kind, meth_name, *args)</span>
-<span class="ansigreen">    441</span>         <span class="ansigreen">for</span> handler <span class="ansigreen">in</span> handlers<span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">    442</span>             func <span class="ansiyellow">=</span> getattr<span class="ansiyellow">(</span>handler<span class="ansiyellow">,</span> meth_name<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 443</span><span class="ansiyellow">             </span>result <span class="ansiyellow">=</span> func<span class="ansiyellow">(</span><span class="ansiyellow">*</span>args<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    444</span>             <span class="ansigreen">if</span> result <span class="ansigreen">is</span> <span class="ansigreen">not</span> <span class="ansigreen">None</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">    445</span>                 <span class="ansigreen">return</span> result<span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.5/urllib/request.py</span> in <span class="ansicyan">http_error_302</span><span class="ansiblue">(self, req, fp, code, msg, headers)</span>
-<span class="ansigreen">    684</span>         fp<span class="ansiyellow">.</span>close<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    685</span> <span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 686</span><span class="ansiyellow">         </span><span class="ansigreen">return</span> self<span class="ansiyellow">.</span>parent<span class="ansiyellow">.</span>open<span class="ansiyellow">(</span>new<span class="ansiyellow">,</span> timeout<span class="ansiyellow">=</span>req<span class="ansiyellow">.</span>timeout<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    687</span> <span class="ansiyellow"></span>
-<span class="ansigreen">    688</span>     http_error_301 <span class="ansiyellow">=</span> http_error_303 <span class="ansiyellow">=</span> http_error_307 <span class="ansiyellow">=</span> http_error_302<span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.5/urllib/request.py</span> in <span class="ansicyan">open</span><span class="ansiblue">(self, fullurl, data, timeout)</span>
-<span class="ansigreen">    463</span>             req <span class="ansiyellow">=</span> meth<span class="ansiyellow">(</span>req<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    464</span> <span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 465</span><span class="ansiyellow">         </span>response <span class="ansiyellow">=</span> self<span class="ansiyellow">.</span>_open<span class="ansiyellow">(</span>req<span class="ansiyellow">,</span> data<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    466</span> <span class="ansiyellow"></span>
-<span class="ansigreen">    467</span>         <span class="ansired"># post-process response</span><span class="ansiyellow"></span><span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.5/urllib/request.py</span> in <span class="ansicyan">_open</span><span class="ansiblue">(self, req, data)</span>
-<span class="ansigreen">    481</span>         protocol <span class="ansiyellow">=</span> req<span class="ansiyellow">.</span>type<span class="ansiyellow"></span>
-<span class="ansigreen">    482</span>         result = self._call_chain(self.handle_open, protocol, protocol +
-<span class="ansigreen">--&gt; 483</span><span class="ansiyellow">                                   &apos;_open&apos;, req)
-</span><span class="ansigreen">    484</span>         <span class="ansigreen">if</span> result<span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">    485</span>             <span class="ansigreen">return</span> result<span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.5/urllib/request.py</span> in <span class="ansicyan">_call_chain</span><span class="ansiblue">(self, chain, kind, meth_name, *args)</span>
-<span class="ansigreen">    441</span>         <span class="ansigreen">for</span> handler <span class="ansigreen">in</span> handlers<span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">    442</span>             func <span class="ansiyellow">=</span> getattr<span class="ansiyellow">(</span>handler<span class="ansiyellow">,</span> meth_name<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 443</span><span class="ansiyellow">             </span>result <span class="ansiyellow">=</span> func<span class="ansiyellow">(</span><span class="ansiyellow">*</span>args<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    444</span>             <span class="ansigreen">if</span> result <span class="ansigreen">is</span> <span class="ansigreen">not</span> <span class="ansigreen">None</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">    445</span>                 <span class="ansigreen">return</span> result<span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.5/urllib/request.py</span> in <span class="ansicyan">http_open</span><span class="ansiblue">(self, req)</span>
-<span class="ansigreen">   1266</span> <span class="ansiyellow"></span>
-<span class="ansigreen">   1267</span>     <span class="ansigreen">def</span> http_open<span class="ansiyellow">(</span>self<span class="ansiyellow">,</span> req<span class="ansiyellow">)</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">-&gt; 1268</span><span class="ansiyellow">         </span><span class="ansigreen">return</span> self<span class="ansiyellow">.</span>do_open<span class="ansiyellow">(</span>http<span class="ansiyellow">.</span>client<span class="ansiyellow">.</span>HTTPConnection<span class="ansiyellow">,</span> req<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">   1269</span> <span class="ansiyellow"></span>
-<span class="ansigreen">   1270</span>     http_request <span class="ansiyellow">=</span> AbstractHTTPHandler<span class="ansiyellow">.</span>do_request_<span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/lib/python3.5/urllib/request.py</span> in <span class="ansicyan">do_open</span><span class="ansiblue">(self, http_class, req, **http_conn_args)</span>
-<span class="ansigreen">   1240</span>                 h<span class="ansiyellow">.</span>request<span class="ansiyellow">(</span>req<span class="ansiyellow">.</span>get_method<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow">,</span> req<span class="ansiyellow">.</span>selector<span class="ansiyellow">,</span> req<span class="ansiyellow">.</span>data<span class="ansiyellow">,</span> headers<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">   1241</span>             <span class="ansigreen">except</span> OSError <span class="ansigreen">as</span> err<span class="ansiyellow">:</span> <span class="ansired"># timeout error</span><span class="ansiyellow"></span>
-<span class="ansigreen">-&gt; 1242</span><span class="ansiyellow">                 </span><span class="ansigreen">raise</span> URLError<span class="ansiyellow">(</span>err<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">   1243</span>             r <span class="ansiyellow">=</span> h<span class="ansiyellow">.</span>getresponse<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">   1244</span>         <span class="ansigreen">except</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-
-<span class="ansired">URLError</span>: &lt;urlopen error [Errno 113] No route to host&gt;</pre>
+calc_rmsd
+[ 0.          0.65319733  0.56878506 ...,  0.55856578  0.56655911
+  0.76107113]
+</pre>
 </div>
 </div>
 
@@ -698,7 +432,7 @@ ATOM     10  O3'   G A   1     -10.515  -7.653   5.962  1.00 10.00           O</
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Apr 05, 2016.<br/>
+      Last updated on Apr 10, 2016.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
     </p>
   </div>

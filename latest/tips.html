@@ -10,8 +10,8 @@
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
     
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="pytraj 1.0.3-beta0 documentation" href="index.html" />
     <link rel="up" title="Cookbook" href="cookbook.html" />
@@ -374,146 +374,6 @@ disk to do further analysis. You have options to save data to different files an
 code to load the data back. However, you can use <code class="docutils literal"><span class="pre">pytraj.to_pickle</span></code> and
 <code class="docutils literal"><span class="pre">pytraj.read_pickle</span></code> to save the state of data. Check the example:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [35]: </span><span class="n">traj3</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_pdb_rcsb</span><span class="p">(</span><span class="s1">&#39;1l2y&#39;</span><span class="p">)</span>
-<span class="go">---------------------------------------------------------------------------</span>
-<span class="go">OSError                                   Traceback (most recent call last)</span>
-<span class="go">/home/haichit/anaconda3/lib/python3.5/urllib/request.py in do_open(self, http_class, req, **http_conn_args)</span>
-<span class="go">   1239             try:</span>
-<span class="go">-&gt; 1240                 h.request(req.get_method(), req.selector, req.data, headers)</span>
-<span class="go">   1241             except OSError as err: # timeout error</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/http/client.py in request(self, method, url, body, headers)</span>
-<span class="go">   1082         &quot;&quot;&quot;Send a complete request to the server.&quot;&quot;&quot;</span>
-<span class="go">-&gt; 1083         self._send_request(method, url, body, headers)</span>
-<span class="go">   1084 </span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/http/client.py in _send_request(self, method, url, body, headers)</span>
-<span class="go">   1127             body = body.encode(&#39;iso-8859-1&#39;)</span>
-<span class="go">-&gt; 1128         self.endheaders(body)</span>
-<span class="go">   1129 </span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/http/client.py in endheaders(self, message_body)</span>
-<span class="go">   1078             raise CannotSendHeader()</span>
-<span class="go">-&gt; 1079         self._send_output(message_body)</span>
-<span class="go">   1080 </span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/http/client.py in _send_output(self, message_body)</span>
-<span class="go">    910 </span>
-<span class="go">--&gt; 911         self.send(msg)</span>
-<span class="go">    912         if message_body is not None:</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/http/client.py in send(self, data)</span>
-<span class="go">    853             if self.auto_open:</span>
-<span class="go">--&gt; 854                 self.connect()</span>
-<span class="go">    855             else:</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/http/client.py in connect(self)</span>
-<span class="go">    825         self.sock = self._create_connection(</span>
-<span class="go">--&gt; 826             (self.host,self.port), self.timeout, self.source_address)</span>
-<span class="go">    827         self.sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/socket.py in create_connection(address, timeout, source_address)</span>
-<span class="go">    710     if err is not None:</span>
-<span class="go">--&gt; 711         raise err</span>
-<span class="go">    712     else:</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/socket.py in create_connection(address, timeout, source_address)</span>
-<span class="go">    701                 sock.bind(source_address)</span>
-<span class="go">--&gt; 702             sock.connect(sa)</span>
-<span class="go">    703             return sock</span>
-
-<span class="go">OSError: [Errno 113] No route to host</span>
-
-<span class="go">During handling of the above exception, another exception occurred:</span>
-
-<span class="go">URLError                                  Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-35-aa4238e92fc3&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 traj3 = pt.load_pdb_rcsb(&#39;1l2y&#39;)</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/site-packages/pytraj-1.0.3b0-py3.5-linux-x86_64.egg/pytraj/io.py in loadpdb_rcsb(pdbid)</span>
-<span class="go">    538     &quot;&quot;&quot;</span>
-<span class="go">    539     url = &#39;http://www.rcsb.org/pdb/files/%s.pdb&#39; % pdbid.upper()</span>
-<span class="go">--&gt; 540     txt = urlopen(url).read()</span>
-<span class="go">    541     fname = &quot;/tmp/tmppdb.pdb&quot;</span>
-<span class="go">    542     with open(fname, &#39;w&#39;) as fh:</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/urllib/request.py in urlopen(url, data, timeout, cafile, capath, cadefault, context)</span>
-<span class="go">    160     else:</span>
-<span class="go">    161         opener = _opener</span>
-<span class="go">--&gt; 162     return opener.open(url, data, timeout)</span>
-<span class="go">    163 </span>
-<span class="go">    164 def install_opener(opener):</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/urllib/request.py in open(self, fullurl, data, timeout)</span>
-<span class="go">    469         for processor in self.process_response.get(protocol, []):</span>
-<span class="go">    470             meth = getattr(processor, meth_name)</span>
-<span class="go">--&gt; 471             response = meth(req, response)</span>
-<span class="go">    472 </span>
-<span class="go">    473         return response</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/urllib/request.py in http_response(self, request, response)</span>
-<span class="go">    579         if not (200 &lt;= code &lt; 300):</span>
-<span class="go">    580             response = self.parent.error(</span>
-<span class="go">--&gt; 581                 &#39;http&#39;, request, response, code, msg, hdrs)</span>
-<span class="go">    582 </span>
-<span class="go">    583         return response</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/urllib/request.py in error(self, proto, *args)</span>
-<span class="go">    501             http_err = 0</span>
-<span class="go">    502         args = (dict, proto, meth_name) + args</span>
-<span class="go">--&gt; 503         result = self._call_chain(*args)</span>
-<span class="go">    504         if result:</span>
-<span class="go">    505             return result</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/urllib/request.py in _call_chain(self, chain, kind, meth_name, *args)</span>
-<span class="go">    441         for handler in handlers:</span>
-<span class="go">    442             func = getattr(handler, meth_name)</span>
-<span class="go">--&gt; 443             result = func(*args)</span>
-<span class="go">    444             if result is not None:</span>
-<span class="go">    445                 return result</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/urllib/request.py in http_error_302(self, req, fp, code, msg, headers)</span>
-<span class="go">    684         fp.close()</span>
-<span class="go">    685 </span>
-<span class="go">--&gt; 686         return self.parent.open(new, timeout=req.timeout)</span>
-<span class="go">    687 </span>
-<span class="go">    688     http_error_301 = http_error_303 = http_error_307 = http_error_302</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/urllib/request.py in open(self, fullurl, data, timeout)</span>
-<span class="go">    463             req = meth(req)</span>
-<span class="go">    464 </span>
-<span class="go">--&gt; 465         response = self._open(req, data)</span>
-<span class="go">    466 </span>
-<span class="go">    467         # post-process response</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/urllib/request.py in _open(self, req, data)</span>
-<span class="go">    481         protocol = req.type</span>
-<span class="go">    482         result = self._call_chain(self.handle_open, protocol, protocol +</span>
-<span class="go">--&gt; 483                                   &#39;_open&#39;, req)</span>
-<span class="go">    484         if result:</span>
-<span class="go">    485             return result</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/urllib/request.py in _call_chain(self, chain, kind, meth_name, *args)</span>
-<span class="go">    441         for handler in handlers:</span>
-<span class="go">    442             func = getattr(handler, meth_name)</span>
-<span class="go">--&gt; 443             result = func(*args)</span>
-<span class="go">    444             if result is not None:</span>
-<span class="go">    445                 return result</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/urllib/request.py in http_open(self, req)</span>
-<span class="go">   1266 </span>
-<span class="go">   1267     def http_open(self, req):</span>
-<span class="go">-&gt; 1268         return self.do_open(http.client.HTTPConnection, req)</span>
-<span class="go">   1269 </span>
-<span class="go">   1270     http_request = AbstractHTTPHandler.do_request_</span>
-
-<span class="go">/home/haichit/anaconda3/lib/python3.5/urllib/request.py in do_open(self, http_class, req, **http_conn_args)</span>
-<span class="go">   1240                 h.request(req.get_method(), req.selector, req.data, headers)</span>
-<span class="go">   1241             except OSError as err: # timeout error</span>
-<span class="go">-&gt; 1242                 raise URLError(err)</span>
-<span class="go">   1243             r = h.getresponse()</span>
-<span class="go">   1244         except:</span>
-
-<span class="go">URLError: &lt;urlopen error [Errno 113] No route to host&gt;</span>
 
 <span class="gp">In [36]: </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;:3-7&#39;</span><span class="p">)</span>
 
@@ -642,7 +502,7 @@ $ mpirun -n <span class="m">4</span> python radgyr_mpi.py
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Apr 05, 2016.<br/>
+      Last updated on Apr 10, 2016.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
     </p>
   </div>

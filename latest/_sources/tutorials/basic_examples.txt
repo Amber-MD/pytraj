@@ -73,12 +73,12 @@ Hbond analysis
    hbonds = pt.search_hbonds(pdb)
    hbonds
    # print first few hbond
-   hbonds.donor_aceptor[:5]
+   hbonds.donor_acceptor[:5]
    hbonds.values
 
    # search hbonds between residue 9 and 16
    h = pt.search_hbonds(pdb, ':9,16')
-   h.donor_aceptor
+   h.donor_acceptor
 
 .. include:: load_pdb_rcsb.rst
 
