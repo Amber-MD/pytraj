@@ -17,6 +17,7 @@ Requirement: jupyter notebook, nglview::
     cd nglview
     python setup.py install
 
+.. image:: ./images/ngl.png
 | 
 .. raw:: html
 
