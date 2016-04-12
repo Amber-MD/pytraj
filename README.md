@@ -79,11 +79,15 @@ Citation
 
 If you would like to acknowledge our work, please cite both ``cpptraj`` and ``pytraj`` papers.
 
-something like: "...used pytraj [1], a Python package binding to cpptraj program [2]"
+something like: 
 
-[1] PYTRAJ: Interactive data analysis for molecular dynamics simulations. Hai Nguyen, Daniel R. Roe, Jason Swails, David A. Case. (2016)
+    ```bash
+    "...used pytraj [1], a Python package binding to cpptraj program [2]"
+    ```
 
-[2] [PTRAJ and CPPTRAJ] (http://pubs.acs.org/doi/abs/10.1021/ct400341p): Software for Processing and Analysis of Molecular Dynamics Trajectory Data.
+- [1] PYTRAJ: Interactive data analysis for molecular dynamics simulations. Hai Nguyen, Daniel R. Roe, Jason Swails, David A. Case. (2016)
+
+- [2] [PTRAJ and CPPTRAJ] (http://pubs.acs.org/doi/abs/10.1021/ct400341p): Software for Processing and Analysis of Molecular Dynamics Trajectory Data.
 Daniel R. Roe and Thomas E. Cheatham, III
 Journal of Chemical Theory and Computation 2013 9 (7), 3084-3095 
 
