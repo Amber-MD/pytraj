@@ -81,9 +81,7 @@ If you would like to acknowledge our work, please cite both ``cpptraj`` and ``py
 
 something like: 
 
-    ```bash
     "...used pytraj [1], a Python package binding to cpptraj program [2]"
-    ```
 
 - [1] PYTRAJ: Interactive data analysis for molecular dynamics simulations. Hai Nguyen, Daniel R. Roe, Jason Swails, David A. Case. (2016)
 
