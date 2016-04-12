@@ -4,9 +4,11 @@
 [![Coverage Status](https://coveralls.io/repos/Amber-MD/pytraj/badge.svg?branch=master&service=github)](https://coveralls.io/github/Amber-MD/pytraj?branch=master)
 [![Binder](http://mybinder.org/images/logo.svg)](http://mybinder.org/repo/hainm/notebook-pytraj)
 
-PYTRAJ
+PYTRAJ 
 ------
-A Python front-end of [cpptraj program] (https://github.com/Amber-MD/cpptraj) (a data analysis package for biomolecular simulation): http://amber-md.github.io/pytraj
+A Python front-end of [cpptraj program] (https://github.com/Amber-MD/cpptraj) (a data analysis package for biomolecular simulation).
+
+Website: http://amber-md.github.io/pytraj
 
 * [Features](#features)
 * [Install](#install)
@@ -75,13 +77,16 @@ Contributors and Acknowledgement
 Citation
 --------
 
-If you would like to acknowledge our work, please cite both ``cpptraj`` and ``pytraj`` papers
+If you would like to acknowledge our work, please cite both ``cpptraj`` and ``pytraj`` papers.
 
-- [PTRAJ and CPPTRAJ] (http://pubs.acs.org/doi/abs/10.1021/ct400341p): Software for Processing and Analysis of Molecular Dynamics Trajectory Data.
+something like: "...used pytraj [1], a Python package binding to cpptraj program [2]"
+
+[1] PYTRAJ: Interactive data analysis for molecular dynamics simulations. Hai Nguyen, Daniel R. Roe, Jason Swails, David A. Case. (2016)
+
+[2] [PTRAJ and CPPTRAJ] (http://pubs.acs.org/doi/abs/10.1021/ct400341p): Software for Processing and Analysis of Molecular Dynamics Trajectory Data.
 Daniel R. Roe and Thomas E. Cheatham, III
 Journal of Chemical Theory and Computation 2013 9 (7), 3084-3095 
 
-- PYTRAJ: Interactive data analysis for molecular dynamics simulations. Hai Nguyen, Daniel R. Roe, Jason Swails, David A. Case. (2016)
 
 Question/Suggestion?
 --------------------
