@@ -32,8 +32,13 @@ Features
 
 Install
 -------
+Support platforms: Linux, OSX
 
-Support platforms: Linux (source, conda, pip, AMBER), OSX (source, conda, AMBER)
+- from AMBER suite distribution [http://ambermd.org/](http://ambermd.org/). AMBER16 will be available soon (around April 2016).
+
+- from conda: `conda install -c ambermd pytraj`
+
+- from pip: `pip install pytraj`
 
 - from source code:
 
@@ -42,17 +47,11 @@ Support platforms: Linux (source, conda, pip, AMBER), OSX (source, conda, AMBER)
     cd pytraj
 
     # linux
-    python ./setup.py install
+    python setup.py install
  
     # osx: not well tested (yet)
-    python ./setup.py install --disable-openmp
+    python setup.py install --disable-openmp
     ```
-
-- from conda (develop version for linux, osx): `conda install -c https://conda.anaconda.org/ambermd pytraj-dev`
-
-- from pip (only has wheel build for Linux): `pip install pytraj`
-
-- from AMBER suite distribution [http://ambermd.org/](http://ambermd.org/). AMBER16 will be available soon (around April 2016).
 
 - getting trouble? : [check our webpage](http://amber-md.github.io/pytraj/latest/installation.html)
 
