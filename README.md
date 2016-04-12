@@ -46,11 +46,9 @@ Supported platforms: Linux, OSX
     git clone https://github.com/amber-md/pytraj
     cd pytraj
 
-    # linux
     python setup.py install
  
-    # osx: not well tested (yet)
-    python setup.py install --disable-openmp
+    # Note: openmp will be turned off in OSX.
     ```
 
 - getting trouble? : [check our webpage](http://amber-md.github.io/pytraj/latest/installation.html)
