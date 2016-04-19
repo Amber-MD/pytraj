@@ -1,3 +1,6 @@
+pytraj source code: BSD 2-Clause
+--------------------------------
+
 Copyright (c) 2014-2015, Hai Nguyen
 All rights reserved.
 
@@ -12,3 +15,10 @@ are permitted provided that the following conditions are met:
        documentation and/or other materials provided with the distribution.
 
 NO WARRANTY
+
+                                                                                                                                                    
+pytraj wheel and binary: GPL
+----------------------------
+
+Note: pytraj wheel and binary distributions include libcpptraj, which is
+licensed under GPL: https://github.com/Amber-MD/cpptraj/blob/master/LICENSE
