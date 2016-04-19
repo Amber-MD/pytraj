@@ -109,3 +109,6 @@ Demo: Interactive data exploration with [Jupyter notebook] (http://jupyter.org/)
 License
 -------
 GPL v3 (since pytraj is derived work of [cpptraj](https://github.com/Amber-MD/cpptraj/blob/master/LICENSE))
+
+But if you would like to reuse code snippets and pieces independent of cpptraj, I am (Hai) happy to license them (pieces of codes) under 
+BSD-2 Clause or whatever you like. Just buzz us.
