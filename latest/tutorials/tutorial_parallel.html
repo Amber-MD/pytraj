@@ -6,19 +6,19 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Parallel computing tutorial &mdash; pytraj 1.0.3-beta0 documentation</title>
+    <title>Parallel computing tutorial &mdash; pytraj 1.0.4-beta0 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.3-beta0',
+        VERSION:     '1.0.4-beta0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,9 +29,9 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.3-beta0 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.4-beta0 documentation" href="../index.html" />
     <link rel="up" title="Tutorials" href="index.html" />
     <link rel="next" title="Plots" href="plot.html" />
     <link rel="prev" title="Autoimage" href="tutorial_autoimage.html" />
@@ -54,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.3-beta0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.4-beta0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -179,7 +179,7 @@
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 
 <span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.parm7&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
@@ -212,7 +212,7 @@ Size: 0.000503 (GB)
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -222,6 +222,16 @@ Size: 0.000503 (GB)
 <div class="output_wrapper">
 <div class="output">
 
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/home/haichit/anaconda3/lib/python3.4/site-packages/IPython/core/formatters.py:92: DeprecationWarning: DisplayFormatter._ipython_display_formatter_default is deprecated: use @default decorator instead.
+  def _ipython_display_formatter_default(self):
+/home/haichit/anaconda3/lib/python3.4/site-packages/IPython/core/formatters.py:669: DeprecationWarning: PlainTextFormatter._singleton_printers_default is deprecated: use @default decorator instead.
+  def _singleton_printers_default(self):
+</pre>
+</div>
+</div>
 
 <div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
 
@@ -255,7 +265,7 @@ Size: 0.000503 (GB)
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">file</span> my_script.py
+<div class=" highlight hl-ipython3"><pre><span class="o">%%</span><span class="k">file</span> my_script.py
 
 ## create a file name my_scrip.py (you can use any name you like)
 
@@ -304,7 +314,7 @@ if rank == 0:
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># run in shell</span>
+<div class=" highlight hl-ipython3"><pre><span class="c1"># run in shell</span>
 
 <span class="o">!</span> mpirun -n <span class="m">4</span> python my_script.py
 </pre></div>
@@ -322,30 +332,19 @@ if rank == 0:
 <pre>Traceback (most recent call last):
   File &quot;my_script.py&quot;, line 5, in &lt;module&gt;
     from mpi4py import MPI
-ImportError: No module named &apos;mpi4py&apos;
+ImportError: dynamic module does not define init function (PyInit_MPI)
 Traceback (most recent call last):
   File &quot;my_script.py&quot;, line 5, in &lt;module&gt;
     from mpi4py import MPI
-ImportError: No module named &apos;mpi4py&apos;
+ImportError: dynamic module does not define init function (PyInit_MPI)
 Traceback (most recent call last):
   File &quot;my_script.py&quot;, line 5, in &lt;module&gt;
     from mpi4py import MPI
-ImportError: No module named &apos;mpi4py&apos;
+ImportError: dynamic module does not define init function (PyInit_MPI)
 Traceback (most recent call last):
   File &quot;my_script.py&quot;, line 5, in &lt;module&gt;
     from mpi4py import MPI
-ImportError: No module named &apos;mpi4py&apos;
--------------------------------------------------------
-Primary job  terminated normally, but 1 process returned
-a non-zero exit code.. Per user-direction, the job has been aborted.
--------------------------------------------------------
---------------------------------------------------------------------------
-mpirun detected that one or more processes exited with non-zero status, thus causing
-the job to be terminated. The first process to do so was:
-
-  Process name: [[6737,1],0]
-  Exit code:    1
---------------------------------------------------------------------------
+ImportError: dynamic module does not define init function (PyInit_MPI)
 </pre>
 </div>
 </div>
@@ -370,8 +369,8 @@ the job to be terminated. The first process to do so was:
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Apr 10, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+      Last updated on Apr 19, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

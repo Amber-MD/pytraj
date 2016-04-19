@@ -6,19 +6,19 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Hbond &mdash; pytraj 1.0.3-beta0 documentation</title>
+    <title>Hbond &mdash; pytraj 1.0.4-beta0 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.3-beta0',
+        VERSION:     '1.0.4-beta0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,9 +29,9 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.3-beta0 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.4-beta0 documentation" href="../index.html" />
     <link rel="up" title="Advanced examples" href="advanced_examples.html" />
     <link rel="next" title="Endless streaming calculation" href="advanced_endless_streaming.html" />
     <link rel="prev" title="Lysozyme NH order parameters" href="lysozyme_order_parameter_.html" />
@@ -54,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.3-beta0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.4-beta0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -164,7 +164,7 @@
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load data</span>
+<div class=" highlight hl-ipython3"><pre><span class="c1"># load data</span>
 <span class="c1"># pdb file from: http://www.rcsb.org/pdb/explore/explore.do?pdbId=1l2y</span>
 
 <span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
@@ -180,6 +180,16 @@
 <div class="output_wrapper">
 <div class="output">
 
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/home/haichit/anaconda3/lib/python3.4/site-packages/IPython/core/formatters.py:92: DeprecationWarning: DisplayFormatter._ipython_display_formatter_default is deprecated: use @default decorator instead.
+  def _ipython_display_formatter_default(self):
+/home/haichit/anaconda3/lib/python3.4/site-packages/IPython/core/formatters.py:669: DeprecationWarning: PlainTextFormatter._singleton_printers_default is deprecated: use @default decorator instead.
+  def _singleton_printers_default(self):
+</pre>
+</div>
+</div>
 
 <div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
 
@@ -202,7 +212,7 @@ Size: 0.000258 (GB)
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># search hbonds for all residues</span>
+<div class=" highlight hl-ipython3"><pre><span class="c1"># search hbonds for all residues</span>
 <span class="c1"># dump data to `dataset` (similiar to python&#39;list and dict)</span>
 <span class="n">dataset</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;dataset&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
@@ -249,7 +259,7 @@ ASP9_OD2-ARG16_NH1-HH11
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get total solute hbonds</span>
+<div class=" highlight hl-ipython3"><pre><span class="c1"># get total solute hbonds</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;total_solute_hbonds&#39;</span><span class="p">])</span>
 </pre></div>
 
@@ -279,7 +289,7 @@ values:
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># take data for specific hbond</span>
+<div class=" highlight hl-ipython3"><pre><span class="c1"># take data for specific hbond</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;ARG16_O-TRP6_NE1-HE1&#39;</span><span class="p">])</span>
 </pre></div>
 
@@ -309,7 +319,7 @@ values:
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># take hbond for only ASP9</span>
+<div class=" highlight hl-ipython3"><pre><span class="c1"># take hbond for only ASP9</span>
 <span class="n">glu5</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;ASP9&#39;</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">glu5</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 </pre></div>
@@ -338,7 +348,7 @@ values:
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">glu5_val</span> <span class="o">=</span> <span class="n">glu5</span><span class="o">.</span><span class="n">values</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">glu5_val</span> <span class="o">=</span> <span class="n">glu5</span><span class="o">.</span><span class="n">values</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">glu5_val</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;total hbonds for GLU5 per frame&#39;</span><span class="p">)</span>
@@ -379,7 +389,7 @@ total hbonds for GLU5 per frame
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># plot</span>
+<div class=" highlight hl-ipython3"><pre><span class="c1"># plot</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
 
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
@@ -398,7 +408,7 @@ total hbonds for GLU5 per frame
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&lt;matplotlib.lines.Line2D at 0x10a017550&gt;]</pre>
+<pre>[&lt;matplotlib.lines.Line2D at 0x7f0f4e181860&gt;]</pre>
 </div>
 
 </div>
@@ -408,89 +418,89 @@ total hbonds for GLU5 per frame
 
 <div class="output_png output_subarea ">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXcAAAEACAYAAABI5zaHAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
-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
-B7GVnQAAAABJRU5ErkJggg==
+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
+r9s+Q9Kbkr4s6equMbslXSfpwezF4GB3sA9THABgOH3DPSKatq+X9ITaP33cExF7bW9pH46dEfFd
+25fZ/qGkdyVdM9qyAQDL6bssAwA4/oztDdU8H4QqA9v/ZfvfbTdsP7fa9Rxm+x7bB2y/0LHv47af
+sP2K7X+xfcpq1pjV1KvOWduv257PbhtXucZ1tp+y/ZLtPbZvyPaXqp896tya7S9bP0+y/Wz2PbPH
+9my2v2z9XKrOUvUzq2kiq2V3tj1wL8dy5Z59EGpR0hck/VjtdfwvR8S+kZ98QLb/Q9JMRPx0tWvp
+ZPvzkt6RdF9EfC7b93VJ/xsRf5O9YH48Im4pYZ2zkv4vIv52NWs7zPanJX06IhZsnyypLukKtZcT
+S9PPZeq8SiXqpyTZnoqIQ7ZPkPR9STeo/WvUpennMnVuUvn6+ZeSZiT9ckRcPsz3+riu3C+QtD8i
+Xo2IDyR9S+0naRlZJfybOxHxPUndLzhXSLo3u3+vpN8fa1E9LFGn1O5rKUTEWxGxkN1/R+0P3a1T
+yfq5RJ1rs8Ol6ackRcSh7O5Jar+XFypZP6Ul65RK1E/b6yRdJumbHbsH7uW4QmytpNc6tl/X0Sdp
+2YSkJ20/b/vPV7uYPj51+LeSIuItSZ9a5XqWc332d4e+udo/nneyfaakiqQfqP2p6lL2s6POZ7Nd
+pepntozQkPSWpCcj4nmVsJ9L1CmVq59/J+mvdPSFRxqil6W7Qi2BSyLifLVfOa/LlhmOF2V9d/xu
+SZ+JiIra31Sl+PE3W+p4SNKN2ZVxd/9K0c8edZaunxHRiohptX8CusD2epWwnz3qPFcl6qftL0k6
+kP3EttxPE317Oa5wf0PS6R3b67J9pRMRb2b//kTSP6m9pFRWB2yvkY6sz/73KtfTU0T8JI6+ufP3
+kn5zNeuRJNuTagfm/RHxaLa7dP3sVWcZ+3lYRPxMUk3SRpWwn4d11lmyfl4i6fLsvb9/lPQ7tu+X
+9NagvRxXuB/5IJTtE9X+INTuMZ07N9tT2VWSbP+SpN+V9OLqVnUM69hX892Svprd/zNJj3Z/wSo5
+ps7syXjYH6gcPd0l6eWIuKNjXxn7+aE6y9ZP2588vJRh+2OSvqj2+wOl6ucSde4rUz8j4taIOD0i
+PqN2Tj4VEX+q9t/v+mo2LF8vB/1jNMPe1H4lf0XSfkm3jOu8A9b4a5IWJDUk7SlTnZIeUPs3jX4u
+6Udq/2bHx9X+I22vqP0hs1NLWud9kl7IevuIevzF0DHXeImkZsdjPZ89P08rUz+XqbNs/fyNrLaF
+rK6/zvaXrZ9L1VmqfnbUu0HS7mF7yYeYACBBvKEKAAki3AEgQYQ7ACSIcAeABBHuAJAgwh0AEkS4
+A0CCCHcASND/A9zQyg0d7UJtAAAAAElFTkSuQmCC
 "
 >
 </div>
@@ -506,7 +516,7 @@ B7GVnQAAAABJRU5ErkJggg==
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get usage</span>
+<div class=" highlight hl-ipython3"><pre><span class="c1"># get usage</span>
 <span class="n">help</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">)</span>
 </pre></div>
 
@@ -637,8 +647,8 @@ hbond(traj, mask=&apos;&apos;, solvent_donor=None, solvent_acceptor=None, distan
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Apr 10, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+      Last updated on Apr 19, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>
