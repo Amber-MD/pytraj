@@ -21,4 +21,4 @@ pytraj wheel and binary: GPL
 ----------------------------
 
 Note: pytraj wheel and binary distributions include libcpptraj, which is
-licensed under GPL: https://github.com/Amber-MD/cpptraj/blob/master/LICENSE
+licensed under [GPL](https://github.com/Amber-MD/cpptraj/blob/master/LICENSE)
