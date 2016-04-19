@@ -1,7 +1,4 @@
-pytraj.txt: pytraj license (dual BSD/GPL)
-
-    - source: BSD 2-Clause
-    - binary (with libcpptraj): GPL
+pytraj.txt: pytraj license (GPL v3)
 
 externals: licenses for external libs we used
     + six.txt: six.py (BSD)
