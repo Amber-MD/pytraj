@@ -13,8 +13,8 @@ import os, shutil, string, glob, re
 from sphinx.util.compat import Directive
 from docutils import nodes
 from docutils.parsers.rst import directives
-from IPython.nbconvert import html, python
-from IPython.nbformat.current import read, write
+from nbconvert import html, python
+from nbformat.current import read, write
 from runipy.notebook_runner import NotebookRunner, NotebookError
 
 class NotebookDirective(Directive):

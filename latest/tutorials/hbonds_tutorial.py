@@ -5,6 +5,8 @@
 
 # load data
 # pdb file from: http://www.rcsb.org/pdb/explore/explore.do?pdbId=1l2y
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning)
 
 import pytraj as pt
 
@@ -28,20 +30,20 @@ print(dataset)
 print(dataset['total_solute_hbonds'])
 
 
-# In[8]:
+# In[4]:
 
 # take data for specific hbond
 print(dataset['ARG16_O-TRP6_NE1-HE1'])
 
 
-# In[11]:
+# In[5]:
 
 # take hbond for only ASP9
 glu5 = dataset.filter(lambda x: 'ASP9' in x.key)
 print(glu5.keys())
 
 
-# In[18]:
+# In[6]:
 
 glu5_val = glu5.values
 print(glu5_val)
@@ -52,17 +54,11 @@ glu5_total = np.sum(glu5_val, axis=0)
 print(glu5_total)
 
 
-# In[21]:
+# In[7]:
 
 # plot
 get_ipython().magic('matplotlib inline')
 
 from matplotlib import pyplot as plt
 plt.plot(glu5_total, 'ro')
-
-
-# In[22]:
-
-# get usage
-help(pt.search_hbonds)
 

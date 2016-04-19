@@ -8,6 +8,8 @@ get_ipython().system(' head esurf_vs_rmsd.dat')
 
 # In[2]:
 
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning)
 import pytraj as pt
 import numpy as np
 

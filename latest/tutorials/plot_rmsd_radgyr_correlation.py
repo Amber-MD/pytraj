@@ -5,6 +5,8 @@
 
 # require: matplotlib, seaborn, pytraj
 # how? "conda install matplotib seaborn"
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning)
 
 get_ipython().magic('matplotlib inline')
 

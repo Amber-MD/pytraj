@@ -4,6 +4,9 @@
 # In[1]:
 
 from __future__ import print_function
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning)
+
 get_ipython().magic('matplotlib inline')
 
 import pytraj as pt

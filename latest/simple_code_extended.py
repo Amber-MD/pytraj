@@ -3,6 +3,9 @@
 
 # In[3]:
 
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning)
+
 import pytraj as pt
 traj = pt.iterload('tz2.ortho.nc', 'tz2.ortho.parm7')
 #traj = pt.iterload('data/tz2.ortho.nc', 'data/tz2.ortho.parm7')

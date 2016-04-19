@@ -5,6 +5,9 @@
 
 # In[1]:
 
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning)
+
 get_ipython().magic('matplotlib inline')
 from __future__ import print_function
 get_ipython().magic("config InlineBackend.figure_format = 'retina'  # high resolution")

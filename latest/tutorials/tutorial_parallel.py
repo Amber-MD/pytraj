@@ -10,6 +10,8 @@
 
 # In[1]:
 
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning)
 import pytraj as pt
 
 traj = pt.iterload('tz2.nc', 'tz2.parm7')

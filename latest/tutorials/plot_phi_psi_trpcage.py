@@ -9,12 +9,16 @@
 
 # In[1]:
 
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning)
+
 # do some configs to get better plot
 get_ipython().magic('matplotlib inline')
 #%config InlineBackend.figure_format = 'retina'
 import matplotlib
 #matplotlib.rcParams['savefig.dpi'] = 2 * matplotlib.rcParams['savefig.dpi'] # larger image
 from matplotlib import pyplot as plt
+
 import numpy as np
 import pytraj as pt
 

@@ -3,6 +3,8 @@
 
 # In[1]:
 
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning)
 # load pytraj
 import pytraj as pt
 

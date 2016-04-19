@@ -7,7 +7,7 @@ from __future__ import print_function
 
 from glob import glob
 
-excluded_files = set(['latest/fag.html',])
+excluded_files = set(['latest/faq.html',])
 error_files = []
 
 for fn in glob('latest/*html') + glob('latest/*/*html'):

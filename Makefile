@@ -1,5 +1,7 @@
 html:
+	python ./scripts/check_libs.py
 	(cd doc && make html)
+	python ./scripts/assert_no_errors.py
 
 clean:
 	git clean -fxd

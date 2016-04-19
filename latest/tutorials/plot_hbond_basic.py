@@ -3,6 +3,9 @@
 
 # In[1]:
 
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning)
+
 # config to get better plot
 get_ipython().magic('matplotlib inline')
 get_ipython().magic("config InlineBackend.figure_format = 'retina'")

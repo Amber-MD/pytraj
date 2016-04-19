@@ -5,6 +5,9 @@
 
 # In[1]:
 
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning)
+
 import pytraj as pt
 from pytraj.plot import plot_matrix
 

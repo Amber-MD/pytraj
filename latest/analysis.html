@@ -78,7 +78,7 @@
 <li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
 <li class="toctree-l1"><a class="reference internal" href="read_and_write.html">Read and Write</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Analysis</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="atom_mask_selection.html">Atom mask selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Fancy indexing of trajectory</a></li>
@@ -206,27 +206,27 @@
 would get weird output ([0.0, ...]). Make sure to use <cite>image=False</cite> in this method or
 set_nobox for Topology.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate distance for two atoms, using amber mask</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;@1 @3&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate distance for two groups of atoms, using amber mask</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate distance for two groups of atoms, using amber mask</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;@1,37,8 @2,4,6&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate distance between two residues, using amber mask</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate distance between two residues, using amber mask</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;:1 :10&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate multiple distances between two residues, using amber mask</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate multiple distances between two residues, using amber mask</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># distance between residue 1 and 10, distance between residue 3 and 20</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># (when using atom string mask, index starts from 1)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;:1 :10&#39;</span><span class="p">,</span> <span class="s1">&#39;:3 :20&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate distance for a series of atoms, using array for atom mask</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate distance for a series of atoms, using array for atom mask</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># distance between atom 1 and 5, distance between atom 4 and 10 (index starts from 0)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">10</span><span class="p">]])</span>
 </pre></div>
@@ -254,7 +254,7 @@ set_nobox for Topology.</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate angle for three atoms, using amber mask</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;@1 @3 @10&#39;</span><span class="p">)</span>
@@ -263,21 +263,21 @@ set_nobox for Topology.</p>
 <span class="go">        101.86104127,  110.48992512])</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate angle for three groups of atoms, using amber mask</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate angle for three groups of atoms, using amber mask</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">angles</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;@1,37,8 @2,4,6 @5,20&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate angle between three residues, using amber mask</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate angle between three residues, using amber mask</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">angles</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;:1 :10 :20&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate multiple angles between three residues, using amber mask</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate multiple angles between three residues, using amber mask</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># angle between residue 1, 10, 20, angle between residue 3, 20, 30</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># (when using atom string mask, index starts from 1)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">angles</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;:1 :10 :20&#39;</span><span class="p">,</span> <span class="s1">&#39;:3 :20 :30&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate angle for a series of atoms, using array for atom mask</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate angle for a series of atoms, using array for atom mask</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># angle between atom 1, 5, 8, distance between atom 4, 10, 20 (index starts from 0)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">angles</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">]])</span>
 </pre></div>
@@ -305,7 +305,7 @@ set_nobox for Topology.</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate dihedral angle for four atoms, using amber mask</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">dihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;@1 @3 @10 @20&#39;</span><span class="p">)</span>
@@ -314,15 +314,15 @@ set_nobox for Topology.</p>
 <span class="go">        16.59013076,  29.99131573])</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate dihedral angle for four groups of atoms, using amber mask</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate dihedral angle for four groups of atoms, using amber mask</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;@1,37,8 @2,4,6 @5,20 @21,22&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate dihedral angle for four residues, using amber mask</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate dihedral angle for four residues, using amber mask</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;:1 :10 :20 :22&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate multiple dihedral angles for four residues, using amber mask</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate multiple dihedral angles for four residues, using amber mask</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># angle for residue 1, 10, 20, 30; angle between residue 3, 20, 30, 40</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># (when using atom string mask, index starts from 1)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">dihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;:1 :10 :20 :30&#39;</span><span class="p">,</span> <span class="s1">&#39;:3 :20 :30 :40&#39;</span><span class="p">])</span>
@@ -386,25 +386,25 @@ if False (same as <cite>nomod</cite> in cpptraj), no modification</p>
 <p class="rubric">Notes</p>
 <p>if <code class="docutils literal"><span class="pre">traj</span></code> is mutable, its coordinates will be updated.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_trpcage</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># all atoms, do fitting, using ref=traj[-3]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=-</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># rmsd for 3 maskes, do fitting, using ref=traj[0] (defaul)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># rmsd for 3 maskes, do fitting, using ref=traj[0] (defaul)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;@CA&#39;</span><span class="p">,</span> <span class="s1">&#39;@C&#39;</span><span class="p">,</span> <span class="s1">&#39;:3-18@CA&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;dataset&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># rmsd to first frame, use mass &#39;:3-13&#39; but do not perorm fitting</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;:3-13&#39;</span><span class="p">,</span> <span class="n">nofit</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># rmsd to first frame, use mass &#39;:3-13&#39; but do not perorm fitting</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;:3-13&#39;</span><span class="p">,</span> <span class="n">nofit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># use atom indices for mask</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">),</span> <span class="n">nofit</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># use atom indices for mask</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">),</span> <span class="n">nofit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># compute rmsd (and align) with reference having different atoms</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># compute rmsd (and align) with reference having different atoms</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">trpcage_traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_trpcage</span><span class="p">()[:]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tz2_traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()[:</span><span class="mi">1</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">trpcage_traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;@1-10&#39;</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">tz2_traj</span><span class="p">,</span> <span class="n">ref_mask</span><span class="o">=</span><span class="s1">&#39;@11-20&#39;</span><span class="p">)</span>
@@ -473,27 +473,27 @@ if &#8216;half&#8217;: return 1D array, shape=(n_frames*(n_frames-1)/2, )</p>
 <p class="rubric">Notes</p>
 <p>Install <code class="docutils literal"><span class="pre">libcpptraj</span></code> with <code class="docutils literal"><span class="pre">openmp</span></code> to get benefit from parallel</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;@CA&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate pairwise rmsd for all frames using CA atoms, use `dme` (distance RMSD)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate pairwise rmsd for all frames using CA atoms, use `dme` (distance RMSD)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># convert to numpy array</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">arr_np</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s2">&quot;@CA&quot;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;dme&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;ndarray&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate pairwise rmsd for all frames using CA atoms, nofit for RMSD</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate pairwise rmsd for all frames using CA atoms, nofit for RMSD</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># convert to numpy array</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">arr_np</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s2">&quot;@CA&quot;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;nofit&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;ndarray&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate pairwise rmsd for all frames using CA atoms</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate pairwise rmsd for all frames using CA atoms</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># use symmetry-corrected RMSD, convert to numpy array</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">arr_np</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s2">&quot;@CA&quot;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;srmsd&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;ndarray&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># use different dtype</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># use different dtype</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">arr_np</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s2">&quot;@CA&quot;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;srmsd&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;dataset&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -604,14 +604,14 @@ if False, use all DSSP codes</p>
 </tbody>
 </table>
 <p>Simlified codes:</p>
-<div class="highlight-python"><div class="highlight"><pre>- &#39;H&#39;: include &#39;H&#39;, &#39;G&#39;, &#39;I&#39; (helix)
-- &#39;E&#39;: include &#39;E&#39;, &#39;B&#39; (strand)
-- &#39;C&#39;: include &#39;T&#39;, &#39;S&#39; or &#39;0&#39; (coil)
+<div class="highlight-default"><div class="highlight"><pre><span class="o">-</span> <span class="s1">&#39;H&#39;</span><span class="p">:</span> <span class="n">include</span> <span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">,</span> <span class="s1">&#39;I&#39;</span> <span class="p">(</span><span class="n">helix</span><span class="p">)</span>
+<span class="o">-</span> <span class="s1">&#39;E&#39;</span><span class="p">:</span> <span class="n">include</span> <span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span> <span class="p">(</span><span class="n">strand</span><span class="p">)</span>
+<span class="o">-</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="n">include</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;S&#39;</span> <span class="ow">or</span> <span class="s1">&#39;0&#39;</span> <span class="p">(</span><span class="n">coil</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Simlified codes will be mostly used for visulization in other packages.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_pdb_rcsb</span><span class="p">(</span><span class="s1">&#39;1l2y&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">residues</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s2">&quot;:2-10&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">residues</span> 
@@ -629,11 +629,11 @@ if False, use all DSSP codes</p>
 <span class="go">      dtype=&#39;&lt;U1&#39;)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">residues</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">residues</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">fetch_pdb</span><span class="p">(</span><span class="s1">&#39;1l2y&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">residues</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">fetch_pdb</span><span class="p">(</span><span class="s1">&#39;1l2y&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">residues</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ss</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="c1"># first frame</span>
 <span class="go">[&#39;C&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;C&#39;, &#39;C&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;]</span>
 </pre></div>
@@ -681,12 +681,12 @@ if <cite>resrange</cite> is array-like, use index starting from 0 (python conven
 <p class="rubric">Notes</p>
 <p>Dataset lables show residue number in 1-based index</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;phi psi&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">resrange</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">range360</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">range360</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">resrange</span><span class="o">=</span><span class="s1">&#39;1,3,5&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">dhtypes</span><span class="o">=</span><span class="s1">&#39;phi psi&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">dhtypes</span><span class="o">=</span><span class="s1">&#39;phi psi&#39;</span><span class="p">,</span> <span class="n">resrange</span><span class="o">=</span><span class="s1">&#39;3-7&#39;</span><span class="p">)</span>
@@ -714,12 +714,12 @@ if <cite>resrange</cite> is array-like, use index starting from 0 (python conven
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.testing</span> <span class="kn">import</span> <span class="n">get_fn</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.testing</span> <span class="k">import</span> <span class="n">get_fn</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span> <span class="o">=</span> <span class="n">get_fn</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;!:WAT&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">superpose</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">bfactor</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_bfactors</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">byres</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bfactor</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_bfactors</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">byres</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -729,10 +729,10 @@ if <cite>resrange</cite> is array-like, use index starting from 0 (python conven
 <code class="descclassname">pytraj.</code><code class="descname">radgyr</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>nomax=True</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.radgyr" title="Permalink to this definition">¶</a></dt>
 <dd><p>calc radgyr</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;@CA&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;!:WAT&#39;</span><span class="p">,</span> <span class="n">nomax</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;!:WAT&#39;</span><span class="p">,</span> <span class="n">nomax</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -743,7 +743,7 @@ if <cite>resrange</cite> is array-like, use index starting from 0 (python conven
 <code class="descclassname">pytraj.</code><code class="descname">molsurf</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>probe=1.4</em>, <em>offset=0.0</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.molsurf" title="Permalink to this definition">¶</a></dt>
 <dd><p>calc molsurf</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">molsurf</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;@CA&#39;</span><span class="p">)</span>
 <span class="go">array([ 458.51409637,  459.64784573,  456.54690793,  467.72939574,</span>
@@ -787,18 +787,18 @@ if <cite>resrange</cite> is array-like, use index starting from 0 (python conven
 <p>It&#8217;s faster to calculate with a list of commands.
 For example, if you need to perform 3 calculations for &#8216;ucellx&#8217;, &#8216;boxcenter&#8217;, &#8216;box&#8217;
 like below:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s2">&quot;ucellx&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s2">&quot;ucellx&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s2">&quot;boxcenter&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s2">&quot;box&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>You should use a list of commands for faster calculation.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">comlist</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ucellx&#39;</span><span class="p">,</span> <span class="s1">&#39;boxcenter&#39;</span><span class="p">,</span> <span class="s1">&#39;box&#39;</span><span class="p">]</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">comlist</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ucellx&#39;</span><span class="p">,</span> <span class="s1">&#39;boxcenter&#39;</span><span class="p">,</span> <span class="s1">&#39;box&#39;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">comlist</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s2">&quot;@CA @CB&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;@CA @CB&quot;</span><span class="p">),])</span>
@@ -816,7 +816,7 @@ like below:</p>
 <code class="descclassname">pytraj.</code><code class="descname">center_of_mass</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.center_of_mass" title="Permalink to this definition">¶</a></dt>
 <dd><p>compute center of mass</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># compute center of mass residue 3 for first 2 frames.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">calc_center_of_mass</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="n">stop</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;:3&#39;</span><span class="p">)</span>
@@ -904,7 +904,7 @@ occur.</li>
 <li>if &#8216;series&#8217; is False, the &#8216;dtype&#8217; argument will be ignored.</li>
 </ul>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># search hbond without including solvent</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;:5,8&#39;</span><span class="p">)</span>
@@ -915,7 +915,7 @@ occur.</li>
 <span class="go">[&#39;LYS8_O-GLU5_N-H&#39;, &#39;GLU5_O-LYS8_N-H&#39;]</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># get raw data, ndarray with shape=(n_hbonds+1, n_frames)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># get raw data, ndarray with shape=(n_hbonds+1, n_frames)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># first array shows the total solute hbonds and other arrays shows</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># if hbond exists (1) or non-exists (0) for each frame</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">values</span>
@@ -924,14 +924,14 @@ occur.</li>
 <span class="go">       [1, 1, 0, ..., 0, 0, 0]], dtype=int32)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># search hbond including solvent</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c1"># search hbond including solvent</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">hbonds</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;:5,8&#39;</span><span class="p">,</span> <span class="n">solvent_donor</span><span class="o">=</span><span class="s1">&#39;:WAT@O&#39;</span><span class="p">,</span> <span class="n">solvent_acceptor</span><span class="o">=</span><span class="s1">&#39;:WAT&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">hbonds</span>
 <span class="go">&lt;pytraj.hbonds.DatasetHBond</span>
 <span class="go">donor_acceptor pairs : 8&gt;</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">hbonds</span><span class="o">.</span><span class="n">donor_acceptor</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">hbonds</span><span class="o">.</span><span class="n">donor_acceptor</span>
 <span class="go">[&#39;LYS8_O-GLU5_N-H&#39;, &#39;GLU5_O-LYS8_N-H&#39;, &#39;LYS8_HZ1-V&#39;, &#39;LYS8_HZ2-V&#39;, &#39;GLU5_OE2-V&#39;, &#39;GLU5_O-V&#39;, &#39;GLU5_OE1-V&#39;, &#39;LYS8_HZ3-V&#39;]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># &#39;GLU5_O-V&#39; mean non-specific hbond between GLU5_O and solvent (:WAT in this case)</span>
 </pre></div>
@@ -961,7 +961,7 @@ occur.</li>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_jcoupling</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;:1-12&#39;</span><span class="p">,</span> <span class="n">kfile</span><span class="o">=</span><span class="s1">&#39;data/Karplus.txt&#39;</span><span class="p">)</span>
 </pre></div>
@@ -973,7 +973,7 @@ occur.</li>
 <code class="descclassname">pytraj.</code><code class="descname">volume</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.volume" title="Permalink to this definition">¶</a></dt>
 <dd><p>compute volume</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vol</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_volume</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;@CA&#39;</span><span class="p">)</span>
 </pre></div>
@@ -985,7 +985,7 @@ occur.</li>
 <code class="descclassname">pytraj.</code><code class="descname">mindist</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.mindist" title="Permalink to this definition">¶</a></dt>
 <dd><p>compute mindist</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">mindist</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;@CA @H&#39;</span><span class="p">)</span>
 </pre></div>
@@ -1099,7 +1099,7 @@ occur.</li>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">randomize_ions</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;@Na+&#39;</span><span class="p">,</span> <span class="n">around</span><span class="o">=</span><span class="s1">&#39;:1-16&#39;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">overlap</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">113698</span><span class="p">)</span> 
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">randomize_ions</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;@Na+&#39;</span><span class="p">,</span> <span class="n">around</span><span class="o">=</span><span class="s1">&#39;:1-16&#39;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">overlap</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">113698</span><span class="p">)</span> 
 </pre></div>
 </div>
 </dd></dl>
@@ -1122,7 +1122,7 @@ occur.</li>
 <p class="rubric">Notes</p>
 <p>Same as <cite>crank</cite> in cpptraj</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">distances</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;:3 :7&#39;</span><span class="p">,</span> <span class="s1">&#39;:8 :12&#39;</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">out</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">crank</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">distances</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
@@ -1134,7 +1134,7 @@ occur.</li>
 <dt id="pytraj.autoimage">
 <code class="descclassname">pytraj.</code><code class="descname">autoimage</code><span class="sig-paren">(</span><em>traj</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.autoimage" title="Permalink to this definition">¶</a></dt>
 <dd><p>perform autoimage and return the coordinate-updated traj</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()[:]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">autoimage</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
 </pre></div>
@@ -1165,7 +1165,7 @@ if &#8216;trajectory&#8217;, return a new Trajectory.</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># obtain new traj, keeping only closest 100 waters</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># to residues 1 to 13 (index starts from 1) by distance to the first atom of water</span>
@@ -1189,7 +1189,7 @@ if &#8216;trajectory&#8217;, return a new Trajectory.</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">indices</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_neighbors</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;:5&lt;@5.0&#39;</span><span class="p">)</span> <span class="c1"># around residue 5 with 5.0 cutoff</span>
 </pre></div>
@@ -1227,7 +1227,7 @@ if &#8216;trajectory&#8217;, return a new Trajectory.</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">watershell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">solute_mask</span><span class="o">=</span><span class="s1">&#39;!:WAT&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">watershell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">solute_mask</span><span class="o">=</span><span class="s1">&#39;!:WAT&#39;</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mf">10.</span><span class="p">)</span>
@@ -1251,7 +1251,7 @@ if &#8216;trajectory&#8217;, return a new Trajectory.</p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
       Last updated on Apr 19, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
     </p>
   </div>
 </footer>
