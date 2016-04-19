@@ -108,6 +108,4 @@ Demo: Interactive data exploration with [Jupyter notebook] (http://jupyter.org/)
 
 License
 -------
-- pytraj source code: BSD 2-Clause
-
-- pytraj wheel (on [pypi](https://pypi.python.org/pypi/pytraj)): GPL (since it includes [libcpptraj](https://github.com/Amber-MD/cpptraj/blob/master/LICENSE))
+GPL v3 (since pytraj is derived work of [cpptraj](https://github.com/Amber-MD/cpptraj/blob/master/LICENSE))
