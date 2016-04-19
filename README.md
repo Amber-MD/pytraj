@@ -108,4 +108,5 @@ Demo: Interactive data exploration with [Jupyter notebook] (http://jupyter.org/)
 
 License
 -------
-BSD 2-Clause
+pytraj source code: BSD 2-Clause
+pytraj wheel (on pypi): GPL (since it includes libcpptraj)
