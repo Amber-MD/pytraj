@@ -15,6 +15,9 @@
 
 # load pytraj and load trajectories
 
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning)
+
 import pytraj as pt
 
 traj = pt.iterload('tz2.nc', 'tz2.parm7')
@@ -40,7 +43,7 @@ print('potential energy', data['tot'])
 print('solvation energy', data['gb'])
 
 
-# In[6]:
+# In[5]:
 
 # you can also get other energies.
 # for example: data['dihedral']
@@ -49,7 +52,7 @@ list(data.keys())
 
 # # Parallel calculation
 
-# In[9]:
+# In[6]:
 
 # serial: pt.energy_decomposition(traj, igb=8)
 
