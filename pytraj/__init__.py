@@ -15,7 +15,7 @@ if 'BINTRAJ' not in compiled_info():
     from warnings import warn
     warn('linking to libcpptraj that were not installed with libnetcdf')
 
-from .c_action.actionlist import ActionList, pipe, do as compute
+from .c_action.actionlist import ActionList, pipe, compute
 Pipeline = ActionList
 
 try:
