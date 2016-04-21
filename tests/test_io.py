@@ -168,9 +168,9 @@ class TestIO(unittest.TestCase):
         assert is_traj
 
     def test_ParmFile(self):
-        top = pt.read_parm("./data/Tc5b.top")
+        top = pt.load_topology("./data/Tc5b.top")
         pt.write_parm("./output/test_io.top", top, overwrite=True)
-        newtop = pt.read_parm("./output/test_io.top")
+        newtop = pt.load_topology("./output/test_io.top")
         assert top.n_atoms == newtop.n_atoms
 
         # test raise if file exists

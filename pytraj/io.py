@@ -34,7 +34,6 @@ __all__ = ['load',
            'load_sample_data',
            'load_ParmEd',
            'load_topology',
-           'read_parm',
            'write_parm',
            'save',
            'write_traj',
@@ -285,7 +284,7 @@ def iterload_remd(filename, top=None, T="300.0"):
     # add keyword 'remdtraj' to trick cpptraj
     trajin = ' '.join(('trajin', filename, 'remdtraj remdtrajtemp', str(T)))
     if isinstance(top, string_types):
-        top = read_parm(top)
+        top = load_topology(top)
     else:
         top = top
     state.data.add('topology', 'remdtop')
@@ -521,9 +520,6 @@ def load_topology(filename, option=''):
             'n_atoms = 0: make sure to load correct Topology filename '
             'or load supported topology (pdb, amber parm, psf, ...)')
     return top
-
-# creat alias
-read_parm = load_topology
 
 
 def loadpdb_rcsb(pdbid):
