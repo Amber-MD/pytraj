@@ -10,7 +10,7 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 from .datafiles.load_samples import load_sample_data
 from pytraj.c_action.action_dict import ADICT
 from pytraj.misc import info
-from pytraj.cpp_options import set_world_silent
+from pytraj.c_options import set_world_silent
 from pytraj import trajectory
 
 from pytraj import *

@@ -9,7 +9,7 @@ from .datafiles.load_samples import load_sample_data
 from .datafiles.load_cpptraj_file import load_cpptraj_file
 from .shared_methods import iterframe_master
 from .cyutils import _fast_iterptr as iterframe_from_array
-from .cpp_options import set_error_silent
+from .c_options import set_error_silent
 from .get_common_objects import get_topology
 from .topology import Topology, ParmFile
 from .trajectory import Trajectory

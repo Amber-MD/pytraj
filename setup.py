@@ -212,6 +212,7 @@ packages = [
     'pytraj.core',
     'pytraj.parallel',
     'pytraj.cluster',
+    'pytraj.visualization',
     'pytraj.sandbox',
 ]
 

@@ -9,9 +9,9 @@ import os
 from .version import version as __version__
 
 # checking cpptraj version first
-from .cpp_options import info as compiled_info
-from .cpp_options import __cpptraj_version__
-from .cpp_options import __cpptraj_internal_version__
+from .c_options import info as compiled_info
+from .c_options import __cpptraj_version__
+from .c_options import __cpptraj_internal_version__
 
 _v = __cpptraj_internal_version__
 # TODO: follow python's rule
@@ -122,10 +122,10 @@ from .c_analysis import c_analysis as allanalyses
 from .c_analysis import c_analysis
 from . import all_actions
 
-from .dssp_ import calc_dssp, dssp_allatoms, dssp_allresidues
-from .nucleic_acid_ import nastruct
+from .dssp_analysis import calc_dssp, dssp_allatoms, dssp_allresidues
+from .nucleic_acid_analysis import nastruct
 from .nmr import ired_vector_and_matrix, _ired, NH_order_parameters
-from .hbond_ import hbond
+from .hbonds import hbond
 from .externals.energy import energy_decomposition
 
 from .all_actions import (
@@ -154,7 +154,7 @@ from .matrix import dist
 distance_matrix = dist
 from . import cluster
 
-from .dihedral_ import (calc_phi, calc_psi, calc_alpha, calc_beta,
+from .dihedrals import (calc_phi, calc_psi, calc_alpha, calc_beta,
                         calc_omega, calc_chin, calc_chip, calc_delta,
                         calc_epsilon, calc_gamma, calc_zeta,
                         calc_omega, calc_nu1, calc_nu2)
@@ -162,7 +162,7 @@ from .dihedral_ import (calc_phi, calc_psi, calc_alpha, calc_beta,
 from .c_action.action_dict import ActionDict
 from .c_analysis.analysis_dict import AnalysisDict
 from . import matrix
-from . import dihedral_
+from . import dihedrals
 from . import vector
 
 # others
@@ -172,7 +172,7 @@ from .run_tests import run_tests
 
 # turn off verbose in cpptraj
 # TODO: need to move set_world_silent and set_error_silent to the same file
-from .cpp_options import set_error_silent, set_world_silent
+from .c_options import set_error_silent, set_world_silent
 from .cyutils import _fast_iterptr as iterframe_from_array
 
 # create alias
@@ -230,7 +230,7 @@ analdict = AnalysisDict()
 from .parallel.multiprocessing_ import pmap, _pmap
 from .parallel.mpi import pmap_mpi
 from .parallel.base import _load_batch_pmap
-from . import view
+from .visualization import view
 
 
 def load_batch(traj, txt):
