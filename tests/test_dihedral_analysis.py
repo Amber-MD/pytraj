@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
 
     def test_0(self):
         import numpy as np
-        from pytraj import dihedrals as da
+        from pytraj import dihedral_analysis as da
         traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 
         # resrange 7, phi psi

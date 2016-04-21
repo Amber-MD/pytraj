@@ -120,7 +120,7 @@ from .all_actions import (
 from .matrix import dist as distance_matrix
 from . import cluster
 
-from .dihedrals import (calc_phi, calc_psi, calc_alpha, calc_beta,
+from .dihedral_analysis import (calc_phi, calc_psi, calc_alpha, calc_beta,
                         calc_omega, calc_chin, calc_chip, calc_delta,
                         calc_epsilon, calc_gamma, calc_zeta,
                         calc_omega, calc_nu1, calc_nu2)
@@ -128,7 +128,7 @@ from .dihedrals import (calc_phi, calc_psi, calc_alpha, calc_beta,
 from .c_action.action_dict import ActionDict
 from .c_analysis.analysis_dict import AnalysisDict
 from . import matrix
-from . import dihedrals
+from . import dihedral_analysis
 from . import vector
 
 # others
