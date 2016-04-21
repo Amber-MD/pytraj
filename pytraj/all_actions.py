@@ -1846,26 +1846,41 @@ def rmsd_perres(traj=None,
 
 
 @register_pmap
-def calc_rmsd_nofit(traj=None,
-                    mask="",
-                    ref=0,
-                    mass=False,
-                    frame_indices=None,
-                    top=None,
-                    dtype='ndarray', **kwd):
+def rmsd_nofit(traj=None,
+               mask="",
+               ref=0,
+               mass=False,
+               frame_indices=None,
+               top=None,
+               dtype='ndarray', **kwd):
+    '''compute rmsd without fitting (translating and rotating)
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str
+    ref : Frame or int
+    mass : bool, default False
+        if True, use mass-weighted
+    frame_indices : 1D array-like, default None
+        if given, only perform calculation for those frames
+
+    Notes
+    -----
+
+    This method is equal to pytraj.rmsd(traj, mask, ref, nofit=True, ...)
+
     '''
-    See also
-    --------
-    calc_rmsd
-    '''
-    return calc_rmsd(traj=traj,
-                     mask=mask,
-                     ref=ref,
-                     mass=mass,
-                     nofit=True,
-                     frame_indices=frame_indices,
-                     top=top,
-                     dtype=dtype, **kwd)
+    return rmsd(traj=traj,
+                mask=mask,
+                ref=ref,
+                mass=mass,
+                nofit=True,
+                frame_indices=frame_indices,
+                top=top,
+                dtype=dtype, **kwd)
+
+calc_rmsd_nofit = rmsd_nofit
 
 
 @register_pmap
@@ -1937,7 +1952,7 @@ def rmsd(traj=None,
 
     Notes
     -----
-    if ``traj`` is mutable, its coordinates will be updated.
+    if ``traj`` is mutable and update_coordinate=True, its coordinates will be updated.
 
     """
 
