@@ -19,6 +19,7 @@ from .c_action import c_action
 from .c_analysis import c_analysis
 from .c_action.actionlist import ActionList
 from .utils.convert import array2d_to_cpptraj_maskgroup
+from .topology import Topology
 
 list_of_cal = ['calc_distance',
                'calc_dihedral',
