@@ -2,7 +2,7 @@
 import numpy as np
 from functools import partial
 from collections import OrderedDict
-from pytraj.cpp_options import info as compiled_info
+from pytraj.c_options import info as compiled_info
 from pytraj import matrix
 from pytraj import mean_structure, volmap
 from pytraj import Frame

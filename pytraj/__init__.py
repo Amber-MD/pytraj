@@ -6,15 +6,6 @@ from sys import platform as _platform
 import sys
 import os
 
-from . import all_actions, io, hbonds, vector, matrix
-
-__all__ = (all_actions.__all__
-         + io.__all__
-         + ['iterframe', 'iterchunk']
-         + hbonds.__all__
-         + vector.__all__
-         + matrix.__all__)
-
 from .version import version as __version__
 from .c_options import info as compiled_info
 from .c_options import __cpptraj_version__
@@ -173,7 +164,7 @@ mean_structure = get_average_frame
 average_frame = get_average_frame
 load_parmed = load_ParmEd
 calc_pca = pca
-pair_distribution = pairdist
+pair_distribution = pairdist = calc_pairdist
 
 # compat with cpptraj, (FIXME)
 distance = calc_distance
