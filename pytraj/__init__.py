@@ -8,56 +8,24 @@ import os
 
 from .version import version as __version__
 
-# checking cpptraj version first
 from .c_options import info as compiled_info
 from .c_options import __cpptraj_version__
 from .c_options import __cpptraj_internal_version__
-
-_v = __cpptraj_internal_version__
-# TODO: follow python's rule
-if _v < 'V4.2.7':
-    raise RuntimeError("need to have cpptraj version >= v4.2.7")
 
 if 'BINTRAJ' not in compiled_info():
     from warnings import warn
     warn('linking to libcpptraj that were not installed with libnetcdf')
 
-from .tools import find_lib as _find_lib
+from .c_action.actionlist import ActionList, pipe, do
+compute = do
+Pipeline = ActionList
 
-# check `libcpptraj` and raise ImportError
-# only check for Linux since I don't know much about
-# OS X and Windows
-try:
-    # try to check `libcpptraj` that not in LD_LIBRARY_PATH search
-    # in _find_lib
-    from .core import Atom
-except ImportError:
-    if 'linux' in _platform and not _find_lib("cpptraj"):
-        raise ImportError(
-            "can not find libcpptraj. Make sure to install it "
-            "or export LD_LIBRARY_PATH correctly")
-
-try:
-    from .core import Atom, Residue, Molecule
-    from .c_action.actionlist import ActionList, pipe, do
-    compute = do
-    Pipeline = ActionList
-
-except ImportError:
-    import os
-    source_folders = ['./scripts', './devtools', './docs']
-    is_source_folder = True
-    for f in source_folders:
-        is_source_folder = False if not os.path.exists(f) else True
-    if is_source_folder:
-        raise ImportError("you are import pytraj in source folder. "
-                          "Should go to another location and try again")
 try:
     import numpy as np
     np.set_printoptions(threshold=10)
 except ImportError:
-    np = None
-
+    raise ImportError("require numpy")
+    
 from . import options
 
 # import partial from functools
@@ -67,7 +35,7 @@ from .externals.six import string_types
 from .core import Atom, Residue, Molecule
 from .core.c_core import CpptrajState, ArgList, AtomMask, _load_batch
 from .core.c_core import Command
-dispatch = Command.dispatch
+from .core.c_core.Command import dispatch
 from . import array, c_commands
 from .topology import Topology, ParmFile
 from .math import Vec3
@@ -150,8 +118,7 @@ from .all_actions import (
     check_structure,
     calc_matrix)
 
-from .matrix import dist
-distance_matrix = dist
+from .matrix import dist as distance_matrix
 from . import cluster
 
 from .dihedrals import (calc_phi, calc_psi, calc_alpha, calc_beta,
@@ -211,14 +178,15 @@ watershell = calc_watershell
 mean_structure = get_average_frame
 average_frame = get_average_frame
 load_parmed = load_ParmEd
-mindist = calc_mindist
-# compat with cpptraj
-nativecontacts = native_contacts
+calc_pca = pca
 pair_distribution = pairdist
+
+# compat with cpptraj, (FIXME)
+nativecontacts = native_contacts
+mindist = calc_mindist
 lowest_curve = lowestcurve
 diffusion = calc_diffusion
 volmap = calc_volmap
-calc_pca = pca
 randomizeions = randomize_ions
 
 adict = ActionDict()
