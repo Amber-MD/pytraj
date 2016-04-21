@@ -91,7 +91,7 @@ from .c_analysis import c_analysis
 from .dssp_analysis import calc_dssp, dssp_allatoms, dssp_allresidues
 from .nucleic_acid_analysis import nastruct
 from .nmr import ired_vector_and_matrix, _ired, NH_order_parameters
-from .hbonds import hbond
+from .hbond_analysis import hbond
 from .externals.energy import energy_decomposition
 
 from .all_actions import (
