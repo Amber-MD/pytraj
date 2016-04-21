@@ -19,6 +19,7 @@ from .c_action import c_action
 from .c_analysis import c_analysis
 from .c_action.actionlist import ActionList
 from .utils.convert import array2d_to_cpptraj_maskgroup
+from .topology import Topology
 
 list_of_cal = ['calc_distance',
                'calc_dihedral',
@@ -64,6 +65,7 @@ list_of_the_rest = ['rmsd', 'align_principal_axis', 'principal_axes', 'closest',
                     'timecorr', 'search_neighbors',
                     'xcorr', 'acorr',
                     'projection',
+                    'superpose', 'strip',
                     ]
 
 __all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
@@ -3008,3 +3010,66 @@ def xcorr(data0, data1, dtype='ndarray'):
     return get_data_from_dtype(c_dslist[2:], dtype=dtype)
 
 cross_correlation_function = xcorr
+
+def superpose(traj, *args, **kwd):
+    '''
+
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_ala3()[:]
+    >>> traj = pt.superpose(traj)
+    >>> isinstance(traj, pt.Trajectory)
+    True
+    '''
+    traj.superpose(*args, **kwd)
+    return traj
+
+def strip(obj, mask):
+    '''return a new Trajectory or Topology with given mask.
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> traj.n_atoms
+    5293
+    >>> pt.strip(traj, '!@CA').n_atoms
+    12
+    >>> pt.strip(traj.top, '!@CA').n_atoms
+    12
+    >>> pt.strip('!@CA', traj.top).n_atoms
+    12
+    >>> t0 = traj[:3]
+    >>> pt.strip(t0, '!@CA').n_atoms
+    12
+    >>> fi = pt.iterframe(traj, stop=3)
+    >>> fi = pt.strip(fi, '!@CA')
+    >>> for frame in fi:
+    ...    print(frame)
+    <Frame with 12 atoms>
+    <Frame with 12 atoms>
+    <Frame with 12 atoms>
+
+    >>> # raise ValueError
+    >>> pt.strip(0, '@CA')
+    Traceback (most recent call last):
+        ...
+    ValueError: object must be either Trajectory or Topology
+    '''
+
+    if isinstance(obj, string_types) and not isinstance(
+            mask, string_types):
+        obj, mask = mask, obj
+
+    kept_mask = '!(' + mask + ')'
+
+    if isinstance(obj, (Topology, Trajectory)):
+        # return new Topology or new Trajectory
+        return obj[kept_mask]
+    elif isinstance(obj, TrajectoryIterator):
+        # return a FrameIterator
+        return obj(mask=kept_mask)
+    elif hasattr(obj, 'mask'):
+        obj.mask = kept_mask
+        return obj
+    else:
+        raise ValueError('object must be either Trajectory or Topology')

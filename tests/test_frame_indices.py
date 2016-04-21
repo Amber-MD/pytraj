@@ -7,7 +7,7 @@ import numpy as np
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
 from pytraj.compat import string_types
-from pytraj.hbond_ import DatasetHBond
+from pytraj.hbonds import DatasetHBond
 
 
 class TestFrameIndices(unittest.TestCase):

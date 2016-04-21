@@ -73,7 +73,7 @@ def pipe(traj, commands, DatasetList dslist=DatasetList(), frame_indices=None):
         yield frame
 
 
-def do(lines, traj, *args, **kwd):
+def compute(lines, traj, *args, **kwd):
     """perorm a series of cpptraj's actions on trajectory
 
     Parameters
@@ -91,14 +91,14 @@ def do(lines, traj, *args, **kwd):
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2()
     >>> # cpptraj command style
-    >>> data = pt.do('''
+    >>> data = pt.compute('''
     ...              rms
     ...              radgyr
     ...              molsurf
     ...              ''', traj)
 
     >>> # a list of commands
-    >>> data = pt.do([
+    >>> data = pt.compute([
     ...              'rms',
     ...              'radgyr',
     ...              'molsurf',], traj)
@@ -106,7 +106,7 @@ def do(lines, traj, *args, **kwd):
     >>> # a list of commands with reference
     >>> # need to explicitly add ``reference`` keyword and specify `ref=`
     >>> # calculate rms and use traj[3] as reference
-    >>> data = pt.do([
+    >>> data = pt.compute([
     ...              'rms myrms reference @CA',
     ...              'radgyr myrg @CA nomax',
     ...              'molsurf',], traj, ref=traj[3])
@@ -119,7 +119,7 @@ def do(lines, traj, *args, **kwd):
     >>> # a list of commands with reference
     >>> # can also specify 'refindex'
     >>> # calculate rms and use traj[3] as reference
-    >>> data = pt.do([
+    >>> data = pt.compute([
     ...              'rms myrms refindex 0 @CA',
     ...              'radgyr myrg @CA nomax',
     ...              'molsurf',], traj, ref=traj[3])

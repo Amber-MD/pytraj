@@ -7,7 +7,7 @@ from cython.operator cimport dereference as deref, preincrement as incr
 from libcpp.string cimport string
 from cpython.array cimport array as pyarray
 from cpython cimport array as pyarray_master
-from pytraj.cpp_options import set_world_silent  # turn on and off cpptraj's stdout
+from pytraj.c_options import set_world_silent  # turn on and off cpptraj's stdout
 
 from collections import namedtuple
 import numpy as np

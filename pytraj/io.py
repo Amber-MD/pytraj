@@ -9,7 +9,7 @@ from .datafiles.load_samples import load_sample_data
 from .datafiles.load_cpptraj_file import load_cpptraj_file
 from .shared_methods import iterframe_master
 from .cyutils import _fast_iterptr as iterframe_from_array
-from .cpp_options import set_error_silent
+from .c_options import set_error_silent
 from .get_common_objects import get_topology
 from .topology import Topology, ParmFile
 from .trajectory import Trajectory
@@ -18,6 +18,7 @@ from .trajectory_iterator import TrajectoryIterator
 from .externals.load_other_packages import load_ParmEd
 
 from .decorators import ensure_exist
+from .core.c_core import _load_batch
 
 try:
     from urllib.request import urlopen
@@ -33,7 +34,6 @@ __all__ = ['load',
            'load_sample_data',
            'load_ParmEd',
            'load_topology',
-           'read_parm',
            'write_parm',
            'save',
            'write_traj',
@@ -284,7 +284,7 @@ def iterload_remd(filename, top=None, T="300.0"):
     # add keyword 'remdtraj' to trick cpptraj
     trajin = ' '.join(('trajin', filename, 'remdtraj remdtrajtemp', str(T)))
     if isinstance(top, string_types):
-        top = read_parm(top)
+        top = load_topology(top)
     else:
         top = top
     state.data.add('topology', 'remdtop')
@@ -521,9 +521,6 @@ def load_topology(filename, option=''):
             'or load supported topology (pdb, amber parm, psf, ...)')
     return top
 
-# creat alias
-read_parm = load_topology
-
 
 def loadpdb_rcsb(pdbid):
     """load pdb file from rcsb website
@@ -722,3 +719,39 @@ def get_coordinates(iterable,
         return np.array(
             [frame.xyz.copy() for frame in iterframe_master(iterable)],
             dtype='f8')
+
+def load_batch(traj, txt):
+    '''perform calculation for traj with cpptraj's batch style. This is for internal use.
+
+    Parameters
+    ----------
+    traj : pytraj.TrajectoryIterator
+    txt : text or a list of test
+        cpptraj's commands
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> text = """
+    ... autoimage
+    ... radgyr @CA nomax
+    ... molsurf !@H=
+    ... """
+    >>> state = pt.load_batch(traj, text)
+    >>> state = state.run()
+    >>> state.data
+    <pytraj.datasets.CpptrajDatasetList - 3 datasets>
+
+    >>> # raise if not TrajectoryIterator
+    >>> traj2 = pt.Trajectory(xyz=traj.xyz, top=traj.top)
+    >>> not isinstance(traj2, pt.TrajectoryIterator)
+    True
+    >>> pt.load_batch(traj2, text)
+    Traceback (most recent call last):
+        ...
+    ValueError: only support TrajectoryIterator
+    '''
+    if not isinstance(traj, TrajectoryIterator):
+        raise ValueError('only support TrajectoryIterator')
+    return _load_batch(txt, traj=traj)
