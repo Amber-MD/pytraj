@@ -6,8 +6,16 @@ from sys import platform as _platform
 import sys
 import os
 
-from .version import version as __version__
+from . import all_actions, io, hbonds, vector, matrix
 
+__all__ = (all_actions.__all__
+         + io.__all__
+         + ['iterframe', 'iterchunk']
+         + hbonds.__all__
+         + vector.__all__
+         + matrix.__all__)
+
+from .version import version as __version__
 from .c_options import info as compiled_info
 from .c_options import __cpptraj_version__
 from .c_options import __cpptraj_internal_version__
@@ -16,8 +24,7 @@ if 'BINTRAJ' not in compiled_info():
     from warnings import warn
     warn('linking to libcpptraj that were not installed with libnetcdf')
 
-from .c_action.actionlist import ActionList, pipe, do
-compute = do
+from .c_action.actionlist import ActionList, pipe, do as compute
 Pipeline = ActionList
 
 try:
@@ -33,9 +40,10 @@ from functools import partial
 
 from .externals.six import string_types
 from .core import Atom, Residue, Molecule
-from .core.c_core import CpptrajState, ArgList, AtomMask, _load_batch
+from .core.c_core import CpptrajState, ArgList, AtomMask
 from .core.c_core import Command
-from .core.c_core.Command import dispatch
+from .core.c_core import Command
+dispatch = Command.dispatch
 from . import array, c_commands
 from .topology import Topology, ParmFile
 from .math import Vec3
@@ -57,6 +65,7 @@ from .io import (load,
                  load_sample_data,
                  load_ParmEd,
                  load_topology,
+                 load_batch,
                  read_parm,
                  write_parm,
                  get_coordinates,
@@ -88,7 +97,6 @@ from .c_action import c_action as allactions
 from .c_action import c_action
 from .c_analysis import c_analysis as allanalyses
 from .c_analysis import c_analysis
-from . import all_actions
 
 from .dssp_analysis import calc_dssp, dssp_allatoms, dssp_allresidues
 from .nucleic_acid_analysis import nastruct
@@ -116,7 +124,8 @@ from .all_actions import (
     calc_multivector, pca, projection,
     xcorr, acorr,
     check_structure,
-    calc_matrix)
+    calc_matrix,
+    superpose, strip)
 
 from .matrix import dist as distance_matrix
 from . import cluster
@@ -144,37 +153,22 @@ from .cyutils import _fast_iterptr as iterframe_from_array
 
 # create alias
 check_overlap = check_structure
-checkoverlap = check_structure
 fetch_pdb = load_pdb_rcsb
 rmsd_nofit = calc_rmsd_nofit
-drmsd = distance_rmsd
 search_hbonds = hbond
-distance = calc_distance
 distances = calc_distance
 pairwise_distance = calc_pairwise_distance
-angle = calc_angle
 angles = calc_angle
-dihedral = calc_dihedral
 dihedrals = calc_dihedral
-jcoupling = calc_jcoupling
 rmsf = calc_atomicfluct
 pairwise_rmsd = calc_pairwise_rmsd
-rms2d = calc_pairwise_rmsd
 rotation_matrix = calc_rotation_matrix
 multidihedral = calc_multidihedral
-dssp = calc_dssp
 bfactors = calc_bfactors
-volume = calc_volume
-radgyr = calc_radgyr
 rdf = calc_rdf
-pairdist = calc_pairdist
-multivector = calc_multivector
 atomiccorr = calc_atomiccorr
-surf = calc_surf
-molsurf = calc_molsurf
 center_of_mass = calc_center_of_mass
 center_of_geometry = calc_center_of_geometry
-watershell = calc_watershell
 mean_structure = get_average_frame
 average_frame = get_average_frame
 load_parmed = load_ParmEd
@@ -182,12 +176,30 @@ calc_pca = pca
 pair_distribution = pairdist
 
 # compat with cpptraj, (FIXME)
+distance = calc_distance
+angle = calc_angle
+dihedral = calc_dihedral
+jcoupling = calc_jcoupling
+dssp = calc_dssp
+drmsd = distance_rmsd
+checkoverlap = check_structure
+radgyr = calc_radgyr
 nativecontacts = native_contacts
 mindist = calc_mindist
 lowest_curve = lowestcurve
 diffusion = calc_diffusion
+multivector = calc_multivector
 volmap = calc_volmap
 randomizeions = randomize_ions
+molsurf = calc_molsurf
+surf = calc_surf
+watershell = calc_watershell
+pairdist = calc_pairdist
+volume = calc_volume
+rms2d = calc_pairwise_rmsd
+
+# io
+load_pipeline = load_batch
 
 adict = ActionDict()
 analdict = AnalysisDict()
@@ -200,66 +212,11 @@ from .parallel.mpi import pmap_mpi
 from .parallel.base import _load_batch_pmap
 from .visualization import view
 
-
-def load_batch(traj, txt):
-    '''perform calculation for traj with cpptraj's batch style. This is for internal use.
-
-    Parameters
-    ----------
-    traj : pytraj.TrajectoryIterator
-    txt : text or a list of test
-        cpptraj's commands
-
-    Examples
-    --------
-    >>> import pytraj as pt
-    >>> traj = pt.datafiles.load_tz2_ortho()
-    >>> text = """
-    ... autoimage
-    ... radgyr @CA nomax
-    ... molsurf !@H=
-    ... """
-    >>> state = pt.load_batch(traj, text)
-    >>> state = state.run()
-    >>> state.data
-    <pytraj.datasets.CpptrajDatasetList - 3 datasets>
-
-    >>> # raise if not TrajectoryIterator
-    >>> traj2 = pt.Trajectory(xyz=traj.xyz, top=traj.top)
-    >>> not isinstance(traj2, pt.TrajectoryIterator)
-    True
-    >>> pt.load_batch(traj2, text)
-    Traceback (most recent call last):
-        ...
-    ValueError: only support TrajectoryIterator
-    '''
-    if not isinstance(traj, TrajectoryIterator):
-        raise ValueError('only support TrajectoryIterator')
-    return _load_batch(txt, traj=traj)
-
-
-load_pipeline = load_batch
-
-
-def superpose(traj, *args, **kwd):
-    '''
-
-    >>> import pytraj as pt
-    >>> traj = pt.datafiles.load_ala3()[:]
-    >>> traj = pt.superpose(traj)
-    >>> isinstance(traj, pt.Trajectory)
-    True
-    '''
-    traj.superpose(*args, **kwd)
-    return traj
-
-
 def set_cpptraj_verbose(cm=True):
     if cm:
         set_world_silent(False)
     else:
         set_world_silent(True)
-
 
 set_world_silent(True)
 _verbose = set_cpptraj_verbose
@@ -357,58 +314,6 @@ def select_atoms(mask, topology):
 
 
 select = select_atoms
-
-
-def strip(obj, mask):
-    '''return a new Trajectory or Topology with given mask.
-
-    Examples
-    --------
-    >>> import pytraj as pt
-    >>> traj = pt.datafiles.load_tz2_ortho()
-    >>> traj.n_atoms
-    5293
-    >>> pt.strip(traj, '!@CA').n_atoms
-    12
-    >>> pt.strip(traj.top, '!@CA').n_atoms
-    12
-    >>> pt.strip('!@CA', traj.top).n_atoms
-    12
-    >>> t0 = traj[:3]
-    >>> pt.strip(t0, '!@CA').n_atoms
-    12
-    >>> fi = pt.iterframe(traj, stop=3)
-    >>> fi = pt.strip(fi, '!@CA')
-    >>> for frame in fi:
-    ...    print(frame)
-    <Frame with 12 atoms>
-    <Frame with 12 atoms>
-    <Frame with 12 atoms>
-
-    >>> # raise ValueError
-    >>> pt.strip(0, '@CA')
-    Traceback (most recent call last):
-        ...
-    ValueError: object must be either Trajectory or Topology
-    '''
-
-    if isinstance(obj, string_types) and not isinstance(
-            mask, string_types):
-        obj, mask = mask, obj
-
-    kept_mask = '!(' + mask + ')'
-
-    if isinstance(obj, (Topology, Trajectory)):
-        # return new Topology or new Trajectory
-        return obj[kept_mask]
-    elif isinstance(obj, TrajectoryIterator):
-        # return a FrameIterator
-        return obj(mask=kept_mask)
-    elif hasattr(obj, 'mask'):
-        obj.mask = kept_mask
-        return obj
-    else:
-        raise ValueError('object must be either Trajectory or Topology')
 
 
 def run(fi):

@@ -18,6 +18,7 @@ from .trajectory_iterator import TrajectoryIterator
 from .externals.load_other_packages import load_ParmEd
 
 from .decorators import ensure_exist
+from .core.c_core import _load_batch
 
 try:
     from urllib.request import urlopen
@@ -722,3 +723,39 @@ def get_coordinates(iterable,
         return np.array(
             [frame.xyz.copy() for frame in iterframe_master(iterable)],
             dtype='f8')
+
+def load_batch(traj, txt):
+    '''perform calculation for traj with cpptraj's batch style. This is for internal use.
+
+    Parameters
+    ----------
+    traj : pytraj.TrajectoryIterator
+    txt : text or a list of test
+        cpptraj's commands
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> text = """
+    ... autoimage
+    ... radgyr @CA nomax
+    ... molsurf !@H=
+    ... """
+    >>> state = pt.load_batch(traj, text)
+    >>> state = state.run()
+    >>> state.data
+    <pytraj.datasets.CpptrajDatasetList - 3 datasets>
+
+    >>> # raise if not TrajectoryIterator
+    >>> traj2 = pt.Trajectory(xyz=traj.xyz, top=traj.top)
+    >>> not isinstance(traj2, pt.TrajectoryIterator)
+    True
+    >>> pt.load_batch(traj2, text)
+    Traceback (most recent call last):
+        ...
+    ValueError: only support TrajectoryIterator
+    '''
+    if not isinstance(traj, TrajectoryIterator):
+        raise ValueError('only support TrajectoryIterator')
+    return _load_batch(txt, traj=traj)
