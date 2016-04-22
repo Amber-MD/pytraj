@@ -64,7 +64,7 @@ class TestDoc(unittest.TestCase):
                 pt.array,
                 pt.nmr,
                 check_and_assert,
-                pt.hbonds,
+                pt.hbond_analysis,
                 pt.tools,
                 testing,
                 utils,
