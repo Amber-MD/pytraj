@@ -3034,7 +3034,7 @@ def strip(obj, mask):
 
     Notes
     -----
-    This method is trying to be smart. If you give it a in-memory Trajectory, it will
+    This method is trying to be smart. If you give it an in-memory Trajectory, it will
     return a corresponding in-memory Trajectory. If you give it an out-of-memory TrajectoryIterator,
     it will give you a corresponding FrameIterator object (out-of-memory). If you give it a Topology, it will
     return a new stripped Topology.
