@@ -253,13 +253,13 @@ def calc_pairwise_distance(traj=None,
 
 
 @register_pmap
-def (traj=None,
-               mask="",
-               top=None,
-               dtype='ndarray',
-               frame_indices=None,
-               *args,
-               **kwargs):
+def angle(traj=None,
+          mask="",
+          top=None,
+          dtype='ndarray',
+          frame_indices=None,
+          *args,
+          **kwargs):
     """compute angle between two maskes
 
     Parameters
@@ -359,6 +359,8 @@ def (traj=None,
         else:
             py_dslist = DatasetList({'angle': arr})
             return get_data_from_dtype(py_dslist, dtype)
+
+calc_angle = angle
 
 
 def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
