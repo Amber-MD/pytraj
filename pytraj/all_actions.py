@@ -83,6 +83,8 @@ def _2darray_to_atommask_groups(seq):
 
 
 def _assert_mutable(trajiter):
+    """make sure the input is not TrajectoryIterator
+    """
     if isinstance(trajiter, TrajectoryIterator):
         raise ValueError(
             "This analysis does not support immutable object. Use `pytraj.Trajectory`")
@@ -97,7 +99,7 @@ def calc_distance(traj=None,
                   image=False,
                   n_frames=None):
     # TODO: add image, noe, ...
-    """calculate distance between two maskes
+    """compute distance between two maskes
 
     Parameters
     ----------
@@ -251,14 +253,14 @@ def calc_pairwise_distance(traj=None,
 
 
 @register_pmap
-def calc_angle(traj=None,
+def (traj=None,
                mask="",
                top=None,
                dtype='ndarray',
                frame_indices=None,
                *args,
                **kwargs):
-    """calculate angle between two maskes
+    """compute angle between two maskes
 
     Parameters
     ----------
@@ -396,7 +398,7 @@ def calc_dihedral(traj=None,
                   frame_indices=None,
                   *args,
                   **kwargs):
-    """calculate dihedral angle between two maskes
+    """compute dihedral angle between two maskes
 
     Parameters
     ----------
@@ -682,13 +684,13 @@ def calc_matrix(traj=None,
 
 @register_pmap
 @super_dispatch()
-def calc_radgyr(traj=None,
+def radgyr(traj=None,
                 mask="",
                 top=None,
                 nomax=True,
                 frame_indices=None,
                 dtype='ndarray'):
-    '''calc radgyr
+    '''compute radius of gyration
 
     Examples
     --------
@@ -707,10 +709,12 @@ def calc_radgyr(traj=None,
     act(command, traj, top=top, dslist=c_dslist)
     return get_data_from_dtype(c_dslist, dtype)
 
+calc_radgyr = radgyr
+
 
 @register_pmap
 @super_dispatch()
-def calc_surf(traj=None,
+def surf(traj=None,
               mask="",
               dtype='ndarray',
               frame_indices=None,
@@ -730,6 +734,8 @@ def calc_surf(traj=None,
     c_dslist = CpptrajDatasetList()
     act(command, traj, top=top, dslist=c_dslist)
     return get_data_from_dtype(c_dslist, dtype)
+
+calc_surf = surf
 
 
 @register_pmap
@@ -3024,7 +3030,14 @@ def superpose(traj, *args, **kwd):
     return traj
 
 def strip(obj, mask):
-    '''return a new Trajectory or Topology with given mask.
+    '''return a new Trajectory or FrameIterator or Topology with given mask.
+
+    Notes
+    -----
+    This method is trying to be smart. If you give it a in-memory Trajectory, it will
+    return a corresponding in-memory Trajectory. If you give out-of-memory TrajectoryIterator,
+    it will give you a FrameIterator object (out-of-memory). If you give it a Topology, it will
+    return a new stripped Topology.
 
     Examples
     --------
