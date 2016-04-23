@@ -188,7 +188,6 @@ class TestIred(unittest.TestCase):
         # try different dtype
         out_try_new_dtype = pt.ired_vector_and_matrix(traj, nh_indices, dtype='cpptraj_dataset')
 
-    @unittest.skipIf('DNO_MATHLIB' in pt.compiled_info(), 'there is no LAPACK')
     # TODO: how can I get order paramters?
     def test_ired_need_lapack_cpptraj(self):
         state = pt.load_cpptraj_state(txt)
