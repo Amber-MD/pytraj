@@ -206,7 +206,7 @@ def get_version_info():
         GIT_REVISION = "Unknown"
 
     if not ISRELEASED:
-        FULLVERSION += '-beta0'
+        FULLVERSION += '.dev0+' + GIT_REVISION[:7]
 
     return FULLVERSION, GIT_REVISION
 
@@ -419,3 +419,6 @@ class CleanCommand(Clean):
             for dirname in dirnames:
                 if dirname == '__pycache__':
                     shutil.rmtree(os.path.join(dirpath, dirname))
+
+if __name__ == '__main__':
+    print(get_version_info())
