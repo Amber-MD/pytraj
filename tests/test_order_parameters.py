@@ -12,7 +12,6 @@ from pytraj.testing import cpptraj_test_dir
 class TestNHOrderParamters(unittest.TestCase):
 
     @unittest.skipIf(sys.platform != 'linux', 'pmap for linux')
-    @unittest.skipIf('DNO_MATHLIB' in pt.compiled_info(), 'there is no LAPACK')
     def test_nh_paramters(self):
         parmfile = cpptraj_test_dir + '/Test_IRED/1IEE_A_prot.prmtop'
         trajfile = cpptraj_test_dir + '/Test_IRED/1IEE_A_test.mdcrd'
