@@ -13,7 +13,9 @@ from pytraj.parallel.base import _load_batch_pmap, worker_by_actlist
 from pytraj import c_commands
 
 
-@unittest.skipIf(sys.platform != 'linux', 'pmap for linux')
+is_osx = sys.platform.startswith('darwin')
+N_CORE_LIST  = [2, 3] if not is_osx else [2,]
+
 class TestNormalPmap(unittest.TestCase):
 
     def setUp(self):
@@ -59,7 +61,8 @@ class TestNormalPmap(unittest.TestCase):
         func_list = [pt.radgyr, pt.molsurf, pt.rmsd]
         ref = traj[-3]
 
-        for n_cores in [2, 3]:
+        N_CORE_LIST = [2, 3] if not is_osx else [2,]
+        for n_cores in N_CORE_LIST:
             for func in func_list:
                 if func in [pt.rmsd, ]:
                     pout = pt.tools.dict_to_ndarray(pt.pmap(func=func,
@@ -77,7 +80,8 @@ class TestNormalPmap(unittest.TestCase):
          # test worker
          # need to test this since coverages seems not recognize partial func
         from pytraj.parallel.multiprocessing_ import worker_byfunc
-        data = worker_byfunc(rank=2, n_cores=8, func=pt.radgyr, traj=traj, args=(), kwd={'mask': '@CA'}, iter_options={})
+        n_cores = 8 if not is_osx else 2
+        data = worker_byfunc(rank=2, n_cores=n_cores, func=pt.radgyr, traj=traj, args=(), kwd={'mask': '@CA'}, iter_options={})
         assert data[0] == 2, 'rank must be 2'
         assert data[2] == 1, 'n_frames for rank=2 should be 1 (only 10 frames in total)'
 
@@ -86,7 +90,8 @@ class TestNormalPmap(unittest.TestCase):
         func = pt.rmsd
         for i in range(0, 8, 2):
             ref = self.traj[i]
-            for n_cores in [2, 3, ]:
+            N_CORE_LIST = [2, 3] if not is_osx else [2,]
+            for n_cores in N_CORE_LIST:
                 pout = pt.tools.dict_to_ndarray(pt.pmap(n_cores=n_cores,
                                                         func=func,
                                                         traj=traj,
@@ -102,7 +107,8 @@ class TestNormalPmap(unittest.TestCase):
 
         # perform autoimage, then rms fit to 1st frame, then compute mean structure
         iter_options = {'autoimage': True, 'rmsfit': 0}
-        for n_cores in [2, 3]:
+        N_CORE_LIST = [2, 3] if not is_osx else [2,]
+        for n_cores in N_CORE_LIST:
             avg = pt.pmap(pt.mean_structure,
                           traj,
                           iter_options=iter_options,
@@ -115,13 +121,12 @@ class TestNormalPmap(unittest.TestCase):
             aa_eq(radgyr_[0], saved_radgyr)
 
 
-@unittest.skipIf(sys.platform != 'linux', 'pmap for linux')
 class TestParallelMapForMatrix(unittest.TestCase):
 
     def test_matrix_module(self):
         traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
 
-        for n_cores in [2, 3]:
+        for n_cores in N_CORE_LIST:
             for func in [matrix.dist, matrix.idea]:
                 x = pt.pmap(func, traj, '@CA', n_cores=n_cores)
                 aa_eq(x, func(traj, '@CA'))
@@ -133,7 +138,7 @@ class TestParallelMapForMatrix(unittest.TestCase):
         nh = list(zip(n, h))
 
         exptected_vecs, exptected_mat = pt.ired_vector_and_matrix(traj, nh)
-        for n_cores in [2, 3]:
+        for n_cores in N_CORE_LIST:
             vecs, mat = pt.pmap(pt.ired_vector_and_matrix,
                                 traj,
                                 nh,
@@ -146,7 +151,7 @@ class TestParallelMapForMatrix(unittest.TestCase):
         saved_mat = pt.rotation_matrix(traj, ref=traj[3], mask='@CA')
         saved_rmsd = pt.rmsd(traj, ref=traj[3], mask='@CA')
 
-        for n_cores in [2, 3]:
+        for n_cores in N_CORE_LIST:
             out = pt.pmap(pt.rotation_matrix, traj, ref=traj[3], mask='@CA')
             out_with_rmsd = pt.pmap(pt.rotation_matrix,
                                     traj,
@@ -160,7 +165,6 @@ class TestParallelMapForMatrix(unittest.TestCase):
             aa_eq(saved_rmsd, rmsd_)
 
 
-@unittest.skipIf(sys.platform != 'linux', 'pmap for linux')
 class TestCpptrajCommandStyle(unittest.TestCase):
 
     def test_c_command_style(self):
@@ -188,7 +192,7 @@ class TestCpptrajCommandStyle(unittest.TestCase):
     def test_reference(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
 
-        for n_cores in [2, 3]:
+        for n_cores in N_CORE_LIST:
             # use 4-th Frame for reference
             data = pt.pmap(['rms @CA refindex 0'],
                            traj,
@@ -237,7 +241,6 @@ class TestCpptrajCommandStyle(unittest.TestCase):
             aa_eq(arr, pt.radgyr(traj))
 
 
-@unittest.skipIf(sys.platform != 'linux', 'pmap for linux')
 class TestParallelMapForAverageStructure(unittest.TestCase):
 
     def test_pmap_average_structure(self):
@@ -245,12 +248,11 @@ class TestParallelMapForAverageStructure(unittest.TestCase):
         saved_frame = pt.mean_structure(traj, '@CA')
         saved_xyz = saved_frame.xyz
 
-        for n_cores in [2, 3, 4]:
+        for n_cores in N_CORE_LIST:
             frame = pt.pmap(pt.mean_structure, traj, '@CA', n_cores=n_cores)
             aa_eq(frame.xyz, saved_xyz)
 
 
-@unittest.skipIf(sys.platform != 'linux', 'pmap for linux')
 class TestLoadBathPmap(unittest.TestCase):
 
     def test_load_batch(self):
@@ -258,10 +260,9 @@ class TestLoadBathPmap(unittest.TestCase):
         '''
         self.assertRaises(
             ValueError,
-            lambda: _load_batch_pmap(n_cores=4, lines=['autoimage'], traj=None, dtype='dict', root=0, mode='xyz', ref=None))
+            lambda: _load_batch_pmap(n_cores=2, lines=['autoimage'], traj=None, dtype='dict', root=0, mode='xyz', ref=None))
 
 
-@unittest.skipIf(sys.platform != 'linux', 'pmap for linux')
 class TestFrameIndices(unittest.TestCase):
 
     def test_frame_indices(self):
@@ -271,7 +272,7 @@ class TestFrameIndices(unittest.TestCase):
         frame_indices_list = [[0, 8, 9, 3, 2, 5], range(6)]
 
         for frame_indices in frame_indices_list:
-            for n_cores in [2, 3]:
+            for n_cores in N_CORE_LIST:
                 serial_out = pt.radgyr(traj,
                                        '@CA',
                                        frame_indices=frame_indices)
@@ -288,7 +289,6 @@ class TestFrameIndices(unittest.TestCase):
                       pt.tools.dict_to_ndarray(parallel_out_c_style))
 
 
-@unittest.skipIf(sys.platform != 'linux', 'pmap for linux')
 class TestCheckValidCommand(unittest.TestCase):
 
     def test_check_valid_command(self):
@@ -326,7 +326,6 @@ class TestCheckValidCommand(unittest.TestCase):
             self.assertRaises(ValueError, lambda: pt.pmap(word, traj, n_cores=2))
 
 
-@unittest.skipIf(sys.platform != 'linux', 'pmap for linux')
 class TestVolmap(unittest.TestCase):
 
     def test_volmap(self):
@@ -340,7 +339,8 @@ class TestVolmap(unittest.TestCase):
         mask = ':WAT@O'
         grid_spacing = (0.5, 0.5, 0.5)
 
-        for n_cores in [1, 2, 3]:
+        n_core_list = [1, 2, 3] if not is_osx else [1, 2]
+        for n_cores in n_core_list:
             for size in [(20, 20, 20), (20, 40, 60)]:
                 serial_out = pt.volmap(traj, mask=mask, grid_spacing=grid_spacing, size=size)
                 parallel_out = pt.pmap(pt.volmap, traj, mask=mask, grid_spacing=grid_spacing,
@@ -349,14 +349,14 @@ class TestVolmap(unittest.TestCase):
                 aa_eq(serial_out, parallel_out)
 
 
-@unittest.skipIf(sys.platform != 'linux', 'pmap for linux')
 class TestWorker(unittest.TestCase):
 
     def testworker_by_actlist(self):
         # just want to exercise all codes
         traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        n_cores = 8 if not is_osx else 2
         for ref in [None, traj[0], [traj[0], traj[1]]]:
-            data = worker_by_actlist(rank=3, n_cores=8, traj=traj, lines=['radgyr @CA', 'vector :3 :7'],
+            data = worker_by_actlist(rank=3, n_cores=n_cores, traj=traj, lines=['radgyr @CA', 'vector :3 :7'],
                                      ref=ref, kwd=dict())
 
 
@@ -366,7 +366,6 @@ def change_10_atoms(traj):
         yield frame
 
 
-@unittest.skipIf(sys.platform != 'linux', 'pmap for linux')
 class TestInserNewFunction(unittest.TestCase):
 
     def test_insert_new_function(self):
