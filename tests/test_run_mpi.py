@@ -9,7 +9,6 @@ import subprocess
 from glob import glob
 
 
-@unittest.skipIf(sys.platform == 'darwin', 'no test on osx for mpi')
 class TestRunMPI(unittest.TestCase):
 
     def test_all_mpi_scripts(self):
@@ -21,6 +20,3 @@ class TestRunMPI(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-    # nosetests --with-coverage --cover-package pytraj -vs .
-    # nosetests -vs --processes 6 --process-timeout 200 .
-    # nosetests -vs --processes 6 --process-timeout 200 --with-coverage --cover-package pytraj .

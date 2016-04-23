@@ -30,4 +30,6 @@ pip install cclib
 if [ "$TRAVIS_OS_NAME" = "linux" ]; then
     # only test mpi on linux
     conda install mpi4py --yes
+else
+    pip install mpi4py
 fi
