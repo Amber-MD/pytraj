@@ -6,19 +6,19 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>General concept &mdash; pytraj 1.0.4-beta0 documentation</title>
+    <title>General concept &mdash; pytraj 1.0.5.dev0+87639dd documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0.4-beta0',
+        VERSION:     '1.0.5.dev0+87639dd',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,9 +29,9 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.4-beta0 documentation" href="index.html" />
+    <link rel="top" title="pytraj 1.0.5.dev0+87639dd documentation" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -51,7 +51,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.4-beta0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+87639dd</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -146,7 +146,7 @@
   <div class="section" id="general-concept">
 <span id="id1"></span><h1>General concept<a class="headerlink" href="#general-concept" title="Permalink to this headline">¶</a></h1>
 <p>In most case, to use <code class="docutils literal"><span class="pre">pytraj</span></code>, you just need to rember this format</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">method_name</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span> <span class="o">...</span><span class="p">)</span>
 </pre></div>
@@ -154,8 +154,8 @@
 <ul>
 <li><p class="first"><code class="docutils literal"><span class="pre">traj</span></code> can be a Trajectory-like (having 3D coordinates and a Topology) or it can be
 any iterable object that produces <code class="xref py py-class docutils literal"><span class="pre">pytraj.Frame</span></code> (a single snapshot):</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="c1"># a Trajectory</span>
-<span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># a Trajectory</span>
+<span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;traj.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;traj.prmtop&#39;</span><span class="p">)</span>
 <span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
 
@@ -177,7 +177,7 @@ any iterable object that produces <code class="xref py py-class docutils literal
 <li><p class="first"><code class="docutils literal"><span class="pre">ref</span></code> can be a single Frame or a Trajectory or an integer. If it&#8217;s a Trajectory,
 first conformation is always picked up. If it&#8217;s an integer, pytraj will do slicing the
 corresponding Trajectory:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">frame</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">frame</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
 <span class="n">traj2</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
 <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">frame</span><span class="p">)</span>
 <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
@@ -188,7 +188,7 @@ corresponding Trajectory:</p>
 </ul>
 <ul>
 <li><p class="first"><code class="docutils literal"><span class="pre">mask</span></code> follows Amber mask syntax (eg. :<a class="reference external" href="mailto:3-18&#37;&#52;&#48;CA">3-18<span>&#64;</span>CA</a>) or an atom index array (eg. [0, 3, 5]). If <code class="docutils literal"><span class="pre">mask</span></code> is a string (amber mask), the index is 1-based (counting from 1). If <code class="docutils literal"><span class="pre">mass</span></code> is an array-like, the index is 0-based (counting from 0):</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="c1"># mask is a string</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># mask is a string</span>
 <span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;@CA&#39;</span><span class="p">)</span>
 
 <span class="c1"># mask is a list of integers (atom indices)</span>
@@ -199,7 +199,7 @@ corresponding Trajectory:</p>
 </ul>
 <ul>
 <li><p class="first"><code class="docutils literal"><span class="pre">frame_indices</span></code> is frame indices for calculation. It&#8217;s optional. If no <code class="docutils literal"><span class="pre">frame_indices</span></code> is provided, the calculation will be performed for whole trajectory:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="c1"># only compute radgyr for 3 frames (0, 3, and 7-th)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># only compute radgyr for 3 frames (0, 3, and 7-th)</span>
 <span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -208,7 +208,7 @@ corresponding Trajectory:</p>
 </div>
 <div class="section" id="real-world-example">
 <h1>Real world example<a class="headerlink" href="#real-world-example" title="Permalink to this headline">¶</a></h1>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="c"># calculate radius of gyration for whole trajectory, all atoms</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="c"># calculate radius of gyration for whole trajectory, all atoms</span>
 <span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
 <span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.parm7&#39;</span><span class="p">)</span>
@@ -259,8 +259,8 @@ corresponding Trajectory:</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Apr 19, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
+      Last updated on Apr 23, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
     </p>
   </div>
 </footer>

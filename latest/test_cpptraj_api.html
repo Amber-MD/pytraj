@@ -6,19 +6,19 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Testing cpptraj API change with pytraj &mdash; pytraj 1.0.4-beta0 documentation</title>
+    <title>Testing cpptraj API change with pytraj &mdash; pytraj 1.0.5.dev0+87639dd documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0.4-beta0',
+        VERSION:     '1.0.5.dev0+87639dd',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,9 +29,9 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.4-beta0 documentation" href="index.html" />
+    <link rel="top" title="pytraj 1.0.5.dev0+87639dd documentation" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -51,7 +51,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.4-beta0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+87639dd</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -145,7 +145,7 @@
   <div class="section" id="testing-cpptraj-api-change-with-pytraj">
 <span id="test-cpptraj-api"></span><h1>Testing cpptraj API change with pytraj<a class="headerlink" href="#testing-cpptraj-api-change-with-pytraj" title="Permalink to this headline">¶</a></h1>
 <p>clone <code class="docutils literal"><span class="pre">pytraj</span></code> repo if you have not done yet</p>
-<div class="highlight-bash"><div class="highlight"><pre>$ git clone https://github.com/Amber-MD/pytraj
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ git clone https://github.com/Amber-MD/pytraj
 $ <span class="c1"># as usual, make a name for original repo. We often use ``upstream``</span>
 $ <span class="nb">cd</span> pytraj
 $ git remote add upstream https://github.com/Amber-MD/pytraj
@@ -158,12 +158,12 @@ $ <span class="c1"># just need to update ./installs/install_cpptraj_git.sh file<
 </pre></div>
 </div>
 <p>Upate <code class="docutils literal"><span class="pre">./installs/install_cpptraj_git.sh</span></code> file</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="mf">1.</span> <span class="n">change</span> <span class="s2">&quot;git clone https://github.com/Amber-MD/cpptraj&quot;</span> <span class="n">to</span> <span class="s2">&quot;git clone https://github.com/drroe/cpptraj&quot;</span>
-<span class="mf">2.</span> <span class="n">add</span> <span class="s2">&quot;git checkout new_traj_api&quot;</span> <span class="n">to</span> <span class="n">that</span> <span class="n">file</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>1. change &quot;git clone https://github.com/Amber-MD/cpptraj&quot; to &quot;git clone https://github.com/drroe/cpptraj&quot;
+2. add &quot;git checkout new_traj_api&quot; to that file
 </pre></div>
 </div>
 <p>It&#8217;s time to push to github so travis can automatically test (will take about 12 minutes)</p>
-<div class="highlight-bash"><div class="highlight"><pre>git add ./installs/install_cpptraj_git.sh
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git add ./installs/install_cpptraj_git.sh
 git commit -m <span class="s1">&#39;pytraj: trick to run&#39;</span>
 git push drroe_pytraj for_test_cpptraj_api
 </pre></div>
@@ -183,8 +183,8 @@ git push drroe_pytraj for_test_cpptraj_api
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Apr 19, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
+      Last updated on Apr 23, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
     </p>
   </div>
 </footer>

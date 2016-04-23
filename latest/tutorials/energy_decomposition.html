@@ -6,19 +6,19 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Energy decomposition with sander and igb8 solvent model &mdash; pytraj 1.0.4-beta0 documentation</title>
+    <title>Energy decomposition with sander and igb8 solvent model &mdash; pytraj 1.0.5.dev0+87639dd documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-3.3.4/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.4-beta0',
+        VERSION:     '1.0.5.dev0+87639dd',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,9 +29,9 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.4-beta0 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.5.dev0+87639dd documentation" href="../index.html" />
     <link rel="up" title="Tutorials" href="index.html" />
     <link rel="next" title="Closest solvents" href="closest_waters_.html" />
     <link rel="prev" title="Basic examples" href="basic_examples.html" />
@@ -54,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.4-beta0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+87639dd</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -181,7 +181,7 @@
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c1"># load pytraj and load trajectories</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load pytraj and load trajectories</span>
 
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
@@ -219,7 +219,7 @@ Size: 0.000503 (GB)
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c1"># compute the energy with igb=8 (GBneck2 solvation model)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># compute the energy with igb=8 (GBneck2 solvation model)</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">energy_decomposition</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">igb</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 <span class="n">data</span>
 </pre></div>
@@ -236,50 +236,50 @@ Size: 0.000503 (GB)
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>OrderedDict([(&apos;dihedral&apos;,
-              array([ 111.61132908,  105.39241304,   93.03084989, ...,  101.81038715,
-                       94.63365271,   92.27451698])),
-             (&apos;elec&apos;,
-              array([-781.59559933, -807.4891344 , -741.17534022, ..., -835.16025964,
-                     -805.08867184, -825.97031683])),
-             (&apos;vdw&apos;,
-              array([-44.9811844 , -43.77030705, -52.33589852, ..., -70.01048987,
-                     -66.01297848, -67.78679498])),
-             (&apos;constraint&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&apos;dvdl&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+<pre>OrderedDict([(&apos;cmap&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
              (&apos;bond&apos;,
               array([ 0.01531366,  0.01358172,  0.01252056, ...,  0.0154962 ,
                       0.01510391,  0.0175098 ])),
-             (&apos;gb&apos;,
-              array([-412.53266438, -400.09042163, -439.92701343, ..., -365.74056055,
-                     -395.14074215, -368.44262754])),
-             (&apos;tot&apos;,
-              array([-225.72081333, -259.3103916 , -265.22164221, ..., -282.72357777,
-                     -287.55610458, -293.18137453])),
-             (&apos;elec_14&apos;,
-              array([ 720.65923256,  731.53353441,  717.35440566, ...,  736.47531336,
-                      732.27034385,  726.61630671])),
-             (&apos;angle_ub&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&apos;surf&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;imp&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
              (&apos;angle&apos;,
               array([ 128.54514846,  105.06494493,  103.52028376, ...,   99.46042639,
                       103.49664937,   98.18016593])),
-             (&apos;amd_boost&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&apos;imp&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&apos;les&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&apos;noe&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;elec_14&apos;,
+              array([ 720.65923256,  731.53353441,  717.35440566, ...,  736.47531336,
+                      732.27034385,  726.61630671])),
+             (&apos;polar&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;vdw&apos;,
+              array([-44.9811844 , -43.77030705, -52.33589852, ..., -70.01048987,
+                     -66.01297848, -67.78679498])),
+             (&apos;dvdl&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;elec&apos;,
+              array([-781.59559933, -807.4891344 , -741.17534022, ..., -835.16025964,
+                     -805.08867184, -825.97031683])),
+             (&apos;ct&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
              (&apos;vdw_14&apos;,
               array([ 52.55761103,  50.03499738,  54.29855009, ...,  50.42610919,
                       48.27053805,  51.9298654 ])),
-             (&apos;cmap&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&apos;emap&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;amd_boost&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
              (&apos;disp&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;surf&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;emap&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;noe&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;constraint&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;tot&apos;,
+              array([-225.72081333, -259.3103916 , -265.22164221, ..., -282.72357777,
+                     -287.55610458, -293.18137453])),
+             (&apos;dihedral&apos;,
+              array([ 111.61132908,  105.39241304,   93.03084989, ...,  101.81038715,
+                       94.63365271,   92.27451698])),
              (&apos;rism&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&apos;hbond&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
              (&apos;pb&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&apos;polar&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;les&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
              (&apos;scf&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&apos;ct&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.]))])</pre>
+             (&apos;angle_ub&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&apos;gb&apos;,
+              array([-412.53266438, -400.09042163, -439.92701343, ..., -365.74056055,
+                     -395.14074215, -368.44262754])),
+             (&apos;hbond&apos;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.]))])</pre>
 </div>
 
 </div>
@@ -293,7 +293,7 @@ Size: 0.000503 (GB)
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c1"># get energy you want</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get energy you want</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;potential energy&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;tot&#39;</span><span class="p">])</span>
 </pre></div>
 
@@ -322,7 +322,7 @@ Size: 0.000503 (GB)
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c1"># solvation energy (igb=8)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># solvation energy (igb=8)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;solvation energy&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;gb&#39;</span><span class="p">])</span>
 </pre></div>
 
@@ -351,7 +351,7 @@ Size: 0.000503 (GB)
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c1"># you can also get other energies.</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># you can also get other energies.</span>
 <span class="c1"># for example: data[&#39;dihedral&#39;]</span>
 <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 </pre></div>
@@ -368,32 +368,32 @@ Size: 0.000503 (GB)
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&apos;dihedral&apos;,
- &apos;elec&apos;,
- &apos;vdw&apos;,
- &apos;constraint&apos;,
- &apos;dvdl&apos;,
+<pre>[&apos;cmap&apos;,
  &apos;bond&apos;,
- &apos;gb&apos;,
- &apos;tot&apos;,
- &apos;elec_14&apos;,
- &apos;angle_ub&apos;,
- &apos;surf&apos;,
- &apos;angle&apos;,
- &apos;amd_boost&apos;,
  &apos;imp&apos;,
- &apos;les&apos;,
- &apos;noe&apos;,
- &apos;vdw_14&apos;,
- &apos;cmap&apos;,
- &apos;emap&apos;,
- &apos;disp&apos;,
- &apos;rism&apos;,
- &apos;hbond&apos;,
- &apos;pb&apos;,
+ &apos;angle&apos;,
+ &apos;elec_14&apos;,
  &apos;polar&apos;,
+ &apos;vdw&apos;,
+ &apos;dvdl&apos;,
+ &apos;elec&apos;,
+ &apos;ct&apos;,
+ &apos;vdw_14&apos;,
+ &apos;amd_boost&apos;,
+ &apos;disp&apos;,
+ &apos;surf&apos;,
+ &apos;emap&apos;,
+ &apos;noe&apos;,
+ &apos;constraint&apos;,
+ &apos;tot&apos;,
+ &apos;dihedral&apos;,
+ &apos;rism&apos;,
+ &apos;pb&apos;,
+ &apos;les&apos;,
  &apos;scf&apos;,
- &apos;ct&apos;]</pre>
+ &apos;angle_ub&apos;,
+ &apos;gb&apos;,
+ &apos;hbond&apos;]</pre>
 </div>
 
 </div>
@@ -416,7 +416,7 @@ Size: 0.000503 (GB)
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c1"># serial: pt.energy_decomposition(traj, igb=8)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># serial: pt.energy_decomposition(traj, igb=8)</span>
 
 <span class="c1"># parallel</span>
 <span class="n">data2</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">func</span><span class="o">=</span><span class="n">pt</span><span class="o">.</span><span class="n">energy_decomposition</span><span class="p">,</span> <span class="n">traj</span><span class="o">=</span><span class="n">traj</span><span class="p">,</span> <span class="n">igb</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
@@ -461,8 +461,8 @@ Size: 0.000503 (GB)
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Apr 19, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
+      Last updated on Apr 23, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
     </p>
   </div>
 </footer>
