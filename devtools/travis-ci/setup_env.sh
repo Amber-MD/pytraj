@@ -31,5 +31,7 @@ if [ "$TRAVIS_OS_NAME" = "linux" ]; then
     # only test mpi on linux
     conda install mpi4py --yes
 else
+    # osx
+    brew install open-mpi
     pip install mpi4py
 fi
