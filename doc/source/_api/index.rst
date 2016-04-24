@@ -13,6 +13,7 @@ try ``pytraj`` online:
     :maxdepth: 1
 
     pytraj
+    pytraj.all_actions
     pytraj.io
     pytraj.trajectory
     pytraj.trajectory_iterator
@@ -20,7 +21,6 @@ try ``pytraj`` online:
     pytraj.topology
     pytraj.framefter
     pytraj.cluster
-    pytraj.all_actions
     pytraj.hbond_analysis
     pytraj.CpptrajState
     pytraj.parallel
