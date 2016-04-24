@@ -17,7 +17,7 @@ for fn in glob('latest/*html') + glob('latest/*/*html'):
         error_files.append(fn)
     if 'NameError:' in open(fn).read():
         error_files.append(fn)
-    if 'OSError:' in open(fn).read():
+    if 'OSError' in open(fn).read():
         error_files.append(fn)
 
 print(set(error_files))

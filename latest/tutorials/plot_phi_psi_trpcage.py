@@ -25,10 +25,7 @@ import pytraj as pt
 
 # In[2]:
 
-# download trp-cage mini protein
-# http://www.rcsb.org/pdb/explore.do?structureId=1l2y
-
-traj = pt.load_pdb_rcsb('1L2Y')
+traj = pt.datafiles.load_trpcage()
 print(traj)
 print(set(res.name for res in traj.top.residues))
 

@@ -206,10 +206,7 @@
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># download trp-cage mini protein</span>
-<span class="c"># http://www.rcsb.org/pdb/explore.do?structureId=1l2y</span>
-
-<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_pdb_rcsb</span><span class="p">(</span><span class="s">&#39;1L2Y&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_trpcage</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">residues</span><span class="p">))</span>
 </pre></div>
@@ -223,152 +220,13 @@
 
 
 <div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansired">---------------------------------------------------------------------------</span>
-<span class="ansired">OSError</span>                                   Traceback (most recent call last)
-<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">do_open</span><span class="ansiblue">(self, http_class, req, **http_conn_args)</span>
-<span class="ansigreen">   1182</span>             <span class="ansigreen">try</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">-&gt; 1183</span><span class="ansiyellow">                 </span>h<span class="ansiyellow">.</span>request<span class="ansiyellow">(</span>req<span class="ansiyellow">.</span>get_method<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow">,</span> req<span class="ansiyellow">.</span>selector<span class="ansiyellow">,</span> req<span class="ansiyellow">.</span>data<span class="ansiyellow">,</span> headers<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">   1184</span>             <span class="ansigreen">except</span> OSError <span class="ansigreen">as</span> err<span class="ansiyellow">:</span> <span class="ansired"># timeout error</span><span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/http/client.py</span> in <span class="ansicyan">request</span><span class="ansiblue">(self, method, url, body, headers)</span>
-<span class="ansigreen">   1136</span>         <span class="ansiblue">&quot;&quot;&quot;Send a complete request to the server.&quot;&quot;&quot;</span><span class="ansiyellow"></span>
-<span class="ansigreen">-&gt; 1137</span><span class="ansiyellow">         </span>self<span class="ansiyellow">.</span>_send_request<span class="ansiyellow">(</span>method<span class="ansiyellow">,</span> url<span class="ansiyellow">,</span> body<span class="ansiyellow">,</span> headers<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">   1138</span> <span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/http/client.py</span> in <span class="ansicyan">_send_request</span><span class="ansiblue">(self, method, url, body, headers)</span>
-<span class="ansigreen">   1181</span>             body <span class="ansiyellow">=</span> body<span class="ansiyellow">.</span>encode<span class="ansiyellow">(</span><span class="ansiblue">&apos;iso-8859-1&apos;</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">-&gt; 1182</span><span class="ansiyellow">         </span>self<span class="ansiyellow">.</span>endheaders<span class="ansiyellow">(</span>body<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">   1183</span> <span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/http/client.py</span> in <span class="ansicyan">endheaders</span><span class="ansiblue">(self, message_body)</span>
-<span class="ansigreen">   1132</span>             <span class="ansigreen">raise</span> CannotSendHeader<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">-&gt; 1133</span><span class="ansiyellow">         </span>self<span class="ansiyellow">.</span>_send_output<span class="ansiyellow">(</span>message_body<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">   1134</span> <span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/http/client.py</span> in <span class="ansicyan">_send_output</span><span class="ansiblue">(self, message_body)</span>
-<span class="ansigreen">    962</span>             message_body <span class="ansiyellow">=</span> <span class="ansigreen">None</span><span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 963</span><span class="ansiyellow">         </span>self<span class="ansiyellow">.</span>send<span class="ansiyellow">(</span>msg<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    964</span>         <span class="ansigreen">if</span> message_body <span class="ansigreen">is</span> <span class="ansigreen">not</span> <span class="ansigreen">None</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/http/client.py</span> in <span class="ansicyan">send</span><span class="ansiblue">(self, data)</span>
-<span class="ansigreen">    897</span>             <span class="ansigreen">if</span> self<span class="ansiyellow">.</span>auto_open<span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 898</span><span class="ansiyellow">                 </span>self<span class="ansiyellow">.</span>connect<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    899</span>             <span class="ansigreen">else</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/http/client.py</span> in <span class="ansicyan">connect</span><span class="ansiblue">(self)</span>
-<span class="ansigreen">    870</span>         self.sock = self._create_connection((self.host,self.port),
-<span class="ansigreen">--&gt; 871</span><span class="ansiyellow">                                             self.timeout, self.source_address)
-</span><span class="ansigreen">    872</span> <span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/socket.py</span> in <span class="ansicyan">create_connection</span><span class="ansiblue">(address, timeout, source_address)</span>
-<span class="ansigreen">    515</span>     <span class="ansigreen">if</span> err <span class="ansigreen">is</span> <span class="ansigreen">not</span> <span class="ansigreen">None</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 516</span><span class="ansiyellow">         </span><span class="ansigreen">raise</span> err<span class="ansiyellow"></span>
-<span class="ansigreen">    517</span>     <span class="ansigreen">else</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/socket.py</span> in <span class="ansicyan">create_connection</span><span class="ansiblue">(address, timeout, source_address)</span>
-<span class="ansigreen">    506</span>                 sock<span class="ansiyellow">.</span>bind<span class="ansiyellow">(</span>source_address<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 507</span><span class="ansiyellow">             </span>sock<span class="ansiyellow">.</span>connect<span class="ansiyellow">(</span>sa<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    508</span>             <span class="ansigreen">return</span> sock<span class="ansiyellow"></span>
-
-<span class="ansired">OSError</span>: [Errno 113] No route to host
-
-During handling of the above exception, another exception occurred:
-
-<span class="ansired">URLError</span>                                  Traceback (most recent call last)
-<span class="ansigreen">&lt;ipython-input-2-dda538779111&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
-<span class="ansigreen">      2</span> <span class="ansired"># http://www.rcsb.org/pdb/explore.do?structureId=1l2y</span><span class="ansiyellow"></span><span class="ansiyellow"></span>
-<span class="ansigreen">      3</span> <span class="ansiyellow"></span>
-<span class="ansigreen">----&gt; 4</span><span class="ansiyellow"> </span>traj <span class="ansiyellow">=</span> pt<span class="ansiyellow">.</span>load_pdb_rcsb<span class="ansiyellow">(</span><span class="ansiblue">&apos;1L2Y&apos;</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">      5</span> print<span class="ansiyellow">(</span>traj<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">      6</span> print<span class="ansiyellow">(</span>set<span class="ansiyellow">(</span>res<span class="ansiyellow">.</span>name <span class="ansigreen">for</span> res <span class="ansigreen">in</span> traj<span class="ansiyellow">.</span>top<span class="ansiyellow">.</span>residues<span class="ansiyellow">)</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/site-packages/pytraj-1.0.5.dev0+2c003c8-py3.4-linux-x86_64.egg/pytraj/io.py</span> in <span class="ansicyan">loadpdb_rcsb</span><span class="ansiblue">(pdbid)</span>
-<span class="ansigreen">    535</span>     &quot;&quot;&quot;
-<span class="ansigreen">    536</span>     url <span class="ansiyellow">=</span> <span class="ansiblue">&apos;http://www.rcsb.org/pdb/files/%s.pdb&apos;</span> <span class="ansiyellow">%</span> pdbid<span class="ansiyellow">.</span>upper<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 537</span><span class="ansiyellow">     </span>txt <span class="ansiyellow">=</span> urlopen<span class="ansiyellow">(</span>url<span class="ansiyellow">)</span><span class="ansiyellow">.</span>read<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    538</span>     fname <span class="ansiyellow">=</span> <span class="ansiblue">&quot;/tmp/tmppdb.pdb&quot;</span><span class="ansiyellow"></span>
-<span class="ansigreen">    539</span>     <span class="ansigreen">with</span> open<span class="ansiyellow">(</span>fname<span class="ansiyellow">,</span> <span class="ansiblue">&apos;w&apos;</span><span class="ansiyellow">)</span> <span class="ansigreen">as</span> fh<span class="ansiyellow">:</span><span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">urlopen</span><span class="ansiblue">(url, data, timeout, cafile, capath, cadefault, context)</span>
-<span class="ansigreen">    159</span>     <span class="ansigreen">else</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">    160</span>         opener <span class="ansiyellow">=</span> _opener<span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 161</span><span class="ansiyellow">     </span><span class="ansigreen">return</span> opener<span class="ansiyellow">.</span>open<span class="ansiyellow">(</span>url<span class="ansiyellow">,</span> data<span class="ansiyellow">,</span> timeout<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    162</span> <span class="ansiyellow"></span>
-<span class="ansigreen">    163</span> <span class="ansigreen">def</span> install_opener<span class="ansiyellow">(</span>opener<span class="ansiyellow">)</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">open</span><span class="ansiblue">(self, fullurl, data, timeout)</span>
-<span class="ansigreen">    468</span>         <span class="ansigreen">for</span> processor <span class="ansigreen">in</span> self<span class="ansiyellow">.</span>process_response<span class="ansiyellow">.</span>get<span class="ansiyellow">(</span>protocol<span class="ansiyellow">,</span> <span class="ansiyellow">[</span><span class="ansiyellow">]</span><span class="ansiyellow">)</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">    469</span>             meth <span class="ansiyellow">=</span> getattr<span class="ansiyellow">(</span>processor<span class="ansiyellow">,</span> meth_name<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 470</span><span class="ansiyellow">             </span>response <span class="ansiyellow">=</span> meth<span class="ansiyellow">(</span>req<span class="ansiyellow">,</span> response<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    471</span> <span class="ansiyellow"></span>
-<span class="ansigreen">    472</span>         <span class="ansigreen">return</span> response<span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">http_response</span><span class="ansiblue">(self, request, response)</span>
-<span class="ansigreen">    578</span>         <span class="ansigreen">if</span> <span class="ansigreen">not</span> <span class="ansiyellow">(</span><span class="ansicyan">200</span> <span class="ansiyellow">&lt;=</span> code <span class="ansiyellow">&lt;</span> <span class="ansicyan">300</span><span class="ansiyellow">)</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">    579</span>             response = self.parent.error(
-<span class="ansigreen">--&gt; 580</span><span class="ansiyellow">                 &apos;http&apos;, request, response, code, msg, hdrs)
-</span><span class="ansigreen">    581</span> <span class="ansiyellow"></span>
-<span class="ansigreen">    582</span>         <span class="ansigreen">return</span> response<span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">error</span><span class="ansiblue">(self, proto, *args)</span>
-<span class="ansigreen">    500</span>             http_err <span class="ansiyellow">=</span> <span class="ansicyan">0</span><span class="ansiyellow"></span>
-<span class="ansigreen">    501</span>         args <span class="ansiyellow">=</span> <span class="ansiyellow">(</span>dict<span class="ansiyellow">,</span> proto<span class="ansiyellow">,</span> meth_name<span class="ansiyellow">)</span> <span class="ansiyellow">+</span> args<span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 502</span><span class="ansiyellow">         </span>result <span class="ansiyellow">=</span> self<span class="ansiyellow">.</span>_call_chain<span class="ansiyellow">(</span><span class="ansiyellow">*</span>args<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    503</span>         <span class="ansigreen">if</span> result<span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">    504</span>             <span class="ansigreen">return</span> result<span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">_call_chain</span><span class="ansiblue">(self, chain, kind, meth_name, *args)</span>
-<span class="ansigreen">    440</span>         <span class="ansigreen">for</span> handler <span class="ansigreen">in</span> handlers<span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">    441</span>             func <span class="ansiyellow">=</span> getattr<span class="ansiyellow">(</span>handler<span class="ansiyellow">,</span> meth_name<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 442</span><span class="ansiyellow">             </span>result <span class="ansiyellow">=</span> func<span class="ansiyellow">(</span><span class="ansiyellow">*</span>args<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    443</span>             <span class="ansigreen">if</span> result <span class="ansigreen">is</span> <span class="ansigreen">not</span> <span class="ansigreen">None</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">    444</span>                 <span class="ansigreen">return</span> result<span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">http_error_302</span><span class="ansiblue">(self, req, fp, code, msg, headers)</span>
-<span class="ansigreen">    683</span>         fp<span class="ansiyellow">.</span>close<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    684</span> <span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 685</span><span class="ansiyellow">         </span><span class="ansigreen">return</span> self<span class="ansiyellow">.</span>parent<span class="ansiyellow">.</span>open<span class="ansiyellow">(</span>new<span class="ansiyellow">,</span> timeout<span class="ansiyellow">=</span>req<span class="ansiyellow">.</span>timeout<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    686</span> <span class="ansiyellow"></span>
-<span class="ansigreen">    687</span>     http_error_301 <span class="ansiyellow">=</span> http_error_303 <span class="ansiyellow">=</span> http_error_307 <span class="ansiyellow">=</span> http_error_302<span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">open</span><span class="ansiblue">(self, fullurl, data, timeout)</span>
-<span class="ansigreen">    462</span>             req <span class="ansiyellow">=</span> meth<span class="ansiyellow">(</span>req<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    463</span> <span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 464</span><span class="ansiyellow">         </span>response <span class="ansiyellow">=</span> self<span class="ansiyellow">.</span>_open<span class="ansiyellow">(</span>req<span class="ansiyellow">,</span> data<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    465</span> <span class="ansiyellow"></span>
-<span class="ansigreen">    466</span>         <span class="ansired"># post-process response</span><span class="ansiyellow"></span><span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">_open</span><span class="ansiblue">(self, req, data)</span>
-<span class="ansigreen">    480</span>         protocol <span class="ansiyellow">=</span> req<span class="ansiyellow">.</span>type<span class="ansiyellow"></span>
-<span class="ansigreen">    481</span>         result = self._call_chain(self.handle_open, protocol, protocol +
-<span class="ansigreen">--&gt; 482</span><span class="ansiyellow">                                   &apos;_open&apos;, req)
-</span><span class="ansigreen">    483</span>         <span class="ansigreen">if</span> result<span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">    484</span>             <span class="ansigreen">return</span> result<span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">_call_chain</span><span class="ansiblue">(self, chain, kind, meth_name, *args)</span>
-<span class="ansigreen">    440</span>         <span class="ansigreen">for</span> handler <span class="ansigreen">in</span> handlers<span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">    441</span>             func <span class="ansiyellow">=</span> getattr<span class="ansiyellow">(</span>handler<span class="ansiyellow">,</span> meth_name<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">--&gt; 442</span><span class="ansiyellow">             </span>result <span class="ansiyellow">=</span> func<span class="ansiyellow">(</span><span class="ansiyellow">*</span>args<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">    443</span>             <span class="ansigreen">if</span> result <span class="ansigreen">is</span> <span class="ansigreen">not</span> <span class="ansigreen">None</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">    444</span>                 <span class="ansigreen">return</span> result<span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">http_open</span><span class="ansiblue">(self, req)</span>
-<span class="ansigreen">   1209</span> <span class="ansiyellow"></span>
-<span class="ansigreen">   1210</span>     <span class="ansigreen">def</span> http_open<span class="ansiyellow">(</span>self<span class="ansiyellow">,</span> req<span class="ansiyellow">)</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-<span class="ansigreen">-&gt; 1211</span><span class="ansiyellow">         </span><span class="ansigreen">return</span> self<span class="ansiyellow">.</span>do_open<span class="ansiyellow">(</span>http<span class="ansiyellow">.</span>client<span class="ansiyellow">.</span>HTTPConnection<span class="ansiyellow">,</span> req<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">   1212</span> <span class="ansiyellow"></span>
-<span class="ansigreen">   1213</span>     http_request <span class="ansiyellow">=</span> AbstractHTTPHandler<span class="ansiyellow">.</span>do_request_<span class="ansiyellow"></span>
-
-<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">do_open</span><span class="ansiblue">(self, http_class, req, **http_conn_args)</span>
-<span class="ansigreen">   1183</span>                 h<span class="ansiyellow">.</span>request<span class="ansiyellow">(</span>req<span class="ansiyellow">.</span>get_method<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow">,</span> req<span class="ansiyellow">.</span>selector<span class="ansiyellow">,</span> req<span class="ansiyellow">.</span>data<span class="ansiyellow">,</span> headers<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">   1184</span>             <span class="ansigreen">except</span> OSError <span class="ansigreen">as</span> err<span class="ansiyellow">:</span> <span class="ansired"># timeout error</span><span class="ansiyellow"></span>
-<span class="ansigreen">-&gt; 1185</span><span class="ansiyellow">                 </span><span class="ansigreen">raise</span> URLError<span class="ansiyellow">(</span>err<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">   1186</span>             r <span class="ansiyellow">=</span> h<span class="ansiyellow">.</span>getresponse<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">   1187</span>         <span class="ansigreen">except</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
-
-<span class="ansired">URLError</span>: &lt;urlopen error [Errno 113] No route to host&gt;</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>pytraj.TrajectoryIterator, 38 frames: 
+Size: 0.000258 (GB)
+&lt;Topology: 304 atoms, 20 residues, 1 mols, non-PBC&gt;
+           
+{&apos;ILE&apos;, &apos;PRO&apos;, &apos;SER&apos;, &apos;GLY&apos;, &apos;ASP&apos;, &apos;LYS&apos;, &apos;TYR&apos;, &apos;TRP&apos;, &apos;ASN&apos;, &apos;ARG&apos;, &apos;GLN&apos;, &apos;LEU&apos;}
+</pre>
 </div>
 </div>
 
@@ -400,15 +258,28 @@ During handling of the above exception, another exception occurred:
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Gly resdiue indices =  [6]
-&lt;pytraj.DatasetList with 2 datasets&gt;
-phi:7
-[ 106.71186584   60.52982618   78.17689828   79.27618262   87.20473033
-   51.62202207   68.08060943   76.32340168   89.5625311    68.34781105]
+<pre>Gly resdiue indices =  [9, 10, 14]
+&lt;pytraj.DatasetList with 6 datasets&gt;
+phi:10
+[ 110.78404243  107.09437321  108.32961461 ...,  115.32072427  162.43037555
+  124.30632007]
 
-psi:7
-[  3.83225958  23.90570327  34.52376935  24.31750125  28.17654814
-  37.33522482  20.81193691  19.92930061  23.23774864  21.67372486]
+psi:10
+[  8.0792315   10.33861693  -2.0464667  ...,   5.3940854   29.34859639
+   8.88098636]
+
+phi:11
+[ 55.24421349  58.27147563  60.77040425 ...,  55.64499342  51.45490984
+  57.23888395]
+...
+
+phi:15
+[ 67.93146641  75.78677981  75.05149804 ...,  74.12510912  79.94314603
+  69.51439433]
+
+psi:15
+[ 25.21773873 -37.51912045 -31.48955407 ..., -30.50312997 -35.73264016
+  20.40992958]
 </pre>
 </div>
 </div>
@@ -451,7 +322,7 @@ psi:7
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.collections.PathCollection at 0x2aaad101ef98&gt;</pre>
+<pre>&lt;matplotlib.collections.PathCollection at 0x2aaad1ee9a58&gt;</pre>
 </div>
 
 </div>
@@ -461,138 +332,207 @@ psi:7
 
 <div class="output_png output_subarea ">
 <img src="data:image/png;base64,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
-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
-QmCC
+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
 "
 >
 </div>
@@ -745,7 +685,7 @@ Size: 0.000240 (GB)
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;seaborn.axisgrid.JointGrid at 0x2aaada957ef0&gt;</pre>
+<pre>&lt;seaborn.axisgrid.JointGrid at 0x2aaada1efeb8&gt;</pre>
 </div>
 
 </div>
