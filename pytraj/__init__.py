@@ -340,10 +340,10 @@ def show_versions():
 # for website
 # do not put __all__ in the top of this file to avoid circular import (all_actions)
 __all__ = (io.__all__ + all_actions.__all__
-          + ['Atom', 'Residue', 'Molecule', 'Topology', 'Frame', 'AtomMask']
-          + ['Trajectory', 'TrajectoryIterator']
-          + ['ActionList', 'ActionDict', 'AnalysisDict']
-          + ['dispatch', 'iterchunk', 'iterframe',
-            'select', 'set_cpptraj_verbose', 'show_versions']
-          + ['dihedral_analysis', 'hbond_analysis', 'dssp_analysis',
-              'nucleic_acid_analysis',])
+        + ['Atom', 'Residue', 'Molecule', 'Topology', 'Frame', 'AtomMask',
+           'Trajectory', 'TrajectoryIterator',
+           'ActionList', 'ActionDict', 'AnalysisDict',
+           'dispatch', 'iterchunk', 'iterframe',
+           'select', 'set_cpptraj_verbose', 'show_versions',
+           'dihedral_analysis', 'hbond_analysis', 'dssp_analysis',
+           'nucleic_acid_analysis',])
