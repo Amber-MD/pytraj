@@ -22,7 +22,10 @@ try ``pytraj`` online:
     .. toctree::
        :maxdepth: 1
 
-       nucleic_acid
+       nucleic_acid_analysis
+       hbond_analysis 
+       dssp_analysis 
+       energy_analysis 
        vector_analysis
        matrix_analysis
        `Methods that modify Trajectory coordinates <modify_traj>`_
