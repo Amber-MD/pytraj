@@ -211,7 +211,8 @@
 <span class="gp">In [9]: </span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
 
 <span class="gp">In [10]: </span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="go">[  9.4451   9.5746  10.1923 ...,   7.4834   7.4324   7.6204]</span>
+<span class="go">[  9.4451051    9.57459712  10.19233494 ...,   7.48343543   7.43238185</span>
+<span class="go">   7.62039157]</span>
 </pre></div>
 </div>
 <p>However, <code class="docutils literal"><span class="pre">pytraj</span></code> offer shorter (and easy?) way to do</p>
@@ -225,7 +226,8 @@
 
 <span class="c"># that&#39;s it</span>
 <span class="gp">In [14]: </span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="go">[  9.4451   9.5746  10.1923 ...,   7.4834   7.4324   7.6204]</span>
+<span class="go">[  9.4451051    9.57459712  10.19233494 ...,   7.48343543   7.43238185</span>
+<span class="go">   7.62039157]</span>
 </pre></div>
 </div>
 <p><code class="docutils literal"><span class="pre">pytraj</span></code> will auto-allocate <code class="docutils literal"><span class="pre">data</span></code> too</p>
@@ -235,7 +237,8 @@
 <span class="gp">In [16]: </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">trajlist</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">trajlist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
 
 <span class="gp">In [17]: </span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="go">[  9.4451   9.5746  10.1923 ...,   7.4834   7.4324   7.6204]</span>
+<span class="go">[  9.4451051    9.57459712  10.19233494 ...,   7.48343543   7.43238185</span>
+<span class="go">   7.62039157]</span>
 </pre></div>
 </div>
 </div>
@@ -321,20 +324,20 @@ trajin traj4.nc <span class="m">1</span> <span class="m">100</span> 10
 <p>If memory is critical, do not load all frames into memory.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="c"># DO this (only a single frame will be loaded to memory)</span>
 <span class="gp">In [31]: </span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">301</span><span class="p">])</span>
-<span class="gr">Out[31]: </span><span class="n">array</span><span class="p">([</span> <span class="mf">9.4451</span><span class="p">,</span>  <span class="mf">7.4324</span><span class="p">,</span>  <span class="mf">7.4834</span><span class="p">,</span>  <span class="mf">7.4324</span><span class="p">])</span>
+<span class="gr">Out[31]: </span><span class="n">array</span><span class="p">([</span> <span class="mf">9.4451051</span> <span class="p">,</span>  <span class="mf">7.43238185</span><span class="p">,</span>  <span class="mf">7.48343543</span><span class="p">,</span>  <span class="mf">7.43238185</span><span class="p">])</span>
 
 <span class="c"># DON&#39;T do this if you want to save memory (all 4 frames will be loaded to memory)</span>
 <span class="gp">In [32]: </span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">301</span><span class="p">]])</span>
-<span class="go">                                                     Out[32]: array([ 9.4451,  7.4324,  7.4834,  7.4324])</span>
+<span class="go">                                                                     Out[32]: array([ 9.4451051 ,  7.43238185,  7.48343543,  7.43238185])</span>
 
 <span class="gp">In [33]: </span><span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">301</span><span class="p">])</span>
-<span class="go">                                                                                                          Out[33]: </span>
+<span class="go">                                                                                                                                          Out[33]: </span>
 <span class="go">&lt;FrameIterator with start=None, stop=None, step=None, n_frames=4, </span>
 <span class="go">frame_indices=[0, 200, 300, 301], </span>
 <span class="go">mask=None, autoimage=False, rmsfit=None, copy=False&gt; </span>
 
 <span class="gp">In [34]: </span><span class="n">traj</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">301</span><span class="p">]]</span>
-<span class="go">                                                                                                                                                                                                                                                                                Out[34]: </span>
+<span class="go">                                                                                                                                                                                                                                                                                                                Out[34]: </span>
 <span class="go">pytraj.Trajectory, 4 frames: </span>
 <span class="go">Size: 0.000020 (GB)</span>
 <span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
@@ -373,147 +376,7 @@ Line <span class="c">#    Mem usage    Increment   Line Contents</span>
 disk to do further analysis. You have options to save data to different files and write
 code to load the data back. However, you can use <code class="docutils literal"><span class="pre">pytraj.to_pickle</span></code> and
 <code class="docutils literal"><span class="pre">pytraj.read_pickle</span></code> to save the state of data. Check the example:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [35]: </span><span class="n">traj3</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_pdb_rcsb</span><span class="p">(</span><span class="s">&#39;1l2y&#39;</span><span class="p">)</span>
-<span class="go">---------------------------------------------------------------------------</span>
-<span class="go">OSError                                   Traceback (most recent call last)</span>
-<span class="go">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py in do_open(self, http_class, req, **http_conn_args)</span>
-<span class="go">   1182             try:</span>
-<span class="go">-&gt; 1183                 h.request(req.get_method(), req.selector, req.data, headers)</span>
-<span class="go">   1184             except OSError as err: # timeout error</span>
-
-<span class="go">/home/haichit/anaconda3/envs/py34/lib/python3.4/http/client.py in request(self, method, url, body, headers)</span>
-<span class="go">   1136         &quot;&quot;&quot;Send a complete request to the server.&quot;&quot;&quot;</span>
-<span class="go">-&gt; 1137         self._send_request(method, url, body, headers)</span>
-<span class="go">   1138 </span>
-
-<span class="go">/home/haichit/anaconda3/envs/py34/lib/python3.4/http/client.py in _send_request(self, method, url, body, headers)</span>
-<span class="go">   1181             body = body.encode(&#39;iso-8859-1&#39;)</span>
-<span class="go">-&gt; 1182         self.endheaders(body)</span>
-<span class="go">   1183 </span>
-
-<span class="go">/home/haichit/anaconda3/envs/py34/lib/python3.4/http/client.py in endheaders(self, message_body)</span>
-<span class="go">   1132             raise CannotSendHeader()</span>
-<span class="go">-&gt; 1133         self._send_output(message_body)</span>
-<span class="go">   1134 </span>
-
-<span class="go">/home/haichit/anaconda3/envs/py34/lib/python3.4/http/client.py in _send_output(self, message_body)</span>
-<span class="go">    962             message_body = None</span>
-<span class="go">--&gt; 963         self.send(msg)</span>
-<span class="go">    964         if message_body is not None:</span>
-
-<span class="go">/home/haichit/anaconda3/envs/py34/lib/python3.4/http/client.py in send(self, data)</span>
-<span class="go">    897             if self.auto_open:</span>
-<span class="go">--&gt; 898                 self.connect()</span>
-<span class="go">    899             else:</span>
-
-<span class="go">/home/haichit/anaconda3/envs/py34/lib/python3.4/http/client.py in connect(self)</span>
-<span class="go">    870         self.sock = self._create_connection((self.host,self.port),</span>
-<span class="go">--&gt; 871                                             self.timeout, self.source_address)</span>
-<span class="go">    872 </span>
-
-<span class="go">/home/haichit/anaconda3/envs/py34/lib/python3.4/socket.py in create_connection(address, timeout, source_address)</span>
-<span class="go">    515     if err is not None:</span>
-<span class="go">--&gt; 516         raise err</span>
-<span class="go">    517     else:</span>
-
-<span class="go">/home/haichit/anaconda3/envs/py34/lib/python3.4/socket.py in create_connection(address, timeout, source_address)</span>
-<span class="go">    506                 sock.bind(source_address)</span>
-<span class="go">--&gt; 507             sock.connect(sa)</span>
-<span class="go">    508             return sock</span>
-
-<span class="go">OSError: [Errno 113] No route to host</span>
-
-<span class="go">During handling of the above exception, another exception occurred:</span>
-
-<span class="go">URLError                                  Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-35-aa4238e92fc3&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 traj3 = pt.load_pdb_rcsb(&#39;1l2y&#39;)</span>
-
-<span class="go">/home/haichit/anaconda3/envs/py34/lib/python3.4/site-packages/pytraj-1.0.5.dev0+2c003c8-py3.4-linux-x86_64.egg/pytraj/io.py in loadpdb_rcsb(pdbid)</span>
-<span class="go">    535     &quot;&quot;&quot;</span>
-<span class="go">    536     url = &#39;http://www.rcsb.org/pdb/files/%s.pdb&#39; % pdbid.upper()</span>
-<span class="go">--&gt; 537     txt = urlopen(url).read()</span>
-<span class="go">    538     fname = &quot;/tmp/tmppdb.pdb&quot;</span>
-<span class="go">    539     with open(fname, &#39;w&#39;) as fh:</span>
-
-<span class="go">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py in urlopen(url, data, timeout, cafile, capath, cadefault, context)</span>
-<span class="go">    159     else:</span>
-<span class="go">    160         opener = _opener</span>
-<span class="go">--&gt; 161     return opener.open(url, data, timeout)</span>
-<span class="go">    162 </span>
-<span class="go">    163 def install_opener(opener):</span>
-
-<span class="go">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py in open(self, fullurl, data, timeout)</span>
-<span class="go">    468         for processor in self.process_response.get(protocol, []):</span>
-<span class="go">    469             meth = getattr(processor, meth_name)</span>
-<span class="go">--&gt; 470             response = meth(req, response)</span>
-<span class="go">    471 </span>
-<span class="go">    472         return response</span>
-
-<span class="go">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py in http_response(self, request, response)</span>
-<span class="go">    578         if not (200 &lt;= code &lt; 300):</span>
-<span class="go">    579             response = self.parent.error(</span>
-<span class="go">--&gt; 580                 &#39;http&#39;, request, response, code, msg, hdrs)</span>
-<span class="go">    581 </span>
-<span class="go">    582         return response</span>
-
-<span class="go">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py in error(self, proto, *args)</span>
-<span class="go">    500             http_err = 0</span>
-<span class="go">    501         args = (dict, proto, meth_name) + args</span>
-<span class="go">--&gt; 502         result = self._call_chain(*args)</span>
-<span class="go">    503         if result:</span>
-<span class="go">    504             return result</span>
-
-<span class="go">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py in _call_chain(self, chain, kind, meth_name, *args)</span>
-<span class="go">    440         for handler in handlers:</span>
-<span class="go">    441             func = getattr(handler, meth_name)</span>
-<span class="go">--&gt; 442             result = func(*args)</span>
-<span class="go">    443             if result is not None:</span>
-<span class="go">    444                 return result</span>
-
-<span class="go">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py in http_error_302(self, req, fp, code, msg, headers)</span>
-<span class="go">    683         fp.close()</span>
-<span class="go">    684 </span>
-<span class="go">--&gt; 685         return self.parent.open(new, timeout=req.timeout)</span>
-<span class="go">    686 </span>
-<span class="go">    687     http_error_301 = http_error_303 = http_error_307 = http_error_302</span>
-
-<span class="go">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py in open(self, fullurl, data, timeout)</span>
-<span class="go">    462             req = meth(req)</span>
-<span class="go">    463 </span>
-<span class="go">--&gt; 464         response = self._open(req, data)</span>
-<span class="go">    465 </span>
-<span class="go">    466         # post-process response</span>
-
-<span class="go">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py in _open(self, req, data)</span>
-<span class="go">    480         protocol = req.type</span>
-<span class="go">    481         result = self._call_chain(self.handle_open, protocol, protocol +</span>
-<span class="go">--&gt; 482                                   &#39;_open&#39;, req)</span>
-<span class="go">    483         if result:</span>
-<span class="go">    484             return result</span>
-
-<span class="go">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py in _call_chain(self, chain, kind, meth_name, *args)</span>
-<span class="go">    440         for handler in handlers:</span>
-<span class="go">    441             func = getattr(handler, meth_name)</span>
-<span class="go">--&gt; 442             result = func(*args)</span>
-<span class="go">    443             if result is not None:</span>
-<span class="go">    444                 return result</span>
-
-<span class="go">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py in http_open(self, req)</span>
-<span class="go">   1209 </span>
-<span class="go">   1210     def http_open(self, req):</span>
-<span class="go">-&gt; 1211         return self.do_open(http.client.HTTPConnection, req)</span>
-<span class="go">   1212 </span>
-<span class="go">   1213     http_request = AbstractHTTPHandler.do_request_</span>
-
-<span class="go">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py in do_open(self, http_class, req, **http_conn_args)</span>
-<span class="go">   1183                 h.request(req.get_method(), req.selector, req.data, headers)</span>
-<span class="go">   1184             except OSError as err: # timeout error</span>
-<span class="go">-&gt; 1185                 raise URLError(err)</span>
-<span class="go">   1186             r = h.getresponse()</span>
-<span class="go">   1187         except:</span>
-
-<span class="go">URLError: &lt;urlopen error [Errno 113] No route to host&gt;</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [35]: </span><span class="n">traj3</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_trpcage</span><span class="p">()</span>
 
 <span class="gp">In [36]: </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:3-7&#39;</span><span class="p">)</span>
 
@@ -529,7 +392,8 @@ code to load the data back. However, you can use <code class="docutils literal">
 <span class="go">        [&#39;0&#39;, &#39;0&#39;, &#39;S&#39;, &#39;0&#39;, &#39;0&#39;]], </span>
 <span class="go">       dtype=&#39;&lt;U1&#39;), &lt;pytraj.DatasetList with 8 datasets&gt;</span>
 <span class="go">none_avg</span>
-<span class="go">[ 1.   0.8  0.8 ...,  1.   0.8  0.8]</span>
+<span class="go">[ 1.          0.80000001  0.80000001 ...,  1.          0.80000001</span>
+<span class="go">  0.80000001]</span>
 
 <span class="go">para_avg</span>
 <span class="go">[ 0.  0.  0. ...,  0.  0.  0.]</span>
@@ -559,7 +423,8 @@ code to load the data back. However, you can use <code class="docutils literal">
 <span class="go">        [&#39;0&#39;, &#39;0&#39;, &#39;S&#39;, &#39;0&#39;, &#39;0&#39;]], </span>
 <span class="go">       dtype=&#39;&lt;U1&#39;), &lt;pytraj.DatasetList with 8 datasets&gt;</span>
 <span class="go">none_avg</span>
-<span class="go">[ 1.   0.8  0.8 ...,  1.   0.8  0.8]</span>
+<span class="go">[ 1.          0.80000001  0.80000001 ...,  1.          0.80000001</span>
+<span class="go">  0.80000001]</span>
 
 <span class="go">para_avg</span>
 <span class="go">[ 0.  0.  0. ...,  0.  0.  0.]</span>
@@ -613,7 +478,8 @@ code to load the data back. However, you can use <code class="docutils literal">
 <span class="gp">In [40]: </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="gr">Out[40]: </span>
 <span class="go">OrderedDict([(&#39;RoG_00000&#39;,</span>
-<span class="go">              array([ 8.1092,  7.7643,  8.0969, ...,  6.3806,  6.2414,  6.4899]))])</span>
+<span class="go">              array([ 8.10916061,  7.7643485 ,  8.09693108, ...,  6.38061648,</span>
+<span class="go">                      6.24139008,  6.48994552]))])</span>
 </pre></div>
 </div>
 </div>

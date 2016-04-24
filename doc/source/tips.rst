@@ -161,7 +161,7 @@ code to load the data back. However, you can use ``pytraj.to_pickle`` and
 
 .. ipython:: python
 
-    traj3 = pt.load_pdb_rcsb('1l2y')
+    traj3 = pt.datafiles.load_trpcage()
     data = pt.dssp(traj, ':3-7')
     data
     pt.to_pickle(data, 'my_data.pk')
