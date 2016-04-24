@@ -21,7 +21,7 @@ from .c_action.actionlist import ActionList
 from .utils.convert import array2d_to_cpptraj_maskgroup
 from .topology import Topology
 
-list_of_cal = ['calc_distance',
+list_of_calc = ['calc_distance',
                'calc_dihedral',
                'calc_radgyr',
                'calc_angle',
@@ -38,7 +38,6 @@ list_of_cal = ['calc_distance',
                'calc_pairdist',
                'calc_multidihedral',
                'calc_atomicfluct',
-               'calc_COM',
                'calc_center_of_mass',
                'calc_center_of_geometry',
                'calc_pairwise_rmsd',
@@ -52,6 +51,9 @@ list_of_cal = ['calc_distance',
                'calc_rmsd_nofit',
                'calc_rotation_matrix',
                'calc_pca', ]
+
+list_of_calc_short = [word.replace('calc_', '')
+                      for word in list_of_calc if not word in ['calc_matrix',]]
 
 list_of_do = ['translate', 'rotate', 'autoimage', 'scale']
 
@@ -68,7 +70,7 @@ list_of_the_rest = ['rmsd', 'align_principal_axis', 'principal_axes', 'closest',
                     'superpose', 'strip',
                     ]
 
-__all__ = list_of_do + list_of_cal + list_of_get + list_of_the_rest
+__all__ = list(set(list_of_do + list_of_calc_short + list_of_get + list_of_the_rest))
 
 
 def _2darray_to_atommask_groups(seq):
@@ -91,7 +93,7 @@ def _assert_mutable(trajiter):
 
 
 @register_pmap
-def calc_distance(traj=None,
+def distance(traj=None,
                   mask="",
                   frame_indices=None,
                   dtype='ndarray',
@@ -202,8 +204,10 @@ def calc_distance(traj=None,
             "command must be a string, a list/tuple of strings, or "
             "a numpy 2D array")
 
+calc_distance = distance
 
-def calc_pairwise_distance(traj=None,
+
+def pairwise_distance(traj=None,
                            mask_1='',
                            mask_2='',
                            top=None,
@@ -250,6 +254,8 @@ def calc_pairwise_distance(traj=None,
     return (mat.reshape(mat.shape[0], len(indices_1), len(indices_2)),
             arr.reshape(
                 len(indices_1), len(indices_2), 2))
+
+calc_pairwise_distance = pairwise_distance
 
 
 @register_pmap
@@ -393,7 +399,7 @@ def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
 
 
 @register_pmap
-def calc_dihedral(traj=None,
+def dihedral(traj=None,
                   mask="",
                   top=None,
                   dtype='ndarray',
@@ -502,9 +508,11 @@ def calc_dihedral(traj=None,
             py_dslist = DatasetList({'dihedral': arr})
             return get_data_from_dtype(py_dslist, dtype)
 
+calc_dihedral = dihedral
+
 
 @register_pmap
-def calc_mindist(traj=None,
+def mindist(traj=None,
                  command="",
                  top=None,
                  dtype='ndarray',
@@ -530,9 +538,11 @@ def calc_mindist(traj=None,
     act(command_, traj, top=top_, dslist=c_dslist)
     return get_data_from_dtype(c_dslist, dtype=dtype)[-1]
 
+calc_mindist = mindist
+
 
 @super_dispatch()
-def calc_diffusion(traj,
+def diffusion(traj,
                    mask="",
                    tstep=1.0,
                    individual=False,
@@ -587,10 +597,12 @@ def calc_diffusion(traj,
 
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
+calc_diffusion = diffusion
+
 
 @register_pmap
 @register_openmp
-def calc_watershell(traj=None,
+def watershell(traj=None,
                     solute_mask='',
                     solvent_mask=':WAT',
                     lower=3.4,
@@ -643,6 +655,8 @@ def calc_watershell(traj=None,
 
     act(command, fi, top=top_, dslist=c_dslist)
     return get_data_from_dtype(c_dslist, dtype=dtype)
+
+calc_watershell = watershell
 
 
 @super_dispatch()
@@ -742,7 +756,7 @@ calc_surf = surf
 
 @register_pmap
 @super_dispatch()
-def calc_molsurf(traj=None,
+def molsurf(traj=None,
                  mask="",
                  probe=1.4,
                  offset=0.0,
@@ -774,10 +788,12 @@ def calc_molsurf(traj=None,
     act(command, traj, top=top, dslist=c_dslist)
     return get_data_from_dtype(c_dslist, dtype)
 
+calc_molsurf = molsurf
+
 
 @register_pmap
 @super_dispatch()
-def calc_rotation_matrix(traj=None,
+def rotation_matrix(traj=None,
                          mask="",
                          ref=0,
                          mass=False,
@@ -828,9 +844,11 @@ def calc_rotation_matrix(traj=None,
     else:
         return mat[1:]
 
+calc_rotation_matrix = rotation_matrix
+
 
 @super_dispatch()
-def calc_volume(traj=None,
+def volume(traj=None,
                 mask="",
                 top=None,
                 dtype='ndarray',
@@ -851,14 +869,16 @@ def calc_volume(traj=None,
     act(command, traj, top=top, dslist=c_dslist)
     return get_data_from_dtype(c_dslist, dtype)
 
+calc_volume = volume
+
 
 @super_dispatch()
-def calc_multivector(traj,
-                     resrange,
-                     names,
-                     top=None,
-                     dtype='dataset',
-                     frame_indices=None):
+def multivector(traj,
+                resrange,
+                names,
+                top=None,
+                dtype='dataset',
+                frame_indices=None):
     '''
 
     Parameters
@@ -874,8 +894,8 @@ def calc_multivector(traj,
     --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()
-    >>> vecs = pt.calc_multivector(traj, resrange='1-5', names=('C', 'N'))
-    >>> vecs = pt.calc_multivector(traj, resrange='1-5', names='C N')
+    >>> vecs = pt.multivector(traj, resrange='1-5', names=('C', 'N'))
+    >>> vecs = pt.multivector(traj, resrange='1-5', names='C N')
     '''
     act = c_action.Action_MultiVector()
 
@@ -895,6 +915,8 @@ def calc_multivector(traj,
     c_dslist = CpptrajDatasetList()
     act(command, traj, top=top, dslist=c_dslist)
     return get_data_from_dtype(c_dslist, dtype)
+
+calc_multivector = multivector
 
 
 @register_pmap
@@ -985,7 +1007,7 @@ calc_volmap = volmap
 
 
 @register_openmp
-def calc_rdf(traj=None,
+def rdf(traj=None,
              solvent_mask=':WAT@O',
              solute_mask='',
              maximum=10.,
@@ -1086,6 +1108,8 @@ def calc_rdf(traj=None,
     # return (bin_centers, values)
     return (np.arange(bin_spacing / 2., maximum, bin_spacing), values)
 
+calc_rdf = rdf
+
 
 @super_dispatch()
 def calc_pairdist(traj,
@@ -1130,7 +1154,7 @@ pairdist = calc_pairdist
 
 
 @super_dispatch()
-def calc_jcoupling(traj=None,
+def jcoupling(traj=None,
                    mask="",
                    top=None,
                    kfile=None,
@@ -1162,6 +1186,8 @@ def calc_jcoupling(traj=None,
         command += " kfile %s" % kfile
     act(command, traj, dslist=c_dslist, top=top)
     return get_data_from_dtype(c_dslist, dtype)
+
+calc_jcoupling = jcoupling
 
 
 def translate(traj=None, command="", frame_indices=None, top=None):
@@ -1455,7 +1481,7 @@ def clustering_dataset(array_like, command=''):
 
 @register_pmap
 @super_dispatch()
-def calc_multidihedral(traj=None,
+def multidihedral(traj=None,
                        dhtypes=None,
                        resrange=None,
                        define_new_type=None,
@@ -1535,6 +1561,8 @@ def calc_multidihedral(traj=None,
     act(command_, traj, top, dslist=c_dslist)
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
+calc_multidihedral = multidihedral
+
 
 @super_dispatch()
 def atomicfluct(traj=None,
@@ -1563,7 +1591,7 @@ def atomicfluct(traj=None,
 calc_atomicfluct = atomicfluct
 
 
-def calc_bfactors(traj=None,
+def bfactors(traj=None,
                   mask="",
                   byres=True,
                   top=None,
@@ -1571,6 +1599,10 @@ def calc_bfactors(traj=None,
                   frame_indices=None):
     # Not: do not use super_dispatch here since we used in calc_atomicfluct
     """calculate pseudo bfactor
+
+    Notes
+    -----
+    This is **NOT** getting bfactor from xray, but computing bfactor from simulation.
 
     Parameters
     ----------
@@ -1604,9 +1636,11 @@ def calc_bfactors(traj=None,
                             dtype=dtype,
                             frame_indices=frame_indices)
 
+calc_bfactors = bfactors
+
 
 @register_pmap
-def calc_vector(traj=None,
+def vector(traj=None,
                 command="",
                 frame_indices=None,
                 dtype='ndarray',
@@ -1668,6 +1702,8 @@ def calc_vector(traj=None,
 
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
+calc_vector = vector
+
 
 @super_dispatch()
 def _calc_vector_center(traj=None,
@@ -1690,11 +1726,11 @@ def _calc_vector_center(traj=None,
 
 
 @register_pmap
-def calc_center_of_mass(traj=None,
-                        mask='',
-                        top=None,
-                        dtype='ndarray',
-                        frame_indices=None):
+def center_of_mass(traj=None,
+                   mask='',
+                   top=None,
+                   dtype='ndarray',
+                   frame_indices=None):
     '''compute center of mass
 
     Examples
@@ -1716,12 +1752,12 @@ def calc_center_of_mass(traj=None,
                                frame_indices=frame_indices)
 
 
-calc_COM = calc_center_of_mass
+calc_center_of_mass = center_of_mass
 
 
 @register_pmap
 @super_dispatch()
-def calc_center_of_geometry(traj=None,
+def center_of_geometry(traj=None,
                             mask="",
                             top=None,
                             dtype='ndarray',
@@ -1736,14 +1772,14 @@ def calc_center_of_geometry(traj=None,
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
-calc_COG = calc_center_of_geometry
+calc_center_of_geometry = center_of_geometry
 
 
 # do not use super_dispatch here since we did in inside this method
 # to avoid complicated code checking.
 
 @register_openmp
-def calc_pairwise_rmsd(traj=None,
+def pairwise_rmsd(traj=None,
                        mask="",
                        metric='rms',
                        top=None,
@@ -1814,6 +1850,8 @@ def calc_pairwise_rmsd(traj=None,
         return get_matrix_from_dataset(c_dslist[0], mat_type)
     else:
         return get_data_from_dtype(c_dslist, dtype)
+
+calc_pairwise_rmsd = pairwise_rmsd
 
 
 @register_pmap
@@ -2268,7 +2306,7 @@ def native_contacts(traj=None,
 
 
 @super_dispatch()
-def calc_grid(traj=None, command="", top=None, dtype='dataset'):
+def grid(traj=None, command="", top=None, dtype='dataset'):
     """
     """
     # TODO: doc, rename method, move to seperate module?
@@ -2280,6 +2318,8 @@ def calc_grid(traj=None, command="", top=None, dtype='dataset'):
     with tempfolder():
         act(command, traj, dslist=c_dslist, top=top)
     return get_data_from_dtype(c_dslist, dtype=dtype)
+
+calc_grid = grid
 
 
 @super_dispatch()
@@ -2831,7 +2871,7 @@ calc_pca = pca
 
 @register_openmp
 @super_dispatch()
-def calc_atomiccorr(traj,
+def atomiccorr(traj,
                     mask='',
                     cut=None,
                     min_spacing=None,
@@ -2869,6 +2909,7 @@ def calc_atomiccorr(traj,
 
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
+calc_atomiccorr = atomiccorr
 
 def _grid(traj,
           mask,
