@@ -30,7 +30,6 @@ If you miss any Python package, try to use ``conda``, example::
     tutorial_autoimage
     tutorial_parallel
     plot
-    mdtraj_adapted
     interface_with_other_packages.rst
 
 .. raw:: html
