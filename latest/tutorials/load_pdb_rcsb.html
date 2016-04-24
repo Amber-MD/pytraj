@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Fetch pdb &mdash; pytraj 1.0.5.dev0+87639dd documentation</title>
+    <title>Fetch pdb &mdash; pytraj 1.0.5.dev0+b4571f6 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.5.dev0+87639dd',
+        VERSION:     '1.0.5.dev0+b4571f6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.5.dev0+87639dd documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.5.dev0+b4571f6 documentation" href="../index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -51,7 +51,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+87639dd</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+b4571f6</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -151,20 +151,20 @@
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># it&#39;s simple as long as you have internet and you&#39;re allowed to download</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># it&#39;s simple as long as you have internet and you&#39;re allowed to download</span>
 
 <span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 
-<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">loadpdb_rcsb</span><span class="p">(</span><span class="s2">&quot;2KOC&quot;</span><span class="p">)</span>
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">loadpdb_rcsb</span><span class="p">(</span><span class="s">&quot;2KOC&quot;</span><span class="p">)</span>
 <span class="nb">print</span> <span class="p">(</span><span class="n">traj</span><span class="p">)</span>
 
-<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;coords of firs 10 atoms of 1st frame from pytraj&quot;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s">&quot;coords of firs 10 atoms of 1st frame from pytraj&quot;</span><span class="p">)</span>
 <span class="nb">print</span> <span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="mi">10</span><span class="p">])</span>
 
 <span class="nb">print</span> <span class="p">()</span>
-<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;calc_rmsd&quot;</span><span class="p">)</span>
-<span class="c1"># print (traj.calc_rmsd(ref=0)) # all atoms, ref=first_frame</span>
-<span class="c1"># use numpy to have prettier print</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s">&quot;calc_rmsd&quot;</span><span class="p">)</span>
+<span class="c"># print (traj.calc_rmsd(ref=0)) # all atoms, ref=first_frame</span>
+<span class="c"># use numpy to have prettier print</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="n">arr0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
 <span class="nb">print</span> <span class="p">(</span><span class="n">arr0</span><span class="p">)</span>
@@ -179,24 +179,152 @@
 
 
 <div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>pytraj.Trajectory, 20 frames: 
-Size: 0.000202 (GB)
-&lt;Topology: 451 atoms, 14 residues, 1 mols, PBC with box type = ortho&gt;
-           
-coords of firs 10 atoms of 1st frame from pytraj
-[[ -8.886  -5.163   9.647]
- [-10.305  -4.745  10.229]
- [-10.282  -3.296  10.528]
- ..., 
- [-12.908  -5.127   6.888]
- [-11.018  -6.335   6.182]
- [-10.515  -7.653   5.962]]
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansired">---------------------------------------------------------------------------</span>
+<span class="ansired">OSError</span>                                   Traceback (most recent call last)
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">do_open</span><span class="ansiblue">(self, http_class, req, **http_conn_args)</span>
+<span class="ansigreen">   1182</span>             <span class="ansigreen">try</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">-&gt; 1183</span><span class="ansiyellow">                 </span>h<span class="ansiyellow">.</span>request<span class="ansiyellow">(</span>req<span class="ansiyellow">.</span>get_method<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow">,</span> req<span class="ansiyellow">.</span>selector<span class="ansiyellow">,</span> req<span class="ansiyellow">.</span>data<span class="ansiyellow">,</span> headers<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">   1184</span>             <span class="ansigreen">except</span> OSError <span class="ansigreen">as</span> err<span class="ansiyellow">:</span> <span class="ansired"># timeout error</span><span class="ansiyellow"></span>
 
-calc_rmsd
-[ 0.          0.65319733  0.56878506 ...,  0.55856578  0.56655911
-  0.76107113]
-</pre>
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/http/client.py</span> in <span class="ansicyan">request</span><span class="ansiblue">(self, method, url, body, headers)</span>
+<span class="ansigreen">   1136</span>         <span class="ansiblue">&quot;&quot;&quot;Send a complete request to the server.&quot;&quot;&quot;</span><span class="ansiyellow"></span>
+<span class="ansigreen">-&gt; 1137</span><span class="ansiyellow">         </span>self<span class="ansiyellow">.</span>_send_request<span class="ansiyellow">(</span>method<span class="ansiyellow">,</span> url<span class="ansiyellow">,</span> body<span class="ansiyellow">,</span> headers<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">   1138</span> <span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/http/client.py</span> in <span class="ansicyan">_send_request</span><span class="ansiblue">(self, method, url, body, headers)</span>
+<span class="ansigreen">   1181</span>             body <span class="ansiyellow">=</span> body<span class="ansiyellow">.</span>encode<span class="ansiyellow">(</span><span class="ansiblue">&apos;iso-8859-1&apos;</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">-&gt; 1182</span><span class="ansiyellow">         </span>self<span class="ansiyellow">.</span>endheaders<span class="ansiyellow">(</span>body<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">   1183</span> <span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/http/client.py</span> in <span class="ansicyan">endheaders</span><span class="ansiblue">(self, message_body)</span>
+<span class="ansigreen">   1132</span>             <span class="ansigreen">raise</span> CannotSendHeader<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">-&gt; 1133</span><span class="ansiyellow">         </span>self<span class="ansiyellow">.</span>_send_output<span class="ansiyellow">(</span>message_body<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">   1134</span> <span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/http/client.py</span> in <span class="ansicyan">_send_output</span><span class="ansiblue">(self, message_body)</span>
+<span class="ansigreen">    962</span>             message_body <span class="ansiyellow">=</span> <span class="ansigreen">None</span><span class="ansiyellow"></span>
+<span class="ansigreen">--&gt; 963</span><span class="ansiyellow">         </span>self<span class="ansiyellow">.</span>send<span class="ansiyellow">(</span>msg<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">    964</span>         <span class="ansigreen">if</span> message_body <span class="ansigreen">is</span> <span class="ansigreen">not</span> <span class="ansigreen">None</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/http/client.py</span> in <span class="ansicyan">send</span><span class="ansiblue">(self, data)</span>
+<span class="ansigreen">    897</span>             <span class="ansigreen">if</span> self<span class="ansiyellow">.</span>auto_open<span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">--&gt; 898</span><span class="ansiyellow">                 </span>self<span class="ansiyellow">.</span>connect<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">    899</span>             <span class="ansigreen">else</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/http/client.py</span> in <span class="ansicyan">connect</span><span class="ansiblue">(self)</span>
+<span class="ansigreen">    870</span>         self.sock = self._create_connection((self.host,self.port),
+<span class="ansigreen">--&gt; 871</span><span class="ansiyellow">                                             self.timeout, self.source_address)
+</span><span class="ansigreen">    872</span> <span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/socket.py</span> in <span class="ansicyan">create_connection</span><span class="ansiblue">(address, timeout, source_address)</span>
+<span class="ansigreen">    515</span>     <span class="ansigreen">if</span> err <span class="ansigreen">is</span> <span class="ansigreen">not</span> <span class="ansigreen">None</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">--&gt; 516</span><span class="ansiyellow">         </span><span class="ansigreen">raise</span> err<span class="ansiyellow"></span>
+<span class="ansigreen">    517</span>     <span class="ansigreen">else</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/socket.py</span> in <span class="ansicyan">create_connection</span><span class="ansiblue">(address, timeout, source_address)</span>
+<span class="ansigreen">    506</span>                 sock<span class="ansiyellow">.</span>bind<span class="ansiyellow">(</span>source_address<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">--&gt; 507</span><span class="ansiyellow">             </span>sock<span class="ansiyellow">.</span>connect<span class="ansiyellow">(</span>sa<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">    508</span>             <span class="ansigreen">return</span> sock<span class="ansiyellow"></span>
+
+<span class="ansired">OSError</span>: [Errno 113] No route to host
+
+During handling of the above exception, another exception occurred:
+
+<span class="ansired">URLError</span>                                  Traceback (most recent call last)
+<span class="ansigreen">&lt;ipython-input-1-733d57bfa397&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
+<span class="ansigreen">      3</span> <span class="ansigreen">import</span> pytraj <span class="ansigreen">as</span> pt<span class="ansiyellow"></span>
+<span class="ansigreen">      4</span> <span class="ansiyellow"></span>
+<span class="ansigreen">----&gt; 5</span><span class="ansiyellow"> </span>traj <span class="ansiyellow">=</span> pt<span class="ansiyellow">.</span>io<span class="ansiyellow">.</span>loadpdb_rcsb<span class="ansiyellow">(</span><span class="ansiblue">&quot;2KOC&quot;</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">      6</span> print <span class="ansiyellow">(</span>traj<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">      7</span> <span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/site-packages/pytraj-1.0.5.dev0+b4571f6-py3.4-linux-x86_64.egg/pytraj/io.py</span> in <span class="ansicyan">loadpdb_rcsb</span><span class="ansiblue">(pdbid)</span>
+<span class="ansigreen">    535</span>     &quot;&quot;&quot;
+<span class="ansigreen">    536</span>     url <span class="ansiyellow">=</span> <span class="ansiblue">&apos;http://www.rcsb.org/pdb/files/%s.pdb&apos;</span> <span class="ansiyellow">%</span> pdbid<span class="ansiyellow">.</span>upper<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">--&gt; 537</span><span class="ansiyellow">     </span>txt <span class="ansiyellow">=</span> urlopen<span class="ansiyellow">(</span>url<span class="ansiyellow">)</span><span class="ansiyellow">.</span>read<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">    538</span>     fname <span class="ansiyellow">=</span> <span class="ansiblue">&quot;/tmp/tmppdb.pdb&quot;</span><span class="ansiyellow"></span>
+<span class="ansigreen">    539</span>     <span class="ansigreen">with</span> open<span class="ansiyellow">(</span>fname<span class="ansiyellow">,</span> <span class="ansiblue">&apos;w&apos;</span><span class="ansiyellow">)</span> <span class="ansigreen">as</span> fh<span class="ansiyellow">:</span><span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">urlopen</span><span class="ansiblue">(url, data, timeout, cafile, capath, cadefault, context)</span>
+<span class="ansigreen">    159</span>     <span class="ansigreen">else</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">    160</span>         opener <span class="ansiyellow">=</span> _opener<span class="ansiyellow"></span>
+<span class="ansigreen">--&gt; 161</span><span class="ansiyellow">     </span><span class="ansigreen">return</span> opener<span class="ansiyellow">.</span>open<span class="ansiyellow">(</span>url<span class="ansiyellow">,</span> data<span class="ansiyellow">,</span> timeout<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">    162</span> <span class="ansiyellow"></span>
+<span class="ansigreen">    163</span> <span class="ansigreen">def</span> install_opener<span class="ansiyellow">(</span>opener<span class="ansiyellow">)</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">open</span><span class="ansiblue">(self, fullurl, data, timeout)</span>
+<span class="ansigreen">    468</span>         <span class="ansigreen">for</span> processor <span class="ansigreen">in</span> self<span class="ansiyellow">.</span>process_response<span class="ansiyellow">.</span>get<span class="ansiyellow">(</span>protocol<span class="ansiyellow">,</span> <span class="ansiyellow">[</span><span class="ansiyellow">]</span><span class="ansiyellow">)</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">    469</span>             meth <span class="ansiyellow">=</span> getattr<span class="ansiyellow">(</span>processor<span class="ansiyellow">,</span> meth_name<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">--&gt; 470</span><span class="ansiyellow">             </span>response <span class="ansiyellow">=</span> meth<span class="ansiyellow">(</span>req<span class="ansiyellow">,</span> response<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">    471</span> <span class="ansiyellow"></span>
+<span class="ansigreen">    472</span>         <span class="ansigreen">return</span> response<span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">http_response</span><span class="ansiblue">(self, request, response)</span>
+<span class="ansigreen">    578</span>         <span class="ansigreen">if</span> <span class="ansigreen">not</span> <span class="ansiyellow">(</span><span class="ansicyan">200</span> <span class="ansiyellow">&lt;=</span> code <span class="ansiyellow">&lt;</span> <span class="ansicyan">300</span><span class="ansiyellow">)</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">    579</span>             response = self.parent.error(
+<span class="ansigreen">--&gt; 580</span><span class="ansiyellow">                 &apos;http&apos;, request, response, code, msg, hdrs)
+</span><span class="ansigreen">    581</span> <span class="ansiyellow"></span>
+<span class="ansigreen">    582</span>         <span class="ansigreen">return</span> response<span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">error</span><span class="ansiblue">(self, proto, *args)</span>
+<span class="ansigreen">    500</span>             http_err <span class="ansiyellow">=</span> <span class="ansicyan">0</span><span class="ansiyellow"></span>
+<span class="ansigreen">    501</span>         args <span class="ansiyellow">=</span> <span class="ansiyellow">(</span>dict<span class="ansiyellow">,</span> proto<span class="ansiyellow">,</span> meth_name<span class="ansiyellow">)</span> <span class="ansiyellow">+</span> args<span class="ansiyellow"></span>
+<span class="ansigreen">--&gt; 502</span><span class="ansiyellow">         </span>result <span class="ansiyellow">=</span> self<span class="ansiyellow">.</span>_call_chain<span class="ansiyellow">(</span><span class="ansiyellow">*</span>args<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">    503</span>         <span class="ansigreen">if</span> result<span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">    504</span>             <span class="ansigreen">return</span> result<span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">_call_chain</span><span class="ansiblue">(self, chain, kind, meth_name, *args)</span>
+<span class="ansigreen">    440</span>         <span class="ansigreen">for</span> handler <span class="ansigreen">in</span> handlers<span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">    441</span>             func <span class="ansiyellow">=</span> getattr<span class="ansiyellow">(</span>handler<span class="ansiyellow">,</span> meth_name<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">--&gt; 442</span><span class="ansiyellow">             </span>result <span class="ansiyellow">=</span> func<span class="ansiyellow">(</span><span class="ansiyellow">*</span>args<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">    443</span>             <span class="ansigreen">if</span> result <span class="ansigreen">is</span> <span class="ansigreen">not</span> <span class="ansigreen">None</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">    444</span>                 <span class="ansigreen">return</span> result<span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">http_error_302</span><span class="ansiblue">(self, req, fp, code, msg, headers)</span>
+<span class="ansigreen">    683</span>         fp<span class="ansiyellow">.</span>close<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">    684</span> <span class="ansiyellow"></span>
+<span class="ansigreen">--&gt; 685</span><span class="ansiyellow">         </span><span class="ansigreen">return</span> self<span class="ansiyellow">.</span>parent<span class="ansiyellow">.</span>open<span class="ansiyellow">(</span>new<span class="ansiyellow">,</span> timeout<span class="ansiyellow">=</span>req<span class="ansiyellow">.</span>timeout<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">    686</span> <span class="ansiyellow"></span>
+<span class="ansigreen">    687</span>     http_error_301 <span class="ansiyellow">=</span> http_error_303 <span class="ansiyellow">=</span> http_error_307 <span class="ansiyellow">=</span> http_error_302<span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">open</span><span class="ansiblue">(self, fullurl, data, timeout)</span>
+<span class="ansigreen">    462</span>             req <span class="ansiyellow">=</span> meth<span class="ansiyellow">(</span>req<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">    463</span> <span class="ansiyellow"></span>
+<span class="ansigreen">--&gt; 464</span><span class="ansiyellow">         </span>response <span class="ansiyellow">=</span> self<span class="ansiyellow">.</span>_open<span class="ansiyellow">(</span>req<span class="ansiyellow">,</span> data<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">    465</span> <span class="ansiyellow"></span>
+<span class="ansigreen">    466</span>         <span class="ansired"># post-process response</span><span class="ansiyellow"></span><span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">_open</span><span class="ansiblue">(self, req, data)</span>
+<span class="ansigreen">    480</span>         protocol <span class="ansiyellow">=</span> req<span class="ansiyellow">.</span>type<span class="ansiyellow"></span>
+<span class="ansigreen">    481</span>         result = self._call_chain(self.handle_open, protocol, protocol +
+<span class="ansigreen">--&gt; 482</span><span class="ansiyellow">                                   &apos;_open&apos;, req)
+</span><span class="ansigreen">    483</span>         <span class="ansigreen">if</span> result<span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">    484</span>             <span class="ansigreen">return</span> result<span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">_call_chain</span><span class="ansiblue">(self, chain, kind, meth_name, *args)</span>
+<span class="ansigreen">    440</span>         <span class="ansigreen">for</span> handler <span class="ansigreen">in</span> handlers<span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">    441</span>             func <span class="ansiyellow">=</span> getattr<span class="ansiyellow">(</span>handler<span class="ansiyellow">,</span> meth_name<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">--&gt; 442</span><span class="ansiyellow">             </span>result <span class="ansiyellow">=</span> func<span class="ansiyellow">(</span><span class="ansiyellow">*</span>args<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">    443</span>             <span class="ansigreen">if</span> result <span class="ansigreen">is</span> <span class="ansigreen">not</span> <span class="ansigreen">None</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">    444</span>                 <span class="ansigreen">return</span> result<span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">http_open</span><span class="ansiblue">(self, req)</span>
+<span class="ansigreen">   1209</span> <span class="ansiyellow"></span>
+<span class="ansigreen">   1210</span>     <span class="ansigreen">def</span> http_open<span class="ansiyellow">(</span>self<span class="ansiyellow">,</span> req<span class="ansiyellow">)</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">-&gt; 1211</span><span class="ansiyellow">         </span><span class="ansigreen">return</span> self<span class="ansiyellow">.</span>do_open<span class="ansiyellow">(</span>http<span class="ansiyellow">.</span>client<span class="ansiyellow">.</span>HTTPConnection<span class="ansiyellow">,</span> req<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">   1212</span> <span class="ansiyellow"></span>
+<span class="ansigreen">   1213</span>     http_request <span class="ansiyellow">=</span> AbstractHTTPHandler<span class="ansiyellow">.</span>do_request_<span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">do_open</span><span class="ansiblue">(self, http_class, req, **http_conn_args)</span>
+<span class="ansigreen">   1183</span>                 h<span class="ansiyellow">.</span>request<span class="ansiyellow">(</span>req<span class="ansiyellow">.</span>get_method<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow">,</span> req<span class="ansiyellow">.</span>selector<span class="ansiyellow">,</span> req<span class="ansiyellow">.</span>data<span class="ansiyellow">,</span> headers<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">   1184</span>             <span class="ansigreen">except</span> OSError <span class="ansigreen">as</span> err<span class="ansiyellow">:</span> <span class="ansired"># timeout error</span><span class="ansiyellow"></span>
+<span class="ansigreen">-&gt; 1185</span><span class="ansiyellow">                 </span><span class="ansigreen">raise</span> URLError<span class="ansiyellow">(</span>err<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">   1186</span>             r <span class="ansiyellow">=</span> h<span class="ansiyellow">.</span>getresponse<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">   1187</span>         <span class="ansigreen">except</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+
+<span class="ansired">URLError</span>: &lt;urlopen error [Errno 113] No route to host&gt;</pre>
 </div>
 </div>
 
@@ -250,8 +378,8 @@ ATOM     10  O3'   G A   1     -10.515  -7.653   5.962  1.00 10.00           O</
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Apr 23, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+      Last updated on Apr 24, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
     </p>
   </div>
 </footer>

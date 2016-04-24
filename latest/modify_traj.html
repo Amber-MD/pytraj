@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Modify trajectory &mdash; pytraj 1.0.5.dev0+87639dd documentation</title>
+    <title>Modify trajectory &mdash; pytraj 1.0.5.dev0+b4571f6 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0.5.dev0+87639dd',
+        VERSION:     '1.0.5.dev0+b4571f6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.5.dev0+87639dd documentation" href="index.html" />
+    <link rel="top" title="pytraj 1.0.5.dev0+b4571f6 documentation" href="index.html" />
     <link rel="next" title="Atom mask selection" href="atom_mask_selection.html" />
     <link rel="prev" title="pytraj.all_actions" href="_api/pytraj.all_actions.html" />
 <meta charset='utf-8'>
@@ -53,7 +53,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+87639dd</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+b4571f6</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -79,7 +79,7 @@
 <li class="toctree-l1"><a class="reference internal" href="read_and_write.html">Read and Write</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Modify trajectory</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Modify trajectory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="atom_mask_selection.html">Atom mask selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Fancy indexing of trajectory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel calculation</a></li>
@@ -215,28 +215,28 @@ if False (same as <cite>nomod</cite> in cpptraj), no modification</p>
 <p class="rubric">Notes</p>
 <p>if <code class="docutils literal"><span class="pre">traj</span></code> is mutable and update_coordinate=True, its coordinates will be updated.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_trpcage</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># all atoms, do fitting, using ref=traj[-3]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># all atoms, do fitting, using ref=traj[-3]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=-</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># rmsd for 3 maskes, do fitting, using ref=traj[0] (defaul)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;@CA&#39;</span><span class="p">,</span> <span class="s1">&#39;@C&#39;</span><span class="p">,</span> <span class="s1">&#39;:3-18@CA&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;dataset&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># rmsd for 3 maskes, do fitting, using ref=traj[0] (defaul)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;@CA&#39;</span><span class="p">,</span> <span class="s">&#39;@C&#39;</span><span class="p">,</span> <span class="s">&#39;:3-18@CA&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;dataset&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># rmsd to first frame, use mass &#39;:3-13&#39; but do not perorm fitting</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;:3-13&#39;</span><span class="p">,</span> <span class="n">nofit</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># rmsd to first frame, use mass &#39;:3-13&#39; but do not perorm fitting</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;:3-13&#39;</span><span class="p">,</span> <span class="n">nofit</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># use atom indices for mask</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">),</span> <span class="n">nofit</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># use atom indices for mask</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">),</span> <span class="n">nofit</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># compute rmsd (and align) with reference having different atoms</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># compute rmsd (and align) with reference having different atoms</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">trpcage_traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_trpcage</span><span class="p">()[:]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tz2_traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()[:</span><span class="mi">1</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">trpcage_traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;@1-10&#39;</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">tz2_traj</span><span class="p">,</span> <span class="n">ref_mask</span><span class="o">=</span><span class="s1">&#39;@11-20&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">trpcage_traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@1-10&#39;</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">tz2_traj</span><span class="p">,</span> <span class="n">ref_mask</span><span class="o">=</span><span class="s">&#39;@11-20&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
 <span class="go">array([ 2.16203842,  2.28859396,  2.15817654, ...,  2.20767189,</span>
 <span class="go">        2.30087764,  1.92654945])</span>
@@ -247,7 +247,7 @@ if False (same as <cite>nomod</cite> in cpptraj), no modification</p>
 <span class="target" id="superpose"></span><dl class="function">
 <dt id="pytraj.superpose">
 <code class="descclassname">pytraj.</code><code class="descname">superpose</code><span class="sig-paren">(</span><em>traj</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.superpose" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<dd><div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_ala3</span><span class="p">()[:]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">superpose</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">Trajectory</span><span class="p">)</span>
@@ -283,21 +283,21 @@ if False (same as <cite>nomod</cite> in cpptraj), no modification</p>
 <p class="last"><a class="reference internal" href="#pytraj.translate" title="pytraj.translate"><code class="xref py py-obj docutils literal"><span class="pre">pytraj.translate</span></code></a></p>
 </div>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># load all frames to memory so we can &#39;mutate&#39; them</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># load all frames to memory so we can &#39;mutate&#39; them</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[:]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># all atoms, center to box center (x/2, y/2, z/2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># all atoms, center to box center (x/2, y/2, z/2)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># center at origin, use @CA</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="s1">&#39;origin&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># center at origin, use @CA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="s">&#39;origin&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># center to box center, use mass weighted</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mass</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;:1&#39;</span><span class="p">,</span> <span class="n">mass</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># center to box center, use mass weighted</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mass</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;:1&#39;</span><span class="p">,</span> <span class="n">mass</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -307,13 +307,13 @@ if False (same as <cite>nomod</cite> in cpptraj), no modification</p>
 <code class="descclassname">pytraj.</code><code class="descname">translate</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.translate" title="Permalink to this definition">¶</a></dt>
 <dd><p>translate coordinate</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># load to mutable trajectory by `load` method</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.testing</span> <span class="kn">import</span> <span class="n">get_fn</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span> <span class="o">=</span> <span class="n">get_fn</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># load to mutable trajectory by `load` method</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.testing</span> <span class="k">import</span> <span class="n">get_fn</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span> <span class="o">=</span> <span class="n">get_fn</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># do transform traj and return itself</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;@CA x 120.&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># do transform traj and return itself</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA x 120.&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -322,13 +322,13 @@ if False (same as <cite>nomod</cite> in cpptraj), no modification</p>
 <dt id="pytraj.scale">
 <code class="descclassname">pytraj.</code><code class="descname">scale</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.scale" title="Permalink to this definition">¶</a></dt>
 <dd><p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># load to mutable trajectory by `load` method</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.testing</span> <span class="kn">import</span> <span class="n">get_fn</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span> <span class="o">=</span> <span class="n">get_fn</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># load to mutable trajectory by `load` method</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.testing</span> <span class="k">import</span> <span class="n">get_fn</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span> <span class="o">=</span> <span class="n">get_fn</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># do transform traj and return itself</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;@CA x 1.2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># do transform traj and return itself</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA x 1.2&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -339,13 +339,13 @@ if False (same as <cite>nomod</cite> in cpptraj), no modification</p>
 <dd><p class="rubric">Notes</p>
 <p><code class="docutils literal"><span class="pre">rotate</span></code> is an alias of <code class="docutils literal"><span class="pre">do_rotation</span></code></p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># load to mutable trajectory by `load` method</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.testing</span> <span class="kn">import</span> <span class="n">get_fn</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span> <span class="o">=</span> <span class="n">get_fn</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># load to mutable trajectory by `load` method</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.testing</span> <span class="k">import</span> <span class="n">get_fn</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span> <span class="o">=</span> <span class="n">get_fn</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># do transform traj and return itself</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;x 90&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># do transform traj and return itself</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;x 90&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -354,7 +354,7 @@ if False (same as <cite>nomod</cite> in cpptraj), no modification</p>
 <dt id="pytraj.autoimage">
 <code class="descclassname">pytraj.</code><code class="descname">autoimage</code><span class="sig-paren">(</span><em>traj</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.autoimage" title="Permalink to this definition">¶</a></dt>
 <dd><p>perform autoimage and return the coordinate-updated traj</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()[:]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">autoimage</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
 </pre></div>
@@ -383,10 +383,10 @@ if False (same as <cite>nomod</cite> in cpptraj), no modification</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># perform &#39;autoimage&#39;, then &#39;rms&#39;, then &#39;center&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">traj</span><span class="p">[:],</span> <span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;autoimage&#39;</span><span class="p">,</span> <span class="s1">&#39;rms&#39;</span><span class="p">,</span> <span class="s1">&#39;center :1-5&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># perform &#39;autoimage&#39;, then &#39;rms&#39;, then &#39;center&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">traj</span><span class="p">[:],</span> <span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;autoimage&#39;</span><span class="p">,</span> <span class="s">&#39;rms&#39;</span><span class="p">,</span> <span class="s">&#39;center :1-5&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -405,10 +405,10 @@ if False (same as <cite>nomod</cite> in cpptraj), no modification</p>
 <p class="rubric">Notes</p>
 <p>Syntax and method&#8217;s name might be changed</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_rna</span><span class="p">()[:]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rotate_dihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s2">&quot;3:chin:120&quot;</span><span class="p">)</span> <span class="c1"># rotate chin of res 3 to 120 deg</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rotate_dihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s2">&quot;1:O4&#39;:C1&#39;:N9:C4:120&quot;</span><span class="p">)</span> <span class="c1"># rotate dihedral with given mask</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rotate_dihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;3:chin:120&quot;</span><span class="p">)</span> <span class="c"># rotate chin of res 3 to 120 deg</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rotate_dihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;1:O4&#39;:C1&#39;:N9:C4:120&quot;</span><span class="p">)</span> <span class="c"># rotate dihedral with given mask</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -442,17 +442,17 @@ is either 0, 1 or -1 (see example below)</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">new_traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">replicate_cell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">new_traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">replicate_cell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;dir 001 dir 111&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">new_traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">replicate_cell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;dir 001 dir 1-10&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">new_traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">replicate_cell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;dir 001 dir 1-10&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">replicate_cell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s">&#39;all&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">replicate_cell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s">&#39;dir 001 dir 111&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">replicate_cell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s">&#39;dir 001 dir 1-10&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">replicate_cell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s">&#39;dir 001 dir 1-10&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># similiar usage</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">new_traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">replicate_cell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;001&#39;</span><span class="p">,</span> <span class="s1">&#39;0-10&#39;</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">new_traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">replicate_cell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;001&#39;</span><span class="p">,</span> <span class="s1">&#39;0-10&#39;</span><span class="p">])</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># similiar usage</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">replicate_cell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;001&#39;</span><span class="p">,</span> <span class="s">&#39;0-10&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">replicate_cell</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;001&#39;</span><span class="p">,</span> <span class="s">&#39;0-10&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -472,8 +472,8 @@ is either 0, 1 or -1 (see example below)</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Apr 23, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+      Last updated on Apr 24, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
     </p>
   </div>
 </footer>

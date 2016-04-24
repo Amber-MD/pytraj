@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Ramachandran plot &mdash; pytraj 1.0.5.dev0+87639dd documentation</title>
+    <title>Ramachandran plot &mdash; pytraj 1.0.5.dev0+b4571f6 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.5.dev0+87639dd',
+        VERSION:     '1.0.5.dev0+b4571f6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.5.dev0+87639dd documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.5.dev0+b4571f6 documentation" href="../index.html" />
     <link rel="up" title="Plots" href="plot.html" />
     <link rel="next" title="Plot rmsd and radgyr correlation" href="plot_rmsd_radgyr_correlation.html" />
     <link rel="prev" title="Pairwise RMSD" href="tut_pairwise_rmsd.html" />
@@ -54,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+87639dd</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+b4571f6</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -182,14 +182,14 @@
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
 
-<span class="c1"># do some configs to get better plot</span>
+<span class="c"># do some configs to get better plot</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="c1">#%config InlineBackend.figure_format = &#39;retina&#39;</span>
+<span class="c">#%config InlineBackend.figure_format = &#39;retina&#39;</span>
 <span class="kn">import</span> <span class="nn">matplotlib</span>
-<span class="c1">#matplotlib.rcParams[&#39;savefig.dpi&#39;] = 2 * matplotlib.rcParams[&#39;savefig.dpi&#39;] # larger image</span>
+<span class="c">#matplotlib.rcParams[&#39;savefig.dpi&#39;] = 2 * matplotlib.rcParams[&#39;savefig.dpi&#39;] # larger image</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -206,10 +206,10 @@
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># download trp-cage mini protein</span>
-<span class="c1"># http://www.rcsb.org/pdb/explore.do?structureId=1l2y</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># download trp-cage mini protein</span>
+<span class="c"># http://www.rcsb.org/pdb/explore.do?structureId=1l2y</span>
 
-<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_pdb_rcsb</span><span class="p">(</span><span class="s1">&#39;1L2Y&#39;</span><span class="p">)</span>
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_pdb_rcsb</span><span class="p">(</span><span class="s">&#39;1L2Y&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">residues</span><span class="p">))</span>
 </pre></div>
@@ -223,13 +223,152 @@
 
 
 <div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>pytraj.Trajectory, 38 frames: 
-Size: 0.000258 (GB)
-&lt;Topology: 304 atoms, 20 residues, 1 mols, PBC with box type = ortho&gt;
-           
-{&apos;TRP&apos;, &apos;ILE&apos;, &apos;TYR&apos;, &apos;ASN&apos;, &apos;GLN&apos;, &apos;LEU&apos;, &apos;ARG&apos;, &apos;SER&apos;, &apos;PRO&apos;, &apos;GLY&apos;, &apos;ASP&apos;, &apos;LYS&apos;}
-</pre>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansired">---------------------------------------------------------------------------</span>
+<span class="ansired">OSError</span>                                   Traceback (most recent call last)
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">do_open</span><span class="ansiblue">(self, http_class, req, **http_conn_args)</span>
+<span class="ansigreen">   1182</span>             <span class="ansigreen">try</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">-&gt; 1183</span><span class="ansiyellow">                 </span>h<span class="ansiyellow">.</span>request<span class="ansiyellow">(</span>req<span class="ansiyellow">.</span>get_method<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow">,</span> req<span class="ansiyellow">.</span>selector<span class="ansiyellow">,</span> req<span class="ansiyellow">.</span>data<span class="ansiyellow">,</span> headers<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">   1184</span>             <span class="ansigreen">except</span> OSError <span class="ansigreen">as</span> err<span class="ansiyellow">:</span> <span class="ansired"># timeout error</span><span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/http/client.py</span> in <span class="ansicyan">request</span><span class="ansiblue">(self, method, url, body, headers)</span>
+<span class="ansigreen">   1136</span>         <span class="ansiblue">&quot;&quot;&quot;Send a complete request to the server.&quot;&quot;&quot;</span><span class="ansiyellow"></span>
+<span class="ansigreen">-&gt; 1137</span><span class="ansiyellow">         </span>self<span class="ansiyellow">.</span>_send_request<span class="ansiyellow">(</span>method<span class="ansiyellow">,</span> url<span class="ansiyellow">,</span> body<span class="ansiyellow">,</span> headers<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">   1138</span> <span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/http/client.py</span> in <span class="ansicyan">_send_request</span><span class="ansiblue">(self, method, url, body, headers)</span>
+<span class="ansigreen">   1181</span>             body <span class="ansiyellow">=</span> body<span class="ansiyellow">.</span>encode<span class="ansiyellow">(</span><span class="ansiblue">&apos;iso-8859-1&apos;</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">-&gt; 1182</span><span class="ansiyellow">         </span>self<span class="ansiyellow">.</span>endheaders<span class="ansiyellow">(</span>body<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">   1183</span> <span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/http/client.py</span> in <span class="ansicyan">endheaders</span><span class="ansiblue">(self, message_body)</span>
+<span class="ansigreen">   1132</span>             <span class="ansigreen">raise</span> CannotSendHeader<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">-&gt; 1133</span><span class="ansiyellow">         </span>self<span class="ansiyellow">.</span>_send_output<span class="ansiyellow">(</span>message_body<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">   1134</span> <span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/http/client.py</span> in <span class="ansicyan">_send_output</span><span class="ansiblue">(self, message_body)</span>
+<span class="ansigreen">    962</span>             message_body <span class="ansiyellow">=</span> <span class="ansigreen">None</span><span class="ansiyellow"></span>
+<span class="ansigreen">--&gt; 963</span><span class="ansiyellow">         </span>self<span class="ansiyellow">.</span>send<span class="ansiyellow">(</span>msg<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">    964</span>         <span class="ansigreen">if</span> message_body <span class="ansigreen">is</span> <span class="ansigreen">not</span> <span class="ansigreen">None</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/http/client.py</span> in <span class="ansicyan">send</span><span class="ansiblue">(self, data)</span>
+<span class="ansigreen">    897</span>             <span class="ansigreen">if</span> self<span class="ansiyellow">.</span>auto_open<span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">--&gt; 898</span><span class="ansiyellow">                 </span>self<span class="ansiyellow">.</span>connect<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">    899</span>             <span class="ansigreen">else</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/http/client.py</span> in <span class="ansicyan">connect</span><span class="ansiblue">(self)</span>
+<span class="ansigreen">    870</span>         self.sock = self._create_connection((self.host,self.port),
+<span class="ansigreen">--&gt; 871</span><span class="ansiyellow">                                             self.timeout, self.source_address)
+</span><span class="ansigreen">    872</span> <span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/socket.py</span> in <span class="ansicyan">create_connection</span><span class="ansiblue">(address, timeout, source_address)</span>
+<span class="ansigreen">    515</span>     <span class="ansigreen">if</span> err <span class="ansigreen">is</span> <span class="ansigreen">not</span> <span class="ansigreen">None</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">--&gt; 516</span><span class="ansiyellow">         </span><span class="ansigreen">raise</span> err<span class="ansiyellow"></span>
+<span class="ansigreen">    517</span>     <span class="ansigreen">else</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/socket.py</span> in <span class="ansicyan">create_connection</span><span class="ansiblue">(address, timeout, source_address)</span>
+<span class="ansigreen">    506</span>                 sock<span class="ansiyellow">.</span>bind<span class="ansiyellow">(</span>source_address<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">--&gt; 507</span><span class="ansiyellow">             </span>sock<span class="ansiyellow">.</span>connect<span class="ansiyellow">(</span>sa<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">    508</span>             <span class="ansigreen">return</span> sock<span class="ansiyellow"></span>
+
+<span class="ansired">OSError</span>: [Errno 113] No route to host
+
+During handling of the above exception, another exception occurred:
+
+<span class="ansired">URLError</span>                                  Traceback (most recent call last)
+<span class="ansigreen">&lt;ipython-input-2-dda538779111&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
+<span class="ansigreen">      2</span> <span class="ansired"># http://www.rcsb.org/pdb/explore.do?structureId=1l2y</span><span class="ansiyellow"></span><span class="ansiyellow"></span>
+<span class="ansigreen">      3</span> <span class="ansiyellow"></span>
+<span class="ansigreen">----&gt; 4</span><span class="ansiyellow"> </span>traj <span class="ansiyellow">=</span> pt<span class="ansiyellow">.</span>load_pdb_rcsb<span class="ansiyellow">(</span><span class="ansiblue">&apos;1L2Y&apos;</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">      5</span> print<span class="ansiyellow">(</span>traj<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">      6</span> print<span class="ansiyellow">(</span>set<span class="ansiyellow">(</span>res<span class="ansiyellow">.</span>name <span class="ansigreen">for</span> res <span class="ansigreen">in</span> traj<span class="ansiyellow">.</span>top<span class="ansiyellow">.</span>residues<span class="ansiyellow">)</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/site-packages/pytraj-1.0.5.dev0+b4571f6-py3.4-linux-x86_64.egg/pytraj/io.py</span> in <span class="ansicyan">loadpdb_rcsb</span><span class="ansiblue">(pdbid)</span>
+<span class="ansigreen">    535</span>     &quot;&quot;&quot;
+<span class="ansigreen">    536</span>     url <span class="ansiyellow">=</span> <span class="ansiblue">&apos;http://www.rcsb.org/pdb/files/%s.pdb&apos;</span> <span class="ansiyellow">%</span> pdbid<span class="ansiyellow">.</span>upper<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">--&gt; 537</span><span class="ansiyellow">     </span>txt <span class="ansiyellow">=</span> urlopen<span class="ansiyellow">(</span>url<span class="ansiyellow">)</span><span class="ansiyellow">.</span>read<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">    538</span>     fname <span class="ansiyellow">=</span> <span class="ansiblue">&quot;/tmp/tmppdb.pdb&quot;</span><span class="ansiyellow"></span>
+<span class="ansigreen">    539</span>     <span class="ansigreen">with</span> open<span class="ansiyellow">(</span>fname<span class="ansiyellow">,</span> <span class="ansiblue">&apos;w&apos;</span><span class="ansiyellow">)</span> <span class="ansigreen">as</span> fh<span class="ansiyellow">:</span><span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">urlopen</span><span class="ansiblue">(url, data, timeout, cafile, capath, cadefault, context)</span>
+<span class="ansigreen">    159</span>     <span class="ansigreen">else</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">    160</span>         opener <span class="ansiyellow">=</span> _opener<span class="ansiyellow"></span>
+<span class="ansigreen">--&gt; 161</span><span class="ansiyellow">     </span><span class="ansigreen">return</span> opener<span class="ansiyellow">.</span>open<span class="ansiyellow">(</span>url<span class="ansiyellow">,</span> data<span class="ansiyellow">,</span> timeout<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">    162</span> <span class="ansiyellow"></span>
+<span class="ansigreen">    163</span> <span class="ansigreen">def</span> install_opener<span class="ansiyellow">(</span>opener<span class="ansiyellow">)</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">open</span><span class="ansiblue">(self, fullurl, data, timeout)</span>
+<span class="ansigreen">    468</span>         <span class="ansigreen">for</span> processor <span class="ansigreen">in</span> self<span class="ansiyellow">.</span>process_response<span class="ansiyellow">.</span>get<span class="ansiyellow">(</span>protocol<span class="ansiyellow">,</span> <span class="ansiyellow">[</span><span class="ansiyellow">]</span><span class="ansiyellow">)</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">    469</span>             meth <span class="ansiyellow">=</span> getattr<span class="ansiyellow">(</span>processor<span class="ansiyellow">,</span> meth_name<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">--&gt; 470</span><span class="ansiyellow">             </span>response <span class="ansiyellow">=</span> meth<span class="ansiyellow">(</span>req<span class="ansiyellow">,</span> response<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">    471</span> <span class="ansiyellow"></span>
+<span class="ansigreen">    472</span>         <span class="ansigreen">return</span> response<span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">http_response</span><span class="ansiblue">(self, request, response)</span>
+<span class="ansigreen">    578</span>         <span class="ansigreen">if</span> <span class="ansigreen">not</span> <span class="ansiyellow">(</span><span class="ansicyan">200</span> <span class="ansiyellow">&lt;=</span> code <span class="ansiyellow">&lt;</span> <span class="ansicyan">300</span><span class="ansiyellow">)</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">    579</span>             response = self.parent.error(
+<span class="ansigreen">--&gt; 580</span><span class="ansiyellow">                 &apos;http&apos;, request, response, code, msg, hdrs)
+</span><span class="ansigreen">    581</span> <span class="ansiyellow"></span>
+<span class="ansigreen">    582</span>         <span class="ansigreen">return</span> response<span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">error</span><span class="ansiblue">(self, proto, *args)</span>
+<span class="ansigreen">    500</span>             http_err <span class="ansiyellow">=</span> <span class="ansicyan">0</span><span class="ansiyellow"></span>
+<span class="ansigreen">    501</span>         args <span class="ansiyellow">=</span> <span class="ansiyellow">(</span>dict<span class="ansiyellow">,</span> proto<span class="ansiyellow">,</span> meth_name<span class="ansiyellow">)</span> <span class="ansiyellow">+</span> args<span class="ansiyellow"></span>
+<span class="ansigreen">--&gt; 502</span><span class="ansiyellow">         </span>result <span class="ansiyellow">=</span> self<span class="ansiyellow">.</span>_call_chain<span class="ansiyellow">(</span><span class="ansiyellow">*</span>args<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">    503</span>         <span class="ansigreen">if</span> result<span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">    504</span>             <span class="ansigreen">return</span> result<span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">_call_chain</span><span class="ansiblue">(self, chain, kind, meth_name, *args)</span>
+<span class="ansigreen">    440</span>         <span class="ansigreen">for</span> handler <span class="ansigreen">in</span> handlers<span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">    441</span>             func <span class="ansiyellow">=</span> getattr<span class="ansiyellow">(</span>handler<span class="ansiyellow">,</span> meth_name<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">--&gt; 442</span><span class="ansiyellow">             </span>result <span class="ansiyellow">=</span> func<span class="ansiyellow">(</span><span class="ansiyellow">*</span>args<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">    443</span>             <span class="ansigreen">if</span> result <span class="ansigreen">is</span> <span class="ansigreen">not</span> <span class="ansigreen">None</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">    444</span>                 <span class="ansigreen">return</span> result<span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">http_error_302</span><span class="ansiblue">(self, req, fp, code, msg, headers)</span>
+<span class="ansigreen">    683</span>         fp<span class="ansiyellow">.</span>close<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">    684</span> <span class="ansiyellow"></span>
+<span class="ansigreen">--&gt; 685</span><span class="ansiyellow">         </span><span class="ansigreen">return</span> self<span class="ansiyellow">.</span>parent<span class="ansiyellow">.</span>open<span class="ansiyellow">(</span>new<span class="ansiyellow">,</span> timeout<span class="ansiyellow">=</span>req<span class="ansiyellow">.</span>timeout<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">    686</span> <span class="ansiyellow"></span>
+<span class="ansigreen">    687</span>     http_error_301 <span class="ansiyellow">=</span> http_error_303 <span class="ansiyellow">=</span> http_error_307 <span class="ansiyellow">=</span> http_error_302<span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">open</span><span class="ansiblue">(self, fullurl, data, timeout)</span>
+<span class="ansigreen">    462</span>             req <span class="ansiyellow">=</span> meth<span class="ansiyellow">(</span>req<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">    463</span> <span class="ansiyellow"></span>
+<span class="ansigreen">--&gt; 464</span><span class="ansiyellow">         </span>response <span class="ansiyellow">=</span> self<span class="ansiyellow">.</span>_open<span class="ansiyellow">(</span>req<span class="ansiyellow">,</span> data<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">    465</span> <span class="ansiyellow"></span>
+<span class="ansigreen">    466</span>         <span class="ansired"># post-process response</span><span class="ansiyellow"></span><span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">_open</span><span class="ansiblue">(self, req, data)</span>
+<span class="ansigreen">    480</span>         protocol <span class="ansiyellow">=</span> req<span class="ansiyellow">.</span>type<span class="ansiyellow"></span>
+<span class="ansigreen">    481</span>         result = self._call_chain(self.handle_open, protocol, protocol +
+<span class="ansigreen">--&gt; 482</span><span class="ansiyellow">                                   &apos;_open&apos;, req)
+</span><span class="ansigreen">    483</span>         <span class="ansigreen">if</span> result<span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">    484</span>             <span class="ansigreen">return</span> result<span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">_call_chain</span><span class="ansiblue">(self, chain, kind, meth_name, *args)</span>
+<span class="ansigreen">    440</span>         <span class="ansigreen">for</span> handler <span class="ansigreen">in</span> handlers<span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">    441</span>             func <span class="ansiyellow">=</span> getattr<span class="ansiyellow">(</span>handler<span class="ansiyellow">,</span> meth_name<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">--&gt; 442</span><span class="ansiyellow">             </span>result <span class="ansiyellow">=</span> func<span class="ansiyellow">(</span><span class="ansiyellow">*</span>args<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">    443</span>             <span class="ansigreen">if</span> result <span class="ansigreen">is</span> <span class="ansigreen">not</span> <span class="ansigreen">None</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">    444</span>                 <span class="ansigreen">return</span> result<span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">http_open</span><span class="ansiblue">(self, req)</span>
+<span class="ansigreen">   1209</span> <span class="ansiyellow"></span>
+<span class="ansigreen">   1210</span>     <span class="ansigreen">def</span> http_open<span class="ansiyellow">(</span>self<span class="ansiyellow">,</span> req<span class="ansiyellow">)</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">-&gt; 1211</span><span class="ansiyellow">         </span><span class="ansigreen">return</span> self<span class="ansiyellow">.</span>do_open<span class="ansiyellow">(</span>http<span class="ansiyellow">.</span>client<span class="ansiyellow">.</span>HTTPConnection<span class="ansiyellow">,</span> req<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">   1212</span> <span class="ansiyellow"></span>
+<span class="ansigreen">   1213</span>     http_request <span class="ansiyellow">=</span> AbstractHTTPHandler<span class="ansiyellow">.</span>do_request_<span class="ansiyellow"></span>
+
+<span class="ansigreen">/home/haichit/anaconda3/envs/py34/lib/python3.4/urllib/request.py</span> in <span class="ansicyan">do_open</span><span class="ansiblue">(self, http_class, req, **http_conn_args)</span>
+<span class="ansigreen">   1183</span>                 h<span class="ansiyellow">.</span>request<span class="ansiyellow">(</span>req<span class="ansiyellow">.</span>get_method<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow">,</span> req<span class="ansiyellow">.</span>selector<span class="ansiyellow">,</span> req<span class="ansiyellow">.</span>data<span class="ansiyellow">,</span> headers<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">   1184</span>             <span class="ansigreen">except</span> OSError <span class="ansigreen">as</span> err<span class="ansiyellow">:</span> <span class="ansired"># timeout error</span><span class="ansiyellow"></span>
+<span class="ansigreen">-&gt; 1185</span><span class="ansiyellow">                 </span><span class="ansigreen">raise</span> URLError<span class="ansiyellow">(</span>err<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">   1186</span>             r <span class="ansiyellow">=</span> h<span class="ansiyellow">.</span>getresponse<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">   1187</span>         <span class="ansigreen">except</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+
+<span class="ansired">URLError</span>: &lt;urlopen error [Errno 113] No route to host&gt;</pre>
 </div>
 </div>
 
@@ -242,12 +381,12 @@ Size: 0.000258 (GB)
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># calculate phi/psi for Gly residues</span>
-<span class="c1"># need to get indcies of Gly residues</span>
-<span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">idx</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">res</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">residues</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;GLY&#39;</span> <span class="ow">in</span> <span class="n">res</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Gly resdiue indices = &#39;</span><span class="p">,</span> <span class="n">indices</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># calculate phi/psi for Gly residues</span>
+<span class="c"># need to get indcies of Gly residues</span>
+<span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">idx</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">res</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">residues</span><span class="p">)</span> <span class="k">if</span> <span class="s">&#39;GLY&#39;</span> <span class="ow">in</span> <span class="n">res</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;Gly resdiue indices = &#39;</span><span class="p">,</span> <span class="n">indices</span><span class="p">)</span>
 
-<span class="n">dataset</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;phi psi&#39;</span><span class="p">,</span> <span class="n">resrange</span><span class="o">=</span><span class="n">indices</span><span class="p">)</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;phi psi&#39;</span><span class="p">,</span> <span class="n">resrange</span><span class="o">=</span><span class="n">indices</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
 </pre></div>
 
@@ -261,28 +400,15 @@ Size: 0.000258 (GB)
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Gly resdiue indices =  [9, 10, 14]
-&lt;pytraj.DatasetList with 6 datasets&gt;
-phi:10
-[ 110.78404243  107.09437321  108.32961461 ...,  115.32072427  162.43037555
-  124.30632007]
+<pre>Gly resdiue indices =  [6]
+&lt;pytraj.DatasetList with 2 datasets&gt;
+phi:7
+[ 106.71186584   60.52982618   78.17689828   79.27618262   87.20473033
+   51.62202207   68.08060943   76.32340168   89.5625311    68.34781105]
 
-psi:10
-[  8.0792315   10.33861693  -2.0464667  ...,   5.3940854   29.34859639
-   8.88098636]
-
-phi:11
-[ 55.24421349  58.27147563  60.77040425 ...,  55.64499342  51.45490984
-  57.23888395]
-...
-
-phi:15
-[ 67.93146641  75.78677981  75.05149804 ...,  74.12510912  79.94314603
-  69.51439433]
-
-psi:15
-[ 25.21773873 -37.51912045 -31.48955407 ..., -30.50312997 -35.73264016
-  20.40992958]
+psi:7
+[  3.83225958  23.90570327  34.52376935  24.31750125  28.17654814
+  37.33522482  20.81193691  19.92930061  23.23774864  21.67372486]
 </pre>
 </div>
 </div>
@@ -296,19 +422,19 @@ psi:15
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># take data for &#39;phi&#39; and flatten to 1D array</span>
-<span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">d</span><span class="o">.</span><span class="n">values</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dataset</span> <span class="k">if</span> <span class="s1">&#39;phi&#39;</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">key</span><span class="p">])</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># take data for &#39;phi&#39; and flatten to 1D array</span>
+<span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">d</span><span class="o">.</span><span class="n">values</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dataset</span> <span class="k">if</span> <span class="s">&#39;phi&#39;</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">key</span><span class="p">])</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
 
-<span class="c1"># take data for &#39;psi&#39; and flatten to 1D array</span>
-<span class="n">psi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">d</span><span class="o">.</span><span class="n">values</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dataset</span> <span class="k">if</span> <span class="s1">&#39;psi&#39;</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">key</span><span class="p">])</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+<span class="c"># take data for &#39;psi&#39; and flatten to 1D array</span>
+<span class="n">psi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">d</span><span class="o">.</span><span class="n">values</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dataset</span> <span class="k">if</span> <span class="s">&#39;psi&#39;</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">key</span><span class="p">])</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
 
-<span class="c1"># setup color</span>
+<span class="c"># setup color</span>
 <span class="n">colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">psi</span><span class="p">))</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;phi&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;psi&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;phi&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;psi&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">psi</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">colors</span><span class="p">)</span>
 </pre></div>
@@ -325,7 +451,7 @@ psi:15
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.collections.PathCollection at 0x10c385978&gt;</pre>
+<pre>&lt;matplotlib.collections.PathCollection at 0x2aaad101de48&gt;</pre>
 </div>
 
 </div>
@@ -335,207 +461,137 @@ psi:15
 
 <div class="output_png output_subarea ">
 <img src="data:image/png;base64,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
-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
+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
 "
 >
 </div>
@@ -560,7 +616,7 @@ LIwxxnTLBgtjjDHdssHCGGNMt2ywMMYY0y0bLIwxxnTr/wMsRImIcSxIOQAAAABJRU5ErkJggg==
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;ala3.dcd&#39;</span><span class="p">,</span> <span class="s1">&#39;ala3.psf&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;ala3.dcd&#39;</span><span class="p">,</span> <span class="s">&#39;ala3.psf&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">([</span><span class="n">res</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">residues</span><span class="p">])</span>
 </pre></div>
 
@@ -588,7 +644,7 @@ LIwxxnTLBgtjjDHdssHCGGNMt2ywMMYY0y0bLIwxxnTr/wMsRImIcSxIOQAAAABJRU5ErkJggg==
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">traj</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">traj</span>
 </pre></div>
 
 </div>
@@ -620,8 +676,8 @@ Size: 0.000240 (GB)
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># only plot for residue 2 (python uses 0-based index)</span>
-<span class="n">phi</span><span class="p">,</span> <span class="n">psi</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">resrange</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,],</span> <span class="n">dhtypes</span><span class="o">=</span><span class="s1">&#39;psi phi&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># only plot for residue 2 (python uses 0-based index)</span>
+<span class="n">phi</span><span class="p">,</span> <span class="n">psi</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">resrange</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,],</span> <span class="n">dhtypes</span><span class="o">=</span><span class="s">&#39;psi phi&#39;</span><span class="p">)</span>
 <span class="n">phi</span><span class="p">,</span> <span class="n">psi</span>
 </pre></div>
 
@@ -658,7 +714,7 @@ Size: 0.000240 (GB)
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">snb</span>
 </pre></div>
 
@@ -672,8 +728,8 @@ Size: 0.000240 (GB)
 <div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">snb</span><span class="o">.</span><span class="n">jointplot</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">psi</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">stat_func</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="c1">#plt.savefig(&#39;phipsi_ala3.png&#39;)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">snb</span><span class="o">.</span><span class="n">jointplot</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">psi</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">stat_func</span><span class="o">=</span><span class="k">None</span><span class="p">)</span>
+<span class="c">#plt.savefig(&#39;phipsi_ala3.png&#39;)</span>
 </pre></div>
 
 </div>
@@ -688,7 +744,7 @@ Size: 0.000240 (GB)
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;seaborn.axisgrid.JointGrid at 0x10f80b978&gt;</pre>
+<pre>&lt;seaborn.axisgrid.JointGrid at 0x2aaada958e48&gt;</pre>
 </div>
 
 </div>
@@ -991,8 +1047,8 @@ FIfhRUREisPwIiIixWF4ERGR4jC8iIhIcf4/XzGsX2V+4hcAAAAASUVORK5CYII=
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Apr 23, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+      Last updated on Apr 24, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
     </p>
   </div>
 </footer>

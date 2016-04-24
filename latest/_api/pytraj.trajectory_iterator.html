@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.TrajectoryIterator &mdash; pytraj 1.0.5.dev0+87639dd documentation</title>
+    <title>pytraj.TrajectoryIterator &mdash; pytraj 1.0.5.dev0+b4571f6 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.5.dev0+87639dd',
+        VERSION:     '1.0.5.dev0+b4571f6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.5.dev0+87639dd documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.5.dev0+b4571f6 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -52,7 +52,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+87639dd</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+b4571f6</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -161,14 +161,14 @@ use original trj filename and top filename. If set _pickle_topology to True, its
 Topology will be pickled (slow but more accurate if you change the topology in the
 fly)</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.testing</span> <span class="kn">import</span> <span class="n">get_fn</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj_name</span><span class="p">,</span> <span class="n">top_name</span> <span class="o">=</span> <span class="n">get_fn</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.testing</span> <span class="k">import</span> <span class="n">get_fn</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj_name</span><span class="p">,</span> <span class="n">top_name</span> <span class="o">=</span> <span class="n">get_fn</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">TrajectoryIterator</span><span class="p">(</span><span class="n">traj_name</span><span class="p">,</span> <span class="n">top_name</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># user should always use :method:`pytraj.iterload` to load TrajectoryIterator</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s1">&#39;remd.x.000&#39;</span><span class="p">,</span> <span class="s1">&#39;remd.x.001&#39;</span><span class="p">],</span> <span class="s1">&#39;input.parm7&#39;</span><span class="p">)</span> 
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># user should always use :method:`pytraj.iterload` to load TrajectoryIterator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s">&#39;remd.x.000&#39;</span><span class="p">,</span> <span class="s">&#39;remd.x.001&#39;</span><span class="p">],</span> <span class="s">&#39;input.parm7&#39;</span><span class="p">)</span> 
 </pre></div>
 </div>
 <p class="rubric">Attributes</p>
@@ -288,10 +288,10 @@ the filenames</p>
 <p>if using &#8216;autoimage` with reference frame for rms-fit, make sure to <cite>autoimage</cite>
 ref first</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">traj</span><span class="o">.</span><span class="n">iterchunk</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">autoimage</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">rmsfit</span><span class="o">=</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="s1">&#39;@CA&#39;</span><span class="p">)):</span> <span class="k">pass</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">traj</span><span class="o">.</span><span class="n">iterchunk</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">autoimage</span><span class="o">=</span><span class="k">True</span><span class="p">,</span> <span class="n">rmsfit</span><span class="o">=</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">)):</span> <span class="k">pass</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -332,18 +332,18 @@ ref first</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span> <span class="k">pass</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">autoimage</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span> <span class="k">pass</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># use negative index</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">autoimage</span><span class="o">=</span><span class="k">True</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># use negative index</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">n_frames</span>
 <span class="go">10</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">autoimage</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">autoimage</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span><span class="o">.</span><span class="n">n_frames</span>
 <span class="go">5</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># mask is atom indices</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">autoimage</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># mask is atom indices</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">autoimage</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fi</span><span class="o">.</span><span class="n">n_atoms</span>
 <span class="go">100</span>
 </pre></div>
@@ -355,7 +355,7 @@ ref first</p>
 <code class="descname">metadata</code><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.metadata" title="Permalink to this definition">¶</a></dt>
 <dd><p>return a dict of general information</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">metadata</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">metadata</span>
 <span class="go">{&#39;box_type&#39;: &#39;ortho&#39;,</span>
 <span class="go"> &#39;has_box&#39;: True,</span>
 <span class="go"> &#39;has_force&#39;: False,</span>
@@ -385,10 +385,10 @@ ref first</p>
 <code class="descname">save</code><span class="sig-paren">(</span><em>self</em>, <em>filename=''</em>, <em>overwrite=True</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>convenient method to save Trajectory</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># save to DCD file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;traj.dcd&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># save to AMBER netcdf file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;traj.nc&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># save to DCD file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;traj.dcd&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># save to AMBER netcdf file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;traj.nc&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -397,7 +397,7 @@ ref first</p>
 <dt id="pytraj.trajectory_iterator.TrajectoryIterator.shape">
 <code class="descname">shape</code><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.shape" title="Permalink to this definition">¶</a></dt>
 <dd><p>(n_frames, n_atoms, 3)</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">shape</span>
 <span class="go">(10, 5293, 3)</span>
@@ -420,9 +420,9 @@ ref first</p>
 <code class="descname">topology</code><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.topology" title="Permalink to this definition">¶</a></dt>
 <dd><p>traditional name for Topology file</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.testing</span> <span class="kn">import</span> <span class="n">get_fn</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fname</span><span class="p">,</span> <span class="n">tname</span> <span class="o">=</span> <span class="n">get_fn</span><span class="p">(</span><span class="s1">&#39;ala3&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.testing</span> <span class="k">import</span> <span class="n">get_fn</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fname</span><span class="p">,</span> <span class="n">tname</span> <span class="o">=</span> <span class="n">get_fn</span><span class="p">(</span><span class="s">&#39;ala3&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">tname</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">topology</span>
 <span class="go">&lt;Topology: 34 atoms, 3 residues, 1 mols, non-PBC&gt;</span>
@@ -462,8 +462,8 @@ ref first</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Apr 23, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+      Last updated on Apr 24, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
     </p>
   </div>
 </footer>
