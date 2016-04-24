@@ -13,21 +13,21 @@ class TestNormalDistance(unittest.TestCase):
         traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         fa = traj[:]
         mask = ':1@CA :14@CB'
-        d0 = pt.calc_distance(traj, mask)
+        d0 = pt.distance(traj, mask)
         d1 = pt.distance(traj, mask)
-        d2 = pt.calc_distance(fa, mask)
+        d2 = pt.distance(fa, mask)
 
         aa_eq(d0, d1)
         aa_eq(d0, d2)
 
         Nsize = 12
         arr = np.random.randint(0, 300, size=Nsize * 2).reshape(Nsize, 2)
-        d3 = pt.calc_distance(fa, arr)
+        d3 = pt.distance(fa, arr)
         d4 = pt.distance(traj, arr)
-        d5 = pt.calc_distance(traj, arr)
-        d6 = pt.calc_distance(fa, arr)
-        d7 = pt.calc_distance([fa, traj], arr, n_frames=2 * fa.n_frames)
-        d8 = pt.calc_distance([fa, traj], arr, n_frames=2 * fa.n_frames, dtype='dataset')
+        d5 = pt.distance(traj, arr)
+        d6 = pt.distance(fa, arr)
+        d7 = pt.distance([fa, traj], arr, n_frames=2 * fa.n_frames)
+        d8 = pt.distance([fa, traj], arr, n_frames=2 * fa.n_frames, dtype='dataset')
         aa_eq(d3, d4)
         aa_eq(d3, d5)
         aa_eq(d3, d6)

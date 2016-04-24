@@ -6,6 +6,8 @@ from .get_common_objects import get_topology, get_resrange
 from .get_common_objects import get_reference, get_fiterator
 from pytraj.externals.six import iteritems, string_types
 
+__all__ = ['nastruct', 'nupars']
+
 
 def _group(self, key):
     # adapted from `toolz` package.

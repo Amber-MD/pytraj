@@ -10,7 +10,7 @@ import doctest
 from pytraj.compat import PY3
 from pytraj import testing
 from pytraj.datafiles import load_samples
-from pytraj.externals import energy
+from pytraj import energy_analysis
 from pytraj import frame, datafiles, cluster, nucleic_acid_analysis
 from pytraj.c_action import actionlist
 
@@ -43,7 +43,7 @@ class TestDoc(unittest.TestCase):
         if PY3:
             # avoid adding 'u' to string in PY2: u'GLU5_O-LYS8_N-H'
             if has_sander:
-                modules.append(energy)
+                modules.append(energy_analysis)
             additional_list = [
                 frame,
                 actionlist,

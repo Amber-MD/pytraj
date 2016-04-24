@@ -1,10 +1,12 @@
-from pytraj.shared_methods import iterframe_master
-from pytraj.get_common_objects import get_data_from_dtype, super_dispatch
-from pytraj.compat import range
-from pytraj.decorators import register_pmap
-from pytraj.externals.six import string_types
+from __future__ import absolute_import
 
-__all__ = ['energy_decomposition']
+from .shared_methods import iterframe_master
+from .get_common_objects import get_data_from_dtype, super_dispatch
+from .externals.six.moves import range
+from .externals.six import string_types
+from .decorators import register_pmap
+
+__all__ = ['esander']
 
 
 def _default_func():
@@ -14,15 +16,15 @@ def _default_func():
 
 @register_pmap
 @super_dispatch()
-def energy_decomposition(traj=None,
-                         prmtop=None,
-                         igb=8,
-                         mm_options=None,
-                         qm_options=None,
-                         mode=None,
-                         dtype='dict',
-                         frame_indices=None,
-                         top=None):
+def esander(traj=None,
+            prmtop=None,
+            igb=8,
+            mm_options=None,
+            qm_options=None,
+            mode=None,
+            dtype='dict',
+            frame_indices=None,
+            top=None):
     """energy decomposition by calling `libsander`
 
     Parameters
@@ -63,7 +65,7 @@ def energy_decomposition(traj=None,
     >>> traj = pt.datafiles.load_ala3()
     >>> traj.n_frames
     1
-    >>> data = pt.energy_decomposition(traj, igb=8)
+    >>> data = pt.esander(traj, igb=8)
     >>> data['gb']
     array([-92.88577683])
     >>> data['bond']
@@ -78,7 +80,7 @@ def energy_decomposition(traj=None,
     >>> traj = pt.iterload(rstfile, topfile)
     >>> options = sander.pme_input()
     >>> options.cut = 8.0
-    >>> edict = pt.energy_decomposition(traj=traj, mm_options=options)
+    >>> edict = pt.esander(traj=traj, mm_options=options)
     >>> edict['vdw']
     array([ 6028.95167558])
 
@@ -97,11 +99,22 @@ def energy_decomposition(traj=None,
     >>> qm_options.qmgb = 2
     >>> qm_options.adjust_q = 0
 
-    >>> edict = pt.energy_decomposition(traj=traj, mm_options=options, qm_options=qm_options)
+    >>> edict = pt.esander(traj=traj, mm_options=options, qm_options=qm_options)
     >>> edict['bond']
     array([ 0.00160733])
     >>> edict['scf']
     array([-11.92177575])
+
+    >>> # passing options to `pytraj.pmap`: need to pass string
+    >>> from pytraj.testing import get_fn
+    >>> fn, tn = get_fn('tz2')
+    >>> traj = pt.iterload(fn, tn)
+    >>> inp_str = 'mm_options = sander.pme_input()'
+    >>> edict = pt.pmap(pt.esander, traj, mm_options=inp_str, n_cores=2)
+    >>> edict['dihedral']
+    array([ 126.39307126,  127.0460586 ,  137.26793522,  125.30521069,
+            125.25110884,  137.69287326,  125.78280543,  125.14530517,
+            118.41540102,  128.73535036])
 
     Notes
     -----
@@ -110,13 +123,13 @@ def energy_decomposition(traj=None,
 
     Work with ``pytraj.pmap``::
 
-        pt.pmap(pt.energy_decomposition, traj, igb=8, dtype='dict')
+        pt.pmap(pt.esander, traj, igb=8, dtype='dict')
 
     Will NOT work with ``pytraj.pmap``::
 
         import sander
         inp = sander.gas_input(8)
-        pt.pmap(pt.energy_decomposition, traj, mm_options=inp, dtype='dict')
+        pt.pmap(pt.esander, traj, mm_options=inp, dtype='dict')
 
     Why? Because Python need to pickle each object to send to different cores and Python
     does not know how to pickle mm_options from sander.gas_input(8).

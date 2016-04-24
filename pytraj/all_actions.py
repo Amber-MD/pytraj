@@ -68,6 +68,7 @@ list_of_the_rest = ['rmsd', 'align_principal_axis', 'principal_axes', 'closest',
                     'xcorr', 'acorr',
                     'projection',
                     'superpose', 'strip',
+                    'center',
                     ]
 
 __all__ = list(set(list_of_do + list_of_calc_short + list_of_get + list_of_the_rest))
