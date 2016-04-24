@@ -48,7 +48,7 @@ class TestFrameIndices(unittest.TestCase):
         # remove center, why?
         # remove search_neighbors, why? (got messup with Frame memory owner)
         excluded_fn = [jcoupling, volmap,
-                       energy_decomposition, center, search_neighbors,
+                       center, search_neighbors,
                        atomiccorr, autoimage, closest,
                        volume, superpose, randomize_ions,
                        check_structure,
