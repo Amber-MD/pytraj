@@ -6,7 +6,7 @@ from .externals.six.moves import range
 from .externals.six import string_types
 from .decorators import register_pmap
 
-__all__ = ['energy_decomposition']
+__all__ = ['esander']
 
 
 def _default_func():
@@ -16,15 +16,15 @@ def _default_func():
 
 @register_pmap
 @super_dispatch()
-def energy_decomposition(traj=None,
-                         prmtop=None,
-                         igb=8,
-                         mm_options=None,
-                         qm_options=None,
-                         mode=None,
-                         dtype='dict',
-                         frame_indices=None,
-                         top=None):
+def esander(traj=None,
+            prmtop=None,
+            igb=8,
+            mm_options=None,
+            qm_options=None,
+            mode=None,
+            dtype='dict',
+            frame_indices=None,
+            top=None):
     """energy decomposition by calling `libsander`
 
     Parameters
@@ -65,7 +65,7 @@ def energy_decomposition(traj=None,
     >>> traj = pt.datafiles.load_ala3()
     >>> traj.n_frames
     1
-    >>> data = pt.energy_decomposition(traj, igb=8)
+    >>> data = pt.esander(traj, igb=8)
     >>> data['gb']
     array([-92.88577683])
     >>> data['bond']
@@ -80,7 +80,7 @@ def energy_decomposition(traj=None,
     >>> traj = pt.iterload(rstfile, topfile)
     >>> options = sander.pme_input()
     >>> options.cut = 8.0
-    >>> edict = pt.energy_decomposition(traj=traj, mm_options=options)
+    >>> edict = pt.esander(traj=traj, mm_options=options)
     >>> edict['vdw']
     array([ 6028.95167558])
 
@@ -99,7 +99,7 @@ def energy_decomposition(traj=None,
     >>> qm_options.qmgb = 2
     >>> qm_options.adjust_q = 0
 
-    >>> edict = pt.energy_decomposition(traj=traj, mm_options=options, qm_options=qm_options)
+    >>> edict = pt.esander(traj=traj, mm_options=options, qm_options=qm_options)
     >>> edict['bond']
     array([ 0.00160733])
     >>> edict['scf']
@@ -112,13 +112,13 @@ def energy_decomposition(traj=None,
 
     Work with ``pytraj.pmap``::
 
-        pt.pmap(pt.energy_decomposition, traj, igb=8, dtype='dict')
+        pt.pmap(pt.esander, traj, igb=8, dtype='dict')
 
     Will NOT work with ``pytraj.pmap``::
 
         import sander
         inp = sander.gas_input(8)
-        pt.pmap(pt.energy_decomposition, traj, mm_options=inp, dtype='dict')
+        pt.pmap(pt.esander, traj, mm_options=inp, dtype='dict')
 
     Why? Because Python need to pickle each object to send to different cores and Python
     does not know how to pickle mm_options from sander.gas_input(8).

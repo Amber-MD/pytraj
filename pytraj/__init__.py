@@ -92,7 +92,7 @@ from .dssp_analysis import calc_dssp, dssp_allatoms, dssp_allresidues
 from .nucleic_acid_analysis import nastruct
 from .nmr import ired_vector_and_matrix, _ired, NH_order_parameters
 from .hbond_analysis import hbond
-from .energy_analysis import energy_decomposition
+from .energy_analysis import esander
 
 from .all_actions import (
     calc_rmsd_nofit, rmsd, rmsd_perres, distance_rmsd, calc_multidihedral,
@@ -142,7 +142,7 @@ from .c_options import set_error_silent, set_world_silent
 from .cyutils import _fast_iterptr as iterframe_from_array
 
 # create alias
-esander = energy_decomposition
+energy_decomposition = esander
 check_overlap = check_structure
 fetch_pdb = load_pdb_rcsb
 rmsd_nofit = calc_rmsd_nofit
@@ -344,7 +344,7 @@ __all__ = (io.__all__
         + all_actions.__all__
         + dihedral_analysis.__all__
         + ['nastruct']
-        + ['energy_decomposition']
+        + ['esander']
         + ['Atom', 'Residue', 'Molecule', 'Topology', 'Frame', 'AtomMask',
            'Trajectory', 'TrajectoryIterator',
            'ActionList', 'ActionDict', 'AnalysisDict', 'adict', 'analdict',
