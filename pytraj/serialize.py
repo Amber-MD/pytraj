@@ -1,6 +1,6 @@
 from __future__ import absolute_import
-from .six.moves import cPickle as pkl
-from .six import PY3
+from .externals.six.moves import cPickle as pkl
+from .externals.six import PY3
 
 # all below are adapted from pandas package
 
