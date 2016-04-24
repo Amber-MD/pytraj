@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Welcome &mdash; pytraj 1.0.5.dev0+2c003c8 documentation</title>
+    <title>Welcome &mdash; pytraj 1.0.5.dev0+e7e77e5 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0.5.dev0+2c003c8',
+        VERSION:     '1.0.5.dev0+e7e77e5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.5.dev0+2c003c8 documentation" href="#" />
+    <link rel="top" title="pytraj 1.0.5.dev0+e7e77e5 documentation" href="#" />
     <link rel="next" title="Overview" href="overview.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -52,7 +52,7 @@
         </button>
         <a class="navbar-brand" href="#">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+2c003c8</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+e7e77e5</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -212,8 +212,36 @@
 <h3>Jupyter notebook</h3><a class="reference external image-reference" href="http://jupyter.org/"><img alt="http://jupyter.org/assets/jupyterpreview.png" src="http://jupyter.org/assets/jupyterpreview.png" style="height: 200px;" /></a>
 </div>
 <div class="col-md-3">
-<h3>Python packages with Anaconda</h3><a class="reference external image-reference" href="https://www.continuum.io/"><img height="200" src="https://www.continuum.io/sites/all/themes/continuum_foundation/images/logos/logo-anaconda.svg" /></a>
-</div>
+<h3> Trajectory visualization </h3>
+
+ <script src="ngl.embedded.min.js">
+ </script>
+
+ <script>
+
+   // adapted from NGL and MDAnalysis websites
+
+   if( !Detector.webgl ) Detector.addGetWebGLMessage();
+
+   NGL.mainScriptFilePath = "ngl.embedded.min.js";
+
+   function onInit(){
+       var stage = new NGL.Stage( "viewport" );
+       stage.loadFile( "_static/1tsu.pdb", { defaultRepresentation: true } );
+       stage.setTheme( "light" )
+
+       window.addEventListener( "resize", function( event ){
+          stage.handleResize();
+       }, false );
+   }
+
+   document.addEventListener( "DOMContentLoaded", function() {
+       NGL.init( onInit );
+   } );
+
+ </script>
+
+ <div id="viewport" style="max-width:100%; height:400px;"></div></div>
 <div class="col-md-3">
 <h3>Try pytraj online</h3><a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img src="http://mybinder.org/images/logo.svg" /></a>
 </div></div>

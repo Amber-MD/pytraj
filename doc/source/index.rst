@@ -87,15 +87,41 @@ Welcome
    :target: http://jupyter.org/
    :height: 200
 
+
 .. raw:: html
 
    </div>
    <div class="col-md-3">
-   <h3>Python packages with Anaconda</h3>
+   <h3> Trajectory visualization </h3>
 
-.. image:: https://www.continuum.io/sites/all/themes/continuum_foundation/images/logos/logo-anaconda.svg
-   :target: https://www.continuum.io/
-   :height: 200
+    <script src="ngl.embedded.min.js">
+    </script>
+    
+    <script>
+    
+      // adapted from NGL and MDAnalysis websites
+
+      if( !Detector.webgl ) Detector.addGetWebGLMessage();
+    
+      NGL.mainScriptFilePath = "ngl.embedded.min.js";
+    
+      function onInit(){
+          var stage = new NGL.Stage( "viewport" );
+          stage.loadFile( "_static/1tsu.pdb", { defaultRepresentation: true } );
+          stage.setTheme( "light" )
+      
+          window.addEventListener( "resize", function( event ){
+             stage.handleResize();
+          }, false );
+      }
+    
+      document.addEventListener( "DOMContentLoaded", function() {
+          NGL.init( onInit );
+      } );
+    
+    </script>
+    
+    <div id="viewport" style="max-width:100%; height:400px;"></div>
 
 .. raw:: html
 
