@@ -25,9 +25,10 @@ try ``pytraj`` online:
        nucleic_acid_analysis
        hbond_analysis 
        dssp_analysis 
-       energy_analysis 
+       dihedral_analysis
        vector_analysis
        matrix_analysis
+       energy_analysis 
        `Methods that modify Trajectory coordinates <modify_traj>`_
 
     .. toctree::
