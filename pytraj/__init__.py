@@ -110,7 +110,7 @@ from .all_actions import (
     timecorr, center, translate, rotate,
     rotate_dihedral, make_structure, scale, clustering_dataset, randomize_ions,
     set_dihedral, crank, closest, search_neighbors, replicate_cell,
-    calc_pairdist, _grid, transform, lowestcurve, calc_diffusion, calc_volmap,
+    calc_pairdist, _grid, grid, transform, lowestcurve, calc_diffusion, calc_volmap,
     calc_multivector, pca, projection,
     xcorr, acorr,
     check_structure,
@@ -340,6 +340,9 @@ def show_versions():
 # for website
 # do not put __all__ in the top of this file to avoid circular import (all_actions)
 __all__ = (io.__all__ + all_actions.__all__
+          + ['Atom', 'Residue', 'Molecule', 'Topology', 'Frame', 'AtomMask']
+          + ['Trajectory', 'TrajectoryIterator']
+          + ['ActionList', 'ActionDict', 'AnalysisDict']
           + ['dispatch', 'iterchunk', 'iterframe',
             'select', 'set_cpptraj_verbose', 'show_versions']
           + ['dihedral_analysis', 'hbond_analysis', 'dssp_analysis',
