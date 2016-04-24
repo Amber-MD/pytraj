@@ -18,8 +18,8 @@ source activate myenv
 conda install --yes anaconda-client coverage pyflakes
 
 # install other packages here
-pip install https://github.com/ParmEd/ParmEd/archive/master.zip
-conda install pysander -c ambermd --yes
+conda install parmed -c ambermd --yes
+conda install pysander -c hainm --yes
 pip install coveralls
 pip install coverage
 pip install nose
