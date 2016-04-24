@@ -1,8 +1,10 @@
-from pytraj.shared_methods import iterframe_master
-from pytraj.get_common_objects import get_data_from_dtype, super_dispatch
-from pytraj.compat import range
-from pytraj.decorators import register_pmap
-from pytraj.externals.six import string_types
+from __future__ import absolute_import
+
+from .shared_methods import iterframe_master
+from .get_common_objects import get_data_from_dtype, super_dispatch
+from .externals.six.moves import range
+from .externals.six import string_types
+from .decorators import register_pmap
 
 __all__ = ['energy_decomposition']
 

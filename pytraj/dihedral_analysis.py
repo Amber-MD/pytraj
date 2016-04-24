@@ -97,11 +97,14 @@ def calc_%s(traj=None, resrange="",
     return get_data_from_dtype(dslist, dtype=dtype)
 '''
 
+__all__ = []
+
 for key in supported_dihedral_types:
     if key != 'multidihedral':
         my_func_str = template % (key, key)
     else:
         my_func_str = template % (key, " ")
+    __all__.append('calc_' + key)
     g_dict = globals()
     exec(my_func_str)
 

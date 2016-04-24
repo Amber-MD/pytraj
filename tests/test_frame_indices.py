@@ -47,10 +47,10 @@ class TestFrameIndices(unittest.TestCase):
         # remove energy_decomposition since does not have sander
         # remove center, why?
         # remove search_neighbors, why? (got messup with Frame memory owner)
-        excluded_fn = [calc_jcoupling, calc_volmap,
+        excluded_fn = [jcoupling, volmap,
                        energy_decomposition, center, search_neighbors,
-                       calc_atomiccorr, autoimage, closest,
-                       calc_volume, superpose, randomize_ions,
+                       atomiccorr, autoimage, closest,
+                       volume, superpose, randomize_ions,
                        check_structure,
                        align_principal_axis, ]
         func_nu = [

@@ -92,7 +92,7 @@ from .dssp_analysis import calc_dssp, dssp_allatoms, dssp_allresidues
 from .nucleic_acid_analysis import nastruct
 from .nmr import ired_vector_and_matrix, _ired, NH_order_parameters
 from .hbond_analysis import hbond
-from .externals.energy import energy_decomposition
+from .energy_analysis import energy_decomposition
 
 from .all_actions import (
     calc_rmsd_nofit, rmsd, rmsd_perres, distance_rmsd, calc_multidihedral,
@@ -339,10 +339,14 @@ def show_versions():
 
 # for website
 # do not put __all__ in the top of this file to avoid circular import (all_actions)
-__all__ = (io.__all__ + all_actions.__all__
+__all__ = (io.__all__ 
+        + all_actions.__all__
+        + dihedral_analysis.__all__
+        + ['nastruct']
+        + ['energy_decomposition']
         + ['Atom', 'Residue', 'Molecule', 'Topology', 'Frame', 'AtomMask',
            'Trajectory', 'TrajectoryIterator',
-           'ActionList', 'ActionDict', 'AnalysisDict',
+           'ActionList', 'ActionDict', 'AnalysisDict', 'adict', 'analdict',
            'dispatch', 'iterchunk', 'iterframe',
            'select', 'set_cpptraj_verbose', 'show_versions',
            'dihedral_analysis', 'hbond_analysis', 'dssp_analysis',
