@@ -81,6 +81,19 @@ class TestSander(unittest.TestCase):
         assert_close(edict['elec'][0], -45371.5995, tol=3E-4)
 
     @unittest.skipIf(not amberhome, 'skip since there is no AMBERHOME')
+    def test_PME_with_esander(self):
+        # compare to saved test: PME
+        topfile = os.path.join(amberhome, "test/4096wat/prmtop")
+        rstfile = os.path.join(amberhome, "test/4096wat/eq1.x")
+        traj = pt.iterload(rstfile, topfile)
+        options = sander.pme_input()
+        options.cut = 8.0
+        edict = pt.esander(traj=traj, mm_options=options)
+        assert_close(edict['bond'][0], 0., tol=3E-4)
+        assert_close(edict['vdw'][0], 6028.9517, tol=3E-4)
+        assert_close(edict['elec'][0], -45371.5995, tol=3E-4)
+
+    @unittest.skipIf(not amberhome, 'skip since there is no AMBERHOME')
     def test_GB_QMMM(self):
         # compare to saved test: GB + QMMM
         topfile = os.path.join(amberhome, "test/qmmm2/lysine_PM3_qmgb2/prmtop")
