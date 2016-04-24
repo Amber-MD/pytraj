@@ -110,7 +110,7 @@ def esander(traj=None,
     >>> fn, tn = get_fn('tz2')
     >>> traj = pt.iterload(fn, tn)
     >>> inp_str = 'mm_options = sander.pme_input()'
-    >>> edict = pt.pmap(pt.esander, traj, mm_options=inp_str, n_cores=8)
+    >>> edict = pt.pmap(pt.esander, traj, mm_options=inp_str, n_cores=2)
     >>> edict['dihedral']
     array([ 126.39307126,  127.0460586 ,  137.26793522,  125.30521069,
             125.25110884,  137.69287326,  125.78280543,  125.14530517,
