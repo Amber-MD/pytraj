@@ -22,38 +22,38 @@ from .utils.convert import array2d_to_cpptraj_maskgroup
 from .topology import Topology
 
 list_of_calc = ['calc_distance',
-               'calc_dihedral',
-               'calc_radgyr',
-               'calc_angle',
-               'calc_surf',
-               'calc_molsurf',
-               'calc_volume',
-               'calc_matrix',
-               'calc_jcoupling',
-               'calc_watershell',
-               'calc_vector',
-               'calc_multivector',
-               'calc_volmap',
-               'calc_rdf',
-               'calc_pairdist',
-               'calc_multidihedral',
-               'calc_atomicfluct',
-               'calc_center_of_mass',
-               'calc_center_of_geometry',
-               'calc_pairwise_rmsd',
-               'calc_grid',
-               'calc_atomiccorr',
-               'calc_bfactors',
-               'calc_diffusion',
-               'calc_distance_rmsd',
-               'calc_mindist',
-               'calc_pairwise_distance',
-               'calc_rmsd_nofit',
-               'calc_rotation_matrix',
-               'calc_pca', ]
+                'calc_dihedral',
+                'calc_radgyr',
+                'calc_angle',
+                'calc_surf',
+                'calc_molsurf',
+                'calc_volume',
+                'calc_matrix',
+                'calc_jcoupling',
+                'calc_watershell',
+                'calc_vector',
+                'calc_multivector',
+                'calc_volmap',
+                'calc_rdf',
+                'calc_pairdist',
+                'calc_multidihedral',
+                'calc_atomicfluct',
+                'calc_center_of_mass',
+                'calc_center_of_geometry',
+                'calc_pairwise_rmsd',
+                'calc_grid',
+                'calc_atomiccorr',
+                'calc_bfactors',
+                'calc_diffusion',
+                'calc_distance_rmsd',
+                'calc_mindist',
+                'calc_pairwise_distance',
+                'calc_rmsd_nofit',
+                'calc_rotation_matrix',
+                'calc_pca', ]
 
 list_of_calc_short = [word.replace('calc_', '')
-                      for word in list_of_calc if not word in ['calc_matrix',]]
+                      for word in list_of_calc if not word in ['calc_matrix', ]]
 
 list_of_do = ['translate', 'rotate', 'autoimage', 'scale']
 
@@ -94,12 +94,12 @@ def _assert_mutable(trajiter):
 
 @register_pmap
 def distance(traj=None,
-                  mask="",
-                  frame_indices=None,
-                  dtype='ndarray',
-                  top=None,
-                  image=False,
-                  n_frames=None):
+             mask="",
+             frame_indices=None,
+             dtype='ndarray',
+             top=None,
+             image=False,
+             n_frames=None):
     # TODO: add image, noe, ...
     """compute distance between two maskes
 
@@ -208,11 +208,11 @@ calc_distance = distance
 
 
 def pairwise_distance(traj=None,
-                           mask_1='',
-                           mask_2='',
-                           top=None,
-                           dtype='ndarray',
-                           frame_indices=None):
+                      mask_1='',
+                      mask_2='',
+                      top=None,
+                      dtype='ndarray',
+                      frame_indices=None):
     '''compute pairwise distance between atoms in mask_1 and atoms in mask_2
 
     Parameters
@@ -400,12 +400,12 @@ def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
 
 @register_pmap
 def dihedral(traj=None,
-                  mask="",
-                  top=None,
-                  dtype='ndarray',
-                  frame_indices=None,
-                  *args,
-                  **kwargs):
+             mask="",
+             top=None,
+             dtype='ndarray',
+             frame_indices=None,
+             *args,
+             **kwargs):
     """compute dihedral angle between two maskes
 
     Parameters
@@ -513,10 +513,10 @@ calc_dihedral = dihedral
 
 @register_pmap
 def mindist(traj=None,
-                 command="",
-                 top=None,
-                 dtype='ndarray',
-                 frame_indices=None):
+            command="",
+            top=None,
+            dtype='ndarray',
+            frame_indices=None):
     '''compute mindist
 
     Examples
@@ -543,12 +543,12 @@ calc_mindist = mindist
 
 @super_dispatch()
 def diffusion(traj,
-                   mask="",
-                   tstep=1.0,
-                   individual=False,
-                   top=None,
-                   dtype='dataset',
-                   frame_indices=None):
+              mask="",
+              tstep=1.0,
+              individual=False,
+              top=None,
+              dtype='dataset',
+              frame_indices=None):
     '''compute diffusion
 
     Parameters
@@ -603,14 +603,14 @@ calc_diffusion = diffusion
 @register_pmap
 @register_openmp
 def watershell(traj=None,
-                    solute_mask='',
-                    solvent_mask=':WAT',
-                    lower=3.4,
-                    upper=5.0,
-                    image=True,
-                    dtype='dataset',
-                    frame_indices=None,
-                    top=None):
+               solute_mask='',
+               solvent_mask=':WAT',
+               lower=3.4,
+               upper=5.0,
+               image=True,
+               dtype='dataset',
+               frame_indices=None,
+               top=None):
     """(adapted from cpptraj doc): Calculate numbers of waters in 1st and 2nd solvation shells
     (defined by <lower cut> (default 3.4 Ang.) and <upper cut> (default 5.0 Ang.)
 
@@ -701,11 +701,11 @@ def calc_matrix(traj=None,
 @register_pmap
 @super_dispatch()
 def radgyr(traj=None,
-                mask="",
-                top=None,
-                nomax=True,
-                frame_indices=None,
-                dtype='ndarray'):
+           mask="",
+           top=None,
+           nomax=True,
+           frame_indices=None,
+           dtype='ndarray'):
     '''compute radius of gyration
 
     Examples
@@ -731,10 +731,10 @@ calc_radgyr = radgyr
 @register_pmap
 @super_dispatch()
 def surf(traj=None,
-              mask="",
-              dtype='ndarray',
-              frame_indices=None,
-              top=None):
+         mask="",
+         dtype='ndarray',
+         frame_indices=None,
+         top=None):
     '''calc surf (LCPO method)
 
     Examples
@@ -757,12 +757,12 @@ calc_surf = surf
 @register_pmap
 @super_dispatch()
 def molsurf(traj=None,
-                 mask="",
-                 probe=1.4,
-                 offset=0.0,
-                 dtype='ndarray',
-                 frame_indices=None,
-                 top=None):
+            mask="",
+            probe=1.4,
+            offset=0.0,
+            dtype='ndarray',
+            frame_indices=None,
+            top=None):
     '''calc molsurf
 
     Examples
@@ -794,12 +794,12 @@ calc_molsurf = molsurf
 @register_pmap
 @super_dispatch()
 def rotation_matrix(traj=None,
-                         mask="",
-                         ref=0,
-                         mass=False,
-                         frame_indices=None,
-                         top=None,
-                         with_rmsd=False):
+                    mask="",
+                    ref=0,
+                    mass=False,
+                    frame_indices=None,
+                    top=None,
+                    with_rmsd=False):
     '''compute rotation matrix with/without rmsd
 
     Parameters
@@ -849,10 +849,10 @@ calc_rotation_matrix = rotation_matrix
 
 @super_dispatch()
 def volume(traj=None,
-                mask="",
-                top=None,
-                dtype='ndarray',
-                frame_indices=None):
+           mask="",
+           top=None,
+           dtype='ndarray',
+           frame_indices=None):
     '''compute volume
 
     Examples
@@ -1008,18 +1008,18 @@ calc_volmap = volmap
 
 @register_openmp
 def rdf(traj=None,
-             solvent_mask=':WAT@O',
-             solute_mask='',
-             maximum=10.,
-             bin_spacing=0.5,
-             image=True,
-             density=0.033456,
-             volume=False,
-             center_solvent=False,
-             center_solute=False,
-             intramol=True,
-             frame_indices=None,
-             top=None):
+        solvent_mask=':WAT@O',
+        solute_mask='',
+        maximum=10.,
+        bin_spacing=0.5,
+        image=True,
+        density=0.033456,
+        volume=False,
+        center_solvent=False,
+        center_solute=False,
+        intramol=True,
+        frame_indices=None,
+        top=None):
     '''compute radial distribtion function. Doc was adapted lightly from cpptraj doc
 
     Returns
@@ -1155,11 +1155,11 @@ pairdist = calc_pairdist
 
 @super_dispatch()
 def jcoupling(traj=None,
-                   mask="",
-                   top=None,
-                   kfile=None,
-                   dtype='dataset',
-                   frame_indices=None):
+              mask="",
+              top=None,
+              kfile=None,
+              dtype='dataset',
+              frame_indices=None):
     """compute j-coupling
 
     Parameters
@@ -1482,13 +1482,13 @@ def clustering_dataset(array_like, command=''):
 @register_pmap
 @super_dispatch()
 def multidihedral(traj=None,
-                       dhtypes=None,
-                       resrange=None,
-                       define_new_type=None,
-                       range360=False,
-                       dtype='dataset',
-                       top=None,
-                       frame_indices=None):
+                  dhtypes=None,
+                  resrange=None,
+                  define_new_type=None,
+                  range360=False,
+                  dtype='dataset',
+                  top=None,
+                  frame_indices=None):
     """perform dihedral search
 
     Parameters
@@ -1566,10 +1566,10 @@ calc_multidihedral = multidihedral
 
 @super_dispatch()
 def atomicfluct(traj=None,
-                     mask="",
-                     top=None,
-                     dtype='ndarray',
-                     frame_indices=None):
+                mask="",
+                top=None,
+                dtype='ndarray',
+                frame_indices=None):
     '''
 
     Examples
@@ -1592,11 +1592,11 @@ calc_atomicfluct = atomicfluct
 
 
 def bfactors(traj=None,
-                  mask="",
-                  byres=True,
-                  top=None,
-                  dtype='ndarray',
-                  frame_indices=None):
+             mask="",
+             byres=True,
+             top=None,
+             dtype='ndarray',
+             frame_indices=None):
     # Not: do not use super_dispatch here since we used in calc_atomicfluct
     """calculate pseudo bfactor
 
@@ -1641,10 +1641,10 @@ calc_bfactors = bfactors
 
 @register_pmap
 def vector(traj=None,
-                command="",
-                frame_indices=None,
-                dtype='ndarray',
-                top=None):
+           command="",
+           frame_indices=None,
+           dtype='ndarray',
+           top=None):
     """perform vector calculation. See example below. Same as 'vector' command in cpptraj.
 
     Parameters
@@ -1758,10 +1758,10 @@ calc_center_of_mass = center_of_mass
 @register_pmap
 @super_dispatch()
 def center_of_geometry(traj=None,
-                            mask="",
-                            top=None,
-                            dtype='ndarray',
-                            frame_indices=None):
+                       mask="",
+                       top=None,
+                       dtype='ndarray',
+                       frame_indices=None):
 
     atom_mask_obj = top(mask)
     c_dslist = CpptrajDatasetList()
@@ -1780,12 +1780,12 @@ calc_center_of_geometry = center_of_geometry
 
 @register_openmp
 def pairwise_rmsd(traj=None,
-                       mask="",
-                       metric='rms',
-                       top=None,
-                       dtype='ndarray',
-                       mat_type='full',
-                       frame_indices=None):
+                  mask="",
+                  metric='rms',
+                  top=None,
+                  dtype='ndarray',
+                  mat_type='full',
+                  frame_indices=None):
     """calculate pairwise rmsd with different metrics.
 
     Parameters
@@ -2872,13 +2872,13 @@ calc_pca = pca
 @register_openmp
 @super_dispatch()
 def atomiccorr(traj,
-                    mask='',
-                    cut=None,
-                    min_spacing=None,
-                    byres=True,
-                    frame_indices=None,
-                    dtype='ndarray',
-                    top=None):
+               mask='',
+               cut=None,
+               min_spacing=None,
+               byres=True,
+               frame_indices=None,
+               dtype='ndarray',
+               top=None):
     '''compute average correlations between the motion of atoms in mask.
 
     Parameters
@@ -2910,6 +2910,7 @@ def atomiccorr(traj,
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 calc_atomiccorr = atomiccorr
+
 
 def _grid(traj,
           mask,
@@ -3060,6 +3061,7 @@ def xcorr(data0, data1, dtype='ndarray'):
 
 cross_correlation_function = xcorr
 
+
 def superpose(traj, *args, **kwd):
     '''
 
@@ -3071,6 +3073,7 @@ def superpose(traj, *args, **kwd):
     '''
     traj.superpose(*args, **kwd)
     return traj
+
 
 def strip(obj, mask):
     '''return a new Trajectory or FrameIterator or Topology with given mask.
