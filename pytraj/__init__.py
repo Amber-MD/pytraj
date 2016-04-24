@@ -338,6 +338,7 @@ def show_versions():
     print("cpptraj compiled flag = ", compiled_info())
 
 # for website
+# do not put __all__ in the top of this file to avoid circular import (all_actions)
 __all__ = (io.__all__ + all_actions.__all__
           + ['dispatch', 'iterchunk', 'iterframe',
             'select', 'set_cpptraj_verbose', 'show_versions']
