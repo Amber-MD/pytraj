@@ -3,8 +3,7 @@ import os
 import numpy as np
 
 from .externals.six import string_types, PY3
-from .externals.pickle_ import to_pickle, read_pickle
-from .externals.json_ import to_json, read_json
+from .serialize import to_pickle, read_pickle, to_json, read_json
 from .datafiles.load_samples import load_sample_data
 from .datafiles.load_cpptraj_file import load_cpptraj_file
 from .shared_methods import iterframe_master

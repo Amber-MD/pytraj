@@ -52,7 +52,7 @@ class TestDoc(unittest.TestCase):
                 pt.all_actions,
                 pt.topology,
                 pt.get_common_objects,
-                pt.parallel.multiprocessing_,
+                pt.parallel.multiprocess,
                 pt,
                 pt.io,
                 nucleic_acid_analysis,
