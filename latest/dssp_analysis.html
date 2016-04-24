@@ -1,0 +1,388 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>DSSP Analysis &mdash; pytraj 1.0.5.dev0+2c003c8 documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.5.dev0+2c003c8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="pytraj 1.0.5.dev0+2c003c8 documentation" href="index.html" />
+    <link rel="up" title="Analysis" href="analysis.html" />
+    <link rel="next" title="Energy Analysis" href="energy_analysis.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+2c003c8</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory.html#overview">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_and_write.html">Read and Write</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Use conda to manage different Python versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_viewer.html">Trajectory Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">DSSP Analysis</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="energy_analysis.html" title="Next Chapter: Energy Analysis"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Energy Analysis &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/dssp_analysis.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="dssp-analysis">
+<span id="id1"></span><h1>DSSP Analysis<a class="headerlink" href="#dssp-analysis" title="Permalink to this headline">¶</a></h1>
+<div class="custom-index container">
+<script type="text/javascript" src='_static/cindex.js'></script></div>
+<span class="target" id="module-pytraj.dssp_analysis"></span><dl class="function">
+<dt id="pytraj.dssp_analysis.calc_dssp">
+<code class="descclassname">pytraj.dssp_analysis.</code><code class="descname">calc_dssp</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>simplified=False</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.dssp_analysis.calc_dssp" title="Permalink to this definition">¶</a></dt>
+<dd><p>return dssp profile for frame/traj</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>mask: str</strong></p>
+<blockquote>
+<div><p>atom mask</p>
+</div></blockquote>
+<p><strong>frame_indices</strong> : {None, array-like}, default None, optional</p>
+<blockquote>
+<div><p>specify frame numbers for calculation.
+if None, do all frames</p>
+</div></blockquote>
+<p><strong>dtype</strong> : str, default &#8216;ndarray&#8217;</p>
+<blockquote>
+<div><p>return data type, for regular user, just use default one (ndarray).
+use dtype=&#8217;dataset&#8217; if wanting to get secondary structure in integer format</p>
+</div></blockquote>
+<p><strong>simplified</strong> : bool, default False</p>
+<blockquote>
+<div><p>if True, use simplified codes, only has &#8216;H&#8217;, &#8216;E&#8217; and &#8216;C&#8217;
+if False, use all DSSP codes</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">out_0: ndarray, shape=(n_residues,)</p>
+<blockquote>
+<div><p>residue names</p>
+</div></blockquote>
+<p>out_1: ndarray, shape=(n_frames, n_residues)</p>
+<blockquote>
+<div><p>DSSP for each residue</p>
+</div></blockquote>
+<p><strong>out_2</strong> : pytraj.DatasetList</p>
+<blockquote class="last">
+<div><p>average value for each secondary structure type</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="14%" />
+<col width="18%" />
+<col width="49%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Character</th>
+<th class="head">Integer</th>
+<th class="head">DSSP_Char</th>
+<th class="head">Seconday structure type</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>0</td>
+<td>0</td>
+<td>&#8216;0&#8217;</td>
+<td>None</td>
+</tr>
+<tr class="row-odd"><td>b</td>
+<td>1</td>
+<td>&#8216;E&#8217;</td>
+<td>Parallel Beta-sheet</td>
+</tr>
+<tr class="row-even"><td>B</td>
+<td>2</td>
+<td>&#8216;B&#8217;</td>
+<td>Anti-parallel Beta-sheet</td>
+</tr>
+<tr class="row-odd"><td>G</td>
+<td>3</td>
+<td>&#8216;G&#8217;</td>
+<td>3-10 helix</td>
+</tr>
+<tr class="row-even"><td>H</td>
+<td>4</td>
+<td>&#8216;H&#8217;</td>
+<td>Alpha helix</td>
+</tr>
+<tr class="row-odd"><td>I</td>
+<td>5</td>
+<td>&#8216;I&#8217;</td>
+<td>Pi (3-14) helix</td>
+</tr>
+<tr class="row-even"><td>T</td>
+<td>6</td>
+<td>&#8216;T&#8217;</td>
+<td>Turn</td>
+</tr>
+<tr class="row-odd"><td>S</td>
+<td>7</td>
+<td>&#8216;S&#8217;</td>
+<td>Bend</td>
+</tr>
+</tbody>
+</table>
+<p>Simlified codes:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="o">-</span> <span class="s">&#39;H&#39;</span><span class="p">:</span> <span class="n">include</span> <span class="s">&#39;H&#39;</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">,</span> <span class="s">&#39;I&#39;</span> <span class="p">(</span><span class="n">helix</span><span class="p">)</span>
+<span class="o">-</span> <span class="s">&#39;E&#39;</span><span class="p">:</span> <span class="n">include</span> <span class="s">&#39;E&#39;</span><span class="p">,</span> <span class="s">&#39;B&#39;</span> <span class="p">(</span><span class="n">strand</span><span class="p">)</span>
+<span class="o">-</span> <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="n">include</span> <span class="s">&#39;T&#39;</span><span class="p">,</span> <span class="s">&#39;S&#39;</span> <span class="ow">or</span> <span class="s">&#39;0&#39;</span> <span class="p">(</span><span class="n">coil</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Simlified codes will be mostly used for visulization in other packages.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_pdb_rcsb</span><span class="p">(</span><span class="s">&#39;1l2y&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">residues</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;:2-10&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">residues</span> 
+<span class="go">array([&#39;LEU:2&#39;, &#39;TYR:3&#39;, &#39;ILE:4&#39;, &#39;GLN:5&#39;, &#39;TRP:6&#39;, &#39;LEU:7&#39;, &#39;LYS:8&#39;,</span>
+<span class="go">       &#39;ASP:9&#39;, &#39;GLY:10&#39;],</span>
+<span class="go">      dtype=&#39;&lt;U6&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ss</span> 
+<span class="go">array([[&#39;0&#39;, &#39;H&#39;, &#39;H&#39;, ..., &#39;H&#39;, &#39;T&#39;, &#39;0&#39;],</span>
+<span class="go">       [&#39;0&#39;, &#39;H&#39;, &#39;H&#39;, ..., &#39;H&#39;, &#39;T&#39;, &#39;0&#39;],</span>
+<span class="go">       [&#39;0&#39;, &#39;H&#39;, &#39;H&#39;, ..., &#39;H&#39;, &#39;T&#39;, &#39;0&#39;],</span>
+<span class="go">       ...,</span>
+<span class="go">       [&#39;0&#39;, &#39;H&#39;, &#39;H&#39;, ..., &#39;H&#39;, &#39;T&#39;, &#39;0&#39;],</span>
+<span class="go">       [&#39;0&#39;, &#39;H&#39;, &#39;H&#39;, ..., &#39;H&#39;, &#39;H&#39;, &#39;0&#39;],</span>
+<span class="go">       [&#39;0&#39;, &#39;H&#39;, &#39;H&#39;, ..., &#39;H&#39;, &#39;T&#39;, &#39;0&#39;]],</span>
+<span class="go">      dtype=&#39;&lt;U1&#39;)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">residues</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">fetch_pdb</span><span class="p">(</span><span class="s">&#39;1l2y&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">residues</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ss</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="c"># first frame</span>
+<span class="go">[&#39;C&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;C&#39;, &#39;C&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.dssp_analysis.dssp_allatoms">
+<code class="descclassname">pytraj.dssp_analysis.</code><code class="descname">dssp_allatoms</code><span class="sig-paren">(</span><em>traj</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.dssp_analysis.dssp_allatoms" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate dssp for all atoms</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">ndarray, shape=(n_frames, n_atoms)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#pytraj.dssp_analysis.calc_dssp" title="pytraj.dssp_analysis.calc_dssp"><code class="xref py py-obj docutils literal"><span class="pre">calc_dssp</span></code></a></p>
+</div>
+<p class="rubric">Notes</p>
+<p>this method is not well optimized for speed.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">fetch_pdb</span><span class="p">(</span><span class="s">&#39;1l2y&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp_allatoms</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="go">[&#39;C&#39;, &#39;C&#39;, &#39;C&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.dssp_analysis.dssp_allresidues">
+<code class="descclassname">pytraj.dssp_analysis.</code><code class="descname">dssp_allresidues</code><span class="sig-paren">(</span><em>traj</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.dssp_analysis.dssp_allresidues" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate dssp for all residues. Mostly used for visulization.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">ndarray, shape=(n_frames, n_residues)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#pytraj.dssp_analysis.calc_dssp" title="pytraj.dssp_analysis.calc_dssp"><code class="xref py py-obj docutils literal"><span class="pre">calc_dssp</span></code></a></p>
+</div>
+<p class="rubric">Notes</p>
+<p>this method is not well optimized for speed.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_dpdp</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp_allresidues</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="go">[&#39;C&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;C&#39;, &#39;C&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;C&#39;, &#39;C&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">n_residues</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load trajectory having waters</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp_allresidues</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">n_residues</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">1704</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># only calculate protein residues, use `pytraj.dssp`</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">13</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, pytraj developers.<br/>
+      Last updated on Apr 24, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

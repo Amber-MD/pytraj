@@ -1,0 +1,318 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Energy Analysis &mdash; pytraj 1.0.5.dev0+2c003c8 documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.5.dev0+2c003c8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="pytraj 1.0.5.dev0+2c003c8 documentation" href="index.html" />
+    <link rel="up" title="Analysis" href="analysis.html" />
+    <link rel="next" title="Vector Analysis" href="vector_analysis.html" />
+    <link rel="prev" title="DSSP Analysis" href="dssp_analysis.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+2c003c8</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory.html#overview">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_and_write.html">Read and Write</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Use conda to manage different Python versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_viewer.html">Trajectory Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Energy Analysis</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="dssp_analysis.html" title="Previous Chapter: DSSP Analysis"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; DSSP Analysis</span>
+    </a>
+  </li>
+  <li>
+    <a href="vector_analysis.html" title="Next Chapter: Vector Analysis"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Vector Analysis &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/energy_analysis.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="energy-analysis">
+<span id="id1"></span><h1>Energy Analysis<a class="headerlink" href="#energy-analysis" title="Permalink to this headline">¶</a></h1>
+<div class="custom-index container">
+<script type="text/javascript" src='_static/cindex.js'></script></div>
+<span class="target" id="module-pytraj.energy_analysis"></span><dl class="function">
+<dt id="pytraj.energy_analysis.esander">
+<code class="descclassname">pytraj.energy_analysis.</code><code class="descname">esander</code><span class="sig-paren">(</span><em>traj=None</em>, <em>prmtop=None</em>, <em>igb=8</em>, <em>mm_options=None</em>, <em>qm_options=None</em>, <em>mode=None</em>, <em>dtype='dict'</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.energy_analysis.esander" title="Permalink to this definition">¶</a></dt>
+<dd><p>energy decomposition by calling <cite>libsander</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or iterables that produce Frame</p>
+<blockquote>
+<div><p>if <cite>traj</cite> does not hold Topology information, <cite>top</cite> must be provided</p>
+</div></blockquote>
+<p><strong>prmtop</strong> : str or Structure from ParmEd, default=None, optional</p>
+<blockquote>
+<div><p>To avoid any unexpected error, you should always provide original topology
+filename. If prmtop is None, pytraj will load Topology from traj.top.filename.</p>
+<ul class="simple">
+<li>why do you need to load additional topology filename? Because cpptraj and sander
+use different Topology object, can not convert from one to another.</li>
+</ul>
+</div></blockquote>
+<p><strong>igb</strong> : GB model, default=8 (GB-Neck2)</p>
+<blockquote>
+<div><p>If specify <cite>mm_options</cite>, this <cite>igb</cite> input will be ignored</p>
+</div></blockquote>
+<p><strong>mm_options</strong> : InputOptions from <cite>sander</cite>, default=None, optional</p>
+<blockquote>
+<div><p>if <cite>mm_options</cite> is None, use <cite>gas_input</cite> with given igb.
+If <cite>mm_options</cite> is not None, use this</p>
+</div></blockquote>
+<p><strong>qm_options</strong> : InputOptions from <cite>sander</cite> for QMMM, optional</p>
+<p><strong>mode</strong> : str, default=None, optional</p>
+<blockquote>
+<div><p>if mode=&#8217;minimal&#8217;, get only &#8216;bond&#8217;, &#8216;angle&#8217;, &#8216;dihedral&#8217; and &#8216;total&#8217; energies</p>
+</div></blockquote>
+<p><strong>top</strong> : pytraj.Topology or str, default=None, optional</p>
+<blockquote>
+<div><p>only need to specify this <code class="docutils literal"><span class="pre">top</span></code> if <code class="docutils literal"><span class="pre">traj</span></code> does not hold Topology</p>
+</div></blockquote>
+<p><strong>dtype</strong> : str, {&#8216;dict&#8217;, &#8216;dataset&#8217;, &#8216;ndarray&#8217;, &#8216;dataframe&#8217;}, default=&#8217;dict&#8217;</p>
+<blockquote>
+<div><p>return data type</p>
+</div></blockquote>
+<p><strong>frame_indices</strong> : None or 1D array-like, default None</p>
+<blockquote>
+<div><p>if not None, only perform calculation for given frames</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Dict of energies (to be used with DataFrame) or DatasetList</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>This method does not work with <cite>pytraj.pmap</cite> when you specify mm_options and
+qm_options. Use <cite>pytraj.pmap_mpi</cite> with MPI instead.</p>
+<p>Work with <code class="docutils literal"><span class="pre">pytraj.pmap</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">esander</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">igb</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;dict&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Will NOT work with <code class="docutils literal"><span class="pre">pytraj.pmap</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sander</span>
+<span class="n">inp</span> <span class="o">=</span> <span class="n">sander</span><span class="o">.</span><span class="n">gas_input</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">esander</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">mm_options</span><span class="o">=</span><span class="n">inp</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;dict&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Why? Because Python need to pickle each object to send to different cores and Python
+does not know how to pickle mm_options from sander.gas_input(8).</p>
+<p>This works with <code class="docutils literal"><span class="pre">pytraj.pmap_mpi</span></code> because pytraj explicitly create <code class="docutils literal"><span class="pre">mm_options</span></code>
+in each core without pickling.</p>
+<p class="rubric">Examples</p>
+<p>Examples are adapted from $AMBERHOME/test/sanderapi</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># GB energy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_ala3</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">n_frames</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">esander</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">igb</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">[</span><span class="s">&#39;gb&#39;</span><span class="p">]</span>
+<span class="go">array([-92.88577683])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">[</span><span class="s">&#39;bond&#39;</span><span class="p">]</span>
+<span class="go">array([ 5.59350521])</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># PME</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.testing</span> <span class="k">import</span> <span class="n">amberhome</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sander</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">topfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">amberhome</span><span class="p">,</span> <span class="s">&quot;test/4096wat/prmtop&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rstfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">amberhome</span><span class="p">,</span> <span class="s">&quot;test/4096wat/eq1.x&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="n">rstfile</span><span class="p">,</span> <span class="n">topfile</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">options</span> <span class="o">=</span> <span class="n">sander</span><span class="o">.</span><span class="n">pme_input</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">options</span><span class="o">.</span><span class="n">cut</span> <span class="o">=</span> <span class="mf">8.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edict</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">esander</span><span class="p">(</span><span class="n">traj</span><span class="o">=</span><span class="n">traj</span><span class="p">,</span> <span class="n">mm_options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edict</span><span class="p">[</span><span class="s">&#39;vdw&#39;</span><span class="p">]</span>
+<span class="go">array([ 6028.95167558])</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># GB + QMMM</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">topfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">amberhome</span><span class="p">,</span> <span class="s">&quot;test/qmmm2/lysine_PM3_qmgb2/prmtop&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rstfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">amberhome</span><span class="p">,</span> <span class="s">&quot;test/qmmm2/lysine_PM3_qmgb2/lysine.crd&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="n">rstfile</span><span class="p">,</span> <span class="n">topfile</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">options</span> <span class="o">=</span> <span class="n">sander</span><span class="o">.</span><span class="n">gas_input</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">options</span><span class="o">.</span><span class="n">cut</span> <span class="o">=</span> <span class="mf">99.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">options</span><span class="o">.</span><span class="n">ifqnt</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qm_options</span> <span class="o">=</span> <span class="n">sander</span><span class="o">.</span><span class="n">qm_input</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qm_options</span><span class="o">.</span><span class="n">iqmatoms</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qm_options</span><span class="o">.</span><span class="n">qm_theory</span> <span class="o">=</span> <span class="s">&quot;PM3&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qm_options</span><span class="o">.</span><span class="n">qmcharge</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qm_options</span><span class="o">.</span><span class="n">qmgb</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qm_options</span><span class="o">.</span><span class="n">adjust_q</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">edict</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">esander</span><span class="p">(</span><span class="n">traj</span><span class="o">=</span><span class="n">traj</span><span class="p">,</span> <span class="n">mm_options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span> <span class="n">qm_options</span><span class="o">=</span><span class="n">qm_options</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edict</span><span class="p">[</span><span class="s">&#39;bond&#39;</span><span class="p">]</span>
+<span class="go">array([ 0.00160733])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edict</span><span class="p">[</span><span class="s">&#39;scf&#39;</span><span class="p">]</span>
+<span class="go">array([-11.92177575])</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># passing options to `pytraj.pmap`: need to pass string</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.testing</span> <span class="k">import</span> <span class="n">get_fn</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span> <span class="o">=</span> <span class="n">get_fn</span><span class="p">(</span><span class="s">&#39;tz2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">inp_str</span> <span class="o">=</span> <span class="s">&#39;mm_options = sander.pme_input()&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edict</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">esander</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">mm_options</span><span class="o">=</span><span class="n">inp_str</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edict</span><span class="p">[</span><span class="s">&#39;dihedral&#39;</span><span class="p">]</span>
+<span class="go">array([ 126.39307126,  127.0460586 ,  137.26793522,  125.30521069,</span>
+<span class="go">        125.25110884,  137.69287326,  125.78280543,  125.14530517,</span>
+<span class="go">        118.41540102,  128.73535036])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, pytraj developers.<br/>
+      Last updated on Apr 24, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
