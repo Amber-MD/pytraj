@@ -198,7 +198,7 @@ analdict = AnalysisDict()
 # import parallel package after all pytraj or cpptraj's method so we
 # can import them to parallel namespace
 # import _pmap here to be called from nmr module
-from .parallel.multiprocessing import pmap, _pmap
+from .parallel.multiprocess import pmap, _pmap
 from .parallel.mpi import pmap_mpi
 from .parallel.base import _load_batch_pmap
 from .visualization import view

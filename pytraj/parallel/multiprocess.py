@@ -1,4 +1,5 @@
 # do not use relative import here. Treat this module as a seperated package.
+from __future__ import absolute_import
 import numpy as np
 from functools import partial
 from collections import OrderedDict
