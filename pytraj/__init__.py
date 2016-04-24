@@ -142,6 +142,7 @@ from .c_options import set_error_silent, set_world_silent
 from .cyutils import _fast_iterptr as iterframe_from_array
 
 # create alias
+esander = energy_decomposition
 check_overlap = check_structure
 fetch_pdb = load_pdb_rcsb
 rmsd_nofit = calc_rmsd_nofit
