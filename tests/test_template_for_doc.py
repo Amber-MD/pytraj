@@ -30,7 +30,7 @@ class TestDoc(unittest.TestCase):
     '''
 
     def test_doc(self):
-        from pytraj.parallel import multiprocessing_
+        from pytraj.parallel import multiprocessing
         modules = [pt.all_actions, ]
         if PY3:
             assert get_total_errors(
