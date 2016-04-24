@@ -338,7 +338,7 @@ def show_versions():
     print("cpptraj compiled flag = ", compiled_info())
 
 # for website
-__all__ = (all_actions.__all__
+__all__ = (io.__all__ + all_actions.__all__
           + ['dispatch', 'iterchunk', 'iterframe',
             'select', 'set_cpptraj_verbose', 'show_versions']
           + ['dihedral_analysis', 'hbond_analysis', 'dssp_analysis',
