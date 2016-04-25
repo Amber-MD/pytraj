@@ -5,7 +5,9 @@ from pytraj import adict
 from pytraj.testing import aa_eq
 
 
-class TestBasic(unittest.TestCase):
+class TestSuperposeTrajectory(unittest.TestCase):
+    """superpose mutable Trajectory
+    """
 
     def test_frame_fit(self):
         traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
@@ -124,6 +126,20 @@ class TestBasic(unittest.TestCase):
         pt.rmsd(t0, ref=traj[0], mask='@CA')
         pt.superpose(t1, ref=traj[0], mask='@CA')
         aa_eq(t0.xyz, t1.xyz)
+
+class TestSuperposeTrajectoryIterator(unittest.TestCase):
+    """test superpose TrajectoryIterator
+    """
+
+    def test_superpose_trajectory_iterator(self):
+        traj_immut= pt.iterload("data/Tc5b.x", "data/Tc5b.top")
+        traj_mut = pt.load("data/Tc5b.x", "data/Tc5b.top")
+
+        ref = pt.iterload("data/Tc5b.crd", "data/Tc5b.top")[0]
+        traj_mut.superpose(ref=ref, mask='@CA')
+        traj_immut.superpose(ref=ref, mask='@CA')
+        
+        aa_eq(traj_mut.xyz, traj_immut.xyz)
 
 
 if __name__ == "__main__":
