@@ -229,7 +229,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
 
     @property
     def topology(self):
-        """traditional name for Topology file
+        """alias of traj.top
 
         Examples
         --------
@@ -557,7 +557,11 @@ class TrajectoryIterator(TrajectoryCpptraj):
 
     @property
     def temperatures(self):
+        """return 1D array of temperatures
+        """
         return np.array([frame.temperature for frame in self])
 
     def at(self, index):
+        """same as traj[index]
+        """
         return self[index]
