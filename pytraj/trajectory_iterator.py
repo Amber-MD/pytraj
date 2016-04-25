@@ -16,6 +16,7 @@ from .frameiter import FrameIterator
 from .get_common_objects import _load_Topology
 from .utils import split_range
 from .utils.convert import array_to_cpptraj_atommask
+from pytraj.get_common_objects import  get_reference
 
 __all__ = ['TrajectoryIterator', ]
 
@@ -439,6 +440,50 @@ class TrajectoryIterator(TrajectoryCpptraj):
         (10, 5293, 3)
         '''
         return (self.n_frames, self.n_atoms, 3)
+
+    def superpose(self, ref=None, mask='*'):
+        """register to superpose to reference frame when iterating. 
+        To turn off superposing, set traj._is_superposed = False
+
+        Notes
+        -----
+        This method is different from ``superpose`` in pytraj.Trajectory.
+        It does not change the coordinates of TrajectoryCpptraj/TrajectoryIterator itself but 
+        changing the coordinates of copied Frame.
+
+        This method is mainly for NGLView in Jupyter notebook, to view out-of-core data.
+        It's good to do translation and rotation on the fly.
+
+
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> traj = pt.datafiles.load_tz2()
+        >>> isinstance(traj, pt.TrajectoryIterator)
+        True
+        >>> traj[0].xyz[0]
+        array([-1.88900006,  9.1590004 ,  7.56899977])
+
+        >>> # turn on superpose
+        >>> traj.superpose(ref=-1, mask='@CA')
+        >>> traj[0].xyz[0]
+        array([ 6.97324167,  8.82901548,  1.31844696])
+
+        >>> # turn off superpose
+        >>> traj._is_superposed = False
+        >>> traj[0].xyz[0]
+        array([-1.88900006,  9.1590004 ,  7.56899977])
+
+        Example for NGLView::
+
+            import pytraj as pt, nglview as nv
+            traj = pt.datafiles.load_tz2()
+            traj.superpose(ref=0, mask='@CA')
+            view = nv.show_pytraj(traj)
+            view
+        """
+        ref = get_reference(self, ref)
+        super(TrajectoryIterator, self).superpose(ref=ref, mask=mask)
 
     def _split_iterators(self,
                          n_chunks=1,

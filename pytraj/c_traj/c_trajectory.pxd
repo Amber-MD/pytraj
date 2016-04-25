@@ -28,3 +28,5 @@ cdef class TrajectoryCpptraj:
     cdef list _filelist
     cdef public _base
     cdef public bint _own_memory
+    cdef public bint _is_superposed
+    cdef public dict _ref_dict # used
