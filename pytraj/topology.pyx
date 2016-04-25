@@ -345,7 +345,7 @@ cdef class Topology:
             atoms.append(SimplifiedAtom(name=atom.c_str().strip(),
                                         type=atom.Type().Truncated(),
                                         element=get_key(
-                                            atom.Element(), AtomicElementDict),
+                                            atom.Element(), AtomicElementDict).lower(),
                                         charge=atom.Charge(),
                                         mass=atom.Mass(),
                                         index=idx,
