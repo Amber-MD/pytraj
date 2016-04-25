@@ -49,12 +49,12 @@ class SimplifiedAtom(
 class SimplifiedResidue(
     namedtuple(
         'SimplifiedResidue',
-        'name index first_atom_index last_atom_index')):
+        'name index first last')):
     __slots__ = ()
 
     def __str__(self):
         return 'SimplifiedResidue(name={}, index={}, atom_range={}-{})'.format(
-            self.name, self.index, self.first_atom_index, self.last_atom_index)
+            self.name, self.index, self.first, self.last)
 
     def __repr__(self):
         return str(self)
@@ -279,7 +279,7 @@ cdef class Topology:
             yield atom
 
     def select(self, mask):
-        """return AtomMask object
+        """return atom indices
 
         Examples
         --------
@@ -315,7 +315,23 @@ cdef class Topology:
                 incr(it)
 
     def simplify(self):
-        '''get a light version (immutable) of Topology for fast iterating
+        '''return a (immutable) light version of Topology for fast iterating. (experiment)
+
+        No writing capabibility (you should use ParmEd for Topology editing)
+
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> top = pt.load_topology('data/tz2.parm7')
+
+        >>> simp_top = top.simplify()
+        >>> atom = simp_top.atoms[0]
+        >>> atom.resname
+        'SER'
+
+        >>> res = simp_top.residues[0]
+        >>> # get all atoms for 1st residue
+        >>> atoms = simp_top.atoms[res.first:res.last]
         '''
         cdef _Atom atom
         cdef atom_iterator ait
@@ -335,7 +351,7 @@ cdef class Topology:
             atoms.append(SimplifiedAtom(name=atom.c_str().strip(),
                                         type=atom.Type().Truncated(),
                                         element=get_key(
-                                            atom.Element(), AtomicElementDict),
+                                            atom.Element(), AtomicElementDict).lower(),
                                         charge=atom.Charge(),
                                         mass=atom.Mass(),
                                         index=idx,
@@ -353,8 +369,8 @@ cdef class Topology:
             res = deref(rit)
             residues.append(SimplifiedResidue(name=res.c_str().strip(),
                                               index=idx,
-                                              first_atom_index=res.FirstAtom(),
-                                              last_atom_index=res.LastAtom()))
+                                              first=res.FirstAtom(),
+                                              last=res.LastAtom()))
             idx += 1
             incr(rit)
         return SimplifiedTopology(atoms=atoms, residues=residues)
@@ -384,22 +400,29 @@ cdef class Topology:
                 incr(it)
 
     property atomlist:
-        '''return a copy of a list of atoms. If the Topology is large, this method calling
-        is every expensive. Make sure to save atomlist.
+        '''return a copy of atoms. If the Topology is large, this method calling
+        is every expensive. Make sure to call once and save it.
         '''
 
         def __get__(self):
             return list(self.atoms)
 
     property residuelist:
+        """return a copy of residues
+        """
         def __get__(self):
             return list(self.residues)
 
     property moleculelist:
+        """return a copy of molecules. (not much information)
+        """
         def __get__(self):
             return list(self.mols)
 
     def summary(self):
+        """basic info. This information only appears in Ipython or Python shell. 
+        It does not appear in Jupyter notebook (due to C++ stdout)
+        """
         set_world_silent(False)
         self.thisptr.Summary()
         set_world_silent(True)
@@ -408,6 +431,8 @@ cdef class Topology:
         self.thisptr.StartNewMol()
 
     property filename:
+        """return original filename. This is for testing purpose.
+        """
         def __get__(self):
             # I want to keep _original_filename so don't need to
             # change other codes
@@ -532,18 +557,18 @@ cdef class Topology:
         return atm.indices
 
     property atom_names:
+        """return unique atom name in Topology
+        """
         def __get__(self):
-            """return unique atom name in Topology
-            """
             s = set()
             for atom in self.atoms:
                 s.add(atom.name)
             return s
 
     property residue_names:
+        """return unique residue names in Topology
+        """
         def __get__(self):
-            """return unique residue names in Topology
-            """
             s = set()
             for residue in self.residues:
                 s.add(residue.name)
@@ -736,6 +761,8 @@ cdef class Topology:
 
     @classmethod
     def from_dict(cls, dict_data):
+        """internal use for serialize Topology
+        """
         new_top = Topology()
         new_top.__setstate__(dict_data)
         return new_top
@@ -781,6 +808,8 @@ cdef class Topology:
         return d
 
     def to_dataframe(self):
+        """convert to pandas' DataFrame. (experiment)
+        """
         import pandas as pd
         cdef:
             int n_atoms = self.n_atoms
@@ -812,13 +841,19 @@ cdef class Topology:
         """try to load to ParmEd's Structure
         """
         import parmed as pmd
-        return pmd.load_file(self.filename)
+        from pytraj.utils import tempfolder
+
+        with tempfolder():
+            self.save("tmp.prmtop", overwrite=True)
+            return pmd.load_file("tmp.prmtop")
 
     property _total_charge:
         def __get__(self):
             return sum([atom.charge for atom in self.atoms])
 
     def save(self, filename=None, format='AMBERPARM'):
+        """save to given file format (parm7, psf, ...)
+        """
         parm = ParmFile()
         parm.writeparm(filename=filename, top=self, format=format)
 
@@ -830,7 +865,6 @@ cdef class Topology:
 
     def residue(self, int idx, bint atom=False):
         '''
-
         if atom is True, get full list of atoms for idx-th residue. This will be very slow
         if atom is False, get ()
         '''

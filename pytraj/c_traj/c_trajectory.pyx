@@ -107,6 +107,8 @@ cdef class TrajectoryCpptraj:
 
     @property
     def n_frames(self):
+        """total snapshots
+        """
         return self.thisptr.Size()
 
     @property
@@ -160,6 +162,8 @@ cdef class TrajectoryCpptraj:
             yield frame
 
     property top:
+        """Topology
+        """
         def __get__(self):
             #self._top.thisptr[0] = self.thisptr.Top()
             self._top.thisptr = self.thisptr.TopPtr()

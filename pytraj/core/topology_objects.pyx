@@ -107,8 +107,7 @@ cdef class Atom:
         # I really miss python 3.5 unpacking
         # return name, *Element[self.atomic_number]
         name = get_key(self.thisptr.Element(), AtomicElementDict)
-        x = [name, ] + list(Element[self.atomic_number])
-        return tuple(x)
+        return name.lower()
 
     @property
     def atomic_number(self):
@@ -197,7 +196,15 @@ cdef class Residue:
         return self.thisptr.FirstAtom()
 
     @property
-    def last_atom_index(self):
+    def first(self):
+        """return first atom index (alias of first_atom_index. (experiment))
+        """
+        return self.thisptr.FirstAtom()
+
+    @property
+    def last(self):
+        """return last atom index (alias of first_atom_index. (experiment))
+        """
         return self.thisptr.LastAtom()
 
     property original_resid:
