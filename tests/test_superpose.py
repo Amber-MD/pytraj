@@ -133,7 +133,8 @@ class TestSuperposeTrajectoryIterator(unittest.TestCase):
     """
 
     def test_superpose_trajectory_iterator(self):
-        traj_immut= pt.iterload("data/Tc5b.x", "data/Tc5b.top")
+        traj_immut = pt.iterload("data/Tc5b.x", "data/Tc5b.top")
+        traj_immut2 = pt.iterload("data/Tc5b.x", "data/Tc5b.top")
         traj_mut = pt.load("data/Tc5b.x", "data/Tc5b.top")
 
         ref = pt.iterload("data/Tc5b.crd", "data/Tc5b.top")[0]
@@ -149,6 +150,10 @@ class TestSuperposeTrajectoryIterator(unittest.TestCase):
 
             aa_eq(pt.load('t0.nc', traj_mut.top).xyz,
                   pt.load('t1.nc', traj_immut.top).xyz)
+
+        # turn off superpose
+        traj_immut._is_superposed = False
+        aa_eq(traj_immut.xyz, traj_immut2.xyz)
 
 if __name__ == "__main__":
     unittest.main()
