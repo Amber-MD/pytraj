@@ -257,16 +257,16 @@ if False, use all DSSP codes</p>
 </tbody>
 </table>
 <p>Simlified codes:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>- &#39;H&#39;: include &#39;H&#39;, &#39;G&#39;, &#39;I&#39; (helix)
-- &#39;E&#39;: include &#39;E&#39;, &#39;B&#39; (strand)
-- &#39;C&#39;: include &#39;T&#39;, &#39;S&#39; or &#39;0&#39; (coil)
+<div class="highlight-default"><div class="highlight"><pre><span class="o">-</span> <span class="s">&#39;H&#39;</span><span class="p">:</span> <span class="n">include</span> <span class="s">&#39;H&#39;</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">,</span> <span class="s">&#39;I&#39;</span> <span class="p">(</span><span class="n">helix</span><span class="p">)</span>
+<span class="o">-</span> <span class="s">&#39;E&#39;</span><span class="p">:</span> <span class="n">include</span> <span class="s">&#39;E&#39;</span><span class="p">,</span> <span class="s">&#39;B&#39;</span> <span class="p">(</span><span class="n">strand</span><span class="p">)</span>
+<span class="o">-</span> <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="n">include</span> <span class="s">&#39;T&#39;</span><span class="p">,</span> <span class="s">&#39;S&#39;</span> <span class="ow">or</span> <span class="s">&#39;0&#39;</span> <span class="p">(</span><span class="n">coil</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Simlified codes will be mostly used for visulization in other packages.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_pdb_rcsb</span><span class="p">(</span><span class="s1">&#39;1l2y&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">residues</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s2">&quot;:2-10&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_pdb_rcsb</span><span class="p">(</span><span class="s">&#39;1l2y&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">residues</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&quot;:2-10&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">residues</span> 
 <span class="go">array([&#39;LEU:2&#39;, &#39;TYR:3&#39;, &#39;ILE:4&#39;, &#39;GLN:5&#39;, &#39;TRP:6&#39;, &#39;LEU:7&#39;, &#39;LYS:8&#39;,</span>
 <span class="go">       &#39;ASP:9&#39;, &#39;GLY:10&#39;],</span>
@@ -282,12 +282,12 @@ if False, use all DSSP codes</p>
 <span class="go">      dtype=&#39;&lt;U1&#39;)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">residues</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">residues</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">fetch_pdb</span><span class="p">(</span><span class="s1">&#39;1l2y&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">residues</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ss</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="c1"># first frame</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">fetch_pdb</span><span class="p">(</span><span class="s">&#39;1l2y&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">residues</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ss</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="c"># first frame</span>
 <span class="go">[&#39;C&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;C&#39;, &#39;C&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;H&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;]</span>
 </pre></div>
 </div>
@@ -312,9 +312,9 @@ if False, use all DSSP codes</p>
 <p class="rubric">Notes</p>
 <p>this method is not well optimized for speed.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">fetch_pdb</span><span class="p">(</span><span class="s1">&#39;1l2y&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp_allatoms</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">fetch_pdb</span><span class="p">(</span><span class="s">&#39;1l2y&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp_allatoms</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 <span class="go">[&#39;C&#39;, &#39;C&#39;, &#39;C&#39;]</span>
 </pre></div>
@@ -340,24 +340,24 @@ if False, use all DSSP codes</p>
 <p class="rubric">Notes</p>
 <p>this method is not well optimized for speed.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_dpdp</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp_allresidues</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp_allresidues</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 <span class="go">[&#39;C&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;C&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;C&#39;, &#39;C&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;C&#39;, &#39;C&#39;]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">n_residues</span>
 <span class="go">True</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># load trajectory having waters</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># load trajectory having waters</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp_allresidues</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp_allresidues</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">n_residues</span>
 <span class="go">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="go">1704</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># only calculate protein residues, use `pytraj.dssp`</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># only calculate protein residues, use `pytraj.dssp`</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="go">13</span>
 </pre></div>
@@ -380,7 +380,7 @@ if False, use all DSSP codes</p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
       Last updated on Apr 24, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
     </p>
   </div>
 </footer>

@@ -593,9 +593,9 @@ if atom is False, get ()</p>
 <p class="rubric">Notes</p>
 <p>support openmp for distance-based atommask selction</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">atm</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;@CA&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">atm</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s">&quot;@CA&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">atm</span>
 <span class="go">array([  4,  15,  39, ..., 159, 173, 197])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">atm</span><span class="p">)</span>
@@ -778,7 +778,7 @@ arglist : ArgList instance, optional</p>
 
 <dl class="class">
 <dt id="pytraj.topology.SimplifiedAtom">
-<em class="property">class </em><code class="descclassname">pytraj.topology.</code><code class="descname">SimplifiedAtom</code><span class="sig-paren">(</span><em>name</em>, <em>type</em>, <em>element</em>, <em>charge</em>, <em>mass</em>, <em>index</em>, <em>atomic_number</em>, <em>resname</em>, <em>resid</em>, <em>molnum</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.SimplifiedAtom" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pytraj.topology.</code><code class="descname">SimplifiedAtom</code><a class="headerlink" href="#pytraj.topology.SimplifiedAtom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">importlib._bootstrap.SimplifiedAtom</span></code></p>
 <p class="rubric">Attributes</p>
 <table border="1" class="longtable docutils">
@@ -900,7 +900,7 @@ arglist : ArgList instance, optional</p>
 
 <dl class="class">
 <dt id="pytraj.topology.SimplifiedResidue">
-<em class="property">class </em><code class="descclassname">pytraj.topology.</code><code class="descname">SimplifiedResidue</code><span class="sig-paren">(</span><em>name</em>, <em>index</em>, <em>first_atom_index</em>, <em>last_atom_index</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.SimplifiedResidue" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pytraj.topology.</code><code class="descname">SimplifiedResidue</code><a class="headerlink" href="#pytraj.topology.SimplifiedResidue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">importlib._bootstrap.SimplifiedResidue</span></code></p>
 <p class="rubric">Attributes</p>
 <table border="1" class="longtable docutils">
@@ -982,7 +982,7 @@ arglist : ArgList instance, optional</p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
       Last updated on Apr 24, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
     </p>
   </div>
 </footer>

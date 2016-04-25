@@ -165,7 +165,7 @@
 <p>Original tutorial is from <a class="reference external" href="http://mdtraj.org/latest/examples/clustering.html">MDtraj</a></p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">this example only shows how to populate <code class="docutils literal"><span class="pre">pytraj</span></code> to <code class="docutils literal"><span class="pre">python</span></code>&#8216;s ecosystem. Users should check <a class="reference internal" href="../_api/clustering.html#clustering"><span>Cluster Analysis</span></a></p>
+<p class="last">this example only shows how to populate <code class="docutils literal"><span class="pre">pytraj</span></code> to <code class="docutils literal"><span class="pre">python</span></code>&#8216;s ecosystem. Users should check <a class="reference internal" href="../_api/clustering.html#clustering"><span class="std std-ref">Cluster Analysis</span></a></p>
 </div>
 <div class="ipynotebook" id="notebook-container">
 
@@ -174,9 +174,9 @@
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
 
 <span class="o">%</span><span class="k">matplotlib</span> inline
 
@@ -196,8 +196,8 @@
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load data</span>
-<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.parm7&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># load data</span>
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.parm7&#39;</span><span class="p">)</span>
 <span class="n">traj</span>
 </pre></div>
 
@@ -230,17 +230,17 @@ Size: 0.000503 (GB)
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># calculate pairwise rmsd with `autoimage=True`</span>
-<span class="c1"># generally we only need to cluster a subset of atoms.</span>
-<span class="c1"># cluster for &#39;CA&#39; atoms</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># calculate pairwise rmsd with `autoimage=True`</span>
+<span class="c"># generally we only need to cluster a subset of atoms.</span>
+<span class="c"># cluster for &#39;CA&#39; atoms</span>
 
-<span class="n">distances</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="n">autoimage</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="n">distances</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="n">autoimage</span><span class="o">=</span><span class="k">True</span><span class="p">),</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">)</span>
 
-<span class="c1"># use `scipy` to perform clustering</span>
+<span class="c"># use `scipy` to perform clustering</span>
 <span class="n">linkage</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">hierarchy</span><span class="o">.</span><span class="n">ward</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span>
 
-<span class="n">scipy</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">hierarchy</span><span class="o">.</span><span class="n">dendrogram</span><span class="p">(</span><span class="n">linkage</span><span class="p">,</span> <span class="n">no_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">count_sort</span><span class="o">=</span><span class="s1">&#39;descendent&#39;</span><span class="p">)</span>
-<span class="kc">None</span>
+<span class="n">scipy</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">hierarchy</span><span class="o">.</span><span class="n">dendrogram</span><span class="p">(</span><span class="n">linkage</span><span class="p">,</span> <span class="n">no_labels</span><span class="o">=</span><span class="k">True</span><span class="p">,</span> <span class="n">count_sort</span><span class="o">=</span><span class="s">&#39;descendent&#39;</span><span class="p">)</span>
+<span class="k">None</span>
 </pre></div>
 
 </div>
@@ -334,12 +334,12 @@ wqBLUhH/B2ZeKj2idMGGAAAAAElFTkSuQmCC
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># cluster for all atoms but H</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># cluster for all atoms but H</span>
 
-<span class="n">distances</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="n">autoimage</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;!@H=&#39;</span><span class="p">)</span>
+<span class="n">distances</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="n">autoimage</span><span class="o">=</span><span class="k">True</span><span class="p">),</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;!@H=&#39;</span><span class="p">)</span>
 <span class="n">linkage</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">hierarchy</span><span class="o">.</span><span class="n">ward</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span>
-<span class="n">scipy</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">hierarchy</span><span class="o">.</span><span class="n">dendrogram</span><span class="p">(</span><span class="n">linkage</span><span class="p">,</span> <span class="n">no_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">count_sort</span><span class="o">=</span><span class="s1">&#39;descendent&#39;</span><span class="p">)</span>
-<span class="kc">None</span>
+<span class="n">scipy</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">hierarchy</span><span class="o">.</span><span class="n">dendrogram</span><span class="p">(</span><span class="n">linkage</span><span class="p">,</span> <span class="n">no_labels</span><span class="o">=</span><span class="k">True</span><span class="p">,</span> <span class="n">count_sort</span><span class="o">=</span><span class="s">&#39;descendent&#39;</span><span class="p">)</span>
+<span class="k">None</span>
 </pre></div>
 
 </div>
@@ -454,14 +454,14 @@ SIJAB4AkCHQASIJAB4AkCHQASIJAB4AkCHQASOJ/Hk6+0mIwJegAAAAASUVORK5CYII=
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
 
 <span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
 <span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;  # high resolution
 <span class="kn">import</span> <span class="nn">matplotlib</span>
-<span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span> <span class="c1"># larger image</span>
+<span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s">&#39;savefig.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s">&#39;savefig.dpi&#39;</span><span class="p">]</span> <span class="c"># larger image</span>
 
 <span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -479,10 +479,10 @@ SIJAB4AkCHQASIJAB4AkCHQASIJAB4AkCHQASOJ/Hk6+0mIwJegAAAAASUVORK5CYII=
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># we use `load` method to load all data to memory. This is good for small data size.</span>
-<span class="c1"># use `pytraj.iterload` for out-of-core traj.</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># we use `load` method to load all data to memory. This is good for small data size.</span>
+<span class="c"># use `pytraj.iterload` for out-of-core traj.</span>
 
-<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.parm7&#39;</span><span class="p">)</span>
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.parm7&#39;</span><span class="p">)</span>
 <span class="n">traj</span>
 </pre></div>
 
@@ -515,7 +515,7 @@ Size: 0.000503 (GB)
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">pca</span>
 </pre></div>
 
@@ -545,8 +545,8 @@ Size: 0.000503 (GB)
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># superpose to 1st frame</span>
-<span class="n">pt</span><span class="o">.</span><span class="n">superpose</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;!@H=&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># superpose to 1st frame</span>
+<span class="n">pt</span><span class="o">.</span><span class="n">superpose</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;!@H=&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -578,7 +578,7 @@ Size: 0.000503 (GB)
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create average structure</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># create average structure</span>
 
 <span class="n">avg</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">mean_structure</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
 <span class="n">avg</span>
@@ -610,8 +610,8 @@ Size: 0.000503 (GB)
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># superpose all structures to average frame</span>
-<span class="n">pt</span><span class="o">.</span><span class="n">superpose</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">avg</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;!@H=&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># superpose all structures to average frame</span>
+<span class="n">pt</span><span class="o">.</span><span class="n">superpose</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">avg</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;!@H=&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -643,12 +643,12 @@ Size: 0.000503 (GB)
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># perform PCA calculation and get transformed coords</span>
-<span class="c1"># we need to reshape 3D traj.xyz array to 2D to make sklearn happy</span>
-<span class="c1"># make a new traj by stripping all H atoms</span>
-<span class="n">traj_new</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[</span><span class="s1">&#39;!@H=&#39;</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># perform PCA calculation and get transformed coords</span>
+<span class="c"># we need to reshape 3D traj.xyz array to 2D to make sklearn happy</span>
+<span class="c"># make a new traj by stripping all H atoms</span>
+<span class="n">traj_new</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[</span><span class="s">&#39;!@H=&#39;</span><span class="p">]</span>
 <span class="n">xyz_2d</span> <span class="o">=</span> <span class="n">traj_new</span><span class="o">.</span><span class="n">xyz</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">traj_new</span><span class="o">.</span><span class="n">n_frames</span><span class="p">,</span> <span class="n">traj_new</span><span class="o">.</span><span class="n">n_atoms</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">xyz_2d</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># (n_frames, n_dimensions)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">xyz_2d</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c"># (n_frames, n_dimensions)</span>
 </pre></div>
 
 </div>
@@ -675,8 +675,8 @@ Size: 0.000503 (GB)
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reduced_cartesian</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">xyz_2d</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">reduced_cartesian</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># (n_frames, n_dimensions)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">reduced_cartesian</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">xyz_2d</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">reduced_cartesian</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c"># (n_frames, n_dimensions)</span>
 </pre></div>
 
 </div>
@@ -703,16 +703,16 @@ Size: 0.000503 (GB)
 <div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ignore warning</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># ignore warning</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s">&#39;ignore&#39;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">reduced_cartesian</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">reduced_cartesian</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">traj_new</span><span class="o">.</span><span class="n">n_frames</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;PC1&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;PC2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">reduced_cartesian</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">reduced_cartesian</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s">&#39;o&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">traj_new</span><span class="o">.</span><span class="n">n_frames</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;PC1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;PC2&#39;</span><span class="p">)</span>
 <span class="n">cbar</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
-<span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;frame #&#39;</span><span class="p">)</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s">&#39;frame #&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -3762,28 +3762,28 @@ AAAMQCgEAAAAAAAwAKEQAAAAAADAAP4PpZxHEH1IeC0AAAAASUVORK5CYII=
 <div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># cpptraj</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># cpptraj</span>
 
-<span class="c1"># copy from Amber15 manual (page 619)</span>
-<span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
-<span class="s1"># Step one. Generate average structure.</span>
-<span class="s1"># RMS-Fit to first frame to remove global translation/rotation.</span>
-<span class="s1">parm tz2.parm7</span>
-<span class="s1">trajin tz2.nc</span>
-<span class="s1">rms first !@H=</span>
-<span class="s1">average crdset AVG</span>
-<span class="s1">run</span>
-<span class="s1"># Step two. RMS-Fit to average structure. Calculate covariance matrix.</span>
-<span class="s1"># Save the fit coordinates.</span>
-<span class="s1">rms ref AVG !@H=</span>
-<span class="s1">matrix covar name MyMatrix !@H=</span>
-<span class="s1">createcrd CRD1</span>
-<span class="s1">run</span>
-<span class="s1"># Step three. Diagonalize matrix.</span>
-<span class="s1">runanalysis diagmatrix MyMatrix vecs 2 name MyEvecs</span>
-<span class="s1"># Step four. Project saved fit coordinates along eigenvectors 1 and 2</span>
-<span class="s1">crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2</span>
-<span class="s1">&#39;&#39;&#39;</span>
+<span class="c"># copy from Amber15 manual (page 619)</span>
+<span class="n">command</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
+<span class="s"># Step one. Generate average structure.</span>
+<span class="s"># RMS-Fit to first frame to remove global translation/rotation.</span>
+<span class="s">parm tz2.parm7</span>
+<span class="s">trajin tz2.nc</span>
+<span class="s">rms first !@H=</span>
+<span class="s">average crdset AVG</span>
+<span class="s">run</span>
+<span class="s"># Step two. RMS-Fit to average structure. Calculate covariance matrix.</span>
+<span class="s"># Save the fit coordinates.</span>
+<span class="s">rms ref AVG !@H=</span>
+<span class="s">matrix covar name MyMatrix !@H=</span>
+<span class="s">createcrd CRD1</span>
+<span class="s">run</span>
+<span class="s"># Step three. Diagonalize matrix.</span>
+<span class="s">runanalysis diagmatrix MyMatrix vecs 2 name MyEvecs</span>
+<span class="s"># Step four. Project saved fit coordinates along eigenvectors 1 and 2</span>
+<span class="s">crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2</span>
+<span class="s">&#39;&#39;&#39;</span>
 </pre></div>
 
 </div>
@@ -3796,7 +3796,7 @@ AAAMQCgEAAAAAAAwAKEQAAAAAADAAP4PpZxHEH1IeC0AAAAASUVORK5CYII=
 <div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">state</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_cpptraj_state</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">state</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_cpptraj_state</span>
 </pre></div>
 
 </div>
@@ -3809,8 +3809,8 @@ AAAMQCgEAAAAAAAwAKEQAAAAAADAAP4PpZxHEH1IeC0AAAAASUVORK5CYII=
 <div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">state</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_cpptraj_state</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
-<span class="c1"># tell &#39;run&#39; to perform all calculation</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">state</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_cpptraj_state</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+<span class="c"># tell &#39;run&#39; to perform all calculation</span>
 <span class="n">state</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 
@@ -3841,7 +3841,7 @@ AAAMQCgEAAAAAAAwAKEQAAAAAADAAP4PpZxHEH1IeC0AAAAASUVORK5CYII=
 <div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get data</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># get data</span>
 <span class="n">state</span><span class="o">.</span><span class="n">data</span>
 </pre></div>
 
@@ -3871,8 +3871,8 @@ AAAMQCgEAAAAAAAwAKEQAAAAAADAAP4PpZxHEH1IeC0AAAAASUVORK5CYII=
 <div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">([</span><span class="n">dset</span><span class="o">.</span><span class="n">key</span> <span class="k">for</span> <span class="n">dset</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;MyMatrix&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="nb">print</span><span class="p">([</span><span class="n">dset</span><span class="o">.</span><span class="n">key</span> <span class="k">for</span> <span class="n">dset</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;MyMatrix&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -3900,29 +3900,29 @@ AAAMQCgEAAAAAAAwAKEQAAAAAADAAP4PpZxHEH1IeC0AAAAASUVORK5CYII=
 <div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># reduced_cartesian corresponds to dataset with names of &#39;Mode1&#39;, &#39;Mode2&#39;</span>
-<span class="n">mode_0</span><span class="p">,</span> <span class="n">mode_1</span> <span class="o">=</span> <span class="o">-</span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Mode1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="o">-</span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Mode2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-<span class="c1"># mode_0, mode_1 = state.data[&#39;Mode1&#39;].values, state.data[&#39;Mode2&#39;].values</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># reduced_cartesian corresponds to dataset with names of &#39;Mode1&#39;, &#39;Mode2&#39;</span>
+<span class="n">mode_0</span><span class="p">,</span> <span class="n">mode_1</span> <span class="o">=</span> <span class="o">-</span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;Mode1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="o">-</span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;Mode2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="c"># mode_0, mode_1 = state.data[&#39;Mode1&#39;].values, state.data[&#39;Mode2&#39;].values</span>
 
-<span class="c1"># plot: cpptraj</span>
+<span class="c"># plot: cpptraj</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">ax_0</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
-<span class="n">ax_0</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">mode_0</span><span class="p">,</span> <span class="n">mode_1</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">n_frames</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">ax_0</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;PC1&#39;</span><span class="p">)</span>
-<span class="n">ax_0</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;PC2&#39;</span><span class="p">)</span>
+<span class="n">ax_0</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">mode_0</span><span class="p">,</span> <span class="n">mode_1</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">&#39;o&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">n_frames</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax_0</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">&#39;PC1&#39;</span><span class="p">)</span>
+<span class="n">ax_0</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">&#39;PC2&#39;</span><span class="p">)</span>
 <span class="n">ax_0</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">80</span><span class="p">])</span>
 <span class="n">ax_0</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">])</span>
-<span class="n">ax_0</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;cpptraj-flip&#39;</span><span class="p">)</span>
+<span class="n">ax_0</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">&#39;cpptraj-flip&#39;</span><span class="p">)</span>
 <span class="n">ax_0</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([</span><span class="o">-</span><span class="mi">40</span><span class="p">,</span> <span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">])</span>
 
-<span class="c1"># plot: sklearn</span>
+<span class="c"># plot: sklearn</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">ax_1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">)</span>
-<span class="n">ax_1</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">reduced_cartesian</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">reduced_cartesian</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">n_frames</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">ax_1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;PC1&#39;</span><span class="p">)</span>
-<span class="n">ax_1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;PC2&#39;</span><span class="p">)</span>
+<span class="n">ax_1</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">reduced_cartesian</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">reduced_cartesian</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s">&#39;o&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">n_frames</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax_1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">&#39;PC1&#39;</span><span class="p">)</span>
+<span class="n">ax_1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">&#39;PC2&#39;</span><span class="p">)</span>
 <span class="n">ax_1</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([</span><span class="o">-</span><span class="mi">40</span><span class="p">,</span> <span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">])</span>
-<span class="n">ax_1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;sklearn&#39;</span><span class="p">)</span>
+<span class="n">ax_1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">&#39;sklearn&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -3937,7 +3937,7 @@ AAAMQCgEAAAAAAAwAKEQAAAAAADAAP4PpZxHEH1IeC0AAAAASUVORK5CYII=
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.text.Text at 0x10da80978&gt;</pre>
+<pre>&lt;matplotlib.text.Text at 0x2aaaaaaf9780&gt;</pre>
 </div>
 
 </div>
@@ -8350,10 +8350,10 @@ RU5ErkJggg==
 <div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sklearn </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="nb">print</span><span class="p">(</span><span class="s">&#39;sklearn </span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">reduced_cartesian</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">reduced_cartesian</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">cpptraj</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1"># flip sign, why?</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">cpptraj</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span> <span class="c"># flip sign, why?</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">mode_0</span><span class="p">,</span> <span class="n">mode_1</span><span class="p">)</span>
 </pre></div>
 
@@ -8404,7 +8404,7 @@ cpptraj
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
       Last updated on Apr 24, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
     </p>
   </div>
 </footer>

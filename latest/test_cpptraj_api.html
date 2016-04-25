@@ -145,25 +145,25 @@
   <div class="section" id="testing-cpptraj-api-change-with-pytraj">
 <span id="test-cpptraj-api"></span><h1>Testing cpptraj API change with pytraj<a class="headerlink" href="#testing-cpptraj-api-change-with-pytraj" title="Permalink to this headline">¶</a></h1>
 <p>clone <code class="docutils literal"><span class="pre">pytraj</span></code> repo if you have not done yet</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ git clone https://github.com/Amber-MD/pytraj
-$ <span class="c1"># as usual, make a name for original repo. We often use ``upstream``</span>
-$ <span class="nb">cd</span> pytraj
-$ git remote add upstream https://github.com/Amber-MD/pytraj
-$ git remote add drroe_pytraj https://github.com/drroe/pytraj
-$ <span class="c1"># create a new branch</span>
-$ git branch for_test_cpptraj_api
-$ git checkout for_test_cpptraj_api
-$ <span class="c1"># update travis install to point to your ``cpptraj`` new branch (for example ``new_traj_api``)</span>
-$ <span class="c1"># just need to update ./installs/install_cpptraj_git.sh file</span>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git clone https://github.com/Amber-MD/pytraj
+<span class="nv">$ </span><span class="c"># as usual, make a name for original repo. We often use ``upstream``</span>
+<span class="nv">$ </span><span class="nb">cd </span>pytraj
+<span class="nv">$ </span>git remote add upstream https://github.com/Amber-MD/pytraj
+<span class="nv">$ </span>git remote add drroe_pytraj https://github.com/drroe/pytraj
+<span class="nv">$ </span><span class="c"># create a new branch</span>
+<span class="nv">$ </span>git branch for_test_cpptraj_api
+<span class="nv">$ </span>git checkout for_test_cpptraj_api
+<span class="nv">$ </span><span class="c"># update travis install to point to your ``cpptraj`` new branch (for example ``new_traj_api``)</span>
+<span class="nv">$ </span><span class="c"># just need to update ./installs/install_cpptraj_git.sh file</span>
 </pre></div>
 </div>
 <p>Upate <code class="docutils literal"><span class="pre">./installs/install_cpptraj_git.sh</span></code> file</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>1. change &quot;git clone https://github.com/Amber-MD/cpptraj&quot; to &quot;git clone https://github.com/drroe/cpptraj&quot;
-2. add &quot;git checkout new_traj_api&quot; to that file
+<div class="highlight-default"><div class="highlight"><pre><span class="mf">1.</span> <span class="n">change</span> <span class="s">&quot;git clone https://github.com/Amber-MD/cpptraj&quot;</span> <span class="n">to</span> <span class="s">&quot;git clone https://github.com/drroe/cpptraj&quot;</span>
+<span class="mf">2.</span> <span class="n">add</span> <span class="s">&quot;git checkout new_traj_api&quot;</span> <span class="n">to</span> <span class="n">that</span> <span class="n">file</span>
 </pre></div>
 </div>
 <p>It&#8217;s time to push to github so travis can automatically test (will take about 12 minutes)</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>git add ./installs/install_cpptraj_git.sh
+<div class="highlight-bash"><div class="highlight"><pre>git add ./installs/install_cpptraj_git.sh
 git commit -m <span class="s1">&#39;pytraj: trick to run&#39;</span>
 git push drroe_pytraj for_test_cpptraj_api
 </pre></div>
@@ -184,7 +184,7 @@ git push drroe_pytraj for_test_cpptraj_api
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
       Last updated on Apr 24, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
     </p>
   </div>
 </footer>

@@ -158,21 +158,21 @@ as an out-of-core trajetory holder (same as <cite>cpptraj</cite>).</p>
 <p>But sometimes we need to load a small chunk of data to memory for fast
 calculation, for structure editting (rotate dihedral, ...), we need 2nd
 <cite>Trajectory</cite> class to hold the in-memory data.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;./tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;./tz2.ortho.parm7&#39;</span><span class="p">)</span> <span class="c1"># out-of-core</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;./tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s">&#39;./tz2.ortho.parm7&#39;</span><span class="p">)</span> <span class="c"># out-of-core</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span>
 <span class="go">&lt;pytraj.TrajectoryIterator, 10 frames, include:</span>
 <span class="go">&lt;Topology: 5293 atoms, 1704 residues, 1692 mols, PBC with box type = ortho&gt;</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="s1">&#39;@CA&#39;</span><span class="p">]</span> <span class="c1"># load frame 1, 3, 5 with only CA atoms to memory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="s">&#39;@CA&#39;</span><span class="p">]</span> <span class="c"># load frame 1, 3, 5 with only CA atoms to memory</span>
 <span class="go">&lt;pytraj.Trajectory, 3 frames, include:</span>
 <span class="go">&lt;Topology: 12 atoms, 12 residues, 12 mols, PBC with box type = ortho&gt;&gt;</span>
 </pre></div>
 </div>
 <p>You can perform most of analysis with those two. Note that any actions modifying
 coordinates don&#8217;t apply to <cite>TrajectoryIterator</cite></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;@CA&#39;</span><span class="p">)</span>
-<span class="n">mem_traj</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="s1">&#39;@CA&#39;</span><span class="p">]</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="n">mem_traj</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="s">&#39;@CA&#39;</span><span class="p">]</span>
 <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">mem_traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -185,7 +185,7 @@ coordinates don&#8217;t apply to <cite>TrajectoryIterator</cite></p>
 <li>still have random access to frame/frames</li>
 <li>easy to <a class="reference external" href="parallel">parallelize</a></li>
 </ul>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">traj</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="n">traj</span>
 <span class="gr">Out[1]: </span>
 <span class="go">pytraj.TrajectoryIterator, 101 frames: </span>
 <span class="go">Size: 0.000503 (GB)</span>
@@ -227,7 +227,7 @@ coordinates don&#8217;t apply to <cite>TrajectoryIterator</cite></p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
       Last updated on Apr 24, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
     </p>
   </div>
 </footer>

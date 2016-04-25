@@ -76,7 +76,7 @@
 <li class="toctree-l1"><a class="reference internal" href="trajectory.html">Trajectory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="trajectory.html#overview">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Read and Write</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Read and Write</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
@@ -173,10 +173,10 @@
 <div class="section" id="read">
 <h2><a class="toc-backref" href="#id3">Read</a><a class="headerlink" href="#read" title="Permalink to this headline">¶</a></h2>
 <p>Most commmon usage: load a single file with all frame</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="c"># read amber format</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="c"># read amber format</span>
 <span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
-<span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.ortho.parm7&#39;</span><span class="p">)</span>
+<span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.ortho.parm7&#39;</span><span class="p">)</span>
 
 <span class="gp">In [3]: </span><span class="n">traj</span>
 <span class="gr">Out[3]: </span>
@@ -186,17 +186,17 @@
 </pre></div>
 </div>
 <p>Most commmon usage: load a single file with frame stride</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># load only frame 0, 2, 4, 6 (python use 0-based index and skip final index)</span>
-<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.parm7&#39;</span><span class="p">,</span> <span class="n">frame_slice</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">),])</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># load only frame 0, 2, 4, 6 (python use 0-based index and skip final index)</span>
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.parm7&#39;</span><span class="p">,</span> <span class="n">frame_slice</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">),])</span>
 </pre></div>
 </div>
 <p>Load many files at once</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">ls</span> <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.*</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">ls</span> <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.*</span>
 <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">000</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">003</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">006</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">00</span><span class="mi">9</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">012</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">015</span>
 <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">001</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">004</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">007</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">010</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">013</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">016</span>
 <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">002</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">005</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">00</span><span class="mi">8</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">011</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">014</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">017</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;remd.x.*&#39;</span><span class="p">,</span> <span class="s1">&#39;myparm.parm7&#39;</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;remd.x.*&#39;</span><span class="p">,</span> <span class="s">&#39;myparm.parm7&#39;</span><span class="p">)</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">traj</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
@@ -209,7 +209,7 @@
 </div>
 <p>Load many files with frame stride</p>
 <p>Example: load 1000 frames from two trajectories (500 each), skip every two frames.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s1">&#39;remd.x.000&#39;</span><span class="p">,</span> <span class="s1">&#39;remd.x.001&#39;</span><span class="p">],</span> <span class="s1">&#39;myparm.parm7&#39;</span><span class="p">,</span> <span class="n">frame_slice</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s">&#39;remd.x.000&#39;</span><span class="p">,</span> <span class="s">&#39;remd.x.001&#39;</span><span class="p">],</span> <span class="s">&#39;myparm.parm7&#39;</span><span class="p">,</span> <span class="n">frame_slice</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">traj</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
@@ -218,7 +218,7 @@
 </pre></div>
 </div>
 <p>which is similiar to <code class="docutils literal"><span class="pre">cpptraj</span></code> input:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>parm myparm.parm7
+<div class="highlight-bash"><div class="highlight"><pre>parm myparm.parm7
 trajin remd.x.000 <span class="m">1</span> <span class="m">1000</span> 2
 trajin remd.x.001 <span class="m">1</span> <span class="m">1000</span> 2
 </pre></div>
@@ -230,11 +230,11 @@ trajin remd.x.001 <span class="m">1</span> <span class="m">1000</span> 2
 </div>
 <div class="section" id="write">
 <h2><a class="toc-backref" href="#id4">Write</a><a class="headerlink" href="#write" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="c"># write to CHARMM dcd format</span>
-<span class="gp">In [4]: </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s1">&#39;test.dcd&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="c"># write to CHARMM dcd format</span>
+<span class="gp">In [4]: </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&#39;test.dcd&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
 <span class="c"># write with given frames</span>
-<span class="gp">In [5]: </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s1">&#39;test2.dcd&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">In [5]: </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&#39;test2.dcd&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -310,76 +310,76 @@ trajin remd.x.001 <span class="m">1</span> <span class="m">1000</span> 2
 </tbody>
 </table>
 <p>&#8216;options&#8217; for writing to pdb format (cptraj manual):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>dumpq:       Write atom charge/GB radius in occupancy/B-factor columns (PQR format).&quot;
-parse:       Write atom charge/PARSE radius in occupancy/B-factor columns (PQR format).&quot;
-vdw:         Write atom charge/VDW radius in occupancy/B-factor columns (PQR format).&quot;
-pdbres:      Use PDB V3 residue names.&quot;
-pdbatom:     Use PDB V3 atom names.&quot;
-pdbv3:       Use PDB V3 residue/atom names.&quot;
-teradvance:  Increment record (atom) # for TER records (default no).&quot;
-terbyres:    Print TER cards based on residue sequence instead of molecules.&quot;
-model:       Write to single file separated by MODEL records.&quot;
-multi:       Write each frame to separate files.&quot;
-chainid &lt;c&gt;: Write character &#39;c&#39; in chain ID column.&quot;
-sg &lt;group&gt;:  Space group for CRYST1 record, only if box coordinates written.&quot;
-include_ep:  Include extra points.&quot;
-conect:      Write CONECT records using bond information.&quot;);
+<div class="highlight-default"><div class="highlight"><pre><span class="n">dumpq</span><span class="p">:</span>       <span class="n">Write</span> <span class="n">atom</span> <span class="n">charge</span><span class="o">/</span><span class="n">GB</span> <span class="n">radius</span> <span class="ow">in</span> <span class="n">occupancy</span><span class="o">/</span><span class="n">B</span><span class="o">-</span><span class="n">factor</span> <span class="n">columns</span> <span class="p">(</span><span class="n">PQR</span> <span class="nb">format</span><span class="p">)</span><span class="o">.</span><span class="s">&quot;</span>
+<span class="n">parse</span><span class="p">:</span>       <span class="n">Write</span> <span class="n">atom</span> <span class="n">charge</span><span class="o">/</span><span class="n">PARSE</span> <span class="n">radius</span> <span class="ow">in</span> <span class="n">occupancy</span><span class="o">/</span><span class="n">B</span><span class="o">-</span><span class="n">factor</span> <span class="n">columns</span> <span class="p">(</span><span class="n">PQR</span> <span class="nb">format</span><span class="p">)</span><span class="o">.</span><span class="s">&quot;</span>
+<span class="n">vdw</span><span class="p">:</span>         <span class="n">Write</span> <span class="n">atom</span> <span class="n">charge</span><span class="o">/</span><span class="n">VDW</span> <span class="n">radius</span> <span class="ow">in</span> <span class="n">occupancy</span><span class="o">/</span><span class="n">B</span><span class="o">-</span><span class="n">factor</span> <span class="n">columns</span> <span class="p">(</span><span class="n">PQR</span> <span class="nb">format</span><span class="p">)</span><span class="o">.</span><span class="s">&quot;</span>
+<span class="n">pdbres</span><span class="p">:</span>      <span class="n">Use</span> <span class="n">PDB</span> <span class="n">V3</span> <span class="n">residue</span> <span class="n">names</span><span class="o">.</span><span class="s">&quot;</span>
+<span class="n">pdbatom</span><span class="p">:</span>     <span class="n">Use</span> <span class="n">PDB</span> <span class="n">V3</span> <span class="n">atom</span> <span class="n">names</span><span class="o">.</span><span class="s">&quot;</span>
+<span class="n">pdbv3</span><span class="p">:</span>       <span class="n">Use</span> <span class="n">PDB</span> <span class="n">V3</span> <span class="n">residue</span><span class="o">/</span><span class="n">atom</span> <span class="n">names</span><span class="o">.</span><span class="s">&quot;</span>
+<span class="n">teradvance</span><span class="p">:</span>  <span class="n">Increment</span> <span class="n">record</span> <span class="p">(</span><span class="n">atom</span><span class="p">)</span> <span class="c"># for TER records (default no).&quot;</span>
+<span class="n">terbyres</span><span class="p">:</span>    <span class="n">Print</span> <span class="n">TER</span> <span class="n">cards</span> <span class="n">based</span> <span class="n">on</span> <span class="n">residue</span> <span class="n">sequence</span> <span class="n">instead</span> <span class="n">of</span> <span class="n">molecules</span><span class="o">.</span><span class="s">&quot;</span>
+<span class="n">model</span><span class="p">:</span>       <span class="n">Write</span> <span class="n">to</span> <span class="n">single</span> <span class="n">file</span> <span class="n">separated</span> <span class="n">by</span> <span class="n">MODEL</span> <span class="n">records</span><span class="o">.</span><span class="s">&quot;</span>
+<span class="n">multi</span><span class="p">:</span>       <span class="n">Write</span> <span class="n">each</span> <span class="n">frame</span> <span class="n">to</span> <span class="n">separate</span> <span class="n">files</span><span class="o">.</span><span class="s">&quot;</span>
+<span class="n">chainid</span> <span class="o">&lt;</span><span class="n">c</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">Write</span> <span class="n">character</span> <span class="s">&#39;c&#39;</span> <span class="ow">in</span> <span class="n">chain</span> <span class="n">ID</span> <span class="n">column</span><span class="o">.</span><span class="s">&quot;</span>
+<span class="n">sg</span> <span class="o">&lt;</span><span class="n">group</span><span class="o">&gt;</span><span class="p">:</span>  <span class="n">Space</span> <span class="n">group</span> <span class="k">for</span> <span class="n">CRYST1</span> <span class="n">record</span><span class="p">,</span> <span class="n">only</span> <span class="k">if</span> <span class="n">box</span> <span class="n">coordinates</span> <span class="n">written</span><span class="o">.</span><span class="s">&quot;</span>
+<span class="n">include_ep</span><span class="p">:</span>  <span class="n">Include</span> <span class="n">extra</span> <span class="n">points</span><span class="o">.</span><span class="s">&quot;</span>
+<span class="n">conect</span><span class="p">:</span>      <span class="n">Write</span> <span class="n">CONECT</span> <span class="n">records</span> <span class="n">using</span> <span class="n">bond</span> <span class="n">information</span><span class="o">.</span><span class="s">&quot;);</span>
 </pre></div>
 </div>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s2">&quot;output/t.nc&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># write to amber netcdf file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/t.nc&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="k">True</span><span class="p">)</span> <span class="c"># write to amber netcdf file</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># write to multi pdb files (t.pdb.1, t.pdb.2, ...)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s2">&quot;output/t.pdb&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s1">&#39;multi&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># write to multi pdb files (t.pdb.1, t.pdb.2, ...)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/t.pdb&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="k">True</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s">&#39;multi&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># write all frames to single pdb file and each frame is seperated by &quot;MODEL&quot; word</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s2">&quot;output/t.pdb&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s1">&#39;model&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># write all frames to single pdb file and each frame is seperated by &quot;MODEL&quot; word</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/t.pdb&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="k">True</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s">&#39;model&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># write to DCD file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s2">&quot;output/test.dcd&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># write to DCD file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/test.dcd&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># write to netcdf file from 3D numpy array, need to provide Topology</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># write to netcdf file from 3D numpy array, need to provide Topology</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">xyz</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">xyz</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">top</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s2">&quot;output/test_xyz.nc&quot;</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s2">&quot;output/test_xyz.nc&quot;</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/test_xyz.nc&quot;</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/test_xyz.nc&quot;</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># you can make a fake Topology to write xyz coordinates too</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># you can make a fake Topology to write xyz coordinates too</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">n_atoms</span> <span class="o">=</span> <span class="n">xyz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">top2</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">make_fake_topology</span><span class="p">(</span><span class="n">n_atoms</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s2">&quot;output/test_xyz_fake_top.nc&quot;</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">top2</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s">&quot;output/test_xyz_fake_top.nc&quot;</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">top2</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>&#8216;options&#8217; for writing to amber netcdf format (cptraj manual):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>remdtraj: Write temperature to trajectory (makes REMD trajectory).&quot;
-velocity: Write velocities to trajectory.&quot;
-force: Write forces to trajectory.&quot;);
+<div class="highlight-default"><div class="highlight"><pre><span class="n">remdtraj</span><span class="p">:</span> <span class="n">Write</span> <span class="n">temperature</span> <span class="n">to</span> <span class="n">trajectory</span> <span class="p">(</span><span class="n">makes</span> <span class="n">REMD</span> <span class="n">trajectory</span><span class="p">)</span><span class="o">.</span><span class="s">&quot;</span>
+<span class="n">velocity</span><span class="p">:</span> <span class="n">Write</span> <span class="n">velocities</span> <span class="n">to</span> <span class="n">trajectory</span><span class="o">.</span><span class="s">&quot;</span>
+<span class="n">force</span><span class="p">:</span> <span class="n">Write</span> <span class="n">forces</span> <span class="n">to</span> <span class="n">trajectory</span><span class="o">.</span><span class="s">&quot;);</span>
 </pre></div>
 </div>
 <p>&#8216;options&#8217; for writing to amber netcdf restart format(cptraj manual):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>novelocity: Do not write velocities to restart file.&quot;
-notime:     Do not write time to restart file.&quot;
-remdtraj:   Write temperature to restart file.&quot;
-time0:      Time for first frame (default 1.0).&quot;
-dt:         Time step for subsequent frames, t=(time0+frame)*dt; (default 1.0)&quot;);
-keepext     Keep filename extension; write &#39;&lt;name&gt;.&lt;num&gt;.&lt;ext&gt;&#39; instead (example: myfile.1.rst7)
+<div class="highlight-default"><div class="highlight"><pre><span class="n">novelocity</span><span class="p">:</span> <span class="n">Do</span> <span class="ow">not</span> <span class="n">write</span> <span class="n">velocities</span> <span class="n">to</span> <span class="n">restart</span> <span class="n">file</span><span class="o">.</span><span class="s">&quot;</span>
+<span class="n">notime</span><span class="p">:</span>     <span class="n">Do</span> <span class="ow">not</span> <span class="n">write</span> <span class="n">time</span> <span class="n">to</span> <span class="n">restart</span> <span class="n">file</span><span class="o">.</span><span class="s">&quot;</span>
+<span class="n">remdtraj</span><span class="p">:</span>   <span class="n">Write</span> <span class="n">temperature</span> <span class="n">to</span> <span class="n">restart</span> <span class="n">file</span><span class="o">.</span><span class="s">&quot;</span>
+<span class="n">time0</span><span class="p">:</span>      <span class="n">Time</span> <span class="k">for</span> <span class="n">first</span> <span class="n">frame</span> <span class="p">(</span><span class="n">default</span> <span class="mf">1.0</span><span class="p">)</span><span class="o">.</span><span class="s">&quot;</span>
+<span class="n">dt</span><span class="p">:</span>         <span class="n">Time</span> <span class="n">step</span> <span class="k">for</span> <span class="n">subsequent</span> <span class="n">frames</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="p">(</span><span class="n">time0</span><span class="o">+</span><span class="n">frame</span><span class="p">)</span><span class="o">*</span><span class="n">dt</span><span class="p">;</span> <span class="p">(</span><span class="n">default</span> <span class="mf">1.0</span><span class="p">)</span><span class="s">&quot;);</span>
+<span class="n">keepext</span>     <span class="n">Keep</span> <span class="n">filename</span> <span class="n">extension</span><span class="p">;</span> <span class="n">write</span> <span class="s">&#39;&lt;name&gt;.&lt;num&gt;.&lt;ext&gt;&#39;</span> <span class="n">instead</span> <span class="p">(</span><span class="n">example</span><span class="p">:</span> <span class="n">myfile</span><span class="o">.</span><span class="mf">1.</span><span class="n">rst7</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>&#8216;options&#8217; for writing to mol2 format (cptraj manual):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>single   : Write to a single file.&quot;
-multi    : Write each frame to a separate file.&quot;
-sybyltype: Convert Amber atom types (if present) to SYBYL types.&quot;);
+<div class="highlight-default"><div class="highlight"><pre><span class="n">single</span>   <span class="p">:</span> <span class="n">Write</span> <span class="n">to</span> <span class="n">a</span> <span class="n">single</span> <span class="n">file</span><span class="o">.</span><span class="s">&quot;</span>
+<span class="n">multi</span>    <span class="p">:</span> <span class="n">Write</span> <span class="n">each</span> <span class="n">frame</span> <span class="n">to</span> <span class="n">a</span> <span class="n">separate</span> <span class="n">file</span><span class="o">.</span><span class="s">&quot;</span>
+<span class="n">sybyltype</span><span class="p">:</span> <span class="n">Convert</span> <span class="n">Amber</span> <span class="n">atom</span> <span class="n">types</span> <span class="p">(</span><span class="k">if</span> <span class="n">present</span><span class="p">)</span> <span class="n">to</span> <span class="n">SYBYL</span> <span class="n">types</span><span class="o">.</span><span class="s">&quot;);</span>
 </pre></div>
 </div>
 <p>&#8216;options&#8217;  for other formats:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>please check http://ambermd.org/doc12/Amber15.pdf
+<div class="highlight-default"><div class="highlight"><pre><span class="n">please</span> <span class="n">check</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">ambermd</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">doc12</span><span class="o">/</span><span class="n">Amber15</span><span class="o">.</span><span class="n">pdf</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -401,7 +401,7 @@ sybyltype: Convert Amber atom types (if present) to SYBYL types.&quot;);
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
       Last updated on Apr 24, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
     </p>
   </div>
 </footer>

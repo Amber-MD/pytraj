@@ -85,7 +85,7 @@
 <li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel calculation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Developer guide for pytraj</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Use conda to manage different Python versions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
@@ -229,21 +229,21 @@ code does not look right or pretty. We can discuss by openning an <a class="refe
 </li>
 </ul>
 <p>Examples: I forked amber-md/pytraj repo to my account hainm/pytraj</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="c1"># download my branch to my computer</span>
-$ git clone https://github.com/hainm/pytraj/
-$ <span class="nb">cd</span> pytraj
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="c"># download my branch to my computer</span>
+<span class="nv">$ </span>git clone https://github.com/hainm/pytraj/
+<span class="nv">$ </span><span class="nb">cd </span>pytraj
 
-$ <span class="c1"># create a new branch</span>
-$ git branch your_feature_name
-$ git checkout your_feature_name
+<span class="nv">$ </span><span class="c"># create a new branch</span>
+<span class="nv">$ </span>git branch your_feature_name
+<span class="nv">$ </span>git checkout your_feature_name
 
-$ <span class="c1"># make changes, do testing, ...</span>
-$ <span class="c1"># use git add and git commit to record new change (google please)</span>
+<span class="nv">$ </span><span class="c"># make changes, do testing, ...</span>
+<span class="nv">$ </span><span class="c"># use git add and git commit to record new change (google please)</span>
 
-$ <span class="c1"># then push the code to your repo on github</span>
-$ git push origin your_feature_name
-$ <span class="c1"># then make a pull request to amber-md/pytraj</span>
-$ <span class="c1"># (sounds complicated but not really, just try it and feel free to ask us for any questions)</span>
+<span class="nv">$ </span><span class="c"># then push the code to your repo on github</span>
+<span class="nv">$ </span>git push origin your_feature_name
+<span class="nv">$ </span><span class="c"># then make a pull request to amber-md/pytraj</span>
+<span class="nv">$ </span><span class="c"># (sounds complicated but not really, just try it and feel free to ask us for any questions)</span>
 </pre></div>
 </div>
 <p>Above is very minimal instruction to start up. Please google for further detail.</p>
@@ -254,7 +254,7 @@ $ <span class="c1"># (sounds complicated but not really, just try it and feel fr
 <li><p class="first">Please try to follow <a class="reference external" href="http://www.python.org/dev/peps/pep-0008/">PEP8</a></p>
 </li>
 <li><p class="first">I (Hai) often use <a class="reference external" href="https://pypi.python.org/pypi/autopep8">autopep8</a> to format my code:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>autopep8 -a -i your_file.py
+<div class="highlight-default"><div class="highlight"><pre><span class="n">autopep8</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">i</span> <span class="n">your_file</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 </li>
@@ -276,7 +276,7 @@ We put all common stuff in <a class="reference external" href="https://github.co
 <h2><a class="toc-backref" href="#id6">conda build to upload to anaconda server</a><a class="headerlink" href="#conda-build-to-upload-to-anaconda-server" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p class="first">conda recipe:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ git clone https://github.com/Amber-MD/conda-recipes
+<div class="highlight-default"><div class="highlight"><pre>$ git clone https://github.com/Amber-MD/conda-recipes
 $ cd conda-recipes
 $ # build libcpptraj if needed
 $ conda build libcpptraj/
@@ -293,18 +293,18 @@ $ # use run_build.sh (instead of conda build pytraj/) because we build 3 times f
 <ul class="simple">
 <li>from source</li>
 </ul>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ python ./setup.py install
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>python ./setup.py install
 </pre></div>
 </div>
 </div>
 <div class="section" id="build-wheel-for-linux-and-then-upload-to-pypi">
 <h2><a class="toc-backref" href="#id8">Build wheel for Linux and then upload to pypi</a><a class="headerlink" href="#build-wheel-for-linux-and-then-upload-to-pypi" title="Permalink to this headline">¶</a></h2>
 <p>Need: auditwheel (require python &gt;= 3.4), twine</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ python -m pip wheel ./pytraj-1.0.3.tar.gz
-$ auditwheel repair pytraj-1.0.3-cp27-cp27mu-linux_x86_64.whl
-$ twine upload wheelhouse/pytraj-1.0.3-cp27-cp27mu-manylinux1_x86_64.whl
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>python -m pip wheel ./pytraj-1.0.3.tar.gz
+<span class="nv">$ </span>auditwheel repair pytraj-1.0.3-cp27-cp27mu-linux_x86_64.whl
+<span class="nv">$ </span>twine upload wheelhouse/pytraj-1.0.3-cp27-cp27mu-manylinux1_x86_64.whl
 
-$ <span class="c1"># want to upload slightly modified version: change &quot;1.0.3&quot; to &quot;1.0.3.1&quot; (or similiar)</span>
+<span class="nv">$ </span><span class="c"># want to upload slightly modified version: change &quot;1.0.3&quot; to &quot;1.0.3.1&quot; (or similiar)</span>
 </pre></div>
 </div>
 <p>Trick:</p>
@@ -313,7 +313,7 @@ $ <span class="c1"># want to upload slightly modified version: change &quot;1.0.
 <li><p class="first">Use conda to create different python envs, then build corresponding wheel, then use auditwheel to repair all the wheels</p>
 </li>
 <li><p class="first">You don&#8217;t need to activate new env, just specify python exe path:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ ~/anaconda3/envs/py27_pypi/bin/python -m pip wheel ...
+<div class="highlight-default"><div class="highlight"><pre>$ ~/anaconda3/envs/py27_pypi/bin/python -m pip wheel ...
 </pre></div>
 </div>
 </li>
@@ -326,19 +326,19 @@ $ <span class="c1"># want to upload slightly modified version: change &quot;1.0.
 </div>
 <div class="section" id="write-your-code-for-pytraj-s-parallel-pmap">
 <h2><a class="toc-backref" href="#id10">Write your code for pytraj&#8217;s parallel pmap</a><a class="headerlink" href="#write-your-code-for-pytraj-s-parallel-pmap" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">new_method</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
-    <span class="c1">#  make sure to use frame iterator like below</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">new_method</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+    <span class="c">#  make sure to use frame iterator like below</span>
     <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">:</span>
         <span class="n">do_something_cool_with_frame</span>
     <span class="k">return</span> <span class="n">something_you_want</span>
 
-<span class="c1"># that&#39;s it. Now you can plug your method to ``pytraj.pmap``</span>
+<span class="c"># that&#39;s it. Now you can plug your method to ``pytraj.pmap``</span>
 <span class="kn">from</span> <span class="nn">pytraj</span> <span class="kn">import</span> <span class="n">pmap</span>
 <span class="n">pmap</span><span class="p">(</span><span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">new_method</span><span class="p">,</span> <span class="n">traj</span><span class="o">=</span><span class="n">traj</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>if you don&#8217;t want to write code for <cite>pmap</cite>, just tag it with <cite>noparallel</cite> decorator</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytraj.decorators</span> <span class="kn">import</span> <span class="n">noparallel</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pytraj.decorators</span> <span class="kn">import</span> <span class="n">noparallel</span>
 
 <span class="nd">@noparallel</span>
 <span class="k">def</span> <span class="nf">new_method</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
@@ -350,20 +350,20 @@ $ <span class="c1"># want to upload slightly modified version: change &quot;1.0.
 <h2><a class="toc-backref" href="#id11">Test your code</a><a class="headerlink" href="#test-your-code" title="Permalink to this headline">¶</a></h2>
 <p>New method, new change must have testing code.</p>
 <p>Currently, all testing codes are in <strong>pytraj/tests/</strong> folder.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> tests
-$ cp template_unittest.py test_your_new_method_name.py
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>tests
+<span class="nv">$ </span>cp template_unittest.py test_your_new_method_name.py
 
-$ <span class="c1"># To run all tests</span>
-$ nosetests -vs .
+<span class="nv">$ </span><span class="c"># To run all tests</span>
+<span class="nv">$ </span>nosetests -vs .
 
-$ <span class="c1"># to speed up the test</span>
-$ nosetests --processes<span class="o">=</span>n_cpus_you_wants -vs .
+<span class="nv">$ </span><span class="c"># to speed up the test</span>
+<span class="nv">$ </span>nosetests --processes<span class="o">=</span>n_cpus_you_wants -vs .
 
-$ <span class="c1"># to run specific file</span>
-$ python test_your_new_method_name.py
+<span class="nv">$ </span><span class="c"># to run specific file</span>
+<span class="nv">$ </span>python test_your_new_method_name.py
 
-$ <span class="c1"># clean</span>
-$ git clean -f
+<span class="nv">$ </span><span class="c"># clean</span>
+<span class="nv">$ </span>git clean -f
 </pre></div>
 </div>
 </div>
@@ -381,28 +381,28 @@ $ git clean -f
 <p class="first admonition-title">Note</p>
 <p class="last">make sure to install pytraj, cpptraj, numpy, ipython, matplotlib, memory_profiler, psutil. Install <a class="reference external" href="https://github.com/ryan-roemer/sphinx-bootstrap-theme">sphinx-bootstrap-theme too</a></p>
 </div>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ git clone https://github.com/Amber-MD/pytraj
-$ <span class="nb">cd</span> pytraj
-$ git checkout gh-pages
-$ <span class="nb">cd</span> doc
-$ make html
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git clone https://github.com/Amber-MD/pytraj
+<span class="nv">$ </span><span class="nb">cd </span>pytraj
+<span class="nv">$ </span>git checkout gh-pages
+<span class="nv">$ </span><span class="nb">cd </span>doc
+<span class="nv">$ </span>make html
 </pre></div>
 </div>
 <p>There are some tricks:</p>
 <ul>
 <li><p class="first">let ipython run your code in <code class="docutils literal"><span class="pre">.rst</span></code> file by adding ipython directive:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>.. ipython:: python
+<div class="highlight-default"><div class="highlight"><pre><span class="o">..</span> <span class="n">ipython</span><span class="p">::</span> <span class="n">python</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">let ipython run your notebook and automatically convert to html file, add notebook directive:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>.. notebook:: data/plot_rmsd_radgyr_correlation.ipynb
-   :skip_exceptions:
+<div class="highlight-default"><div class="highlight"><pre><span class="o">..</span> <span class="n">notebook</span><span class="p">::</span> <span class="n">data</span><span class="o">/</span><span class="n">plot_rmsd_radgyr_correlation</span><span class="o">.</span><span class="n">ipynb</span>
+   <span class="p">:</span><span class="n">skip_exceptions</span><span class="p">:</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">let&#8217;s see other tricks in:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>source/tutorials/*rst
+<div class="highlight-default"><div class="highlight"><pre><span class="n">source</span><span class="o">/</span><span class="n">tutorials</span><span class="o">/*</span><span class="n">rst</span>
 </pre></div>
 </div>
 </li>
@@ -416,12 +416,12 @@ $ make html
 <h2><a class="toc-backref" href="#id15">How to make a tutorial and include it in pytraj&#8217;s website</a><a class="headerlink" href="#how-to-make-a-tutorial-and-include-it-in-pytraj-s-website" title="Permalink to this headline">¶</a></h2>
 <p>I (Hai) prefer to use ipython notebook to write tutorial and include it in website. sphinx will run the notebook, convert to html file, insert it in correct page.
 But let&#8217;s start with different ways to make a tutorial. First, make sure to:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ git checkout gh-pages
+<div class="highlight-default"><div class="highlight"><pre>$ git checkout gh-pages
 </pre></div>
 </div>
 <ul>
 <li><p class="first">use ipython directive: you just write the code and sphinx will run it for you. check:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ doc/source/tutorials/basic_examples.rst
+<div class="highlight-default"><div class="highlight"><pre>$ doc/source/tutorials/basic_examples.rst
 </pre></div>
 </div>
 </li>
@@ -430,7 +430,7 @@ But let&#8217;s start with different ways to make a tutorial. First, make sure t
 Click <code class="docutils literal"><span class="pre">Source</span></code> in that page for raw code.</p>
 <ul>
 <li><p class="first">use ipython notebook directive: you just write the code and sphinx will run it for you. This approach will have more richful layout. check:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ doc/source/tutorials/plot_correlation_matrix.rst
+<div class="highlight-default"><div class="highlight"><pre>$ doc/source/tutorials/plot_correlation_matrix.rst
 </pre></div>
 </div>
 </li>
@@ -439,7 +439,7 @@ Click <code class="docutils literal"><span class="pre">Source</span></code> in t
 Click <code class="docutils literal"><span class="pre">Source</span></code> in that page for raw code.</p>
 <ul>
 <li><p class="first">Two above approaches are performed on the fly when you make the doc. If you don&#8217;t want to rerun your notebook, you can run once, convert it to html file and include it in rst file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ ipython nbconvert --to html your_notebook_name.ipynb
+<div class="highlight-default"><div class="highlight"><pre>$ ipython nbconvert --to html your_notebook_name.ipynb
 $ # check doc/source/tutorials/lysozyme_order_parameter_.rst
 $ # (basically you just need to use .. raw:: html directive)
 </pre></div>
@@ -461,23 +461,23 @@ Click <code class="docutils literal"><span class="pre">Source</span></code> in t
 <li><p class="first">install <code class="docutils literal"><span class="pre">ruby</span></code> (google how)</p>
 </li>
 <li><p class="first">install <code class="docutils literal"><span class="pre">travis</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ gem install travis
+<div class="highlight-default"><div class="highlight"><pre>$ gem install travis
 </pre></div>
 </div>
 </li>
 <li><p class="first">install anaconda-client:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ conda install anaconda-client
+<div class="highlight-default"><div class="highlight"><pre>$ conda install anaconda-client
 </pre></div>
 </div>
 </li>
 <li><p class="first">In your terminal, log in to anaconda account:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ anaconda login
+<div class="highlight-default"><div class="highlight"><pre>$ anaconda login
 $ # just enter your username and password
 </pre></div>
 </div>
 </li>
 <li><p class="first">generate anaconda token to give travis permision to push data in ambermd channel in anaconda.org:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ git clone https://github.com/Amber-MD/pytraj
+<div class="highlight-default"><div class="highlight"><pre>$ git clone https://github.com/Amber-MD/pytraj
 $ cd pytraj
 $ # generate token
 $ TOKEN=$(anaconda auth --create --name MyToken)
@@ -486,12 +486,12 @@ $ echo $TOKEN
 </div>
 </li>
 <li><p class="first">need to use <code class="docutils literal"><span class="pre">travis</span></code> to encrypt our token:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ travis encrypt TRAVIS_TO_ANACONDA=secretvalue
+<div class="highlight-default"><div class="highlight"><pre>$ travis encrypt TRAVIS_TO_ANACONDA=secretvalue
 </pre></div>
 </div>
 </li>
 <li><p class="first">make code change, commit, push to github so travis can build pytraj and libcpptraj:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ # after successful build, travis will push to anaconda.org by below command
+<div class="highlight-default"><div class="highlight"><pre>$ # after successful build, travis will push to anaconda.org by below command
 $ anaconda -t $TRAVIS_TO_ANACONDA upload --force -u ambermd -p pytraj-dev $HOME/miniconda/conda-bld/linux-64/pytraj-dev-*
 $ # check devtools/travis-ci/upload.sh and .travis.yml files for implementation.
 </pre></div>
@@ -502,7 +502,7 @@ $ # check devtools/travis-ci/upload.sh and .travis.yml files for implementation.
 <div class="section" id="code-coverage-how-well-are-your-codes-tested">
 <h2><a class="toc-backref" href="#id17">Code coverage, how well are your codes tested?</a><a class="headerlink" href="#code-coverage-how-well-are-your-codes-tested" title="Permalink to this headline">¶</a></h2>
 <p>It&#8217;s good to measure how well you code is tested. Basically, you should write all possible tests to make sure all (most) lines of codes executed:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ nosetests -vs  --processes 6 --process-timeout 200 --with-coverage --cover-package pytraj
+<div class="highlight-default"><div class="highlight"><pre>$ nosetests -vs  --processes 6 --process-timeout 200 --with-coverage --cover-package pytraj
 </pre></div>
 </div>
 <p>Explanation for above line:</p>
@@ -514,13 +514,13 @@ $ # check devtools/travis-ci/upload.sh and .travis.yml files for implementation.
 </ul>
 </div></blockquote>
 <p>In the final output, you should get something like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>pytraj.io                                            170     29    83%   20-21, 29-30, 213-215, 217, 258, 357, 428, 439, 450-456, 493-503, 516
+<div class="highlight-default"><div class="highlight"><pre><span class="n">pytraj</span><span class="o">.</span><span class="n">io</span>                                            <span class="mi">170</span>     <span class="mi">29</span>    <span class="mi">83</span><span class="o">%</span>   <span class="mi">20</span><span class="o">-</span><span class="mi">21</span><span class="p">,</span> <span class="mi">29</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mi">213</span><span class="o">-</span><span class="mi">215</span><span class="p">,</span> <span class="mi">217</span><span class="p">,</span> <span class="mi">258</span><span class="p">,</span> <span class="mi">357</span><span class="p">,</span> <span class="mi">428</span><span class="p">,</span> <span class="mi">439</span><span class="p">,</span> <span class="mi">450</span><span class="o">-</span><span class="mi">456</span><span class="p">,</span> <span class="mi">493</span><span class="o">-</span><span class="mi">503</span><span class="p">,</span> <span class="mi">516</span>
 </pre></div>
 </div>
 <p>The numbers after <code class="docutils literal"><span class="pre">83%</span></code> show the line numbers in pytraj.io module (io.py) that are not executed in test files. if I open the 516-th line in <code class="docutils literal"><span class="pre">io.py</span></code> file, I will see:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>514 def load_single_frame(frame=None, top=None, index=0):
-515     &quot;&quot;&quot;load a single Frame&quot;&quot;&quot;
-516     return iterload(frame, top)[index]
+<div class="highlight-default"><div class="highlight"><pre><span class="mi">514</span> <span class="k">def</span> <span class="nf">load_single_frame</span><span class="p">(</span><span class="n">frame</span><span class="o">=</span><span class="k">None</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="k">None</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="mi">515</span>     <span class="s">&quot;&quot;&quot;load a single Frame&quot;&quot;&quot;</span>
+<span class="mi">516</span>     <span class="k">return</span> <span class="n">iterload</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">top</span><span class="p">)[</span><span class="n">index</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>This means that this method has never been tested. So just write a test case for it to increase the coverage score.</p>
@@ -528,13 +528,13 @@ $ # check devtools/travis-ci/upload.sh and .travis.yml files for implementation.
 <div class="section" id="segmentation-fault-debug">
 <h2><a class="toc-backref" href="#id18">Segmentation fault debug</a><a class="headerlink" href="#segmentation-fault-debug" title="Permalink to this headline">¶</a></h2>
 <p>Use <code class="docutils literal"><span class="pre">gdb</span></code></p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ gdb python
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>gdb python
 <span class="o">(</span>gdb<span class="o">)</span> run your_python_script.py
 <span class="o">(</span>gdb<span class="o">)</span> bt
 </pre></div>
 </div>
 <p>This is how the output looks like after you typed <code class="docutils literal"><span class="pre">bt</span></code> command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">#13 0x00002aaac32fc8a4 in __pyx_pw_7_lprmsd_1lprmsd (__pyx_self=0x0, __pyx_args=&lt;value optimized out&gt;, __pyx_kwds=&lt;value optimized out&gt;) at mdtraj/rmsd/_lprmsd.cpp:1739</span>
+<div class="highlight-default"><div class="highlight"><pre><span class="c">#13 0x00002aaac32fc8a4 in __pyx_pw_7_lprmsd_1lprmsd (__pyx_self=0x0, __pyx_args=&lt;value optimized out&gt;, __pyx_kwds=&lt;value optimized out&gt;) at mdtraj/rmsd/_lprmsd.cpp:1739</span>
 </pre></div>
 </div>
 </div>
@@ -573,7 +573,7 @@ See <a class="reference external" href="https://raw.githubusercontent.com/Amber-
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
       Last updated on Apr 24, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
     </p>
   </div>
 </footer>
