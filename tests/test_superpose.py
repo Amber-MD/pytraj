@@ -3,6 +3,7 @@ import unittest
 import pytraj as pt
 from pytraj import adict
 from pytraj.testing import aa_eq
+from pytraj.utils import tempfolder
 
 
 class TestSuperposeTrajectory(unittest.TestCase):
@@ -141,6 +142,13 @@ class TestSuperposeTrajectoryIterator(unittest.TestCase):
         
         aa_eq(traj_mut.xyz, traj_immut.xyz)
 
+        # test saving
+        with tempfolder():
+            traj_mut.save('t0.nc')
+            traj_immut.save('t1.nc')
+
+            aa_eq(pt.load('t0.nc', traj_mut.top).xyz,
+                  pt.load('t1.nc', traj_immut.top).xyz)
 
 if __name__ == "__main__":
     unittest.main()
