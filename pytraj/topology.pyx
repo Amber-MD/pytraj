@@ -384,18 +384,22 @@ cdef class Topology:
                 incr(it)
 
     property atomlist:
-        '''return a copy of a list of atoms. If the Topology is large, this method calling
-        is every expensive. Make sure to save atomlist.
+        '''return a copy of atoms. If the Topology is large, this method calling
+        is every expensive. Make sure to call once and save it.
         '''
 
         def __get__(self):
             return list(self.atoms)
 
     property residuelist:
+        """return a copy of residues
+        """
         def __get__(self):
             return list(self.residues)
 
     property moleculelist:
+        """return a copy of molecules. (not much information)
+        """
         def __get__(self):
             return list(self.mols)
 
@@ -411,6 +415,8 @@ cdef class Topology:
         self.thisptr.StartNewMol()
 
     property filename:
+        """return original filename. This is for testing purpose.
+        """
         def __get__(self):
             # I want to keep _original_filename so don't need to
             # change other codes
