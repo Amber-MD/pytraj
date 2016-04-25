@@ -73,7 +73,7 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Trajectory</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Trajectory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#overview">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
 <li class="toctree-l1"><a class="reference internal" href="read_and_write.html">Read and Write</a></li>
@@ -187,13 +187,13 @@
 </ul>
 <div class="section" id="why-are-there-two-trajectory-classes">
 <h2><a class="toc-backref" href="#id3">Why are there two trajectory classes?</a><a class="headerlink" href="#why-are-there-two-trajectory-classes" title="Permalink to this headline">¶</a></h2>
-<p>See our rationale here <a class="reference internal" href="design_trajectory.html#design-trajectory"><span class="std std-ref">Trajectory design</span></a></p>
+<p>See our rationale here <a class="reference internal" href="design_trajectory.html#design-trajectory"><span>Trajectory design</span></a></p>
 </div>
 <div class="section" id="try-it">
 <h2><a class="toc-backref" href="#id4">Try it</a><a class="headerlink" href="#try-it" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
-<span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;data/tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s">&#39;data/tz2.ortho.parm7&#39;</span><span class="p">)</span>
+<span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;data/tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;data/tz2.ortho.parm7&#39;</span><span class="p">)</span>
 
 <span class="gp">In [3]: </span><span class="n">traj</span>
 <span class="gr">Out[3]: </span>
@@ -202,20 +202,20 @@
 <span class="go">&lt;Topology: 5293 atoms, 1704 residues, 1692 mols, PBC with box type = ortho&gt;</span>
 <span class="go">           </span>
 
-<span class="gp">In [4]: </span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="gp">In [4]: </span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;@CA&#39;</span><span class="p">)</span>
 <span class="go">                                                                                                                                                            Out[4]: </span>
 <span class="go">array([ 0.    ,  0.2641,  0.386 ,  0.2688,  0.2619,  0.4576,  0.4565,</span>
 <span class="go">        0.4443,  0.4363,  0.4475])</span>
 </pre></div>
 </div>
 <p>pytraj is able to detect single file (mol2, pdb) to load as TrajectoryIterator.</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;my_pdb.pdb&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;your_mol2.mol2&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;my_pdb.pdb&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;your_mol2.mol2&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>TrajectoryIterator is something like <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#range">range(start, stop[, step])</a> in python3 or
 <a class="reference external" href="https://docs.python.org/2/library/functions.html#xrange">xrange(start, stop[, step])</a> in python2</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [5]: </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [5]: </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 <span class="go">0</span>
 <span class="go">2</span>
 <span class="go">4</span>
@@ -229,7 +229,7 @@
 </pre></div>
 </div>
 <p>However, TrajectoryIterator is much more than that, you can slice atoms:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [7]: </span><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&#39;@CA&#39;</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">xyz</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [7]: </span><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;@CA&#39;</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">xyz</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="go">&lt;Frame with 12 atoms&gt; [ 14.8788  27.639   18.088 ]</span>
 <span class="go">&lt;Frame with 12 atoms&gt; [ 14.4703  27.9171  18.2456]</span>
 <span class="go">&lt;Frame with 12 atoms&gt; [ 14.5707  27.8402  17.4244]</span>
@@ -237,7 +237,7 @@
 </pre></div>
 </div>
 <p>To load all frames to memory at once, use <code class="docutils literal"><span class="pre">[]</span></code> notation:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [8]: </span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">8</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">]</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [8]: </span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">8</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;@CA&#39;</span><span class="p">]</span>
 <span class="gr">Out[8]: </span>
 <span class="go">pytraj.Trajectory, 4 frames: </span>
 <span class="go">Size: 0.000001 (GB)</span>
@@ -246,14 +246,14 @@
 </div>
 <p>How to perform analysis with TrajectoryIterator? It&#8217;s very simple. For example, if you want to calculate
 rmsd to 3rd frame (index starts from 0) for all atoms, just:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [9]: </span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [9]: </span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="gr">Out[9]: </span>
 <span class="go">array([ 11.2707,  10.0133,   8.3305,   0.    ,   8.288 ,  10.0907,</span>
 <span class="go">        11.2475,  11.9937,  12.0499,  12.3873])</span>
 </pre></div>
 </div>
 <p>You have TB of data and want to speed up your calculation, just add more cpus</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [10]: </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [10]: </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="gr">Out[10]: </span>
 <span class="go">OrderedDict([(&#39;RMSD_00001&#39;,</span>
 <span class="go">              array([ 11.2707,  10.0133,   8.3305,   0.    ,   8.288 ,  10.0907,</span>
@@ -261,7 +261,7 @@ rmsd to 3rd frame (index starts from 0) for all atoms, just:</p>
 </pre></div>
 </div>
 <p>How to get raw coordinates?</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">xyz</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">xyz</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]</span><span class="o">.</span><span class="n">xyz</span>
 </pre></div>
 </div>
@@ -289,7 +289,7 @@ rmsd to 3rd frame (index starts from 0) for all atoms, just:</p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
       Last updated on Apr 24, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
     </p>
   </div>
 </footer>

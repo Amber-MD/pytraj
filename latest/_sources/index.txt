@@ -107,7 +107,12 @@ Welcome
     
       function onInit(){
           var stage = new NGL.Stage( "viewport" );
-          stage.loadFile( "_static/1tsu.pdb", { defaultRepresentation: true } );
+          stage.loadFile( "_static/1tsu.pdb" ).then( function ( o ) {
+               o.addRepresentation( "cartoon" );
+               o.addRepresentation( "licorice", { sele: "water" } );
+               o.centerView();
+          });
+
           stage.setTheme( "light" )
       
           window.addEventListener( "resize", function( event ){

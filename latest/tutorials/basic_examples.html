@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Basic examples &mdash; pytraj 1.0.5.dev0+87639dd documentation</title>
+    <title>Basic examples &mdash; pytraj 1.0.5.dev0+e7e77e5 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.5.dev0+87639dd',
+        VERSION:     '1.0.5.dev0+e7e77e5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.5.dev0+87639dd documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.5.dev0+e7e77e5 documentation" href="../index.html" />
     <link rel="up" title="Tutorials" href="index.html" />
     <link rel="next" title="Energy decomposition with sander and igb8 solvent model" href="energy_decomposition.html" />
     <link rel="prev" title="Tutorials" href="index.html" />
@@ -54,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+87639dd</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+e7e77e5</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -112,7 +112,6 @@
 <li><a class="reference internal" href="#distance-between-two-coms">Distance between two COMs</a></li>
 <li><a class="reference internal" href="#dssp-analysis">DSSP analysis</a></li>
 <li><a class="reference internal" href="#hbond-analysis">Hbond analysis</a></li>
-<li><a class="reference internal" href="#fetch-pdb">Fetch pdb</a></li>
 <li><a class="reference internal" href="#more-examples">More examples</a></li>
 </ul>
 </li>
@@ -177,8 +176,7 @@
 <li><a class="reference internal" href="#distance-between-two-coms" id="id6">Distance between two COMs</a></li>
 <li><a class="reference internal" href="#dssp-analysis" id="id7">DSSP analysis</a></li>
 <li><a class="reference internal" href="#hbond-analysis" id="id8">Hbond analysis</a></li>
-<li><a class="reference internal" href="#fetch-pdb" id="id9">Fetch pdb</a></li>
-<li><a class="reference internal" href="#more-examples" id="id10">More examples</a></li>
+<li><a class="reference internal" href="#more-examples" id="id9">More examples</a></li>
 </ul>
 </li>
 </ul>
@@ -316,102 +314,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="fetch-pdb">
-<span id="load-pdb-rcsb"></span><h2><a class="toc-backref" href="#id9">Fetch pdb</a><a class="headerlink" href="#fetch-pdb" title="Permalink to this headline">¶</a></h2>
-<div class="ipynotebook" id="notebook-container">
-
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># it&#39;s simple as long as you have internet and you&#39;re allowed to download</span>
-
-<span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
-
-<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">loadpdb_rcsb</span><span class="p">(</span><span class="s2">&quot;2KOC&quot;</span><span class="p">)</span>
-<span class="nb">print</span> <span class="p">(</span><span class="n">traj</span><span class="p">)</span>
-
-<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;coords of firs 10 atoms of 1st frame from pytraj&quot;</span><span class="p">)</span>
-<span class="nb">print</span> <span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="mi">10</span><span class="p">])</span>
-
-<span class="nb">print</span> <span class="p">()</span>
-<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;calc_rmsd&quot;</span><span class="p">)</span>
-<span class="c1"># print (traj.calc_rmsd(ref=0)) # all atoms, ref=first_frame</span>
-<span class="c1"># use numpy to have prettier print</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">arr0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-<span class="nb">print</span> <span class="p">(</span><span class="n">arr0</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>pytraj.Trajectory, 20 frames: 
-Size: 0.000202 (GB)
-&lt;Topology: 451 atoms, 14 residues, 1 mols, PBC with box type = ortho&gt;
-           
-coords of firs 10 atoms of 1st frame from pytraj
-[[ -8.886  -5.163   9.647]
- [-10.305  -4.745  10.229]
- [-10.282  -3.296  10.528]
- ..., 
- [-12.908  -5.127   6.888]
- [-11.018  -6.335   6.182]
- [-10.515  -7.653   5.962]]
-
-calc_rmsd
-[ 0.          0.65319733  0.56878506 ...,  0.55856578  0.56655911
-  0.76107113]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="coords-of-firs-10-atoms-of-1st-frame-from-rbsb">coords of firs 10 atoms of 1st frame from rbsb<a class="anchor-link" href="#coords-of-firs-10-atoms-of-1st-frame-from-rbsb">&#182;</a></h1><h1 id="http://www.rcsb.org/pdb/files/2KOC.pdb"><a href="http://www.rcsb.org/pdb/files/2KOC.pdb">http://www.rcsb.org/pdb/files/2KOC.pdb</a><a class="anchor-link" href="#http://www.rcsb.org/pdb/files/2KOC.pdb">&#182;</a></h1>
-<pre><code>ATOM      1  OP3   G A   1      -8.886  -5.163   9.647  1.00 10.00           O  
-ATOM      2  P     G A   1     -10.305  -4.745  10.229  1.00 10.00           P  
-ATOM      3  OP1   G A   1     -10.282  -3.296  10.528  1.00 10.00           O  
-ATOM      4  OP2   G A   1     -10.676  -5.703  11.297  1.00 10.00           O  
-ATOM      5  O5'   G A   1     -11.278  -4.981   8.995  1.00 10.00           O  
-ATOM      6  C5'   G A   1     -11.721  -6.288   8.650  1.00 10.00           C  
-ATOM      7  C4'   G A   1     -12.147  -6.326   7.203  1.00 10.00           C  
-ATOM      8  O4'   G A   1     -12.908  -5.127   6.888  1.00 10.00           O  
-ATOM      9  C3'   G A   1     -11.018  -6.335   6.182  1.00 10.00           C  
-ATOM     10  O3'   G A   1     -10.515  -7.653   5.962  1.00 10.00           O</code></pre>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src='http://www.rcsb.org/pdb/images/2koc_asym_r_500.jpg'></p>
-
-</div>
-</div>
-</div>
-</div><p>(<a class="reference external" href="load_pdb_from_rcsb.ipynb">load_pdb_from_rcsb.ipynb</a>; <a class="reference external" href="load_pdb_from_rcsb_evaluated.ipynb">load_pdb_from_rcsb_evaluated.ipynb</a>; <a class="reference external" href="load_pdb_from_rcsb.py">load_pdb_from_rcsb.py</a>)</p>
-</div>
 <div class="section" id="more-examples">
-<h2><a class="toc-backref" href="#id10">More examples</a><a class="headerlink" href="#more-examples" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">More examples</a><a class="headerlink" href="#more-examples" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://github.com/Amber-MD/pytraj/tree/master/examples">check our github page</a></p>
 </div>
 </div>
@@ -429,7 +333,7 @@ ATOM     10  O3'   G A   1     -10.515  -7.653   5.962  1.00 10.00           O</
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Apr 23, 2016.<br/>
+      Last updated on Apr 24, 2016.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
     </p>
   </div>
