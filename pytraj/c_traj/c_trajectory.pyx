@@ -130,7 +130,7 @@ cdef class TrajectoryCpptraj:
         Notes
         -----
         This method is different from ``superpose`` in pytraj.Trajectory.
-        It does not change the cooridates of TrajectoryCpptraj/TrajectoryIterator itself but 
+        It does not change the coordinates of TrajectoryCpptraj/TrajectoryIterator itself but 
         the copy of Frame.
         """
         cdef AtomMask atm = self.top(mask)

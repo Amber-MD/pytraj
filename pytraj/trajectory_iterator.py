@@ -448,10 +448,10 @@ class TrajectoryIterator(TrajectoryCpptraj):
         Notes
         -----
         This method is different from ``superpose`` in pytraj.Trajectory.
-        It does not change the cooridates of TrajectoryCpptraj/TrajectoryIterator itself but 
+        It does not change the coordinates of TrajectoryCpptraj/TrajectoryIterator itself but 
         the copy of Frame.
 
-        This method is mainly for used with NGLView in Jupyter notebook, to view out-of-core data.
+        This method is mainly for NGLView in Jupyter notebook, to view out-of-core data.
         It's good to do translation and rotation on the fly.
 
 
