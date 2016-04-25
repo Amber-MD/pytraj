@@ -49,12 +49,12 @@ class SimplifiedAtom(
 class SimplifiedResidue(
     namedtuple(
         'SimplifiedResidue',
-        'name index first_atom_index last_atom_index')):
+        'name index first last')):
     __slots__ = ()
 
     def __str__(self):
         return 'SimplifiedResidue(name={}, index={}, atom_range={}-{})'.format(
-            self.name, self.index, self.first_atom_index, self.last_atom_index)
+            self.name, self.index, self.first, self.last)
 
     def __repr__(self):
         return str(self)
@@ -315,7 +315,9 @@ cdef class Topology:
                 incr(it)
 
     def simplify(self):
-        '''return a light version (immutable) of Topology for fast iterating. (experiment)
+        '''return a (immutable) light version of Topology for fast iterating. (experiment)
+
+        No writing capabibility (you should use ParmEd for Topology editing)
 
         Examples
         --------
@@ -326,6 +328,10 @@ cdef class Topology:
         >>> atom = simp_top.atoms[0]
         >>> atom.resname
         'SER'
+
+        >>> res = simp_top.residues[0]
+        >>> # get all atoms for 1st residue
+        >>> atoms = simp_top.atoms[res.first:res.last]
         '''
         cdef _Atom atom
         cdef atom_iterator ait
@@ -363,8 +369,8 @@ cdef class Topology:
             res = deref(rit)
             residues.append(SimplifiedResidue(name=res.c_str().strip(),
                                               index=idx,
-                                              first_atom_index=res.FirstAtom(),
-                                              last_atom_index=res.LastAtom()))
+                                              first=res.FirstAtom(),
+                                              last=res.LastAtom()))
             idx += 1
             incr(rit)
         return SimplifiedTopology(atoms=atoms, residues=residues)

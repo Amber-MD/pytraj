@@ -196,7 +196,15 @@ cdef class Residue:
         return self.thisptr.FirstAtom()
 
     @property
-    def last_atom_index(self):
+    def first(self):
+        """return first atom index (alias of first_atom_index. (experiment))
+        """
+        return self.thisptr.FirstAtom()
+
+    @property
+    def last(self):
+        """return last atom index (alias of first_atom_index. (experiment))
+        """
         return self.thisptr.LastAtom()
 
     property original_resid:
