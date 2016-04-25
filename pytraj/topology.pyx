@@ -316,6 +316,16 @@ cdef class Topology:
 
     def simplify(self):
         '''return a light version (immutable) of Topology for fast iterating. (experiment)
+
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> top = pt.load_topology('data/tz2.parm7')
+
+        >>> simp_top = top.simplify()
+        >>> atom = simp_top.atoms[0]
+        >>> atom.resname
+        'SER'
         '''
         cdef _Atom atom
         cdef atom_iterator ait
