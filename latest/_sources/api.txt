@@ -1,6 +1,9 @@
 API reference
 =============
 
+.. raw:: html
+    :file: _static/track.html
+
 .. note:: syntax might be changed in future
 
 .. container:: custom-index

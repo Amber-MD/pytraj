@@ -1,5 +1,8 @@
 .. _trajectory_exercise:
 
+.. raw:: html
+    :file: _static/track.html
+
 
 Trajectory warm up
 ==================

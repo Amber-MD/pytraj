@@ -1,5 +1,8 @@
 .. _tutorials:
 
+.. raw:: html
+    :file: _static/track.html
+
 Tutorials
 =========
 
