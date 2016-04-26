@@ -1,6 +1,9 @@
 Trajectory Viewer
 =================
 
+.. raw:: html
+    :file: _static/track.html
+
 .. image:: ./images/ngl.png
 | 
 .. raw:: html
