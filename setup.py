@@ -249,7 +249,6 @@ packages = [
     'pytraj.core',
     'pytraj.parallel',
     'pytraj.cluster',
-    'pytraj.visualization',
     'pytraj.sandbox',
 ]
 
@@ -274,13 +273,13 @@ def build_func(ext_modules):
         url="https://github.com/Amber-MD/pytraj",
         packages=packages,
         description="""Python API for cpptraj: a data analysis package for biomolecular simulation""",
-        license="GPL v3",
+        license="BSD License",
         classifiers=[
             'Development Status :: 5 - Production/Stable',
             'Operating System :: Unix',
             'Operating System :: MacOS',
             'Intended Audience :: Science/Research',
-            'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+            'License :: OSI Approved :: BSD License',
             'Programming Language :: Python :: 2.7',
             'Programming Language :: Python :: 3.4',
             'Programming Language :: Python :: 3.5',
