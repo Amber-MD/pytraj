@@ -13,10 +13,16 @@ import sys
 import subprocess
 import shutil
 try:
-    from setuptools import setup, Extension
-except ImportError:
+    # for amber
+    sys.argv.remove('--no-setuptools')
     from distutils.core import setup
     from distutils.extension import Extension
+except ValueError:
+    try:
+        from setuptools import setup, Extension
+    except ImportError:
+        from distutils.core import setup
+        from distutils.extension import Extension
 from glob import glob
 
 
@@ -93,21 +99,51 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 if sys.platform == 'darwin':
-    os.environ['CXX'] = DEFAULT_MAC_CXXCOMPILER
-    os.environ['CC'] = DEFAULT_MAC_CCOMPILER
-    # See which c++ lib we need to link to... sigh.
-    import distutils.sysconfig as sc
-    osxver = tuple(int(x) for x in
-                   sc.get_config_var('MACOSX_DEPLOYMENT_TARGET').split('.') if x)
-    if osxver < (10, 9):
-        import platform
-        minorosxver = int(platform.mac_ver()[0].split('.')[1])
-        if minorosxver > 8:
-            # OS X 10.8 and earlier do not understand this flag.
-            extra_compile_args.extend(['-stdlib=libstdc++',
-                                       '-mmacosx-version-min=%d.%d' % osxver])
-            extra_link_args.extend(['-stdlib=libstdc++',
-                                    '-mmacosx-version-min=%d.%d' % osxver])
+    if not pytraj_inside_amber:
+        os.environ['CXX'] = DEFAULT_MAC_CXXCOMPILER
+        os.environ['CC'] = DEFAULT_MAC_CCOMPILER
+        # See which c++ lib we need to link to... sigh.
+        import distutils.sysconfig as sc
+        osxver = tuple(int(x) for x in
+                       sc.get_config_var('MACOSX_DEPLOYMENT_TARGET').split('.') if x)
+        if osxver < (10, 9):
+            import platform
+            minorosxver = int(platform.mac_ver()[0].split('.')[1])
+            if minorosxver > 8:
+                # OS X 10.8 and earlier do not understand this flag.
+                extra_compile_args.extend(['-stdlib=libstdc++',
+                                           '-mmacosx-version-min=%d.%d' % osxver])
+                extra_link_args.extend(['-stdlib=libstdc++',
+                                        '-mmacosx-version-min=%d.%d' % osxver])
+    else:
+        # should use CXX and CC from config.h
+        amberhome = os.environ.get('AMBERHOME', '')
+        if not amberhome:
+            raise EnvironmentError('must set AMBERHOME')
+
+        configfile = amberhome + '/config.h'
+        if not os.path.exists(configfile):
+            raise OSError("must have config.h file")
+
+        CC = DEFAULT_MAC_CCOMPILER
+        CXX = DEFAULT_MAC_CXXCOMPILER
+
+        with open(configfile) as fh:
+            lines = fh.readlines()
+            for line in lines:
+                if line.startswith('CC='):
+                    CC = line.split('=')[-1]
+                    break
+
+            for line in lines:
+                if line.startswith('CXX='):
+                    CXX = line.split('=')[-1]
+                    break
+
+        os.environ['CXX'] = CXX
+        os.environ['CC'] = CC
+        print('using CC={}, CXX={}'.format(CC, CXX))
+
 
 pyxfiles, pxdfiles = get_pyx_pxd()
 
@@ -212,7 +248,6 @@ packages = [
     'pytraj.core',
     'pytraj.parallel',
     'pytraj.cluster',
-    'pytraj.visualization',
     'pytraj.sandbox',
 ]
 
@@ -237,13 +272,13 @@ def build_func(ext_modules):
         url="https://github.com/Amber-MD/pytraj",
         packages=packages,
         description="""Python API for cpptraj: a data analysis package for biomolecular simulation""",
-        license="GPL v3",
+        license="BSD License",
         classifiers=[
             'Development Status :: 5 - Production/Stable',
             'Operating System :: Unix',
             'Operating System :: MacOS',
             'Intended Audience :: Science/Research',
-            'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+            'License :: OSI Approved :: BSD License',
             'Programming Language :: Python :: 2.7',
             'Programming Language :: Python :: 3.4',
             'Programming Language :: Python :: 3.5',
