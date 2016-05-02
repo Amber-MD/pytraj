@@ -36,7 +36,7 @@ Install
 -------
 Supported platforms: Linux, OSX
 
-- from AMBER suite distribution [http://ambermd.org/](http://ambermd.org/). AMBER16 will be available soon (around April 2016).
+- from AMBER suite distribution [http://ambermd.org/](http://ambermd.org/#AmberTools).
 
 - from conda: `conda install -c ambermd pytraj`
 
