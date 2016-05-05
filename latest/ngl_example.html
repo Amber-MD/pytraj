@@ -24,6 +24,7 @@
                 stage.loadFile( '_static/1tsu.pdb' ).then( function( o ) {
                     o.addRepresentation( "cartoon" );
                     o.addRepresentation( "licorice", {'sele': 'water and not hydrogen'} );
+                    o.centerView();
                 });
                 // stage.addRepresentation( "licorice", {'sele': 'not water'} );
                 stage.setTheme( "light" );
