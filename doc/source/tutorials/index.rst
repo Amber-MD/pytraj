@@ -60,4 +60,5 @@ If you miss any Python package, try to use ``conda``, example::
 
 .. raw:: html
 
-    <h2 href=http://ambermd.org/tutorials/analysis/#pytraj> AMBER tutorials </h2>
+    <h2> AMBER tutorials </h2>
+    <a href=http://ambermd.org/tutorials/analysis/#pytraj> go to AMBER..  </a>
