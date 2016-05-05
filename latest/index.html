@@ -270,41 +270,44 @@ $(document).ready(function() {
 <h3>Jupyter notebook</h3><a class="reference external image-reference" href="http://jupyter.org/"><img alt="http://jupyter.org/assets/jupyterpreview.png" src="http://jupyter.org/assets/jupyterpreview.png" style="height: 200px;" /></a>
 </div>
 <div class="col-md-3">
-<h3><a href=trajectory_viewer.html> Trajectory visualization </a></h3>
+<h3><a href=trajectory_viewer.html> Trajectory visualization </a></h3><!DOCTYPE html>
+<html lang="en">
 
- <script src="ngl.embedded.min.js">
- </script>
+    <head>
 
- <script>
+        <title>NGL - embedded</title>
 
-   // adapted from NGL and MDAnalysis websites
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
-   if( !Detector.webgl ) Detector.addGetWebGLMessage();
+    </head>
 
-   NGL.mainScriptFilePath = "ngl.embedded.min.js";
+    <body>
 
-   function onInit(){
-       var stage = new NGL.Stage( "viewport" );
-       stage.loadFile( "_static/1tsu.pdb" ).then( function ( o ) {
-            o.addRepresentation( "cartoon" );
-            o.addRepresentation( "licorice", { sele: "water" } );
-            o.centerView();
-       });
+        <script src="ngl.embedded.min.js"></script>
 
-       stage.setTheme( "light" )
+        <script>
+            NGL.mainScriptFilePath = "ngl.embedded.min.js";
+            document.addEventListener( "DOMContentLoaded", function(){
+                var stage = new NGL.Stage( "viewport" );
+                stage.viewer.container.addEventListener( "dblclick", function(){
+                    stage.toggleFullscreen();
+                } );
+                stage.loadFile( '_static/1tsu.pdb' ).then( function( o ) {
+                    o.addRepresentation( "cartoon" );
+                    o.addRepresentation( "licorice", {'sele': 'water and not hydrogen'} );
+                });
+                // stage.addRepresentation( "licorice", {'sele': 'not water'} );
+                stage.setTheme( "light" );
+            } );
+        </script>
 
-       window.addEventListener( "resize", function( event ){
-          stage.handleResize();
-       }, false );
-   }
+        <div id="viewport" style="width:500px; height:500px;"></div>
 
-   document.addEventListener( "DOMContentLoaded", function() {
-       NGL.init( onInit );
-   } );
+    </body>
 
- </script>
-
- <div id="viewport" style="max-width:100%; height:400px;"></div></div>
+</html>
+</div>
 <div class="col-md-3">
 <h3>Try pytraj online</h3><a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img src="http://mybinder.org/images/logo.svg" /></a>
 </div></div>

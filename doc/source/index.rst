@@ -100,39 +100,8 @@ Welcome
    <div class="col-md-3">
    <h3><a href=trajectory_viewer.html> Trajectory visualization </a></h3>
 
-    <script src="ngl.embedded.min.js">
-    </script>
-    
-    <script>
-    
-      // adapted from NGL and MDAnalysis websites
-
-      if( !Detector.webgl ) Detector.addGetWebGLMessage();
-    
-      NGL.mainScriptFilePath = "ngl.embedded.min.js";
-    
-      function onInit(){
-          var stage = new NGL.Stage( "viewport" );
-          stage.loadFile( "_static/1tsu.pdb" ).then( function ( o ) {
-               o.addRepresentation( "cartoon" );
-               o.addRepresentation( "licorice", { sele: "water" } );
-               o.centerView();
-          });
-
-          stage.setTheme( "light" )
-      
-          window.addEventListener( "resize", function( event ){
-             stage.handleResize();
-          }, false );
-      }
-    
-      document.addEventListener( "DOMContentLoaded", function() {
-          NGL.init( onInit );
-      } );
-    
-    </script>
-    
-    <div id="viewport" style="max-width:100%; height:400px;"></div>
+.. raw:: html
+   :file: ngl_example.html
 
 .. raw:: html
 
