@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Pairwise RMSD &mdash; pytraj 1.0.5.dev0+e4abd33 documentation</title>
+    <title>Pairwise RMSD &mdash; pytraj 1.0.5.dev0+d03643f documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.5.dev0+e4abd33',
+        VERSION:     '1.0.5.dev0+d03643f',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.5.dev0+e4abd33 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.5.dev0+d03643f documentation" href="../index.html" />
     <link rel="up" title="Plots" href="plot.html" />
     <link rel="next" title="Ramachandran plot" href="plot_phipsi_trpcage.html" />
     <link rel="prev" title="Plot correlation matrix" href="plot_correlation_matrix.html" />
@@ -54,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+e4abd33</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+d03643f</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -177,8 +177,8 @@
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="kn">from</span> <span class="nn">pytraj.plot</span> <span class="k">import</span> <span class="n">plot_matrix</span>
@@ -194,7 +194,7 @@
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&quot;tz2.nc&quot;</span><span class="p">,</span> <span class="s">&quot;tz2.parm7&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s2">&quot;tz2.nc&quot;</span><span class="p">,</span> <span class="s2">&quot;tz2.parm7&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -207,7 +207,7 @@
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">mat</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s">&#39;@CA&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mat</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;@CA&#39;</span><span class="p">)</span>
 <span class="n">mat</span>
 </pre></div>
 
@@ -249,15 +249,15 @@
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="o">%</span><span class="k">matplotlib</span> inline
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39; 
 <span class="kn">import</span> <span class="nn">matplotlib</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">asp</span><span class="p">,</span> <span class="n">axi</span><span class="p">,</span> <span class="o">=</span> <span class="n">plot_matrix</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">axi</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">asp</span><span class="p">)</span>
 
-<span class="c"># from matplotlib import pyplot as plt</span>
-<span class="c"># plt.savefig(&#39;plot_pairwise_rmsd.png&#39;)</span>
+<span class="c1"># from matplotlib import pyplot as plt</span>
+<span class="c1"># plt.savefig(&#39;plot_pairwise_rmsd.png&#39;)</span>
 </pre></div>
 
 </div>
@@ -272,7 +272,7 @@
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.colorbar.Colorbar at 0x2aaad5ecd550&gt;</pre>
+<pre>&lt;matplotlib.colorbar.Colorbar at 0x109f6f748&gt;</pre>
 </div>
 
 </div>
@@ -1145,8 +1145,8 @@ BgAAUEMEaQAAADVEkAYAAFBDBGkAAAA1RJAGAABQQ/8DbjRY0aZ3OHsAAAAASUVORK5CYII=
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Apr 26, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
+      Last updated on May 04, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
     </p>
   </div>
 </footer>

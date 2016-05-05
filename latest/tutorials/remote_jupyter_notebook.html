@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Use Jupyter notebook remotely &mdash; pytraj 1.0.5.dev0+e4abd33 documentation</title>
+    <title>Use Jupyter notebook remotely &mdash; pytraj 1.0.5.dev0+d03643f documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.5.dev0+e4abd33',
+        VERSION:     '1.0.5.dev0+d03643f',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.5.dev0+e4abd33 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.5.dev0+d03643f documentation" href="../index.html" />
     <link rel="up" title="Advanced examples" href="advanced_examples.html" />
     <link rel="next" title="Data analysis for trp-cage folding MD trajectory" href="amber_tutorial3_folding_trpcage_analysis.html" />
     <link rel="prev" title="Endless streaming calculation" href="advanced_endless_streaming.html" />
@@ -54,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+e4abd33</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+d03643f</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -166,24 +166,24 @@ open your Jupyter notebook on remote host. However, this kind of connection is q
 offcie) and local (your home computer)</p>
 </li>
 <li><p class="first">In remote host, open the terminal, change directory to where you have your notebooks and type:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">jupyter</span> <span class="n">notebook</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">browser</span> <span class="o">--</span><span class="n">port</span><span class="o">=</span><span class="mi">8889</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>jupyter notebook --no-browser --port=8889
 
-<span class="c"># you should leave the this open</span>
+# you should leave the this open
 </pre></div>
 </div>
 </li>
 <li><p class="first">In your local computer, open MS-DOS cmd (if using Windows) or Unix terminal, then type:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">ssh</span> <span class="o">-</span><span class="n">N</span> <span class="o">-</span><span class="n">f</span> <span class="o">-</span><span class="n">L</span> <span class="n">localhost</span><span class="p">:</span><span class="mi">8888</span><span class="p">:</span><span class="n">localhost</span><span class="p">:</span><span class="mi">8889</span> <span class="n">username</span><span class="nd">@your_remote_host_name</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>ssh -N -f -L localhost:8888:localhost:8889 username@your_remote_host_name
 
-<span class="c"># make sure to change `username` to your real username in remote host</span>
-<span class="c"># change `your_remote_host_name` to your address of your working station</span>
-<span class="c"># Example: ssh -N -f -L localhost:8888:localhost:8889 laura@cs.rutgers.edu</span>
+# make sure to change `username` to your real username in remote host
+# change `your_remote_host_name` to your address of your working station
+# Example: ssh -N -f -L localhost:8888:localhost:8889 laura@cs.rutgers.edu
 </pre></div>
 </div>
 </li>
 <li><p class="first">Now open web browser (google chrome, firefox, ...) and type:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">localhost</span><span class="p">:</span><span class="mi">8888</span>
-<span class="c"># you will see your notebooks in your given directory</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>localhost:8888
+# you will see your notebooks in your given directory
 </pre></div>
 </div>
 </li>
@@ -207,8 +207,8 @@ offcie) and local (your home computer)</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Apr 26, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
+      Last updated on May 04, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
     </p>
   </div>
 </footer>

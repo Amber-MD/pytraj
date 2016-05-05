@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.topology &mdash; pytraj 1.0.5.dev0+e4abd33 documentation</title>
+    <title>pytraj.topology &mdash; pytraj 1.0.5.dev0+d03643f documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.5.dev0+e4abd33',
+        VERSION:     '1.0.5.dev0+d03643f',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.5.dev0+e4abd33 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.5.dev0+d03643f documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -52,7 +52,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+e4abd33</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+d03643f</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -302,7 +302,7 @@
 <td>set <code class="docutils literal"><span class="pre">mask</span></code> as solvent</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.Topology.simplify" title="pytraj.topology.Topology.simplify"><code class="xref py py-obj docutils literal"><span class="pre">simplify</span></code></a>(...)</td>
-<td>return a light version (immutable) of Topology for fast iterating. (experiment)</td>
+<td>return a (immutable) light version of Topology for fast iterating. (experiment)</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.Topology.start_new_mol" title="pytraj.topology.Topology.start_new_mol"><code class="xref py py-obj docutils literal"><span class="pre">start_new_mol</span></code></a>(self)</td>
 <td></td>
@@ -600,9 +600,9 @@ if atom is False, get ()</p>
 <p class="rubric">Notes</p>
 <p>support openmp for distance-based atommask selction</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">atm</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s">&quot;@CA&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">atm</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;@CA&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">atm</span>
 <span class="go">array([  4,  15,  39, ..., 159, 173, 197])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">atm</span><span class="p">)</span>
@@ -635,17 +635,23 @@ if atom is False, get ()</p>
 
 <dl class="method">
 <dt id="pytraj.topology.Topology.simplify">
-<code class="descname">simplify</code><span class="sig-paren">(</span><em>self) return a light version (immutable) of Topology for fast iterating. (experiment</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.Topology.simplify" title="Permalink to this definition">¶</a></dt>
-<dd><p>return a light version (immutable) of Topology for fast iterating. (experiment)</p>
+<code class="descname">simplify</code><span class="sig-paren">(</span><em>self) return a (immutable) light version of Topology for fast iterating. (experiment</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.Topology.simplify" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a (immutable) light version of Topology for fast iterating. (experiment)</p>
+<p>No writing capabibility (you should use ParmEd for Topology editing)</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">top</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s">&#39;data/tz2.parm7&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">top</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s1">&#39;data/tz2.parm7&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">simp_top</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">simp_top</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">atom</span> <span class="o">=</span> <span class="n">simp_top</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">atom</span><span class="o">.</span><span class="n">resname</span>
 <span class="go">&#39;SER&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">simp_top</span><span class="o">.</span><span class="n">residues</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># get all atoms for 1st residue</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">atoms</span> <span class="o">=</span> <span class="n">simp_top</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="n">res</span><span class="o">.</span><span class="n">first</span><span class="p">:</span><span class="n">res</span><span class="o">.</span><span class="n">last</span><span class="p">]</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -799,7 +805,7 @@ arglist : ArgList instance, optional</p>
 
 <dl class="class">
 <dt id="pytraj.topology.SimplifiedAtom">
-<em class="property">class </em><code class="descclassname">pytraj.topology.</code><code class="descname">SimplifiedAtom</code><a class="headerlink" href="#pytraj.topology.SimplifiedAtom" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pytraj.topology.</code><code class="descname">SimplifiedAtom</code><span class="sig-paren">(</span><em>name</em>, <em>type</em>, <em>element</em>, <em>charge</em>, <em>mass</em>, <em>index</em>, <em>atomic_number</em>, <em>resname</em>, <em>resid</em>, <em>molnum</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.SimplifiedAtom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">importlib._bootstrap.SimplifiedAtom</span></code></p>
 <p class="rubric">Attributes</p>
 <table border="1" class="longtable docutils">
@@ -921,7 +927,7 @@ arglist : ArgList instance, optional</p>
 
 <dl class="class">
 <dt id="pytraj.topology.SimplifiedResidue">
-<em class="property">class </em><code class="descclassname">pytraj.topology.</code><code class="descname">SimplifiedResidue</code><a class="headerlink" href="#pytraj.topology.SimplifiedResidue" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pytraj.topology.</code><code class="descname">SimplifiedResidue</code><span class="sig-paren">(</span><em>name</em>, <em>index</em>, <em>first</em>, <em>last</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.SimplifiedResidue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">importlib._bootstrap.SimplifiedResidue</span></code></p>
 <p class="rubric">Attributes</p>
 <table border="1" class="longtable docutils">
@@ -930,13 +936,13 @@ arglist : ArgList instance, optional</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.SimplifiedResidue.first_atom_index" title="pytraj.topology.SimplifiedResidue.first_atom_index"><code class="xref py py-obj docutils literal"><span class="pre">first_atom_index</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.SimplifiedResidue.first" title="pytraj.topology.SimplifiedResidue.first"><code class="xref py py-obj docutils literal"><span class="pre">first</span></code></a></td>
 <td>Alias for field number 2</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.SimplifiedResidue.index" title="pytraj.topology.SimplifiedResidue.index"><code class="xref py py-obj docutils literal"><span class="pre">index</span></code></a></td>
 <td>Alias for field number 1</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.SimplifiedResidue.last_atom_index" title="pytraj.topology.SimplifiedResidue.last_atom_index"><code class="xref py py-obj docutils literal"><span class="pre">last_atom_index</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.SimplifiedResidue.last" title="pytraj.topology.SimplifiedResidue.last"><code class="xref py py-obj docutils literal"><span class="pre">last</span></code></a></td>
 <td>Alias for field number 3</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.SimplifiedResidue.name" title="pytraj.topology.SimplifiedResidue.name"><code class="xref py py-obj docutils literal"><span class="pre">name</span></code></a></td>
@@ -962,8 +968,8 @@ arglist : ArgList instance, optional</p>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="pytraj.topology.SimplifiedResidue.first_atom_index">
-<code class="descname">first_atom_index</code><a class="headerlink" href="#pytraj.topology.SimplifiedResidue.first_atom_index" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.topology.SimplifiedResidue.first">
+<code class="descname">first</code><a class="headerlink" href="#pytraj.topology.SimplifiedResidue.first" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias for field number 2</p>
 </dd></dl>
 
@@ -974,8 +980,8 @@ arglist : ArgList instance, optional</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pytraj.topology.SimplifiedResidue.last_atom_index">
-<code class="descname">last_atom_index</code><a class="headerlink" href="#pytraj.topology.SimplifiedResidue.last_atom_index" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.topology.SimplifiedResidue.last">
+<code class="descname">last</code><a class="headerlink" href="#pytraj.topology.SimplifiedResidue.last" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias for field number 3</p>
 </dd></dl>
 
@@ -1002,8 +1008,8 @@ arglist : ArgList instance, optional</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Apr 26, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
+      Last updated on May 04, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
     </p>
   </div>
 </footer>

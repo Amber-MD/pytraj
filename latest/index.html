@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Welcome &mdash; pytraj 1.0.5.dev0+e4abd33 documentation</title>
+    <title>Welcome &mdash; pytraj 1.0.5.dev0+d03643f documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0.5.dev0+e4abd33',
+        VERSION:     '1.0.5.dev0+d03643f',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.5.dev0+e4abd33 documentation" href="#" />
+    <link rel="top" title="pytraj 1.0.5.dev0+d03643f documentation" href="#" />
     <link rel="next" title="Overview" href="overview.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -52,7 +52,7 @@
         </button>
         <a class="navbar-brand" href="#">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+e4abd33</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+d03643f</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -177,6 +177,54 @@
 </li>
 </ul>
 </div>
+<script>
+// copied from mdtraj.org
+// when the user changes their selection in the dropdown menu, navigate
+// to a new set of root documentation
+$(document).ready(function() {
+    $('#versionselector').change(function(){
+        window.location.href = $('#versionselector option:selected').attr('url');
+    });
+});
+
+// get all of the releases from versions.json, and use these to populate the
+// dropdown menu of different releases
+$(document).ready(function() {
+    $.getJSON("http://amber-md.github.io/pytraj/versions.json")
+      .done(function(data) {
+          numItems = data.length;
+          tags = [];
+          for (var i = 0; i < numItems; i++) {
+              tags.push({ value : data[i].version, url : data[i].url })
+          }
+          tags = tags.sort(function(a,b) { a.value < b.value }).reverse();
+
+          for (var i = 0; i < numItems; i++) {
+              var temp = {value : tags[i].value, 'url' : tags[i].url}
+              if (tags[i].value == 'development') {
+                temp['selected'] = 'selected';
+              } else {
+                temp['selected'] = null;
+              }
+              $('#versionselector')
+                .append($('<option></option>', temp)
+                .text(tags[i].value)); 
+          }
+      })
+      .fail(function(d, textStatus, error) {
+        console.error("getJSON failed, status: " + textStatus + ", error: "+error);
+      });
+});
+</script>
+
+
+<style>
+#versionselector {
+    border:1px solid #ccc;
+    background-color:#fff;
+    width:100px;
+}
+</style>
 </div>
 <div class="col-md-3">
 <h2>Documentation</h2><div class="toctree-wrapper compound">
@@ -211,9 +259,9 @@
 <p><strong>Indices and tables</strong></p>
 <ul class="simple">
 <li><a class="reference external" href="https://github.com/Amber-MD/pytraj">fork and contribute</a></li>
-<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+<li><a class="reference internal" href="genindex.html"><span>Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span>Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span>Search Page</span></a></li>
 </ul>
 </div>
 </div>
@@ -274,8 +322,8 @@
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Apr 26, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
+      Last updated on May 04, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
     </p>
   </div>
 </footer>

@@ -29,6 +29,9 @@ Welcome
    overview
 
 .. raw:: html
+    :file: versions.html
+
+.. raw:: html
 
    </div>
    <div class="col-md-3">

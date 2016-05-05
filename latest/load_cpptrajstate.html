@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Run cpptraj’s batch &mdash; pytraj 1.0.5.dev0+e4abd33 documentation</title>
+    <title>Run cpptraj’s batch &mdash; pytraj 1.0.5.dev0+d03643f documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0.5.dev0+e4abd33',
+        VERSION:     '1.0.5.dev0+d03643f',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.5.dev0+e4abd33 documentation" href="index.html" />
+    <link rel="top" title="pytraj 1.0.5.dev0+d03643f documentation" href="index.html" />
     <link rel="up" title="Cookbook" href="cookbook.html" />
     <link rel="next" title="Weird things in pytraj" href="things_will_be_surprised.html" />
     <link rel="prev" title="Tips for out-of-core loading" href="tips_iterload.html" />
@@ -54,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+e4abd33</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+d03643f</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -176,21 +176,21 @@
 <p class="last">This tutorial is for advanced users and the syntax might be changed in future.</p>
 </div>
 <p>if you want to run cpptraj&#8217;s batch mode like below:</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="n">parm</span> <span class="n">tz2</span><span class="o">.</span><span class="n">ortho</span><span class="o">.</span><span class="n">parm7</span>
-<span class="n">trajin</span> <span class="n">tz2</span><span class="o">.</span><span class="n">ortho</span><span class="o">.</span><span class="n">nc</span>
-<span class="n">autoimage</span>
-<span class="n">rms</span> <span class="n">first</span> <span class="nd">@CA</span>
-<span class="n">radgyr</span> <span class="nd">@H</span><span class="p">,</span><span class="n">C</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">O</span>
-<span class="n">molsurf</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>parm tz2.ortho.parm7
+trajin tz2.ortho.nc
+autoimage
+rms first @CA
+radgyr @H,C,N,O
+molsurf
 </pre></div>
 </div>
 <p>you can create a &#8216;CpptrajState&#8217;</p>
 <div class="section" id="create-state-with-existing-trajectoryiterator-class">
 <h2><a class="toc-backref" href="#id2">Create state with existing <code class="docutils literal"><span class="pre">TrajectoryIterator</span></code> class</a><a class="headerlink" href="#create-state-with-existing-trajectoryiterator-class" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="c"># load traj first</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="c"># load traj first</span>
 <span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
-<span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&#39;./tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s">&#39;tz2.ortho.parm7&#39;</span><span class="p">)</span>
+<span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;./tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.ortho.parm7&#39;</span><span class="p">)</span>
 
 <span class="gp">In [3]: </span><span class="n">traj</span>
 <span class="gr">Out[3]: </span>
@@ -200,11 +200,11 @@
 <span class="go">           </span>
 
 <span class="c"># create text (do not need to have ``parm`` and ``trajin`` info)</span>
-<span class="gp">In [4]: </span><span class="n">text</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
-<span class="gp">   ...:</span><span class="s"> autoimage</span>
-<span class="gp">   ...:</span><span class="s"> rms first @CA</span>
-<span class="gp">   ...:</span><span class="s"> radgyr @H,C,N,O</span>
-<span class="gp">   ...:</span><span class="s"> molsurf @CA&#39;&#39;&#39;</span>
+<span class="gp">In [4]: </span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="gp">   ...:</span><span class="s1"> autoimage</span>
+<span class="gp">   ...:</span><span class="s1"> rms first @CA</span>
+<span class="gp">   ...:</span><span class="s1"> radgyr @H,C,N,O</span>
+<span class="gp">   ...:</span><span class="s1"> molsurf @CA&#39;&#39;&#39;</span>
 <span class="gp">   ...:</span> 
 
 <span class="c"># load CpptrajState</span>
@@ -260,18 +260,18 @@
 </div>
 <div class="section" id="create-state-without-trajectoryiterator-class">
 <h2><a class="toc-backref" href="#id3">Create state without <code class="docutils literal"><span class="pre">TrajectoryIterator</span></code> class</a><a class="headerlink" href="#create-state-without-trajectoryiterator-class" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="c"># suppose you have</span>
-<span class="gp">In [13]: </span><span class="n">text</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
-<span class="gp">   ....:</span><span class="s"> parm tz2.parm7</span>
-<span class="gp">   ....:</span><span class="s"> trajin tz2.nc</span>
-<span class="gp">   ....:</span><span class="s"> dihedral phi :1@C  :2@N  :2@CA :2@C</span>
-<span class="gp">   ....:</span><span class="s"> dihedral psi   :1@N  :1@CA :1@C  :2@N</span>
-<span class="gp">   ....:</span><span class="s"> dihedral omega   :1@CA :1@C  :2@N  :2@CA</span>
-<span class="gp">   ....:</span><span class="s"> distance end_to_end :1@N :7@N</span>
-<span class="gp">   ....:</span><span class="s"> rms first :1-1584</span>
-<span class="gp">   ....:</span><span class="s"> strip !@H=</span>
-<span class="gp">   ....:</span><span class="s"> createcrd mycrd</span>
-<span class="gp">   ....:</span><span class="s"> &#39;&#39;&#39;</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="c"># suppose you have</span>
+<span class="gp">In [13]: </span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="gp">   ....:</span><span class="s1"> parm tz2.parm7</span>
+<span class="gp">   ....:</span><span class="s1"> trajin tz2.nc</span>
+<span class="gp">   ....:</span><span class="s1"> dihedral phi :1@C  :2@N  :2@CA :2@C</span>
+<span class="gp">   ....:</span><span class="s1"> dihedral psi   :1@N  :1@CA :1@C  :2@N</span>
+<span class="gp">   ....:</span><span class="s1"> dihedral omega   :1@CA :1@C  :2@N  :2@CA</span>
+<span class="gp">   ....:</span><span class="s1"> distance end_to_end :1@N :7@N</span>
+<span class="gp">   ....:</span><span class="s1"> rms first :1-1584</span>
+<span class="gp">   ....:</span><span class="s1"> strip !@H=</span>
+<span class="gp">   ....:</span><span class="s1"> createcrd mycrd</span>
+<span class="gp">   ....:</span><span class="s1"> &#39;&#39;&#39;</span>
 <span class="gp">   ....:</span> 
 
 <span class="gp">In [14]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
@@ -290,18 +290,18 @@
 
 <span class="c"># if you already label your Dataset, you can access to them by using dict-like acessing</span>
 <span class="c"># get Dataset with label `end_to_end` (distance)</span>
-<span class="gp">In [18]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;end_to_end&#39;</span><span class="p">]</span>
+<span class="gp">In [18]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;end_to_end&#39;</span><span class="p">]</span>
 <span class="go">                                                                                                                      Out[18]: </span>
 <span class="go">&lt;pytraj.datasets.DatasetDouble: size=101, key=end_to_end&gt; </span>
 <span class="go">values: </span>
 <span class="go">[ 15.0506   7.8035   5.8305 ...,  14.829   12.6534  13.3292]</span>
 
 <span class="c"># get raw values (usually numpy array)</span>
-<span class="gp">In [19]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;end_to_end&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="gp">In [19]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;end_to_end&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
 <span class="go">                                                                                                                                                                                                                                                                 Out[19]: array([ 15.0506,   7.8035,   5.8305, ...,  14.829 ,  12.6534,  13.3292])</span>
 
 <span class="c"># get `mycrd`</span>
-<span class="gp">In [20]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;mycrd&#39;</span><span class="p">]</span>
+<span class="gp">In [20]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;mycrd&#39;</span><span class="p">]</span>
 <span class="go">                                                                                                                                                                                                                                                                                                                                                   Out[20]: </span>
 <span class="go">pytraj.DatasetCoordsCRD, 101 frames: </span>
 <span class="go">Size: 0.000239 (GB)</span>
@@ -348,8 +348,8 @@
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Apr 26, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
+      Last updated on May 04, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
     </p>
   </div>
 </footer>

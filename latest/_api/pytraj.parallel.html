@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.parallel &mdash; pytraj 1.0.5.dev0+e4abd33 documentation</title>
+    <title>pytraj.parallel &mdash; pytraj 1.0.5.dev0+d03643f documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.5.dev0+e4abd33',
+        VERSION:     '1.0.5.dev0+d03643f',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.5.dev0+e4abd33 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.5.dev0+d03643f documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="next" title="pytraj.core.c_core" href="pytraj.core.c_core.html" />
 <meta charset='utf-8'>
@@ -53,7 +53,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+e4abd33</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.5.dev0+d03643f</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -151,7 +151,7 @@
   <div class="section" id="pytraj-parallel">
 <span id="id1"></span><h1>pytraj.parallel<a class="headerlink" href="#pytraj-parallel" title="Permalink to this headline">¶</a></h1>
 <p><code class="docutils literal"><span class="pre">pmap</span></code> is as simple as</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -173,8 +173,8 @@
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="c"># create test_radgyr.py file</span>
-<span class="nv">$ </span>cat &gt; test_radgyr.py <span class="s">&lt;&lt;EOF</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="c1"># create test_radgyr.py file</span>
+$ cat &gt; test_radgyr.py <span class="s">&lt;&lt;EOF</span>
 <span class="s">import pytraj as pt</span>
 <span class="s">from mpi4py import MPI</span>
 <span class="s">comm = MPI.COMM_WORLD</span>
@@ -189,8 +189,8 @@
 <span class="s">    print(result_arr)</span>
 <span class="s">EOF</span>
 
-<span class="nv">$ </span><span class="c"># run in parallel</span>
-<span class="nv">$ </span>mpirun -n <span class="m">4</span> python ./test_radgyr.py
+$ <span class="c1"># run in parallel</span>
+$ mpirun -n <span class="m">4</span> python ./test_radgyr.py
 <span class="o">[</span>array<span class="o">([</span> 8.10916061,  7.7643485 ,  8.09693108, ...,  9.70825678,
         9.3161563 ,  8.86720964<span class="o">])</span>, array<span class="o">([</span> 8.82037273,  8.89008289,  9.48540176, ...,  9.29585981,
         9.53138062,  9.19155977<span class="o">])</span>, array<span class="o">([</span> 9.13735723,  8.94651001,  8.97810478, ...,  7.68751186,
@@ -215,8 +215,8 @@
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Apr 26, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
+      Last updated on May 04, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
     </p>
   </div>
 </footer>
