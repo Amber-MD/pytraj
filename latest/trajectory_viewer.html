@@ -168,34 +168,45 @@
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<script src="ngl.embedded.min.js">
-</script>
+<!DOCTYPE html>
+<html lang="en">
 
-<script>
+    <head>
 
-  // adapted from NGL and MDAnalysis websites
+        <title>NGL - embedded</title>
 
-  if( !Detector.webgl ) Detector.addGetWebGLMessage();
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
-  NGL.mainScriptFilePath = "ngl.embedded.min.js";
+    </head>
 
-  function onInit(){
-      var stage = new NGL.Stage( "viewport" );
-      stage.loadFile( "_static/1tsu.pdb", { defaultRepresentation: true } );
-      stage.setTheme( "light" )
+    <body>
 
-      window.addEventListener( "resize", function( event ){
-         stage.handleResize();
-      }, false );
-  }
+        <script src="ngl.embedded.min.js"></script>
 
-  document.addEventListener( "DOMContentLoaded", function() {
-      NGL.init( onInit );
-  } );
+        <script>
+            NGL.mainScriptFilePath = "ngl.embedded.min.js";
+            document.addEventListener( "DOMContentLoaded", function(){
+                var stage = new NGL.Stage( "viewport" );
+                stage.viewer.container.addEventListener( "dblclick", function(){
+                    stage.toggleFullscreen();
+                } );
+                stage.loadFile( '_static/1tsu.pdb' ).then( function( o ) {
+                    o.addRepresentation( "cartoon" );
+                    o.addRepresentation( "licorice", {'sele': 'water and not hydrogen'} );
+                    o.centerView();
+                });
+                // stage.addRepresentation( "licorice", {'sele': 'not water'} );
+                stage.setTheme( "light" );
+            } );
+        </script>
 
-</script>
+        <div id="viewport" style="width:500px; height:500px;"></div>
 
-<div id="viewport" style="max-width:100%; height:400px;"></div><div class="admonition note">
+    </body>
+
+</html>
+<div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>Still work in progress. Please see source code in <a class="reference external" href="https://github.com/arose/nglview/">https://github.com/arose/nglview/</a></p>
 <p class="last">or <a class="reference external" href="http://mybinder.org/repo/hainm/notebook-pytraj/">try this online</a></p>
