@@ -1,0 +1,352 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pytraj.parallel &mdash; pytraj 1.0.4 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="pytraj 1.0.4 documentation" href="../index.html" />
+    <link rel="up" title="API" href="index.html" />
+    <link rel="next" title="pytraj.core.c_core" href="pytraj.core.c_core.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.4</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory.html#overview">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_and_write.html">Read and Write</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conda.html">Use conda to manage different Python versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory_viewer.html">Trajectory Viewer</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">pytraj.parallel</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="pytraj.core.c_core.html" title="Next Chapter: pytraj.core.c_core"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">pytraj.core.c... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/_api/pytraj.parallel.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="pytraj-parallel">
+<span id="id1"></span><h1>pytraj.parallel<a class="headerlink" href="#pytraj-parallel" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal"><span class="pre">pmap</span></code> is as simple as</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="custom-index container">
+<script type="text/javascript" src='../_static/cindex.js'></script></div>
+<span class="target" id="module-pytraj.parallel.multiprocessing_"><span id="pytraj-pmap"></span></span><dl class="function">
+<dt id="pytraj.parallel.multiprocessing_.pmap">
+<code class="descclassname">pytraj.parallel.multiprocessing_.</code><code class="descname">pmap</code><span class="sig-paren">(</span><em>func=None</em>, <em>traj=None</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.parallel.multiprocessing_.pmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>use python&#8217;s multiprocessing to accelerate calculation. Limited calculations.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>func</strong> : a pytraj&#8217;s methods or a list of string or simply as a cpptraj&#8217; text</p>
+<p><strong>traj</strong> : pytraj.TrajectoryIterator</p>
+<p><strong>n_cores</strong> : int, number of cores to be used, default 2. Specify n_cores=-1 to use all available cores</p>
+<p><strong>iter_options</strong> : dict, default {}</p>
+<blockquote>
+<div><p>Specify trajectory iterating option. This will be done before calling <code class="docutils literal"><span class="pre">func</span></code>.</p>
+</div></blockquote>
+<p><strong>frame_indices</strong> : {None, array-like}, default None, optional</p>
+<blockquote>
+<div><p>if provided, pytraj will split this frame_indices into different chunks and let
+cpptraj perform calculation for specific indices.
+frame_indices must be pickable so is can be sent to different cores.</p>
+</div></blockquote>
+<p><strong>*args, **kwd: additional keywords</strong></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>out</strong> : OrderedDict</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><code class="xref py py-obj docutils literal"><span class="pre">pytraj.pmap_mpi</span></code></p>
+</div>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>If you not sure about parallel&#8217;s results, you should compare the output to serial run.</li>
+<li>This is absolutely experimental. The syntax might be changed in future.</li>
+</ul>
+<p>Rule of thumbs: start with small number of frames (saying 10 frames), varying
+n_cores=1, 2, 3, 4 to see if the data makes sense or not.</p>
+<p>There are two modes in this method, use pytraj&#8217;s methods (pytraj.rmsd, pytraj.radgyr,
+...) or use cpptraj&#8217;s command text syntax (&#8216;autoimage&#8217;, &#8216;rms&#8217;, ...)</p>
+<p>If using cpptraj syntax:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>pytraj only supports limited cpptraj&#39;s Actions (not Analysis, checm Amber15 manual
+about Action and Analysis), say no  to &#39;matrix&#39;, &#39;atomicfluct&#39;, ... or any action
+that results output depending on the number of frames.
+</pre></div>
+</div>
+<p>This method only benifits you if your calculation is quite long (saying few minutes to
+few hours). For calculation that takes less than 1 minutes, you won&#8217;t see the
+significant speed up (or even slower) since pytraj need to warm up and need to gather
+data when the calculation done.</p>
+<p>The parallel cacluation is very simple, trajectory will be split (almost equal) to
+different chunk (n_chunks = n_cores), pytraj/cpptraj perform calculation for each
+chunk in each core and then send data back to master. Note that we are using Python&#8217;s
+built-in multiprocessing module, so you can use this method interactively in Ipython
+and ipython/jupyter notebook. This behavior is different from using MPI, in which you
+need to write a script, escaping ipython ession and type something like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>mpirun -n 4 python my_script.py
+</pre></div>
+</div>
+<p>vs:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>In [1]: pt.pmap(pt.radgyr, traj, n_cores=4)
+Out[1]:
+OrderedDict([(&#39;RoG_00000&#39;,
+              array([ 18.91114428,  18.93654996,  18.84969884,  18.90449256,
+                      18.8568644 ,  18.88917208,  18.9430491 ,  18.88878079,
+                      18.91669565,  18.87069722]))])
+</pre></div>
+</div>
+<p>This is experimental method, you should expect its syntax, default output will be changed.</p>
+<p>When sending Topology to different cores, pytraj will reload Topology from
+traj.top.filename, so if you need to update Topology (in the fly), save it to disk and
+reload before using <code class="docutils literal"><span class="pre">pytraj.pmap</span></code></p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># use iter_options</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iter_options</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;autoimage&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s1">&#39;rmsfit&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;@CA&#39;</span><span class="p">)}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">mean_structure</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">iter_options</span><span class="o">=</span><span class="n">iter_options</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># cpptraj command style</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">([</span><span class="s1">&#39;distance :3 :7&#39;</span><span class="p">,</span> <span class="s1">&#39;vector mask :3 :12&#39;</span><span class="p">],</span> <span class="n">traj</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># use reference. Need to explicitly use &#39;refindex&#39;, which is index of reflist</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">([</span><span class="s1">&#39;rms @CA refindex 0&#39;</span><span class="p">],</span> <span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="p">[</span><span class="n">traj</span><span class="p">[</span><span class="mi">3</span><span class="p">],],</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
+<span class="go">OrderedDict([(&#39;RMSD_00001&#39;, array([  2.68820312e-01,   3.11804885e-01,   2.58835452e-01,</span>
+<span class="go">         9.10475988e-08,   2.93310737e-01,   4.10197322e-01,</span>
+<span class="go">         3.96226694e-01,   3.66059215e-01,   3.90890362e-01,</span>
+<span class="go">         4.89180497e-01]))])</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># use reference: if not want to use &#39;refindex&#39;, can use &#39;reference&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># the advantage is you can not specify a list of reference</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">([</span><span class="s1">&#39;rms @CA reference&#39;</span><span class="p">],</span> <span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="p">[</span><span class="n">traj</span><span class="p">[</span><span class="mi">3</span><span class="p">],],</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
+<span class="go">OrderedDict([(&#39;RMSD_00001&#39;, array([  2.68820312e-01,   3.11804885e-01,   2.58835452e-01,</span>
+<span class="go">         9.10475988e-08,   2.93310737e-01,   4.10197322e-01,</span>
+<span class="go">         3.96226694e-01,   3.66059215e-01,   3.90890362e-01,</span>
+<span class="go">         4.89180497e-01]))])</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># use different references. Need to explicitly use &#39;refindex&#39;, which is index of reflist</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># create a list of references</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reflist</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">traj</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># make sure to specify `refindex`</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># `refindex 0` is equal to `reflist[0]`</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># `refindex 1` is equal to `reflist[1]`</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">([</span><span class="s1">&#39;rms @CA refindex 0&#39;</span><span class="p">,</span> <span class="s1">&#39;rms !@H= refindex 1&#39;</span><span class="p">],</span> <span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">reflist</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># convert to ndarray</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_arr</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">dict_to_ndarray</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># perform parallel calculation with given frame_indices</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># serial version</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<span class="target" id="module-pytraj.parallel.mpi"><span id="pytraj-pmap-mpi"></span></span><dl class="function">
+<dt id="pytraj.parallel.mpi.pmap_mpi">
+<code class="descclassname">pytraj.parallel.mpi.</code><code class="descname">pmap_mpi</code><span class="sig-paren">(</span><em>func</em>, <em>traj</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.parallel.mpi.pmap_mpi" title="Permalink to this definition">¶</a></dt>
+<dd><p>parallel with MPI (mpi4py)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>func</strong> : a function</p>
+<p><strong>traj</strong> : pytraj.TrajectoryIterator</p>
+<p class="last"><strong>*args, **kwd: additional arguments</strong></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="c1"># create test_radgyr.py file</span>
+$ cat &gt; test_radgyr.py <span class="s">&lt;&lt;EOF</span>
+<span class="s">import pytraj as pt</span>
+<span class="s">from mpi4py import MPI</span>
+<span class="s">comm = MPI.COMM_WORLD</span>
+
+<span class="s">traj = pt.iterload(&#39;tz2.nc&#39;, &#39;tz2.parm7&#39;)</span>
+
+<span class="s">result_arr = pt.pmap_mpi(pt.radgyr, traj, &quot;@CA&quot;)</span>
+
+<span class="s">if comm.rank == 0:</span>
+<span class="s">    # save data to disk to read later by pytraj.read_pickle</span>
+<span class="s">    # pt.to_pickle(result_arr, &#39;output.pk&#39;)</span>
+<span class="s">    print(result_arr)</span>
+<span class="s">EOF</span>
+
+$ <span class="c1"># run in parallel</span>
+$ mpirun -n <span class="m">4</span> python ./test_radgyr.py
+<span class="o">[</span>array<span class="o">([</span> 8.10916061,  7.7643485 ,  8.09693108, ...,  9.70825678,
+        9.3161563 ,  8.86720964<span class="o">])</span>, array<span class="o">([</span> 8.82037273,  8.89008289,  9.48540176, ...,  9.29585981,
+        9.53138062,  9.19155977<span class="o">])</span>, array<span class="o">([</span> 9.13735723,  8.94651001,  8.97810478, ...,  7.68751186,
+        8.31361647,  7.83763754<span class="o">])</span>, array<span class="o">([</span> 7.37423766,  7.05637263,  6.52135566, ...,  6.38061648,
+        6.24139008,  6.48994552<span class="o">])]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, pytraj developers.<br/>
+      Last updated on May 04, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

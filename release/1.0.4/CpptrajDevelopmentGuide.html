@@ -1,0 +1,1474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="generator" content="http://www.nongnu.org/elyxer/"/>
+<meta name="create-date" content="2015-11-25"/>
+<link rel="stylesheet" href="http://elyxer.nongnu.org/lyx.css" type="text/css" media="all"/>
+<title>CPPTRAJ Development Notes</title>
+</head>
+<body>
+<div id="globalWrapper">
+<h1 class="title">
+CPPTRAJ Development Notes
+</h1>
+<h2 class="author">
+Daniel R. Roe (daniel.r.roe@gmail.com)<br/>
+Jason M. Swails (Code Docs)
+</h2>
+<h2 class="Date">
+2010-07-21<br/>
+Last Updated: 2015-09-10<p><br/>
+</p>
+
+</h2>
+<div class="abstract">
+<p class="abstract-message">
+Abstract
+</p>
+CPPTRAJ is code used for processing MD trajectory data as well as other types of data, derived from trajectories or otherwise. CPPTRAJ is a complete rewrite of the PTRAJ code in primarily C++, with the intent being to make the code more readable, leak-free, and thread-safe. The biggest functional change from PTRAJ is the ability to load and process trajectories with different topology files in the same run.
+</div>
+<div class="abstract">
+This guide assumes that the reader has at least a basic familiarity with C and C++ object-oriented programming. If you aren’t sure what a constructor is or how pointers work you may have a difficult time coding in Cpptraj. There are several good introduction to C/C++ tutorials on the web that may be helpful. <p><br/>
+</p>
+
+</div>
+<div class="abstract">
+<div class="fulltoc">
+<div class="tocheader">
+Table of Contents
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Part-I">Part I: Introduction</a>
+</div>
+<div class="tocindent">
+<div class="toc">
+<a class="Link" href="#toc-Section-1">Section 1: Coding Conventions</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Section-2">Section 2: Building Cpptraj and Documentation</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Section-3">Section 3: General Layout and Concepts</a>
+</div>
+<div class="tocindent">
+<div class="toc">
+<a class="Link" href="#toc-Subsection-3.1">Subsection 3.1: CpptrajState</a>
+</div>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Section-4">Section 4: Actions</a>
+</div>
+<div class="tocindent">
+<div class="toc">
+<a class="Link" href="#toc-Subsection-4.1">Subsection 4.1: Action</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-4.2">Subsection 4.2: ActionInit (ActionState.h)</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-4.3">Subsection 4.3: ActionSetup (ActionState.h) </a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-4.4">Subsection 4.4: ActionFrame (ActionState.h)</a>
+</div>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Section-5">Section 5: Math-related Classes</a>
+</div>
+<div class="tocindent">
+<div class="toc">
+<a class="Link" href="#toc-Subsection-5.1">Subsection 5.1: Vec3</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-5.2">Subsection 5.2: Matrix_3x3</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-5.3">Subsection 5.3: ComplexArray</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-5.4">Subsection 5.4: PubFFT</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-5.5">Subsection 5.5: Corr.h: CorrF_Direct, CorrF_FFT</a>
+</div>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Section-6">Section 6: Some Key Classes and Functions</a>
+</div>
+<div class="tocindent">
+<div class="toc">
+<a class="Link" href="#toc-Subsection-6.1">Subsection 6.1: Output to STDOUT/STDERR: CpptrajStdio.h</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-6.2">Subsection 6.2: ArgList</a>
+</div>
+<div class="tocindent">
+<div class="toc">
+<a class="Link" href="#toc-Subsubsection-6.2.1">Subsubsection 6.2.1: ArgList Example</a>
+</div>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-6.3">Subsection 6.3: Topology</a>
+</div>
+<div class="tocindent">
+<div class="toc">
+<a class="Link" href="#toc-Subsubsection-6.3.1">Subsubsection 6.3.1: Examples</a>
+</div>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-6.4">Subsection 6.4: AtomMask/CharMask</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-6.5">Subsection 6.5: Frame</a>
+</div>
+<div class="tocindent">
+<div class="toc">
+<a class="Link" href="#toc-Subsubsection-6.5.1">Subsubsection 6.5.1: Using Frame for RMSD calculations</a>
+</div>
+</div>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Section-7">Section 7: Basic File Input/Output</a>
+</div>
+<div class="tocindent">
+<div class="toc">
+<a class="Link" href="#toc-Subsection-7.1">Subsection 7.1: CpptrajFile</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-7.2">Subsection 7.2: BufferedLine</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-7.3">Subsection 7.3: BufferedFrame</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-7.4">Subsection 7.4: FileName, FileName.h</a>
+</div>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Section-8">Section 8: Trajectory Input/Output</a>
+</div>
+<div class="tocindent">
+<div class="toc">
+<a class="Link" href="#toc-Subsection-8.1">Subsection 8.1: Trajin_Single</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-8.2">Subsection 8.2: Trajin_Multi</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-8.3">Subsection 8.3: EnsembleIn_Single</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-8.4">Subsection 8.4: EnsembleIn_Multi</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-8.5">Subsection 8.5: Trajout_Single</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-8.6">Subsection 8.6: EnsembleOut_Single</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-8.7">Subsection 8.7: EnsembleOut_Multi</a>
+</div>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Section-9">Section 9: Topology Input/Output</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Section-10">Section 10: The DataSet and DataFile Framework</a>
+</div>
+<div class="tocindent">
+<div class="toc">
+<a class="Link" href="#toc-Subsection-10.1">Subsection 10.1: The MetaData class</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-10.2">Subsection 10.2: The TextFormat class</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-10.3">Subsection 10.3: Brief DataSet/DataFile Example</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-10.4">Subsection 10.4: DataSet_1D / SCALAR_1D</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-10.5">Subsection 10.5: DataSet_2D / MATRIX_2D</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-10.6">Subsection 10.6: DataSet_3D / GRID_3D</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-10.7">Subsection 10.7: DataSet_Coords / COORDINATES</a>
+</div>
+</div>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Part-II">Part II: Adding New Functionality</a>
+</div>
+<div class="tocindent">
+<div class="toc">
+<a class="Link" href="#toc-Section-11">Section 11: Adding Actions - Example</a>
+</div>
+<div class="tocindent">
+<div class="toc">
+<a class="Link" href="#toc-Subsection-11.1">Subsection 11.1: Create the Class Header</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-11.2">Subsection 11.2: Create the Class Implementation</a>
+</div>
+<div class="tocindent">
+<div class="toc">
+<a class="Link" href="#toc-Subsubsection-11.2.1">Subsubsection 11.2.1: Init() - Parse user arguments, set up DataSets/DataFiles etc</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsubsection-11.2.2">Subsubsection 11.2.2: Setup() - Set up Topology-related parts of the Action</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsubsection-11.2.3">Subsubsection 11.2.3: DoAction() - Process input Frame</a>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsubsection-11.2.4">Subsubsection 11.2.4: Print() - Any post-processing</a>
+</div>
+</div>
+<div class="toc">
+<a class="Link" href="#toc-Subsection-11.3">Subsection 11.3: Add the Action to the Command class</a>
+</div>
+</div>
+</div>
+<div class="toc">
+<a class="Link" href="#Index">Index</a>
+</div>
+
+</div>
+<p><br/>
+</p>
+
+</div>
+<h1 class="Part">
+<a class="toc" name="toc-Part-I">Part I.</a> Introduction<a class="Label" name="part:Coding-Conventions"> </a>
+</h1>
+<h1 class="Section">
+<a class="toc" name="toc-Section-1">1</a> Coding Conventions
+</h1>
+<div class="Unindented">
+It is important to maintain a consistent coding style within cpptraj so that it remains easy to modify and understand. By following code conventions, it will be easier to read code written by anybody and determine what is happening.
+</div>
+<ul>
+<li>
+Code blocks are indented using 2 spaces. <b>DO NOT USE TABS</b> since these are in general not portable between different editors.
+</li>
+<li>
+Try to keep lines between 80 and 100 characters long.
+</li>
+<li>
+C++ files have ’.cpp’ suffix, C files have ’.c’ suffix, header files have ’.h’ suffix.
+</li>
+<li>
+All header files should have a ’#define’ guard to prevent multiple inclusion. The define guard has format:
+</li>
+
+</ul>
+<pre class="LyX-Code">
+#ifndef INC_&lt;basefilename&gt;_H
+#define INC_&lt;basefilename&gt;_H
+...
+#endif
+</pre>
+<ul>
+<li>
+’using namespace’ should be used sparingly and NEVER in a header file.
+</li>
+<li>
+The order of #include directives should be (in general): C includes, C++ includes, class definition, any other Cpptraj includes.
+</li>
+<li>
+Use of STL classes/methods is acceptable; use C99 conventions to maximize portability. The only external libraries that should be used are NetCDF and ARPACK/LAPACK/BLAS (both included with AmberTools), i.e. no Boost etc.
+</li>
+<li>
+Do not use iostream for basic IO. All console output should be performed with the functions in CpptrajStdio.h (chiefly mprintf() and mprinterr() for STDOUT and STDERR respectively). All file IO should be performed with CpptrajFile or the derived classes BufferedLine and BufferedFrame. This choice has been made mainly for performance reasons (C file routines are in general much faster than iostream), but also so that all IO is centralized (e.g. CpptrajFile will automatically detect if an input file is compressed). This is also so output can be easily controlled; for example, using mprintf will make sure that during MPI only the master writes.
+</li>
+<li>
+Warnings should be written to STDOUT with mprintf with prefix ’Warning:’; errors should be written to STDERR with mprinterr with prefix ’Error:’.
+</li>
+<li>
+Classes:<ul>
+<li>
+Class types are named using <i>CapWords</i> (no spaces or underscores, start of each word is a capital letter).
+</li>
+<li>
+Files containing a class should be named after the class (e.g. ’class TrajectoryFile {};’ in TrajectoryFile.cpp).
+</li>
+<li>
+Classes which inherit should be named after their base class (e.g. ’class Action_Distance : public Action { };’).
+</li>
+<li>
+Public class methods should be listed first; protected methods/variables second; private methods/variables last. All class member variables should be private if possible.
+</li>
+<li>
+Public class methods are named using <i>CapWords</i>.
+</li>
+<li>
+Private class methods are named using <i>mixedCase.</i>
+</li>
+<li>
+Class variables that are <tt>private</tt> or <tt>protected</tt> are named using <i>mixedCase_</i> (with a trailing underscore).
+</li>
+
+</ul>
+
+</li>
+<li>
+Abbreviations: 1st letter in each word is capitalized. For instance, <tt>Data File List</tt> may be abbreviated <tt>DatFilList</tt> or <tt>DFL.</tt>
+</li>
+<li>
+Variables that have function scope (or lower) and all public variables for classes are named using <i>mixedCase</i> (same as <i>CapWords</i> except the first letter is lower-case).
+</li>
+<li>
+No one-letter variable names except in loop scopes (e.g. for (int i = 0; i &lt; N; ++i) { } ), and even then they should be short loops (no more than 10 lines or so).
+</li>
+<li>
+All identifiers in an enumerated type are named using all <i>CAPS</i>, and the first identifier should be explicitly initialized (e.g. enum DirectionType { DX = 0, DY, DZ };).
+</li>
+<li>
+There is a <i>doxygen</i> rule file to automatically generate code documentation using <i>doxygen</i>, so please construct comments in such a doxygen-compatible manner (e.g. JavaDoc etc). See http://www.stack.nl/~dimitri/doxygen/manual.html for instructions.
+</li>
+
+</ul>
+<h1 class="Section">
+<a class="toc" name="toc-Section-2">2</a> Building Cpptraj and Documentation
+</h1>
+<div class="Unindented">
+Cpptraj is automatically built as part of AmberTools, or it can be built standalone using the configure script in the <tt>$AMBERHOME/AmberTools/src/cpptraj</tt> or <tt>$CPPTRAJHOME</tt> directory. The standalone build is particularly useful for development and testing. Type ’./configure --help’ for a list of configure options. In order to build Cpptraj standalone one needs to specify the location of the NetCDF, zlib, bzlib2, and BLAS/LAPACK/ARPACK libraries if they aren’t in your system path; configure will use the ones in $AMBERHOME if <tt>’-amberlib’</tt> is specified. The -noX options can be used to disable use of certain libraries. 
+</div>
+<div class="Indented">
+For example, to build cpptraj standalone:
+</div>
+<pre class="LyX-Code">
+./configure -amberlib gnu
+make install OR cd src &amp;&amp; make install
+</pre>
+<div class="Unindented">
+To build the documentation using <i>doxygen</i>, you must have <i>doxygen</i> installed, and you must have configured AmberTools. Run the command:
+</div>
+<pre class="LyX-Code">
+make docs
+</pre>
+<div class="Unindented">
+to build the documentation. PDF files and HTML files are generated during this process, showing class inheritance and descriptions from comments written in doxy-format. Open the file <tt>$AMBERHOME/AmberTools/src/cpptraj/doc/html/index.html</tt> to see the class heirarchy and descriptions.
+</div>
+<h1 class="Section">
+<a class="toc" name="toc-Section-3">3</a> General Layout and Concepts
+</h1>
+<div class="Unindented">
+Cpptraj currently lives in 3 key classes:
+</div>
+<div class="Description">
+<span class="Description-entry"><b>Cpptraj</b></span> Defined in main.cpp, controls overall flow (e.g. it is responsible for deciding whether to execute in batch mode or interactive mode).
+</div>
+<div class="Description">
+<span class="Description-entry"><b>CpptrajState</b></span> Defined in <b>Cpptraj</b>, holds all of the data, Actions, Analyses, etc. 
+</div>
+<div class="Description">
+<span class="Description-entry">Command</span> &ldquo;Static&rdquo; class used by <b>Cpptraj</b> to process user input. The file Command.cpp also contains all of the logic for executing commands.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-3.1">3.1</a> CpptrajState
+</h2>
+<div class="Unindented">
+The main components of <b>CpptrajState</b> are:
+</div>
+<div class="Description">
+<span class="Description-entry">DataSetList DSL_;</span> Hold all DataSets. This is essentially how different components can talk to each other, e.g. an Action creates a DataSet in the DataSetList, which can then be used by a subsequent Analysis.
+</div>
+<div class="Description">
+<span class="Description-entry">DataFileList DFL_;</span> Hold all DataFiles. These are either for writing out DataSets or general text output, primarily from Actions/Analyses.
+</div>
+<div class="Description">
+<span class="Description-entry">TrajinList trajinList_;</span> Hold all input trajectories to be processed during a run. Whenever a user inputs a ’trajin’ or ’ensemble’ command, the trajectory/ensemble in question is added to this list. When a ’run’ command is executed, these are the trajectories that are read in a frame at a time so that Actions in the ActionList can process them.
+</div>
+<div class="Description">
+<span class="Description-entry">ActionList actionList_;</span> Hold all Actions to be executed during a run. By default, whenver an Action command is issued the Action in question is initialized and queued up in the ActionList, to be processed during the next run.
+</div>
+<div class="Description">
+<span class="Description-entry">TrajoutList trajoutList_;</span> Hold output trajectories to be written during a run. This output occurs after all Actions have been processed.
+</div>
+<div class="Description">
+<span class="Description-entry">AnalysisList analysisList_;</span> Hold all Analyses to be executed after a run or when a ’runanalysis’ command is given. Similar to ActionList, whenever an Analysis command is issued the Analysis in question is initialized and queued up in the AnalysisList.
+</div>
+<h1 class="Section">
+<a class="toc" name="toc-Section-4">4</a> Actions
+</h1>
+<div class="Unindented">
+Actions are how Cpptraj derives data from input trajectories. There are two basic classes for Actions:
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-4.1">4.1</a> Action
+</h2>
+<div class="Unindented">
+The abstract base class that defines the Action interface. Consists of 4 functions:
+</div>
+<div class="Description">
+<span class="Description-entry">Init():</span> Initialize Action, set up DataSets/DataFiles, etc.
+</div>
+<div class="Description">
+<span class="Description-entry">Setup():</span> Set up Action for a given Topology.
+</div>
+<div class="Description">
+<span class="Description-entry">DoAction():</span> Perform Action on given Frame.
+</div>
+<div class="Description">
+<span class="Description-entry">Print():</span> Perform any post-processing or output that occurs outside the main DataSet/DataFile framework.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-4.2">4.2</a> ActionInit (ActionState.h)
+</h2>
+<div class="Unindented">
+Used to interface with Init(); contains pointers to the master DataSetList and DataFileList in CpptrajState.
+</div>
+<div class="Description">
+<span class="Description-entry">DataSetList&amp; DSL(), DataSetList const&amp; DSL() const</span> Reference to the master DataSetList. The appropriate version should be used automatically.
+</div>
+<div class="Description">
+<span class="Description-entry">DataSetList* DslPtr()</span> For Actions that require access to the master DataSetList after Init() (e.g. hbond, which cannot set up hbond time series until hbonds are actually detected in DoAction()), they can store a pointer to the master DataSetList like so:
+</div>
+<ul>
+<li class="nested">
+<div class="Unindented">
+(In header): DataSetList* masterDSL_;
+</div>
+<div class="Indented">
+(In Action::Init): masterDSL_ = init.DslPtr();
+</div>
+
+</li>
+
+</ul>
+<div class="Description">
+<span class="Description-entry">DataFileList&amp; DFL(), DataFileList const&amp; DFL() const</span> Reference to master DataFileList. The appropriate version should be used automatically.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-4.3">4.3</a> ActionSetup (ActionState.h) 
+</h2>
+<div class="Unindented">
+Used to interface with Setup(); contains pointers to current Topology and CoordinateInfo, as well as expected number of frames associated with current Topology.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-4.4">4.4</a> ActionFrame (ActionState.h)
+</h2>
+<div class="Unindented">
+Used to interface with DoAction(); contains pointer to current Frame.
+</div>
+<h1 class="Section">
+<a class="toc" name="toc-Section-5">5</a> Math-related Classes
+</h1>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-5.1">5.1</a> Vec3
+</h2>
+<div class="Unindented">
+An array of 3 doubles, used to hold XYZ coords. Used for vector math.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-5.2">5.2</a> Matrix_3x3
+</h2>
+<div class="Unindented">
+A 3x3 array of doubles, useful for performing rotations etc. Used for basic matrix math. Can be diagonalized via an internal routine (no need for external math library).
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-5.3">5.3</a> ComplexArray
+</h2>
+<div class="Unindented">
+Used to hold an array of complex numbers. Implemented as a double array instead of using the STL Complex class so that it easily interface with external routines.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-5.4">5.4</a> PubFFT
+</h2>
+<div class="Unindented">
+Interface to FFT routines (either pubfft, which are the FFT routines used by Amber, or FFTW depending on how CPPTRAJ is configured). Currently only 1D forward and backwards FFTs are supported. Makes use of ComplexArray.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-5.5">5.5</a> Corr.h: CorrF_Direct, CorrF_FFT
+</h2>
+<div class="Unindented">
+Classes used to calculate auto/cross correlation functions from arrays of complex numbers (ComplexArray).
+</div>
+<h1 class="Section">
+<a class="toc" name="toc-Section-6">6</a> Some Key Classes and Functions
+</h1>
+<div class="Unindented">
+The following is a brief list of some of the more commonly-used classes and functions in Cpptraj. Classes are more or less self-documented to a certain extent; this section will be focused on how these classes are/should be used.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-6.1">6.1</a> Output to STDOUT/STDERR: CpptrajStdio.h
+</h2>
+<div class="Unindented">
+The file CpptrajStdio.cpp contains functions used to write output to standard output (STDOUT) and standard error (STDERR). This is accomplished with the C printf-like functions mprintf() and mprinterr() respectively:
+</div>
+<pre class="LyX-Code">
+mprintf(const char* format, ...); // STDOUT
+mprinterr(const char* format, ...); // STDERR
+</pre>
+<div class="Unindented">
+The ’m’ prefix stands for &ldquo;master&rdquo;, and ensures that when CPPTRAJ is running via MPI that only the master thread is able to write with these functions (note the same does NOT apply for OpenMP). The syntax is the same as basic printf - a format string followed by any variables. There are numerous resources that describe printf syntax in detail. Some useful syntax is listed here:
+</div>
+<div class="Description">
+<span class="Description-entry">%i</span> Integer
+</div>
+<div class="Description">
+<span class="Description-entry">%f</span> Floating point number
+</div>
+<div class="Description">
+<span class="Description-entry">%g</span> Use scientific or floating point representation, whichever is shorter.
+</div>
+<div class="Description">
+<span class="Description-entry">%s</span> Character string
+</div>
+<div class="Description">
+<span class="Description-entry">%c</span> Single character
+</div>
+<div class="Description">
+<span class="Description-entry">\n</span> Newline
+</div>
+<div class="Description">
+<span class="Description-entry">\t</span> Tab
+</div>
+<div class="Unindented">
+For example:
+</div>
+<pre class="LyX-Code">
+#include &ldquo;CpptrajStdio.h&rdquo;
+int myInteger = 3;
+double myDouble = 5.43;
+string myString = &ldquo;easy&rdquo;;
+mprintf(&ldquo;Using printf is %s; %i is an integer and %f is a double.\n&rdquo;,
+        myString.c_str(), myInteger, myDouble);
+</pre>
+<div class="Unindented">
+Note that the string function c_str() must be used to print C++ strings. Output:
+</div>
+<pre class="LyX-Code">
+Using printf is easy; 3 is an integer and 5.430000 is a double.
+</pre>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-6.2">6.2</a> ArgList
+</h2>
+<div class="Unindented">
+The ArgList class is used throughout Cpptraj. It is the main way that user input is translated to actions, analyses, trajectory IO, etc. Basically, the ArgList class takes a string and separates it into tokens based on a given delimiter or delimiters. For example, the string:
+</div>
+<pre class="LyX-Code">
+myString = &ldquo;trajin mytraj.nc 1 100 10&rdquo;;
+</pre>
+<div class="Unindented">
+can be separated via a space (’ ’) delimeter (the default) into 5 tokens like so:
+</div>
+<pre class="LyX-Code">
+ArgList myArgs(myString);
+</pre>
+<div class="Unindented">
+The resulting ArgList internally looks something like:
+</div>
+<pre class="LyX-Code">
+0: trajin
+1: mytraj.nc
+2: 1
+3: 100
+4: 10
+</pre>
+<div class="Unindented">
+A custom delimeter string containing 1 or more characters can also be used. For example, the following string:
+</div>
+<pre class="LyX-Code">
+myString = &ldquo;d01,d02,d03,d04&rdquo;;
+</pre>
+<div class="Unindented">
+can be separated via a comma (’,’) delimiter into 4 tokens like so:
+</div>
+<pre class="LyX-Code">
+ArgList myArgs(myString, &ldquo;,&rdquo;);
+</pre>
+<div class="Unindented">
+The resulting ArgList internall lookws something like:
+</div>
+<pre class="LyX-Code">
+0: d01
+1: d02
+2: d03
+3: d04
+</pre>
+<div class="Unindented">
+These tokens (or arguments) are stored internally as an STL vector of strings. ArgList provides many functions to access user arguments. A second array of boolean values records whether an argument has been accessed. This concept is functionally similar to the argumentStack in Ptraj; however, it avoids the constant memory allocation/deallocation when arguments are added/accessed, and allows an argument list to be re-used if desired. The two main ways arguments are usually accessed are through &ldquo;GetNextX&rdquo; and &ldquo;GetKeyX&rdquo; functions. 
+</div>
+<div class="Indented">
+&ldquo;GetNext&rdquo; functions return the next argument of the desired type. For example, using the ArgList created in the first example from &ldquo;trajin mytraj.nc 1 100 10&rdquo; and assuming all arguments are unmarked, GetStringNext() would return &ldquo;trajin&rdquo;, while getNextInteger() would return &ldquo;1&rdquo;; in both cases the argument returned would be marked, so that a subsequent call to GetStringNext() would return &ldquo;mytraj.nc&rdquo; and so on. Another very commonly used &ldquo;GetNext&rdquo; function is the &ldquo;GetMaskNext()&rdquo; function, which returns the next atom mask expression (so noted because it will begin with ’:’, ’@’, ’*’); an example of this will be shown below.
+</div>
+<div class="Indented">
+&ldquo;GetKey&rdquo; functions return an argument next to a specified &ldquo;key&rdquo; string. Take for example the argument list created from &ldquo;rmsd R1 @CA ref [myref] out rmsd.dat&rdquo;:
+</div>
+<pre class="LyX-Code">
+0: rmsd
+1: R1
+2: @CA
+2: ref
+3: [myref]
+4: out
+5: rmsd.dat
+</pre>
+<div class="Unindented">
+If we want to access a specific argument, we use a &ldquo;GetKey&rdquo; function. For example, if we want to know the filename specified by ’out’, we would use GetStringKey(&ldquo;out&rdquo;); this would return &ldquo;rmsd.dat&rdquo;, and mark both &ldquo;out&rdquo; and &ldquo;rmsd.dat&rdquo;. Similarly, GetStringKey(&ldquo;ref&rdquo;) would return &ldquo;[myref]&rdquo;. At this point we could also use the GetMaskNext() function to get the atom mask expression &ldquo;@CA&rdquo;.
+</div>
+<h3 class="Subsubsection">
+<a class="toc" name="toc-Subsubsection-6.2.1">6.2.1</a> ArgList Example
+</h3>
+<pre class="LyX-Code">
+
+ArgList myArgs(&ldquo;test_command cutoff 2.0 nval 3 name MyTest :2-30@CA extra&rdquo;);
+double Cut = myArgs.getKeyDouble(&ldquo;cutoff&rdquo;, 0.0); // Value 2.0
+int Nval = myArgs.getKeyInteger(&ldquo;nval&rdquo;, 0);      // Value 3
+int Ntypes = myArgs.getKeyInteger(&ldquo;ntypes&rdquo;, 0);  // Value 0
+std::string Name = myArgs.GetStringKey(&ldquo;name&rdquo;);  // Value &ldquo;MyTest&rdquo;
+std::string Out = myArgs.GetStringKey(&ldquo;out&rdquo;);    // Empty
+std::string maskExp = myArgs.GetMaskNext();      // Value &ldquo;:2-30@CA&rdquo;
+std::string mask2Exp = myArgs.GetMaskNext();     // Empty
+// At this point only &ldquo;extra&rdquo; will be unmarked.
+</pre>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-6.3">6.3</a> Topology
+</h2>
+<div class="Unindented">
+The Topology class describes how a system is laid out in terms of Atoms, Residues, and Molecules (all of which are classes themselves). It may also hold parameters which describe interactions between Atoms (e.g. bonds, angles, dihedrals, etc). The Topology class is chiefly used in Trajectory input/output and setting up atom masks (see below).
+</div>
+<div class="Indented">
+The Topology class has several routines that return strings of atom and residue names:
+</div>
+<div class="Description">
+<span class="Description-entry">std::string TruncResAtomName(int atom)</span> Format: &ldquo;&lt;res name&gt;&lt;res num&gt;@&lt;atom name&gt;&rdquo;
+</div>
+<div class="Description">
+<span class="Description-entry">std::string AtomMaskName(int atom)</span> Format: &ldquo;:&lt;res num&gt;@&lt;atom name&gt;&rdquo;
+</div>
+<div class="Description">
+<span class="Description-entry">std::string TruncAtomNameNum(int atom)</span> Format: &ldquo;&lt;atom name&gt;_&lt;atom num&gt;&rdquo;
+</div>
+<div class="Description">
+<span class="Description-entry">std::string TruncResNameNum(int residue)</span> Format: &ldquo;&lt;res name&gt;:&lt;res num&gt;&rdquo;
+</div>
+<h3 class="Subsubsection">
+<a class="toc" name="toc-Subsubsection-6.3.1">6.3.1</a> Examples
+</h3>
+<div class="Unindented">
+Iterate over all atoms in a certain residue. This can be accomplished like so:
+</div>
+<pre class="LyX-Code">
+// Iterate over all atoms in residue 4, print charge.
+for (int atom_index = Top.Res(4).FirstAtom;
+         atom_index != Top.Res(4).LastAtom;
+       ++atom_index)
+  mprintf(&ldquo;Atom %i charge= %g\n&rdquo;, atom_index+1, Top[atom_index].Charge());
+</pre>
+<div class="Unindented">
+Iterate over all atoms bonded to a certain atom and pick out the hydrogens:
+</div>
+<pre class="LyX-Code">
+// Iterate over all atoms bonded to atom 66
+for (Atom::bond_iterator bond_atom = Top[66].bondbegin();
+                         bond_atom != Top[66].bondend();
+                       ++bond_atom)
+  if (Top[*bond_atom].Element() == Atom::HYDROGEN)
+    mprintf(&ldquo;Hydrogen %s bonded to atom %s\n&rdquo;,
+            Top.AtomMaskName(*bond_atom).c_str(),
+            Top.AtomMaskName(66).c_str());
+</pre>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-6.4">6.4</a> AtomMask/CharMask
+</h2>
+<div class="Unindented">
+The AtomMask and CharMask classes keep track of what atoms for a given Topology are selected based on a given mask expression. The AtomMask class holds information on selected atoms only, while CharMask has the state of all atoms (selected/not selected). AtomMask is as an integer mask, where the atom numbers currently selected are stored as an array of integers. Since one is usually only interested in selected atoms, most times AtomMask is all that is needed and so is the most used mask class in Cpptraj; for example, all routines that take masks in the Frame class use the AtomMask class. 
+</div>
+<div class="Indented">
+The CharMask class has an internal character array where the state of each atom is stored. It has functions that can then be used to interrogate if a certain atom or atoms are selected or not.
+</div>
+<div class="Indented">
+In typical use, there are 3 phases to using AtomMask or CharMask: 1) initialization with a mask expression, 2) setup via a Topology class, and 3) iteration over the mask/interrogation of the mask. Initialization with a mask expression performs all necessary tokenization of the mask expression string and prepares the mask to be set up, but does not actually select atoms. The mask expression can be used during AtomMask construction or passed in via SetMaskString():
+</div>
+<pre class="LyX-Code">
+AtomMask* Mask = new AtomMask(&ldquo;@CA&rdquo;);
+AtomMask Mask(&ldquo;@CA&rdquo;);
+AtomMask Mask; Mask.SetMaskString(&ldquo;@CA&rdquo;);
+</pre>
+<div class="Unindented">
+Setup occurs via a Topology class (since in order to set up a mask you need to know atom names/numbers, residue name/number/types etc). This can be done using SetupIntegerMask() or SetupCharMask() to set up an integer mask (more common) or a char mask:
+</div>
+<pre class="LyX-Code">
+AtomMask iMask(&ldquo;@CA&rdquo;);
+Top.SetupIntegerMask( iMask );
+CharMask cMask(&ldquo;:1-20&rdquo;);
+Top.SetupCharMask( Mask );
+</pre>
+<div class="Unindented">
+Once a mask has been setup the Nselected() function returns the number of selected atoms, while the None() function returns true if no atoms were selected. If necessary, one can convert between the mask types post-setup by using AtomMask::ConvertToCharMask() / CharMask::ConvertToIntMask() routines:
+</div>
+<pre class="LyX-Code">
+AtomMask mask( CharMask.ConvertToIntMask(), CharMask.Natom() )
+CharMask mask( AtomMask.ConvertToCharMask(), AtomMask.Nselected() )
+</pre>
+<div class="Unindented">
+The final stage is to make use of the atom mask. One can iterate over selected atoms in an integer atom mask using the STL-like const_iterator variable and begin() and end() functions - this is the recommended way to use atom masks:
+</div>
+<pre class="LyX-Code">
+for (AtomMask::const_iterator atomnum = Mask.begin();
+                              atomnum != Mask.end(); 
+                            ++atomnum)
+  mprintf(&ldquo;Selected atom %i\n&rdquo;, *atomnum);
+</pre>
+<div class="Unindented">
+One can also access members of the integer array directly via the bracket (’[]’) operator:
+</div>
+<pre class="LyX-Code">
+for (int maskidx = 0; maskidx &lt; Mask.Nselected(); ++maskidx)
+  mprintf(&ldquo;Selected atom %i\n&rdquo;, Mask[atomidx]);
+</pre>
+<div class="Unindented">
+To see if atom(s) are selected in a CharMask, use the AtomInCharMask() and AtomsInCharMask() functions. The former returns true if a specified atom is selected, the latter returns true if any atoms within a given range are selected. For example:
+</div>
+<pre class="LyX-Code">
+for (int atom = 0; atom &lt; Top.Natom(); ++atom)
+  if (Mask.AtomInCharMask(atom)) 
+    mprintf(&ldquo;Selected Atom %i\n&rdquo;, atom);
+for (int rnum = 0; rnum &lt; Top.Nres(); ++res)
+  if (Mask.AtomsInCharMask( Top.Res(rnum).FirstAtom(),
+                            Top.Res(rnum).LastAtom() ))
+    mprintf(&ldquo;Selected Residue %i\n&rdquo;, rnum);
+</pre>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-6.5">6.5</a> Frame
+</h2>
+<div class="Unindented">
+The Frame class is in many ways the workhorse of Cpptraj, as it holds all XYZ coordinates for a given input frame, and optionally box coordinates, masses, replica indices, temperature, time, and/or velocities. Note that although mass is stored in Topology, it is also stored in Frame since many calculations require it (center of mass, mass-weighted RMSD, etc). Coordinates and velocities are stored with double precision. Many routines are available to do things like calculate the center of mass of atoms, rotate, translate, scale, and so on. A major use of the Frame class is to perform RMSD calculations.
+</div>
+<div class="Indented">
+Frames are typically set up in two phases. The first phase is memory allocation, which occurs via constructors or the SetupFrameX routines. This should be done as little as possible since memory allocation is relatively expensive. The second phase is actually setting the coordinates, which occurs via the SetX routines. For example, the following code will set up a Frame (newFrame) with the coordinates from another Frame (oldFrame) based on a previously set up AtomMask (mask) and Topology (top) corresponding to oldFrame:
+</div>
+<pre class="LyX-Code">
+Frame newFrame;
+// Allocate memory, copy in masses based on mask.
+newFrame.SetupFrameFromMask( mask, top.Atoms() );
+// Set only coordinates from oldFrame based on mask.
+newFrame.SetCoordinates( oldFrame, mask );
+</pre>
+<div class="Unindented">
+Alternatively, this can be done in one step with a constructor:
+</div>
+<pre class="LyX-Code">
+Frame newFrame( oldFrame, mask );
+</pre>
+<div class="Unindented">
+The advantage of separating out Setup and Set is that memory reallocation is kept to a minimum. For example, if we wanted to use newFrame to hold a different set of coordinates (of the same size as newFrame or smaller) we might do something like:
+</div>
+<pre class="LyX-Code">
+newFrame.SetCoordinates( differentFrame );
+</pre>
+<div class="Unindented">
+If the new coordinates might be bigger than the current size of newFrame, we could explicitly call a SetupFrameX routine; this will only reallocate if the new size is greater than the current maximum size. A Frame remembers the largest size it was ever allocated for, so reallocation is kept to a minimum.
+</div>
+<div class="Indented">
+There are two basic ways to access coordinates within Frame:
+</div>
+<div class="Description">
+<span class="Description-entry">const double* XYZ(atom)</span> return pointer to beginning of XYZ coordinates for given atom (max Natom()).
+</div>
+<div class="Description">
+<span class="Description-entry">const double* CRD(coord)</span> return pointer to given coordinate (max size()).
+</div>
+<div class="Unindented">
+Note that you can get pointers to the raw coordinates, but it is not recommened to use these in general.
+</div>
+<h3 class="Subsubsection">
+<a class="toc" name="toc-Subsubsection-6.5.1">6.5.1</a> Using Frame for RMSD calculations
+</h3>
+<div class="Unindented">
+Unlike some of the other functions of Frame, the RMSD functions do not take a mask - it is assumed all atoms in the Frame are involved in the RMSD calculation. This is done for performance reasons. If a subset of atoms is desired for an RMSD calculation the reference and target Frames should be modified beforehand. Since the reference structure usually does not change it is often beneficial to pre-center the reference at the origin. For example, given a reference Frame (Ref), a Farget frame (Tgt), and an AtomMask (mask):
+</div>
+<pre class="LyX-Code">
+bool useMass = false;
+top.SetupIntegerMask( mask );
+Frame selectedRef, selectedTgt;
+// Set up and pre-center reference.
+selectedRef.SetupFrameFromMask( mask, top.Atoms() );
+selectedRef.SetCoordinates( Ref, mask );
+// refTrans will contain translation from origin to reference.
+Vec3 refTrans = selectedRef.CenterOnOrigin( useMass );
+// Set up target.
+selectedTgt.SetupFrameFromMask( mask, top.Atoms() );
+selectedTgt.SetCoordinates( Tgt, mask );
+// Calculate RMSD. tgtTrans is translation from target to origin.
+Vec3 tgtTrans;
+Matrix_3x3 rot_matrix;
+double rmsd = selectedTgt.RMSD_CenteredRef( selectedRef,
+                                            rot_matrix,
+                                            tgtTrans,
+                                            useMass );
+// Best-fit rotate/translate current Target to Reference.
+Tgt.Trans_Rot_Trans( tgtTrans, rot_matrix, refTrans );
+</pre>
+<div class="Unindented">
+Now for subsequent RMS calculations to the same Reference, only the selected Target frame needs to have its coordinates set:
+</div>
+<pre class="LyX-Code">
+selectedTgt.SetCoordinates( Tgt2, mask );
+rmsd = selectedTgt.RMSD_CenteredRef( selectedRef, ...
+</pre>
+<h1 class="Section">
+<a class="toc" name="toc-Section-7">7</a> Basic File Input/Output
+</h1>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-7.1">7.1</a> CpptrajFile
+</h2>
+<div class="Unindented">
+The CpptrajFile class provides basic file input and output operations. It can handle reading and writing both Gzip and Bzip2 compressed files, and through the FileName class performs tilde-expansion on file names (via globbing) as well as separates the file name into its base name, extension, and compressed extension. The file can be opened immediately, or set up first and then opened later. Once it has been set up it can be opened or closed multiple times. The CpptrajFile class destructor will automatically close the file if it is open at time of destruction. 
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-7.2">7.2</a> BufferedLine
+</h2>
+<div class="Unindented">
+The BufferedLine class is a child of CpptrajFile used for text files that will be read in line by line (note that writing is not possible with this class). The class has an internal buffer, which chunks of the input file are read into. The Line() routine can be used to read that chunk line by line; this avoids potentially expensive file IO. When the chunk is empty a new chunk is read in. The line can be further split into Tokens (similar to ArgList) and read one token at a time; this can be useful for e.g. determining the number of columns in a file.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-7.3">7.3</a> BufferedFrame
+</h2>
+<div class="Unindented">
+The BufferedFrame class is a child of CpptrajFile used for highly-formatted text files that will be read/written multiple lines at a time (such as the Amber ASCII trajectory format). This class is set up for a certain total number of elements of a certain character width with a certain number of elements per line, which can then be read to or written from a character buffer in one entire chunk. 
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-7.4">7.4</a> FileName, FileName.h
+</h2>
+<div class="Unindented">
+The FileName class is used by all file-related classes. It is more powerful than a string and will automatically do tilde expansion and split the name into path, base name, extension, etc. FileName.h also contains the File namespace which includes File::Exists() for testing whether a file can be opened and File::NameArray and File::ExpandToFilenames() for getting an array of files using wildcard matching.
+</div>
+<h1 class="Section">
+<a class="toc" name="toc-Section-8">8</a> Trajectory Input/Output
+</h1>
+<div class="Unindented">
+Trajectory input and output (IO) is handled via high-level and low-level classes. At the highest level trajectory input is provided by Trajin-derived classes (Trajin_Single and Trajin_Multi) for reading one frame at a time (i.e. during ’trajin’ runs) and EnsembleIn-derived classes (EnsembleIn_Single, which is experimental currently, and EnsembleIn_Multi) for reading multiple frames at a time (i.e. during ’ensemble’ runs). Trajectory output is currently handled by Trajout_Single for writing one frame at a time to a single file, and EnsembleOut-dervived classes for writing multiple frames out at a time. At the lower level IO is handled by format-specific classes which inherit from TrajectoryIO (TrajectoryIO.h), which are called Traj_X by convention (e.g. Traj_AmberNetcdf for Amber NetCDF trajectories). TrajectoryIO classes are contained and set up within the higher level classes. Note that there is currently no Trajout_Multi (write a single frame to multiple files) since this functionality is already handled by TrajoutList.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-8.1">8.1</a> Trajin_Single
+</h2>
+<div class="Unindented">
+This is for reading in a single frame at a time from a single file.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-8.2">8.2</a> Trajin_Multi
+</h2>
+<div class="Unindented">
+This is for reading in a single frame at a time from multiple files (e.g. getting a frame at a specifed temperature from a T-REMD ensemble).
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-8.3">8.3</a> EnsembleIn_Single
+</h2>
+<div class="Unindented">
+For reading in multiple frames at a time from a single file. Currently experimental.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-8.4">8.4</a> EnsembleIn_Multi
+</h2>
+<div class="Unindented">
+For reading in multiple frames at a time from multiple files, optionally sort the frames.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-8.5">8.5</a> Trajout_Single
+</h2>
+<div class="Unindented">
+For writing out a single frame at a time to a single file.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-8.6">8.6</a> EnsembleOut_Single
+</h2>
+<div class="Unindented">
+For writing out multiple frames at a time to a single file. Currently experimental.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-8.7">8.7</a> EnsembleOut_Multi
+</h2>
+<div class="Unindented">
+For writing out multiple frames at a time to multiple files. Used for ’ensemble’ run trajectory output and LES trajectory splitting.
+</div>
+<h1 class="Section">
+<a class="toc" name="toc-Section-9">9</a> Topology Input/Output
+</h1>
+<div class="Unindented">
+The <i>ParmIO</i> class is a base class for all topology file formats. This provides an easy mechanism for extracting the system topology from any number of file formats. The <i>ParmFile</i> class is a wrapper around the <i>ParmIO</i> classes that hides the implementation details for each data file type from you. You should interact with <i>ParmIO</i> objects through <i>ParmFile</i> handlers. <i>ParmFile</i> provides the ability to both read and write topology file objects of any class.
+</div>
+<div class="Indented">
+One thing that sets <i>ParmIO</i> and <i>ParmFile</i> apart from <i>TrajectoryIO/TrajectoryFile</i> and <i>DataIO/DataFile</i> is its connection with the <i>Topology</i> class. <i>Topology</i> objects contain as much of the information in the Amber topology file as can be parsed from the information present in the ParmIO object (and figured out based on atomic arrangements). A <i>Topology</i> instance is the first argument passed to the <i>ParmFile::Read</i> function, followed by the name of the topology file. Unlike the <i>DataFile</i> and <i>TrajectoryFile</i> classes, <i>ParmFile</i> does not have a reference to the <i>ParmIO</i> object to forward read/write information to. It exists simply to fill the <i>Topology</i> class with the relevant data structures and inform it how to do the rest. The <i>Topology</i> class is format-independent, providing a layer of abstraction to make other parts of the code that require topology information less error-prone while coding.
+</div>
+<div class="Indented">
+Every <i>ParmIO</i> subclass implements a <i>ReadParm</i> method that takes a <i>Topology</i> instance as the first argument and fills as much of the information there as possible. Afterwards, the CommonSetup method of the Topology class is called to finish setup and determine bond information (from atom distances if not present directly in the file format) and molecule information (based on the bonded structure). The currently available types of topologies are summarized in <a class="Reference" href="#tbl:Cpptraj-Parm-Formats">Table 1↓</a>.
+</div>
+<div class="Indented">
+<div class="float">
+<a class="Label" name="Table-1"> </a><div class="table">
+<div class="caption">
+Table 1 Topology file formats currently implemented in Cpptraj. The first column has the <i>ParmIO</i> class name as well as the <i>ParmFormatType</i> enumeration type that corresponds to that class inside <i>ParmFile</i> in parentheses.
+</div>
+<div class="center">
+<table>
+<tr>
+<td align="center" valign="top">
+<i>ParmIO</i> Subclass (<i>ParmFormatType</i>)
+</td>
+<td align="center" valign="top">
+Description
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top">
+Parm_Amber (AMBERPARM)
+</td>
+<td align="center" valign="top">
+Amber style topology file (OLD and NEW styles)
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top">
+Parm_CharmmPsf (CHARMMPSF)
+</td>
+<td align="center" valign="top">
+CHARMM PSF topology file format (used by NAMD, too)
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top">
+Parm_Mol2 (MOL2FILE)
+</td>
+<td align="center" valign="top">
+TRIPOS Mol2 file
+</td>
+
+</tr>
+<tr>
+<td align="center" valign="top">
+Parm_PDB
+</td>
+<td align="center" valign="top">
+PDB File
+</td>
+
+</tr>
+
+</table>
+
+</div>
+<a class="Label" name="tbl:Cpptraj-Parm-Formats"> </a>
+</div>
+
+</div>
+
+</div>
+<h1 class="Section">
+<a class="toc" name="toc-Section-10">10</a> The DataSet and DataFile Framework
+</h1>
+<div class="Unindented">
+One of the goals in writing cpptraj was to try and generalize data collection and output, so that any action could output any generated data in any format known to cpptraj without having to write any extra code. For example, data generated by a distance calculation can be output in columns, as a Grace file, as a Gnuplot file, or as all three. To that end Actions and Analyses have access to the main DataSetList in CpptrajState (usually named DSL inside Actions) and the main DataFileList (usually named DFL inside actions). A DataSet can be generated by an Action, but because it is held outside the Action in the master DataSetList it can persist after the Action that generated it has been destroyed and be used in subsequent Analyses etc. DataSets have a base type which determines what kind of data it can hold, and can also belong to a group; DataSets in the same group behave in a similar fashion. For example, all DataSets in the COORDINATES group hold coordinates, etc.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-10.1">10.1</a> The MetaData class
+</h2>
+<div class="Unindented">
+DataSets are associated with meta data which is used to both describe and categorize the data. DataSet selection uses meta data; meta data is also used to sort DataSets. This information is contained within the MetaData class. A DataSet can have a name, aspect, index, type etc. This allows for DataSets to e.g. be marked as an alpha torsion (M_TORSION, ALPHA). There are currently 9 MetaData variables:
+</div>
+<div class="Description">
+<span class="Description-entry">name_</span> The DataSet name; this is the most general level of classification. Used in searches.
+</div>
+<div class="Description">
+<span class="Description-entry">fileName_</span> If the data was read in from a file, the name of that file. Used in searches; both the full path and base name can be used to match (e.g. for reference frame data sets).
+</div>
+<div class="Description">
+<span class="Description-entry">aspect_</span> A &ldquo;sub-name&rdquo;, used to differentiate between different aspects of similar data. For example, DataSets generated by the ’nastruct’ Action have different aspects for nucleic acid &ldquo;stretch&rdquo;, &ldquo;shear&rdquo;, &ldquo;stagger&rdquo;, etc. Used in searches.
+</div>
+<div class="Description">
+<span class="Description-entry">legend_</span> This is the name that will be used when writing data out to a file. Not used in searches. A default one is created if one is not provided.
+</div>
+<div class="Description">
+<span class="Description-entry">idx_</span> (Index) A number which can be used to further differentiate data. It could correspond to residue, atom, etc. Used in searches.
+</div>
+<div class="Description">
+<span class="Description-entry">ensembleNum_</span> (Ensemble number) For use during ensemble processing; this is set by the DataSetList to differentiate data from different ensembles.
+</div>
+<div class="Description">
+<span class="Description-entry">scalarmode_</span> Internal categorization of the type of data, e.g. a distance, angle, torsion, etc. Certain functions will use this data - for example data sets marked as angle, torsion, or pucker will take periodicity into account when averaging (DataSet_1D::Avg()).
+</div>
+<div class="Description">
+<span class="Description-entry">scalartype_</span> Internal sub-type; so in the case of a torison what type of torsion it is (phi, psi etc) or in the case of a matrix what kind of matrix, etc.
+</div>
+<div class="Description">
+<span class="Description-entry">timeSeries_</span> Whether the DataSet is a time series; used by DataSetList to determine whether to call the Allocate() function.
+</div>
+<div class="Unindented">
+MetaData can be set using the DataSet::SetMeta() routine, but it is recommended that this be done sparingly once a DataSet is part of the master DataSetList since this could create conflicts.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-10.2">10.2</a> The TextFormat class
+</h2>
+<div class="Unindented">
+This class is used when writing the data set out to text files. It creates a printf-like format string of a given type with specified width and precision.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-10.3">10.3</a> Brief DataSet/DataFile Example
+</h2>
+<div class="Unindented">
+A simple usage example is given here. Say for example we want to track a distance in an Action. The first step is to create the DataSet in the Init() routine.
+</div>
+<pre class="LyX-Code">
+dist_ = DSL-&gt;AddSet(DataSet::DOUBLE, MetaData(actionArgs.GetStringNext(), MetaData::M_DISTANCE), "Dis");
+if (dist_==0) return 1;
+</pre>
+<div class="Unindented">
+In the first line a DataSet class of type DOUBLE is added to the master DataSetList. The various types are enumerated in DataSet::DataType (DataSet.h). The DataSet will be named whatever the next string is in the actionArgs ArgList. If there is no name, a default one will be created based on the given default "Dis" and the DataSet’s overall position in the DataSetList (so in this case the default could be something like Dis_00000). The DataSet is also given the scalarMode M_DISTANCE, which is information that other Actions/Analyses can use (like Analysis_Statistics). What is returned is a pointer to the DataSet; DataSet is actually a base class that specific DataSet types inherit (in this case DataSet_double). In this way the interface is generalized.
+</div>
+<div class="Indented">
+The next step is to add the DataSet to the DataFileList.
+</div>
+<pre class="LyX-Code">
+DataFile* outfile = DFL-&gt;AddFile(distanceFile, actionArgs);
+if (outfile != 0) outfile-&gt;AddDataSet( dist_ );
+</pre>
+<div class="Unindented">
+In the first line a pointer to a new or exsiting (if already created somewhere else) DataFile is returned only if the string distanceFile is not empty; this allows specification of output files to be optional. The actionsArgs ArgList is passed in so that the DataFile outfile can process any DataFile-related arguments. In the second line the DataSet is added to the DataFile. In this way output from multiple actions can be combined rather than overwritten. The machinery of the DataFileList takes care of output (formatting etc) from there.
+</div>
+<div class="Indented">
+The final phase is actually adding data to the DataSet. So for example in the action() routine you could have:
+</div>
+<pre class="LyX-Code">
+double distance = sqrt( DIST2_NoImage( V1, V2 ) );
+dist_-&gt;Add(frameNum, &amp;distance);
+</pre>
+<div class="Unindented">
+In the first line the value ’distance’ is being calculated. In the next line the value from ’distance’ is being added to DataSet dist_ with frame number ’frameNum’ (automatically set within Action). Notice that the address of ’distance’ is passed rather than the value; this is a necessity from the generalization of the DataSet interface. DataSet has no idea a prior what the data type might be, so in the Add routine the value is cast to what the underlying DataSet implementation expects. This allows the Add routine to be used for double, float, int, string, etc. This DataSet could also be cast back to it’s actual type to access other routines, e.g.:
+</div>
+<pre class="LyX-Code">
+DataSet_double&amp; ds_dist = static_cast&lt;DataSet_double&amp;&gt;( *dist_ );
+</pre>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-10.4">10.4</a> DataSet_1D / SCALAR_1D
+</h2>
+<div class="Unindented">
+Base class for 1D scalar data sets (like DataSet_double, DataSet_Mesh, etc). Basically hold a series of numbers.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-10.5">10.5</a> DataSet_2D / MATRIX_2D
+</h2>
+<div class="Unindented">
+Base class for 2D matrices.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-10.6">10.6</a> DataSet_3D / GRID_3D
+</h2>
+<div class="Unindented">
+Base class for 3D grids.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-10.7">10.7</a> DataSet_Coords / COORDINATES
+</h2>
+<div class="Unindented">
+Base class for DataSets which hold coordinates.
+</div>
+<h1 class="Part">
+<a class="toc" name="toc-Part-II">Part II.</a> Adding New Functionality
+</h1>
+<div class="Unindented">
+Most development for Cpptraj will likely be in adding new functionality; actions, analyses, and trajectory/topology/data file formats. This part of the manual will provide guidance and some helpful hints to this end. In general, adding new functionality is done by writing an implementation of the desired class type (e.g. for actions, inherit from the Action class) and then adding that class to the container for that specific functionality (e,g, in the case of actions, ActionList).
+</div>
+<h1 class="Section">
+<a class="toc" name="toc-Section-11">11</a> Adding Actions - Example
+</h1>
+<div class="Unindented">
+All actions inherit from the Action abstract base class. The Action class itself inherits from the DispatchObject class so that it can be associated with an allocator (to create the action) and a help function. There are four functions that every action must implement: Init(), Setup(), DoAction(), and Print(). Init() is called when the action is first created, and processes input arguments, sets up DataSets/DataFiles, deals with reference frames, and sets the debug level. Setup() is called to set the action up for a specific topology, and so handles anything Topology-related (such as parsing atom masks). The DoAction() function is called to actually perform the action on input coordinate frames. The Init(), Setup(), and DoAction() functions return a special type of integer, Action::RetType, which described the result of the action:
+</div>
+<div class="Description">
+<span class="Description-entry">Action::OK</span> Action is successful.
+</div>
+<div class="Description">
+<span class="Description-entry">Action::ERR</span> Action is not successful.
+</div>
+<div class="Description">
+<span class="Description-entry">Action::USE_ORIGINAL_FRAME</span> Action requests that the original unmodified topology/frame be used (see e.g. Action_Unstrip in Action_Strip.h).
+</div>
+<div class="Description">
+<span class="Description-entry">Action::SUPPRESS_COORD_OUTPUT</span> Action requests that further processing of the current coordinate frame be skipped (see e.g. Action_RunningAvg).
+</div>
+<div class="Description">
+<span class="Description-entry">Action::SKIP</span> Non-fatal problem occurred during setup; skip Action until next Setup call.
+</div>
+<div class="Description">
+<span class="Description-entry">Action::MODIFY_TOPOLOGY</span> Setup routine has modified the Topology/CoordinateInfo.
+</div>
+<div class="Description">
+<span class="Description-entry">Action::MODIFY_COORDS</span> DoAction routine has modified the Frame.
+</div>
+<div class="Unindented">
+The final function is Print(), which is called after all trajectory processing is complete and performs any additional calculation or output necessary. This function can be blank if such functionality is not needed, but it still must be implemented.
+</div>
+<div class="Indented">
+In addition to Action, there are currently two additional action-related classes that actions may want to inherit from. The ImagedAction class is for classes that may need to calculate imaged distances, and the ActionFrameCounter class is for actions that may want to process subsets of input frames (see e.g. the Action_Matrix action).
+</div>
+<div class="Indented">
+As an example, we will go through the creation of a simplified version of the Action_Distance class for calculating distances; this will cover using the DataSet, DataFile, AtomMask, and ImagedAction classes as well.
+</div>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-11.1">11.1</a> Create the Class Header
+</h2>
+<div class="Unindented">
+As mentioned in the style guide, header files should be named after the class, so the Action_Distance class will go in a file named &ldquo;Action_Distance.h&rdquo;. The first thing to do is create a &ldquo;header guard&rdquo; - this will prevent issues with multiple inclusion. The header guard should be named after the class and header file, so for Action_Distance.h:
+</div>
+<pre class="LyX-Code">
+#ifndef INC_ACTION_DISTANCE_H
+#define INC_ACTION_DISTANCE_H
+</pre>
+<div class="Unindented">
+Next comes the class description. Since distance calculations may involve imaging we also include the ImagedAction class as a variable to simplify image handling:
+</div>
+<pre class="LyX-Code">
+class Action_Distance: public Action {
+</pre>
+<div class="Unindented">
+Following the style guide, we first implement any public methods. For actions this is at least the constructor, the allocator (named Alloc() by convention), and the Help() function. The allocator and help functions need to be static so that they can be called without instantiating the class. 
+</div>
+<pre class="LyX-Code">
+public:
+  Action_Distance();  ///&lt; Constructor
+  /// Allocator
+  static DispatchObject* Alloc() { return (DispatchObject*)new Action_Distance(); }
+  static void Help(); ///&lt; Help function
+</pre>
+<div class="Unindented">
+The implemented functions Init(), Setup(), DoAction(), and Print() can be either public or private, although the preference is private.
+</div>
+<div class="Indented">
+The private section is where all functions and variables specific to the class will go. First, we add entries for the functions inherited from the Action base class which must be implemented. Since we will not need to do any post-processing for this action, the Print() function is empty:
+</div>
+<pre class="LyX-Code">
+  Action::RetType Init(ArgList&amp;, ActionInit&amp;, int);
+  Action::RetType Setup(ActionSetup&amp;);
+  Action::RetType DoAction(int, ActionFrame&amp;);
+  void Print() {}
+</pre>
+<div class="Unindented">
+Next we define the class variables. For Action_Distance we will want a DataSet to hold the calculated distances, two AtomMasks to describe the points between which the distance should be calculated, and a variable to indicate whether the distance should be mass-weighted.
+</div>
+<pre class="LyX-Code">
+private:
+  DataSet* dist_;      ///&lt; Will hold DataSet of calculated distances.
+  bool useMass_;       ///&lt; If true, mass-weight distances.
+  AtomMask Mask1_;     ///&lt; First atom selection.
+  AtomMask Mask2_;     ///&lt; Second atom selection
+  ImagedAction image_; ///&lt; Holds imaging info
+</pre>
+<div class="Unindented">
+All variables related to imaging are already include via the ImagedAction class. 
+</div>
+<div class="Indented">
+Last, end the class definition and finish the header guard:
+</div>
+<pre class="LyX-Code">
+};
+#endif
+</pre>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-11.2">11.2</a> Create the Class Implementation
+</h2>
+<div class="Unindented">
+Following the naming scheme, the class implementation will go into Action_Distance.cpp. The first part of this file will have the necessary #include directives. We need &lt;cmath&gt; for the square root function, Action_Distance.h for the class definition, and CpptrajStdio.h for wiriting to the console. 
+</div>
+<pre class="LyX-Code">
+#include &lt;cmath&gt;
+#include "Action_Distance.h"
+#include "CpptrajStdio.h"
+</pre>
+<div class="Unindented">
+First we will need to create the class constructor. It is encouraged that users make use of initalizer lists (which tend to be more efficient) for this purpose. In this case we have two non-class variables: dist_, which is a pointer to a DataSet, and useMass_, which is boolean:
+</div>
+<pre class="LyX-Code">
+Action_Distance::Action_Distance() : dist_(0), useMass_(true) {}
+</pre>
+<div class="Unindented">
+Next, ensure that the Help() function has an implementation. Note that in cpptraj &ldquo;mprintf&rdquo; is used over &ldquo;printf&rdquo; for making any future IO modifications easier:
+</div>
+<pre class="LyX-Code">
+void Action_Distance::Help() {
+  mprintf("distance [&lt;name&gt;] &lt;mask1&gt; &lt;mask2&gt; [out &lt;filename&gt;] [geom] [noimage]\n");
+}
+</pre>
+<h3 class="Subsubsection">
+<a class="toc" name="toc-Subsubsection-11.2.1">11.2.1</a> Init() - Parse user arguments, set up DataSets/DataFiles etc
+</h3>
+<div class="Unindented">
+Init() is called when the action is created and is responsible for parsing the Argument list (ArgList) and inital setup. Init() has the same input arguments for every action:
+</div>
+<pre class="LyX-Code">
+Action::RetType 
+  Action_Distance::Init(ArgList&amp; actionArgs, ActionInit&amp; init, int debugIn)
+{
+</pre>
+<div class="Unindented">
+The input arguments are as follows: <b>actionArgs</b> (ArgList class) contains arguments from user input, <b>init</b> (ActionInit class) contains the master DataSetList and master DataFileList, and <b>debugIn</b> is the current debug level for all actions. It is up to the action implementation whether it wants to record the debug level or not.
+</div>
+<div class="Indented">
+Typical order of argument processing is keywords, masks, DataSet name. First we will process the keywords ’noimage’, ’geom’, and ’out &lt;filename&gt;’.
+</div>
+<div class="Indented">
+In order to determine whether the action will try to use imaging we call the InitImaging() function (inherited from the ImagedAction class). If the ArgList actionArgs contains the string &ldquo;noimage&rdquo;, false will be sent to InitImaging to disable imaging:
+</div>
+<pre class="LyX-Code">
+  image_.InitImaging( !(actionArgs.hasKey("noimage")) );
+</pre>
+<div class="Unindented">
+Next we set useMass_. If actionArgs contains the string &ldquo;geom&rdquo;, useMass_ will be set to false:
+</div>
+<pre class="LyX-Code">
+  useMass_ = !(actionArgs.hasKey("geom"));
+</pre>
+<div class="Unindented">
+Next, we will try to create an output DataFile:
+</div>
+<pre class="LyX-Code">
+  DataFile* outfile = init.DFL().AddDataFile( actionArgs.GetStringKey("out"), actionArgs );
+</pre>
+<div class="Unindented">
+The behavior of AddDataFile() depends on the result from actionArgs.GetStringKey(); if &ldquo;out&rdquo; is present in actionArgs, the next string (presumably &lt;filename&gt;) is returned and passed to AddDataFile(), and a DataFile will be returned corresponding to &lt;filename&gt;. If &ldquo;out&rdquo; is not present nothing will be returned, no file will be set up, and outfile will be null (0). 
+</div>
+<div class="Indented">
+Next, we will get two atom mask expressions. We will require that the user must specify two masks, so if either of the strings is empty return an error:
+</div>
+<pre class="LyX-Code">
+  std::string mask1 = actionArgs.GetMaskNext();
+  std::string mask2 = actionArgs.GetMaskNext();
+  if (mask1.empty() || mask2.empty()) {
+    mprinterr("Error: distance: Requires 2 masks\n");
+    return Action::ERR;
+  }
+</pre>
+<div class="Unindented">
+Now we can use the mask expression strings to initialize the two AtomMask classes (note that this tokenizes the mask expressions but does not yet set them up since we need topology information to do that):
+</div>
+<pre class="LyX-Code">
+  Mask1_.SetMaskString(mask1);
+  Mask2_.SetMaskString(mask2);
+</pre>
+<div class="Unindented">
+Next we will use the master DataSetList (init.DSL()) to create a DataSet to store the calculated distances. We will use a version of DataSetList::AddSet() that allows us to specify the DataSet type, MetaData, and a default name if no name is specified (&ldquo;Dis&rdquo;). If any errors occur in creating the DataSet, NULL (0) will be returned. Note that the string returned by actionArgs.GetStringNext() is implicitly converted to a MetaData class.
+</div>
+<pre class="LyX-Code">
+  dist_ = init.DSL().AddSet(DataSet::DOUBLE, actionArgs.GetStringNext(), "Dis");
+  if (dist_==0) return Action::ERR;
+</pre>
+<div class="Unindented">
+If a DataFile was previously set up, we now add the DataSet to this DataFile:
+</div>
+<pre class="LyX-Code">
+  if (outfile != 0) outfile-&gt;AddDataSet( dist_ );
+</pre>
+<div class="Unindented">
+Last, we print out some information regarding how the Action has been initialized and return Action::OK to indicate successful intialization:
+</div>
+<pre class="LyX-Code">
+  mprintf("    DISTANCE: %s to %s",Mask1_.MaskString(), Mask2_.MaskString());
+  if (!image_.UseImage())
+    mprintf(", non-imaged");
+  if (useMass_)
+    mprintf(", center of mass");
+  else 
+   mprintf(", geometric center");   mprintf(".\n");
+  return Action::OK;
+}
+</pre>
+<div class="Unindented">
+<b>IMPORTANT:</b> Note that this is the only time in which the master DataSetList is passed to the Action. If the Action will need to set up DataSets later (because e.g. they may depend on what’s in the Topology, like in the case of the <b><i>multidihedral</i></b> command), it should save a pointer to the master DataSetList using the <b>init.DslPtr()</b> function, e.g.
+</div>
+<pre class="LyX-Code">
+masterDSL_ = init.DslPtr();
+</pre>
+<h3 class="Subsubsection">
+<a class="toc" name="toc-Subsubsection-11.2.2">11.2.2</a> Setup() - Set up Topology-related parts of the Action
+</h3>
+<div class="Unindented">
+Setup() is called whenever the action needs to be set up for a given Topology file. Any component of the action that depends on Topology (in this case the AtomMasks and the Imaging) is handled here. The arguments to Setup() are:
+</div>
+<pre class="LyX-Code">
+Action::RetType Action_Distance::Setup(ActionSetup&amp; setup) {
+</pre>
+<div class="Unindented">
+Note that the <b>setup</b> variable (ActionSetup class) contains a pointer to the current Topology and current trajectory CoordinateInfo, as well as the number of expected frames associated with this Topology during the current run. Actions that want to modify the current Topology or CoordinateInfo for subsequent Actions can do so using the <b>setup</b> variable (see e.g. Action_Strip). 
+</div>
+<div class="Indented">
+First, we setup the AtomMasks. Each AtomMask is passed to the current topology using the SetupIntegerMask() function, which will create an integer array containing only the selected atoms based on the mask expression. If we needed to know both selected and unselected atoms we could use the SetupCharMask() function instead.
+</div>
+<pre class="LyX-Code">
+  if (setup.Top().SetupIntegerMask( Mask1_ )) return Action::ERR;
+  if (setup.Top().SetupIntegerMask( Mask2_ )) return Action::ERR;
+</pre>
+<div class="Unindented">
+After this, we print some information about what atoms are selected (note we could also use the MaskInfo() function of AtomMask for this). For calculating distance, we need to make sure atoms were actually selected (using the None() function of AtomMask). If no atoms were selected this may be because the mask is only valid for certain Topologies during the run, so in that case make it a non-fatal error (i.e. a Warning) and return Action::SKIP:
+</div>
+<pre class="LyX-Code">
+  mprintf("\t%s (%i atoms) to %s (%i atoms)",Mask1_.MaskString(), Mask1_.Nselected(),
+          Mask2_.MaskString(),Mask2_.Nselected());
+  if (Mask1_.None() || Mask2_.None()) {
+    mprintf("\nWarning: distance: One or both masks have no atoms.\n");
+    return Action::SKIP;
+  }
+</pre>
+<div class="Unindented">
+Next we determine if imaging can actually be performed based on the box information present in the current trajectory’s CoordinateInfo; if there is no box information imaging cannot be performed. We do this with the image_.SetupImaging() function (ImagedAction class). The image_.ImagingEnabled() function will let us know if imaging for this Topology is possible or not:
+</div>
+<pre class="LyX-Code">
+  image_.SetupImaging( setup.CoordInfo().TrajBox().Type() );
+  if (image_.ImagingEnabled())
+    mprintf(", imaged");
+  else
+    mprintf(", imaging off");
+  mprintf(".\n");
+</pre>
+<div class="Unindented">
+Now all Topology-dependent aspects of the action are set up. Return Action::OK.
+</div>
+<pre class="LyX-Code">
+  return Action::OK;
+}
+</pre>
+<div class="Unindented">
+<b>IMPORTANT:</b> Note that this is the only time in which a Topology is passed to the Action. If the Action requires Topology information later (such as in DoAction() or Print()) it should save a pointer to the Topology using the <b>setup.TopAddress()</b> function, e.g.
+</div>
+<pre class="LyX-Code">
+currentParm_ = setup.TopAddress();
+</pre>
+<h3 class="Subsubsection">
+<a class="toc" name="toc-Subsubsection-11.2.3">11.2.3</a> DoAction() - Process input Frame
+</h3>
+<div class="Unindented">
+Coordinates are read in a frame at a time and stored in a Frame class, which is then passed to each action in the ActionList. The DoAction() function is called to process a coordinate Frame. The arguments are:
+</div>
+<pre class="LyX-Code">
+Action::RetType Action_Distance::DoAction(int frameNum, ActionFrame&amp; frm) {
+</pre>
+<div class="Unindented">
+The first argument <b>frameNum</b> is the current frame number (starting at 0). Note that the <b>frm</b> variable (ActionFrame class) contains a pointer to the current Frame. Actions that want to alter the current Frame beyond just manipulating coordinates for subsequent Actions (e.g. changing the Frame size or adding velocity info etc) can do so via the <b>frm</b> variable (see e.g. Action_Closest). 
+</div>
+<div class="Indented">
+There are several variables needed for calculating the distance. First, we have two Vec3 classes (Vec3.h, which is already included from other headers) to store the XYZ coordinates of the points:
+</div>
+<pre class="LyX-Code">
+  Vec3 a1, a2;
+</pre>
+<div class="Unindented">
+If we are performing non-orthorhombic imaging we need to store the matrices which perform conversion from Cartesian to fractional coordinates and vice versa (using Matrix_3x3 classes, Matrix_3x3.h). Note that these are called ’ucell’ and ’recip’ respectively throughout CPPTRAJ, as these were the names used for the analogous structures in PTRAJ.
+</div>
+<pre class="LyX-Code">
+  Matrix_3x3 ucell, recip;
+</pre>
+<div class="Unindented">
+Finally, we need a double to store the actual result of the distance calculation:
+</div>
+<pre class="LyX-Code">
+  double Dist;
+</pre>
+<div class="Unindented">
+In the first part of the actual calculation, we calculate the centers of the coordinates in Mask1_ and Mask2_, either mass-weighted or not depending on useMass_, using the appropriate functions from the Frame class (Frame.h):
+</div>
+<pre class="LyX-Code">
+  if (useMass_) {
+    a1 = frm.Frm().VCenterOfMass( Mask1_ );
+    a2 = frm.Frm().VCenterOfMass( Mask2_ );
+  } else {
+    a1 = frm.Frm().VGeometricCenter( Mask1_ );
+    a2 = frm.Frm().VGeometricCenter( Mask2_ );
+  }
+</pre>
+<div class="Unindented">
+Note that here we are using the Frm() function, which returns a constant (i.e. non-modifiable) reference to the current Frame; if we wanted to actually manipulate the coordinates we would have to call ModifyFrm(). 
+</div>
+<div class="Indented">
+Next, we get the distance between the coordinates stored in a1 and a2. For non-orthorhombic imaging we first need to convert the current box coordinates (stored in the Frame class in double precision as 3 lengths and 3 angles) into the coordinate conversion matrices using the ToRecip() function of the Box class (Box.h). Then, depending on the type of imaging that needs to be performed we call the appropriate distance calculation routine (DIST2_XXX, found in DistRoutines.h):
+</div>
+<pre class="LyX-Code">
+  switch ( image_.ImageType() ) {
+    case NONORTHO:
+      frm.Frm().BoxCrd().ToRecip(ucell, recip);
+      Dist = DIST2_ImageNonOrtho(a1, a2, ucell, recip);
+      break;
+    case ORTHO:
+      Dist = DIST2_ImageOrtho(a1, a2, frm.Frm().BoxCrd());
+      break;
+    case NOIMAGE:
+      Dist = DIST2_NoImage(a1, a2);       break;
+  }
+  Dist = sqrt(Dist);
+</pre>
+<div class="Unindented">
+Last, we add the result to the DataSet and return Action::OK. Since DataSet is just an interface we pass in the address of Dist (&amp;Dist) to let the underlying DataSet framework take care of the fact that it is a double.
+</div>
+<pre class="LyX-Code">
+  dist_-&gt;Add(frameNum, &amp;Dist);
+  return Action::OK;
+}
+</pre>
+<h3 class="Subsubsection">
+<a class="toc" name="toc-Subsubsection-11.2.4">11.2.4</a> Print() - Any post-processing
+</h3>
+<div class="Unindented">
+The Print() function is called once all input frames have been read in, and is used if there is anything that should be printed outside the normal DataFile/DataSet framework (e.g. hydrogen bond averages in the hbond action) or if there are any additional calculations that need to be performed (e.g. finishing up matrix calculations in the matrix action). In this example we’re only calculating a simple distance; the output is handled by the DataFile/DataSet framework, so we implement a blank Print() function in the header:
+</div>
+<pre class="LyX-Code">
+void Print() {}
+</pre>
+<h2 class="Subsection">
+<a class="toc" name="toc-Subsection-11.3">11.3</a> Add the Action to the Command class
+</h2>
+<div class="Unindented">
+Now that the class implementation is complete, we need to let cpptraj know how to call it. This is currently done using a static array in Command.cpp called Commands. An entry in Commands is called a Command::Token and consists of 5 fields:
+</div>
+<ol>
+<li>
+Type: The CommandType (enumerated type), in this case ACTION.
+</li>
+<li>
+Cmd: The keyword (const character string) that will call this action.
+</li>
+<li>
+Alloc: The Allocator, which we previously defined in the header as Alloc().
+</li>
+<li>
+Help: The help function, which we defined in the header and implemented as a static void function.
+</li>
+<li>
+Fxn: A function pointer to the static function in Command.cpp which will handle this command; all Actions are handled by AddAction.
+</li>
+
+</ol>
+<div class="Unindented">
+To make navigation of Commands.cpp easier, you can search for INC_ACTION (or INC_ANALYSIS if adding an Analysis) to go where things need to be added. First add the class to Commands.cpp with the appropriate ’#include’.
+</div>
+<pre class="LyX-Code">
+#include "Action_Dihedral.h"
+#include "Action_Distance.h"
+#include "Action_Hbond.h"
+</pre>
+<div class="Unindented">
+Then will add the command entry to commands in the appropriate section (in this case DispatchObject::ACTION) alphabetically by keyword. The final array can look like e.g.:
+</div>
+<pre class="LyX-Code">
+const DispatchObject::Token Command::Commands[] = {
+  { ACTION, "dipole", Action_Dipole::Alloc, Action_Dipole::Help, AddAction },
+  { ACTION, "distance", Action_Distance::Alloc, Action_Distance::Help, AddAction },
+  { ACTION, "drms", Action_DistRmsd::Alloc, Action_DistRmsd::Help, AddAction },
+};
+</pre>
+<a class="toc" name="Index"></a><h1 class="index">Index</h1>
+<hr class="footer"/>
+<div class="footer" id="generated-by">
+Document generated by <a href="http://elyxer.nongnu.org/">eLyXer 1.2.5 (2013-03-10)</a> on <span class="create-date">2015-11-25T22:16:10.495000</span>
+</div>
+</div>
+</body>
+</html>

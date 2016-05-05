@@ -1,0 +1,520 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Trajectory warm up &mdash; pytraj 1.0.4 documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="pytraj 1.0.4 documentation" href="index.html" />
+    <link rel="up" title="Cookbook" href="cookbook.html" />
+    <link rel="next" title="How to run Jupyter notebook" href="tutorials/tutorial_run_jupyter_notebook.html" />
+    <link rel="prev" title="Weird things in pytraj" href="things_will_be_surprised.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.4</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory.html#overview">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_and_write.html">Read and Write</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Use conda to manage different Python versions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_viewer.html">Trajectory Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Trajectory warm up</a><ul>
+<li><a class="reference internal" href="#register-to-load-from-disk">Register to load from disk</a></li>
+<li><a class="reference internal" href="#register-to-load-from-disk-with-frame-stride">Register to load from disk with frame stride</a></li>
+<li><a class="reference internal" href="#register-to-load-several-files-from-disk">Register to load several files from disk</a></li>
+<li><a class="reference internal" href="#register-to-load-several-files-from-disk-with-frame-stride">Register to load several files from disk with frame stride</a></li>
+<li><a class="reference internal" href="#write-to-disk">Write to disk</a></li>
+<li><a class="reference internal" href="#extract-coordinates-from-pdb-structure">Extract coordinates from PDB structure</a></li>
+<li><a class="reference internal" href="#write-pdb-file-to-netcdf-format-require-netcdf-lib">Write PDB file to netcdf format (require Netcdf lib)</a></li>
+<li><a class="reference internal" href="#fancy-indexing">Fancy indexing</a></li>
+<li><a class="reference internal" href="#iterate-whole-trajectory">Iterate whole trajectory</a></li>
+<li><a class="reference internal" href="#iterate-a-part-of-trajectory">Iterate a part of trajectory</a></li>
+<li><a class="reference internal" href="#perform-calculation">Perform calculation</a></li>
+<li><a class="reference internal" href="#convert-data-to-pandas-dataframe">Convert data to pandas DataFrame</a></li>
+<li><a class="reference internal" href="#convert-to-different-file-format">Convert to different file format</a></li>
+<li><a class="reference internal" href="#combine-with-cpptraj-command-style">Combine with cpptraj command style</a></li>
+<li><a class="reference internal" href="#convert-out-of-core-trajectoryiterator-to-in-memory-trajectory">Convert out-of-core TrajectoryIterator to in-memory Trajectory</a></li>
+<li><a class="reference internal" href="#parallel-computing-with-trajectoryiterator">Parallel computing with TrajectoryIterator</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="things_will_be_surprised.html" title="Previous Chapter: Weird things in pytraj"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Weird things ...</span>
+    </a>
+  </li>
+  <li>
+    <a href="tutorials/tutorial_run_jupyter_notebook.html" title="Next Chapter: How to run Jupyter notebook"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">How to run Ju... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/trajectory_exercise.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-76826365-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<div class="section" id="trajectory-warm-up">
+<h1><a class="toc-backref" href="#id1">Trajectory warm up</a><a class="headerlink" href="#trajectory-warm-up" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#trajectory-warm-up" id="id1">Trajectory warm up</a><ul>
+<li><a class="reference internal" href="#register-to-load-from-disk" id="id2">Register to load from disk</a></li>
+<li><a class="reference internal" href="#register-to-load-from-disk-with-frame-stride" id="id3">Register to load from disk with frame stride</a></li>
+<li><a class="reference internal" href="#register-to-load-several-files-from-disk" id="id4">Register to load several files from disk</a></li>
+<li><a class="reference internal" href="#register-to-load-several-files-from-disk-with-frame-stride" id="id5">Register to load several files from disk with frame stride</a></li>
+<li><a class="reference internal" href="#write-to-disk" id="id6">Write to disk</a></li>
+<li><a class="reference internal" href="#extract-coordinates-from-pdb-structure" id="id7">Extract coordinates from PDB structure</a></li>
+<li><a class="reference internal" href="#write-pdb-file-to-netcdf-format-require-netcdf-lib" id="id8">Write PDB file to netcdf format (require Netcdf lib)</a></li>
+<li><a class="reference internal" href="#fancy-indexing" id="id9">Fancy indexing</a></li>
+<li><a class="reference internal" href="#iterate-whole-trajectory" id="id10">Iterate whole trajectory</a></li>
+<li><a class="reference internal" href="#iterate-a-part-of-trajectory" id="id11">Iterate a part of trajectory</a></li>
+<li><a class="reference internal" href="#perform-calculation" id="id12">Perform calculation</a></li>
+<li><a class="reference internal" href="#convert-data-to-pandas-dataframe" id="id13">Convert data to pandas DataFrame</a></li>
+<li><a class="reference internal" href="#convert-to-different-file-format" id="id14">Convert to different file format</a></li>
+<li><a class="reference internal" href="#combine-with-cpptraj-command-style" id="id15">Combine with cpptraj command style</a></li>
+<li><a class="reference internal" href="#convert-out-of-core-trajectoryiterator-to-in-memory-trajectory" id="id16">Convert out-of-core TrajectoryIterator to in-memory Trajectory</a></li>
+<li><a class="reference internal" href="#parallel-computing-with-trajectoryiterator" id="id17">Parallel computing with TrajectoryIterator</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="register-to-load-from-disk">
+<h2><a class="toc-backref" href="#id2">Register to load from disk</a><a class="headerlink" href="#register-to-load-from-disk" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+
+<span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.parm7&#39;</span><span class="p">)</span>
+
+<span class="gp">In [3]: </span><span class="n">traj</span>
+<span class="gr">Out[3]: </span>
+<span class="go">pytraj.TrajectoryIterator, 101 frames: </span>
+<span class="go">Size: 0.000503 (GB)</span>
+<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="register-to-load-from-disk-with-frame-stride">
+<h2><a class="toc-backref" href="#id3">Register to load from disk with frame stride</a><a class="headerlink" href="#register-to-load-from-disk-with-frame-stride" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="c"># specify start=2, stop=50, step=2</span>
+<span class="gp">In [4]: </span><span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.parm7&#39;</span><span class="p">,</span> <span class="n">frame_slice</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="gr">Out[4]: </span>
+<span class="go">pytraj.TrajectoryIterator, 24 frames: </span>
+<span class="go">Size: 0.000120 (GB)</span>
+<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
+<span class="go">           </span>
+
+<span class="c"># skip every 2 frames with stride option</span>
+<span class="gp">In [5]: </span><span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.parm7&#39;</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">                                                                                                                                    Out[5]: </span>
+<span class="go">pytraj.TrajectoryIterator, 51 frames: </span>
+<span class="go">Size: 0.000254 (GB)</span>
+<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="register-to-load-several-files-from-disk">
+<h2><a class="toc-backref" href="#id4">Register to load several files from disk</a><a class="headerlink" href="#register-to-load-several-files-from-disk" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [6]: </span><span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s1">&#39;tz2.0.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.1.nc&#39;</span><span class="p">],</span> <span class="s1">&#39;tz2.parm7&#39;</span><span class="p">)</span>
+<span class="gr">Out[6]: </span>
+<span class="go">pytraj.TrajectoryIterator, 202 frames: </span>
+<span class="go">Size: 0.001007 (GB)</span>
+<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="register-to-load-several-files-from-disk-with-frame-stride">
+<h2><a class="toc-backref" href="#id5">Register to load several files from disk with frame stride</a><a class="headerlink" href="#register-to-load-several-files-from-disk-with-frame-stride" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [7]: </span><span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s1">&#39;tz2.0.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.1.nc&#39;</span><span class="p">],</span> <span class="s1">&#39;tz2.parm7&#39;</span><span class="p">,</span> <span class="n">frame_slice</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+<span class="gr">Out[7]: </span>
+<span class="go">pytraj.TrajectoryIterator, 9 frames: </span>
+<span class="go">Size: 0.000045 (GB)</span>
+<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
+<span class="go">           </span>
+
+</pre></div>
+</div>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="c"># use stride to simplify loading if do not need to specif start and stop frames</span>
+<span class="gp">In [8]: </span><span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s1">&#39;tz2.0.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.1.nc&#39;</span><span class="p">],</span> <span class="s1">&#39;tz2.parm7&#39;</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gr">Out[8]: </span>
+<span class="go">pytraj.TrajectoryIterator, 68 frames: </span>
+<span class="go">Size: 0.000339 (GB)</span>
+<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="write-to-disk">
+<h2><a class="toc-backref" href="#id6">Write to disk</a><a class="headerlink" href="#write-to-disk" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [9]: </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s1">&#39;my_traj.nc&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="extract-coordinates-from-pdb-structure">
+<h2><a class="toc-backref" href="#id7">Extract coordinates from PDB structure</a><a class="headerlink" href="#extract-coordinates-from-pdb-structure" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [10]: </span><span class="n">pdb</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">fetch_pdb</span><span class="p">(</span><span class="s1">&#39;1ES7&#39;</span><span class="p">)</span>
+
+<span class="c"># get coordinates for CA atoms</span>
+<span class="gp">In [11]: </span><span class="n">pdb</span><span class="p">[</span><span class="s1">&#39;@CA&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">xyz</span>
+<span class="gr">Out[11]: </span>
+<span class="go">array([[[-13.162,  61.638,  32.312],</span>
+<span class="go">        [-14.246,  65.16 ,  33.26 ],</span>
+<span class="go">        [-17.468,  66.762,  34.475],</span>
+<span class="go">        ..., </span>
+<span class="go">        [-27.367,  43.164,   2.811],</span>
+<span class="go">        [-24.433,  45.091,   1.312],</span>
+<span class="go">        [-22.127,  43.142,  -1.024]]])</span>
+
+<span class="c"># another way with more memory efficient</span>
+<span class="gp">In [12]: </span><span class="n">pt</span><span class="o">.</span><span class="n">get_coordinates</span><span class="p">(</span><span class="n">pdb</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="go">                                                                                                                                                                                                                                                        Out[12]: </span>
+<span class="go">array([[[-13.162,  61.638,  32.312],</span>
+<span class="go">        [-14.246,  65.16 ,  33.26 ],</span>
+<span class="go">        [-17.468,  66.762,  34.475],</span>
+<span class="go">        ..., </span>
+<span class="go">        [-27.367,  43.164,   2.811],</span>
+<span class="go">        [-24.433,  45.091,   1.312],</span>
+<span class="go">        [-22.127,  43.142,  -1.024]]])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="write-pdb-file-to-netcdf-format-require-netcdf-lib">
+<h2><a class="toc-backref" href="#id8">Write PDB file to netcdf format (require Netcdf lib)</a><a class="headerlink" href="#write-pdb-file-to-netcdf-format-require-netcdf-lib" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [13]: </span><span class="n">pdb</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">fetch_pdb</span><span class="p">(</span><span class="s1">&#39;1ES7&#39;</span><span class="p">)</span>
+
+<span class="gp">In [14]: </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s1">&#39;mypdb.nc&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="o">=</span><span class="n">pdb</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c"># can also use the shortcut</span>
+<span class="gp">In [15]: </span><span class="n">pdb</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;mypdb.nc&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="fancy-indexing">
+<h2><a class="toc-backref" href="#id9">Fancy indexing</a><a class="headerlink" href="#fancy-indexing" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [16]: </span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gr">Out[16]: </span><span class="o">&lt;</span><span class="n">Frame</span> <span class="k">with</span> <span class="mi">223</span> <span class="n">atoms</span><span class="o">&gt;</span>
+
+<span class="gp">In [17]: </span><span class="n">traj</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+<span class="go">                                Out[17]: </span>
+<span class="go">pytraj.Trajectory, 2 frames: </span>
+<span class="go">Size: 0.000010 (GB)</span>
+<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
+<span class="go">           </span>
+
+<span class="gp">In [18]: </span><span class="n">traj</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;@CA&#39;</span><span class="p">]</span>
+<span class="go">                                                                                                                                                            Out[18]: </span>
+<span class="go">pytraj.Trajectory, 2 frames: </span>
+<span class="go">Size: 0.000001 (GB)</span>
+<span class="go">&lt;Topology: 12 atoms, 12 residues, 12 mols, non-PBC&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="iterate-whole-trajectory">
+<h2><a class="toc-backref" href="#id10">Iterate whole trajectory</a><a class="headerlink" href="#iterate-whole-trajectory" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [19]: </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">:</span>
+<span class="gp">   ....:</span>     <span class="k">pass</span>
+<span class="gp">   ....:</span> 
+
+<span class="gp">In [20]: </span><span class="n">frame</span>
+<span class="gr">Out[20]: </span><span class="o">&lt;</span><span class="n">Frame</span> <span class="k">with</span> <span class="mi">223</span> <span class="n">atoms</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="iterate-a-part-of-trajectory">
+<h2><a class="toc-backref" href="#id11">Iterate a part of trajectory</a><a class="headerlink" href="#iterate-a-part-of-trajectory" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>with stop value</li>
+</ul>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [21]: </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+<span class="gp">   ....:</span>     <span class="k">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+<span class="gp">   ....:</span> 
+<span class="go">&lt;Frame with 223 atoms&gt;</span>
+<span class="go">&lt;Frame with 223 atoms&gt;</span>
+<span class="go">&lt;Frame with 223 atoms&gt;</span>
+<span class="go">&lt;Frame with 223 atoms&gt;</span>
+<span class="go">&lt;Frame with 223 atoms&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>with given frame indices</li>
+</ul>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [22]: </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">]):</span>
+<span class="gp">   ....:</span>     <span class="k">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+<span class="gp">   ....:</span> 
+<span class="go">&lt;Frame with 223 atoms&gt;</span>
+<span class="go">&lt;Frame with 223 atoms&gt;</span>
+<span class="go">&lt;Frame with 223 atoms&gt;</span>
+<span class="go">&lt;Frame with 223 atoms&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>with given mask</li>
+</ul>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [23]: </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;@CA&#39;</span><span class="p">):</span>
+<span class="gp">   ....:</span>     <span class="k">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+<span class="gp">   ....:</span> 
+<span class="go">&lt;Frame with 12 atoms&gt;</span>
+<span class="go">&lt;Frame with 12 atoms&gt;</span>
+<span class="go">&lt;Frame with 12 atoms&gt;</span>
+<span class="go">&lt;Frame with 12 atoms&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="perform-calculation">
+<h2><a class="toc-backref" href="#id12">Perform calculation</a><a class="headerlink" href="#perform-calculation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="c"># rmsd to first frame with mask=&#39;@CA&#39;</span>
+<span class="c"># python starts counting from 0</span>
+<span class="gp">In [24]: </span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="gr">Out[24]: </span><span class="n">array</span><span class="p">([</span> <span class="mf">0.</span>    <span class="p">,</span>  <span class="mf">2.546</span> <span class="p">,</span>  <span class="mf">4.2233</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span>  <span class="mf">4.9719</span><span class="p">,</span>  <span class="mf">5.5395</span><span class="p">,</span>  <span class="mf">4.832</span> <span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="convert-data-to-pandas-dataframe">
+<h2><a class="toc-backref" href="#id13">Convert data to pandas DataFrame</a><a class="headerlink" href="#convert-data-to-pandas-dataframe" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [25]: </span><span class="n">df</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">resrange</span><span class="o">=</span><span class="s1">&#39;3-7&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;dataframe&#39;</span><span class="p">)</span>
+
+<span class="gp">In [26]: </span><span class="nb">type</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="gr">Out[26]: </span><span class="n">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span>
+
+<span class="gp">In [27]: </span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">                                     Out[27]: </span>
+<span class="go">       phi_3       psi_3     omega_3       phi_4      psi_4   chip_4  \</span>
+<span class="go">0 -79.867366  117.355933 -179.707558 -108.912042 -55.981169 -45.0272   </span>
+
+<span class="go">      omega_4       phi_5       psi_5     chip_5     omega_5     phi_6  \</span>
+<span class="go">0  168.029851 -136.352598  129.444453 -158.59654 -179.635141 -122.4413   </span>
+
+<span class="go">       psi_6     chip_6     omega_6      phi_7       psi_7     omega_7  </span>
+<span class="go">0  144.69102 -83.364416  175.649333 -63.342516 -128.126881  178.856418  </span>
+
+<span class="gp">In [28]: </span><span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Out[28]: </span>
+<span class="go">         phi_3       psi_3     omega_3      phi_4      psi_4     chip_4  \</span>
+<span class="go">100 -64.649757  103.607363  162.122206 -96.395583 -34.251063 -74.762777   </span>
+
+<span class="go">        omega_4       phi_5       psi_5      chip_5     omega_5     phi_6  \</span>
+<span class="go">100  171.968921 -119.367165  119.273812 -170.889973  165.773805 -96.48103   </span>
+
+<span class="go">          psi_6      chip_6     omega_6       phi_7      psi_7     omega_7  </span>
+<span class="go">100  107.297804  179.500233 -168.223579  156.863923 -51.867563  160.892212  </span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="convert-to-different-file-format">
+<h2><a class="toc-backref" href="#id14">Convert to different file format</a><a class="headerlink" href="#convert-to-different-file-format" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="c"># to DCD format</span>
+<span class="gp">In [29]: </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s1">&#39;traj.dcd&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="combine-with-cpptraj-command-style">
+<h2><a class="toc-backref" href="#id15">Combine with cpptraj command style</a><a class="headerlink" href="#combine-with-cpptraj-command-style" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [30]: </span><span class="n">pt</span><span class="o">.</span><span class="n">compute</span><span class="p">([</span><span class="s1">&#39;rms&#39;</span><span class="p">,</span> <span class="s1">&#39;radgyr @CA nomax&#39;</span><span class="p">,</span> <span class="s1">&#39;distance :3 :7&#39;</span><span class="p">],</span> <span class="n">traj</span><span class="p">)</span>
+<span class="gr">Out[30]: </span>
+<span class="go">OrderedDict([(&#39;RMSD_00000&#39;,</span>
+<span class="go">              array([ 0.    ,  4.0162,  6.4142, ...,  8.275 ,  8.1941,  7.7792])),</span>
+<span class="go">             (&#39;RoG_00001&#39;,</span>
+<span class="go">              array([ 8.1092,  7.7643,  8.0969, ...,  6.3806,  6.2414,  6.4899])),</span>
+<span class="go">             (&#39;Dis_00002&#39;,</span>
+<span class="go">              array([ 11.1745,   8.5743,   7.4076, ...,   9.0644,   6.5968,   8.6387]))])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="convert-out-of-core-trajectoryiterator-to-in-memory-trajectory">
+<h2><a class="toc-backref" href="#id16">Convert out-of-core TrajectoryIterator to in-memory Trajectory</a><a class="headerlink" href="#convert-out-of-core-trajectoryiterator-to-in-memory-trajectory" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [31]: </span><span class="n">traj2</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[:]</span>
+
+<span class="c"># apply any transformations</span>
+<span class="c"># superpose to first frame</span>
+<span class="gp">In [32]: </span><span class="n">pt</span><span class="o">.</span><span class="n">superpose</span><span class="p">(</span><span class="n">traj2</span><span class="p">)</span>
+<span class="gr">Out[32]: </span>
+<span class="go">pytraj.Trajectory, 101 frames: </span>
+<span class="go">Size: 0.000503 (GB)</span>
+<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
+<span class="go">           </span>
+
+<span class="c"># use the same syntax to perform calculation</span>
+<span class="gp">In [33]: </span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj2</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">                                                                                                                              Out[33]: array([ 0.    ,  4.0162,  6.4142, ...,  8.275 ,  8.1941,  7.7792])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="parallel-computing-with-trajectoryiterator">
+<h2><a class="toc-backref" href="#id17">Parallel computing with TrajectoryIterator</a><a class="headerlink" href="#parallel-computing-with-trajectoryiterator" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="c"># serial: pt.rmsd(traj)</span>
+<span class="c"># parallel</span>
+<span class="gp">In [34]: </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gr">Out[34]: </span>
+<span class="go">OrderedDict([(&#39;RoG_00000&#39;,</span>
+<span class="go">              array([  9.4451,   9.5746,  10.1923, ...,   7.4834,   7.4324,   7.6204]))])</span>
+
+<span class="c"># chain a series of cpptraj&#39;s commands</span>
+<span class="gp">In [35]: </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">([</span><span class="s1">&#39;radgyr nomax&#39;</span><span class="p">,</span> <span class="s1">&#39;molsurf @CA&#39;</span><span class="p">,</span> <span class="s1">&#39;multidihedral resrange 3-4 psi phi&#39;</span><span class="p">],</span> <span class="n">traj</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="go">                                                                                                                               Out[35]: </span>
+<span class="go">OrderedDict([(&#39;RoG_00000&#39;,</span>
+<span class="go">              array([  9.4451,   9.5746,  10.1923, ...,   7.4834,   7.4324,   7.6204])),</span>
+<span class="go">             (&#39;MSURF_00001&#39;,</span>
+<span class="go">              array([ 430.269 ,  431.9791,  429.7778, ...,  429.8838,  435.3642,</span>
+<span class="go">                      430.1734])),</span>
+<span class="go">             (&#39;phi:3&#39;,</span>
+<span class="go">              array([ -79.8674, -120.1549,  -52.19  , ...,  -53.6994,  -62.3338,</span>
+<span class="go">                      -64.6498])),</span>
+<span class="go">             (&#39;psi:3&#39;,</span>
+<span class="go">              array([ 117.3559,  108.9836,  132.5747, ...,  122.6888,  117.9584,</span>
+<span class="go">                      103.6074])),</span>
+<span class="go">             (&#39;phi:4&#39;,</span>
+<span class="go">              array([-108.912 ,  -33.8487,  -99.5304, ...,  -95.8418,  -74.1416,</span>
+<span class="go">                      -96.3956])),</span>
+<span class="go">             (&#39;psi:4&#39;,</span>
+<span class="go">              array([-55.9812, -53.1521, -23.1955, ..., -56.0168, -57.3813, -34.2511]))])</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, pytraj developers.<br/>
+      Last updated on May 04, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
