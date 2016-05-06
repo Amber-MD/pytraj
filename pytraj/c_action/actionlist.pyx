@@ -234,6 +234,7 @@ cdef class ActionList:
         self._dslist = dslist
         self._dflist = dflist
         self._crdinfo = crdinfo
+        self.top = top
 
         if commands is not None and top is not None:
             for command in commands:
@@ -245,18 +246,18 @@ cdef class ActionList:
                     cm = ''
                 action = action.rstrip().lstrip()
                 self.add(action, command=cm,
-                                top=top, dslist=dslist, dflist=dflist)
+                         top=top, dslist=dslist, dflist=dflist)
 
     def __dealloc__(self):
         if self.thisptr:
             del self.thisptr
 
     def add(self, action="",
-                   command="",
-                   top=None,
-                   DatasetList dslist=DatasetList(),
-                   DataFileList dflist=DataFileList(),
-                   check_status=False):
+                  command="",
+                  top=None,
+                  DatasetList dslist=DatasetList(),
+                  DataFileList dflist=DataFileList(),
+                  check_status=False):
         """Add action to ActionList
 
         Parameters
@@ -287,7 +288,7 @@ cdef class ActionList:
 
         cdef ArgList _arglist
 
-        self.top = top
+        self.top = top if top is not None else self.top
 
         _arglist = _get_arglist(command)
         # let ActionList free memory

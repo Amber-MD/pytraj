@@ -42,12 +42,12 @@ cdef class TrajectoryCpptraj:
     def __cinit__(self):
         self.thisptr = new _TrajectoryCpptraj()
         self._top = Topology()
+        self._cdslist = CpptrajDatasetList()
         # we use TopPtr here, self._top is a binding
         self._top._own_memory = False
         self._filelist = []
         self._own_memory = True
-        self._is_superposed = False
-        self._ref_dict = dict()
+        self._being_transformed = False
 
     def _load(self, filename=None, top=None, frame_slice=(0, -1, 1)):
         '''
@@ -102,6 +102,12 @@ cdef class TrajectoryCpptraj:
         else:
             raise ValueError("filename must a a string")
 
+        self._initialize_actionlist()
+
+    def _initialize_actionlist(self):
+        assert self.top.n_atoms > 0, 'must set Topology'
+        self._actionlist = ActionList(top=self.top)
+
     def __len__(self):
         return self.n_frames
 
@@ -125,22 +131,6 @@ cdef class TrajectoryCpptraj:
     def __call__(self, *args, **kwd):
         return self.iterframe(*args, **kwd)
 
-    def superpose(self, Frame ref=None, mask=""):
-        """register to superpose to reference frame when iterating. 
-        To turn off superposing, set traj._is_superposed = False
-
-        Notes
-        -----
-        This method is different from ``superpose`` in pytraj.Trajectory.
-        It does not change the coordinates of TrajectoryCpptraj/TrajectoryIterator itself but 
-        the copy of Frame.
-        """
-        cdef AtomMask atm = self.top(mask)
-
-        self._ref_dict['ref'] = ref
-        self._ref_dict['atm'] = atm
-        self._is_superposed = True
-
     def __iter__(self):
         '''iterately getting Frame instance
         '''
@@ -157,8 +147,8 @@ cdef class TrajectoryCpptraj:
         for i in range(n_frames):
             # do not create new Frame inside this loop to reduce memory
             self.thisptr.GetFrame(i, frame.thisptr[0])
-            if self._is_superposed:
-                frame.rmsfit(**self._ref_dict)
+            if self._being_transformed:
+                self._actionlist.compute(frame)
             yield frame
 
     property top:
@@ -218,8 +208,8 @@ cdef class TrajectoryCpptraj:
                     self.thisptr.GetFrame(i, frame.thisptr[0])
                 else:
                     self.thisptr.GetFrame(i, frame.thisptr[0], atm.thisptr[0])
-                if self._is_superposed:
-                    frame.rmsfit(**self._ref_dict)
+                if self._being_transformed:
+                    self._actionlist.compute(frame)
                 yield frame
                 i += step
 
@@ -268,8 +258,8 @@ cdef class TrajectoryCpptraj:
 
                 for idx, frame in enumerate(self.iterframe(start=_tmp_start,
                                                            stop=_tmp_stop)):
-                    if self._is_superposed:
-                        frame.rmsfit(**self._ref_dict)
+                    if self._being_transformed:
+                        self._actionlist.compute(frame)
                     farray._xyz[idx] = frame.xyz
                     farray._boxes[idx] = frame.box._get_data()
                 yield farray
@@ -299,8 +289,8 @@ cdef class TrajectoryCpptraj:
             _farray = Trajectory()
             _farray.top = self.top._modify_state_by_mask(atom_mask_obj)
             for i, frame in enumerate(self):
-                if self._is_superposed:
-                    frame.rmsfit(**self._ref_dict)
+                if self._being_transformed:
+                    self._actionlist.compute(frame)
                 _frame = Frame(frame, atom_mask_obj)
                 _farray.append(_frame)
             self.tmpfarray = _farray
@@ -332,8 +322,8 @@ cdef class TrajectoryCpptraj:
                 idx1 = idxs[1]
                 if isinstance(self[idx0], Frame):
                     frame = self[idx0]
-                    if self._is_superposed:
-                        frame.rmsfit(**self._ref_dict)
+                    if self._being_transformed:
+                        self._actionlist.compute(frame)
                     self.tmpfarray = frame
                     if isinstance(idx1, string_types):
                         # traj[0, '@CA']
@@ -374,8 +364,8 @@ cdef class TrajectoryCpptraj:
 
                 with self:
                     self.thisptr.GetFrame(idx_1, frame.thisptr[0])
-                    if self._is_superposed:
-                        frame.rmsfit(**self._ref_dict)
+                    if self._being_transformed:
+                        self._actionlist.compute(frame)
                 self.tmpfarray = frame
                 return self.tmpfarray
 
@@ -481,6 +471,61 @@ cdef class TrajectoryCpptraj:
             assert 0 <= i < max_frame, 'frame index must be between 0 and max_frame - 1'
             self.thisptr.GetFrame(i, frame.thisptr[0])
             yield frame
+
+    def translate(self, command):
+        self._actionlist.add('translate', command)
+        self._being_transformed = True
+        return self
+
+    def scale(self, command):
+        self._actionlist.add('scale', command)
+        self._being_transformed = True
+        return self
+
+    def center(self, command=''):
+        self._actionlist.add('center', command)
+        self._being_transformed = True
+        return self
+
+    def rotate(self, command):
+        self._actionlist.add('rotate', command)
+        self._being_transformed = True
+        return self
+
+    def autoimage(self, command=''):
+        self._actionlist.add('autoimage', command)
+        self._being_transformed = True
+        return self
+
+    def principal(self, command):
+        self._actionlist.add('principal', command)
+        self._being_transformed = True
+        return self
+
+    def superpose(self, Frame ref=None, mask=""):
+        """register to superpose to reference frame when iterating. 
+
+        Notes
+        -----
+        This method is different from ``superpose`` in pytraj.Trajectory.
+        It does not change the coordinates of TrajectoryCpptraj/TrajectoryIterator itself but 
+        the copy of Frame.
+        """
+        cdef AtomMask atm = self.top(mask)
+
+        refset = self._cdslist.add('reference')
+        refset.top = ref.top
+        refset.data = ref
+
+        n_references = len([dtype for dtype in self._cdslist.get_dtypes() if dtype == 'ref_frame'])
+        refindex = n_references - 1
+
+        command = 'refindex {refindex} {maks}'.format(refindex=refindex, mask=mask)
+        self._actionlist.add('rms', command)
+
+        self._being_transformed = True
+        return self
+
 
     @property
     def metadata(self):

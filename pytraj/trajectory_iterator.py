@@ -484,6 +484,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
         """
         ref = get_reference(self, ref)
         super(TrajectoryIterator, self).superpose(ref=ref, mask=mask)
+        return self
 
     def _split_iterators(self,
                          n_chunks=1,
