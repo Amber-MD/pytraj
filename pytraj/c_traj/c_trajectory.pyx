@@ -514,18 +514,15 @@ cdef class TrajectoryCpptraj:
         cdef AtomMask atm = self.top(mask)
 
         refset = self._cdslist.add('reference')
-        refset.top = ref.top
-        refset.data = ref
+        refset.top = self.top
+        refset.add_frame(ref)
+        refset.name = 'myref' + str(len(self._cdslist))
 
-        n_references = len([dtype for dtype in self._cdslist.get_dtypes() if dtype == 'ref_frame'])
-        refindex = n_references - 1
-
-        command = 'refindex {refindex} {maks}'.format(refindex=refindex, mask=mask)
-        self._actionlist.add('rms', command)
+        command = 'ref {myref} {mask}'.format(myref=refset.name, mask=mask)
+        self._actionlist.add('rms', command, dslist=self._cdslist)
 
         self._being_transformed = True
         return self
-
 
     @property
     def metadata(self):
