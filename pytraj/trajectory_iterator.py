@@ -443,7 +443,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
 
     def superpose(self, mask='*', ref=None):
         """register to superpose to reference frame when iterating. 
-        To turn off superposing, set traj._is_superposed = False
+        To turn off superposing, set traj._being_transformed = False
 
         Notes
         -----
