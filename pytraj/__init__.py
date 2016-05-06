@@ -125,7 +125,7 @@ from .dihedral_analysis import (calc_phi, calc_psi, calc_alpha, calc_beta,
                         calc_epsilon, calc_gamma, calc_zeta,
                         calc_omega, calc_nu1, calc_nu2)
 
-from .c_action.action_dict import ActionDict
+from .c_action.c_action import ActionDict
 from .c_analysis.analysis_dict import AnalysisDict
 from . import matrix
 from . import dihedral_analysis

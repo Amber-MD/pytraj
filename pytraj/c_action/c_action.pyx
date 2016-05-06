@@ -6,6 +6,50 @@ from pytraj.utils import is_generator
 from pytraj.shared_methods import iterframe_master
 from cython.operator cimport dereference as deref
 
+_ALL = globals()
+
+def _get_adict():
+    ADICT = {}
+
+    for (cname, cls) in _ALL.items():
+        if cname.startswith("Action_"):
+            actname = cname.split('Action_')[1]
+            # create dict of action class
+            ADICT[actname.lower()] = cls
+    
+    # add some commond words to ADICT
+    ADICT['surf_LCPO'] = _ALL['Action_Surf']
+    ADICT['surf_lcpo'] = _ALL['Action_Surf']
+    ADICT['secstruct'] = _ALL['Action_DSSP']
+    ADICT['rms'] = _ALL['Action_Rmsd']
+    ADICT['superpose'] = _ALL['Action_Rmsd']
+    ADICT['drmsd'] = _ALL['Action_DistRmsd']
+    ADICT["lipidorder"] = _ALL['Action_OrderParameter']
+    ADICT["rog"] = _ALL['Action_Radgyr']
+    ADICT["stfcdiffusion"] = _ALL['Action_STFC_Diffusion']
+    ADICT["symmrmsd"] = _ALL['Action_SymmetricRmsd']
+
+    return ADICT
+
+class ActionDict:
+
+    def __init__(self):
+        self.adict = _get_adict()
+        self.action_holder = None
+
+    def __getitem__(self, key):
+        # return Action object
+        # why do we need action_holder?
+        # should we use dict in command.cpp in cpptraj for mapping keyword
+        # ('Action_DSSP' --> secstruct)
+        self.action_holder = self.adict[key]()
+        return self.action_holder
+
+    def __del__(self):
+        del self.action_holder
+
+    def keys(self):
+        return sorted(self.adict.keys())
 
 cdef class Action:
     '''interface to Cpptraj's Action. For internal use.
