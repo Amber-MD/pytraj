@@ -57,14 +57,17 @@ class TestActionList(unittest.TestCase):
         traj_on_disk = pt.iterload(fn, tn)
         traj_on_mem = pt.load(fn, tn)
 
+        ref = pt.autoimage(traj_on_disk[:1])
+
+        # note: if using autoimage, must provide pre-processed reference
         (traj_on_mem
          .autoimage()
-         .superpose()
+         .superpose(ref=ref)
          .scale('x 1.2'))
 
         (traj_on_disk
          .autoimage()
-         .superpose()
+         .superpose(ref=ref)
          .scale('x 1.2'))
 
         aa_eq(traj_on_disk.xyz, traj_on_mem.xyz)
