@@ -5,7 +5,7 @@
 import unittest
 from pytraj import *
 import pytraj as pt
-from pytraj.c_action.c_action import ADICT
+from pytraj.c_action.c_action import ActionDict
 from pytraj.c_traj import *
 from pytraj.datasets import *
 from pytraj.all_actions import *
@@ -32,7 +32,8 @@ class TestRunnable(unittest.TestCase):
         print("try to make all action objects")
         failed_list = []
 
-        for key in ADICT.keys():
+        adict = ActionDict()
+        for key in adict.keys():
             if key not in failed_list:
                 pass
 
