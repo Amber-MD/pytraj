@@ -473,34 +473,22 @@ cdef class TrajectoryCpptraj:
             yield frame
 
     def translate(self, command):
-        self._actionlist.add('translate', command)
-        self._being_transformed = True
-        return self
+        return self._add_transformation('translate', command)
 
     def scale(self, command):
-        self._actionlist.add('scale', command)
-        self._being_transformed = True
-        return self
+        return self._add_transformation('scale', command)
 
     def center(self, command=''):
-        self._actionlist.add('center', command)
-        self._being_transformed = True
-        return self
+        return self._add_transformation('center', command)
 
     def rotate(self, command):
-        self._actionlist.add('rotate', command)
-        self._being_transformed = True
-        return self
+        return self._add_transformation('rotate', command)
 
     def autoimage(self, command=''):
-        self._actionlist.add('autoimage', command)
-        self._being_transformed = True
-        return self
+        return self._add_transformation('autoimage', command)
 
     def principal(self, command):
-        self._actionlist.add('principal', command)
-        self._being_transformed = True
-        return self
+        return self._add_transformation('principal', command)
 
     def superpose(self, Frame ref=None, mask=""):
         """register to superpose to reference frame when iterating. 
@@ -521,6 +509,18 @@ cdef class TrajectoryCpptraj:
         command = 'ref {myref} {mask}'.format(myref=refset.name, mask=mask)
         self._actionlist.add('rms', command, dslist=self._cdslist)
 
+        self._being_transformed = True
+        return self
+
+    def _add_transformation(self, name, command):
+        '''
+
+        Parameters
+        ----------
+        name : str, cpptraj action name
+        command : str, what do you want.
+        '''
+        self._actionlist.add(name, command)
         self._being_transformed = True
         return self
 
