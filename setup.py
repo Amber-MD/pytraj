@@ -85,6 +85,7 @@ if debug:
         'linetrace': True,
         'binding': True})
     define_macros = [('CYTHON_TRACE', 1), ]
+    print("adding debug info")
 else:
     define_macros = []
 

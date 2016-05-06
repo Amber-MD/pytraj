@@ -7,7 +7,7 @@ from ..topology cimport _Topology, Topology
 from ..core.c_core cimport _ArgList, ArgList
 from ..datasets.c_datasetlist cimport _DatasetList, DatasetList
 from ..frame cimport _Frame, Frame
-from ..c_traj.c_trajectory cimport CoordinateInfo
+from ..core.coordinfo cimport CoordinateInfo
 
 
 cdef extern from "ActionState.h":

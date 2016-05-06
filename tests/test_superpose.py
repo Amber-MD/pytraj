@@ -133,27 +133,28 @@ class TestSuperposeTrajectoryIterator(unittest.TestCase):
     """
 
     def test_superpose_trajectory_iterator(self):
-        traj_immut = pt.iterload("data/Tc5b.x", "data/Tc5b.top")
-        traj_immut2 = pt.iterload("data/Tc5b.x", "data/Tc5b.top")
-        traj_mut = pt.load("data/Tc5b.x", "data/Tc5b.top")
+        traj_on_disk = pt.iterload("data/Tc5b.x", "data/Tc5b.top")
+        traj_on_disk2 = pt.iterload("data/Tc5b.x", "data/Tc5b.top")
+        traj_on_mem = pt.load("data/Tc5b.x", "data/Tc5b.top")
 
         ref = pt.iterload("data/Tc5b.crd", "data/Tc5b.top")[0]
-        traj_mut.superpose(ref=ref, mask='@CA')
-        traj_immut.superpose(ref=ref, mask='@CA')
-        
-        aa_eq(traj_mut.xyz, traj_immut.xyz)
+        traj_on_mem.superpose(ref=ref, mask='@CA')
+        traj_on_disk.superpose(ref=ref, mask='@CA')
+        assert traj_on_disk._being_transformed == True, '_being_transformed must be True'
+
+        aa_eq(traj_on_mem.xyz, traj_on_disk.xyz)
 
         # test saving
         with tempfolder():
-            traj_mut.save('t0.nc')
-            traj_immut.save('t1.nc')
+            traj_on_mem.save('t0.nc')
+            traj_on_disk.save('t1.nc')
 
-            aa_eq(pt.load('t0.nc', traj_mut.top).xyz,
-                  pt.load('t1.nc', traj_immut.top).xyz)
+            aa_eq(pt.load('t0.nc', traj_on_mem.top).xyz,
+                  pt.load('t1.nc', traj_on_disk.top).xyz)
 
         # turn off superpose
-        traj_immut._is_superposed = False
-        aa_eq(traj_immut.xyz, traj_immut2.xyz)
+        traj_on_disk._being_transformed = False
+        aa_eq(traj_on_disk.xyz, traj_on_disk2.xyz)
 
 if __name__ == "__main__":
     unittest.main()
