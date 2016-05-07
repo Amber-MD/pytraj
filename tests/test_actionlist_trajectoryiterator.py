@@ -4,6 +4,7 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 from pytraj.testing import get_fn, aa_eq, eq
+import nose.tools as nt
 
 fn, tn = get_fn('tz2_dry')
 
@@ -53,8 +54,9 @@ class TestActionList(unittest.TestCase):
 
         aa_eq(traj_on_disk.xyz, traj_on_mem.xyz)
 
-    def test_combination_of_autoimage_and_superpose(self):
+    def test_combination_of_differnt_transformations(self):
         traj_on_disk = pt.iterload(fn, tn)
+        traj_on_disk_2 = pt.iterload(fn, tn)
         traj_on_mem = pt.load(fn, tn)
 
         ref = pt.autoimage(traj_on_disk[:1])
@@ -71,6 +73,12 @@ class TestActionList(unittest.TestCase):
          .scale('x 1.2'))
 
         aa_eq(traj_on_disk.xyz, traj_on_mem.xyz)
+
+        # remove
+        traj_on_disk._remove_transformations()
+        aa_eq(traj_on_disk.xyz, traj_on_disk_2.xyz)
+
+        nt.assert_equal(len(traj_on_disk._cdslist), 0)
 
 if __name__ == "__main__":
     unittest.main()
