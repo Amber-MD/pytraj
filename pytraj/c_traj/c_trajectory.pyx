@@ -546,9 +546,9 @@ cdef class TrajectoryCpptraj:
          'n_atoms': 5293,
          'n_frames': 10}
         '''
-        return self._coordinateinfo
+        return self._crdinfo
 
-    property _coordinateinfo:
+    property _crdinfo:
         def __get__(self):
             cdef CoordinateInfo cinfo
 

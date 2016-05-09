@@ -455,8 +455,14 @@ def write_traj(filename="",
             0]) if frame_indices is None else frame_indices
         fi = iterframe_from_array(xyz, _top.n_atoms, _frame_indices, _top)
 
+        if hasattr(traj, '_crdinfo'):
+            crdinfo = traj._crdinfo
+        else:
+            crdinfo = dict()
+
         with TrajectoryWriter(filename=filename,
                      top=_top,
+                     crdinfo=crdinfo,
                      overwrite=overwrite,
                      options=options) as trajout:
 

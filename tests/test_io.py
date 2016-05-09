@@ -4,7 +4,9 @@ import unittest
 import numpy as np
 import pytraj as pt
 from pytraj import Topology, Trajectory, TrajectoryIterator
-from pytraj.testing import aa_eq, get_fn, get_remd_fn
+from pytraj.testing import aa_eq, get_fn, get_remd_fn, cpptraj_test_dir
+from pytraj.utils import tempfolder
+import nose.tools as nt
 
 try:
     import scipy
@@ -402,6 +404,24 @@ class TestIO(unittest.TestCase):
         self.traj_tz2_ortho[:1].save('output/test.rst7', options='keepext')
         pt._verbose(False)
         assert os.path.exists('output/test.1.rst7')
+
+    def test_write_force(self):
+        fn = cpptraj_test_dir + '/Test_systemVF/systemVF.nc'
+        tn = cpptraj_test_dir + '/Test_systemVF/systemVF.parm7'
+        traj = pt.iterload(fn, tn)
+        nt.assert_true(traj.metadata['has_force'])
+
+        fn = 'output/test.nc'
+        traj.save(fn, overwrite=True, options='force')
+
+        traj2 = pt.iterload(fn, traj.top)
+        nt.assert_true(traj2.metadata['has_force'])
+        print(traj2[0].force)
+
+        # forces_traj = np.array([frame.force.copy() for frame in traj])
+        # forces_traj2 = np.array([frame.force.copy() for frame in traj2])
+        # aa_eq(forces_traj, forces_traj2)
+
 
 if __name__ == "__main__":
     unittest.main()
