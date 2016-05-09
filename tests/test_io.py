@@ -405,22 +405,27 @@ class TestIO(unittest.TestCase):
         pt._verbose(False)
         assert os.path.exists('output/test.1.rst7')
 
-    def test_write_force(self):
+    def test_write_force_and_velocity(self):
         fn = cpptraj_test_dir + '/Test_systemVF/systemVF.nc'
         tn = cpptraj_test_dir + '/Test_systemVF/systemVF.parm7'
         traj = pt.iterload(fn, tn)
         nt.assert_true(traj.metadata['has_force'])
+        nt.assert_true(traj.metadata['has_velocity'])
 
         fn = 'output/test.nc'
-        traj.save(fn, overwrite=True, options='force')
+        traj.save(fn, overwrite=True, options='force velocity')
 
         traj2 = pt.iterload(fn, traj.top)
         nt.assert_true(traj2.metadata['has_force'])
-        print(traj2[0].force)
+        nt.assert_true(traj2.metadata['has_velocity'])
 
-        # forces_traj = np.array([frame.force.copy() for frame in traj])
-        # forces_traj2 = np.array([frame.force.copy() for frame in traj2])
-        # aa_eq(forces_traj, forces_traj2)
+        forces_traj = np.array([frame.force.copy() for frame in traj])
+        forces_traj2 = np.array([frame.force.copy() for frame in traj2])
+        aa_eq(forces_traj, forces_traj2)
+
+        velocity_traj = np.array([frame.velocity.copy() for frame in traj])
+        velocity_traj2 = np.array([frame.velocity.copy() for frame in traj2])
+        aa_eq(velocity_traj, velocity_traj2)
 
 
 if __name__ == "__main__":
