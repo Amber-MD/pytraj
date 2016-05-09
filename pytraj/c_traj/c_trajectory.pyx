@@ -524,6 +524,11 @@ cdef class TrajectoryCpptraj:
         self._being_transformed = True
         return self
 
+    def _remove_transformations(self):
+        self._actionlist = ActionList()
+        self._cdslist = CpptrajDatasetList()
+        self._being_transformed = False
+ 
     @property
     def metadata(self):
         '''return a dict of general information

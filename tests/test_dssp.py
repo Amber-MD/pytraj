@@ -32,7 +32,7 @@ class TestDSSP(unittest.TestCase):
         assert_equal(s_0[[0, 2, 5]], s_1)
 
     def test_simplified_codes(self):
-        traj = pt.fetch_pdb('1l2y')
+        traj = pt.load("data/1L2Y.pdb")
         data_full = pt.dssp(traj)[1]
         data_sim = pt.dssp(traj, simplified=True)[1]
         expected_1st = ['C', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'C', 'C', 'H',
@@ -55,8 +55,7 @@ class TestDSSP(unittest.TestCase):
         trajlist.append(pt.iterload('data/tz2.ortho.nc',
                                     'data/tz2.ortho.parm7'))
 
-        pt.io.download_PDB('1l2y', './output/', overwrite=True)
-        trajlist.append(pt.iterload('output/1l2y.pdb'))
+        trajlist.append(pt.iterload('data/1L2Y.pdb'))
 
         for traj in trajlist:
             data = pt.dssp_allresidues(traj, simplified=True)[0]
@@ -67,7 +66,7 @@ class TestDSSP(unittest.TestCase):
             assert_array_equal(data, mdata)
 
     def test_dssp_allatoms(self):
-        traj = pt.fetch_pdb('1l2y')
+        traj = pt.load("data/1L2Y.pdb")
         allatoms_dssp = pt.dssp_allatoms(traj).T
         allresidues_dssp = pt.dssp_allresidues(traj).T
         for idx, res in enumerate(traj.top.residues):

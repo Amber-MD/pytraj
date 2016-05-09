@@ -319,6 +319,7 @@ class TestIO(unittest.TestCase):
             RuntimeError,
             lambda: pt.io.load_frame(filename='afddsfdsfa', top=traj.top.filename, index=3))
 
+    @unittest.skip('download_PDB')
     def test_download_pdb(self):
         pt.io.download_PDB('1l2y', 'output/', overwrite=True)
         t2 = pt.load('output/1l2y.pdb')
