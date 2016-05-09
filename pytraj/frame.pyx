@@ -1008,7 +1008,7 @@ cdef class Frame (object):
         0
 
         # allocate
-        >>> frame._allocate_memory(top, crdinfo={'has_force': True, 'has_velocity': True}
+        >>> frame._allocate_memory(top, crdinfo={'has_force': True, 'has_velocity': True})
         >>> frame.has_force()
         True
         >>> frame.has_velocity()
