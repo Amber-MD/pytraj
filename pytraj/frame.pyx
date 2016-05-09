@@ -997,12 +997,20 @@ cdef class Frame (object):
         cdef Box box
         cdef _CoordinateInfo crdinfo_
         cdef bint has_velocity, has_force, has_time
+        cdef bint has_temperature
 
         box = crdinfo.get('box', top.box)
         has_velocity = crdinfo.get('has_velocity', False)
         has_time = crdinfo.get('has_time', False)
+        has_temperature = crdinfo.get('has_temperature', False)
         has_force = crdinfo.get('has_force', False)
 
-        crdinfo_ = _CoordinateInfo(box.thisptr[0], has_velocity, has_time, has_force)
+        crdinfo_ = _CoordinateInfo()
+        crdinfo_.SetBox(box.thisptr[0])
+        crdinfo_.SetVelocity(has_velocity)
+        crdinfo_.SetForce(has_force)
+        crdinfo_.SetTime(has_time)
+        crdinfo_.SetTemperature(has_temperature)
+
         self.thisptr.SetupFrameV(top.thisptr.Atoms(), crdinfo_)
 

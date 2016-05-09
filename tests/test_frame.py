@@ -84,16 +84,18 @@ class TestFrame(unittest.TestCase):
         assert traj[0].velocity is None, 'velocity is None'
 
     def test_velocity_and_force_allocation(self):
-        frame = pt.Frame(100)
+        frame = pt.Frame()
         top = pt.tools.make_fake_topology(100)
 
-        nt.assert_equal(frame.n_atoms, 100)
+        nt.assert_equal(frame.n_atoms, 0)
         nt.assert_false(frame.has_force())
         nt.assert_false(frame.has_velocity())
 
         crdinfo = dict(has_force=True, has_velocity=True)
 
         frame._allocate(top, crdinfo)
+        nt.assert_equal(frame.n_atoms, 100)
+
         nt.assert_true(frame.has_force())
         nt.assert_true(frame.has_velocity())
 
