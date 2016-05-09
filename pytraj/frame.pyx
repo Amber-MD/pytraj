@@ -535,7 +535,7 @@ cdef class Frame (object):
         return self.thisptr.HasVelocity()
 
     def has_force(self):
-        return self.thisptr.HasVelocity()
+        return self.thisptr.HasForce()
 
     property coordinates:
         '''return a copy of Frame's coordinates
