@@ -986,13 +986,35 @@ cdef class Frame (object):
         return {'coordinates': np.array(self.xyz, dtype='f8'),
                 'mass': self.mass}
 
-    def _allocate(self, Topology top, crdinfo):
-        '''
+    def _allocate_memory(self, Topology top, crdinfo):
+        '''allocate_memory for velocity, force arrays
 
         Parameters
         ----------
         top : Topology
         crdinfo : dict
+
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> top = pt.tools.make_fake_topology(n_atoms=100)
+        >>> # make empty frame
+        >>> frame = pt.Frame()
+        >>> frame.has_force()
+        False
+        >>> frame.has_velocity()
+        False
+        >>> frame.n_atoms
+        0
+
+        # allocate
+        >>> frame._allocate_memory(top, crdinfo={'has_force': True, 'has_velocity': True}
+        >>> frame.has_force()
+        True
+        >>> frame.has_velocity()
+        True
+        >>> frame.n_atoms
+        100
         '''
         cdef Box box
         cdef _CoordinateInfo crdinfo_
@@ -1013,4 +1035,3 @@ cdef class Frame (object):
         crdinfo_.SetTemperature(has_temperature)
 
         self.thisptr.SetupFrameV(top.thisptr.Atoms(), crdinfo_)
-
