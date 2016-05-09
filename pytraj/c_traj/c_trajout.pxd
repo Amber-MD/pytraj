@@ -1,7 +1,7 @@
 # distutils: language = c++
 from libcpp.string cimport string
 from ..frame cimport _Frame, Frame
-from ..core.c_core cimport _ArgList, ArgList
+from ..core.c_core cimport _ArgList, ArgList, Box
 from ..topology cimport _Topology, Topology
 from ..c_dict cimport TrajFormatType
 from .c_trajectory cimport CoordinateInfo
