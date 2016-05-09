@@ -985,3 +985,24 @@ cdef class Frame (object):
         # TODO: velocity?
         return {'coordinates': np.array(self.xyz, dtype='f8'),
                 'mass': self.mass}
+
+    def _allocate(self, Topology top, crdinfo):
+        '''
+
+        Parameters
+        ----------
+        top : Topology
+        crdinfo : dict
+        '''
+        cdef Box box
+        cdef _CoordinateInfo crdinfo_
+        cdef bint has_velocity, has_force, has_time
+
+        box = crdinfo.get('box', top.box)
+        has_velocity = crdinfo.get('has_velocity', False)
+        has_time = crdinfo.get('has_time', False)
+        has_force = crdinfo.get('has_force', False)
+
+        crdinfo_ = _CoordinateInfo(box.thisptr[0], has_velocity, has_time, has_force)
+        self.thisptr.SetupFrameV(top.thisptr.Atoms(), crdinfo_)
+
