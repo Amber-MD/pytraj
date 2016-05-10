@@ -22,3 +22,4 @@ cdef extern from "CoordinateInfo.h":
         void SetVelocity(bint v)
         void SetEnsembleSize(int s)
         void SetBox(const _Box& b)
+        void SetForce(bint f)

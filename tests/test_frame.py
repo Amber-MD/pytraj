@@ -6,6 +6,7 @@ from pytraj import Frame
 from pytraj.base import *
 from pytraj.math import Vec3
 from pytraj.testing import aa_eq
+import nose.tools as nt
 
 N_ATOMS = 10
 FRAME = Frame(N_ATOMS)
@@ -82,6 +83,21 @@ class TestFrame(unittest.TestCase):
         assert traj[0].force is None, 'force must be None'
         assert traj[0].velocity is None, 'velocity is None'
 
+    def test_velocity_and_force_allocation(self):
+        frame = pt.Frame()
+        top = pt.tools.make_fake_topology(100)
+
+        nt.assert_equal(frame.n_atoms, 0)
+        nt.assert_false(frame.has_force())
+        nt.assert_false(frame.has_velocity())
+
+        crdinfo = dict(has_force=True, has_velocity=True)
+
+        frame._allocate_memory(top, crdinfo)
+        nt.assert_equal(frame.n_atoms, 100)
+
+        nt.assert_true(frame.has_force())
+        nt.assert_true(frame.has_velocity())
 
 if __name__ == "__main__":
     unittest.main()
