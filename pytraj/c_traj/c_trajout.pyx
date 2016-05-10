@@ -45,18 +45,13 @@ cdef class TrajectoryWriter:
         cdef Box box
         cdef bint has_velocity, has_time, has_force
 
-        box = crdinfo.get('box', top.box)
-        has_velocity = crdinfo.get('has_velocity', False)
-        has_time = crdinfo.get('has_time', False)
-        has_force = crdinfo.get('has_force', False)
-        has_temperature = crdinfo.get('has_temperature', False)
+        # copy
+        crdinfo2 = dict((k, v) for k, v in crdinfo.items())
 
-        crdinfo_ = CoordinateInfo()
-        crdinfo_.SetBox(box.thisptr[0])
-        crdinfo_.SetVelocity(has_velocity)
-        crdinfo_.SetForce(has_force)
-        crdinfo_.SetTime(has_time)
-        crdinfo_.SetTemperature(has_temperature)
+        if 'box' not in crdinfo2:
+            crdinfo2['box'] = top.box
+
+        crdinfo_ = CoordinateInfo(crdinfo2)
 
         filename = filename.encode("UTF-8")
         if not overwrite:
@@ -90,7 +85,7 @@ cdef class TrajectoryWriter:
             self.thisptr.InitTrajWrite(filename, ArgList().thisptr[0], top_.thisptr)
 
         # real open
-        self.thisptr.SetupTrajWrite(top_.thisptr, crdinfo_, 0)
+        self.thisptr.SetupTrajWrite(top_.thisptr, crdinfo_.thisptr[0], 0)
 
     def close(self):
         self.thisptr.EndTraj()

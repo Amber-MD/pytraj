@@ -1016,22 +1016,11 @@ cdef class Frame (object):
         >>> frame.n_atoms
         100
         '''
-        cdef Box box
-        cdef _CoordinateInfo crdinfo_
-        cdef bint has_velocity, has_force, has_time
-        cdef bint has_temperature
+        cdef CoordinateInfo crdinfo_
 
-        box = crdinfo.get('box', top.box)
-        has_velocity = crdinfo.get('has_velocity', False)
-        has_time = crdinfo.get('has_time', False)
-        has_temperature = crdinfo.get('has_temperature', False)
-        has_force = crdinfo.get('has_force', False)
+        crdinfo2 = dict((k, v) for k, v in crdinfo.items())
+        if 'box' not in crdinfo2:
+            crdinfo2['box'] = top.box
 
-        crdinfo_ = _CoordinateInfo()
-        crdinfo_.SetBox(box.thisptr[0])
-        crdinfo_.SetVelocity(has_velocity)
-        crdinfo_.SetForce(has_force)
-        crdinfo_.SetTime(has_time)
-        crdinfo_.SetTemperature(has_temperature)
-
-        self.thisptr.SetupFrameV(top.thisptr.Atoms(), crdinfo_)
+        crdinfo_ = CoordinateInfo(crdinfo2)
+        self.thisptr.SetupFrameV(top.thisptr.Atoms(), crdinfo_.thisptr[0])

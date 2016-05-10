@@ -316,14 +316,13 @@ cdef class ActionList:
         else:
             crdinfo = crdinfo
 
-        box = crdinfo.get('box', top.box)
-        has_velocity = crdinfo.get('has_velocity', False)
-        has_time = crdinfo.get('has_time', False)
-        has_force = crdinfo.get('has_force', False)
+        crdinfo2 = dict((k, v) for k, v in crdinfo.items())
+        if 'box' not in crdinfo2:
+            crdinfo2['box'] = top.box
 
-        crdinfo_ = CoordinateInfo(box.thisptr[0], has_velocity, has_time, has_force)
+        crdinfo_ = CoordinateInfo(crdinfo2)
 
-        actionsetup_ = _ActionSetup(top.thisptr, crdinfo_, n_frames_t)
+        actionsetup_ = _ActionSetup(top.thisptr, crdinfo_.thisptr[0], n_frames_t)
         self.thisptr.SetupActions(actionsetup_, exit_on_error)
 
     def compute(self, traj=Frame()):
