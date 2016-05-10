@@ -161,6 +161,7 @@ cdef extern from "CoordinateInfo.h":
         void SetTemperature(bint t)
         void SetVelocity(bint v)
         void SetBox(const _Box& b)
+        void SetForce(bint f)
 
 cdef class CoordinateInfo:
     cdef _CoordinateInfo* thisptr
