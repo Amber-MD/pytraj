@@ -3,7 +3,7 @@ from ..core.box cimport _Box, Box
 
 
 cdef extern from "CoordinateInfo.h": 
-    cdef cppclass _CoordinateInfo:
+    cdef cppclass _CoordinateInfo "CoordinateInfo":
         _CoordinateInfo() 
         _CoordinateInfo(const _Box& b, bint v, bint t, bint m)
         #_CoordinateInfo(const _ReplicaDimArray& r, const _Box& b, bint v, bint t, bint m, bint f)
