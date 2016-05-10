@@ -164,20 +164,14 @@ cdef class Action:
         cdef bint has_velocity, has_time, has_force
         cdef Topology new_top = Topology()
 
-        box = crdinfo.get('box', top.box)
-        has_velocity = crdinfo.get('has_velocity', False)
-        has_time = crdinfo.get('has_time', False)
-        has_force = crdinfo.get('has_force', False)
-        has_temperature = crdinfo.get('has_temperature', False)
+        crdinfo2 = dict((k, v) for k, v in crdinfo.items())
 
-        crdinfo_ = CoordinateInfo()
-        crdinfo_.SetBox(box.thisptr[0])
-        crdinfo_.SetVelocity(has_velocity)
-        crdinfo_.SetForce(has_force)
-        crdinfo_.SetTime(has_time)
-        crdinfo_.SetTemperature(has_temperature)
+        if 'box' not in crdinfo2:
+            crdinfo2['box'] = top.box
 
-        actionsetup_ = _ActionSetup(top.thisptr, crdinfo_, n_frames_t)
+        crdinfo_ = CoordinateInfo(crdinfo2)
+
+        actionsetup_ = _ActionSetup(top.thisptr, crdinfo_.thisptr[0], n_frames_t)
         status = self.baseptr.Setup(actionsetup_)
 
         if status == ERR:
