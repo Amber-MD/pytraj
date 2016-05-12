@@ -3133,3 +3133,30 @@ def strip(obj, mask):
         return obj
     else:
         raise ValueError('object must be either Trajectory or Topology')
+
+
+def _rotdif(matrices, command):
+    """
+
+    Parameters
+    ----------
+    matrices : 3D array, shape=(n_frames, 3, 3)
+        rotation matrices
+    command : str
+        full cpptraj's command
+
+    Notes
+    -----
+    This method interface will be changed.
+    """
+    matrices = np.asarray(matrices)
+
+    c_dslist = CpptrajDatasetList()
+    c_dslist.add(dtype='matrix3x3', name='myR0')
+    c_dslist[-1].aspect = "RM"
+    c_dslist[-1]._append_from_array(matrices)
+
+    command = 'rmatrix myR0[RM] ' + command
+    act = c_analysis.Analysis_Rotdif()
+    act(command, dslist=c_dslist)
+    return get_data_from_dtype(c_dslist[1:])
