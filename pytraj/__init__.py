@@ -104,7 +104,7 @@ from .all_actions import (
     calc_atomiccorr,
     # lifetime,
     pucker,
-    get_average_frame, get_velocity, _dihedral_res,
+    get_velocity, _dihedral_res, average_structure,
     native_contacts, principal_axes,
     align_principal_axis,
     timecorr, center, translate, rotate,
@@ -160,8 +160,7 @@ rdf = calc_rdf
 atomiccorr = calc_atomiccorr
 center_of_mass = calc_center_of_mass
 center_of_geometry = calc_center_of_geometry
-mean_structure = get_average_frame
-average_frame = get_average_frame
+mean_structure = average_structure
 load_parmed = load_ParmEd
 calc_pca = pca
 pair_distribution = pairdist = calc_pairdist

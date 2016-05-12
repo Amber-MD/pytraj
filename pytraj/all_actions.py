@@ -57,13 +57,13 @@ list_of_calc_short = [word.replace('calc_', '')
 
 list_of_do = ['translate', 'rotate', 'autoimage', 'scale']
 
-list_of_get = ['get_average_frame', 'get_velocity']
+list_of_get = ['get_velocity']
 
 list_of_the_rest = ['rmsd', 'align_principal_axis', 'principal_axes', 'closest',
                     'transform', 'native_contacts', 'set_dihedral',
                     'check_structure', 'mean_structure', 'lowestcurve',
                     'make_structure', 'replicate_cell', 'pucker', 'rmsd_perres',
-                    'randomize_ions',
+                    'randomize_ions', 'average_structure',
                     'timecorr', 'search_neighbors',
                     'xcorr', 'acorr',
                     'projection',
@@ -1283,13 +1283,13 @@ autoimage = do_autoimage
 
 
 @register_pmap
-def mean_structure(traj,
-                   mask='',
-                   frame_indices=None,
-                   dtype='frame',
-                   autoimage=False,
-                   rmsfit=None,
-                   top=None):
+def average_structure(traj,
+                     mask='',
+                     frame_indices=None,
+                     dtype='trajectory',
+                     autoimage=False,
+                     rmsfit=None,
+                     top=None):
     '''get mean structure for a given mask and given frame_indices
 
     Parameters
@@ -1310,16 +1310,16 @@ def mean_structure(traj,
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()
     >>> # get average structure from whole traj, all atoms
-    >>> frame = pt.mean_structure(traj)
+    >>> frame = pt.average_structure(traj)
 
     >>> # get average structure from several frames, '@CA' atoms"
-    >>> frame = pt.mean_structure(traj, '@CA', frame_indices=range(2, 8, 2))
+    >>> frame = pt.average_structure(traj, '@CA', frame_indices=range(2, 8, 2))
 
     >>> # get average structure but do autoimage and rmsfit to 1st Frame
-    >>> frame = pt.mean_structure(traj(autoimage=True, rmsfit=0))
+    >>> frame = pt.average_structure(traj(autoimage=True, rmsfit=0))
 
     >>> # get average structure but do autoimage and rmsfit to 1st Frame.
-    >>> frame = pt.mean_structure(traj(autoimage=True, rmsfit=0, frame_indices=[0, 5, 6]))
+    >>> frame = pt.average_structure(traj(autoimage=True, rmsfit=0, frame_indices=[0, 5, 6]))
 
     Notes
     -----
@@ -1361,7 +1361,7 @@ def mean_structure(traj,
         raise ValueError('dtype must be frame or trajectory')
 
 
-get_average_frame = mean_structure
+mean_structure = average_structure
 
 
 @register_pmap
@@ -2708,7 +2708,7 @@ def projection(traj,
         make sure to provide correct scalar_type.
         Note: not yet support 'dihcovar' and 'idea'
     average_coords : 3D array-like, optional, default None
-        average coordinates. If 'None', pytraj will compute mean_structure with given mask
+        average coordinates. If 'None', pytraj will compute average_structure with given mask
     frame_indices : array-like
         If not None, compute projection for given frames.
     dtype : str, return data type, default 'ndarray'
@@ -2750,7 +2750,7 @@ def projection(traj,
         dataset_mode._allocate_avgcoords(3 * average_coords.shape[0])
         dataset_mode._set_avg_frame(average_coords.flatten())
     else:
-        frame = mean_structure(traj, mask)
+        frame = average_structure(traj, mask)
         average_coords = frame.xyz
         dataset_mode._allocate_avgcoords(3 * average_coords.shape[0])
         dataset_mode._set_avg_frame(average_coords.flatten())
@@ -2846,13 +2846,13 @@ def pca(traj,
     if fit:
         if ref is None:
             traj.superpose(ref=0, mask=ref_mask_)
-            avg = mean_structure(traj)
+            avg = average_structure(traj)
             traj.superpose(ref=avg, mask=ref_mask_)
         else:
             ref = get_reference(traj, ref)
             traj.superpose(ref=ref, mask=ref_mask_)
 
-    avg2 = mean_structure(traj, mask=mask)
+    avg2 = average_structure(traj, mask=mask)
 
     mat = matrix.covar(traj, mask)
     if n_vecs < 0:
