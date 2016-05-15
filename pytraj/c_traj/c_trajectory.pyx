@@ -444,6 +444,8 @@ cdef class TrajectoryCpptraj:
                 frame.thisptr.SetXptr(frame.n_atoms, &xyz[j, 0, 0])
                 # copy coordinates of `self[i]` to j-th frame in `traj`
                 self.thisptr.GetFrame(i, frame.thisptr[0])
+                if self._being_transformed:
+                    self._actionlist.compute(frame)
                 traj.unitcells[j] = frame.box._get_data()
             return traj
 
@@ -456,6 +458,8 @@ cdef class TrajectoryCpptraj:
                 # dump coords to xyz array
                 # copy coordinates of `self[i]` to j-th frame in `traj`
                 self.thisptr.GetFrame(i, frame.thisptr[0])
+                if self._being_transformed:
+                    self._actionlist.compute(frame)
                 traj.xyz[j] = frame.xyz
                 traj.unitcells[j] = frame.box._get_data()
             return traj
@@ -470,6 +474,8 @@ cdef class TrajectoryCpptraj:
         for i in frame_indices:
             assert 0 <= i < max_frame, 'frame index must be between 0 and max_frame - 1'
             self.thisptr.GetFrame(i, frame.thisptr[0])
+            if self._being_transformed:
+                self._actionlist.compute(frame)
             yield frame
 
     def translate(self, command):

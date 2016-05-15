@@ -80,5 +80,21 @@ class TestActionList(unittest.TestCase):
 
         nt.assert_equal(len(traj_on_disk._cdslist), 0)
 
+    def test_autoimage_and_slicing(self):
+        traj_on_disk = pt.datafiles.load_tz2_ortho()
+        traj_on_mem = traj_on_disk[:]
+        aa_eq(traj_on_disk.xyz, traj_on_mem.xyz)
+
+        aa_eq(traj_on_disk.autoimage().xyz, traj_on_mem.autoimage().xyz)
+
+        aa_eq(traj_on_mem[:1].xyz, traj_on_disk[:1].xyz)
+        aa_eq(traj_on_mem[:].xyz, traj_on_disk[:].xyz)
+
+        from pytraj.externals.six import zip
+
+        for f0, f1 in zip(traj_on_disk(0, 8, 2), traj_on_mem(0, 8, 2)):
+            aa_eq(f0.xyz, f1.xyz)
+
+
 if __name__ == "__main__":
     unittest.main()
