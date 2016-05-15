@@ -1,7 +1,7 @@
 .. _pytraj.hbond_analysis:
 
-pytraj.hbond
-============
+pytraj.hbond_analysis
+=====================
 
 .. container:: custom-index
     
@@ -9,7 +9,7 @@ pytraj.hbond
     
         <script type="text/javascript" src='../_static/cindex.js'></script>
 
-.. automodule:: pytraj.hbond_
+.. automodule:: pytraj.hbond_analysis
     :members:
     :undoc-members:
     :show-inheritance:
