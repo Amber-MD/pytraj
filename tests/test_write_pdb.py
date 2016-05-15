@@ -8,7 +8,17 @@ from pytraj.testing import aa_eq
 from pytraj.utils import tempfolder
 
 
-class Test(unittest.TestCase):
+class TestWritePDB(unittest.TestCase):
+
+    def test_write_CRYST1(self):
+        traj = pt.datafiles.load_tz2_ortho()[:1]
+        print(traj.unitcells)
+
+        with tempfolder():
+            fn = "test.pdb"
+            traj.save(fn)
+            traj2 = pt.load(fn)
+            aa_eq(traj.unitcells, traj2.unitcells, decimal=3)
 
     def test_0(self):
         traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")

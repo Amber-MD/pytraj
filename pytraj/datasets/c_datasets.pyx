@@ -66,6 +66,13 @@ cdef class Dataset:
             aspect = self.baseptr0.Meta().Aspect()
             return aspect.decode()
 
+        def __set__(self, aspect):
+            cdef string s = aspect.encode()
+            cdef _MetaData meta = self.baseptr0.Meta()
+
+            meta.SetAspect(s)
+            self.baseptr0.SetMeta(meta)
+
     property _legend:
         def __get__(self):
             _legend = self.baseptr0.Meta().Legend()

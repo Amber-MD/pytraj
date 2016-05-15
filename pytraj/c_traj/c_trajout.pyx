@@ -27,6 +27,7 @@ cdef class TrajectoryWriter:
         print TrajFormatDict.keys()
 
     def open(self, filename='', top=Topology(),
+             crdinfo=dict(),
              format='infer',
              options='', overwrite=False):
         '''
@@ -38,9 +39,19 @@ cdef class TrajectoryWriter:
         options : str, additional keywords for writing file (good for pdb, mol2, ...)
         overwrite : bool, default False
         '''
-
         cdef ArgList arglist
         cdef Topology top_
+        cdef CoordinateInfo crdinfo_
+        cdef Box box
+        cdef bint has_velocity, has_time, has_force
+
+        # copy
+        crdinfo2 = dict((k, v) for k, v in crdinfo.items())
+
+        if 'box' not in crdinfo2:
+            crdinfo2['box'] = top.box
+
+        crdinfo_ = CoordinateInfo(crdinfo2)
 
         filename = filename.encode("UTF-8")
         if not overwrite:
@@ -55,9 +66,6 @@ cdef class TrajectoryWriter:
         elif isinstance(top, Topology):
             # assume this is Topology instance
             top_ = top
-
-        local_dict = TrajFormatDict.copy()
-        local_dict.get("", "")
 
         if format.lower() == 'infer':
             options += ''
@@ -77,7 +85,7 @@ cdef class TrajectoryWriter:
             self.thisptr.InitTrajWrite(filename, ArgList().thisptr[0], top_.thisptr)
 
         # real open
-        self.thisptr.SetupTrajWrite(top_.thisptr, CoordinateInfo(), 0)
+        self.thisptr.SetupTrajWrite(top_.thisptr, crdinfo_.thisptr[0], 0)
 
     def close(self):
         self.thisptr.EndTraj()

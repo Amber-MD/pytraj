@@ -30,7 +30,12 @@ class TestIssue991(unittest.TestCase):
         # something is wrong with pdb, crd extension when loading with
         # minitop (poor topology?)
         # make issue in cpptraj too?
-        for ext in ['nc', 'dcd', 'mdcrd', 'crd', 'pdb', 'trr']:
+
+        exts = ['nc', 'dcd', 'mdcrd', 'crd', 'pdb', 'trr']
+        exts.remove('mdcrd')
+        exts.remove('crd')
+
+        for ext in exts:
             fn = 'output/junk.' + ext
             pt.write_traj(filename=fn,
                           traj=minitraj,

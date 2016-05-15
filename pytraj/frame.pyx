@@ -535,7 +535,7 @@ cdef class Frame (object):
         return self.thisptr.HasVelocity()
 
     def has_force(self):
-        return self.thisptr.HasVelocity()
+        return self.thisptr.HasForce()
 
     property coordinates:
         '''return a copy of Frame's coordinates
@@ -985,3 +985,42 @@ cdef class Frame (object):
         # TODO: velocity?
         return {'coordinates': np.array(self.xyz, dtype='f8'),
                 'mass': self.mass}
+
+    def _allocate_force_and_velocity(self, Topology top, crdinfo):
+        '''allocate_memory for velocity, force arrays
+
+        Parameters
+        ----------
+        top : Topology
+        crdinfo : dict
+
+        Examples
+        --------
+        >>> import pytraj as pt
+        >>> top = pt.tools.make_fake_topology(n_atoms=100)
+        >>> # make empty frame
+        >>> frame = pt.Frame()
+        >>> frame.has_force()
+        False
+        >>> frame.has_velocity()
+        False
+        >>> frame.n_atoms
+        0
+
+        # allocate
+        >>> frame._allocate_force_and_velocity(top, crdinfo={'has_force': True, 'has_velocity': True})
+        >>> frame.has_force()
+        True
+        >>> frame.has_velocity()
+        True
+        >>> frame.n_atoms
+        100
+        '''
+        cdef CoordinateInfo crdinfo_
+
+        crdinfo2 = dict((k, v) for k, v in crdinfo.items())
+        if 'box' not in crdinfo2:
+            crdinfo2['box'] = top.box
+
+        crdinfo_ = CoordinateInfo(crdinfo2)
+        self.thisptr.SetupFrameV(top.thisptr.Atoms(), crdinfo_.thisptr[0])

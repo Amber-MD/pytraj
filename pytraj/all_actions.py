@@ -63,7 +63,7 @@ list_of_the_rest = ['rmsd', 'align_principal_axis', 'principal_axes', 'closest',
                     'transform', 'native_contacts', 'set_dihedral',
                     'check_structure', 'mean_structure', 'lowestcurve',
                     'make_structure', 'replicate_cell', 'pucker', 'rmsd_perres',
-                    'randomize_ions',
+                    'randomize_ions', 'velocityautocorr',
                     'timecorr', 'search_neighbors',
                     'xcorr', 'acorr',
                     'projection',
@@ -2390,6 +2390,88 @@ def timecorr(vec0,
     act(command, dslist=c_dslist)
     return get_data_from_dtype(c_dslist[2:], dtype=dtype)
 
+@super_dispatch()
+def velocityautocorr(traj, mask='', maxlag=-1, tstep=1.0, direct=True, norm=False,
+        usevelocity=False,
+        dtype='ndarray',
+        top=None,
+        velocity_arr=None,
+        ):
+    """
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str
+        atom mask
+    maxlag : int, default -1
+        maximum lag. If -1, using half of total number of frame
+        if given, use it.
+    tstep : float, default 1.0
+    direct : bool, default True
+        if True, use direct method
+        else, use FFT to compute autocorrelation function
+    norm : bool, default False
+        if True, normalize autocorrelation function to 1.0
+    usevelocity : bool, default False
+        if True, use velocity info in Frame
+    dtype : str, default 'ndarray'
+        return data type
+    top : None or Topology, default None, optional
+    velocity_arr : None or 3D like array, default None
+        only use `velocity_arr` if usevelocity is True
+
+    Notes
+    -----
+    If you create Trajectory by `pytraj.load` method, there is no velocity information.
+    So if you want to use `usevelocity=True`, you need to provide 3D-array velocity_arr
+    """
+    from pytraj import Frame
+
+    if velocity_arr is not None:
+        velocity_arr = np.asarray(velocity_arr)
+
+        if len(velocity_arr.shape) != 3:
+            raise ValueError('provided velocity_arr must be 3D array-like, shape=(n_frames, n_atoms, 3)')
+
+    act = c_action.Action_VelocityAutoCorr()
+    c_dslist = CpptrajDatasetList()
+
+    maxlag_ = ' '.join(('maxlag', str(maxlag)))
+    tstep_ = ' '.join(('tstep', str(tstep)))
+    direct_ = 'direct' if direct else ''
+    norm_ = 'norm' if norm else ''
+    usevelocity_ = 'usevelocity' if usevelocity else ''
+
+    command = ' '.join((maxlag_, tstep_, direct_, norm_, usevelocity_))
+    crdinfo = dict(has_velocity=True) if usevelocity else dict()
+
+    act.read_input(command, top, dslist=c_dslist)
+    act.check_topology(top, crdinfo=crdinfo)
+
+    frame_template = Frame()
+
+    if usevelocity and velocity_arr is not None:
+        frame_template._allocate_force_and_velocity(top, crdinfo=dict(has_velocity=True))
+        use_template = True
+    else:
+        use_template = False
+
+    for idx, frame in enumerate(traj):
+        if not use_template:
+            if usevelocity and not frame.has_velocity():
+                raise ValueError("Frame must have velocity if specify 'usevelocity'")
+            act.compute(frame)
+        else:
+            vel = velocity_arr[idx]
+            frame_template.xyz[:] = frame.xyz[:]
+            frame_template.velocity[:] = vel
+            act.compute(frame_template)
+
+    act.post_process()
+
+    return get_data_from_dtype(c_dslist, dtype=dtype)
+
 
 def crank(data0, data1, mode='distance', dtype='ndarray'):
     """
@@ -3133,3 +3215,30 @@ def strip(obj, mask):
         return obj
     else:
         raise ValueError('object must be either Trajectory or Topology')
+
+
+def _rotdif(matrices, command):
+    """
+
+    Parameters
+    ----------
+    matrices : 3D array, shape=(n_frames, 3, 3)
+        rotation matrices
+    command : str
+        full cpptraj's command
+
+    Notes
+    -----
+    This method interface will be changed.
+    """
+    matrices = np.asarray(matrices)
+
+    c_dslist = CpptrajDatasetList()
+    c_dslist.add(dtype='matrix3x3', name='myR0')
+    c_dslist[-1].aspect = "RM"
+    c_dslist[-1]._append_from_array(matrices)
+
+    command = 'rmatrix myR0[RM] ' + command
+    act = c_analysis.Analysis_Rotdif()
+    act(command, dslist=c_dslist)
+    return get_data_from_dtype(c_dslist[1:])

@@ -13,7 +13,7 @@ from pytraj.externals.six import string_types
 from pytraj import c_dict
 
 __all__ = ['AtomMask',
-           'FileName', 'CoordinateInfo',
+           'FileName',
            'CpptrajFile', 'NameType', 'Command',
            'CpptrajState', 'ArgList', ]
 
@@ -175,36 +175,6 @@ cdef class FileName:
     def fullname(self):
         return self.thisptr.Full()
 
-
-cdef class CoordinateInfo:
-    def __cinit__(self):
-        self.thisptr = new _CoordinateInfo()
-
-    def __dealloc__(self):
-        del self.thisptr
-
-    def has_box(self):
-        return self.thisptr.HasBox()
-
-    def traj_box(self):
-        cdef Box box = Box()
-        box.thisptr[0] = self.thisptr.TrajBox()
-        return box
-
-    def has_vel(self):
-        return self.thisptr.HasVel()
-
-    def has_temp(self):
-        return self.thisptr.HasTemp()
-
-    def has_time(self):
-        return self.thisptr.HasTime()
-
-    def has_force(self):
-        return self.thisptr.HasForce()
-
-    def has_replica_dims(self):
-        return self.thisptr.HasReplicaDims()
 
 cdef class NameType:
     def __cinit__(self, *args):

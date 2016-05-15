@@ -4,7 +4,9 @@ import unittest
 import numpy as np
 import pytraj as pt
 from pytraj import Topology, Trajectory, TrajectoryIterator
-from pytraj.testing import aa_eq, get_fn, get_remd_fn
+from pytraj.testing import aa_eq, get_fn, get_remd_fn, cpptraj_test_dir
+from pytraj.utils import tempfolder
+import nose.tools as nt
 
 try:
     import scipy
@@ -319,6 +321,7 @@ class TestIO(unittest.TestCase):
             RuntimeError,
             lambda: pt.io.load_frame(filename='afddsfdsfa', top=traj.top.filename, index=3))
 
+    @unittest.skip('download_PDB')
     def test_download_pdb(self):
         pt.io.download_PDB('1l2y', 'output/', overwrite=True)
         t2 = pt.load('output/1l2y.pdb')
@@ -401,6 +404,57 @@ class TestIO(unittest.TestCase):
         self.traj_tz2_ortho[:1].save('output/test.rst7', options='keepext')
         pt._verbose(False)
         assert os.path.exists('output/test.1.rst7')
+
+    def test_write_force_and_velocity(self):
+        fn = cpptraj_test_dir + '/Test_systemVF/systemVF.nc'
+        tn = cpptraj_test_dir + '/Test_systemVF/systemVF.parm7'
+        traj = pt.iterload(fn, tn)
+        nt.assert_true(traj.metadata['has_force'])
+        nt.assert_true(traj.metadata['has_velocity'])
+
+        fn2 = 'output/test.nc'
+        traj.save(fn2, overwrite=True, options='force') # no velocity
+
+        traj2 = pt.iterload(fn2, traj.top)
+        nt.assert_true(traj2.metadata['has_force'])
+        nt.assert_false(traj2.metadata['has_velocity'])
+
+        forces_traj = np.array([frame.force.copy() for frame in traj])
+        forces_traj2 = np.array([frame.force.copy() for frame in traj2])
+        aa_eq(forces_traj, forces_traj2)
+
+        fn3 = 'output/test.nc'
+        traj.save(fn3, overwrite=True, options='velocity') # no force
+
+        traj3 = pt.iterload(fn3, traj.top)
+        nt.assert_false(traj3.metadata['has_force'])
+        nt.assert_true(traj3.metadata['has_velocity'])
+
+        velocity_traj = np.array([frame.velocity.copy() for frame in traj])
+        velocity_traj3 = np.array([frame.velocity.copy() for frame in traj3])
+        aa_eq(velocity_traj, velocity_traj3)
+
+        # test Trajectory
+        frame_template = traj[0].copy()
+        nt.assert_true(frame_template.has_force())
+
+        def get_frame():
+            for index, frame in enumerate(traj):
+                frame_template.xyz[:] = frame.xyz
+                frame_template.force[:] = frame.force
+                yield frame_template
+
+        fn4 = 'output/test4.nc'
+        crdinfo = dict(has_force=True)
+        pt.write_traj(fn4,
+                      traj=get_frame(),
+                      top=traj.top,
+                      crdinfo=crdinfo,
+                      options='force',
+                      overwrite=True)
+        traj4 = pt.iterload(fn4, traj.top)
+        nt.assert_true(traj4.metadata['has_force'])
+        aa_eq(traj4.xyz, traj.xyz)
 
 if __name__ == "__main__":
     unittest.main()

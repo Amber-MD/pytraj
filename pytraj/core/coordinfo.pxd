@@ -1,13 +1,13 @@
 # distutils: language = c++
-from ..core.box cimport _Box
+from ..core.box cimport _Box, Box
 
 
 cdef extern from "CoordinateInfo.h": 
-    cdef cppclass CoordinateInfo:
-        CoordinateInfo() 
-        CoordinateInfo(const _Box& b, bint v, bint t, bint m)
-        #CoordinateInfo(const _ReplicaDimArray& r, const _Box& b, bint v, bint t, bint m, bint f)
-        #CoordinateInfo(int e, const _ReplicaDimArray& r, const _Box& b, bint v, bint t, bint m, bint f)
+    cdef cppclass _CoordinateInfo "CoordinateInfo":
+        _CoordinateInfo() 
+        _CoordinateInfo(const _Box& b, bint v, bint t, bint m)
+        #_CoordinateInfo(const _ReplicaDimArray& r, const _Box& b, bint v, bint t, bint m, bint f)
+        #_CoordinateInfo(int e, const _ReplicaDimArray& r, const _Box& b, bint v, bint t, bint m, bint f)
         bint HasBox() const 
         const _Box& TrajBox() const 
         int EnsembleSize() const 
@@ -22,3 +22,7 @@ cdef extern from "CoordinateInfo.h":
         void SetVelocity(bint v)
         void SetEnsembleSize(int s)
         void SetBox(const _Box& b)
+        void SetForce(bint f)
+
+cdef class CoordinateInfo:
+    cdef _CoordinateInfo* thisptr

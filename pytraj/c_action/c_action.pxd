@@ -7,7 +7,7 @@ from ..topology cimport _Topology, Topology
 from ..core.c_core cimport _ArgList, ArgList
 from ..datasets.c_datasetlist cimport _DatasetList, DatasetList
 from ..frame cimport _Frame, Frame
-from ..core.coordinfo cimport CoordinateInfo
+from ..core.coordinfo cimport _CoordinateInfo, CoordinateInfo
 
 
 cdef extern from "ActionState.h":
@@ -24,14 +24,14 @@ cdef extern from "ActionState.h":
 
     cdef cppclass _ActionSetup "ActionSetup":
         _ActionSetup()
-        void Set(_Topology * p, const CoordinateInfo& c, int n)
-        _ActionSetup(_Topology * topIn, const CoordinateInfo& cInfoIn, int nIn)
+        void Set(_Topology * p, const _CoordinateInfo& c, int n)
+        _ActionSetup(_Topology * topIn, const _CoordinateInfo& cInfoIn, int nIn)
         const _Topology& Top() const
         _Topology * TopAddress()
-        const CoordinateInfo& CoordInfo() const
+        const _CoordinateInfo& CoordInfo() const
         int Nframes() const
         void SetTopology(_Topology * p)
-        void SetCoordInfo(CoordinateInfo * c)
+        void SetCoordInfo(_CoordinateInfo * c)
 
 
     cdef cppclass _ActionFrame "ActionFrame":

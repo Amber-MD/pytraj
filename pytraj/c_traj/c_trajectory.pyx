@@ -524,6 +524,11 @@ cdef class TrajectoryCpptraj:
         self._being_transformed = True
         return self
 
+    def _remove_transformations(self):
+        self._actionlist = ActionList()
+        self._cdslist = CpptrajDatasetList()
+        self._being_transformed = False
+ 
     @property
     def metadata(self):
         '''return a dict of general information
@@ -541,11 +546,11 @@ cdef class TrajectoryCpptraj:
          'n_atoms': 5293,
          'n_frames': 10}
         '''
-        return self._coordinateinfo
+        return self._crdinfo
 
-    property _coordinateinfo:
+    property _crdinfo:
         def __get__(self):
-            cdef CoordinateInfo cinfo
+            cdef _CoordinateInfo cinfo
 
             cinfo = self.thisptr.CoordsInfo()
             return {'has_velocity': cinfo.HasVel(),
@@ -558,21 +563,17 @@ cdef class TrajectoryCpptraj:
                     'n_atoms': self.n_atoms,
                     'box_type': self.top.box.type}
 
-        def __set__(self, dict value):
+        def __set__(self, dict crdinfo):
             '''value is a dict
             '''
-            cdef CoordinateInfo cinfo = CoordinateInfo()
+            cdef CoordinateInfo cinfo
             cdef Box box
 
-            box = value.get('box', self.top.box)
-            has_time = value.get('has_time', False)
-            has_temperature = value.get('has_temperature', False)
-            has_velocity = value.get('has_velocity', False)
+            crdinfo2 = dict((k, v) for k, v in crdinfo.item())
 
-            cinfo.SetTime(<bint> has_time)
-            cinfo.SetVelocity(<bint> has_velocity)
-            cinfo.SetTemperature(<bint> has_temperature)
+            if 'box' not in crdinfo2:
+                crdinfo2['box'] = self.top.box
 
-            cinfo.SetBox(box.thisptr[0])
+            cinfo = CoordinateInfo(crdinfo2)
 
-            self.thisptr.CoordsSetup(self.thisptr.Top(), cinfo)
+            self.thisptr.CoordsSetup(self.thisptr.Top(), cinfo.thisptr[0])
