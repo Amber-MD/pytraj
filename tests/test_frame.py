@@ -93,7 +93,7 @@ class TestFrame(unittest.TestCase):
 
         crdinfo = dict(has_force=True, has_velocity=True)
 
-        frame._allocate_memory(top, crdinfo)
+        frame._allocate_force_and_velocity(top, crdinfo)
         nt.assert_equal(frame.n_atoms, 100)
 
         nt.assert_true(frame.has_force())
