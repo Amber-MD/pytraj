@@ -19,7 +19,7 @@ def get_frame_with_force(traj, forces=frcs):
     frame0 = pt.Frame()
     crdinfo = dict(has_force=True)
 
-    frame0._allocate_memory(traj.top, crdinfo)
+    frame0._allocate_force_and_velocity(traj.top, crdinfo)
 
     for frame, frc in zip(traj, frcs):
         frame0.xyz[:] = frame.xyz
