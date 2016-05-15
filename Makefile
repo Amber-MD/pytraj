@@ -8,3 +8,6 @@ clean:
 
 push:
 	sh ./doc/scripts/add_git_and_push.sh
+
+pull:
+	git pull upstream gh-pages
