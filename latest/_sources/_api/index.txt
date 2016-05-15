@@ -19,10 +19,13 @@ try ``pytraj`` online:
     pytraj.trajectory_iterator
     pytraj.frame
     pytraj.topology
-    pytraj.framefter
-    pytraj.cluster
-    pytraj.hbond_analysis
     pytraj.CpptrajState
+    pytraj.frameiter
+    pytraj.cluster
+    pytraj.nmr
+    pytraj.matrix
+    pytraj.vector
+    pytraj.hbond_analysis
     pytraj.parallel
     pytraj.c_ation.action_list
     pytraj.core.c_core
