@@ -112,7 +112,7 @@ from .all_actions import (
     set_dihedral, crank, closest, search_neighbors, replicate_cell,
     calc_pairdist, _grid, grid, transform, lowestcurve, calc_diffusion, calc_volmap,
     calc_multivector, pca, projection,
-    xcorr, acorr,
+    xcorr, acorr, velocityautocorr,
     check_structure,
     calc_matrix,
     superpose, strip)
