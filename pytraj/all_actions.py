@@ -2922,17 +2922,19 @@ def pca(traj,
 
     ref_mask_ = ref_mask if ref_mask is not None else mask
 
-    if not isinstance(traj, Trajectory):
-        raise ValueError('must be Trajectory object, not {}'.format(traj.__class__.__name__))
+    if not isinstance(traj, (Trajectory, TrajectoryIterator)):
+        raise ValueError('must be Trajectory-like')
 
     if fit:
         if ref is None:
             traj.superpose(ref=0, mask=ref_mask_)
             avg = mean_structure(traj)
             traj.superpose(ref=avg, mask=ref_mask_)
+            n_refs = 2
         else:
             ref = get_reference(traj, ref)
             traj.superpose(ref=ref, mask=ref_mask_)
+            n_refs = 1
 
     avg2 = mean_structure(traj, mask=mask)
 
@@ -2947,6 +2949,15 @@ def pca(traj,
                                  eigenvalues=eigenvalues,
                                  eigenvectors=eigenvectors,
                                  scalar_type='covar', dtype=dtype)
+
+    # release added transformed commands for TrajectoryIterator
+    if fit and hasattr(traj, '_transform_commands'):
+        for _ in range(n_refs):
+            traj._transform_commands.pop()
+        if traj._transform_commands:
+            traj._reset_transformation()
+        else:
+            traj._remove_transformations()
     return projection_data, (eigenvalues, eigenvectors)
 
 calc_pca = pca
@@ -3062,8 +3073,8 @@ def transform(traj, by, frame_indices=None):
 def lowestcurve(data, points=10, step=0.2):
     '''compute lowest curve for data
 
-    Paramters
-    ---------
+    Parameters
+    ----------
     data : 2D array-like
     points : number of lowest points in each bin, default 10
     step : step size, default 0.2
