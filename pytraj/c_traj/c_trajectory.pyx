@@ -49,6 +49,7 @@ cdef class TrajectoryCpptraj:
         self._own_memory = True
         self._being_transformed = False
         self._being_superposed = False
+        self._transform_commands = []
 
     def _load(self, filename=None, top=None, frame_slice=(0, -1, 1)):
         '''
@@ -498,6 +499,10 @@ cdef class TrajectoryCpptraj:
         return self._add_transformation('principal', command)
 
     def superpose(self, Frame ref=None, mask=""):
+        command = (mask, ref)
+        return self._add_transformation('superpose', command)
+
+    def _rmsfit(self, Frame ref=None, mask=""):
         """register to superpose to reference frame when iterating. 
 
         Notes
@@ -528,8 +533,13 @@ cdef class TrajectoryCpptraj:
         name : str, cpptraj action name
         command : str, what do you want.
         '''
-        self._actionlist.add(name, command)
-        self._being_transformed = True
+        if name not in ['superpose']:
+            self._actionlist.add(name, command)
+            self._being_transformed = True
+        else:
+            mask, ref = command
+            self._rmsfit(ref=ref, mask=mask)
+        self._transform_commands.append((name, command))
         return self
 
     def _remove_transformations(self):
@@ -537,6 +547,16 @@ cdef class TrajectoryCpptraj:
         self._cdslist = CpptrajDatasetList()
         self._being_transformed = False
         self._being_superposed = False
+        self._transform_commands = []
+
+    def _reset_transformation(self):
+        old_commands = self._transform_commands[:]
+        self._transform_commands = []
+        self._initialize_actionlist()
+        self._cdslist = CpptrajDatasetList()
+
+        for name, command in old_commands:
+            self._add_transformation(name, command)
 
     def _do_transformation(self, Frame frame, int max_count=1000):
         '''wrapper for self._actionlist.compute
@@ -545,8 +565,8 @@ cdef class TrajectoryCpptraj:
         '''
         if self._being_superposed:
             rmsd_dset = self._cdslist['__myrmsd']
-            if len(rmsd_dset) > max_count:
-                rmsd_dset.resize(0)
+            if len(rmsd_dset) >= max_count:
+                self._reset_transformation()
 
         self._actionlist.compute(frame)
  
