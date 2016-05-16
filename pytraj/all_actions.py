@@ -3062,8 +3062,8 @@ def transform(traj, by, frame_indices=None):
 def lowestcurve(data, points=10, step=0.2):
     '''compute lowest curve for data
 
-    Paramters
-    ---------
+    Parameters
+    ----------
     data : 2D array-like
     points : number of lowest points in each bin, default 10
     step : step size, default 0.2
