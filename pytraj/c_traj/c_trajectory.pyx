@@ -533,7 +533,7 @@ cdef class TrajectoryCpptraj:
         refset.add_frame(frame)
         refset.name = 'myref' + str(len(self._cdslist))
 
-        command = '__myrmsd ref {myref} {mask}'.format(myref=refset.name, mask=mask)
+        command = 'ref {refname} {mask}'.format(refname=refset.name, mask=mask)
         self._actionlist.add('rms', command, dslist=self._cdslist)
 
         self._being_transformed = True
@@ -580,7 +580,8 @@ cdef class TrajectoryCpptraj:
         To avoid memory leak, we need to reset Dataset that holds RMSD value
         '''
         if self._being_superposed:
-            rmsd_dset = self._cdslist['__myrmsd']
+            try:
+            rmsd_dset = self._cdslist[-1]
             if len(rmsd_dset) >= self._max_count_to_reset:
                 self._reset_transformation()
 
