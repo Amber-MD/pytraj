@@ -580,7 +580,6 @@ cdef class TrajectoryCpptraj:
         To avoid memory leak, we need to reset Dataset that holds RMSD value
         '''
         if self._being_superposed:
-            try:
             rmsd_dset = self._cdslist[-1]
             if len(rmsd_dset) >= self._max_count_to_reset:
                 self._reset_transformation()
