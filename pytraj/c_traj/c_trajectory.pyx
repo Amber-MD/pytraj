@@ -48,6 +48,7 @@ cdef class TrajectoryCpptraj:
         self._filelist = []
         self._own_memory = True
         self._being_transformed = False
+        self._being_superposed = False
 
     def _load(self, filename=None, top=None, frame_slice=(0, -1, 1)):
         '''
@@ -148,7 +149,7 @@ cdef class TrajectoryCpptraj:
             # do not create new Frame inside this loop to reduce memory
             self.thisptr.GetFrame(i, frame.thisptr[0])
             if self._being_transformed:
-                self._actionlist.compute(frame)
+                self._do_transformation(frame)
             yield frame
 
     property top:
@@ -209,7 +210,7 @@ cdef class TrajectoryCpptraj:
                 else:
                     self.thisptr.GetFrame(i, frame.thisptr[0], atm.thisptr[0])
                 if self._being_transformed:
-                    self._actionlist.compute(frame)
+                    self._do_transformation(frame)
                 yield frame
                 i += step
 
@@ -259,7 +260,7 @@ cdef class TrajectoryCpptraj:
                 for idx, frame in enumerate(self.iterframe(start=_tmp_start,
                                                            stop=_tmp_stop)):
                     if self._being_transformed:
-                        self._actionlist.compute(frame)
+                        self._do_transformation(frame)
                     farray._xyz[idx] = frame.xyz
                     farray._boxes[idx] = frame.box._get_data()
                 yield farray
@@ -290,7 +291,7 @@ cdef class TrajectoryCpptraj:
             _farray.top = self.top._modify_state_by_mask(atom_mask_obj)
             for i, frame in enumerate(self):
                 if self._being_transformed:
-                    self._actionlist.compute(frame)
+                    self._do_transformation(frame)
                 _frame = Frame(frame, atom_mask_obj)
                 _farray.append(_frame)
             self.tmpfarray = _farray
@@ -323,7 +324,7 @@ cdef class TrajectoryCpptraj:
                 if isinstance(self[idx0], Frame):
                     frame = self[idx0]
                     if self._being_transformed:
-                        self._actionlist.compute(frame)
+                        self._do_transformation(frame)
                     self.tmpfarray = frame
                     if isinstance(idx1, string_types):
                         # traj[0, '@CA']
@@ -365,7 +366,7 @@ cdef class TrajectoryCpptraj:
                 with self:
                     self.thisptr.GetFrame(idx_1, frame.thisptr[0])
                     if self._being_transformed:
-                        self._actionlist.compute(frame)
+                        self._do_transformation(frame)
                 self.tmpfarray = frame
                 return self.tmpfarray
 
@@ -445,7 +446,7 @@ cdef class TrajectoryCpptraj:
                 # copy coordinates of `self[i]` to j-th frame in `traj`
                 self.thisptr.GetFrame(i, frame.thisptr[0])
                 if self._being_transformed:
-                    self._actionlist.compute(frame)
+                    self._do_transformation(frame)
                 traj.unitcells[j] = frame.box._get_data()
             return traj
 
@@ -459,7 +460,7 @@ cdef class TrajectoryCpptraj:
                 # copy coordinates of `self[i]` to j-th frame in `traj`
                 self.thisptr.GetFrame(i, frame.thisptr[0])
                 if self._being_transformed:
-                    self._actionlist.compute(frame)
+                    self._do_transformation(frame)
                 traj.xyz[j] = frame.xyz
                 traj.unitcells[j] = frame.box._get_data()
             return traj
@@ -475,7 +476,7 @@ cdef class TrajectoryCpptraj:
             assert 0 <= i < max_frame, 'frame index must be between 0 and max_frame - 1'
             self.thisptr.GetFrame(i, frame.thisptr[0])
             if self._being_transformed:
-                self._actionlist.compute(frame)
+                self._do_transformation(frame)
             yield frame
 
     def translate(self, command):
@@ -512,10 +513,11 @@ cdef class TrajectoryCpptraj:
         refset.add_frame(ref)
         refset.name = 'myref' + str(len(self._cdslist))
 
-        command = 'ref {myref} {mask}'.format(myref=refset.name, mask=mask)
+        command = '__myrmsd ref {myref} {mask}'.format(myref=refset.name, mask=mask)
         self._actionlist.add('rms', command, dslist=self._cdslist)
 
         self._being_transformed = True
+        self._being_superposed = True
         return self
 
     def _add_transformation(self, name, command):
@@ -534,6 +536,19 @@ cdef class TrajectoryCpptraj:
         self._actionlist = ActionList()
         self._cdslist = CpptrajDatasetList()
         self._being_transformed = False
+        self._being_superposed = False
+
+    def _do_transformation(self, Frame frame, int max_count=1000):
+        '''wrapper for self._actionlist.compute
+
+        To avoid memory leak, we need to reset Dataset that holds RMSD value
+        '''
+        if self._being_superposed:
+            rmsd_dset = self._cdslist['__myrmsd']
+            if len(rmsd_dset) > max_count:
+                rmsd_dset.resize(0)
+
+        self._actionlist.compute(frame)
  
     @property
     def metadata(self):

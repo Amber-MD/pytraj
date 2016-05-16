@@ -33,3 +33,4 @@ cdef class TrajectoryCpptraj:
     cdef public ActionList _actionlist 
     cdef public CpptrajDatasetList _cdslist
     cdef public bint _being_transformed
+    cdef public bint _being_superposed

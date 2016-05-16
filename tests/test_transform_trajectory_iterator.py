@@ -95,6 +95,19 @@ class TestActionList(unittest.TestCase):
         for f0, f1 in zip(traj_on_disk(0, 8, 2), traj_on_mem(0, 8, 2)):
             aa_eq(f0.xyz, f1.xyz)
 
+    def test_reset_dataset_that_hold_rmsd(self):
+        from pytraj.testing import get_fn
+        fn, tn = get_fn('tz2_dry')
+        traj_on_disk = pt.iterload([fn,]*10, tn)  # 1010 frames
+
+        nt.assert_equal(traj_on_disk.n_frames, 1010)
+
+        ref = traj_on_disk[:1]
+        traj_on_disk.superpose(mask='@CA', ref=ref)
+        nt.assert_equal(traj_on_disk._cdslist['__myrmsd'].values.shape, ())
+
+        for frame in traj_on_disk: pass
+        nt.assert_equal(traj_on_disk._cdslist['__myrmsd'].values.shape, (10,))
 
 if __name__ == "__main__":
     unittest.main()
