@@ -192,6 +192,17 @@ class TestPCA(unittest.TestCase):
         data1, _ = pt.pca(traj_on_mem, mask='@CA', n_vecs=2, fit=fit)
         aa_eq(data0, data1)
 
+    @unittest.skip("test_traj_on_disk_default_values: does not work now")
+    def test_traj_on_disk_default_values(self):
+        """test_traj_on_disk_default_values
+        """
+        traj_on_disk = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
+        traj_on_mem = pt.load('data/tz2.nc', 'data/tz2.parm7')
+
+        data0, _ = pt.pca(traj_on_disk, mask='@CA')
+        data1, _ = pt.pca(traj_on_mem, mask='@CA')
+        aa_eq(data0, data1)
+
     def test_traj_on_disk_fit_to_given_reference(self):
         """test_traj_on_disk_fit_to_given_reference
         """
