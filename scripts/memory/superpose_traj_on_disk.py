@@ -13,8 +13,8 @@ ref = traj[:1]
 @profile
 def do_it(traj=traj,n_times=1):
     traj._max_count_to_reset = 100
-    traj.superpose(ref=ref, mask='@CA')
-    # traj.autoimage().center()
+    traj.superpose(ref=ref, mask='@CA') # leaking
+    # traj.autoimage().center() # no leaking
 
     for _ in range(n_times):
         for frame  in traj: pass
