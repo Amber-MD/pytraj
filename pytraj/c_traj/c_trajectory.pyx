@@ -42,7 +42,6 @@ cdef class TrajectoryCpptraj:
     def __cinit__(self):
         self.thisptr = new _TrajectoryCpptraj()
         self._top = Topology()
-        self._cdslist = CpptrajDatasetList()
         # we use TopPtr here, self._top is a binding
         self._top._own_memory = False
         self._filelist = []
@@ -50,6 +49,7 @@ cdef class TrajectoryCpptraj:
         self._being_transformed = False
         self._being_superposed = False
         self._transform_commands = []
+        self._max_count_to_reset = 50000 # for reset superpose memory
 
     def _load(self, filename=None, top=None, frame_slice=(0, -1, 1)):
         '''
@@ -108,7 +108,21 @@ cdef class TrajectoryCpptraj:
 
     def _initialize_actionlist(self):
         assert self.top.n_atoms > 0, 'must set Topology'
+
+        if self._being_superposed:
+            # if self._being_superposed, its _cdslist and _actionlist were already maded
+            # free memory
+            self._cdslist.thisptr.Clear()
+            self._cdslist.thisptr.ClearTop()
+            self._cdslist.thisptr.ClearRef()
+            self._actionlist.thisptr.Clear()
+            del self._cdslist.thisptr
+            self._cdslist.thisptr = new _CpptrajDatasetList()
+            del self._actionlist.thisptr
+            self._actionlist.thisptr = new _ActionList()
+
         self._actionlist = ActionList(top=self.top)
+        self._cdslist = CpptrajDatasetList()
 
     def __len__(self):
         return self.n_frames
@@ -512,10 +526,11 @@ cdef class TrajectoryCpptraj:
         the copy of Frame.
         """
         cdef AtomMask atm = self.top(mask)
+        cdef Frame frame = ref
 
         refset = self._cdslist.add('reference')
         refset.top = self.top
-        refset.add_frame(ref)
+        refset.add_frame(frame)
         refset.name = 'myref' + str(len(self._cdslist))
 
         command = '__myrmsd ref {myref} {mask}'.format(myref=refset.name, mask=mask)
@@ -552,20 +567,21 @@ cdef class TrajectoryCpptraj:
     def _reset_transformation(self):
         old_commands = self._transform_commands[:]
         self._transform_commands = []
+
+        # self._cdslist.thisptr.Clear()
         self._initialize_actionlist()
-        self._cdslist = CpptrajDatasetList()
 
         for name, command in old_commands:
-            self._add_transformation(name, command)
+             self._add_transformation(name, command)
 
-    def _do_transformation(self, Frame frame, int max_count=1000):
+    def _do_transformation(self, Frame frame):
         '''wrapper for self._actionlist.compute
 
         To avoid memory leak, we need to reset Dataset that holds RMSD value
         '''
         if self._being_superposed:
             rmsd_dset = self._cdslist['__myrmsd']
-            if len(rmsd_dset) >= max_count:
+            if len(rmsd_dset) >= self._max_count_to_reset:
                 self._reset_transformation()
 
         self._actionlist.compute(frame)

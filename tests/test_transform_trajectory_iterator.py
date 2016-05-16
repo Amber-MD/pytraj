@@ -106,8 +106,10 @@ class TestActionList(unittest.TestCase):
         traj_on_disk.superpose(mask='@CA', ref=ref)
         nt.assert_equal(traj_on_disk._cdslist['__myrmsd'].values.shape, ())
 
-        for frame in traj_on_disk: pass
-        nt.assert_equal(traj_on_disk._cdslist['__myrmsd'].values.shape, (10,))
+        traj_on_disk._max_count_to_reset = 100
+        for _ in range(10):
+            for frame in traj_on_disk: pass
+        nt.assert_equal(traj_on_disk._cdslist['__myrmsd'].values.shape, (100,))
 
 if __name__ == "__main__":
     unittest.main()

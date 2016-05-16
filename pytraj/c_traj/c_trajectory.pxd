@@ -4,10 +4,10 @@ from libcpp.string cimport string
 from ..frame cimport _Frame, Frame
 from ..topology cimport _Topology, Topology
 from ..datasets.c_datasets cimport _DatasetCoords
-from ..datasets.c_datasetlist cimport DatasetList as CpptrajDatasetList
+from ..datasets.c_datasetlist cimport DatasetList as CpptrajDatasetList, _DatasetList as _CpptrajDatasetList
 from ..core.c_core cimport _AtomMask, AtomMask, _ArgList, ArgList
 from ..core.coordinfo cimport _CoordinateInfo, CoordinateInfo
-from ..c_action.actionlist cimport ActionList
+from ..c_action.actionlist cimport _ActionList, ActionList
 
 
 cdef extern from "DataSet_Coords_TRJ.h" nogil: 
@@ -35,3 +35,4 @@ cdef class TrajectoryCpptraj:
     cdef public bint _being_transformed
     cdef public bint _being_superposed
     cdef public list _transform_commands
+    cdef public int _max_count_to_reset
