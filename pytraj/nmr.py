@@ -20,7 +20,7 @@ def _2darray_to_atommask_groups(seq):
 def _ired(iredvec,
           modes,
           NHbond=True,
-          relax_freq=None,
+          freq=None,
           NHdist=1.02,
           order=2,
           tstep=1.0,
@@ -37,9 +37,9 @@ def _ired(iredvec,
         eigenvalues has shape of (n_modes, )
         eigenvectors has shape of (n_modes, vector_size), each vector correspond to each eigenvalue
     NHbond : bool, default True
-        if True, relax_freq value will be used
-        if False, NHdist and relax_freq will be ignored.
-    relax_freq : float or None, default None
+        if True, freq value will be used
+        if False, NHdist and freq will be ignored.
+    freq : float or None, default None
         be used with NHbond
     NHdist : N-H bond length, default 1.02
     order : int, default 2
@@ -52,7 +52,7 @@ def _ired(iredvec,
     CpptrajDatasetList
     '''
 
-    _freq = 'relax freq ' + str(relax_freq) if relax_freq is not None else ''
+    _freq = 'relax freq ' + str(freq) if freq is not None else ''
     _NHdist = 'NHdist ' + str(NHdist) if NHbond else ''
     _order = 'order ' + str(order)
     _tstep = 'tstep ' + str(tstep)
@@ -182,7 +182,7 @@ def NH_order_parameters(traj,
                         order=2,
                         tstep=1.,
                         tcorr=10000.,
-                        n_cores=1):
+                        n_cores=1, **kwargs):
     '''compute NH order parameters
 
     Parameters
@@ -192,7 +192,8 @@ def NH_order_parameters(traj,
     order : default 2
     tstep : default 1.
     tcorr : default 10000.
-
+    kwargs : additional keyword argument
+ 
     Returns
     -------
     S2 : 1D array, order parameters
@@ -235,7 +236,7 @@ def NH_order_parameters(traj,
                  modes=(evals, evecs),
                  NHbond=True,
                  tcorr=tcorr,
-                 tstep=tstep)
+                 tstep=tstep, **kwargs)
     order = [d.values.copy() for d in data if 'S2' in d.key][0]
     return order
 

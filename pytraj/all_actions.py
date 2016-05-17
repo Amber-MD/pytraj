@@ -63,7 +63,7 @@ list_of_the_rest = ['rmsd', 'align_principal_axis', 'principal_axes', 'closest',
                     'transform', 'native_contacts', 'set_dihedral',
                     'check_structure', 'mean_structure', 'lowestcurve',
                     'make_structure', 'replicate_cell', 'pucker', 'rmsd_perres',
-                    'randomize_ions',
+                    'randomize_ions', 'velocityautocorr',
                     'timecorr', 'search_neighbors',
                     'xcorr', 'acorr',
                     'projection',
@@ -2390,6 +2390,88 @@ def timecorr(vec0,
     act(command, dslist=c_dslist)
     return get_data_from_dtype(c_dslist[2:], dtype=dtype)
 
+@super_dispatch()
+def velocityautocorr(traj, mask='', maxlag=-1, tstep=1.0, direct=True, norm=False,
+        usevelocity=False,
+        dtype='ndarray',
+        top=None,
+        velocity_arr=None,
+        ):
+    """
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str
+        atom mask
+    maxlag : int, default -1
+        maximum lag. If -1, using half of total number of frame
+        if given, use it.
+    tstep : float, default 1.0
+    direct : bool, default True
+        if True, use direct method
+        else, use FFT to compute autocorrelation function
+    norm : bool, default False
+        if True, normalize autocorrelation function to 1.0
+    usevelocity : bool, default False
+        if True, use velocity info in Frame
+    dtype : str, default 'ndarray'
+        return data type
+    top : None or Topology, default None, optional
+    velocity_arr : None or 3D like array, default None
+        only use `velocity_arr` if usevelocity is True
+
+    Notes
+    -----
+    If you create Trajectory by `pytraj.load` method, there is no velocity information.
+    So if you want to use `usevelocity=True`, you need to provide 3D-array velocity_arr
+    """
+    from pytraj import Frame
+
+    if velocity_arr is not None:
+        velocity_arr = np.asarray(velocity_arr)
+
+        if len(velocity_arr.shape) != 3:
+            raise ValueError('provided velocity_arr must be 3D array-like, shape=(n_frames, n_atoms, 3)')
+
+    act = c_action.Action_VelocityAutoCorr()
+    c_dslist = CpptrajDatasetList()
+
+    maxlag_ = ' '.join(('maxlag', str(maxlag)))
+    tstep_ = ' '.join(('tstep', str(tstep)))
+    direct_ = 'direct' if direct else ''
+    norm_ = 'norm' if norm else ''
+    usevelocity_ = 'usevelocity' if usevelocity else ''
+
+    command = ' '.join((maxlag_, tstep_, direct_, norm_, usevelocity_))
+    crdinfo = dict(has_velocity=True) if usevelocity else dict()
+
+    act.read_input(command, top, dslist=c_dslist)
+    act.check_topology(top, crdinfo=crdinfo)
+
+    frame_template = Frame()
+
+    if usevelocity and velocity_arr is not None:
+        frame_template._allocate_force_and_velocity(top, crdinfo=dict(has_velocity=True))
+        use_template = True
+    else:
+        use_template = False
+
+    for idx, frame in enumerate(traj):
+        if not use_template:
+            if usevelocity and not frame.has_velocity():
+                raise ValueError("Frame must have velocity if specify 'usevelocity'")
+            act.compute(frame)
+        else:
+            vel = velocity_arr[idx]
+            frame_template.xyz[:] = frame.xyz[:]
+            frame_template.velocity[:] = vel
+            act.compute(frame_template)
+
+    act.post_process()
+
+    return get_data_from_dtype(c_dslist, dtype=dtype)
+
 
 def crank(data0, data1, mode='distance', dtype='ndarray'):
     """
@@ -2840,17 +2922,19 @@ def pca(traj,
 
     ref_mask_ = ref_mask if ref_mask is not None else mask
 
-    if not isinstance(traj, Trajectory):
-        raise ValueError('must be Trajectory object, not {}'.format(traj.__class__.__name__))
+    if not isinstance(traj, (Trajectory, TrajectoryIterator)):
+        raise ValueError('must be Trajectory-like')
 
     if fit:
         if ref is None:
             traj.superpose(ref=0, mask=ref_mask_)
             avg = mean_structure(traj)
             traj.superpose(ref=avg, mask=ref_mask_)
+            n_refs = 2
         else:
             ref = get_reference(traj, ref)
             traj.superpose(ref=ref, mask=ref_mask_)
+            n_refs = 1
 
     avg2 = mean_structure(traj, mask=mask)
 
@@ -2865,6 +2949,15 @@ def pca(traj,
                                  eigenvalues=eigenvalues,
                                  eigenvectors=eigenvectors,
                                  scalar_type='covar', dtype=dtype)
+
+    # release added transformed commands for TrajectoryIterator
+    if fit and hasattr(traj, '_transform_commands'):
+        for _ in range(n_refs):
+            traj._transform_commands.pop()
+        if traj._transform_commands:
+            traj._reset_transformation()
+        else:
+            traj._remove_transformations()
     return projection_data, (eigenvalues, eigenvectors)
 
 calc_pca = pca
@@ -2980,8 +3073,8 @@ def transform(traj, by, frame_indices=None):
 def lowestcurve(data, points=10, step=0.2):
     '''compute lowest curve for data
 
-    Paramters
-    ---------
+    Parameters
+    ----------
     data : 2D array-like
     points : number of lowest points in each bin, default 10
     step : step size, default 0.2

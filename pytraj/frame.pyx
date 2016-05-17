@@ -986,7 +986,7 @@ cdef class Frame (object):
         return {'coordinates': np.array(self.xyz, dtype='f8'),
                 'mass': self.mass}
 
-    def _allocate_memory(self, Topology top, crdinfo):
+    def _allocate_force_and_velocity(self, Topology top, crdinfo):
         '''allocate_memory for velocity, force arrays
 
         Parameters
@@ -1008,7 +1008,7 @@ cdef class Frame (object):
         0
 
         # allocate
-        >>> frame._allocate_memory(top, crdinfo={'has_force': True, 'has_velocity': True})
+        >>> frame._allocate_force_and_velocity(top, crdinfo={'has_force': True, 'has_velocity': True})
         >>> frame.has_force()
         True
         >>> frame.has_velocity()
