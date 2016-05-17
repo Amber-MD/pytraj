@@ -3253,3 +3253,20 @@ def _rotdif(matrices, command):
     act = c_analysis.Analysis_Rotdif()
     act(command, dslist=c_dslist)
     return get_data_from_dtype(c_dslist[1:])
+
+def _wavelet(traj, command, dtype='dict'):
+    """for testing
+    """
+
+    c_dslist = CpptrajDatasetList()
+    crdname = '_DEFAULTCRD_'
+    c_dslist.add('coords', name=crdname)
+    c_dslist[0].top = traj.top
+
+    for frame in traj:
+        c_dslist[0].append(frame)
+
+    act = c_analysis.Analysis_Wavelet()
+    act(command, dslist=c_dslist)
+    c_dslist.remove_set(c_dslist[crdname])
+    return get_data_from_dtype(c_dslist, dtype=dtype)
