@@ -68,7 +68,7 @@ list_of_the_rest = ['rmsd', 'align_principal_axis', 'principal_axes', 'closest',
                     'xcorr', 'acorr',
                     'projection',
                     'superpose', 'strip',
-                    'center',
+                    'center', 'wavelet'
                     ]
 
 __all__ = list(set(list_of_do + list_of_calc_short + list_of_get + list_of_the_rest))
@@ -2922,17 +2922,19 @@ def pca(traj,
 
     ref_mask_ = ref_mask if ref_mask is not None else mask
 
-    if not isinstance(traj, Trajectory):
-        raise ValueError('must be Trajectory object, not {}'.format(traj.__class__.__name__))
+    if not isinstance(traj, (Trajectory, TrajectoryIterator)):
+        raise ValueError('must be Trajectory-like')
 
     if fit:
         if ref is None:
             traj.superpose(ref=0, mask=ref_mask_)
             avg = mean_structure(traj)
             traj.superpose(ref=avg, mask=ref_mask_)
+            n_refs = 2
         else:
             ref = get_reference(traj, ref)
             traj.superpose(ref=ref, mask=ref_mask_)
+            n_refs = 1
 
     avg2 = mean_structure(traj, mask=mask)
 
@@ -2947,6 +2949,15 @@ def pca(traj,
                                  eigenvalues=eigenvalues,
                                  eigenvectors=eigenvectors,
                                  scalar_type='covar', dtype=dtype)
+
+    # release added transformed commands for TrajectoryIterator
+    if fit and hasattr(traj, '_transform_commands'):
+        for _ in range(n_refs):
+            traj._transform_commands.pop()
+        if traj._transform_commands:
+            traj._reset_transformation()
+        else:
+            traj._remove_transformations()
     return projection_data, (eigenvalues, eigenvectors)
 
 calc_pca = pca
@@ -3062,8 +3073,8 @@ def transform(traj, by, frame_indices=None):
 def lowestcurve(data, points=10, step=0.2):
     '''compute lowest curve for data
 
-    Paramters
-    ---------
+    Parameters
+    ----------
     data : 2D array-like
     points : number of lowest points in each bin, default 10
     step : step size, default 0.2
@@ -3242,3 +3253,49 @@ def _rotdif(matrices, command):
     act = c_analysis.Analysis_Rotdif()
     act(command, dslist=c_dslist)
     return get_data_from_dtype(c_dslist[1:])
+
+def wavelet(traj, command):
+    """wavelet analysis
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    command : str, cpptraj command
+
+    Returns
+    -------
+    out : dict
+
+    Notes
+    -----
+    - This method is not well-supported in pytraj. It means that
+    you need to type cpptraj command. Please check cpptraj manual for further
+    info if you really want to use it.
+
+    - Currently pytraj will create a new copy of Trajectory for cpptraj in memory,
+    so this method is only good for small trajectory that fit to your RAM.
+
+    version added: 1.0.6
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_dpdp()
+    >>> c0 = 'nb 10 s0 2 ds 0.25 type morlet correction 1.01 chival 0.25 :1-22'
+    >>> c1 = 'cluster minpoints 66 epsilon 10.0'
+    >>> command = ' '.join((c0, c1))
+    >>> wavelet_dict = pt.wavelet(traj, command)
+    """
+
+    c_dslist = CpptrajDatasetList()
+    crdname = '_DEFAULTCRD_'
+    c_dslist.add('coords', name=crdname)
+    c_dslist[0].top = traj.top
+
+    for frame in traj:
+        c_dslist[0].append(frame)
+
+    act = c_analysis.Analysis_Wavelet()
+    act(command, dslist=c_dslist)
+    c_dslist.remove_set(c_dslist[crdname])
+    return get_data_from_dtype(c_dslist, dtype='dict')

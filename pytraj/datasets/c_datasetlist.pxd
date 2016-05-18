@@ -13,6 +13,8 @@ cdef extern from "DataSetList.h":
         _DatasetList() 
         #~_DatasetList() 
         void Clear() 
+        void ClearTop() 
+        void ClearRef() 
         _DatasetList& addequal "operator +="(const _DatasetList&)
         const_iterator begin() const 
         const_iterator end() const 
