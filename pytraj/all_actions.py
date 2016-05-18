@@ -68,7 +68,7 @@ list_of_the_rest = ['rmsd', 'align_principal_axis', 'principal_axes', 'closest',
                     'xcorr', 'acorr',
                     'projection',
                     'superpose', 'strip',
-                    'center',
+                    'center', 'wavelet'
                     ]
 
 __all__ = list(set(list_of_do + list_of_calc_short + list_of_get + list_of_the_rest))
@@ -3253,3 +3253,49 @@ def _rotdif(matrices, command):
     act = c_analysis.Analysis_Rotdif()
     act(command, dslist=c_dslist)
     return get_data_from_dtype(c_dslist[1:])
+
+def wavelet(traj, command):
+    """wavelet analysis
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    command : str, cpptraj command
+
+    Returns
+    -------
+    out : dict
+
+    Notes
+    -----
+    - This method is not well-supported in pytraj. It means that
+    you need to type cpptraj command. Please check cpptraj manual for further
+    info if you really want to use it.
+
+    - Currently pytraj will create a new copy of Trajectory for cpptraj in memory,
+    so this method is only good for small trajectory that fit to your RAM.
+
+    version added: 1.0.6
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_dpdp()
+    >>> c0 = 'nb 10 s0 2 ds 0.25 type morlet correction 1.01 chival 0.25 :1-22'
+    >>> c1 = 'cluster minpoints 66 epsilon 10.0'
+    >>> command = ' '.join((c0, c1))
+    >>> wavelet_dict = pt.wavelet(traj, command)
+    """
+
+    c_dslist = CpptrajDatasetList()
+    crdname = '_DEFAULTCRD_'
+    c_dslist.add('coords', name=crdname)
+    c_dslist[0].top = traj.top
+
+    for frame in traj:
+        c_dslist[0].append(frame)
+
+    act = c_analysis.Analysis_Wavelet()
+    act(command, dslist=c_dslist)
+    c_dslist.remove_set(c_dslist[crdname])
+    return get_data_from_dtype(c_dslist, dtype='dict')
