@@ -115,7 +115,8 @@ from .all_actions import (
     xcorr, acorr, velocityautocorr,
     check_structure,
     calc_matrix,
-    superpose, strip)
+    superpose, strip,
+    wavelet)
 
 from .matrix import dist as distance_matrix
 from . import cluster
