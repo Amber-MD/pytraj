@@ -3275,6 +3275,8 @@ def wavelet(traj, command):
     - Currently pytraj will create a new copy of Trajectory for cpptraj in memory,
     so this method is only good for small trajectory that fit to your RAM.
 
+    version added: 1.0.6
+
     Examples
     --------
     >>> import pytraj as pt
