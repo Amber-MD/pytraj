@@ -111,5 +111,30 @@ class TestActionList(unittest.TestCase):
             for frame in traj_on_disk: pass
         nt.assert_equal(traj_on_disk._cdslist[-1].values.shape, (100,))
 
+    def test_compute_at_cpptraj_level(self):
+        from pytraj.testing import get_fn
+        fn, tn = get_fn('tz2') # ortho
+
+        traj_on_disk0 = pt.iterload([fn,]*10, tn)  # 1010 frames
+        traj_on_disk1 = pt.iterload([fn,]*10, tn)  # 1010 frames
+        traj_on_mem = pt.load([fn,]*10, tn)  # 1010 frames
+        traj_on_mem2 = pt.load([fn,]*10, tn)  # 1010 frames
+
+        traj_on_disk0.autoimage().superpose()
+        traj_on_disk1.autoimage().superpose()
+        traj_on_mem.autoimage().superpose()
+
+        aa_eq(traj_on_disk0.xyz, traj_on_disk1.xyz)
+        aa_eq(traj_on_disk0.xyz, traj_on_mem.xyz)
+
+        data0 = pt.rmsd(traj_on_disk0, mask='@CA', ref=0, nofit=True)
+        data1 = pt.compute(['rms @CA first nofit'], traj_on_disk1)['RMSD_00000']
+        data2 = pt.rmsd(traj_on_mem, mask='@CA', ref=0, nofit=True)
+
+        # aa_eq(data0, data2)
+        aa_eq(data0, data1)
+
+
+
 if __name__ == "__main__":
     unittest.main()
