@@ -131,9 +131,8 @@ class TestActionList(unittest.TestCase):
         data1 = pt.compute(['rms @CA first nofit'], traj_on_disk1)['RMSD_00000']
         data2 = pt.rmsd(traj_on_mem, mask='@CA', ref=0, nofit=True)
 
-        # aa_eq(data0, data2)
+        aa_eq(data0, data2)
         aa_eq(data0, data1)
-
 
 
 if __name__ == "__main__":
