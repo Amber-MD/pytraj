@@ -164,7 +164,7 @@ if not create_tar_file_for_release:
     if libcpptraj_has_openmp and sys.platform == 'darwin':
         raise OSError("pytraj does not (yet) support openmp in osx. Please recompile libcpptraj without openmp")
 
-    if sys.platform == 'darwin':
+    if sys.platform == 'darwin' or sys.platform.startswith("win"):
         sys.stdout.write('does not support openmp on osx - disable\n')
         disable_openmp = True
 
@@ -181,10 +181,14 @@ if not create_tar_file_for_release:
 
     pyxfiles, pxdfiles = get_pyx_pxd()
 
+    if sys.platform.startswith("win"):
+        NUM_THREADS = 1
+    else:
+        NUM_THREADS = 4
     if not do_clean and not ISRELEASED:
         cythonize(
             [pfile + '.pyx' for pfile in pyxfiles],
-            nthreads=int(os.environ.get('NUM_THREADS', 4)),
+            nthreads=int(os.environ.get('NUM_THREADS', NUM_THREADS)),
             compiler_directives=cython_directives,
         )
 
