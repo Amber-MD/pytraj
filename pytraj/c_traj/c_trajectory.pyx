@@ -538,6 +538,10 @@ cdef class TrajectoryCpptraj:
 
         self._being_transformed = True
         self._being_superposed = True
+
+        # trick cpptraj to re-setup
+        # why? if not traj_on_disk().autoimage().superpose() won't perform superpose
+        self._actionlist.is_setup = False
         return self
 
     def _add_transformation(self, name, command):

@@ -160,7 +160,7 @@ if not create_tar_file_for_release:
         print("Warning:  It seems that there is no libcpptraj. Please install it")
         sys.exit(0)
 
-    libcpptraj_has_openmp = ([line for line in output_openmp_check if 'get_num_threads' in line.lower()]  != [])
+    libcpptraj_has_openmp = ([line for line in output_openmp_check if 'omp_get_num_threads' in line.lower()]  != [])
     if libcpptraj_has_openmp and sys.platform == 'darwin':
         raise OSError("pytraj does not (yet) support openmp in osx. Please recompile libcpptraj without openmp")
 

@@ -17,7 +17,7 @@ class Test(unittest.TestCase):
 
         act = calc_distance
         act.read_input(":2@CA :10@CA", traj.top, dslist=dslist)
-        act.check_topology(traj.top)
+        act.setup(traj.top)
         act.compute((traj.iterchunk(2), ))
         assert dslist.size == 1
         assert dslist[0].size == traj.n_frames

@@ -68,7 +68,7 @@ class TestActionList(unittest.TestCase):
                   top=top)
 
         # do checking
-        alist.check_topology(top)
+        alist.setup(top)
 
         farray2 = Trajectory()
         frame0 = Frame()

@@ -324,7 +324,7 @@ class TestActionListRMSD(unittest.TestCase):
             dslist = DatasetList()
             act = Action_Rmsd()
             act.read_input('first @CA', top=input_traj.top, dslist=dslist)
-            act.check_topology(input_traj.top)
+            act.setup(input_traj.top)
 
             for frame in input_traj:
                 act.compute(frame)
