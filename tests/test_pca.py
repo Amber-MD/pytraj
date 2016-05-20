@@ -190,9 +190,8 @@ class TestPCA(unittest.TestCase):
         traj_on_mem = pt.load('data/tz2.nc', 'data/tz2.parm7')
         data0, _ = pt.pca(traj_on_disk, mask='@CA', n_vecs=2, fit=fit)
         data1, _ = pt.pca(traj_on_mem, mask='@CA', n_vecs=2, fit=fit)
-        aa_eq(data0, data1)
+        aa_eq(np.abs(data0), np.abs(data1))
 
-    @unittest.skip("test_traj_on_disk_default_values: does not work now")
     def test_traj_on_disk_default_values(self):
         """test_traj_on_disk_default_values
         """
@@ -201,7 +200,7 @@ class TestPCA(unittest.TestCase):
 
         data0, _ = pt.pca(traj_on_disk, mask='@CA')
         data1, _ = pt.pca(traj_on_mem, mask='@CA')
-        aa_eq(data0, data1)
+        aa_eq(np.abs(data0), np.abs(data1))
 
     def test_traj_on_disk_fit_to_given_reference(self):
         """test_traj_on_disk_fit_to_given_reference
@@ -214,7 +213,7 @@ class TestPCA(unittest.TestCase):
 
         data0, _ = pt.pca(traj_on_disk, mask='@CA', n_vecs=2, fit=fit, ref=ref0)
         data1, _ = pt.pca(traj_on_mem, mask='@CA', n_vecs=2, fit=fit, ref=ref1)
-        aa_eq(data0, data1)
+        aa_eq(np.abs(data0), np.abs(data1))
 
     def test_traj_on_disk_fit_to_given_reference_and_restore_transform_commands(self):
         """test_traj_on_disk_fit_to_given_reference_and_restore_transform_commands
