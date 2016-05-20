@@ -36,7 +36,7 @@ class Test(unittest.TestCase):
         act = adict['distance']
         dslist = DatasetList()
         act.read_input(":2@CA :10@CA", traj.top, dslist=dslist)
-        act.check_topology(traj.top)
+        act.setup(traj.top)
 
         for frame in traj.iterframe(stop=5):
             act.compute(frame)
@@ -44,7 +44,7 @@ class Test(unittest.TestCase):
         dslist = DatasetList()
         act2 = adict['distance']
         act2.read_input(":2@CA :10@CA", traj.top, dslist=dslist)
-        act2.check_topology(traj.top)
+        act2.setup(traj.top)
         act2.compute(traj.iterframe(stop=5))
         assert act2.n_frames == 5
 

@@ -586,7 +586,7 @@ def diffusion(traj,
     # but cpptraj need correct frame idx
 
     act.read_input(command, top=top, dslist=c_dslist)
-    act.check_topology(top)
+    act.setup(top)
     for frame in traj:
         # do not need mass
         act.compute(frame)
@@ -2241,7 +2241,7 @@ def closest(traj=None,
         raise RuntimeError("Topology does not have solvent")
 
     act.read_input(command, top, dslist=c_dslist)
-    new_top = act.check_topology(top, get_new_top=True)
+    new_top = act.setup(top, get_new_top=True)
 
     fiter = _closest_iter(act, traj)
 
@@ -2447,7 +2447,7 @@ def velocityautocorr(traj, mask='', maxlag=-1, tstep=1.0, direct=True, norm=Fals
     crdinfo = dict(has_velocity=True) if usevelocity else dict()
 
     act.read_input(command, top, dslist=c_dslist)
-    act.check_topology(top, crdinfo=crdinfo)
+    act.setup(top, crdinfo=crdinfo)
 
     frame_template = Frame()
 
