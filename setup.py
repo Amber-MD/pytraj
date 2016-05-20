@@ -165,7 +165,7 @@ if not create_tar_file_for_release:
         raise OSError("pytraj does not (yet) support openmp in osx. Please recompile libcpptraj without openmp")
 
     if sys.platform == 'darwin' or sys.platform.startswith("win"):
-        sys.stdout.write('does not support openmp on osx - disable\n')
+        sys.stdout.write('does not support openmp on osx/win - disable\n')
         disable_openmp = True
 
     extra_compile_args, extra_link_args = add_openmp_flag(disable_openmp,
