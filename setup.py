@@ -133,12 +133,12 @@ if sys.platform == 'darwin':
             lines = fh.readlines()
             for line in lines:
                 if line.startswith('CC='):
-                    CC = line.split('=')[-1]
+                    CC = line.split('=', 1)[-1]
                     break
 
             for line in lines:
                 if line.startswith('CXX='):
-                    CXX = line.split('=')[-1]
+                    CXX = line.split('=', 1)[-1]
                     break
 
         os.environ['CXX'] = CXX
