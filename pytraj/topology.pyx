@@ -713,24 +713,6 @@ cdef class Topology:
         def __get__(self):
             return np.asarray([b.indices for b in self.dihedrals], dtype=np.int64)
 
-    property vdw_radii:
-        def __get__(self):
-            cdef int n_atoms = self.n_atoms
-            cdef int i
-            cdef NonbondParmType nb = NonbondParmType()
-            cdef pyarray arr = pyarray_master.clone(pyarray('d', []),
-                                                    n_atoms, zero=True)
-            cdef double[:] d_view = arr
-
-            nb.thisptr[0] = self.thisptr.Nonbond()
-
-            if nb.n_types < 1:
-                raise ValueError("don't have LJ parameters")
-
-            for i in range(n_atoms):
-                d_view[i] = self.thisptr.GetVDWradius(i)
-            return np.asarray(arr)
-
     def __getstate__(self):
         return self.to_dict()
 
