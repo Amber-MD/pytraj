@@ -32,11 +32,6 @@ class Test(unittest.TestCase):
         pt.search_hbonds(traj, 'series')
         pt.search_hbonds(traj, 'series, nointramol')
 
-    def test_3_vdw_radii_topology(self):
-        top = pt.load("./data/tz2.pdb").top
-        # should raise ValueError since pdb does not have vdw info
-        self.assertRaises(ValueError, lambda: top.vdw_radii())
-
     def test_4_trajiter(self):
         traj = pt.load_sample_data("tz2")
         from pytraj.compat import zip
