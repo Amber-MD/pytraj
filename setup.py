@@ -181,16 +181,18 @@ if not create_tar_file_for_release:
 
     pyxfiles, pxdfiles = get_pyx_pxd()
 
-    if sys.platform.startswith("win"):
-        NUM_THREADS = 1
-    else:
-        NUM_THREADS = 4
     if not do_clean and not ISRELEASED:
-        cythonize(
-            [pfile + '.pyx' for pfile in pyxfiles],
-            nthreads=int(os.environ.get('NUM_THREADS', NUM_THREADS)),
-            compiler_directives=cython_directives,
-        )
+        if sys.platform.startswith("win"):
+            cythonize(
+                [pfile + '.pyx' for pfile in pyxfiles],
+                compiler_directives=cython_directives,
+            )
+        else:
+            cythonize(
+                [pfile + '.pyx' for pfile in pyxfiles],
+                nthreads=int(os.environ.get('NUM_THREADS', 4)),
+                compiler_directives=cython_directives,
+            )
 
     library_dirs = [cpptraj_libdir, ] if not use_phenix_python else [cpptraj_libdir, phenix_python_lib]
 
