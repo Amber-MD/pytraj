@@ -164,8 +164,8 @@ if not create_tar_file_for_release:
     if libcpptraj_has_openmp and sys.platform == 'darwin':
         raise OSError("pytraj does not (yet) support openmp in osx. Please recompile libcpptraj without openmp")
 
-    if sys.platform == 'darwin':
-        sys.stdout.write('does not support openmp on osx - disable\n')
+    if sys.platform == 'darwin' or sys.platform.startswith("win"):
+        sys.stdout.write('does not support openmp on osx/win - disable\n')
         disable_openmp = True
 
     extra_compile_args, extra_link_args = add_openmp_flag(disable_openmp,
@@ -182,11 +182,17 @@ if not create_tar_file_for_release:
     pyxfiles, pxdfiles = get_pyx_pxd()
 
     if not do_clean and not ISRELEASED:
-        cythonize(
-            [pfile + '.pyx' for pfile in pyxfiles],
-            nthreads=int(os.environ.get('NUM_THREADS', 4)),
-            compiler_directives=cython_directives,
-        )
+        if sys.platform.startswith("win"):
+            cythonize(
+                [pfile + '.pyx' for pfile in pyxfiles],
+                compiler_directives=cython_directives,
+            )
+        else:
+            cythonize(
+                [pfile + '.pyx' for pfile in pyxfiles],
+                nthreads=int(os.environ.get('NUM_THREADS', 4)),
+                compiler_directives=cython_directives,
+            )
 
     library_dirs = [cpptraj_libdir, ] if not use_phenix_python else [cpptraj_libdir, phenix_python_lib]
 
