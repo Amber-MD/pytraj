@@ -1,12 +1,19 @@
 #!/usr/bin/env python
 from __future__ import print_function
+import os
 import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
 from pytraj.testing import cpptraj_test_dir
 from pytraj.utils import tempfolder
 
+matrix_test_dir = cpptraj_test_dir + "/Test_Matrix/"
+top_file = os.path.abspath(matrix_test_dir + "/1rrb_vac.prmtop")
+crd_file = os.path.abspath(matrix_test_dir + "/1rrb_vac.mdcrd")
+
 not_byres = '''
+parm {}
+trajin {}
 matrix correl @N @C out mtest.4.dat
 matrix correl @CA out mtest.9.dat
 matrix covar @N @C out mtest.5.dat
@@ -19,17 +26,20 @@ matrix dist @N @C out mtest.12.dat
 matrix dist @CA out mtest.7.dat
 matrix dist @N @CA out mtest.3.dat bymask
 matrix dist @CA out mtest.2.dat bymask
-'''
+'''.format(top_file, crd_file)
 
 byres_cm = '''
+parm {}
+trajin {}
 matrix dist @CA out mtest.0.dat byres
 matrix dist @N @CA out mtest.1.dat byres
-'''
+'''.format(top_file, crd_file)
 
 all_commands = not_byres + byres_cm
 
 # return a list of non-blank lines
-command_list = list(filter(lambda x: x, all_commands.split("\n")))
+command_list = [line for line in not_byres.split('\n')[3:] if line]
+command_list = command_list + [line for line in byres_cm.split('\n')[3:] if line] 
 
 
 class TestMatrixConprehensive(unittest.TestCase):
@@ -40,16 +50,13 @@ class TestMatrixConprehensive(unittest.TestCase):
         from pytraj import matrix as ma
         from pytraj.externals.six import iteritems
 
-        matrix_test_dir = cpptraj_test_dir + "/Test_Matrix/"
-        top_file = matrix_test_dir + "/1rrb_vac.prmtop"
-        crd_file = matrix_test_dir + "/1rrb_vac.mdcrd"
         traj = pt.iterload(crd_file, top_file)
 
         with tempfolder():
-            state = pt.load_cpptraj_state(all_commands, traj)
+            state = pt.load_cpptraj_state(all_commands)
             state.run()
 
-            state_byres = pt.load_batch(traj, byres_cm)
+            state_byres = pt.load_cpptraj_state(byres_cm)
             state_byres.run()
 
             byres_matlist = []
