@@ -2105,8 +2105,8 @@ def symmrmsd(traj, mask='', ref=0, ref_mask=None,
     Examples
     --------
     >>> import pytraj as pt
-    >>> traj = pt.load("TYR.nc", "TYR.parm7")
-    >>> data = pt.symmrmsd(traj, ref=0)
+    >>> traj = pt.load("TYR.nc", "TYR.parm7") # doctest: +SKIP
+    >>> data = pt.symmrmsd(traj, ref=0) # doctest: +SKIP
 
     Notes
     -----
