@@ -194,7 +194,7 @@ def compute(lines, traj, *args, **kwd):
 cdef class ActionList:
     def __cinit__(self):
         self.thisptr = new _ActionList()
-        self.top_is_processed = False
+        self.is_setup = False
         self.n_frames = 0
 
     property data:
@@ -302,7 +302,7 @@ cdef class ActionList:
         else:
             return None
 
-    def check_topology(self, Topology top, crdinfo={}, n_frames_t=0, bint exit_on_error=True):
+    def setup(self, Topology top, crdinfo={}, n_frames_t=0, bint exit_on_error=True):
         '''perform Topology checking and some stuff
         '''
         # let cpptraj free mem
@@ -331,11 +331,11 @@ cdef class ActionList:
         cdef _ActionFrame actionframe_
         cdef Frame frame
 
-        if not self.top_is_processed:
-            self.check_topology(self.top)
-            # make sure to make top_is_processed True after processing
+        if not self.is_setup:
+            self.setup(self.top)
+            # make sure to make is_setup True after processing
             # if not, pytraj will try to setup for every Frame
-            self.top_is_processed = True
+            self.is_setup = True
 
         if isinstance(traj, Frame):
             frame = <Frame> traj

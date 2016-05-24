@@ -99,8 +99,8 @@ def read(fname):
     # must be in this setup file
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
-if sys.platform == 'darwin':
-    if not pytraj_inside_amber:
+if not pytraj_inside_amber:
+    if sys.platform == 'darwin':
         os.environ['CXX'] = DEFAULT_MAC_CXXCOMPILER
         os.environ['CC'] = DEFAULT_MAC_CCOMPILER
         # See which c++ lib we need to link to... sigh.
@@ -116,34 +116,40 @@ if sys.platform == 'darwin':
                                            '-mmacosx-version-min=%d.%d' % osxver])
                 extra_link_args.extend(['-stdlib=libstdc++',
                                         '-mmacosx-version-min=%d.%d' % osxver])
-    else:
-        # should use CXX and CC from config.h
-        amberhome = os.environ.get('AMBERHOME', '')
-        if not amberhome:
-            raise EnvironmentError('must set AMBERHOME')
+else:
+   # should use CXX and CC from config.h
+   amberhome = os.environ.get('AMBERHOME', '')
+   if not amberhome:
+       raise EnvironmentError('must set AMBERHOME')
 
-        configfile = amberhome + '/config.h'
-        if not os.path.exists(configfile):
-            raise OSError("must have config.h file")
+   configfile = amberhome + '/config.h'
+   if not os.path.exists(configfile):
+       raise OSError("must have config.h file")
 
-        CC = DEFAULT_MAC_CCOMPILER
-        CXX = DEFAULT_MAC_CXXCOMPILER
+   if sys.platform.startswith('darwin'):
+       CC = DEFAULT_MAC_CCOMPILER
+       CXX = DEFAULT_MAC_CXXCOMPILER
+   elif sys.platform.startswith('linux'):
+       CC='gcc'
+       CXX='g++'
+   else:
+       pass
 
-        with open(configfile) as fh:
-            lines = fh.readlines()
-            for line in lines:
-                if line.startswith('CC='):
-                    CC = line.split('=')[-1]
-                    break
+   with open(configfile) as fh:
+       lines = fh.readlines()
+       for line in lines:
+           if line.startswith('CC='):
+               CC = line.split('=', 1)[-1]
+               break
 
-            for line in lines:
-                if line.startswith('CXX='):
-                    CXX = line.split('=')[-1]
-                    break
+       for line in lines:
+           if line.startswith('CXX='):
+               CXX = line.split('=', 1)[-1]
+               break
 
-        os.environ['CXX'] = CXX
-        os.environ['CC'] = CC
-        print('using CC={}, CXX={}'.format(CC, CXX))
+   os.environ['CXX'] = CXX
+   os.environ['CC'] = CC
+   print('using CC={}, CXX={}'.format(CC, CXX))
 
 
 pyxfiles, pxdfiles = get_pyx_pxd()
@@ -160,12 +166,12 @@ if not create_tar_file_for_release:
         print("Warning:  It seems that there is no libcpptraj. Please install it")
         sys.exit(0)
 
-    libcpptraj_has_openmp = ([line for line in output_openmp_check if 'get_num_threads' in line.lower()]  != [])
+    libcpptraj_has_openmp = ([line for line in output_openmp_check if 'omp_get_num_threads' in line.lower()]  != [])
     if libcpptraj_has_openmp and sys.platform == 'darwin':
         raise OSError("pytraj does not (yet) support openmp in osx. Please recompile libcpptraj without openmp")
 
-    if sys.platform == 'darwin':
-        sys.stdout.write('does not support openmp on osx - disable\n')
+    if sys.platform == 'darwin' or sys.platform.startswith("win"):
+        sys.stdout.write('does not support openmp on osx/win - disable\n')
         disable_openmp = True
 
     extra_compile_args, extra_link_args = add_openmp_flag(disable_openmp,
@@ -182,11 +188,17 @@ if not create_tar_file_for_release:
     pyxfiles, pxdfiles = get_pyx_pxd()
 
     if not do_clean and not ISRELEASED:
-        cythonize(
-            [pfile + '.pyx' for pfile in pyxfiles],
-            nthreads=int(os.environ.get('NUM_THREADS', 4)),
-            compiler_directives=cython_directives,
-        )
+        if sys.platform.startswith("win"):
+            cythonize(
+                [pfile + '.pyx' for pfile in pyxfiles],
+                compiler_directives=cython_directives,
+            )
+        else:
+            cythonize(
+                [pfile + '.pyx' for pfile in pyxfiles],
+                nthreads=int(os.environ.get('NUM_THREADS', 4)),
+                compiler_directives=cython_directives,
+            )
 
     library_dirs = [cpptraj_libdir, ] if not use_phenix_python else [cpptraj_libdir, phenix_python_lib]
 

@@ -81,7 +81,7 @@ cdef class Action:
 
         if top is not None and dslist is not None:
             self.read_input(command, top=top, dslist=dslist, dflist=dflist)
-            self.check_topology(top)
+            self.setup(top)
 
     def __dealloc__(self):
         # should I del pointer here or in subclass?
@@ -148,7 +148,7 @@ cdef class Action:
             return i_fail
 
     @makesureABC("Action")
-    def check_topology(self, Topology top=Topology(), crdinfo={}, n_frames_t=0, get_new_top=False):
+    def setup(self, Topology top=Topology(), crdinfo={}, n_frames_t=0, get_new_top=False):
         """pass coordinate_info
 
         Parameters:
@@ -231,7 +231,7 @@ cdef class Action:
                         dslist=dslist,
                         dflist=dflist, debug=debug)
 
-        self.check_topology(top=top)
+        self.setup(top=top)
         self.compute(current_frame)
         return dslist
 
