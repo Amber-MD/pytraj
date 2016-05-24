@@ -2123,7 +2123,7 @@ def symmrmsd(traj, mask='', ref=0, ref_mask=None,
     refname = 'myref'
     ref_command_ = 'ref {}'.format(refname)
 
-    command = ' '.join((mask_, refmask_, nofit_, mass_, remap_,))
+    command = ' '.join((mask_, refmask_, nofit_, mass_, remap_, ref_command_))
 
     if reftop is None:
         reftop = traj.top
