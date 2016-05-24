@@ -6,7 +6,7 @@ import numpy as np
 import pytraj as pt
 from pytraj.base import *
 from pytraj.utils import has_
-from pytraj.testing import aa_eq
+from pytraj.testing import aa_eq, cpptraj_test_dir
 from pytraj import Trajectory, TrajectoryIterator
 from pytraj.datasets import CpptrajDatasetList
 
@@ -358,6 +358,37 @@ class TestActionListRMSD(unittest.TestCase):
         aa_eq(standard_rmsd, rmsd2)
         aa_eq(standard_rmsd, rmsd3)
         aa_eq(standard_rmsd, rmsd4)
+
+class TestSymmRmsd(unittest.TestCase):
+
+    def test_symmrmsd(self):
+        fn = cpptraj_test_dir + '/Test_SymmRmsd/TYR.nc'
+        tn = cpptraj_test_dir + '/Test_SymmRmsd/TYR.parm7'
+        saved_traj = pt.iterload(cpptraj_test_dir + '/Test_SymmRmsd/TYR.remap.crd.save', tn)
+
+        traj_on_disk = pt.iterload(fn, tn)
+        traj_on_mem = pt.load(fn, tn)
+
+        aa_eq(traj_on_disk.xyz, traj_on_mem.xyz)
+
+        data = pt.symmrmsd(traj_on_mem, remap=True)
+
+        cm = """
+        parm {}
+        trajin {}
+        symmrmsd first remap myrmsd
+        createcrd mycrd
+        """.format(tn, fn)
+
+        state = pt.load_cpptraj_state(cm)
+        state.run()
+
+        # rmsd
+        aa_eq(state.data['myrmsd'].values, data)
+
+        # coordinates
+        aa_eq(state.data['mycrd'].xyz, saved_traj.xyz, decimal=3)
+        aa_eq(state.data['mycrd'].xyz, traj_on_mem.xyz, decimal=3)
 
 
 if __name__ == "__main__":
