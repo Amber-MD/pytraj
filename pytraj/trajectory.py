@@ -10,7 +10,7 @@ from .externals.six.moves import range
 from .core.c_core import AtomMask
 
 # use absolute import here
-from pytraj.get_common_objects import get_topology, get_reference
+from pytraj.get_common_objects import get_topology
 
 from .topology import Topology
 from pytraj.shared_methods import iterframe_master, my_str_method

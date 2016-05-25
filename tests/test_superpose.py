@@ -174,6 +174,36 @@ class TestSuperposeTrajectoryIterator(unittest.TestCase):
         traj_on_disk._being_transformed = False
         aa_eq(traj_on_disk.xyz, traj_on_disk2.xyz)
 
+    def test_superpose_different_mask_with_mass(self):
+        traj_on_disk = pt.iterload("data/Tc5b.x", "data/Tc5b.top")
+        traj_on_mem = pt.load("data/Tc5b.x", "data/Tc5b.top")
+
+        ref = pt.load("data/tz2.nc", "data/tz2.parm7")[:1]
+
+        mask = ':3-12@CA'
+        ref_mask = ':1-10@CA'
+
+        traj_on_disk.superpose(mask=mask, ref=ref, ref_mask=ref_mask, mass=True)
+        traj_on_mem.superpose(mask=mask, ref=ref, ref_mask=ref_mask, mass=True)
+
+        aa_eq(traj_on_disk.xyz, traj_on_mem.xyz)
+
+        # cpptraj
+        cm = """
+        parm data/Tc5b.top [Tc5b]
+        trajin data/Tc5b.x [Tc5b]
+        parm data/tz2.parm7 [tz2]
+        reference data/tz2.nc 1 1 [tz2]
+        align reference {mask} {refmask} mass
+        createcrd mycrd
+        """.format(mask=mask, refmask=ref_mask)
+
+        state = pt.load_cpptraj_state(cm)
+        state.run()
+
+        aa_eq(state.data['mycrd'], traj_on_disk.xyz)
+        aa_eq(state.data['mycrd'], traj_on_mem.xyz)
+
 class TestAlign(unittest.TestCase):
 
     def test_align(self):
