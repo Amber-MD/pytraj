@@ -2114,7 +2114,7 @@ def align(traj,
         refname = 'myref'
         ref_command_ = 'ref {}'.format(refname)
 
-        command = ' '.join((mask_, refmask_, mass_, ref_command_))
+        command = ' '.join((ref_command_, mask_, refmask_, mass_))
 
         if reftop is None:
             reftop = traj.top
