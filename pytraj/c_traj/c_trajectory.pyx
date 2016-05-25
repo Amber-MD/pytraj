@@ -512,11 +512,11 @@ cdef class TrajectoryCpptraj:
     def principal(self, command):
         return self._add_transformation('principal', command)
 
-    def superpose(self, Frame ref=None, mask=""):
+    def superpose(self, Frame ref=None, mask="", ref_mask=""):
         command = (mask, ref)
         return self._add_transformation('superpose', command)
 
-    def _rmsfit(self, Frame ref=None, mask=""):
+    def _align(self, Frame ref=None, mask="*", ref_mask="", bint mass=False):
         """register to superpose to reference frame when iterating. 
 
         Notes
@@ -525,16 +525,20 @@ cdef class TrajectoryCpptraj:
         It does not change the coordinates of TrajectoryCpptraj/TrajectoryIterator itself but 
         the copy of Frame.
         """
-        cdef AtomMask atm = self.top(mask)
         cdef Frame frame = ref
 
         refset = self._cdslist.add('reference')
-        refset.top = self.top
+        refset.top = self.top if ref.top is None else ref.top
         refset.add_frame(frame)
         refset.name = 'myref' + str(len(self._cdslist))
 
-        command = 'ref {refname} {mask}'.format(refname=refset.name, mask=mask)
-        self._actionlist.add('rms', command, dslist=self._cdslist)
+        mass_ = 'mass' if mass else ''
+
+        command = '{mass} {refmask} ref {refname} {mass}'.format(refname=refset.name,
+                                                            mask=mask,
+                                                            refmask=ref_mask,
+                                                            mass=mass_)
+        self._actionlist.add('align', command, dslist=self._cdslist)
 
         self._being_transformed = True
         self._being_superposed = True
@@ -557,7 +561,7 @@ cdef class TrajectoryCpptraj:
             self._being_transformed = True
         else:
             mask, ref = command
-            self._rmsfit(ref=ref, mask=mask)
+            self._align(ref=ref, mask=mask)
         self._transform_commands.append((name, command))
         return self
 
@@ -583,11 +587,6 @@ cdef class TrajectoryCpptraj:
 
         To avoid memory leak, we need to reset Dataset that holds RMSD value
         '''
-        if self._being_superposed:
-            rmsd_dset = self._cdslist[-1]
-            if len(rmsd_dset) >= self._max_count_to_reset:
-                self._reset_transformation()
-
         self._actionlist.compute(frame)
  
     @property

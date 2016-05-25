@@ -156,5 +156,18 @@ class TestSuperposeTrajectoryIterator(unittest.TestCase):
         traj_on_disk._being_transformed = False
         aa_eq(traj_on_disk.xyz, traj_on_disk2.xyz)
 
+class TestAlign(unittest.TestCase):
+
+    def test_align(self):
+        traj_on_disk = pt.iterload("data/Tc5b.x", "data/Tc5b.top")
+        traj_on_mem = pt.load("data/Tc5b.x", "data/Tc5b.top")
+
+        ref = traj_on_disk[:1]
+
+        pt.align(traj_on_mem, ref=ref, mask='@CA')
+        traj_on_disk.superpose(ref=ref, mask='@CA')
+
+        aa_eq(traj_on_mem.xyz, traj_on_disk.xyz)
+
 if __name__ == "__main__":
     unittest.main()
