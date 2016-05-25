@@ -746,14 +746,22 @@ cdef class Action_ReplicateCell (Action):
 
 
 cdef extern from "Action_Rmsd.h": 
-    cdef cppclass _Action_Rmsd"Action_Rmsd" (_Action) nogil:
+    cdef cppclass _Action_Rmsd "Action_Rmsd" (_Action) nogil:
         _Action_Rmsd() 
         _DispatchObject * Alloc() 
         void Help() 
 
 cdef class Action_Rmsd(Action):
     cdef _Action_Rmsd* thisptr
-    #cdef DispatchAllocatorType func
+
+cdef extern from "Action_Align.h": 
+    cdef cppclass _Action_Align "Action_Align" (_Action) nogil:
+        _Action_Align() 
+        _DispatchObject * Alloc() 
+        void Help() 
+
+cdef class Action_Align(Action):
+    cdef _Action_Align* thisptr
 
 
 cdef extern from "Action_Rotate.h": 

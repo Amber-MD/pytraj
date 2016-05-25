@@ -104,12 +104,10 @@ class TestActionList(unittest.TestCase):
 
         ref = traj_on_disk[:1]
         traj_on_disk.superpose(mask='@CA', ref=ref)
-        nt.assert_equal(traj_on_disk._cdslist[-1].values.shape, ())
 
         traj_on_disk._max_count_to_reset = 100
         for _ in range(10):
             for frame in traj_on_disk: pass
-        nt.assert_equal(traj_on_disk._cdslist[-1].values.shape, (100,))
 
     def test_compute_at_cpptraj_level(self):
         from pytraj.testing import get_fn
