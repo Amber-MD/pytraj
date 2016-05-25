@@ -6,15 +6,18 @@ from pytraj.testing import get_fn
 
 fn, tn = get_fn('tz2')
 
-traj = pt.iterload([fn, ]*10, tn)
+traj = pt.iterload([fn, ]*100, tn)
 print(traj)
 ref = traj[:1]
 
 @profile
 def do_it(traj=traj,n_times=1):
-    traj._max_count_to_reset = 100
-    traj.superpose(ref=ref, mask='@CA') # leaking
-    # traj.autoimage().center() # no leaking
+
+    # memory leaking
+    traj.superpose(ref=ref, mask='@CA')
+
+    # memory not leaking
+    # traj.autoimage().center()
 
     for _ in range(n_times):
         for frame  in traj: pass

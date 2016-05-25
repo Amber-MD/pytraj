@@ -441,7 +441,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
         '''
         return (self.n_frames, self.n_atoms, 3)
 
-    def superpose(self, mask='*', ref=None):
+    def superpose(self, mask='*', ref=None, ref_mask='', mass=False):
         """register to superpose to reference frame when iterating. 
         To turn off superposing, set traj._being_transformed = False
 
@@ -483,7 +483,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
             view
         """
         ref = get_reference(self, ref)
-        super(TrajectoryIterator, self).superpose(ref=ref, mask=mask)
+        super(TrajectoryIterator, self).superpose(mask=mask, ref=ref, ref_mask=ref_mask, mass=mass)
         return self
 
     def _split_iterators(self,
