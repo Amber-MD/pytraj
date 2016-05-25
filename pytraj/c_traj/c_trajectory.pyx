@@ -512,11 +512,11 @@ cdef class TrajectoryCpptraj:
     def principal(self, command):
         return self._add_transformation('principal', command)
 
-    def superpose(self, Frame ref=None, mask="", ref_mask=""):
-        command = (mask, ref)
+    def superpose(self, mask='', Frame ref=None, ref_mask="", mass=False):
+        command = dict(mask=mask, ref=ref, ref_mask=ref_mask, mass=mass)
         return self._add_transformation('superpose', command)
 
-    def _align(self, Frame ref=None, mask="*", ref_mask="", bint mass=False):
+    def _align(self, mask='', Frame ref=None, ref_mask="", bint mass=False):
         """register to superpose to reference frame when iterating. 
 
         Notes
@@ -534,7 +534,7 @@ cdef class TrajectoryCpptraj:
 
         mass_ = 'mass' if mass else ''
 
-        command = '{mass} {refmask} ref {refname} {mass}'.format(refname=refset.name,
+        command = '{mask} {refmask} ref {refname} {mass}'.format(refname=refset.name,
                                                             mask=mask,
                                                             refmask=ref_mask,
                                                             mass=mass_)
@@ -560,8 +560,7 @@ cdef class TrajectoryCpptraj:
             self._actionlist.add(name, command)
             self._being_transformed = True
         else:
-            mask, ref = command
-            self._align(ref=ref, mask=mask)
+            self._align(**command)
         self._transform_commands.append((name, command))
         return self
 

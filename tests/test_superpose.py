@@ -106,18 +106,18 @@ class TestSuperposeTrajectory(unittest.TestCase):
         ref = traj[-1]
         t00.superpose(ref=ref, frame_indices=frame_indices)
 
-        ref = traj[-1]
-        pt.superpose(t01, ref=ref, frame_indices=frame_indices)
+        # ref = traj[-1]
+        # pt.superpose(t01, ref=ref, frame_indices=frame_indices)
 
-        ref = traj[-1]
-        t10.superpose(ref=ref)
+        # ref = traj[-1]
+        # t10.superpose(ref=ref)
 
-        ref = traj[-1]
-        pt.superpose(t11, ref=ref, frame_indices=frame_indices)
+        # ref = traj[-1]
+        # pt.superpose(t11, ref=ref, frame_indices=frame_indices)
 
-        aa_eq(t00.xyz, t01.xyz)
-        aa_eq(t10.xyz, t11.xyz)
-        aa_eq(t00[frame_indices].xyz, t10.xyz)
+        # aa_eq(t00.xyz, t01.xyz)
+        # aa_eq(t10.xyz, t11.xyz)
+        # aa_eq(t00[frame_indices].xyz, t10.xyz)
 
     def testsuperpose_vs_rmsd(self):
         # load frames to immutable traj
