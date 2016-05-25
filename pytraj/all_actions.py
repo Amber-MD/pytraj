@@ -2104,7 +2104,7 @@ def align(traj,
     versionadded: 1.0.6
     """
     if isinstance(traj, TrajectoryIterator):
-        return traj.superpose(mask=maks, ref=ref, ref_mask=ref_mask, mass=mass)
+        return traj.superpose(mask=mask, ref=ref, ref_mask=ref_mask, mass=mass)
     else:
         mask_ = mask
         refmask_ = ref_mask
