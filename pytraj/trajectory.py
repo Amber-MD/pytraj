@@ -8,6 +8,7 @@ from .utils.convert import array_to_cpptraj_atommask
 from .externals.six import string_types
 from .externals.six.moves import range
 from .core.c_core import AtomMask
+from .shared_trajectory import SharedTrajectory
 
 # use absolute import here
 from pytraj.get_common_objects import get_topology
@@ -21,7 +22,7 @@ from .c_traj.c_trajout import TrajectoryWriter
 __all__ = ['Trajectory']
 
 
-class Trajectory(object):
+class Trajectory(SharedTrajectory):
     """Simple in-memory Trajectory. It has only information about 3D coordinates
     and unitcells (no time, no velocity, no force, ...)
 
