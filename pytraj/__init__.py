@@ -95,7 +95,7 @@ from .hbond_analysis import hbond
 from .energy_analysis import esander
 
 from .all_actions import (
-    calc_rmsd_nofit, rmsd, rmsd_perres, distance_rmsd, calc_multidihedral,
+    calc_rmsd_nofit, rmsd, symmrmsd, rmsd_perres, distance_rmsd, calc_multidihedral,
     autoimage, calc_angle, calc_dihedral, calc_distance,
     calc_pairwise_distance, calc_center_of_mass, calc_center_of_geometry,
     calc_jcoupling, calc_surf, calc_molsurf, calc_radgyr, calc_rdf, calc_vector,
@@ -115,7 +115,7 @@ from .all_actions import (
     xcorr, acorr, velocityautocorr,
     check_structure,
     calc_matrix,
-    superpose, strip,
+    superpose, align, strip,
     wavelet)
 
 from .matrix import dist as distance_matrix

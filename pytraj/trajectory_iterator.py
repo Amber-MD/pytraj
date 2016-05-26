@@ -6,6 +6,7 @@ import re
 from glob import glob
 import numpy as np
 from .c_traj.c_trajectory import TrajectoryCpptraj
+from .shared_trajectory import SharedTrajectory
 from .externals.six import string_types
 from .externals.six.moves import range
 from .topology import Topology
@@ -80,7 +81,7 @@ def _make_frame_slices(n_files, original_frame_slice):
             "must be a tuple of integer values or a list of tuple of integer values")
 
 
-class TrajectoryIterator(TrajectoryCpptraj):
+class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
     '''out-of-core trajectory holder.
 
     Examples
@@ -441,7 +442,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
         '''
         return (self.n_frames, self.n_atoms, 3)
 
-    def superpose(self, mask='*', ref=None):
+    def superpose(self, mask='*', ref=None, ref_mask='', mass=False):
         """register to superpose to reference frame when iterating. 
         To turn off superposing, set traj._being_transformed = False
 
@@ -483,7 +484,7 @@ class TrajectoryIterator(TrajectoryCpptraj):
             view
         """
         ref = get_reference(self, ref)
-        super(TrajectoryIterator, self).superpose(ref=ref, mask=mask)
+        super(TrajectoryIterator, self).superpose(mask=mask, ref=ref, ref_mask=ref_mask, mass=mass)
         return self
 
     def _split_iterators(self,

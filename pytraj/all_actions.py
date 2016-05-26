@@ -2074,6 +2074,142 @@ def rmsd(traj=None,
 # alias for `calc_rmsd`
 calc_rmsd = rmsd
 
+@super_dispatch()
+def align(traj,
+          mask='',
+          ref=0, ref_mask='',
+          mass=False,
+          top=None, frame_indices=None):
+    """align (superpose) trajectory to given reference
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, default '' (all atoms)
+    ref : {int, Frame}, default 0 (first frame)
+    ref_mask : str, default ''
+        if not given, use traj's mask
+        if given, use it
+    mass : Bool, default False
+        if True, mass-weighted
+        if False, no mas-weighted
+    frame_indices : {None, array-like}, default None
+       if given, only compute RMSD for those
+
+    Examples
+    --------
+
+    Notes
+    -----
+    versionadded: 1.0.6
+    """
+    if isinstance(traj, TrajectoryIterator):
+        return traj.superpose(mask=mask, ref=ref, ref_mask=ref_mask, mass=mass)
+    else:
+        mask_ = mask
+        refmask_ = ref_mask
+        reftop = ref.top if hasattr(ref, 'top') else top
+        mass_ = 'mass' if mass else ''
+
+        refname = 'myref'
+        ref_command_ = 'ref {}'.format(refname)
+
+        command = ' '.join((ref_command_, mask_, refmask_, mass_))
+
+        if reftop is None:
+            reftop = traj.top
+
+        c_dslist = CpptrajDatasetList()
+        c_dslist.add('reference', name=refname)
+        c_dslist[0].top = reftop
+        c_dslist[0].add_frame(ref)
+
+        act = c_action.Action_Align()
+        act.read_input(command, top=top, dslist=c_dslist)
+        act.setup(top)
+
+        for frame in traj:
+            act.compute(frame)
+        act.post_process()
+
+        # remove ref
+        c_dslist._pop(0)
+
+        return traj
+
+@super_dispatch()
+def symmrmsd(traj, mask='', ref=0, ref_mask=None,
+             fit=True, remap=False,
+             mass=False,
+             top=None, dtype='ndarray', frame_indices=None):
+    """Compute symmetry-corrected RMSD
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, default '' (all atoms)
+    ref : {int, Frame}, default 0 (first frame)
+    ref_mask : {str, None}, default None
+        if None, use traj's mask
+        if given, use it
+    fit : Bool, default True
+        if True, do fitting
+        if False, nofit
+    mass : Bool, default False
+        if True, mass-weighted
+        if False, no mas-weighted
+    remap : Bool, default False
+        if True, frames will be modifed for symmetry as well
+    dtype : str, default 'ndarray'
+        return data type
+    frame_indices : {None, array-like}, default None
+       if given, only compute RMSD for those
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.load("TYR.nc", "TYR.parm7") # doctest: +SKIP
+    >>> data = pt.symmrmsd(traj, ref=0) # doctest: +SKIP
+
+    Notes
+    -----
+    versionadded: 1.0.6
+    """
+
+    mask_ = mask
+    refmask_ = ref_mask if ref_mask is not None else ''
+    reftop = ref.top if hasattr(ref, 'top') else top
+    nofit_ = 'nofit' if not fit else ''
+    mass_ = 'mass' if mass else ''
+    remap_ = 'remap' if remap else ''
+
+    refname = 'myref'
+    ref_command_ = 'ref {}'.format(refname)
+
+    command = ' '.join((mask_, refmask_, nofit_, mass_, remap_, ref_command_))
+
+    if reftop is None:
+        reftop = traj.top
+
+    c_dslist = CpptrajDatasetList()
+    c_dslist.add('reference', name=refname)
+    c_dslist[0].top = reftop
+    c_dslist[0].add_frame(ref)
+
+    act = c_action.Action_SymmetricRmsd()
+    act.read_input(command, top=top, dslist=c_dslist)
+    act.setup(top)
+
+    for frame in traj:
+        new_frame = act.compute(frame, get_new_frame=remap)
+        if remap:
+            frame.xyz[:] = new_frame.xyz[:]
+    act.post_process()
+
+    # remove ref
+    c_dslist._pop(0)
+
+    return get_data_from_dtype(c_dslist, dtype=dtype)
 
 @register_pmap
 @super_dispatch()
@@ -2298,8 +2434,8 @@ def native_contacts(traj=None,
     command_ = " ".join(('ref myframe', command, _distance, _noimage,
                          _includesolvent, _byres))
     c_dslist.add('ref_frame', 'myframe')
-    c_dslist[0].add_frame(ref)
     c_dslist[0].top = top
+    c_dslist[0].add_frame(ref)
     act(command_, traj, top=top, dslist=c_dslist)
     c_dslist._pop(0)
 
@@ -3157,17 +3293,7 @@ cross_correlation_function = xcorr
 
 
 def superpose(traj, *args, **kwd):
-    '''
-
-    >>> import pytraj as pt
-    >>> traj = pt.datafiles.load_ala3()[:]
-    >>> traj = pt.superpose(traj)
-    >>> isinstance(traj, pt.Trajectory)
-    True
-    '''
-    traj.superpose(*args, **kwd)
-    return traj
-
+    return align(traj, *args, **kwd)
 
 def strip(obj, mask):
     '''return a new Trajectory or FrameIterator or Topology with given mask.

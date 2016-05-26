@@ -8,9 +8,10 @@ from .utils.convert import array_to_cpptraj_atommask
 from .externals.six import string_types
 from .externals.six.moves import range
 from .core.c_core import AtomMask
+from .shared_trajectory import SharedTrajectory
 
 # use absolute import here
-from pytraj.get_common_objects import get_topology, get_reference
+from pytraj.get_common_objects import get_topology
 
 from .topology import Topology
 from pytraj.shared_methods import iterframe_master, my_str_method
@@ -21,7 +22,7 @@ from .c_traj.c_trajout import TrajectoryWriter
 __all__ = ['Trajectory']
 
 
-class Trajectory(object):
+class Trajectory(SharedTrajectory):
     """Simple in-memory Trajectory. It has only information about 3D coordinates
     and unitcells (no time, no velocity, no force, ...)
 
@@ -774,14 +775,19 @@ class Trajectory(object):
         """
         return self.superpose(*args, **kwd)
 
-    def superpose(self, mask="*", ref=None, frame_indices=None, mass=False):
+    def superpose(self, mask="*", ref=None, ref_mask='', frame_indices=None, mass=False):
         """do the fitting to reference Frame by rotation and translation
 
         Parameters
         ----------
+        mask : str or AtomMask object, default='*' (fit all atoms)
         ref : {Frame object, int, str}, default=None
             Reference
-        mask : str or AtomMask object, default='*' (fit all atoms)
+        ref_mask : str, default ''
+            if not given, use `mask`
+            if given, use it
+        mass : bool, default False
+            if True, use mass-weighted
         frame_indices : array-like, default None, optional
             if not None, only do fitting for specific frames
 
@@ -798,26 +804,11 @@ class Trajectory(object):
         >>> traj = traj.superpose(ref=0) # fit to 1st frame, explitly specify
         >>> traj = traj.superpose(ref=-1, mask='@CA') # fit to last frame using @CA atoms
         """
-        # not yet dealed with `mass` and box
-        if not isinstance(mask, string_types):
-            mask = array_to_cpptraj_atommask(mask)
-        ref = get_reference(self, ref)
-        atm = self.top(mask)
+        from pytraj.all_actions import superpose
 
-        fi = self if frame_indices is not None else self.iterframe(
-            frame_indices=frame_indices)
-
-        if mass:
-            ref.set_mass(self.top)
-        for idx, frame in enumerate(fi):
-            if mass:
-                frame.set_mass(self.top)
-            _, mat, v1, v2 = frame.rmsd(ref,
-                                        atm,
-                                        get_mvv=True,
-                                        mass=mass)
-            frame._trans_rot_trans(v1, mat, v2)
-        return self
+        return superpose(self, mask=mask,
+                         ref=ref, ref_mask=ref_mask,
+                         mass=mass, frame_indices=frame_indices) 
 
     def _allocate(self, n_frames, n_atoms):
         '''allocate (n_frames, n_atoms, 3) coordinates
