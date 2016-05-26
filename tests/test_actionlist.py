@@ -219,6 +219,7 @@ class TestActionList(unittest.TestCase):
         actlist = ActionList(commands, traj.top, dslist=dslist)
 
         d0 = dslist.add('ref_frame', 'my_ref')
+        d0.top = traj.top
         d0.add_frame(traj[3])
 
         for frame in traj:
