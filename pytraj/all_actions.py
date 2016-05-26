@@ -2434,8 +2434,8 @@ def native_contacts(traj=None,
     command_ = " ".join(('ref myframe', command, _distance, _noimage,
                          _includesolvent, _byres))
     c_dslist.add('ref_frame', 'myframe')
-    c_dslist[0].add_frame(ref)
     c_dslist[0].top = top
+    c_dslist[0].add_frame(ref)
     act(command_, traj, top=top, dslist=c_dslist)
     c_dslist._pop(0)
 

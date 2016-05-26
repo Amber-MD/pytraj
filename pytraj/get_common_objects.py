@@ -146,21 +146,26 @@ def get_reference(traj, ref):
     '''
     if isinstance(ref, integer_types):
         try:
-            return traj[ref]
+            ref_ = traj[ref]
+            ref_.top = traj.top
         except TypeError:
             raise TypeError("%s does not support indexing" % str(traj))
     elif ref is None:
         try:
-            return traj[0]
+            ref_ = traj[0]
+            ref_.top = traj.top
         except TypeError:
             raise TypeError(
                 "If reference is an integer, %s must support indexing" %
                 traj.__str__())
     elif 'Trajectory' in ref.__class__.__name__:
         assert ref.n_frames == 1, "only support 1-frame Trajectory as reference"
-        return ref[0]
+        ref_ = ref[0]
+        ref_.top = ref.top
     else:
-        return ref
+        ref_ = ref
+
+    return ref_
 
 
 def get_fiterator(traj, frame_indices=None):
