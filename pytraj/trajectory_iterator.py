@@ -6,6 +6,7 @@ import re
 from glob import glob
 import numpy as np
 from .c_traj.c_trajectory import TrajectoryCpptraj
+from .shared_trajectory import SharedTrajectory
 from .externals.six import string_types
 from .externals.six.moves import range
 from .topology import Topology
@@ -80,7 +81,7 @@ def _make_frame_slices(n_files, original_frame_slice):
             "must be a tuple of integer values or a list of tuple of integer values")
 
 
-class TrajectoryIterator(TrajectoryCpptraj):
+class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
     '''out-of-core trajectory holder.
 
     Examples
