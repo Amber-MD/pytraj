@@ -1123,6 +1123,8 @@ cdef class DatasetCoords(Dataset):
             self.baseptr_1.CoordsSetup(other.thisptr[0], self.baseptr_1.CoordsInfo())
 
     def add_frame(self, Frame frame):
+        if self.top.n_atoms != frame.n_atoms:
+            raise ValueError("Frame and Topology must have the same number of atoms")
         self.baseptr_1.AddFrame(frame.thisptr[0])
 
     def append(self, frame):

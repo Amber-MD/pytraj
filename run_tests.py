@@ -75,6 +75,8 @@ if need_help:
 print("start testing. Go to ./tests folder")
 os.chdir("./tests/")
 
+import pytraj as pt; print(pt)
+
 if do_simple_test:
     os.system("python ./run_simple_test.py")
     print('\nHAPPY COMPUTING')
