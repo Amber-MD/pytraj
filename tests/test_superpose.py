@@ -99,9 +99,7 @@ class TestSuperposeTrajectory(unittest.TestCase):
 
         t00 = traj[:]
         t01 = traj[:]
-        t10 = traj[frame_indices]
-        t11 = traj[frame_indices]
-        aa_eq(t00[frame_indices].xyz, t11.xyz)
+        t10 = traj[frame_indices].copy()
 
         ref = traj[-1]
         t00.superpose(ref=ref, frame_indices=frame_indices)
@@ -112,11 +110,7 @@ class TestSuperposeTrajectory(unittest.TestCase):
         ref = traj[-1]
         t10.superpose(ref=ref)
 
-        ref = traj[-1]
-        pt.superpose(t11, ref=ref, frame_indices=frame_indices)
-
         aa_eq(t00.xyz, t01.xyz)
-        aa_eq(t10.xyz, t11.xyz)
         aa_eq(t00[frame_indices].xyz, t10.xyz)
 
     def testsuperpose_vs_rmsd(self):
@@ -132,7 +126,7 @@ class TestSuperposeTrajectoryIterator(unittest.TestCase):
     """test superpose TrajectoryIterator
     """
 
-    def test_superpose_trajectory_iterator(self):
+    def test_superpose_trajectory_iterator_its_own_method(self):
         traj_on_disk = pt.iterload("data/Tc5b.x", "data/Tc5b.top")
         traj_on_disk2 = pt.iterload("data/Tc5b.x", "data/Tc5b.top")
         traj_on_mem = pt.load("data/Tc5b.x", "data/Tc5b.top")
@@ -155,6 +149,94 @@ class TestSuperposeTrajectoryIterator(unittest.TestCase):
         # turn off superpose
         traj_on_disk._being_transformed = False
         aa_eq(traj_on_disk.xyz, traj_on_disk2.xyz)
+
+    def test_superpose_trajectory_iterator_pytraj_method(self):
+        traj_on_disk = pt.iterload("data/Tc5b.x", "data/Tc5b.top")
+        traj_on_disk2 = pt.iterload("data/Tc5b.x", "data/Tc5b.top")
+        traj_on_mem = pt.load("data/Tc5b.x", "data/Tc5b.top")
+
+        ref = pt.iterload("data/Tc5b.crd", "data/Tc5b.top")[0]
+        pt.superpose(traj_on_mem, ref=ref, mask='@CA')
+        pt.superpose(traj_on_disk, ref=ref, mask='@CA')
+        assert traj_on_disk._being_transformed == True, '_being_transformed must be True'
+
+        aa_eq(traj_on_mem.xyz, traj_on_disk.xyz)
+
+        # test saving
+        with tempfolder():
+            traj_on_mem.save('t0.nc', overwrite=True)
+            traj_on_disk.save('t1.nc', overwrite=True)
+
+            aa_eq(pt.load('t0.nc', traj_on_mem.top).xyz,
+                  pt.load('t1.nc', traj_on_disk.top).xyz)
+
+        # turn off superpose
+        traj_on_disk._being_transformed = False
+        aa_eq(traj_on_disk.xyz, traj_on_disk2.xyz)
+
+    @unittest.skip("know failure")
+    def test_superpose_different_mask_with_mass(self):
+        traj_on_disk = pt.iterload("data/Tc5b.x", "data/Tc5b.top")
+        traj_on_mem = pt.load("data/Tc5b.x", "data/Tc5b.top")
+
+        ref = pt.load("data/tz2.nc", "data/tz2.parm7")[:1]
+
+        mask = ':3-12@CA'
+        ref_mask = ':1-10@CA'
+
+        pt._verbose()
+        traj_on_disk.superpose(mask=mask, ref=ref, ref_mask=ref_mask)
+        pt._verbose(False)
+        traj_on_mem.superpose(mask=mask, ref=ref, ref_mask=ref_mask)
+
+        aa_eq(traj_on_disk.xyz, traj_on_mem.xyz)
+
+        # cpptraj
+        cm = """
+        parm data/Tc5b.top [Tc5b]
+        trajin data/Tc5b.x parm [Tc5b]
+        createcrd mycrd0
+        parm data/tz2.parm7 [tz2]
+        reference data/tz2.nc 1 1 parm [tz2]
+        align reference {mask} {refmask}
+        createcrd mycrd
+        """.format(mask=mask, refmask=ref_mask)
+
+        state = pt.load_cpptraj_state(cm)
+        state.run()
+
+        cm2 = """
+        parm data/Tc5b.top [Tc5b]
+        trajin data/Tc5b.x parm [Tc5b]
+        createcrd mycrd0
+        parm data/tz2.parm7 [tz2]
+        reference data/tz2.nc 1 1 parm [tz2]
+        rms reference {mask} {refmask}
+        createcrd mycrd
+        """.format(mask=mask, refmask=ref_mask)
+
+        state2 = pt.load_cpptraj_state(cm2)
+        pt._verbose()
+        state2.run()
+        pt._verbose(False)
+
+        aa_eq(state.data['mycrd'].xyz, state2.data['mycrd'].xyz)
+
+        # aa_eq(state.data['mycrd'].xyz, traj_on_disk.xyz)
+        # aa_eq(state.data['mycrd'].xyz, traj_on_mem.xyz)
+
+class TestAlign(unittest.TestCase):
+
+    def test_align(self):
+        traj_on_disk = pt.iterload("data/Tc5b.x", "data/Tc5b.top")
+        traj_on_mem = pt.load("data/Tc5b.x", "data/Tc5b.top")
+
+        ref = traj_on_disk[:1]
+
+        pt.align(traj_on_mem, ref=ref, mask='@CA')
+        traj_on_disk.superpose(ref=ref, mask='@CA')
+
+        aa_eq(traj_on_mem.xyz, traj_on_disk.xyz)
 
 if __name__ == "__main__":
     unittest.main()
