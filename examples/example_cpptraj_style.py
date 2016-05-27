@@ -13,7 +13,6 @@ distance :3 :7
 angle :3 :8 :12
 multidihedral phi psi
 molsurf @CA
-atomicfluct
 """
 
 # need to specify ref=ref
