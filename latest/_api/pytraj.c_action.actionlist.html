@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.ActionList &mdash; pytraj 1.0.6.dev0+0aa065a documentation</title>
+    <title>pytraj.ActionList &mdash; pytraj 1.0.6.dev0+092bbc2 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.6.dev0+0aa065a',
+        VERSION:     '1.0.6.dev0+092bbc2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.6.dev0+0aa065a documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.6.dev0+092bbc2 documentation" href="../index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -51,7 +51,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.6.dev0+0aa065a</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.6.dev0+092bbc2</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -162,7 +162,10 @@
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.c_action.actionlist.ActionList.data" title="pytraj.c_action.actionlist.ActionList.data"><code class="xref py py-obj docutils literal"><span class="pre">data</span></code></a></td>
 <td>Store data (CpptrajDatasetList).</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.c_action.actionlist.ActionList.n_frames" title="pytraj.c_action.actionlist.ActionList.n_frames"><code class="xref py py-obj docutils literal"><span class="pre">n_frames</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.c_action.actionlist.ActionList.is_setup" title="pytraj.c_action.actionlist.ActionList.is_setup"><code class="xref py py-obj docutils literal"><span class="pre">is_setup</span></code></a></td>
+<td>is_setup: &#8216;bool&#8217;</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.c_action.actionlist.ActionList.n_frames" title="pytraj.c_action.actionlist.ActionList.n_frames"><code class="xref py py-obj docutils literal"><span class="pre">n_frames</span></code></a></td>
 <td>n_frames: &#8216;unsigned int&#8217;</td>
 </tr>
 </tbody>
@@ -177,11 +180,11 @@
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.c_action.actionlist.ActionList.add" title="pytraj.c_action.actionlist.ActionList.add"><code class="xref py py-obj docutils literal"><span class="pre">add</span></code></a>(self[,&nbsp;action,&nbsp;command,&nbsp;top,&nbsp;check_status])</td>
 <td>Add action to ActionList</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.c_action.actionlist.ActionList.check_topology" title="pytraj.c_action.actionlist.ActionList.check_topology"><code class="xref py py-obj docutils literal"><span class="pre">check_topology</span></code></a>(self,&nbsp;Topology&nbsp;top[,&nbsp;...])</td>
-<td>perform Topology checking and some stuff</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.c_action.actionlist.ActionList.compute" title="pytraj.c_action.actionlist.ActionList.compute"><code class="xref py py-obj docutils literal"><span class="pre">compute</span></code></a>(self[,&nbsp;traj])</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.c_action.actionlist.ActionList.compute" title="pytraj.c_action.actionlist.ActionList.compute"><code class="xref py py-obj docutils literal"><span class="pre">compute</span></code></a>(self[,&nbsp;traj])</td>
 <td>perform a series of Actions on Frame or Trajectory</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.c_action.actionlist.ActionList.setup" title="pytraj.c_action.actionlist.ActionList.setup"><code class="xref py py-obj docutils literal"><span class="pre">setup</span></code></a>(self,&nbsp;Topology&nbsp;top[,&nbsp;crdinfo,&nbsp;n_frames_t])</td>
+<td>perform Topology checking and some stuff</td>
 </tr>
 </tbody>
 </table>
@@ -214,12 +217,6 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="pytraj.c_action.actionlist.ActionList.check_topology">
-<code class="descname">check_topology</code><span class="sig-paren">(</span><em>self</em>, <em>Topology top</em>, <em>crdinfo={}</em>, <em>n_frames_t=0</em>, <em>bool exit_on_error=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.c_action.actionlist.ActionList.check_topology" title="Permalink to this definition">¶</a></dt>
-<dd><p>perform Topology checking and some stuff</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="pytraj.c_action.actionlist.ActionList.compute">
 <code class="descname">compute</code><span class="sig-paren">(</span><em>self</em>, <em>traj=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.c_action.actionlist.ActionList.compute" title="Permalink to this definition">¶</a></dt>
 <dd><p>perform a series of Actions on Frame or Trajectory</p>
@@ -232,9 +229,21 @@
 </dd></dl>
 
 <dl class="attribute">
+<dt id="pytraj.c_action.actionlist.ActionList.is_setup">
+<code class="descname">is_setup</code><a class="headerlink" href="#pytraj.c_action.actionlist.ActionList.is_setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>is_setup: &#8216;bool&#8217;</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="pytraj.c_action.actionlist.ActionList.n_frames">
 <code class="descname">n_frames</code><a class="headerlink" href="#pytraj.c_action.actionlist.ActionList.n_frames" title="Permalink to this definition">¶</a></dt>
 <dd><p>n_frames: &#8216;unsigned int&#8217;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.c_action.actionlist.ActionList.setup">
+<code class="descname">setup</code><span class="sig-paren">(</span><em>self</em>, <em>Topology top</em>, <em>crdinfo={}</em>, <em>n_frames_t=0</em>, <em>bool exit_on_error=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.c_action.actionlist.ActionList.setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>perform Topology checking and some stuff</p>
 </dd></dl>
 
 </dd></dl>
@@ -370,7 +379,7 @@ EOF
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on May 15, 2016.<br/>
+      Last updated on May 26, 2016.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
     </p>
   </div>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.Trajectory &mdash; pytraj 1.0.6.dev0+0aa065a documentation</title>
+    <title>pytraj.Trajectory &mdash; pytraj 1.0.6.dev0+092bbc2 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.6.dev0+0aa065a',
+        VERSION:     '1.0.6.dev0+092bbc2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.6.dev0+0aa065a documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.6.dev0+092bbc2 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="prev" title="pytraj.io" href="pytraj.io.html" />
 <meta charset='utf-8'>
@@ -53,7 +53,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.6.dev0+0aa065a</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.6.dev0+092bbc2</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -157,7 +157,7 @@
 <span class="target" id="module-pytraj.trajectory"></span><dl class="class">
 <dt id="pytraj.trajectory.Trajectory">
 <em class="property">class </em><code class="descclassname">pytraj.trajectory.</code><code class="descname">Trajectory</code><span class="sig-paren">(</span><em>filename=None</em>, <em>top=None</em>, <em>xyz=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.Trajectory" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pytraj.shared_trajectory.SharedTrajectory</span></code></p>
 <p>Simple in-memory Trajectory. It has only information about 3D coordinates
 and unitcells (no time, no velocity, no force, ...)</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -289,7 +289,7 @@ Topology and given xyz array.</p>
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.strip" title="pytraj.trajectory.Trajectory.strip"><code class="xref py py-obj docutils literal"><span class="pre">strip</span></code></a>(mask)</td>
 <td>strip atoms with given mask</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.superpose" title="pytraj.trajectory.Trajectory.superpose"><code class="xref py py-obj docutils literal"><span class="pre">superpose</span></code></a>([mask,&nbsp;ref,&nbsp;frame_indices,&nbsp;mass])</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.superpose" title="pytraj.trajectory.Trajectory.superpose"><code class="xref py py-obj docutils literal"><span class="pre">superpose</span></code></a>([mask,&nbsp;ref,&nbsp;ref_mask,&nbsp;...])</td>
 <td>do the fitting to reference Frame by rotation and translation</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.transform" title="pytraj.trajectory.Trajectory.transform"><code class="xref py py-obj docutils literal"><span class="pre">transform</span></code></a>(commands[,&nbsp;frame_indices])</td>
@@ -297,6 +297,9 @@ Topology and given xyz array.</p>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.translate" title="pytraj.trajectory.Trajectory.translate"><code class="xref py py-obj docutils literal"><span class="pre">translate</span></code></a>([command])</td>
 <td>do translation</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.view" title="pytraj.trajectory.Trajectory.view"><code class="xref py py-obj docutils literal"><span class="pre">view</span></code></a>(*args,&nbsp;**kwargs)</td>
+<td>require NGLView</td>
 </tr>
 </tbody>
 </table>
@@ -673,17 +676,26 @@ Topology and given xyz array.</p>
 
 <dl class="method">
 <dt id="pytraj.trajectory.Trajectory.superpose">
-<code class="descname">superpose</code><span class="sig-paren">(</span><em>mask='*'</em>, <em>ref=None</em>, <em>frame_indices=None</em>, <em>mass=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.Trajectory.superpose" title="Permalink to this definition">¶</a></dt>
+<code class="descname">superpose</code><span class="sig-paren">(</span><em>mask='*'</em>, <em>ref=None</em>, <em>ref_mask=''</em>, <em>frame_indices=None</em>, <em>mass=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.Trajectory.superpose" title="Permalink to this definition">¶</a></dt>
 <dd><p>do the fitting to reference Frame by rotation and translation</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>ref</strong> : {Frame object, int, str}, default=None</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mask</strong> : str or AtomMask object, default=&#8217;*&#8217; (fit all atoms)</p>
+<p><strong>ref</strong> : {Frame object, int, str}, default=None</p>
 <blockquote>
 <div><p>Reference</p>
 </div></blockquote>
-<p><strong>mask</strong> : str or AtomMask object, default=&#8217;*&#8217; (fit all atoms)</p>
+<p><strong>ref_mask</strong> : str, default &#8216;&#8217;</p>
+<blockquote>
+<div><p>if not given, use <cite>mask</cite>
+if given, use it</p>
+</div></blockquote>
+<p><strong>mass</strong> : bool, default False</p>
+<blockquote>
+<div><p>if True, use mass-weighted</p>
+</div></blockquote>
 <p><strong>frame_indices</strong> : array-like, default None, optional</p>
 <blockquote>
 <div><p>if not None, only do fitting for specific frames</p>
@@ -795,6 +807,20 @@ Topology and given xyz array.</p>
 </div>
 </dd></dl>
 
+<dl class="method">
+<dt id="pytraj.trajectory.Trajectory.view">
+<code class="descname">view</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.Trajectory.view" title="Permalink to this definition">¶</a></dt>
+<dd><p>require NGLView</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args and kwargs</strong> : NGLView&#8217;s arguments</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="pytraj.trajectory.Trajectory.xyz">
 <code class="descname">xyz</code><a class="headerlink" href="#pytraj.trajectory.Trajectory.xyz" title="Permalink to this definition">¶</a></dt>
@@ -828,7 +854,7 @@ Topology and given xyz array.</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on May 15, 2016.<br/>
+      Last updated on May 26, 2016.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
     </p>
   </div>

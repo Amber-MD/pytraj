@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.TrajectoryIterator &mdash; pytraj 1.0.6.dev0+0aa065a documentation</title>
+    <title>pytraj.TrajectoryIterator &mdash; pytraj 1.0.6.dev0+092bbc2 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.6.dev0+0aa065a',
+        VERSION:     '1.0.6.dev0+092bbc2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.6.dev0+0aa065a documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.6.dev0+092bbc2 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -52,7 +52,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.6.dev0+0aa065a</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.6.dev0+092bbc2</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -153,7 +153,7 @@
 <dl class="class">
 <dt id="pytraj.trajectory_iterator.TrajectoryIterator">
 <em class="property">class </em><code class="descclassname">pytraj.trajectory_iterator.</code><code class="descname">TrajectoryIterator</code><span class="sig-paren">(</span><em>filename=None</em>, <em>top=None</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pytraj.c_traj.c_trajectory.TrajectoryCpptraj</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pytraj.c_traj.c_trajectory.TrajectoryCpptraj</span></code>, <code class="xref py py-class docutils literal"><span class="pre">pytraj.shared_trajectory.SharedTrajectory</span></code></p>
 <p>out-of-core trajectory holder.</p>
 <p class="rubric">Notes</p>
 <p>It&#8217;s a bit tricky to pickle this class. As default, new TrajectoryIterator will
@@ -253,11 +253,14 @@ fly)</p>
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.scale" title="pytraj.trajectory_iterator.TrajectoryIterator.scale"><code class="xref py py-obj docutils literal"><span class="pre">scale</span></code></a>(self,&nbsp;command)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.superpose" title="pytraj.trajectory_iterator.TrajectoryIterator.superpose"><code class="xref py py-obj docutils literal"><span class="pre">superpose</span></code></a>([mask,&nbsp;ref])</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.superpose" title="pytraj.trajectory_iterator.TrajectoryIterator.superpose"><code class="xref py py-obj docutils literal"><span class="pre">superpose</span></code></a>([mask,&nbsp;ref,&nbsp;ref_mask,&nbsp;mass])</td>
 <td>register to superpose to reference frame when iterating.</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.translate" title="pytraj.trajectory_iterator.TrajectoryIterator.translate"><code class="xref py py-obj docutils literal"><span class="pre">translate</span></code></a>(self,&nbsp;command)</td>
 <td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.view" title="pytraj.trajectory_iterator.TrajectoryIterator.view"><code class="xref py py-obj docutils literal"><span class="pre">view</span></code></a>(*args,&nbsp;**kwargs)</td>
+<td>require NGLView</td>
 </tr>
 </tbody>
 </table>
@@ -455,7 +458,7 @@ ref first</p>
 
 <dl class="method">
 <dt id="pytraj.trajectory_iterator.TrajectoryIterator.superpose">
-<code class="descname">superpose</code><span class="sig-paren">(</span><em>mask='*'</em>, <em>ref=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.superpose" title="Permalink to this definition">¶</a></dt>
+<code class="descname">superpose</code><span class="sig-paren">(</span><em>mask='*'</em>, <em>ref=None</em>, <em>ref_mask=''</em>, <em>mass=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.superpose" title="Permalink to this definition">¶</a></dt>
 <dd><p>register to superpose to reference frame when iterating. 
 To turn off superposing, set traj._being_transformed = False</p>
 <p class="rubric">Notes</p>
@@ -536,6 +539,20 @@ It&#8217;s good to do translation and rotation on the fly.</p>
 <dd><p>return unitcells (Box) with shape=(n_frames, 6)</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="pytraj.trajectory_iterator.TrajectoryIterator.view">
+<code class="descname">view</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.view" title="Permalink to this definition">¶</a></dt>
+<dd><p>require NGLView</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args and kwargs</strong> : NGLView&#8217;s arguments</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="pytraj.trajectory_iterator.TrajectoryIterator.xyz">
 <code class="descname">xyz</code><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.xyz" title="Permalink to this definition">¶</a></dt>
@@ -559,7 +576,7 @@ It&#8217;s good to do translation and rotation on the fly.</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on May 15, 2016.<br/>
+      Last updated on May 26, 2016.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
     </p>
   </div>
