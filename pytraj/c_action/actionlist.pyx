@@ -345,3 +345,8 @@ cdef class ActionList:
         else:
             for frame in iterframe_master(traj):
                 self.compute(frame)
+
+        self.post_process()
+
+    def post_process(self):
+        self.thisptr.PrintActions()
