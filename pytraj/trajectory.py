@@ -17,7 +17,6 @@ from .topology import Topology
 from pytraj.shared_methods import iterframe_master, my_str_method
 from .cyutils import _fast_iterptr, _fast_iterptr_withbox
 from .frameiter import FrameIterator
-from .c_traj.c_trajout import TrajectoryWriter
 
 __all__ = ['Trajectory']
 
