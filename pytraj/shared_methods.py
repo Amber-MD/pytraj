@@ -1,21 +1,6 @@
 # distutils: language = c++
 #
-__all__ = ['_savetraj', 'iterframe_master', '_xyz', 'my_str_method', '_box']
-
-
-def _savetraj(self,
-              filename="",
-              overwrite=False,
-              **kwd):
-    from pytraj.c_traj.c_trajout import TrajectoryWriter
-
-    with TrajectoryWriter(filename=filename,
-                 top=self.top,
-                 overwrite=overwrite,
-                 **kwd) as trajout:
-        for frame in self:
-            trajout.write(frame)
-
+__all__ = ['iterframe_master', '_xyz', 'my_str_method', '_box']
 
 def _xyz(self):
     """return a copy of xyz coordinates (wrapper of ndarray, shape=(n_frames, n_atoms, 3)
