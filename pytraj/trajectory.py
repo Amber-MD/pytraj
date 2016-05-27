@@ -838,35 +838,6 @@ class Trajectory(SharedTrajectory):
         self._xyz = np.ascontiguousarray(self._xyz[:, atm.indices])
         return self
 
-    def save(self,
-             filename="",
-             overwrite=False,
-             *args,
-             **kwd):
-        '''write trajectory to disk with given format.
-
-        See also
-        --------
-        pytraj.write_traj
-
-        Examples
-        --------
-        >>> import pytraj as pt
-        >>> traj = pt.datafiles.load_rna()[:]
-        >>> # write to netcdf file
-        >>> traj.save('output/out.nc', overwrite=True)
-
-        '''
-        # note: we do not reuse _savetraj from shared_methods to avoid
-        # circular import (not sure why)
-        with TrajectoryWriter(filename=filename,
-                     top=self.top,
-                     overwrite=overwrite,
-                     *args,
-                     **kwd) as trajout:
-            for frame in self:
-                trajout.write(frame)
-
     def iterframe(self,
                   start=0,
                   stop=None,
