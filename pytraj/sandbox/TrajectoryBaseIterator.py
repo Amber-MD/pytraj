@@ -60,7 +60,7 @@ class TrajectoryBaseIterator(object):
 
     @property
     @abstractmethod
-    def frame_slice_list(self):
+    def _frame_slice_list(self):
         pass
 
     @abstractmethod
