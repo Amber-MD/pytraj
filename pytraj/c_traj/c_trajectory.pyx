@@ -8,7 +8,7 @@ from ..topology cimport Topology
 
 from ..cyutils import get_positive_idx
 from pytraj.externals.six import string_types
-from ..shared_methods import (my_str_method, _xyz, _savetraj, _box)
+from ..shared_methods import (my_str_method, _xyz, _box)
 from ..utils.check_and_assert import ensure_exist
 from ..utils.check_and_assert import is_array, is_range
 
@@ -384,18 +384,6 @@ cdef class TrajectoryCpptraj:
                         self._do_transformation(frame)
                 self.tmpfarray = frame
                 return self.tmpfarray
-
-    def save(self, filename="", overwrite=True, **kwd):
-        '''convenient method to save Trajectory
-
-        Examples
-        --------
-        >>> # save to DCD file
-        >>> traj.save('traj.dcd')
-        >>> # save to AMBER netcdf file
-        >>> traj.save('traj.nc')
-        '''
-        _savetraj(self, filename, overwrite=overwrite, **kwd)
 
     @property
     def unitcells(self):

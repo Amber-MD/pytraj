@@ -1,0 +1,16 @@
+NASTRUCT REFERENCE
+G G G5 G3
+# 3DNA by Dr. Xiang-Jun Lu (http://x3dna.org/)
+# Modified into format readable by cpptraj nastruct
+C1' -2.477   5.399   0.000 0      0
+N9  -1.289   4.551   0.000 0      1
+C8   0.023   4.962   0.000 0      1
+N7   0.870   3.969   0.000 accept 1
+C5   0.071   2.833   0.000 0      1
+C6   0.424   1.460   0.000 0      1
+O6   1.554   0.955   0.000 accept 0
+N1  -0.700   0.641   0.000 donor  1
+C2  -1.999   1.087   0.000 0      1
+N2  -2.949   0.139  -0.001 donor  0
+N3  -2.342   2.364   0.001 accept 1
+C4  -1.265   3.177   0.000 0      1
