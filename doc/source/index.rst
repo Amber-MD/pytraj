@@ -30,6 +30,8 @@ Welcome
 
 `AMBER16 users - click me <http://amber-md.github.io/pytraj/release/1.0.4/index.html>`_
 
+`Release versions <http://amber-md.github.io/pytraj/release/>`_
+
 .. raw:: html
     :file: versions.html
 
