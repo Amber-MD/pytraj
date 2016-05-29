@@ -1,0 +1,428 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pytraj.vector &mdash; pytraj 1.0.6 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.6',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="pytraj 1.0.6 documentation" href="../index.html" />
+    <link rel="up" title="API" href="index.html" />
+    <link rel="next" title="pytraj.hbond_analysis" href="pytraj.hbond_analysis.html" />
+    <link rel="prev" title="pytraj.matrix" href="pytraj.matrix.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.6</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory.html#overview">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_and_write.html">Read and Write</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conda.html">Use conda to manage different Python versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory_viewer.html">Trajectory Viewer</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">pytraj.vector</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="pytraj.matrix.html" title="Previous Chapter: pytraj.matrix"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; pytraj.matrix</span>
+    </a>
+  </li>
+  <li>
+    <a href="pytraj.hbond_analysis.html" title="Next Chapter: pytraj.hbond_analysis"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">pytraj.hbond_... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/_api/pytraj.vector.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="pytraj-vector">
+<span id="id1"></span><h1>pytraj.vector<a class="headerlink" href="#pytraj-vector" title="Permalink to this headline">¶</a></h1>
+<div class="custom-index container">
+<script type="text/javascript" src='../_static/cindex.js'></script></div>
+<span class="target" id="module-pytraj.vector"></span><dl class="function">
+<dt id="pytraj.vector.box">
+<code class="descclassname">pytraj.vector.</code><code class="descname">box</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.vector.box" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>command</strong> : str or a list-like of strings</p>
+<p><strong>frame_indices</strong> : array-like, default None</p>
+<blockquote>
+<div><p>if specified, only perform calculation with given frames</p>
+</div></blockquote>
+<p class="last"><strong>top</strong> : {str, Topology}, optional, default None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.vector.boxcenter">
+<code class="descclassname">pytraj.vector.</code><code class="descname">boxcenter</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.vector.boxcenter" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>command</strong> : str or a list-like of strings</p>
+<p><strong>frame_indices</strong> : array-like, default None</p>
+<blockquote>
+<div><p>if specified, only perform calculation with given frames</p>
+</div></blockquote>
+<p class="last"><strong>top</strong> : {str, Topology}, optional, default None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.vector.center">
+<code class="descclassname">pytraj.vector.</code><code class="descname">center</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.vector.center" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>command</strong> : str or a list-like of strings</p>
+<p><strong>frame_indices</strong> : array-like, default None</p>
+<blockquote>
+<div><p>if specified, only perform calculation with given frames</p>
+</div></blockquote>
+<p class="last"><strong>top</strong> : {str, Topology}, optional, default None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.vector.corrplane">
+<code class="descclassname">pytraj.vector.</code><code class="descname">corrplane</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.vector.corrplane" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>command</strong> : str or a list-like of strings</p>
+<p><strong>frame_indices</strong> : array-like, default None</p>
+<blockquote>
+<div><p>if specified, only perform calculation with given frames</p>
+</div></blockquote>
+<p class="last"><strong>top</strong> : {str, Topology}, optional, default None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.vector.dipole">
+<code class="descclassname">pytraj.vector.</code><code class="descname">dipole</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.vector.dipole" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>command</strong> : str or a list-like of strings</p>
+<p><strong>frame_indices</strong> : array-like, default None</p>
+<blockquote>
+<div><p>if specified, only perform calculation with given frames</p>
+</div></blockquote>
+<p class="last"><strong>top</strong> : {str, Topology}, optional, default None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.vector.minimage">
+<code class="descclassname">pytraj.vector.</code><code class="descname">minimage</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.vector.minimage" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>command</strong> : str or a list-like of strings</p>
+<p><strong>frame_indices</strong> : array-like, default None</p>
+<blockquote>
+<div><p>if specified, only perform calculation with given frames</p>
+</div></blockquote>
+<p class="last"><strong>top</strong> : {str, Topology}, optional, default None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.vector.principal">
+<code class="descclassname">pytraj.vector.</code><code class="descname">principal</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.vector.principal" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>command</strong> : str or a list-like of strings</p>
+<p><strong>frame_indices</strong> : array-like, default None</p>
+<blockquote>
+<div><p>if specified, only perform calculation with given frames</p>
+</div></blockquote>
+<p class="last"><strong>top</strong> : {str, Topology}, optional, default None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.vector.ucellx">
+<code class="descclassname">pytraj.vector.</code><code class="descname">ucellx</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.vector.ucellx" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>command</strong> : str or a list-like of strings</p>
+<p><strong>frame_indices</strong> : array-like, default None</p>
+<blockquote>
+<div><p>if specified, only perform calculation with given frames</p>
+</div></blockquote>
+<p class="last"><strong>top</strong> : {str, Topology}, optional, default None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.vector.ucelly">
+<code class="descclassname">pytraj.vector.</code><code class="descname">ucelly</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.vector.ucelly" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>command</strong> : str or a list-like of strings</p>
+<p><strong>frame_indices</strong> : array-like, default None</p>
+<blockquote>
+<div><p>if specified, only perform calculation with given frames</p>
+</div></blockquote>
+<p class="last"><strong>top</strong> : {str, Topology}, optional, default None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.vector.ucellz">
+<code class="descclassname">pytraj.vector.</code><code class="descname">ucellz</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.vector.ucellz" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>command</strong> : str or a list-like of strings</p>
+<p><strong>frame_indices</strong> : array-like, default None</p>
+<blockquote>
+<div><p>if specified, only perform calculation with given frames</p>
+</div></blockquote>
+<p class="last"><strong>top</strong> : {str, Topology}, optional, default None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.vector.vector_mask">
+<code class="descclassname">pytraj.vector.</code><code class="descname">vector_mask</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.vector.vector_mask" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute vector between two maskes</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or iterable that produces Frame</p>
+<p><strong>mask: str or array of string or array of intergers, shape (n_vectors, 2)</strong></p>
+<blockquote>
+<div><p>vector maskes</p>
+</div></blockquote>
+<p><strong>frame_indices</strong> : array-like or iterable that produces integer number</p>
+<blockquote>
+<div><p>frame indices</p>
+</div></blockquote>
+<p><strong>dtype</strong> : str, default &#8216;ndarray&#8217;</p>
+<blockquote>
+<div><p>output dtype</p>
+</div></blockquote>
+<p class="last"><strong>top</strong> : Topology, optional, default None</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calcualte N-H vector</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj</span> <span class="kn">import</span> <span class="n">vector</span> <span class="k">as</span> <span class="n">va</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n_indices</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">select_atoms</span><span class="p">(</span><span class="s1">&#39;@N&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">h_indices</span> <span class="o">=</span> <span class="n">n_indices</span> <span class="o">+</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create n-h pair for vector calculation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n_h_pairs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">n_indices</span><span class="p">,</span> <span class="n">h_indices</span><span class="p">)))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_vec</span> <span class="o">=</span> <span class="n">va</span><span class="o">.</span><span class="n">vector_mask</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">n_h_pairs</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;ndarray&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># compute vectors for specific frame indices (0, 4)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_vec</span> <span class="o">=</span> <span class="n">va</span><span class="o">.</span><span class="n">vector_mask</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">n_h_pairs</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;ndarray&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, pytraj developers.<br/>
+      Last updated on May 29, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
