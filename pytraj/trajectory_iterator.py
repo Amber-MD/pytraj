@@ -121,7 +121,7 @@ class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
         else:
             raise ValueError("Topology must be None/string/Topology")
 
-        self.frame_slice_list = []
+        self._frame_slice_list = []
 
         if filename:
             if self.top.is_empty():
@@ -134,7 +134,7 @@ class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
         self.__dict__.update({
             '_top_filename': self.top.filename,
             'filelist': self.filelist,
-            'frame_slice_list': self.frame_slice_list,
+            '_frame_slice_list': self._frame_slice_list,
         })
 
     def __setstate__(self, state):
@@ -144,7 +144,7 @@ class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
         else:
             # faster
             self.top = _load_Topology(state['_top_filename'])
-        self._load(state['filelist'], frame_slice=state['frame_slice_list'])
+        self._load(state['filelist'], frame_slice=state['_frame_slice_list'])
 
     def __getstate__(self):
         '''
@@ -180,7 +180,7 @@ class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
         other = self.__class__()
         other.top = self.top.copy()
 
-        for fname, frame_slice in zip(self.filelist, self.frame_slice_list):
+        for fname, frame_slice in zip(self.filelist, self._frame_slice_list):
             other._load(fname, frame_slice=frame_slice)
         return other
 
@@ -201,7 +201,7 @@ class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
 
         if isinstance(filename, string_types) and os.path.exists(filename):
             super(TrajectoryIterator, self)._load(filename, top_, frame_slice_)
-            self.frame_slice_list.append(frame_slice_)
+            self._frame_slice_list.append(frame_slice_)
         elif isinstance(filename,
                         string_types) and not os.path.exists(filename):
 
@@ -221,7 +221,7 @@ class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
                 full_frame_slice = [(0, -1, stride),] * len(flist)
 
             for fname, fslice in zip(flist, full_frame_slice):
-                self.frame_slice_list.append(frame_slice)
+                self._frame_slice_list.append(frame_slice)
                 super(TrajectoryIterator, self)._load(fname,
                                                       top_,
                                                       frame_slice=fslice)
