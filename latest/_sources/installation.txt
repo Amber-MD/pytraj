@@ -23,15 +23,14 @@ Supported Python versions
 Requires
 --------
 
-- python 2.7, >=3.4
+- numpy
 
-- `cython <http://cython.org/>`_, >= 0.23. Cython is only required if installing development version::
+- (optional) `cython <http://cython.org/>`_, >= 0.23. Cython is only required if installing development version::
 
     pip install cython --upgrade
 
     # conda install cython
 
-- numpy
 
 
 Install
@@ -44,7 +43,7 @@ We higly recommend install ``pytraj`` by `conda <http://conda.pydata.org/docs/in
 
 .. code-block:: bash
 
-    conda install -c ambermd pytraj-dev
+    conda install -c ambermd pytraj==1.0.6 # or later version
 
 This takes only less than 30 seconds.
 
@@ -67,7 +66,11 @@ Note:
 
 .. code-block:: bash
     
+    # latest version
     pip install pytraj
+
+    # specific version
+    pip install pytraj==1.0.6
 
 
 from source code (easy way: Linux, OSX)
@@ -119,7 +122,7 @@ Sometimes you want to install `libcpptraj.so` by yourself.
 from AMBER distribution (Linux, OSX)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-pytraj is included in AMBER16, which will be released soon (2016): ambermd.org
+pytraj is included in AMBER (version >= 16): ambermd.org
 
 
 Update pytraj
@@ -133,7 +136,7 @@ If you install ``pytraj`` by conda, you can update it easily
 
 .. code-block:: bash
 
-    conda update -c ambermd pytraj-dev libcpptraj-dev --force
+    conda update -c ambermd pytraj --force
 
 from pip
 ~~~~~~~~
@@ -146,22 +149,23 @@ from pip
 from github 
 ~~~~~~~~~~~
 
-if you install from source code and want to update the development code in github, try to
-follow below.
+if you install from source code and want to update the development code in github, you
+need to update both `libcpptraj` and `pytraj`
+
+.. code-block:: bash
+
+    $ cd /to/pytraj/root/folder
+    $ cd cpptraj
+    $ git pull
+    $ make libcpptraj -j8
+
+then
 
 .. code-block:: bash
     
-    $ # make sure to go to pytraj folder (which has README.md, ./tests ...)
+    $ cd /to/pytraj/root/folder
     $ git pull
     $ python ./setup.py install
-
-if you install ``pytraj`` via github and want to update ``cpptraj``
-
-.. code-block:: bash
-
-    $ cd cpptraj
-    $ git pull
-    $ make libcpptraj
 
 Uninstall
 ---------
@@ -173,7 +177,7 @@ from conda
 
 .. code-block:: bash
 
-    $ conda remove pytraj-dev libcpptraj-dev
+    $ conda remove pytraj libcpptraj
 
 from pip
 ~~~~~~~~
@@ -203,11 +207,6 @@ But if you are new to Python and got ``permission denied`` error, try to install
     export PYTHONPATH=your_favorite_dir:$PYTHONPATH
 
 If you want to see further options, check ``python setup.py install --help``
-
-Image not found (OSX)
-~~~~~~~~~~~~~~~~~~~~~
-
-Please try to install from conda or from AMBER distribution or from source code. No pip yet please.
 
 install ipython and its notebook for interactive data exploration
 -----------------------------------------------------------------

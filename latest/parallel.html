@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Parallel calculation &mdash; pytraj 1.0.6.dev0+ documentation</title>
+    <title>Parallel calculation &mdash; pytraj 1.0.7.dev0+2ed3594 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0.6.dev0+',
+        VERSION:     '1.0.7.dev0+2ed3594',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.6.dev0+ documentation" href="index.html" />
+    <link rel="top" title="pytraj 1.0.7.dev0+2ed3594 documentation" href="index.html" />
     <link rel="next" title="What’s new?" href="whatsnew.html" />
     <link rel="prev" title="Fancy indexing of trajectory" href="trajectory_slice.html" />
 <meta charset='utf-8'>
@@ -53,7 +53,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.6.dev0+</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.7.dev0+2ed3594</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -82,7 +82,7 @@
 <li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="atom_mask_selection.html">Atom mask selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Fancy indexing of trajectory</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Parallel calculation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Parallel calculation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
@@ -402,13 +402,13 @@ If method supports openmp, use openmp.</p>
 <div class="section" id="benchmark">
 <h2><a class="toc-backref" href="#id8">Benchmark</a><a class="headerlink" href="#benchmark" title="Permalink to this headline">¶</a></h2>
 <p>System info:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>format: AMBER netcdf file
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">format</span><span class="p">:</span> <span class="n">AMBER</span> <span class="n">netcdf</span> <span class="n">file</span>
 
-pytraj.TrajectoryIterator, 200000 frames:
-Size: 58.150291 (GB)
-&lt;Topology: 13008 atoms, 4189 residues, 4174 mols, PBC with box type = truncoct&gt;
+<span class="n">pytraj</span><span class="o">.</span><span class="n">TrajectoryIterator</span><span class="p">,</span> <span class="mi">200000</span> <span class="n">frames</span><span class="p">:</span>
+<span class="n">Size</span><span class="p">:</span> <span class="mf">58.150291</span> <span class="p">(</span><span class="n">GB</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">Topology</span><span class="p">:</span> <span class="mi">13008</span> <span class="n">atoms</span><span class="p">,</span> <span class="mi">4189</span> <span class="n">residues</span><span class="p">,</span> <span class="mi">4174</span> <span class="n">mols</span><span class="p">,</span> <span class="n">PBC</span> <span class="k">with</span> <span class="n">box</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">truncoct</span><span class="o">&gt;</span>
 
-method: pytraj.rmsd (please check the script below)
+<span class="n">method</span><span class="p">:</span> <span class="n">pytraj</span><span class="o">.</span><span class="n">rmsd</span> <span class="p">(</span><span class="n">please</span> <span class="n">check</span> <span class="n">the</span> <span class="n">script</span> <span class="n">below</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="section" id="multiprocessing">
@@ -476,7 +476,7 @@ method: pytraj.rmsd (please check the script below)
 </div>
 <div class="section" id="pmap-api-doc">
 <h2><a class="toc-backref" href="#id11">pmap API doc</a><a class="headerlink" href="#pmap-api-doc" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="_api/pytraj.parallel.html#pytraj-pmap"><span>API</span></a></p>
+<p><a class="reference internal" href="_api/pytraj.parallel.html#pytraj-pmap"><span class="std std-ref">API</span></a></p>
 </div>
 </div>
 
@@ -493,8 +493,8 @@ method: pytraj.rmsd (please check the script below)
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on May 29, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+      Last updated on May 31, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
     </p>
   </div>
 </footer>
