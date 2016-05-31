@@ -379,7 +379,7 @@ def _load_batch(txt, traj=None):
     if traj is not None:
         lines_0 = ['parm %s' % traj.top.filename]
 
-        for fname, frame_slice in zip(traj.filelist, traj.frame_slice_list):
+        for fname, frame_slice in zip(traj.filelist, traj._frame_slice_list):
             if len(frame_slice) == 3:
                 start, stop, step = frame_slice
             elif len(frame_slice) == 2:

@@ -64,8 +64,9 @@ How to get started?
     ```python
     import pytraj as pt
     traj = pt.iterload("data.nc", "top.parm7")
-    pt.rmsd(traj, ref=0, mask='@CA')
-    pt.dssp(traj, ':2-16')
+    pt.rmsd(traj, mask='@CA', ref=0)
+    pt.dssp(traj, mask=':2-16')
+    pt.pca(traj, mask='!@H=', n_vecs=2)
     ```
 - check our website: [http://amber-md.github.io/pytraj] (http://amber-md.github.io/pytraj)
 

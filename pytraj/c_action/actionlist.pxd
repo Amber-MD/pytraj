@@ -20,7 +20,7 @@ cdef extern from "ActionList.h":
                       _ActionInit&,)
         int SetupActions(_ActionSetup, bint exit_on_error)
         bint DoActions(int, _ActionFrame)
-        void Print()
+        void PrintActions()
         void List()
         bint Empty()
         int Naction()

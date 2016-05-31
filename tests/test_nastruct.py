@@ -3,13 +3,13 @@ from __future__ import print_function
 import unittest
 import numpy as np
 import pytraj as pt
-from pytraj.testing import aa_eq
-
+from pytraj.testing import aa_eq, cpptraj_test_dir
 
 class TestNastruct(unittest.TestCase):
 
     def test_nupars(self):
         fn = "./data/Test_NAstruct/adh026.3.pdb"
+        root = 'data/Test_NAstruct/'
         traj = pt.iterload(fn, fn)
         data = pt.nastruct(traj)
 
@@ -49,6 +49,34 @@ class TestNastruct(unittest.TestCase):
 
         # raise
         self.assertRaises(ValueError, lambda: pt.nastruct(traj, dtype='ndarray'))
+
+    def test_baseref(self):
+        fn = "./data/Test_NAstruct/adh026.3.pdb"
+        baseref_fn = 'data/Test_NAstruct/Atomic_G.pdb.nastruct'
+
+        traj = pt.iterload(fn, fn)
+        data = pt.nastruct(traj, baseref=baseref_fn)
+
+        saved_data = """
+         # major minor 3 frames
+         19.9015, 15.8085,
+         20.7510, 15.8180,
+         19.9822, 15.4856,
+
+         19.5528, 15.9407,
+         20.6965, 16.2324,
+         19.6335, 16.3369,
+
+         19.2871, 15.9514,
+         21.2010, 16.7085,
+         19.9055, 16.6283
+        """
+
+        aa_eq(data.major[1][0], [19.9015, 20.7510, 19.9822], decimal=3)
+        aa_eq(data.major[1][1], [19.5528, 20.6965, 19.6335], decimal=3)
+        aa_eq(data.major[1][2], [19.2871, 21.2010, 19.9055], decimal=3)
+
+        aa_eq(data.minor[1][0], [15.8085, 15.8180, 15.4856], decimal=3)
 
     def test_nupars_vs_x3dna(self):
         traj = pt.iterload('data/Test_NAstruct/x3dna/rna.pdb')
