@@ -15,11 +15,12 @@ conda install --yes conda-build jinja2 anaconda-client pip
 conda create -y -n myenv python=$PYTHON_VERSION numpy cython h5py libnetcdf
 
 source activate myenv
-conda install --yes anaconda-client coverage pyflakes
+conda install --yes anaconda-client coverage pyflakes jupyter notebook
 
 # install other packages here
 conda install parmed -c ambermd --yes
 conda install pysander -c hainm --yes
+pip install git+https://github.com/arose/nglview
 pip install coveralls
 pip install coverage
 pip install nose

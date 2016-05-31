@@ -8,7 +8,10 @@ class TrajectoryViewer(NGLWidget):
         from pytraj import Trajectory, TrajectoryIterator
 
         if isinstance(traj, (Trajectory, TrajectoryIterator)):
-            self.add_trajectory(PyTrajTrajectory(traj), *args, **kwargs)
+            super(TrajectoryViewer, self).add_trajectory(PyTrajTrajectory(traj), *args, **kwargs)
         else:
             # try with your own risk
-            self.add_component(traj, *args, **kwargs)
+            super(TrajectoryViewer, self).add_trajectory(traj, *args, **kwargs)
+
+    def add_trajectory(self, traj, *args, **kwargs):
+        self.add(traj, *args, **kwargs)
