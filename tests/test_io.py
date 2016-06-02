@@ -321,7 +321,7 @@ class TestIO(unittest.TestCase):
             RuntimeError,
             lambda: pt.io.load_frame(filename='afddsfdsfa', top=traj.top.filename, index=3))
 
-    @unittest.skip('download_PDB')
+    # @unittest.skip('download_PDB')
     def test_download_pdb(self):
         pt.io.download_PDB('1l2y', 'output/', overwrite=True)
         t2 = pt.load('output/1l2y.pdb')
@@ -389,6 +389,12 @@ class TestIO(unittest.TestCase):
         traj.save(fn, format='trr', overwrite=True)
         expected_line = 'Cpptraj generated TRR file'
         assert_has_exptected_line_binaryfile(expected_line, fn)
+
+    def test_load_url(self):
+        url = 'https://raw.githubusercontent.com/Amber-MD/pytraj/master/tests/data/1L2Y.pdb'
+        local_traj = pt.load('data/1L2Y.pdb')
+        github_traj = pt.io.load_url(url)
+        aa_eq(local_traj.xyz, github_traj.xyz)
 
     def test_options(self):
         '''specify cpptraj options

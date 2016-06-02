@@ -545,16 +545,27 @@ def loadpdb_rcsb(pdbid):
     --------
         io.loadpdb_rcsb("2KOC") # popular RNA hairpin
     """
-    url = 'http://www.rcsb.org/pdb/files/%s.pdb' % pdbid.upper()
-    txt = urlopen(url).read()
-    fname = "/tmp/tmppdb.pdb"
+    url = 'http://files.rcsb.org/download/{}.pdb'.format(pdbid.upper())
+    return _make_traj_from_remote_file(url)
+
+def load_url(url):
+    """
+    
+    versionadded: 1.0.7
+    """
+    return _make_traj_from_remote_file(url)
+
+def _make_traj_from_remote_file(remote_file):
+    import tempfile
+
+    fd, fname = tempfile.mkstemp()
+    txt = urlopen(remote_file).read()
     with open(fname, 'w') as fh:
         if PY3:
             txt = txt.decode()
         fh.write(txt)
-    traj = load(fname)
-    return traj
 
+    return load(fname)
 
 def download_PDB(pdbid, location="./", overwrite=False):
     """download pdb to local disk
