@@ -4,6 +4,8 @@
 [![Coverage Status](https://coveralls.io/repos/Amber-MD/pytraj/badge.svg?branch=master&service=github)](https://coveralls.io/github/Amber-MD/pytraj?branch=master)
 [![Binder](http://mybinder.org/images/logo.svg)](http://mybinder.org/repo/hainm/notebook-pytraj)
 
+[![pytraj website](./examples/figures/pytraj.gif)](http://amber-md.github.io/pytraj/latest/index.html)
+
 PYTRAJ 
 ------
 A Python front-end of [cpptraj program] (https://github.com/Amber-MD/cpptraj) (a data analysis package for biomolecular simulation).
@@ -99,7 +101,6 @@ Question/Suggestion?
 [nglview](https://github.com/arose/nglview) with pytraj in Jupyter notebook
 ---------------------------------------
 
-[![pytraj website](./examples/figures/pytraj.gif)](http://amber-md.github.io/pytraj/latest/index.html)
 
 Demo: Interactive data exploration with [Jupyter notebook] (http://jupyter.org/)
 --------------------------------------------------------------------------------
