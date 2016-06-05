@@ -1,8 +1,10 @@
 [![Build Status](https://travis-ci.org/Amber-MD/pytraj.svg?branch=master)](https://travis-ci.org/Amber-MD/pytraj)
-[![Binstar Badge](https://binstar.org/ambermd/pytraj/badges/version.svg)](https://binstar.org/ambermd/pytraj/)
+[![Binstar Badge](https://anaconda.org/ambermd/pytraj/badges/version.svg)](https://anaconda.org/ambermd/pytraj/)
 [![PyPI version](https://badge.fury.io/py/pytraj.svg)](https://badge.fury.io/py/pytraj)
 [![Coverage Status](https://coveralls.io/repos/Amber-MD/pytraj/badge.svg?branch=master&service=github)](https://coveralls.io/github/Amber-MD/pytraj?branch=master)
 [![Binder](http://mybinder.org/images/logo.svg)](http://mybinder.org/repo/hainm/notebook-pytraj)
+
+[![pytraj website](./examples/figures/pytraj.gif)](http://amber-md.github.io/pytraj/latest/index.html)
 
 PYTRAJ 
 ------
@@ -99,7 +101,6 @@ Question/Suggestion?
 [nglview](https://github.com/arose/nglview) with pytraj in Jupyter notebook
 ---------------------------------------
 
-[![pytraj website](./examples/figures/nglview.png)](http://amber-md.github.io/pytraj/latest/index.html)
 
 Demo: Interactive data exploration with [Jupyter notebook] (http://jupyter.org/)
 --------------------------------------------------------------------------------
