@@ -6,6 +6,8 @@ class StrippedTrajectoryIterator(SharedTrajectory):
     """Out-of-core, indexable StrippedTrajectory
     This class is used for NGLView, nothing else.
 
+    versionadded: 1.0.7
+
     Examples
     --------
     >>> import pytraj as pt
@@ -15,7 +17,6 @@ class StrippedTrajectoryIterator(SharedTrajectory):
     """
 
     def __init__(self, origtraj, mask):
-        print(origtraj.top)
         top = origtraj.top.strip(mask, copy=True)
         self.top = top
         self._traj = origtraj

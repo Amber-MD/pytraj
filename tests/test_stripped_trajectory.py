@@ -21,5 +21,10 @@ class TestStrippedTrajectory(unittest.TestCase):
         aa_eq(traj_on_mem_strip[:3].xyz, straj[:3].xyz)
         aa_eq(traj_on_mem_strip[3:10].xyz, straj[3:10].xyz)
 
+        # save
+        fn = 'output/test.nc'
+        straj.save(fn, overwrite=True)
+        aa_eq(straj.xyz, pt.load(fn, straj.top).xyz)
+
 if __name__ == "__main__":
     unittest.main()
