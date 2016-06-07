@@ -116,7 +116,7 @@ class TestNormalPmap(unittest.TestCase):
 
 @unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
 class TestParallelMapForTrajectoryIteratorWithTransformation(unittest.TestCase):
-    def test_matrix_module(self):
+    def test_trajectoryiterator_with_transformation(self):
         traj_on_disk = pt.iterload("data/tz2.nc", "data/tz2.parm7")
         traj_on_mem  = pt.iterload("data/tz2.nc", "data/tz2.parm7")
 
