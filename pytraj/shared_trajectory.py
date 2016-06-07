@@ -1,3 +1,5 @@
+from .shared_methods import my_str_method
+
 class SharedTrajectory(object):
 
     def view(self, *args, **kwargs):
@@ -25,3 +27,9 @@ class SharedTrajectory(object):
 
             for frame in self:
                 trajout.write(frame)
+
+    def __str__(self):
+        return my_str_method(self)
+
+    def __repr__(self):
+        return str(self)
