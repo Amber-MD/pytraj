@@ -17,20 +17,20 @@ class StrippedTrajectoryIterator(SharedTrajectory):
     def __init__(self, origtraj, mask):
         print(origtraj.top)
         top = origtraj.top.strip(mask, copy=True)
-        print(top)
         self.top = top
         self._traj = origtraj
         self._atm = self._traj.top(mask)
+        self._atm.invert_mask()
         self._mask = mask
 
     def __iter__(self):
         for frame in self._traj:
-            yield frame.strip(self._atm)
+            yield Frame(frame, self._atm)
 
     def __getitem__(self, index):
         traj = self._traj[index]
         if isinstance(traj, Frame):
-            return traj.strip(self._atm)
+            return Frame(traj, self._atm)
         else:
             return traj.strip(self._mask)
 
