@@ -6,7 +6,7 @@ from glob import glob
 
 if Cython.__version__ < '0.21':
     sys.stderr.write('require cython version >=0.21')
-    sys.exit(0)
+    sys.exit(1)
 
 DEBUG = False
 

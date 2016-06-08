@@ -70,7 +70,7 @@ if need_help:
             my_script))
     print(
         "Note: long testing requires nose and coverage, which are easily installed by `pip install`")
-    sys.exit(0)
+    sys.exit(1)
 
 print("start testing. Go to ./tests folder")
 os.chdir("./tests/")
@@ -79,7 +79,7 @@ if do_simple_test:
     os.system("python ./run_simple_test.py")
     print('\nHAPPY COMPUTING')
     print(art)
-    sys.exit(0)
+    sys.exit(1)
 else:
     if with_coverage:
         os.system("{bin}/nosetests --with-coverage --cover-package pytraj -vs .".format(bin=bin))
