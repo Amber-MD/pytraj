@@ -146,6 +146,11 @@ class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
             self.top = _load_Topology(state['_top_filename'])
         self._load(state['filelist'], frame_slice=state['_frame_slice_list'])
 
+        _transform_commands = state.get('_transform_commands')
+        if _transform_commands:
+            self._transform_commands = _transform_commands
+            self._reset_transformation()
+
     def __getstate__(self):
         '''
 
@@ -162,10 +167,12 @@ class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
         '''
         # slow
         # Topology is pickable
-        if 'top' not in self.__dict__.keys() and self._pickle_topology:
-            self.__dict__.update({'top': self.top})
+        sdict = self.__dict__
+        if 'top' not in sdict and self._pickle_topology:
+            sdict.update({'top': self.top})
 
-        return self.__dict__
+        sdict['_transform_commands'] = self._transform_commands
+        return sdict
 
     def __iter__(self):
         '''do not make a frame copy here
@@ -567,3 +574,7 @@ class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
         """same as traj[index]
         """
         return self[index]
+
+    def strip(self, mask):
+        from pytraj.stripped_trajectory import StrippedTrajectoryIterator
+        return StrippedTrajectoryIterator(self, mask)

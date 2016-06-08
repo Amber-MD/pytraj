@@ -89,7 +89,7 @@ class TestPickleFrame(unittest.TestCase):
 
 class TestPickleTrajectoryIterator(unittest.TestCase):
 
-    def test_trajiter(self):
+    def test_trajiter_normal(self):
         for _pickle_topology in [True, False]:
             for frame_slice in [(0, 8, 2), (0, 10, 1)]:
                 traj = pt.iterload("data/Tc5b.x",
@@ -101,6 +101,16 @@ class TestPickleTrajectoryIterator(unittest.TestCase):
 
                 aa_eq(traj.xyz, t0.xyz)
                 assert_equal_topology(traj.top, t0.top, traj)
+
+    def test_trajiter_with_actionlist(self):
+       traj = pt.iterload("data/tz2.ortho.nc",
+                          "data/tz2.ortho.parm7")
+       traj.autoimage().center('origin').superpose('@CA')
+       fn = 'output/test.pk'
+       pt.to_pickle(traj, fn)
+       traj2 = pt.read_pickle(fn)
+       print(traj2._transform_commands)
+       aa_eq(traj.xyz, traj2.xyz)
 
 
 def worker(rank, frame, traj):
