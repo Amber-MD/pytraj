@@ -36,7 +36,7 @@ from scripts.install_libcpptraj import DEFAULT_MAC_CCOMPILER, DEFAULT_MAC_CXXCOM
 # python version >= 2.6
 if sys.version_info < (2, 6):
     print('You must have at least Python 2.6 for pytraj\n')
-    sys.exit(0)
+    sys.exit(1)
 
 amber_release = check_flag('--amber_release')
 disable_openmp = check_flag('--disable-openmp')
@@ -164,7 +164,7 @@ if not create_tar_file_for_release:
         output_openmp_check = subprocess.check_output(['nm', libcpptraj_files[0]]).decode().split('\n')
     except IndexError:
         print("Warning:  It seems that there is no libcpptraj. Please install it")
-        sys.exit(0)
+        sys.exit(1)
 
     libcpptraj_has_openmp = ([line for line in output_openmp_check if 'omp_get_num_threads' in line.lower()]  != [])
     if libcpptraj_has_openmp and sys.platform == 'darwin':

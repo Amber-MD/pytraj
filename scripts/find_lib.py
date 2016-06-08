@@ -59,6 +59,6 @@ if __name__ == '__main__':
     import sys
 
     if len(sys.argv) == 1:
-        sys.exit(0)
+        sys.exit(1)
 
     print(find_lib(sys.argv[1]))
