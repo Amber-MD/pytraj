@@ -125,7 +125,7 @@ def check_cpptraj_version(header_dir, version=(4, 2, 9)):
         int_version = tuple(int(i) for i in line.split()[-1].strip('"').replace('V', '').split('.'))
         if int_version < version:
             sys.stderr.write('must have cpptraj version >= {}\n'.format(version))
-            sys.exit(0)
+            sys.exit(1)
 
 
 def remind_export_LD_LIBRARY_PATH(build_tag, libdir, pytraj_inside_amber):
@@ -287,11 +287,11 @@ def try_updating_libcpptraj(cpptraj_home,
                 except CalledProcessError:
                     print(
                         'can not install libcpptraj, you need to install it manually \n')
-                    sys.exit(0)
+                    sys.exit(1)
             else:
                 print('can not find libcpptraj in $CPPTRAJHOME/lib. '
                                  'You need to install ``libcpptraj`` manually. ')
-                sys.exit(0)
+                sys.exit(1)
 
 
 def add_openmp_flag(disable_openmp,
@@ -339,10 +339,10 @@ def check_cython(ISRELEASED, cmdclass, min_version='0.21'):
             cmdclass['build_ext'] = build_ext
             if Cython.__version__ < min_version:
                 print(message_cython)
-                sys.exit(0)
+                sys.exit(1)
         except ImportError:
             print(message_cython)
-            sys.exit(0)
+            sys.exit(1)
     return need_cython, cmdclass, cythonize
 
 
@@ -391,7 +391,7 @@ def get_include_and_lib_dir(rootname, cpptrajhome, has_cpptraj_in_current_folder
                 except CalledProcessError:
                     print(
                         'can not install libcpptraj, you need to install it manually \n')
-                    sys.exit(0)
+                    sys.exit(1)
             cpptraj_dir = os.path.join(rootname, "cpptraj")
             cpptraj_include = os.path.join(cpptraj_dir, 'src')
             libdir = os.path.join(cpptraj_dir, 'lib')
