@@ -377,31 +377,3 @@ class DatasetList(list):
         >>> x = dslist.groupby(lambda x: 'psi' in x.key)
         '''
         return _groupby(self, func_or_key)
-
-    def filter(self, func, *args, **kwd):
-        """return a new view of DatasetList of func return True
-
-        Examples
-        --------
-        >>> func = lambda x: sum(x) > 100
-        >>> dslist = DatasetList({'x': [100, 200], 'y': [20, 30]})
-        >>> dslist.filter(func)
-        <pytraj.DatasetList with 1 datasets>
-        x
-        [100 200]
-        >>> dslist.filter('x', mode='key')
-        <pytraj.DatasetList with 1 datasets>
-        x
-        [100 200]
-        """
-        dslist = self.__class__()
-
-        if isinstance(func, (string_types, list, tuple)):
-            return self.grep(func, *args, **kwd)
-        elif callable(func):
-            for d0 in self:
-                if func(d0, *args, **kwd):
-                    dslist.append(d0)
-            return dslist
-        else:
-            raise NotImplementedError("func must be a string or callable")

@@ -1,10 +1,111 @@
 from __future__ import absolute_import
 from pytraj.get_common_objects import get_topology, get_data_from_dtype
 from pytraj.decorators import register_pmap, register_openmp
-from pytraj.get_common_objects import super_dispatch, get_fi_with_dslist
+from pytraj.get_common_objects import super_dispatch, get_iterator_from_dslist
 from pytraj.c_analysis import c_analysis
 from pytraj.datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 
+
+def _cluster(traj, algorithm, mask="", frame_indices=None, dtype='dataset', top=None, options=''):
+    """clustering. Limited support.
+
+    Parameters
+    ----------
+    traj : Trajectory-like or any iterable that produces Frame
+    mask : str
+        atom mask
+    dtype : str
+        return data type
+    top : Topology, optional
+    options: str
+        more cpptraj option
+
+
+    cpptraj manual::
+
+        Algorithms:
+          [hieragglo [epsilon <e>] [clusters <n>] [linkage|averagelinkage|complete]
+            [epsilonplot <file>]]
+          [dbscan minpoints <n> epsilon <e> [sievetoframe] [kdist <k> [kfile <prefix>]]]
+          [dpeaks epsilon <e> [noise] [dvdfile <density_vs_dist_file>]
+            [choosepoints {manual | auto}]
+            [distancecut <distcut>] [densitycut <densitycut>]
+            [runavg <runavg_file>] [deltafile <file>] [gauss]]
+          [kmeans clusters <n> [randompoint [kseed <seed>]] [maxit <iterations>]
+          [{readtxt|readinfo} infofile <file>]
+        Distance metric options: {rms | srmsd | dme | data}
+          { [[rms | srmsd] [<mask>] [mass] [nofit]] | [dme [<mask>]] |
+             [data <dset0>[,<dset1>,...]] }
+          [sieve <#> [random [sieveseed <#>]]] [loadpairdist] [savepairdist] [pairdist <name>]
+          [pairwisecache {mem | none}]
+        Output options:
+          [out <cnumvtime>] [gracecolor] [summary <summaryfile>] [info <infofile>]
+          [summarysplit <splitfile>] [splitframe <comma-separated frame list>]
+          [clustersvtime <filename> cvtwindow <window size>]
+          [cpopvtime <file> [normpop | normframe]] [lifetime]
+          [sil <silhouette file prefix>]
+        Coordinate output options:
+          [ clusterout <trajfileprefix> [clusterfmt <trajformat>] ]
+          [ singlerepout <trajfilename> [singlerepfmt <trajformat>] ]
+          [ repout <repprefix> [repfmt <repfmt>] [repframe] ]
+          [ avgout <avgprefix> [avgfmt <avgfmt>] ]
+        Experimental options:
+          [[drawgraph | drawgraph3d] [draw_tol <tolerance>] [draw_maxit <iterations]]
+        Cluster structures based on coordinates (RMSD/DME) or given data set(s).
+        <crd set> can be created with the 'createcrd' command.
+    """
+    # Note: do not use super_dispatch here. We use get_iterator_from_dslist
+
+    ana = c_analysis.Analysis_Clustering()
+    # need to creat `dslist` here so that every time `do_clustering` is called,
+    # we will get a fresh one (or will get segfault)
+    crdname = 'DEFAULT_NAME'
+    dslist, _top, mask2 = get_iterator_from_dslist(traj, mask, frame_indices, top, crdname=crdname)
+
+    # do not output cluster info to STDOUT
+    command = ' '.join((algorithm, mask2, "crdset {0}".format(crdname), options, 'noinfo'))
+    ana(command, dslist)
+
+    # remove frames in dslist to save memory
+    dslist.remove_set(dslist[crdname])
+    return get_data_from_dtype(dslist[:1], dtype=dtype)
+
+
+def hieragglo(traj=None, mask="", options='', dtype='dataset'):
+    return _cluster(traj=traj, algorithm='hieragglo', mask=mask,
+            dtype=dtype,
+            top=traj.top, options=options)
+
+def dbscan(traj=None, mask="", options='', dtype='dataset'):
+    return _cluster(traj=traj, algorithm='dbscan', mask=mask,
+            dtype=dtype,
+            top=traj.top, options=options)
+
+def dpeaks(traj=None, mask="", options='', dtype='dataset'):
+    return _cluster(traj=traj, algorithm='dpeaks', mask=mask,
+            dtype=dtype,
+            top=traj.top, options=options)
+
+
+hieragglo.__doc__ = _cluster.__doc__ + """
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2()
+    >>> data = pt.cluster.hieragglo(traj, mask='@CA', options='')
+"""
+
+dbscan.__doc__ = _cluster.__doc__ + """
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2()
+    >>> data = pt.cluster.dbscan(traj, mask='@CA', options='epsilon 1.7 minpoints 5')
+"""
+
+dpeaks.__doc__ = _cluster.__doc__
 
 @super_dispatch()
 @register_openmp
@@ -99,38 +200,31 @@ def kmeans(traj=None,
                         _output))
     return _cluster(traj, mask, frame_indices=frame_indices, top=top, dtype=dtype, options=command)
 
-
-def _cluster(traj=None, mask="", frame_indices=None, dtype='dataset', top=None, options=''):
-    """clustering
+def clustering_dataset(array_like, options=''):
+    '''cluster dataset
 
     Parameters
     ----------
-    traj : Trajectory-like or any iterable that produces Frame
-    mask : str
-        atom mask
-    frame_indices : {None, array-like}, optional
-    dtype : str
-        return data type
-    top : Topology, optional
-    options: str
-        more cpptraj option
+    array_like : array_like
+    options : str, cpptraj options
 
-    Notes
-    -----
-    Supported algorithms: kmeans, hieragglo, and dbscan.
-    """
-    # Note: do not use super_dispatch here. We use get_fi_with_dslist
+    Returns
+    -------
+    cluster index for each data point
 
-    ana = c_analysis.Analysis_Clustering()
-    # need to creat `dslist` here so that every time `do_clustering` is called,
-    # we will get a fresh one (or will get segfault)
-    crdname = 'DEFAULT_NAME'
-    dslist, _top, mask2 = get_fi_with_dslist(traj, mask, frame_indices, top, crdname=crdname)
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> import numpy as np
+    >>> array_like = np.random.randint(0, 10, 1000)
+    >>> data = pt.cluster.clustering_dataset(array_like, 'clusters 10 epsilon 3.0')
+    '''
+    c_dslist = CpptrajDatasetList()
+    c_dslist.add('double', '__array_like')
+    c_dslist[0].resize(len(array_like))
+    c_dslist[0].values[:] = array_like
+    act = c_analysis.Analysis_Clustering()
+    command = 'data __array_like ' + options
+    act(command, dslist=c_dslist)
 
-    # do not output cluster info to STDOUT
-    command = ' '.join((mask2, "crdset {0}".format(crdname), options, 'noinfo'))
-    ana(command, dslist)
-
-    # remove frames in dslist to save memory
-    dslist.remove_set(dslist[crdname])
-    return get_data_from_dtype(dslist, dtype=dtype)
+    return np.array(c_dslist[-2])
