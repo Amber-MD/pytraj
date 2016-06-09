@@ -114,6 +114,20 @@ class TestNormalPmap(unittest.TestCase):
                                                                      '@CA'}))
             aa_eq(radgyr_[0], saved_radgyr)
 
+@unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
+class TestParallelMapForTrajectoryIteratorWithTransformation(unittest.TestCase):
+    def test_trajectoryiterator_with_transformation(self):
+        traj_on_disk = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        traj_on_mem  = pt.load("data/tz2.nc", "data/tz2.parm7")
+
+        traj_on_disk.superpose(mask='@CA', ref=3)
+        traj_on_mem.superpose(mask='@CA', ref=3)
+
+        rmsd0_dict = pt.pmap(pt.rmsd_nofit, traj_on_disk, mask='@CB', n_cores=2, ref=0)
+        rmsd1 = pt.rmsd_nofit(traj_on_mem, mask='@CB', ref=0)
+
+        aa_eq(pt.tools.dict_to_ndarray(rmsd0_dict),
+              rmsd1)
 
 @unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
 class TestParallelMapForMatrix(unittest.TestCase):
