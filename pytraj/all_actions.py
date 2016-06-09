@@ -2711,13 +2711,16 @@ def center(traj=None,
            mass=False,
            top=None,
            frame_indices=None):
-    """center
+    """Center coordinates in `mask` to specified point.
 
     Parameters
     ----------
     traj : Trajectory-like or Frame iterator
     mask : str, mask
-    center : str, {'box', 'origin'}
+    center : str, {'box', 'origin', array-like}, default 'box'
+        if 'origin', center on coordinate origin (0, 0, 0)
+        if 'box', center on box center
+        if array-like, center on that point
     mass : bool, default: False
         if True, use mass weighted
     top : Topology, optional, default: None
@@ -2746,17 +2749,21 @@ def center(traj=None,
     --------
     pytraj.translate
     """
-    if center.lower() not in ['box', 'origin']:
-        raise ValueError('center must be box or origin')
+    if not isinstance(center, string_types):
+        center = 'point ' + ' '.join(str(x) for x in center)
+    else:
+        if center.lower() not in ['box', 'origin']:
+            raise ValueError('center must be box or origin')
     center_ = '' if center == 'box' else center
     mass_ = 'mass' if mass else ''
     command = ' '.join((mask, center_, mass_))
-    _assert_mutable(traj)
 
-    act = c_action.Action_Center()
-    act(command, traj, top=top)
-    return traj
-
+    if isinstance(traj, TrajectoryIterator):
+        return traj.center(command)
+    else:
+        act = c_action.Action_Center()
+        act(command, traj, top=top)
+        return traj
 
 def rotate_dihedral(traj=None, mask="", top=None):
     # change to pt.rotate_dihedral(traj, res=0,

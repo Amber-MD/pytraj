@@ -657,7 +657,7 @@ class Trajectory(SharedTrajectory):
         act(command, self, top=self.top)
         return self
 
-    def center(self, command=''):
+    def center(self, *args, **kwargs):
         '''do centering
 
         Returns
@@ -669,12 +669,13 @@ class Trajectory(SharedTrajectory):
         >>> import pytraj as pt
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.center('@CA origin')
-        '''
-        from pytraj.c_action import c_action
 
-        act = c_action.Action_Center()
-        act(command, self, top=self.top)
-        return self
+        See also
+        --------
+        pytraj.all_actions.center
+        '''
+        from pytraj.all_actions import center
+        return center(traj, *args, **kwargs)
 
     def align_principal_axis(self, command=''):
         """align principal axis
