@@ -3,7 +3,7 @@ import numpy as np
 from collections import OrderedDict
 from pytraj.datasets import CpptrajDatasetList
 from pytraj.utils import is_int, is_array, is_generator
-from pytraj.compat import string_types, callable
+from pytraj.compat import string_types
 from pytraj.datafiles import DataFile
 from pytraj.core.c_core import ArgList
 from pytraj.compat import map, iteritems
