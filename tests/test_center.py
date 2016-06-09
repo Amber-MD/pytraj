@@ -29,6 +29,10 @@ class TestCenter(unittest.TestCase):
         fa2.center(':1', center=[0, 1, 2], mass=False)
         aa_eq(pt.center_of_geometry(fa2, ':1')[0], [0, 1, 2])
 
+        # on_disk
+        traj_on_disk = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        pt.center(traj_on_disk, ':1', center=[0, 1, 2], mass=True)
+        aa_eq(pt.center_of_mass(traj_on_disk, ':1')[0], [0, 1, 2])
 
 if __name__ == "__main__":
     unittest.main()
