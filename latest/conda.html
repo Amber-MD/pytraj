@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Use conda to manage different Python versions &mdash; pytraj 1.0.7.dev0+2ed3594 documentation</title>
+    <title>Use conda to manage different Python versions &mdash; pytraj 1.0.7.dev0+ documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0.7.dev0+2ed3594',
+        VERSION:     '1.0.7.dev0+',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.7.dev0+2ed3594 documentation" href="index.html" />
+    <link rel="top" title="pytraj 1.0.7.dev0+ documentation" href="index.html" />
     <link rel="next" title="Trajectory Viewer" href="trajectory_viewer.html" />
     <link rel="prev" title="Misc" href="misc.html" />
 <meta charset='utf-8'>
@@ -53,7 +53,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.7.dev0+2ed3594</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.7.dev0+</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -87,7 +87,7 @@
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Use conda to manage different Python versions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Use conda to manage different Python versions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
 <li class="toctree-l1"><a class="reference internal" href="trajectory_viewer.html">Trajectory Viewer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
@@ -158,27 +158,27 @@
 want to try different environments (with or without numpy):  <code class="docutils literal"><span class="pre">conda</span></code> is solution</p>
 <ul>
 <li><p class="first">install conda: <a class="reference external" href="http://conda.pydata.org/docs/installation.html">http://conda.pydata.org/docs/installation.html</a></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Note</span><span class="p">:</span> <span class="k">if</span> <span class="n">you</span> <span class="n">have</span> <span class="n">Anaconda</span> <span class="n">installed</span><span class="p">,</span> <span class="n">conda</span> <span class="ow">is</span> <span class="n">already</span> <span class="n">there</span><span class="o">.</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>Note: if you have Anaconda installed, conda is already there.
 </pre></div>
 </div>
 </li>
 <li><p class="first">To create a new enviroment with name of <code class="docutils literal"><span class="pre">your_env_name</span></code>, python version=3.4, preinstall <code class="docutils literal"><span class="pre">numpy</span></code>, <code class="docutils literal"><span class="pre">scipy</span></code></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">your_env_name</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.4</span> <span class="n">numpy</span> <span class="n">scipy</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>conda create -n your_env_name python=3.4 numpy scipy
 </pre></div>
 </div>
 </li>
 <li><p class="first">activate to newly created enviroment</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="n">activate</span> <span class="n">your_env_name</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>source activate your_env_name
 </pre></div>
 </div>
 </li>
 <li><p class="first">if you want to install new program in <code class="docutils literal"><span class="pre">your_env_name</span></code>, such as <code class="docutils literal"><span class="pre">matplotlib</span></code></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">matplotlib</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>conda install matplotlib
 </pre></div>
 </div>
 </li>
 <li><p class="first">return to your original env</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="n">deactivate</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>source deactivate
 </pre></div>
 </div>
 </li>
@@ -199,8 +199,8 @@ want to try different environments (with or without numpy):  <code class="docuti
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on May 31, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
+      Last updated on Jun 08, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
     </p>
   </div>
 </footer>

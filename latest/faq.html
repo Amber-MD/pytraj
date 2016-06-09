@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Frequently Asked Questions &mdash; pytraj 1.0.7.dev0+2ed3594 documentation</title>
+    <title>Frequently Asked Questions &mdash; pytraj 1.0.7.dev0+ documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0.7.dev0+2ed3594',
+        VERSION:     '1.0.7.dev0+',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.7.dev0+2ed3594 documentation" href="index.html" />
+    <link rel="top" title="pytraj 1.0.7.dev0+ documentation" href="index.html" />
     <link rel="next" title="Developer guide for pytraj" href="developer_guide.html" />
     <link rel="prev" title="What’s new?" href="whatsnew.html" />
 <meta charset='utf-8'>
@@ -53,7 +53,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.7.dev0+2ed3594</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.7.dev0+</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -84,7 +84,7 @@
 <li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Fancy indexing of trajectory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel calculation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Frequently Asked Questions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Frequently Asked Questions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Use conda to manage different Python versions</a></li>
@@ -272,7 +272,7 @@ extra data copying.</p>
 <h2><a class="toc-backref" href="#id8">Get undefined symbol error when import <code class="docutils literal"><span class="pre">pytraj</span></code></a><a class="headerlink" href="#get-undefined-symbol-error-when-import-pytraj" title="Permalink to this headline">¶</a></h2>
 <p>Probably you use old <code class="docutils literal"><span class="pre">libcpptraj</span></code>. You can export LD_LIBRARY_PATH</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># supposed you have libcpptraj in /home/lib/cpptraj/, do</span>
-$ <span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>/home/lib/cpptraj/:$LD_LIBRARY_PATH
+$ <span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>/home/lib/cpptraj/:<span class="nv">$LD_LIBRARY_PATH</span>
 </pre></div>
 </div>
 </div>
@@ -292,27 +292,27 @@ email or open issue on github</p>
 <div class="section" id="importerror-after-cpptraj-update">
 <h2><a class="toc-backref" href="#id12">ImportError after cpptraj update</a><a class="headerlink" href="#importerror-after-cpptraj-update" title="Permalink to this headline">¶</a></h2>
 <p>Symtoms:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ne">ImportError</span> <span class="o">...</span> <span class="n">undefined</span> <span class="n">symbol</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>ImportError ... undefined symbol
 </pre></div>
 </div>
 <p>Solution:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">since</span> <span class="n">pytraj</span> <span class="n">requires</span> <span class="n">cpptraj</span> <span class="n">at</span> <span class="n">both</span> <span class="n">compiling</span> <span class="ow">and</span> <span class="n">running</span> <span class="n">time</span><span class="p">,</span> <span class="k">if</span> <span class="n">you</span> <span class="n">update</span> <span class="n">libcpptraj</span><span class="o">.</span><span class="n">so</span><span class="p">,</span> <span class="n">you</span> <span class="n">need</span> <span class="n">to</span> <span class="n">rebbuild</span> <span class="n">pytraj</span> <span class="kn">from</span> <span class="nn">fresh.</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>since pytraj requires cpptraj at both compiling and running time, if you update libcpptraj.so, you need to rebbuild pytraj from fresh.
 
-<span class="c1"># supposed you are in pytraj home folder (having README.md, tests, ...)</span>
-<span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="n">build</span>
-<span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
+# supposed you are in pytraj home folder (having README.md, tests, ...)
+rm -rf build
+python setup.py install
 </pre></div>
 </div>
 </div>
 <div class="section" id="valueerror-buffer-not-c-contiguous">
 <h2><a class="toc-backref" href="#id13">ValueError: Buffer not C contiguous</a><a class="headerlink" href="#valueerror-buffer-not-c-contiguous" title="Permalink to this headline">¶</a></h2>
 <p>Symtoms:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">File</span> <span class="s2">&quot;pytraj/cyutils.pyx&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">76</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_fast_iterptr</span> <span class="p">(</span><span class="n">pytraj</span><span class="o">/</span><span class="n">cyutils</span><span class="o">.</span><span class="n">cpp</span><span class="p">:</span><span class="mi">5078</span><span class="p">)</span><span class="o">...</span>
-<span class="ne">ValueError</span><span class="p">:</span> <span class="n">Buffer</span> <span class="ow">not</span> <span class="n">C</span> <span class="n">contiguous</span><span class="o">.</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>File &quot;pytraj/cyutils.pyx&quot;, line 76, in _fast_iterptr (pytraj/cyutils.cpp:5078)...
+ValueError: Buffer not C contiguous.
 </pre></div>
 </div>
 <p>Solution:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>For very fast trajectory iterating, pytraj require coords must be stored in a C contiguous memory block.
+<div class="highlight-python"><div class="highlight"><pre><span></span>For very fast trajectory iterating, pytraj require coords must be stored in a C contiguous memory block.
 You should try `np.ascontiguousarray`: `xyz = np.ascontiguousarray(xyz)`
 </pre></div>
 </div>
@@ -332,8 +332,8 @@ You should try `np.ascontiguousarray`: `xyz = np.ascontiguousarray(xyz)`
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on May 31, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
+      Last updated on Jun 08, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
     </p>
   </div>
 </footer>
