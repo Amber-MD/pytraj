@@ -675,7 +675,7 @@ class Trajectory(SharedTrajectory):
         pytraj.all_actions.center
         '''
         from pytraj.all_actions import center
-        return center(traj, *args, **kwargs)
+        return center(self, *args, **kwargs)
 
     def align_principal_axis(self, command=''):
         """align principal axis
