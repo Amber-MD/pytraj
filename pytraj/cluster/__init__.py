@@ -22,7 +22,7 @@ def _cluster(traj, algorithm, mask="", frame_indices=None, dtype='dataset', top=
 
     Notes
     -----
-    Use `pytraj._verbose` to see more output. Turn it off by `pytraj._verbose(False)`
+    Call `pytraj._verbose()` to see more output. Turn it off by `pytraj._verbose(False)`
 
 
     cpptraj manual::
