@@ -20,6 +20,10 @@ def _cluster(traj, algorithm, mask="", frame_indices=None, dtype='dataset', top=
     options: str
         more cpptraj option
 
+    Notes
+    -----
+    Use `pytraj._verbose` to see more output. Turn it off by `pytraj._verbose(False)`
+
 
     cpptraj manual::
 
@@ -86,6 +90,11 @@ def dpeaks(traj=None, mask="", options='', dtype='dataset'):
             dtype=dtype,
             top=traj.top, options=options)
 
+def readinfo(traj=None, mask="", options='', dtype='dataset'):
+    return _cluster(traj=traj, algorithm='readinfo', mask=mask,
+            dtype=dtype,
+            top=traj.top, options=options)
+
 
 hieragglo.__doc__ = _cluster.__doc__ + """
 
@@ -106,6 +115,7 @@ dbscan.__doc__ = _cluster.__doc__ + """
 """
 
 dpeaks.__doc__ = _cluster.__doc__
+readinfo.__doc__ = _cluster.__doc__
 
 @super_dispatch()
 @register_openmp
@@ -219,6 +229,7 @@ def clustering_dataset(array_like, options=''):
     >>> array_like = np.random.randint(0, 10, 1000)
     >>> data = pt.cluster.clustering_dataset(array_like, 'clusters 10 epsilon 3.0')
     '''
+    import numpy as np
     c_dslist = CpptrajDatasetList()
     c_dslist.add('double', '__array_like')
     c_dslist[0].resize(len(array_like))
