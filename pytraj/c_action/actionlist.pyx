@@ -156,7 +156,7 @@ def compute(lines, traj, *args, **kwd):
 
         if reflist:
             for ref_ in reflist:
-                ref_dset = dslist.add_new('reference')
+                ref_dset = dslist.add('reference')
                 ref_dset.top = traj.top
                 ref_dset.add_frame(ref_)
 

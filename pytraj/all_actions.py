@@ -5,7 +5,7 @@ from pytraj.trajectory import Trajectory
 from pytraj.trajectory_iterator import TrajectoryIterator
 from .get_common_objects import (get_topology, get_data_from_dtype, get_list_of_commands,
                                  get_matrix_from_dataset, get_reference, get_fiterator,
-                                 super_dispatch, get_fi_with_dslist)
+                                 super_dispatch, get_iterator_from_dslist)
 from .utils import ensure_not_none_or_string
 from .utils import is_int
 from .utils.context import tempfolder
@@ -1455,31 +1455,6 @@ def randomize_ions(traj, mask, around, by, overlap, seed=1, top=None, frame_indi
     return traj
 
 
-def clustering_dataset(array_like, command=''):
-    '''cluster dataset
-
-    Returns
-    -------
-    cluster index for each data point
-
-    Examples
-    --------
-    >>> import pytraj as pt
-    >>> import numpy as np
-    >>> array_like = np.random.randint(0, 10, 1000)
-    >>> data = pt.clustering_dataset(array_like, 'clusters 10 epsilon 3.0')
-    '''
-    c_dslist = CpptrajDatasetList()
-    c_dslist.add('double', '__array_like')
-    c_dslist[0].resize(len(array_like))
-    c_dslist[0].values[:] = array_like
-    act = c_analysis.Analysis_Clustering()
-    command = 'data __array_like ' + command
-    act(command, dslist=c_dslist)
-
-    return np.array(c_dslist[-1])
-
-
 @register_pmap
 @super_dispatch()
 def multidihedral(traj=None,
@@ -1839,7 +1814,7 @@ def pairwise_rmsd(traj=None,
     act = c_analysis.Analysis_Rms2d()
 
     crdname = 'default_coords'
-    c_dslist, top_, command = get_fi_with_dslist(traj, mask, frame_indices, top, crdname=crdname)
+    c_dslist, top_, command = get_iterator_from_dslist(traj, mask, frame_indices, top, crdname=crdname)
 
     command = ' '.join((command, metric, "crdset {} rmsout mycrazyoutput".format(crdname)))
 
@@ -2736,13 +2711,16 @@ def center(traj=None,
            mass=False,
            top=None,
            frame_indices=None):
-    """center
+    """Center coordinates in `mask` to specified point.
 
     Parameters
     ----------
     traj : Trajectory-like or Frame iterator
     mask : str, mask
-    center : str, {'box', 'origin'}
+    center : str, {'box', 'origin', array-like}, default 'box'
+        if 'origin', center on coordinate origin (0, 0, 0)
+        if 'box', center on box center
+        if array-like, center on that point
     mass : bool, default: False
         if True, use mass weighted
     top : Topology, optional, default: None
@@ -2771,17 +2749,21 @@ def center(traj=None,
     --------
     pytraj.translate
     """
-    if center.lower() not in ['box', 'origin']:
-        raise ValueError('center must be box or origin')
+    if not isinstance(center, string_types):
+        center = 'point ' + ' '.join(str(x) for x in center)
+    else:
+        if center.lower() not in ['box', 'origin']:
+            raise ValueError('center must be box or origin')
     center_ = '' if center == 'box' else center
     mass_ = 'mass' if mass else ''
     command = ' '.join((mask, center_, mass_))
-    _assert_mutable(traj)
 
-    act = c_action.Action_Center()
-    act(command, traj, top=top)
-    return traj
-
+    if isinstance(traj, TrajectoryIterator):
+        return traj.center(command)
+    else:
+        act = c_action.Action_Center()
+        act(command, traj, top=top)
+        return traj
 
 def rotate_dihedral(traj=None, mask="", top=None):
     # change to pt.rotate_dihedral(traj, res=0,
