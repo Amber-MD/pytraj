@@ -27,8 +27,39 @@ class TestClustering(unittest.TestCase):
                           metric='rms',
                           mask='@CA',
                           options=sieve_str)
-            aa_eq(state.data[-1], data)
+            aa_eq(state.data[-2], data)
 
+    def test_dbscan(self):
+        command = """
+        parm data/tz2.parm7
+        trajin data/tz2.nc
+        createcrd crd1
+        cluster crdset crd1 C0 @CA dbscan epsilon 1.7 minpoints 5
+        """
+
+        state = pt.load_cpptraj_state(command)
+        state.run()
+
+        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        data = pt.cluster.dbscan(traj, mask='@CA', options='epsilon 1.7 minpoints 5')
+
+        aa_eq(state.data[-2], data[0].values)
+
+    def test_hieragglo(self):
+        command = """
+        parm data/tz2.parm7
+        trajin data/tz2.nc
+        createcrd crd1
+        cluster crdset crd1 C0 !@H hieragglo epsilon 0.8 averagelinkage
+        """
+
+        state = pt.load_cpptraj_state(command)
+        state.run()
+
+        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        data = pt.cluster.hieragglo(traj, mask='!@H=', options='epsilon 0.8 averagelinkage summary sum.info')
+
+        aa_eq(state.data[-2], data[0].values)
 
 if __name__ == "__main__":
     unittest.main()
