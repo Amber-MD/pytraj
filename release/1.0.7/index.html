@@ -1,0 +1,337 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Welcome &mdash; pytraj 1.0.7 documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.7',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="pytraj 1.0.7 documentation" href="#" />
+    <link rel="next" title="Overview" href="overview.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.7</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory.html#overview">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_and_write.html">Read and Write</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Use conda to manage different Python versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_viewer.html">Trajectory Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Welcome</a><ul>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="overview.html" title="Next Chapter: Overview"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Overview &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/index.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-76826365-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<div class="section" id="welcome">
+<h1>Welcome<a class="headerlink" href="#welcome" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal"><span class="pre">pytraj</span></code> is a Python front-end of the popular <code class="docutils literal"><span class="pre">cpptraj</span></code> package. Its aim is to expose
+<code class="docutils literal"><span class="pre">cpptraj</span></code>&#8216;s funtions to Python&#8217;s ecosystem. Enjoy.</p>
+<div class="col-md-3">
+<h2>Overview</h2><div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#why-bother-using-pytraj">Why bother using <strong>pytraj</strong>?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#what-does-pytraj-offer">What does <strong>pytraj</strong> offer?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#how-to-get-started">How to get started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#contributors">Contributors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#citations">Citations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#contact">Contact</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p><a class="reference external" href="http://amber-md.github.io/pytraj/release/1.0.4/index.html">AMBER16 users - click me</a></p>
+<p><a class="reference external" href="http://amber-md.github.io/pytraj/release/">Release versions</a></p>
+<script>
+// copied from mdtraj.org
+// when the user changes their selection in the dropdown menu, navigate
+// to a new set of root documentation
+$(document).ready(function() {
+    $('#versionselector').change(function(){
+        window.location.href = $('#versionselector option:selected').attr('url');
+    });
+});
+
+// get all of the releases from versions.json, and use these to populate the
+// dropdown menu of different releases
+$(document).ready(function() {
+    $.getJSON("http://amber-md.github.io/pytraj/versions.json")
+      .done(function(data) {
+          numItems = data.length;
+          tags = [];
+          for (var i = 0; i < numItems; i++) {
+              tags.push({ value : data[i].version, url : data[i].url })
+          }
+          tags = tags.sort(function(a,b) { a.value < b.value }).reverse();
+
+          for (var i = 0; i < numItems; i++) {
+              var temp = {value : tags[i].value, 'url' : tags[i].url}
+              if (tags[i].value == 'development') {
+                temp['selected'] = 'selected';
+              } else {
+                temp['selected'] = null;
+              }
+              $('#versionselector')
+                .append($('<option></option>', temp)
+                .text(tags[i].value)); 
+          }
+      })
+      .fail(function(d, textStatus, error) {
+        console.error("getJSON failed, status: " + textStatus + ", error: "+error);
+      });
+});
+</script>
+
+
+<style>
+#versionselector {
+    border:1px solid #ccc;
+    background-color:#fff;
+    width:100px;
+}
+</style>
+</div>
+<div class="col-md-3">
+<h2>Documentation</h2><div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory.html#overview">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_and_write.html">Read and Write</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Use conda to manage different Python versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_viewer.html">Trajectory Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+</ul>
+</div>
+</div>
+<div class="col-md-3">
+<h2>Plot</h2><a class="reference external image-reference" href="tutorials/plot.html"><img alt="_images/PCA_heart.png" src="_images/PCA_heart.png" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><strong>Indices and tables</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/Amber-MD/pytraj">fork and contribute</a></li>
+<li><a class="reference internal" href="genindex.html"><span>Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span>Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span>Search Page</span></a></li>
+</ul>
+</div>
+</div>
+</div></div>
+<div class="col-md-3">
+<h3>Jupyter notebook</h3><a class="reference external image-reference" href="http://jupyter.org/"><img alt="http://jupyter.org/assets/jupyterpreview.png" src="http://jupyter.org/assets/jupyterpreview.png" style="height: 200px;" /></a>
+</div>
+<div class="col-md-3">
+<h3><a href=trajectory_viewer.html> Trajectory visualization </a></h3><!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <title>NGL - embedded</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+    </head>
+
+    <body>
+
+        <script src="ngl.embedded.min.js"></script>
+
+        <script>
+            NGL.mainScriptFilePath = "ngl.embedded.min.js";
+            document.addEventListener( "DOMContentLoaded", function(){
+                var stage = new NGL.Stage( "viewport" );
+                stage.viewer.container.addEventListener( "dblclick", function(){
+                    stage.toggleFullscreen();
+                } );
+                stage.loadFile( '_static/1tsu.pdb' ).then( function( o ) {
+                    o.addRepresentation( "cartoon" );
+                    o.addRepresentation( "licorice", {'sele': 'water and not hydrogen'} );
+                    o.centerView();
+                });
+                // stage.addRepresentation( "licorice", {'sele': 'not water'} );
+                stage.setTheme( "light" );
+            } );
+        </script>
+
+        <div id="viewport" style="width:500px; height:500px;"></div>
+
+    </body>
+
+</html>
+</div>
+<div class="col-md-3">
+<h3>Try pytraj online</h3><a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img src="http://mybinder.org/images/logo.svg" /></a>
+</div></div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, pytraj developers.<br/>
+      Last updated on Jun 08, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

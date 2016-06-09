@@ -1,0 +1,48 @@
+<script>
+// copied from mdtraj.org
+// when the user changes their selection in the dropdown menu, navigate
+// to a new set of root documentation
+$(document).ready(function() {
+    $('#versionselector').change(function(){
+        window.location.href = $('#versionselector option:selected').attr('url');
+    });
+});
+
+// get all of the releases from versions.json, and use these to populate the
+// dropdown menu of different releases
+$(document).ready(function() {
+    $.getJSON("http://amber-md.github.io/pytraj/versions.json")
+      .done(function(data) {
+          numItems = data.length;
+          tags = [];
+          for (var i = 0; i < numItems; i++) {
+              tags.push({ value : data[i].version, url : data[i].url })
+          }
+          tags = tags.sort(function(a,b) { a.value < b.value }).reverse();
+
+          for (var i = 0; i < numItems; i++) {
+              var temp = {value : tags[i].value, 'url' : tags[i].url}
+              if (tags[i].value == 'development') {
+                temp['selected'] = 'selected';
+              } else {
+                temp['selected'] = null;
+              }
+              $('#versionselector')
+                .append($('<option></option>', temp)
+                .text(tags[i].value)); 
+          }
+      })
+      .fail(function(d, textStatus, error) {
+        console.error("getJSON failed, status: " + textStatus + ", error: "+error);
+      });
+});
+</script>
+
+
+<style>
+#versionselector {
+    border:1px solid #ccc;
+    background-color:#fff;
+    width:100px;
+}
+</style>

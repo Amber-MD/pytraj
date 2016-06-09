@@ -1,0 +1,365 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pytraj.hbond_analysis &mdash; pytraj 1.0.7 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.7',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="pytraj 1.0.7 documentation" href="../index.html" />
+    <link rel="up" title="API" href="index.html" />
+    <link rel="prev" title="pytraj.vector" href="pytraj.vector.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.7</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory.html#overview">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_and_write.html">Read and Write</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conda.html">Use conda to manage different Python versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory_viewer.html">Trajectory Viewer</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">pytraj.hbond_analysis</a><ul>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="pytraj.vector.html" title="Previous Chapter: pytraj.vector"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; pytraj.vector</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/_api/pytraj.hbond_analysis.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="pytraj-hbond-analysis">
+<span id="id1"></span><h1>pytraj.hbond_analysis<a class="headerlink" href="#pytraj-hbond-analysis" title="Permalink to this headline">¶</a></h1>
+<div class="custom-index container">
+<script type="text/javascript" src='../_static/cindex.js'></script></div>
+<span class="target" id="module-pytraj.hbond_analysis"></span><dl class="class">
+<dt id="pytraj.hbond_analysis.DatasetHBond">
+<em class="property">class </em><code class="descclassname">pytraj.hbond_analysis.</code><code class="descname">DatasetHBond</code><span class="sig-paren">(</span><em>dslist=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.hbond_analysis.DatasetHBond" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pytraj.base_holder.BaseDataHolder</span></code></p>
+<p>Hold data for hbond analysis.</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="../hbond_analysis.html#pytraj.hbond_analysis.DatasetHBond.data" title="pytraj.hbond_analysis.DatasetHBond.data"><code class="xref py py-obj docutils literal"><span class="pre">data</span></code></a></td>
+<td>return pytraj.DatasetList</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="../hbond_analysis.html#pytraj.hbond_analysis.DatasetHBond.donor_acceptor" title="pytraj.hbond_analysis.DatasetHBond.donor_acceptor"><code class="xref py py-obj docutils literal"><span class="pre">donor_acceptor</span></code></a></td>
+<td>return a list of donor and acceptor</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../hbond_analysis.html#pytraj.hbond_analysis.DatasetHBond.values" title="pytraj.hbond_analysis.DatasetHBond.values"><code class="xref py py-obj docutils literal"><span class="pre">values</span></code></a></td>
+<td>return raw numpy array</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="../hbond_analysis.html#pytraj.hbond_analysis.DatasetHBond.get_amber_mask" title="pytraj.hbond_analysis.DatasetHBond.get_amber_mask"><code class="xref py py-obj docutils literal"><span class="pre">get_amber_mask</span></code></a>()</td>
+<td>return a list of distance mask and angle mask</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="../hbond_analysis.html#pytraj.hbond_analysis.DatasetHBond.to_dict" title="pytraj.hbond_analysis.DatasetHBond.to_dict"><code class="xref py py-obj docutils literal"><span class="pre">to_dict</span></code></a>()</td>
+<td>return OrderedDict</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../hbond_analysis.html#pytraj.hbond_analysis.DatasetHBond.total_solute_hbonds" title="pytraj.hbond_analysis.DatasetHBond.total_solute_hbonds"><code class="xref py py-obj docutils literal"><span class="pre">total_solute_hbonds</span></code></a>()</td>
+<td>return total solute hbonds</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="pytraj.hbond_analysis.DatasetHBond.data">
+<code class="descname">data</code><a class="headerlink" href="#pytraj.hbond_analysis.DatasetHBond.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>return pytraj.DatasetList</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.hbond_analysis.DatasetHBond.donor_acceptor">
+<code class="descname">donor_acceptor</code><a class="headerlink" href="#pytraj.hbond_analysis.DatasetHBond.donor_acceptor" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a list of donor and acceptor</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.hbond_analysis.DatasetHBond.get_amber_mask">
+<code class="descname">get_amber_mask</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.hbond_analysis.DatasetHBond.get_amber_mask" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a list of distance mask and angle mask</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.hbond_analysis.DatasetHBond.to_dict">
+<code class="descname">to_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.hbond_analysis.DatasetHBond.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>return OrderedDict</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.hbond_analysis.DatasetHBond.total_solute_hbonds">
+<code class="descname">total_solute_hbonds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.hbond_analysis.DatasetHBond.total_solute_hbonds" title="Permalink to this definition">¶</a></dt>
+<dd><p>return total solute hbonds</p>
+<p>See also: DatasetHBond.data.keys()</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.hbond_analysis.DatasetHBond.values">
+<code class="descname">values</code><a class="headerlink" href="#pytraj.hbond_analysis.DatasetHBond.values" title="Permalink to this definition">¶</a></dt>
+<dd><p>return raw numpy array</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.hbond_analysis.hbond">
+<code class="descclassname">pytraj.hbond_analysis.</code><code class="descname">hbond</code><span class="sig-paren">(</span><em>traj</em>, <em>mask=''</em>, <em>solvent_donor=None</em>, <em>solvent_acceptor=None</em>, <em>distance=3.0</em>, <em>angle=135.0</em>, <em>image=False</em>, <em>series=True</em>, <em>options=''</em>, <em>dtype='hbond'</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.hbond_analysis.hbond" title="Permalink to this definition">¶</a></dt>
+<dd><p>(combined with cpptraj doc) Searching for Hbond donors/acceptors in region specified by <code class="docutils literal"><span class="pre">mask</span></code>.
+Hydrogen bond is defined as A-HD, where A is acceptor heavy atom, H is hydrogen, D is
+donor heavy atom. Hydrogen bond is formed when A to D distance &lt; distance cutoff and A-H-D angle
+&gt; angle cutoff; if <cite>angle</cite> &lt; 0 it is ignored.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>mask</strong> : {str, 1D array-like}</p>
+<blockquote>
+<div><p>Atom mask for searching hbond. If this <cite>mask</cite> is specify, cpptraj will
+automatically search for donors and acceptors.</p>
+</div></blockquote>
+<p><strong>solvent_donor</strong> : {None, str}, default None</p>
+<p><strong>solvent_acceptor: {None, str}, deafult None</strong></p>
+<blockquote>
+<div><p>if solvent_acceptor and solvent_donor are None, cpptraj only search hbond for
+if solvent_donor and solvent_acceptor are NOT None, cpptraj will search for hbond
+between solute and solvent too.</p>
+</div></blockquote>
+<p><strong>distance</strong> : float, default 3.0 (angstrom)</p>
+<blockquote>
+<div><p>hbond distance cut off</p>
+</div></blockquote>
+<p><strong>angle</strong> : float, 135.0 degree</p>
+<blockquote>
+<div><p>hbond angle cut off</p>
+</div></blockquote>
+<p><strong>dtype</strong> : return output&#8217;s type, default &#8216;hbond&#8217;</p>
+<p><strong>image</strong> : bool, default False</p>
+<p><strong>series</strong> : bool, default True</p>
+<blockquote>
+<div><ul class="simple">
+<li>output time series (array of 1 and 0) for hbond or not (highly recommend to use this default value)</li>
+<li>if False, you must specify dtype=&#8217;dataset&#8217;</li>
+</ul>
+</div></blockquote>
+<p><strong>options</strong> : str</p>
+<blockquote>
+<div><p>additional cpptraj options. For example you can explicitly specify donormask and
+acceptormask.</p>
+<ul class="simple">
+<li>If <code class="docutils literal"><span class="pre">donormask</span></code> is specified but not <code class="docutils literal"><span class="pre">acceptormask</span></code>, acceptors will be
+automatically searched for in <code class="docutils literal"><span class="pre">mask</span></code>.</li>
+<li>If <code class="docutils literal"><span class="pre">acceptormask</span></code> is specified but not donormask, donors will be</li>
+</ul>
+<p>automatically search for in <code class="docutils literal"><span class="pre">mask</span></code>.</p>
+<ul class="simple">
+<li>If both <code class="docutils literal"><span class="pre">donormask</span></code> and <code class="docutils literal"><span class="pre">acceptormask</span></code> are specified no automatic searching will
+occur.</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>out</strong> : DatasetHBond if series is True else return &#8216;DatasetList&#8217;</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><code class="xref py py-obj docutils literal"><span class="pre">to_amber_mask</span></code></p>
+</div>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>pytraj use &#8216;series&#8217; as default. In cpptraj, you need to explicitly specify &#8216;series&#8217;.</li>
+<li>if &#8216;series&#8217; is False, the &#8216;dtype&#8217; argument will be ignored.</li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># search hbond without including solvent</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;:5,8&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span>
+<span class="go">&lt;pytraj.hbonds.DatasetHBond</span>
+<span class="go">donor_acceptor pairs : 2&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">donor_acceptor</span>
+<span class="go">[&#39;LYS8_O-GLU5_N-H&#39;, &#39;GLU5_O-LYS8_N-H&#39;]</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># get raw data, ndarray with shape=(n_hbonds+1, n_frames)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># first array shows the total solute hbonds and other arrays shows</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># if hbond exists (1) or non-exists (0) for each frame</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">values</span>
+<span class="go">array([[2, 2, 0, ..., 1, 1, 1],</span>
+<span class="go">       [1, 1, 0, ..., 1, 1, 1],</span>
+<span class="go">       [1, 1, 0, ..., 0, 0, 0]], dtype=int32)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># search hbond including solvent</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hbonds</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;:5,8&#39;</span><span class="p">,</span> <span class="n">solvent_donor</span><span class="o">=</span><span class="s1">&#39;:WAT@O&#39;</span><span class="p">,</span> <span class="n">solvent_acceptor</span><span class="o">=</span><span class="s1">&#39;:WAT&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hbonds</span>
+<span class="go">&lt;pytraj.hbonds.DatasetHBond</span>
+<span class="go">donor_acceptor pairs : 8&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">hbonds</span><span class="o">.</span><span class="n">donor_acceptor</span>
+<span class="go">[&#39;LYS8_O-GLU5_N-H&#39;, &#39;GLU5_O-LYS8_N-H&#39;, &#39;LYS8_HZ1-V&#39;, &#39;LYS8_HZ2-V&#39;, &#39;GLU5_OE2-V&#39;, &#39;GLU5_O-V&#39;, &#39;GLU5_OE1-V&#39;, &#39;LYS8_HZ3-V&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># &#39;GLU5_O-V&#39; mean non-specific hbond between GLU5_O and solvent (:WAT in this case)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, pytraj developers.<br/>
+      Last updated on Jun 08, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

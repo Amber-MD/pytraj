@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Cookbook &mdash; pytraj 1.0.7 documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.7',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="pytraj 1.0.7 documentation" href="index.html" />
+    <link rel="up" title="Tutorials" href="tutorials/index.html" />
+    <link rel="next" title="Tips" href="tips.html" />
+    <link rel="prev" title="Python tricks that make your life easier" href="tutorials/python_tricks.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.7</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory.html#overview">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_and_write.html">Read and Write</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Use conda to manage different Python versions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_viewer.html">Trajectory Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Cookbook</a><ul>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="tutorials/python_tricks.html" title="Previous Chapter: Python tricks that make your life easier"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Python tricks...</span>
+    </a>
+  </li>
+  <li>
+    <a href="tips.html" title="Next Chapter: Tips"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Tips &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/cookbook.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="cookbook">
+<span id="id1"></span><h1>Cookbook<a class="headerlink" href="#cookbook" title="Permalink to this headline">¶</a></h1>
+<p>try <code class="docutils literal"><span class="pre">pytraj</span></code> online:</p>
+<a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img src="http://mybinder.org/badge.svg" /></a>
+</div>
+<div class="col-md-6"><div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tips.html">Tips</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#process-many-files">process many files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#load-from-a-list-of-files-with-frame-stride">load from a list of files with frame stride</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#load-specific-frame-numbers-to-memory">load specific frame numbers to memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#merge-multiple-trajectories-to-a-single-file">merge multiple trajectories to a single file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#memory-saving">memory saving</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#convert-trajectory">convert trajectory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#pickle-data">pickle data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#speed-up-calculation-with-parallel-using-mpi">speed up calculation with parallel: using MPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#speed-up-calculation-with-parallel-multiple-cores">speed up calculation with parallel: multiple cores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#read-cpptraj-manual">read cpptraj manual</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tips_iterload.html">Tips for out-of-core loading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_cpptrajstate.html">Run cpptraj&#8217;s batch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="load_cpptrajstate.html#create-state-with-existing-trajectoryiterator-class">Create state with existing <code class="docutils literal"><span class="pre">TrajectoryIterator</span></code> class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="load_cpptrajstate.html#create-state-without-trajectoryiterator-class">Create state without <code class="docutils literal"><span class="pre">TrajectoryIterator</span></code> class</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="things_will_be_surprised.html">Weird things in pytraj</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="things_will_be_surprised.html#explicit-copy">Explicit copy</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="col-md-6"><div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_exercise.html">Trajectory warm up</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#register-to-load-from-disk">Register to load from disk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#register-to-load-from-disk-with-frame-stride">Register to load from disk with frame stride</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#register-to-load-several-files-from-disk">Register to load several files from disk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#register-to-load-several-files-from-disk-with-frame-stride">Register to load several files from disk with frame stride</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#write-to-disk">Write to disk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#extract-coordinates-from-pdb-structure">Extract coordinates from PDB structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#write-pdb-file-to-netcdf-format-require-netcdf-lib">Write PDB file to netcdf format (require Netcdf lib)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#fancy-indexing">Fancy indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#iterate-whole-trajectory">Iterate whole trajectory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#iterate-a-part-of-trajectory">Iterate a part of trajectory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#perform-calculation">Perform calculation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#convert-data-to-pandas-dataframe">Convert data to pandas DataFrame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#convert-to-different-file-format">Convert to different file format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#combine-with-cpptraj-command-style">Combine with cpptraj command style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#convert-out-of-core-trajectoryiterator-to-in-memory-trajectory">Convert out-of-core TrajectoryIterator to in-memory Trajectory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#parallel-computing-with-trajectoryiterator">Parallel computing with TrajectoryIterator</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, pytraj developers.<br/>
+      Last updated on Jun 08, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

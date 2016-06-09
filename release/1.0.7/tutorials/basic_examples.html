@@ -1,0 +1,345 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Basic examples &mdash; pytraj 1.0.7 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.7',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="pytraj 1.0.7 documentation" href="../index.html" />
+    <link rel="up" title="Tutorials" href="index.html" />
+    <link rel="next" title="Energy decomposition with sander and igb8 solvent model" href="energy_decomposition.html" />
+    <link rel="prev" title="Tutorials" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.7</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory.html#overview">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_and_write.html">Read and Write</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conda.html">Use conda to manage different Python versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory_viewer.html">Trajectory Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Basic examples</a><ul>
+<li><a class="reference internal" href="#how-to-run-pytraj">How to run pytraj</a></li>
+<li><a class="reference internal" href="#load-a-topology-and-trajectory">Load a Topology and Trajectory</a></li>
+<li><a class="reference internal" href="#select-atoms">Select atoms</a></li>
+<li><a class="reference internal" href="#distance-between-two-coms">Distance between two COMs</a></li>
+<li><a class="reference internal" href="#dssp-analysis">DSSP analysis</a></li>
+<li><a class="reference internal" href="#hbond-analysis">Hbond analysis</a></li>
+<li><a class="reference internal" href="#more-examples">More examples</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="index.html" title="Previous Chapter: Tutorials"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Tutorials</span>
+    </a>
+  </li>
+  <li>
+    <a href="energy_decomposition.html" title="Next Chapter: Energy decomposition with sander and igb8 solvent model"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Energy decomp... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/tutorials/basic_examples.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="basic-examples">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">Basic examples</a><a class="headerlink" href="#basic-examples" title="Permalink to this headline">¶</a></h1>
+<p>try <code class="docutils literal"><span class="pre">pytraj</span></code> online:</p>
+<a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img src="http://mybinder.org/badge.svg" /></a>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#basic-examples" id="id2">Basic examples</a><ul>
+<li><a class="reference internal" href="#how-to-run-pytraj" id="id3">How to run pytraj</a></li>
+<li><a class="reference internal" href="#load-a-topology-and-trajectory" id="id4">Load a Topology and Trajectory</a></li>
+<li><a class="reference internal" href="#select-atoms" id="id5">Select atoms</a></li>
+<li><a class="reference internal" href="#distance-between-two-coms" id="id6">Distance between two COMs</a></li>
+<li><a class="reference internal" href="#dssp-analysis" id="id7">DSSP analysis</a></li>
+<li><a class="reference internal" href="#hbond-analysis" id="id8">Hbond analysis</a></li>
+<li><a class="reference internal" href="#more-examples" id="id9">More examples</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="how-to-run-pytraj">
+<h2><a class="toc-backref" href="#id3">How to run pytraj</a><a class="headerlink" href="#how-to-run-pytraj" title="Permalink to this headline">¶</a></h2>
+<p>There are two modes to run pytraj: script mode and interactive mode.</p>
+<ul>
+<li><p class="first">script mode: you need to write code in a file (for example: <code class="docutils literal"><span class="pre">my_file.py</span></code>) and use <code class="docutils literal"><span class="pre">python</span></code> to run your file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>python my_file.py
+</pre></div>
+</div>
+</li>
+<li><p class="first">interactive mode: we suggest to use <code class="docutils literal"><span class="pre">ipython</span></code> or <code class="docutils literal"><span class="pre">jupyter</span> <span class="pre">notebook</span></code> to explore data interactively.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="load-a-topology-and-trajectory">
+<h2><a class="toc-backref" href="#id4">Load a Topology and Trajectory</a><a class="headerlink" href="#load-a-topology-and-trajectory" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+
+<span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.parm7&#39;</span><span class="p">)</span>
+
+<span class="gp">In [3]: </span><span class="n">traj</span>
+<span class="gr">Out[3]: </span>
+<span class="go">pytraj.Trajectory, 101 frames: </span>
+<span class="go">Size: 0.000503 (GB)</span>
+<span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="select-atoms">
+<h2><a class="toc-backref" href="#id5">Select atoms</a><a class="headerlink" href="#select-atoms" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+
+<span class="gp">In [5]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.parm7&#39;</span><span class="p">)</span>
+
+<span class="c"># get indices for backbone H atoms</span>
+<span class="gp">In [6]: </span><span class="n">h_indices</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">select_atoms</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="s1">&#39;@H&#39;</span><span class="p">)</span>
+
+<span class="gp">In [7]: </span><span class="n">h_indices</span>
+<span class="gr">Out[7]: </span><span class="n">array</span><span class="p">([</span> <span class="mi">14</span><span class="p">,</span>  <span class="mi">38</span><span class="p">,</span>  <span class="mi">52</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mi">172</span><span class="p">,</span> <span class="mi">196</span><span class="p">,</span> <span class="mi">218</span><span class="p">])</span>
+
+<span class="c"># get indices for backbone N atoms</span>
+<span class="gp">In [8]: </span><span class="n">n_indices</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">select_atoms</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="s1">&#39;@N&#39;</span><span class="p">)</span>
+
+<span class="gp">In [9]: </span><span class="n">n_indices</span>
+<span class="gr">Out[9]: </span><span class="n">array</span><span class="p">([</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">13</span><span class="p">,</span>  <span class="mi">37</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mi">171</span><span class="p">,</span> <span class="mi">195</span><span class="p">,</span> <span class="mi">217</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="distance-between-two-coms">
+<h2><a class="toc-backref" href="#id6">Distance between two COMs</a><a class="headerlink" href="#distance-between-two-coms" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="c"># compute distance between COM of (residue 1 to 3) and COM of (residue 5 to 8)</span>
+<span class="gp">In [10]: </span><span class="n">pt</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;:1-3 :5-8&#39;</span><span class="p">)</span>
+<span class="gr">Out[10]: </span>
+<span class="go">array([ 12.05177307,   9.0687678 ,   8.40387078, ...,  11.20758584,</span>
+<span class="go">         8.73365734,  10.04000583])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dssp-analysis">
+<h2><a class="toc-backref" href="#id7">DSSP analysis</a><a class="headerlink" href="#dssp-analysis" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [11]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+
+<span class="gp">In [12]: </span><span class="n">pdb</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_pdb_rcsb</span><span class="p">(</span><span class="s2">&quot;1l2y&quot;</span><span class="p">)</span>
+
+<span class="gp">In [13]: </span><span class="n">result</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">pdb</span><span class="p">)</span>
+
+<span class="gp">In [14]: </span><span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="go">(array([&#39;ASN:1&#39;, &#39;LEU:2&#39;, &#39;TYR:3&#39;, ..., &#39;PRO:18&#39;, &#39;PRO:19&#39;, &#39;SER:20&#39;], </span>
+<span class="go">      dtype=&#39;&lt;U6&#39;), array([[&#39;0&#39;, &#39;H&#39;, &#39;H&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
+<span class="go">       [&#39;0&#39;, &#39;T&#39;, &#39;H&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
+<span class="go">       [&#39;0&#39;, &#39;0&#39;, &#39;H&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
+<span class="go">       ..., </span>
+<span class="go">       [&#39;0&#39;, &#39;H&#39;, &#39;H&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
+<span class="go">       [&#39;0&#39;, &#39;0&#39;, &#39;H&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
+<span class="go">       [&#39;0&#39;, &#39;T&#39;, &#39;H&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;]], </span>
+<span class="go">      dtype=&#39;&lt;U1&#39;), &lt;pytraj.DatasetList with 8 datasets&gt;</span>
+<span class="go">none_avg</span>
+<span class="go">[ 0.30000001  0.25        0.34999999 ...,  0.30000001  0.30000001</span>
+<span class="go">  0.30000001]</span>
+
+<span class="go">para_avg</span>
+<span class="go">[ 0.  0.  0. ...,  0.  0.  0.]</span>
+
+<span class="go">anti_avg</span>
+<span class="go">[ 0.  0.  0. ...,  0.  0.  0.]</span>
+<span class="go">...</span>
+
+<span class="go">turn_avg</span>
+<span class="go">[ 0.1         0.15000001  0.1        ...,  0.1         0.05        0.15000001]</span>
+
+<span class="go">bend_avg</span>
+<span class="go">[ 0.05  0.1   0.05 ...,  0.05  0.1   0.05])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="hbond-analysis">
+<h2><a class="toc-backref" href="#id8">Hbond analysis</a><a class="headerlink" href="#hbond-analysis" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="c"># search hbonds for all residues</span>
+<span class="gp">In [15]: </span><span class="n">hbonds</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">pdb</span><span class="p">)</span>
+
+<span class="gp">In [16]: </span><span class="n">hbonds</span>
+<span class="gr">Out[16]: </span>
+<span class="go">&lt;pytraj.hbonds.DatasetHBond</span>
+<span class="go">donor_acceptor pairs : 31&gt;</span>
+
+<span class="c"># print first few hbond</span>
+<span class="gp">In [17]: </span><span class="n">hbonds</span><span class="o">.</span><span class="n">donor_acceptor</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+<span class="go">                                                                 Out[17]: </span>
+<span class="go">[&#39;ASN1_O-GLN5_N-H&#39;,</span>
+<span class="go"> &#39;ARG16_O-TRP6_NE1-HE1&#39;,</span>
+<span class="go"> &#39;TYR3_O-LEU7_N-H&#39;,</span>
+<span class="go"> &#39;ILE4_O-LYS8_N-H&#39;,</span>
+<span class="go"> &#39;LEU7_O-GLY10_N-H&#39;]</span>
+
+<span class="gp">In [18]: </span><span class="n">hbonds</span><span class="o">.</span><span class="n">values</span>
+<span class="go">                                                                                                                                                                                     Out[18]: </span>
+<span class="go">array([[6, 7, 8, ..., 7, 6, 6],</span>
+<span class="go">       [1, 0, 0, ..., 0, 0, 0],</span>
+<span class="go">       [1, 1, 1, ..., 1, 1, 1],</span>
+<span class="go">       ..., </span>
+<span class="go">       [0, 0, 0, ..., 0, 0, 0],</span>
+<span class="go">       [0, 0, 0, ..., 0, 0, 0],</span>
+<span class="go">       [0, 0, 0, ..., 0, 0, 0]], dtype=int32)</span>
+
+<span class="c"># search hbonds between residue 9 and 16</span>
+<span class="gp">In [19]: </span><span class="n">h</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">search_hbonds</span><span class="p">(</span><span class="n">pdb</span><span class="p">,</span> <span class="s1">&#39;:9,16&#39;</span><span class="p">)</span>
+
+<span class="gp">In [20]: </span><span class="n">h</span><span class="o">.</span><span class="n">donor_acceptor</span>
+<span class="gr">Out[20]: </span>
+<span class="go">[&#39;ASP9_OD2-ARG16_NH1-HH12&#39;,</span>
+<span class="go"> &#39;ASP9_OD2-ARG16_NH2-HH22&#39;,</span>
+<span class="go"> &#39;ASP9_OD2-ARG16_NE-HE&#39;,</span>
+<span class="go"> &#39;ASP9_OD2-ARG16_NH2-HH21&#39;,</span>
+<span class="go"> &#39;ASP9_OD2-ARG16_NH1-HH11&#39;]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="more-examples">
+<h2><a class="toc-backref" href="#id9">More examples</a><a class="headerlink" href="#more-examples" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/Amber-MD/pytraj/tree/master/examples">check our github page</a></p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, pytraj developers.<br/>
+      Last updated on Jun 08, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

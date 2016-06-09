@@ -1,0 +1,1009 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pytraj.topology &mdash; pytraj 1.0.7 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.7',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="pytraj 1.0.7 documentation" href="../index.html" />
+    <link rel="up" title="API" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.7</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory.html#overview">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_and_write.html">Read and Write</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conda.html">Use conda to manage different Python versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory_viewer.html">Trajectory Viewer</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">pytraj.topology</a><ul>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/_api/pytraj.topology.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="pytraj-topology">
+<span id="id1"></span><h1>pytraj.topology<a class="headerlink" href="#pytraj-topology" title="Permalink to this headline">¶</a></h1>
+<div class="custom-index container">
+<script type="text/javascript" src='../_static/cindex.js'></script></div>
+<span class="target" id="module-pytraj.topology"></span><dl class="class">
+<dt id="pytraj.topology.Topology">
+<em class="property">class </em><code class="descclassname">pytraj.topology.</code><code class="descname">Topology</code><a class="headerlink" href="#pytraj.topology.Topology" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.Topology.angle_indices" title="pytraj.topology.Topology.angle_indices"><code class="xref py py-obj docutils literal"><span class="pre">angle_indices</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.Topology.angles" title="pytraj.topology.Topology.angles"><code class="xref py py-obj docutils literal"><span class="pre">angles</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.Topology.atom_names" title="pytraj.topology.Topology.atom_names"><code class="xref py py-obj docutils literal"><span class="pre">atom_names</span></code></a></td>
+<td>return unique atom name in Topology</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.Topology.atomlist" title="pytraj.topology.Topology.atomlist"><code class="xref py py-obj docutils literal"><span class="pre">atomlist</span></code></a></td>
+<td>return a copy of atoms. If the Topology is large, this method calling</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.Topology.atoms" title="pytraj.topology.Topology.atoms"><code class="xref py py-obj docutils literal"><span class="pre">atoms</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.Topology.bond_indices" title="pytraj.topology.Topology.bond_indices"><code class="xref py py-obj docutils literal"><span class="pre">bond_indices</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.Topology.bonds" title="pytraj.topology.Topology.bonds"><code class="xref py py-obj docutils literal"><span class="pre">bonds</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.Topology.box" title="pytraj.topology.Topology.box"><code class="xref py py-obj docutils literal"><span class="pre">box</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.Topology.charge" title="pytraj.topology.Topology.charge"><code class="xref py py-obj docutils literal"><span class="pre">charge</span></code></a></td>
+<td>return a copy of atom charges (numpy 1D array)</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.Topology.dihedral_indices" title="pytraj.topology.Topology.dihedral_indices"><code class="xref py py-obj docutils literal"><span class="pre">dihedral_indices</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.Topology.dihedrals" title="pytraj.topology.Topology.dihedrals"><code class="xref py py-obj docutils literal"><span class="pre">dihedrals</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.Topology.filename" title="pytraj.topology.Topology.filename"><code class="xref py py-obj docutils literal"><span class="pre">filename</span></code></a></td>
+<td>return original filename. This is for testing purpose.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.Topology.mass" title="pytraj.topology.Topology.mass"><code class="xref py py-obj docutils literal"><span class="pre">mass</span></code></a></td>
+<td>return a copy of atom masses (numpy 1D array)</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.Topology.moleculelist" title="pytraj.topology.Topology.moleculelist"><code class="xref py py-obj docutils literal"><span class="pre">moleculelist</span></code></a></td>
+<td>return a copy of molecules. (not much information)</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.Topology.mols" title="pytraj.topology.Topology.mols"><code class="xref py py-obj docutils literal"><span class="pre">mols</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.Topology.n_atoms" title="pytraj.topology.Topology.n_atoms"><code class="xref py py-obj docutils literal"><span class="pre">n_atoms</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.Topology.n_mols" title="pytraj.topology.Topology.n_mols"><code class="xref py py-obj docutils literal"><span class="pre">n_mols</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.Topology.n_residues" title="pytraj.topology.Topology.n_residues"><code class="xref py py-obj docutils literal"><span class="pre">n_residues</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.Topology.n_solvents" title="pytraj.topology.Topology.n_solvents"><code class="xref py py-obj docutils literal"><span class="pre">n_solvents</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.Topology.residue_names" title="pytraj.topology.Topology.residue_names"><code class="xref py py-obj docutils literal"><span class="pre">residue_names</span></code></a></td>
+<td>return unique residue names in Topology</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.Topology.residuelist" title="pytraj.topology.Topology.residuelist"><code class="xref py py-obj docutils literal"><span class="pre">residuelist</span></code></a></td>
+<td>return a copy of residues</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.Topology.residues" title="pytraj.topology.Topology.residues"><code class="xref py py-obj docutils literal"><span class="pre">residues</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>intended to use with Frame indexing: atm = top(<a class="reference external" href="mailto:'&#37;&#52;&#48;CA">'<span>&#64;</span>CA</a>&#8216;) (for internal use)</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.Topology.add_angles" title="pytraj.topology.Topology.add_angles"><code class="xref py py-obj docutils literal"><span class="pre">add_angles</span></code></a></td>
+<td>add angle for a group of 3 atoms.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.Topology.add_atom" title="pytraj.topology.Topology.add_atom"><code class="xref py py-obj docutils literal"><span class="pre">add_atom</span></code></a>(self,&nbsp;Atom&nbsp;atom,&nbsp;Residue&nbsp;residue)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.Topology.add_bonds" title="pytraj.topology.Topology.add_bonds"><code class="xref py py-obj docutils literal"><span class="pre">add_bonds</span></code></a></td>
+<td>add bond for pairs of atoms.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.Topology.add_dihedrals" title="pytraj.topology.Topology.add_dihedrals"><code class="xref py py-obj docutils literal"><span class="pre">add_dihedrals</span></code></a></td>
+<td>add dihedral for a group of 4 atoms.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.Topology.atom" title="pytraj.topology.Topology.atom"><code class="xref py py-obj docutils literal"><span class="pre">atom</span></code></a>(self,&nbsp;int&nbsp;idx)</td>
+<td>return an Atom based on idx. Update this Atom will update Topology.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.Topology.atom_indices" title="pytraj.topology.Topology.atom_indices"><code class="xref py py-obj docutils literal"><span class="pre">atom_indices</span></code></a>(self,&nbsp;mask,&nbsp;*args,&nbsp;**kwd)</td>
+<td>return atom indices with given mask</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.Topology.copy" title="pytraj.topology.Topology.copy"><code class="xref py py-obj docutils literal"><span class="pre">copy</span></code></a>(self,&nbsp;*args)</td>
+<td>return a copy of &#8216;self&#8217; or copy from &#8216;other&#8217; to &#8216;self&#8217;</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.Topology.from_dict" title="pytraj.topology.Topology.from_dict"><code class="xref py py-obj docutils literal"><span class="pre">from_dict</span></code></a>(type&nbsp;cls,&nbsp;dict_data)</td>
+<td>internal use for serialize Topology</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.Topology.has_box" title="pytraj.topology.Topology.has_box"><code class="xref py py-obj docutils literal"><span class="pre">has_box</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.Topology.indices_bonded_to" title="pytraj.topology.Topology.indices_bonded_to"><code class="xref py py-obj docutils literal"><span class="pre">indices_bonded_to</span></code></a>(self,&nbsp;atom_name)</td>
+<td>return indices of the number of atoms that each atom bonds to</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.Topology.is_empty" title="pytraj.topology.Topology.is_empty"><code class="xref py py-obj docutils literal"><span class="pre">is_empty</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.Topology.join" title="pytraj.topology.Topology.join"><code class="xref py py-obj docutils literal"><span class="pre">join</span></code></a>(self,&nbsp;Topology&nbsp;top)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.Topology.load" title="pytraj.topology.Topology.load"><code class="xref py py-obj docutils literal"><span class="pre">load</span></code></a>(self,&nbsp;string&nbsp;filename)</td>
+<td>loading Topology from filename. This is for internal use. Should <code class="docutils literal"><span class="pre">pytraj.load_topology</span></code></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.Topology.residue" title="pytraj.topology.Topology.residue"><code class="xref py py-obj docutils literal"><span class="pre">residue</span></code></a>(self,&nbsp;int&nbsp;idx,&nbsp;bool&nbsp;atom=False)</td>
+<td>if atom is True, get full list of atoms for idx-th residue. This will be very slow</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.Topology.save" title="pytraj.topology.Topology.save"><code class="xref py py-obj docutils literal"><span class="pre">save</span></code></a>(self[,&nbsp;filename,&nbsp;format])</td>
+<td>save to given file format (parm7, psf, ...)</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.Topology.select" title="pytraj.topology.Topology.select"><code class="xref py py-obj docutils literal"><span class="pre">select</span></code></a>(self,&nbsp;mask)</td>
+<td>return atom indices</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.Topology.set_distance_mask_reference" title="pytraj.topology.Topology.set_distance_mask_reference"><code class="xref py py-obj docutils literal"><span class="pre">set_distance_mask_reference</span></code></a>(self,&nbsp;Frame&nbsp;frame)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.Topology.set_integer_mask" title="pytraj.topology.Topology.set_integer_mask"><code class="xref py py-obj docutils literal"><span class="pre">set_integer_mask</span></code></a>(self,&nbsp;AtomMask&nbsp;atm,&nbsp;...)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.Topology.set_nobox" title="pytraj.topology.Topology.set_nobox"><code class="xref py py-obj docutils literal"><span class="pre">set_nobox</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.Topology.set_solvent" title="pytraj.topology.Topology.set_solvent"><code class="xref py py-obj docutils literal"><span class="pre">set_solvent</span></code></a>(self,&nbsp;mask)</td>
+<td>set <code class="docutils literal"><span class="pre">mask</span></code> as solvent</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.Topology.simplify" title="pytraj.topology.Topology.simplify"><code class="xref py py-obj docutils literal"><span class="pre">simplify</span></code></a>(...)</td>
+<td>return a (immutable) light version of Topology for fast iterating. (experiment)</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.Topology.start_new_mol" title="pytraj.topology.Topology.start_new_mol"><code class="xref py py-obj docutils literal"><span class="pre">start_new_mol</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.Topology.strip" title="pytraj.topology.Topology.strip"><code class="xref py py-obj docutils literal"><span class="pre">strip</span></code></a>(self,&nbsp;mask[,&nbsp;copy])</td>
+<td>strip atoms with given mask</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.Topology.summary" title="pytraj.topology.Topology.summary"><code class="xref py py-obj docutils literal"><span class="pre">summary</span></code></a>(...)</td>
+<td>basic info. This information only appears in Ipython or Python shell.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.Topology.to_dataframe" title="pytraj.topology.Topology.to_dataframe"><code class="xref py py-obj docutils literal"><span class="pre">to_dataframe</span></code></a>(...)</td>
+<td>convert to pandas&#8217; DataFrame. (experiment)</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.Topology.to_dict" title="pytraj.topology.Topology.to_dict"><code class="xref py py-obj docutils literal"><span class="pre">to_dict</span></code></a>(self)</td>
+<td>convert Topology to Python dict</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.Topology.to_parmed" title="pytraj.topology.Topology.to_parmed"><code class="xref py py-obj docutils literal"><span class="pre">to_parmed</span></code></a>(self)</td>
+<td>try to load to ParmEd&#8217;s Structure</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="pytraj.topology.Topology.add_angles">
+<code class="descname">add_angles</code><a class="headerlink" href="#pytraj.topology.Topology.add_angles" title="Permalink to this definition">¶</a></dt>
+<dd><p>add angle for a group of 3 atoms.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>indices</strong> : 2D array_like (must have buffer interface),</p>
+<blockquote class="last">
+<div><p>shape=(n_atoms, 3)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.Topology.add_atom">
+<code class="descname">add_atom</code><span class="sig-paren">(</span><em>self</em>, <em>Atom atom</em>, <em>Residue residue</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.Topology.add_atom" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.Topology.add_bonds">
+<code class="descname">add_bonds</code><a class="headerlink" href="#pytraj.topology.Topology.add_bonds" title="Permalink to this definition">¶</a></dt>
+<dd><p>add bond for pairs of atoms.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>bond_indices</strong> : 2D array_like (must have buffer interface)</p>
+<blockquote class="last">
+<div><p>shape=(n_atoms, 2)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.Topology.add_dihedrals">
+<code class="descname">add_dihedrals</code><a class="headerlink" href="#pytraj.topology.Topology.add_dihedrals" title="Permalink to this definition">¶</a></dt>
+<dd><p>add dihedral for a group of 4 atoms.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>indices</strong> : 2D array_like (must have buffer interface),</p>
+<blockquote class="last">
+<div><p>shape=(n_atoms, 3)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.Topology.angle_indices">
+<code class="descname">angle_indices</code><a class="headerlink" href="#pytraj.topology.Topology.angle_indices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.Topology.angles">
+<code class="descname">angles</code><a class="headerlink" href="#pytraj.topology.Topology.angles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.Topology.atom">
+<code class="descname">atom</code><span class="sig-paren">(</span><em>self</em>, <em>int idx</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.Topology.atom" title="Permalink to this definition">¶</a></dt>
+<dd><p>return an Atom based on idx. Update this Atom will update Topology.
+Make this method private for now.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.Topology.atom_indices">
+<code class="descname">atom_indices</code><span class="sig-paren">(</span><em>self</em>, <em>mask</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.Topology.atom_indices" title="Permalink to this definition">¶</a></dt>
+<dd><p>return atom indices with given mask
+To be the same as cpptraj/Ambertools: we mask indexing starts from 1
+but the return list/array use 0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mask</strong> : str</p>
+<blockquote>
+<div><p>Atom mask</p>
+</div></blockquote>
+<p><strong>Returns</strong></p>
+<p><strong>&#8212;&#8212;</strong></p>
+<p class="last"><strong>indices</strong> : Python array</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.Topology.atom_names">
+<code class="descname">atom_names</code><a class="headerlink" href="#pytraj.topology.Topology.atom_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>return unique atom name in Topology</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.Topology.atomlist">
+<code class="descname">atomlist</code><a class="headerlink" href="#pytraj.topology.Topology.atomlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a copy of atoms. If the Topology is large, this method calling
+is every expensive. Make sure to call once and save it.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.Topology.atoms">
+<code class="descname">atoms</code><a class="headerlink" href="#pytraj.topology.Topology.atoms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.Topology.bond_indices">
+<code class="descname">bond_indices</code><a class="headerlink" href="#pytraj.topology.Topology.bond_indices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.Topology.bonds">
+<code class="descname">bonds</code><a class="headerlink" href="#pytraj.topology.Topology.bonds" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.Topology.box">
+<code class="descname">box</code><a class="headerlink" href="#pytraj.topology.Topology.box" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.Topology.charge">
+<code class="descname">charge</code><a class="headerlink" href="#pytraj.topology.Topology.charge" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a copy of atom charges (numpy 1D array)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.Topology.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><em>self</em>, <em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.Topology.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a copy of &#8216;self&#8217; or copy from &#8216;other&#8217; to &#8216;self&#8217;
+TODO : add more doc</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.Topology.dihedral_indices">
+<code class="descname">dihedral_indices</code><a class="headerlink" href="#pytraj.topology.Topology.dihedral_indices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.Topology.dihedrals">
+<code class="descname">dihedrals</code><a class="headerlink" href="#pytraj.topology.Topology.dihedrals" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.Topology.filename">
+<code class="descname">filename</code><a class="headerlink" href="#pytraj.topology.Topology.filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>return original filename. This is for testing purpose.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.Topology.from_dict">
+<code class="descname">from_dict</code><span class="sig-paren">(</span><em>type cls</em>, <em>dict_data</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.Topology.from_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>internal use for serialize Topology</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.Topology.has_box">
+<code class="descname">has_box</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.Topology.has_box" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.Topology.indices_bonded_to">
+<code class="descname">indices_bonded_to</code><span class="sig-paren">(</span><em>self</em>, <em>atom_name</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.Topology.indices_bonded_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>return indices of the number of atoms that each atom bonds to</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>atom_name</strong> : name of the atom</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.Topology.is_empty">
+<code class="descname">is_empty</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.Topology.is_empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.Topology.join">
+<code class="descname">join</code><span class="sig-paren">(</span><em>self</em>, <em>Topology top</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.Topology.join" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.Topology.load">
+<code class="descname">load</code><span class="sig-paren">(</span><em>self</em>, <em>string filename</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.Topology.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>loading Topology from filename. This is for internal use. Should <code class="docutils literal"><span class="pre">pytraj.load_topology</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.Topology.mass">
+<code class="descname">mass</code><a class="headerlink" href="#pytraj.topology.Topology.mass" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a copy of atom masses (numpy 1D array)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.Topology.moleculelist">
+<code class="descname">moleculelist</code><a class="headerlink" href="#pytraj.topology.Topology.moleculelist" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a copy of molecules. (not much information)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.Topology.mols">
+<code class="descname">mols</code><a class="headerlink" href="#pytraj.topology.Topology.mols" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.Topology.n_atoms">
+<code class="descname">n_atoms</code><a class="headerlink" href="#pytraj.topology.Topology.n_atoms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.Topology.n_mols">
+<code class="descname">n_mols</code><a class="headerlink" href="#pytraj.topology.Topology.n_mols" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.Topology.n_residues">
+<code class="descname">n_residues</code><a class="headerlink" href="#pytraj.topology.Topology.n_residues" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.Topology.n_solvents">
+<code class="descname">n_solvents</code><a class="headerlink" href="#pytraj.topology.Topology.n_solvents" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.Topology.residue">
+<code class="descname">residue</code><span class="sig-paren">(</span><em>self</em>, <em>int idx</em>, <em>bool atom=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.Topology.residue" title="Permalink to this definition">¶</a></dt>
+<dd><p>if atom is True, get full list of atoms for idx-th residue. This will be very slow
+if atom is False, get ()</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.Topology.residue_names">
+<code class="descname">residue_names</code><a class="headerlink" href="#pytraj.topology.Topology.residue_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>return unique residue names in Topology</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.Topology.residuelist">
+<code class="descname">residuelist</code><a class="headerlink" href="#pytraj.topology.Topology.residuelist" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a copy of residues</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.Topology.residues">
+<code class="descname">residues</code><a class="headerlink" href="#pytraj.topology.Topology.residues" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.Topology.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>self</em>, <em>filename=None</em>, <em>format='AMBERPARM') save to given file format (parm7</em>, <em>psf</em>, <em>...</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.Topology.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>save to given file format (parm7, psf, ...)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.Topology.select">
+<code class="descname">select</code><span class="sig-paren">(</span><em>self</em>, <em>mask</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.Topology.select" title="Permalink to this definition">¶</a></dt>
+<dd><p>return atom indices</p>
+<p class="rubric">Notes</p>
+<p>support openmp for distance-based atommask selction</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">atm</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;@CA&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">atm</span>
+<span class="go">array([  4,  15,  39, ..., 159, 173, 197])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">atm</span><span class="p">)</span>
+<span class="go">array([  1.94667955e-07,   2.54596866e+00,   4.22333034e+00, ...,</span>
+<span class="go">         4.97189564e+00,   5.53947712e+00,   4.83201237e+00])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.Topology.set_distance_mask_reference">
+<code class="descname">set_distance_mask_reference</code><span class="sig-paren">(</span><em>self</em>, <em>Frame frame</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.Topology.set_distance_mask_reference" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.Topology.set_integer_mask">
+<code class="descname">set_integer_mask</code><span class="sig-paren">(</span><em>self</em>, <em>AtomMask atm</em>, <em>Frame frame=&lt;???&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.Topology.set_integer_mask" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.Topology.set_nobox">
+<code class="descname">set_nobox</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.Topology.set_nobox" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.Topology.set_solvent">
+<code class="descname">set_solvent</code><span class="sig-paren">(</span><em>self</em>, <em>mask</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.Topology.set_solvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>set <code class="docutils literal"><span class="pre">mask</span></code> as solvent</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.Topology.simplify">
+<code class="descname">simplify</code><span class="sig-paren">(</span><em>self) return a (immutable) light version of Topology for fast iterating. (experiment</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.Topology.simplify" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a (immutable) light version of Topology for fast iterating. (experiment)</p>
+<p>No writing capabibility (you should use ParmEd for Topology editing)</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">top</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_topology</span><span class="p">(</span><span class="s1">&#39;data/tz2.parm7&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">simp_top</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">atom</span> <span class="o">=</span> <span class="n">simp_top</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">atom</span><span class="o">.</span><span class="n">resname</span>
+<span class="go">&#39;SER&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">simp_top</span><span class="o">.</span><span class="n">residues</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># get all atoms for 1st residue</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">atoms</span> <span class="o">=</span> <span class="n">simp_top</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="n">res</span><span class="o">.</span><span class="n">first</span><span class="p">:</span><span class="n">res</span><span class="o">.</span><span class="n">last</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.Topology.start_new_mol">
+<code class="descname">start_new_mol</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.Topology.start_new_mol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.Topology.strip">
+<code class="descname">strip</code><span class="sig-paren">(</span><em>self</em>, <em>mask</em>, <em>copy=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.Topology.strip" title="Permalink to this definition">¶</a></dt>
+<dd><p>strip atoms with given mask</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.Topology.summary">
+<code class="descname">summary</code><span class="sig-paren">(</span><em>self) basic info. This information only appears in Ipython or Python shell. It does not appear in Jupyter notebook (due to C++ stdout</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.Topology.summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>basic info. This information only appears in Ipython or Python shell. 
+It does not appear in Jupyter notebook (due to C++ stdout)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.Topology.to_dataframe">
+<code class="descname">to_dataframe</code><span class="sig-paren">(</span><em>self) convert to pandas' DataFrame. (experiment</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.Topology.to_dataframe" title="Permalink to this definition">¶</a></dt>
+<dd><p>convert to pandas&#8217; DataFrame. (experiment)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.Topology.to_dict">
+<code class="descname">to_dict</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.Topology.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>convert Topology to Python dict</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.Topology.to_parmed">
+<code class="descname">to_parmed</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.Topology.to_parmed" title="Permalink to this definition">¶</a></dt>
+<dd><p>try to load to ParmEd&#8217;s Structure</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.topology.ParmFile">
+<em class="property">class </em><code class="descclassname">pytraj.topology.</code><code class="descname">ParmFile</code><a class="headerlink" href="#pytraj.topology.ParmFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.ParmFile.filename" title="pytraj.topology.ParmFile.filename"><code class="xref py py-obj docutils literal"><span class="pre">filename</span></code></a>(self)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.ParmFile.readparm" title="pytraj.topology.ParmFile.readparm"><code class="xref py py-obj docutils literal"><span class="pre">readparm</span></code></a>(self[,&nbsp;filename,&nbsp;top,&nbsp;option])</td>
+<td>top : Topology instance</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.ParmFile.writeparm" title="pytraj.topology.ParmFile.writeparm"><code class="xref py py-obj docutils literal"><span class="pre">writeparm</span></code></a>(self,&nbsp;Topology&nbsp;top=&lt;???&gt;[,&nbsp;...])</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.topology.ParmFile.filename">
+<code class="descname">filename</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.ParmFile.filename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.ParmFile.readparm">
+<code class="descname">readparm</code><span class="sig-paren">(</span><em>self</em>, <em>filename=''</em>, <em>top=&lt;???&gt;</em>, <em>option='') readparm(Topology top=Topology()</em>, <em>string filename=&quot;&quot;</em>, <em>&quot;*args) Return : None (update `top`</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.ParmFile.readparm" title="Permalink to this definition">¶</a></dt>
+<dd><p>top : Topology instance
+filename : str, output filename
+arglist : ArgList instance, optional</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.ParmFile.writeparm">
+<code class="descname">writeparm</code><span class="sig-paren">(</span><em>self</em>, <em>Topology top=&lt;???&gt;</em>, <em>filename='default.top'</em>, <em>ArgList arglist=&lt;???&gt;</em>, <em>format=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.ParmFile.writeparm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.topology.SimplifiedTopology">
+<em class="property">class </em><code class="descclassname">pytraj.topology.</code><code class="descname">SimplifiedTopology</code><a class="headerlink" href="#pytraj.topology.SimplifiedTopology" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">importlib._bootstrap.SimplifiedTopology</span></code></p>
+<p>a lightweight Topology for fast iterating and convenient accessing atom, residue</p>
+<p class="rubric">Notes</p>
+<p>cpptraj does not understand this class (use :class:Topology)</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.SimplifiedTopology.atoms" title="pytraj.topology.SimplifiedTopology.atoms"><code class="xref py py-obj docutils literal"><span class="pre">atoms</span></code></a></td>
+<td>Alias for field number 0</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.SimplifiedTopology.residues" title="pytraj.topology.SimplifiedTopology.residues"><code class="xref py py-obj docutils literal"><span class="pre">residues</span></code></a></td>
+<td>Alias for field number 1</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.SimplifiedTopology.count" title="pytraj.topology.SimplifiedTopology.count"><code class="xref py py-obj docutils literal"><span class="pre">count</span></code></a>(...)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.SimplifiedTopology.index" title="pytraj.topology.SimplifiedTopology.index"><code class="xref py py-obj docutils literal"><span class="pre">index</span></code></a>((value,&nbsp;[start,&nbsp;...)</td>
+<td>Raises ValueError if the value is not present.</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="pytraj.topology.SimplifiedTopology.atoms">
+<code class="descname">atoms</code><a class="headerlink" href="#pytraj.topology.SimplifiedTopology.atoms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.SimplifiedTopology.count">
+<code class="descname">count</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span> &rarr; integer -- return number of occurrences of value<a class="headerlink" href="#pytraj.topology.SimplifiedTopology.count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.SimplifiedTopology.index">
+<code class="descname">index</code><span class="sig-paren">(</span><em>value</em><span class="optional">[</span>, <em>start</em><span class="optional">[</span>, <em>stop</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> &rarr; integer -- return first index of value.<a class="headerlink" href="#pytraj.topology.SimplifiedTopology.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raises ValueError if the value is not present.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.SimplifiedTopology.residues">
+<code class="descname">residues</code><a class="headerlink" href="#pytraj.topology.SimplifiedTopology.residues" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.topology.SimplifiedAtom">
+<em class="property">class </em><code class="descclassname">pytraj.topology.</code><code class="descname">SimplifiedAtom</code><span class="sig-paren">(</span><em>name</em>, <em>type</em>, <em>element</em>, <em>charge</em>, <em>mass</em>, <em>index</em>, <em>atomic_number</em>, <em>resname</em>, <em>resid</em>, <em>molnum</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.SimplifiedAtom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">importlib._bootstrap.SimplifiedAtom</span></code></p>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.SimplifiedAtom.atomic_number" title="pytraj.topology.SimplifiedAtom.atomic_number"><code class="xref py py-obj docutils literal"><span class="pre">atomic_number</span></code></a></td>
+<td>Alias for field number 6</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.SimplifiedAtom.charge" title="pytraj.topology.SimplifiedAtom.charge"><code class="xref py py-obj docutils literal"><span class="pre">charge</span></code></a></td>
+<td>Alias for field number 3</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.SimplifiedAtom.element" title="pytraj.topology.SimplifiedAtom.element"><code class="xref py py-obj docutils literal"><span class="pre">element</span></code></a></td>
+<td>Alias for field number 2</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.SimplifiedAtom.index" title="pytraj.topology.SimplifiedAtom.index"><code class="xref py py-obj docutils literal"><span class="pre">index</span></code></a></td>
+<td>Alias for field number 5</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.SimplifiedAtom.mass" title="pytraj.topology.SimplifiedAtom.mass"><code class="xref py py-obj docutils literal"><span class="pre">mass</span></code></a></td>
+<td>Alias for field number 4</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.SimplifiedAtom.molnum" title="pytraj.topology.SimplifiedAtom.molnum"><code class="xref py py-obj docutils literal"><span class="pre">molnum</span></code></a></td>
+<td>Alias for field number 9</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.SimplifiedAtom.name" title="pytraj.topology.SimplifiedAtom.name"><code class="xref py py-obj docutils literal"><span class="pre">name</span></code></a></td>
+<td>Alias for field number 0</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.SimplifiedAtom.resid" title="pytraj.topology.SimplifiedAtom.resid"><code class="xref py py-obj docutils literal"><span class="pre">resid</span></code></a></td>
+<td>Alias for field number 8</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.SimplifiedAtom.resname" title="pytraj.topology.SimplifiedAtom.resname"><code class="xref py py-obj docutils literal"><span class="pre">resname</span></code></a></td>
+<td>Alias for field number 7</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.SimplifiedAtom.type" title="pytraj.topology.SimplifiedAtom.type"><code class="xref py py-obj docutils literal"><span class="pre">type</span></code></a></td>
+<td>Alias for field number 1</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.SimplifiedAtom.count" title="pytraj.topology.SimplifiedAtom.count"><code class="xref py py-obj docutils literal"><span class="pre">count</span></code></a>(...)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="pytraj.topology.SimplifiedAtom.atomic_number">
+<code class="descname">atomic_number</code><a class="headerlink" href="#pytraj.topology.SimplifiedAtom.atomic_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 6</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.SimplifiedAtom.charge">
+<code class="descname">charge</code><a class="headerlink" href="#pytraj.topology.SimplifiedAtom.charge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytraj.topology.SimplifiedAtom.count">
+<code class="descname">count</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span> &rarr; integer -- return number of occurrences of value<a class="headerlink" href="#pytraj.topology.SimplifiedAtom.count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.SimplifiedAtom.element">
+<code class="descname">element</code><a class="headerlink" href="#pytraj.topology.SimplifiedAtom.element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.SimplifiedAtom.index">
+<code class="descname">index</code><a class="headerlink" href="#pytraj.topology.SimplifiedAtom.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 5</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.SimplifiedAtom.mass">
+<code class="descname">mass</code><a class="headerlink" href="#pytraj.topology.SimplifiedAtom.mass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 4</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.SimplifiedAtom.molnum">
+<code class="descname">molnum</code><a class="headerlink" href="#pytraj.topology.SimplifiedAtom.molnum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 9</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.SimplifiedAtom.name">
+<code class="descname">name</code><a class="headerlink" href="#pytraj.topology.SimplifiedAtom.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.SimplifiedAtom.resid">
+<code class="descname">resid</code><a class="headerlink" href="#pytraj.topology.SimplifiedAtom.resid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 8</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.SimplifiedAtom.resname">
+<code class="descname">resname</code><a class="headerlink" href="#pytraj.topology.SimplifiedAtom.resname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 7</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.SimplifiedAtom.type">
+<code class="descname">type</code><a class="headerlink" href="#pytraj.topology.SimplifiedAtom.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.topology.SimplifiedResidue">
+<em class="property">class </em><code class="descclassname">pytraj.topology.</code><code class="descname">SimplifiedResidue</code><span class="sig-paren">(</span><em>name</em>, <em>index</em>, <em>first</em>, <em>last</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.SimplifiedResidue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">importlib._bootstrap.SimplifiedResidue</span></code></p>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.SimplifiedResidue.first" title="pytraj.topology.SimplifiedResidue.first"><code class="xref py py-obj docutils literal"><span class="pre">first</span></code></a></td>
+<td>Alias for field number 2</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.SimplifiedResidue.index" title="pytraj.topology.SimplifiedResidue.index"><code class="xref py py-obj docutils literal"><span class="pre">index</span></code></a></td>
+<td>Alias for field number 1</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.SimplifiedResidue.last" title="pytraj.topology.SimplifiedResidue.last"><code class="xref py py-obj docutils literal"><span class="pre">last</span></code></a></td>
+<td>Alias for field number 3</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.SimplifiedResidue.name" title="pytraj.topology.SimplifiedResidue.name"><code class="xref py py-obj docutils literal"><span class="pre">name</span></code></a></td>
+<td>Alias for field number 0</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.SimplifiedResidue.count" title="pytraj.topology.SimplifiedResidue.count"><code class="xref py py-obj docutils literal"><span class="pre">count</span></code></a>(...)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pytraj.topology.SimplifiedResidue.count">
+<code class="descname">count</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span> &rarr; integer -- return number of occurrences of value<a class="headerlink" href="#pytraj.topology.SimplifiedResidue.count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.SimplifiedResidue.first">
+<code class="descname">first</code><a class="headerlink" href="#pytraj.topology.SimplifiedResidue.first" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.SimplifiedResidue.index">
+<code class="descname">index</code><a class="headerlink" href="#pytraj.topology.SimplifiedResidue.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.SimplifiedResidue.last">
+<code class="descname">last</code><a class="headerlink" href="#pytraj.topology.SimplifiedResidue.last" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.topology.SimplifiedResidue.name">
+<code class="descname">name</code><a class="headerlink" href="#pytraj.topology.SimplifiedResidue.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, pytraj developers.<br/>
+      Last updated on Jun 08, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

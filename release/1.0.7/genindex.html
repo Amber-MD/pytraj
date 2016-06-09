@@ -1,0 +1,3590 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Index &mdash; pytraj 1.0.7 documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.7',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="pytraj 1.0.7 documentation" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.7</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory.html#overview">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_and_write.html">Read and Write</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Use conda to manage different Python versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_viewer.html">Trajectory Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+
+<h1 id="index">Index</h1>
+
+<div class="genindex-jumpbox">
+ <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
+ | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
+ | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
+ | <a href="#I"><strong>I</strong></a>
+ | <a href="#J"><strong>J</strong></a>
+ | <a href="#K"><strong>K</strong></a>
+ | <a href="#L"><strong>L</strong></a>
+ | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
+ | <a href="#O"><strong>O</strong></a>
+ | <a href="#P"><strong>P</strong></a>
+ | <a href="#R"><strong>R</strong></a>
+ | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
+ | <a href="#U"><strong>U</strong></a>
+ | <a href="#V"><strong>V</strong></a>
+ | <a href="#W"><strong>W</strong></a>
+ | <a href="#X"><strong>X</strong></a>
+ 
+</div>
+<h2 id="A">A</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.acorr">acorr() (in module pytraj)</a>, <a href="analysis.html#pytraj.acorr">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.acorr">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.ActionDict">ActionDict (class in pytraj)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.ActionList">ActionList (class in pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.c_action.actionlist.html#pytraj.c_action.actionlist.ActionList">(class in pytraj.c_action.actionlist)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.ActionList.add">add() (pytraj.ActionList method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.c_action.actionlist.html#pytraj.c_action.actionlist.ActionList.add">(pytraj.c_action.actionlist.ActionList method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.add_angles">add_angles (pytraj.Topology attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.add_angles">(pytraj.topology.Topology attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.AtomMask.add_atom">add_atom() (pytraj.AtomMask method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.Topology.add_atom">(pytraj.Topology method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.AtomMask.add_atom">(pytraj.core.c_core.AtomMask method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.add_atom">(pytraj.topology.Topology method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.AtomMask.add_atom_range">add_atom_range() (pytraj.AtomMask method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.AtomMask.add_atom_range">(pytraj.core.c_core.AtomMask method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.AtomMask.add_atoms">add_atoms() (pytraj.AtomMask method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.AtomMask.add_atoms">(pytraj.core.c_core.AtomMask method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.add_bonds">add_bonds (pytraj.Topology attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.add_bonds">(pytraj.topology.Topology attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.add_dihedrals">add_dihedrals (pytraj.Topology attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.add_dihedrals">(pytraj.topology.Topology attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.AtomMask.add_selected_indices">add_selected_indices() (pytraj.AtomMask method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.AtomMask.add_selected_indices">(pytraj.core.c_core.AtomMask method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.align_principal_axis">align_principal_axis() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.align_principal_axis">(in module pytraj.all_actions)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.align_principal_axis">(pytraj.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.align_principal_axis">(pytraj.trajectory.Trajectory method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.AnalysisDict">AnalysisDict (class in pytraj)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.angle">angle() (in module pytraj)</a>, <a href="analysis.html#pytraj.angle">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.angle">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.angle_indices">angle_indices (pytraj.Topology attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.angle_indices">(pytraj.topology.Topology attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.angles">angles (pytraj.Topology attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.angles">(pytraj.topology.Topology attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.append">append() (pytraj.Trajectory method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.append">(pytraj.trajectory.Trajectory method)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Frame.append_xyz">append_xyz() (pytraj.Frame method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.append_xyz">(pytraj.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.append_xyz">(pytraj.frame.Frame method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.append_xyz">(pytraj.trajectory.Trajectory method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.ArgList">ArgList (class in pytraj.core.c_core)</a>
+  </dt>
+
+      
+  <dt><a href="misc.html#pytraj.tools.as_2darray">as_2darray() (in module pytraj.tools)</a>
+  </dt>
+
+      
+  <dt><a href="misc.html#pytraj.tools.as_3darray">as_3darray() (in module pytraj.tools)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.at">at() (pytraj.Trajectory method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.TrajectoryIterator.at">(pytraj.TrajectoryIterator method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.at">(pytraj.trajectory.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory_iterator.html#pytraj.trajectory_iterator.TrajectoryIterator.at">(pytraj.trajectory_iterator.TrajectoryIterator method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Atom">Atom (class in pytraj)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Frame.atom">atom() (pytraj.Frame method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.Topology.atom">(pytraj.Topology method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.atom">(pytraj.frame.Frame method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.atom">(pytraj.topology.Topology method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.atom_indices">atom_indices() (pytraj.Topology method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.atom_indices">(pytraj.topology.Topology method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.atom_names">atom_names (pytraj.Topology attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.atom_names">(pytraj.topology.Topology attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Atom.atomic_number">atomic_number (pytraj.Atom attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.SimplifiedAtom.atomic_number">(pytraj.topology.SimplifiedAtom attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.atomiccorr">atomiccorr() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.atomiccorr">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.atomicfluct">atomicfluct() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.atomicfluct">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.atomlist">atomlist (pytraj.Topology attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.atomlist">(pytraj.topology.Topology attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.AtomMask">AtomMask (class in pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.AtomMask">(class in pytraj.core.c_core)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.atoms">atoms (pytraj.Topology attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.SimplifiedTopology.atoms">(pytraj.topology.SimplifiedTopology attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.atoms">(pytraj.topology.Topology attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.autoimage">autoimage() (in module pytraj)</a>, <a href="analysis.html#pytraj.autoimage">[1]</a>, <a href="modify_traj.html#pytraj.autoimage">[2]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.autoimage">(in module pytraj.all_actions)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.autoimage">(pytraj.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.TrajectoryIterator.autoimage">(pytraj.TrajectoryIterator method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.autoimage">(pytraj.trajectory.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory_iterator.html#pytraj.trajectory_iterator.TrajectoryIterator.autoimage">(pytraj.trajectory_iterator.TrajectoryIterator method)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+</tr></table>
+
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Molecule.begin_atom">begin_atom (pytraj.Molecule attribute)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.bfactors">bfactors() (in module pytraj)</a>, <a href="analysis.html#pytraj.bfactors">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.bfactors">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="misc.html#pytraj.tools.block_average">block_average() (in module pytraj.tools)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.bond_indices">bond_indices (pytraj.Topology attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.bond_indices">(pytraj.topology.Topology attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Atom.bonded_indices">bonded_indices() (pytraj.Atom method)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.bonds">bonds (pytraj.Topology attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.bonds">(pytraj.topology.Topology attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Frame.box">box (pytraj.Frame attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.Topology.box">(pytraj.Topology attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.box">(pytraj.frame.Frame attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.box">(pytraj.topology.Topology attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.vector.html#pytraj.vector.box">box() (in module pytraj.vector)</a>, <a href="vector_analysis.html#pytraj.vector.box">[1]</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.vector.html#pytraj.vector.boxcenter">boxcenter() (in module pytraj.vector)</a>, <a href="vector_analysis.html#pytraj.vector.boxcenter">[1]</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.calc_alpha">calc_alpha() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="dihedral_analysis.html#pytraj.dihedral_analysis.calc_alpha">(in module pytraj.dihedral_analysis)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.calc_beta">calc_beta() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="dihedral_analysis.html#pytraj.dihedral_analysis.calc_beta">(in module pytraj.dihedral_analysis)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.calc_chin">calc_chin() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="dihedral_analysis.html#pytraj.dihedral_analysis.calc_chin">(in module pytraj.dihedral_analysis)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.calc_chip">calc_chip() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="dihedral_analysis.html#pytraj.dihedral_analysis.calc_chip">(in module pytraj.dihedral_analysis)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.calc_delta">calc_delta() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="dihedral_analysis.html#pytraj.dihedral_analysis.calc_delta">(in module pytraj.dihedral_analysis)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="dssp_analysis.html#pytraj.dssp_analysis.calc_dssp">calc_dssp() (in module pytraj.dssp_analysis)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.calc_epsilon">calc_epsilon() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="dihedral_analysis.html#pytraj.dihedral_analysis.calc_epsilon">(in module pytraj.dihedral_analysis)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.calc_gamma">calc_gamma() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="dihedral_analysis.html#pytraj.dihedral_analysis.calc_gamma">(in module pytraj.dihedral_analysis)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.nmr.html#pytraj.nmr.calc_ired_vector_and_matrix">calc_ired_vector_and_matrix() (in module pytraj.nmr)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.calc_multidihedral">calc_multidihedral() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="dihedral_analysis.html#pytraj.dihedral_analysis.calc_multidihedral">(in module pytraj.dihedral_analysis)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.nmr.html#pytraj.nmr.calc_NH_order_parameters">calc_NH_order_parameters() (in module pytraj.nmr)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.calc_nu1">calc_nu1() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="dihedral_analysis.html#pytraj.dihedral_analysis.calc_nu1">(in module pytraj.dihedral_analysis)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.calc_nu2">calc_nu2() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="dihedral_analysis.html#pytraj.dihedral_analysis.calc_nu2">(in module pytraj.dihedral_analysis)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.calc_omega">calc_omega() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="dihedral_analysis.html#pytraj.dihedral_analysis.calc_omega">(in module pytraj.dihedral_analysis)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.calc_phi">calc_phi() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="dihedral_analysis.html#pytraj.dihedral_analysis.calc_phi">(in module pytraj.dihedral_analysis)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.calc_psi">calc_psi() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="dihedral_analysis.html#pytraj.dihedral_analysis.calc_psi">(in module pytraj.dihedral_analysis)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="analysis.html#pytraj.calc_vector">calc_vector() (in module pytraj)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.calc_zeta">calc_zeta() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="dihedral_analysis.html#pytraj.dihedral_analysis.calc_zeta">(in module pytraj.dihedral_analysis)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.center">center() (in module pytraj)</a>, <a href="modify_traj.html#pytraj.center">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.center">(in module pytraj.all_actions)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.vector.html#pytraj.vector.center">(in module pytraj.vector)</a>, <a href="vector_analysis.html#pytraj.vector.center">[1]</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.center">(pytraj.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.TrajectoryIterator.center">(pytraj.TrajectoryIterator method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.center">(pytraj.trajectory.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory_iterator.html#pytraj.trajectory_iterator.TrajectoryIterator.center">(pytraj.trajectory_iterator.TrajectoryIterator method)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.center_of_geometry">center_of_geometry() (in module pytraj)</a>, <a href="analysis.html#pytraj.center_of_geometry">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.center_of_geometry">(in module pytraj.all_actions)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Frame.center_of_geometry">(pytraj.Frame method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.center_of_geometry">(pytraj.frame.Frame method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.center_of_mass">center_of_mass() (in module pytraj)</a>, <a href="analysis.html#pytraj.center_of_mass">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.center_of_mass">(in module pytraj.all_actions)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Frame.center_of_mass">(pytraj.Frame method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.center_of_mass">(pytraj.frame.Frame method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Atom.chain">chain (pytraj.Atom attribute)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Atom.charge">charge (pytraj.Atom attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.Topology.charge">(pytraj.Topology attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.SimplifiedAtom.charge">(pytraj.topology.SimplifiedAtom attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.charge">(pytraj.topology.Topology attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.check_structure">check_structure() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.check_structure">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.closest">closest() (in module pytraj)</a>, <a href="analysis.html#pytraj.closest">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.closest">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.Command">Command (class in pytraj.core.c_core)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.ArgList.command_is">command_is() (pytraj.core.c_core.ArgList method)</a>
+  </dt>
+
+      
+  <dt><a href="misc.html#pytraj.tools.compose">compose() (in module pytraj.tools)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.c_action.actionlist.html#pytraj.c_action.actionlist.compute">compute() (in module pytraj.c_action.actionlist)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.ActionList.compute">(pytraj.ActionList method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.CpptrajState.html#pytraj.CpptrajState.compute">(pytraj.CpptrajState method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.c_action.actionlist.html#pytraj.c_action.actionlist.ActionList.compute">(pytraj.c_action.actionlist.ActionList method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.CpptrajState.compute">(pytraj.core.c_core.CpptrajState method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="misc.html#pytraj.tools.concat_dict">concat_dict() (in module pytraj.tools)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Frame.coordinates">coordinates (pytraj.Frame attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.coordinates">(pytraj.frame.Frame attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Atom.copy">copy() (pytraj.Atom method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.Frame.copy">(pytraj.Frame method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Topology.copy">(pytraj.Topology method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.copy">(pytraj.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.TrajectoryIterator.copy">(pytraj.TrajectoryIterator method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.NameType.copy">(pytraj.core.c_core.NameType method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.copy">(pytraj.frame.Frame method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.copy">(pytraj.topology.Topology method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.copy">(pytraj.trajectory.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory_iterator.html#pytraj.trajectory_iterator.TrajectoryIterator.copy">(pytraj.trajectory_iterator.TrajectoryIterator method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.matrix.html#pytraj.matrix.correl">correl() (in module pytraj.matrix)</a>, <a href="matrix_analysis.html#pytraj.matrix.correl">[1]</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.vector.html#pytraj.vector.corrplane">corrplane() (in module pytraj.vector)</a>, <a href="vector_analysis.html#pytraj.vector.corrplane">[1]</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.SimplifiedAtom.count">count() (pytraj.topology.SimplifiedAtom method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.SimplifiedResidue.count">(pytraj.topology.SimplifiedResidue method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.SimplifiedTopology.count">(pytraj.topology.SimplifiedTopology method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.matrix.html#pytraj.matrix.covar">covar() (in module pytraj.matrix)</a>, <a href="matrix_analysis.html#pytraj.matrix.covar">[1]</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.CpptrajState.html#pytraj.CpptrajState">CpptrajState (class in pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.CpptrajState">(class in pytraj.core.c_core)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="analysis.html#pytraj.crank">crank() (in module pytraj)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="D">D</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.ActionList.data">data (pytraj.ActionList attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.CpptrajState.html#pytraj.CpptrajState.data">(pytraj.CpptrajState attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.c_action.actionlist.html#pytraj.c_action.actionlist.ActionList.data">(pytraj.c_action.actionlist.ActionList attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.CpptrajState.data">(pytraj.core.c_core.CpptrajState attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.hbond_analysis.html#pytraj.hbond_analysis.DatasetHBond.data">(pytraj.hbond_analysis.DatasetHBond attribute)</a>, <a href="hbond_analysis.html#pytraj.hbond_analysis.DatasetHBond.data">[1]</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.CpptrajState.datafilelist">datafilelist (pytraj.core.c_core.CpptrajState attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.CpptrajState.html#pytraj.CpptrajState.datafilelist">(pytraj.CpptrajState attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.hbond_analysis.html#pytraj.hbond_analysis.DatasetHBond">DatasetHBond (class in pytraj.hbond_analysis)</a>, <a href="hbond_analysis.html#pytraj.hbond_analysis.DatasetHBond">[1]</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.CpptrajState.datasetlist">datasetlist (pytraj.core.c_core.CpptrajState attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.CpptrajState.html#pytraj.CpptrajState.datasetlist">(pytraj.CpptrajState attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.matrix.html#pytraj.matrix.diagonalize">diagonalize() (in module pytraj.matrix)</a>, <a href="matrix_analysis.html#pytraj.matrix.diagonalize">[1]</a>
+  </dt>
+
+      
+  <dt><a href="misc.html#pytraj.tools.dict_to_ndarray">dict_to_ndarray() (in module pytraj.tools)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.diffusion">diffusion() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.diffusion">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.matrix.html#pytraj.matrix.dihcovar">dihcovar() (in module pytraj.matrix)</a>, <a href="matrix_analysis.html#pytraj.matrix.dihcovar">[1]</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.dihedral">dihedral() (in module pytraj)</a>, <a href="analysis.html#pytraj.dihedral">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.dihedral">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.dihedral_indices">dihedral_indices (pytraj.Topology attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.dihedral_indices">(pytraj.topology.Topology attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.dihedrals">dihedrals (pytraj.Topology attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.dihedrals">(pytraj.topology.Topology attribute)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.vector.html#pytraj.vector.dipole">dipole() (in module pytraj.vector)</a>, <a href="vector_analysis.html#pytraj.vector.dipole">[1]</a>
+  </dt>
+
+      
+  <dt><a href="misc.html#pytraj.tools.dir_">dir_() (in module pytraj.tools)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.dispatch">dispatch() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.Command.dispatch">(pytraj.core.c_core.Command method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.matrix.html#pytraj.matrix.dist">dist() (in module pytraj.matrix)</a>, <a href="matrix_analysis.html#pytraj.matrix.dist">[1]</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.distance">distance() (in module pytraj)</a>, <a href="analysis.html#pytraj.distance">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.distance">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.distance_rmsd">distance_rmsd() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.distance_rmsd">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.matrix.html#pytraj.matrix.distcovar">distcovar() (in module pytraj.matrix)</a>, <a href="matrix_analysis.html#pytraj.matrix.distcovar">[1]</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.hbond_analysis.html#pytraj.hbond_analysis.DatasetHBond.donor_acceptor">donor_acceptor (pytraj.hbond_analysis.DatasetHBond attribute)</a>, <a href="hbond_analysis.html#pytraj.hbond_analysis.DatasetHBond.donor_acceptor">[1]</a>
+  </dt>
+
+      
+  <dt><a href="analysis.html#pytraj.dssp">dssp() (in module pytraj)</a>
+  </dt>
+
+      
+  <dt><a href="dssp_analysis.html#pytraj.dssp_analysis.dssp_allatoms">dssp_allatoms() (in module pytraj.dssp_analysis)</a>
+  </dt>
+
+      
+  <dt><a href="dssp_analysis.html#pytraj.dssp_analysis.dssp_allresidues">dssp_allresidues() (in module pytraj.dssp_analysis)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Atom.element">element (pytraj.Atom attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.SimplifiedAtom.element">(pytraj.topology.SimplifiedAtom attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Molecule.end_atom">end_atom (pytraj.Molecule attribute)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.esander">esander() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="energy_analysis.html#pytraj.energy_analysis.esander">(in module pytraj.energy_analysis)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="misc.html#pytraj.tools.estimate_size">estimate_size() (in module pytraj.tools)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.trajectory_iterator.html#pytraj.trajectory_iterator.TrajectoryIterator.filelist">filelist (pytraj.trajectory_iterator.TrajectoryIterator attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.TrajectoryIterator.filelist">(pytraj.TrajectoryIterator attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.FileName">FileName (class in pytraj.core.c_core)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.filename">filename (pytraj.Topology attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.TrajectoryIterator.filename">(pytraj.TrajectoryIterator attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.filename">(pytraj.topology.Topology attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory_iterator.html#pytraj.trajectory_iterator.TrajectoryIterator.filename">(pytraj.trajectory_iterator.TrajectoryIterator attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.ParmFile.filename">filename() (pytraj.topology.ParmFile method)</a>
+  </dt>
+
+      
+  <dt><a href="misc.html#pytraj.tools.find_lib">find_lib() (in module pytraj.tools)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Residue.first">first (pytraj.Residue attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.SimplifiedResidue.first">(pytraj.topology.SimplifiedResidue attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Residue.first_atom_index">first_atom_index (pytraj.Residue attribute)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="misc.html#pytraj.tools.flatten">flatten() (in module pytraj.tools)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Frame.force">force (pytraj.Frame attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.force">(pytraj.frame.Frame attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Frame">Frame (class in pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame">(class in pytraj.frame)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.frameiter.html#pytraj.frameiter.FrameIterator">FrameIterator (class in pytraj.frameiter)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.from_dict">from_dict() (pytraj.Topology method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.from_dict">(pytraj.topology.Topology method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.from_iterable">from_iterable() (pytraj.Trajectory class method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.from_iterable">(pytraj.trajectory.Trajectory class method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.FileName.fullname">fullname (pytraj.core.c_core.FileName attribute)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Atom.gb_radius">gb_radius (pytraj.Atom attribute)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.hbond_analysis.html#pytraj.hbond_analysis.DatasetHBond.get_amber_mask">get_amber_mask() (pytraj.hbond_analysis.DatasetHBond method)</a>, <a href="hbond_analysis.html#pytraj.hbond_analysis.DatasetHBond.get_amber_mask">[1]</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.get_average_frame">get_average_frame() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.get_average_frame">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.ArgList.get_key_double">get_key_double() (pytraj.core.c_core.ArgList method)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.ArgList.get_key_int">get_key_int() (pytraj.core.c_core.ArgList method)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.ArgList.get_next_double">get_next_double() (pytraj.core.c_core.ArgList method)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.ArgList.get_next_integer">get_next_integer() (pytraj.core.c_core.ArgList method)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.ArgList.get_next_mask">get_next_mask() (pytraj.core.c_core.ArgList method)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.ArgList.get_next_string">get_next_string() (pytraj.core.c_core.ArgList method)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.ArgList.get_next_tag">get_next_tag() (pytraj.core.c_core.ArgList method)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.Command.get_state">get_state() (pytraj.core.c_core.Command method)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.Command.get_state_from_string">get_state_from_string() (pytraj.core.c_core.Command method)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.ArgList.get_string_key">get_string_key() (pytraj.core.c_core.ArgList method)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.get_velocity">get_velocity() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.get_velocity">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="misc.html#pytraj.tools.grep_key">grep_key() (in module pytraj.tools)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.grid">grid() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.grid">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="misc.html#pytraj.tools.groupby">groupby() (in module pytraj.tools)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Frame.has_box">has_box() (pytraj.Frame method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.Topology.has_box">(pytraj.Topology method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.has_box">(pytraj.frame.Frame method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.has_box">(pytraj.topology.Topology method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Frame.has_force">has_force() (pytraj.Frame method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.has_force">(pytraj.frame.Frame method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.ArgList.has_key">has_key() (pytraj.core.c_core.ArgList method)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Frame.has_velocity">has_velocity() (pytraj.Frame method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.has_velocity">(pytraj.frame.Frame method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.hbond_analysis.html#pytraj.hbond_analysis.hbond">hbond() (in module pytraj.hbond_analysis)</a>, <a href="hbond_analysis.html#pytraj.hbond_analysis.hbond">[1]</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.matrix.html#pytraj.matrix.idea">idea() (in module pytraj.matrix)</a>, <a href="matrix_analysis.html#pytraj.matrix.idea">[1]</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Atom.index">index (pytraj.Atom attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.Residue.index">(pytraj.Residue attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.SimplifiedAtom.index">(pytraj.topology.SimplifiedAtom attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.SimplifiedResidue.index">(pytraj.topology.SimplifiedResidue attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.SimplifiedTopology.index">index() (pytraj.topology.SimplifiedTopology method)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.AtomMask.indices">indices (pytraj.AtomMask attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.AtomMask.indices">(pytraj.core.c_core.AtomMask attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.indices_bonded_to">indices_bonded_to() (pytraj.Topology method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.indices_bonded_to">(pytraj.topology.Topology method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.AtomMask.invert_mask">invert_mask() (pytraj.AtomMask method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.AtomMask.invert_mask">(pytraj.core.c_core.AtomMask method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.nmr.html#pytraj.nmr.ired_vector_and_matrix">ired_vector_and_matrix() (in module pytraj.nmr)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Frame.is_">is_() (pytraj.Frame method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.is_">(pytraj.frame.Frame method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Atom.is_bonded_to">is_bonded_to() (pytraj.Atom method)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.AtomMask.is_empty">is_empty() (pytraj.AtomMask method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.Topology.is_empty">(pytraj.Topology method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.ArgList.is_empty">(pytraj.core.c_core.ArgList method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.AtomMask.is_empty">(pytraj.core.c_core.AtomMask method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.is_empty">(pytraj.topology.Topology method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.ActionList.is_setup">is_setup (pytraj.ActionList attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.c_action.actionlist.html#pytraj.c_action.actionlist.ActionList.is_setup">(pytraj.c_action.actionlist.ActionList attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Molecule.is_solvent">is_solvent() (pytraj.Molecule method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.Residue.is_solvent">(pytraj.Residue method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.iterchunk">iterchunk() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.TrajectoryIterator.iterchunk">(pytraj.TrajectoryIterator method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory_iterator.html#pytraj.trajectory_iterator.TrajectoryIterator.iterchunk">(pytraj.trajectory_iterator.TrajectoryIterator method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.iterframe">iterframe() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.iterframe">(pytraj.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.TrajectoryIterator.iterframe">(pytraj.TrajectoryIterator method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.iterframe">(pytraj.trajectory.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory_iterator.html#pytraj.trajectory_iterator.TrajectoryIterator.iterframe">(pytraj.trajectory_iterator.TrajectoryIterator method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="misc.html#pytraj.tools.iteritems">iteritems() (in module pytraj.tools)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.iterload">iterload() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.io.html#pytraj.io.iterload">(in module pytraj.io)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.iterload_remd">iterload_remd() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.io.html#pytraj.io.iterload_remd">(in module pytraj.io)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+</tr></table>
+
+<h2 id="J">J</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.jcoupling">jcoupling() (in module pytraj)</a>, <a href="analysis.html#pytraj.jcoupling">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.jcoupling">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.join">join() (pytraj.Topology method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.join">(pytraj.topology.Topology method)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+</tr></table>
+
+<h2 id="K">K</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.ActionDict.keys">keys() (pytraj.ActionDict method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.AnalysisDict.keys">(pytraj.AnalysisDict method)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/clustering.html#pytraj.cluster.kmeans">kmeans() (in module pytraj.cluster)</a>, <a href="_api/pytraj.cluster.html#pytraj.cluster.kmeans">[1]</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Residue.last">last (pytraj.Residue attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.SimplifiedResidue.last">(pytraj.topology.SimplifiedResidue attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Residue.last_atom_index">last_atom_index (pytraj.Residue attribute)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.load">load() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.io.html#pytraj.io.load">(in module pytraj.io)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Topology.load">(pytraj.Topology method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.load">(pytraj.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.load">(pytraj.topology.Topology method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.load">(pytraj.trajectory.Trajectory method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.load_cpptraj_file">load_cpptraj_file() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.io.html#pytraj.io.load_cpptraj_file">(in module pytraj.io)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.load_ParmEd">load_ParmEd() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.io.html#pytraj.io.load_ParmEd">(in module pytraj.io)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.load_pdb_rcsb">load_pdb_rcsb() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.io.html#pytraj.io.load_pdb_rcsb">(in module pytraj.io)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.load_remd">load_remd() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.io.html#pytraj.io.load_remd">(in module pytraj.io)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.load_sample_data">load_sample_data() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.io.html#pytraj.io.load_sample_data">(in module pytraj.io)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.load_topology">load_topology() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.io.html#pytraj.io.load_topology">(in module pytraj.io)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.lowestcurve">lowestcurve() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.lowestcurve">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="misc.html#pytraj.tools.make_fake_topology">make_fake_topology() (in module pytraj.tools)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.make_structure">make_structure() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.make_structure">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.AtomMask.mask_expression">mask_expression() (pytraj.AtomMask method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.AtomMask.mask_expression">(pytraj.core.c_core.AtomMask method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.AtomMask.mask_string">mask_string (pytraj.AtomMask attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.AtomMask.mask_string">(pytraj.core.c_core.AtomMask attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Atom.mass">mass (pytraj.Atom attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.Frame.mass">(pytraj.Frame attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Topology.mass">(pytraj.Topology attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.mass">(pytraj.frame.Frame attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.SimplifiedAtom.mass">(pytraj.topology.SimplifiedAtom attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.mass">(pytraj.topology.Topology attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.NameType.match">match() (pytraj.core.c_core.NameType method)</a>
+  </dt>
+
+      
+  <dt><a href="misc.html#pytraj.tools.mean_and_error">mean_and_error() (in module pytraj.tools)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.mean_structure">mean_structure() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.mean_structure">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="misc.html#pytraj.tools.merge_coordinates">merge_coordinates() (in module pytraj.tools)</a>
+  </dt>
+
+      
+  <dt><a href="misc.html#pytraj.tools.merge_frame_from_trajs">merge_frame_from_trajs() (in module pytraj.tools)</a>
+  </dt>
+
+      
+  <dt><a href="misc.html#pytraj.tools.merge_frames">merge_frames() (in module pytraj.tools)</a>
+  </dt>
+
+      
+  <dt><a href="misc.html#pytraj.tools.merge_trajs">merge_trajs() (in module pytraj.tools)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.trajectory_iterator.html#pytraj.trajectory_iterator.TrajectoryIterator.metadata">metadata (pytraj.trajectory_iterator.TrajectoryIterator attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.TrajectoryIterator.metadata">(pytraj.TrajectoryIterator attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.mindist">mindist() (in module pytraj)</a>, <a href="analysis.html#pytraj.mindist">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.mindist">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.vector.html#pytraj.vector.minimage">minimage() (in module pytraj.vector)</a>, <a href="vector_analysis.html#pytraj.vector.minimage">[1]</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Molecule">Molecule (class in pytraj)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.moleculelist">moleculelist (pytraj.Topology attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.moleculelist">(pytraj.topology.Topology attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Atom.molnum">molnum (pytraj.Atom attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.SimplifiedAtom.molnum">(pytraj.topology.SimplifiedAtom attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.mols">mols (pytraj.Topology attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.mols">(pytraj.topology.Topology attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.molsurf">molsurf() (in module pytraj)</a>, <a href="analysis.html#pytraj.molsurf">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.molsurf">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="misc.html#pytraj.tools.moving_average">moving_average() (in module pytraj.tools)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.multidihedral">multidihedral() (in module pytraj)</a>, <a href="analysis.html#pytraj.multidihedral">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.multidihedral">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.multivector">multivector() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.multivector">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.matrix.html#pytraj.matrix.mwcovar">mwcovar() (in module pytraj.matrix)</a>, <a href="matrix_analysis.html#pytraj.matrix.mwcovar">[1]</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.ArgList.n_args">n_args (pytraj.core.c_core.ArgList attribute)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.AtomMask.n_atoms">n_atoms (pytraj.AtomMask attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.Frame.n_atoms">(pytraj.Frame attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Molecule.n_atoms">(pytraj.Molecule attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Residue.n_atoms">(pytraj.Residue attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Topology.n_atoms">(pytraj.Topology attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.n_atoms">(pytraj.Trajectory attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.TrajectoryIterator.n_atoms">(pytraj.TrajectoryIterator attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.AtomMask.n_atoms">(pytraj.core.c_core.AtomMask attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.n_atoms">(pytraj.frame.Frame attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.frameiter.html#pytraj.frameiter.FrameIterator.n_atoms">(pytraj.frameiter.FrameIterator attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.n_atoms">(pytraj.topology.Topology attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.n_atoms">(pytraj.trajectory.Trajectory attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory_iterator.html#pytraj.trajectory_iterator.TrajectoryIterator.n_atoms">(pytraj.trajectory_iterator.TrajectoryIterator attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Atom.n_bonds">n_bonds (pytraj.Atom attribute)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.ActionList.n_frames">n_frames (pytraj.ActionList attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.Frame.n_frames">(pytraj.Frame attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.n_frames">(pytraj.Trajectory attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.TrajectoryIterator.n_frames">(pytraj.TrajectoryIterator attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.c_action.actionlist.html#pytraj.c_action.actionlist.ActionList.n_frames">(pytraj.c_action.actionlist.ActionList attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.n_frames">(pytraj.frame.Frame attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.frameiter.html#pytraj.frameiter.FrameIterator.n_frames">(pytraj.frameiter.FrameIterator attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.n_frames">(pytraj.trajectory.Trajectory attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory_iterator.html#pytraj.trajectory_iterator.TrajectoryIterator.n_frames">(pytraj.trajectory_iterator.TrajectoryIterator attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="misc.html#pytraj.tools.n_grams">n_grams() (in module pytraj.tools)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.n_mols">n_mols (pytraj.Topology attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.n_mols">(pytraj.topology.Topology attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.n_residues">n_residues (pytraj.Topology attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.n_residues">(pytraj.topology.Topology attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.AtomMask.n_selected">n_selected (pytraj.AtomMask attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.AtomMask.n_selected">(pytraj.core.c_core.AtomMask attribute)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.n_solvents">n_solvents (pytraj.Topology attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.n_solvents">(pytraj.topology.Topology attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Atom.name">name (pytraj.Atom attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.Residue.name">(pytraj.Residue attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.SimplifiedAtom.name">(pytraj.topology.SimplifiedAtom attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.SimplifiedResidue.name">(pytraj.topology.SimplifiedResidue attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.NameType">NameType (class in pytraj.core.c_core)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.nastruct">nastruct() (in module pytraj)</a>, <a href="nucleic_acid_analysis.html#pytraj.nastruct">[1]</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.native_contacts">native_contacts() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.native_contacts">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.nmr.html#pytraj.nmr.NH_order_parameters">NH_order_parameters() (in module pytraj.nmr)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Residue.ntype">ntype() (pytraj.Residue method)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="O">O</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Residue.original_resid">original_resid (pytraj.Residue attribute)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="P">P</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.pairdist">pairdist() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.pairdist">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.pairwise_distance">pairwise_distance() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.pairwise_distance">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.pairwise_rmsd">pairwise_rmsd() (in module pytraj)</a>, <a href="analysis.html#pytraj.pairwise_rmsd">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.pairwise_rmsd">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.ParmFile">ParmFile (class in pytraj.topology)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.pca">pca() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.pca">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.c_action.actionlist.html#pytraj.c_action.actionlist.pipe">pipe() (in module pytraj.c_action.actionlist)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.parallel.html#pytraj.parallel.mpi.pmap_mpi">pmap_mpi() (in module pytraj.parallel.mpi)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.ActionList.post_process">post_process() (pytraj.ActionList method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.c_action.actionlist.html#pytraj.c_action.actionlist.ActionList.post_process">(pytraj.c_action.actionlist.ActionList method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.vector.html#pytraj.vector.principal">principal() (in module pytraj.vector)</a>, <a href="vector_analysis.html#pytraj.vector.principal">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.TrajectoryIterator.principal">(pytraj.TrajectoryIterator method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory_iterator.html#pytraj.trajectory_iterator.TrajectoryIterator.principal">(pytraj.trajectory_iterator.TrajectoryIterator method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.principal_axes">principal_axes() (in module pytraj)</a>, <a href="analysis.html#pytraj.principal_axes">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.principal_axes">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.projection">projection() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.projection">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.pucker">pucker() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.pucker">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#module-pytraj">pytraj (module)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.all_actions.html#module-pytraj.all_actions">pytraj.all_actions (module)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.c_action.actionlist.html#module-pytraj.c_action.actionlist">pytraj.c_action.actionlist (module)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.cluster.html#module-pytraj.cluster">pytraj.cluster (module)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.core.c_core.html#module-pytraj.core.c_core">pytraj.core.c_core (module)</a>
+  </dt>
+
+      
+  <dt><a href="dihedral_analysis.html#module-pytraj.dihedral_analysis">pytraj.dihedral_analysis (module)</a>
+  </dt>
+
+      
+  <dt><a href="dssp_analysis.html#module-pytraj.dssp_analysis">pytraj.dssp_analysis (module)</a>
+  </dt>
+
+      
+  <dt><a href="energy_analysis.html#module-pytraj.energy_analysis">pytraj.energy_analysis (module)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.frame.html#module-pytraj.frame">pytraj.frame (module)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.frameiter.html#module-pytraj.frameiter">pytraj.frameiter (module)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.hbond_analysis.html#module-pytraj.hbond_analysis">pytraj.hbond_analysis (module)</a>, <a href="hbond_analysis.html#module-pytraj.hbond_analysis">[1]</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.io.html#module-pytraj.io">pytraj.io (module)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.matrix.html#module-pytraj.matrix">pytraj.matrix (module)</a>, <a href="matrix_analysis.html#module-pytraj.matrix">[1]</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.nmr.html#module-pytraj.nmr">pytraj.nmr (module)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.parallel.html#module-pytraj.parallel.mpi">pytraj.parallel.mpi (module)</a>
+  </dt>
+
+      
+  <dt><a href="misc.html#module-pytraj.tools">pytraj.tools (module)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.topology.html#module-pytraj.topology">pytraj.topology (module)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.trajectory.html#module-pytraj.trajectory">pytraj.trajectory (module)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.trajectory_iterator.html#module-pytraj.trajectory_iterator">pytraj.trajectory_iterator (module)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.vector.html#module-pytraj.vector">pytraj.vector (module)</a>, <a href="vector_analysis.html#module-pytraj.vector">[1]</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.radgyr">radgyr() (in module pytraj)</a>, <a href="analysis.html#pytraj.radgyr">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.radgyr">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.randomize_ions">randomize_ions() (in module pytraj)</a>, <a href="analysis.html#pytraj.randomize_ions">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.randomize_ions">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.rdf">rdf() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.rdf">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="misc.html#pytraj.tools.read_gaussian_output">read_gaussian_output() (in module pytraj.tools)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.read_json">read_json() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.io.html#pytraj.io.read_json">(in module pytraj.io)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.read_pickle">read_pickle() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.io.html#pytraj.io.read_pickle">(in module pytraj.io)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="misc.html#pytraj.tools.read_to_array">read_to_array() (in module pytraj.tools)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.ParmFile.readparm">readparm() (pytraj.topology.ParmFile method)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.NameType.replace_asterisk">replace_asterisk() (pytraj.core.c_core.NameType method)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.replicate_cell">replicate_cell() (in module pytraj)</a>, <a href="modify_traj.html#pytraj.replicate_cell">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.replicate_cell">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Atom.resid">resid (pytraj.Atom attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.SimplifiedAtom.resid">(pytraj.topology.SimplifiedAtom attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Residue">Residue (class in pytraj)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.residue">residue() (pytraj.Topology method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.residue">(pytraj.topology.Topology method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.residue_names">residue_names (pytraj.Topology attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.residue_names">(pytraj.topology.Topology attribute)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.residuelist">residuelist (pytraj.Topology attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.residuelist">(pytraj.topology.Topology attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.residues">residues (pytraj.Topology attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.SimplifiedTopology.residues">(pytraj.topology.SimplifiedTopology attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.residues">(pytraj.topology.Topology attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Atom.resname">resname (pytraj.Atom attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.SimplifiedAtom.resname">(pytraj.topology.SimplifiedAtom attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.reverse">reverse() (pytraj.Trajectory method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.reverse">(pytraj.trajectory.Trajectory method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.rmsd">rmsd() (in module pytraj)</a>, <a href="analysis.html#pytraj.rmsd">[1]</a>, <a href="modify_traj.html#pytraj.rmsd">[2]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.rmsd">(in module pytraj.all_actions)</a>
+  </dt>
+
+        
+  <dt><a href="misc.html#pytraj.tools.rmsd">(in module pytraj.tools)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Frame.rmsd">(pytraj.Frame method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.rmsd">(pytraj.frame.Frame method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="misc.html#pytraj.tools.rmsd_1darray">rmsd_1darray() (in module pytraj.tools)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.rmsd_nofit">rmsd_nofit() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.rmsd_nofit">(in module pytraj.all_actions)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Frame.rmsd_nofit">(pytraj.Frame method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.rmsd_nofit">(pytraj.frame.Frame method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.rmsd_perres">rmsd_perres() (in module pytraj)</a>, <a href="analysis.html#pytraj.rmsd_perres">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.rmsd_perres">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Frame.rmsfit">rmsfit() (pytraj.Frame method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.rmsfit">(pytraj.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.rmsfit">(pytraj.frame.Frame method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.rmsfit">(pytraj.trajectory.Trajectory method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.rotate">rotate() (in module pytraj)</a>, <a href="modify_traj.html#pytraj.rotate">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.rotate">(in module pytraj.all_actions)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.rotate">(pytraj.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.TrajectoryIterator.rotate">(pytraj.TrajectoryIterator method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.rotate">(pytraj.trajectory.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory_iterator.html#pytraj.trajectory_iterator.TrajectoryIterator.rotate">(pytraj.trajectory_iterator.TrajectoryIterator method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="modify_traj.html#pytraj.rotate_dihedral">rotate_dihedral() (in module pytraj)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.rotation_matrix">rotation_matrix() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.rotation_matrix">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.CpptrajState.run">run() (pytraj.core.c_core.CpptrajState method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.CpptrajState.html#pytraj.CpptrajState.run">(pytraj.CpptrajState method)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.save">save() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.io.html#pytraj.io.save">(in module pytraj.io)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Topology.save">(pytraj.Topology method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.save">(pytraj.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.TrajectoryIterator.save">(pytraj.TrajectoryIterator method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.frameiter.html#pytraj.frameiter.FrameIterator.save">(pytraj.frameiter.FrameIterator method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.save">(pytraj.topology.Topology method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.save">(pytraj.trajectory.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory_iterator.html#pytraj.trajectory_iterator.TrajectoryIterator.save">(pytraj.trajectory_iterator.TrajectoryIterator method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.scale">scale() (in module pytraj)</a>, <a href="modify_traj.html#pytraj.scale">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.scale">(in module pytraj.all_actions)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.scale">(pytraj.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.TrajectoryIterator.scale">(pytraj.TrajectoryIterator method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.scale">(pytraj.trajectory.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory_iterator.html#pytraj.trajectory_iterator.TrajectoryIterator.scale">(pytraj.trajectory_iterator.TrajectoryIterator method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="analysis.html#pytraj.search_hbonds">search_hbonds() (in module pytraj)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.search_neighbors">search_neighbors() (in module pytraj)</a>, <a href="analysis.html#pytraj.search_neighbors">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.search_neighbors">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.select">select() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.Topology.select">(pytraj.Topology method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.select">(pytraj.topology.Topology method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.AtomMask.selected_indices">selected_indices() (pytraj.AtomMask method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.AtomMask.selected_indices">(pytraj.core.c_core.AtomMask method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.set_cpptraj_verbose">set_cpptraj_verbose() (in module pytraj)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.set_dihedral">set_dihedral() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.set_dihedral">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.set_distance_mask_reference">set_distance_mask_reference() (pytraj.Topology method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.set_distance_mask_reference">(pytraj.topology.Topology method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Molecule.set_first">set_first() (pytraj.Molecule method)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.set_integer_mask">set_integer_mask() (pytraj.Topology method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.set_integer_mask">(pytraj.topology.Topology method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Molecule.set_last">set_last() (pytraj.Molecule method)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Residue.set_last_atom">set_last_atom() (pytraj.Residue method)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Frame.set_mass">set_mass() (pytraj.Frame method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.set_mass">(pytraj.frame.Frame method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Atom.set_mol">set_mol() (pytraj.Atom method)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Molecule.set_no_solvent">set_no_solvent() (pytraj.Molecule method)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Frame.set_nobox">set_nobox() (pytraj.Frame method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.Topology.set_nobox">(pytraj.Topology method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.set_nobox">(pytraj.frame.Frame method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.set_nobox">(pytraj.topology.Topology method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Molecule.set_solvent">set_solvent() (pytraj.Molecule method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.Topology.set_solvent">(pytraj.Topology method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.set_solvent">(pytraj.topology.Topology method)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.ActionList.setup">setup() (pytraj.ActionList method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.c_action.actionlist.html#pytraj.c_action.actionlist.ActionList.setup">(pytraj.c_action.actionlist.ActionList method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Frame.shape">shape (pytraj.Frame attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.shape">(pytraj.Trajectory attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.TrajectoryIterator.shape">(pytraj.TrajectoryIterator attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.shape">(pytraj.frame.Frame attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.shape">(pytraj.trajectory.Trajectory attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory_iterator.html#pytraj.trajectory_iterator.TrajectoryIterator.shape">(pytraj.trajectory_iterator.TrajectoryIterator attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.show_versions">show_versions() (in module pytraj)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.SimplifiedAtom">SimplifiedAtom (class in pytraj.topology)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.SimplifiedResidue">SimplifiedResidue (class in pytraj.topology)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.SimplifiedTopology">SimplifiedTopology (class in pytraj.topology)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.simplify">simplify() (pytraj.Topology method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.simplify">(pytraj.topology.Topology method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Frame.size">size (pytraj.Frame attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.size">(pytraj.frame.Frame attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="misc.html#pytraj.tools.split">split() (in module pytraj.tools)</a>
+  </dt>
+
+      
+  <dt><a href="misc.html#pytraj.tools.split_and_write_traj">split_and_write_traj() (in module pytraj.tools)</a>
+  </dt>
+
+      
+  <dt><a href="misc.html#pytraj.tools.split_traj_by_residues">split_traj_by_residues() (in module pytraj.tools)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.start_new_mol">start_new_mol() (pytraj.Topology method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.start_new_mol">(pytraj.topology.Topology method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.strip">strip() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.strip">(in module pytraj.all_actions)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Frame.strip">(pytraj.Frame method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Topology.strip">(pytraj.Topology method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.strip">(pytraj.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.TrajectoryIterator.strip">(pytraj.TrajectoryIterator method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.strip">(pytraj.frame.Frame method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.strip">(pytraj.topology.Topology method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.strip">(pytraj.trajectory.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory_iterator.html#pytraj.trajectory_iterator.TrajectoryIterator.strip">(pytraj.trajectory_iterator.TrajectoryIterator method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.summary">summary() (pytraj.Topology method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.summary">(pytraj.topology.Topology method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.superpose">superpose() (in module pytraj)</a>, <a href="modify_traj.html#pytraj.superpose">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.superpose">(in module pytraj.all_actions)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.superpose">(pytraj.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.TrajectoryIterator.superpose">(pytraj.TrajectoryIterator method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.superpose">(pytraj.trajectory.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory_iterator.html#pytraj.trajectory_iterator.TrajectoryIterator.superpose">(pytraj.trajectory_iterator.TrajectoryIterator method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.surf">surf() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.surf">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Frame.swap_atoms">swap_atoms (pytraj.Frame attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.swap_atoms">(pytraj.frame.Frame attribute)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Frame.temperature">temperature (pytraj.Frame attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.temperature">(pytraj.frame.Frame attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.trajectory_iterator.html#pytraj.trajectory_iterator.TrajectoryIterator.temperatures">temperatures (pytraj.trajectory_iterator.TrajectoryIterator attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.TrajectoryIterator.temperatures">(pytraj.TrajectoryIterator attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Frame.time">time (pytraj.Frame attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.time">(pytraj.frame.Frame attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.timecorr">timecorr() (in module pytraj)</a>, <a href="analysis.html#pytraj.timecorr">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.timecorr">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.NameType.to_buffer">to_buffer() (pytraj.core.c_core.NameType method)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.to_dataframe">to_dataframe() (pytraj.Topology method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.to_dataframe">(pytraj.topology.Topology method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.hbond_analysis.html#pytraj.hbond_analysis.DatasetHBond.to_dict">to_dict() (pytraj.hbond_analysis.DatasetHBond method)</a>, <a href="hbond_analysis.html#pytraj.hbond_analysis.DatasetHBond.to_dict">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.Topology.to_dict">(pytraj.Topology method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.to_dict">(pytraj.topology.Topology method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.to_json">to_json() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.io.html#pytraj.io.to_json">(in module pytraj.io)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Frame.to_ndarray">to_ndarray() (pytraj.Frame method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.to_ndarray">(pytraj.frame.Frame method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology.to_parmed">to_parmed() (pytraj.Topology method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology.to_parmed">(pytraj.topology.Topology method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.to_pickle">to_pickle() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.io.html#pytraj.io.to_pickle">(in module pytraj.io)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Frame.top">top (pytraj.Frame attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.top">(pytraj.Trajectory attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.TrajectoryIterator.top">(pytraj.TrajectoryIterator attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.top">(pytraj.frame.Frame attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.top">(pytraj.trajectory.Trajectory attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory_iterator.html#pytraj.trajectory_iterator.TrajectoryIterator.top">(pytraj.trajectory_iterator.TrajectoryIterator attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Topology">Topology (class in pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.Topology">(class in pytraj.topology)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.topology">topology (pytraj.Trajectory attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.TrajectoryIterator.topology">(pytraj.TrajectoryIterator attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.topology">(pytraj.trajectory.Trajectory attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory_iterator.html#pytraj.trajectory_iterator.TrajectoryIterator.topology">(pytraj.trajectory_iterator.TrajectoryIterator attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.hbond_analysis.html#pytraj.hbond_analysis.DatasetHBond.total_solute_hbonds">total_solute_hbonds() (pytraj.hbond_analysis.DatasetHBond method)</a>, <a href="hbond_analysis.html#pytraj.hbond_analysis.DatasetHBond.total_solute_hbonds">[1]</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory">Trajectory (class in pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory">(class in pytraj.trajectory)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.TrajectoryIterator">TrajectoryIterator (class in pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.trajectory_iterator.html#pytraj.trajectory_iterator.TrajectoryIterator">(class in pytraj.trajectory_iterator)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.transform">transform() (in module pytraj)</a>, <a href="modify_traj.html#pytraj.transform">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.transform">(in module pytraj.all_actions)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.transform">(pytraj.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.transform">(pytraj.trajectory.Trajectory method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.translate">translate() (in module pytraj)</a>, <a href="modify_traj.html#pytraj.translate">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.translate">(in module pytraj.all_actions)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.translate">(pytraj.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.TrajectoryIterator.translate">(pytraj.TrajectoryIterator method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.translate">(pytraj.trajectory.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory_iterator.html#pytraj.trajectory_iterator.TrajectoryIterator.translate">(pytraj.trajectory_iterator.TrajectoryIterator method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.core.c_core.html#pytraj.core.c_core.NameType.truncated_name">truncated_name (pytraj.core.c_core.NameType attribute)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Atom.type">type (pytraj.Atom attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.SimplifiedAtom.type">(pytraj.topology.SimplifiedAtom attribute)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+</tr></table>
+
+<h2 id="U">U</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.vector.html#pytraj.vector.ucellx">ucellx() (in module pytraj.vector)</a>, <a href="vector_analysis.html#pytraj.vector.ucellx">[1]</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.vector.html#pytraj.vector.ucelly">ucelly() (in module pytraj.vector)</a>, <a href="vector_analysis.html#pytraj.vector.ucelly">[1]</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.vector.html#pytraj.vector.ucellz">ucellz() (in module pytraj.vector)</a>, <a href="vector_analysis.html#pytraj.vector.ucellz">[1]</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.unitcells">unitcells (pytraj.Trajectory attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.TrajectoryIterator.unitcells">(pytraj.TrajectoryIterator attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.unitcells">(pytraj.trajectory.Trajectory attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory_iterator.html#pytraj.trajectory_iterator.TrajectoryIterator.unitcells">(pytraj.trajectory_iterator.TrajectoryIterator attribute)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+</tr></table>
+
+<h2 id="V">V</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.hbond_analysis.html#pytraj.hbond_analysis.DatasetHBond.values">values (pytraj.hbond_analysis.DatasetHBond attribute)</a>, <a href="hbond_analysis.html#pytraj.hbond_analysis.DatasetHBond.values">[1]</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.vector">vector() (in module pytraj.all_actions)</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.vector.html#pytraj.vector.vector_mask">vector_mask() (in module pytraj.vector)</a>, <a href="vector_analysis.html#pytraj.vector.vector_mask">[1]</a>
+  </dt>
+
+      
+  <dt><a href="_api/pytraj.html#pytraj.Frame.velocity">velocity (pytraj.Frame attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.velocity">(pytraj.frame.Frame attribute)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.velocityautocorr">velocityautocorr() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.velocityautocorr">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.view">view() (pytraj.Trajectory method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.TrajectoryIterator.view">(pytraj.TrajectoryIterator method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.view">(pytraj.trajectory.Trajectory method)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory_iterator.html#pytraj.trajectory_iterator.TrajectoryIterator.view">(pytraj.trajectory_iterator.TrajectoryIterator method)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.volmap">volmap() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.volmap">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.volume">volume() (in module pytraj)</a>, <a href="analysis.html#pytraj.volume">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.volume">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.watershell">watershell() (in module pytraj)</a>, <a href="analysis.html#pytraj.watershell">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.watershell">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.wavelet">wavelet() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.wavelet">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.html#pytraj.write_parm">write_parm() (in module pytraj)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.io.html#pytraj.io.write_parm">(in module pytraj.io)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.write_traj">write_traj() (in module pytraj)</a>, <a href="read_and_write.html#pytraj.write_traj">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.io.html#pytraj.io.write_traj">(in module pytraj.io)</a>
+  </dt>
+
+      </dl></dd>
+      
+  <dt><a href="_api/pytraj.topology.html#pytraj.topology.ParmFile.writeparm">writeparm() (pytraj.topology.ParmFile method)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="X">X</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.xcorr">xcorr() (in module pytraj)</a>, <a href="analysis.html#pytraj.xcorr">[1]</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.all_actions.html#pytraj.all_actions.xcorr">(in module pytraj.all_actions)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="_api/pytraj.html#pytraj.Frame.xyz">xyz (pytraj.Frame attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="_api/pytraj.html#pytraj.Trajectory.xyz">(pytraj.Trajectory attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.html#pytraj.TrajectoryIterator.xyz">(pytraj.TrajectoryIterator attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.frame.html#pytraj.frame.Frame.xyz">(pytraj.frame.Frame attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory.html#pytraj.trajectory.Trajectory.xyz">(pytraj.trajectory.Trajectory attribute)</a>
+  </dt>
+
+        
+  <dt><a href="_api/pytraj.trajectory_iterator.html#pytraj.trajectory_iterator.TrajectoryIterator.xyz">(pytraj.trajectory_iterator.TrajectoryIterator attribute)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+</tr></table>
+
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, pytraj developers.<br/>
+      Last updated on Jun 08, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

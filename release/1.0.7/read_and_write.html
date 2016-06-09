@@ -1,0 +1,414 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Read and Write &mdash; pytraj 1.0.7 documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.7',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="pytraj 1.0.7 documentation" href="index.html" />
+    <link rel="next" title="Tutorials" href="tutorials/index.html" />
+    <link rel="prev" title="Topology" href="topology.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.7</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory.html#overview">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Read and Write</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Use conda to manage different Python versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_viewer.html">Trajectory Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Read and Write</a><ul>
+<li><a class="reference internal" href="#read">Read</a></li>
+<li><a class="reference internal" href="#write">Write</a></li>
+<li><a class="reference internal" href="#supported-file-formats">Supported file formats</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="topology.html" title="Previous Chapter: Topology"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Topology</span>
+    </a>
+  </li>
+  <li>
+    <a href="tutorials/index.html" title="Next Chapter: Tutorials"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Tutorials &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/read_and_write.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="read-and-write">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">Read and Write</a><a class="headerlink" href="#read-and-write" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#read-and-write" id="id2">Read and Write</a><ul>
+<li><a class="reference internal" href="#read" id="id3">Read</a></li>
+<li><a class="reference internal" href="#write" id="id4">Write</a></li>
+<li><a class="reference internal" href="#supported-file-formats" id="id5">Supported file formats</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="read">
+<h2><a class="toc-backref" href="#id3">Read</a><a class="headerlink" href="#read" title="Permalink to this headline">¶</a></h2>
+<p>Most commmon usage: load a single file with all frame</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="c"># read amber format</span>
+<span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+
+<span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.ortho.parm7&#39;</span><span class="p">)</span>
+
+<span class="gp">In [3]: </span><span class="n">traj</span>
+<span class="gr">Out[3]: </span>
+<span class="go">pytraj.TrajectoryIterator, 10 frames: </span>
+<span class="go">Size: 0.001183 (GB)</span>
+<span class="go">&lt;Topology: 5293 atoms, 1704 residues, 1692 mols, PBC with box type = ortho&gt;</span>
+</pre></div>
+</div>
+<p>Most commmon usage: load a single file with frame stride</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># load only frame 0, 2, 4, 6 (python use 0-based index and skip final index)</span>
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.parm7&#39;</span><span class="p">,</span> <span class="n">frame_slice</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">),])</span>
+</pre></div>
+</div>
+<p>Load many files at once</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">ls</span> <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.*</span>
+<span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">000</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">003</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">006</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">00</span><span class="mi">9</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">012</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">015</span>
+<span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">001</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">004</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">007</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">010</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">013</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">016</span>
+<span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">002</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">005</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">00</span><span class="mi">8</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">011</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">014</span>  <span class="n">remd</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="mo">017</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;remd.x.*&#39;</span><span class="p">,</span> <span class="s1">&#39;myparm.parm7&#39;</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">traj</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+<span class="o">&lt;</span><span class="n">pytraj</span><span class="o">.</span><span class="n">TrajectoryIterator</span><span class="p">,</span> <span class="mi">40000</span> <span class="n">frames</span><span class="p">,</span> <span class="n">include</span><span class="p">:</span>
+<span class="o">&lt;</span><span class="n">Topology</span><span class="p">:</span> <span class="mi">17443</span> <span class="n">atoms</span><span class="p">,</span> <span class="mi">5666</span> <span class="n">residues</span><span class="p">,</span> <span class="mi">5634</span> <span class="n">mols</span><span class="p">,</span> <span class="n">PBC</span> <span class="k">with</span> <span class="n">box</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">truncoct</span><span class="o">&gt;&gt;</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">traj</span><span class="o">.</span><span class="n">_estimated_MB</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="mf">15969.54345703125</span>
+</pre></div>
+</div>
+<p>Load many files with frame stride</p>
+<p>Example: load 1000 frames from two trajectories (500 each), skip every two frames.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s1">&#39;remd.x.000&#39;</span><span class="p">,</span> <span class="s1">&#39;remd.x.001&#39;</span><span class="p">],</span> <span class="s1">&#39;myparm.parm7&#39;</span><span class="p">,</span> <span class="n">frame_slice</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">traj</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+<span class="o">&lt;</span><span class="n">pytraj</span><span class="o">.</span><span class="n">TrajectoryIterator</span><span class="p">,</span> <span class="mi">1000</span> <span class="n">frames</span><span class="p">,</span> <span class="n">include</span><span class="p">:</span>
+<span class="o">&lt;</span><span class="n">Topology</span><span class="p">:</span> <span class="mi">17443</span> <span class="n">atoms</span><span class="p">,</span> <span class="mi">5666</span> <span class="n">residues</span><span class="p">,</span> <span class="mi">5634</span> <span class="n">mols</span><span class="p">,</span> <span class="n">PBC</span> <span class="k">with</span> <span class="n">box</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">truncoct</span><span class="o">&gt;&gt;</span>
+</pre></div>
+</div>
+<p>which is similiar to <code class="docutils literal"><span class="pre">cpptraj</span></code> input:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>parm myparm.parm7
+trajin remd.x.000 <span class="m">1</span> <span class="m">1000</span> 2
+trajin remd.x.001 <span class="m">1</span> <span class="m">1000</span> 2
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">cpptraj uses 1-based index for input while <code class="docutils literal"><span class="pre">pytraj</span></code> used 0-based index.</p>
+</div>
+</div>
+<div class="section" id="write">
+<h2><a class="toc-backref" href="#id4">Write</a><a class="headerlink" href="#write" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="c"># write to CHARMM dcd format</span>
+<span class="gp">In [4]: </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s1">&#39;test.dcd&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c"># write with given frames</span>
+<span class="gp">In [5]: </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s1">&#39;test2.dcd&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="supported-file-formats">
+<h2><a class="toc-backref" href="#id5">Supported file formats</a><a class="headerlink" href="#supported-file-formats" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pytraj.write_traj">
+<code class="descclassname">pytraj.</code><code class="descname">write_traj</code><span class="sig-paren">(</span><em>filename=''</em>, <em>traj=None</em>, <em>format='infer'</em>, <em>top=None</em>, <em>frame_indices=None</em>, <em>overwrite=False</em>, <em>crdinfo=None</em>, <em>options=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.write_traj" title="Permalink to this definition">¶</a></dt>
+<dd><p>write Trajectory-like or iterable object to trajectory file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<p><strong>traj</strong> : Trajectory-like or iterator that produces Frame or 3D ndarray with shape=(n_frames, n_atoms, 3)</p>
+<p><strong>format</strong> : str, default &#8216;infer&#8217;</p>
+<blockquote>
+<div><p>if &#8216;inter&#8217;, detect format based on extension. If can not detect, use amber mdcdf format.</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology, optional, default: None</p>
+<p><strong>frame_indices: array-like or iterator that produces integer, default: None</strong></p>
+<blockquote>
+<div><p>If not None, only write output for given frame indices</p>
+</div></blockquote>
+<p><strong>overwrite: bool, default: False</strong></p>
+<p><strong>crdinfo</strong> : None or dict, default None</p>
+<blockquote>
+<div><p>if None, try to get info from traj._crdinfo (if traj has _crdinfo)
+if given, use it. <cite>crdinfo</cite> needed to pass if you want to write force/velocity (netcdf)</p>
+</div></blockquote>
+<p class="last"><strong>options</strong> : str, additional cpptraj keywords</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="68%" />
+<col width="32%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Format</th>
+<th class="head">Extension</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Amber Trajectory</td>
+<td>.crd</td>
+</tr>
+<tr class="row-odd"><td>Amber NetCDF</td>
+<td>.nc</td>
+</tr>
+<tr class="row-even"><td>Amber Restart</td>
+<td>.rst7</td>
+</tr>
+<tr class="row-odd"><td>Amber NetCDF</td>
+<td>.ncrst</td>
+</tr>
+<tr class="row-even"><td>Charmm DCD</td>
+<td>.dcd</td>
+</tr>
+<tr class="row-odd"><td>PDB</td>
+<td>.pdb</td>
+</tr>
+<tr class="row-even"><td>Mol2</td>
+<td>.mol2</td>
+</tr>
+<tr class="row-odd"><td>Scripps</td>
+<td>.binpos</td>
+</tr>
+<tr class="row-even"><td>Gromacs</td>
+<td>.trr</td>
+</tr>
+<tr class="row-odd"><td>SQM Input</td>
+<td>.sqm</td>
+</tr>
+</tbody>
+</table>
+<p>&#8216;options&#8217; for writing to pdb format (cptraj manual):</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>dumpq:       Write atom charge/GB radius in occupancy/B-factor columns (PQR format).&quot;
+parse:       Write atom charge/PARSE radius in occupancy/B-factor columns (PQR format).&quot;
+vdw:         Write atom charge/VDW radius in occupancy/B-factor columns (PQR format).&quot;
+pdbres:      Use PDB V3 residue names.&quot;
+pdbatom:     Use PDB V3 atom names.&quot;
+pdbv3:       Use PDB V3 residue/atom names.&quot;
+teradvance:  Increment record (atom) # for TER records (default no).&quot;
+terbyres:    Print TER cards based on residue sequence instead of molecules.&quot;
+model:       Write to single file separated by MODEL records.&quot;
+multi:       Write each frame to separate files.&quot;
+chainid &lt;c&gt;: Write character &#39;c&#39; in chain ID column.&quot;
+sg &lt;group&gt;:  Space group for CRYST1 record, only if box coordinates written.&quot;
+include_ep:  Include extra points.&quot;
+conect:      Write CONECT records using bond information.&quot;);
+</pre></div>
+</div>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s2">&quot;output/t.nc&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># write to amber netcdf file</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># write to multi pdb files (t.pdb.1, t.pdb.2, ...)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s2">&quot;output/t.pdb&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s1">&#39;multi&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># write all frames to single pdb file and each frame is seperated by &quot;MODEL&quot; word</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s2">&quot;output/t.pdb&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s1">&#39;model&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># write to DCD file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s2">&quot;output/test.dcd&quot;</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># write to netcdf file from 3D numpy array, need to provide Topology</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">xyz</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">xyz</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">top</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s2">&quot;output/test_xyz.nc&quot;</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s2">&quot;output/test_xyz.nc&quot;</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># you can make a fake Topology to write xyz coordinates too</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n_atoms</span> <span class="o">=</span> <span class="n">xyz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">top2</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">make_fake_topology</span><span class="p">(</span><span class="n">n_atoms</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s2">&quot;output/test_xyz_fake_top.nc&quot;</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">top2</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>&#8216;options&#8217; for writing to amber netcdf format (cptraj manual):</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>remdtraj: Write temperature to trajectory (makes REMD trajectory).&quot;
+velocity: Write velocities to trajectory.&quot;
+force: Write forces to trajectory.&quot;);
+</pre></div>
+</div>
+<p>&#8216;options&#8217; for writing to amber netcdf restart format(cptraj manual):</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>novelocity: Do not write velocities to restart file.&quot;
+notime:     Do not write time to restart file.&quot;
+remdtraj:   Write temperature to restart file.&quot;
+time0:      Time for first frame (default 1.0).&quot;
+dt:         Time step for subsequent frames, t=(time0+frame)*dt; (default 1.0)&quot;);
+keepext     Keep filename extension; write &#39;&lt;name&gt;.&lt;num&gt;.&lt;ext&gt;&#39; instead (example: myfile.1.rst7)
+</pre></div>
+</div>
+<p>&#8216;options&#8217; for writing to mol2 format (cptraj manual):</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>single   : Write to a single file.&quot;
+multi    : Write each frame to a separate file.&quot;
+sybyltype: Convert Amber atom types (if present) to SYBYL types.&quot;);
+</pre></div>
+</div>
+<p>&#8216;options&#8217;  for other formats:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>please check http://ambermd.org/doc12/Amber15.pdf
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, pytraj developers.<br/>
+      Last updated on Jun 08, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
