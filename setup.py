@@ -183,7 +183,7 @@ if not create_tar_file_for_release:
         extra_link_args.append('-Wl,-rpath={}'.format(cpptraj_libdir))
         extra_compile_args.append('-Wl,-rpath={}'.format(cpptraj_libdir))
 
-    check_cpptraj_version(cpptraj_include, (4, 2, 8))
+    check_cpptraj_version(cpptraj_include, (4, 3, 2))
 
     pyxfiles, pxdfiles = get_pyx_pxd()
 
