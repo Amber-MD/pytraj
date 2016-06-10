@@ -1458,7 +1458,7 @@ def randomize_ions(traj, mask, around, by, overlap, seed=1, top=None, frame_indi
 @register_pmap
 @super_dispatch()
 def multidihedral(traj=None,
-                  dhtypes=None,
+                  dihedral_types=None,
                   resrange=None,
                   define_new_type=None,
                   range360=False,
@@ -1470,7 +1470,7 @@ def multidihedral(traj=None,
     Parameters
     ----------
     traj : Trajectory-like object
-    dhtypes : dihedral type, default None
+    dihedral_types : dihedral type, default None
         if None, calculate all supported dihedrals
     resrange : str | array-like
         residue range for searching. If `resrange` is string, use index starting with 1
@@ -1501,9 +1501,9 @@ def multidihedral(traj=None,
     >>> data = pt.multidihedral(traj, resrange=range(8))
     >>> data = pt.multidihedral(traj, range360=True)
     >>> data = pt.multidihedral(traj, resrange='1,3,5')
-    >>> data = pt.multidihedral(traj, dhtypes='phi psi')
-    >>> data = pt.multidihedral(traj, dhtypes='phi psi', resrange='3-7')
-    >>> data = pt.multidihedral(traj, dhtypes='phi psi', resrange=[3, 4, 8])
+    >>> data = pt.multidihedral(traj, dihedral_types='phi psi')
+    >>> data = pt.multidihedral(traj, dihedral_types='phi psi', resrange='3-7')
+    >>> data = pt.multidihedral(traj, dihedral_types='phi psi', resrange=[3, 4, 8])
     """
     if resrange:
         if isinstance(resrange, string_types):
@@ -1515,8 +1515,8 @@ def multidihedral(traj=None,
     else:
         _resrange = " "
 
-    if dhtypes:
-        d_types = str(dhtypes)
+    if dihedral_types:
+        d_types = str(dihedral_types)
     else:
         d_types = " "
 
@@ -2877,13 +2877,55 @@ def set_dihedral(traj, resid='1', dihedral_type=None, deg=0, top=None):
     return traj
 
 
-def make_structure(traj=None, mask="", top=None):
+def make_structure(traj, command="", top=None):
+    """limited support for make_structure
+    
+    Parameters
+    ----------
+    traj : Trajectory-like
+    command : str, cpptraj command
+    top : None or Topology, optional
+        only needed if traj does not have topology
+
+    Returns
+    -------
+    traj : itself
+  
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2()
+    >>> traj = pt.make_struture(traj, "alpha:1-12")
+
+    Notes
+    -----
+    cpptraj doc::
+
+        <List of Args>
+      Apply dihedrals to specified residues using arguments found in <List of Args>,
+      where an argument is 1 or more of the following arg types:
+        '<sstype>:<res range>' Apply SS type (phi/psi) to residue range.
+            <sstype> standard = alpha, left, pp2, hairpin, extended
+            <sstype> turn = typeI, typeII, typeVIII, typeI', typeII,
+                            typeVIa1, typeVIa2, typeVIb
+            Turns are applied to 2 residues at a time, so resrange must be divisible by 4.
+        '<custom ss>:<res range>:<phi>:<psi>' Apply custom <phi>/<psi> to residue range.
+        '<custom turn>:<res range>:<phi1>:<psi1>:<phi2>:<psi2>' Apply custom turn <phi>/<psi> pair to residue range.
+        '<custom dih>:<res range>:<dih type>:<angle>' Apply <angle> to dihedrals in range.
+            <dih type> = alpha beta gamma delta epsilon zeta nu1 nu2 h1p c2p chin phi psi chip omega
+        '<custom dih>:<res range>:<at0>:<at1>:<at2>:<at3>:<angle>[:<offset>]' Apply <angle> to dihedral defined by atoms <at1>, <at2>, <at3>, and <at4>.
+            Offset -2=<a0><a1> in previous res, -1=<a0> in previous res,
+                    0=All <aX> in single res,
+                    1=<a3> in next res, 2=<a2><a3> in next res.
+        'ref:<range>:<refname>[:<ref range>]' Apply dihedrals from reference <refname>.
+
+    """
     _assert_mutable(traj)
     top_ = get_topology(traj, top)
 
-    command = mask
     act = c_action.Action_MakeStructure()
     act(command, traj, top=top_)
+    return traj
 
 
 @super_dispatch()
