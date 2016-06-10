@@ -308,7 +308,7 @@ class super_dispatch(object):
         return inner
 
 
-def get_fi_with_dslist(traj, mask, frame_indices, top, crdname='dataset_coords'):
+def get_iterator_from_dslist(traj, mask, frame_indices, top, crdname='dataset_coords'):
     from pytraj import Trajectory, TrajectoryIterator
     from pytraj.datasets import CpptrajDatasetList
     from pytraj.shared_methods import iterframe_master
