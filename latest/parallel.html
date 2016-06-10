@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Parallel calculation &mdash; pytraj 1.0.8.dev0+ documentation</title>
+    <title>Parallel calculation &mdash; pytraj 1.0.8.dev0+1c3ff2c documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0.8.dev0+',
+        VERSION:     '1.0.8.dev0+1c3ff2c',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.8.dev0+ documentation" href="index.html" />
+    <link rel="top" title="pytraj 1.0.8.dev0+1c3ff2c documentation" href="index.html" />
     <link rel="next" title="What’s new?" href="whatsnew.html" />
     <link rel="prev" title="Fancy indexing of trajectory" href="trajectory_slice.html" />
 <meta charset='utf-8'>
@@ -53,7 +53,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.8.dev0+</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.8.dev0+1c3ff2c</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -209,14 +209,14 @@
 <span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;data/tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;data/tz2.ortho.parm7&#39;</span><span class="p">)</span>
 
 <span class="gp">In [3]: </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="gr">Out[3]: </span>
+<span class="go"> Out[3]: </span>
 <span class="go">OrderedDict([(&#39;RoG_00000&#39;,</span>
 <span class="go">              array([ 18.9111,  18.9365,  18.8497,  18.9045,  18.8569,  18.8892,</span>
 <span class="go">                      18.943 ,  18.8888,  18.9167,  18.8707]))])</span>
 
 <span class="c"># auto-join the data</span>
 <span class="gp">In [4]: </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="go">                                                                                                                                                                                      Out[4]: </span>
+<span class="go">                                                                                                                                                                                        Out[4]: </span>
 <span class="go">OrderedDict([(&#39;RoG_00000&#39;,</span>
 <span class="go">              array([ 18.9111,  18.9365,  18.8497,  18.9045,  18.8569,  18.8892,</span>
 <span class="go">                      18.943 ,  18.8888,  18.9167,  18.8707]))])</span>
@@ -235,12 +235,12 @@ vector, multidihedral, ...</p>
 <span class="gp">In [5]: </span><span class="n">ref</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
 <span class="gp">In [6]: </span><span class="n">ref</span>
-<span class="gr">Out[6]: </span><span class="o">&lt;</span><span class="n">Frame</span> <span class="k">with</span> <span class="mi">5293</span> <span class="n">atoms</span><span class="o">&gt;</span>
+<span class="go"> Out[6]: &lt;Frame with 5293 atoms&gt;</span>
 
 <span class="c"># need to explicitly do autoimage to reproduce cpptraj&#39;s serial run</span>
 <span class="c"># since `ref` is a single Frame, we need to provide Topology for `pt.autoimage`</span>
 <span class="gp">In [7]: </span><span class="n">pt</span><span class="o">.</span><span class="n">autoimage</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
-<span class="go">                                Out[7]: &lt;Frame with 5293 atoms&gt;</span>
+<span class="go">                                  Out[7]: &lt;Frame with 5293 atoms&gt;</span>
 
 <span class="c"># add to reference list</span>
 <span class="gp">In [8]: </span><span class="n">reflist</span> <span class="o">=</span> <span class="p">[</span><span class="n">ref</span><span class="p">,</span> <span class="p">]</span>
@@ -249,7 +249,7 @@ vector, multidihedral, ...</p>
 <span class="c"># &#39;refindex 0&#39; is equal to &#39;reflist[0]&#39; and so on.</span>
 <span class="c"># we need to explicitly specify the index so pytraj can correctly send the reference to different cores.</span>
 <span class="gp">In [9]: </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">([</span><span class="s1">&#39;autoimage&#39;</span><span class="p">,</span> <span class="s1">&#39;rms refindex 0&#39;</span><span class="p">,</span> <span class="s1">&#39;distance :3 :8&#39;</span><span class="p">,</span> <span class="s1">&#39;multidihedral phi psi resrange 3-5&#39;</span><span class="p">],</span> <span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">reflist</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="gr">Out[9]: </span>
+<span class="go"> Out[9]: </span>
 <span class="go">OrderedDict([(&#39;RMSD_00001&#39;,</span>
 <span class="go">              array([  0.    ,   8.7689,  10.4369,  11.2591,  11.7381,  12.4922,</span>
 <span class="go">                      13.2369,  13.3734,  14.0668,  14.1891])),</span>
@@ -493,7 +493,7 @@ method: pytraj.rmsd (please check the script below)
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Jun 08, 2016.<br/>
+      Last updated on Jun 09, 2016.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
     </p>
   </div>

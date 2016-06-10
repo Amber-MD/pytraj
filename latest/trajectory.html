@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Trajectory &mdash; pytraj 1.0.8.dev0+ documentation</title>
+    <title>Trajectory &mdash; pytraj 1.0.8.dev0+1c3ff2c documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0.8.dev0+',
+        VERSION:     '1.0.8.dev0+1c3ff2c',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.8.dev0+ documentation" href="index.html" />
+    <link rel="top" title="pytraj 1.0.8.dev0+1c3ff2c documentation" href="index.html" />
     <link rel="next" title="Topology" href="topology.html" />
     <link rel="prev" title="Installation" href="installation.html" />
 <meta charset='utf-8'>
@@ -53,7 +53,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.8.dev0+</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.8.dev0+1c3ff2c</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -196,14 +196,14 @@
 <span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;data/tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;data/tz2.ortho.parm7&#39;</span><span class="p">)</span>
 
 <span class="gp">In [3]: </span><span class="n">traj</span>
-<span class="gr">Out[3]: </span>
+<span class="go"> Out[3]: </span>
 <span class="go">pytraj.TrajectoryIterator, 10 frames: </span>
 <span class="go">Size: 0.001183 (GB)</span>
 <span class="go">&lt;Topology: 5293 atoms, 1704 residues, 1692 mols, PBC with box type = ortho&gt;</span>
 <span class="go">           </span>
 
 <span class="gp">In [4]: </span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;@CA&#39;</span><span class="p">)</span>
-<span class="go">                                                                                                                                                            Out[4]: </span>
+<span class="go">                                                                                                                                                              Out[4]: </span>
 <span class="go">array([ 0.    ,  0.2641,  0.386 ,  0.2688,  0.2619,  0.4576,  0.4565,</span>
 <span class="go">        0.4443,  0.4363,  0.4475])</span>
 </pre></div>
@@ -238,7 +238,7 @@
 </div>
 <p>To load all frames to memory at once, use <code class="docutils literal"><span class="pre">[]</span></code> notation:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [8]: </span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">8</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;@CA&#39;</span><span class="p">]</span>
-<span class="gr">Out[8]: </span>
+<span class="go"> Out[8]: </span>
 <span class="go">pytraj.Trajectory, 4 frames: </span>
 <span class="go">Size: 0.000001 (GB)</span>
 <span class="go">&lt;Topology: 12 atoms, 12 residues, 12 mols, PBC with box type = ortho&gt;</span>
@@ -247,7 +247,7 @@
 <p>How to perform analysis with TrajectoryIterator? It&#8217;s very simple. For example, if you want to calculate
 rmsd to 3rd frame (index starts from 0) for all atoms, just:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [9]: </span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="gr">Out[9]: </span>
+<span class="go"> Out[9]: </span>
 <span class="go">array([ 11.2707,  10.0133,   8.3305,   0.    ,   8.288 ,  10.0907,</span>
 <span class="go">        11.2475,  11.9937,  12.0499,  12.3873])</span>
 </pre></div>
@@ -288,7 +288,7 @@ rmsd to 3rd frame (index starts from 0) for all atoms, just:</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Jun 08, 2016.<br/>
+      Last updated on Jun 09, 2016.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
     </p>
   </div>

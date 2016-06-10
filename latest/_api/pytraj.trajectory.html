@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.Trajectory &mdash; pytraj 1.0.8.dev0+ documentation</title>
+    <title>pytraj.Trajectory &mdash; pytraj 1.0.8.dev0+1c3ff2c documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.8.dev0+',
+        VERSION:     '1.0.8.dev0+1c3ff2c',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.8.dev0+ documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.8.dev0+1c3ff2c documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="prev" title="pytraj.io" href="pytraj.io.html" />
 <meta charset='utf-8'>
@@ -53,7 +53,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.8.dev0+</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.8.dev0+1c3ff2c</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -256,7 +256,7 @@ Topology and given xyz array.</p>
 <tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.autoimage" title="pytraj.trajectory.Trajectory.autoimage"><code class="xref py py-obj docutils literal"><span class="pre">autoimage</span></code></a>([command])</td>
 <td>perform autoimage</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.center" title="pytraj.trajectory.Trajectory.center"><code class="xref py py-obj docutils literal"><span class="pre">center</span></code></a>([command])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.center" title="pytraj.trajectory.Trajectory.center"><code class="xref py py-obj docutils literal"><span class="pre">center</span></code></a>(*args,&nbsp;**kwargs)</td>
 <td>do centering</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.Trajectory.copy" title="pytraj.trajectory.Trajectory.copy"><code class="xref py py-obj docutils literal"><span class="pre">copy</span></code></a>()</td>
@@ -397,7 +397,7 @@ Topology and given xyz array.</p>
 
 <dl class="method">
 <dt id="pytraj.trajectory.Trajectory.center">
-<code class="descname">center</code><span class="sig-paren">(</span><em>command=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.Trajectory.center" title="Permalink to this definition">¶</a></dt>
+<code class="descname">center</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.Trajectory.center" title="Permalink to this definition">¶</a></dt>
 <dd><p>do centering</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -407,6 +407,10 @@ Topology and given xyz array.</p>
 </tr>
 </tbody>
 </table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="pytraj.all_actions.html#pytraj.all_actions.center" title="pytraj.all_actions.center"><code class="xref py py-obj docutils literal"><span class="pre">pytraj.all_actions.center</span></code></a></p>
+</div>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s1">&#39;ala3&#39;</span><span class="p">)[:]</span>
@@ -842,7 +846,7 @@ if given, use it</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Jun 08, 2016.<br/>
+      Last updated on Jun 09, 2016.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
     </p>
   </div>

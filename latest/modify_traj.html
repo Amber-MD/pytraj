@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Modify trajectory &mdash; pytraj 1.0.8.dev0+ documentation</title>
+    <title>Modify trajectory &mdash; pytraj 1.0.8.dev0+1c3ff2c documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0.8.dev0+',
+        VERSION:     '1.0.8.dev0+1c3ff2c',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.8.dev0+ documentation" href="index.html" />
+    <link rel="top" title="pytraj 1.0.8.dev0+1c3ff2c documentation" href="index.html" />
     <link rel="next" title="Atom mask selection" href="atom_mask_selection.html" />
     <link rel="prev" title="pytraj.all_actions" href="_api/pytraj.all_actions.html" />
 <meta charset='utf-8'>
@@ -53,7 +53,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.8.dev0+</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.8.dev0+1c3ff2c</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -252,13 +252,19 @@ if False (same as <cite>nomod</cite> in cpptraj), no modification</p>
 <span class="target" id="center"></span><dl class="function">
 <dt id="pytraj.center">
 <code class="descclassname">pytraj.</code><code class="descname">center</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>center='box'</em>, <em>mass=False</em>, <em>top=None</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.center" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
+<dd><p>Center coordinates in <cite>mask</cite> to specified point.</p>
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or Frame iterator</p>
 <p><strong>mask</strong> : str, mask</p>
-<p><strong>center</strong> : str, {&#8216;box&#8217;, &#8216;origin&#8217;}</p>
+<p><strong>center</strong> : str, {&#8216;box&#8217;, &#8216;origin&#8217;, array-like}, default &#8216;box&#8217;</p>
+<blockquote>
+<div><p>if &#8216;origin&#8217;, center on coordinate origin (0, 0, 0)
+if &#8216;box&#8217;, center on box center
+if array-like, center on that point</p>
+</div></blockquote>
 <p><strong>mass</strong> : bool, default: False</p>
 <blockquote>
 <div><p>if True, use mass weighted</p>
@@ -465,7 +471,7 @@ is either 0, 1 or -1 (see example below)</p>
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Jun 08, 2016.<br/>
+      Last updated on Jun 09, 2016.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
     </p>
   </div>
