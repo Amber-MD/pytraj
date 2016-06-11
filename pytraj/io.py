@@ -18,6 +18,7 @@ from .externals.load_other_packages import load_ParmEd
 
 from .decorators import ensure_exist
 from .core.c_core import _load_batch
+from .utils.context import tempfolder
 
 try:
     from urllib.request import urlopen
@@ -778,3 +779,48 @@ def load_batch(traj, txt):
     if not isinstance(traj, TrajectoryIterator):
         raise ValueError('only support TrajectoryIterator')
     return _load_batch(txt, traj=traj)
+
+def _get_amberhome():
+    amberhome = os.getenv('AMBERHOME')
+    if amberhome is None:
+        raise EnvironmentError("must set AMBERHOME")
+    return amberhome
+
+def load_leap(command, verbose=False):
+    """create pytraj.Trajectory from tleap's command.
+
+    Notes
+    -----
+    If you load pdb file, make sure to use absolute dir.
+    This method is not extensively tested. Use it with your own risk.
+    """
+    import subprocess
+
+    amberhome = _get_amberhome()
+    tleap = amberhome + '/bin/tleap'
+
+    lines = command.split('\n')
+
+    if 'quit' not in lines[-1]:
+        command = command + '\n' + 'quit'
+
+    for line in lines:
+        if line.lower().startswith('saveamberparm'):
+            parm, crd = line.split()[-2:]
+
+    with tempfolder():
+        leapin = 'tmp.leap'
+
+        with open(leapin, 'w') as fh:
+            fh.write(command)
+
+        with open(os.devnull, 'wb') as devnull:
+            if not verbose:
+                subprocess.check_call(
+                    [tleap, ' -f {}'.format(leapin)],
+                    stdout=devnull,
+                    stderr=subprocess.STDOUT)
+            else:
+                subprocess.check_call([tleap, ' -f {}'.format(leapin)])
+
+        return load(crd, parm)
