@@ -821,6 +821,6 @@ def load_leap(command, verbose=False):
                     stdout=devnull,
                     stderr=subprocess.STDOUT)
             else:
-                x = subprocess.check_call([tleap, ' -f {}'.format(leapin)])
+                subprocess.check_call([tleap, ' -f {}'.format(leapin)])
 
         return load(crd, parm)
