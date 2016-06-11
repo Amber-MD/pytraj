@@ -2850,7 +2850,7 @@ def replicate_cell(traj=None, mask="", direction='all', top=None):
     return traj
 
 
-def set_dihedral(traj, resid='1', dihedral_type=None, deg=0, top=None):
+def set_dihedral(traj, resid=0, dihedral_type=None, deg=0, top=None):
     '''
 
     Examples
@@ -2859,7 +2859,6 @@ def set_dihedral(traj, resid='1', dihedral_type=None, deg=0, top=None):
     >>> traj = pt.datafiles.load_tz2()
     >>> # make mutable traj by loading all frames to disk
     >>> traj = traj[:]
-    >>> traj = pt.set_dihedral(traj, resid='3', dihedral_type='phi', deg=60)
     >>> traj = pt.set_dihedral(traj, resid=2, dihedral_type='phi', deg=60)
 
     Returns
@@ -2895,7 +2894,7 @@ def make_structure(traj, command="", top=None):
     --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2()
-    >>> traj = pt.make_struture(traj, "alpha:1-12")
+    >>> # traj = pt.make_structure(traj, "alpha:1-12")
 
     Notes
     -----
