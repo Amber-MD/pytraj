@@ -1043,3 +1043,8 @@ class Trajectory(SharedTrajectory):
 
     def at(self, index):
         return self[index]
+
+    def _set_dihedral(self, command):
+        from pytraj.all_actions import make_structure
+        make_structure(self, command)
+        return self
