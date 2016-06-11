@@ -106,9 +106,6 @@ cdef class DatasetList:
             incr(it)
         return i
 
-    def is_empty(self):
-        return self.thisptr.empty()
-
     @property
     def size(self):
         return self.thisptr.size()
@@ -150,14 +147,14 @@ cdef class DatasetList:
             new_dslist = self.__class__()
             new_dslist.set_own_memory(False)
             for _idx in range(start, stop, step):
-                new_dslist.add_existing_set(self[_idx])
+                new_dslist._add_existing_set(self[_idx])
             new_dslist._parent_lists_append(self)
             return new_dslist
         elif is_array(idx) or isinstance(idx, list):
             new_dslist = self.__class__()
             new_dslist.set_own_memory(False)
             for _idx in idx:
-                new_dslist.add_existing_set(self[_idx])
+                new_dslist._add_existing_set(self[_idx])
             new_dslist._parent_lists_append(self)
             return new_dslist
         else:
@@ -204,13 +201,7 @@ cdef class DatasetList:
                 # return a list of arrays
                 return dlist
 
-    def get_multiple_sets(self, string s):
-        """TODO: double-check cpptraj"""
-        cdef DatasetList dlist = DatasetList()
-        dlist.thisptr[0] = self.thisptr.GetMultipleSets(s)
-        return dlist
-
-    def add_new(self, dtype=None, name=""):
+    def add(self, dtype=None, name=""):
         """create new (empty) Dataset and add to `self`
 
         Examples
@@ -218,7 +209,7 @@ cdef class DatasetList:
         >>> from pytraj.datasets import CpptrajDatasetList
         >>> dslist = CpptrajDatasetList()
         >>> # add DatasetTopoloy
-        >>> d0 = dslist.add_new('topology', name='myparm')
+        >>> d0 = dslist.add('topology', name='myparm')
         >>> # add new Topology to d0
         >>> d0.data = traj.top
         >>> print(dslist[0])
@@ -234,12 +225,7 @@ cdef class DatasetList:
         dset.baseptr0 = self.thisptr.AddSet(DataTypeDict[dtype], name, default_name)
         return cast_dataset(dset, dtype=dset.dtype)
 
-    def add(self, *args, **kwd):
-        '''alias of self.add_new
-        '''
-        return self.add_new(*args, **kwd)
-
-    def add_existing_set(self, Dataset ds):
+    def _add_existing_set(self, Dataset ds):
         self.thisptr.AddSet(ds.baseptr0)
 
     def _add_copy_of_set(self, Dataset dset):
@@ -304,21 +290,6 @@ cdef class DatasetList:
         for key in self.keys():
             yield key, self[key]
 
-    def filter(self, func, *args, **kwd):
-        """return a new view of DatasetList of func return True"""
-        dslist = self.__class__()
-        dslist.set_own_memory(False)
-
-        if isinstance(func, (string_types, list, tuple)):
-            dslist = self.grep(func, *args, **kwd)
-        elif callable(func):
-            for d0 in self:
-                if func(d0, *args, **kwd):
-                    dslist.add_existing_set(d0)
-            return dslist
-        else:
-            raise NotImplementedError("func must be a string or callable")
-
     def grep(self, key, mode='key'):
         """"return a new DatasetList object as a view of `self`. This method is mostly used for testing.
 
@@ -341,11 +312,11 @@ cdef class DatasetList:
             att = getattr(d0, mode)
             if isinstance(key, string_types):
                 if re.search(key, att):
-                    dtmp.add_existing_set(d0)
+                    dtmp._add_existing_set(d0)
             elif isinstance(key, (list, tuple)):
                 for _key in key:
                     if re.search(_key, att):
-                        dtmp.add_existing_set(d0)
+                        dtmp._add_existing_set(d0)
             else:
                 raise ValueError("support string or list/tuple of strings")
 
@@ -353,13 +324,6 @@ cdef class DatasetList:
         dtmp._parent_lists_append(self)
 
         return dtmp
-
-    def tolist(self):
-        """return a list of list/array"""
-        try:
-            return [d0.tolist() for d0 in self]
-        except:
-            raise ValueError("dont know how to convert to list")
 
     def to_dict(self):
         """return a dict object with key=legend, value=list"""

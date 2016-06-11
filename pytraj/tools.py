@@ -246,7 +246,7 @@ def dict_to_ndarray(dict_of_array):
     --------
     >>> import pytraj as pt
     >>> traj = pt.load_sample_data('tz2')
-    >>> dslist = pt.multidihedral(traj, dhtypes='phi psi', resrange='2', dtype='dict')
+    >>> dslist = pt.multidihedral(traj, dihedral_types='phi psi', resrange='2', dtype='dict')
     >>> list(dslist.keys())
     ['phi:2', 'psi:2']
     >>> dict_to_ndarray(dslist)

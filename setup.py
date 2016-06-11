@@ -36,7 +36,7 @@ from scripts.install_libcpptraj import DEFAULT_MAC_CCOMPILER, DEFAULT_MAC_CXXCOM
 # python version >= 2.6
 if sys.version_info < (2, 6):
     print('You must have at least Python 2.6 for pytraj\n')
-    sys.exit(0)
+    sys.exit(1)
 
 amber_release = check_flag('--amber_release')
 disable_openmp = check_flag('--disable-openmp')
@@ -85,7 +85,7 @@ if debug:
         'linetrace': True,
         'binding': True})
     define_macros = [('CYTHON_TRACE', 1), ]
-    print("adding debug info")
+    print("adding debug info", cython_directives)
 else:
     define_macros = []
 
@@ -93,6 +93,7 @@ else:
 installtype = os.environ.get("INSTALLTYPE", "")
 
 if installtype:
+    print('install_type', install_type)
     sys.argv.remove(installtype)
 
 def read(fname):
@@ -117,44 +118,46 @@ if not pytraj_inside_amber:
                 extra_link_args.extend(['-stdlib=libstdc++',
                                         '-mmacosx-version-min=%d.%d' % osxver])
 else:
-   # should use CXX and CC from config.h
-   amberhome = os.environ.get('AMBERHOME', '')
-   if not amberhome:
-       raise EnvironmentError('must set AMBERHOME')
+    print('pytraj is inside AMBERHOME')
+    # should use CXX and CC from config.h
+    amberhome = os.environ.get('AMBERHOME', '')
+    if not amberhome:
+        raise EnvironmentError('must set AMBERHOME')
 
-   configfile = amberhome + '/config.h'
-   if not os.path.exists(configfile):
-       raise OSError("must have config.h file")
+    configfile = amberhome + '/config.h'
+    if not os.path.exists(configfile):
+        raise OSError("must have config.h file")
 
-   if sys.platform.startswith('darwin'):
-       CC = DEFAULT_MAC_CCOMPILER
-       CXX = DEFAULT_MAC_CXXCOMPILER
-   elif sys.platform.startswith('linux'):
-       CC='gcc'
-       CXX='g++'
-   else:
-       pass
+    if sys.platform.startswith('darwin'):
+        CC = DEFAULT_MAC_CCOMPILER
+        CXX = DEFAULT_MAC_CXXCOMPILER
+    elif sys.platform.startswith('linux'):
+        CC='gcc'
+        CXX='g++'
+    else:
+        pass
 
-   with open(configfile) as fh:
-       lines = fh.readlines()
-       for line in lines:
-           if line.startswith('CC='):
-               CC = line.split('=', 1)[-1]
-               break
+    with open(configfile) as fh:
+        lines = fh.readlines()
+        for line in lines:
+            if line.startswith('CC='):
+                CC = line.split('=', 1)[-1]
+                break
 
-       for line in lines:
-           if line.startswith('CXX='):
-               CXX = line.split('=', 1)[-1]
-               break
+        for line in lines:
+            if line.startswith('CXX='):
+                CXX = line.split('=', 1)[-1]
+                break
 
-   os.environ['CXX'] = CXX
-   os.environ['CC'] = CC
-   print('using CC={}, CXX={}'.format(CC, CXX))
+    os.environ['CXX'] = CXX
+    os.environ['CC'] = CC
+    print('using CC={}, CXX={}'.format(CC, CXX))
 
 
 pyxfiles, pxdfiles = get_pyx_pxd()
 
 if not create_tar_file_for_release:
+    print("creating tar file for release")
     if not libcpptraj_files:
         libcpptraj_files = try_updating_libcpptraj(cpptraj_home,
                 do_install, do_build, has_cpptraj_in_current_folder, openmp_flag)
@@ -164,7 +167,7 @@ if not create_tar_file_for_release:
         output_openmp_check = subprocess.check_output(['nm', libcpptraj_files[0]]).decode().split('\n')
     except IndexError:
         print("Warning:  It seems that there is no libcpptraj. Please install it")
-        sys.exit(0)
+        sys.exit(1)
 
     libcpptraj_has_openmp = ([line for line in output_openmp_check if 'omp_get_num_threads' in line.lower()]  != [])
     if libcpptraj_has_openmp and sys.platform == 'darwin':
@@ -183,7 +186,7 @@ if not create_tar_file_for_release:
         extra_link_args.append('-Wl,-rpath={}'.format(cpptraj_libdir))
         extra_compile_args.append('-Wl,-rpath={}'.format(cpptraj_libdir))
 
-    check_cpptraj_version(cpptraj_include, (4, 2, 8))
+    check_cpptraj_version(cpptraj_include, (4, 3, 1))
 
     pyxfiles, pxdfiles = get_pyx_pxd()
 
