@@ -3,7 +3,7 @@ import os
 import numpy as np
 
 from .externals.six import string_types, PY3
-from .serialize import to_pickle, read_pickle, to_json, read_json
+from .serialize import to_pickle, read_pickle
 from .datafiles.load_samples import load_sample_data
 from .datafiles.load_cpptraj_file import load_cpptraj_file
 from .shared_methods import iterframe_master
@@ -38,9 +38,8 @@ __all__ = ['load',
            'save',
            'write_traj',
            'read_pickle',
-           'read_json',
            'to_pickle',
-           'to_json', ]
+           ]
 
 
 def load(filename, top=None, frame_indices=None, mask=None, stride=None):
