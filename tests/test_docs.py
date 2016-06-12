@@ -32,7 +32,7 @@ class TestDoc(unittest.TestCase):
     '''testing for light modules
     '''
 
-    @unittest.skipIf(sys.platform == 'darwin', 'linux testing only')
+    # @unittest.skipIf(sys.platform == 'darwin', 'linux testing only')
     def test_doc(self):
         from pytraj.utils import convert
         from pytraj import frameiter, vector, datasetlist, base_holder
