@@ -780,6 +780,24 @@ def load_batch(traj, txt):
         raise ValueError('only support TrajectoryIterator')
     return _load_batch(txt, traj=traj)
 
+def read_data(filename, options=''):
+    """same as readdata in cpptraj
+
+    Returns
+    -------
+    out : CpptrajDatasetList
+    """
+    from pytraj.datasets import CpptrajDatasetList
+
+    cdslist = CpptrajDatasetList()
+    cdslist.read_data(filename, options)
+    return cdslist
+
+def write_data(filename):
+    """same as writedata in cpptraj
+    """
+    raise NotImplementedError()
+
 def _get_amberhome():
     amberhome = os.getenv('AMBERHOME')
     if amberhome is None:
