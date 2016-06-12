@@ -308,8 +308,8 @@ def load_remd(filename, top=None, T="300.0"):
     return iterload_remd(filename, top, T)[:]
 
 
-def write_traj(filename="",
-               traj=None,
+def write_traj(filename,
+               traj,
                format='infer',
                top=None,
                frame_indices=None,
@@ -424,9 +424,6 @@ def write_traj(filename="",
     _top = get_topology(traj, top)
     if _top is None:
         raise ValueError("must provide Topology")
-
-    if traj is None or _top is None:
-        raise ValueError("Need non-empty traj and top files")
 
     if not isinstance(traj, np.ndarray):
         with TrajectoryWriter(filename=filename,
@@ -814,6 +811,8 @@ def load_leap(command, verbose=False):
     """
     import subprocess
 
+    command = command.strip()
+
     amberhome = _get_amberhome()
     tleap = amberhome + '/bin/tleap'
 
@@ -823,7 +822,7 @@ def load_leap(command, verbose=False):
         command = command + '\n' + 'quit'
 
     for line in lines:
-        if line.lower().startswith('saveamberparm'):
+        if line.lower().strip().startswith('saveamberparm'):
             parm, crd = line.split()[-2:]
 
     with tempfolder():
