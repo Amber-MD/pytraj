@@ -35,10 +35,11 @@ def log_progress(sequence, every=1, size=None, color='#0080FF'):
 
 
 class ProgressBarTrajectory(object):
-    def __init__(self, traj, every=1, color="#0080FF"):
+    def __init__(self, traj, backend='native', every=1, color="#0080FF"):
         self.traj = traj
         self.every = every
         self.color = color
+        self.backend = backend
 
         for att in dir(traj):
             if not att.startswith('__'):
@@ -50,6 +51,13 @@ class ProgressBarTrajectory(object):
         return self.traj[index]
 
     def __iter__(self):
-        for frame in log_progress(self.traj, every=self.every,
-                size=self.n_frames, color=self.color):
+
+        if self.backend == 'native':
+            my_iter = log_progress(self.traj, every=self.every,
+                size=self.n_frames, color=self.color)
+        elif self.backend == 'tqdm':
+            from tqdm import tqdm_notebook
+            my_iter = tqdm_notebook(self.traj, total=self.n_frames)
+
+        for frame in my_iter:
             yield frame
