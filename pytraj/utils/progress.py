@@ -23,7 +23,6 @@ def make_bar(idx, max_frames, divid0, divid1):
     display(Javascript(s))
 
 def log_progress(sequence, every=1, size=None, color='#0080FF'):
-    # adapt from: https://github.com/alexanderkuk/log-progress
     from IPython.display import display
 
 
