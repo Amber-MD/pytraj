@@ -23,9 +23,6 @@ def make_bar(idx, max_frames, divid0, divid1):
     display(Javascript(s))
 
 def log_progress(sequence, every=1, size=None, color='#0080FF'):
-    from IPython.display import display
-
-
     index = 0
     divid0 = str(uuid.uuid4())
     divid1 = str(uuid.uuid4())
