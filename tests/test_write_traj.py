@@ -83,11 +83,6 @@ class TestWriteTraj(unittest.TestCase):
             ValueError,
             lambda: pt.write_traj('output/test.pdb', traj[0], top=None, overwrite=True))
 
-        # traj is None
-        self.assertRaises(
-            ValueError,
-            lambda: pt.write_traj('output/test.pdb', None, top=traj.top, overwrite=True))
-
 
 if __name__ == "__main__":
     unittest.main()

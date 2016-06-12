@@ -62,9 +62,8 @@ from .io import (load,
                  save,
                  write_traj,
                  read_pickle,
-                 read_json,
                  to_pickle,
-                 to_json, )
+                 )
 
 # alias
 write_trajectory = write_traj

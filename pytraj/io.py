@@ -3,7 +3,7 @@ import os
 import numpy as np
 
 from .externals.six import string_types, PY3
-from .serialize import to_pickle, read_pickle, to_json, read_json
+from .serialize import to_pickle, read_pickle
 from .datafiles.load_samples import load_sample_data
 from .datafiles.load_cpptraj_file import load_cpptraj_file
 from .shared_methods import iterframe_master
@@ -38,9 +38,8 @@ __all__ = ['load',
            'save',
            'write_traj',
            'read_pickle',
-           'read_json',
            'to_pickle',
-           'to_json', ]
+           ]
 
 
 def load(filename, top=None, frame_indices=None, mask=None, stride=None):
@@ -308,8 +307,8 @@ def load_remd(filename, top=None, T="300.0"):
     return iterload_remd(filename, top, T)[:]
 
 
-def write_traj(filename="",
-               traj=None,
+def write_traj(filename,
+               traj,
                format='infer',
                top=None,
                frame_indices=None,
@@ -424,9 +423,6 @@ def write_traj(filename="",
     _top = get_topology(traj, top)
     if _top is None:
         raise ValueError("must provide Topology")
-
-    if traj is None or _top is None:
-        raise ValueError("Need non-empty traj and top files")
 
     if not isinstance(traj, np.ndarray):
         with TrajectoryWriter(filename=filename,
@@ -814,6 +810,8 @@ def load_leap(command, verbose=False):
     """
     import subprocess
 
+    command = command.strip()
+
     amberhome = _get_amberhome()
     tleap = amberhome + '/bin/tleap'
 
@@ -823,7 +821,7 @@ def load_leap(command, verbose=False):
         command = command + '\n' + 'quit'
 
     for line in lines:
-        if line.lower().startswith('saveamberparm'):
+        if line.lower().strip().startswith('saveamberparm'):
             parm, crd = line.split()[-2:]
 
     with tempfolder():
