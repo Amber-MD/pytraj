@@ -3,7 +3,7 @@ import os
 import numpy as np
 
 from .externals.six import string_types, PY3
-from .serialize import to_pickle, read_pickle, to_json, read_json
+from .serialize import to_pickle, read_pickle
 from .datafiles.load_samples import load_sample_data
 from .datafiles.load_cpptraj_file import load_cpptraj_file
 from .shared_methods import iterframe_master
@@ -18,6 +18,7 @@ from .externals.load_other_packages import load_ParmEd
 
 from .decorators import ensure_exist
 from .core.c_core import _load_batch
+from .utils.context import tempfolder
 
 try:
     from urllib.request import urlopen
@@ -37,9 +38,8 @@ __all__ = ['load',
            'save',
            'write_traj',
            'read_pickle',
-           'read_json',
            'to_pickle',
-           'to_json', ]
+           ]
 
 
 def load(filename, top=None, frame_indices=None, mask=None, stride=None):
@@ -307,8 +307,8 @@ def load_remd(filename, top=None, T="300.0"):
     return iterload_remd(filename, top, T)[:]
 
 
-def write_traj(filename="",
-               traj=None,
+def write_traj(filename,
+               traj,
                format='infer',
                top=None,
                frame_indices=None,
@@ -423,9 +423,6 @@ def write_traj(filename="",
     _top = get_topology(traj, top)
     if _top is None:
         raise ValueError("must provide Topology")
-
-    if traj is None or _top is None:
-        raise ValueError("Need non-empty traj and top files")
 
     if not isinstance(traj, np.ndarray):
         with TrajectoryWriter(filename=filename,
@@ -778,3 +775,68 @@ def load_batch(traj, txt):
     if not isinstance(traj, TrajectoryIterator):
         raise ValueError('only support TrajectoryIterator')
     return _load_batch(txt, traj=traj)
+
+def read_data(filename, options=''):
+    """same as readdata in cpptraj
+
+    Returns
+    -------
+    out : CpptrajDatasetList
+    """
+    from pytraj.datasets import CpptrajDatasetList
+
+    cdslist = CpptrajDatasetList()
+    cdslist.read_data(filename, options)
+    return cdslist
+
+def write_data(filename):
+    """same as writedata in cpptraj
+    """
+    raise NotImplementedError()
+
+def _get_amberhome():
+    amberhome = os.getenv('AMBERHOME')
+    if amberhome is None:
+        raise EnvironmentError("must set AMBERHOME")
+    return amberhome
+
+def load_leap(command, verbose=False):
+    """create pytraj.Trajectory from tleap's command.
+
+    Notes
+    -----
+    If you load pdb file, make sure to use absolute dir.
+    This method is not extensively tested. Use it with your own risk.
+    """
+    import subprocess
+
+    command = command.strip()
+
+    amberhome = _get_amberhome()
+    tleap = amberhome + '/bin/tleap'
+
+    lines = command.split('\n')
+
+    if 'quit' not in lines[-1]:
+        command = command + '\n' + 'quit'
+
+    for line in lines:
+        if line.lower().strip().startswith('saveamberparm'):
+            parm, crd = line.split()[-2:]
+
+    with tempfolder():
+        leapin = 'tmp.leap'
+
+        with open(leapin, 'w') as fh:
+            fh.write(command)
+
+        with open(os.devnull, 'wb') as devnull:
+            if not verbose:
+                subprocess.check_call(
+                    [tleap, ' -f {}'.format(leapin)],
+                    stdout=devnull,
+                    stderr=subprocess.STDOUT)
+            else:
+                subprocess.check_call([tleap, ' -f {}'.format(leapin)])
+
+        return load(crd, parm)

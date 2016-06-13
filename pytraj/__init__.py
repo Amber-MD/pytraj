@@ -62,9 +62,8 @@ from .io import (load,
                  save,
                  write_traj,
                  read_pickle,
-                 read_json,
                  to_pickle,
-                 to_json, )
+                 )
 
 # alias
 write_trajectory = write_traj
@@ -108,7 +107,7 @@ from .all_actions import (
     native_contacts, principal_axes,
     align_principal_axis,
     timecorr, center, translate, rotate,
-    rotate_dihedral, make_structure, scale, clustering_dataset, randomize_ions,
+    rotate_dihedral, make_structure, scale, randomize_ions,
     set_dihedral, crank, closest, search_neighbors, replicate_cell,
     calc_pairdist, _grid, grid, transform, lowestcurve, calc_diffusion, calc_volmap,
     calc_multivector, pca, projection,

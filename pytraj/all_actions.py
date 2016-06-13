@@ -5,7 +5,7 @@ from pytraj.trajectory import Trajectory
 from pytraj.trajectory_iterator import TrajectoryIterator
 from .get_common_objects import (get_topology, get_data_from_dtype, get_list_of_commands,
                                  get_matrix_from_dataset, get_reference, get_fiterator,
-                                 super_dispatch, get_fi_with_dslist)
+                                 super_dispatch, get_iterator_from_dslist)
 from .utils import ensure_not_none_or_string
 from .utils import is_int
 from .utils.context import tempfolder
@@ -1455,35 +1455,10 @@ def randomize_ions(traj, mask, around, by, overlap, seed=1, top=None, frame_indi
     return traj
 
 
-def clustering_dataset(array_like, command=''):
-    '''cluster dataset
-
-    Returns
-    -------
-    cluster index for each data point
-
-    Examples
-    --------
-    >>> import pytraj as pt
-    >>> import numpy as np
-    >>> array_like = np.random.randint(0, 10, 1000)
-    >>> data = pt.clustering_dataset(array_like, 'clusters 10 epsilon 3.0')
-    '''
-    c_dslist = CpptrajDatasetList()
-    c_dslist.add('double', '__array_like')
-    c_dslist[0].resize(len(array_like))
-    c_dslist[0].values[:] = array_like
-    act = c_analysis.Analysis_Clustering()
-    command = 'data __array_like ' + command
-    act(command, dslist=c_dslist)
-
-    return np.array(c_dslist[-1])
-
-
 @register_pmap
 @super_dispatch()
 def multidihedral(traj=None,
-                  dhtypes=None,
+                  dihedral_types=None,
                   resrange=None,
                   define_new_type=None,
                   range360=False,
@@ -1495,7 +1470,7 @@ def multidihedral(traj=None,
     Parameters
     ----------
     traj : Trajectory-like object
-    dhtypes : dihedral type, default None
+    dihedral_types : dihedral type, default None
         if None, calculate all supported dihedrals
     resrange : str | array-like
         residue range for searching. If `resrange` is string, use index starting with 1
@@ -1526,9 +1501,9 @@ def multidihedral(traj=None,
     >>> data = pt.multidihedral(traj, resrange=range(8))
     >>> data = pt.multidihedral(traj, range360=True)
     >>> data = pt.multidihedral(traj, resrange='1,3,5')
-    >>> data = pt.multidihedral(traj, dhtypes='phi psi')
-    >>> data = pt.multidihedral(traj, dhtypes='phi psi', resrange='3-7')
-    >>> data = pt.multidihedral(traj, dhtypes='phi psi', resrange=[3, 4, 8])
+    >>> data = pt.multidihedral(traj, dihedral_types='phi psi')
+    >>> data = pt.multidihedral(traj, dihedral_types='phi psi', resrange='3-7')
+    >>> data = pt.multidihedral(traj, dihedral_types='phi psi', resrange=[3, 4, 8])
     """
     if resrange:
         if isinstance(resrange, string_types):
@@ -1540,8 +1515,8 @@ def multidihedral(traj=None,
     else:
         _resrange = " "
 
-    if dhtypes:
-        d_types = str(dhtypes)
+    if dihedral_types:
+        d_types = str(dihedral_types)
     else:
         d_types = " "
 
@@ -1839,7 +1814,7 @@ def pairwise_rmsd(traj=None,
     act = c_analysis.Analysis_Rms2d()
 
     crdname = 'default_coords'
-    c_dslist, top_, command = get_fi_with_dslist(traj, mask, frame_indices, top, crdname=crdname)
+    c_dslist, top_, command = get_iterator_from_dslist(traj, mask, frame_indices, top, crdname=crdname)
 
     command = ' '.join((command, metric, "crdset {} rmsout mycrazyoutput".format(crdname)))
 
@@ -2736,13 +2711,16 @@ def center(traj=None,
            mass=False,
            top=None,
            frame_indices=None):
-    """center
+    """Center coordinates in `mask` to specified point.
 
     Parameters
     ----------
     traj : Trajectory-like or Frame iterator
     mask : str, mask
-    center : str, {'box', 'origin'}
+    center : str, {'box', 'origin', array-like}, default 'box'
+        if 'origin', center on coordinate origin (0, 0, 0)
+        if 'box', center on box center
+        if array-like, center on that point
     mass : bool, default: False
         if True, use mass weighted
     top : Topology, optional, default: None
@@ -2771,17 +2749,21 @@ def center(traj=None,
     --------
     pytraj.translate
     """
-    if center.lower() not in ['box', 'origin']:
-        raise ValueError('center must be box or origin')
+    if not isinstance(center, string_types):
+        center = 'point ' + ' '.join(str(x) for x in center)
+    else:
+        if center.lower() not in ['box', 'origin']:
+            raise ValueError('center must be box or origin')
     center_ = '' if center == 'box' else center
     mass_ = 'mass' if mass else ''
     command = ' '.join((mask, center_, mass_))
-    _assert_mutable(traj)
 
-    act = c_action.Action_Center()
-    act(command, traj, top=top)
-    return traj
-
+    if isinstance(traj, TrajectoryIterator):
+        return traj.center(command)
+    else:
+        act = c_action.Action_Center()
+        act(command, traj, top=top)
+        return traj
 
 def rotate_dihedral(traj=None, mask="", top=None):
     # change to pt.rotate_dihedral(traj, res=0,
@@ -2868,7 +2850,7 @@ def replicate_cell(traj=None, mask="", direction='all', top=None):
     return traj
 
 
-def set_dihedral(traj, resid='1', dihedral_type=None, deg=0, top=None):
+def set_dihedral(traj, resid=0, dihedral_type=None, deg=0, top=None):
     '''
 
     Examples
@@ -2877,7 +2859,6 @@ def set_dihedral(traj, resid='1', dihedral_type=None, deg=0, top=None):
     >>> traj = pt.datafiles.load_tz2()
     >>> # make mutable traj by loading all frames to disk
     >>> traj = traj[:]
-    >>> traj = pt.set_dihedral(traj, resid='3', dihedral_type='phi', deg=60)
     >>> traj = pt.set_dihedral(traj, resid=2, dihedral_type='phi', deg=60)
 
     Returns
@@ -2895,13 +2876,55 @@ def set_dihedral(traj, resid='1', dihedral_type=None, deg=0, top=None):
     return traj
 
 
-def make_structure(traj=None, mask="", top=None):
+def make_structure(traj, command="", top=None):
+    """limited support for make_structure
+    
+    Parameters
+    ----------
+    traj : Trajectory-like
+    command : str, cpptraj command
+    top : None or Topology, optional
+        only needed if traj does not have topology
+
+    Returns
+    -------
+    traj : itself
+  
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2()
+    >>> # traj = pt.make_structure(traj, "alpha:1-12")
+
+    Notes
+    -----
+    cpptraj doc::
+
+        <List of Args>
+      Apply dihedrals to specified residues using arguments found in <List of Args>,
+      where an argument is 1 or more of the following arg types:
+        '<sstype>:<res range>' Apply SS type (phi/psi) to residue range.
+            <sstype> standard = alpha, left, pp2, hairpin, extended
+            <sstype> turn = typeI, typeII, typeVIII, typeI', typeII,
+                            typeVIa1, typeVIa2, typeVIb
+            Turns are applied to 2 residues at a time, so resrange must be divisible by 4.
+        '<custom ss>:<res range>:<phi>:<psi>' Apply custom <phi>/<psi> to residue range.
+        '<custom turn>:<res range>:<phi1>:<psi1>:<phi2>:<psi2>' Apply custom turn <phi>/<psi> pair to residue range.
+        '<custom dih>:<res range>:<dih type>:<angle>' Apply <angle> to dihedrals in range.
+            <dih type> = alpha beta gamma delta epsilon zeta nu1 nu2 h1p c2p chin phi psi chip omega
+        '<custom dih>:<res range>:<at0>:<at1>:<at2>:<at3>:<angle>[:<offset>]' Apply <angle> to dihedral defined by atoms <at1>, <at2>, <at3>, and <at4>.
+            Offset -2=<a0><a1> in previous res, -1=<a0> in previous res,
+                    0=All <aX> in single res,
+                    1=<a3> in next res, 2=<a2><a3> in next res.
+        'ref:<range>:<refname>[:<ref range>]' Apply dihedrals from reference <refname>.
+
+    """
     _assert_mutable(traj)
     top_ = get_topology(traj, top)
 
-    command = mask
     act = c_action.Action_MakeStructure()
     act(command, traj, top=top_)
+    return traj
 
 
 @super_dispatch()

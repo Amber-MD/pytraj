@@ -290,7 +290,7 @@ class TestActionList(unittest.TestCase):
     def test_modify_frame(self):
         traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
         dslist = CpptrajDatasetList()
-        dslist.add_new('topology', name='mytop')
+        dslist.add('topology', name='mytop')
 
         # add a new topology
         dslist[0].data = pt.strip(traj.top, ':WAT')
@@ -309,7 +309,7 @@ class TestActionList(unittest.TestCase):
     def test_modify_frame_use_Pipeline(self):
         traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
         dslist = CpptrajDatasetList()
-        dslist.add_new('topology', name='mytop')
+        dslist.add('topology', name='mytop')
 
         # add a new topology
         dslist[0].data = pt.strip(traj.top, ':WAT')
@@ -407,7 +407,7 @@ class TestActionList(unittest.TestCase):
 
         # store reference
         dslist = CpptrajDatasetList()
-        ref = dslist.add_new('reference')
+        ref = dslist.add('reference')
         ref.top = traj.top
         ref.append(traj[3])
 
