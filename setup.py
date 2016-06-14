@@ -269,7 +269,7 @@ packages = [
 ]
 
 pylen = len('pytraj') + 1
-sample_data_files  = ["datafiles/ala3/Ala3.*",
+sample_datafiles  = ["datafiles/ala3/Ala3.*",
                "datafiles/tz2/tz2.*",
                "datafiles/rna.pdb",
                "datafiles/trpcage/trpcage*",
