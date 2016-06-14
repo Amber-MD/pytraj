@@ -27,6 +27,7 @@ pip install nose
 pip install memory_profiler
 pip install psutil
 pip install cclib
+pip install tqdm
 
 if [ "$TRAVIS_OS_NAME" = "linux" ]; then
     # only test mpi on linux
