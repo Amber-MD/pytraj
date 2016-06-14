@@ -131,7 +131,7 @@ class ProgressBarTrajectory(object):
             color = self.params.get('color', '#0080FF')
             my_iter = BarProgress.log_progress(self.traj, every=every,
                 size=self.n_frames, color=color)
-        if self.style == 'circle':
+        elif self.style == 'circle':
             every = self.params.get('every', 1)
             my_iter = CircleProgress.log_progress(self.traj, every=every,
                 size=self.n_frames)
