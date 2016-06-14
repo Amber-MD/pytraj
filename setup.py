@@ -276,7 +276,10 @@ sample_data = ["datafiles/ala3/Ala3.*",
                "datafiles/remd_ala2/*",
                "datafiles/dpdp/DPDP*"]
 
-datalist = pxdfiles + sample_data
+js = ['utils/css/*css',
+      'utils/*js',]
+
+datalist = pxdfiles + sample_data + js
 
 if sys.platform.startswith('darwin') and use_pip:
     datalist.append('lib/libcpptraj.dylib')
