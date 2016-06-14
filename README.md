@@ -105,7 +105,7 @@ Question/Suggestion?
 Demo: Interactive data exploration with [Jupyter notebook] (http://jupyter.org/)
 --------------------------------------------------------------------------------
 
-[![pytraj website](./examples/progress_bar.gif)](http://amber-md.github.io/pytraj/latest/index.html)
+[![pytraj website](./examples/figures/progress_bar.gif)](http://amber-md.github.io/pytraj/latest/index.html)
 
 
 License
