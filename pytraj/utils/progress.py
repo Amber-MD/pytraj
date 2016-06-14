@@ -40,9 +40,9 @@ $("#%s").progressCircle({
 class CircleProgress(object):
     @classmethod
     def init_display(cls, circle):
-        fn = os.path.dirname(__file__) + '/css/circle.css'
+        fn = os.path.dirname(__file__) + '/progress-circle/css/circle.css'
         style = "<style>\n" + open(fn).read() + "</style>" 
-        fn2 = os.path.dirname(__file__) + '/progress-circle.js'
+        fn2 = os.path.dirname(__file__) + '/progress-circle/progress-circle.js'
         js = open(fn2).read()
         display(HTML(style + circle_html % (js, circle, circle)))
     
@@ -107,7 +107,11 @@ class ProgressBarTrajectory(object):
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2()
     >>> from pytraj.utils.progress import ProgressBarTrajectory
-    >>> p = ProgressBarTrajectory(traj, style='bar', every=2)
+    >>> p = ProgressBarTrajectory(traj, style='bar', every=20)
+    >>> pt.molsurf(p) # make sure to use Jupyter notebook
+    >>> p = ProgressBarTrajectory(traj, style='circle', every=20)
+    >>> pt.molsurf(p) # make sure to use Jupyter notebook
+    >>> p = ProgressBarTrajectory(traj, style='tqdm')
     >>> pt.molsurf(p) # make sure to use Jupyter notebook
     """
     def __init__(self, traj, style='bar', **kwargs):
