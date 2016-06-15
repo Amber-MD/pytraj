@@ -120,10 +120,15 @@ class ProgressBarTrajectory(object):
         self.params = kwargs
 
         for att in dir(traj):
-            if not att.startswith('__'):
+            if not (att.startswith('__') or att == 'xyz'):
                 setattr(self, att, getattr(traj, att))
             if att in ['__getstate__', '__setstate__', '_split_iterators']:
                 setattr(self, att, getattr(traj, att))
+
+    @property
+    def xyz(self):
+        # set xyz here to avoid eager evaluation for TrajectoryIterator
+        return self.traj.xyz
 
     def __getitem__(self, index):
         return self.traj[index]
