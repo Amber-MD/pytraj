@@ -118,6 +118,10 @@ class ProgressBarTrajectory(object):
         self.traj = traj
         self.style = style
         self.params = kwargs
+        self.every = self.params.get('every')
+
+        if self.every is None:
+            self.every = int(self.traj.n_frames / 10)
 
         for att in dir(traj):
             if not (att.startswith('__') or att == 'xyz'):
@@ -136,13 +140,11 @@ class ProgressBarTrajectory(object):
     def __iter__(self):
 
         if self.style == 'bar':
-            every = self.params.get('every', 1)
             color = self.params.get('color', '#0080FF')
-            my_iter = BarProgress.log_progress(self.traj, every=every,
+            my_iter = BarProgress.log_progress(self.traj, every=self.every,
                 size=self.n_frames, color=color)
         elif self.style == 'circle':
-            every = self.params.get('every', 1)
-            my_iter = CircleProgress.log_progress(self.traj, every=every,
+            my_iter = CircleProgress.log_progress(self.traj, every=self.every,
                 size=self.n_frames)
         elif self.style == 'tqdm':
             from tqdm import tqdm_notebook
