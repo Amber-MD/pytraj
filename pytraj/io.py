@@ -14,7 +14,7 @@ from .topology import Topology, ParmFile
 from .trajectory import Trajectory
 from .trajectory_iterator import TrajectoryIterator
 
-from .externals.load_other_packages import load_ParmEd
+from .externals.load_other_packages import load_parmed
 
 from .decorators import ensure_exist
 from .core.c_core import _load_batch
@@ -32,7 +32,9 @@ __all__ = ['load',
            'load_pdb_rcsb',
            'load_cpptraj_file',
            'load_sample_data',
-           'load_ParmEd',
+           'load_parmed',
+           'load_leap',
+           'load_antechamber',
            'load_topology',
            'write_parm',
            'save',
@@ -840,3 +842,44 @@ def load_leap(command, verbose=False):
                 subprocess.check_call([tleap, ' -f {}'.format(leapin)])
 
         return load(crd, parm)
+
+def load_antechamber(filename, format=None, options=''):
+    """create pytraj.Trajectory by using antechamber to convert `filename` to mol2 format,
+    then using `pytraj.load`
+
+    Good for file formats that cpptraj and ParmEd do not support (.ac, ...)
+
+    Parameters
+    ----------
+    filename : str
+    format : str or None, default None
+        if None, using filename extension
+        else, use given format
+    options : str, additional antechamber command
+    """
+    import subprocess
+
+    amberhome = _get_amberhome()
+    antechamber = amberhome + '/bin/antechamber'
+
+    ext = filename.split('.')[-1].lower() if format is None else format.lower()
+    filename = os.path.abspath(filename)
+
+    with tempfolder():
+        fn = 'tmp.mol2'
+        with open(os.devnull, 'wb') as devnull:
+            try:
+                subprocess.check_call(
+                    ['{antechamber} -i {input} -fi {ext} -o {output} -fo mol2 {options}'.format(antechamber=antechamber,
+                                     input=filename,
+                                     ext=ext,
+                                     output=fn,
+                                     options=options)],
+                    stdout=devnull,
+                    stderr=subprocess.STDOUT,
+                    shell=True)
+            except subprocess.CalledProcessError as e:
+                print('make sure to provide supported file format')
+                print('')
+                raise e
+        return load(fn)
