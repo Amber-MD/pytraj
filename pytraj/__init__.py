@@ -164,7 +164,6 @@ center_of_mass = calc_center_of_mass
 center_of_geometry = calc_center_of_geometry
 mean_structure = get_average_frame
 average_frame = get_average_frame
-load_parmed = load_parmed
 calc_pca = pca
 pair_distribution = pairdist = calc_pairdist
 
