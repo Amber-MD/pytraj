@@ -103,7 +103,7 @@ class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
     '''
 
     def __init__(self, filename=None, top=None, *args, **kwd):
-        self._force_load = False
+        self._force_load = True
         # use self._chunk to store `chunk` in iterchunk
         # to deallocate memory
         self._chunk = None
