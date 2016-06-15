@@ -19,7 +19,6 @@ def load_parmed(parm, traj=True, **kwd):
     >>> p = pmd.download_PDB("1l2y")
     >>> traj = pt.load_parmed(p)
     """
-    import parmed as pmd
     from parmed.amber import AmberParm
 
     with tempfolder():
@@ -51,7 +50,6 @@ def load_mdtraj(m_traj, autoconvert=False, top=None):
     import numpy as np
     from mdtraj import Trajectory as MDTrajectory
     from pytraj.trajectory import Trajectory
-    from pytraj.compat import string_types
 
     if autoconvert:
         unit = 10.
