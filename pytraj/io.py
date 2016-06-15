@@ -14,7 +14,7 @@ from .topology import Topology, ParmFile
 from .trajectory import Trajectory
 from .trajectory_iterator import TrajectoryIterator
 
-from .externals.load_other_packages import load_ParmEd
+from .externals.load_other_packages import load_parmed
 
 from .decorators import ensure_exist
 from .core.c_core import _load_batch
@@ -32,7 +32,9 @@ __all__ = ['load',
            'load_pdb_rcsb',
            'load_cpptraj_file',
            'load_sample_data',
-           'load_ParmEd',
+           'load_parmed',
+           'load_leap',
+           'load_antechamber',
            'load_topology',
            'write_parm',
            'save',
@@ -840,3 +842,30 @@ def load_leap(command, verbose=False):
                 subprocess.check_call([tleap, ' -f {}'.format(leapin)])
 
         return load(crd, parm)
+
+def load_antechamber(filename, format=None):
+    """create pytraj.Trajectory by using antechamber to convert `filename` to mol2 format,
+    then using `pytraj.load`
+
+    Good for file formats that cpptraj and ParmEd do not support (.ac, ...)
+    """
+    import subprocess
+
+    amberhome = _get_amberhome()
+    antechamber = amberhome + '/bin/antechamber'
+
+    ext = filename.split('.')[-1].lower() if format is None else format.lower()
+    filename = os.path.abspath(filename)
+
+    with tempfolder():
+        fn = 'tmp.mol2'
+        with open(os.devnull, 'wb') as devnull:
+            subprocess.check_call(
+                ['{antechamber} -i {input} -fi {ext} -o {output} -fo mol2'.format(antechamber=antechamber,
+                                 input=filename,
+                                 ext=ext,
+                                 output=fn)],
+                stdout=devnull,
+                stderr=subprocess.STDOUT,
+                shell=True)
+        return load(fn)
