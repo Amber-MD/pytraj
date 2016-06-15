@@ -843,11 +843,19 @@ def load_leap(command, verbose=False):
 
         return load(crd, parm)
 
-def load_antechamber(filename, format=None):
+def load_antechamber(filename, format=None, options=''):
     """create pytraj.Trajectory by using antechamber to convert `filename` to mol2 format,
     then using `pytraj.load`
 
     Good for file formats that cpptraj and ParmEd do not support (.ac, ...)
+
+    Parameters
+    ----------
+    filename : str
+    format : str or None, default None
+        if None, using filename extension
+        else, use given format
+    options : str, additional antechamber command
     """
     import subprocess
 
@@ -862,10 +870,11 @@ def load_antechamber(filename, format=None):
         with open(os.devnull, 'wb') as devnull:
             try:
                 subprocess.check_call(
-                    ['{antechamber} -i {input} -fi {ext} -o {output} -fo mol2'.format(antechamber=antechamber,
+                    ['{antechamber} -i {input} -fi {ext} -o {output} -fo mol2 {options}'.format(antechamber=antechamber,
                                      input=filename,
                                      ext=ext,
-                                     output=fn)],
+                                     output=fn,
+                                     options=options)],
                     stdout=devnull,
                     stderr=subprocess.STDOUT,
                     shell=True)
