@@ -860,12 +860,17 @@ def load_antechamber(filename, format=None):
     with tempfolder():
         fn = 'tmp.mol2'
         with open(os.devnull, 'wb') as devnull:
-            subprocess.check_call(
-                ['{antechamber} -i {input} -fi {ext} -o {output} -fo mol2'.format(antechamber=antechamber,
-                                 input=filename,
-                                 ext=ext,
-                                 output=fn)],
-                stdout=devnull,
-                stderr=subprocess.STDOUT,
-                shell=True)
+            try:
+                subprocess.check_call(
+                    ['{antechamber} -i {input} -fi {ext} -o {output} -fo mol2'.format(antechamber=antechamber,
+                                     input=filename,
+                                     ext=ext,
+                                     output=fn)],
+                    stdout=devnull,
+                    stderr=subprocess.STDOUT,
+                    shell=True)
+            except subprocess.CalledProcessError as e:
+                print('make sure to provide supported file format')
+                print('')
+                raise e
         return load(fn)
