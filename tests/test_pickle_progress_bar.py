@@ -1,6 +1,8 @@
+import pytraj as pt
+from pytraj.testing import aa_eq
+from pytraj.utils.progress import ProgressBarTrajectory
+
 def test():
-    import pytraj as pt
-    from pytraj.utils.progress import ProgressBarTrajectory
 
     traj = pt.datafiles.load_tz2()
 
@@ -9,4 +11,8 @@ def test():
 
     t3 = pt.read_pickle('test.pk')
 
-    for _ in t3: pass
+    data0 = pt.rmsd(traj)
+    data1 = pt.rmsd(t2)
+    data2 = pt.rmsd(t3)
+    aa_eq(data0, data1)
+    aa_eq(data0, data2)

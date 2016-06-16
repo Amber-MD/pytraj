@@ -169,3 +169,4 @@ class ProgressBarTrajectory(object):
         self.params = state.get('params')
         self.traj = state['traj']
         self.n_frames = self.traj.n_frames
+        self.top = self.traj.top
