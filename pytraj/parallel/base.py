@@ -66,7 +66,9 @@ def worker_byfunc(rank,
                   args=None,
                   kwd=None,
                   iter_options=None,
-                  apply=None):
+                  apply=None,
+                  progress=False,
+                  progress_params=dict()):
     '''worker for pytraj's functions
     '''
     # need to unpack args and kwd
@@ -90,6 +92,10 @@ def worker_byfunc(rank,
                                  mask=mask,
                                  rmsfit=rmsfit,
                                  autoimage=autoimage)
+    if progress and rank == 0:
+        from pytraj.utils.progress import ProgressBarTrajectory
+        my_iter = ProgressBarTrajectory(my_iter, style='basic', **progress_params)
+
     n_frames = my_iter.n_frames
     kwd_cp = {}
     kwd_cp.update(kwd)

@@ -97,9 +97,7 @@ class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
     Notes
     -----
     It's a bit tricky to pickle this class. As default, new TrajectoryIterator will
-    use original trj filename and top filename. If set _pickle_topology to True, its
-    Topology will be pickled (slow but more accurate if you change the topology in the
-    fly)
+    use original trj filename and top filename.
     '''
 
     def __init__(self, filename=None, top=None, *args, **kwd):
@@ -109,7 +107,6 @@ class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
         self._chunk = None
         # only allow to load <= 1 GB
         self._size_limit_in_GB = 1
-        self._pickle_topology = False
         super(TrajectoryIterator, self).__init__()
 
         if not top:
@@ -139,11 +136,7 @@ class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
 
     def __setstate__(self, state):
         self.__dict__ = state
-        if self._pickle_topology:
-            self.top = state['top']
-        else:
-            # faster
-            self.top = _load_Topology(state['_top_filename'])
+        self.top = _load_Topology(state['_top_filename'])
         self._load(state['filelist'], frame_slice=state['_frame_slice_list'])
 
         _transform_commands = state.get('_transform_commands')
@@ -162,15 +155,11 @@ class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
         >>> pt.to_pickle(traj, 'output/test.pk')
 
         >>> # pickle by rebuilding Topology
-        >>> traj._pickle_topology = True
         >>> pt.to_pickle(traj, 'output/test.pk')
         '''
         # slow
         # Topology is pickable
         sdict = self.__dict__
-        if 'top' not in sdict and self._pickle_topology:
-            sdict.update({'top': self.top})
-
         sdict['_transform_commands'] = self._transform_commands
         return sdict
 

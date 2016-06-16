@@ -20,6 +20,11 @@ class TestNormalPmap(unittest.TestCase):
     def setUp(self):
         self.traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 
+    def test_progress(self):
+        self.traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        pt.pmap(pt.radgyr, self.traj, progress=True, progress_params=dict(every=2))
+        pt.pmap(pt.radgyr, self.traj, progress=True)
+
     def test_raise(self):
         # if func is not support pmap
         self.assertRaises(ValueError, lambda: pt.pmap(pt.bfactors, self.traj))
