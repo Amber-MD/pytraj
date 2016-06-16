@@ -126,8 +126,6 @@ class ProgressBarTrajectory(object):
         for att in dir(traj):
             if not (att.startswith('__') or att == 'xyz'):
                 setattr(self, att, getattr(traj, att))
-            if att in ['__getstate__', '__setstate__', '_split_iterators']:
-                setattr(self, att, getattr(traj, att))
 
     @property
     def xyz(self):
@@ -156,3 +154,18 @@ class ProgressBarTrajectory(object):
 
         for frame in my_iter:
             yield frame
+
+    def __getstate__(self):
+        d = {'style': self.style,
+             'every': self.every,
+             'params': self.params,
+             }
+        d['traj'] = self.traj
+        return d
+
+    def __setstate__(self, state):
+        self.style = state.get('style')
+        self.every = state.get('every')
+        self.params = state.get('params')
+        self.traj = state['traj']
+        self.n_frames = self.traj.n_frames
