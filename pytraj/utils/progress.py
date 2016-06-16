@@ -1,4 +1,4 @@
-import os
+import os, sys
 import uuid
 from IPython.display import HTML, Javascript, display
 
@@ -92,6 +92,17 @@ class BarProgress(object):
                 cls.make_bar(index, size, divid0, divid1)
             yield record
 
+class BasicNumberProgress(object):
+    @classmethod
+    def log_progress(cls, sequence, every=1, size=None):
+        if every == 0:
+            every = 1
+        for index, record in enumerate(sequence, 1):
+            if index == 1 or index % every == 0:
+                sys.stdout.write(' {}%'.format(100*index/size))
+                sys.stdout.flush()
+            yield record
+
 
 class ProgressBarTrajectory(object):
     """Simple progress bar/circle for Jupyter notebook
@@ -126,8 +137,6 @@ class ProgressBarTrajectory(object):
         for att in dir(traj):
             if not (att.startswith('__') or att == 'xyz'):
                 setattr(self, att, getattr(traj, att))
-            if att in ['__getstate__', '__setstate__', '_split_iterators']:
-                setattr(self, att, getattr(traj, att))
 
     @property
     def xyz(self):
@@ -143,6 +152,9 @@ class ProgressBarTrajectory(object):
             color = self.params.get('color', '#0080FF')
             my_iter = BarProgress.log_progress(self.traj, every=self.every,
                 size=self.n_frames, color=color)
+        elif self.style == 'basic':
+            my_iter = BasicNumberProgress.log_progress(self.traj, every=self.every,
+                size=self.n_frames)
         elif self.style == 'circle':
             my_iter = CircleProgress.log_progress(self.traj, every=self.every,
                 size=self.n_frames)
@@ -156,3 +168,19 @@ class ProgressBarTrajectory(object):
 
         for frame in my_iter:
             yield frame
+
+    def __getstate__(self):
+        d = {'style': self.style,
+             'every': self.every,
+             'params': self.params,
+             }
+        d['traj'] = self.traj
+        return d
+
+    def __setstate__(self, state):
+        self.style = state.get('style')
+        self.every = state.get('every')
+        self.params = state.get('params')
+        self.traj = state['traj']
+        self.n_frames = self.traj.n_frames
+        self.top = self.traj.top
