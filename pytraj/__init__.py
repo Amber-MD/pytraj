@@ -54,7 +54,9 @@ from .io import (load,
                  load_pdb_rcsb,
                  load_cpptraj_file,
                  load_sample_data,
-                 load_ParmEd,
+                 load_parmed,
+                 load_leap,
+                 load_antechamber,
                  load_topology,
                  load_batch,
                  write_parm,
@@ -162,7 +164,6 @@ center_of_mass = calc_center_of_mass
 center_of_geometry = calc_center_of_geometry
 mean_structure = get_average_frame
 average_frame = get_average_frame
-load_parmed = load_ParmEd
 calc_pca = pca
 pair_distribution = pairdist = calc_pairdist
 
