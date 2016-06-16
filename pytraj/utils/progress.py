@@ -1,4 +1,4 @@
-import os
+import os, sys
 import uuid
 from IPython.display import HTML, Javascript, display
 
@@ -92,6 +92,17 @@ class BarProgress(object):
                 cls.make_bar(index, size, divid0, divid1)
             yield record
 
+class BasicNumberProgress(object):
+    @classmethod
+    def log_progress(cls, sequence, every=1, size=None):
+        if every == 0:
+            every = 1
+        for index, record in enumerate(sequence, 1):
+            if index == 1 or index % every == 0:
+                sys.stdout.write(' {}%'.format(100*index/size))
+                sys.stdout.flush()
+            yield record
+
 
 class ProgressBarTrajectory(object):
     """Simple progress bar/circle for Jupyter notebook
@@ -141,6 +152,9 @@ class ProgressBarTrajectory(object):
             color = self.params.get('color', '#0080FF')
             my_iter = BarProgress.log_progress(self.traj, every=self.every,
                 size=self.n_frames, color=color)
+        elif self.style == 'basic':
+            my_iter = BasicNumberProgress.log_progress(self.traj, every=self.every,
+                size=self.n_frames)
         elif self.style == 'circle':
             my_iter = CircleProgress.log_progress(self.traj, every=self.every,
                 size=self.n_frames)
