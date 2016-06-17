@@ -143,6 +143,8 @@ def _pmap(func, traj, *args, **kwd):
     n_cores = kwd.pop('n_cores') if 'n_cores' in kwd else 2
     iter_options = kwd.pop('iter_options') if 'iter_options' in kwd else {}
     apply = kwd.pop('apply') if 'apply' in kwd else None
+    progress = kwd.pop('progress') if 'progress' in kwd else None
+    progress_params = kwd.pop('progress_params') if 'progress_params' in kwd else dict()
 
     if n_cores <= 0:
         # use all available cores
@@ -206,7 +208,9 @@ def _pmap(func, traj, *args, **kwd):
                          args=args,
                          kwd=kwd,
                          iter_options=iter_options,
-                         apply=apply)
+                         apply=apply,
+                         progress=progress,
+                         progress_params=progress_params)
 
         data = p.map(pfuncs, [rank for rank in range(n_cores)])
         p.close()
