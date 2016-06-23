@@ -3,6 +3,7 @@ Codes in this module might not be tested and they might be not correct, at all.
 '''
 import numpy as np
 from functools import wraps
+from pytraj.c_action import c_action
 
 
 def take(traj, indices):
@@ -51,15 +52,20 @@ def write_traj(filename, traj=None, mode='', frame_indices=None):
     Examples
     --------
     '''
-    from pytraj.c_action.c_action import Action_Outtraj
 
     command = ' '.join((filename, mode))
     fi = traj if frame_indices is None else traj.iterframe(
         frame_indices=frame_indices)
 
-    act = Action_Outtraj()
+    act = c_action.Action_Outtraj()
     _top = traj.top
     act(command, fi, top=_top)
+
+def write_mask(traj, command):
+    """very simple wrapping.
+    """
+    act = c_action.Action_Mask()
+    act(command, traj, top=traj.top)
 
 
 class TrajectoryWriter:
