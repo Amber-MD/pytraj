@@ -419,48 +419,15 @@ class TestIO(unittest.TestCase):
         nt.assert_true(traj.metadata['has_velocity'])
 
         fn2 = 'output/test.nc'
-        traj.save(fn2, overwrite=True, options='force') # no velocity
+        traj.save(fn2, overwrite=True, crdinfo=traj.metadata)
 
         traj2 = pt.iterload(fn2, traj.top)
         nt.assert_true(traj2.metadata['has_force'])
-        nt.assert_false(traj2.metadata['has_velocity'])
+        nt.assert_true(traj2.metadata['has_velocity'])
 
         forces_traj = np.array([frame.force.copy() for frame in traj])
         forces_traj2 = np.array([frame.force.copy() for frame in traj2])
         aa_eq(forces_traj, forces_traj2)
-
-        fn3 = 'output/test.nc'
-        traj.save(fn3, overwrite=True, options='velocity') # no force
-
-        traj3 = pt.iterload(fn3, traj.top)
-        nt.assert_false(traj3.metadata['has_force'])
-        nt.assert_true(traj3.metadata['has_velocity'])
-
-        velocity_traj = np.array([frame.velocity.copy() for frame in traj])
-        velocity_traj3 = np.array([frame.velocity.copy() for frame in traj3])
-        aa_eq(velocity_traj, velocity_traj3)
-
-        # test Trajectory
-        frame_template = traj[0].copy()
-        nt.assert_true(frame_template.has_force())
-
-        def get_frame():
-            for index, frame in enumerate(traj):
-                frame_template.xyz[:] = frame.xyz
-                frame_template.force[:] = frame.force
-                yield frame_template
-
-        fn4 = 'output/test4.nc'
-        crdinfo = dict(has_force=True)
-        pt.write_traj(fn4,
-                      traj=get_frame(),
-                      top=traj.top,
-                      crdinfo=crdinfo,
-                      options='force',
-                      overwrite=True)
-        traj4 = pt.iterload(fn4, traj.top)
-        nt.assert_true(traj4.metadata['has_force'])
-        aa_eq(traj4.xyz, traj.xyz)
 
 class TestREMDTemperature(unittest.TestCase):
 
@@ -545,9 +512,9 @@ class TestTleap(unittest.TestCase):
         """
 
         for quit in ['quit', '']:
-            for verbose in [True, False]:
-                traj = pt.io.load_leap(cm % quit, verbose=verbose)
-                nt.assert_equal(traj.n_atoms, 304)
+            verbose = False
+            traj = pt.io.load_leap(cm % quit, verbose=verbose)
+            nt.assert_equal(traj.n_atoms, 304)
 
 if __name__ == "__main__":
     unittest.main()
