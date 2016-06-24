@@ -48,10 +48,8 @@ pytraj_home = rootname + "/pytraj/"
 cpptraj_home = os.environ.get('CPPTRAJHOME', '')
 use_pip = any('pip' in arg for arg in sys.argv)
 install_type = os.environ.get("INSTALLTYPE", "")
-
-if install_type:
-    print('install_type', install_type)
-    sys.argv.remove(install_type)
+check_flag(install_type)
+print('install_type', install_type)
 
 if not cpptraj_home and use_pip:
     # if pip, require to set CPPTRAJHOME
