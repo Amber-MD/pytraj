@@ -44,7 +44,7 @@ openmp_flag = '-openmp' if not disable_openmp else ''
 debug = check_flag('-debug')
 tarfile = True if 'sdist' in sys.argv else False
 rootname = os.getcwd()
-pytraj_home = rootname + "/pytraj/"
+pytraj_src = rootname + "/pytraj/"
 cpptraj_home = os.environ.get('CPPTRAJHOME', '')
 use_pip = any('pip' in arg for arg in sys.argv)
 install_type = os.environ.get("INSTALLTYPE", "")
@@ -56,10 +56,10 @@ if not cpptraj_home and use_pip:
     raise EnvironmentError(message_pip_need_cpptraj_home)
 
 cpptraj_included = os.path.exists("./cpptraj/")
-pytraj_dir = os.path.abspath(os.path.dirname(__file__))
+pytraj_home = os.path.abspath(os.path.dirname(__file__))
 
 SetupTask = namedtuple('SetupTask', ['do_install', 'do_build', 'do_help', 'do_clean'])
-do_install, do_build = do_what(pytraj_dir)
+do_install, do_build = do_what(pytraj_home)
 do_help = '--help' in sys.argv or '-h' in sys.argv
 do_clean = (len(sys.argv) == 2 and 'clean' in sys.argv)
 setup_task = SetupTask(do_install=do_install,
@@ -71,7 +71,7 @@ cpptraj_info = get_cpptraj_info(rootname=rootname,
                            cpptraj_home=cpptraj_home,
                            cpptraj_included=cpptraj_included,
                            setup_task=setup_task,
-                           pytraj_dir=pytraj_dir,
+                           pytraj_home=pytraj_home,
                            openmp_flag=openmp_flag,
                            use_amberlib=use_amberlib)
 
@@ -107,7 +107,7 @@ else:
 setenv_cc_cxx(cpptraj_info.ambertools_distro, extra_compile_args, extra_link_args)
 
 ext_modules = get_ext_modules(cpptraj_info=cpptraj_info,
-                pytraj_home=pytraj_home,
+                pytraj_src=pytraj_src,
                 setup_task=setup_task,
                 is_released=is_released,
                 need_cython=need_cython,

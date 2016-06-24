@@ -238,12 +238,12 @@ if not release:
     finally:
         a.close()
 
-def do_what(pytraj_dir):
+def do_what(pytraj_home):
     # this checking should be here, after checking openmp and other stuff
     if len(sys.argv) == 2 and sys.argv[1] == 'install':
         do_install = True
     elif len(sys.argv) == 3 and sys.argv[1] == 'install' and os.path.join('AmberTools',
-                                                                          'src') in pytraj_dir:
+                                                                          'src') in pytraj_home:
         # install pytraj in $AMBERHOME
         # do not use pytraj_inside_amber here in we call `do_what()` before calling get_cpptraj_info()
         # don't mess this up
@@ -368,7 +368,7 @@ def get_cpptraj_info(rootname,
                      cpptraj_home,
                      cpptraj_included,
                      setup_task,
-                     pytraj_dir,
+                     pytraj_home,
                      openmp_flag,
                      use_amberlib):
 
@@ -377,7 +377,7 @@ def get_cpptraj_info(rootname,
     # check if has environment variables
     CPPTRAJ_LIBDIR = os.environ.get('CPPTRAJ_LIBDIR', '')
     CPPTRAJ_HEADERDIR = os.environ.get('CPPTRAJ_HEADERDIR', '')
-    if os.path.join('AmberTools', 'src') in pytraj_dir:
+    if os.path.join('AmberTools', 'src') in pytraj_home:
         # install pytraj inside AMBER
         AMBERHOME = os.environ.get('AMBERHOME', '')
         if not AMBERHOME:
@@ -486,7 +486,7 @@ def setenv_cc_cxx(ambertools_distro,
         print('using CC={}, CXX={}'.format(CC, CXX))
 
 def get_ext_modules(cpptraj_info,
-                    pytraj_home,
+                    pytraj_src,
                     setup_task,
                     is_released,
                     need_cython,
@@ -584,7 +584,7 @@ def get_ext_modules(cpptraj_info,
                                language='c++',
                                library_dirs=library_dirs,
                                define_macros=define_macros,
-                               include_dirs=[cpptraj_info.include_dir, pytraj_home],
+                               include_dirs=[cpptraj_info.include_dir, pytraj_src],
                                extra_compile_args=extra_compile_args,
                                extra_link_args=extra_link_args)
             ext_modules.append(extmod)
