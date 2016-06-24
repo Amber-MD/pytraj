@@ -55,8 +55,20 @@ cpptraj_included = os.path.exists("./cpptraj/")
 pytraj_dir = os.path.abspath(os.path.dirname(__file__))
 do_install, do_build = do_what(pytraj_dir)
 do_help = '--help' in sys.argv or '-h' in sys.argv
-cpptraj_dir, cpptraj_include_dir, cpptraj_libdir, ambertools_distro = get_include_and_lib_dir(rootname, cpptraj_home,
-        cpptraj_included, do_install, do_build, pytraj_dir, openmp_flag)
+
+(cpptraj_dir, cpptraj_include_dir,
+ cpptraj_libdir, ambertools_distro 
+ 
+ = get_include_and_lib_dir(rootname=rootname,
+                           cpptraj_home=cpptraj_home,
+                           cpptraj_included=cpptraj_included,
+                           do_install=do_install,
+                           do_build=do_build,
+                           pytraj_dir=pytraj_dir,
+                           openmp_flag=openmp_flag,
+                           use_amberlib=use_amberlib)
+)
+
 libcpptraj_files = glob(os.path.join(cpptraj_libdir, 'libcpptraj') + '*')
 do_clean = (len(sys.argv) == 2 and 'clean' in sys.argv)
 
@@ -94,7 +106,7 @@ if install_type:
     print('install_type', install_type)
     sys.argv.remove(install_type)
 
-setenv_cc_cxx(ambertools_distro)
+setenv_cc_cxx(ambertools_distro, extra_compile_args, extra_link_args)
 
 if not do_help:
     ext_modules = get_ext_modules(cpptraj_home,
@@ -115,6 +127,7 @@ if not do_help:
                     extra_compile_args=[],
                     extra_link_args=[],
                     define_macros=[],
+                    use_pip=use_pip,
                     tarfile=False)
 
 else:

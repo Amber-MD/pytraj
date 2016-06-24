@@ -3,8 +3,6 @@
 from __future__ import print_function
 import os
 import sys
-import subprocess
-from subprocess import CalledProcessError
 sys.path.append('scripts')
 from check_openmp import get_openmp_flag
 from find_lib import find_lib

@@ -20,6 +20,9 @@ MICRO = 8
 is_released = False
 VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 
+DEFAULT_MAC_CCOMPILER = 'clang'
+DEFAULT_MAC_CXXCOMPILER = 'clang++'
+
 
 message_cython = """
 Warning:  pytraj was not installed !
@@ -271,7 +274,7 @@ def install_libcpptraj(openmp_flag, from_github=False, use_amberlib=True):
 def try_updating_libcpptraj(cpptraj_home,
                             do_install,
                             do_build, 
-                            has_cpptraj_in_current_folder,
+                            cpptraj_included,
                             openmp_flag,
                             use_amberlib):
     if cpptraj_home:
@@ -282,7 +285,7 @@ def try_updating_libcpptraj(cpptraj_home,
             '2. Or you need to install libcpptraj in $CPPTRAJHOME/lib \n')
     else:
         if do_install or do_build:
-            if has_cpptraj_in_current_folder:
+            if cpptraj_included:
                 print(
                     'can not find libcpptraj but found ./cpptraj folder, trying to reinstall it to ./cpptraj/lib/ \n')
                 time.sleep(3)
@@ -353,7 +356,14 @@ def check_cython(is_released, cmdclass, min_version='0.21'):
     return need_cython, cmdclass, cythonize
 
 
-def get_include_and_lib_dir(rootname, cpptrajhome, has_cpptraj_in_current_folder, do_install, do_build, PYTRAJ_DIR, openmp_flag):
+def get_include_and_lib_dir(rootname,
+        cpptraj_home,
+        cpptraj_included,
+        do_install,
+        do_build,
+        PYTRAJ_DIR,
+        openmp_flag,
+        use_amberlib):
     # check if has environment variables
     CPPTRAJ_LIBDIR = os.environ.get('CPPTRAJ_LIBDIR', '')
     CPPTRAJ_HEADERDIR = os.environ.get('CPPTRAJ_HEADERDIR', '')
@@ -376,12 +386,12 @@ def get_include_and_lib_dir(rootname, cpptrajhome, has_cpptraj_in_current_folder
         libdir = CPPTRAJ_LIBDIR
         cpptraj_dir = ''
     else:
-        if cpptrajhome:
+        if cpptraj_home:
             # use libcpptraj and header files in CPPTRAJHOME (/lib, /src)
-            cpptraj_dir = cpptrajhome
+            cpptraj_dir = cpptraj_home
             cpptraj_include = cpptraj_dir + "/src/"
-            libdir = cpptrajhome + "/lib/"
-        elif has_cpptraj_in_current_folder:
+            libdir = cpptraj_home + "/lib/"
+        elif cpptraj_included:
             cpptraj_dir = os.path.abspath("./cpptraj/")
             cpptraj_include = cpptraj_dir + "/src/"
             libdir = cpptraj_dir + "/lib/"
@@ -404,7 +414,9 @@ def get_include_and_lib_dir(rootname, cpptrajhome, has_cpptraj_in_current_folder
             libdir = os.path.join(cpptraj_dir, 'lib')
     return cpptraj_dir, cpptraj_include, libdir, pytraj_inside_amber
 
-def setenv_cc_cxx(ambertools_distro):
+def setenv_cc_cxx(ambertools_distro,
+        extra_compile_args,
+        extra_link_args):
     """force pytraj and cpptraj to use the sample compiler if pytraj
     is distribued by AmberTools.
     """
@@ -428,11 +440,11 @@ def setenv_cc_cxx(ambertools_distro):
     else:
         print('pytraj is inside AMBERHOME')
         # should use CXX and CC from config.h
-        amberhome = os.environ.get('AMBERHOME', '')
-        if not amberhome:
+        amber_home = os.environ.get('AMBERHOME', '')
+        if not amber_home:
             raise EnvironmentError('must set AMBERHOME')
 
-        configfile = amberhome + '/config.h'
+        configfile = amber_home + '/config.h'
         if not os.path.exists(configfile):
             raise OSError("must have config.h file")
 
@@ -481,6 +493,7 @@ def get_ext_modules(cpptraj_home,
                     extra_compile_args=[],
                     extra_link_args=[],
                     define_macros=[],
+                    use_pip=False,
                     tarfile=False):
     if not tarfile:
         print('build = {0}, install = {1}'.format(do_build, do_install))
@@ -501,7 +514,7 @@ def get_ext_modules(cpptraj_home,
     
         if sys.platform == 'darwin' or sys.platform.startswith("win"):
             sys.stdout.write('does not support openmp on osx/win - disable\n')
-            disable_openmp = True
+            openmp_flag = ''
     
         extra_compile_args, extra_link_args = add_openmp_flag(openmp_flag,
             libcpptraj_has_openmp, extra_compile_args, extra_link_args)
@@ -570,7 +583,6 @@ def get_ext_modules(cpptraj_home,
         return ext_modules
 
 def get_package_data(use_pip=False):
-    pylen = len('pytraj') + 1
     sample_datafiles  = ["datafiles/ala3/Ala3.*",
                          "datafiles/tz2/tz2.*",
                          "datafiles/rna.pdb",
