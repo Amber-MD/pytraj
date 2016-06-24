@@ -464,24 +464,24 @@ def setenv_cc_cxx(ambertools_distro):
         print('using CC={}, CXX={}'.format(CC, CXX))
 
 def get_ext_modules(cpptraj_home,
-                cpptraj_libdir,
-                cpptraj_include_dir,
-                pytraj_home,
-                do_install,
-                do_build,
-                do_clean,
-                is_released,
-                need_cython,
-                cpptraj_included,
-                libcpptraj_files,
-                openmp_flag,
-                use_amberlib,
-                cython_directives,
-                Extension,
-                extra_compile_args=[],
-                extra_link_args=[],
-                define_macros=[],
-                tarfile=False):
+                    cpptraj_libdir,
+                    cpptraj_include_dir,
+                    pytraj_home,
+                    do_install,
+                    do_build,
+                    do_clean,
+                    is_released,
+                    need_cython,
+                    cpptraj_included,
+                    libcpptraj_files,
+                    openmp_flag,
+                    use_amberlib,
+                    cython_directives,
+                    Extension,
+                    extra_compile_args=[],
+                    extra_link_args=[],
+                    define_macros=[],
+                    tarfile=False):
     if not tarfile:
         print('build = {0}, install = {1}'.format(do_build, do_install))
         if not libcpptraj_files:
@@ -568,8 +568,25 @@ def get_ext_modules(cpptraj_home,
             ext_modules.append(extmod)
 
         return ext_modules
+
+def get_package_data(use_pip=False):
+    pylen = len('pytraj') + 1
+    sample_datafiles  = ["datafiles/ala3/Ala3.*",
+                         "datafiles/tz2/tz2.*",
+                         "datafiles/rna.pdb",
+                         "datafiles/trpcage/trpcage*",
+                         "datafiles/remd_ala2/*",
+                         "datafiles/dpdp/DPDP*"]
     
+    jsfiles = ['utils/progress-circle/css/*css',
+               'utils/progress-circle/*js',]
     
+    _, pxdfiles = get_pyx_pxd()
+    pkdata = pxdfiles + sample_datafiles + jsfiles
+    
+    if sys.platform.startswith('darwin') and use_pip:
+        pkdata.append('lib/libcpptraj.dylib')
+    return pkdata
 
 # CleanCommand was copied and lightly adapted from scikit-learn package
 # https://github.com/scikit-learn/scikit-learn

@@ -28,9 +28,10 @@ from glob import glob
 
 # local import
 from scripts.base_setup import (check_flag, check_cpptraj_version, write_version_py, get_version_info,
-                                get_pyx_pxd, get_include_and_lib_dir, do_what, check_cython)
+                                get_pyx_pxd, get_include_and_lib_dir, do_what, check_cython,
+                                get_package_data)
 from scripts.base_setup import (add_openmp_flag, try_updating_libcpptraj, setenv_cc_cxx, get_ext_modules)
-from scripts.base_setup import CleanCommand, ISRELEASED, message_pip_need_cpptraj_home
+from scripts.base_setup import CleanCommand, is_released, message_pip_need_cpptraj_home
 from scripts.install_libcpptraj import DEFAULT_MAC_CCOMPILER, DEFAULT_MAC_CXXCOMPILER # clang
 
 # python version >= 2.6
@@ -68,7 +69,7 @@ print(FULLVERSION)
 
 # python setup.py clean
 cmdclass = {'clean': CleanCommand}
-need_cython, cmdclass, cythonize  = check_cython(ISRELEASED, cmdclass, min_version='0.21')
+need_cython, cmdclass, cythonize  = check_cython(is_released, cmdclass, min_version='0.21')
 
 extra_compile_args = ['-O0', '-ggdb']
 extra_link_args = ['-O0', '-ggdb']
@@ -106,8 +107,8 @@ if not do_help:
                     do_install,
                     do_build,
                     do_clean,
+                    is_released,
                     need_cython,
-                    ISRELEASED,
                     cpptraj_included,
                     libcpptraj_files,
                     openmp_flag,
@@ -146,23 +147,6 @@ packages = [
     'pytraj.sandbox',
 ]
 
-pylen = len('pytraj') + 1
-sample_datafiles  = ["datafiles/ala3/Ala3.*",
-               "datafiles/tz2/tz2.*",
-               "datafiles/rna.pdb",
-               "datafiles/trpcage/trpcage*",
-               "datafiles/remd_ala2/*",
-               "datafiles/dpdp/DPDP*"]
-
-jsfiles = ['utils/progress-circle/css/*css',
-      'utils/progress-circle/*js',]
-
-_, pxdfiles = get_pyx_pxd()
-datalist = pxdfiles + sample_datafiles + jsfiles
-
-if sys.platform.startswith('darwin') and use_pip:
-    datalist.append('lib/libcpptraj.dylib')
-
 if __name__ == "__main__":
     setup(
         name="pytraj",
@@ -189,5 +173,5 @@ if __name__ == "__main__":
             'Topic :: Scientific/Engineering :: Chemistry',
         ],
         ext_modules=ext_modules,
-        package_data={'pytraj': datalist},
+        package_data={'pytraj': get_package_data(use_pip)},
         cmdclass=cmdclass,)
