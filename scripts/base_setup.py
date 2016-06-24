@@ -367,8 +367,7 @@ class CpptrajInfo(object):
 def get_include_and_lib_dir(rootname,
         cpptraj_home,
         cpptraj_included,
-        do_install,
-        do_build,
+        setup_task,
         pytraj_dir,
         openmp_flag,
         use_amberlib):
@@ -408,7 +407,7 @@ def get_include_and_lib_dir(rootname,
             cpptraj_info.lib_dir = cpptraj_info.dir + "/lib/"
         else:
 
-            if do_install or do_build:
+            if setup_task.do_install or setup_task.do_build:
                 print(message_auto_install)
                 for i in range(0, 3):
                     sys.stdout.write('.')
