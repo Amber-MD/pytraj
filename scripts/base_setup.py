@@ -538,7 +538,7 @@ def get_ext_modules(cpptraj_info,
     
         pyxfiles, pxdfiles = get_pyx_pxd()
 
-        if not setup_task.do_help or not setup_task.do_clean and not is_released:
+        if not (setup_task.do_help or setup_task.do_clean or is_released):
             from Cython.Build import cythonize
             if sys.platform.startswith("win"):
                 cythonize(
