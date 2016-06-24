@@ -7,17 +7,11 @@ cwd = os.getcwd()
 
 try:
     sys.argv.remove('--amber')
-    with_amber_tar = True
+    ambertools_distro = True
 except ValueError:
-    with_amber_tar = False
+    ambertools_distro = False
 
-try:
-    sys.argv.remove('--beta')
-    beta_release = True
-except ValueError:
-    beta_release = False
-
-if with_amber_tar:
+if ambertools_distro:
     pytraj_dir = os.path.abspath('./AmberTools/src/pytraj/')
 else:
     pytraj_dir = './'
@@ -28,13 +22,7 @@ os.system('git clean -fdx .')
 
 # change to release status 
 with open('scripts/base_setup.py', 'r') as fh:
-    old_content = fh.read()
-
-    if beta_release:
-        new_content = old_content.replace("'.dev1+' + GIT_REVISION[:7]",
-                                          "'-beta'")
-    else:
-        new_content = old_content.replace('is_released = False', 'is_released = True') 
+    new_content = old_content.replace('is_released = False', 'is_released = True') 
 
 with open('scripts/tmp.py', 'w') as fh:
     fh.write(new_content)
@@ -42,10 +30,10 @@ with open('scripts/tmp.py', 'w') as fh:
 os.system('mv scripts/tmp.py scripts/base_setup.py')
 os.system('python scripts/cythonize.py')
 
-if not with_amber_tar:
+if not ambertools_distro:
     # upload to pip
     os.system('python setup.py sdist')
     # restore to ISRELEASED = False
-    # os.system('git checkout scripts/base_setup.py')
+    os.system('git checkout scripts/base_setup.py')
 
 os.chdir(cwd)
