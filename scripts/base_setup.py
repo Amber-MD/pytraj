@@ -245,7 +245,7 @@ def do_what(pytraj_dir):
     elif len(sys.argv) == 3 and sys.argv[1] == 'install' and os.path.join('AmberTools',
                                                                           'src') in pytraj_dir:
         # install pytraj in $AMBERHOME
-        # do not use pytraj_inside_amber here in we call `do_what()` before calling get_include_and_lib_dir()
+        # do not use pytraj_inside_amber here in we call `do_what()` before calling get_cpptraj_info()
         # don't mess this up
         # $(PYTHON) setup.py install $(PYTHON_INSTALL)
         do_install = True
@@ -364,13 +364,13 @@ class CpptrajInfo(object):
     int_version = None
     ambertools_distro = False
 
-def get_include_and_lib_dir(rootname,
-        cpptraj_home,
-        cpptraj_included,
-        setup_task,
-        pytraj_dir,
-        openmp_flag,
-        use_amberlib):
+def get_cpptraj_info(rootname,
+                     cpptraj_home,
+                     cpptraj_included,
+                     setup_task,
+                     pytraj_dir,
+                     openmp_flag,
+                     use_amberlib):
 
     cpptraj_info = CpptrajInfo()
 

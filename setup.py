@@ -27,7 +27,7 @@ from glob import glob
 
 # local import
 from scripts.base_setup import (check_flag, write_version_py, get_version_info,
-                                get_include_and_lib_dir, do_what, check_cython,
+                                get_cpptraj_info, do_what, check_cython,
                                 get_package_data)
 from scripts.base_setup import (setenv_cc_cxx, get_ext_modules)
 from scripts.base_setup import CleanCommand, is_released, message_pip_need_cpptraj_home
@@ -69,7 +69,7 @@ setup_task = SetupTask(do_install=do_install,
                        do_help=do_help,
                        do_clean=do_clean)
 
-cpptraj_info = get_include_and_lib_dir(rootname=rootname,
+cpptraj_info = get_cpptraj_info(rootname=rootname,
                            cpptraj_home=cpptraj_home,
                            cpptraj_included=cpptraj_included,
                            setup_task=setup_task,
