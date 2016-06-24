@@ -6,7 +6,7 @@ import time
 import shutil
 import subprocess
 from glob import glob
-from collection import namedtuple
+from collections import namedtuple
 from subprocess import CalledProcessError
 from distutils.command.clean import clean as Clean
 
@@ -238,12 +238,12 @@ if not release:
     finally:
         a.close()
 
-def do_what(PYTRAJ_DIR):
+def do_what(pytraj_dir):
     # this checking should be here, after checking openmp and other stuff
     if len(sys.argv) == 2 and sys.argv[1] == 'install':
         do_install = True
     elif len(sys.argv) == 3 and sys.argv[1] == 'install' and os.path.join('AmberTools',
-                                                                          'src') in PYTRAJ_DIR:
+                                                                          'src') in pytraj_dir:
         # install pytraj in $AMBERHOME
         # do not use pytraj_inside_amber here in we call `do_what()` before calling get_include_and_lib_dir()
         # don't mess this up
@@ -357,22 +357,28 @@ def check_cython(is_released, cmdclass, min_version='0.21'):
     return need_cython, cmdclass, cythonize
 
 
+class CpptrajInfo(object):
+    home_env = None
+    dir = None
+    lib_dir = None
+    int_version = None
+    ambertools_distro = False
+
 def get_include_and_lib_dir(rootname,
         cpptraj_home,
         cpptraj_included,
         do_install,
         do_build,
-        PYTRAJ_DIR,
+        pytraj_dir,
         openmp_flag,
         use_amberlib):
 
-    CpptrajInfo = namedtuple('CpptrajInfo', ['home_env', 'dir', 'lib_dir', 'include_dir'])
     cpptraj_info = CpptrajInfo()
 
     # check if has environment variables
     CPPTRAJ_LIBDIR = os.environ.get('CPPTRAJ_LIBDIR', '')
     CPPTRAJ_HEADERDIR = os.environ.get('CPPTRAJ_HEADERDIR', '')
-    if os.path.join('AmberTools', 'src') in PYTRAJ_DIR:
+    if os.path.join('AmberTools', 'src') in pytraj_dir:
         # install pytraj inside AMBER
         AMBERHOME = os.environ.get('AMBERHOME', '')
         if not AMBERHOME:
@@ -382,9 +388,9 @@ def get_include_and_lib_dir(rootname,
         CPPTRAJ_LIBDIR = os.path.join(AMBERHOME, 'lib')
         CPPTRAJ_HEADERDIR = os.path.join(AMBERHOME, 'AmberTools', 'src', 'cpptraj', 'src')
 
-        pytraj_inside_amber = True
+        cpptraj_info.ambertools_distro = True
     else:
-        pytraj_inside_amber = False
+        cpptraj_info.ambertools_distro = False
 
     if CPPTRAJ_LIBDIR and CPPTRAJ_HEADERDIR:
         cpptraj_include = CPPTRAJ_HEADERDIR
@@ -398,8 +404,8 @@ def get_include_and_lib_dir(rootname,
             cpptraj_dir.lib_dir = cpptraj_home + "/lib/"
         elif cpptraj_included:
             cpptraj_info.dir = os.path.abspath("./cpptraj/")
-            cpptraj_info.include_dir = cpptraj_dir + "/src/"
-            cpptraj_dir.lib_dir = cpptraj_dir + "/lib/"
+            cpptraj_info.include_dir = cpptraj_info.dir + "/src/"
+            cpptraj_info.lib_dir = cpptraj_info.dir + "/lib/"
         else:
 
             if do_install or do_build:
@@ -416,8 +422,8 @@ def get_include_and_lib_dir(rootname,
                     sys.exit(1)
             cpptraj_info.dir = os.path.join(rootname, "cpptraj")
             cpptraj_info.include_dir = os.path.join(cpptraj_dir, 'src')
-            cpptraj_dir.lib_dir = os.path.join(cpptraj_dir, 'lib')
-    return cpptraj_dir, cpptraj_include, lib_dir, pytraj_inside_amber
+            cpptraj_info.lib_dir = os.path.join(cpptraj_dir, 'lib')
+    return cpptraj_info
 
 def setenv_cc_cxx(ambertools_distro,
         extra_compile_args,

@@ -10,7 +10,7 @@
 
 import os
 import sys
-from collection import namedtuple
+from collections import namedtuple
 try:
     # for amber
     sys.argv.remove('--no-setuptools')
@@ -109,7 +109,7 @@ if install_type:
     print('install_type', install_type)
     sys.argv.remove(install_type)
 
-setenv_cc_cxx(ambertools_distro, extra_compile_args, extra_link_args)
+setenv_cc_cxx(cpptraj_info.ambertools_distro, extra_compile_args, extra_link_args)
 
 ext_modules = get_ext_modules(cpptraj_info=cpptraj_info,
                 pytraj_home=pytraj_home,
