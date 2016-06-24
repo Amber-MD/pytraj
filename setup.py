@@ -10,8 +10,6 @@
 
 import os
 import sys
-import subprocess
-import shutil
 try:
     # for amber
     sys.argv.remove('--no-setuptools')
@@ -27,12 +25,11 @@ from glob import glob
 
 
 # local import
-from scripts.base_setup import (check_flag, check_cpptraj_version, write_version_py, get_version_info,
-                                get_pyx_pxd, get_include_and_lib_dir, do_what, check_cython,
+from scripts.base_setup import (check_flag, write_version_py, get_version_info,
+                                get_include_and_lib_dir, do_what, check_cython,
                                 get_package_data)
-from scripts.base_setup import (add_openmp_flag, try_updating_libcpptraj, setenv_cc_cxx, get_ext_modules)
+from scripts.base_setup import (setenv_cc_cxx, get_ext_modules)
 from scripts.base_setup import CleanCommand, is_released, message_pip_need_cpptraj_home
-from scripts.install_libcpptraj import DEFAULT_MAC_CCOMPILER, DEFAULT_MAC_CXXCOMPILER # clang
 
 # python version >= 2.6
 if sys.version_info < (2, 6):
