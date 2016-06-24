@@ -3,6 +3,9 @@ from .shared_methods import my_str_method
 class SharedTrajectory(object):
 
     def view(self, *args, **kwargs):
+        return self.visualize(*args, **kwargs)
+
+    def visualize(self, *args, **kwargs):
         """require NGLView
 
         Parameters
