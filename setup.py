@@ -41,7 +41,7 @@ if sys.version_info < (2, 6):
 amber_release = check_flag('--amber_release')
 disable_openmp = check_flag('--disable-openmp')
 openmp_flag = '-openmp' if not disable_openmp else ''
-debug = check_flag('--debug')
+debug = check_flag('-debug')
 use_phenix_python = check_flag('--phenix')
 create_tar_file_for_release = True if 'sdist' in sys.argv else False
 rootname = os.getcwd()

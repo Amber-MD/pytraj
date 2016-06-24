@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 from __future__ import print_function
 import os
 import sys
@@ -45,17 +46,14 @@ def add_CPPTRAJ_CXX_to_config(fn, CPPTRAJ_CXX=CPPTRAJ_CXX):
 
 
 def get_compiler_and_build_flag():
-    try:
-        sys.argv.remove('-openmp')
-        openmp_flag = '-openmp'
-        assert get_openmp_flag(), 'your system must support openmp'
-    except ValueError:
-        openmp_flag = ''
+    args = parse_args()
 
-    try:
-        install_type = sys.argv[1]
-    except IndexError:
-        install_type = ''
+    openmp_flag = '-openmp' if args.openmp else ''
+    if openmp_flag:
+        assert get_openmp_flag(), 'your system must support openmp'
+
+    install_type = args.install_type
+    debug = '-debug' if args.debug else ''
 
     try:
         import numpy as np
@@ -68,14 +66,14 @@ def get_compiler_and_build_flag():
     # e.g: CPPTRAJ_COMPILER_OPTION=gnu python ./scripts/install_libcpptraj.py
     cpptraj_compiler_option = os.environ.get('CPPTRAJ_COMPILER_OPTION', 'gnu')  # intel | pgi | clang | cray?
     amberhome = os.environ.get('AMBERHOME', '')
-    amberlib = '-amberlib' if amberhome else ''
+    amberlib = '-amberlib' if amberhome and args.amberlib else ''
 
     if has_numpy and find_lib('openblas'):
         prefix = sys.prefix
         # likely having openblas?
         build_flag_ = ('--with-netcdf={prefix} --with-blas={prefix} '
-                      '--with-bzlib={prefix} --with-zlib={prefix} '
-                      '-openblas -noarpack'.format(prefix=prefix))
+                       '--with-bzlib={prefix} --with-zlib={prefix} '
+                       '-openblas -noarpack'.format(prefix=prefix))
     elif has_numpy:
         try:
             blas_prefix = np.__config__.blas_opt_info['library_dirs'][0].strip('lib')
@@ -93,13 +91,14 @@ def get_compiler_and_build_flag():
     else:
         build_flag = ' '.join(('-shared', build_flag_, amberlib, openmp_flag))
 
+    build_flag = ' '.join((build_flag, debug))
+
     if install_type == 'github':
         print('install libcpptraj from github')
         os.system('git clone https://github.com/Amber-MD/cpptraj')
     else:
         print('install libcpptraj from current ./cpptraj folder')
     return cpptraj_compiler_option, build_flag
-
 
 def fix_rpath():
     if IS_OSX:
@@ -143,7 +142,16 @@ def install_libcpptraj(cpptraj_compiler_option, build_flag):
           "and 'export LD_LIBRARY_PATH=$CPPTRAJHOME/lib:\$LD_LIBRARY_PATH'"
           "then 'python ./setup.py install'")
 
+def parse_args():
+    import argparse
+    parser = argparse.ArgumentParser(description='install options')
+    parser.add_argument('-openmp', action='store_true', help='use openmp')
+    parser.add_argument('-amberlib', action='store_true', help='use use amberlib if $AMBERHOME is set')
+    parser.add_argument('-debug', action='store_true', help='debug')
+    parser.add_argument('install_type', default='', nargs='?', help='install_type in amber')
+    args = parser.parse_args()
+    return args
+
 if __name__ == '__main__':
     cpptraj_compiler_option, build_flag = get_compiler_and_build_flag()
     install_libcpptraj(cpptraj_compiler_option, build_flag)
-
