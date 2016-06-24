@@ -47,6 +47,11 @@ rootname = os.getcwd()
 pytraj_home = rootname + "/pytraj/"
 cpptraj_home = os.environ.get('CPPTRAJHOME', '')
 use_pip = any('pip' in arg for arg in sys.argv)
+install_type = os.environ.get("INSTALLTYPE", "")
+
+if install_type:
+    print('install_type', install_type)
+    sys.argv.remove(install_type)
 
 if not cpptraj_home and use_pip:
     # if pip, require to set CPPTRAJHOME
@@ -100,13 +105,6 @@ if debug:
     print("adding debug info", cython_directives)
 else:
     define_macros = []
-
-# get INSTALLTYPE type from amber
-install_type = os.environ.get("INSTALLTYPE", "")
-
-if install_type:
-    print('install_type', install_type)
-    sys.argv.remove(install_type)
 
 setenv_cc_cxx(cpptraj_info.ambertools_distro, extra_compile_args, extra_link_args)
 
