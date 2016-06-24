@@ -56,6 +56,7 @@ if not cpptraj_home and use_pip:
 cpptraj_included = os.path.exists("./cpptraj/")
 pytraj_dir = os.path.abspath(os.path.dirname(__file__))
 do_install, do_build = do_what(pytraj_dir)
+do_help = '--help' in sys.argv or '-h' in sys.argv
 cpptraj_dir, cpptraj_include_dir, cpptraj_libdir, ambertools_distro = get_include_and_lib_dir(rootname, cpptraj_home,
         cpptraj_included, do_install, do_build, pytraj_dir, openmp_flag)
 libcpptraj_files = glob(os.path.join(cpptraj_libdir, 'libcpptraj') + '*')
@@ -97,22 +98,29 @@ if installtype:
 
 setenv_cc_cxx(ambertools_distro)
 
-ext_modules = get_ext_modules(cpptraj_home,
-                cpptraj_libdir,
-                cpptraj_include_dir,
-                pytraj_home,
-                do_install,
-                do_build,
-                do_clean,
-                ISRELEASED,
-                cpptraj_included,
-                libcpptraj_files,
-                openmp_flag,
-                use_amberlib,
-                extra_compile_args=[],
-                extra_link_args=[],
-                define_macros=[],
-                tarfile=False)
+if not do_help:
+    ext_modules = get_ext_modules(cpptraj_home,
+                    cpptraj_libdir,
+                    cpptraj_include_dir,
+                    pytraj_home,
+                    do_install,
+                    do_build,
+                    do_clean,
+                    need_cython,
+                    ISRELEASED,
+                    cpptraj_included,
+                    libcpptraj_files,
+                    openmp_flag,
+                    use_amberlib,
+                    cython_directives,
+                    Extension,
+                    extra_compile_args=[],
+                    extra_link_args=[],
+                    define_macros=[],
+                    tarfile=False)
+
+else:
+    ext_modules = []
 
 setup_args = {}
 packages = [
@@ -149,6 +157,7 @@ sample_datafiles  = ["datafiles/ala3/Ala3.*",
 jsfiles = ['utils/progress-circle/css/*css',
       'utils/progress-circle/*js',]
 
+_, pxdfiles = get_pyx_pxd()
 datalist = pxdfiles + sample_datafiles + jsfiles
 
 if sys.platform.startswith('darwin') and use_pip:

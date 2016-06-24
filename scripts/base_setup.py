@@ -250,7 +250,7 @@ def do_what(PYTRAJ_DIR):
 
     if len(sys.argv) == 2 and sys.argv[1] == 'build':
         do_build = True
-    elif len(sys.argv) == 3 and sys.argv[1:3] == ['build_ext', '-i']:
+    elif 'build_ext' in sys.argv and '--help' not in sys.argv:
         do_build = True
     else:
         do_build = False
@@ -403,6 +403,7 @@ def get_include_and_lib_dir(rootname, cpptrajhome, has_cpptraj_in_current_folder
             cpptraj_include = os.path.join(cpptraj_dir, 'src')
             libdir = os.path.join(cpptraj_dir, 'lib')
     return cpptraj_dir, cpptraj_include, libdir, pytraj_inside_amber
+
 def setenv_cc_cxx(ambertools_distro):
     """force pytraj and cpptraj to use the sample compiler if pytraj
     is distribued by AmberTools.
@@ -470,10 +471,13 @@ def get_ext_modules(cpptraj_home,
                 do_build,
                 do_clean,
                 ISRELEASED,
+                need_cython,
                 cpptraj_included,
                 libcpptraj_files,
                 openmp_flag,
                 use_amberlib,
+                cython_directives,
+                Extension,
                 extra_compile_args=[],
                 extra_link_args=[],
                 define_macros=[],
@@ -562,6 +566,8 @@ def get_ext_modules(cpptraj_home,
                                extra_compile_args=extra_compile_args,
                                extra_link_args=extra_link_args)
             ext_modules.append(extmod)
+
+        return ext_modules
     
     
 
