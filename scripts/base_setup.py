@@ -502,6 +502,9 @@ def get_ext_modules(cpptraj_info,
                     define_macros=[],
                     use_pip=False,
                     tarfile=False):
+    if setup_task.do_help:
+        return
+
     if not tarfile:
         print('build = {0}, install = {1}'.format(setup_task.do_build, setup_task.do_install))
         if not libcpptraj_files:
@@ -536,7 +539,7 @@ def get_ext_modules(cpptraj_info,
     
         pyxfiles, pxdfiles = get_pyx_pxd()
 
-        if not setup_task.do_clean and not is_released:
+        if not setup_task.do_help or not setup_task.do_clean and not is_released:
             from Cython.Build import cythonize
             if sys.platform.startswith("win"):
                 cythonize(
