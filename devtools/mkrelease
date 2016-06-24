@@ -34,7 +34,7 @@ with open('scripts/base_setup.py', 'r') as fh:
         new_content = old_content.replace("'.dev1+' + GIT_REVISION[:7]",
                                           "'-beta'")
     else:
-        new_content = old_content.replace('ISRELEASED = False', 'ISRELEASED = True') 
+        new_content = old_content.replace('is_released = False', 'is_released = True') 
 
 with open('scripts/tmp.py', 'w') as fh:
     fh.write(new_content)
