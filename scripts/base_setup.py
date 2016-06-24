@@ -6,7 +6,6 @@ import time
 import shutil
 import subprocess
 from glob import glob
-from collections import namedtuple
 from subprocess import CalledProcessError
 from distutils.command.clean import clean as Clean
 
