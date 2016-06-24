@@ -392,15 +392,15 @@ def get_include_and_lib_dir(rootname,
         cpptraj_info.ambertools_distro = False
 
     if CPPTRAJ_LIBDIR and CPPTRAJ_HEADERDIR:
-        cpptraj_include = CPPTRAJ_HEADERDIR
-        lib_dir = CPPTRAJ_LIBDIR
-        cpptraj_dir = ''
+        cpptraj_info.include_dir = CPPTRAJ_HEADERDIR
+        cpptraj_info.lib_dir = CPPTRAJ_LIBDIR
+        cpptraj.dir = ''
     else:
         if cpptraj_home:
             # use libcpptraj and header files in CPPTRAJHOME (/lib, /src)
             cpptraj_info.dir = cpptraj_home
-            cpptraj_info.include_dir = cpptraj_dir + "/src/"
-            cpptraj_dir.lib_dir = cpptraj_home + "/lib/"
+            cpptraj_info.include_dir = cpptraj_info.dir + "/src/"
+            cpptraj_info.lib_dir = cpptraj_info.dir + "/lib/"
         elif cpptraj_included:
             cpptraj_info.dir = os.path.abspath("./cpptraj/")
             cpptraj_info.include_dir = cpptraj_info.dir + "/src/"
