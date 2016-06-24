@@ -378,7 +378,7 @@ def get_cpptraj_info(rootname,
     if CPPTRAJ_LIBDIR and CPPTRAJ_HEADERDIR:
         cpptraj_info.include_dir = CPPTRAJ_HEADERDIR
         cpptraj_info.lib_dir = CPPTRAJ_LIBDIR
-        cpptraj.dir = ''
+        cpptraj_info.dir = ''
     else:
         if cpptraj_home:
             # use libcpptraj and header files in CPPTRAJHOME (/lib, /src)
