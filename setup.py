@@ -88,11 +88,11 @@ else:
     define_macros = []
 
 # get INSTALLTYPE type from amber
-installtype = os.environ.get("INSTALLTYPE", "")
+install_type = os.environ.get("INSTALLTYPE", "")
 
 if installtype:
     print('install_type', install_type)
-    sys.argv.remove(installtype)
+    sys.argv.remove(install_type)
 
 setenv_cc_cxx(ambertools_distro)
 
