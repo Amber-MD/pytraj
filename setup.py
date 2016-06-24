@@ -10,6 +10,7 @@
 
 import os
 import sys
+from collection import namedtuple
 try:
     # for amber
     sys.argv.remove('--no-setuptools')
@@ -53,13 +54,17 @@ if not cpptraj_home and use_pip:
 
 cpptraj_included = os.path.exists("./cpptraj/")
 pytraj_dir = os.path.abspath(os.path.dirname(__file__))
+
+SetupTask = namedtuple('SetupTask', ['do_install', 'do_build', 'do_help', 'do_clean'])
 do_install, do_build = do_what(pytraj_dir)
 do_help = '--help' in sys.argv or '-h' in sys.argv
+do_clean = (len(sys.argv) == 2 and 'clean' in sys.argv)
+setup_task = SetupTask(do_install=do_install,
+                       do_build=do_build,
+                       do_help=do_help,
+                       do_clean=do_clean)
 
-(cpptraj_dir, cpptraj_include_dir,
- cpptraj_libdir, ambertools_distro 
- 
- = get_include_and_lib_dir(rootname=rootname,
+cpptraj_info = get_include_and_lib_dir(rootname=rootname,
                            cpptraj_home=cpptraj_home,
                            cpptraj_included=cpptraj_included,
                            do_install=do_install,
@@ -67,10 +72,8 @@ do_help = '--help' in sys.argv or '-h' in sys.argv
                            pytraj_dir=pytraj_dir,
                            openmp_flag=openmp_flag,
                            use_amberlib=use_amberlib)
-)
 
-libcpptraj_files = glob(os.path.join(cpptraj_libdir, 'libcpptraj') + '*')
-do_clean = (len(sys.argv) == 2 and 'clean' in sys.argv)
+libcpptraj_files = glob(os.path.join(cpptraj_info.lib_dir, 'libcpptraj') + '*')
 
 write_version_py()
 FULLVERSION, GIT_REVISION = get_version_info()
@@ -108,30 +111,22 @@ if install_type:
 
 setenv_cc_cxx(ambertools_distro, extra_compile_args, extra_link_args)
 
-if not do_help:
-    ext_modules = get_ext_modules(cpptraj_home,
-                    cpptraj_libdir,
-                    cpptraj_include_dir,
-                    pytraj_home,
-                    do_install,
-                    do_build,
-                    do_clean,
-                    is_released,
-                    need_cython,
-                    cpptraj_included,
-                    libcpptraj_files,
-                    openmp_flag,
-                    use_amberlib,
-                    cython_directives,
-                    Extension,
-                    extra_compile_args=[],
-                    extra_link_args=[],
-                    define_macros=[],
-                    use_pip=use_pip,
-                    tarfile=False)
-
-else:
-    ext_modules = []
+ext_modules = get_ext_modules(cpptraj_info=cpptraj_info,
+                pytraj_home=pytraj_home,
+                setup_task=setup_task,
+                is_released=is_released,
+                need_cython=need_cython,
+                cpptraj_included=cpptraj_included,
+                libcpptraj_files=libcpptraj_files,
+                openmp_flag=openmp_flag,
+                use_amberlib=use_amberlib,
+                cython_directives=cython_directives,
+                Extension=Extension,
+                extra_compile_args=extra_compile_args,
+                extra_link_args=extra_link_args,
+                define_macros=define_macros,
+                use_pip=use_pip,
+                tarfile=False)
 
 setup_args = {}
 packages = [

@@ -5,9 +5,10 @@ import sys
 import time
 import shutil
 import subprocess
-from distutils.command.clean import clean as Clean
-from subprocess import CalledProcessError
 from glob import glob
+from collection import namedtuple
+from subprocess import CalledProcessError
+from distutils.command.clean import clean as Clean
 
 if sys.version_info[0] >= 3:
     import builtins
@@ -131,15 +132,15 @@ def check_cpptraj_version(header_dir, version=(4, 2, 9)):
             sys.exit(1)
 
 
-def remind_export_LD_LIBRARY_PATH(build_tag, libdir, pytraj_inside_amber):
+def remind_export_LD_LIBRARY_PATH(build_tag, lib_dir, pytraj_inside_amber):
     if build_tag:
         if not pytraj_inside_amber:
             from scripts.acsii_art import batman
             print("")
             print("")
             print(batman)
-            libdir = os.path.abspath(libdir)
-            print(message_after_sucessful_install.format(libdir, libdir))
+            lib_dir = os.path.abspath(lib_dir)
+            print(message_after_sucessful_install.format(lib_dir, lib_dir))
             print("")
         else:
             # pytraj is a part of Amber
@@ -291,9 +292,9 @@ def try_updating_libcpptraj(cpptraj_home,
                 time.sleep(3)
                 try:
                     cpptraj_dir = './cpptraj/'
-                    cpptraj_libdir = cpptraj_dir + '/lib/'
+                    cpptraj_lib_dir = cpptraj_dir + '/lib/'
                     install_libcpptraj(openmp_flag, from_github=False, use_amberlib=use_amberlib)
-                    return glob(os.path.join(cpptraj_libdir, 'libcpptraj') + '*')
+                    return glob(os.path.join(cpptraj_lib_dir, 'libcpptraj') + '*')
                 except CalledProcessError:
                     print(
                         'can not install libcpptraj, you need to install it manually \n')
@@ -364,6 +365,10 @@ def get_include_and_lib_dir(rootname,
         PYTRAJ_DIR,
         openmp_flag,
         use_amberlib):
+
+    CpptrajInfo = namedtuple('CpptrajInfo', ['home_env', 'dir', 'lib_dir', 'include_dir'])
+    cpptraj_info = CpptrajInfo()
+
     # check if has environment variables
     CPPTRAJ_LIBDIR = os.environ.get('CPPTRAJ_LIBDIR', '')
     CPPTRAJ_HEADERDIR = os.environ.get('CPPTRAJ_HEADERDIR', '')
@@ -383,18 +388,18 @@ def get_include_and_lib_dir(rootname,
 
     if CPPTRAJ_LIBDIR and CPPTRAJ_HEADERDIR:
         cpptraj_include = CPPTRAJ_HEADERDIR
-        libdir = CPPTRAJ_LIBDIR
+        lib_dir = CPPTRAJ_LIBDIR
         cpptraj_dir = ''
     else:
         if cpptraj_home:
             # use libcpptraj and header files in CPPTRAJHOME (/lib, /src)
-            cpptraj_dir = cpptraj_home
-            cpptraj_include = cpptraj_dir + "/src/"
-            libdir = cpptraj_home + "/lib/"
+            cpptraj_info.dir = cpptraj_home
+            cpptraj_info.include_dir = cpptraj_dir + "/src/"
+            cpptraj_dir.lib_dir = cpptraj_home + "/lib/"
         elif cpptraj_included:
-            cpptraj_dir = os.path.abspath("./cpptraj/")
-            cpptraj_include = cpptraj_dir + "/src/"
-            libdir = cpptraj_dir + "/lib/"
+            cpptraj_info.dir = os.path.abspath("./cpptraj/")
+            cpptraj_info.include_dir = cpptraj_dir + "/src/"
+            cpptraj_dir.lib_dir = cpptraj_dir + "/lib/"
         else:
 
             if do_install or do_build:
@@ -409,10 +414,10 @@ def get_include_and_lib_dir(rootname,
                     print(
                         'can not install libcpptraj, you need to install it manually \n')
                     sys.exit(1)
-            cpptraj_dir = os.path.join(rootname, "cpptraj")
-            cpptraj_include = os.path.join(cpptraj_dir, 'src')
-            libdir = os.path.join(cpptraj_dir, 'lib')
-    return cpptraj_dir, cpptraj_include, libdir, pytraj_inside_amber
+            cpptraj_info.dir = os.path.join(rootname, "cpptraj")
+            cpptraj_info.include_dir = os.path.join(cpptraj_dir, 'src')
+            cpptraj_dir.lib_dir = os.path.join(cpptraj_dir, 'lib')
+    return cpptraj_dir, cpptraj_include, lib_dir, pytraj_inside_amber
 
 def setenv_cc_cxx(ambertools_distro,
         extra_compile_args,
@@ -475,13 +480,9 @@ def setenv_cc_cxx(ambertools_distro,
         os.environ['CC'] = CC
         print('using CC={}, CXX={}'.format(CC, CXX))
 
-def get_ext_modules(cpptraj_home,
-                    cpptraj_libdir,
-                    cpptraj_include_dir,
+def get_ext_modules(cpptraj_info,
                     pytraj_home,
-                    do_install,
-                    do_build,
-                    do_clean,
+                    setup_task,
                     is_released,
                     need_cython,
                     cpptraj_included,
@@ -496,10 +497,10 @@ def get_ext_modules(cpptraj_home,
                     use_pip=False,
                     tarfile=False):
     if not tarfile:
-        print('build = {0}, install = {1}'.format(do_build, do_install))
+        print('build = {0}, install = {1}'.format(setup_task.do_build, setup_task.do_install))
         if not libcpptraj_files:
-            libcpptraj_files = try_updating_libcpptraj(cpptraj_home,
-                    do_install, do_build, cpptraj_included, openmp_flag, use_amberlib)
+            libcpptraj_files = try_updating_libcpptraj(cpptraj_info.home_env,
+                    setup_task.do_install, setup_task.do_build, cpptraj_included, openmp_flag, use_amberlib)
         print('libcpptraj_files', libcpptraj_files)
     
         try:
@@ -521,15 +522,15 @@ def get_ext_modules(cpptraj_home,
     
         if sys.platform.startswith('linux'):
             # set rpath
-            sys.stdout.write('set rpath to {}\n'.format(cpptraj_libdir))
-            extra_link_args.append('-Wl,-rpath={}'.format(cpptraj_libdir))
-            extra_compile_args.append('-Wl,-rpath={}'.format(cpptraj_libdir))
+            sys.stdout.write('set rpath to {}\n'.format(cpptraj_info.lib_dir))
+            extra_link_args.append('-Wl,-rpath={}'.format(cpptraj_info.lib_dir))
+            extra_compile_args.append('-Wl,-rpath={}'.format(cpptraj_info.lib_dir))
     
-        check_cpptraj_version(cpptraj_include_dir, (4, 3, 1))
+        check_cpptraj_version(cpptraj_info.include_dir, (4, 3, 1))
     
         pyxfiles, pxdfiles = get_pyx_pxd()
 
-        if not do_clean and not is_released:
+        if not setup_task.do_clean and not is_released:
             from Cython.Build import cythonize
             if sys.platform.startswith("win"):
                 cythonize(
@@ -543,7 +544,7 @@ def get_ext_modules(cpptraj_home,
                     compiler_directives=cython_directives,
                 )
     
-        library_dirs = [cpptraj_libdir, ]
+        library_dirs = [cpptraj_info.lib_dir, ]
     
         if sys.platform.startswith('darwin') and use_pip:
             # ship with libcpptraj.dylib in pytraj/lib/
@@ -552,7 +553,7 @@ def get_ext_modules(cpptraj_home,
             except OSError:
                 pass
     
-            shutil.copy('{}/libcpptraj.dylib'.format(cpptraj_libdir), 'pytraj/lib')
+            shutil.copy('{}/libcpptraj.dylib'.format(cpptraj_info.lib_dir), 'pytraj/lib')
             os.system('install_name_tool -id @rpath/libcpptraj.dylib pytraj/lib/libcpptraj.dylib')
             library_dirs = ['pytraj/lib',]
     
@@ -575,7 +576,7 @@ def get_ext_modules(cpptraj_home,
                                language='c++',
                                library_dirs=library_dirs,
                                define_macros=define_macros,
-                               include_dirs=[cpptraj_include_dir, pytraj_home],
+                               include_dirs=[cpptraj_info.include_dir, pytraj_home],
                                extra_compile_args=extra_compile_args,
                                extra_link_args=extra_link_args)
             ext_modules.append(extmod)
