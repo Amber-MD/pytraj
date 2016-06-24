@@ -17,7 +17,7 @@ else:
 MAJOR = 1
 MINOR = 0
 MICRO = 8
-ISRELEASED = False
+is_released = False
 VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 
 
@@ -205,7 +205,7 @@ def get_version_info():
     else:
         GIT_REVISION = "Unknown"
 
-    if not ISRELEASED:
+    if not is_released:
         FULLVERSION += '.dev0+' + GIT_REVISION[:7]
 
     return FULLVERSION, GIT_REVISION
@@ -230,7 +230,7 @@ if not release:
         a.write(cnt % {'version': VERSION,
                        'full_version': FULLVERSION,
                        'git_revision': GIT_REVISION,
-                       'isrelease': str(ISRELEASED)})
+                       'isrelease': str(is_released)})
     finally:
         a.close()
 
@@ -332,8 +332,8 @@ def get_pyx_pxd():
     pxdfiles = [p.replace("pytraj/", "") for p in pxd_include_patterns]
     return pyxfiles, pxdfiles
 
-def check_cython(ISRELEASED, cmdclass, min_version='0.21'):
-    if ISRELEASED:
+def check_cython(is_released, cmdclass, min_version='0.21'):
+    if is_released:
         # ./devtools/mkrelease
         need_cython = False
         cythonize = None
@@ -470,7 +470,7 @@ def get_ext_modules(cpptraj_home,
                 do_install,
                 do_build,
                 do_clean,
-                ISRELEASED,
+                is_released,
                 need_cython,
                 cpptraj_included,
                 libcpptraj_files,
@@ -516,7 +516,7 @@ def get_ext_modules(cpptraj_home,
     
         pyxfiles, pxdfiles = get_pyx_pxd()
 
-        if not do_clean and not ISRELEASED:
+        if not do_clean and not is_released:
             from Cython.Build import cythonize
             if sys.platform.startswith("win"):
                 cythonize(
