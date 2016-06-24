@@ -90,7 +90,7 @@ else:
 # get INSTALLTYPE type from amber
 install_type = os.environ.get("INSTALLTYPE", "")
 
-if installtype:
+if install_type:
     print('install_type', install_type)
     sys.argv.remove(install_type)
 
