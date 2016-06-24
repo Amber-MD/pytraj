@@ -420,8 +420,8 @@ def get_include_and_lib_dir(rootname,
                         'can not install libcpptraj, you need to install it manually \n')
                     sys.exit(1)
             cpptraj_info.dir = os.path.join(rootname, "cpptraj")
-            cpptraj_info.include_dir = os.path.join(cpptraj_dir, 'src')
-            cpptraj_info.lib_dir = os.path.join(cpptraj_dir, 'lib')
+            cpptraj_info.include_dir = os.path.join(cpptraj_info.dir, 'src')
+            cpptraj_info.lib_dir = os.path.join(cpptraj_info.dir, 'lib')
     return cpptraj_info
 
 def setenv_cc_cxx(ambertools_distro,
