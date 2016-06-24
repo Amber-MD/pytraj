@@ -25,7 +25,7 @@ DEFAULT_MAC_CCOMPILER = 'clang'
 DEFAULT_MAC_CXXCOMPILER = 'clang++'
 
 
-message_cython = """
+message_cython = '''
 Warning:  pytraj was not installed !
 
 Building from source requires cython >= 0.21
@@ -39,8 +39,9 @@ the most updated cython)
 
     http://conda.pydata.org/docs/download.html)
 
-"""
-message_pip_need_cpptraj_home = """
+'''
+
+message_pip_need_cpptraj_home = '''
 
 installing from pip for python 2.7 in OSX
 requires to pre-install libcpptraj and to set CPPTRAJHOME
@@ -58,9 +59,9 @@ How to install pytraj within seconds without installing libcpptraj by yourself?
 Either:
     - Use python >= 3.4 (OSX): pip install pytraj
     - Use conda (Linux, osx): conda install -c ambermd pytraj
-"""
+'''
 
-message_auto_install = """
+message_auto_install = '''
 Can not find cpptraj header and libcpptraj files.
 We're trying to download and build libcpptraj for you, would take about 5-10 minutes.
 You can check ./cpptraj/ folder after installation.
@@ -80,7 +81,7 @@ $ make libcpptraj
 
 and then go back to pytraj folder:
 python setup.py install
-"""
+'''
 
 message_openmp_cpptraj = '''
 libcpptraj was detected to be installed with openmp.
@@ -131,23 +132,6 @@ def check_cpptraj_version(header_dir, version=(4, 2, 9)):
             sys.stderr.write('must have cpptraj version >= {}\n'.format(version))
             sys.exit(1)
 
-
-def remind_export_LD_LIBRARY_PATH(build_tag, lib_dir, pytraj_inside_amber):
-    if build_tag:
-        if not pytraj_inside_amber:
-            from scripts.acsii_art import batman
-            print("")
-            print("")
-            print(batman)
-            lib_dir = os.path.abspath(lib_dir)
-            print(message_after_sucessful_install.format(lib_dir, lib_dir))
-            print("")
-        else:
-            # pytraj is a part of Amber
-            print('make sure to `source $AMBERHOME/amber.sh` (if using bash) '
-                  'or `source $AMBERHOME/amber.csh` if using csh')
-    else:
-        print("not able to install pytraj")
 
 # Return the git revision as a string
 # git_version, get_version_info, write_version_py  was lightly adapted from numpy package
@@ -216,7 +200,7 @@ def get_version_info():
 
 
 def write_version_py(filename='pytraj/version.py'):
-    cnt = """
+    cnt = '''
 # THIS FILE IS GENERATED FROM PYTRAJ SETUP.PY
 short_version = '%(version)s'
 version = '%(version)s'
@@ -226,7 +210,7 @@ release = %(isrelease)s
 
 if not release:
     version = full_version
-"""
+'''
     FULLVERSION, GIT_REVISION = get_version_info()
 
     a = open(filename, 'w')
@@ -427,9 +411,9 @@ def get_cpptraj_info(rootname,
 def setenv_cc_cxx(ambertools_distro,
         extra_compile_args,
         extra_link_args):
-    """force pytraj and cpptraj to use the sample compiler if pytraj
+    '''force pytraj and cpptraj to use the sample compiler if pytraj
     is distribued by AmberTools.
-    """
+    '''
     if not ambertools_distro:
         if sys.platform == 'darwin':
             os.environ['CXX'] = DEFAULT_MAC_CXXCOMPILER
