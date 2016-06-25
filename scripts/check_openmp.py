@@ -5,7 +5,6 @@
 
 from __future__ import print_function
 import os
-import sys
 from ctypes.util import find_library
 from subprocess import check_output
 
