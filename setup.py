@@ -9,7 +9,6 @@
 #    CPPTRAJHOME/{lib, src}
 #    - if not CPPTRAJHOME, find cpptraj folder in current folder
 #    - if can not find cpptraj folder, do git clone from github
-'''
 
 import os
 import sys
