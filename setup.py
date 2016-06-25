@@ -121,7 +121,7 @@ ext_modules = get_ext_modules(cpptraj_info=cpptraj_info,
                 extra_link_args=extra_link_args,
                 define_macros=define_macros,
                 use_pip=use_pip,
-                tarfile=False)
+                tarfile=tarfile)
 
 setup_args = {}
 packages = [
