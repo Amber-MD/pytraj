@@ -2,7 +2,6 @@
 
     from pytraj.utils import theme
     theme.oceans16() # oceans16 https://github.com/dunovank/jupyter-themes
-    theme.default() # default Jupyter notebook theme
 
 Retart your notebook to reset to default Jupyter theme
 
