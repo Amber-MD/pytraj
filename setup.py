@@ -1,12 +1,14 @@
-'''install rule
-- if pytraj is inside $AMBERHOME, use libcpptraj.so in $AMBERHOME/lib and header file in cpptraj/src folder
-- if pytraj is outside $AMBERHOME
-    - check CPPTRAJ_LIBDIR and CPPTRAJ_HEADERDIR: if found, use those to install
-    - if not CPPTRAJ_LIBDIR, CPPTRAJ_HEADERDIR: check CPPTRAJHOME and found libcpptraj.so and header files in
-    CPPTRAJHOME/{lib, src}
-    - if not CPPTRAJHOME, find cpptraj folder in current folder
-    - if can not find cpptraj folder, do git clone from github
+'''pytraj: A python package binding to cpptraj program
 '''
+
+# install rule
+# - if pytraj is inside $AMBERHOME, use libcpptraj.so in $AMBERHOME/lib and header file in cpptraj/src folder
+# - if pytraj is outside $AMBERHOME
+#    - check CPPTRAJ_LIBDIR and CPPTRAJ_HEADERDIR: if found, use those to install
+#    - if not CPPTRAJ_LIBDIR, CPPTRAJ_HEADERDIR: check CPPTRAJHOME and found libcpptraj.so and header files in
+#    CPPTRAJHOME/{lib, src}
+#    - if not CPPTRAJHOME, find cpptraj folder in current folder
+#    - if can not find cpptraj folder, do git clone from github
 
 import os
 import sys
@@ -121,7 +123,7 @@ ext_modules = get_ext_modules(cpptraj_info=cpptraj_info,
                 extra_link_args=extra_link_args,
                 define_macros=define_macros,
                 use_pip=use_pip,
-                tarfile=False)
+                tarfile=tarfile)
 
 setup_args = {}
 packages = [
