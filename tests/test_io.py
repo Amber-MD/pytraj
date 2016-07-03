@@ -386,7 +386,6 @@ class TestIO(unittest.TestCase):
         # assert_has_exptected_line_textfile(expected_line, 1, fn)
 
         # trr
-        fn = 'testtrr'
         traj.save(fn, format='trr', overwrite=True)
         expected_line = 'GMX_trn_file'
         assert_has_exptected_line_binaryfile(expected_line, fn)
