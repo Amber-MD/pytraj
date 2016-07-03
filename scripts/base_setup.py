@@ -582,11 +582,12 @@ def get_package_data(use_pip=False):
                          "datafiles/remd_ala2/*",
                          "datafiles/dpdp/DPDP*"]
     
-    jsfiles = ['utils/progress-circle/css/*css',
-               'utils/progress-circle/*js',]
+    js_css_files = ['utils/progress-circle/css/*css',
+                    'utils/progress-circle/*js',
+                    'utils/css/*css',]
     
     _, pxdfiles = get_pyx_pxd()
-    pkdata = pxdfiles + sample_datafiles + jsfiles
+    pkdata = pxdfiles + sample_datafiles + js_css_files
     
     if sys.platform.startswith('darwin') and use_pip:
         pkdata.append('lib/libcpptraj.dylib')
