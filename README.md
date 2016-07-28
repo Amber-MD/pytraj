@@ -53,6 +53,9 @@ Supported platforms: Linux, OSX
     python setup.py install
  
     # Note: openmp will be turned off in OSX.
+    
+    # AMBER user: overwrite pytraj in $AMBERHOME
+    python setup.py install --prefix=$AMBERHOME
     ```
 
 - getting trouble? : [check our webpage](http://amber-md.github.io/pytraj/latest/installation.html)
