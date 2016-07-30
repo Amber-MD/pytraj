@@ -261,6 +261,9 @@ define(["jupyter-js-widgets"], function(__WEBPACK_EXTERNAL_MODULE_2__) { return 
 	        var state_params = this.stage.getParameters();
 	        this.model.set('_original_stage_parameters', state_params);
 	        this.touch();
+
+            // 
+            this.state.handleResize();
 	    },
 	
 	    setIPythonLikeCell: function(){
