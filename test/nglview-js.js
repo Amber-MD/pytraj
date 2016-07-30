@@ -129,11 +129,9 @@ define(["jupyter-js-widgets"], function(__WEBPACK_EXTERNAL_MODULE_2__) { return 
 	
 	        // init NGL stage
 	        NGL.useWorker = false;
-            console.log(NGL);
 	        this.stage = new NGL.Stage( undefined, {
 	            backgroundColor: "white"
 	        } );
-            console.log('stage', this.stage);
 	        this.structureComponent = undefined;
 	        this.$container = $( this.stage.viewer.container );
 	        this.$el.append( this.$container );
@@ -265,6 +263,8 @@ define(["jupyter-js-widgets"], function(__WEBPACK_EXTERNAL_MODULE_2__) { return 
 	        this.touch();
 
             // 
+            console.log('stage', this.stage);
+            console.log('that.stage', that.stage);
             this.state.handleResize();
 	    },
 	
