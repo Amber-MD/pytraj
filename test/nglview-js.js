@@ -265,6 +265,11 @@ define(["jupyter-js-widgets"], function(__WEBPACK_EXTERNAL_MODULE_2__) { return 
             // 
             console.log('stage', this.stage);
             console.log('that.stage', that.stage);
+
+            console.log("get methods");
+            for (var i in this.stage){
+                console.log(i)
+            };
             this.state.handleResize();
 	    },
 	
