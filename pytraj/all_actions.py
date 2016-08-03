@@ -1265,11 +1265,11 @@ do_rotation = rotate
 
 
 @super_dispatch()
-def do_autoimage(traj,
-                 mask="",
-                 frame_indices=None,
-                 top=None):
-    '''perform autoimage and return the coordinate-updated traj
+def autoimage(traj,
+              mask="",
+              frame_indices=None,
+              top=None):
+    '''perform autoimage and return the updated-coordinate traj
 
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()[:]
@@ -1279,9 +1279,28 @@ def do_autoimage(traj,
     c_action.Action_AutoImage()(mask, traj, top=top)
     return traj
 
+do_autoimage = autoimage
 
-autoimage = do_autoimage
+@super_dispatch()
+def image(traj,
+          mask="",
+          frame_indices=None,
+          top=None):
+    '''perform imaging and return the updated-coordinate traj
 
+    Notes
+    -----
+    User should always try to use `autoimage` first
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()[:]
+    >>> traj = pt.image(traj, 'origin center :WAT')
+    '''
+    _assert_mutable(traj)
+    c_action.Action_Image()(mask, traj, top=top)
+    return traj
 
 @register_pmap
 def mean_structure(traj,
