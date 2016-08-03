@@ -117,7 +117,7 @@ from .all_actions import (
     check_structure,
     calc_matrix,
     superpose, align, strip,
-    density,
+    density, gist,
     wavelet)
 
 from .matrix import dist as distance_matrix
