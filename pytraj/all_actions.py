@@ -3198,7 +3198,7 @@ def gist(traj, command):
 
     Returns
     -------
-    None. All outputs will be writted to disk. Please check cpptraj manual.
+    None. All outputs will be written to disk. Please check cpptraj manual.
     """
     act = c_action.Action_Gist()
     c_dslist = CpptrajDatasetList()
