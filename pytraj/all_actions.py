@@ -3191,6 +3191,10 @@ def density(traj,
             direction='z'):
     """Compute density (number, mass, charge, electron) along a coordinate
 
+    Notes
+    -----
+    Syntax might be changed
+
     Parameters
     ----------
     traj : Trajectory-like
