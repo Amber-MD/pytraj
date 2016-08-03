@@ -97,7 +97,7 @@ from .energy_analysis import esander
 
 from .all_actions import (
     calc_rmsd_nofit, rmsd, symmrmsd, rmsd_perres, distance_rmsd, calc_multidihedral,
-    autoimage, calc_angle, calc_dihedral, calc_distance,
+    autoimage, image, calc_angle, calc_dihedral, calc_distance,
     calc_pairwise_distance, calc_center_of_mass, calc_center_of_geometry,
     calc_jcoupling, calc_surf, calc_molsurf, calc_radgyr, calc_rdf, calc_vector,
     calc_pairwise_rmsd, calc_atomicfluct, atomicfluct, calc_bfactors,
@@ -117,6 +117,7 @@ from .all_actions import (
     check_structure,
     calc_matrix,
     superpose, align, strip,
+    density,
     wavelet)
 
 from .matrix import dist as distance_matrix
