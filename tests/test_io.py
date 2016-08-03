@@ -387,7 +387,7 @@ class TestIO(unittest.TestCase):
 
         # trr
         traj.save(fn, format='trr', overwrite=True)
-        expected_line = 'Cpptraj generated TRR file'
+        expected_line = 'GMX_trn_file'
         assert_has_exptected_line_binaryfile(expected_line, fn)
 
     def test_load_url(self):
