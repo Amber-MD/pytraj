@@ -55,7 +55,7 @@ list_of_calc = ['calc_distance',
 list_of_calc_short = [word.replace('calc_', '')
                       for word in list_of_calc if not word in ['calc_matrix', ]]
 
-list_of_do = ['translate', 'rotate', 'autoimage', 'scale']
+list_of_do = ['translate', 'rotate', 'autoimage', 'image', 'scale']
 
 list_of_get = ['get_average_frame', 'get_velocity']
 
