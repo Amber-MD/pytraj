@@ -68,7 +68,7 @@ list_of_the_rest = ['rmsd', 'align_principal_axis', 'principal_axes', 'closest',
                     'xcorr', 'acorr',
                     'projection',
                     'superpose', 'strip',
-                    'density',
+                    'density', 'gist',
                     'center', 'wavelet'
                     ]
 
@@ -3183,6 +3183,28 @@ def atomiccorr(traj,
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 calc_atomiccorr = atomiccorr
+
+def gist(traj, command):
+    """minimal support for gist command in cpptraj
+
+    Notes
+    -----
+    Syntax might be changed.
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    command : cpptraj command
+
+    Returns
+    -------
+    None. All outputs will be written to disk. Please check cpptraj manual.
+    """
+    act = c_action.Action_Gist()
+    c_dslist = CpptrajDatasetList()
+
+    act(command, traj, top=traj.top, dslist=c_dslist)
+    act.post_process()
 
 def density(traj,
             mask,
