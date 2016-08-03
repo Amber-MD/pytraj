@@ -13,7 +13,11 @@ class TestImage(unittest.TestCase):
         traj_on_disk = pt.iterload('data/tz2.ortho.nc', 'data/tz2.ortho.parm7')
         traj = traj_on_disk[:]
 
-        traj = pt.image(traj, 'origin center :WAT')
+        command = 'origin center :WAT'
+
+        traj = pt.image(traj, command)
+
+        traj_on_disk.image(command)
 
         state = pt.load_cpptraj_state("""
         parm data/tz2.ortho.parm7
@@ -26,6 +30,7 @@ class TestImage(unittest.TestCase):
         cpptraj_xyz = state.data['mycrd'].xyz
 
         aa_eq(cpptraj_xyz, traj.xyz)
+        aa_eq(cpptraj_xyz, traj_on_disk.xyz)
 
 if __name__ == "__main__":
     unittest.main()

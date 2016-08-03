@@ -497,6 +497,9 @@ cdef class TrajectoryCpptraj:
     def autoimage(self, command=''):
         return self._add_transformation('autoimage', command)
 
+    def image(self, command=''):
+        return self._add_transformation('image', command)
+
     def principal(self, command):
         return self._add_transformation('principal', command)
 
