@@ -68,6 +68,7 @@ list_of_the_rest = ['rmsd', 'align_principal_axis', 'principal_axes', 'closest',
                     'xcorr', 'acorr',
                     'projection',
                     'superpose', 'strip',
+                    'density',
                     'center', 'wavelet'
                     ]
 
@@ -3164,6 +3165,51 @@ def atomiccorr(traj,
 
 calc_atomiccorr = atomiccorr
 
+def density(traj,
+            mask,
+            density_type,
+            delta=0.25,
+            direction='z'):
+    """Compute density (number, mass, charge, electron) along a coordinate
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str or list of str
+        required mask
+    density_type : str, {'number', 'mass', 'charge', 'electron'}
+    delta : float, default 0.25
+        resolution (Angstrom)
+    direction : str, default 'z'
+
+    Returns
+    -------
+    out : dict of average density and std for each frame
+    """
+
+    density_type_set = {'number', 'mass', 'charge', 'electron'}
+    assert density_type.lower() in density_type_set, '{} must be in {}'.format(density_type, density_type_set)
+
+    delta_ = 'delta {}'.format(delta)
+
+    if isinstance(mask, string_types):
+        mask_ = '"' + mask + '"'
+    elif isinstance(mask, (list, tuple)):
+        mask_ = ' '.join(['"' + m + '"' for m in mask])
+    else:
+        raise ValueError("mask must be either string or list/tuple of string")
+
+    command = ' '.join((delta_, direction, density_type, mask_))
+
+    act = c_action.Action_Density()
+    c_dslist = CpptrajDatasetList()
+
+    act(command, traj, top=traj.top, dslist=c_dslist)
+    act.post_process()
+
+    return get_data_from_dtype(c_dslist, dtype='dict')
+
+calc_density = density
 
 def _grid(traj,
           mask,
