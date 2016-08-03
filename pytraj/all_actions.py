@@ -3204,6 +3204,19 @@ def density(traj,
     Returns
     -------
     out : dict of average density and std for each frame
+
+    Examples
+    --------
+
+        import pytraj as pt
+        fn = "data/DOPC.rst7"
+        tn = "data/DOPC.parm7" 
+        traj = pt.load("data/DOPC.rst7", "data/DOPC.parm7")
+
+        delta = '0.25'
+        density_type = 'charge'
+        masks = [":PC@P31", ":PC@N31", ":PC@C2", ":PC | :OL | :OL2"]
+        density_dict = pt.density(traj, mask=masks, density_type=density_type, delta=delta)
     """
 
     density_type_set = {'number', 'mass', 'charge', 'electron'}
