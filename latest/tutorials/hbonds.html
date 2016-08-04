@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Hbond &mdash; pytraj 1.0.8.dev0+1c3ff2c documentation</title>
+    <title>Hbond &mdash; pytraj 1.0.8.dev0+35543d8 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.8.dev0+1c3ff2c',
+        VERSION:     '1.0.8.dev0+35543d8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.8.dev0+1c3ff2c documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.8.dev0+35543d8 documentation" href="../index.html" />
     <link rel="up" title="Advanced examples" href="advanced_examples.html" />
     <link rel="next" title="Endless streaming calculation" href="advanced_endless_streaming.html" />
     <link rel="prev" title="Lysozyme NH order parameters" href="lysozyme_order_parameter_.html" />
@@ -54,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.8.dev0+1c3ff2c</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.8.dev0+35543d8</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -327,14 +327,14 @@ values:
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_text output_error">
 <pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">AttributeError</span>                            Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-5-1323a162d64b&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
-<span class="ansi-green-fg">      1</span> <span class="ansi-red-intense-fg ansi-bold"># take hbond for only ASP9</span>
-<span class="ansi-green-intense-fg ansi-bold">----&gt; 2</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>glu5 <span class="ansi-yellow-intense-fg ansi-bold">=</span> dataset<span class="ansi-yellow-intense-fg ansi-bold">.</span>filter<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-green-intense-fg ansi-bold">lambda</span> x<span class="ansi-yellow-intense-fg ansi-bold">:</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;ASP9&#39;</span> <span class="ansi-green-intense-fg ansi-bold">in</span> x<span class="ansi-yellow-intense-fg ansi-bold">.</span>key<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">      3</span> print<span class="ansi-yellow-intense-fg ansi-bold">(</span>glu5<span class="ansi-yellow-intense-fg ansi-bold">.</span>keys<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-5-1323a162d64b&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg"># take hbond for only ASP9</span>
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>glu5 <span class="ansi-blue-fg">=</span> dataset<span class="ansi-blue-fg">.</span>filter<span class="ansi-blue-fg">(</span><span class="ansi-green-fg">lambda</span> x<span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">&#39;ASP9&#39;</span> <span class="ansi-green-fg">in</span> x<span class="ansi-blue-fg">.</span>key<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> print<span class="ansi-blue-fg">(</span>glu5<span class="ansi-blue-fg">.</span>keys<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
 
-<span class="ansi-red-intense-fg ansi-bold">AttributeError</span>: &#39;DatasetList&#39; object has no attribute &#39;filter&#39;</pre>
+<span class="ansi-red-fg">AttributeError</span>: &#39;DatasetList&#39; object has no attribute &#39;filter&#39;</pre>
 </div>
 </div>
 
@@ -367,16 +367,16 @@ values:
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_text output_error">
 <pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-6-529abf8fd056&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
-<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>glu5_val <span class="ansi-yellow-intense-fg ansi-bold">=</span> glu5<span class="ansi-yellow-intense-fg ansi-bold">.</span>values
-<span class="ansi-green-fg">      2</span> print<span class="ansi-yellow-intense-fg ansi-bold">(</span>glu5_val<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">      3</span> 
-<span class="ansi-green-fg">      4</span> print<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#39;total hbonds for GLU5 per frame&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">      5</span> <span class="ansi-green-intense-fg ansi-bold">import</span> numpy <span class="ansi-green-intense-fg ansi-bold">as</span> np
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-6-529abf8fd056&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>glu5_val <span class="ansi-blue-fg">=</span> glu5<span class="ansi-blue-fg">.</span>values
+<span class="ansi-green-intense-fg ansi-bold">      2</span> print<span class="ansi-blue-fg">(</span>glu5_val<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> 
+<span class="ansi-green-intense-fg ansi-bold">      4</span> print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;total hbonds for GLU5 per frame&#39;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> <span class="ansi-green-fg">import</span> numpy <span class="ansi-green-fg">as</span> np
 
-<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;glu5&#39; is not defined</pre>
+<span class="ansi-red-fg">NameError</span>: name &#39;glu5&#39; is not defined</pre>
 </div>
 </div>
 
@@ -407,14 +407,14 @@ values:
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_text output_error">
 <pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-7-92fb0a43e310&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
-<span class="ansi-green-fg">      3</span> 
-<span class="ansi-green-fg">      4</span> <span class="ansi-green-intense-fg ansi-bold">from</span> matplotlib <span class="ansi-green-intense-fg ansi-bold">import</span> pyplot <span class="ansi-green-intense-fg ansi-bold">as</span> plt
-<span class="ansi-green-intense-fg ansi-bold">----&gt; 5</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>plt<span class="ansi-yellow-intense-fg ansi-bold">.</span>plot<span class="ansi-yellow-intense-fg ansi-bold">(</span>glu5_total<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;ro&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-7-92fb0a43e310&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> 
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span class="ansi-green-fg">from</span> matplotlib <span class="ansi-green-fg">import</span> pyplot <span class="ansi-green-fg">as</span> plt
+<span class="ansi-green-fg">----&gt; 5</span><span class="ansi-red-fg"> </span>plt<span class="ansi-blue-fg">.</span>plot<span class="ansi-blue-fg">(</span>glu5_total<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;ro&#39;</span><span class="ansi-blue-fg">)</span>
 
-<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;glu5_total&#39; is not defined</pre>
+<span class="ansi-red-fg">NameError</span>: name &#39;glu5_total&#39; is not defined</pre>
 </div>
 </div>
 
@@ -438,8 +438,8 @@ values:
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Jun 09, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+      Last updated on Aug 04, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
     </p>
   </div>
 </footer>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.cluster &mdash; pytraj 1.0.8.dev0+1c3ff2c documentation</title>
+    <title>pytraj.cluster &mdash; pytraj 1.0.8.dev0+35543d8 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.8.dev0+1c3ff2c',
+        VERSION:     '1.0.8.dev0+35543d8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.8.dev0+1c3ff2c documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.8.dev0+35543d8 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="next" title="pytraj.nmr" href="pytraj.nmr.html" />
 <meta charset='utf-8'>
@@ -53,7 +53,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.8.dev0+1c3ff2c</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.8.dev0+35543d8</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -170,8 +170,8 @@
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">array_like</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">clustering_dataset</span><span class="p">(</span><span class="n">array_like</span><span class="p">,</span> <span class="s1">&#39;clusters 10 epsilon 3.0&#39;</span><span class="p">)</span>
 </pre></div>
@@ -207,40 +207,40 @@
 <p class="rubric">Notes</p>
 <p>Call <cite>pytraj._verbose()</cite> to see more output. Turn it off by <cite>pytraj._verbose(False)</cite></p>
 <p>cpptraj manual:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>Algorithms:
-  [hieragglo [epsilon &lt;e&gt;] [clusters &lt;n&gt;] [linkage|averagelinkage|complete]
-    [epsilonplot &lt;file&gt;]]
-  [dbscan minpoints &lt;n&gt; epsilon &lt;e&gt; [sievetoframe] [kdist &lt;k&gt; [kfile &lt;prefix&gt;]]]
-  [dpeaks epsilon &lt;e&gt; [noise] [dvdfile &lt;density_vs_dist_file&gt;]
-    [choosepoints {manual | auto}]
-    [distancecut &lt;distcut&gt;] [densitycut &lt;densitycut&gt;]
-    [runavg &lt;runavg_file&gt;] [deltafile &lt;file&gt;] [gauss]]
-  [kmeans clusters &lt;n&gt; [randompoint [kseed &lt;seed&gt;]] [maxit &lt;iterations&gt;]
-  [{readtxt|readinfo} infofile &lt;file&gt;]
-Distance metric options: {rms | srmsd | dme | data}
-  { [[rms | srmsd] [&lt;mask&gt;] [mass] [nofit]] | [dme [&lt;mask&gt;]] |
-     [data &lt;dset0&gt;[,&lt;dset1&gt;,...]] }
-  [sieve &lt;#&gt; [random [sieveseed &lt;#&gt;]]] [loadpairdist] [savepairdist] [pairdist &lt;name&gt;]
-  [pairwisecache {mem | none}]
-Output options:
-  [out &lt;cnumvtime&gt;] [gracecolor] [summary &lt;summaryfile&gt;] [info &lt;infofile&gt;]
-  [summarysplit &lt;splitfile&gt;] [splitframe &lt;comma-separated frame list&gt;]
-  [clustersvtime &lt;filename&gt; cvtwindow &lt;window size&gt;]
-  [cpopvtime &lt;file&gt; [normpop | normframe]] [lifetime]
-  [sil &lt;silhouette file prefix&gt;]
-Coordinate output options:
-  [ clusterout &lt;trajfileprefix&gt; [clusterfmt &lt;trajformat&gt;] ]
-  [ singlerepout &lt;trajfilename&gt; [singlerepfmt &lt;trajformat&gt;] ]
-  [ repout &lt;repprefix&gt; [repfmt &lt;repfmt&gt;] [repframe] ]
-  [ avgout &lt;avgprefix&gt; [avgfmt &lt;avgfmt&gt;] ]
-Experimental options:
-  [[drawgraph | drawgraph3d] [draw_tol &lt;tolerance&gt;] [draw_maxit &lt;iterations]]
-Cluster structures based on coordinates (RMSD/DME) or given data set(s).
-&lt;crd set&gt; can be created with the &#39;createcrd&#39; command.
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Algorithms</span><span class="p">:</span>
+  <span class="p">[</span><span class="n">hieragglo</span> <span class="p">[</span><span class="n">epsilon</span> <span class="o">&lt;</span><span class="n">e</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">clusters</span> <span class="o">&lt;</span><span class="n">n</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">linkage</span><span class="o">|</span><span class="n">averagelinkage</span><span class="o">|</span><span class="n">complete</span><span class="p">]</span>
+    <span class="p">[</span><span class="n">epsilonplot</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span><span class="p">]]</span>
+  <span class="p">[</span><span class="n">dbscan</span> <span class="n">minpoints</span> <span class="o">&lt;</span><span class="n">n</span><span class="o">&gt;</span> <span class="n">epsilon</span> <span class="o">&lt;</span><span class="n">e</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">sievetoframe</span><span class="p">]</span> <span class="p">[</span><span class="n">kdist</span> <span class="o">&lt;</span><span class="n">k</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">kfile</span> <span class="o">&lt;</span><span class="n">prefix</span><span class="o">&gt;</span><span class="p">]]]</span>
+  <span class="p">[</span><span class="n">dpeaks</span> <span class="n">epsilon</span> <span class="o">&lt;</span><span class="n">e</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">noise</span><span class="p">]</span> <span class="p">[</span><span class="n">dvdfile</span> <span class="o">&lt;</span><span class="n">density_vs_dist_file</span><span class="o">&gt;</span><span class="p">]</span>
+    <span class="p">[</span><span class="n">choosepoints</span> <span class="p">{</span><span class="n">manual</span> <span class="o">|</span> <span class="n">auto</span><span class="p">}]</span>
+    <span class="p">[</span><span class="n">distancecut</span> <span class="o">&lt;</span><span class="n">distcut</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">densitycut</span> <span class="o">&lt;</span><span class="n">densitycut</span><span class="o">&gt;</span><span class="p">]</span>
+    <span class="p">[</span><span class="n">runavg</span> <span class="o">&lt;</span><span class="n">runavg_file</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">deltafile</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">gauss</span><span class="p">]]</span>
+  <span class="p">[</span><span class="n">kmeans</span> <span class="n">clusters</span> <span class="o">&lt;</span><span class="n">n</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">randompoint</span> <span class="p">[</span><span class="n">kseed</span> <span class="o">&lt;</span><span class="n">seed</span><span class="o">&gt;</span><span class="p">]]</span> <span class="p">[</span><span class="n">maxit</span> <span class="o">&lt;</span><span class="n">iterations</span><span class="o">&gt;</span><span class="p">]</span>
+  <span class="p">[{</span><span class="n">readtxt</span><span class="o">|</span><span class="n">readinfo</span><span class="p">}</span> <span class="n">infofile</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span><span class="p">]</span>
+<span class="n">Distance</span> <span class="n">metric</span> <span class="n">options</span><span class="p">:</span> <span class="p">{</span><span class="n">rms</span> <span class="o">|</span> <span class="n">srmsd</span> <span class="o">|</span> <span class="n">dme</span> <span class="o">|</span> <span class="n">data</span><span class="p">}</span>
+  <span class="p">{</span> <span class="p">[[</span><span class="n">rms</span> <span class="o">|</span> <span class="n">srmsd</span><span class="p">]</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">mask</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">mass</span><span class="p">]</span> <span class="p">[</span><span class="n">nofit</span><span class="p">]]</span> <span class="o">|</span> <span class="p">[</span><span class="n">dme</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">mask</span><span class="o">&gt;</span><span class="p">]]</span> <span class="o">|</span>
+     <span class="p">[</span><span class="n">data</span> <span class="o">&lt;</span><span class="n">dset0</span><span class="o">&gt;</span><span class="p">[,</span><span class="o">&lt;</span><span class="n">dset1</span><span class="o">&gt;</span><span class="p">,</span><span class="o">...</span><span class="p">]]</span> <span class="p">}</span>
+  <span class="p">[</span><span class="n">sieve</span> <span class="o">&lt;</span><span class="c1">#&gt; [random [sieveseed &lt;#&gt;]]] [loadpairdist] [savepairdist] [pairdist &lt;name&gt;]</span>
+  <span class="p">[</span><span class="n">pairwisecache</span> <span class="p">{</span><span class="n">mem</span> <span class="o">|</span> <span class="n">none</span><span class="p">}]</span>
+<span class="n">Output</span> <span class="n">options</span><span class="p">:</span>
+  <span class="p">[</span><span class="n">out</span> <span class="o">&lt;</span><span class="n">cnumvtime</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">gracecolor</span><span class="p">]</span> <span class="p">[</span><span class="n">summary</span> <span class="o">&lt;</span><span class="n">summaryfile</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">info</span> <span class="o">&lt;</span><span class="n">infofile</span><span class="o">&gt;</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">summarysplit</span> <span class="o">&lt;</span><span class="n">splitfile</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">splitframe</span> <span class="o">&lt;</span><span class="n">comma</span><span class="o">-</span><span class="n">separated</span> <span class="n">frame</span> <span class="nb">list</span><span class="o">&gt;</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">clustersvtime</span> <span class="o">&lt;</span><span class="n">filename</span><span class="o">&gt;</span> <span class="n">cvtwindow</span> <span class="o">&lt;</span><span class="n">window</span> <span class="n">size</span><span class="o">&gt;</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">cpopvtime</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">normpop</span> <span class="o">|</span> <span class="n">normframe</span><span class="p">]]</span> <span class="p">[</span><span class="n">lifetime</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">sil</span> <span class="o">&lt;</span><span class="n">silhouette</span> <span class="n">file</span> <span class="n">prefix</span><span class="o">&gt;</span><span class="p">]</span>
+<span class="n">Coordinate</span> <span class="n">output</span> <span class="n">options</span><span class="p">:</span>
+  <span class="p">[</span> <span class="n">clusterout</span> <span class="o">&lt;</span><span class="n">trajfileprefix</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">clusterfmt</span> <span class="o">&lt;</span><span class="n">trajformat</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">]</span>
+  <span class="p">[</span> <span class="n">singlerepout</span> <span class="o">&lt;</span><span class="n">trajfilename</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">singlerepfmt</span> <span class="o">&lt;</span><span class="n">trajformat</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">]</span>
+  <span class="p">[</span> <span class="n">repout</span> <span class="o">&lt;</span><span class="n">repprefix</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">repfmt</span> <span class="o">&lt;</span><span class="n">repfmt</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">repframe</span><span class="p">]</span> <span class="p">]</span>
+  <span class="p">[</span> <span class="n">avgout</span> <span class="o">&lt;</span><span class="n">avgprefix</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">avgfmt</span> <span class="o">&lt;</span><span class="n">avgfmt</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">]</span>
+<span class="n">Experimental</span> <span class="n">options</span><span class="p">:</span>
+  <span class="p">[[</span><span class="n">drawgraph</span> <span class="o">|</span> <span class="n">drawgraph3d</span><span class="p">]</span> <span class="p">[</span><span class="n">draw_tol</span> <span class="o">&lt;</span><span class="n">tolerance</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">draw_maxit</span> <span class="o">&lt;</span><span class="n">iterations</span><span class="p">]]</span>
+<span class="n">Cluster</span> <span class="n">structures</span> <span class="n">based</span> <span class="n">on</span> <span class="n">coordinates</span> <span class="p">(</span><span class="n">RMSD</span><span class="o">/</span><span class="n">DME</span><span class="p">)</span> <span class="ow">or</span> <span class="n">given</span> <span class="n">data</span> <span class="nb">set</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span>
+<span class="o">&lt;</span><span class="n">crd</span> <span class="nb">set</span><span class="o">&gt;</span> <span class="n">can</span> <span class="n">be</span> <span class="n">created</span> <span class="k">with</span> <span class="n">the</span> <span class="s1">&#39;createcrd&#39;</span> <span class="n">command</span><span class="o">.</span>
 </pre></div>
 </div>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">dbscan</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s1">&#39;epsilon 1.7 minpoints 5&#39;</span><span class="p">)</span>
 </pre></div>
@@ -276,36 +276,36 @@ Cluster structures based on coordinates (RMSD/DME) or given data set(s).
 <p class="rubric">Notes</p>
 <p>Call <cite>pytraj._verbose()</cite> to see more output. Turn it off by <cite>pytraj._verbose(False)</cite></p>
 <p>cpptraj manual:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>Algorithms:
-  [hieragglo [epsilon &lt;e&gt;] [clusters &lt;n&gt;] [linkage|averagelinkage|complete]
-    [epsilonplot &lt;file&gt;]]
-  [dbscan minpoints &lt;n&gt; epsilon &lt;e&gt; [sievetoframe] [kdist &lt;k&gt; [kfile &lt;prefix&gt;]]]
-  [dpeaks epsilon &lt;e&gt; [noise] [dvdfile &lt;density_vs_dist_file&gt;]
-    [choosepoints {manual | auto}]
-    [distancecut &lt;distcut&gt;] [densitycut &lt;densitycut&gt;]
-    [runavg &lt;runavg_file&gt;] [deltafile &lt;file&gt;] [gauss]]
-  [kmeans clusters &lt;n&gt; [randompoint [kseed &lt;seed&gt;]] [maxit &lt;iterations&gt;]
-  [{readtxt|readinfo} infofile &lt;file&gt;]
-Distance metric options: {rms | srmsd | dme | data}
-  { [[rms | srmsd] [&lt;mask&gt;] [mass] [nofit]] | [dme [&lt;mask&gt;]] |
-     [data &lt;dset0&gt;[,&lt;dset1&gt;,...]] }
-  [sieve &lt;#&gt; [random [sieveseed &lt;#&gt;]]] [loadpairdist] [savepairdist] [pairdist &lt;name&gt;]
-  [pairwisecache {mem | none}]
-Output options:
-  [out &lt;cnumvtime&gt;] [gracecolor] [summary &lt;summaryfile&gt;] [info &lt;infofile&gt;]
-  [summarysplit &lt;splitfile&gt;] [splitframe &lt;comma-separated frame list&gt;]
-  [clustersvtime &lt;filename&gt; cvtwindow &lt;window size&gt;]
-  [cpopvtime &lt;file&gt; [normpop | normframe]] [lifetime]
-  [sil &lt;silhouette file prefix&gt;]
-Coordinate output options:
-  [ clusterout &lt;trajfileprefix&gt; [clusterfmt &lt;trajformat&gt;] ]
-  [ singlerepout &lt;trajfilename&gt; [singlerepfmt &lt;trajformat&gt;] ]
-  [ repout &lt;repprefix&gt; [repfmt &lt;repfmt&gt;] [repframe] ]
-  [ avgout &lt;avgprefix&gt; [avgfmt &lt;avgfmt&gt;] ]
-Experimental options:
-  [[drawgraph | drawgraph3d] [draw_tol &lt;tolerance&gt;] [draw_maxit &lt;iterations]]
-Cluster structures based on coordinates (RMSD/DME) or given data set(s).
-&lt;crd set&gt; can be created with the &#39;createcrd&#39; command.
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Algorithms</span><span class="p">:</span>
+  <span class="p">[</span><span class="n">hieragglo</span> <span class="p">[</span><span class="n">epsilon</span> <span class="o">&lt;</span><span class="n">e</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">clusters</span> <span class="o">&lt;</span><span class="n">n</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">linkage</span><span class="o">|</span><span class="n">averagelinkage</span><span class="o">|</span><span class="n">complete</span><span class="p">]</span>
+    <span class="p">[</span><span class="n">epsilonplot</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span><span class="p">]]</span>
+  <span class="p">[</span><span class="n">dbscan</span> <span class="n">minpoints</span> <span class="o">&lt;</span><span class="n">n</span><span class="o">&gt;</span> <span class="n">epsilon</span> <span class="o">&lt;</span><span class="n">e</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">sievetoframe</span><span class="p">]</span> <span class="p">[</span><span class="n">kdist</span> <span class="o">&lt;</span><span class="n">k</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">kfile</span> <span class="o">&lt;</span><span class="n">prefix</span><span class="o">&gt;</span><span class="p">]]]</span>
+  <span class="p">[</span><span class="n">dpeaks</span> <span class="n">epsilon</span> <span class="o">&lt;</span><span class="n">e</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">noise</span><span class="p">]</span> <span class="p">[</span><span class="n">dvdfile</span> <span class="o">&lt;</span><span class="n">density_vs_dist_file</span><span class="o">&gt;</span><span class="p">]</span>
+    <span class="p">[</span><span class="n">choosepoints</span> <span class="p">{</span><span class="n">manual</span> <span class="o">|</span> <span class="n">auto</span><span class="p">}]</span>
+    <span class="p">[</span><span class="n">distancecut</span> <span class="o">&lt;</span><span class="n">distcut</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">densitycut</span> <span class="o">&lt;</span><span class="n">densitycut</span><span class="o">&gt;</span><span class="p">]</span>
+    <span class="p">[</span><span class="n">runavg</span> <span class="o">&lt;</span><span class="n">runavg_file</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">deltafile</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">gauss</span><span class="p">]]</span>
+  <span class="p">[</span><span class="n">kmeans</span> <span class="n">clusters</span> <span class="o">&lt;</span><span class="n">n</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">randompoint</span> <span class="p">[</span><span class="n">kseed</span> <span class="o">&lt;</span><span class="n">seed</span><span class="o">&gt;</span><span class="p">]]</span> <span class="p">[</span><span class="n">maxit</span> <span class="o">&lt;</span><span class="n">iterations</span><span class="o">&gt;</span><span class="p">]</span>
+  <span class="p">[{</span><span class="n">readtxt</span><span class="o">|</span><span class="n">readinfo</span><span class="p">}</span> <span class="n">infofile</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span><span class="p">]</span>
+<span class="n">Distance</span> <span class="n">metric</span> <span class="n">options</span><span class="p">:</span> <span class="p">{</span><span class="n">rms</span> <span class="o">|</span> <span class="n">srmsd</span> <span class="o">|</span> <span class="n">dme</span> <span class="o">|</span> <span class="n">data</span><span class="p">}</span>
+  <span class="p">{</span> <span class="p">[[</span><span class="n">rms</span> <span class="o">|</span> <span class="n">srmsd</span><span class="p">]</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">mask</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">mass</span><span class="p">]</span> <span class="p">[</span><span class="n">nofit</span><span class="p">]]</span> <span class="o">|</span> <span class="p">[</span><span class="n">dme</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">mask</span><span class="o">&gt;</span><span class="p">]]</span> <span class="o">|</span>
+     <span class="p">[</span><span class="n">data</span> <span class="o">&lt;</span><span class="n">dset0</span><span class="o">&gt;</span><span class="p">[,</span><span class="o">&lt;</span><span class="n">dset1</span><span class="o">&gt;</span><span class="p">,</span><span class="o">...</span><span class="p">]]</span> <span class="p">}</span>
+  <span class="p">[</span><span class="n">sieve</span> <span class="o">&lt;</span><span class="c1">#&gt; [random [sieveseed &lt;#&gt;]]] [loadpairdist] [savepairdist] [pairdist &lt;name&gt;]</span>
+  <span class="p">[</span><span class="n">pairwisecache</span> <span class="p">{</span><span class="n">mem</span> <span class="o">|</span> <span class="n">none</span><span class="p">}]</span>
+<span class="n">Output</span> <span class="n">options</span><span class="p">:</span>
+  <span class="p">[</span><span class="n">out</span> <span class="o">&lt;</span><span class="n">cnumvtime</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">gracecolor</span><span class="p">]</span> <span class="p">[</span><span class="n">summary</span> <span class="o">&lt;</span><span class="n">summaryfile</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">info</span> <span class="o">&lt;</span><span class="n">infofile</span><span class="o">&gt;</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">summarysplit</span> <span class="o">&lt;</span><span class="n">splitfile</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">splitframe</span> <span class="o">&lt;</span><span class="n">comma</span><span class="o">-</span><span class="n">separated</span> <span class="n">frame</span> <span class="nb">list</span><span class="o">&gt;</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">clustersvtime</span> <span class="o">&lt;</span><span class="n">filename</span><span class="o">&gt;</span> <span class="n">cvtwindow</span> <span class="o">&lt;</span><span class="n">window</span> <span class="n">size</span><span class="o">&gt;</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">cpopvtime</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">normpop</span> <span class="o">|</span> <span class="n">normframe</span><span class="p">]]</span> <span class="p">[</span><span class="n">lifetime</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">sil</span> <span class="o">&lt;</span><span class="n">silhouette</span> <span class="n">file</span> <span class="n">prefix</span><span class="o">&gt;</span><span class="p">]</span>
+<span class="n">Coordinate</span> <span class="n">output</span> <span class="n">options</span><span class="p">:</span>
+  <span class="p">[</span> <span class="n">clusterout</span> <span class="o">&lt;</span><span class="n">trajfileprefix</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">clusterfmt</span> <span class="o">&lt;</span><span class="n">trajformat</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">]</span>
+  <span class="p">[</span> <span class="n">singlerepout</span> <span class="o">&lt;</span><span class="n">trajfilename</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">singlerepfmt</span> <span class="o">&lt;</span><span class="n">trajformat</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">]</span>
+  <span class="p">[</span> <span class="n">repout</span> <span class="o">&lt;</span><span class="n">repprefix</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">repfmt</span> <span class="o">&lt;</span><span class="n">repfmt</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">repframe</span><span class="p">]</span> <span class="p">]</span>
+  <span class="p">[</span> <span class="n">avgout</span> <span class="o">&lt;</span><span class="n">avgprefix</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">avgfmt</span> <span class="o">&lt;</span><span class="n">avgfmt</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">]</span>
+<span class="n">Experimental</span> <span class="n">options</span><span class="p">:</span>
+  <span class="p">[[</span><span class="n">drawgraph</span> <span class="o">|</span> <span class="n">drawgraph3d</span><span class="p">]</span> <span class="p">[</span><span class="n">draw_tol</span> <span class="o">&lt;</span><span class="n">tolerance</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">draw_maxit</span> <span class="o">&lt;</span><span class="n">iterations</span><span class="p">]]</span>
+<span class="n">Cluster</span> <span class="n">structures</span> <span class="n">based</span> <span class="n">on</span> <span class="n">coordinates</span> <span class="p">(</span><span class="n">RMSD</span><span class="o">/</span><span class="n">DME</span><span class="p">)</span> <span class="ow">or</span> <span class="n">given</span> <span class="n">data</span> <span class="nb">set</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span>
+<span class="o">&lt;</span><span class="n">crd</span> <span class="nb">set</span><span class="o">&gt;</span> <span class="n">can</span> <span class="n">be</span> <span class="n">created</span> <span class="k">with</span> <span class="n">the</span> <span class="s1">&#39;createcrd&#39;</span> <span class="n">command</span><span class="o">.</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -339,40 +339,40 @@ Cluster structures based on coordinates (RMSD/DME) or given data set(s).
 <p class="rubric">Notes</p>
 <p>Call <cite>pytraj._verbose()</cite> to see more output. Turn it off by <cite>pytraj._verbose(False)</cite></p>
 <p>cpptraj manual:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>Algorithms:
-  [hieragglo [epsilon &lt;e&gt;] [clusters &lt;n&gt;] [linkage|averagelinkage|complete]
-    [epsilonplot &lt;file&gt;]]
-  [dbscan minpoints &lt;n&gt; epsilon &lt;e&gt; [sievetoframe] [kdist &lt;k&gt; [kfile &lt;prefix&gt;]]]
-  [dpeaks epsilon &lt;e&gt; [noise] [dvdfile &lt;density_vs_dist_file&gt;]
-    [choosepoints {manual | auto}]
-    [distancecut &lt;distcut&gt;] [densitycut &lt;densitycut&gt;]
-    [runavg &lt;runavg_file&gt;] [deltafile &lt;file&gt;] [gauss]]
-  [kmeans clusters &lt;n&gt; [randompoint [kseed &lt;seed&gt;]] [maxit &lt;iterations&gt;]
-  [{readtxt|readinfo} infofile &lt;file&gt;]
-Distance metric options: {rms | srmsd | dme | data}
-  { [[rms | srmsd] [&lt;mask&gt;] [mass] [nofit]] | [dme [&lt;mask&gt;]] |
-     [data &lt;dset0&gt;[,&lt;dset1&gt;,...]] }
-  [sieve &lt;#&gt; [random [sieveseed &lt;#&gt;]]] [loadpairdist] [savepairdist] [pairdist &lt;name&gt;]
-  [pairwisecache {mem | none}]
-Output options:
-  [out &lt;cnumvtime&gt;] [gracecolor] [summary &lt;summaryfile&gt;] [info &lt;infofile&gt;]
-  [summarysplit &lt;splitfile&gt;] [splitframe &lt;comma-separated frame list&gt;]
-  [clustersvtime &lt;filename&gt; cvtwindow &lt;window size&gt;]
-  [cpopvtime &lt;file&gt; [normpop | normframe]] [lifetime]
-  [sil &lt;silhouette file prefix&gt;]
-Coordinate output options:
-  [ clusterout &lt;trajfileprefix&gt; [clusterfmt &lt;trajformat&gt;] ]
-  [ singlerepout &lt;trajfilename&gt; [singlerepfmt &lt;trajformat&gt;] ]
-  [ repout &lt;repprefix&gt; [repfmt &lt;repfmt&gt;] [repframe] ]
-  [ avgout &lt;avgprefix&gt; [avgfmt &lt;avgfmt&gt;] ]
-Experimental options:
-  [[drawgraph | drawgraph3d] [draw_tol &lt;tolerance&gt;] [draw_maxit &lt;iterations]]
-Cluster structures based on coordinates (RMSD/DME) or given data set(s).
-&lt;crd set&gt; can be created with the &#39;createcrd&#39; command.
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Algorithms</span><span class="p">:</span>
+  <span class="p">[</span><span class="n">hieragglo</span> <span class="p">[</span><span class="n">epsilon</span> <span class="o">&lt;</span><span class="n">e</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">clusters</span> <span class="o">&lt;</span><span class="n">n</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">linkage</span><span class="o">|</span><span class="n">averagelinkage</span><span class="o">|</span><span class="n">complete</span><span class="p">]</span>
+    <span class="p">[</span><span class="n">epsilonplot</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span><span class="p">]]</span>
+  <span class="p">[</span><span class="n">dbscan</span> <span class="n">minpoints</span> <span class="o">&lt;</span><span class="n">n</span><span class="o">&gt;</span> <span class="n">epsilon</span> <span class="o">&lt;</span><span class="n">e</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">sievetoframe</span><span class="p">]</span> <span class="p">[</span><span class="n">kdist</span> <span class="o">&lt;</span><span class="n">k</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">kfile</span> <span class="o">&lt;</span><span class="n">prefix</span><span class="o">&gt;</span><span class="p">]]]</span>
+  <span class="p">[</span><span class="n">dpeaks</span> <span class="n">epsilon</span> <span class="o">&lt;</span><span class="n">e</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">noise</span><span class="p">]</span> <span class="p">[</span><span class="n">dvdfile</span> <span class="o">&lt;</span><span class="n">density_vs_dist_file</span><span class="o">&gt;</span><span class="p">]</span>
+    <span class="p">[</span><span class="n">choosepoints</span> <span class="p">{</span><span class="n">manual</span> <span class="o">|</span> <span class="n">auto</span><span class="p">}]</span>
+    <span class="p">[</span><span class="n">distancecut</span> <span class="o">&lt;</span><span class="n">distcut</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">densitycut</span> <span class="o">&lt;</span><span class="n">densitycut</span><span class="o">&gt;</span><span class="p">]</span>
+    <span class="p">[</span><span class="n">runavg</span> <span class="o">&lt;</span><span class="n">runavg_file</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">deltafile</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">gauss</span><span class="p">]]</span>
+  <span class="p">[</span><span class="n">kmeans</span> <span class="n">clusters</span> <span class="o">&lt;</span><span class="n">n</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">randompoint</span> <span class="p">[</span><span class="n">kseed</span> <span class="o">&lt;</span><span class="n">seed</span><span class="o">&gt;</span><span class="p">]]</span> <span class="p">[</span><span class="n">maxit</span> <span class="o">&lt;</span><span class="n">iterations</span><span class="o">&gt;</span><span class="p">]</span>
+  <span class="p">[{</span><span class="n">readtxt</span><span class="o">|</span><span class="n">readinfo</span><span class="p">}</span> <span class="n">infofile</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span><span class="p">]</span>
+<span class="n">Distance</span> <span class="n">metric</span> <span class="n">options</span><span class="p">:</span> <span class="p">{</span><span class="n">rms</span> <span class="o">|</span> <span class="n">srmsd</span> <span class="o">|</span> <span class="n">dme</span> <span class="o">|</span> <span class="n">data</span><span class="p">}</span>
+  <span class="p">{</span> <span class="p">[[</span><span class="n">rms</span> <span class="o">|</span> <span class="n">srmsd</span><span class="p">]</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">mask</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">mass</span><span class="p">]</span> <span class="p">[</span><span class="n">nofit</span><span class="p">]]</span> <span class="o">|</span> <span class="p">[</span><span class="n">dme</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">mask</span><span class="o">&gt;</span><span class="p">]]</span> <span class="o">|</span>
+     <span class="p">[</span><span class="n">data</span> <span class="o">&lt;</span><span class="n">dset0</span><span class="o">&gt;</span><span class="p">[,</span><span class="o">&lt;</span><span class="n">dset1</span><span class="o">&gt;</span><span class="p">,</span><span class="o">...</span><span class="p">]]</span> <span class="p">}</span>
+  <span class="p">[</span><span class="n">sieve</span> <span class="o">&lt;</span><span class="c1">#&gt; [random [sieveseed &lt;#&gt;]]] [loadpairdist] [savepairdist] [pairdist &lt;name&gt;]</span>
+  <span class="p">[</span><span class="n">pairwisecache</span> <span class="p">{</span><span class="n">mem</span> <span class="o">|</span> <span class="n">none</span><span class="p">}]</span>
+<span class="n">Output</span> <span class="n">options</span><span class="p">:</span>
+  <span class="p">[</span><span class="n">out</span> <span class="o">&lt;</span><span class="n">cnumvtime</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">gracecolor</span><span class="p">]</span> <span class="p">[</span><span class="n">summary</span> <span class="o">&lt;</span><span class="n">summaryfile</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">info</span> <span class="o">&lt;</span><span class="n">infofile</span><span class="o">&gt;</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">summarysplit</span> <span class="o">&lt;</span><span class="n">splitfile</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">splitframe</span> <span class="o">&lt;</span><span class="n">comma</span><span class="o">-</span><span class="n">separated</span> <span class="n">frame</span> <span class="nb">list</span><span class="o">&gt;</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">clustersvtime</span> <span class="o">&lt;</span><span class="n">filename</span><span class="o">&gt;</span> <span class="n">cvtwindow</span> <span class="o">&lt;</span><span class="n">window</span> <span class="n">size</span><span class="o">&gt;</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">cpopvtime</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">normpop</span> <span class="o">|</span> <span class="n">normframe</span><span class="p">]]</span> <span class="p">[</span><span class="n">lifetime</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">sil</span> <span class="o">&lt;</span><span class="n">silhouette</span> <span class="n">file</span> <span class="n">prefix</span><span class="o">&gt;</span><span class="p">]</span>
+<span class="n">Coordinate</span> <span class="n">output</span> <span class="n">options</span><span class="p">:</span>
+  <span class="p">[</span> <span class="n">clusterout</span> <span class="o">&lt;</span><span class="n">trajfileprefix</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">clusterfmt</span> <span class="o">&lt;</span><span class="n">trajformat</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">]</span>
+  <span class="p">[</span> <span class="n">singlerepout</span> <span class="o">&lt;</span><span class="n">trajfilename</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">singlerepfmt</span> <span class="o">&lt;</span><span class="n">trajformat</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">]</span>
+  <span class="p">[</span> <span class="n">repout</span> <span class="o">&lt;</span><span class="n">repprefix</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">repfmt</span> <span class="o">&lt;</span><span class="n">repfmt</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">repframe</span><span class="p">]</span> <span class="p">]</span>
+  <span class="p">[</span> <span class="n">avgout</span> <span class="o">&lt;</span><span class="n">avgprefix</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">avgfmt</span> <span class="o">&lt;</span><span class="n">avgfmt</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">]</span>
+<span class="n">Experimental</span> <span class="n">options</span><span class="p">:</span>
+  <span class="p">[[</span><span class="n">drawgraph</span> <span class="o">|</span> <span class="n">drawgraph3d</span><span class="p">]</span> <span class="p">[</span><span class="n">draw_tol</span> <span class="o">&lt;</span><span class="n">tolerance</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">draw_maxit</span> <span class="o">&lt;</span><span class="n">iterations</span><span class="p">]]</span>
+<span class="n">Cluster</span> <span class="n">structures</span> <span class="n">based</span> <span class="n">on</span> <span class="n">coordinates</span> <span class="p">(</span><span class="n">RMSD</span><span class="o">/</span><span class="n">DME</span><span class="p">)</span> <span class="ow">or</span> <span class="n">given</span> <span class="n">data</span> <span class="nb">set</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span>
+<span class="o">&lt;</span><span class="n">crd</span> <span class="nb">set</span><span class="o">&gt;</span> <span class="n">can</span> <span class="n">be</span> <span class="n">created</span> <span class="k">with</span> <span class="n">the</span> <span class="s1">&#39;createcrd&#39;</span> <span class="n">command</span><span class="o">.</span>
 </pre></div>
 </div>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">hieragglo</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 </pre></div>
@@ -445,8 +445,8 @@ different from <code class="docutils literal"><span class="pre">sieve</span></co
 <p><code class="docutils literal"><span class="pre">options</span></code> (check example)
 - install <code class="docutils literal"><span class="pre">libcpptraj</span></code> with <code class="docutils literal"><span class="pre">-openmp</span></code> flag to speed up this calculation.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.cluster</span> <span class="kn">import</span> <span class="n">kmeans</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.cluster</span> <span class="k">import</span> <span class="n">kmeans</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># use default options</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">kmeans</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
@@ -494,36 +494,36 @@ different from <code class="docutils literal"><span class="pre">sieve</span></co
 <p class="rubric">Notes</p>
 <p>Call <cite>pytraj._verbose()</cite> to see more output. Turn it off by <cite>pytraj._verbose(False)</cite></p>
 <p>cpptraj manual:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>Algorithms:
-  [hieragglo [epsilon &lt;e&gt;] [clusters &lt;n&gt;] [linkage|averagelinkage|complete]
-    [epsilonplot &lt;file&gt;]]
-  [dbscan minpoints &lt;n&gt; epsilon &lt;e&gt; [sievetoframe] [kdist &lt;k&gt; [kfile &lt;prefix&gt;]]]
-  [dpeaks epsilon &lt;e&gt; [noise] [dvdfile &lt;density_vs_dist_file&gt;]
-    [choosepoints {manual | auto}]
-    [distancecut &lt;distcut&gt;] [densitycut &lt;densitycut&gt;]
-    [runavg &lt;runavg_file&gt;] [deltafile &lt;file&gt;] [gauss]]
-  [kmeans clusters &lt;n&gt; [randompoint [kseed &lt;seed&gt;]] [maxit &lt;iterations&gt;]
-  [{readtxt|readinfo} infofile &lt;file&gt;]
-Distance metric options: {rms | srmsd | dme | data}
-  { [[rms | srmsd] [&lt;mask&gt;] [mass] [nofit]] | [dme [&lt;mask&gt;]] |
-     [data &lt;dset0&gt;[,&lt;dset1&gt;,...]] }
-  [sieve &lt;#&gt; [random [sieveseed &lt;#&gt;]]] [loadpairdist] [savepairdist] [pairdist &lt;name&gt;]
-  [pairwisecache {mem | none}]
-Output options:
-  [out &lt;cnumvtime&gt;] [gracecolor] [summary &lt;summaryfile&gt;] [info &lt;infofile&gt;]
-  [summarysplit &lt;splitfile&gt;] [splitframe &lt;comma-separated frame list&gt;]
-  [clustersvtime &lt;filename&gt; cvtwindow &lt;window size&gt;]
-  [cpopvtime &lt;file&gt; [normpop | normframe]] [lifetime]
-  [sil &lt;silhouette file prefix&gt;]
-Coordinate output options:
-  [ clusterout &lt;trajfileprefix&gt; [clusterfmt &lt;trajformat&gt;] ]
-  [ singlerepout &lt;trajfilename&gt; [singlerepfmt &lt;trajformat&gt;] ]
-  [ repout &lt;repprefix&gt; [repfmt &lt;repfmt&gt;] [repframe] ]
-  [ avgout &lt;avgprefix&gt; [avgfmt &lt;avgfmt&gt;] ]
-Experimental options:
-  [[drawgraph | drawgraph3d] [draw_tol &lt;tolerance&gt;] [draw_maxit &lt;iterations]]
-Cluster structures based on coordinates (RMSD/DME) or given data set(s).
-&lt;crd set&gt; can be created with the &#39;createcrd&#39; command.
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Algorithms</span><span class="p">:</span>
+  <span class="p">[</span><span class="n">hieragglo</span> <span class="p">[</span><span class="n">epsilon</span> <span class="o">&lt;</span><span class="n">e</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">clusters</span> <span class="o">&lt;</span><span class="n">n</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">linkage</span><span class="o">|</span><span class="n">averagelinkage</span><span class="o">|</span><span class="n">complete</span><span class="p">]</span>
+    <span class="p">[</span><span class="n">epsilonplot</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span><span class="p">]]</span>
+  <span class="p">[</span><span class="n">dbscan</span> <span class="n">minpoints</span> <span class="o">&lt;</span><span class="n">n</span><span class="o">&gt;</span> <span class="n">epsilon</span> <span class="o">&lt;</span><span class="n">e</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">sievetoframe</span><span class="p">]</span> <span class="p">[</span><span class="n">kdist</span> <span class="o">&lt;</span><span class="n">k</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">kfile</span> <span class="o">&lt;</span><span class="n">prefix</span><span class="o">&gt;</span><span class="p">]]]</span>
+  <span class="p">[</span><span class="n">dpeaks</span> <span class="n">epsilon</span> <span class="o">&lt;</span><span class="n">e</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">noise</span><span class="p">]</span> <span class="p">[</span><span class="n">dvdfile</span> <span class="o">&lt;</span><span class="n">density_vs_dist_file</span><span class="o">&gt;</span><span class="p">]</span>
+    <span class="p">[</span><span class="n">choosepoints</span> <span class="p">{</span><span class="n">manual</span> <span class="o">|</span> <span class="n">auto</span><span class="p">}]</span>
+    <span class="p">[</span><span class="n">distancecut</span> <span class="o">&lt;</span><span class="n">distcut</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">densitycut</span> <span class="o">&lt;</span><span class="n">densitycut</span><span class="o">&gt;</span><span class="p">]</span>
+    <span class="p">[</span><span class="n">runavg</span> <span class="o">&lt;</span><span class="n">runavg_file</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">deltafile</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">gauss</span><span class="p">]]</span>
+  <span class="p">[</span><span class="n">kmeans</span> <span class="n">clusters</span> <span class="o">&lt;</span><span class="n">n</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">randompoint</span> <span class="p">[</span><span class="n">kseed</span> <span class="o">&lt;</span><span class="n">seed</span><span class="o">&gt;</span><span class="p">]]</span> <span class="p">[</span><span class="n">maxit</span> <span class="o">&lt;</span><span class="n">iterations</span><span class="o">&gt;</span><span class="p">]</span>
+  <span class="p">[{</span><span class="n">readtxt</span><span class="o">|</span><span class="n">readinfo</span><span class="p">}</span> <span class="n">infofile</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span><span class="p">]</span>
+<span class="n">Distance</span> <span class="n">metric</span> <span class="n">options</span><span class="p">:</span> <span class="p">{</span><span class="n">rms</span> <span class="o">|</span> <span class="n">srmsd</span> <span class="o">|</span> <span class="n">dme</span> <span class="o">|</span> <span class="n">data</span><span class="p">}</span>
+  <span class="p">{</span> <span class="p">[[</span><span class="n">rms</span> <span class="o">|</span> <span class="n">srmsd</span><span class="p">]</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">mask</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">mass</span><span class="p">]</span> <span class="p">[</span><span class="n">nofit</span><span class="p">]]</span> <span class="o">|</span> <span class="p">[</span><span class="n">dme</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">mask</span><span class="o">&gt;</span><span class="p">]]</span> <span class="o">|</span>
+     <span class="p">[</span><span class="n">data</span> <span class="o">&lt;</span><span class="n">dset0</span><span class="o">&gt;</span><span class="p">[,</span><span class="o">&lt;</span><span class="n">dset1</span><span class="o">&gt;</span><span class="p">,</span><span class="o">...</span><span class="p">]]</span> <span class="p">}</span>
+  <span class="p">[</span><span class="n">sieve</span> <span class="o">&lt;</span><span class="c1">#&gt; [random [sieveseed &lt;#&gt;]]] [loadpairdist] [savepairdist] [pairdist &lt;name&gt;]</span>
+  <span class="p">[</span><span class="n">pairwisecache</span> <span class="p">{</span><span class="n">mem</span> <span class="o">|</span> <span class="n">none</span><span class="p">}]</span>
+<span class="n">Output</span> <span class="n">options</span><span class="p">:</span>
+  <span class="p">[</span><span class="n">out</span> <span class="o">&lt;</span><span class="n">cnumvtime</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">gracecolor</span><span class="p">]</span> <span class="p">[</span><span class="n">summary</span> <span class="o">&lt;</span><span class="n">summaryfile</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">info</span> <span class="o">&lt;</span><span class="n">infofile</span><span class="o">&gt;</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">summarysplit</span> <span class="o">&lt;</span><span class="n">splitfile</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">splitframe</span> <span class="o">&lt;</span><span class="n">comma</span><span class="o">-</span><span class="n">separated</span> <span class="n">frame</span> <span class="nb">list</span><span class="o">&gt;</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">clustersvtime</span> <span class="o">&lt;</span><span class="n">filename</span><span class="o">&gt;</span> <span class="n">cvtwindow</span> <span class="o">&lt;</span><span class="n">window</span> <span class="n">size</span><span class="o">&gt;</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">cpopvtime</span> <span class="o">&lt;</span><span class="n">file</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">normpop</span> <span class="o">|</span> <span class="n">normframe</span><span class="p">]]</span> <span class="p">[</span><span class="n">lifetime</span><span class="p">]</span>
+  <span class="p">[</span><span class="n">sil</span> <span class="o">&lt;</span><span class="n">silhouette</span> <span class="n">file</span> <span class="n">prefix</span><span class="o">&gt;</span><span class="p">]</span>
+<span class="n">Coordinate</span> <span class="n">output</span> <span class="n">options</span><span class="p">:</span>
+  <span class="p">[</span> <span class="n">clusterout</span> <span class="o">&lt;</span><span class="n">trajfileprefix</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">clusterfmt</span> <span class="o">&lt;</span><span class="n">trajformat</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">]</span>
+  <span class="p">[</span> <span class="n">singlerepout</span> <span class="o">&lt;</span><span class="n">trajfilename</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">singlerepfmt</span> <span class="o">&lt;</span><span class="n">trajformat</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">]</span>
+  <span class="p">[</span> <span class="n">repout</span> <span class="o">&lt;</span><span class="n">repprefix</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">repfmt</span> <span class="o">&lt;</span><span class="n">repfmt</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">repframe</span><span class="p">]</span> <span class="p">]</span>
+  <span class="p">[</span> <span class="n">avgout</span> <span class="o">&lt;</span><span class="n">avgprefix</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">avgfmt</span> <span class="o">&lt;</span><span class="n">avgfmt</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">]</span>
+<span class="n">Experimental</span> <span class="n">options</span><span class="p">:</span>
+  <span class="p">[[</span><span class="n">drawgraph</span> <span class="o">|</span> <span class="n">drawgraph3d</span><span class="p">]</span> <span class="p">[</span><span class="n">draw_tol</span> <span class="o">&lt;</span><span class="n">tolerance</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">draw_maxit</span> <span class="o">&lt;</span><span class="n">iterations</span><span class="p">]]</span>
+<span class="n">Cluster</span> <span class="n">structures</span> <span class="n">based</span> <span class="n">on</span> <span class="n">coordinates</span> <span class="p">(</span><span class="n">RMSD</span><span class="o">/</span><span class="n">DME</span><span class="p">)</span> <span class="ow">or</span> <span class="n">given</span> <span class="n">data</span> <span class="nb">set</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span>
+<span class="o">&lt;</span><span class="n">crd</span> <span class="nb">set</span><span class="o">&gt;</span> <span class="n">can</span> <span class="n">be</span> <span class="n">created</span> <span class="k">with</span> <span class="n">the</span> <span class="s1">&#39;createcrd&#39;</span> <span class="n">command</span><span class="o">.</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -543,8 +543,8 @@ Cluster structures based on coordinates (RMSD/DME) or given data set(s).
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Jun 09, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+      Last updated on Aug 04, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
     </p>
   </div>
 </footer>

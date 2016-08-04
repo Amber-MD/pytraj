@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.ActionList &mdash; pytraj 1.0.8.dev0+1c3ff2c documentation</title>
+    <title>pytraj.ActionList &mdash; pytraj 1.0.8.dev0+35543d8 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.8.dev0+1c3ff2c',
+        VERSION:     '1.0.8.dev0+35543d8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.8.dev0+1c3ff2c documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.8.dev0+35543d8 documentation" href="../index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -51,7 +51,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.8.dev0+1c3ff2c</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.8.dev0+35543d8</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -213,7 +213,7 @@
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">actlist</span> <span class="o">=</span> <span class="n">ActionList</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">actlist</span> <span class="o">=</span> <span class="n">ActionList</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">actlist</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;radgyr&#39;</span><span class="p">,</span> <span class="s1">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="n">dslist</span><span class="o">=</span><span class="n">dslist</span><span class="p">)</span> 
 </pre></div>
 </div>
@@ -278,7 +278,7 @@ your calculation.</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># cpptraj command style</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
@@ -288,14 +288,14 @@ your calculation.</p>
 <span class="gp">... </span><span class="s1">             &#39;&#39;&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># a list of commands</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># a list of commands</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">compute</span><span class="p">([</span>
 <span class="gp">... </span>             <span class="s1">&#39;rms&#39;</span><span class="p">,</span>
 <span class="gp">... </span>             <span class="s1">&#39;radgyr&#39;</span><span class="p">,</span>
 <span class="gp">... </span>             <span class="s1">&#39;molsurf&#39;</span><span class="p">,],</span> <span class="n">traj</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># a list of commands with reference</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># a list of commands with reference</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># need to explicitly add ``reference`` keyword and specify `ref=`</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate rms and use traj[3] as reference</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">compute</span><span class="p">([</span>
@@ -309,7 +309,7 @@ your calculation.</p>
 <span class="go">0.0</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># a list of commands with reference</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># a list of commands with reference</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># can also specify &#39;refindex&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate rms and use traj[3] as reference</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">compute</span><span class="p">([</span>
@@ -343,23 +343,23 @@ throwing it to your own method.</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">pt</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;autoimage&#39;</span><span class="p">,</span> <span class="s1">&#39;rms&#39;</span><span class="p">,</span> <span class="s1">&#39;center :1&#39;</span><span class="p">]):</span> <span class="k">pass</span>
 </pre></div>
 </div>
 <p>Above example is similiar to cpptraj&#8217;s command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cpptraj -i EOF&lt;&lt;
-parm tz2.ortho.parm
-trajin tz2.ortho.nc
-autoimage
-rms
-center :1
-EOF
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cpptraj</span> <span class="o">-</span><span class="n">i</span> <span class="n">EOF</span><span class="o">&lt;&lt;</span>
+<span class="n">parm</span> <span class="n">tz2</span><span class="o">.</span><span class="n">ortho</span><span class="o">.</span><span class="n">parm</span>
+<span class="n">trajin</span> <span class="n">tz2</span><span class="o">.</span><span class="n">ortho</span><span class="o">.</span><span class="n">nc</span>
+<span class="n">autoimage</span>
+<span class="n">rms</span>
+<span class="n">center</span> <span class="p">:</span><span class="mi">1</span>
+<span class="n">EOF</span>
 </pre></div>
 </div>
 <p>You can design your own method:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">new_method</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">new_method</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">:</span>
         <span class="n">do_some_thing_fun_with</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
 
@@ -387,8 +387,8 @@ EOF
     </p>
     <p>
         &copy; Copyright 2015, pytraj developers.<br/>
-      Last updated on Jun 09, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.<br/>
+      Last updated on Aug 04, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
     </p>
   </div>
 </footer>

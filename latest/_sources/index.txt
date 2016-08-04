@@ -113,7 +113,7 @@ Welcome
    <div class="col-md-3">
    <h3>Try pytraj online</h3>
 
-.. image:: http://mybinder.org/images/logo.svg
+.. image:: http://mybinder.org/assets/images/logo.svg
    :target: http://mybinder.org/repo/hainm/notebook-pytraj
 
 .. raw:: html
