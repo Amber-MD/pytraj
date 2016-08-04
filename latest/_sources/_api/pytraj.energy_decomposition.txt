@@ -9,7 +9,7 @@ pytraj.energy_decomposition
     
         <script type="text/javascript" src='../_static/cindex.js'></script>
 
-.. automodule:: pytraj.externals.get_pysander_energies
+.. automodule:: pytraj.energy_analysis
     :members:
     :undoc-members:
     :show-inheritance:

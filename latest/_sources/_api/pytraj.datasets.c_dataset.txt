@@ -9,7 +9,7 @@ pytraj.datasets
     
         <script type="text/javascript" src='../_static/cindex.js'></script>
 
-.. automodule:: pytraj.datasets.c_dataset
+.. automodule:: pytraj.datasets.c_datasets
     :members:
     :undoc-members:
     :show-inheritance:

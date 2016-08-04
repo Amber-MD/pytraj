@@ -103,9 +103,6 @@ try ``pytraj`` online:
 .. _minimum_distance:
 .. autofunction:: pytraj.mindist
 
-.. _lifetime:
-.. autofunction:: pytraj.lifetime
-
 .. _auto_correlation_function:
 .. autofunction:: pytraj.acorr
 

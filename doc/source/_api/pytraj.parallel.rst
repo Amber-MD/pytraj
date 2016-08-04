@@ -18,7 +18,7 @@ pytraj.parallel
 
 .. _pytraj.pmap:
 
-.. automodule:: pytraj.parallel.multiprocessing_
+.. automodule:: pytraj.parallel.multiprocess
     :members:
     :undoc-members:
     :show-inheritance:

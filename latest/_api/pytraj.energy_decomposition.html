@@ -152,6 +152,143 @@
 <span id="id1"></span><h1>pytraj.energy_decomposition<a class="headerlink" href="#pytraj-energy-decomposition" title="Permalink to this headline">¶</a></h1>
 <div class="custom-index container">
 <script type="text/javascript" src='../_static/cindex.js'></script></div>
+<span class="target" id="module-pytraj.energy_analysis"></span><dl class="function">
+<dt id="pytraj.energy_analysis.esander">
+<code class="descclassname">pytraj.energy_analysis.</code><code class="descname">esander</code><span class="sig-paren">(</span><em>traj=None</em>, <em>prmtop=None</em>, <em>igb=8</em>, <em>mm_options=None</em>, <em>qm_options=None</em>, <em>mode=None</em>, <em>dtype='dict'</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.energy_analysis.esander" title="Permalink to this definition">¶</a></dt>
+<dd><p>energy decomposition by calling <cite>libsander</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or iterables that produce Frame</p>
+<blockquote>
+<div><p>if <cite>traj</cite> does not hold Topology information, <cite>top</cite> must be provided</p>
+</div></blockquote>
+<p><strong>prmtop</strong> : str or Structure from ParmEd, default=None, optional</p>
+<blockquote>
+<div><p>To avoid any unexpected error, you should always provide original topology
+filename. If prmtop is None, pytraj will load Topology from traj.top.filename.</p>
+<ul class="simple">
+<li>why do you need to load additional topology filename? Because cpptraj and sander
+use different Topology object, can not convert from one to another.</li>
+</ul>
+</div></blockquote>
+<p><strong>igb</strong> : GB model, default=8 (GB-Neck2)</p>
+<blockquote>
+<div><p>If specify <cite>mm_options</cite>, this <cite>igb</cite> input will be ignored</p>
+</div></blockquote>
+<p><strong>mm_options</strong> : InputOptions from <cite>sander</cite>, default=None, optional</p>
+<blockquote>
+<div><p>if <cite>mm_options</cite> is None, use <cite>gas_input</cite> with given igb.
+If <cite>mm_options</cite> is not None, use this</p>
+</div></blockquote>
+<p><strong>qm_options</strong> : InputOptions from <cite>sander</cite> for QMMM, optional</p>
+<p><strong>mode</strong> : str, default=None, optional</p>
+<blockquote>
+<div><p>if mode=&#8217;minimal&#8217;, get only &#8216;bond&#8217;, &#8216;angle&#8217;, &#8216;dihedral&#8217; and &#8216;total&#8217; energies</p>
+</div></blockquote>
+<p><strong>top</strong> : pytraj.Topology or str, default=None, optional</p>
+<blockquote>
+<div><p>only need to specify this <code class="docutils literal"><span class="pre">top</span></code> if <code class="docutils literal"><span class="pre">traj</span></code> does not hold Topology</p>
+</div></blockquote>
+<p><strong>dtype</strong> : str, {&#8216;dict&#8217;, &#8216;dataset&#8217;, &#8216;ndarray&#8217;, &#8216;dataframe&#8217;}, default=&#8217;dict&#8217;</p>
+<blockquote>
+<div><p>return data type</p>
+</div></blockquote>
+<p><strong>frame_indices</strong> : None or 1D array-like, default None</p>
+<blockquote>
+<div><p>if not None, only perform calculation for given frames</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Dict of energies (to be used with DataFrame) or DatasetList</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>This method does not work with <cite>pytraj.pmap</cite> when you specify mm_options and
+qm_options. Use <cite>pytraj.pmap_mpi</cite> with MPI instead.</p>
+<p>Work with <code class="docutils literal"><span class="pre">pytraj.pmap</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">esander</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">igb</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Will NOT work with <code class="docutils literal"><span class="pre">pytraj.pmap</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sander</span>
+<span class="n">inp</span> <span class="o">=</span> <span class="n">sander</span><span class="o">.</span><span class="n">gas_input</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">esander</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">mm_options</span><span class="o">=</span><span class="n">inp</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Why? Because Python need to pickle each object to send to different cores and Python
+does not know how to pickle mm_options from sander.gas_input(8).</p>
+<p>This works with <code class="docutils literal"><span class="pre">pytraj.pmap_mpi</span></code> because pytraj explicitly create <code class="docutils literal"><span class="pre">mm_options</span></code>
+in each core without pickling.</p>
+<p class="rubric">Examples</p>
+<p>Examples are adapted from $AMBERHOME/test/sanderapi</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># GB energy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_ala3</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">n_frames</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">esander</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">igb</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;gb&#39;</span><span class="p">]</span>
+<span class="go">array([-92.88577683])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;bond&#39;</span><span class="p">]</span>
+<span class="go">array([ 5.59350521])</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># PME</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.testing</span> <span class="k">import</span> <span class="n">amberhome</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sander</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">topfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">amberhome</span><span class="p">,</span> <span class="s2">&quot;test/4096wat/prmtop&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rstfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">amberhome</span><span class="p">,</span> <span class="s2">&quot;test/4096wat/eq1.x&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="n">rstfile</span><span class="p">,</span> <span class="n">topfile</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">options</span> <span class="o">=</span> <span class="n">sander</span><span class="o">.</span><span class="n">pme_input</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">options</span><span class="o">.</span><span class="n">cut</span> <span class="o">=</span> <span class="mf">8.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edict</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">esander</span><span class="p">(</span><span class="n">traj</span><span class="o">=</span><span class="n">traj</span><span class="p">,</span> <span class="n">mm_options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edict</span><span class="p">[</span><span class="s1">&#39;vdw&#39;</span><span class="p">]</span>
+<span class="go">array([ 6028.95167558])</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># GB + QMMM</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">topfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">amberhome</span><span class="p">,</span> <span class="s2">&quot;test/qmmm2/lysine_PM3_qmgb2/prmtop&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rstfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">amberhome</span><span class="p">,</span> <span class="s2">&quot;test/qmmm2/lysine_PM3_qmgb2/lysine.crd&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="n">rstfile</span><span class="p">,</span> <span class="n">topfile</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">options</span> <span class="o">=</span> <span class="n">sander</span><span class="o">.</span><span class="n">gas_input</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">options</span><span class="o">.</span><span class="n">cut</span> <span class="o">=</span> <span class="mf">99.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">options</span><span class="o">.</span><span class="n">ifqnt</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qm_options</span> <span class="o">=</span> <span class="n">sander</span><span class="o">.</span><span class="n">qm_input</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qm_options</span><span class="o">.</span><span class="n">iqmatoms</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qm_options</span><span class="o">.</span><span class="n">qm_theory</span> <span class="o">=</span> <span class="s2">&quot;PM3&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qm_options</span><span class="o">.</span><span class="n">qmcharge</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qm_options</span><span class="o">.</span><span class="n">qmgb</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qm_options</span><span class="o">.</span><span class="n">adjust_q</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">edict</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">esander</span><span class="p">(</span><span class="n">traj</span><span class="o">=</span><span class="n">traj</span><span class="p">,</span> <span class="n">mm_options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span> <span class="n">qm_options</span><span class="o">=</span><span class="n">qm_options</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edict</span><span class="p">[</span><span class="s1">&#39;bond&#39;</span><span class="p">]</span>
+<span class="go">array([ 0.00160733])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edict</span><span class="p">[</span><span class="s1">&#39;scf&#39;</span><span class="p">]</span>
+<span class="go">array([-11.92177575])</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># passing options to `pytraj.pmap`: need to pass string</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.testing</span> <span class="k">import</span> <span class="n">get_fn</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span> <span class="o">=</span> <span class="n">get_fn</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">inp_str</span> <span class="o">=</span> <span class="s1">&#39;mm_options = sander.pme_input()&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edict</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">esander</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">mm_options</span><span class="o">=</span><span class="n">inp_str</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edict</span><span class="p">[</span><span class="s1">&#39;dihedral&#39;</span><span class="p">]</span>
+<span class="go">array([ 126.39307126,  127.0460586 ,  137.26793522,  125.30521069,</span>
+<span class="go">        125.25110884,  137.69287326,  125.78280543,  125.14530517,</span>
+<span class="go">        118.41540102,  128.73535036])</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </div>
 
 
@@ -166,7 +303,7 @@
       
     </p>
     <p>
-        &copy; Copyright 2015, pytraj developers.<br/>
+        &copy; Copyright 2015-2016, pytraj developers.<br/>
       Last updated on Aug 04, 2016.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
     </p>
