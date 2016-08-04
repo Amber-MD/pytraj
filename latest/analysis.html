@@ -974,6 +974,45 @@ occur.</li>
 </div>
 </dd></dl>
 
+<span class="target" id="density"></span><dl class="function">
+<dt id="pytraj.density">
+<code class="descclassname">pytraj.</code><code class="descname">density</code><span class="sig-paren">(</span><em>traj</em>, <em>mask</em>, <em>density_type</em>, <em>delta=0.25</em>, <em>direction='z'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.density" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute density (number, mass, charge, electron) along a coordinate</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>mask</strong> : str or list of str</p>
+<blockquote>
+<div><p>required mask</p>
+</div></blockquote>
+<p><strong>density_type</strong> : str, {&#8216;number&#8217;, &#8216;mass&#8217;, &#8216;charge&#8217;, &#8216;electron&#8217;}</p>
+<p><strong>delta</strong> : float, default 0.25</p>
+<blockquote>
+<div><p>resolution (Angstrom)</p>
+</div></blockquote>
+<p><strong>direction</strong> : str, default &#8216;z&#8217;</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>out</strong> : dict of average density and std for each frame</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Syntax might be changed</p>
+<p class="rubric">Examples</p>
+<p>import pytraj as pt
+fn = &#8220;data/DOPC.rst7&#8221;
+tn = &#8220;data/DOPC.parm7&#8221; 
+traj = pt.load(&#8220;data/DOPC.rst7&#8221;, &#8220;data/DOPC.parm7&#8221;)</p>
+<p>delta = &#8216;0.25&#8217;
+density_type = &#8216;charge&#8217;
+masks = [&#8221;:<a class="reference external" href="mailto:PC&#37;&#52;&#48;P31">PC<span>&#64;</span>P31</a>&#8221;, &#8221;:<a class="reference external" href="mailto:PC&#37;&#52;&#48;N31">PC<span>&#64;</span>N31</a>&#8221;, &#8221;:<a class="reference external" href="mailto:PC&#37;&#52;&#48;C2">PC<span>&#64;</span>C2</a>&#8221;, &#8221;:PC | :OL | :OL2&#8221;]
+density_dict = pt.density(traj, mask=masks, density_type=density_type, delta=delta)</p>
+</dd></dl>
+
 <span class="target" id="volume"></span><dl class="function">
 <dt id="pytraj.volume">
 <code class="descclassname">pytraj.</code><code class="descname">volume</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.volume" title="Permalink to this definition">¶</a></dt>
@@ -1139,7 +1178,7 @@ occur.</li>
 <span class="target" id="autoimage"></span><dl class="function">
 <dt id="pytraj.autoimage">
 <code class="descclassname">pytraj.</code><code class="descname">autoimage</code><span class="sig-paren">(</span><em>traj</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.autoimage" title="Permalink to this definition">¶</a></dt>
-<dd><p>perform autoimage and return the coordinate-updated traj</p>
+<dd><p>perform autoimage and return the updated-coordinate traj</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()[:]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">autoimage</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
