@@ -14,8 +14,12 @@
 
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.js"></script>
 <script src="./ngl.js"></script>
+
+<style>
+</style>
 
 <script>
 document.addEventListener( "DOMContentLoaded", function(){
@@ -39,11 +43,12 @@ document.addEventListener( "DOMContentLoaded", function(){
         
         var container = stage.viewer.container;
         var $container = $(container);
-        var count = 9;
         var frame = 0;
         var timeout = 100;
         var playerInterval;
         var traj = stage.compList[0].trajList[0].trajectory;
+        var count = traj.numframes;
+
 
         var pause = function(){
             $playerButton.text( "play" );
@@ -81,18 +86,20 @@ document.addEventListener( "DOMContentLoaded", function(){
         var $playerSlider = $( "<div></div>" )
             .css( "margin-left", "70px" )
             .css( "position", "relative" )
-            .css( "bottom", "20px" )
+            .css( "bottom", "-4px" )
             .slider({
+                value: 0,
                 min: 0,
-                max: 37,
+                max: count-1,
                 slide: function(event, ui){
                     pause();
-                    stage.compList[0].trajList[0].trajectory.setFrame(ui.value);
+                    traj.setFrame(ui.value);
                     frame = ui.value;
-             }})
+                },
+             })
         
         var $player = $( "<div></div>" )
-            .css( "position", "absolute" )
+            .css( "position", "relative" )
             .css( "bottom", "5%" )
             .css( "width", "94%" )
             .css( "margin-left", "3%" )
@@ -101,12 +108,10 @@ document.addEventListener( "DOMContentLoaded", function(){
             .append( $playerSlider )
             .appendTo( $container );
 
-        console.log($player);
-
 });
 });
 
 </script>
-    <div id="viewport" style="width:600px; height:600px;"></div>
+    <div id="viewport" style="width:800px; height:800px;"></div>
 </body>
 </html>
