@@ -74,9 +74,8 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Trajectory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#overview">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
-<li class="toctree-l1"><a class="reference internal" href="read_and_write.html">Read and Write</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_and_write.html">Supported file formats</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
@@ -104,8 +103,8 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Trajectory</a></li>
-<li><a class="reference internal" href="#overview">Overview</a><ul>
+<li><a class="reference internal" href="#">Trajectory</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
 <li><a class="reference internal" href="#why-are-there-two-trajectory-classes">Why are there two trajectory classes?</a></li>
 <li><a class="reference internal" href="#try-it">Try it</a></li>
 <li><a class="reference internal" href="#see-also">See also</a></li>
@@ -165,8 +164,8 @@
 <div class="contents topic" id="contents">
 <p class="topic-title first">Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#trajectory" id="id1">Trajectory</a></li>
-<li><a class="reference internal" href="#overview" id="id2">Overview</a><ul>
+<li><a class="reference internal" href="#trajectory" id="id1">Trajectory</a><ul>
+<li><a class="reference internal" href="#overview" id="id2">Overview</a></li>
 <li><a class="reference internal" href="#why-are-there-two-trajectory-classes" id="id3">Why are there two trajectory classes?</a></li>
 <li><a class="reference internal" href="#try-it" id="id4">Try it</a></li>
 <li><a class="reference internal" href="#see-also" id="id5">See also</a></li>
@@ -174,9 +173,8 @@
 </li>
 </ul>
 </div>
-</div>
 <div class="section" id="overview">
-<h1><a class="toc-backref" href="#id2">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
+<h2><a class="toc-backref" href="#id2">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>There are two types of trajecoties in <code class="docutils literal"><span class="pre">pytraj</span></code>.</p>
 <ul class="simple">
 <li>an immutable <a class="reference internal" href="_api/pytraj.html#pytraj.TrajectoryIterator" title="pytraj.TrajectoryIterator"><code class="xref py py-class docutils literal"><span class="pre">pytraj.TrajectoryIterator</span></code></a> (work-horse of pytraj).</li>
@@ -185,6 +183,7 @@
 <ul class="simple">
 <li>a mutable <a class="reference internal" href="_api/pytraj.html#pytraj.Trajectory" title="pytraj.Trajectory"><code class="xref py py-class docutils literal"><span class="pre">pytraj.Trajectory</span></code></a>. This class hold in-memory data. It is suitable for loading a chunk of snapshots.</li>
 </ul>
+</div>
 <div class="section" id="why-are-there-two-trajectory-classes">
 <h2><a class="toc-backref" href="#id3">Why are there two trajectory classes?</a><a class="headerlink" href="#why-are-there-two-trajectory-classes" title="Permalink to this headline">¶</a></h2>
 <p>See our rationale here <a class="reference internal" href="design_trajectory.html#design-trajectory"><span class="std std-ref">Trajectory design</span></a></p>

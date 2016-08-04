@@ -42,23 +42,22 @@ Welcome
    :maxdepth: 1
 
    installation
-   trajectory
+   tutorials/index
    topology
    read_and_write
-   tutorials/index
-   analysis
-   modify_traj
-   atom_mask_selection
+   trajectory
    trajectory_slice
+   modify_traj
+   analysis
+   atom_mask_selection
    parallel
-   whatsnew
-   faq
    developer_guide
-   misc
    conda
    cookbook
-   trajectory_viewer
+   misc
    api
+   whatsnew
+   faq
 
 .. raw:: html
 

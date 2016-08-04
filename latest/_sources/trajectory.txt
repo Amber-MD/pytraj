@@ -18,7 +18,7 @@ try ``pytraj`` online:
 
 
 Overview
-========
+--------
 
 There are two types of trajecoties in ``pytraj``.
 

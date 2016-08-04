@@ -1,7 +1,8 @@
 .. _read_and_write:
 
-Read and Write
-==============
+
+Supported file formats
+======================
 
 .. contents::
 
