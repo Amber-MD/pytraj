@@ -33,9 +33,6 @@ Welcome
 `Release versions <http://amber-md.github.io/pytraj/release/>`_
 
 .. raw:: html
-    :file: versions.html
-
-.. raw:: html
 
    </div>
    <div class="col-md-3">
