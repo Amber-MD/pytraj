@@ -4,11 +4,7 @@ Trajectory Viewer
 .. raw:: html
     :file: _static/track.html
 
-.. image:: ./images/ngl.png
-| 
-.. raw:: html
-   :file: ngl_example.html
-
+Trajectory viewer in `Jupyter notebook <http://jupyter.org/>`_ with `nglview <https://github.com/arose/nglview>`_
 
 Try me
 ------
@@ -21,6 +17,15 @@ Try me
     Source: Above pdb file was converted from dcd and psf files from
     http://www.ks.uiuc.edu/Training/Tutorials/ (Membrane Proteins Tutorial section)
 
+
+How does the notebook look like?
+--------------------------------
+
+.. image:: ./images/ngl.png
+| 
+.. raw:: html
+   :file: ngl_example.html
+
 .. note:: 
 
     Still work in progress. Please see source code in https://github.com/arose/nglview/
@@ -28,11 +33,8 @@ Try me
     or `try this online <http://mybinder.org/repo/hainm/notebook-pytraj/>`_
 
 
-Requirement: jupyter notebook, nglview::
 
-    # install notebook via conda.
-    conda install jupyter notebook
+Install
+-------
 
-    # install nglview
-    pip install git+https://github.com/arose/nglview
-
+Please check `nglview <https://github.com/arose/nglview>`_ website
