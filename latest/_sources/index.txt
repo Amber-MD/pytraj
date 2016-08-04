@@ -43,8 +43,8 @@ Welcome
 
    installation
    tutorials/index
-   topology
    read_and_write
+   topology
    trajectory
    trajectory_slice
    modify_traj

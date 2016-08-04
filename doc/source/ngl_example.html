@@ -12,10 +12,9 @@
 
     <body>
 
-        <script src="ngl.embedded.min.js"></script>
+        <script src="./ngl.js"></script>
 
         <script>
-            NGL.mainScriptFilePath = "ngl.embedded.min.js";
             document.addEventListener( "DOMContentLoaded", function(){
                 var stage = new NGL.Stage( "viewport" );
                 stage.viewer.container.addEventListener( "dblclick", function(){
@@ -27,7 +26,7 @@
                     o.centerView();
                 });
                 // stage.addRepresentation( "licorice", {'sele': 'not water'} );
-                stage.setTheme( "light" );
+                stage.setParameters({'backgroundColor': 'white'});
             } );
         </script>
 

@@ -9,6 +9,13 @@ Trajectory Viewer
 .. raw:: html
    :file: ngl_example.html
 
+
+Try me
+------
+
+.. image:: images/membrane_sim_try_me.png
+   :target: ngl_player.html
+
 .. note:: 
 
     Still work in progress. Please see source code in https://github.com/arose/nglview/

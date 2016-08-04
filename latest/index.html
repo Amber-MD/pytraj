@@ -73,8 +73,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
 <li class="toctree-l1"><a class="reference internal" href="read_and_write.html">Supported file formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
 <li class="toctree-l1"><a class="reference internal" href="trajectory.html">Trajectory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Fancy indexing of trajectory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
@@ -183,8 +183,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
 <li class="toctree-l1"><a class="reference internal" href="read_and_write.html">Supported file formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
 <li class="toctree-l1"><a class="reference internal" href="trajectory.html">Trajectory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Fancy indexing of trajectory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
@@ -234,10 +234,9 @@
 
     <body>
 
-        <script src="ngl.embedded.min.js"></script>
+        <script src="./ngl.js"></script>
 
         <script>
-            NGL.mainScriptFilePath = "ngl.embedded.min.js";
             document.addEventListener( "DOMContentLoaded", function(){
                 var stage = new NGL.Stage( "viewport" );
                 stage.viewer.container.addEventListener( "dblclick", function(){
@@ -249,7 +248,7 @@
                     o.centerView();
                 });
                 // stage.addRepresentation( "licorice", {'sele': 'not water'} );
-                stage.setTheme( "light" );
+                stage.setParameters({'backgroundColor': 'white'});
             } );
         </script>
 
