@@ -16,6 +16,11 @@ Try me
 .. image:: images/membrane_sim_try_me.png
    :target: ngl_player.html
 
+.. note::
+
+    Source: Above pdb file was converted from dcd and psf files from
+    http://www.ks.uiuc.edu/Training/Tutorials/ (Membrane Proteins Tutorial section)
+
 .. note:: 
 
     Still work in progress. Please see source code in https://github.com/arose/nglview/
