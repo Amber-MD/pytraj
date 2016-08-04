@@ -55,7 +55,7 @@ list_of_calc = ['calc_distance',
 list_of_calc_short = [word.replace('calc_', '')
                       for word in list_of_calc if not word in ['calc_matrix', ]]
 
-list_of_do = ['translate', 'rotate', 'autoimage', 'scale']
+list_of_do = ['translate', 'rotate', 'autoimage', 'image', 'scale']
 
 list_of_get = ['get_average_frame', 'get_velocity']
 
@@ -68,6 +68,7 @@ list_of_the_rest = ['rmsd', 'align_principal_axis', 'principal_axes', 'closest',
                     'xcorr', 'acorr',
                     'projection',
                     'superpose', 'strip',
+                    'density', 'gist',
                     'center', 'wavelet'
                     ]
 
@@ -1264,11 +1265,11 @@ do_rotation = rotate
 
 
 @super_dispatch()
-def do_autoimage(traj,
-                 mask="",
-                 frame_indices=None,
-                 top=None):
-    '''perform autoimage and return the coordinate-updated traj
+def autoimage(traj,
+              mask="",
+              frame_indices=None,
+              top=None):
+    '''perform autoimage and return the updated-coordinate traj
 
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()[:]
@@ -1278,9 +1279,28 @@ def do_autoimage(traj,
     c_action.Action_AutoImage()(mask, traj, top=top)
     return traj
 
+do_autoimage = autoimage
 
-autoimage = do_autoimage
+@super_dispatch()
+def image(traj,
+          mask="",
+          frame_indices=None,
+          top=None):
+    '''perform imaging and return the updated-coordinate traj
 
+    Notes
+    -----
+    User should always try to use `autoimage` first
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()[:]
+    >>> traj = pt.image(traj, 'origin center :WAT')
+    '''
+    _assert_mutable(traj)
+    c_action.Action_Image()(mask, traj, top=top)
+    return traj
 
 @register_pmap
 def mean_structure(traj,
@@ -3164,6 +3184,90 @@ def atomiccorr(traj,
 
 calc_atomiccorr = atomiccorr
 
+def gist(traj, command):
+    """minimal support for gist command in cpptraj
+
+    Notes
+    -----
+    Syntax might be changed.
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    command : cpptraj command
+
+    Returns
+    -------
+    None. All outputs will be written to disk. Please check cpptraj manual.
+    """
+    act = c_action.Action_Gist()
+    c_dslist = CpptrajDatasetList()
+
+    act(command, traj, top=traj.top, dslist=c_dslist)
+    act.post_process()
+
+def density(traj,
+            mask,
+            density_type,
+            delta=0.25,
+            direction='z'):
+    """Compute density (number, mass, charge, electron) along a coordinate
+
+    Notes
+    -----
+    Syntax might be changed
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str or list of str
+        required mask
+    density_type : str, {'number', 'mass', 'charge', 'electron'}
+    delta : float, default 0.25
+        resolution (Angstrom)
+    direction : str, default 'z'
+
+    Returns
+    -------
+    out : dict of average density and std for each frame
+
+    Examples
+    --------
+
+        import pytraj as pt
+        fn = "data/DOPC.rst7"
+        tn = "data/DOPC.parm7" 
+        traj = pt.load("data/DOPC.rst7", "data/DOPC.parm7")
+
+        delta = '0.25'
+        density_type = 'charge'
+        masks = [":PC@P31", ":PC@N31", ":PC@C2", ":PC | :OL | :OL2"]
+        density_dict = pt.density(traj, mask=masks, density_type=density_type, delta=delta)
+    """
+
+    density_type_set = {'number', 'mass', 'charge', 'electron'}
+    assert density_type.lower() in density_type_set, '{} must be in {}'.format(density_type, density_type_set)
+
+    delta_ = 'delta {}'.format(delta)
+
+    if isinstance(mask, string_types):
+        mask_ = '"' + mask + '"'
+    elif isinstance(mask, (list, tuple)):
+        mask_ = ' '.join(['"' + m + '"' for m in mask])
+    else:
+        raise ValueError("mask must be either string or list/tuple of string")
+
+    command = ' '.join((delta_, direction, density_type, mask_))
+
+    act = c_action.Action_Density()
+    c_dslist = CpptrajDatasetList()
+
+    act(command, traj, top=traj.top, dslist=c_dslist)
+    act.post_process()
+
+    return get_data_from_dtype(c_dslist, dtype='dict')
+
+calc_density = density
 
 def _grid(traj,
           mask,

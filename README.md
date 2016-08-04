@@ -2,7 +2,7 @@
 [![Binstar Badge](https://anaconda.org/ambermd/pytraj/badges/version.svg)](https://anaconda.org/ambermd/pytraj/)
 [![PyPI version](https://badge.fury.io/py/pytraj.svg)](https://badge.fury.io/py/pytraj)
 [![Coverage Status](https://coveralls.io/repos/Amber-MD/pytraj/badge.svg?branch=master&service=github)](https://coveralls.io/github/Amber-MD/pytraj?branch=master)
-[![Binder](http://mybinder.org/images/logo.svg)](http://mybinder.org/repo/hainm/notebook-pytraj)
+[![Binder](http://mybinder.org/assets/images/logo.svg)](http://mybinder.org/repo/hainm/notebook-pytraj)
 
 [![pytraj website](./examples/figures/pytraj.gif)](http://amber-md.github.io/pytraj/latest/index.html)
 
@@ -53,6 +53,9 @@ Supported platforms: Linux, OSX
     python setup.py install
  
     # Note: openmp will be turned off in OSX.
+    
+    # AMBER user: overwrite pytraj in $AMBERHOME
+    python setup.py install --prefix=$AMBERHOME
     ```
 
 - getting trouble? : [check our webpage](http://amber-md.github.io/pytraj/latest/installation.html)

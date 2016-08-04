@@ -6,7 +6,7 @@ matrix:
     - { os: linux, env: PYTHON_VERSION=3.4 }
     - { os: linux, env: PYTHON_VERSION=3.5 }
     - { os: linux, env: PYTHON_VERSION=3.5 COMPILER=clang }
-    - { os: osx, env: PYTHON_VERSION=3.5 }
+    # - { os: osx, env: PYTHON_VERSION=3.5 }
 
 sudo: false
 
