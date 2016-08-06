@@ -6,8 +6,8 @@ import warnings
 warnings.filterwarnings('ignore', category=UserWarning)
 
 suggested_modules = ['sphinx', 'sander', 'parmed', 'numpy', 'mpi4py',
-               'sklearn',
-               'pandas', 'matplotlib', 'seaborn', 'sphinx_bootstrap_theme']
+                     'sklearn', 'pandas', 'matplotlib', 'seaborn',
+                     'sphinx_bootstrap_theme']
 
 suggested_modules.remove('sander')
 
