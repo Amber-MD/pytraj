@@ -38,7 +38,7 @@
                         stage.viewer.container.addEventListener( "dblclick", function(){
                             stage.toggleFullscreen();
                         } );
-                        stage.loadFile("rcsb://1BLJ.mmtf").then( function( o ) {
+                        stage.loadFile("rcsb://1BLJ.mmtf", {asTrajectory: true}).then( function( o ) {
                             o.addRepresentation( "cartoon" );
                             o.addRepresentation( "licorice", {'sele': 'water and not hydrogen'} );
                             o.centerView();
