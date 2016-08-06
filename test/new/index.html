@@ -20,7 +20,7 @@
             <div>
                 <a href="http://mybinder.org/repo/hainm/notebook-pytraj" class="button">Try it</a>
                 <a href="http://amber-md.github.io/pytraj/latest/installation.html" class="button">Get it</a>
-                <a href="http://amber-md.github.io/pytraj/latest/index.html" class="button">Docs</a>
+                <a href="http://amber-md.github.io/pytraj/latest/index.html" class="button">Read it</a>
             </div>
         </div>
     </header>
@@ -33,11 +33,28 @@
             </div>
         </div>
         <div class="feature">
-            <h3 class="feature-title">Visulization</h3>
+            <h3 class="feature-title">Visualization</h3>
             <div class="feature-description">
                 NGLView and pytraj
+                <script src="./ngl.js"></script>
+
+                <script>
+                    document.addEventListener( "DOMContentLoaded", function(){
+                        var stage = new NGL.Stage( "viewport" );
+                        stage.viewer.container.addEventListener( "dblclick", function(){
+                            stage.toggleFullscreen();
+                        } );
+                        stage.loadFile("rcsb://1BLJ.mmtf").then( function( o ) {
+                            o.addRepresentation( "cartoon" );
+                            o.addRepresentation( "licorice", {'sele': 'water and not hydrogen'} );
+                            o.centerView();
+                        });
+                        stage.setParameters({'backgroundColor': 'white'});
+                    } );
+                </script>
+
+                <div id="viewport" style="width:500px; height:500px;"></div>
             </div>
-            <iframe src="ngl_player.html"></iframe>
         </div>
         <div class="feature">
             <h3 class="feature-title">Test feature</h3>
