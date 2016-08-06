@@ -27,24 +27,10 @@
 
     <div class="features">
         <div class="feature">
-            <script src="./ngl.js"></script>
-
-            <script>
-                document.addEventListener( "DOMContentLoaded", function(){
-                    var stage = new NGL.Stage( "viewport" );
-                    stage.viewer.container.addEventListener( "dblclick", function(){
-                        stage.toggleFullscreen();
-                    } );
-                    stage.loadFile("rcsb://1BLJ.mmtf", {asTrajectory: true}).then( function( o ) {
-                        o.addRepresentation( "cartoon" );
-                        o.addRepresentation( "licorice", {'sele': 'water and not hydrogen'} );
-                        o.centerView();
-                    });
-                    stage.setParameters({'backgroundColor': 'white'});
-                } );
-            </script>
-
-            <div id="viewport" style="width:300px; height:300px;"></div>
+            <img src="http://amber-md.github.io/pytraj/latest/_images/phipsi_ala3.png"></img>
+        </div>
+        <div class="feature">
+            <img src="http://amber-md.github.io/pytraj/latest/_images/phipsi_ala3.png"></img>
         </div>
     </div>
   </body>
