@@ -3207,10 +3207,11 @@ def gist(traj, command):
     act.post_process()
 
 def density(traj,
-            mask,
-            density_type,
+            mask='*',
+            density_type='number',
             delta=0.25,
-            direction='z'):
+            direction='z',
+            dtype='dict'):
     """Compute density (number, mass, charge, electron) along a coordinate
 
     Notes
@@ -3220,12 +3221,14 @@ def density(traj,
     Parameters
     ----------
     traj : Trajectory-like
-    mask : str or list of str
+    mask : str or list of str, default '*'
         required mask
-    density_type : str, {'number', 'mass', 'charge', 'electron'}
+    density_type : str, {'number', 'mass', 'charge', 'electron'}, default 'number'
     delta : float, default 0.25
         resolution (Angstrom)
     direction : str, default 'z'
+    dtype : str, default 'dict'
+        return data type. Please always using default value, others are for debugging.
 
     Returns
     -------
@@ -3234,15 +3237,18 @@ def density(traj,
     Examples
     --------
 
-        import pytraj as pt
-        fn = "data/DOPC.rst7"
-        tn = "data/DOPC.parm7" 
-        traj = pt.load("data/DOPC.rst7", "data/DOPC.parm7")
+    >>> def func():
+    ...     import pytraj as pt
+    ...     fn = "data/DOPC.rst7"
+    ...     tn = "data/DOPC.parm7" 
+    ...     traj = pt.load("data/DOPC.rst7", "data/DOPC.parm7")
 
-        delta = '0.25'
-        density_type = 'charge'
-        masks = [":PC@P31", ":PC@N31", ":PC@C2", ":PC | :OL | :OL2"]
-        density_dict = pt.density(traj, mask=masks, density_type=density_type, delta=delta)
+    ...     delta = '0.25'
+    ...     density_type = 'charge'
+    ...     masks = [":PC@P31", ":PC@N31", ":PC@C2", ":PC | :OL | :OL2"]
+    ...     density_dict = pt.density(traj, mask=masks, density_type=density_type, delta=delta)
+    ...     return density_dict
+    >>> density_dict = func() # doctest: +SKIP
     """
 
     density_type_set = {'number', 'mass', 'charge', 'electron'}
@@ -3265,7 +3271,11 @@ def density(traj,
     act(command, traj, top=traj.top, dslist=c_dslist)
     act.post_process()
 
-    return get_data_from_dtype(c_dslist, dtype='dict')
+    result = get_data_from_dtype(c_dslist, dtype=dtype)
+
+    if isinstance(result, dict):
+        result.update({direction: c_dslist[0]._coord(dim=0)})
+    return result
 
 calc_density = density
 

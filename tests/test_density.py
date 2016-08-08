@@ -2,6 +2,7 @@
 
 from __future__ import print_function
 import unittest
+import numpy as np
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
 
@@ -42,8 +43,8 @@ class TestDensity(unittest.TestCase):
         pt.center(traj, '":PC | :OL | :OL2" origin')
         density_dict = {}
         for density_type in density_types:
-            denstiy_data = pt.density(traj, mask=masks, delta=delta, density_type=density_type)
-            density_dict[density_type] = denstiy_data
+            density_data = pt.density(traj, mask=masks, delta=delta, density_type=density_type)
+            density_dict[density_type] = density_data
 
         # compate to cpptraj
         for density_type in density_types:
@@ -56,6 +57,10 @@ class TestDensity(unittest.TestCase):
             pt.density(traj, mask=':WAT', density_type='hello')
 
         self.assertRaises(AssertionError, func)
+
+        # test 'z' value
+        saved_z_values = np.linspace(-24.1250,  23.8750, 193)
+        aa_eq(density_data['z'], saved_z_values)
 
 if __name__ == "__main__":
     unittest.main()
