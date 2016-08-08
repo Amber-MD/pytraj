@@ -40,6 +40,7 @@ cdef extern from "DataSet.h":
         size_t Size()
         _MetaData& Meta()
         int SetMeta(_MetaData&)
+        double Coord(unsigned int d, size_t p)
 
 cdef class Dataset:
     cdef _Dataset* baseptr0

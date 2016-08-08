@@ -250,6 +250,8 @@ cdef class Dataset1D (Dataset):
 
         return np.array([self.baseptr_1.Xcrd(idx) for idx in range(len(self))])
 
+    def _coord(self, unsigned int dim=0):
+        return np.array([self.baseptr0.Coord(dim, idx) for idx in range(len(self))])
 
 cdef class DatasetDouble (Dataset1D):
     def __cinit__(self, *args):
