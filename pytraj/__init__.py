@@ -72,6 +72,7 @@ from .frameiter import iterframe, iterchunk
 
 # alias
 write_trajectory = write_traj
+select = select_atoms
 
 load_from_frame_iter = _load_from_frame_iter
 

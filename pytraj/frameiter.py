@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 from pytraj.frame import Frame
+from . shared_methods import iterframe_master
 
 __all__ = ['iterframe', 'iterchunk', 'FrameIterator']
 
