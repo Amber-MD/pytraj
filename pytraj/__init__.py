@@ -16,27 +16,38 @@ from .version import version as __version__
 from .c_options import info as compiled_info
 from .c_options import __cpptraj_version__
 from .c_options import __cpptraj_internal_version__
-from .c_action.actionlist import ActionList, ActionList as Pipeline, pipe, compute
-from .core import Atom, Residue, Molecule
-from .core.c_core import CpptrajState, ArgList, AtomMask
+from .c_action.actionlist import ActionList
+from .c_action.actionlist import ActionList as Pipeline
+from .c_action.actionlist import pipe
+from .c_action.actionlist import compute
+from .core import Atom
+from .core import Residue
+from .core import Molecule
+from .core.c_core import CpptrajState
+from .core.c_core import ArgList
+from .core.c_core import AtomMask
 from .core.c_core import Command
-from . import array, c_commands
-from .topology import Topology, ParmFile
-from .math import Vec3
-from .frame import Frame
-from .shared_methods import iterframe_master
-from .frameiter import iterframe, iterchunk
+from . import array
+from . import c_commands
 from .trajectory import Trajectory
 from .trajectory_iterator import TrajectoryIterator
 from .c_traj.c_trajout import TrajectoryWriter
+from .frame import Frame
+from .topology import Topology
+from .topology import ParmFile
+from .math import Vec3
+from .shared_methods import iterframe_master
+from .frameiter import iterframe
+from .frameiter import iterchunk
 from .datasets.cast_dataset import cast_dataset
 from .datasetlist import DatasetList as Dataset
+
 from . import io
 from .io import load
 from .io import iterload
 from .io import load_remd
 from .io import iterload_remd
-from .io import _load_from_frame_iter
+from .io import _load_from_frame_iter as load_from_frame_iter
 from .io import load_pdb_rcsb
 from .io import load_cpptraj_file
 from .io import load_sample_data
@@ -53,8 +64,6 @@ from .io import read_pickle
 from .io import to_pickle
 from .io import select_atoms
 
-load_from_frame_iter = _load_from_frame_iter
-
 # dataset stuff
 from .datafiles import load_cpptraj_state
 from .datasetlist import DatasetList
@@ -68,11 +77,15 @@ from .c_action import c_action
 from .c_analysis import c_analysis as allanalyses
 from .c_analysis import c_analysis
 
-from .dssp_analysis import calc_dssp, dssp_allatoms, dssp_allresidues
-from .nucleic_acid_analysis import nastruct
-from .nmr import ired_vector_and_matrix, _ired, NH_order_parameters
-from .hbond_analysis import hbond
+from .dssp_analysis import calc_dssp
+from .dssp_analysis import dssp_allatoms
+from .dssp_analysis import dssp_allresidues
 from .energy_analysis import esander
+from .hbond_analysis import hbond
+from .nucleic_acid_analysis import nastruct
+from .nmr import ired_vector_and_matrix
+from .nmr import _ired
+from .nmr import NH_order_parameters
 
 from .all_actions import acorr
 from .all_actions import align
@@ -175,7 +188,12 @@ from .misc import info
 from .run_tests import run_tests
 
 # turn off verbose in cpptraj
-from .c_options import set_error_silent, set_world_silent, set_cpptraj_verbose
+from .c_options import set_error_silent
+from .c_options import set_world_silent
+from .c_options import set_cpptraj_verbose
+from .c_options import set_cpptraj_verbose as _verbose
+set_world_silent(True)
+
 from .cyutils import _fast_iterptr as iterframe_from_array
 
 # alias
@@ -238,9 +256,6 @@ from .parallel.multiprocess import pmap, _pmap
 from .parallel.mpi import pmap_mpi
 from .parallel.base import _load_batch_pmap
 from .visualization import view
-
-set_world_silent(True)
-_verbose = set_cpptraj_verbose
 
 def show_versions():
     """
