@@ -2,6 +2,13 @@
 pytraj
 """
 from __future__ import absolute_import
+
+try:
+    import numpy as np
+    np.set_printoptions(threshold=10)
+except ImportError:
+    raise ImportError("require numpy")
+
 import sys
 import os
 
