@@ -1,5 +1,79 @@
 from __future__ import absolute_import
 from pytraj.frame import Frame
+from . shared_methods import iterframe_master
+
+__all__ = ['iterframe', 'iterchunk', 'FrameIterator']
+
+def iterframe(traj, *args, **kwd):
+    """create frame iterator with given indices, mask or some iter_options
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> for frame in pt.iterframe(traj, 0, 8, 2): pass
+    >>> for frame in pt.iterframe(traj, 4, mask='@CA'): print(frame)
+    <Frame with 12 atoms>
+    <Frame with 12 atoms>
+    <Frame with 12 atoms>
+    <Frame with 12 atoms>
+    <Frame with 12 atoms>
+    <Frame with 12 atoms>
+
+    # create frame iterator for given indices
+    >>> for frame in pt.iterframe(traj, frame_indices=[0, 7, 3]): print(frame)
+    <Frame with 5293 atoms>
+    <Frame with 5293 atoms>
+    <Frame with 5293 atoms>
+
+
+    >>> fi = pt.iterframe(traj)
+    >>> # iterframe its self
+    >>> fi = pt.iterframe(fi)
+
+    See also
+    --------
+    pytraj.TrajectoryIterator.iterframe
+    """
+    if hasattr(traj, 'iterframe'):
+        return traj.iterframe(*args, **kwd)
+    else:
+        return iterframe_master(traj)
+
+def iterchunk(traj, *args, **kwd):
+    """iterate ``traj`` by chunk
+
+    Parameters
+    ----------
+    traj : TrajectoryIterator
+    chunksize : int
+        the number of frames in each chunk
+    start : int, default 0
+        start frame to iterate
+    start : int, default -1 (last frame)
+        stop frame
+    autoimage : bool, default False
+        if True, do autoimage for chunk
+
+    Return
+    ------
+    pytraj.Trajectory, n_frames=chunksize
+        The final chunk might not have the n_frames=chunksize
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> for frame in pt.iterchunk(traj, 4): pass
+    >>> for frame in pt.iterchunk(traj, chunksize=4, start=2): pass
+    >>> for frame in pt.iterchunk(traj, chunksize=4, start=2, stop=9): pass
+    >>> for frame in pt.iterchunk(traj, chunksize=4, autoimage=True): pass
+
+    See also
+    --------
+    pytraj.TrajectoryIterator.iterchunk
+    """
+    return traj.iterchunk(*args, **kwd)
 
 
 class FrameIterator(object):

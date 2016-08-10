@@ -32,3 +32,9 @@ def set_error_silent(turnoff=True):
 
 def set_world_silent(turnoff=True):
     SetWorldSilent(turnoff)
+
+def set_cpptraj_verbose(cm=True):
+    if cm:
+        set_world_silent(False)
+    else:
+        set_world_silent(True)
