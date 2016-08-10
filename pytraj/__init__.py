@@ -76,10 +76,6 @@ load_from_frame_iter = _load_from_frame_iter
 from .datafiles import load_cpptraj_state
 from .datasetlist import DatasetList
 
-# alias
-load_cpptrajstate = load_cpptraj_state
-load_state = load_cpptraj_state
-
 # tool
 from . import tools
 
@@ -190,9 +186,6 @@ watershell = calc_watershell
 pairdist = calc_pairdist
 volume = calc_volume
 rms2d = calc_pairwise_rmsd
-
-# io
-load_pipeline = load_batch
 
 adict = ActionDict()
 analdict = AnalysisDict()
