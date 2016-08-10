@@ -2,7 +2,6 @@
 pytraj
 """
 from __future__ import absolute_import
-from sys import platform as _platform
 import sys
 import os
 
@@ -10,69 +9,42 @@ from .version import version as __version__
 from .c_options import info as compiled_info
 from .c_options import __cpptraj_version__
 from .c_options import __cpptraj_internal_version__
-
-if 'BINTRAJ' not in compiled_info():
-    from warnings import warn
-    warn('linking to libcpptraj that were not installed with libnetcdf')
-
-from .c_action.actionlist import ActionList, pipe, compute
-Pipeline = ActionList
-
-try:
-    import numpy as np
-    np.set_printoptions(threshold=10)
-except ImportError:
-    raise ImportError("require numpy")
-    
-from . import options
-
-# import partial from functools
-from functools import partial
-
-from .externals.six import string_types
+from .c_action.actionlist import ActionList, ActionList as Pipeline, pipe, compute
 from .core import Atom, Residue, Molecule
 from .core.c_core import CpptrajState, ArgList, AtomMask
 from .core.c_core import Command
-from .core.c_core import Command
-dispatch = Command.dispatch
 from . import array, c_commands
 from .topology import Topology, ParmFile
 from .math import Vec3
 from .frame import Frame
 from .shared_methods import iterframe_master
+from .frameiter import iterframe, iterchunk
 from .trajectory import Trajectory
 from .trajectory_iterator import TrajectoryIterator
 from .c_traj.c_trajout import TrajectoryWriter
 from .datasets.cast_dataset import cast_dataset
 from .datasetlist import DatasetList as Dataset
 from . import io
-from .io import (load,
-                 iterload,
-                 load_remd,
-                 iterload_remd,
-                 _load_from_frame_iter,
-                 load_pdb_rcsb,
-                 load_cpptraj_file,
-                 load_sample_data,
-                 load_parmed,
-                 load_leap,
-                 load_antechamber,
-                 load_topology,
-                 load_batch,
-                 write_parm,
-                 get_coordinates,
-                 save,
-                 write_traj,
-                 read_pickle,
-                 to_pickle,
-                 select_atoms,
-                 )
-
-from .frameiter import iterframe, iterchunk
-
-# alias
-write_trajectory = write_traj
-select = select_atoms
+from .io import load
+from .io import iterload
+from .io import load_remd
+from .io import iterload_remd
+from .io import _load_from_frame_iter
+from .io import load_pdb_rcsb
+from .io import load_cpptraj_file
+from .io import load_sample_data
+from .io import load_parmed
+from .io import load_leap
+from .io import load_antechamber
+from .io import load_topology
+from .io import load_batch
+from .io import write_parm
+from .io import get_coordinates
+from .io import save
+from .io import write_traj
+from .io import read_pickle
+from .io import to_pickle
+from .io import select_atoms
 
 load_from_frame_iter = _load_from_frame_iter
 
@@ -95,56 +67,114 @@ from .nmr import ired_vector_and_matrix, _ired, NH_order_parameters
 from .hbond_analysis import hbond
 from .energy_analysis import esander
 
-from .all_actions import (
-    calc_rmsd_nofit, rmsd, symmrmsd, rmsd_perres, distance_rmsd, calc_multidihedral,
-    autoimage, image, calc_angle, calc_dihedral, calc_distance,
-    calc_pairwise_distance, calc_center_of_mass, calc_center_of_geometry,
-    calc_jcoupling, calc_surf, calc_molsurf, calc_radgyr, calc_rdf, calc_vector,
-    calc_pairwise_rmsd, calc_atomicfluct, atomicfluct, calc_bfactors,
-    calc_rotation_matrix, calc_watershell, calc_volume, calc_mindist,
-    calc_atomiccorr,
-    # lifetime,
-    pucker,
-    get_average_frame, get_velocity, _dihedral_res,
-    native_contacts, principal_axes,
-    align_principal_axis,
-    timecorr, center, translate, rotate,
-    rotate_dihedral, make_structure, scale, randomize_ions,
-    set_dihedral, crank, closest, search_neighbors, replicate_cell,
-    calc_pairdist, _grid, grid, transform, lowestcurve, calc_diffusion, calc_volmap,
-    calc_multivector, pca, projection,
-    xcorr, acorr, velocityautocorr,
-    check_structure,
-    calc_matrix,
-    superpose, align, strip,
-    density, gist,
-    wavelet)
+from .all_actions import acorr
+from .all_actions import align
+from .all_actions import align_principal_axis
+from .all_actions import atomicfluct
+from .all_actions import autoimage
+from .all_actions import calc_angle
+from .all_actions import calc_atomiccorr
+from .all_actions import calc_atomicfluct
+from .all_actions import calc_bfactors
+from .all_actions import calc_center_of_geometry
+from .all_actions import calc_center_of_mass
+from .all_actions import calc_diffusion
+from .all_actions import calc_dihedral
+from .all_actions import calc_distance
+from .all_actions import calc_jcoupling
+from .all_actions import calc_matrix
+from .all_actions import calc_mindist
+from .all_actions import calc_molsurf
+from .all_actions import calc_multidihedral
+from .all_actions import calc_multivector
+from .all_actions import calc_pairdist
+from .all_actions import calc_pairwise_distance
+from .all_actions import calc_pairwise_rmsd
+from .all_actions import calc_radgyr
+from .all_actions import calc_rdf
+from .all_actions import calc_rmsd_nofit
+from .all_actions import calc_rotation_matrix
+from .all_actions import calc_surf
+from .all_actions import calc_vector
+from .all_actions import calc_volmap
+from .all_actions import calc_volume
+from .all_actions import calc_watershell
+from .all_actions import center
+from .all_actions import check_structure
+from .all_actions import closest
+from .all_actions import crank
+from .all_actions import density
+from .all_actions import _dihedral_res
+from .all_actions import distance_rmsd
+from .all_actions import get_average_frame
+from .all_actions import get_velocity
+from .all_actions import gist
+from .all_actions import grid
+from .all_actions import _grid
+from .all_actions import image
+# from .all_actions import lifetime
+from .all_actions import lowestcurve
+from .all_actions import make_structure
+from .all_actions import native_contacts
+from .all_actions import pca
+from .all_actions import principal_axes
+from .all_actions import projection
+from .all_actions import pucker
+from .all_actions import randomize_ions
+from .all_actions import replicate_cell
+from .all_actions import rmsd
+from .all_actions import rmsd_perres
+from .all_actions import rotate
+from .all_actions import rotate_dihedral
+from .all_actions import scale
+from .all_actions import search_neighbors
+from .all_actions import set_dihedral
+from .all_actions import strip
+from .all_actions import superpose
+from .all_actions import symmrmsd
+from .all_actions import timecorr
+from .all_actions import transform
+from .all_actions import translate
+from .all_actions import velocityautocorr
+from .all_actions import wavelet
+from .all_actions import xcorr
 
 from .matrix import dist as distance_matrix
+from . import matrix
+from . import vector
 from . import cluster
 
-from .dihedral_analysis import (calc_phi, calc_psi, calc_alpha, calc_beta,
-                        calc_omega, calc_chin, calc_chip, calc_delta,
-                        calc_epsilon, calc_gamma, calc_zeta,
-                        calc_omega, calc_nu1, calc_nu2)
+from . import dihedral_analysis
+from .dihedral_analysis import calc_alpha
+from .dihedral_analysis import calc_beta
+from .dihedral_analysis import calc_chin
+from .dihedral_analysis import calc_chip
+from .dihedral_analysis import calc_delta
+from .dihedral_analysis import calc_epsilon
+from .dihedral_analysis import calc_gamma
+from .dihedral_analysis import calc_nu1
+from .dihedral_analysis import calc_nu2
+from .dihedral_analysis import calc_omega
+from .dihedral_analysis import calc_omega
+from .dihedral_analysis import calc_phi
+from .dihedral_analysis import calc_psi
+from .dihedral_analysis import calc_zeta
 
 from .c_action.c_action import ActionDict
 from .c_analysis.analysis_dict import AnalysisDict
-from . import matrix
-from . import dihedral_analysis
-from . import vector
 
 # others
 from .misc import info
 from .run_tests import run_tests
 
-
 # turn off verbose in cpptraj
-# TODO: need to move set_world_silent and set_error_silent to the same file
-from .c_options import set_error_silent, set_world_silent
+from .c_options import set_error_silent, set_world_silent, set_cpptraj_verbose
 from .cyutils import _fast_iterptr as iterframe_from_array
 
-# create alias
+# alias
+write_trajectory = write_traj
+select = select_atoms
+dispatch = Command.dispatch
 energy_decomposition = esander
 check_overlap = check_structure
 fetch_pdb = load_pdb_rcsb
@@ -168,7 +198,7 @@ average_frame = get_average_frame
 calc_pca = pca
 pair_distribution = pairdist = calc_pairdist
 
-# compat with cpptraj, (FIXME)
+# compat with cpptraj
 distance = calc_distance
 angle = calc_angle
 dihedral = calc_dihedral
@@ -202,12 +232,6 @@ from .parallel.mpi import pmap_mpi
 from .parallel.base import _load_batch_pmap
 from .visualization import view
 
-def set_cpptraj_verbose(cm=True):
-    if cm:
-        set_world_silent(False)
-    else:
-        set_world_silent(True)
-
 set_world_silent(True)
 _verbose = set_cpptraj_verbose
 
@@ -221,6 +245,7 @@ def show_versions():
     print("cpptraj version = ", __cpptraj_version__)
     print("cpptraj internal version = ", __cpptraj_internal_version__)
     print("cpptraj compiled flag = ", compiled_info())
+
 
 # for website
 # do not put __all__ in the top of this file to avoid circular import (all_actions)

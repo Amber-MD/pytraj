@@ -902,4 +902,3 @@ def select_atoms(mask, topology):
         mask, topology = topology, mask
     return topology.select(mask)
 
-
