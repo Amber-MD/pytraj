@@ -393,16 +393,15 @@ cdef class Action_FixAtomOrder (Action):
 
 
 
-cdef extern from "Action_Gist.h": 
-    cdef cppclass _Action_Gist "Action_Gist" (_Action) nogil:
-        _Action_Gist() 
+cdef extern from "Action_GIST.h": 
+    cdef cppclass _Action_GIST "Action_GIST" (_Action) nogil:
+        _Action_GIST() 
         _DispatchObject * Alloc() 
         void Help() 
 
 
-cdef class Action_Gist (Action):
-    cdef _Action_Gist* thisptr
-
+cdef class Action_GIST (Action):
+    cdef _Action_GIST* thisptr
 
 
 cdef extern from "Action_Grid.h": 

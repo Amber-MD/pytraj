@@ -5,6 +5,7 @@ from .c_datasets cimport(_Dataset, Dataset, Dataset1D, _Dataset1D, DatasetIntege
                            Dataset2D, _Dataset2D, DatasetMatrixDouble,
                            _DatasetMatrixDouble, DatasetMatrixFloat, _DatasetMatrixFloat,
                            Dataset3D, _Dataset3D, DatasetGridFloat, _DatasetGridFloat,
+                           DatasetGridDouble, _DatasetGridDouble,
                            _DatasetModes, DatasetModes,
                            DatasetMesh, _DatasetMesh, _DatasetMatrix3x3, DatasetMatrix3x3,
                            _DatasetCoords, DatasetCoords, _DatasetCoordsRef,
@@ -44,6 +45,7 @@ def cast_dataset(dsetin=None, dtype='general'):
     cdef DatasetMatrixDouble newset_matrixdbl
     cdef DatasetMatrixFloat newset_matrixflt
     cdef DatasetGridFloat newset_gridflt
+    cdef DatasetGridDouble newset_griddouble
     cdef DatasetCoordsRef newset_coords_ref
     cdef DatasetCoordsCRD newset_coords_crd
     cdef DatasetTopology newset_topology
@@ -176,6 +178,16 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_gridflt.baseptr_1 = <_Dataset3D*> dset.baseptr0
         newset_gridflt.thisptr = <_DatasetGridFloat*> dset.baseptr0
         return newset_gridflt
+
+    elif dtype in ['GRID_DBL', 'GRID_DOUBLE', 'GRID DOUBLE']:
+        newset_griddouble = DatasetGridDouble()
+        # since we introduce memory view, we let cpptraj free memory
+        newset_griddouble._own_memory = False
+        newset_griddouble.baseptr0 = dset.baseptr0
+        # make sure other pointers pointing to the same address
+        newset_griddouble.baseptr_1 = <_Dataset3D*> dset.baseptr0
+        newset_griddouble.thisptr = <_DatasetGridDouble*> dset.baseptr0
+        return newset_griddouble
 
     elif dtype in ['COORDS_CRD', 'COORDS', 'CRD']:
         # FIXME: not correctly casting

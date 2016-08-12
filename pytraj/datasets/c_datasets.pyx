@@ -866,6 +866,83 @@ cdef class DatasetGridFloat(Dataset3D):
     def tolist(self):
         return [[list(x) for x in y] for y in self.data]
 
+cdef class DatasetGridDouble(Dataset3D):
+    def __cinit__(self):
+        self.baseptr0 = <_Dataset*> new _DatasetGridDouble()
+        self.baseptr_1 = <_Dataset3D*> self.baseptr0
+        self.thisptr = <_DatasetGridDouble*> self.baseptr0
+        self._own_memory = True
+
+    def __dealloc__(self):
+        if self._own_memory:
+            del self.thisptr
+
+    def __str__(self):
+        basic_str = super(Dataset3D, self).__str__() + "\n"
+        if np:
+            my_str = basic_str + "values: " + self.values.__str__()
+        else:
+            my_str = basic_str
+        return my_str
+
+    def __getitem__(self, idx):
+        cdef size_t x, y, z
+        x, y, z = idx
+        return self.thisptr.GetElement(x, y, z)
+
+    def __setitem__(self, idx, value):
+        cdef size_t x, y, z
+        x, y, z = idx
+        self.thisptr.SetElement(x, y, z, <float> value)
+
+    def resize(self, size_t x, size_t y, size_t z):
+        self.thisptr.Allocate3D(x, y, z)
+
+    @property
+    def nx(self):
+        return self.thisptr.NX()
+
+    @property
+    def ny(self):
+        return self.thisptr.NY()
+
+    @property
+    def nz(self):
+        return self.thisptr.NZ()
+
+    @property
+    def shape(self):
+        return (self.nx, self.ny, self.nz)
+
+    property data:
+        def __get__(self):
+            """return a copy of 3D array of Grid"""
+            cdef size_t nx, ny, nz
+            nx, ny, nz = self.nx, self.ny, self.nz
+            cdef double* ptr = &self.thisptr.index_opr(0)
+            return <double [:nx, :ny, :nz]> ptr
+
+        def __set__(self, double[:, :, :] values):
+            cdef unsigned int nx, ny, nz
+            cdef unsigned int i, j, k
+
+            # use for old cython
+            nx, ny, nz = [_ for _ in values.shape[:3]]
+            self.resize(nx, ny, nz)
+
+            for i in range(nx):
+                for j in range(ny):
+                    for k in range(nz):
+                        self.thisptr.SetElement(i, j, k, values[i, j, k])
+
+    def to_ndarray(self, copy=True):
+        # copy=True: is a dummy argument to be consistent with Dataset1D
+        return np.array(self.data[:])
+
+    def tolist(self):
+        return [[list(x) for x in y] for y in self.data]
+
+
 cdef class DatasetModes(Dataset):
     def __cinit__(self):
         self._own_memory = True

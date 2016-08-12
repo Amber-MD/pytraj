@@ -3200,11 +3200,13 @@ def gist(traj, command):
     -------
     None. All outputs will be written to disk. Please check cpptraj manual.
     """
-    act = c_action.Action_Gist()
+    act = c_action.Action_GIST()
     c_dslist = CpptrajDatasetList()
 
     act(command, traj, top=traj.top, dslist=c_dslist)
     act.post_process()
+
+    return c_dslist
 
 def density(traj,
             mask='*',
