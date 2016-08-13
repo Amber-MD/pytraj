@@ -830,8 +830,6 @@ def write_data(filename, data):
     d0 = state.data.add(dtype=dtype, name=dataset_name)
     d0.data = np.asarray(data)
 
-    print(d0, d0.values)
-
     cm = 'writedata {filename} {dataset_name}'.format(filename=filename, dataset_name=dataset_name)
 
     with Command() as command:
