@@ -835,6 +835,22 @@ def write_data(filename, data):
     with Command() as command:
         command.dispatch(state, cm)
 
+def _format_convert(input_filename, output_filename):
+    """
+
+    Examples
+    --------
+    import pytraj as pt
+    pt.io._format_convert('test.cpp4', 'test.dx')
+    """
+    from pytraj.core.c_core import CpptrajState, Command
+
+    state = CpptrajState()
+
+    with Command() as command:
+        command.dispatch(state, 'readdata {} name mydata'.format(input_filename))
+        command.dispatch(state, 'writedata {} mydata '.format(output_filename))
+
 def _get_amberhome():
     amberhome = os.getenv('AMBERHOME')
     if amberhome is None:

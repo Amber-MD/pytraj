@@ -6,6 +6,7 @@ import unittest
 import numpy as np
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
+from pytraj.testing import cpptraj_test_dir
 
 
 class TestWriteData(unittest.TestCase):
@@ -18,6 +19,7 @@ class TestWriteData(unittest.TestCase):
             os.remove("test.agr")
             os.remove("test.gnu")
             os.remove("test.dx")
+            os.remove("test.ccp4")
         except OSError:
             pass
 
@@ -27,10 +29,11 @@ class TestWriteData(unittest.TestCase):
         assert os.path.exists("test.agr")
         assert os.path.exists("test.gnu")
 
-        # not supported yet
-        # data_3d = pt.gist(traj, options='name gist')['gist[gO]']
-        # pt.io.write_data("test.dx", data_3d)
-        # assert os.path.exists("test.dx")
+
+        saved_dx_file = cpptraj_test_dir + '/Test_CCP4/fav8.dx.save'
+        output_file = 'test.ccp4'
+        pt.io._format_convert(saved_dx_file, output_file)
+        assert os.path.exists("test.ccp4")
 
 if __name__ == "__main__":
     unittest.main()
