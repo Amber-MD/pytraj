@@ -3184,8 +3184,15 @@ def atomiccorr(traj,
 
 calc_atomiccorr = atomiccorr
 
-def gist(traj, grid_center, grid_dim, grid_spacing,
-         do_order=False, do_eij=False, refdens=None, options='',
+def gist(traj,
+         grid_center=[0., 0., 0],
+         grid_dim=[40, 40, 40],
+         grid_spacing=0.5,
+         do_order=False,
+         do_eij=False,
+         reference_density=0.0334,
+         temperature=300.,
+         options='',
          dtype='dict'):
     """minimal support for gist command in cpptraj
 
@@ -3196,16 +3203,18 @@ def gist(traj, grid_center, grid_dim, grid_spacing,
     Parameters
     ----------
     traj : Trajectory-like
-    grid_center : 1-D array-like or str
+    grid_center : 1-D array-like or str, default [0., 0., 0.] (origin)
         grid center, an array with shape = (3,) or a str (similiar to cpptraj command)
-    grid_dim: 1-D array-like or str
+    grid_dim: 1-D array-like or str, default [40, 40, 40]
         grid dim, an array with shape = (3,) or a str (similiar to cpptraj command)
-    grid_spacing: float
+    grid_spacing: float, default 0.5
     do_order : bool, default False
     do_eij : bool, default False
-    refdens : None or float
+    reference_density : float, default 0.0334
+        same as "refdens" in cpptraj
     options : str
         additional cpptraj output command (e.g prefix, ext, out, info)
+    temperature : float, default 300.
     dtype : str, default 'dict'
         return data type.
 
@@ -3222,9 +3231,10 @@ def gist(traj, grid_center, grid_dim, grid_spacing,
     grid_spacing_ = ' '.join(('gridspacn', grid_spacing_))
     do_order_ = 'doorder' if do_order else ''
     do_eij_ = 'doeij' if do_eij else ''
-    refdens_ = '' if refdens is None else 'refdens ' + str(refdens)
+    refdens_ = 'refdens ' + str(reference_density)
+    temperature_ = 'temp ' + str(temperature)
 
-    command = ' '.join((do_order_, do_eij_, refdens_, grid_center_, grid_dim_, grid_spacing_, options))
+    command = ' '.join((do_order_, do_eij_, refdens_, grid_center_, grid_dim_, grid_spacing_, temperature_, options))
     act = c_action.Action_GIST()
     c_dslist = CpptrajDatasetList()
 
