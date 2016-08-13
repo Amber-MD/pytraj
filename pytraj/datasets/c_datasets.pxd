@@ -282,6 +282,26 @@ cdef class DatasetGridFloat (Dataset3D):
     cdef _DatasetGridFloat* thisptr
     cdef public bint _own_memory
 
+cdef extern from "DataSet_GridDbl.h": 
+    cdef cppclass _DatasetGridDouble "DataSet_GridDbl" (_Dataset3D):
+        _DatasetGridDouble()
+        double& index_opr "operator[]"(size_t idx)
+        _Dataset * Alloc() 
+        size_t Size() const 
+        int Allocate3D(size_t x, size_t y, size_t z)
+        double GetElement(int x, int y, int z) const 
+        void SetElement(int x, int y, int z, float v)
+        double operator[](size_t idx) const 
+        size_t NX() const 
+        size_t NY() const 
+        size_t NZ() const 
+        double GridVal(int x, int y, int z) const 
+        long int CalcIndex(int i, int j, int k) const 
+
+cdef class DatasetGridDouble (Dataset3D):
+    cdef _DatasetGridDouble* thisptr
+    cdef public bint _own_memory
+
 cdef extern from "DataSet_Modes.h": 
     cdef cppclass _DatasetModes "DataSet_Modes" (_Dataset):
         _DatasetModes() 

@@ -3184,27 +3184,64 @@ def atomiccorr(traj,
 
 calc_atomiccorr = atomiccorr
 
-def gist(traj, command):
+def gist(traj,
+         grid_center=[0., 0., 0],
+         grid_dim=[40, 40, 40],
+         grid_spacing=0.5,
+         do_order=False,
+         do_eij=False,
+         reference_density=0.0334,
+         temperature=300.,
+         options='',
+         dtype='dict'):
     """minimal support for gist command in cpptraj
 
     Notes
     -----
-    Syntax might be changed.
+    Syntax might be changed. There is a bug in pytraj that causes segmentation fault sometimes.
 
     Parameters
     ----------
     traj : Trajectory-like
-    command : cpptraj command
+    grid_center : 1-D array-like or str, default [0., 0., 0.] (origin)
+        grid center, an array with shape = (3,) or a str (similiar to cpptraj command)
+    grid_dim: 1-D array-like or str, default [40, 40, 40]
+        grid dim, an array with shape = (3,) or a str (similiar to cpptraj command)
+    grid_spacing: float, default 0.5
+    do_order : bool, default False
+    do_eij : bool, default False
+    reference_density : float, default 0.0334
+        same as "refdens" in cpptraj
+    options : str
+        additional cpptraj output command (e.g prefix, ext, out, info)
+    temperature : float, default 300.
+    dtype : str, default 'dict'
+        return data type.
 
     Returns
     -------
-    None. All outputs will be written to disk. Please check cpptraj manual.
+    out :  dict (or another data type based on dtype)
+        User should always use the default dtype
     """
-    act = c_action.Action_Gist()
+    grid_center_ = grid_center if isinstance(grid_center, string_types) else " ".join(str(x) for x in grid_center)
+    grid_center_ = ' '.join(('gridcntr ', grid_center_))
+    grid_dim_ = grid_dim if isinstance(grid_dim, string_types) else " ".join(str(x) for x in grid_dim)
+    grid_dim_ = ' '.join(('griddim', grid_dim_))
+    grid_spacing_ = str(grid_spacing)
+    grid_spacing_ = ' '.join(('gridspacn', grid_spacing_))
+    do_order_ = 'doorder' if do_order else ''
+    do_eij_ = 'doeij' if do_eij else ''
+    refdens_ = 'refdens ' + str(reference_density)
+    temperature_ = 'temp ' + str(temperature)
+
+    command = ' '.join((do_order_, do_eij_, refdens_, grid_center_, grid_dim_, grid_spacing_, temperature_, options))
+    act = c_action.Action_GIST()
     c_dslist = CpptrajDatasetList()
 
     act(command, traj, top=traj.top, dslist=c_dslist)
     act.post_process()
+
+    return get_data_from_dtype(c_dslist, dtype=dtype)
 
 def density(traj,
             mask='*',

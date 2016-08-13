@@ -189,6 +189,7 @@ cdef extern from "DataSet.h":
         VECTOR "DataSet::VECTOR"
         MODES "DataSet::MODES"
         GRID_FLT "DataSet::GRID_FLT"
+        GRID_DBL "DataSet::GRID_DBL"
         REMLOGDATATYPE "DataSet::REMLOG"
         XYMESH "DataSet::XYMESH"
         TRAJ "DataSet::TRAJ"
