@@ -3184,7 +3184,9 @@ def atomiccorr(traj,
 
 calc_atomiccorr = atomiccorr
 
-def gist(traj, command):
+def gist(traj, grid_center, grid_dim, grid_spacing,
+         do_order=False, do_eij=False, refdens=None, options='',
+         dtype='dict'):
     """minimal support for gist command in cpptraj
 
     Notes
@@ -3194,19 +3196,42 @@ def gist(traj, command):
     Parameters
     ----------
     traj : Trajectory-like
-    command : cpptraj command
+    grid_center : 1-D array-like or str
+        grid center, an array with shape = (3,) or a str (similiar to cpptraj command)
+    grid_dim: 1-D array-like or str
+        grid dim, an array with shape = (3,) or a str (similiar to cpptraj command)
+    grid_spacing: float
+    do_order : bool, default False
+    do_eij : bool, default False
+    refdens : None or float
+    options : str
+        additional cpptraj output command (e.g prefix gist1)
+    dtype : str, default 'dict'
+        return data type.
 
     Returns
     -------
-    None. All outputs will be written to disk. Please check cpptraj manual.
+    out :  dict (or another data type based on dtype)
+        User should always use the default dtype
     """
+    grid_center_ = grid_center if isinstance(grid_center, string_types) else " ".join(str(x) for x in grid_center)
+    grid_center_ = ' '.join(('gridcntr ', grid_center_))
+    grid_dim_ = grid_dim if isinstance(grid_dim, string_types) else " ".join(str(x) for x in grid_dim)
+    grid_dim_ = ' '.join(('griddim', grid_dim_))
+    grid_spacing_ = str(grid_spacing)
+    grid_spacing_ = ' '.join(('gridspacn', grid_spacing_))
+    do_order_ = 'doorder' if do_order else ''
+    do_eij_ = 'doeij' if do_eij else ''
+    refdens_ = '' if refdens is None else 'refdens ' + str(refdens)
+
+    command = ' '.join((do_order_, do_eij_, refdens_, grid_center_, grid_dim_, grid_spacing_, options))
     act = c_action.Action_GIST()
     c_dslist = CpptrajDatasetList()
 
     act(command, traj, top=traj.top, dslist=c_dslist)
     act.post_process()
 
-    return c_dslist
+    return get_data_from_dtype(c_dslist, dtype=dtype)
 
 def density(traj,
             mask='*',

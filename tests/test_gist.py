@@ -16,7 +16,25 @@ class TestGist(unittest.TestCase):
 
         command = "doorder doeij refdens 0.033422885325 gridcntr 1.44 0.67 0.29 \
                      griddim 10 12 10 gridspacn 2.0"
-        data = pt.all_actions.gist(traj, command)
+        data = pt.all_actions.gist(traj, do_order=True, do_eij=True, refdens=0.033422885325,
+                grid_center=(1.44, 0.67, 0.29), grid_dim=(10, 12, 10),
+                grid_spacing=2.0,
+                dtype='cpptraj_dataset')
+
+        state_command = """
+        parm data/tz2.ortho.parm7
+        trajin data/tz2.ortho.nc
+        autoimage origin
+        gist {command}
+        """.format(command=command)
+        state = pt.load_cpptraj_state(state_command)
+        state.run()
+
+        data_dict = data.to_dict()
+        data_state_dict = state.data[1:].to_dict()
+
+        for key, state_key  in zip(sorted(data_dict.keys()), sorted(data_state_dict.keys())):
+            aa_eq(data_dict[key], data_state_dict[state_key])
 
 if __name__ == "__main__":
     unittest.main()

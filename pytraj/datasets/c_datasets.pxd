@@ -287,7 +287,6 @@ cdef extern from "DataSet_GridDbl.h":
         _DatasetGridDouble()
         double& index_opr "operator[]"(size_t idx)
         _Dataset * Alloc() 
-        const _Grid[float]& InternalGrid() const 
         size_t Size() const 
         int Allocate3D(size_t x, size_t y, size_t z)
         double GetElement(int x, int y, int z) const 
