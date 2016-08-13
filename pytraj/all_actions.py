@@ -3205,7 +3205,7 @@ def gist(traj, grid_center, grid_dim, grid_spacing,
     do_eij : bool, default False
     refdens : None or float
     options : str
-        additional cpptraj output command (e.g prefix gist1)
+        additional cpptraj output command (e.g prefix, ext, out, info)
     dtype : str, default 'dict'
         return data type.
 
