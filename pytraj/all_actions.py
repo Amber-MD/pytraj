@@ -3191,7 +3191,7 @@ def gist(traj, grid_center, grid_dim, grid_spacing,
 
     Notes
     -----
-    Syntax might be changed.
+    Syntax might be changed. There is a bug in pytraj that causes segmentation fault sometimes.
 
     Parameters
     ----------

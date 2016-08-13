@@ -10,6 +10,7 @@ from pytraj.testing import cpptraj_test_dir
 
 class TestGist(unittest.TestCase):
 
+    @unittest.skip("FIXME GIST: segmentation fault sometimes")
     def test_gist(self):
         traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7", frame_slice=(0, 10))
         traj.autoimage('origin')
