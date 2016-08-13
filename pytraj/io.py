@@ -41,6 +41,7 @@ __all__ = ['load',
            'write_traj',
            'read_pickle',
            'to_pickle',
+           'select_atoms',
            ]
 
 
@@ -883,3 +884,21 @@ def load_antechamber(filename, format=None, options=''):
                 print('')
                 raise e
         return load(fn)
+
+def select_atoms(mask, topology):
+    '''return atom indices
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> atom_indices = pt.select_atoms('@CA', traj.top)
+    >>> atom_indices
+    array([  4,  15,  39, ..., 159, 173, 197])
+    >>> pt.select_atoms(traj.top, '@CA')
+    array([  4,  15,  39, ..., 159, 173, 197])
+    '''
+    if isinstance(mask, Topology) and isinstance(topology, string_types):
+        mask, topology = topology, mask
+    return topology.select(mask)
+

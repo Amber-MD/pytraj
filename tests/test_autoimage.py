@@ -50,7 +50,7 @@ class TestRegular(unittest.TestCase):
         # reset traj1
         traj1 = traj0[:]
         # get new trajectory from traj0
-        traj2 = pt._load_from_frame_iter(traj0(rmsfit=(0, '@CA,C,N')))
+        traj2 = pt.load_from_frame_iter(traj0(rmsfit=(0, '@CA,C,N')))
         traj1.rmsfit(ref=0, mask='@CA,C,N')
 
         # take '@CA,C,N' xyz
@@ -63,7 +63,7 @@ class TestRegular(unittest.TestCase):
         # reset traj1
         traj1 = traj0[:]
         # get new trajectory from traj0
-        traj2 = pt._load_from_frame_iter(traj0(autoimage=True,
+        traj2 = pt.load_from_frame_iter(traj0(autoimage=True,
                                                rmsfit=(0, '@CA,C,N')))
         traj1.autoimage()
         traj1.rmsfit(ref=0, mask='@CA,C,N')

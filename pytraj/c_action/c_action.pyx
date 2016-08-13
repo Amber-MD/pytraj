@@ -1050,10 +1050,10 @@ cdef class Action_Temperature(Action):
         self.thisptr.Help()
 
 
-cdef class Action_Gist(Action):
+cdef class Action_GIST(Action):
     def __cinit__(self):
-        self.baseptr = <_Action*> new _Action_Gist()
-        self.thisptr = <_Action_Gist*> self.baseptr
+        self.baseptr = <_Action*> new _Action_GIST()
+        self.thisptr = <_Action_GIST*> self.baseptr
         self.own_memory = True
 
     def __dealloc__(self):

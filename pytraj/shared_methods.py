@@ -22,7 +22,6 @@ def _xyz(self):
         myview[i] = frame._buffer2d
     return myview
 
-
 def my_str_method(self):
     name = "pytraj." + self.__class__.__name__
     top_str = self.top.__str__()
