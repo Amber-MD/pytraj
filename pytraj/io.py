@@ -792,10 +792,64 @@ def read_data(filename, options=''):
     cdslist.read_data(filename, options)
     return cdslist
 
-def write_data(filename):
-    """same as writedata in cpptraj
+def write_data(filename, data):
+    """same as writedata in cpptraj. (this is work in progress, only support 1D-array for now)
+
+    Parameters
+    ----------
+    filename : str
+        output filename. File format is deteced by its name.
+    data : ndarray
+    dtype : str, {'double', 'float', 'grid_float', 'grid_double'}, default 'double'
+
+    Examples
+    --------
+    >>> # xmgrace format
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2()
+    >>> rmsd_data = pt.rmsd(traj, ref=0)
+    >>> pt.io.write_data('my.agr', rmsd_data)
+
+    >>> # gnu format
+    >>> pt.io.write_data('my.gnu', rmsd_data)
     """
-    raise NotImplementedError()
+    data = np.asarray(data, dtype='f8')
+
+    dtype_map = {1: 'double',
+                 3: 'grid_float'}
+
+    from pytraj.core.c_core import CpptrajState, Command
+
+    dtype = dtype_map[data.ndim]
+
+    if data.ndim == 3:
+        data = data.astype('f4')
+
+    state = CpptrajState()
+    dataset_name = 'my_data'
+    d0 = state.data.add(dtype=dtype, name=dataset_name)
+    d0.data = np.asarray(data)
+
+    cm = 'writedata {filename} {dataset_name}'.format(filename=filename, dataset_name=dataset_name)
+
+    with Command() as command:
+        command.dispatch(state, cm)
+
+def _format_convert(input_filename, output_filename):
+    """
+
+    Examples
+    --------
+    import pytraj as pt
+    pt.io._format_convert('test.cpp4', 'test.dx')
+    """
+    from pytraj.core.c_core import CpptrajState, Command
+
+    state = CpptrajState()
+
+    with Command() as command:
+        command.dispatch(state, 'readdata {} name mydata'.format(input_filename))
+        command.dispatch(state, 'writedata {} mydata '.format(output_filename))
 
 def _get_amberhome():
     amberhome = os.getenv('AMBERHOME')
