@@ -6,7 +6,6 @@ This module stores all useful functions that does not fit to anywhere else.
 from __future__ import absolute_import
 import sys as _sys
 import os
-from glob import glob
 from itertools import islice
 from collections import OrderedDict, defaultdict
 import numpy as np
