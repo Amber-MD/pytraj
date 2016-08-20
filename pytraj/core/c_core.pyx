@@ -325,14 +325,14 @@ cdef class CpptrajState:
 
     def __cinit__(self):
         self.thisptr = new _CpptrajState()
+        self._datasetlist = DatasetList(_own_memory=False)
         self.datafilelist = DataFileList(_own_memory=False)
-        self.datasetlist = DatasetList(_own_memory=False)
 
         # cpptraj will take care of memory deallocating from self.thisptr.PFL(FL, DSL, DFL)
         # We don't free memory again
         # (example: self.toplist.thisptr and self.thisptr.PFL() point to the same address)
         # create memory view
-        self.datasetlist.thisptr = &self.thisptr.DSL()
+        self._datasetlist.thisptr = &self.thisptr.DSL()
         self.datafilelist.thisptr = &self.thisptr.DFL()
 
     def __dealloc__(self):
@@ -345,19 +345,10 @@ cdef class CpptrajState:
 
     property data:
         def __get__(self):
-            return self.datasetlist
-
-        def __set__(self, DatasetList dslist):
-            # do not del memory. don't know why got double-free mem if doing so.
-            #del self.datasetlist.thisptr
-            self.datasetlist.thisptr = dslist.thisptr
+            return self._datasetlist
 
     def __repr__(self):
         return str(self)
-
-    def compute(self):
-        self.thisptr.Run()
-        return self
 
     def run(self):
         self.thisptr.Run()
