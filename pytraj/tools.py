@@ -6,7 +6,6 @@ This module stores all useful functions that does not fit to anywhere else.
 from __future__ import absolute_import
 import sys as _sys
 import os
-from glob import glob
 from itertools import islice
 from collections import OrderedDict, defaultdict
 import numpy as np
@@ -441,23 +440,6 @@ def split_traj_by_residues(traj, start=0, stop=-1, step=1):
         j = ':' + str(i + 1)
         # example: traj[':3']
         yield traj[j]
-
-
-def find_lib(libname):
-    """return a list of all library files
-    """
-    paths = os.environ.get('LD_LIBRARY_PATH', '').split(':')
-    lib_path_list = []
-    key = "lib" + libname + "*"
-
-    for path in paths:
-        path = path.strip()
-        fnamelist = glob(os.path.join(path, key))
-        for fname in fnamelist:
-            if os.path.isfile(fname):
-                lib_path_list.append(fname)
-
-    return set(lib_path_list)
 
 
 def read_gaussian_output(filename=None, top=None):

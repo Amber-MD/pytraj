@@ -305,7 +305,7 @@ class TestPairwiseRMSD(unittest.TestCase):
 
                 txt0 = txt.replace('metric_holder', metric)
                 state = pt.datafiles.load_cpptraj_output(txt0, dtype='state')
-                d3 = state.datasetlist[-1].values
+                d3 = state.data[-1].values
 
                 aa_eq(d0, d1)
                 aa_eq(d0, d2)

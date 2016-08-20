@@ -84,7 +84,7 @@ def load_cpptraj_output(txt, dtype=None):
     if dtype == 'state':
         out = state
     else:
-        out = DatasetList(state.datasetlist)
+        out = DatasetList(state.data)
     return out
 
 

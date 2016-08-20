@@ -95,7 +95,7 @@ class TestVectorAnalysisModule(unittest.TestCase):
 
         state = pt.datafiles.load_cpptraj_output(txt, dtype='state')
         state.run()
-        cpp_data = state.datasetlist
+        cpp_data = state.data
         cpp_vectors = cpp_data.grep('vector', mode='dtype').values
         cpp_matired = cpp_data.grep('matrix', mode='dtype')['matired']
 
