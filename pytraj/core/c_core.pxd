@@ -36,7 +36,7 @@ cdef extern from "CpptrajState.h":
 cdef class CpptrajState:
     cdef _CpptrajState* thisptr
     cdef public DataFileList datafilelist
-    cdef public DatasetList datasetlist
+    cdef public DatasetList _datasetlist
 
 cdef extern from "Command.h": 
     cdef cppclass _Command "Command":
