@@ -190,8 +190,9 @@ class TestSander(unittest.TestCase):
 
     def test_mm_options_as_string(self):
         traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
-        mm_options = sander.gas_input(igb=8)
-        mm_options_str = 'sander.gas_input(igb=8)'
+        igb = 8
+        mm_options = sander.gas_input(igb)
+        mm_options_str = 'mm_options = sander.gas_input(8)'
 
         e0 = pt.energy_decomposition(traj, mm_options=mm_options, dtype='dict')
         e1 = pt.energy_decomposition(traj, mm_options=mm_options_str, dtype='dict')
