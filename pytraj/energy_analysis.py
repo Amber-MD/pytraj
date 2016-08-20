@@ -21,7 +21,6 @@ def esander(traj=None,
             igb=8,
             mm_options=None,
             qm_options=None,
-            mode=None,
             dtype='dict',
             frame_indices=None,
             top=None):
@@ -43,8 +42,6 @@ def esander(traj=None,
         if `mm_options` is None, use `gas_input` with given igb.
         If `mm_options` is not None, use this
     qm_options : InputOptions from `sander` for QMMM, optional
-    mode : str, default=None, optional
-        if mode='minimal', get only 'bond', 'angle', 'dihedral' and 'total' energies
     top : pytraj.Topology or str, default=None, optional
         only need to specify this ``top`` if ``traj`` does not hold Topology
     dtype : str, {'dict', 'dataset', 'ndarray', 'dataframe'}, default='dict'
@@ -148,10 +145,7 @@ def esander(traj=None,
 
     ddict = defaultdict(_default_func)
 
-    if mm_options is None:
-        inp = sander.gas_input(igb)
-    elif igb is not None:
-        inp = mm_options
+    inp = sander.gas_input(igb) if mm_options is None else mm_options
 
     if isinstance(inp, string_types):
         # dangerous
@@ -165,15 +159,7 @@ def esander(traj=None,
         exec(qm_options.lstrip(), local_dict)
         qm_options = local_dict['qm_options']
 
-    if prmtop is None:
-        try:
-            # try to load from file by taking top.filename
-            prmtop_ = top.filename
-        except AttributeError:
-            raise ValueError("prmtop must be AmberParm object in ParmEd")
-    else:
-        # Structure, string
-        prmtop_ = prmtop
+    prmtop_ = prmtop if prmtop is not None else top.filename
 
     if not hasattr(prmtop_, 'coordinates') or prmtop_.coordinates is None:
         try:
@@ -206,27 +192,19 @@ def esander(traj=None,
             for att in ene_atts:
                 ddict[att].append(getattr(ene, att))
 
-    new_dict = None
-    if mode == 'minimal':
-        new_dict = {}
-        for key in ['bond', 'angle', 'dihedral', 'tot']:
-            new_dict[key] = ddict[key]
-    else:
-        new_dict = ddict
-
-    for key in new_dict.keys():
-        new_dict[key] = np.asarray(new_dict[key])
+    for key in ddict.keys():
+        ddict[key] = np.asarray(ddict[key])
 
     if dtype == 'dict':
-        return OrderedDict(new_dict)
+        return OrderedDict(ddict)
     else:
         from pytraj.datasets.c_datasetlist import DatasetList
 
         dslist = DatasetList()
-        size = new_dict['tot'].__len__()
-        for key in new_dict.keys():
+        size = ddict['tot'].__len__()
+        for key in ddict.keys():
             dslist.add('double')
             dslist[-1].key = key
             dslist[-1].resize(size)
-            dslist[-1].data[:] = new_dict[key]
+            dslist[-1].data[:] = ddict[key]
         return get_data_from_dtype(dslist, dtype)
