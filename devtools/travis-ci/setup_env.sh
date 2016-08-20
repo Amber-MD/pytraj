@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# download ambermini_test for energy calculation
+git clone https://github.com/hainm/ambermini_test
+mv ambermini_test ./tests/energies/
+
 if [ "$TRAVIS_OS_NAME" = "osx" ]; then
     wget http://repo.continuum.io/miniconda/Miniconda-3.7.0-MacOSX-x86_64.sh -O miniconda.sh;
 else

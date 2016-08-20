@@ -17,6 +17,13 @@ try:
 except ImportError:
     has_sander = False
 
+if not amberhome:
+    path = os.path.dirname(os.path.abspath(__file__))
+    ambermini_test_dir = os.path.join(path, 'ambermini_test')
+    if os.path.exists(ambermini_test_dir):
+        amberhome = ambermini_test_dir
+    print('amberhome', amberhome)
+
 
 @unittest.skipIf(not has_sander, 'skip if not having sander')
 class TestSander(unittest.TestCase):
