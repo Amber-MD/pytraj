@@ -28,9 +28,10 @@ document.addEventListener( "DOMContentLoaded", function(){
     stage.setParameters({'backgroundColor': 'white'})
 
     // stage.loadFile( "rcsb://1l2y.mmtf", { defaultRepresentation: true, asTrajectory: true}).then(function(o){
-    stage.loadFile(
-    "https://raw.githubusercontent.com/hainm/notebook-nglview/master/membrane/sim.pdb",{defaultRepresentation:
-       true, asTrajectory: true}).then(function(o){
+    stage.loadFile( "_static/sim_4frames.pdb", { defaultRepresentation: true, asTrajectory: true}).then(function(o){
+    // stage.loadFile(
+    // "https://raw.githubusercontent.com/hainm/notebook-nglview/master/membrane/sim.pdb",{defaultRepresentation:
+    //    true, asTrajectory: true}).then(function(o){
 
         $('#please_wait').hide();
         var component = stage.compList[0];

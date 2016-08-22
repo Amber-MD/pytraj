@@ -167,6 +167,15 @@ then
     $ git pull
     $ python ./setup.py install
 
+Update for AMBER
+~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+    $ amber.pip install pytraj --prefix=$AMBERHOME
+    # if you don't have amber.pip, just use pip
+    
+
 Uninstall
 ---------
 

@@ -132,6 +132,7 @@ define(["jupyter-js-widgets"], function(__WEBPACK_EXTERNAL_MODULE_2__) { return 
 	        this.stage = new NGL.Stage( undefined, {
 	            backgroundColor: "white"
 	        } );
+            this.stage.viewer.setSize( 200, 200 );
 	        this.structureComponent = undefined;
 	        this.$container = $( this.stage.viewer.container );
 	        this.$el.append( this.$container );
@@ -270,7 +271,7 @@ define(["jupyter-js-widgets"], function(__WEBPACK_EXTERNAL_MODULE_2__) { return 
             for (var i in this.stage){
                 console.log(i)
             };
-            this.state.handleResize();
+            this.stage.handleResize();
 	    },
 	
 	    setIPythonLikeCell: function(){
