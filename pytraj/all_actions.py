@@ -1565,8 +1565,16 @@ def atomicfluct(traj=None,
                 mask="",
                 top=None,
                 dtype='ndarray',
-                frame_indices=None):
-    '''
+                frame_indices=None,
+                options=''):
+    '''compute atomicfluct (RMSF)
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str or 1D-array
+        atom mask. If not given, use all atoms
+    options : str, additional cpptraj options ('byres', 'bymask', ...)
 
     Examples
     --------
