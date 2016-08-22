@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Analysis &mdash; pytraj 1.0.8.dev0+35543d8 documentation</title>
+    <title>Analysis &mdash; pytraj 1.0.8.dev0+c4526f7 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0.8.dev0+35543d8',
+        VERSION:     '1.0.8.dev0+c4526f7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.8.dev0+35543d8 documentation" href="index.html" />
+    <link rel="top" title="pytraj 1.0.8.dev0+c4526f7 documentation" href="index.html" />
     <link rel="next" title="Nucleic Acid Analysis" href="nucleic_acid_analysis.html" />
     <link rel="prev" title="Modify trajectory" href="modify_traj.html" />
 <meta charset='utf-8'>
@@ -53,7 +53,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.8.dev0+35543d8</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.8.dev0+c4526f7</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -974,23 +974,27 @@ occur.</li>
 
 <span class="target" id="density"></span><dl class="function">
 <dt id="pytraj.density">
-<code class="descclassname">pytraj.</code><code class="descname">density</code><span class="sig-paren">(</span><em>traj</em>, <em>mask</em>, <em>density_type</em>, <em>delta=0.25</em>, <em>direction='z'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.density" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">density</code><span class="sig-paren">(</span><em>traj</em>, <em>mask='*'</em>, <em>density_type='number'</em>, <em>delta=0.25</em>, <em>direction='z'</em>, <em>dtype='dict'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.density" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute density (number, mass, charge, electron) along a coordinate</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
-<p><strong>mask</strong> : str or list of str</p>
+<p><strong>mask</strong> : str or list of str, default &#8216;*&#8217;</p>
 <blockquote>
 <div><p>required mask</p>
 </div></blockquote>
-<p><strong>density_type</strong> : str, {&#8216;number&#8217;, &#8216;mass&#8217;, &#8216;charge&#8217;, &#8216;electron&#8217;}</p>
+<p><strong>density_type</strong> : str, {&#8216;number&#8217;, &#8216;mass&#8217;, &#8216;charge&#8217;, &#8216;electron&#8217;}, default &#8216;number&#8217;</p>
 <p><strong>delta</strong> : float, default 0.25</p>
 <blockquote>
 <div><p>resolution (Angstrom)</p>
 </div></blockquote>
 <p><strong>direction</strong> : str, default &#8216;z&#8217;</p>
+<p><strong>dtype</strong> : str, default &#8216;dict&#8217;</p>
+<blockquote>
+<div><p>return data type. Please always using default value, others are for debugging.</p>
+</div></blockquote>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>out</strong> : dict of average density and std for each frame</p>
@@ -1001,14 +1005,19 @@ occur.</li>
 <p class="rubric">Notes</p>
 <p>Syntax might be changed</p>
 <p class="rubric">Examples</p>
-<p>import pytraj as pt
-fn = &#8220;data/DOPC.rst7&#8221;
-tn = &#8220;data/DOPC.parm7&#8221; 
-traj = pt.load(&#8220;data/DOPC.rst7&#8221;, &#8220;data/DOPC.parm7&#8221;)</p>
-<p>delta = &#8216;0.25&#8217;
-density_type = &#8216;charge&#8217;
-masks = [&#8221;:<a class="reference external" href="mailto:PC&#37;&#52;&#48;P31">PC<span>&#64;</span>P31</a>&#8221;, &#8221;:<a class="reference external" href="mailto:PC&#37;&#52;&#48;N31">PC<span>&#64;</span>N31</a>&#8221;, &#8221;:<a class="reference external" href="mailto:PC&#37;&#52;&#48;C2">PC<span>&#64;</span>C2</a>&#8221;, &#8221;:PC | :OL | :OL2&#8221;]
-density_dict = pt.density(traj, mask=masks, density_type=density_type, delta=delta)</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">func</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">... </span>    <span class="n">fn</span> <span class="o">=</span> <span class="s2">&quot;data/DOPC.rst7&quot;</span>
+<span class="gp">... </span>    <span class="n">tn</span> <span class="o">=</span> <span class="s2">&quot;data/DOPC.parm7&quot;</span> 
+<span class="gp">... </span>    <span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data/DOPC.rst7&quot;</span><span class="p">,</span> <span class="s2">&quot;data/DOPC.parm7&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>...     delta = &#8216;0.25&#8217;
+...     density_type = &#8216;charge&#8217;
+...     masks = [&#8221;:<a class="reference external" href="mailto:PC&#37;&#52;&#48;P31">PC<span>&#64;</span>P31</a>&#8221;, &#8221;:<a class="reference external" href="mailto:PC&#37;&#52;&#48;N31">PC<span>&#64;</span>N31</a>&#8221;, &#8221;:<a class="reference external" href="mailto:PC&#37;&#52;&#48;C2">PC<span>&#64;</span>C2</a>&#8221;, &#8221;:PC | :OL | :OL2&#8221;]
+...     density_dict = pt.density(traj, mask=masks, density_type=density_type, delta=delta)
+...     return density_dict
+&gt;&gt;&gt; density_dict = func() # doctest: +SKIP</p>
 </dd></dl>
 
 <span class="target" id="volume"></span><dl class="function">
@@ -1293,7 +1302,7 @@ if &#8216;trajectory&#8217;, return a new Trajectory.</p>
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Aug 04, 2016.<br/>
+      Last updated on Aug 22, 2016.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
     </p>
   </div>

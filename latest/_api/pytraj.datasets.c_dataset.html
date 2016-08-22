@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.datasets &mdash; pytraj 1.0.8.dev0+35543d8 documentation</title>
+    <title>pytraj.datasets &mdash; pytraj 1.0.8.dev0+c4526f7 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.8.dev0+35543d8',
+        VERSION:     '1.0.8.dev0+c4526f7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.8.dev0+35543d8 documentation" href="../index.html" />
+    <link rel="top" title="pytraj 1.0.8.dev0+c4526f7 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -52,7 +52,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.8.dev0+35543d8</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.8.dev0+c4526f7</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -72,24 +72,22 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../trajectory.html">Trajectory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../trajectory.html#overview">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../topology.html">Topology</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../read_and_write.html">Read and Write</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../analysis.html">Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modify_traj.html">Modify trajectory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_and_write.html">Supported file formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory.html">Trajectory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../trajectory_slice.html">Fancy indexing of trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modify_traj.html">Modify trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atom_mask_selection.html">Atom mask selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../parallel.html">Parallel calculation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../conda.html">Use conda to manage different Python versions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cookbook.html">Cookbook</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../trajectory_viewer.html">Trajectory Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
 </li>
@@ -1541,6 +1539,159 @@ We can not return a memoryview since Trajectory is a C++ vector of Frame object<
 <dl class="attribute">
 <dt id="pytraj.datasets.c_datasets.DatasetFloat.values">
 <code class="descname">values</code><a class="headerlink" href="#pytraj.datasets.c_datasets.DatasetFloat.values" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a copy or non-copy, depending on data</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pytraj.datasets.c_datasets.DatasetGridDouble">
+<em class="property">class </em><code class="descclassname">pytraj.datasets.c_datasets.</code><code class="descname">DatasetGridDouble</code><a class="headerlink" href="#pytraj.datasets.c_datasets.DatasetGridDouble" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pytraj.datasets.c_datasets.Dataset3D" title="pytraj.datasets.c_datasets.Dataset3D"><code class="xref py py-class docutils literal"><span class="pre">pytraj.datasets.c_datasets.Dataset3D</span></code></a></p>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.datasets.c_datasets.DatasetGridDouble.aspect" title="pytraj.datasets.c_datasets.DatasetGridDouble.aspect"><code class="xref py py-obj docutils literal"><span class="pre">aspect</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.datasets.c_datasets.DatasetGridDouble.data" title="pytraj.datasets.c_datasets.DatasetGridDouble.data"><code class="xref py py-obj docutils literal"><span class="pre">data</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.datasets.c_datasets.DatasetGridDouble.dtype" title="pytraj.datasets.c_datasets.DatasetGridDouble.dtype"><code class="xref py py-obj docutils literal"><span class="pre">dtype</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.datasets.c_datasets.DatasetGridDouble.key" title="pytraj.datasets.c_datasets.DatasetGridDouble.key"><code class="xref py py-obj docutils literal"><span class="pre">key</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.datasets.c_datasets.DatasetGridDouble.name" title="pytraj.datasets.c_datasets.DatasetGridDouble.name"><code class="xref py py-obj docutils literal"><span class="pre">name</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.datasets.c_datasets.DatasetGridDouble.nx" title="pytraj.datasets.c_datasets.DatasetGridDouble.nx"><code class="xref py py-obj docutils literal"><span class="pre">nx</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.datasets.c_datasets.DatasetGridDouble.ny" title="pytraj.datasets.c_datasets.DatasetGridDouble.ny"><code class="xref py py-obj docutils literal"><span class="pre">ny</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.datasets.c_datasets.DatasetGridDouble.nz" title="pytraj.datasets.c_datasets.DatasetGridDouble.nz"><code class="xref py py-obj docutils literal"><span class="pre">nz</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.datasets.c_datasets.DatasetGridDouble.scalar_type" title="pytraj.datasets.c_datasets.DatasetGridDouble.scalar_type"><code class="xref py py-obj docutils literal"><span class="pre">scalar_type</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.datasets.c_datasets.DatasetGridDouble.shape" title="pytraj.datasets.c_datasets.DatasetGridDouble.shape"><code class="xref py py-obj docutils literal"><span class="pre">shape</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.datasets.c_datasets.DatasetGridDouble.size" title="pytraj.datasets.c_datasets.DatasetGridDouble.size"><code class="xref py py-obj docutils literal"><span class="pre">size</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.datasets.c_datasets.DatasetGridDouble.values" title="pytraj.datasets.c_datasets.DatasetGridDouble.values"><code class="xref py py-obj docutils literal"><span class="pre">values</span></code></a></td>
+<td>return a copy or non-copy, depending on data</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.datasets.c_datasets.DatasetGridDouble.resize" title="pytraj.datasets.c_datasets.DatasetGridDouble.resize"><code class="xref py py-obj docutils literal"><span class="pre">resize</span></code></a>(self,&nbsp;size_t&nbsp;x,&nbsp;size_t&nbsp;y,&nbsp;size_t&nbsp;z)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.datasets.c_datasets.DatasetGridDouble.to_dict" title="pytraj.datasets.c_datasets.DatasetGridDouble.to_dict"><code class="xref py py-obj docutils literal"><span class="pre">to_dict</span></code></a>(self[,&nbsp;use_numpy])</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.datasets.c_datasets.DatasetGridDouble.to_ndarray" title="pytraj.datasets.c_datasets.DatasetGridDouble.to_ndarray"><code class="xref py py-obj docutils literal"><span class="pre">to_ndarray</span></code></a>(self[,&nbsp;copy])</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.datasets.c_datasets.DatasetGridDouble.tolist" title="pytraj.datasets.c_datasets.DatasetGridDouble.tolist"><code class="xref py py-obj docutils literal"><span class="pre">tolist</span></code></a>(self)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="pytraj.datasets.c_datasets.DatasetGridDouble.aspect">
+<code class="descname">aspect</code><a class="headerlink" href="#pytraj.datasets.c_datasets.DatasetGridDouble.aspect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.datasets.c_datasets.DatasetGridDouble.data">
+<code class="descname">data</code><a class="headerlink" href="#pytraj.datasets.c_datasets.DatasetGridDouble.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.datasets.c_datasets.DatasetGridDouble.dtype">
+<code class="descname">dtype</code><a class="headerlink" href="#pytraj.datasets.c_datasets.DatasetGridDouble.dtype" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.datasets.c_datasets.DatasetGridDouble.key">
+<code class="descname">key</code><a class="headerlink" href="#pytraj.datasets.c_datasets.DatasetGridDouble.key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.datasets.c_datasets.DatasetGridDouble.name">
+<code class="descname">name</code><a class="headerlink" href="#pytraj.datasets.c_datasets.DatasetGridDouble.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.datasets.c_datasets.DatasetGridDouble.nx">
+<code class="descname">nx</code><a class="headerlink" href="#pytraj.datasets.c_datasets.DatasetGridDouble.nx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.datasets.c_datasets.DatasetGridDouble.ny">
+<code class="descname">ny</code><a class="headerlink" href="#pytraj.datasets.c_datasets.DatasetGridDouble.ny" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.datasets.c_datasets.DatasetGridDouble.nz">
+<code class="descname">nz</code><a class="headerlink" href="#pytraj.datasets.c_datasets.DatasetGridDouble.nz" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.datasets.c_datasets.DatasetGridDouble.resize">
+<code class="descname">resize</code><span class="sig-paren">(</span><em>self</em>, <em>size_t x</em>, <em>size_t y</em>, <em>size_t z</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.datasets.c_datasets.DatasetGridDouble.resize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.datasets.c_datasets.DatasetGridDouble.scalar_type">
+<code class="descname">scalar_type</code><a class="headerlink" href="#pytraj.datasets.c_datasets.DatasetGridDouble.scalar_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.datasets.c_datasets.DatasetGridDouble.shape">
+<code class="descname">shape</code><a class="headerlink" href="#pytraj.datasets.c_datasets.DatasetGridDouble.shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.datasets.c_datasets.DatasetGridDouble.size">
+<code class="descname">size</code><a class="headerlink" href="#pytraj.datasets.c_datasets.DatasetGridDouble.size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.datasets.c_datasets.DatasetGridDouble.to_dict">
+<code class="descname">to_dict</code><span class="sig-paren">(</span><em>self</em>, <em>use_numpy=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.datasets.c_datasets.DatasetGridDouble.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.datasets.c_datasets.DatasetGridDouble.to_ndarray">
+<code class="descname">to_ndarray</code><span class="sig-paren">(</span><em>self</em>, <em>copy=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.datasets.c_datasets.DatasetGridDouble.to_ndarray" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pytraj.datasets.c_datasets.DatasetGridDouble.tolist">
+<code class="descname">tolist</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.datasets.c_datasets.DatasetGridDouble.tolist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pytraj.datasets.c_datasets.DatasetGridDouble.values">
+<code class="descname">values</code><a class="headerlink" href="#pytraj.datasets.c_datasets.DatasetGridDouble.values" title="Permalink to this definition">¶</a></dt>
 <dd><p>return a copy or non-copy, depending on data</p>
 </dd></dl>
 
@@ -3073,7 +3224,7 @@ We can not return a memoryview since Trajectory is a C++ vector of Frame object<
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Aug 04, 2016.<br/>
+      Last updated on Aug 22, 2016.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
     </p>
   </div>
