@@ -152,7 +152,7 @@
 <script type="text/javascript" src='../_static/cindex.js'></script></div>
 <span class="target" id="module-pytraj.energy_analysis"></span><dl class="function">
 <dt id="pytraj.energy_analysis.esander">
-<code class="descclassname">pytraj.energy_analysis.</code><code class="descname">esander</code><span class="sig-paren">(</span><em>traj=None</em>, <em>prmtop=None</em>, <em>igb=8</em>, <em>mm_options=None</em>, <em>qm_options=None</em>, <em>dtype='dict'</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.energy_analysis.esander" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.energy_analysis.</code><code class="descname">esander</code><span class="sig-paren">(</span><em>traj=None</em>, <em>prmtop=None</em>, <em>igb=8</em>, <em>mm_options=None</em>, <em>qm_options=None</em>, <em>mode=None</em>, <em>dtype='dict'</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.energy_analysis.esander" title="Permalink to this definition">¶</a></dt>
 <dd><p>energy decomposition by calling <cite>libsander</cite></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -181,6 +181,10 @@ use different Topology object, can not convert from one to another.</li>
 If <cite>mm_options</cite> is not None, use this</p>
 </div></blockquote>
 <p><strong>qm_options</strong> : InputOptions from <cite>sander</cite> for QMMM, optional</p>
+<p><strong>mode</strong> : str, default=None, optional</p>
+<blockquote>
+<div><p>if mode=&#8217;minimal&#8217;, get only &#8216;bond&#8217;, &#8216;angle&#8217;, &#8216;dihedral&#8217; and &#8216;total&#8217; energies</p>
+</div></blockquote>
 <p><strong>top</strong> : pytraj.Topology or str, default=None, optional</p>
 <blockquote>
 <div><p>only need to specify this <code class="docutils literal"><span class="pre">top</span></code> if <code class="docutils literal"><span class="pre">traj</span></code> does not hold Topology</p>
