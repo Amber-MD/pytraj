@@ -1,3 +1,5 @@
+[Install](#install) | [Features](#features) | [How to get started?](#how-to-get-started) | [visualization](#nglview-with-pytraj-in-jupyter-notebook)
+
 [![Build Status](https://travis-ci.org/Amber-MD/pytraj.svg?branch=master)](https://travis-ci.org/Amber-MD/pytraj)
 [![Binstar Badge](https://anaconda.org/ambermd/pytraj/badges/version.svg)](https://anaconda.org/ambermd/pytraj/)
 [![PyPI version](https://badge.fury.io/py/pytraj.svg)](https://badge.fury.io/py/pytraj)
