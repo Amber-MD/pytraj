@@ -121,3 +121,20 @@ def load_cpptraj_state(txt, traj=None):
     else:
         from pytraj.core.c_core import _load_batch
         return _load_batch(txt, traj=traj)
+
+
+def convert(input_filename, output_filename):
+    """convert datafile format (e.g .ccp4 to .dx, .dat to .xmgrace)
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> pt.datafiles.convert('test.cpp4', 'test.dx') # doctest: +SKIP
+    """
+    from pytraj.core.c_core import CpptrajState, Command
+
+    state = CpptrajState()
+
+    with Command() as command:
+        command.dispatch(state, 'readdata {} name mydata'.format(input_filename))
+        command.dispatch(state, 'writedata {} mydata '.format(output_filename))
