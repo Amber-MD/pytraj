@@ -1574,7 +1574,7 @@ def atomicfluct(traj=None,
     traj : Trajectory-like
     mask : str or 1D-array
         atom mask. If not given, use all atoms
-    options : str, additional cpptraj options ('byres', 'bymask', ...)
+    options : str, additional cpptraj options ('byres', 'bymask', 'byatom', 'calcadp')
 
     Examples
     --------
