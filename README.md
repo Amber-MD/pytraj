@@ -29,7 +29,7 @@ Features
 --------
 
 - support more than 80 types of data analyses (rmsd, radgyr, autoimage, pca, clustering,...)
-- read/write various file formats (.nc, .dcd, .trr, .pdb, .mol2, ...)
+- read/write various file formats (.nc, .mdcrd, .dcd, .trr, .xtc, .pdb, .mol2, ...)
 - fast (core codes were written in C++ and Cython)
 - support parallel calculation with trivial installation (openmp, multiprocessing, mpi, ...)
 - interactive analysis with large trajectory data that does not fit to memory
