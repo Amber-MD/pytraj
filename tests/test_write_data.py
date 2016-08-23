@@ -32,7 +32,7 @@ class TestWriteData(unittest.TestCase):
 
         saved_dx_file = cpptraj_test_dir + '/Test_CCP4/fav8.dx.save'
         output_file = 'test.ccp4'
-        pt.io._format_convert(saved_dx_file, output_file)
+        pt.datafiles.convert(saved_dx_file, output_file)
         assert os.path.exists("test.ccp4")
 
 if __name__ == "__main__":
