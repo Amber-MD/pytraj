@@ -123,7 +123,7 @@ def load_cpptraj_state(txt, traj=None):
         return _load_batch(txt, traj=traj)
 
 
-def convert(input_filename, to=output_filename):
+def convert(input_filename, to):
     """convert datafile format (e.g .ccp4 to .dx, .dat to .xmgrace)
 
     Examples
