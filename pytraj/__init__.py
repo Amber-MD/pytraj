@@ -29,6 +29,7 @@ from .core.c_core import AtomMask
 from .core.c_core import Command
 from .datasets import array
 from .utils import c_commands
+from .utils import tools
 from .trajectory.trajectory import Trajectory
 from .trajectory.trajectory_iterator import TrajectoryIterator
 from .trajectory.c_traj.c_trajout import TrajectoryWriter
@@ -288,4 +289,4 @@ __all__ = (io.__all__
            'dispatch', 'iterchunk', 'iterframe',
            'select', 'set_cpptraj_verbose', 'show_versions',
            'dihedral_analysis', 'hbond_analysis', 'dssp_analysis',
-           'nucleic_acid_analysis',])
+           'nucleic_acid_analysis','tools'])
