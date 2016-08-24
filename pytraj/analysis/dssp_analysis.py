@@ -4,6 +4,8 @@ from pytraj.externals.six import PY3
 from pytraj import DatasetList, tools
 from ..utils.get_common_objects import get_data_from_dtype, super_dispatch, get_topology
 from ..utils.decorators import register_openmp
+from ..datasets.c_datasetlist import DatasetList as CpptrajDatasetList
+from .c_action.c_action import Action_DSSP
 
 
 @register_openmp
@@ -90,8 +92,6 @@ def calc_dssp(traj=None,
 
     Simlified codes will be mostly used for visulization in other packages.
     """
-    from pytraj.datasets.c_datasetlist import DatasetList as CpptrajDatasetList
-    from pytraj.c_action.c_action import Action_DSSP
 
     command = mask
 

@@ -460,9 +460,9 @@ def read_gaussian_output(filename=None, top=None):
     >>> pt.tools.read_gaussian_output("gau.out", "mytest.pdb") # doctest: +SKIP
     """
     import cclib
-    from pytraj.trajectory import Trajectory
+    from pytraj.trajectory.trajectory import Trajectory
     from pytraj.utils.context import tempfolder
-    from pytraj.get_common_objects import get_topology
+    from pytraj.utils.get_common_objects import get_topology
 
     _top = get_topology(None, top)
     gau = cclib.parser.Gaussian(filename)

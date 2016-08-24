@@ -94,7 +94,7 @@ def nastruct(traj=None,
     """
     from pytraj.datasets.c_datasetlist import DatasetList as CpptrajDatasetList
     from .c_action import c_action
-    from pytraj.array import DataArray
+    from pytraj.datasets.array import DataArray
 
     _resrange = get_resrange(resrange)
 

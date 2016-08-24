@@ -5,6 +5,7 @@ from functools import wraps
 # do not import anything else here.
 from pytraj.externals.six import string_types, integer_types
 from pytraj.utils.convert import array_to_cpptraj_atommask
+from pytraj.trajectory.shared_methods import iterframe_master
 
 
 def _load_Topology(filename):
@@ -311,7 +312,6 @@ class super_dispatch(object):
 def get_iterator_from_dslist(traj, mask, frame_indices, top, crdname='dataset_coords'):
     from pytraj import Trajectory, TrajectoryIterator
     from pytraj.datasets import CpptrajDatasetList
-    from pytraj.shared_methods import iterframe_master
 
     dslist = CpptrajDatasetList()
     dslist.add("coords", crdname)

@@ -25,7 +25,8 @@ def parallel_info(key=None):
         if key is not None, return specific method. key={'openmp', 'pmap'}
     '''
     import pytraj as pt
-    from pytraj import matrix, vector, nmr, cluster
+    from pytraj.analysis import matrix, vector, nmr
+    from pytraj import cluster
     from itertools import chain
     methodlist_pmap = []
     methodlist_openmp = []

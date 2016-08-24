@@ -283,7 +283,7 @@ __all__ = (io.__all__
         + ['nastruct']
         + ['esander']
         + ['Atom', 'Residue', 'Molecule', 'Topology', 'Frame', 'AtomMask',
-           'Trajectory', 'TrajectoryIterator',
+           'Trajectory', 'TrajectoryIterator', 'TrajectoryWriter',
            'ActionList', 'ActionDict', 'AnalysisDict', 'adict', 'analdict',
            'dispatch', 'iterchunk', 'iterframe',
            'select', 'set_cpptraj_verbose', 'show_versions',

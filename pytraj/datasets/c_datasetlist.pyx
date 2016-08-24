@@ -285,7 +285,7 @@ cdef class DatasetList:
         return self.get_legends()
 
     def iteritems(self):
-        from pytraj.compat import zip
+        from pytraj.externals.six import zip
         for key in self.keys():
             yield key, self[key]
 

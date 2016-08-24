@@ -18,7 +18,7 @@ def check_valid_command(commands):
     cmlist : newly updated command list
     need_ref : bool, whether to provide reference or not
     '''
-    from pytraj.c_commands import analysis_commands
+    from pytraj.utils.c_commands import analysis_commands
 
     if isinstance(commands, string_types):
         commands = [line.strip() for line in commands.split('\n') if line]

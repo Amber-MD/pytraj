@@ -61,11 +61,11 @@ def vector_mask(traj=None,
     >>> # compute vectors for specific frame indices (0, 4)
     >>> data_vec = va.vector_mask(traj, n_h_pairs, frame_indices=[0, 4], dtype='ndarray')
     """
-    from .get_common_objects import get_topology, get_data_from_dtype, get_fiterator
-    from .get_common_objects import get_list_of_commands
-    from .datasets.c_datasetlist import DatasetList as CpptrajDatasetList
-    from .c_action.c_action import Action_Vector
-    from .c_action.actionlist import ActionList
+    from pytraj.utils.get_common_objects import get_topology, get_data_from_dtype, get_fiterator
+    from pytraj.utils.get_common_objects import get_list_of_commands
+    from pytraj.datasets.c_datasetlist import DatasetList as CpptrajDatasetList
+    from pytraj.analysis.c_action.c_action import Action_Vector
+    from pytraj.analysis.c_action.actionlist import ActionList
 
     fi = get_fiterator(traj, frame_indices)
     _top = get_topology(fi, top)
@@ -103,11 +103,11 @@ def %s(traj=None, command="", frame_indices=None, dtype='ndarray', top=None):
         if specified, only perform calculation with given frames
     top : {str, Topology}, optional, default None
     """
-    from .get_common_objects import get_topology, get_data_from_dtype, get_fiterator
-    from .get_common_objects import get_list_of_commands
-    from .datasets.c_datasetlist import DatasetList as CpptrajDatasetList
-    from .c_action.c_action import Action_Vector
-    from .c_action.actionlist import ActionList
+    from pytraj.utils.get_common_objects import get_topology, get_data_from_dtype, get_fiterator
+    from pytraj.utils.get_common_objects import get_list_of_commands
+    from pytraj.datasets.c_datasetlist import DatasetList as CpptrajDatasetList
+    from pytraj.analysis.c_action.c_action import Action_Vector
+    from pytraj.analysis.c_action.actionlist import ActionList
 
     fi = get_fiterator(traj, frame_indices)
     _top = get_topology(fi, top)
