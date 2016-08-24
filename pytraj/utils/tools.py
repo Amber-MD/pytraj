@@ -431,8 +431,8 @@ def split_traj_by_residues(traj, start=0, stop=-1, step=1):
     >>> print(t0.top.n_residues)
     1
     '''
-    from pytraj.compat import range
-    from pytraj.cyutils import get_positive_idx
+    from pytraj.externals.six.moves import range
+    from pytraj.utils.cyutils import get_positive_idx
 
     _stop = get_positive_idx(stop, traj.top.n_residues)
 
@@ -516,7 +516,7 @@ def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
     -----
     Code might be changed
     """
-    from pytraj.compat import zip
+    from pytraj.externals.six import zip
     from pytraj import Trajectory
     import numpy as np
 

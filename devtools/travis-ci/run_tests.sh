@@ -2,7 +2,7 @@
 
 
 # print info
-python run_simple_test.py || exit 1
+python run_tests.py simple || exit 1
 
 sh devtools/travis-ci/pyflakes_check.sh || exit 1
 

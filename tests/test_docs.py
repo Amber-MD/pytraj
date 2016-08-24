@@ -7,12 +7,24 @@ import pytraj as pt
 from pytraj.utils import eq, aa_eq
 from pytraj import utils
 import doctest
-from pytraj.compat import PY3
+from pytraj.externals.six import PY3
 from pytraj import testing
 from pytraj.datafiles import load_samples
 from pytraj import energy_analysis
-from pytraj import frame, datafiles, cluster, nucleic_acid_analysis
-from pytraj.c_action import actionlist
+from pytraj.trajectory import frame
+from pytraj import datafiles, cluster, nucleic_acid_analysis
+from pytraj.analysis.c_action import actionlist
+from pytraj.utils import convert
+from pytraj.trajectory import frameiter
+from pytraj import vector
+from pytraj.datasets import datasetlist
+from pytraj.analysis import base_holder
+from pytraj.trajectory import trajectory_iterator
+from pytraj.utils import check_and_assert
+from pytraj.utils import get_common_objects
+from pytraj.utils import decorators
+from pytraj.analysis import nmr
+from pytraj.datasets import array
 
 
 try:
@@ -34,10 +46,6 @@ class TestDoc(unittest.TestCase):
 
     # @unittest.skipIf(sys.platform == 'darwin', 'linux testing only')
     def test_doc(self):
-        from pytraj.utils import convert
-        from pytraj import frameiter, vector, datasetlist, base_holder
-        from pytraj import trajectory_iterator
-        from pytraj.utils import check_and_assert
 
         modules = [convert, frameiter, vector, trajectory_iterator, ]
         if PY3:
@@ -51,18 +59,18 @@ class TestDoc(unittest.TestCase):
                 datafiles,
                 pt.all_actions,
                 pt.topology,
-                pt.get_common_objects,
+                get_common_objects,
                 pt.parallel.multiprocess,
                 pt,
                 pt.io,
                 nucleic_acid_analysis,
                 load_samples,
                 pt.trajectory,
-                pt.decorators,
+                decorators,
                 pt.dssp_analysis,
                 datasetlist,
-                pt.array,
-                pt.nmr,
+                array,
+                nmr,
                 check_and_assert,
                 pt.hbond_analysis,
                 pt.tools,
