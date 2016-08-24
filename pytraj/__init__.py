@@ -27,8 +27,8 @@ from .core.c_core import CpptrajState
 from .core.c_core import ArgList
 from .core.c_core import AtomMask
 from .core.c_core import Command
-from . import array
-from . import c_commands
+from .datasets import array
+from .utils import c_commands
 from .trajectory.trajectory import Trajectory
 from .trajectory.trajectory_iterator import TrajectoryIterator
 from .trajectory.c_traj.c_trajout import TrajectoryWriter
@@ -40,7 +40,7 @@ from .trajectory.shared_methods import iterframe_master
 from .trajectory.frameiter import iterframe
 from .trajectory.frameiter import iterchunk
 from .datasets.cast_dataset import cast_dataset
-from .datasetlist import DatasetList as Dataset
+from .datasets.datasetlist import DatasetList as Dataset
 
 from . import io
 from .io import load
@@ -66,10 +66,10 @@ from .io import select_atoms
 
 # dataset stuff
 from .datafiles import load_cpptraj_state
-from .datasetlist import DatasetList
+from .datasets.datasetlist import DatasetList
 
 # tool
-from . import tools
+from .utils import tools
 
 # actions and analyses
 from .analysis.c_action import c_action as allactions

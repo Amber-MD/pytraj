@@ -3,11 +3,12 @@ import numpy as np
 from collections import OrderedDict
 from pytraj.datasets import CpptrajDatasetList
 from pytraj.utils import is_int, is_array, is_generator
-from pytraj.compat import string_types
+from pytraj.externals.six import string_types
+from pytraj.externals.six.moves import map
+from pytraj.externals.six import iteritems
 from pytraj.datafiles import DataFile
 from pytraj.core.c_core import ArgList
-from pytraj.compat import map, iteritems
-from pytraj.array import DataArray
+from .array import DataArray
 
 __all__ = ['load_datafile', 'stack', 'DatasetList']
 

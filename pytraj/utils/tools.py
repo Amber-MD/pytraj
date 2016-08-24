@@ -9,7 +9,7 @@ import os
 from itertools import islice
 from collections import OrderedDict, defaultdict
 import numpy as np
-from pytraj.compat import string_types
+from pytraj.externals.six import string_types
 
 
 def estimate_size(n_frames, n_atoms, dtype='f8'):

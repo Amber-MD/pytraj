@@ -1,8 +1,8 @@
 # distutils: language = c++
 from cython.operator cimport dereference as deref
 from pytraj.core.c_dict cimport RetTypeAna, OKANALYSIS, ERRANALYSIS
+from pytraj.utils.decorators import makesureABC
 from pytraj.externals.six import PY3
-from pytraj.decorators import makesureABC
 from pytraj.externals.six import string_types
 
 cdef extern from "Analysis.h":
