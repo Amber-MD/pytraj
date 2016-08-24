@@ -8,7 +8,7 @@ from pytraj.utils import duplicate_traj, Timer
 __all__ = ['load_sample_data', 'eq', 'aa_eq', 'make_random_frame',
            'duplicate_traj', 'Timer', 'amberhome', 'cpptraj_test_dir',
            'run_docstring',
-           'get_fn']
+           'get_fn', 'get_remd_fn']
 
 # find cpptraj test dir
 # find in CPPTRAJHOME first
