@@ -57,7 +57,7 @@ def get_topology(traj, top):
 
 
 def get_data_from_dtype(d0, dtype='dataset'):
-    from pytraj.datasetlist import DatasetList as DSL
+    from pytraj.datasets.datasetlist import DatasetList as DSL
 
     if (dtype is None or dtype == 'dataset') and hasattr(d0, 'set_own_memory'):
         d0.set_own_memory(False)

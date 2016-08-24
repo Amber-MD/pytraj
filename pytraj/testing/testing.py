@@ -1,9 +1,9 @@
 from __future__ import absolute_import, print_function
 import os
 
-from .datafiles.load_samples import load_sample_data
-from .utils import eq, aa_eq
-from .utils import duplicate_traj, Timer
+from pytraj.datafiles.load_samples import load_sample_data
+from pytraj.utils import eq, aa_eq
+from pytraj.utils import duplicate_traj, Timer
 
 __all__ = ['load_sample_data', 'eq', 'aa_eq', 'make_random_frame',
            'duplicate_traj', 'Timer', 'amberhome', 'cpptraj_test_dir',

@@ -594,7 +594,7 @@ class Trajectory(SharedTrajectory):
         True
         >>> t0 = t0.autoimage()
         '''
-        from pytraj.c_action import c_action
+        from pytraj.analysis.c_action import c_action
 
         act = c_action.Action_AutoImage()
         act(command, self, top=self.top)
@@ -613,7 +613,7 @@ class Trajectory(SharedTrajectory):
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.rotate('@CA x 20')
         '''
-        from pytraj.c_action import c_action
+        from pytraj.analysis.c_action import c_action
 
         act = c_action.Action_Rotate()
         act(command, self, top=self.top)
@@ -632,7 +632,7 @@ class Trajectory(SharedTrajectory):
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.translate('@CA x 1.2')
         '''
-        from pytraj.c_action import c_action
+        from pytraj.analysis.c_action import c_action
 
         act = c_action.Action_Translate()
         act(command, self, top=self.top)
@@ -651,7 +651,7 @@ class Trajectory(SharedTrajectory):
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.scale('@CA x 1.2')
         '''
-        from pytraj.c_action import c_action
+        from pytraj.analysis.c_action import c_action
 
         act = c_action.Action_Scale()
         act(command, self, top=self.top)
@@ -686,7 +686,7 @@ class Trajectory(SharedTrajectory):
         >>> traj = pt.load_sample_data('ala3')[:]
         >>> traj = traj.align_principal_axis()
         """
-        from pytraj.c_action import c_action
+        from pytraj.analysis.c_action import c_action
         act = c_action.Action_Principal()
 
         command += " dorotation"
@@ -719,7 +719,7 @@ class Trajectory(SharedTrajectory):
         >>> traj2.xyz[0, 0] # after transforming
         array([-1.19438073,  8.75046229, -1.82742397])
         '''
-        from pytraj.c_action.actionlist import pipe
+        from pytraj.analysis.c_action.actionlist import pipe
         fi = pipe(self, commands, frame_indices=frame_indices)
 
         for _ in fi:

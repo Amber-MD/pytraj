@@ -39,6 +39,7 @@ from .math import Vec3
 from .trajectory.shared_methods import iterframe_master
 from .trajectory.frameiter import iterframe
 from .trajectory.frameiter import iterchunk
+from .trajectory.frameiter import FrameIterator
 from .datasets.cast_dataset import cast_dataset
 from .datasets.datasetlist import DatasetList as Dataset
 

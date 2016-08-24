@@ -245,7 +245,7 @@ class FrameIterator(object):
                    **kwd)
 
     def __iter__(self):
-        from pytraj.c_action import c_action
+        from pytraj.analysis.c_action import c_action
         # do not import c_action in the top to avoid circular importing
         if self.autoimage:
             image_act = c_action.Action_AutoImage()

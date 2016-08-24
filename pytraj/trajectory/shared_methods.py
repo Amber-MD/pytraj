@@ -55,8 +55,8 @@ def iterframe_master(obj):
     >>> # create frame iterator from a list of frame iterator and chunk iterator
     >>> for frame in iterframe_master([traj.iterframe(), traj.iterchunk()]): pass
     """
-    from pytraj.frame import Frame
-    from pytraj.frameiter import FrameIterator
+    from pytraj import Frame
+    from pytraj import FrameIterator
 
     if isinstance(obj, Frame):
         yield obj
