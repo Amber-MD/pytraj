@@ -2,7 +2,7 @@
 from cython.operator cimport dereference as deref
 
 from ...externals.six import string_types
-from ..c_action import ActionDict
+from .c_action import ActionDict
 from ...trajectory.shared_methods import iterframe_master
 
 
