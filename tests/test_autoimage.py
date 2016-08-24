@@ -4,7 +4,7 @@ import pytraj as pt
 from pytraj import adict
 from pytraj.externals.six import zip
 from pytraj.testing import aa_eq
-from pytraj.tools import rmsd_1darray
+from pytraj.utils.tools import rmsd_1darray
 
 
 class TestRegular(unittest.TestCase):

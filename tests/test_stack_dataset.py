@@ -1,4 +1,5 @@
 from __future__ import print_function
+import numpy as np
 import pytraj as pt
 import unittest
 
@@ -7,6 +8,7 @@ from pytraj import io as mdio
 from pytraj.utils import eq, aa_eq
 from pytraj.testing import cpptraj_test_dir
 from pytraj.datasets.datasetlist import stack
+from pytraj.datasets.datasetlist import stack as stack
 
 traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 
@@ -14,8 +16,6 @@ traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 class Test(unittest.TestCase):
 
     def test_0(self):
-        import numpy as np
-        from pytraj.datasetlist import stack as stack
         _ds1 = pt.calc_dssp(traj[:5], dtype='dataset')
         ds1 = _ds1.grep('LYS')
         _ds2 = pt.calc_dssp(traj[5:], dtype='dataset')
