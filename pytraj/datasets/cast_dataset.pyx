@@ -11,7 +11,7 @@ from .c_datasets cimport(_Dataset, Dataset, Dataset1D, _Dataset1D, DatasetIntege
                            _DatasetCoords, DatasetCoords, _DatasetCoordsRef,
                            DatasetCoordsRef, _DatasetCoordsCRD, DatasetCoordsCRD,
                            DatasetTopology, _DatasetTopology)
-from ..c_traj.c_trajectory cimport TrajectoryCpptraj, _TrajectoryCpptraj
+from ..trajectory.c_traj.c_trajectory cimport TrajectoryCpptraj, _TrajectoryCpptraj
 
 
 def cast_dataset(dsetin=None, dtype='general'):

@@ -2,12 +2,14 @@
 from libcpp.vector cimport vector
 from libcpp.string cimport string
 from ..frame cimport _Frame, Frame
-from ..topology cimport _Topology, Topology
-from ..datasets.c_datasets cimport _DatasetCoords
-from ..datasets.c_datasetlist cimport DatasetList as CpptrajDatasetList, _DatasetList as _CpptrajDatasetList
-from ..core.c_core cimport _AtomMask, AtomMask, _ArgList, ArgList
-from ..core.coordinfo cimport _CoordinateInfo, CoordinateInfo
-from ..c_action.actionlist cimport _ActionList, ActionList
+from ...core.c_core cimport _AtomMask, AtomMask, _ArgList, ArgList
+from ...core.coordinfo cimport _CoordinateInfo, CoordinateInfo
+from ...core.c_core cimport AtomMask
+from ...core.box cimport Box
+from ...topology.topology cimport _Topology, Topology
+from ...datasets.c_datasets cimport _DatasetCoords
+from ...datasets.c_datasetlist cimport DatasetList as CpptrajDatasetList, _DatasetList as _CpptrajDatasetList
+from ...analysis.c_action.actionlist cimport _ActionList, ActionList
 
 
 cdef extern from "DataSet_Coords_TRJ.h" nogil: 

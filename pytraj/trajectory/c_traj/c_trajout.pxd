@@ -1,10 +1,10 @@
 # distutils: language = c++
 from libcpp.string cimport string
 from ..frame cimport _Frame, Frame
-from ..core.c_core cimport _ArgList, ArgList, Box
-from ..topology cimport _Topology, Topology
-from ..c_dict cimport TrajFormatType
-from ..core.coordinfo cimport _CoordinateInfo, CoordinateInfo
+from ...core.c_core cimport _ArgList, ArgList, Box
+from ...core.coordinfo cimport _CoordinateInfo, CoordinateInfo
+from ...core.c_dict cimport TrajFormatType
+from ...topology cimport _Topology, Topology
 
 
 cdef extern from "TrajoutList.h": 

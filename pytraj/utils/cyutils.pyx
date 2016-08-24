@@ -1,8 +1,8 @@
 cimport cython
 from cython cimport view
-from .frame cimport Frame, _Frame
-from .core.box cimport _Box, Box
-from .topology cimport Topology
+from ..trajectory.frame cimport Frame, _Frame
+from ..core.box cimport _Box, Box
+from ..topology.topology cimport Topology
 
 
 __all__ = ['_fast_count', 'get_positive_idx', '_int_array1d_like_to_memview',

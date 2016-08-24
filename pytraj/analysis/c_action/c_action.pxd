@@ -1,13 +1,13 @@
 # distutils: language = c++
 from libcpp.string cimport string
-from ..core.c_core cimport (_DispatchObject, DispatchObject,  FunctPtr)
-from ..core.box cimport Box
-from ..datafiles.datafiles cimport  _DataFileList, DataFileList
-from ..topology cimport _Topology, Topology
-from ..core.c_core cimport _ArgList, ArgList
-from ..datasets.c_datasetlist cimport _DatasetList, DatasetList
-from ..frame cimport _Frame, Frame
-from ..core.coordinfo cimport _CoordinateInfo, CoordinateInfo
+from ...core.c_core cimport (_DispatchObject, DispatchObject,  FunctPtr)
+from ...core.box cimport Box
+from ...datafiles.datafiles cimport  _DataFileList, DataFileList
+from ...topology.topology cimport _Topology, Topology
+from ...core.c_core cimport _ArgList, ArgList
+from ...datasets.c_datasetlist cimport _DatasetList, DatasetList
+from ...trajectory.frame cimport _Frame, Frame
+from ...core.coordinfo cimport _CoordinateInfo, CoordinateInfo
 
 
 cdef extern from "ActionState.h":

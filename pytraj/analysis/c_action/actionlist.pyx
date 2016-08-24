@@ -1,9 +1,9 @@
 # distutils: language = c++
 from cython.operator cimport dereference as deref
 
-from ..externals.six import string_types
-from .c_action import ActionDict
-from ..shared_methods import iterframe_master
+from ...externals.six import string_types
+from ..c_action import ActionDict
+from ...trajectory.shared_methods import iterframe_master
 
 
 def _get_arglist(arg):

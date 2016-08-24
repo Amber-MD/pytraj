@@ -2,15 +2,12 @@
 import os
 import numpy as np
 from ..trajectory import Trajectory
-from ..core.c_core cimport AtomMask
-from ..core.box cimport Box
-from ..topology cimport Topology
 
-from ..cyutils import get_positive_idx
+from ...utils.cyutils import get_positive_idx
 from pytraj.externals.six import string_types
 from ..shared_methods import (my_str_method, _xyz, _box)
-from ..utils.check_and_assert import ensure_exist
-from ..utils.check_and_assert import is_array, is_range
+from ...utils.check_and_assert import ensure_exist
+from ...utils.check_and_assert import is_array, is_range
 
 # do not use compat for range here. Let Cython handle
 #from ..externals.six.moves import range
