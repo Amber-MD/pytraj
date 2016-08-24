@@ -6,6 +6,7 @@ from pytraj import Frame
 
 from pytraj.math import Vec3
 from pytraj.testing import aa_eq
+from pytraj import *
 import nose.tools as nt
 
 N_ATOMS = 10
