@@ -9,6 +9,7 @@ from pytraj.utils import has_
 from pytraj.testing import aa_eq, cpptraj_test_dir
 from pytraj import Trajectory, TrajectoryIterator
 from pytraj.datasets import CpptrajDatasetList
+from pytraj import AtomMask
 
 
 class TestSimpleRMSD(unittest.TestCase):
