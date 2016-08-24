@@ -1,6 +1,6 @@
 # distutils: language = c++
 from __future__ import print_function
-from pytraj.decorators import makesureABC
+from pytraj.utils.decorators import makesureABC
 from pytraj.externals.six import string_types
 from pytraj.utils import is_generator
 from pytraj.trajectory.shared_methods import iterframe_master

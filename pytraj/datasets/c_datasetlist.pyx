@@ -10,17 +10,16 @@ from ..trajectory.c_traj.c_trajectory cimport TrajectoryCpptraj
 import numpy as np
 from collections import defaultdict
 
-from ..cyutils import get_positive_idx
+from ..utils.cyutils import get_positive_idx
 from collections import defaultdict
 from .cast_dataset import cast_dataset
 from ..utils.check_and_assert import is_array
 from ..externals.six import string_types
-from ..compat import set
 from ..utils import is_int
 from ..datafiles.datafiles import DataFile
 from ..core.c_core import ArgList
 
-from pytraj.c_dict import DataTypeDict
+from pytraj.core.c_dict import DataTypeDict
 
 __all__ = ['DatasetList']
 
