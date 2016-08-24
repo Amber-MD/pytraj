@@ -11,7 +11,7 @@ class DataArray(object):
 
     Examples
     --------
-    >>> from pytraj.array import DataArray
+    >>> from pytraj.datasets.array import DataArray
     >>> arr0 = DataArray([0, 2, 4])
     >>> arr1 = DataArray({'x' : [0, 2, 4]})
     >>> values = arr1.values
