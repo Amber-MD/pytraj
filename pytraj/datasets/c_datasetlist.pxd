@@ -3,7 +3,7 @@ from libcpp.string cimport string
 
 # seriously I need to use absolute import here
 from pytraj.datasets.c_datasets cimport _Dataset, Dataset, DataType, _MetaData
-from ..cpp_vector cimport vector as cppvector
+from ..cython_extra_header.cpp_vector cimport vector as cppvector
 
 ctypedef cppvector[_Dataset*] DataListType
 ctypedef cppvector[_Dataset*].const_iterator const_iterator
