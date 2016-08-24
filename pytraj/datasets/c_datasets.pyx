@@ -11,10 +11,10 @@ from cython.view cimport array as cyarray
 # python level
 import numpy as np
 from ..utils import is_int
-from ..shared_methods import _xyz, my_str_method
-from ..cyutils import get_positive_idx
-from ..c_traj.c_trajectory import TrajectoryCpptraj
-from ..topology cimport Topology
+from ..utils.cyutils import get_positive_idx
+from ..trajectory.shared_methods import _xyz, my_str_method
+from ..trajectory.c_traj.c_trajectory import TrajectoryCpptraj
+from ..topology.topology cimport Topology
 from ..externals.six import string_types
 
 
