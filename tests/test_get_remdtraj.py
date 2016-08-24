@@ -1,5 +1,4 @@
 import unittest
-from pytraj.compat import set
 from glob import glob
 
 from pytraj import io as mdio
