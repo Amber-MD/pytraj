@@ -135,7 +135,6 @@ def esander(traj=None,
     in each core without pickling.
     """
     from collections import defaultdict, OrderedDict
-    from pytraj.misc import get_atts
     import numpy as np
 
     try:
@@ -188,8 +187,7 @@ def esander(traj=None,
             ene, frc = sander.energy_forces()
 
             # potentially slow
-            ene_atts = get_atts(ene)
-            for att in ene_atts:
+            for att in [a for a in dir(ene) if not a.startswith('_')]:
                 ddict[att].append(getattr(ene, att))
 
     for key in ddict.keys():
