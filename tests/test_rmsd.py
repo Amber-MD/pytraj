@@ -319,7 +319,7 @@ class TestActionListRMSD(unittest.TestCase):
         standard_rmsd = pt.rmsd(traj, mask='@CA')
 
         def test_rmsd(input_traj):
-            from pytraj.c_action.c_action import Action_Rmsd
+            from pytraj.analysis.c_action.c_action import Action_Rmsd
             from pytraj.datasets import DatasetList
             dslist = DatasetList()
             act = Action_Rmsd()
@@ -331,7 +331,7 @@ class TestActionListRMSD(unittest.TestCase):
             return (dslist.values)
 
         def test_rmsd_actlist(input_traj):
-            from pytraj.c_action.c_action import Action_Rmsd
+            from pytraj.analysis.c_action.c_action import Action_Rmsd
             from pytraj import ActionList
             from pytraj.datasets import DatasetList
 
