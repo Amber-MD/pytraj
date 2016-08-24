@@ -19,7 +19,8 @@ except ImportError:
 
 if not amberhome:
     path = os.path.dirname(os.path.abspath(__file__))
-    ambermini_test_dir = os.path.join(path, 'ambermini_test')
+    print(path)
+    ambermini_test_dir = os.path.join(path, 'fake_amberhome')
     if os.path.exists(ambermini_test_dir):
         amberhome = ambermini_test_dir
     print('amberhome', amberhome)
