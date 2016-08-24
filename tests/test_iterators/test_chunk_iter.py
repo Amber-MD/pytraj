@@ -1,16 +1,17 @@
 import unittest
 import pytraj as pt
 from pytraj import *
-from pytraj.base import *
+from pytraj import *
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal, is_generator
+from pytraj.datasets.datasetlist import CpptrajDatasetList
 import numpy as np
 
 
 class Test(unittest.TestCase):
 
     def test_0(self):
-        dslist = DatasetList()
+        dslist = CpptrajDatasetList()
         traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 
         calc_distance = adict['distance']
