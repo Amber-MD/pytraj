@@ -3,7 +3,7 @@ import pytraj as pt
 import numpy as np
 import unittest
 from pytraj.testing import aa_eq
-from pytraj.compat import izip as zip
+from pytraj.externals.six import izip as zip
 
 
 class TestSearchHbonds(unittest.TestCase):

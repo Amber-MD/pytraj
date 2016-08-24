@@ -2,7 +2,7 @@ import unittest
 import pytraj as pt
 
 from pytraj import adict
-from pytraj.compat import zip
+from pytraj.externals.six import zip
 from pytraj.testing import aa_eq
 from pytraj.tools import rmsd_1darray
 
@@ -80,7 +80,7 @@ class TestWithRmsfit(unittest.TestCase):
     def test_0(self):
         # TrajectoryIterrator
         # status: failed
-        from pytraj.compat import zip
+        from pytraj.externals.six import zip
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         pt.write_traj("./output/tz2.autoimage_with_rmsfit.nc",
                       traj(autoimage=True,
@@ -96,7 +96,7 @@ class TestWithRmsfit(unittest.TestCase):
 
     def test_1(self):
         # status: OK
-        from pytraj.compat import zip
+        from pytraj.externals.six import zip
         # note: use `load` instead of `iterload`
         traj = pt.load("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         traj.autoimage()

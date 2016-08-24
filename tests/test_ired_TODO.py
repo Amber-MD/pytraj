@@ -5,7 +5,7 @@ import unittest
 import numpy as np
 import pytraj as pt
 from pytraj.testing import eq, aa_eq, cpptraj_test_dir
-from pytraj.compat import zip
+from pytraj.externals.six import zip
 from pytraj.nmr import _ired
 
 parm_dir = cpptraj_test_dir + '/Test_IRED/1IEE_A_prot.prmtop'

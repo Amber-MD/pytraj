@@ -6,7 +6,7 @@ from functools import partial
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
 from pytraj.testing import assert_equal_topology
-from pytraj.compat import zip
+from pytraj.externals.six import zip
 from pytraj.core import Box
 
 
