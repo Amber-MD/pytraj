@@ -34,6 +34,7 @@ from .trajectory.trajectory import Trajectory
 from .trajectory.trajectory_iterator import TrajectoryIterator
 from .trajectory.c_traj.c_trajout import TrajectoryWriter
 from .trajectory.frame import Frame
+from .trajectory import frame
 from .topology.topology import Topology
 from .topology.topology import ParmFile
 from .math import Vec3

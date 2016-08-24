@@ -1,7 +1,7 @@
 from __future__ import print_function
 import unittest
-from pytraj.cyutils import _int_array1d_like_to_memview
-from pytraj.cyutils import _int_array2d_like_to_memview
+from pytraj.utils.cyutils import _int_array1d_like_to_memview
+from pytraj.utils.cyutils import _int_array2d_like_to_memview
 
 
 class Test(unittest.TestCase):
