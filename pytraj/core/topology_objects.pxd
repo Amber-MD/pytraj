@@ -3,7 +3,7 @@ from libcpp.vector cimport vector
 from libcpp.string cimport string
 #from libcpp.set cimport set
 from pytraj.core.c_core cimport _NameType, NameType
-from pytraj.cpp_vector cimport vector as cppvector
+from pytraj.cython_extra_header.cpp_vector cimport vector as cppvector
 
 
 ctypedef cppvector[int].const_iterator bond_iterator
