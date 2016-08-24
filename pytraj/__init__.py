@@ -13,13 +13,13 @@ import sys
 import os
 
 from .version import version as __version__
-from .c_options import info as compiled_info
-from .c_options import __cpptraj_version__
-from .c_options import __cpptraj_internal_version__
-from .c_action.actionlist import ActionList
-from .c_action.actionlist import ActionList as Pipeline
-from .c_action.actionlist import pipe
-from .c_action.actionlist import compute
+from .core.c_options import info as compiled_info
+from .core.c_options import __cpptraj_version__
+from .core.c_options import __cpptraj_internal_version__
+from .analysis.c_action.actionlist import ActionList
+from .analysis.c_action.actionlist import ActionList as Pipeline
+from .analysis.c_action.actionlist import pipe
+from .analysis.c_action.actionlist import compute
 from .core import Atom
 from .core import Residue
 from .core import Molecule
@@ -27,18 +27,18 @@ from .core.c_core import CpptrajState
 from .core.c_core import ArgList
 from .core.c_core import AtomMask
 from .core.c_core import Command
-from . import array
-from . import c_commands
-from .trajectory import Trajectory
-from .trajectory_iterator import TrajectoryIterator
-from .c_traj.c_trajout import TrajectoryWriter
-from .frame import Frame
-from .topology import Topology
-from .topology import ParmFile
+from .utils import array
+from .utils import c_commands
+from .trajectory.trajectory import Trajectory
+from .trajectory.trajectory_iterator import TrajectoryIterator
+from .trajectory.c_traj.c_trajout import TrajectoryWriter
+from .trajectory.frame import Frame
+from .topology.topology import Topology
+from .topology.topology import ParmFile
 from .math import Vec3
-from .shared_methods import iterframe_master
-from .frameiter import iterframe
-from .frameiter import iterchunk
+from .trajectory.shared_methods import iterframe_master
+from .trajectory.frameiter import iterframe
+from .trajectory.frameiter import iterchunk
 from .datasets.cast_dataset import cast_dataset
 from .datasetlist import DatasetList as Dataset
 
