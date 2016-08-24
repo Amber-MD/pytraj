@@ -151,6 +151,7 @@ packages = [
     'pytraj.visualization',
     'pytraj.serialize',
     'pytraj.sandbox',
+    'pytraj.testing',
 ]
 
 if __name__ == "__main__":

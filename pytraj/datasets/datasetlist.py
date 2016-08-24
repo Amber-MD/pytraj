@@ -310,7 +310,7 @@ class DatasetList(list):
     @classmethod
     def read_data(cls, filename, arg=""):
         '''
-        >>> from pytraj.datasetlist import DatasetList
+        >>> from pytraj.datasets.datasetlist import DatasetList
         >>> DatasetList.read_data('data/tc5b.native_contacts.dat')
         <pytraj.DatasetList with 2 datasets>
         Contacts_00001[native]
