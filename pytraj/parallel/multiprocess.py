@@ -3,16 +3,16 @@ from __future__ import absolute_import
 import numpy as np
 from functools import partial
 from collections import OrderedDict
-from pytraj.c_options import info as compiled_info
+from pytraj.core.c_options import info as compiled_info
 from pytraj import matrix
 from pytraj import mean_structure, volmap
 from pytraj import Frame
 from pytraj import ired_vector_and_matrix, rotation_matrix
 from pytraj import NH_order_parameters
 from multiprocessing import cpu_count
-from pytraj.tools import concat_dict
+from pytraj.utils.tools import concat_dict
 from pytraj.externals.six import string_types
-from pytraj.get_common_objects import get_reference
+from pytraj.utils.get_common_objects import get_reference
 
 from .base import worker_byfunc
 

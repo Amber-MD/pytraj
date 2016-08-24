@@ -5,19 +5,19 @@ import os
 import re
 from glob import glob
 import numpy as np
-from ..c_traj.c_trajectory import TrajectoryCpptraj
+from .c_traj.c_trajectory import TrajectoryCpptraj
 from .shared_trajectory import SharedTrajectory
 from ..externals.six import string_types
 from ..externals.six.moves import range
-from ..topology import Topology
-from ..frame import Frame
+from ..topology.topology import Topology
+from .frame import Frame
 from ..utils import is_int
-from ..cyutils import get_positive_idx
-from ..frameiter import FrameIterator
-from ..get_common_objects import _load_Topology
+from ..utils.cyutils import get_positive_idx
+from .frameiter import FrameIterator
+from ..utils.get_common_objects import _load_Topology
 from ..utils import split_range
 from ..utils.convert import array_to_cpptraj_atommask
-from pytraj.get_common_objects import  get_reference
+from pytraj.utils.get_common_objects import  get_reference
 
 __all__ = ['TrajectoryIterator', ]
 
