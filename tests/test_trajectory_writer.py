@@ -1,7 +1,7 @@
 import unittest
 import pytraj as pt
 import numpy as np
-from pytraj.base import *
+
 from pytraj import io as mdio
 from pytraj.testing import aa_eq
 

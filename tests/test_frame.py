@@ -3,7 +3,7 @@ import pytraj as pt
 from array import array
 import numpy as np
 from pytraj import Frame
-from pytraj.base import *
+
 from pytraj.math import Vec3
 from pytraj.testing import aa_eq
 import nose.tools as nt

@@ -1,7 +1,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
-from pytraj.base import *
+
 from pytraj import adict
 from pytraj import io
 from pytraj.utils.check_and_assert import assert_almost_equal as aa_eq

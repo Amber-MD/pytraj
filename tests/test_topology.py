@@ -5,7 +5,7 @@ import pytraj as pt
 from pytraj.compat import zip
 from pytraj import Topology
 from pytraj.core.c_core import AtomMask
-from pytraj.base import *
+
 
 TRAJ = Trajectory("./data/Tc5b.x", "./data/Tc5b.top")
 

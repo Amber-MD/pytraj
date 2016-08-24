@@ -1,5 +1,5 @@
 import unittest
-from pytraj.base import *
+
 from pytraj import set_world_silent
 from pytraj.utils import Timer
 from pytraj import io as mdio

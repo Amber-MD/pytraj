@@ -1,5 +1,5 @@
 import unittest
-from pytraj.base import *
+
 import pytraj.io as mdio
 
 
