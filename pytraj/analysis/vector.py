@@ -1,6 +1,6 @@
 from __future__ import print_function, absolute_import
 import numpy as np
-from .decorators import register_pmap
+from ..utils.decorators import register_pmap
 
 _supported_types = [
     x

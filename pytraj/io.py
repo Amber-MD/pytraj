@@ -6,17 +6,17 @@ from .externals.six import string_types, PY3
 from .serialize import to_pickle, read_pickle
 from .datafiles.load_samples import load_sample_data
 from .datafiles.load_cpptraj_file import load_cpptraj_file
-from .shared_methods import iterframe_master
-from .cyutils import _fast_iterptr as iterframe_from_array
-from .c_options import set_error_silent
-from .get_common_objects import get_topology
-from .topology import Topology, ParmFile
-from .trajectory import Trajectory
-from .trajectory_iterator import TrajectoryIterator
+from .trajectory.shared_methods import iterframe_master
+from .utils.cyutils import _fast_iterptr as iterframe_from_array
+from .core.c_options import set_error_silent
+from .utils.get_common_objects import get_topology
+from .topology.topology import Topology, ParmFile
+from .trajectory.trajectory import Trajectory
+from .trajectory.trajectory_iterator import TrajectoryIterator
 
 from .externals.load_other_packages import load_parmed
 
-from .decorators import ensure_exist
+from .utils.decorators import ensure_exist
 from .core.c_core import _load_batch
 from .utils.context import tempfolder
 
