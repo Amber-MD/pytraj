@@ -147,6 +147,7 @@ packages = [
     'pytraj.parallel',
     'pytraj.cluster',
     'pytraj.visualization',
+    'pytraj.serialize',
     'pytraj.sandbox',
 ]
 
