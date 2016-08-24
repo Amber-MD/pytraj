@@ -1,6 +1,5 @@
 from itertools import chain
 import pytraj as pt
-import os
 
 traj = pt.iterload("../tests/data/Tc5b.x", "../tests/data/Tc5b.top")
 

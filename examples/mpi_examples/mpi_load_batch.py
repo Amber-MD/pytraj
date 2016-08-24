@@ -5,6 +5,7 @@
 import pytraj as pt
 from pytraj.testing import aa_eq
 from mpi4py import MPI
+from pytraj.utils.tools import concat_dict
 
 # create ``comm`` so you can have the info about n_cpus, cpu id
 comm = MPI.COMM_WORLD
@@ -32,7 +33,6 @@ if comm.rank != 0:
     assert data is None
 
 if comm.rank == 0:
-    from pytraj.tools import concat_dict
     # each core return a tuple (core_id, dict)
     # so you need to concat the dict
     # use `from pytraj.tools import concat_dict

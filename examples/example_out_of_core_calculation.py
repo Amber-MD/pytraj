@@ -1,5 +1,3 @@
-import unittest  # for travis (you don't need to add this)
-
 # since MD simulations produce huge amount of data (hundreds of GB, few TB
 # or enven tens of TB)
 # so we always try to use TrajectoryIterator to save memory
