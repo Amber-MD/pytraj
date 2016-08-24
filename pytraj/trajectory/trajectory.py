@@ -1,22 +1,22 @@
 from __future__ import absolute_import
 
 import numpy as np
-from .core.box import Box
-from .frame import Frame
-from .utils.check_and_assert import is_int, is_frame_iter
-from .utils.convert import array_to_cpptraj_atommask
-from .externals.six import string_types
-from .externals.six.moves import range
-from .core.c_core import AtomMask
-from .shared_trajectory import SharedTrajectory
+from ..core.box import Box
+from ..frame import Frame
+from ..utils.check_and_assert import is_int, is_frame_iter
+from ..utils.convert import array_to_cpptraj_atommask
+from ..externals.six import string_types
+from ..externals.six.moves import range
+from ..core.c_core import AtomMask
+from ..shared_trajectory import SharedTrajectory
 
 # use absolute import here
 from pytraj.get_common_objects import get_topology
 
-from .topology import Topology
+from ..topology import Topology
 from pytraj.shared_methods import iterframe_master
-from .cyutils import _fast_iterptr, _fast_iterptr_withbox
-from .frameiter import FrameIterator
+from ..cyutils import _fast_iterptr, _fast_iterptr_withbox
+from ..frameiter import FrameIterator
 
 __all__ = ['Trajectory']
 

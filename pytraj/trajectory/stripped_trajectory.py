@@ -1,6 +1,6 @@
 from .shared_trajectory import SharedTrajectory
-from .shared_methods import _xyz, _box
-from .frame import Frame
+from ..shared_methods import _xyz, _box
+from ..frame import Frame
 
 class StrippedTrajectoryIterator(SharedTrajectory):
     """Out-of-core, indexable StrippedTrajectory

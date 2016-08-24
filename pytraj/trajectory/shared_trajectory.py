@@ -12,10 +12,9 @@ class SharedTrajectory(object):
         ----------
         args and kwargs : NGLView's arguments
         """
-        from pytraj.visualization.nglview_wrapper import TrajectoryViewer
-        from nglview import PyTrajTrajectory
+        import nglview
 
-        return TrajectoryViewer(PyTrajTrajectory(self), *args, **kwargs)
+        return nglview.show_pytraj(self, *args, **kwargs)
 
     def save(self,
              filename="",
