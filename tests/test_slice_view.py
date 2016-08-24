@@ -1,12 +1,12 @@
 from __future__ import print_function
 import unittest
-from pytraj.base import *
+
 from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils import eq, aa_eq
 from pytraj.testing import cpptraj_test_dir
 
-from pytraj.compat import zip
+from pytraj.externals.six import zip
 
 
 class Test(unittest.TestCase):

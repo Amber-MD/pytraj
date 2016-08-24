@@ -4,23 +4,22 @@ from __future__ import absolute_import
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from cpython.array cimport array
-from ..c_traj.c_trajectory cimport TrajectoryCpptraj
+from ..trajectory.c_traj.c_trajectory cimport TrajectoryCpptraj
 
 # python level
 import numpy as np
 from collections import defaultdict
 
-from ..cyutils import get_positive_idx
+from ..utils.cyutils import get_positive_idx
 from collections import defaultdict
 from .cast_dataset import cast_dataset
 from ..utils.check_and_assert import is_array
 from ..externals.six import string_types
-from ..compat import set
 from ..utils import is_int
 from ..datafiles.datafiles import DataFile
 from ..core.c_core import ArgList
 
-from pytraj.c_dict import DataTypeDict
+from pytraj.core.c_dict import DataTypeDict
 
 __all__ = ['DatasetList']
 
@@ -286,7 +285,7 @@ cdef class DatasetList:
         return self.get_legends()
 
     def iteritems(self):
-        from pytraj.compat import zip
+        from pytraj.externals.six import zip
         for key in self.keys():
             yield key, self[key]
 

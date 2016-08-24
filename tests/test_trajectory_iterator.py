@@ -4,7 +4,7 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
-from pytraj.trajectory_iterator import sort_filename_by_number
+from pytraj.trajectory.trajectory_iterator import sort_filename_by_number
 
 
 class TestTrajectoryIterator(unittest.TestCase):

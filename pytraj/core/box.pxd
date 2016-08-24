@@ -1,6 +1,6 @@
 # distutils: language = c++
 from ..math.cpp_math cimport _Matrix_3x3, Matrix_3x3, _Vec3, Vec3
-from ..cpp_vector cimport vector
+from ..cython_extra_header.cpp_vector cimport vector
 
 
 cdef extern from "Box.h": 

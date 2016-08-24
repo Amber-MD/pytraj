@@ -1,6 +1,6 @@
 from __future__ import print_function
 import unittest
-from pytraj.base import *
+
 from pytraj import adict
 from pytraj import io
 from pytraj.utils import eq, aa_eq

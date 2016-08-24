@@ -4,8 +4,10 @@ import unittest
 import numpy as np
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
-from pytraj.c_analysis import c_analysis
+from pytraj.analysis.c_analysis import c_analysis
 from pytraj.datasets import CpptrajDatasetList
+from pytraj.datasets.c_datasetlist import DatasetList
+from pytraj.datafiles import DataFileList
 
 saved_data = '''
    0.348       9.3884

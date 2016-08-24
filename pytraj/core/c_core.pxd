@@ -3,7 +3,7 @@ from __future__ import absolute_import
 
 from libcpp.string cimport string
 from posix.unistd cimport off_t
-from ..cpp_vector cimport vector
+from ..cython_extra_header.cpp_vector cimport vector
 
 from .box cimport _Box, Box
 from ..datafiles.datafiles cimport _DataFileList, DataFileList, _DataFile, DataFile
@@ -36,7 +36,7 @@ cdef extern from "CpptrajState.h":
 cdef class CpptrajState:
     cdef _CpptrajState* thisptr
     cdef public DataFileList datafilelist
-    cdef public DatasetList datasetlist
+    cdef public DatasetList _datasetlist
 
 cdef extern from "Command.h": 
     cdef cppclass _Command "Command":

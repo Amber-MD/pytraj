@@ -4,11 +4,12 @@ import warnings
 import unittest
 import numpy as np
 import pytraj as pt
-from pytraj.base import *
+
 from pytraj.utils import has_
 from pytraj.testing import aa_eq, cpptraj_test_dir
 from pytraj import Trajectory, TrajectoryIterator
 from pytraj.datasets import CpptrajDatasetList
+from pytraj import AtomMask
 
 
 class TestSimpleRMSD(unittest.TestCase):
@@ -305,7 +306,7 @@ class TestPairwiseRMSD(unittest.TestCase):
 
                 txt0 = txt.replace('metric_holder', metric)
                 state = pt.datafiles.load_cpptraj_output(txt0, dtype='state')
-                d3 = state.datasetlist[-1].values
+                d3 = state.data[-1].values
 
                 aa_eq(d0, d1)
                 aa_eq(d0, d2)
@@ -319,7 +320,7 @@ class TestActionListRMSD(unittest.TestCase):
         standard_rmsd = pt.rmsd(traj, mask='@CA')
 
         def test_rmsd(input_traj):
-            from pytraj.c_action.c_action import Action_Rmsd
+            from pytraj.analysis.c_action.c_action import Action_Rmsd
             from pytraj.datasets import DatasetList
             dslist = DatasetList()
             act = Action_Rmsd()
@@ -331,7 +332,7 @@ class TestActionListRMSD(unittest.TestCase):
             return (dslist.values)
 
         def test_rmsd_actlist(input_traj):
-            from pytraj.c_action.c_action import Action_Rmsd
+            from pytraj.analysis.c_action.c_action import Action_Rmsd
             from pytraj import ActionList
             from pytraj.datasets import DatasetList
 

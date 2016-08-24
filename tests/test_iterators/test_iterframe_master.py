@@ -4,7 +4,7 @@ import sys
 from pytraj.testing import aa_eq
 from pytraj.core.c_core import Command
 from pytraj.core.c_core import CpptrajState
-from pytraj.compat import zip
+from pytraj.externals.six import zip
 from pytraj import iterframe_master
 from pytraj import Frame, Trajectory
 

@@ -1,5 +1,5 @@
 from __future__ import absolute_import
-from ..get_common_objects import _load_Topology
+from ..utils.get_common_objects import _load_Topology
 from ..utils.context import tempfolder
 from .six import string_types
 

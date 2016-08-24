@@ -3,7 +3,7 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 import doctest
-from pytraj.compat import PY3
+from pytraj.externals.six import PY3
 from pytraj import testing
 
 

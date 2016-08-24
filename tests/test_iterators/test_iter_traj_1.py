@@ -1,10 +1,10 @@
 import unittest
 import pytraj as pt
 import numpy as np
-from pytraj.base import *
+from pytraj import *
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
-from pytraj.compat import zip
+from pytraj.externals.six import zip
 from pytraj.testing import aa_eq
 
 

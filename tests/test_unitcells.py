@@ -4,7 +4,7 @@ import pytraj as pt
 from pytraj import Frame
 from pytraj.core import Box
 from pytraj.testing import aa_eq
-from pytraj.compat import zip
+from pytraj.externals.six import zip
 
 
 class TestBox(unittest.TestCase):

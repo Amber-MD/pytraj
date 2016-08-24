@@ -11,8 +11,8 @@ pytraj was initiated when HN was in Simmerling lab and it has been fully develop
 Contributors 
 ============
 
-**Jason Swails**: fix segmentation fault for DataSetList when using `groupby` (see Acknowledgement too)
-**Daniel R. Roe**: All things related to C++ (API design, debug, ...)
+- Jason Swails: various contributions (API, ...)
+- Daniel R. Roe: All things related to C++ (API design, debug, ...)
 
 Acknowledgement
 ===============

@@ -129,11 +129,14 @@ setup_args = {}
 packages = [
     'pytraj',
     'pytraj.utils',
-    'pytraj.c_action',
-    'pytraj.c_analysis',
+    'pytraj.analysis',
+    'pytraj.analysis.c_action',
+    'pytraj.analysis.c_analysis',
     'pytraj.datasets',
     'pytraj.externals',
-    'pytraj.c_traj',
+    'pytraj.trajectory',
+    'pytraj.trajectory.c_traj',
+    'pytraj.topology',
     'pytraj.datafiles',
     'pytraj.datafiles.ala3',
     'pytraj.datafiles.tz2',
@@ -146,7 +149,9 @@ packages = [
     'pytraj.parallel',
     'pytraj.cluster',
     'pytraj.visualization',
+    'pytraj.serialize',
     'pytraj.sandbox',
+    'pytraj.testing',
 ]
 
 if __name__ == "__main__":

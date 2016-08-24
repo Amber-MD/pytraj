@@ -1,9 +1,9 @@
 from __future__ import absolute_import
 import numpy as np
 
-from pytraj.trajectory import Trajectory
-from pytraj.trajectory_iterator import TrajectoryIterator
-from .get_common_objects import (get_topology, get_data_from_dtype, get_list_of_commands,
+from pytraj.trajectory.trajectory import Trajectory
+from pytraj.trajectory.trajectory_iterator import TrajectoryIterator
+from .utils.get_common_objects import (get_topology, get_data_from_dtype, get_list_of_commands,
                                  get_matrix_from_dataset, get_reference, get_fiterator,
                                  super_dispatch, get_iterator_from_dslist)
 from .utils import ensure_not_none_or_string
@@ -12,14 +12,14 @@ from .utils.context import tempfolder
 from .utils.convert import array_to_cpptraj_atommask
 from .externals.six import string_types
 from .datasets.c_datasetlist import DatasetList as CpptrajDatasetList
-from .datasetlist import DatasetList
-from .shared_methods import iterframe_master
-from .decorators import register_pmap, register_openmp
-from .c_action import c_action
-from .c_analysis import c_analysis
-from .c_action.actionlist import ActionList
+from .datasets.datasetlist import DatasetList
+from .trajectory.shared_methods import iterframe_master
+from .utils.decorators import register_pmap, register_openmp
+from .analysis.c_action import c_action
+from .analysis.c_analysis import c_analysis
+from .analysis.c_action.actionlist import ActionList
 from .utils.convert import array2d_to_cpptraj_maskgroup
-from .topology import Topology
+from .topology.topology import Topology
 
 list_of_calc = ['calc_distance',
                 'calc_dihedral',
@@ -1565,8 +1565,16 @@ def atomicfluct(traj=None,
                 mask="",
                 top=None,
                 dtype='ndarray',
-                frame_indices=None):
-    '''
+                frame_indices=None,
+                options=''):
+    '''compute atomicfluct (RMSF)
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str or 1D-array
+        atom mask. If not given, use all atoms
+    options : str, additional cpptraj options ('byres', 'bymask', 'byatom', 'calcadp')
 
     Examples
     --------

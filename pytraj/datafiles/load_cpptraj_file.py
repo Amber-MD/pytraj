@@ -6,7 +6,7 @@ for compatibility with cpptraj
 """
 from __future__ import absolute_import
 from ..core.c_core import Command
-from ..decorators import ensure_exist
+from ..utils.decorators import ensure_exist
 
 
 @ensure_exist

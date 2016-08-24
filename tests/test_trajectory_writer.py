@@ -1,9 +1,10 @@
 import unittest
 import pytraj as pt
 import numpy as np
-from pytraj.base import *
+
 from pytraj import io as mdio
 from pytraj.testing import aa_eq
+from pytraj import *
 
 farray = pt.load("data/Tc5b.x",
                  "./data/Tc5b.top",

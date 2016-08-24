@@ -2,7 +2,7 @@
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from cpython.array cimport array as pyarray
-from pytraj.c_dict import get_key, AtomicElementDict
+from pytraj.core.c_dict import get_key, AtomicElementDict
 from pytraj.externals.six import string_types
 from pytraj.core.elements import Element
 

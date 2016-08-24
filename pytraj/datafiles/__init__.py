@@ -1,12 +1,15 @@
 from __future__ import absolute_import
 import os
-from ..trajectory_iterator import TrajectoryIterator
+from pytraj.core.c_core import ArgList
+from ..trajectory.trajectory_iterator import TrajectoryIterator
 from ..utils.context import tempfolder
 from .datafiles import DataFile, DataFileList
 from .load_samples import *
 from .load_cpptraj_file import load_cpptraj_file
+from ..core.c_core import _load_batch
+from ..datasets.datasetlist import DatasetList
 
-__all__ = ['load_cpptraj_state', 'load_cpptraj_output', 'Ala3_crd',
+__all__ = ['convert', 'load_cpptraj_state', 'load_cpptraj_output', 'Ala3_crd',
            'Ala3_crd_top', 'tz2_ortho_nc', 'tz2_ortho_parm7',
            'load_cpptraj_file']
 
@@ -55,9 +58,6 @@ def load_cpptraj_output(txt, dtype=None):
     if dtype is 'ndarray', return ndarray and so on
 
     """
-    from pytraj.core.c_core import _load_batch
-    from pytraj.datasetlist import DatasetList
-    from pytraj import ArgList
 
     commands = list(filter(lambda x: x, txt.split("\n")))
 
@@ -84,7 +84,7 @@ def load_cpptraj_output(txt, dtype=None):
     if dtype == 'state':
         out = state
     else:
-        out = DatasetList(state.datasetlist)
+        out = DatasetList(state.data)
     return out
 
 
@@ -121,3 +121,20 @@ def load_cpptraj_state(txt, traj=None):
     else:
         from pytraj.core.c_core import _load_batch
         return _load_batch(txt, traj=traj)
+
+
+def convert(input_filename, to):
+    """convert datafile format (e.g .ccp4 to .dx, .dat to .xmgrace)
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> pt.datafiles.convert('test.cpp4', 'test.dx') # doctest: +SKIP
+    """
+    from pytraj.core.c_core import CpptrajState, Command
+
+    state = CpptrajState()
+
+    with Command() as command:
+        command.dispatch(state, 'readdata {} name mydata'.format(input_filename))
+        command.dispatch(state, 'writedata {} mydata '.format(to))

@@ -1,5 +1,5 @@
 # distutil: language = c++
-from ..core.box cimport _Box, Box, BoxType
+# from ..core.box cimport _Box, Box, BoxType
 from libcpp.vector cimport vector
 
 cdef extern from "Grid.h":
@@ -135,7 +135,7 @@ cdef extern from "ImagedAction.h":
     cdef cppclass _ImagedAction "ImagedAction":
         _ImagedAction()
         void InitImaging(bint)
-        void SetupImaging(BoxType)
+        # void SetupImaging(BoxType)
         bint ImagingEnabled(self)
         bint UseImage()
         ImageType()

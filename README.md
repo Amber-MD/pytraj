@@ -1,3 +1,5 @@
+[Install](#install) | [Features](#features) | [How to get started?](#how-to-get-started) | [Visualization](#nglview-with-pytraj-in-jupyter-notebook)
+
 [![Build Status](https://travis-ci.org/Amber-MD/pytraj.svg?branch=master)](https://travis-ci.org/Amber-MD/pytraj)
 [![Binstar Badge](https://anaconda.org/ambermd/pytraj/badges/version.svg)](https://anaconda.org/ambermd/pytraj/)
 [![PyPI version](https://badge.fury.io/py/pytraj.svg)](https://badge.fury.io/py/pytraj)
@@ -27,7 +29,7 @@ Features
 --------
 
 - support more than 80 types of data analyses (rmsd, radgyr, autoimage, pca, clustering,...)
-- read/write various file formats (.nc, .dcd, .trr, .pdb, .mol2, ...)
+- read/write various file formats (.nc, .mdcrd, .dcd, .trr, .xtc, .pdb, .mol2, ...)
 - fast (core codes were written in C++ and Cython)
 - support parallel calculation with trivial installation (openmp, multiprocessing, mpi, ...)
 - interactive analysis with large trajectory data that does not fit to memory
