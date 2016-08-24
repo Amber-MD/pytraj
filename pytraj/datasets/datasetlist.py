@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 import numpy as np
 from collections import OrderedDict
-from pytraj.datasets import CpptrajDatasetList
+from pytraj.datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 from pytraj.utils import is_int, is_array, is_generator
 from pytraj.externals.six import string_types
 from pytraj.externals.six.moves import map

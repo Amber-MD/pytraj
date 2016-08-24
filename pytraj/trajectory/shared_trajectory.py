@@ -20,7 +20,7 @@ class SharedTrajectory(object):
              filename="",
              overwrite=False,
              **kwd):
-        from pytraj.c_traj.c_trajout import TrajectoryWriter
+        from pytraj.trajectory.c_traj.c_trajout import TrajectoryWriter
     
         with TrajectoryWriter(filename=filename,
                      top=self.top,

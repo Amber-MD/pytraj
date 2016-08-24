@@ -1,10 +1,13 @@
 from __future__ import absolute_import
 import os
+from pytraj.core.c_core import ArgList
 from ..trajectory.trajectory_iterator import TrajectoryIterator
 from ..utils.context import tempfolder
 from .datafiles import DataFile, DataFileList
 from .load_samples import *
 from .load_cpptraj_file import load_cpptraj_file
+from ..core.c_core import _load_batch
+from ..datasets.datasetlist import DatasetList
 
 __all__ = ['convert', 'load_cpptraj_state', 'load_cpptraj_output', 'Ala3_crd',
            'Ala3_crd_top', 'tz2_ortho_nc', 'tz2_ortho_parm7',
@@ -55,9 +58,6 @@ def load_cpptraj_output(txt, dtype=None):
     if dtype is 'ndarray', return ndarray and so on
 
     """
-    from pytraj.core.c_core import _load_batch
-    from pytraj.datasetlist import DatasetList
-    from pytraj import ArgList
 
     commands = list(filter(lambda x: x, txt.split("\n")))
 

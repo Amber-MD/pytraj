@@ -13,9 +13,9 @@ from .utils.get_common_objects import get_topology
 from .topology.topology import Topology, ParmFile
 from .trajectory.trajectory import Trajectory
 from .trajectory.trajectory_iterator import TrajectoryIterator
-
+from .trajectory.frame import Frame
+from .trajectory.c_traj.c_trajout import TrajectoryWriter
 from .externals.load_other_packages import load_parmed
-
 from .utils.decorators import ensure_exist
 from .core.c_core import _load_batch
 from .utils.context import tempfolder
@@ -420,9 +420,6 @@ def write_traj(filename,
 
         please check http://ambermd.org/doc12/Amber15.pdf
     """
-    from .frame import Frame
-    from .c_traj.c_trajout import TrajectoryWriter
-
     _top = get_topology(traj, top)
     if _top is None:
         raise ValueError("must provide Topology")
