@@ -1,4 +1,4 @@
-from pytraj.datasetlist import DatasetList
+from pytraj.datasets.datasetlist import DatasetList
 
 
 class BaseDataHolder(object):

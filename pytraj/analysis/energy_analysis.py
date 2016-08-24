@@ -1,10 +1,10 @@
 from __future__ import absolute_import
 
-from .shared_methods import iterframe_master
-from .get_common_objects import get_data_from_dtype, super_dispatch
-from .externals.six.moves import range
-from .externals.six import string_types
-from .decorators import register_pmap
+from ..trajectory.shared_methods import iterframe_master
+from ..utils.get_common_objects import get_data_from_dtype, super_dispatch
+from ..utils.decorators import register_pmap
+from ..externals.six.moves import range
+from ..externals.six import string_types
 
 __all__ = ['esander']
 

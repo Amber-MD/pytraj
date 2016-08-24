@@ -12,7 +12,7 @@ from .utils.context import tempfolder
 from .utils.convert import array_to_cpptraj_atommask
 from .externals.six import string_types
 from .datasets.c_datasetlist import DatasetList as CpptrajDatasetList
-from .datasetlist import DatasetList
+from .datasets.datasetlist import DatasetList
 from .trajectory.shared_methods import iterframe_master
 from .utils.decorators import register_pmap, register_openmp
 from .analysis.c_action import c_action

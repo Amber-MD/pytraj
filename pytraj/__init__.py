@@ -87,6 +87,11 @@ from .analysis.nmr import ired_vector_and_matrix
 from .analysis.nmr import _ired
 from .analysis.nmr import NH_order_parameters
 
+from .analysis import dssp_analysis
+from .analysis import energy_analysis
+from .analysis import hbond_analysis
+from .analysis import nucleic_acid_analysis
+
 from .all_actions import acorr
 from .all_actions import align
 from .all_actions import align_principal_axis
@@ -159,9 +164,9 @@ from .all_actions import velocityautocorr
 from .all_actions import wavelet
 from .all_actions import xcorr
 
-from .matrix import dist as distance_matrix
-from . import matrix
-from . import vector
+from .analysis.matrix import dist as distance_matrix
+from .analysis import matrix
+from .analysis import vector
 from . import cluster
 
 from .analysis import dihedral_analysis

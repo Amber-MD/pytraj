@@ -1,8 +1,8 @@
 from __future__ import print_function, absolute_import
 import numpy as np
 from .c_analysis import c_analysis
-from .datasets import c_datasets
-from .datasets.c_datasetlist import DatasetList as CpptrajDatasetList
+from ..datasets import c_datasets
+from ..datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 
 mat_keys = {
     'dist',
@@ -32,7 +32,7 @@ __cpptrajdoc__ = """
 
 template = '''
 from .c_action import c_action
-from .get_common_objects import super_dispatch, get_data_from_dtype
+from ..utils.get_common_objects import super_dispatch, get_data_from_dtype
 
 @super_dispatch()
 def %s(traj=None, mask="", top=None, dtype='ndarray', mat_type='full', frame_indices=None):
@@ -89,7 +89,7 @@ for k in mat_keys:
 del k
 
 exec('''
-from .decorators import register_pmap, register_openmp
+from ..utils.decorators import register_pmap, register_openmp
 dist = register_pmap(dist)
 idea = register_pmap(idea)
 covar = register_openmp(covar)

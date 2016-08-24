@@ -6,10 +6,10 @@ from pytraj.trajectory.c_traj import *
 from pytraj.analysis.hbond_analysis import *
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
-from .datafiles.load_samples import load_sample_data
-from pytraj.misc import info
+from pytraj.datafiles.load_samples import load_sample_data
+from pytraj.utils.misc import info
 from pytraj.core.c_options import set_world_silent
-from pytraj.trajectory import trajectory
+from pytraj.trajectory.trajectory import Trajectory
 
 from pytraj import *
 from pytraj.datasets import *
@@ -17,6 +17,8 @@ from pytraj.all_actions import *
 from pytraj.analysis.c_action import c_action
 from pytraj.analysis.c_analysis import c_analysis
 
+from pytraj.core import c_dict
+from pytraj.utils.misc import get_atts
 
 def run_tests():
     print("try to load sample data")
@@ -58,11 +60,9 @@ def run_tests():
 
     print("try to create Trajectory-like objects")
     TrajectoryIterator()
-    trajectory.Trajectory()
+    Trajectory()
 
     print("other stuff. throw all tests don't belong anywhere else here")
-    from pytraj import c_dict
-    from pytraj.misc import get_atts
     keys = get_atts(c_dict)
     cdict = c_dict.__dict__
 

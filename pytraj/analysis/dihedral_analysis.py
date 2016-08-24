@@ -18,8 +18,8 @@ chinu = {
 }
 
 template = '''
-from .decorators import register_pmap
-from .get_common_objects import super_dispatch
+from ..utils.decorators import register_pmap
+from ..utils.get_common_objects import super_dispatch
 
 @register_pmap
 @super_dispatch()

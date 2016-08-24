@@ -10,6 +10,9 @@ from pytraj.trajectory.c_traj import *
 from pytraj.datasets import *
 from pytraj.all_actions import *
 
+from pytraj.core import c_dict
+from pytraj.utils.misc import get_atts
+
 
 class TestRunnable(unittest.TestCase):
 
@@ -71,8 +74,6 @@ class TestRunnable(unittest.TestCase):
 
     def test_other(self):
         print("other stuff. throw all tests don't belong anywhere else here")
-        from pytraj import c_dict
-        from pytraj.misc import get_atts
         keys = get_atts(c_dict)
         cdict = c_dict.__dict__
 

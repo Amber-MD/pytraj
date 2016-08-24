@@ -2,8 +2,8 @@
 """
 from __future__ import absolute_import
 import numpy as np
-from .get_common_objects import get_topology, get_resrange
-from .get_common_objects import get_reference, get_fiterator
+from ..utils.get_common_objects import get_topology, get_resrange
+from ..utils.get_common_objects import get_reference, get_fiterator
 from pytraj.externals.six import iteritems, string_types
 
 __all__ = ['nastruct', 'nupars']

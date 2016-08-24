@@ -1,12 +1,12 @@
 from __future__ import absolute_import, print_function, division
 
 import numpy as np
-from .c_action import c_action
-from .datasets import CpptrajDatasetList
-from .decorators import register_pmap
-from .get_common_objects import get_data_from_dtype, super_dispatch
+from ..analysis.c_action import c_action
+from ..datasets import CpptrajDatasetList
+from ..utils.decorators import register_pmap
+from ..utils.get_common_objects import get_data_from_dtype, super_dispatch
 from .base_holder import BaseDataHolder
-from .shared_methods import iterframe_master
+from ..trajectory.shared_methods import iterframe_master
 
 __all__ = ['DatasetHBond', 'hbond']
 

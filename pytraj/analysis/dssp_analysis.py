@@ -1,9 +1,9 @@
 from __future__ import absolute_import
 import numpy as np
-from .get_common_objects import get_data_from_dtype, super_dispatch, get_topology
-from pytraj.compat import PY3
+from pytraj.externals.six import PY3
 from pytraj import DatasetList, tools
-from .decorators import register_openmp
+from ..utils.get_common_objects import get_data_from_dtype, super_dispatch, get_topology
+from ..utils.decorators import register_openmp
 
 
 @register_openmp
