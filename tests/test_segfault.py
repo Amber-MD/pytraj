@@ -5,6 +5,9 @@ import pytraj as pt
 from pytraj import adict
 from pytraj import io
 from pytraj.utils.check_and_assert import assert_almost_equal as aa_eq
+from pytraj.externals.six import zip
+from pytraj.trajectory.shared_methods import iterframe_master
+from pytraj import dihedral_analysis as da
 
 """
 try not to get segmentation fault error (due to whatever freaking reason)
@@ -15,7 +18,6 @@ traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 class Test(unittest.TestCase):
 
     def test_0(self):
-        from pytraj.shared_methods import iterframe_master
         it = iterframe_master(traj)
 
         for idx, frame in enumerate(it):
@@ -34,13 +36,11 @@ class Test(unittest.TestCase):
 
     def test_4_trajiter(self):
         traj = pt.load_sample_data("tz2")
-        from pytraj.compat import zip
 
         for idx, (f0, f1) in enumerate(zip(traj, traj)):
             f0.rmsd(f1)
 
     def test_indexing_nonrefernce_DSL(self):
-        from pytraj import dihedral_analysis as da
 
         # segmentation fault
         # new DSL

@@ -2,6 +2,7 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
+from pytraj import *
 
 
 class Test(unittest.TestCase):
@@ -15,7 +16,7 @@ class Test(unittest.TestCase):
 
     def test_1(self):
         traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
-        trajectory_t0 = pt.trajectory.Trajectory(traj)
+        trajectory_t0 = Trajectory(traj)
 
         # __iter__
         for f in trajectory_t0:
@@ -27,14 +28,14 @@ class Test(unittest.TestCase):
 
         # __getitem__
         # make a new copy
-        trajectory_t0 = pt.trajectory.Trajectory(traj)
+        trajectory_t0 = Trajectory(traj)
         f0 = trajectory_t0[0]
         f0.xyz[0, 0] = 200.
         assert trajectory_t0.xyz[0, 0, 0] == 200.
 
         # translate
         # make a new copy
-        trajectory_t0 = pt.trajectory.Trajectory(traj)
+        trajectory_t0 = Trajectory(traj)
         t0 = traj[:]
         pt.translate(trajectory_t0, 'x 1.2')
         pt.translate(t0, 'x 1.2')

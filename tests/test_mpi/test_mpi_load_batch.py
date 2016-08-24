@@ -5,6 +5,7 @@
 import sys
 import pytraj as pt
 from pytraj.testing import aa_eq
+from pytraj.utils.tools import concat_dict
 
 try:
     from mpi4py import MPI
@@ -42,7 +43,6 @@ if comm.rank != 0:
     assert data is None
 
 if comm.rank == 0:
-    from pytraj.tools import concat_dict
     # each core return a tuple (core_id, dict)
     # so you need to concat the dict
     # use `from pytraj.tools import concat_dict
