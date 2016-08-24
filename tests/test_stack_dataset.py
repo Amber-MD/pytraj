@@ -6,7 +6,7 @@ from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils import eq, aa_eq
 from pytraj.testing import cpptraj_test_dir
-from pytraj.datasetlist import stack
+from pytraj.datasets.datasetlist import stack
 
 traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 

@@ -565,5 +565,5 @@ class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
         return self[index]
 
     def strip(self, mask):
-        from pytraj.stripped_trajectory import StrippedTrajectoryIterator
+        from pytraj.trajectory.stripped_trajectory import StrippedTrajectoryIterator
         return StrippedTrajectoryIterator(self, mask)
