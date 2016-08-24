@@ -8,8 +8,8 @@ from libc.math cimport sqrt
 from libcpp.string cimport string
 from cpython.array cimport array
 
-from ..frame cimport Frame, _Frame
-from ..core.box cimport _Box, Box
+from ..trajectory.frame cimport Frame, _Frame
+# from ..core.box cimport _Box, Box
 
 import numpy as np
 
@@ -509,12 +509,12 @@ cdef extern from "DistRoutines.h" nogil:
 
     double DIST2_ImageNonOrtho "DIST2_ImageNonOrtho"(const _Vec3 &, const _Vec3 &, const _Matrix_3x3 &, const _Matrix_3x3 &)
     double DIST2_ImageNonOrthoRecip(const _Vec3 &, const _Vec3 &, double, int*, const _Matrix_3x3 &)
-    double DIST2_ImageOrtho(const _Vec3 &, const _Vec3 &, const _Box &)
+    # double DIST2_ImageOrtho(const _Vec3 &, const _Vec3 &, const _Box &)
     double DIST2_NoImage_from_ptr "DIST2_NoImage"(const double*, const double*)
     double DIST2_NoImage(const _Vec3 &, const _Vec3 &)
     double DIST_NoImage "DIST2_NoImage"(const _Vec3 &, const _Vec3 &)
-    double DIST2(const double*, const double*, ImagingType, const _Box &,
-                 const _Matrix_3x3 &, const _Matrix_3x3 &)
+    # double DIST2(const double*, const double*, ImagingType, const _Box &,
+    #              const _Matrix_3x3 &, const _Matrix_3x3 &)
 
 
 def distance_(double[:, :, :] p):

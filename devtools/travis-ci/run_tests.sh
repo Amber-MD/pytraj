@@ -9,11 +9,11 @@ echo "PLATFORM =" $PLATFORM
 # set env
 PYTRAJ_HOME=`pwd`
 export CPPTRAJHOME=`pwd`"/cpptraj/"
-cd tests/fake_amberhome/
+cd tests/energies/fake_amberhome/
 export AMBERHOME=`pwd`
 
 # go back to tests folder
-cd ..
+cd ../../
 
 # print info
 python run_simple_test.py || exit 1

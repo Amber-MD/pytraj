@@ -4,8 +4,8 @@ from libcpp.map cimport map as cmap
 from libcpp.vector cimport vector
 from libcpp.string cimport string 
 from ..math.cpp_math cimport _Grid, _Vec3, Vec3, _Matrix_3x3, Matrix_3x3, _Matrix
-from ..frame cimport _Frame, Frame
-from ..topology cimport _Topology, Topology
+from ..trajectory.frame cimport _Frame, Frame
+from ..topology.topology cimport _Topology, Topology
 from ..core.c_core cimport _ArgList, ArgList, _AtomMask, AtomMask
 from ..core.coordinfo cimport _CoordinateInfo
 
@@ -425,7 +425,7 @@ cdef extern from "DataSet_Coords.h":
         # end virtual methods
 
         #void SetTopology(const _Topology&)
-        inline const _Topology& Top() const 
+        inline _Topology& Top()
         void CoordsSetup(const _Topology&, const _CoordinateInfo &)
         const _CoordinateInfo& CoordsInfo()
 
@@ -491,7 +491,7 @@ cdef extern from "DataSet_Topology.h":
         int StripTop(const string&)
         void SetPindex(int p)
         _Topology * TopPtr()
-        const _Topology& Top() const
+        _Topology Top()
 
 
 cdef class DatasetTopology (Dataset):

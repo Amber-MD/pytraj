@@ -26,8 +26,7 @@ class TestIteraframeIndices(unittest.TestCase):
             for _ in traj._iterframe_indices([traj.n_frames, ]):
                 print(_.xyz)
 
-        self.assertRaises(AssertionError, lambda: iter_(traj))
-
+        self.assertRaises(AssertionError, iter_)
 
 if __name__ == "__main__":
     unittest.main()

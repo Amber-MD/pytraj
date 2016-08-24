@@ -2,10 +2,11 @@ import os
 import numpy as np
 import unittest
 import pytraj as pt
-from pytraj.compat import zip
+from pytraj.externals.six import zip
 from pytraj import Topology
 from pytraj.core.c_core import AtomMask
-from pytraj.base import *
+from pytraj import *
+
 
 TRAJ = Trajectory("./data/Tc5b.x", "./data/Tc5b.top")
 

@@ -4,7 +4,7 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
-from pytraj.get_common_objects import super_dispatch
+from pytraj.utils.get_common_objects import super_dispatch
 from pytraj.externals.six import string_types
 
 

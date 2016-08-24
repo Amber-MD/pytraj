@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import pytraj as pt
 from sklearn.cluster import k_means
-from pytraj import iterframe_from_array
 import numpy as np
 
 

@@ -6,12 +6,11 @@ import numpy as np
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
 
-from pytraj.tools import flatten
+from pytraj.utils.tools import flatten
 from pytraj import matrix
-from pytraj.compat import set
 from pytraj.parallel.base import _load_batch_pmap, worker_by_actlist
 from pytraj.parallel.multiprocess import worker_byfunc
-from pytraj import c_commands
+from pytraj.utils import c_commands
 
 
 @unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')

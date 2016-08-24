@@ -1,8 +1,8 @@
 from __future__ import absolute_import
-from pytraj.get_common_objects import get_topology, get_data_from_dtype
-from pytraj.decorators import register_pmap, register_openmp
-from pytraj.get_common_objects import super_dispatch, get_iterator_from_dslist
-from pytraj.c_analysis import c_analysis
+from pytraj.utils.get_common_objects import get_topology, get_data_from_dtype
+from pytraj.utils.decorators import register_pmap, register_openmp
+from pytraj.utils.get_common_objects import super_dispatch, get_iterator_from_dslist
+from pytraj.analysis.c_analysis import c_analysis
 from pytraj.datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 
 

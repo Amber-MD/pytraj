@@ -24,13 +24,14 @@ conda install --yes anaconda-client coverage pyflakes jupyter notebook
 # install other packages here
 conda install parmed -c ambermd --yes
 conda install pysander -c hainm --yes
+conda install cclib -c omnia --yes
 pip install git+https://github.com/arose/nglview
 pip install coveralls
 pip install coverage
 pip install nose
 pip install memory_profiler
 pip install psutil
-pip install cclib
+# pip install cclib # install error with current v1.5 (08/24/2016)
 pip install tqdm
 
 if [ "$TRAVIS_OS_NAME" = "linux" ]; then

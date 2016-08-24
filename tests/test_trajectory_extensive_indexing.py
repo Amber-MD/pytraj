@@ -3,8 +3,9 @@ from time import time
 import unittest
 import pytraj as pt
 import numpy as np
-from pytraj.base import *
+
 from pytraj.testing import aa_eq
+from pytraj import *
 
 refilename = "./data/Tc5b.nat.crd"
 trajin = """

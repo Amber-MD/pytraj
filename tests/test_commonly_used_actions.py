@@ -1,7 +1,7 @@
 import unittest
 import pytraj as pt
 from pytraj.testing import aa_eq
-from pytraj.compat import zip
+from pytraj.externals.six import zip
 from pytraj import adict
 
 

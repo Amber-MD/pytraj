@@ -3,7 +3,7 @@ Codes in this module might not be tested and they might be not correct, at all.
 '''
 import numpy as np
 from functools import wraps
-from pytraj.c_action import c_action
+from pytraj.analysis.c_action import c_action
 
 
 def take(traj, indices):
@@ -81,7 +81,7 @@ class TrajectoryWriter:
     '''
 
     def __init__(self, filename, mode='', top=None):
-        from pytraj.c_action.c_action import Action_Outtraj
+        from pytraj.analysis.c_action.c_action import Action_Outtraj
         self._outtraj = Action_Outtraj()
         command = ' '.join((filename, mode))
         self._outtraj.read_input(command, top=top)
@@ -97,12 +97,12 @@ class TrajectoryWriter:
         pass
 
 # for testing
-from pytraj.get_common_objects import (get_data_from_dtype, get_topology,
+from pytraj.utils.get_common_objects import (get_data_from_dtype, get_topology,
                                        get_reference,
                                        get_fiterator)
-from pytraj.c_action import c_action
+from pytraj.analysis.c_action import c_action
 from pytraj.datasets import CpptrajDatasetList
-from pytraj.compat import string_types
+from pytraj.externals.six import string_types
 from pytraj.utils.convert import array_to_cpptraj_atommask
 
 

@@ -4,7 +4,7 @@ import pytraj as pt
 from pytraj.utils.context import tempfolder
 from pytraj.utils import eq, aa_eq
 from pytraj.utils import Timer
-from pytraj.compat import zip
+from pytraj.externals.six import zip
 
 
 class Test_iterchunk_autoimage(unittest.TestCase):

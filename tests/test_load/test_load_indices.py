@@ -2,7 +2,7 @@ import unittest
 import numpy as np
 from array import array
 import pytraj as pt
-from pytraj.base import *
+from pytraj import *
 from pytraj.io import load
 from pytraj.testing import aa_eq
 

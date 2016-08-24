@@ -1,7 +1,9 @@
 import numpy as np
+
+# use absolute import
 from pytraj.utils import split_range
-from pytraj.tools import concat_dict
-from pytraj.get_common_objects import get_reference
+from pytraj.utils.tools import concat_dict
+from pytraj.utils.get_common_objects import get_reference
 
 
 def pmap_mpi(func, traj, *args, **kwd):

@@ -13,13 +13,13 @@ import sys
 import os
 
 from .version import version as __version__
-from .c_options import info as compiled_info
-from .c_options import __cpptraj_version__
-from .c_options import __cpptraj_internal_version__
-from .c_action.actionlist import ActionList
-from .c_action.actionlist import ActionList as Pipeline
-from .c_action.actionlist import pipe
-from .c_action.actionlist import compute
+from .core.c_options import info as compiled_info
+from .core.c_options import __cpptraj_version__
+from .core.c_options import __cpptraj_internal_version__
+from .analysis.c_action.actionlist import ActionList
+from .analysis.c_action.actionlist import ActionList as Pipeline
+from .analysis.c_action.actionlist import pipe
+from .analysis.c_action.actionlist import compute
 from .core import Atom
 from .core import Residue
 from .core import Molecule
@@ -27,20 +27,23 @@ from .core.c_core import CpptrajState
 from .core.c_core import ArgList
 from .core.c_core import AtomMask
 from .core.c_core import Command
-from . import array
-from . import c_commands
-from .trajectory import Trajectory
-from .trajectory_iterator import TrajectoryIterator
-from .c_traj.c_trajout import TrajectoryWriter
-from .frame import Frame
-from .topology import Topology
-from .topology import ParmFile
+from .datasets import array
+from .utils import c_commands
+from .utils import tools
+from .trajectory.trajectory import Trajectory
+from .trajectory.trajectory_iterator import TrajectoryIterator
+from .trajectory.c_traj.c_trajout import TrajectoryWriter
+from .trajectory.frame import Frame
+from .trajectory import frame
+from .topology.topology import Topology
+from .topology.topology import ParmFile
 from .math import Vec3
-from .shared_methods import iterframe_master
-from .frameiter import iterframe
-from .frameiter import iterchunk
+from .trajectory.shared_methods import iterframe_master
+from .trajectory.frameiter import iterframe
+from .trajectory.frameiter import iterchunk
+from .trajectory.frameiter import FrameIterator
 from .datasets.cast_dataset import cast_dataset
-from .datasetlist import DatasetList as Dataset
+from .datasets.datasetlist import DatasetList as Dataset
 
 from . import io
 from .io import load
@@ -66,26 +69,31 @@ from .io import select_atoms
 
 # dataset stuff
 from .datafiles import load_cpptraj_state
-from .datasetlist import DatasetList
+from .datasets.datasetlist import DatasetList
 
 # tool
-from . import tools
+from .utils import tools
 
 # actions and analyses
-from .c_action import c_action as allactions
-from .c_action import c_action
-from .c_analysis import c_analysis as allanalyses
-from .c_analysis import c_analysis
+from .analysis.c_action import c_action as allactions
+from .analysis.c_action import c_action
+from .analysis.c_analysis import c_analysis as allanalyses
+from .analysis.c_analysis import c_analysis
 
-from .dssp_analysis import calc_dssp
-from .dssp_analysis import dssp_allatoms
-from .dssp_analysis import dssp_allresidues
-from .energy_analysis import esander
-from .hbond_analysis import hbond
-from .nucleic_acid_analysis import nastruct
-from .nmr import ired_vector_and_matrix
-from .nmr import _ired
-from .nmr import NH_order_parameters
+from .analysis.dssp_analysis import calc_dssp
+from .analysis.dssp_analysis import dssp_allatoms
+from .analysis.dssp_analysis import dssp_allresidues
+from .analysis.energy_analysis import esander
+from .analysis.hbond_analysis import hbond
+from .analysis.nucleic_acid_analysis import nastruct
+from .analysis.nmr import ired_vector_and_matrix
+from .analysis.nmr import _ired
+from .analysis.nmr import NH_order_parameters
+
+from .analysis import dssp_analysis
+from .analysis import energy_analysis
+from .analysis import hbond_analysis
+from .analysis import nucleic_acid_analysis
 
 from .all_actions import acorr
 from .all_actions import align
@@ -159,42 +167,42 @@ from .all_actions import velocityautocorr
 from .all_actions import wavelet
 from .all_actions import xcorr
 
-from .matrix import dist as distance_matrix
-from . import matrix
-from . import vector
+from .analysis.matrix import dist as distance_matrix
+from .analysis import matrix
+from .analysis import vector
 from . import cluster
 
-from . import dihedral_analysis
-from .dihedral_analysis import calc_alpha
-from .dihedral_analysis import calc_beta
-from .dihedral_analysis import calc_chin
-from .dihedral_analysis import calc_chip
-from .dihedral_analysis import calc_delta
-from .dihedral_analysis import calc_epsilon
-from .dihedral_analysis import calc_gamma
-from .dihedral_analysis import calc_nu1
-from .dihedral_analysis import calc_nu2
-from .dihedral_analysis import calc_omega
-from .dihedral_analysis import calc_omega
-from .dihedral_analysis import calc_phi
-from .dihedral_analysis import calc_psi
-from .dihedral_analysis import calc_zeta
+from .analysis import dihedral_analysis
+from .analysis.dihedral_analysis import calc_alpha
+from .analysis.dihedral_analysis import calc_beta
+from .analysis.dihedral_analysis import calc_chin
+from .analysis.dihedral_analysis import calc_chip
+from .analysis.dihedral_analysis import calc_delta
+from .analysis.dihedral_analysis import calc_epsilon
+from .analysis.dihedral_analysis import calc_gamma
+from .analysis.dihedral_analysis import calc_nu1
+from .analysis.dihedral_analysis import calc_nu2
+from .analysis.dihedral_analysis import calc_omega
+from .analysis.dihedral_analysis import calc_omega
+from .analysis.dihedral_analysis import calc_phi
+from .analysis.dihedral_analysis import calc_psi
+from .analysis.dihedral_analysis import calc_zeta
 
-from .c_action.c_action import ActionDict
-from .c_analysis.analysis_dict import AnalysisDict
+from .analysis.c_action.c_action import ActionDict
+from .analysis.c_analysis.analysis_dict import AnalysisDict
 
 # others
-from .misc import info
-from .run_tests import run_tests
+from .utils.misc import info
+from .testing.run_tests import run_tests
 
 # turn off verbose in cpptraj
-from .c_options import set_error_silent
-from .c_options import set_world_silent
-from .c_options import set_cpptraj_verbose
-from .c_options import set_cpptraj_verbose as _verbose
+from .core.c_options import set_error_silent
+from .core.c_options import set_world_silent
+from .core.c_options import set_cpptraj_verbose
+from .core.c_options import set_cpptraj_verbose as _verbose
 set_world_silent(True)
 
-from .cyutils import _fast_iterptr as iterframe_from_array
+from .utils.cyutils import _fast_iterptr as iterframe_from_array
 
 # alias
 write_trajectory = write_traj
@@ -277,9 +285,9 @@ __all__ = (io.__all__
         + ['nastruct']
         + ['esander']
         + ['Atom', 'Residue', 'Molecule', 'Topology', 'Frame', 'AtomMask',
-           'Trajectory', 'TrajectoryIterator',
+           'Trajectory', 'TrajectoryIterator', 'TrajectoryWriter',
            'ActionList', 'ActionDict', 'AnalysisDict', 'adict', 'analdict',
            'dispatch', 'iterchunk', 'iterframe',
            'select', 'set_cpptraj_verbose', 'show_versions',
            'dihedral_analysis', 'hbond_analysis', 'dssp_analysis',
-           'nucleic_acid_analysis',])
+           'nucleic_acid_analysis','tools'])

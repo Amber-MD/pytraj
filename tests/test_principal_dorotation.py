@@ -1,7 +1,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
-from pytraj.base import *
+
 from pytraj import adict
 from pytraj.utils import eq, aa_eq
 from pytraj.testing import cpptraj_test_dir

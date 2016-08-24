@@ -7,7 +7,7 @@ from pytraj.utils import eq, aa_eq
 class Test(unittest.TestCase):
 
     def test_0(self):
-        from pytraj.compat import zip
+        from pytraj.externals.six import zip
         from pytraj import Trajectory, TrajectoryIterator
         # TrajectoryIterator object
         traj0 = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")

@@ -8,6 +8,9 @@ import subprocess
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
 from pytraj.version import version
+from pytraj.utils.get_common_objects import get_reference
+from pytraj.utils import misc
+from pytraj import all_actions
 
 
 class TestExtraCoverage(unittest.TestCase):
@@ -36,9 +39,9 @@ class TestExtraCoverage(unittest.TestCase):
         # info
         pt.info()
         pt.info('parallel')
-        pt.misc.parallel_info('pmap')
-        pt.misc.parallel_info('openmp')
-        pt.misc.parallel_info(None)
+        misc.parallel_info('pmap')
+        misc.parallel_info('openmp')
+        misc.parallel_info(None)
 
         eq([2, 3], [2, 3])
         # raise if comparing NaN
@@ -48,7 +51,6 @@ class TestExtraCoverage(unittest.TestCase):
         string_ = str(dslist[0])
 
     def testget_common_objects(self):
-        from pytraj.get_common_objects import get_reference
         # raises
         # raise if try to index traj()
         self.assertRaises(TypeError, lambda: get_reference(self.traj(), 3))
@@ -58,7 +60,6 @@ class TestExtraCoverage(unittest.TestCase):
         self.assertRaises(TypeError, lambda: pt.superpose(self.traj[:], 3))
 
     def test_all_actions(self):
-        from pytraj import all_actions
         self.assertRaises(ValueError, lambda: all_actions._assert_mutable(self.traj))
 
 

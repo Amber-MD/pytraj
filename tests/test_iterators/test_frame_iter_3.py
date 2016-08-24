@@ -1,9 +1,10 @@
 import unittest
 import pytraj as pt
-from pytraj.base import *
+from pytraj import *
 from pytraj import adict
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 
 
 class Test(unittest.TestCase):
@@ -34,14 +35,14 @@ class Test(unittest.TestCase):
     def test_1(self):
         traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         act = adict['distance']
-        dslist = DatasetList()
+        dslist = CpptrajDatasetList()
         act.read_input(":2@CA :10@CA", traj.top, dslist=dslist)
         act.setup(traj.top)
 
         for frame in traj.iterframe(stop=5):
             act.compute(frame)
 
-        dslist = DatasetList()
+        dslist = CpptrajDatasetList()
         act2 = adict['distance']
         act2.read_input(":2@CA :10@CA", traj.top, dslist=dslist)
         act2.setup(traj.top)

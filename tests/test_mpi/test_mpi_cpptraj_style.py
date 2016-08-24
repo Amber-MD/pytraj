@@ -31,7 +31,7 @@ if comm.rank != 0:
 
 if comm.rank == 0:
     # assert to serial
-    from pytraj.tools import dict_to_ndarray
+    from pytraj.utils.tools import dict_to_ndarray
     arr = dict_to_ndarray(total_arr)
 
     t0 = pt.center(traj[:].autoimage(), ':2')

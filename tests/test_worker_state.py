@@ -5,7 +5,7 @@ from functools import partial
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
 from pytraj.parallel.base import worker_state
-from pytraj.tools import concat_dict
+from pytraj.utils.tools import concat_dict
 
 
 class TestWorkerState(unittest.TestCase):

@@ -10,6 +10,7 @@ from .Timer import Timer
 from .context import tempfolder
 from ..externals.six.moves import range
 from . import convert
+from ..externals.six import string_types
 
 
 def duplicate_traj(orig_traj, n_times):
@@ -48,7 +49,6 @@ def join_mask(m, res=None):
     >>> join_mask('CA CB', res=0)
     ':1@CA :1@CB'
     """
-    from pytraj.compat import string_types
 
     if is_int(res):
         res = str(res + 1)

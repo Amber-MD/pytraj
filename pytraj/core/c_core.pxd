@@ -3,7 +3,7 @@ from __future__ import absolute_import
 
 from libcpp.string cimport string
 from posix.unistd cimport off_t
-from ..cpp_vector cimport vector
+from ..cython_extra_header.cpp_vector cimport vector
 
 from .box cimport _Box, Box
 from ..datafiles.datafiles cimport _DataFileList, DataFileList, _DataFile, DataFile
