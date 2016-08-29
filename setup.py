@@ -51,7 +51,8 @@ cpptraj_home = os.environ.get('CPPTRAJHOME', '')
 use_pip = any('pip' in arg for arg in sys.argv)
 install_type = os.environ.get("INSTALLTYPE", "")
 check_flag(install_type)
-print('install_type', install_type)
+if install_type:
+    print('install_type', install_type)
 
 if not cpptraj_home and use_pip:
     # if pip, require to set CPPTRAJHOME
@@ -108,22 +109,25 @@ else:
 
 setenv_cc_cxx(cpptraj_info.ambertools_distro, extra_compile_args, extra_link_args)
 
-ext_modules = get_ext_modules(cpptraj_info=cpptraj_info,
-                pytraj_src=pytraj_src,
-                setup_task=setup_task,
-                is_released=is_released,
-                need_cython=need_cython,
-                cpptraj_included=cpptraj_included,
-                libcpptraj_files=libcpptraj_files,
-                openmp_flag=openmp_flag,
-                use_amberlib=use_amberlib,
-                cython_directives=cython_directives,
-                Extension=Extension,
-                extra_compile_args=extra_compile_args,
-                extra_link_args=extra_link_args,
-                define_macros=define_macros,
-                use_pip=use_pip,
-                tarfile=tarfile)
+if not do_build and not do_install:
+    ext_modules = []
+else:
+    ext_modules = get_ext_modules(cpptraj_info=cpptraj_info,
+                    pytraj_src=pytraj_src,
+                    setup_task=setup_task,
+                    is_released=is_released,
+                    need_cython=need_cython,
+                    cpptraj_included=cpptraj_included,
+                    libcpptraj_files=libcpptraj_files,
+                    openmp_flag=openmp_flag,
+                    use_amberlib=use_amberlib,
+                    cython_directives=cython_directives,
+                    Extension=Extension,
+                    extra_compile_args=extra_compile_args,
+                    extra_link_args=extra_link_args,
+                    define_macros=define_macros,
+                    use_pip=use_pip,
+                    tarfile=tarfile)
 
 setup_args = {}
 packages = [
