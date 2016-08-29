@@ -224,7 +224,7 @@ if not release:
 def do_what(pytraj_home):
     do_install = do_build = False
     # this checking should be here, after checking openmp and other stuff
-    if '--help' in sys.argv or '-h' in sys.argv:
+    if '--help' in sys.argv or '-h' in sys.argv or '--help-commands' in sys.argv:
         do_install = do_build = False
     else:
         if 'install' in sys.argv:
