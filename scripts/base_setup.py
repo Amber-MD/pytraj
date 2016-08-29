@@ -222,25 +222,15 @@ if not release:
         a.close()
 
 def do_what(pytraj_home):
+    do_install = do_build = False
     # this checking should be here, after checking openmp and other stuff
-    if len(sys.argv) == 2 and sys.argv[1] == 'install':
-        do_install = True
-    elif len(sys.argv) == 3 and sys.argv[1] == 'install' and os.path.join('AmberTools',
-                                                                          'src') in pytraj_home:
-        # install pytraj in $AMBERHOME
-        # do not use pytraj_inside_amber here in we call `do_what()` before calling get_cpptraj_info()
-        # don't mess this up
-        # $(PYTHON) setup.py install $(PYTHON_INSTALL)
-        do_install = True
+    if '--help' in sys.argv or '-h' in sys.argv or '--help-commands' in sys.argv:
+        do_install = do_build = False
     else:
-        do_install = False
-
-    if len(sys.argv) == 2 and sys.argv[1] == 'build':
-        do_build = True
-    elif 'build_ext' in sys.argv and '--help' not in sys.argv:
-        do_build = True
-    else:
-        do_build = False
+        if 'install' in sys.argv:
+            do_install = True
+        if 'build' in sys.argv or 'build_ext' in sys.argv:
+            do_build = True
     return do_install, do_build
 
 def install_libcpptraj(openmp_flag, from_github=False, use_amberlib=True):
@@ -492,7 +482,6 @@ def get_ext_modules(cpptraj_info,
         if not libcpptraj_files:
             libcpptraj_files = try_updating_libcpptraj(cpptraj_info.home_env,
                     setup_task.do_install, setup_task.do_build, cpptraj_included, openmp_flag, use_amberlib)
-        print('libcpptraj_files', libcpptraj_files)
     
         try:
             output_openmp_check = subprocess.check_output(['nm', libcpptraj_files[0]]).decode().split('\n')
