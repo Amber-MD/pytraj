@@ -86,11 +86,11 @@ def get_compiler_and_build_flag():
         build_flag_ = '-noarpack'
 
     if IS_OSX:
-        build_flag = DEFAULT_MAC_BUILD
+        build_flag = ' '.join((DEFAULT_MAC_BUILD, amberlib))
     else:
-        build_flag = ' '.join(('-shared', build_flag_, amberlib, openmp_flag, '-nosanderlib'))
+        build_flag = ' '.join(('-shared', build_flag_, amberlib, openmp_flag))
 
-    build_flag = ' '.join((build_flag, debug))
+    build_flag = ' '.join((build_flag, debug, '-nosanderlib'))
 
     if install_type == 'github':
         print('install libcpptraj from github')
