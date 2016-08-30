@@ -38,6 +38,7 @@ from scripts.base_setup import CleanCommand, is_released, message_pip_need_cpptr
 if sys.version_info < (2, 6):
     print('You must have at least Python 2.6 for pytraj\n')
     sys.exit(1)
+print('sys.argv', sys.argv)
 
 amber_release = check_flag('--amber_release')
 disable_openmp = check_flag('--disable-openmp')
@@ -48,27 +49,26 @@ tarfile = True if 'sdist' in sys.argv else False
 rootname = os.getcwd()
 pytraj_src = rootname + "/pytraj/"
 cpptraj_home = os.environ.get('CPPTRAJHOME', '')
-use_pip = any('pip' in arg for arg in sys.argv)
+use_pip = (any('egg_info' in arg for arg in sys.argv) or
+           any('pip' in arg for arg in sys.argv))
+
+print('use_pip = {}, cpptraj_home = {}'.format(use_pip, cpptraj_home))
+if use_pip and not cpptraj_home:
+    print('using pip, must set CPPTRAJHOME')
+    sys.exit(1)
+
 install_type = os.environ.get("INSTALLTYPE", "")
 check_flag(install_type)
 if install_type:
     print('install_type', install_type)
 
-if not cpptraj_home and use_pip:
-    # if pip, require to set CPPTRAJHOME
-    raise EnvironmentError(message_pip_need_cpptraj_home)
-
 cpptraj_included = os.path.exists("./cpptraj/")
 pytraj_home = os.path.abspath(os.path.dirname(__file__))
 
-SetupTask = namedtuple('SetupTask', ['do_install', 'do_build', 'do_help', 'do_clean'])
-do_install, do_build = do_what(pytraj_home)
-do_help = '--help' in sys.argv or '-h' in sys.argv
-do_clean = (len(sys.argv) == 2 and 'clean' in sys.argv)
-setup_task = SetupTask(do_install=do_install,
-                       do_build=do_build,
-                       do_help=do_help,
-                       do_clean=do_clean)
+SetupTask = namedtuple('SetupTask', ['must_compile_c_extension'])
+must_compile_c_extension = do_what(pytraj_home)
+print('must_compile_c_extension = ', must_compile_c_extension)
+setup_task = SetupTask(must_compile_c_extension=must_compile_c_extension)
 
 cpptraj_info = get_cpptraj_info(rootname=rootname,
                            cpptraj_home=cpptraj_home,
@@ -109,7 +109,7 @@ else:
 
 setenv_cc_cxx(cpptraj_info.ambertools_distro, extra_compile_args, extra_link_args)
 
-if not do_build and not do_install:
+if not must_compile_c_extension:
     ext_modules = []
 else:
     ext_modules = get_ext_modules(cpptraj_info=cpptraj_info,
