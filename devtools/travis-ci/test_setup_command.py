@@ -12,6 +12,9 @@ def capture_stderr(command):
     except subprocess.CalledProcessError as e:
         return e.output.decode()
 
+def git_clean_folder(name):
+    subprocess.check_call('git clean -fdx {}'.format(name).split())
+
 def test_default_raise_if_install_cpptraj_without_openmp():
     """ install libcpptraj without openmp """
     subprocess.check_output('python ./scripts/install_libcpptraj.py'.split())
@@ -45,8 +48,20 @@ def test_pip_help():
     tools.assert_in('Install Options', output)
 
 def test_raise_if_using_pip_but_does_not_have_cpptraj_home():
+    """ pip install -e .
+        pip install .
+        pip wheel .
+    """
     os.environ['CPPTRAJHOME'] = ''
-    for command in ['pip install -e .', 'pip install .']:
+    for command in ['pip install -e .', 'pip install .', 'pip wheel .']:
         print(command)
         output = capture_stderr(command)
         tools.assert_in('using pip, must set CPPTRAJHOME', output)
+
+def test_install_to_amberhome():
+    fn = './fake_amberhome'
+    subprocess.check_call('mkdir -p {}/lib/python3.5/site-packages/'.format(fn).split())
+    # git_clean_folder(fn)
+    full_name = os.path.abspath(fn)
+    command = 'python setup.py install --prefix={} --no-setuptools'.format(full_name)
+    subprocess.check_call(command.split())
