@@ -3,7 +3,7 @@
 
 if [ "$TEST_SETUP" == 'true' ]; then
     echo "Test setup command line"
-    python devtools/travis-ci/test_setup_command.py
+    nosetests -vs devtools/travis-ci/test_setup_command.py
 else
     sh devtools/travis-ci/pyflakes_check.sh || exit 1
     
