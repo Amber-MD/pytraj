@@ -13,6 +13,8 @@
 import os
 import sys
 from collections import namedtuple
+
+print('sys.argv', sys.argv)
 try:
     # for amber
     sys.argv.remove('--no-setuptools')
@@ -38,7 +40,6 @@ from scripts.base_setup import CleanCommand, is_released, message_pip_need_cpptr
 if sys.version_info < (2, 6):
     print('You must have at least Python 2.6 for pytraj\n')
     sys.exit(1)
-print('sys.argv', sys.argv)
 
 amber_release = check_flag('--amber_release')
 disable_openmp = check_flag('--disable-openmp')

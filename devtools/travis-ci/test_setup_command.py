@@ -13,7 +13,9 @@ def capture_stderr(command):
         return e.output.decode()
 
 def git_clean_folder(name):
-    subprocess.check_call('git clean -fdx {}'.format(name).split())
+    command = 'git clean -fdx {}'.format(name)
+    print('clean: ', command)
+    subprocess.check_call(command.split())
 
 def test_default_raise_if_install_cpptraj_without_openmp():
     """ install libcpptraj without openmp """
@@ -61,7 +63,10 @@ def test_raise_if_using_pip_but_does_not_have_cpptraj_home():
 def test_install_to_amberhome():
     fn = './fake_amberhome'
     subprocess.check_call('mkdir -p {}/lib/python3.5/site-packages/'.format(fn).split())
-    # git_clean_folder(fn)
     full_name = os.path.abspath(fn)
     command = 'python setup.py install --prefix={} --no-setuptools'.format(full_name)
-    subprocess.check_call(command.split())
+    output = subprocess.check_output(command.split()).decode()
+    tools.assert_in('running install_egg_info', output)
+    tools.assert_in('running install_lib', output)
+    tools.assert_in('Writing', output)
+    git_clean_folder(full_name)
