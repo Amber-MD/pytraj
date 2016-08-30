@@ -67,7 +67,8 @@ def test_install_libcpptraj_if_having_cpptraj_folder_here():
     git_clean_folder('./cpptraj/lib/libcpptraj*')
     command = 'python setup.py build'
     output = get_output(command)
-    print(output)
+    tools.assert_in('cpptraj/lib/libcpptraj', output)
+    tools.assert_in('install libcpptraj from current', output)
 
 def test_install_to_amberhome():
     fn = './fake_amberhome'
