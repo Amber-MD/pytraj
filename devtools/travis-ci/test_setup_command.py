@@ -17,6 +17,9 @@ def git_clean_folder(name):
     print('clean: ', command)
     subprocess.check_call(command.split())
 
+def get_output(command):
+    return subprocess.check_output(command.split()).decode()
+
 def test_default_raise_if_install_cpptraj_without_openmp():
     """ install libcpptraj without openmp """
     subprocess.check_output('python ./scripts/install_libcpptraj.py'.split())
@@ -59,6 +62,12 @@ def test_raise_if_using_pip_but_does_not_have_cpptraj_home():
         print(command)
         output = capture_stderr(command)
         tools.assert_in('using pip, must set CPPTRAJHOME', output)
+
+def test_install_libcpptraj_if_having_cpptraj_folder_here():
+    git_clean_folder('./cpptraj/lib/libcpptraj*')
+    command = 'python setup.py build'
+    output = get_output(command)
+    print(output)
 
 def test_install_to_amberhome():
     fn = './fake_amberhome'

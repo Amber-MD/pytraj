@@ -8,10 +8,11 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
 else
     if [[ "$TEST_SETUP" == 'true' ]]; then
         echo "TEST_SETUP"
-    else:
+    else
         if [ "$COMPILER" == "clang" ]; then
             CC=clang CXX=clang++ python setup.py install --disable-openmp
         else
             python setup.py install
         fi
+    fi
 fi
