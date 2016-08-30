@@ -35,24 +35,25 @@ art = r'''
      snd  /'  |  /  '-._\      ''\
               `-'
 '''
-parser = argparse.ArgumentParser(description='run test')
+parser = argparse.ArgumentParser(description='run test. Full test requires nose and coverage packages')
 parser.add_argument('-s', '--simple', action='store_true', help='quick run')
 parser.add_argument('-c', '--with-coverage', action='store_true', help='coverage report')
 args = parser.parse_args()
-
-with_coverage = args.with_coverage 
-do_simple_test = args.simple
 
 print(bin)
 print("start testing. Go to ./tests folder")
 os.chdir("./tests/")
 
-if do_simple_test:
+if args.simple:
+    print('running minimal test\n')
     subprocess.check_call("python ./run_simple_test.py".split())
 else:
-    if with_coverage:
+    print('running full test\n')
+    if args.with_coverage:
+        print('with coverage')
         subprocess.check_call("{bin}/nosetests --with-coverage --cover-package pytraj --cover-html -vs .".format(bin=bin).split())
     else:
+        print('without coverage\n')
         subprocess.check_call("{bin}/nosetests -vs .".format(bin=bin).split())
 
 print('\nHAPPY COMPUTING')
