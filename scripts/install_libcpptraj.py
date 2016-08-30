@@ -64,7 +64,7 @@ def get_compiler_and_build_flag():
     # e.g: CPPTRAJ_COMPILER_OPTION=gnu python ./scripts/install_libcpptraj.py
     cpptraj_compiler_option = os.environ.get('CPPTRAJ_COMPILER_OPTION', 'gnu')  # intel | pgi | clang | cray?
     amberhome = os.environ.get('AMBERHOME', '')
-    amberlib = '-amberlib' if amberhome and args.amberlib else ''
+    amberlib = '-amberlib -nosanderlib' if amberhome and args.amberlib else ''
 
     if has_numpy and find_lib('openblas'):
         prefix = sys.prefix
