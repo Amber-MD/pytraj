@@ -8,6 +8,7 @@ from nose import tools
 def capture_stderr(command):
     try:
         subprocess.check_output(command.split(), stderr=subprocess.STDOUT)
+        return None
     except subprocess.CalledProcessError as e:
         return e.output.decode()
 
@@ -45,7 +46,7 @@ def test_pip_help():
 
 def test_raise_if_using_pip_but_does_not_have_cpptraj_home():
     os.environ['CPPTRAJHOME'] = ''
-    command = 'pip install -e .'
-    output = capture_stderr(command)
-    tools.assert_in('must_compile_c_extension =  True', output)
-    print(output)
+    for command in ['pip install -e .', 'pip install .']:
+        print(command)
+        output = capture_stderr(command)
+        tools.assert_in('using pip, must set CPPTRAJHOME', output)
