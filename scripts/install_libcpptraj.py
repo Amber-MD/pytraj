@@ -3,6 +3,7 @@
 from __future__ import print_function
 import os
 import sys
+import subprocess
 sys.path.append('scripts')
 from check_openmp import get_openmp_flag
 from find_lib import find_lib
@@ -40,7 +41,7 @@ def add_CPPTRAJ_CXX_to_config(fn, CPPTRAJ_CXX=CPPTRAJ_CXX):
                 print('line', line)
                 lines[idx] = ' '.join((line.strip(), CPPTRAJ_CXX, '\n'))
         fh.write(''.join(lines))
-    os.system('mv tmp.h {}'.format(fn))
+    subprocess.check_call('mv tmp.h {}'.format(fn), shell=True)
 
 
 def get_compiler_and_build_flag():
@@ -64,7 +65,7 @@ def get_compiler_and_build_flag():
     # e.g: CPPTRAJ_COMPILER_OPTION=gnu python ./scripts/install_libcpptraj.py
     cpptraj_compiler_option = os.environ.get('CPPTRAJ_COMPILER_OPTION', 'gnu')  # intel | pgi | clang | cray?
     amberhome = os.environ.get('AMBERHOME', '')
-    amberlib = '-amberlib -nosanderlib' if amberhome and args.amberlib else ''
+    amberlib = '-amberlib' if amberhome and args.amberlib else ''
 
     if has_numpy and find_lib('openblas'):
         prefix = sys.prefix
@@ -85,22 +86,22 @@ def get_compiler_and_build_flag():
         build_flag_ = '-noarpack'
 
     if IS_OSX:
-        build_flag = DEFAULT_MAC_BUILD
+        build_flag = ' '.join((DEFAULT_MAC_BUILD, amberlib))
     else:
         build_flag = ' '.join(('-shared', build_flag_, amberlib, openmp_flag))
 
-    build_flag = ' '.join((build_flag, debug))
+    build_flag = ' '.join((build_flag, debug, '-nosanderlib'))
 
     if install_type == 'github':
         print('install libcpptraj from github')
-        os.system('git clone https://github.com/Amber-MD/cpptraj')
+        subprocess.check_call('git clone https://github.com/Amber-MD/cpptraj'.split())
     else:
         print('install libcpptraj from current ./cpptraj folder')
     return cpptraj_compiler_option, build_flag
 
 def fix_rpath():
     if IS_OSX:
-        os.system('(cd lib && install_name_tool -id `pwd`/libcpptraj.dylib libcpptraj.dylib)')
+        subprocess.check_call('(cd lib && install_name_tool -id `pwd`/libcpptraj.dylib libcpptraj.dylib)'.split())
     else:
         pass
 
@@ -123,16 +124,16 @@ def install_libcpptraj(cpptraj_compiler_option, build_flag):
     else:
         cxx_overwrite = ''
 
-    cm = 'bash configure {build_flag} {compiler} {cxx_overwrite}|| exit 1'.format(
+    cm = 'bash configure {build_flag} {compiler} {cxx_overwrite}'.format(
             build_flag=build_flag, compiler=cpptraj_compiler_option, cxx_overwrite=cxx_overwrite)
 
     print('build command: ', cm)
-    os.system(cm)
+    subprocess.check_call(cm.split())
 
     if IS_OSX:
         add_CPPTRAJ_CXX_to_config('config.h', CPPTRAJ_CXX)
 
-    os.system('make libcpptraj -j8 || exit 1')
+    subprocess.check_call('make libcpptraj -j8'.split())
     fix_rpath()
     os.chdir(cwd)
 
