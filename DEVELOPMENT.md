@@ -4,14 +4,14 @@ Making a Release
 - create git tag
 - build binary distribution
 ```bash
-git clone https://github.com/hainm/build_pytraj
-cd build_pytraj
+git clone https://github.com/hainm/build-pytraj
+cd build-pytraj
 sh build_conda.sh
 sh build_pip.sh
 # conda install anaconda-client
 anaconda upload /path/to/conda-installable/binary/file --user ambermd
 # pip install twine
-twine upload dist/wheelhouse/pytraj*.whl
+twine upload pytraj/dist/wheelhouse/pytraj*.whl
 ```
 
 Further info
