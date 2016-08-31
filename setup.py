@@ -50,13 +50,17 @@ tarfile = True if 'sdist' in sys.argv else False
 rootname = os.getcwd()
 pytraj_src = rootname + "/pytraj/"
 cpptraj_home = os.environ.get('CPPTRAJHOME', '')
+
+# danger
 use_pip = (any('egg_info' in arg for arg in sys.argv) or
-           any('pip' in arg for arg in sys.argv))
+           any('pip' in arg for arg in sys.argv) or
+           any('--no-deps' in arg for arg in sys.argv))
 
 print('use_pip = {}, cpptraj_home = {}'.format(use_pip, cpptraj_home))
 if use_pip and not cpptraj_home:
-    print('using pip, must set CPPTRAJHOME')
-    sys.exit(1)
+    if not os.path.exists('./cpptraj'):
+        print('Detect using pip, must set CPPTRAJHOME if there is no cpptraj in current folder')
+        sys.exit(1)
 
 install_type = os.environ.get("INSTALLTYPE", "")
 check_flag(install_type)
@@ -67,7 +71,7 @@ cpptraj_included = os.path.exists("./cpptraj/")
 pytraj_home = os.path.abspath(os.path.dirname(__file__))
 
 SetupTask = namedtuple('SetupTask', ['must_compile_c_extension'])
-must_compile_c_extension = do_what(pytraj_home)
+must_compile_c_extension = do_what(pytraj_home, use_pip=use_pip)
 print('must_compile_c_extension = ', must_compile_c_extension)
 setup_task = SetupTask(must_compile_c_extension=must_compile_c_extension)
 
@@ -130,6 +134,7 @@ else:
                     use_pip=use_pip,
                     tarfile=tarfile)
 
+    print(ext_modules)
 setup_args = {}
 packages = [
     'pytraj',

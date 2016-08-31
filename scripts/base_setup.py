@@ -221,11 +221,8 @@ if not release:
     finally:
         a.close()
 
-def do_what(pytraj_home):
+def do_what(pytraj_home, use_pip=False):
     must_compile_c_extension = False
-    use_pip = (any('egg_info' in arg for arg in sys.argv) or
-               any('pip' in arg for arg in sys.argv))
-    print('use pip = ', use_pip)
     # this checking should be here, after checking openmp and other stuff
     if '--help' in sys.argv or '-h' in sys.argv or '--help-commands' in sys.argv:
         must_compile_c_extension = False
