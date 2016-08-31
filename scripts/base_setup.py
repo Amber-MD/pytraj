@@ -193,7 +193,7 @@ def get_version_info():
         GIT_REVISION = "Unknown"
 
     if not is_released:
-        FULLVERSION += '.dev0+' + GIT_REVISION[:7]
+        FULLVERSION += '.dev0'
 
     return FULLVERSION, GIT_REVISION
 
@@ -221,17 +221,19 @@ if not release:
     finally:
         a.close()
 
-def do_what(pytraj_home):
-    do_install = do_build = False
+def do_what(pytraj_home, use_pip=False):
+    must_compile_c_extension = False
     # this checking should be here, after checking openmp and other stuff
     if '--help' in sys.argv or '-h' in sys.argv or '--help-commands' in sys.argv:
-        do_install = do_build = False
+        must_compile_c_extension = False
+    elif use_pip:
+        must_compile_c_extension = True
     else:
-        if 'install' in sys.argv:
-            do_install = True
-        if 'build' in sys.argv or 'build_ext' in sys.argv:
-            do_build = True
-    return do_install, do_build
+        if ('install' in sys.argv or
+            'build' in sys.argv or
+            'build_ext' in sys.argv):
+            must_compile_c_extension = True
+    return must_compile_c_extension
 
 def install_libcpptraj(openmp_flag, from_github=False, use_amberlib=True):
     '''If AMBERHOME is set and amberlib is True, use -amberlib for libcpptraj
@@ -246,8 +248,7 @@ def install_libcpptraj(openmp_flag, from_github=False, use_amberlib=True):
     subprocess.check_call(cmd, shell=True)
 
 def try_updating_libcpptraj(cpptraj_home,
-                            do_install,
-                            do_build, 
+                            must_compile_c_extension,
                             cpptraj_included,
                             openmp_flag,
                             use_amberlib):
@@ -258,7 +259,8 @@ def try_updating_libcpptraj(cpptraj_home,
             '1. unset CPPTRAJHOME and `python setup.py install` again. We will install libcpptraj for you. \n'
             '2. Or you need to install libcpptraj in $CPPTRAJHOME/lib \n')
     else:
-        if do_install or do_build:
+        if must_compile_c_extension:
+            print('must_compile_c_extension')
             if cpptraj_included:
                 print(
                     'can not find libcpptraj but found ./cpptraj folder, trying to reinstall it to ./cpptraj/lib/ \n')
@@ -380,7 +382,7 @@ def get_cpptraj_info(rootname,
             cpptraj_info.lib_dir = cpptraj_info.dir + "/lib/"
         else:
 
-            if setup_task.do_install or setup_task.do_build:
+            if setup_task.must_compile_c_extension:
                 print(message_auto_install)
                 for i in range(0, 3):
                     sys.stdout.write('.')
@@ -474,14 +476,16 @@ def get_ext_modules(cpptraj_info,
                     define_macros=[],
                     use_pip=False,
                     tarfile=False):
-    if setup_task.do_help:
-        return
-
     if not tarfile:
-        print('build = {0}, install = {1}'.format(setup_task.do_build, setup_task.do_install))
+        print('install = {}'.format(setup_task.must_compile_c_extension))
         if not libcpptraj_files:
-            libcpptraj_files = try_updating_libcpptraj(cpptraj_info.home_env,
-                    setup_task.do_install, setup_task.do_build, cpptraj_included, openmp_flag, use_amberlib)
+            libcpptraj_files = try_updating_libcpptraj(
+                    cpptraj_home=cpptraj_info.home_env,
+                    must_compile_c_extension=setup_task.must_compile_c_extension,
+                    cpptraj_included=cpptraj_included,
+                    openmp_flag=openmp_flag,
+                    use_amberlib=use_amberlib
+            )
     
         try:
             output_openmp_check = subprocess.check_output(['nm', libcpptraj_files[0]]).decode().split('\n')
@@ -510,7 +514,7 @@ def get_ext_modules(cpptraj_info,
     
         pyxfiles, pxdfiles = get_pyx_pxd()
 
-        if not (setup_task.do_help or setup_task.do_clean or is_released):
+        if not is_released:
             from Cython.Build import cythonize
             if sys.platform.startswith("win"):
                 cythonize(
