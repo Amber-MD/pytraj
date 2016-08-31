@@ -1,7 +1,5 @@
 graft scripts
 graft pytraj
-graft devtools
-graft tests
 graft examples
 graft contributors
 graft licenses

@@ -2,11 +2,10 @@
 from __future__ import print_function
 import sys
 import os
-import time
+import subprocess
+import argparse
 
 bin = sys.prefix + '/bin/'
-print(bin)
-
 # from: http://ascii.co.uk/art/batman
 art = r'''
                 |    |              _.-7
@@ -36,55 +35,26 @@ art = r'''
      snd  /'  |  /  '-._\      ''\
               `-'
 '''
+parser = argparse.ArgumentParser(description='run test. Full test requires nose and coverage packages')
+parser.add_argument('-s', '--simple', action='store_true', help='quick run')
+parser.add_argument('-c', '--with-coverage', action='store_true', help='coverage report')
+args = parser.parse_args()
 
-my_script = sys.argv[0]
-
-try:
-    sys.argv.remove('--with-coverage')
-    with_coverage = True
-except ValueError:
-    with_coverage = False
-
-try:
-    sys.argv.remove('x')
-    with_coverage = True
-except ValueError:
-    pass
-
-try:
-    need_help = sys.argv[1] in ['help', '-help', '--help']
-except IndexError:
-    need_help = False
-try:
-    do_simple_test = sys.argv[1] in ['simple', 'minimal', '-simple',
-                                     '-minimal', 'sim']
-except:
-    do_simple_test = False
-
-if need_help:
-    print("Usage:")
-    print("    short testing: python {} simple".format(my_script))
-    print("    long testing: python {}".format(my_script))
-    print(
-        "    long testing with code coverage: python {} --with-coverage".format(
-            my_script))
-    print(
-        "Note: long testing requires nose and coverage, which are easily installed by `pip install`")
-    sys.exit(1)
-
+print(bin)
 print("start testing. Go to ./tests folder")
 os.chdir("./tests/")
 
-if do_simple_test:
-    os.system("python ./run_simple_test.py")
-    print('\nHAPPY COMPUTING')
-    print(art)
-    sys.exit(1)
+if args.simple:
+    print('running minimal test\n')
+    subprocess.check_call("python ./run_simple_test.py".split())
 else:
-    if with_coverage:
-        os.system("{bin}/nosetests --with-coverage --cover-package pytraj -vs .".format(bin=bin))
+    print('running full test\n')
+    if args.with_coverage:
+        print('with coverage')
+        subprocess.check_call("{bin}/nosetests --with-coverage --cover-package pytraj --cover-html -vs .".format(bin=bin).split())
     else:
-        os.system("{bin}/nosetests -vs .".format(bin=bin))
+        print('without coverage\n')
+        subprocess.check_call("{bin}/nosetests -vs .".format(bin=bin).split())
 
 print('\nHAPPY COMPUTING')
 print(art)
