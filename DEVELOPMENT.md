@@ -11,7 +11,7 @@ sh build_pip.sh
 # conda install anaconda-client
 anaconda upload /path/to/conda-installable/binary/file --user ambermd
 # pip install twine
-twine upload dist/wheelhouse/pytraj*.whl
+twine upload pytraj/dist/wheelhouse/pytraj*.whl
 ```
 
 Further info
