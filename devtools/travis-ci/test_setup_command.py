@@ -5,6 +5,11 @@ from nose import tools
 
 # tested with py3.5
 
+def clone_cpptraj():
+    os.system('git clone https://github.com/amber-md/cpptraj')
+
+clone_cpptraj()
+
 def capture_stderr(command):
     try:
         subprocess.check_output(command.split(), stderr=subprocess.STDOUT)
@@ -64,7 +69,6 @@ def test_raise_if_using_pip_but_does_not_have_cpptraj_home():
         tools.assert_in('using pip, must set CPPTRAJHOME', output)
 
 def test_install_libcpptraj_if_having_cpptraj_folder_here():
-    os.system('git clone https://github.com/amber-md/cpptraj')
     git_clean_folder('./cpptraj/lib/libcpptraj*')
     command = 'python setup.py build'
     output = get_output(command)
