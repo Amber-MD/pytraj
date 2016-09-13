@@ -158,7 +158,7 @@ class TestSander(unittest.TestCase):
         assert_close(edict['bond'][0], 605.7349, tol=3E-4)
         assert_close(edict['vdw_14'][0], 0.0000, tol=3E-4)
         assert_close(edict['elec_14'][0], 0.0000, tol=3E-4)
-        assert_close(edict['elec'][0], -7409.7167, tol=3E-1)
+        assert_close(edict['elec'][0], -7409.7167, tol=3E-4)
         assert_close(edict['scf'][0], -37.1277, tol=3E-4)
 
     @unittest.skipIf(not amberhome, 'skip since there is no AMBERHOME')
