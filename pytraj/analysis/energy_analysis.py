@@ -178,7 +178,7 @@ def esander(traj=None,
         # try to use 1st frame's box
         try:
             box = traj[0].box.tolist()
-        except IndexError:
+        except (IndexError, TypeError):
             pass
     else:
         box = None
