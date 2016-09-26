@@ -42,6 +42,7 @@ git commit -m 'put your commit message here'
 
 # if everything went well, push to origin
 git push origin master
+```
 
 Further info
 ------------
