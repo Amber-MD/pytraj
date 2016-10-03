@@ -72,7 +72,7 @@ def calc_dssp(traj=None,
     Notes
     -----
     ========= ======= ========= =======================
-    Character Integer DSSP_Char Seconday structure type
+    Character Integer DSSP_Char Secondary structure type
     ========= ======= ========= =======================
     0         0       '0'       None
     b         1       'E'       Parallel Beta-sheet
@@ -84,13 +84,13 @@ def calc_dssp(traj=None,
     S         7       'S'       Bend
     ========= ======= ========= =======================
 
-    Simlified codes::
+    Simplified codes::
 
         - 'H': include 'H', 'G', 'I' (helix)
         - 'E': include 'E', 'B' (strand)
         - 'C': include 'T', 'S' or '0' (coil)
 
-    Simlified codes will be mostly used for visulization in other packages.
+    Simplified codes will be mostly used for visualization in other packages.
     """
 
     command = mask
@@ -225,7 +225,7 @@ def dssp_allatoms(traj, *args, **kwd):
 
 
 def dssp_allresidues(traj, *args, **kwd):
-    '''calculate dssp for all residues. Mostly used for visulization.
+    '''calculate dssp for all residues. Mostly used for visualization.
 
     Returns
     -------
