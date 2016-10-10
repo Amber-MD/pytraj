@@ -39,8 +39,8 @@ def vector_mask(traj=None,
         output dtype
     top : Topology, optional, default None
 
-    Rerturns
-    --------
+    Returns
+    -------
     if mask is a string, return 2D ndarray, shape (n_frames, 3)
     if mask is a list of strings or a 2D ndarray, return 3D ndarray, shape (n_vectors, n_frames, 3)
 

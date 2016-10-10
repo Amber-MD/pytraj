@@ -582,8 +582,8 @@ class Trajectory(SharedTrajectory):
     def autoimage(self, command=''):
         '''perform autoimage
 
-        Return
-        ------
+        Returns
+        -------
         self
 
         Examples
