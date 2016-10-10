@@ -6,6 +6,7 @@ try ``pytraj`` online:
 .. image:: http://mybinder.org/badge.svg
    :target: http://mybinder.org/repo/hainm/notebook-pytraj
 
+
 .. contents::
 
 .. currentmodule:: pytraj
@@ -15,6 +16,15 @@ try ``pytraj`` online:
 
     import numpy as np
     np.set_printoptions(precision=4, suppress=True)
+
+See also
+--------
+
+.. toctree::
+
+   trajectory_slice
+   trajectory_exercise
+   modify_traj
 
 
 Overview
@@ -89,10 +99,3 @@ How to get raw coordinates?
 
     >>> traj.xyz
     >>> traj[[1, 3, 5]].xyz
-
-See also
---------
-
-- `Trajectory warming up <trajectory_exercise>`_
-
-- `Fancy indexing <trajectory_slice>`_

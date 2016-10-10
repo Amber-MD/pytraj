@@ -56,7 +56,8 @@ Create state with existing ``TrajectoryIterator`` class
     state.data[0]
     state.data[-1]
     # convert data to regular numpy array
-    state.data.values
+    # skip 1st value, which is Topology
+    state.data.values[1:]
 
 
 Create state without ``TrajectoryIterator`` class

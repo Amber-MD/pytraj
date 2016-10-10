@@ -76,17 +76,14 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
 <li class="toctree-l1"><a class="reference internal" href="read_and_write.html">Supported file formats</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Trajectory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Fancy indexing of trajectory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="atom_mask_selection.html">Atom mask selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel calculation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
-<li class="toctree-l1"><a class="reference internal" href="conda.html">Use conda to manage different Python versions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
 <li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
@@ -105,10 +102,10 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">Trajectory</a><ul>
+<li><a class="reference internal" href="#see-also">See also</a></li>
 <li><a class="reference internal" href="#overview">Overview</a></li>
 <li><a class="reference internal" href="#why-are-there-two-trajectory-classes">Why are there two trajectory classes?</a></li>
 <li><a class="reference internal" href="#try-it">Try it</a></li>
-<li><a class="reference internal" href="#see-also">See also</a></li>
 </ul>
 </li>
 </ul>
@@ -166,16 +163,48 @@
 <p class="topic-title first">Contents</p>
 <ul class="simple">
 <li><a class="reference internal" href="#trajectory" id="id1">Trajectory</a><ul>
-<li><a class="reference internal" href="#overview" id="id2">Overview</a></li>
-<li><a class="reference internal" href="#why-are-there-two-trajectory-classes" id="id3">Why are there two trajectory classes?</a></li>
-<li><a class="reference internal" href="#try-it" id="id4">Try it</a></li>
-<li><a class="reference internal" href="#see-also" id="id5">See also</a></li>
+<li><a class="reference internal" href="#see-also" id="id2">See also</a></li>
+<li><a class="reference internal" href="#overview" id="id3">Overview</a></li>
+<li><a class="reference internal" href="#why-are-there-two-trajectory-classes" id="id4">Why are there two trajectory classes?</a></li>
+<li><a class="reference internal" href="#try-it" id="id5">Try it</a></li>
 </ul>
 </li>
 </ul>
 </div>
+<div class="section" id="see-also">
+<h2><a class="toc-backref" href="#id2">See also</a><a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Fancy indexing of trajectory</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_slice.html#use-slicing-notation-to-load-all-given-frames-into-memory-at-once">use <cite>[ ]</cite> slicing notation to load all given frames into memory at once</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_slice.html#use-notation-to-create-frame-iterator-load-only-a-single-frame-to-memory-if-needed">use <cite>( )</cite> notation to create frame iterator, load only a single frame to memory if needed</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory_exercise.html">Trajectory warm up</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#register-to-load-from-disk">Register to load from disk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#register-to-load-from-disk-with-frame-stride">Register to load from disk with frame stride</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#register-to-load-several-files-from-disk">Register to load several files from disk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#register-to-load-several-files-from-disk-with-frame-stride">Register to load several files from disk with frame stride</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#write-to-disk">Write to disk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#extract-coordinates-from-pdb-structure">Extract coordinates from PDB structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#write-pdb-file-to-netcdf-format-require-netcdf-lib">Write PDB file to netcdf format (require Netcdf lib)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#fancy-indexing">Fancy indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#iterate-whole-trajectory">Iterate whole trajectory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#iterate-a-part-of-trajectory">Iterate a part of trajectory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#perform-calculation">Perform calculation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#convert-data-to-pandas-dataframe">Convert data to pandas DataFrame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#convert-to-different-file-format">Convert to different file format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#combine-with-cpptraj-command-style">Combine with cpptraj command style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#convert-out-of-core-trajectoryiterator-to-in-memory-trajectory">Convert out-of-core TrajectoryIterator to in-memory Trajectory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trajectory_exercise.html#parallel-computing-with-trajectoryiterator">Parallel computing with TrajectoryIterator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
+</ul>
+</div>
+</div>
 <div class="section" id="overview">
-<h2><a class="toc-backref" href="#id2">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>There are two types of trajecoties in <code class="docutils literal"><span class="pre">pytraj</span></code>.</p>
 <ul class="simple">
 <li>an immutable <a class="reference internal" href="_api/pytraj.html#pytraj.TrajectoryIterator" title="pytraj.TrajectoryIterator"><code class="xref py py-class docutils literal"><span class="pre">pytraj.TrajectoryIterator</span></code></a> (work-horse of pytraj).</li>
@@ -186,11 +215,11 @@
 </ul>
 </div>
 <div class="section" id="why-are-there-two-trajectory-classes">
-<h2><a class="toc-backref" href="#id3">Why are there two trajectory classes?</a><a class="headerlink" href="#why-are-there-two-trajectory-classes" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">Why are there two trajectory classes?</a><a class="headerlink" href="#why-are-there-two-trajectory-classes" title="Permalink to this headline">¶</a></h2>
 <p>See our rationale here <a class="reference internal" href="design_trajectory.html#design-trajectory"><span class="std std-ref">Trajectory design</span></a></p>
 </div>
 <div class="section" id="try-it">
-<h2><a class="toc-backref" href="#id4">Try it</a><a class="headerlink" href="#try-it" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">Try it</a><a class="headerlink" href="#try-it" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
 <span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;data/tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;data/tz2.ortho.parm7&#39;</span><span class="p">)</span>
@@ -265,13 +294,6 @@ rmsd to 3rd frame (index starts from 0) for all atoms, just:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]</span><span class="o">.</span><span class="n">xyz</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="see-also">
-<h2><a class="toc-backref" href="#id5">See also</a><a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><a class="reference external" href="trajectory_exercise">Trajectory warming up</a></li>
-<li><a class="reference external" href="trajectory_slice">Fancy indexing</a></li>
-</ul>
 </div>
 </div>
 

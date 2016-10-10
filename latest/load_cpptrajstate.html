@@ -77,17 +77,14 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
 <li class="toctree-l1"><a class="reference internal" href="read_and_write.html">Supported file formats</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
 <li class="toctree-l1"><a class="reference internal" href="trajectory.html">Trajectory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Fancy indexing of trajectory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="atom_mask_selection.html">Atom mask selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel calculation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
-<li class="toctree-l1"><a class="reference internal" href="conda.html">Use conda to manage different Python versions</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
 <li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
@@ -239,15 +236,10 @@
 <span class="go">  455.1502  468.7057  456.0059]</span>
 
 <span class="c"># convert data to regular numpy array</span>
-<span class="gp">In [12]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">values</span>
+<span class="c"># skip 1st value, which is Topology</span>
+<span class="gp">In [12]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
 <span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Out[12]: </span>
-<span class="go">array([ array([Atom(name=N, type=N3, atomic_number=7, index=0, resid=0),</span>
-<span class="go">       Atom(name=H1, type=H, atomic_number=1, index=1, resid=0),</span>
-<span class="go">       Atom(name=H2, type=H, atomic_number=1, index=2, resid=0), ...,</span>
-<span class="go">       Atom(name=O, type=OW, atomic_number=8, index=5290, resid=1703),</span>
-<span class="go">       Atom(name=H1, type=HW, atomic_number=1, index=5291, resid=1703),</span>
-<span class="go">       Atom(name=H2, type=HW, atomic_number=1, index=5292, resid=1703)], dtype=object),</span>
-<span class="go">       array([ 0.    ,  0.2641,  0.386 ,  0.2688,  0.2619,  0.4576,  0.4565,</span>
+<span class="go">array([ array([ 0.    ,  0.2641,  0.386 ,  0.2688,  0.2619,  0.4576,  0.4565,</span>
 <span class="go">        0.4443,  0.4363,  0.4475]),</span>
 <span class="go">       array([ 19.0048,  19.0322,  18.9463,  19.0041,  18.953 ,  18.9814,</span>
 <span class="go">        19.0307,  18.9903,  19.0095,  18.9636]),</span>

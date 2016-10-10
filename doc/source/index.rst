@@ -23,6 +23,8 @@ Welcome
    <div class="col-md-3">
    <h2>Overview</h2>
 
+See also
+
 .. toctree::
    :maxdepth: 2
 
@@ -43,17 +45,14 @@ Welcome
 
    installation
    tutorials/index
+   analysis
+   cookbook
    read_and_write
    topology
    trajectory
-   trajectory_slice
-   modify_traj
-   analysis
    atom_mask_selection
    parallel
    developer_guide
-   conda
-   cookbook
    misc
    api
    whatsnew
@@ -87,7 +86,7 @@ Welcome
 
    </div>
    <div class="col-md-3">
-   <h3>Jupyter notebook</h3>
+   <h3><a href=http://jupyter.org/> Jupyter notebook</a></h3>
 
 .. image:: http://jupyter.org/assets/jupyterpreview.png
    :target: http://jupyter.org/
@@ -100,14 +99,15 @@ Welcome
    <div class="col-md-3">
    <h3><a href=trajectory_viewer.html> Trajectory visualization </a></h3>
 
-.. raw:: html
-   :file: ngl_example.html
+.. image:: images/index.png
+   :target: ./trajectory_viewer.html
+   :width: 300
 
 .. raw:: html
 
    </div>
    <div class="col-md-3">
-   <h3>Try pytraj online</h3>
+   <h3><a href=http://mybinder.org/repo/hainm/notebook-pytraj>Try pytraj online</a></h3>
 
 .. image:: http://mybinder.org/assets/images/logo.svg
    :target: http://mybinder.org/repo/hainm/notebook-pytraj

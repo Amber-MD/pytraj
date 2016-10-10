@@ -75,17 +75,14 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
 <li class="toctree-l1"><a class="reference internal" href="read_and_write.html">Supported file formats</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
 <li class="toctree-l1"><a class="reference internal" href="trajectory.html">Trajectory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Fancy indexing of trajectory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="atom_mask_selection.html">Atom mask selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel calculation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
-<li class="toctree-l1"><a class="reference internal" href="conda.html">Use conda to manage different Python versions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
 <li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
@@ -164,7 +161,8 @@
 <p><code class="docutils literal"><span class="pre">pytraj</span></code> is a Python front-end of the popular <code class="docutils literal"><span class="pre">cpptraj</span></code> package. Its aim is to expose
 <code class="docutils literal"><span class="pre">cpptraj</span></code>&#8216;s funtions to Python&#8217;s ecosystem. Enjoy.</p>
 <div class="col-md-3">
-<h2>Overview</h2><div class="toctree-wrapper compound">
+<h2>Overview</h2><p>See also</p>
+<div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="overview.html#why-bother-using-pytraj">Why bother using <strong>pytraj</strong>?</a></li>
@@ -185,17 +183,14 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
 <li class="toctree-l1"><a class="reference internal" href="read_and_write.html">Supported file formats</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
 <li class="toctree-l1"><a class="reference internal" href="trajectory.html">Trajectory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="trajectory_slice.html">Fancy indexing of trajectory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modify_traj.html">Modify trajectory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="atom_mask_selection.html">Atom mask selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel calculation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
-<li class="toctree-l1"><a class="reference internal" href="conda.html">Use conda to manage different Python versions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
 <li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
@@ -219,49 +214,13 @@
 </div>
 </div></div>
 <div class="col-md-3">
-<h3>Jupyter notebook</h3><a class="reference external image-reference" href="http://jupyter.org/"><img alt="http://jupyter.org/assets/jupyterpreview.png" src="http://jupyter.org/assets/jupyterpreview.png" style="height: 200px;" /></a>
+<h3><a href=http://jupyter.org/> Jupyter notebook</a></h3><a class="reference external image-reference" href="http://jupyter.org/"><img alt="http://jupyter.org/assets/jupyterpreview.png" src="http://jupyter.org/assets/jupyterpreview.png" style="height: 200px;" /></a>
 </div>
 <div class="col-md-3">
-<h3><a href=trajectory_viewer.html> Trajectory visualization </a></h3><!DOCTYPE html>
-<html lang="en">
-
-    <head>
-
-        <title>NGL - embedded</title>
-
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-
-    </head>
-
-    <body>
-
-        <script src="./ngl.js"></script>
-
-        <script>
-            document.addEventListener( "DOMContentLoaded", function(){
-                var stage = new NGL.Stage( "viewport" );
-                stage.viewer.container.addEventListener( "dblclick", function(){
-                    stage.toggleFullscreen();
-                } );
-                stage.loadFile( '_static/1tsu.pdb' ).then( function( o ) {
-                    o.addRepresentation( "cartoon" );
-                    o.addRepresentation( "licorice", {'sele': 'water and not hydrogen'} );
-                    o.centerView();
-                });
-                // stage.addRepresentation( "licorice", {'sele': 'not water'} );
-                stage.setParameters({'backgroundColor': 'white'});
-            } );
-        </script>
-
-        <div id="viewport" style="width:500px; height:500px;"></div>
-
-    </body>
-
-</html>
+<h3><a href=trajectory_viewer.html> Trajectory visualization </a></h3><a class="reference external image-reference" href="./trajectory_viewer.html"><img alt="_images/index.png" src="_images/index.png" style="width: 300px;" /></a>
 </div>
 <div class="col-md-3">
-<h3>Try pytraj online</h3><a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img alt="http://mybinder.org/assets/images/logo.svg" src="http://mybinder.org/assets/images/logo.svg" /></a>
+<h3><a href=http://mybinder.org/repo/hainm/notebook-pytraj>Try pytraj online</a></h3><a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img alt="http://mybinder.org/assets/images/logo.svg" src="http://mybinder.org/assets/images/logo.svg" /></a>
 </div></div>
 
 
