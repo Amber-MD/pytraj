@@ -50,7 +50,7 @@ try ``pytraj`` online:
 .. autofunction:: pytraj.angle
 
 .. _dihedral:
-.. autofunction:: pytraj.dihedral
+.. autofunction:: pytraj.analysis.dihedral
 
 .. _rmsd:
 .. autofunction:: pytraj.rmsd

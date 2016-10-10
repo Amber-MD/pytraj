@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Analysis &mdash; pytraj 1.0.8.dev0+c4526f7 documentation</title>
+    <title>Analysis &#8212; pytraj 1.0.9.dev0 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0.8.dev0+c4526f7',
+        VERSION:     '1.0.9.dev0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,9 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.8.dev0+c4526f7 documentation" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="pytraj 1.0.9.dev0 documentation" href="index.html" />
     <link rel="next" title="Nucleic Acid Analysis" href="nucleic_acid_analysis.html" />
     <link rel="prev" title="Modify trajectory" href="modify_traj.html" />
 <meta charset='utf-8'>
@@ -53,7 +55,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.8.dev0+c4526f7</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.9.dev0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -155,7 +157,7 @@
   <div class="section" id="analysis">
 <span id="id1"></span><h1>Analysis<a class="headerlink" href="#analysis" title="Permalink to this headline">¶</a></h1>
 <p>try <code class="docutils literal"><span class="pre">pytraj</span></code> online:</p>
-<a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img src="http://mybinder.org/badge.svg" /></a>
+<a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img alt="http://mybinder.org/badge.svg" src="http://mybinder.org/badge.svg" /></a>
 <div class="submodule-index container">
 <p class="rubric">Submodules</p>
 <div class="toctree-wrapper compound">
@@ -282,59 +284,6 @@ set_nobox for Topology.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate angle for a series of atoms, using array for atom mask</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># angle between atom 1, 5, 8, distance between atom 4, 10, 20 (index starts from 0)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">angles</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">]])</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<span class="target" id="dihedral"></span><dl class="function">
-<dt id="pytraj.dihedral">
-<code class="descclassname">pytraj.</code><code class="descname">dihedral</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.dihedral" title="Permalink to this definition">¶</a></dt>
-<dd><p>compute dihedral angle between two maskes</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like, list of Trajectory, list of Frames</p>
-<p><strong>mask</strong> : str or array</p>
-<p><strong>top</strong> : Topology, optional</p>
-<p><strong>dtype</strong> : return type, defaul &#8216;ndarray&#8217;</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">1D ndarray if mask is a string</p>
-<p class="last">2D ndarray, shape (n_atom_pairs, n_frames) if mask is a list of strings or an array</p>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate dihedral angle for four atoms, using amber mask</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">dihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;@1 @3 @10 @20&#39;</span><span class="p">)</span>
-<span class="go">array([ 23.32244362,  23.5386922 ,  14.26831569,  14.58865946,</span>
-<span class="go">        23.98675475,  26.18419185,   6.06982926,  13.57158505,</span>
-<span class="go">        16.59013076,  29.99131573])</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate dihedral angle for four groups of atoms, using amber mask</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;@1,37,8 @2,4,6 @5,20 @21,22&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate dihedral angle for four residues, using amber mask</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;:1 :10 :20 :22&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate multiple dihedral angles for four residues, using amber mask</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># angle for residue 1, 10, 20, 30; angle between residue 3, 20, 30, 40</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># (when using atom string mask, index starts from 1)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">dihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;:1 :10 :20 :30&#39;</span><span class="p">,</span> <span class="s1">&#39;:3 :20 :30 :40&#39;</span><span class="p">])</span>
-<span class="go">array([[-166.81829116, -160.19029669, -158.56560062, ..., -169.10064772,</span>
-<span class="go">        -158.81655586, -165.28873555],</span>
-<span class="go">       [  -0.60994639,    0.78261235,    1.86394369, ...,    1.21170489,</span>
-<span class="go">          -1.16762607,   -3.08412049]])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># calculate dihedral angle for a series of atoms, using array for atom mask</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># dihedral angle for atom 1, 5, 8, 10, dihedral for atom 4, 10, 20, 30 (index starts from 0)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">]])</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1302,8 +1251,8 @@ if &#8216;trajectory&#8217;, return a new Trajectory.</p>
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Aug 22, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
+      Last updated on Oct 10, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.<br/>
     </p>
   </div>
 </footer>

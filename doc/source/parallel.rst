@@ -84,7 +84,7 @@ Supported methods for ``pmap`` if using pytraj's methods
 .. ipython:: python
 
     import pytraj as pt
-    for method in pt.misc.parallel_info('pmap'):
+    for method in pt.utils.misc.parallel_info('pmap'):
         print(method)
 
 Supported methods for ``pmap`` if using cpptraj's command style
@@ -98,7 +98,7 @@ Supported methods for ``openmp``
 
 .. ipython:: python
 
-    for method in pt.misc.parallel_info('openmp'):
+    for method in pt.utils.misc.parallel_info('openmp'):
         print(method)
     print("")
 

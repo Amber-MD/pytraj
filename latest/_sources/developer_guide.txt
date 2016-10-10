@@ -277,7 +277,7 @@ Push pytraj and libcpptraj to anaconda.org after successful build on travis
   $ # check devtools/travis-ci/upload.sh and .travis.yml files for implementation.
 
 Code coverage, how well are your codes tested?
----------------------------------------------
+----------------------------------------------
 
 It's good to measure how well you code is tested. Basically, you should write all possible tests to make sure all (most) lines of codes executed::
 

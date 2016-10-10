@@ -9,7 +9,7 @@ pytraj.matrix
     
         <script type="text/javascript" src='../_static/cindex.js'></script>
 
-.. automodule:: pytraj.matrix
+.. automodule:: pytraj.analysis.matrix
     :members:
     :undoc-members:
     :show-inheritance:

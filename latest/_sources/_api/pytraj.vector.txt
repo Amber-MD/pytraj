@@ -9,7 +9,7 @@ pytraj.vector
     
         <script type="text/javascript" src='../_static/cindex.js'></script>
 
-.. automodule:: pytraj.vector
+.. automodule:: pytraj.analysis.vector
     :members:
     :undoc-members:
     :show-inheritance:

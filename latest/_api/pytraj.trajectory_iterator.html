@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.TrajectoryIterator &mdash; pytraj 1.0.8.dev0+c4526f7 documentation</title>
+    <title>pytraj.TrajectoryIterator &#8212; pytraj 1.0.9.dev0 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.8.dev0+c4526f7',
+        VERSION:     '1.0.9.dev0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,9 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.8.dev0+c4526f7 documentation" href="../index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="pytraj 1.0.9.dev0 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -52,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.8.dev0+c4526f7</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.9.dev0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -147,11 +149,11 @@
 <span id="trajectoryiterator"></span><h1>pytraj.TrajectoryIterator<a class="headerlink" href="#pytraj-trajectoryiterator" title="Permalink to this headline">¶</a></h1>
 <div class="custom-index container">
 <script type="text/javascript" src='../_static/cindex.js'></script></div>
-<span class="target" id="module-pytraj.trajectory_iterator"></span><p>out-of-core TrajectoryIterator</p>
+<span class="target" id="module-pytraj.trajectory.trajectory_iterator"></span><p>out-of-core TrajectoryIterator</p>
 <dl class="class">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator">
-<em class="property">class </em><code class="descclassname">pytraj.trajectory_iterator.</code><code class="descname">TrajectoryIterator</code><span class="sig-paren">(</span><em>filename=None</em>, <em>top=None</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pytraj.c_traj.c_trajectory.TrajectoryCpptraj</span></code>, <code class="xref py py-class docutils literal"><span class="pre">pytraj.shared_trajectory.SharedTrajectory</span></code></p>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator">
+<em class="property">class </em><code class="descclassname">pytraj.trajectory.trajectory_iterator.</code><code class="descname">TrajectoryIterator</code><span class="sig-paren">(</span><em>filename=None</em>, <em>top=None</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pytraj.trajectory.c_traj.c_trajectory.TrajectoryCpptraj</span></code>, <code class="xref py py-class docutils literal"><span class="pre">pytraj.trajectory.shared_trajectory.SharedTrajectory</span></code></p>
 <p>out-of-core trajectory holder.</p>
 <p class="rubric">Notes</p>
 <p>It&#8217;s a bit tricky to pickle this class. As default, new TrajectoryIterator will
@@ -174,37 +176,37 @@ use original trj filename and top filename.</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.filelist" title="pytraj.trajectory_iterator.TrajectoryIterator.filelist"><code class="xref py py-obj docutils literal"><span class="pre">filelist</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.filelist" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.filelist"><code class="xref py py-obj docutils literal"><span class="pre">filelist</span></code></a></td>
 <td>return a list of input filenames. Order does matter</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.filename" title="pytraj.trajectory_iterator.TrajectoryIterator.filename"><code class="xref py py-obj docutils literal"><span class="pre">filename</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.filename" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.filename"><code class="xref py py-obj docutils literal"><span class="pre">filename</span></code></a></td>
 <td>return 1st filename in filelist. For testing only</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.metadata" title="pytraj.trajectory_iterator.TrajectoryIterator.metadata"><code class="xref py py-obj docutils literal"><span class="pre">metadata</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.metadata" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.metadata"><code class="xref py py-obj docutils literal"><span class="pre">metadata</span></code></a></td>
 <td>return a dict of general information</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.n_atoms" title="pytraj.trajectory_iterator.TrajectoryIterator.n_atoms"><code class="xref py py-obj docutils literal"><span class="pre">n_atoms</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.n_atoms" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.n_atoms"><code class="xref py py-obj docutils literal"><span class="pre">n_atoms</span></code></a></td>
 <td>used for frame_iter</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.n_frames" title="pytraj.trajectory_iterator.TrajectoryIterator.n_frames"><code class="xref py py-obj docutils literal"><span class="pre">n_frames</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.n_frames" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.n_frames"><code class="xref py py-obj docutils literal"><span class="pre">n_frames</span></code></a></td>
 <td>total snapshots</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.shape" title="pytraj.trajectory_iterator.TrajectoryIterator.shape"><code class="xref py py-obj docutils literal"><span class="pre">shape</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.shape" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.shape"><code class="xref py py-obj docutils literal"><span class="pre">shape</span></code></a></td>
 <td>(n_frames, n_atoms, 3)</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.temperatures" title="pytraj.trajectory_iterator.TrajectoryIterator.temperatures"><code class="xref py py-obj docutils literal"><span class="pre">temperatures</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.temperatures" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.temperatures"><code class="xref py py-obj docutils literal"><span class="pre">temperatures</span></code></a></td>
 <td>return 1D array of temperatures</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.top" title="pytraj.trajectory_iterator.TrajectoryIterator.top"><code class="xref py py-obj docutils literal"><span class="pre">top</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.top" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.top"><code class="xref py py-obj docutils literal"><span class="pre">top</span></code></a></td>
 <td>Topology</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.topology" title="pytraj.trajectory_iterator.TrajectoryIterator.topology"><code class="xref py py-obj docutils literal"><span class="pre">topology</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.topology" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.topology"><code class="xref py py-obj docutils literal"><span class="pre">topology</span></code></a></td>
 <td>alias of traj.top</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.unitcells" title="pytraj.trajectory_iterator.TrajectoryIterator.unitcells"><code class="xref py py-obj docutils literal"><span class="pre">unitcells</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.unitcells" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.unitcells"><code class="xref py py-obj docutils literal"><span class="pre">unitcells</span></code></a></td>
 <td>return unitcells (Box) with shape=(n_frames, 6)</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.xyz" title="pytraj.trajectory_iterator.TrajectoryIterator.xyz"><code class="xref py py-obj docutils literal"><span class="pre">xyz</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.xyz" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.xyz"><code class="xref py py-obj docutils literal"><span class="pre">xyz</span></code></a></td>
 <td>return 3D array of coordinates</td>
 </tr>
 </tbody>
@@ -219,99 +221,99 @@ use original trj filename and top filename.</p>
 <tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
 <td>Call self as a function.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.at" title="pytraj.trajectory_iterator.TrajectoryIterator.at"><code class="xref py py-obj docutils literal"><span class="pre">at</span></code></a>(index)</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.at" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.at"><code class="xref py py-obj docutils literal"><span class="pre">at</span></code></a>(index)</td>
 <td>same as traj[index]</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.autoimage" title="pytraj.trajectory_iterator.TrajectoryIterator.autoimage"><code class="xref py py-obj docutils literal"><span class="pre">autoimage</span></code></a>(self[,&nbsp;command])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.autoimage" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.autoimage"><code class="xref py py-obj docutils literal"><span class="pre">autoimage</span></code></a>(self[,&nbsp;command])</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.center" title="pytraj.trajectory_iterator.TrajectoryIterator.center"><code class="xref py py-obj docutils literal"><span class="pre">center</span></code></a>(self[,&nbsp;command])</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.center" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.center"><code class="xref py py-obj docutils literal"><span class="pre">center</span></code></a>(self[,&nbsp;command])</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.copy" title="pytraj.trajectory_iterator.TrajectoryIterator.copy"><code class="xref py py-obj docutils literal"><span class="pre">copy</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.copy" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.copy"><code class="xref py py-obj docutils literal"><span class="pre">copy</span></code></a>()</td>
 <td>return a deep copy. Use this method with care since the copied traj just reuse</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.image" title="pytraj.trajectory_iterator.TrajectoryIterator.image"><code class="xref py py-obj docutils literal"><span class="pre">image</span></code></a>(self[,&nbsp;command])</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.image" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.image"><code class="xref py py-obj docutils literal"><span class="pre">image</span></code></a>(self[,&nbsp;command])</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.iterchunk" title="pytraj.trajectory_iterator.TrajectoryIterator.iterchunk"><code class="xref py py-obj docutils literal"><span class="pre">iterchunk</span></code></a>([chunksize,&nbsp;start,&nbsp;stop,&nbsp;...])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.iterchunk" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.iterchunk"><code class="xref py py-obj docutils literal"><span class="pre">iterchunk</span></code></a>([chunksize,&nbsp;start,&nbsp;stop,&nbsp;...])</td>
 <td>iterate trajectory by chunk</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.iterframe" title="pytraj.trajectory_iterator.TrajectoryIterator.iterframe"><code class="xref py py-obj docutils literal"><span class="pre">iterframe</span></code></a>([start,&nbsp;stop,&nbsp;step,&nbsp;mask,&nbsp;...])</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.iterframe" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.iterframe"><code class="xref py py-obj docutils literal"><span class="pre">iterframe</span></code></a>([start,&nbsp;stop,&nbsp;step,&nbsp;mask,&nbsp;...])</td>
 <td>iterate trajectory with given frame_indices or given (start, stop, step)</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.principal" title="pytraj.trajectory_iterator.TrajectoryIterator.principal"><code class="xref py py-obj docutils literal"><span class="pre">principal</span></code></a>(self,&nbsp;command)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.principal" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.principal"><code class="xref py py-obj docutils literal"><span class="pre">principal</span></code></a>(self,&nbsp;command)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.rotate" title="pytraj.trajectory_iterator.TrajectoryIterator.rotate"><code class="xref py py-obj docutils literal"><span class="pre">rotate</span></code></a>(self,&nbsp;command)</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.rotate" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.rotate"><code class="xref py py-obj docutils literal"><span class="pre">rotate</span></code></a>(self,&nbsp;command)</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.save" title="pytraj.trajectory_iterator.TrajectoryIterator.save"><code class="xref py py-obj docutils literal"><span class="pre">save</span></code></a>([filename,&nbsp;overwrite])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.save" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.save"><code class="xref py py-obj docutils literal"><span class="pre">save</span></code></a>([filename,&nbsp;overwrite])</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.scale" title="pytraj.trajectory_iterator.TrajectoryIterator.scale"><code class="xref py py-obj docutils literal"><span class="pre">scale</span></code></a>(self,&nbsp;command)</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.scale" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.scale"><code class="xref py py-obj docutils literal"><span class="pre">scale</span></code></a>(self,&nbsp;command)</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.strip" title="pytraj.trajectory_iterator.TrajectoryIterator.strip"><code class="xref py py-obj docutils literal"><span class="pre">strip</span></code></a>(mask)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.strip" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.strip"><code class="xref py py-obj docutils literal"><span class="pre">strip</span></code></a>(mask)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.superpose" title="pytraj.trajectory_iterator.TrajectoryIterator.superpose"><code class="xref py py-obj docutils literal"><span class="pre">superpose</span></code></a>([mask,&nbsp;ref,&nbsp;ref_mask,&nbsp;mass])</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.superpose" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.superpose"><code class="xref py py-obj docutils literal"><span class="pre">superpose</span></code></a>([mask,&nbsp;ref,&nbsp;ref_mask,&nbsp;mass])</td>
 <td>register to superpose to reference frame when iterating.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.translate" title="pytraj.trajectory_iterator.TrajectoryIterator.translate"><code class="xref py py-obj docutils literal"><span class="pre">translate</span></code></a>(self,&nbsp;command)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.translate" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.translate"><code class="xref py py-obj docutils literal"><span class="pre">translate</span></code></a>(self,&nbsp;command)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.view" title="pytraj.trajectory_iterator.TrajectoryIterator.view"><code class="xref py py-obj docutils literal"><span class="pre">view</span></code></a>(*args,&nbsp;**kwargs)</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.view" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.view"><code class="xref py py-obj docutils literal"><span class="pre">view</span></code></a>(\*args,&nbsp;\*\*kwargs)</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory_iterator.TrajectoryIterator.visualize" title="pytraj.trajectory_iterator.TrajectoryIterator.visualize"><code class="xref py py-obj docutils literal"><span class="pre">visualize</span></code></a>(*args,&nbsp;**kwargs)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.visualize" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.visualize"><code class="xref py py-obj docutils literal"><span class="pre">visualize</span></code></a>(\*args,&nbsp;\*\*kwargs)</td>
 <td>require NGLView</td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.at">
-<code class="descname">at</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.at" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.at">
+<code class="descname">at</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.at" title="Permalink to this definition">¶</a></dt>
 <dd><p>same as traj[index]</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.autoimage">
-<code class="descname">autoimage</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.autoimage" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.autoimage">
+<code class="descname">autoimage</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.autoimage" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.center">
-<code class="descname">center</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.center" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.center">
+<code class="descname">center</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.center" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.copy">
-<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.copy" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.copy" title="Permalink to this definition">¶</a></dt>
 <dd><p>return a deep copy. Use this method with care since the copied traj just reuse
 the filenames</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.filelist">
-<code class="descname">filelist</code><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.filelist" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.filelist">
+<code class="descname">filelist</code><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.filelist" title="Permalink to this definition">¶</a></dt>
 <dd><p>return a list of input filenames. Order does matter</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.filename">
-<code class="descname">filename</code><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.filename" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.filename">
+<code class="descname">filename</code><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.filename" title="Permalink to this definition">¶</a></dt>
 <dd><p>return 1st filename in filelist. For testing only</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.image">
-<code class="descname">image</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.image" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.image">
+<code class="descname">image</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.image" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.iterchunk">
-<code class="descname">iterchunk</code><span class="sig-paren">(</span><em>chunksize=2</em>, <em>start=0</em>, <em>stop=-1</em>, <em>autoimage=False</em>, <em>rmsfit=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.iterchunk" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.iterchunk">
+<code class="descname">iterchunk</code><span class="sig-paren">(</span><em>chunksize=2</em>, <em>start=0</em>, <em>stop=-1</em>, <em>autoimage=False</em>, <em>rmsfit=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.iterchunk" title="Permalink to this definition">¶</a></dt>
 <dd><p>iterate trajectory by chunk</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -342,8 +344,8 @@ ref first</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.iterframe">
-<code class="descname">iterframe</code><span class="sig-paren">(</span><em>start=0</em>, <em>stop=None</em>, <em>step=1</em>, <em>mask=None</em>, <em>autoimage=False</em>, <em>rmsfit=None</em>, <em>copy=False</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.iterframe" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.iterframe">
+<code class="descname">iterframe</code><span class="sig-paren">(</span><em>start=0</em>, <em>stop=None</em>, <em>step=1</em>, <em>mask=None</em>, <em>autoimage=False</em>, <em>rmsfit=None</em>, <em>copy=False</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.iterframe" title="Permalink to this definition">¶</a></dt>
 <dd><p>iterate trajectory with given frame_indices or given (start, stop, step)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -396,8 +398,8 @@ ref first</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.metadata">
-<code class="descname">metadata</code><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.metadata" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.metadata">
+<code class="descname">metadata</code><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.metadata" title="Permalink to this definition">¶</a></dt>
 <dd><p>return a dict of general information</p>
 <p class="rubric">Examples</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">metadata</span>
@@ -415,40 +417,40 @@ ref first</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.n_atoms">
-<code class="descname">n_atoms</code><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.n_atoms" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.n_atoms">
+<code class="descname">n_atoms</code><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.n_atoms" title="Permalink to this definition">¶</a></dt>
 <dd><p>used for frame_iter</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.n_frames">
-<code class="descname">n_frames</code><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.n_frames" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.n_frames">
+<code class="descname">n_frames</code><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.n_frames" title="Permalink to this definition">¶</a></dt>
 <dd><p>total snapshots</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.principal">
-<code class="descname">principal</code><span class="sig-paren">(</span><em>self</em>, <em>command</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.principal" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.principal">
+<code class="descname">principal</code><span class="sig-paren">(</span><em>self</em>, <em>command</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.principal" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.rotate">
-<code class="descname">rotate</code><span class="sig-paren">(</span><em>self</em>, <em>command</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.rotate" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.rotate">
+<code class="descname">rotate</code><span class="sig-paren">(</span><em>self</em>, <em>command</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.rotate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.save">
-<code class="descname">save</code><span class="sig-paren">(</span><em>filename=''</em>, <em>overwrite=False</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.save" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>filename=''</em>, <em>overwrite=False</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.save" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.scale">
-<code class="descname">scale</code><span class="sig-paren">(</span><em>self</em>, <em>command</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.scale" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.scale">
+<code class="descname">scale</code><span class="sig-paren">(</span><em>self</em>, <em>command</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.scale" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.shape">
-<code class="descname">shape</code><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.shape" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.shape">
+<code class="descname">shape</code><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.shape" title="Permalink to this definition">¶</a></dt>
 <dd><p>(n_frames, n_atoms, 3)</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
@@ -459,13 +461,13 @@ ref first</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.strip">
-<code class="descname">strip</code><span class="sig-paren">(</span><em>mask</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.strip" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.strip">
+<code class="descname">strip</code><span class="sig-paren">(</span><em>mask</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.strip" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.superpose">
-<code class="descname">superpose</code><span class="sig-paren">(</span><em>mask='*'</em>, <em>ref=None</em>, <em>ref_mask=''</em>, <em>mass=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.superpose" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.superpose">
+<code class="descname">superpose</code><span class="sig-paren">(</span><em>mask='*'</em>, <em>ref=None</em>, <em>ref_mask=''</em>, <em>mass=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.superpose" title="Permalink to this definition">¶</a></dt>
 <dd><p>register to superpose to reference frame when iterating. 
 To turn off superposing, set traj._being_transformed = False</p>
 <p class="rubric">Notes</p>
@@ -506,20 +508,20 @@ It&#8217;s good to do translation and rotation on the fly.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.temperatures">
-<code class="descname">temperatures</code><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.temperatures" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.temperatures">
+<code class="descname">temperatures</code><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.temperatures" title="Permalink to this definition">¶</a></dt>
 <dd><p>return 1D array of temperatures</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.top">
-<code class="descname">top</code><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.top" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.top">
+<code class="descname">top</code><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.top" title="Permalink to this definition">¶</a></dt>
 <dd><p>Topology</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.topology">
-<code class="descname">topology</code><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.topology" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.topology">
+<code class="descname">topology</code><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.topology" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of traj.top</p>
 <p class="rubric">Examples</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
@@ -536,24 +538,24 @@ It&#8217;s good to do translation and rotation on the fly.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.translate">
-<code class="descname">translate</code><span class="sig-paren">(</span><em>self</em>, <em>command</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.translate" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.translate">
+<code class="descname">translate</code><span class="sig-paren">(</span><em>self</em>, <em>command</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.translate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.unitcells">
-<code class="descname">unitcells</code><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.unitcells" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.unitcells">
+<code class="descname">unitcells</code><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.unitcells" title="Permalink to this definition">¶</a></dt>
 <dd><p>return unitcells (Box) with shape=(n_frames, 6)</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.view">
-<code class="descname">view</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.view" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.view">
+<code class="descname">view</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.view" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.visualize">
-<code class="descname">visualize</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.visualize" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.visualize">
+<code class="descname">visualize</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.visualize" title="Permalink to this definition">¶</a></dt>
 <dd><p>require NGLView</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -566,8 +568,8 @@ It&#8217;s good to do translation and rotation on the fly.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pytraj.trajectory_iterator.TrajectoryIterator.xyz">
-<code class="descname">xyz</code><a class="headerlink" href="#pytraj.trajectory_iterator.TrajectoryIterator.xyz" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.xyz">
+<code class="descname">xyz</code><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.xyz" title="Permalink to this definition">¶</a></dt>
 <dd><p>return 3D array of coordinates</p>
 </dd></dl>
 
@@ -588,8 +590,8 @@ It&#8217;s good to do translation and rotation on the fly.</p>
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Aug 22, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
+      Last updated on Oct 10, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.<br/>
     </p>
   </div>
 </footer>

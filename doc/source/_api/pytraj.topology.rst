@@ -9,7 +9,7 @@ pytraj.topology
     
         <script type="text/javascript" src='../_static/cindex.js'></script>
 
-.. automodule:: pytraj.topology
+.. automodule:: pytraj.topology.topology
     :members:
     :undoc-members:
     :show-inheritance:

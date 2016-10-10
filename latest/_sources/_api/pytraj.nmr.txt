@@ -9,7 +9,7 @@ pytraj.nmr
     
         <script type="text/javascript" src='../_static/cindex.js'></script>
 
-.. automodule:: pytraj.nmr
+.. automodule:: pytraj.analysis.nmr
     :members:
     :undoc-members:
     :show-inheritance:

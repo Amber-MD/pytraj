@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.io &mdash; pytraj 1.0.8.dev0+c4526f7 documentation</title>
+    <title>pytraj.io &#8212; pytraj 1.0.9.dev0 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.8.dev0+c4526f7',
+        VERSION:     '1.0.9.dev0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,9 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.8.dev0+c4526f7 documentation" href="../index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="pytraj 1.0.9.dev0 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="next" title="pytraj.Trajectory" href="pytraj.trajectory.html" />
 <meta charset='utf-8'>
@@ -53,7 +55,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.8.dev0+c4526f7</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.9.dev0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -340,7 +342,7 @@ so, first load trajectories to TrajectoryIterator object, then do fancy slicing<
 <dt id="pytraj.io.iterload_remd">
 <code class="descclassname">pytraj.io.</code><code class="descname">iterload_remd</code><span class="sig-paren">(</span><em>filename</em>, <em>top=None</em>, <em>T='300.0'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.iterload_remd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load temperature remd trajectory for single temperature.
-Example: Suppose you have replica trajectoris remd.x.00{1-4}.
+e.g: Suppose you have replica trajectoris remd.x.00{1-4}.
 You want to load and extract only frames at 300 K, use this method</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -395,6 +397,14 @@ You want to load and extract only frames at 300 K, use this method</p>
 <dt id="pytraj.io.load_sample_data">
 <code class="descclassname">pytraj.io.</code><code class="descname">load_sample_data</code><span class="sig-paren">(</span><em>data_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.load_sample_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return TrajectoryIterator instance for Ala3 or tz2 data</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data_name</strong> : str, {&#8216;ala3&#8217;, &#8216;tz2&#8217;, &#8216;rna&#8217;, &#8216;trpcage&#8217;}, default &#8216;ala3&#8217;</td>
+</tr>
+</tbody>
+</table>
 <p class="rubric">Notes</p>
 <dl class="docutils">
 <dt>tz2 dataset</dt>
@@ -766,8 +776,8 @@ unsafe. See: <a class="reference external" href="http://docs.python.org/2.7/libr
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Aug 22, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
+      Last updated on Oct 10, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.<br/>
     </p>
   </div>
 </footer>

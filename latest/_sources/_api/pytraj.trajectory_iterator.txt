@@ -9,7 +9,7 @@ pytraj.TrajectoryIterator
     
         <script type="text/javascript" src='../_static/cindex.js'></script>
 
-.. automodule:: pytraj.trajectory_iterator
+.. automodule:: pytraj.trajectory.trajectory_iterator
     :members:
     :undoc-members:
     :show-inheritance:

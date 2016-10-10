@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.FrameIterator &mdash; pytraj 1.0.8.dev0+c4526f7 documentation</title>
+    <title>pytraj.FrameIterator &#8212; pytraj 1.0.9.dev0 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.8.dev0+c4526f7',
+        VERSION:     '1.0.9.dev0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -31,7 +31,9 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="pytraj 1.0.8.dev0+c4526f7 documentation" href="../index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="pytraj 1.0.9.dev0 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -52,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.8.dev0+c4526f7</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.9.dev0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -147,9 +149,9 @@
 <span id="id1"></span><h1>pytraj.FrameIterator<a class="headerlink" href="#pytraj-frameiterator" title="Permalink to this headline">¶</a></h1>
 <div class="custom-index container">
 <script type="text/javascript" src='../_static/cindex.js'></script></div>
-<span class="target" id="module-pytraj.frameiter"></span><dl class="function">
-<dt id="pytraj.frameiter.iterframe">
-<code class="descclassname">pytraj.frameiter.</code><code class="descname">iterframe</code><span class="sig-paren">(</span><em>traj</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.frameiter.iterframe" title="Permalink to this definition">¶</a></dt>
+<span class="target" id="module-pytraj.trajectory.frameiter"></span><dl class="function">
+<dt id="pytraj.trajectory.frameiter.iterframe">
+<code class="descclassname">pytraj.trajectory.frameiter.</code><code class="descname">iterframe</code><span class="sig-paren">(</span><em>traj</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.frameiter.iterframe" title="Permalink to this definition">¶</a></dt>
 <dd><p>create frame iterator with given indices, mask or some iter_options</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
@@ -181,8 +183,8 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="pytraj.frameiter.iterchunk">
-<code class="descclassname">pytraj.frameiter.</code><code class="descname">iterchunk</code><span class="sig-paren">(</span><em>traj</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.frameiter.iterchunk" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.frameiter.iterchunk">
+<code class="descclassname">pytraj.trajectory.frameiter.</code><code class="descname">iterchunk</code><span class="sig-paren">(</span><em>traj</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.frameiter.iterchunk" title="Permalink to this definition">¶</a></dt>
 <dd><p>iterate <code class="docutils literal"><span class="pre">traj</span></code> by chunk</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -225,9 +227,9 @@
 </dd></dl>
 
 <dl class="class">
-<dt id="pytraj.frameiter.FrameIterator">
-<em class="property">class </em><code class="descclassname">pytraj.frameiter.</code><code class="descname">FrameIterator</code><span class="sig-paren">(</span><em>fi_generator</em>, <em>original_top=None</em>, <em>new_top=None</em>, <em>start=0</em>, <em>stop=-1</em>, <em>step=1</em>, <em>mask=''</em>, <em>autoimage=False</em>, <em>rmsfit=None</em>, <em>n_frames=None</em>, <em>copy=True</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.frameiter.FrameIterator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dt id="pytraj.trajectory.frameiter.FrameIterator">
+<em class="property">class </em><code class="descclassname">pytraj.trajectory.frameiter.</code><code class="descname">FrameIterator</code><span class="sig-paren">(</span><em>fi_generator</em>, <em>original_top=None</em>, <em>new_top=None</em>, <em>start=0</em>, <em>stop=-1</em>, <em>step=1</em>, <em>mask=''</em>, <em>autoimage=False</em>, <em>rmsfit=None</em>, <em>n_frames=None</em>, <em>copy=True</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.frameiter.FrameIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>create this class to hold all iterating information. This class is for internal use.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -342,10 +344,10 @@ do <code class="docutils literal"><span class="pre">autoimage</span></code> firs
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frameiter.FrameIterator.n_atoms" title="pytraj.frameiter.FrameIterator.n_atoms"><code class="xref py py-obj docutils literal"><span class="pre">n_atoms</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.frameiter.FrameIterator.n_atoms" title="pytraj.trajectory.frameiter.FrameIterator.n_atoms"><code class="xref py py-obj docutils literal"><span class="pre">n_atoms</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.frameiter.FrameIterator.n_frames" title="pytraj.frameiter.FrameIterator.n_frames"><code class="xref py py-obj docutils literal"><span class="pre">n_frames</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.frameiter.FrameIterator.n_frames" title="pytraj.trajectory.frameiter.FrameIterator.n_frames"><code class="xref py py-obj docutils literal"><span class="pre">n_frames</span></code></a></td>
 <td></td>
 </tr>
 </tbody>
@@ -357,24 +359,24 @@ do <code class="docutils literal"><span class="pre">autoimage</span></code> firs
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.frameiter.FrameIterator.save" title="pytraj.frameiter.FrameIterator.save"><code class="xref py py-obj docutils literal"><span class="pre">save</span></code></a>([filename,&nbsp;overwrite,&nbsp;options])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.frameiter.FrameIterator.save" title="pytraj.trajectory.frameiter.FrameIterator.save"><code class="xref py py-obj docutils literal"><span class="pre">save</span></code></a>([filename,&nbsp;overwrite,&nbsp;options])</td>
 <td>save to different file format.</td>
 </tr>
 </tbody>
 </table>
 <dl class="attribute">
-<dt id="pytraj.frameiter.FrameIterator.n_atoms">
-<code class="descname">n_atoms</code><a class="headerlink" href="#pytraj.frameiter.FrameIterator.n_atoms" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.frameiter.FrameIterator.n_atoms">
+<code class="descname">n_atoms</code><a class="headerlink" href="#pytraj.trajectory.frameiter.FrameIterator.n_atoms" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="pytraj.frameiter.FrameIterator.n_frames">
-<code class="descname">n_frames</code><a class="headerlink" href="#pytraj.frameiter.FrameIterator.n_frames" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.frameiter.FrameIterator.n_frames">
+<code class="descname">n_frames</code><a class="headerlink" href="#pytraj.trajectory.frameiter.FrameIterator.n_frames" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pytraj.frameiter.FrameIterator.save">
-<code class="descname">save</code><span class="sig-paren">(</span><em>filename=''</em>, <em>overwrite=False</em>, <em>options=''</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.frameiter.FrameIterator.save" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.trajectory.frameiter.FrameIterator.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>filename=''</em>, <em>overwrite=False</em>, <em>options=''</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.frameiter.FrameIterator.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>save to different file format.</p>
 <p class="rubric">Notes</p>
 <p>FrameIterator will be exhausted since this is an iterator.</p>
@@ -406,8 +408,8 @@ do <code class="docutils literal"><span class="pre">autoimage</span></code> firs
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Aug 22, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
+      Last updated on Oct 10, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.<br/>
     </p>
   </div>
 </footer>

@@ -15,4 +15,4 @@ Hbond Analysis
     import numpy as np
     np.set_printoptions(precision=4, suppress=True)
 
-.. automodule:: pytraj.hbond_analysis
+.. automodule:: pytraj.analysis.hbond_analysis

@@ -3,19 +3,20 @@
 pytraj.all_actions
 ==================
 
+.. note:: Just need to import pytraj and use the method directly
+
+.. code-block:: python
+    
+    import pytraj as pt
+    pt.pca(traj)
+    pt.surf(traj, mask='@CA')
+
+
 .. container:: custom-index
     
     .. raw:: html
     
         <script type="text/javascript" src='../_static/cindex.js'></script>
-
-**note**
-
--  just need to import pytraj and use the method
-.. code-block:: python
-    
-    import pytraj as pt
-    pt.pca(traj)
 
 - Most of the methods' names start with 'calc_' but use can ignore 'calc_'. For example::
 

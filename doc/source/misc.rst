@@ -12,5 +12,5 @@ try ``pytraj`` online:
     
         <script type="text/javascript" src='_static/cindex.js'></script>
 
-.. automodule:: pytraj.tools
+.. automodule:: pytraj.utils.tools
     :members:

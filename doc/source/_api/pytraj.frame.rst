@@ -9,7 +9,7 @@ pytraj.frame
     
         <script type="text/javascript" src='../_static/cindex.js'></script>
 
-.. automodule:: pytraj.frame
+.. automodule:: pytraj.trajectory.frame
     :members:
     :undoc-members:
     :show-inheritance:

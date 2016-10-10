@@ -11,16 +11,20 @@ excluded_files = set(['latest/faq.html',])
 error_files = []
 
 for fn in glob('latest/*html') + glob('latest/*/*html'):
-    if 'ImportError' in open(fn).read():
-        error_files.append(fn)
-    if 'DeprecationWarning:' in open(fn).read():
-        error_files.append(fn)
-    if 'NameError:' in open(fn).read():
-        error_files.append(fn)
-    if 'OSError' in open(fn).read():
-        error_files.append(fn)
-    if 'NotImplementedError' in open(fn).read():
-        error_files.append(fn)
+    with open(fn) as fh:
+        content = fh.read()
+        if 'ImportError' in content:
+            error_files.append(fn)
+        if 'DeprecationWarning:' in content:
+            error_files.append(fn)
+        if 'NameError:' in content:
+            error_files.append(fn)
+        if 'OSError' in content:
+            error_files.append(fn)
+        if 'NotImplementedError' in content:
+            error_files.append(fn)
+        if 'AttributeError' in content:
+            error_files.append(fn)
 
 print(set(error_files))
 assert set(error_files) - excluded_files == set()

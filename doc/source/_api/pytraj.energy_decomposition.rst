@@ -9,7 +9,7 @@ pytraj.energy_decomposition
     
         <script type="text/javascript" src='../_static/cindex.js'></script>
 
-.. automodule:: pytraj.energy_analysis
+.. automodule:: pytraj.analysis.energy_analysis
     :members:
     :undoc-members:
     :show-inheritance:

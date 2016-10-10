@@ -9,7 +9,7 @@ pytraj.hbond_analysis
     
         <script type="text/javascript" src='../_static/cindex.js'></script>
 
-.. automodule:: pytraj.hbond_analysis
+.. automodule:: pytraj.analysis.hbond_analysis
     :members:
     :undoc-members:
     :show-inheritance:
