@@ -262,7 +262,7 @@ def _load_from_frame_iter(iterable, top=None):
 
 def iterload_remd(filename, top=None, T="300.0"):
     """Load temperature remd trajectory for single temperature.
-    Example: Suppose you have replica trajectoris remd.x.00{1-4}.
+    e.g: Suppose you have replica trajectoris remd.x.00{1-4}.
     You want to load and extract only frames at 300 K, use this method
 
     Parameters
@@ -567,8 +567,8 @@ def _make_traj_from_remote_file(remote_file):
 def download_PDB(pdbid, location="./", overwrite=False):
     """download pdb to local disk
 
-    Return
-    ------
+    Returns
+    -------
     None
 
     Notes

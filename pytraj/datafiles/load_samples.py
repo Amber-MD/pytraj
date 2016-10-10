@@ -11,8 +11,8 @@ def load_sample_data(data_name=None):
     """
     Return TrajectoryIterator instance for Ala3 or tz2 data
 
-    Paramters
-    ---------
+    Parameters
+    ----------
     data_name : str, {'ala3', 'tz2', 'rna', 'trpcage'}, default 'ala3'
 
     Notes
