@@ -47,7 +47,7 @@ Run
 Example
 ~~~~~~~
 
-`PCA analysis <tut_pca>`_
+`PCA analysis <tutorial_pca>`_
 
 See also
 ~~~~~~~~

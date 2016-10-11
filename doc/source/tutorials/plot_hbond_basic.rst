@@ -1,4 +1,4 @@
-.. _tut_plot_hbond_basic:
+.. _tutorial_plot_hbond_basic:
 
 Plot H-bond distances
 =====================

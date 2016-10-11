@@ -1,6 +1,8 @@
 Developer guide for pytraj
 ==========================
 
+.. note:: This guide might be outdated.
+
 .. contents::
 
 General philosophy
@@ -291,7 +293,7 @@ Explanation for above line:
 
 In the final output, you should get something like::
 
-    pytraj.io                                            170     29    83%   20-21, 29-30, 213-215, 217, 258, 357, 428, 439, 450-456, 493-503, 516
+    pytraj.io 170     29    83%   20-21, 29-30, 213-215, 217, 258, 357, 428, 439, 450-456, 493-503, 516
 
 The numbers after ``83%`` show the line numbers in pytraj.io module (io.py) that are not executed in test files. if I open the 516-th line in ``io.py`` file, I will see::
 
@@ -311,10 +313,6 @@ Use ``gdb``
     $ gdb python
     (gdb) run your_python_script.py
     (gdb) bt
-
-This is how the output looks like after you typed ``bt`` command::
-
-    #13 0x00002aaac32fc8a4 in __pyx_pw_7_lprmsd_1lprmsd (__pyx_self=0x0, __pyx_args=<value optimized out>, __pyx_kwds=<value optimized out>) at mdtraj/rmsd/_lprmsd.cpp:1739
 
 
 cython

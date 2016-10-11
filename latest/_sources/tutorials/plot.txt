@@ -3,17 +3,17 @@
 Plots
 =====
 
-try ``pytraj`` online:
+.. include:: ../mybinder.rst
 
-.. image:: http://mybinder.org/badge.svg
-   :target: http://mybinder.org/repo/hainm/notebook-pytraj
+.. note:: Require: matplotlib. Optional: pandas, seaborn
 
 .. toctree::
     :maxdepth: 1
 
     plot_hbond_basic
     plot_correlation_matrix
-    tut_pairwise_rmsd
+    tutorial_pairwise_rmsd
+    tutorial_pca
     plot_phipsi_trpcage
     plot_rmsd_radgyr_correlation
     plot_chi_nucleic_acid

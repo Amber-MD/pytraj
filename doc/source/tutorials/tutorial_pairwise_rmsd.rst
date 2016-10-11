@@ -1,7 +1,7 @@
-.. _tut_pca:
+.. _tutorial_pairwise_rmsd:
 
-Principal component analysis
-============================
+Pairwise RMSD
+=============
 
 try ``pytraj`` online:
 
@@ -10,5 +10,7 @@ try ``pytraj`` online:
 
 |
 
-.. notebook:: data/pca.ipynb
+.. image:: ../images/plot_pairwise_rmsd.png
+
+.. notebook:: data/pairwise_rmsd.ipynb
    :skip_exceptions:

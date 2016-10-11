@@ -29,7 +29,7 @@ If you miss any Python package, try to use ``conda``, example::
     basic_examples
     energy_decomposition
     closest_waters_
-    tut_pca
+    tutorial_pca
     tutorial_autoimage
     tutorial_parallel
     plot
