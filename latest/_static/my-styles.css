@@ -13,7 +13,6 @@
 
 .admonition.note {
     border-left: 2px #35A9DE solid;
-    border-right: 2px #35A9DE solid;
 }
 
 .admonition.warning {
@@ -21,3 +20,10 @@
     border-left: 2px #F89E2E solid;
     border-bottom: 2px #F89E2E solid;
 }
+
+.docutils.literal {
+    color: #3182bd;
+    background-color: white;
+}
+
+/* body { background: #9ecae1 !important; } 

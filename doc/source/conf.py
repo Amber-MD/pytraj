@@ -175,15 +175,16 @@ pygments_style = 'sphinx'
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-#html_theme_options = {
-    # Bootswatch (http://bootswatch.com/) theme.
-    #
-    # Options are nothing with "" (default) or the name of a valid theme such
-    # as "amelia" or "cosmo".
-    #
-    # Note that this is served off CDN, so won't be available offline.
-    #'bootswatch_theme': "spacelab",
-#}
+html_theme_options = {
+   # Bootswatch (http://bootswatch.com/) theme.
+   #
+   # Options are nothing with "" (default) or the name of a valid theme such
+   # as "amelia" or "cosmo".
+   #
+   # Note that this is served off CDN, so won't be available offline.
+   # 'bootswatch_theme': "lumen",
+   # 'bootswatch_theme': "slate",
+}
 
 # Add any paths that contain custom themes here, relative to this directory.
 # html_theme_path = 
