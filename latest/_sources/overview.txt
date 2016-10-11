@@ -15,11 +15,11 @@ If you want to extend cpptraj's functionanity to Python eco-system such as `nump
 What does **pytraj** offer? 
 ---------------------------
 
-+ `support many types of analysis <analysis>`_
++ `support > 50 types of analysis <analysis>`_
 + `support parallel processing <parallel>`_
 + :ref:`able to handle many files at the same time <process_many_files>`
 + `able to handle very large trajectory <design_trajectory>`_
-+ simple (and fast) calculation::
++ fast speed (thanks to cpptraj) with simple API::
 
    import pytraj as pt
    traj = pt.iterload('traj.nc', 'my_parm.top')
@@ -29,7 +29,6 @@ What does **pytraj** offer?
     + automatic file detection by its **content**
     + smart ``autoimage`` function for PBC simulation.
     + ... (to be filled soon) 
-+ `able to be used in other langues, such as Julia <julia>`_
 
 How to get started
 ------------------

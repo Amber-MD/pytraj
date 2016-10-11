@@ -26,4 +26,6 @@
     background-color: white;
 }
 
-/* body { background: #9ecae1 !important; } 
+.front.header {
+    text-align: center;
+}

@@ -21,9 +21,7 @@ Welcome
 .. raw:: html
 
    <div class="col-md-3">
-   <h2>Overview</h2>
-
-See also
+   <h2 class="front header">Overview</h2>
 
 .. toctree::
    :maxdepth: 2
@@ -38,7 +36,7 @@ See also
 
    </div>
    <div class="col-md-3">
-   <h2>Documentation</h2>
+   <h2 class="front header">Documentation</h2>
 
 .. toctree::
    :maxdepth: 1
@@ -62,7 +60,7 @@ See also
 
    </div>
    <div class="col-md-3">
-   <h2>Plot</h2>
+   <h2 class="front header">Plot</h2>
 
 .. image:: images/PCA_heart.png
    :target: tutorials/plot.html
@@ -86,7 +84,7 @@ See also
 
    </div>
    <div class="col-md-3">
-   <h3><a href=http://jupyter.org/> Jupyter notebook</a></h3>
+   <h3 class="front header"><a href=http://jupyter.org/> Jupyter notebook</a></h3>
 
 .. image:: http://jupyter.org/assets/jupyterpreview.png
    :target: http://jupyter.org/
@@ -97,7 +95,7 @@ See also
 
    </div>
    <div class="col-md-3">
-   <h3><a href=trajectory_viewer.html> Trajectory visualization </a></h3>
+   <h3 class="front header"><a href=trajectory_viewer.html> Trajectory visualization </a></h3>
 
 .. image:: images/index.png
    :target: ./trajectory_viewer.html
@@ -107,7 +105,7 @@ See also
 
    </div>
    <div class="col-md-3">
-   <h3><a href=http://mybinder.org/repo/hainm/notebook-pytraj>Try pytraj online</a></h3>
+   <h3 class="front header"><a href=http://mybinder.org/repo/hainm/notebook-pytraj>Try pytraj online</a></h3>
 
 .. image:: http://mybinder.org/assets/images/logo.svg
    :target: http://mybinder.org/repo/hainm/notebook-pytraj
