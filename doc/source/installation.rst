@@ -43,7 +43,11 @@ We higly recommend install ``pytraj`` by `conda <http://conda.pydata.org/docs/in
 
 .. code-block:: bash
 
-    conda install -c ambermd pytraj==1.0.6 # or later version
+    # install latest version
+    conda install -c ambermd pytraj
+
+    # install specific version
+    conda install -c ambermd pytraj==1.0.8
 
 This takes only less than 30 seconds.
 
@@ -55,14 +59,8 @@ For Mac user, you need to follow ``conda`` website.
     $ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
     $ sh Miniconda3-latest-Linux-x86_64.sh
 
-from pip (Linux, OSX)
+From pip (Linux, OSX)
 ~~~~~~~~~~~~~~~~~~~~~
-
-Note: 
-
-- Recommend to use python >= 3.4, pip >= 8.1
-  
-- osx: no wheel for python 2.7
 
 .. code-block:: bash
     
@@ -70,10 +68,10 @@ Note:
     pip install pytraj
 
     # specific version
-    pip install pytraj==1.0.6
+    pip install pytraj==1.0.8
 
 
-from source code (easy way: Linux, OSX)
+From source code (easy way: Linux, OSX)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
@@ -85,13 +83,13 @@ from source code (easy way: Linux, OSX)
     python ./setup.py install
 
     # osx:
-    python setup.py install --disable-openmp
+    python setup.py install
 
     # note: pytraj will automatically install cpptraj first.
 
 Depend on your machine, the fresh installation (``libcpptraj`` + ``pytraj``) could take 2 to 4 minutes.
 
-from source code (hard way - expert only)
+From source code (hard way - expert only)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Sometimes you want to install `libcpptraj.so` by yourself.
@@ -119,7 +117,7 @@ Sometimes you want to install `libcpptraj.so` by yourself.
     python ./setup.py install
 
 
-from AMBER distribution (Linux, OSX)
+From AMBER distribution (Linux, OSX)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 pytraj is included in AMBER (version >= 16): ambermd.org
@@ -130,7 +128,7 @@ Update pytraj
 
 Rule of thumb: using the same tool to install/update (upgrade)
 
-from conda
+From conda
 ~~~~~~~~~~
 If you install ``pytraj`` by conda, you can update it easily
 
@@ -138,7 +136,7 @@ If you install ``pytraj`` by conda, you can update it easily
 
     conda update -c ambermd pytraj --force
 
-from pip
+From pip
 ~~~~~~~~
 
 .. code-block:: bash
@@ -146,7 +144,7 @@ from pip
     pip install --upgrade pytraj
 
 
-from github 
+From github 
 ~~~~~~~~~~~
 
 if you install from source code and want to update the development code in github, you
@@ -167,8 +165,9 @@ then
     $ git pull
     $ python ./setup.py install
 
-Update for AMBER
-~~~~~~~~~~~~~~~~
+
+Update to AMBERHOME
+~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
@@ -181,14 +180,14 @@ Uninstall
 
 Rule of thumb: using the same tool to install/uninstall
 
-from conda
+From conda
 ~~~~~~~~~~
 
 .. code-block:: bash
 
     $ conda remove pytraj libcpptraj
 
-from pip
+From pip
 ~~~~~~~~
 
 .. code-block:: bash
@@ -217,7 +216,8 @@ But if you are new to Python and got ``permission denied`` error, try to install
 
 If you want to see further options, check ``python setup.py install --help``
 
-install ipython and its notebook for interactive data exploration
+
+Install ipython and its notebook for interactive data exploration
 -----------------------------------------------------------------
 
 `ipython <http://ipython.org/>`_ and its notebook is great program for interactive exloration of MD data.
@@ -226,7 +226,7 @@ Curious about how the notebook looks like? check out our `pairwise rmsd tutorial
 If you are using ``anaconda``, just type ``ipython notebook``. If you have not haved ipython and its notebook, try ``conda install ipython``
 For further instruction and information about ``ipython-notebook``, please check its website.
 
-install anaconda for all python packages
+Install anaconda for all python packages
 ----------------------------------------
 
 we highly recommend to install anaconda that has all good python packages (``cython``, ``numpy``, ``sklearn``, ``pandas``, ...). Anaconda is totally free.
