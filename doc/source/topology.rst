@@ -3,10 +3,7 @@
 Topology
 ========
 
-try ``pytraj`` online:
-
-.. image:: http://mybinder.org/badge.svg
-   :target: http://mybinder.org/repo/hainm/notebook-pytraj
+.. include:: mybinder.rst
 
 .. note:: pytraj and cpptraj offer limited Topology editing. For more features and power, please do visit `ParmEd <http://parmed.github.io/ParmEd/html/index.html>`_
 

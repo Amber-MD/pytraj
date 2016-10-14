@@ -1,7 +1,5 @@
 .. _mybinder:
 
-|
-
 Try ``pytraj`` online:
 
 .. image:: http://mybinder.org/assets/images/logo.svg
