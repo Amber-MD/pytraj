@@ -29,3 +29,7 @@
 .front.header {
     text-align: center;
 }
+
+.highlight{
+    border-left: 2px #35A9DE solid;
+}

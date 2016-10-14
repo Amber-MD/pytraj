@@ -20,7 +20,7 @@ Welcome
 
 .. raw:: html
 
-   <div class="col-md-3">
+   <div class="col-md-4">
    <h2 class="front header">Overview</h2>
 
 .. toctree::
@@ -35,7 +35,7 @@ Welcome
 .. raw:: html
 
    </div>
-   <div class="col-md-3">
+   <div class="col-md-4">
    <h2 class="front header">Documentation</h2>
 
 .. toctree::
@@ -59,21 +59,15 @@ Welcome
 .. raw:: html
 
    </div>
-   <div class="col-md-3">
+   <div class="col-md-4">
    <h2 class="front header">Plot</h2>
 
 .. image:: images/PCA_heart.png
    :target: tutorials/plot.html
+   :align: center
 
 |
 
-**Indices and tables**
-
-* `fork and contribute <https://github.com/Amber-MD/pytraj>`_
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
 .. raw:: html
 
    </div>
@@ -83,32 +77,35 @@ Welcome
 .. raw:: html
 
    </div>
-   <div class="col-md-3">
+   <div class="col-md-4">
    <h3 class="front header"><a href=http://jupyter.org/> Jupyter notebook</a></h3>
 
 .. image:: http://jupyter.org/assets/jupyterpreview.png
    :target: http://jupyter.org/
    :height: 200
+   :align: center
 
 
 .. raw:: html
 
    </div>
-   <div class="col-md-3">
+   <div class="col-md-4">
    <h3 class="front header"><a href=trajectory_viewer.html> Trajectory visualization </a></h3>
 
 .. image:: images/index.png
    :target: ./trajectory_viewer.html
    :width: 300
+   :align: center
 
 .. raw:: html
 
    </div>
-   <div class="col-md-3">
+   <div class="col-md-4">
    <h3 class="front header"><a href=http://mybinder.org/repo/hainm/notebook-pytraj>Try pytraj online</a></h3>
 
 .. image:: http://mybinder.org/assets/images/logo.svg
    :target: http://mybinder.org/repo/hainm/notebook-pytraj
+   :align: center
 
 .. raw:: html
 

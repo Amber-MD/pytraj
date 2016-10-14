@@ -19,6 +19,7 @@ What does **pytraj** offer?
 + `support parallel processing <parallel>`_
 + :ref:`able to handle many files at the same time <process_many_files>`
 + `able to handle very large trajectory <design_trajectory>`_
++ `extensive tutorials + documents <tutorials/index.html>`_
 + fast speed (thanks to cpptraj) with simple API::
 
    import pytraj as pt

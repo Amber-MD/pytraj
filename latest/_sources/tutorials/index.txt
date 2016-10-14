@@ -6,10 +6,7 @@
 Tutorials
 =========
 
-try ``pytraj`` online:
-
-.. image:: http://mybinder.org/badge.svg
-   :target: http://mybinder.org/repo/hainm/notebook-pytraj
+.. include:: ../mybinder.rst
 
 |
 
@@ -61,4 +58,4 @@ If you miss any Python package, try to use ``conda``, example::
 .. raw:: html
 
     <h2> AMBER tutorials </h2>
-    <a href=http://ambermd.org/tutorials/analysis/#pytraj> go to AMBER..  </a>
+    <a href=http://ambermd.org/tutorials/analysis/#pytraj> Let's go </a>
