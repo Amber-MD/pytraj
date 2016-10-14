@@ -8,8 +8,6 @@ Tutorials
 
 .. include:: ../mybinder.rst
 
-|
-
 If you miss any Python package, try to use ``conda``, example::
 
      conda install seaborn
