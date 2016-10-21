@@ -15,8 +15,8 @@ else:
     import __builtin__ as builtins
 
 MAJOR = 1
-MINOR = 0
-MICRO = 9
+MINOR = 1
+MICRO = 0
 is_released = False
 VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 
