@@ -15,7 +15,7 @@ try ``pytraj`` online:
 .. ipython:: python
 
     import pytraj as pt
-    from pytraj.datasets import DatasetList as CpptrajDatasetList
+    from pytraj.datasets import CpptrajDatasetList
 
     # create pytraj.TrajectoryIterator, no data is actually loaded yet.
     traj = pt.iterload("tz2.ortho.nc", "tz2.ortho.parm7")
@@ -29,14 +29,14 @@ try ``pytraj`` online:
                 'vector :2 :3',
                 'vector box',
                 'vector ucellx',
-                ]
+    ]
 
     # create a CpptrajDatasetList object to hold all datasets
     dslist = CpptrajDatasetList()
-    dslist
+    print(dslist)
 
     # create an ActionList object to hold all actions
-    actlist = pt.ActionList(commands, traj.top, dslist=dslist)
+    actlist = pt.ActionList(commands, top=traj.top, dslist=dslist)
 
     # perform the actions, only a single frame is loaded
     # data is saved to dslist
@@ -44,10 +44,10 @@ try ``pytraj`` online:
         actlist.compute(frame)
         # you can plug your own function here to
         # your_funct(frame, ...)
-    dslist
+    print(dslist)
 
     # get values for each Dataset
     for d in dslist: print(d)
 
     # get raw data for the last DatsetVector (x values of unitcells ('vector ucellx'))
-    dslist[-1].values
+    print(dslist[-1].values)
