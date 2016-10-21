@@ -20,6 +20,7 @@ from .analysis.c_analysis import c_analysis
 from .analysis.c_action.actionlist import ActionList
 from .utils.convert import array2d_to_cpptraj_maskgroup
 from .topology.topology import Topology
+from .builder.build import make_structure
 
 list_of_calc = ['calc_distance',
                 'calc_dihedral',
@@ -2893,65 +2894,12 @@ def set_dihedral(traj, resid=0, dihedral_type=None, deg=0, top=None):
     -------
     updated traj
     '''
-    top_ = get_topology(traj, top)
-
     if not isinstance(resid, string_types):
         resid = str(resid + 1)
     deg = str(deg)
 
     command = ':'.join((dihedral_type, resid, dihedral_type, deg))
-    make_structure(traj, command, top=top_)
-    return traj
-
-
-def make_structure(traj, command="", top=None):
-    """limited support for make_structure
-    
-    Parameters
-    ----------
-    traj : Trajectory-like
-    command : str, cpptraj command
-    top : None or Topology, optional
-        only needed if traj does not have topology
-
-    Returns
-    -------
-    traj : itself
-  
-    Examples
-    --------
-    >>> import pytraj as pt
-    >>> traj = pt.datafiles.load_tz2()
-    >>> # traj = pt.make_structure(traj, "alpha:1-12")
-
-    Notes
-    -----
-    cpptraj doc::
-
-        <List of Args>
-      Apply dihedrals to specified residues using arguments found in <List of Args>,
-      where an argument is 1 or more of the following arg types:
-        '<sstype>:<res range>' Apply SS type (phi/psi) to residue range.
-            <sstype> standard = alpha, left, pp2, hairpin, extended
-            <sstype> turn = typeI, typeII, typeVIII, typeI', typeII,
-                            typeVIa1, typeVIa2, typeVIb
-            Turns are applied to 2 residues at a time, so resrange must be divisible by 4.
-        '<custom ss>:<res range>:<phi>:<psi>' Apply custom <phi>/<psi> to residue range.
-        '<custom turn>:<res range>:<phi1>:<psi1>:<phi2>:<psi2>' Apply custom turn <phi>/<psi> pair to residue range.
-        '<custom dih>:<res range>:<dih type>:<angle>' Apply <angle> to dihedrals in range.
-            <dih type> = alpha beta gamma delta epsilon zeta nu1 nu2 h1p c2p chin phi psi chip omega
-        '<custom dih>:<res range>:<at0>:<at1>:<at2>:<at3>:<angle>[:<offset>]' Apply <angle> to dihedral defined by atoms <at1>, <at2>, <at3>, and <at4>.
-            Offset -2=<a0><a1> in previous res, -1=<a0> in previous res,
-                    0=All <aX> in single res,
-                    1=<a3> in next res, 2=<a2><a3> in next res.
-        'ref:<range>:<refname>[:<ref range>]' Apply dihedrals from reference <refname>.
-
-    """
-    _assert_mutable(traj)
-    top_ = get_topology(traj, top)
-
-    act = c_action.Action_MakeStructure()
-    act(command, traj, top=top_)
+    make_structure(traj, command)
     return traj
 
 

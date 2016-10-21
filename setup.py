@@ -139,6 +139,7 @@ setup_args = {}
 packages = [
     'pytraj',
     'pytraj.utils',
+    'pytraj.builder',
     'pytraj.analysis',
     'pytraj.analysis.c_action',
     'pytraj.analysis.c_analysis',
@@ -161,6 +162,7 @@ packages = [
     'pytraj.visualization',
     'pytraj.serialize',
     'pytraj.sandbox',
+    'pytraj.builder',
     'pytraj.testing',
 ]
 
