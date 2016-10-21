@@ -25,7 +25,7 @@ def make_structure(traj, command=""):
     >>> traj = pt.make_structure(traj, "alpha:1-12")
 
     >>> # Make hairpin for residue 1 to 5 and make alpha helix for residue 6 to 12
-    >>> traj = pt.make_structure(traj, ["hairpin:1-5", "alpha:1-12"])
+    >>> traj = pt.make_structure(traj, ["hairpin:1-5", "alpha:6-12"])
 
     Notes
     -----
