@@ -2894,8 +2894,6 @@ def set_dihedral(traj, resid=0, dihedral_type=None, deg=0, top=None):
     -------
     updated traj
     '''
-    top_ = get_topology(traj, top)
-
     if not isinstance(resid, string_types):
         resid = str(resid + 1)
     deg = str(deg)
