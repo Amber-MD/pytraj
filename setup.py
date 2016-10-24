@@ -134,7 +134,6 @@ else:
                     use_pip=use_pip,
                     tarfile=tarfile)
 
-    print(ext_modules)
 setup_args = {}
 packages = [
     'pytraj',

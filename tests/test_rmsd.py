@@ -36,7 +36,7 @@ class TestSimpleRMSD(unittest.TestCase):
         arr1 = np.zeros(TRAJ.n_frames)
         mask = "@CA"
         atm = AtomMask(mask)
-        TRAJ.top.set_integer_mask(atm)
+        TRAJ.top._set_integer_mask(atm)
 
         for i, frame in enumerate(TRAJ):
             arr0[i] = frame.rmsd(f0, mask=mask, top=TRAJ.top)
