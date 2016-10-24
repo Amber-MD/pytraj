@@ -261,7 +261,7 @@ cdef class Frame (object):
             # return a sub-array copy with indices got from
             # idx as a `dict` instance
             atm = AtomMask(idx['mask'])
-            idx['top'].set_integer_mask(atm)
+            idx['top']._set_integer_mask(atm)
             return self[atm.indices]
         elif isinstance(idx, string_types):
             # Example: frame['@CA']
@@ -760,7 +760,7 @@ cdef class Frame (object):
         cdef Vec3 v1, v2
         if top is not None and mask is not None and atommask is None:
             atm = AtomMask(mask)
-            top.set_integer_mask(atm)
+            top._set_integer_mask(atm)
             new_self = Frame(self, atm)
             new_ref = Frame(frame, atm)
         if top is None and mask is None and atommask is not None:

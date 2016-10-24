@@ -11,7 +11,7 @@ class TestAtomMask(unittest.TestCase):
         atm = AtomMask("@CA")
         assert atm.n_atoms == 0
         top = pt.load_topology("./data/Tc5b.top")
-        top.set_integer_mask(atm)
+        top._set_integer_mask(atm)
         assert atm.n_atoms == 20
         top2 = top._modify_state_by_mask(atm)
         assert top2.n_atoms == 20
@@ -29,7 +29,7 @@ class TestAtomMask(unittest.TestCase):
     def test_3_indexing(self):
         top = pt.load_topology("./data/Tc5b.top")
         atm = AtomMask("@CA")
-        top.set_integer_mask(atm)
+        top._set_integer_mask(atm)
 
     def test_4(self):
         from array import array
