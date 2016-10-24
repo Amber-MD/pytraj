@@ -283,13 +283,10 @@
 <tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.topology.Topology.summary" title="pytraj.topology.topology.Topology.summary"><code class="xref py py-obj docutils literal"><span class="pre">summary</span></code></a>(...)</td>
 <td>basic info. This information only appears in Ipython or Python shell.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.topology.Topology.to_dataframe" title="pytraj.topology.topology.Topology.to_dataframe"><code class="xref py py-obj docutils literal"><span class="pre">to_dataframe</span></code></a>(...)</td>
-<td>convert to pandas&#8217; DataFrame. (experiment)</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.topology.Topology.to_dict" title="pytraj.topology.topology.Topology.to_dict"><code class="xref py py-obj docutils literal"><span class="pre">to_dict</span></code></a>(self)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.topology.Topology.to_dict" title="pytraj.topology.topology.Topology.to_dict"><code class="xref py py-obj docutils literal"><span class="pre">to_dict</span></code></a>(self)</td>
 <td>convert Topology to Python dict</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.topology.Topology.to_parmed" title="pytraj.topology.topology.Topology.to_parmed"><code class="xref py py-obj docutils literal"><span class="pre">to_parmed</span></code></a>(self)</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.topology.Topology.to_parmed" title="pytraj.topology.topology.Topology.to_parmed"><code class="xref py py-obj docutils literal"><span class="pre">to_parmed</span></code></a>(self)</td>
 <td>try to load to ParmEd&#8217;s Structure</td>
 </tr>
 </tbody>
@@ -602,12 +599,6 @@ It does not appear in Jupyter notebook (due to C++ stdout)</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytraj.topology.topology.Topology.to_dataframe">
-<code class="descname">to_dataframe</code><span class="sig-paren">(</span><em>self) convert to pandas' DataFrame. (experiment</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.topology.Topology.to_dataframe" title="Permalink to this definition">¶</a></dt>
-<dd><p>convert to pandas&#8217; DataFrame. (experiment)</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="pytraj.topology.topology.Topology.to_dict">
 <code class="descname">to_dict</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.topology.Topology.to_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>convert Topology to Python dict</p>
@@ -635,10 +626,10 @@ It does not appear in Jupyter notebook (due to C++ stdout)</p>
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.topology.ParmFile.filename" title="pytraj.topology.topology.ParmFile.filename"><code class="xref py py-obj docutils literal"><span class="pre">filename</span></code></a>(self)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.topology.ParmFile.readparm" title="pytraj.topology.topology.ParmFile.readparm"><code class="xref py py-obj docutils literal"><span class="pre">readparm</span></code></a>(self[,&nbsp;filename,&nbsp;top,&nbsp;option])</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.topology.topology.ParmFile.read" title="pytraj.topology.topology.ParmFile.read"><code class="xref py py-obj docutils literal"><span class="pre">read</span></code></a>(self[,&nbsp;filename,&nbsp;top,&nbsp;option])</td>
 <td>top : Topology instance</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.topology.ParmFile.writeparm" title="pytraj.topology.topology.ParmFile.writeparm"><code class="xref py py-obj docutils literal"><span class="pre">writeparm</span></code></a>(self,&nbsp;Topology&nbsp;top=&lt;???&gt;[,&nbsp;...])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.topology.topology.ParmFile.write" title="pytraj.topology.topology.ParmFile.write"><code class="xref py py-obj docutils literal"><span class="pre">write</span></code></a>(self,&nbsp;Topology&nbsp;top=&lt;???&gt;[,&nbsp;filename,&nbsp;...])</td>
 <td></td>
 </tr>
 </tbody>
@@ -649,16 +640,16 @@ It does not appear in Jupyter notebook (due to C++ stdout)</p>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pytraj.topology.topology.ParmFile.readparm">
-<code class="descname">readparm</code><span class="sig-paren">(</span><em>self</em>, <em>filename=''</em>, <em>top=&lt;???&gt;</em>, <em>option='') readparm(Topology top=Topology()</em>, <em>string filename=&quot;&quot;</em>, <em>&quot;*args) Return : None (update `top`</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.topology.ParmFile.readparm" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.topology.topology.ParmFile.read">
+<code class="descname">read</code><span class="sig-paren">(</span><em>self</em>, <em>filename=''</em>, <em>top=&lt;???&gt;</em>, <em>option='') read(Topology top=Topology()</em>, <em>string filename=&quot;&quot;</em>, <em>&quot;*args) Return : None (update `top`</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.topology.ParmFile.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>top : Topology instance
 filename : str, output filename
 arglist : ArgList instance, optional</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytraj.topology.topology.ParmFile.writeparm">
-<code class="descname">writeparm</code><span class="sig-paren">(</span><em>self</em>, <em>Topology top=&lt;???&gt;</em>, <em>filename='default.top'</em>, <em>ArgList arglist=&lt;???&gt;</em>, <em>format=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.topology.ParmFile.writeparm" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.topology.topology.ParmFile.write">
+<code class="descname">write</code><span class="sig-paren">(</span><em>self</em>, <em>Topology top=&lt;???&gt;</em>, <em>filename='default.top'</em>, <em>ArgList arglist=&lt;???&gt;</em>, <em>format=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.topology.topology.ParmFile.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
