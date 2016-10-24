@@ -339,7 +339,7 @@ so, first load trajectories to TrajectoryIterator object, then do fancy slicing<
 <dt id="pytraj.io.iterload_remd">
 <code class="descclassname">pytraj.io.</code><code class="descname">iterload_remd</code><span class="sig-paren">(</span><em>filename</em>, <em>top=None</em>, <em>T='300.0'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.iterload_remd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load temperature remd trajectory for single temperature.
-Example: Suppose you have replica trajectoris remd.x.00{1-4}.
+e.g: Suppose you have replica trajectoris remd.x.00{1-4}.
 You want to load and extract only frames at 300 K, use this method</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -394,6 +394,14 @@ You want to load and extract only frames at 300 K, use this method</p>
 <dt id="pytraj.io.load_sample_data">
 <code class="descclassname">pytraj.io.</code><code class="descname">load_sample_data</code><span class="sig-paren">(</span><em>data_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.load_sample_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return TrajectoryIterator instance for Ala3 or tz2 data</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data_name</strong> : str, {&#8216;ala3&#8217;, &#8216;tz2&#8217;, &#8216;rna&#8217;, &#8216;trpcage&#8217;}, default &#8216;ala3&#8217;</td>
+</tr>
+</tbody>
+</table>
 <p class="rubric">Notes</p>
 <dl class="docutils">
 <dt>tz2 dataset</dt>
@@ -765,7 +773,7 @@ unsafe. See: <a class="reference external" href="http://docs.python.org/2.7/libr
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Oct 21, 2016.<br/>
+      Last updated on Oct 24, 2016.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.<br/>
     </p>
   </div>
