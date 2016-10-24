@@ -757,46 +757,6 @@ cdef class Topology:
 
         return d
 
-    def to_dataframe(self):
-        """convert to pandas' DataFrame. (experiment)
-        """
-        import pandas as pd
-        cdef:
-            int n_atoms = self.n_atoms
-            int idx
-            Atom atom
-
-        if pd:
-            labels = ['resid', 'resname', 'atomname', 'atomic_number', 'mass']
-            mass_arr = np.array(self.mass)
-            resid_arr = np.empty(n_atoms, dtype='i')
-            resname_arr = np.empty(n_atoms, dtype='U4')
-            atomname_arr = np.empty(n_atoms, 'U4')
-            atomicnumber_arr = np.empty(n_atoms, dtype='i4')
-
-            for idx, atom in enumerate(self.atoms):
-                # TODO: make faster?
-                resid_arr[idx] = atom.resid
-                resname_arr[idx] = self.residuelist[atom.resid].name
-                atomname_arr[idx] = atom.name
-                atomicnumber_arr[idx] = atom.atomic_number
-
-            arr = np.vstack((resid_arr, resname_arr, atomname_arr,
-                             atomicnumber_arr, mass_arr)).T
-            return pd.DataFrame(arr, columns=labels)
-        else:
-            raise ValueError("must have pandas")
-
-    def to_parmed(self):
-        """try to load to ParmEd's Structure
-        """
-        import parmed as pmd
-        from pytraj.utils import tempfolder
-
-        with tempfolder():
-            self.save("tmp.prmtop", overwrite=True)
-            return pmd.load_file("tmp.prmtop")
-
     property _total_charge:
         def __get__(self):
             return sum([atom.charge for atom in self.atoms])
@@ -805,7 +765,7 @@ cdef class Topology:
         """save to given file format (parm7, psf, ...)
         """
         parm = ParmFile()
-        parm.writeparm(filename=filename, top=self, format=format)
+        parm.write(filename=filename, top=self, format=format)
 
     def set_solvent(self, mask):
         '''set ``mask`` as solvent
@@ -832,6 +792,15 @@ cdef class Topology:
         atom.resname = self.thisptr.Res(atom.resid).c_str().strip()
         return atom
 
+    def to_parmed(self):
+        """try to load to ParmEd's Structure
+        """
+        import parmed as pmd
+        from pytraj.utils import tempfolder
+
+        with tempfolder():
+            self.save("tmp.prmtop", overwrite=True)
+            return pmd.load_file("tmp.prmtop")
 
 cdef class ParmFile:
     def __cinit__(self):
@@ -840,8 +809,8 @@ cdef class ParmFile:
     def __dealloc__(self):
         del self.thisptr
 
-    def readparm(self, filename="", top=Topology(), option=''):
-        """readparm(Topology top=Topology(), string filename="", "*args)
+    def read(self, filename="", top=Topology(), option=''):
+        """read(Topology top=Topology(), string filename="", "*args)
         Return : None (update `top`)
 
         top : Topology instance
@@ -865,7 +834,7 @@ cdef class ParmFile:
             self.thisptr.ReadTopology(
                 _top.thisptr[0], filename, arglist.thisptr[0], debug)
 
-    def writeparm(self, Topology top=Topology(), filename="default.top",
+    def write(self, Topology top=Topology(), filename="default.top",
                   ArgList arglist=ArgList(), format=""):
         cdef int debug = 0
         cdef int err

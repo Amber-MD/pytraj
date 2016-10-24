@@ -12,7 +12,7 @@ def _load_Topology(filename):
     from pytraj import Topology, ParmFile
     top = Topology()
     parm = ParmFile()
-    parm.readparm(filename, top)
+    parm.read(filename, top)
     return top
 
 
