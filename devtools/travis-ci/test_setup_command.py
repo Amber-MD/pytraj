@@ -46,7 +46,7 @@ def test_setup_clean():
     """ python setup.py clean """
     command = 'python setup.py clean'
     output = subprocess.check_output(command.split()).decode()
-    tools.assert_in('must_compile_c_extension =  False', output)
+    tools.assert_in('compile_c_extension =  False', output)
     tools.assert_in('use_pip = False', output)
     tools.assert_in('running clean', output)
     tools.assert_not_in('libcpptraj', output)
