@@ -31,11 +31,11 @@ class Test(unittest.TestCase):
         # corr d0, d0
         pout = pt.xcorr(dslist[0],
                         dslist[0])
-        aa_eq(pout, cout[3])
+        aa_eq(pout, cout[4])
 
         # autocorr d0, d0
         pout = pt.acorr(dslist[0])
-        aa_eq(pout, cout[3])
+        aa_eq(pout, cout[4])
 
 
 if __name__ == "__main__":
