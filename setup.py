@@ -165,6 +165,12 @@ packages = [
     'pytraj.testing',
 ]
 
+tests_require = [
+    'pytest',
+    'pytest-cov',
+    'mpi4py',
+]
+
 if __name__ == "__main__":
     setup(
         name="pytraj",
@@ -172,6 +178,7 @@ if __name__ == "__main__":
         author="Hai Nguyen",
         url="https://github.com/Amber-MD/pytraj",
         packages=packages,
+        tests_require=tests_require,
         description="""Python API for cpptraj: a data analysis package for biomolecular simulation""",
         license="GPL v3",
         classifiers=[
