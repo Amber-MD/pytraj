@@ -28,7 +28,7 @@ conda install cclib -c omnia --yes
 pip install git+https://github.com/arose/nglview
 pip install coveralls
 pip install coverage
-pip install nose
+pip install pytest-cov
 pip install memory_profiler
 pip install psutil
 # pip install cclib # install error with current v1.5 (08/24/2016)
