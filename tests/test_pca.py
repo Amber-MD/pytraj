@@ -5,6 +5,7 @@ import unittest
 import numpy as np
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
+import pytest
 
 
 class TestPCA(unittest.TestCase):
@@ -225,6 +226,11 @@ class TestPCA(unittest.TestCase):
 
         pt.pca(traj_on_disk, mask='@CA', ref=ref, fit=True)
         assert not traj_on_disk._transform_commands
+
+    def test_raises(self):
+        frame = pt.iterload('data/tz2.nc', 'data/tz2.parm7')[0]
+        with pytest.raises(ValueError):
+            pt.pca(frame, mask='@CA')
 
 
 if __name__ == "__main__":
