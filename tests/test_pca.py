@@ -227,6 +227,11 @@ class TestPCA(unittest.TestCase):
         pt.pca(traj_on_disk, mask='@CA', ref=ref, fit=True)
         assert not traj_on_disk._transform_commands
 
+        traj_on_disk2 = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
+        traj_on_disk2.superpose()
+        pt.pca(traj_on_disk2, mask='@CA', ref=ref, fit=True)
+        assert len(traj_on_disk2._transform_commands) == 1
+
     def test_raises(self):
         frame = pt.iterload('data/tz2.nc', 'data/tz2.parm7')[0]
         with pytest.raises(ValueError):
