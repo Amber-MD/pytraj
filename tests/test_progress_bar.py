@@ -6,7 +6,7 @@ import pytraj as pt
 from pytraj.utils.progress import ProgressBarTrajectory
 from pytraj.utils import eq, aa_eq
 from tqdm import tqdm_notebook
-import nose.tools as nt
+import pytest
 
 
 class TestProgressLog(unittest.TestCase):
@@ -15,6 +15,10 @@ class TestProgressLog(unittest.TestCase):
         """test_progress_log: simple test, just to make sure it is runnable
         """
         traj = pt.datafiles.load_tz2()
+
+        p = ProgressBarTrajectory(traj, style='basic', every=20)
+        pt.molsurf(p)
+
         p = ProgressBarTrajectory(traj, style='bar', every=20)
         pt.molsurf(p)
 
@@ -34,10 +38,10 @@ class TestProgressLog(unittest.TestCase):
         traj2._size_limit_in_GB = traj2._estimated_GB - 0.001
 
         
-        nt.assert_raises(MemoryError, lambda: traj2.xyz)
+        with pytest.raises(MemoryError):
+            traj2.xyz
 
         p2 = ProgressBarTrajectory(traj2)
-        
         aa_eq(pt.rmsd(p2), pt.rmsd(traj2))
         
 

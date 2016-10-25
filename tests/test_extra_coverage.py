@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from __future__ import print_function
+import os
 import sys
 import unittest
 import numpy as np
@@ -11,6 +12,7 @@ from pytraj.version import version
 from pytraj.utils.get_common_objects import get_reference
 from pytraj.utils import misc
 from pytraj import all_actions
+import pytest
 
 
 class TestExtraCoverage(unittest.TestCase):
@@ -61,7 +63,6 @@ class TestExtraCoverage(unittest.TestCase):
 
     def test_all_actions(self):
         self.assertRaises(ValueError, lambda: all_actions._assert_mutable(self.traj))
-
 
 if __name__ == "__main__":
     unittest.main()

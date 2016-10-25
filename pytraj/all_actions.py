@@ -3417,7 +3417,7 @@ def xcorr(data0, data1, dtype='ndarray'):
 
     act = c_analysis.Analysis_Corr()
     act("d0 d1 out _tmp.out", dslist=c_dslist)
-    return get_data_from_dtype(c_dslist[2:], dtype=dtype)
+    return get_data_from_dtype(c_dslist[2:3], dtype=dtype)
 
 cross_correlation_function = xcorr
 

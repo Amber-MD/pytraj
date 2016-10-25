@@ -3,7 +3,6 @@
 from __future__ import print_function
 import os
 import unittest
-import nose.tools as nt
 
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
@@ -24,15 +23,15 @@ class TestLeapNab(unittest.TestCase):
     @unittest.skipUnless(os.path.exists(tleap), 'no tleap found')
     def test_leap(self):
         traj = pt.io.load_leap(leapin)
-        nt.assert_equal(traj.n_atoms, 22)
-        nt.assert_equal(traj.top.n_residues, 3)
+        assert traj.n_atoms == 22
+        assert traj.top.n_residues == 3
 
     @unittest.skipUnless(os.path.exists(antechamber), 'no antechamber found')
     def test_antechamber(self):
         fn = 'data/cro.ac'
         traj = pt.io.load_antechamber(fn)
-        nt.assert_equal(traj.n_atoms, 40)
-        nt.assert_equal(traj.top.n_residues, 1)
+        assert traj.n_atoms == 40
+        assert traj.top.n_residues == 1
         aa_eq([atom.charge for atom in traj.top.atoms][:3], [-0.895800, 0.113200, 0.11110])
         aa_eq([atom.charge for atom in traj.top.atoms][-3:], [0.146500, 0.146500, 0.42300])
 

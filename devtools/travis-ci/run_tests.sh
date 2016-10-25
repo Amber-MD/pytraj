@@ -1,9 +1,11 @@
 #!/bin/sh
 
 
+export OMP_NUM_THREADS=1
+
 if [ "$TEST_SETUP" == 'true' ]; then
     echo "Test setup command line"
-    nosetests -vs devtools/travis-ci/test_setup_command.py
+    py.test -vs devtools/travis-ci/test_setup_command.py
 else
     sh devtools/travis-ci/pyflakes_check.sh || exit 1
     
@@ -16,24 +18,11 @@ else
     cd tests/energies/fake_amberhome/
     export AMBERHOME=`pwd`
     
-    # go back to tests folder
-    cd ../../
-    
-    # print info
-    python run_simple_test.py || exit 1
-    
-    # run tests
-    if [ "$PLATFORM" = "linux" ]; then
-        nosetests --with-coverage --cover-package pytraj -vs test_*.py */test_*.py || exit 1
-        unset CPPTRAJHOME # for pytraj.tools coverage
-        nosetests --with-coverage --cover-package pytraj -vs test_docs.py || exit 1
-    else
-        # osx (window too?), minimal tests
-        nosetests -vs test_*.py */test_*.py || exit 1
-    fi
+    cd $PYTRAJ_HOME
+    python run_tests.py -c || exit 1
     
     # run examples
-    cd ../examples
+    cd ./examples
     python ./run_examples.py || exit 1
     cd mpi_examples
     
