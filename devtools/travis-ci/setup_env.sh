@@ -25,6 +25,7 @@ conda install --yes anaconda-client coverage pyflakes jupyter notebook
 conda install parmed -c ambermd --yes
 conda install pysander -c hainm --yes
 conda install cclib -c omnia --yes
+conda install nglview -c bioconda --yes
 pip install git+https://github.com/arose/nglview
 pip install coveralls
 pip install coverage
