@@ -15,8 +15,8 @@ else:
     import __builtin__ as builtins
 
 MAJOR = 1
-MINOR = 0
-MICRO = 9
+MINOR = 1
+MICRO = 0
 is_released = False
 VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 
@@ -221,19 +221,19 @@ if not release:
     finally:
         a.close()
 
-def do_what(pytraj_home, use_pip=False):
-    must_compile_c_extension = False
+def check_compile_cython(pytraj_home, use_pip=False):
+    compile_c_extension = False
     # this checking should be here, after checking openmp and other stuff
     if '--help' in sys.argv or '-h' in sys.argv or '--help-commands' in sys.argv:
-        must_compile_c_extension = False
+        compile_c_extension = False
     elif use_pip:
-        must_compile_c_extension = True
+        compile_c_extension = True
     else:
         if ('install' in sys.argv or
             'build' in sys.argv or
             'build_ext' in sys.argv):
-            must_compile_c_extension = True
-    return must_compile_c_extension
+            compile_c_extension = True
+    return compile_c_extension
 
 def install_libcpptraj(openmp_flag, from_github=False, use_amberlib=True):
     '''If AMBERHOME is set and amberlib is True, use -amberlib for libcpptraj
@@ -248,7 +248,7 @@ def install_libcpptraj(openmp_flag, from_github=False, use_amberlib=True):
     subprocess.check_call(cmd, shell=True)
 
 def try_updating_libcpptraj(cpptraj_home,
-                            must_compile_c_extension,
+                            compile_c_extension,
                             cpptraj_included,
                             openmp_flag,
                             use_amberlib):
@@ -259,8 +259,8 @@ def try_updating_libcpptraj(cpptraj_home,
             '1. unset CPPTRAJHOME and `python setup.py install` again. We will install libcpptraj for you. \n'
             '2. Or you need to install libcpptraj in $CPPTRAJHOME/lib \n')
     else:
-        if must_compile_c_extension:
-            print('must_compile_c_extension')
+        if compile_c_extension:
+            print('compile_c_extension')
             if cpptraj_included:
                 print(
                     'can not find libcpptraj but found ./cpptraj folder, trying to reinstall it to ./cpptraj/lib/ \n')
@@ -342,7 +342,7 @@ class CpptrajInfo(object):
 def get_cpptraj_info(rootname,
                      cpptraj_home,
                      cpptraj_included,
-                     setup_task,
+                     compile_c_extension,
                      pytraj_home,
                      openmp_flag,
                      use_amberlib):
@@ -382,7 +382,7 @@ def get_cpptraj_info(rootname,
             cpptraj_info.lib_dir = cpptraj_info.dir + "/lib/"
         else:
 
-            if setup_task.must_compile_c_extension:
+            if compile_c_extension:
                 print(message_auto_install)
                 for i in range(0, 3):
                     sys.stdout.write('.')
@@ -462,7 +462,7 @@ def setenv_cc_cxx(ambertools_distro,
 
 def get_ext_modules(cpptraj_info,
                     pytraj_src,
-                    setup_task,
+                    compile_c_extension,
                     is_released,
                     need_cython,
                     cpptraj_included,
@@ -477,11 +477,11 @@ def get_ext_modules(cpptraj_info,
                     use_pip=False,
                     tarfile=False):
     if not tarfile:
-        print('install = {}'.format(setup_task.must_compile_c_extension))
+        print('install = {}'.format(compile_c_extension))
         if not libcpptraj_files:
             libcpptraj_files = try_updating_libcpptraj(
                     cpptraj_home=cpptraj_info.home_env,
-                    must_compile_c_extension=setup_task.must_compile_c_extension,
+                    compile_c_extension=compile_c_extension,
                     cpptraj_included=cpptraj_included,
                     openmp_flag=openmp_flag,
                     use_amberlib=use_amberlib

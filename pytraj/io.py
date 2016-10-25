@@ -479,7 +479,7 @@ def write_parm(filename=None, top=None, format='amberparm', overwrite=False):
         raise RuntimeError('{0} exists, must set overwrite=True'.format(
             filename))
     parm = ParmFile()
-    parm.writeparm(filename=filename, top=top, format=format)
+    parm.write(filename=filename, top=top, format=format)
 
 
 def load_topology(filename, option=''):
@@ -517,7 +517,7 @@ def load_topology(filename, option=''):
     if isinstance(filename, string_types):
         parm = ParmFile()
         set_error_silent(True)
-        parm.readparm(filename=filename,
+        parm.read(filename=filename,
                       top=top,
                       option=option)
         set_error_silent(False)
@@ -849,8 +849,8 @@ def _format_convert(input_filename, output_filename):
         command.dispatch(state, 'writedata {} mydata '.format(output_filename))
 
 def _get_amberhome():
-    amberhome = os.getenv('AMBERHOME')
-    if amberhome is None:
+    amberhome = os.getenv('AMBERHOME', '')
+    if not amberhome:
         raise EnvironmentError("must set AMBERHOME")
     return amberhome
 

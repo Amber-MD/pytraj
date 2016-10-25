@@ -2,6 +2,7 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
+import pytest
 
 
 class TestIteraframeIndices(unittest.TestCase):
@@ -22,11 +23,9 @@ class TestIteraframeIndices(unittest.TestCase):
         # raise if out of bound
         # only care about TrajectoryCpptraj since we would get segmentation fault
         # if index is larger than max n_frame
-        def iter_(traj=traj):
+        with pytest.raises(AssertionError):
             for _ in traj._iterframe_indices([traj.n_frames, ]):
                 print(_.xyz)
-
-        self.assertRaises(AssertionError, iter_)
 
 if __name__ == "__main__":
     unittest.main()

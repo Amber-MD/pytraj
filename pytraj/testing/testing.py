@@ -5,11 +5,14 @@ from pytraj.datafiles.load_samples import load_sample_data
 from pytraj.utils import eq, aa_eq
 from pytraj.utils import duplicate_traj, Timer
 
-__all__ = ['load_sample_data', 'eq', 'aa_eq', 'make_random_frame',
-           'duplicate_traj', 'Timer', 'amberhome', 'cpptraj_test_dir',
-           'run_docstring',
+__all__ = ['load_sample_data',
+           'eq', 'aa_eq',
+           'duplicate_traj',
+           'Timer',
+           'amberhome', 'cpptraj_test_dir',
            'get_fn', 'get_remd_fn',
-           'assert_equal_topology']
+           'assert_equal_topology'
+]
 
 # find cpptraj test dir
 # find in CPPTRAJHOME first
@@ -40,37 +43,11 @@ if os.path.exists(DEFAULT_PATH):
     cpptraj_test_dir = os.path.abspath(DEFAULT_PATH)
 
 
-def make_random_frame(n_atoms=10000):
-    '''
-    Examples
-    --------
-    >>> make_random_frame(n_atoms=300)
-    <Frame with 300 atoms>
-    '''
-    import numpy as np
-    from pytraj import Frame
-
-    frame = Frame(n_atoms)
-    frame.xyz[:] = np.random.randn(n_atoms, 3)
-    return frame
-
-
 header_doc = '''
 import pytraj as pt
 import pytraj.all_actions as pyca
 traj = pt.load_sample_data("tz2")
 '''
-
-
-def run_docstring(func):
-    '''just want to make sure the doc string runnable.
-    '''
-    _doc = [x.lstrip() for x in func.__doc__.split("\n")]
-    _doc = filter(lambda x: x.startswith('>>>'), _doc)
-    _doc = [x.replace(">>> ", "") for x in _doc]
-    doc = "\n".join(_doc)
-    doc = "\n".join((header_doc, doc))
-    exec(doc)
 
 
 def assert_equal_topology(top, new_top, traj):

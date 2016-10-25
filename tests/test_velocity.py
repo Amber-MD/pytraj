@@ -3,7 +3,7 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
-import nose.tools as nt
+import pytest
 
 
 class TestVelocity(unittest.TestCase):
@@ -32,7 +32,8 @@ class TestVelocity(unittest.TestCase):
 
         # raise if not having velocity
         traj2 = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
-        self.assertRaises(ValueError, lambda: pt.get_velocity(traj2))
+        with pytest.raises(ValueError):
+            pt.get_velocity(traj2)
 
     def test_velocityautocorr(self):
         # usevelocity = False
@@ -73,11 +74,9 @@ class TestVelocity(unittest.TestCase):
         # need to raise if no `velocity_arr` is given
         traj_on_mem = traj[:]
 
-        def func():
+        with pytest.raises(ValueError):
             pt.all_actions.velocityautocorr(traj_on_mem, tstep=2, norm=True, direct=True,
                                      usevelocity=True)
-        nt.assert_raises(ValueError, func)
-
         # try on memory Trajectory, usevelocity = True
         traj_on_disk = traj
         velocity_arr = pt.get_velocity(traj_on_disk)
@@ -90,9 +89,5 @@ class TestVelocity(unittest.TestCase):
 
         # raise if velocity_arr has wrong shape
         velocity_arr_2 = velocity_arr.flatten()
-        def func2():
+        with pytest.raises(ValueError):
             pt.all_actions.velocityautocorr(traj_on_mem, usevelocity=True, velocity_arr=velocity_arr_2)
-        nt.assert_raises(ValueError, func2)
-
-if __name__ == "__main__":
-    unittest.main()

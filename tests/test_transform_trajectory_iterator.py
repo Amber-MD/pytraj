@@ -4,7 +4,6 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 from pytraj.testing import get_fn, aa_eq, eq
-import nose.tools as nt
 
 fn, tn = get_fn('tz2_dry')
 
@@ -78,7 +77,7 @@ class TestActionList(unittest.TestCase):
         traj_on_disk._remove_transformations()
         aa_eq(traj_on_disk.xyz, traj_on_disk_2.xyz)
 
-        nt.assert_equal(len(traj_on_disk._cdslist), 0)
+        assert len(traj_on_disk._cdslist) == 0
 
     def test_autoimage_and_slicing(self):
         traj_on_disk = pt.datafiles.load_tz2_ortho()
@@ -100,7 +99,7 @@ class TestActionList(unittest.TestCase):
         fn, tn = get_fn('tz2_dry')
         traj_on_disk = pt.iterload([fn,]*10, tn)  # 1010 frames
 
-        nt.assert_equal(traj_on_disk.n_frames, 1010)
+        assert traj_on_disk.n_frames == 1010
 
         ref = traj_on_disk[:1]
         traj_on_disk.superpose(mask='@CA', ref=ref)

@@ -15,7 +15,7 @@ class TestDistanceBasedMask(unittest.TestCase):
 
         ref = traj[0]
         # test for 1st frame
-        top.set_distance_mask_reference(ref)
+        top.set_reference(ref)
         ref.top = top
 
         # all atoms within 5 Angtrom from :3@CA
@@ -42,7 +42,7 @@ class TestDistanceBasedMask(unittest.TestCase):
 
         # test larger
         # why do we need to set reference frame again?
-        top.set_distance_mask_reference(ref)
+        top.set_reference(ref)
         indices_larger = top.select(":3@CA >@5.0")
         all_pairs_larger = list(product(ca_indices, indices_larger))
         distances = pt.tools.flatten(pt.distance(ref, all_pairs_larger))
@@ -60,7 +60,7 @@ class TestDistanceBasedMask(unittest.TestCase):
         top = traj.top
 
         ref = traj[0]
-        top.set_distance_mask_reference(ref)
+        top.set_reference(ref)
         ref.top = top
 
         indices_smaler = pt.select_atoms(':3@CA <:5.0', top)

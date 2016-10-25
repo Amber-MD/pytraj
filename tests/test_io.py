@@ -6,7 +6,6 @@ import pytraj as pt
 from pytraj import Topology, Trajectory, TrajectoryIterator
 from pytraj.testing import aa_eq, get_fn, get_remd_fn, cpptraj_test_dir
 from pytraj.utils import tempfolder
-import nose.tools as nt
 
 try:
     import scipy
@@ -415,15 +414,15 @@ class TestIO(unittest.TestCase):
         fn = cpptraj_test_dir + '/Test_systemVF/systemVF.nc'
         tn = cpptraj_test_dir + '/Test_systemVF/systemVF.parm7'
         traj = pt.iterload(fn, tn)
-        nt.assert_true(traj.metadata['has_force'])
-        nt.assert_true(traj.metadata['has_velocity'])
+        assert traj.metadata['has_force']
+        assert traj.metadata['has_velocity']
 
         fn2 = 'output/test.nc'
         traj.save(fn2, overwrite=True, crdinfo=traj.metadata)
 
         traj2 = pt.iterload(fn2, traj.top)
-        nt.assert_true(traj2.metadata['has_force'])
-        nt.assert_true(traj2.metadata['has_velocity'])
+        assert traj2.metadata['has_force']
+        assert traj2.metadata['has_velocity']
 
         forces_traj = np.array([frame.force.copy() for frame in traj])
         forces_traj2 = np.array([frame.force.copy() for frame in traj2])
@@ -495,7 +494,7 @@ class TestTleap(unittest.TestCase):
         if os.getenv('AMBERHOME') is None:
             fake_amberhome = '/home/hc/amber16'
             os.environ['AMBERHOME'] = fake_amberhome
-            nt.assert_equal(_get_amberhome(), fake_amberhome)
+            assert _get_amberhome() == fake_amberhome
 
     amberhome = os.getenv('AMBERHOME', '')
     tleap = amberhome + '/bin/tleap'
@@ -514,7 +513,4 @@ class TestTleap(unittest.TestCase):
         for quit in ['quit', '']:
             verbose = False
             traj = pt.io.load_leap(cm % quit, verbose=verbose)
-            nt.assert_equal(traj.n_atoms, 304)
-
-if __name__ == "__main__":
-    unittest.main()
+            assert traj.n_atoms == 304

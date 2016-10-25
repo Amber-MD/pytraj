@@ -13,7 +13,7 @@ class Test(unittest.TestCase):
         f1 = Frame(f0, traj.top('@CA'))
 
         atm = AtomMask("")
-        traj.top.set_integer_mask(atm)
+        traj.top._set_integer_mask(atm)
 
 
 if __name__ == "__main__":
