@@ -12,6 +12,8 @@ from pytraj.parallel.base import _load_batch_pmap, worker_by_actlist
 from pytraj.parallel.multiprocess import worker_byfunc
 from pytraj.utils import c_commands
 
+import pytest
+
 
 @unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
 class TestNormalPmap(unittest.TestCase):
@@ -341,7 +343,8 @@ class TestCheckValidCommand(unittest.TestCase):
 
         # do not accept any c analysis command
         for word in c_commands.analysis_commands:
-            self.assertRaises(ValueError, lambda: pt.pmap(word, traj, n_cores=2))
+            with pytest.raises(ValueError):
+                pt.pmap(word, traj, n_cores=2)
 
 
 @unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
