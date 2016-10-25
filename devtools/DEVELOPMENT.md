@@ -9,18 +9,17 @@
 ```
 
 ## Wheel file for pypi
-#
-```
-# - build libcpptraj and set CPPTRAJHOME
 
-# - build wheel files
+1. build libcpptraj and set CPPTRAJHOME
+
+2. build wheel files
+```bash
 python ./scripts/build_wheel.py dist/pytraj-{version}.tar.gz
-
 # output: wheelhouse/pytraj-{version}-*.whl
-
 # - upload
 twine upload wheelhouse/pytraj-{version}-*.whl
 ```
 
 ## conda
+#
 Please check [amber-receipts](https://github.com/Amber-MD/amber-recipes/tree/master/pytraj) repo
