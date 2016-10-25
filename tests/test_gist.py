@@ -1,23 +1,26 @@
 #!/usr/bin/env python
 
 from __future__ import print_function
+import os
 import unittest
-import numpy as np
 import pytraj as pt
-from pytraj.utils import eq, aa_eq
-from pytraj.testing import cpptraj_test_dir
+from pytraj.testing import aa_eq
 
 
+DO_GIST = os.getenv("DO_GIST", False)
+
+@unittest.skipUnless(DO_GIST, 'only do gist test if setting DO_GIST=True')
 class TestGist(unittest.TestCase):
-
-    @unittest.skip("FIXME GIST: segmentation fault sometimes")
     def test_gist(self):
         traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7", frame_slice=(0, 10))
         traj.autoimage('origin')
 
         command = "doorder doeij refdens 0.033422885325 gridcntr 1.44 0.67 0.29 \
                      griddim 10 12 10 gridspacn 2.0"
-        data = pt.all_actions.gist(traj, do_order=True, do_eij=True, refdens=0.033422885325,
+        data = pt.all_actions.gist(traj,
+                do_order=True,
+                do_eij=True,
+                reference_density=0.033422885325,
                 grid_center=(1.44, 0.67, 0.29), grid_dim=(10, 12, 10),
                 grid_spacing=2.0,
                 dtype='cpptraj_dataset')

@@ -38,6 +38,7 @@ art = r'''
 parser = argparse.ArgumentParser(description='run test. Full test requires nose and coverage packages')
 parser.add_argument('-s', '--simple', action='store_true', help='quick run')
 parser.add_argument('-c', '--with-coverage', action='store_true', help='coverage report')
+parser.add_argument('-n', '--ncores', default=1, help='n_cores')
 args = parser.parse_args()
 
 print(bin)
@@ -51,10 +52,14 @@ else:
     print('running full test\n')
     if args.with_coverage:
         print('with coverage')
-        subprocess.check_call("{bin}/nosetests --with-coverage --cover-package pytraj --cover-html -vs .".format(bin=bin).split())
+        cm_list = "{bin}/py.test --cov=pytraj --cov-report=html -vs .".format(bin=bin).split()
     else:
         print('without coverage\n')
-        subprocess.check_call("{bin}/nosetests -vs .".format(bin=bin).split())
+        cm_list = "{bin}/py.test -vs .".format(bin=bin).split()
+    if int(args.ncores) > 1:
+        cm_list.extend(['-n', args.ncores])
+    print("using {} cores".format(args.ncores))
+    subprocess.check_call(cm_list)
 
 print('\nHAPPY COMPUTING')
 print(art)

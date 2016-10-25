@@ -166,18 +166,25 @@ cdef class Topology:
         self.join(other)
         return self
 
-    def load(self, string filename):
+    def _load(self, string filename):
         """loading Topology from filename. This is for internal use. Should ``pytraj.load_topology``
 
         """
         del self.thisptr
         self = Topology(filename)
 
-    def set_distance_mask_reference(self, Frame frame):
+    def set_reference(self, Frame frame):
+        """ Set reference frame for distance-based mask
+
+        Parameters
+        ----------
+        frame : Frame
+            reference frame
+        """
         self.thisptr.SetDistMaskRef(frame.thisptr[0])
 
     def copy(self, *args):
-        """return a copy of 'self' or copy from 'other' to 'self'
+        """ Return a copy of 'self' or copy from 'other' to 'self'
         TODO : add more doc
         """
         cdef Topology tmp
@@ -195,7 +202,7 @@ cdef class Topology:
             self.thisptr[0] = other.thisptr[0]
 
     def __getitem__(self, idx):
-        """return an Atom, a list of Atom or a new Topology
+        """ Return an Atom, a list of Atom or a new Topology
 
         Returns
         -------
@@ -257,7 +264,7 @@ cdef class Topology:
         """intended to use with Frame indexing: atm = top('@CA') (for internal use)
         """
         cdef AtomMask atm = AtomMask(mask)
-        self.set_integer_mask(atm)
+        self._set_integer_mask(atm)
         return atm
 
     def __iter__(self):
@@ -398,26 +405,6 @@ cdef class Topology:
                 yield mol
                 incr(it)
 
-    property atomlist:
-        '''return a copy of atoms. If the Topology is large, this method calling
-        is every expensive. Make sure to call once and save it.
-        '''
-
-        def __get__(self):
-            return list(self.atoms)
-
-    property residuelist:
-        """return a copy of residues
-        """
-        def __get__(self):
-            return list(self.residues)
-
-    property moleculelist:
-        """return a copy of molecules. (not much information)
-        """
-        def __get__(self):
-            return list(self.mols)
-
     def summary(self):
         """basic info. This information only appears in Ipython or Python shell. 
         It does not appear in Jupyter notebook (due to C++ stdout)
@@ -462,7 +449,7 @@ cdef class Topology:
         def __get__(self):
             return self.thisptr.Nsolvent()
 
-    def set_integer_mask(self, AtomMask atm, Frame frame=Frame()):
+    def _set_integer_mask(self, AtomMask atm, Frame frame=Frame()):
         if frame.n_atoms == 0:
             return self.thisptr.SetupIntegerMask(atm.thisptr[0])
         else:
@@ -523,7 +510,7 @@ cdef class Topology:
         cdef Topology new_top
 
         atm = AtomMask(mask)
-        self.set_integer_mask(atm)
+        self._set_integer_mask(atm)
         if atm.n_atoms == 0:
             raise ValueError("number of stripped atoms must be > 1")
         atm.invert_mask()
@@ -552,26 +539,8 @@ cdef class Topology:
         indices : Python array
         """
         cdef AtomMask atm = AtomMask(mask)
-        self.set_integer_mask(atm)
+        self._set_integer_mask(atm)
         return atm.indices
-
-    property atom_names:
-        """return unique atom name in Topology
-        """
-        def __get__(self):
-            s = set()
-            for atom in self.atoms:
-                s.add(atom.name)
-            return s
-
-    property residue_names:
-        """return unique residue names in Topology
-        """
-        def __get__(self):
-            s = set()
-            for residue in self.residues:
-                s.add(residue.name)
-            return s
 
     def join(self, Topology top):
         if top is self:
@@ -593,7 +562,7 @@ cdef class Topology:
         def __get__(self):
             return np.asarray([atom.charge for atom in self.atoms])
 
-    def indices_bonded_to(self, atom_name):
+    def _indices_bonded_to(self, atom_name):
         """return indices of the number of atoms that each atom bonds to
 
         Parameters
@@ -788,46 +757,6 @@ cdef class Topology:
 
         return d
 
-    def to_dataframe(self):
-        """convert to pandas' DataFrame. (experiment)
-        """
-        import pandas as pd
-        cdef:
-            int n_atoms = self.n_atoms
-            int idx
-            Atom atom
-
-        if pd:
-            labels = ['resid', 'resname', 'atomname', 'atomic_number', 'mass']
-            mass_arr = np.array(self.mass)
-            resid_arr = np.empty(n_atoms, dtype='i')
-            resname_arr = np.empty(n_atoms, dtype='U4')
-            atomname_arr = np.empty(n_atoms, 'U4')
-            atomicnumber_arr = np.empty(n_atoms, dtype='i4')
-
-            for idx, atom in enumerate(self.atoms):
-                # TODO: make faster?
-                resid_arr[idx] = atom.resid
-                resname_arr[idx] = self.residuelist[atom.resid].name
-                atomname_arr[idx] = atom.name
-                atomicnumber_arr[idx] = atom.atomic_number
-
-            arr = np.vstack((resid_arr, resname_arr, atomname_arr,
-                             atomicnumber_arr, mass_arr)).T
-            return pd.DataFrame(arr, columns=labels)
-        else:
-            raise ValueError("must have pandas")
-
-    def to_parmed(self):
-        """try to load to ParmEd's Structure
-        """
-        import parmed as pmd
-        from pytraj.utils import tempfolder
-
-        with tempfolder():
-            self.save("tmp.prmtop", overwrite=True)
-            return pmd.load_file("tmp.prmtop")
-
     property _total_charge:
         def __get__(self):
             return sum([atom.charge for atom in self.atoms])
@@ -836,7 +765,7 @@ cdef class Topology:
         """save to given file format (parm7, psf, ...)
         """
         parm = ParmFile()
-        parm.writeparm(filename=filename, top=self, format=format)
+        parm.write(filename=filename, top=self, format=format)
 
     def set_solvent(self, mask):
         '''set ``mask`` as solvent
@@ -863,6 +792,15 @@ cdef class Topology:
         atom.resname = self.thisptr.Res(atom.resid).c_str().strip()
         return atom
 
+    def to_parmed(self):
+        """try to load to ParmEd's Structure
+        """
+        import parmed as pmd
+        from pytraj.utils import tempfolder
+
+        with tempfolder():
+            self.save("tmp.prmtop", overwrite=True)
+            return pmd.load_file("tmp.prmtop")
 
 cdef class ParmFile:
     def __cinit__(self):
@@ -871,8 +809,8 @@ cdef class ParmFile:
     def __dealloc__(self):
         del self.thisptr
 
-    def readparm(self, filename="", top=Topology(), option=''):
-        """readparm(Topology top=Topology(), string filename="", "*args)
+    def read(self, filename="", top=Topology(), option=''):
+        """read(Topology top=Topology(), string filename="", "*args)
         Return : None (update `top`)
 
         top : Topology instance
@@ -896,7 +834,7 @@ cdef class ParmFile:
             self.thisptr.ReadTopology(
                 _top.thisptr[0], filename, arglist.thisptr[0], debug)
 
-    def writeparm(self, Topology top=Topology(), filename="default.top",
+    def write(self, Topology top=Topology(), filename="default.top",
                   ArgList arglist=ArgList(), format=""):
         cdef int debug = 0
         cdef int err

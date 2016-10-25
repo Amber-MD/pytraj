@@ -158,7 +158,7 @@ class TestSander(unittest.TestCase):
         assert_close(edict['bond'][0], 605.7349, tol=3E-4)
         assert_close(edict['vdw_14'][0], 0.0000, tol=3E-4)
         assert_close(edict['elec_14'][0], 0.0000, tol=3E-4)
-        assert_close(edict['elec'][0], -7409.7167, tol=3E-1)
+        assert_close(edict['elec'][0], -7409.7167, tol=3E-4)
         assert_close(edict['scf'][0], -37.1277, tol=3E-4)
 
     @unittest.skipIf(not amberhome, 'skip since there is no AMBERHOME')
@@ -205,6 +205,35 @@ class TestSander(unittest.TestCase):
         e0 = pt.energy_decomposition(traj, mm_options=mm_options, dtype='dict')
         e1 = pt.energy_decomposition(traj, mm_options=mm_options_str, dtype='dict')
         assert sorted(e0) == sorted(e1)
+
+    def test_qm_options_as_string(self):
+        topfile = os.path.join(amberhome, "test/qmmm2/lysine_PM3_qmgb2/prmtop")
+        rstfile = os.path.join(amberhome,
+                               "test/qmmm2/lysine_PM3_qmgb2/lysine.crd")
+        traj = pt.load(rstfile, topfile)
+
+        options = sander.gas_input(1)
+        options.cut = 99.0
+        options.ifqnt = 1
+        qm_options = """
+qm_options = sander.qm_input()
+qm_options.iqmatoms[:3] = [8, 9, 10]
+qm_options.qm_theory = "PM3"
+qm_options.qmcharge = 0
+qm_options.qmgb = 2
+qm_options.adjust_q = 0
+        """
+
+        edict = pt.esander(traj=traj,
+                           mm_options=options,
+                           qm_options=qm_options)
+        assert_close(edict['bond'][0], 0.0016, tol=3E-4)
+        assert_close(edict['vdw'][0], 0.1908, tol=3E-4)
+        assert_close(edict['vdw_14'][0], 3.7051, tol=3E-4)
+        assert_close(edict['elec'][0], -4.1241, tol=3E-4)
+        assert_close(edict['elec_14'][0], 65.9137, tol=3E-4)
+        assert_close(edict['gb'][0], -80.1406, tol=3E-4)
+        assert_close(edict['scf'][0], -11.9100, tol=3E-4)
 
 
 if __name__ == "__main__":

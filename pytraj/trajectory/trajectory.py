@@ -129,24 +129,6 @@ class Trajectory(SharedTrajectory):
         '''
         self.top = value
 
-    def reverse(self):
-        '''reverse Trajectory
-
-        Returns
-        -------
-        self
-
-        Examples
-        --------
-        >>> import pytraj as pt
-        >>> traj = pt.datafiles.load_tz2_ortho()[:]
-        >>> traj = traj.reverse()
-        '''
-        self._xyz = self._xyz[::-1]
-        if self._boxes is not None:
-            self._boxes = self._boxes[::-1]
-        return self
-
     @property
     def xyz(self):
         '''Trajectory's coordinates, shape=(n_frames, n_frames, 3), dtype='f8'
@@ -582,8 +564,8 @@ class Trajectory(SharedTrajectory):
     def autoimage(self, command=''):
         '''perform autoimage
 
-        Return
-        ------
+        Returns
+        -------
         self
 
         Examples
@@ -1040,11 +1022,3 @@ class Trajectory(SharedTrajectory):
         for f1, f2, frame in zip(self, other, traj):
             frame.xyz[:] = np.vstack((f1.xyz, f2.xyz))
         return traj
-
-    def at(self, index):
-        return self[index]
-
-    def _set_dihedral(self, command):
-        from pytraj.all_actions import make_structure
-        make_structure(self, command)
-        return self

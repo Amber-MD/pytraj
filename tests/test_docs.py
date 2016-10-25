@@ -19,7 +19,7 @@ from pytraj.trajectory import frameiter
 from pytraj import vector
 from pytraj.datasets import datasetlist
 from pytraj.analysis import base_holder
-from pytraj.trajectory import trajectory_iterator
+from pytraj.trajectory import trajectory, trajectory_iterator
 from pytraj.utils import check_and_assert
 from pytraj.utils import get_common_objects
 from pytraj.utils import decorators
@@ -40,6 +40,7 @@ def get_total_errors(modules):
     return sum([doctest.testmod(mod).failed for mod in modules])
 
 
+@unittest.skipUnless(PY3, 'only test for PY3')
 class TestDoc(unittest.TestCase):
     '''testing for light modules
     '''
@@ -47,42 +48,48 @@ class TestDoc(unittest.TestCase):
     # @unittest.skipIf(sys.platform == 'darwin', 'linux testing only')
     def test_doc(self):
 
-        modules = [convert, frameiter, vector, trajectory_iterator, ]
-        if PY3:
-            # avoid adding 'u' to string in PY2: u'GLU5_O-LYS8_N-H'
-            if has_sander:
-                modules.append(energy_analysis)
-            additional_list = [
-                frame,
-                actionlist,
-                cluster,
-                datafiles,
-                pt.all_actions,
-                pt.topology,
-                get_common_objects,
-                pt.parallel.multiprocess,
-                pt,
-                pt.io,
-                nucleic_acid_analysis,
-                load_samples,
-                pt.trajectory,
-                decorators,
-                pt.dssp_analysis,
-                datasetlist,
-                array,
-                nmr,
-                check_and_assert,
-                pt.hbond_analysis,
-                pt.tools,
-                testing,
-                utils,
-                pt.matrix,
-                base_holder,
-            ]
-            modules.extend(additional_list)
-        assert get_total_errors(
-            modules) == 0, 'doctest: failed_count must be 0'
+        modules = [convert, vector]
+        # avoid adding 'u' to string in PY2: u'GLU5_O-LYS8_N-H'
+        if has_sander:
+            modules.append(energy_analysis)
+        additional_list = [
+            frame,
+            actionlist,
+            cluster,
+            datafiles,
+            pt.topology,
+            get_common_objects,
+            pt.parallel.multiprocess,
+            pt,
+            nucleic_acid_analysis,
+            load_samples,
+            decorators,
+            pt.dssp_analysis,
+            datasetlist,
+            array,
+            nmr,
+            check_and_assert,
+            pt.hbond_analysis,
+            pt.tools,
+            testing,
+            utils,
+            pt.matrix,
+            base_holder,
+        ]
+        modules.extend(additional_list)
+        assert not get_total_errors(modules)
 
+    def test_doc_trajectory(self):
+        modules = [trajectory, trajectory_iterator, frameiter]
+        assert not get_total_errors(modules)
+
+    def test_doc_io(self):
+        modules = [pt.io]
+        assert not get_total_errors(modules)
+
+    def test_doc_all_actions(self):
+        modules = [pt.all_actions,]
+        assert not get_total_errors(modules)
 
 if __name__ == "__main__":
     unittest.main()

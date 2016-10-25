@@ -1,7 +1,7 @@
 Lead developer
 ==============
 
-**Hai Nguyen** (hainm.comp at gmail.com, http://www.hainguyencomp.info/)
+**Hai Nguyen** (hainm.comp at gmail.com, http://hainm.github.io/)
 
 History
 =======
@@ -25,4 +25,4 @@ Acknowledgement
 
     * **James Maier** (1st author of AMBER ff14SB force field) for his suggestion to write pytraj (rather than rewrite a new Python package to replace cpptraj) and his stimulating discussion about programming. http://jmaier.info
 
-A part of pytraj's API is influenced by the design in MDTraj package.
+A part of pytraj's API is influenced by the design in [MDTraj](http://mdtraj.org/) package.
