@@ -22,4 +22,4 @@ twine upload wheelhouse/pytraj-{version}-*.whl
 
 ## conda
 #
-Please check [amber-receipts](https://github.com/Amber-MD/amber-recipes/tree/master/pytraj) repo
+Please check [amber-recipes](https://github.com/Amber-MD/amber-recipes/tree/master/pytraj) repo
