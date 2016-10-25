@@ -64,10 +64,5 @@ class TestExtraCoverage(unittest.TestCase):
     def test_all_actions(self):
         self.assertRaises(ValueError, lambda: all_actions._assert_mutable(self.traj))
 
-    def test_io(self):
-        os.environ['AMBERHOME'] = ''
-        with pytest.raises(EnvironmentError):
-            pt.io._get_amberhome()
-
 if __name__ == "__main__":
     unittest.main()
