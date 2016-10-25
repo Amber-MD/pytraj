@@ -15,6 +15,10 @@ class TestProgressLog(unittest.TestCase):
         """test_progress_log: simple test, just to make sure it is runnable
         """
         traj = pt.datafiles.load_tz2()
+
+        p = ProgressBarTrajectory(traj, style='basic', every=20)
+        pt.molsurf(p)
+
         p = ProgressBarTrajectory(traj, style='bar', every=20)
         pt.molsurf(p)
 
@@ -38,7 +42,6 @@ class TestProgressLog(unittest.TestCase):
             traj2.xyz
 
         p2 = ProgressBarTrajectory(traj2)
-        
         aa_eq(pt.rmsd(p2), pt.rmsd(traj2))
         
 
