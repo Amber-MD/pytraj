@@ -5,7 +5,6 @@ import unittest
 import numpy as np
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
-import nose.tools as nt
 
 
 class TestPCA(unittest.TestCase):
@@ -222,10 +221,10 @@ class TestPCA(unittest.TestCase):
         traj_on_disk = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
         ref = traj_on_disk[0]
 
-        nt.assert_true(traj_on_disk._transform_commands == [])
+        assert not traj_on_disk._transform_commands
 
         pt.pca(traj_on_disk, mask='@CA', ref=ref, fit=True)
-        nt.assert_true(traj_on_disk._transform_commands == [])
+        assert not traj_on_disk._transform_commands
 
 
 if __name__ == "__main__":

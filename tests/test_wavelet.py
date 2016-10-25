@@ -5,8 +5,6 @@ import unittest
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
 import sys
-import nose.tools as nt
-
 
 class TestWavelet(unittest.TestCase):
 
@@ -27,8 +25,7 @@ class TestWavelet(unittest.TestCase):
 
         # ignore Topology, COORDS dataset
         cpp_data = state.data[3:].to_dict()
-        nt.assert_equal(sorted(cpp_data.keys()),
-                        sorted(data.keys()))
+        assert sorted(cpp_data.keys()) == sorted(data.keys())
 
         for (k0, v0) in data.items():
             aa_eq(v0, cpp_data[k0])
