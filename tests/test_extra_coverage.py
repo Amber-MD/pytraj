@@ -69,22 +69,5 @@ class TestExtraCoverage(unittest.TestCase):
         with pytest.raises(EnvironmentError):
             pt.io._get_amberhome()
 
-    def test_testing_file_with_cpptrajhome(self):
-        from pytraj.testing import testing
-        os.environ['CPPTRAJHOME'] = '../cpptraj/'
-        testing.cpptraj_test_dir
-
-    def test_testing_file_without_cpptrajhome_but_having_amberhome(self):
-        from pytraj.testing import testing
-        os.environ['CPPTRAJHOME'] = ''
-        os.environ['AMBERHOME'] = './fake_amberhome/'
-        testing.cpptraj_test_dir
-
-    def test_testing_file_without_cpptrajhome_without_amberhome(self):
-        from pytraj.testing import testing
-        os.environ['CPPTRAJHOME'] = ''
-        os.environ['AMBERHOME'] = ''
-        testing.cpptraj_test_dir
-
 if __name__ == "__main__":
     unittest.main()
