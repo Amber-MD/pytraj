@@ -31,7 +31,7 @@ from glob import glob
 
 # local import
 from scripts.base_setup import (check_flag, write_version_py, get_version_info,
-                                get_cpptraj_info, do_what, check_cython,
+                                get_cpptraj_info, check_compile_cython, check_cython,
                                 get_package_data)
 from scripts.base_setup import (setenv_cc_cxx, get_ext_modules)
 from scripts.base_setup import CleanCommand, is_released, message_pip_need_cpptraj_home
@@ -70,15 +70,13 @@ if install_type:
 cpptraj_included = os.path.exists("./cpptraj/")
 pytraj_home = os.path.abspath(os.path.dirname(__file__))
 
-SetupTask = namedtuple('SetupTask', ['must_compile_c_extension'])
-must_compile_c_extension = do_what(pytraj_home, use_pip=use_pip)
-print('must_compile_c_extension = ', must_compile_c_extension)
-setup_task = SetupTask(must_compile_c_extension=must_compile_c_extension)
+compile_c_extension = check_compile_cython(pytraj_home, use_pip=use_pip)
+print('compile_c_extension = ', compile_c_extension)
 
 cpptraj_info = get_cpptraj_info(rootname=rootname,
                            cpptraj_home=cpptraj_home,
                            cpptraj_included=cpptraj_included,
-                           setup_task=setup_task,
+                           compile_c_extension=compile_c_extension,
                            pytraj_home=pytraj_home,
                            openmp_flag=openmp_flag,
                            use_amberlib=use_amberlib)
@@ -114,12 +112,12 @@ else:
 
 setenv_cc_cxx(cpptraj_info.ambertools_distro, extra_compile_args, extra_link_args)
 
-if not must_compile_c_extension:
+if not compile_c_extension:
     ext_modules = []
 else:
     ext_modules = get_ext_modules(cpptraj_info=cpptraj_info,
                     pytraj_src=pytraj_src,
-                    setup_task=setup_task,
+                    compile_c_extension=compile_c_extension,
                     is_released=is_released,
                     need_cython=need_cython,
                     cpptraj_included=cpptraj_included,
