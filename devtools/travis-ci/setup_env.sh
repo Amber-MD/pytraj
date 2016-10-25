@@ -30,6 +30,7 @@ pip install git+https://github.com/arose/nglview
 pip install coveralls
 pip install coverage
 pip install pytest-cov
+pip install nose
 pip install memory_profiler
 pip install psutil
 # pip install cclib # install error with current v1.5 (08/24/2016)
