@@ -849,8 +849,8 @@ def _format_convert(input_filename, output_filename):
         command.dispatch(state, 'writedata {} mydata '.format(output_filename))
 
 def _get_amberhome():
-    amberhome = os.getenv('AMBERHOME')
-    if amberhome is None:
+    amberhome = os.getenv('AMBERHOME', '')
+    if not amberhome:
         raise EnvironmentError("must set AMBERHOME")
     return amberhome
 
