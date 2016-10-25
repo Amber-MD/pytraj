@@ -1,0 +1,634 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Misc &#8212; pytraj 1.0.9 documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="pytraj 1.0.9 documentation" href="index.html" />
+    <link rel="next" title="API reference" href="api.html" />
+    <link rel="prev" title="Developer guide for pytraj" href="developer_guide.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.9</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_and_write.html">Supported file formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Misc</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="developer_guide.html" title="Previous Chapter: Developer guide for pytraj"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Developer gui...</span>
+    </a>
+  </li>
+  <li>
+    <a href="api.html" title="Next Chapter: API reference"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">API reference &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/misc.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="misc">
+<h1>Misc<a class="headerlink" href="#misc" title="Permalink to this headline">¶</a></h1>
+<p id="mybinder">Try <code class="docutils literal"><span class="pre">pytraj</span></code> online:</p>
+<a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img alt="http://mybinder.org/assets/images/logo.svg" height="50" src="http://mybinder.org/assets/images/logo.svg" /></a>
+<div class="custom-index container">
+<script type="text/javascript" src='_static/cindex.js'></script></div>
+<span class="target" id="module-pytraj.utils.tools"></span><p>seperate module, only use stdlib
+If want to use external package, import it inside the function</p>
+<p>This module stores all useful functions that does not fit to anywhere else.</p>
+<dl class="function">
+<dt id="pytraj.utils.tools.as_2darray">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">as_2darray</code><span class="sig-paren">(</span><em>traj_or_xyz</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.as_2darray" title="Permalink to this definition">¶</a></dt>
+<dd><p>reshape traj.xyz to 2d array, shape=(n_frames, n_atoms * 3)</p>
+<p class="rubric">Notes</p>
+<p>if <code class="docutils literal"><span class="pre">traj</span></code> is mutable, this method return a view of its coordinates.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">xyz</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(10, 5293, 3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">as_2darray</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(10, 15879)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">as_2darray</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">xyz</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(10, 15879)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.utils.tools.as_3darray">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">as_3darray</code><span class="sig-paren">(</span><em>xyz</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.as_3darray" title="Permalink to this definition">¶</a></dt>
+<dd><p>reshape xyz to 3d array, shape=(n_frames, n_atoms, 3)</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">xyz</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(10, 5293, 3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">xyz_2d</span> <span class="o">=</span> <span class="n">as_2darray</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">xyz_2d</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(10, 15879)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">as_3darray</span><span class="p">(</span><span class="n">xyz_2d</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(10, 5293, 3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">as_3darray</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">xyz</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">ValueError</span>: <span class="n">ndim must be 2</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.utils.tools.block_average">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">block_average</code><span class="sig-paren">(</span><em>self</em>, <em>n_chunk</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.block_average" title="Permalink to this definition">¶</a></dt>
+<dd><p>average by chunk</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">block_average</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">array([  4.5,  14.5,  24.5])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.utils.tools.compose">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">compose</code><span class="sig-paren">(</span><em>*funcs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.compose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Notes: copied from pandas (added pytraj&#8217;s example)
+see license in pytraj/license/</p>
+<p>Compose 2 or more callables</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.testing</span> <span class="k">import</span> <span class="n">get_fn</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">func</span> <span class="o">=</span> <span class="n">compose</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">calc_radgyr</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fname</span><span class="p">,</span> <span class="n">tname</span> <span class="o">=</span> <span class="n">get_fn</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">func</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">tname</span><span class="p">)</span>
+<span class="go">array([ 18.91114428,  18.93654996,  18.84969884,  18.90449256,</span>
+<span class="go">        18.8568644 ,  18.88917208,  18.9430491 ,  18.88878079,</span>
+<span class="go">        18.91669565,  18.87069722])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.utils.tools.concat_dict">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">concat_dict</code><span class="sig-paren">(</span><em>iterables</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.concat_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>concat dict</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dict_0</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_1</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">concat_dict</span><span class="p">((</span><span class="n">dict_0</span><span class="p">,</span> <span class="n">dict_1</span><span class="p">))</span>
+<span class="go">OrderedDict([(&#39;x&#39;, array([1, 2, 3, 4, 5]))])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.utils.tools.dict_to_ndarray">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">dict_to_ndarray</code><span class="sig-paren">(</span><em>dict_of_array</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.dict_to_ndarray" title="Permalink to this definition">¶</a></dt>
+<dd><p>convert OrderedDict to numpy array</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dslist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">dihedral_types</span><span class="o">=</span><span class="s1">&#39;phi psi&#39;</span><span class="p">,</span> <span class="n">resrange</span><span class="o">=</span><span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">dslist</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">[&#39;phi:2&#39;, &#39;psi:2&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_to_ndarray</span><span class="p">(</span><span class="n">dslist</span><span class="p">)</span>
+<span class="go">array([[-128.72617304, -109.44321317, -130.93278259, ..., -146.70146067,</span>
+<span class="go">        -121.58263643, -112.74485175],</span>
+<span class="go">       [ 150.11249102,  142.52303293,  131.11609265, ...,  123.44883266,</span>
+<span class="go">         141.18992429,  120.03168126]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.utils.tools.dir_">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">dir_</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.dir_" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a list of obj&#8217;s attributes with no private method</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.utils.tools.estimate_size">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">estimate_size</code><span class="sig-paren">(</span><em>n_frames</em>, <em>n_atoms</em>, <em>dtype='f8'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.estimate_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>return MB</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">estimate_size</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">n_frames</span><span class="p">,</span> <span class="n">traj</span><span class="o">.</span><span class="n">n_atoms</span><span class="p">,</span> <span class="s1">&#39;f8&#39;</span><span class="p">)</span>
+<span class="go">1.2114715576171875</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">estimate_size</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">n_frames</span><span class="p">,</span> <span class="n">traj</span><span class="o">.</span><span class="n">n_atoms</span><span class="p">,</span> <span class="s1">&#39;f4&#39;</span><span class="p">)</span>
+<span class="go">0.6057357788085938</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.utils.tools.flatten">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">flatten</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.flatten" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a single, flat list which contains all elements retrieved
+from the sequence and all recursively contained sub-sequences
+(iterables).</p>
+<p class="rubric">Notes</p>
+<p>from: <a class="reference external" href="http://kogs-www.informatik.uni-hamburg.de/~meine/python_tricks">http://kogs-www.informatik.uni-hamburg.de/~meine/python_tricks</a></p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">)]</span>
+<span class="go">[1, 2, [3, 4], (5, 6)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">flatten</span><span class="p">([[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">(</span><span class="mi">42</span><span class="p">,</span><span class="kc">None</span><span class="p">)],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="mi">7</span><span class="p">,</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">)])</span>
+<span class="go">[1, 2, 3, 42, None, 4, 5, 6, 7, 8, 9, 10]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.utils.tools.grep_key">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">grep_key</code><span class="sig-paren">(</span><em>self</em>, <em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.grep_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>grep key</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span>  <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dslist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">calc_multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;dataset&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">grep_key</span><span class="p">(</span><span class="n">dslist</span><span class="p">,</span> <span class="s1">&#39;psi&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([ 176.6155643 ,  166.82129574,  168.79510009,  167.42561927,</span>
+<span class="go">        151.18334989,  134.17610997,  160.99207908,  165.1126967 ,</span>
+<span class="go">        147.94332109,  145.42901383])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.utils.tools.groupby">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">groupby</code><span class="sig-paren">(</span><em>key</em>, <em>seq</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.groupby" title="Permalink to this definition">¶</a></dt>
+<dd><p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Alice&#39;</span><span class="p">,</span> <span class="s1">&#39;Bob&#39;</span><span class="p">,</span> <span class="s1">&#39;Charlie&#39;</span><span class="p">,</span> <span class="s1">&#39;Dan&#39;</span><span class="p">,</span> <span class="s1">&#39;Edith&#39;</span><span class="p">,</span> <span class="s1">&#39;Frank&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">groupby</span><span class="p">(</span><span class="nb">len</span><span class="p">,</span> <span class="n">names</span><span class="p">)</span>
+<span class="go">{3: [&#39;Bob&#39;, &#39;Dan&#39;], 5: [&#39;Alice&#39;, &#39;Edith&#39;, &#39;Frank&#39;], 7: [&#39;Charlie&#39;]}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.utils.tools.iteritems">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">iteritems</code><span class="sig-paren">(</span><em>d</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.iteritems" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator over the (key, value) pairs of a dictionary.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">}):</span> <span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="p">:</span> 
+<span class="go">x 3</span>
+<span class="go">y 4</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.utils.tools.make_fake_topology">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">make_fake_topology</code><span class="sig-paren">(</span><em>n_atoms</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.make_fake_topology" title="Permalink to this definition">¶</a></dt>
+<dd><p>make fake Topology, just for writing xyz array to supported formats
+(netcdf, dcd, trr, ...)</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">top</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">make_fake_topology</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">top</span><span class="o">.</span><span class="n">n_atoms</span>
+<span class="go">100</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">Topology</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">xyz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="mi">100</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj0</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">Trajectory</span><span class="p">(</span><span class="n">xyz</span><span class="o">=</span><span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">top</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s1">&#39;output/test.nc&#39;</span><span class="p">,</span> <span class="n">traj0</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;output/test.nc&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">top</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span><span class="o">.</span><span class="n">n_atoms</span>
+<span class="go">100</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.utils.tools.mean_and_error">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">mean_and_error</code><span class="sig-paren">(</span><em>a1</em>, <em>a2</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.mean_and_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate mean and error from two 1D array-like</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a0</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mean_and_error</span><span class="p">(</span><span class="n">a0</span><span class="p">,</span> <span class="n">a1</span><span class="p">)</span>
+<span class="go">(4.5, 0.5)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.utils.tools.merge_coordinates">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">merge_coordinates</code><span class="sig-paren">(</span><em>iterables</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.merge_coordinates" title="Permalink to this definition">¶</a></dt>
+<dd><p>merge_coordinates from frames</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">merge_coordinates</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span> 
+<span class="go">array([[ 15.55458927,  28.54844856,  17.18908691],</span>
+<span class="go">       [ 16.20579147,  29.07935524,  17.74959946],</span>
+<span class="go">       [ 14.95065975,  29.27651787,  16.83513069],</span>
+<span class="go">       ...,</span>
+<span class="go">       [ 34.09399796,   7.88915873,  15.6500845 ],</span>
+<span class="go">       [ 34.4160347 ,   8.53098011,  15.01716137],</span>
+<span class="go">       [ 34.29132462,   8.27471733,  16.50368881]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.utils.tools.merge_frame_from_trajs">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">merge_frame_from_trajs</code><span class="sig-paren">(</span><em>trajlist</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.merge_frame_from_trajs" title="Permalink to this definition">¶</a></dt>
+<dd><p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj0</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)[:</span><span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj1</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj2</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)[</span><span class="mi">6</span><span class="p">:</span><span class="mi">9</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">traj0</span><span class="o">.</span><span class="n">n_atoms</span><span class="p">,</span> <span class="n">traj1</span><span class="o">.</span><span class="n">n_atoms</span><span class="p">,</span> <span class="n">traj2</span><span class="o">.</span><span class="n">n_atoms</span><span class="p">)</span>
+<span class="go">5293 5293 5293</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">pt</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">merge_frame_from_trajs</span><span class="p">((</span><span class="n">traj0</span><span class="p">,</span> <span class="n">traj1</span><span class="p">,</span> <span class="n">traj2</span><span class="p">)):</span> <span class="nb">print</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+<span class="go">&lt;Frame with 15879 atoms&gt;</span>
+<span class="go">&lt;Frame with 15879 atoms&gt;</span>
+<span class="go">&lt;Frame with 15879 atoms&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.utils.tools.merge_frames">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">merge_frames</code><span class="sig-paren">(</span><em>iterables</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.merge_frames" title="Permalink to this definition">¶</a></dt>
+<dd><p>merge from frames to a single Frame. Order matters.
+Examples
+&#8212;&#8212;&#8211;
+&gt;&gt;&gt; import pytraj as pt
+&gt;&gt;&gt; traj = pt.load_sample_data(&#8216;tz2&#8217;)
+&gt;&gt;&gt; traj[0]
+&lt;Frame with 5293 atoms&gt;
+&gt;&gt;&gt; merge_frames(traj(0, 3))
+&lt;Frame with 15879 atoms&gt;</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.utils.tools.merge_trajs">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">merge_trajs</code><span class="sig-paren">(</span><em>traj1</em>, <em>traj2</em>, <em>start_new_mol=True</em>, <em>n_frames=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.merge_trajs" title="Permalink to this definition">¶</a></dt>
+<dd><p class="rubric">Notes</p>
+<p>Code might be changed</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj1</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s1">&#39;ala3&#39;</span><span class="p">)[:</span><span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj2</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)[:</span><span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj3</span> <span class="o">=</span> <span class="n">merge_trajs</span><span class="p">(</span><span class="n">traj1</span><span class="p">,</span> <span class="n">traj2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># from frame_iter for saving memory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj3</span> <span class="o">=</span> <span class="n">merge_trajs</span><span class="p">((</span><span class="n">traj1</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">traj1</span><span class="o">.</span><span class="n">top</span><span class="p">),</span> <span class="p">(</span><span class="n">traj2</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">traj2</span><span class="o">.</span><span class="n">top</span><span class="p">),</span> <span class="n">n_frames</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># raise error if not having the same n_frames</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj4</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)[:]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj4</span><span class="o">.</span><span class="n">n_frames</span>
+<span class="go">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj1</span><span class="o">.</span><span class="n">n_frames</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">merge_trajs</span><span class="p">(</span><span class="n">traj1</span><span class="p">,</span> <span class="n">traj4</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">ValueError</span>: <span class="n">must have the same n_frames</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.utils.tools.moving_average">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">moving_average</code><span class="sig-paren">(</span><em>data</em>, <em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.moving_average" title="Permalink to this definition">¶</a></dt>
+<dd><p>moving average</p>
+<p class="rubric">Notes</p>
+<p>from <a class="reference external" href="http://stackoverflow.com/questions/11352047/finding-moving-average-from-data-points-in-python">stackoverflow</a></p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">moving_average</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">array([ 0.5,  1.5,  2.5,  3.5,  5. ])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.utils.tools.n_grams">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">n_grams</code><span class="sig-paren">(</span><em>a</em>, <em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.n_grams" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>a</strong> : sequence</p>
+<p><strong>n</strong> : number of elements</p>
+<p><strong>asarray</strong> : bool, default False</p>
+<blockquote class="last">
+<div><p>if False: return an iterator
+if True: return a numpy array</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>adapted from: <a class="reference external" href="http://sahandsaba.com/thirty-python-language-features-and-tricks-you-may-not-know.html">http://sahandsaba.com/thirty-python-language-features-and-tricks-you-may-not-know.html</a></p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">n_grams</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span> <span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="mi">2</span><span class="p">))</span>
+<span class="go">[(2, 3), (3, 4), (4, 5)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.utils.tools.read_gaussian_output">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">read_gaussian_output</code><span class="sig-paren">(</span><em>filename=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.read_gaussian_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a <cite>pytraj.trajectory.Trajectory</cite> object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>fname</strong> : str, filename</p>
+<p><strong>top</strong> : {str, Topology}, optional, default None</p>
+<blockquote class="last">
+<div><p>pytraj.Topology or a filename or None
+if None, use <cite>antechamber</cite> to generate mol2 file, need set $AMBERHOME env</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.utils.tools.read_to_array">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">read_to_array</code><span class="sig-paren">(</span><em>fname</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.read_to_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>read text from file to numpy array</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.utils.tools.rmsd">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">rmsd</code><span class="sig-paren">(</span><em>a1</em>, <em>a2</em>, <em>flatten=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.rmsd" title="Permalink to this definition">¶</a></dt>
+<dd><p>rmsd for two array with the same shape</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>a1, a2: np.ndarray</strong></p>
+<p><strong>flatten</strong> : bool, default True</p>
+<blockquote class="last">
+<div><p>if True: always flatten two input arrays</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>This method is different from <code class="docutils literal"><span class="pre">pytraj.rmsd</span></code></p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t0</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s1">&#39;ala3&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t1</span> <span class="o">=</span> <span class="n">t0</span><span class="p">[:]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t1</span><span class="o">.</span><span class="n">xyz</span> <span class="o">+=</span> <span class="mf">1.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rmsd</span><span class="p">(</span><span class="n">t0</span><span class="o">.</span><span class="n">xyz</span><span class="p">,</span> <span class="n">t1</span><span class="o">.</span><span class="n">xyz</span><span class="p">)</span>
+<span class="go">1.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.utils.tools.rmsd_1darray">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">rmsd_1darray</code><span class="sig-paren">(</span><em>a1</em>, <em>a2</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.rmsd_1darray" title="Permalink to this definition">¶</a></dt>
+<dd><p>rmsd of a1 and a2</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a0</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a1</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.4</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rmsd_1darray</span><span class="p">(</span><span class="n">a0</span><span class="p">,</span> <span class="n">a1</span><span class="p">)</span>
+<span class="go">0.3872983346207417</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rmsd_1darray</span><span class="p">(</span><span class="n">a0</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">ValueError</span>: <span class="n">must have the same shape</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.utils.tools.split">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">split</code><span class="sig-paren">(</span><em>data</em>, <em>n_chunks</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.split" title="Permalink to this definition">¶</a></dt>
+<dd><p>split <cite>self.data</cite> to n_chunks</p>
+<p class="rubric">Notes</p>
+<p>same as numpy.array_split</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">split</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span> <span class="mi">3</span><span class="p">):</span> <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="go">[0 1 2 3 4 5 6 7 8 9]</span>
+<span class="go">[10 11 12 13 14 15 16 17 18 19]</span>
+<span class="go">[20 21 22 23 24 25 26 27 28 29]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.utils.tools.split_and_write_traj">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">split_and_write_traj</code><span class="sig-paren">(</span><em>self</em>, <em>n_chunks=None</em>, <em>root_name='trajx'</em>, <em>ext='nc'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.split_and_write_traj" title="Permalink to this definition">¶</a></dt>
+<dd><p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">split_and_write_traj</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">n_chunks</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">root_name</span><span class="o">=</span><span class="s1">&#39;output/trajx&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.utils.tools.split_traj_by_residues">
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">split_traj_by_residues</code><span class="sig-paren">(</span><em>traj</em>, <em>start=0</em>, <em>stop=-1</em>, <em>step=1</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.split_traj_by_residues" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a generator</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_rna</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">split_traj_by_residues</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t0</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t0</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">n_residues</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015-2016, pytraj developers.<br/>
+      Last updated on Oct 25, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

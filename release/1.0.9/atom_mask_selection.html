@@ -1,0 +1,459 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Atom mask selection &#8212; pytraj 1.0.9 documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="pytraj 1.0.9 documentation" href="index.html" />
+    <link rel="next" title="Parallel calculation" href="parallel.html" />
+    <link rel="prev" title="Modify trajectory" href="modify_traj.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.9</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_and_write.html">Supported file formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory.html">Trajectory</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Atom mask selection</a><ul>
+<li><a class="reference internal" href="#amber-mask-syntax">Amber mask syntax</a><ul>
+<li><a class="reference internal" href="#residue-selections">Residue selections</a></li>
+<li><a class="reference internal" href="#atom-selections">Atom selections</a></li>
+<li><a class="reference internal" href="#atom-type-selections">Atom type selections</a></li>
+<li><a class="reference internal" href="#logical-operators">Logical operators</a></li>
+<li><a class="reference internal" href="#wild-cards">Wild-cards</a></li>
+<li><a class="reference internal" href="#distance-based-selections">Distance-based selections</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#examples-atom-mask-selection-for-trajectory">Examples: Atom mask selection for <code class="docutils literal"><span class="pre">Trajectory</span></code></a></li>
+<li><a class="reference internal" href="#example-atom-mask-selection-for-pytraj-topology">Example: Atom mask selection for <code class="docutils literal"><span class="pre">pytraj.Topology</span></code></a><ul>
+<li><a class="reference internal" href="#get-atom-indices">Get atom_indices</a></li>
+<li><a class="reference internal" href="#get-new-topology">Get new <code class="docutils literal"><span class="pre">Topology</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="modify_traj.html" title="Previous Chapter: Modify trajectory"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Modify trajec...</span>
+    </a>
+  </li>
+  <li>
+    <a href="parallel.html" title="Next Chapter: Parallel calculation"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Parallel calc... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/atom_mask_selection.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="atom-mask-selection">
+<h1><a class="toc-backref" href="#id1">Atom mask selection</a><a class="headerlink" href="#atom-mask-selection" title="Permalink to this headline">¶</a></h1>
+<p>try <code class="docutils literal"><span class="pre">pytraj</span></code> online:</p>
+<p id="mybinder">Try <code class="docutils literal"><span class="pre">pytraj</span></code> online:</p>
+<a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img alt="http://mybinder.org/assets/images/logo.svg" height="50" src="http://mybinder.org/assets/images/logo.svg" /></a>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#atom-mask-selection" id="id1">Atom mask selection</a><ul>
+<li><a class="reference internal" href="#amber-mask-syntax" id="id2">Amber mask syntax</a><ul>
+<li><a class="reference internal" href="#residue-selections" id="id3">Residue selections</a></li>
+<li><a class="reference internal" href="#atom-selections" id="id4">Atom selections</a></li>
+<li><a class="reference internal" href="#atom-type-selections" id="id5">Atom type selections</a></li>
+<li><a class="reference internal" href="#logical-operators" id="id6">Logical operators</a></li>
+<li><a class="reference internal" href="#wild-cards" id="id7">Wild-cards</a></li>
+<li><a class="reference internal" href="#distance-based-selections" id="id8">Distance-based selections</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#examples-atom-mask-selection-for-trajectory" id="id9">Examples: Atom mask selection for <code class="docutils literal"><span class="pre">Trajectory</span></code></a></li>
+<li><a class="reference internal" href="#example-atom-mask-selection-for-pytraj-topology" id="id10">Example: Atom mask selection for <code class="docutils literal"><span class="pre">pytraj.Topology</span></code></a><ul>
+<li><a class="reference internal" href="#get-atom-indices" id="id11">Get atom_indices</a></li>
+<li><a class="reference internal" href="#get-new-topology" id="id12">Get new <code class="docutils literal"><span class="pre">Topology</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Section describing <code class="docutils literal"><span class="pre">Amber</span> <span class="pre">mask</span> <span class="pre">syntax</span></code> is direct excerpt from <a class="reference external" href="http://parmed.github.io/ParmEd/html/amber.html#amber-mask-syntax">parmed&#8217;s website</a></p>
+</div>
+<div class="section" id="amber-mask-syntax">
+<h2><a class="toc-backref" href="#id2">Amber mask syntax</a><a class="headerlink" href="#amber-mask-syntax" title="Permalink to this headline">¶</a></h2>
+<p>The Amber programs use a selection syntax very similar to Chimera&#8217;s selection
+syntax, referred to as an <em>Amber mask</em>. The character <code class="docutils literal"><span class="pre">:</span></code> is used for residue
+selections and <code class="docutils literal"><span class="pre">&#64;</span></code> is used for atom selections.  Both numbers and names are
+supported in the atom and residue selections (where the serial numbers range
+from 1 to <em>N</em>, where <em>N</em> is either the total number of atoms or residues,
+depending on what is being selected).</p>
+<p>The atom/residue name or number list can be specified as a comma-delimited list
+of entries (<em>inclusive</em> number ranges are also supported).  You can also use
+logical operators <code class="docutils literal"><span class="pre">&amp;</span></code> (and), <code class="docutils literal"><span class="pre">|</span></code> (or), and <code class="docutils literal"><span class="pre">!</span></code> (not) and group expressions
+with parenthesis to denote order-of-operations.</p>
+<div class="section" id="residue-selections">
+<h3><a class="toc-backref" href="#id3">Residue selections</a><a class="headerlink" href="#residue-selections" title="Permalink to this headline">¶</a></h3>
+<p>Examples of residue selections, accompanied by comments annotating what is being
+selected, is shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="o">-</span><span class="mi">10</span>    <span class="n">Select</span> <span class="n">residues</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="ow">and</span> <span class="mi">10</span>
+<span class="p">:</span><span class="n">ALA</span><span class="p">,</span><span class="n">LYS</span><span class="p">,</span><span class="mi">10</span>  <span class="n">Select</span> <span class="nb">all</span> <span class="n">residues</span> <span class="k">with</span> <span class="n">names</span> <span class="n">ALA</span> <span class="ow">or</span> <span class="n">LYS</span><span class="p">,</span> <span class="ow">and</span> <span class="n">residue</span> <span class="mi">10</span>
+<span class="p">:</span><span class="mi">1</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="o">-</span><span class="mi">10</span>    <span class="n">Select</span> <span class="n">residues</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="ow">and</span> <span class="mi">10</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="atom-selections">
+<h3><a class="toc-backref" href="#id4">Atom selections</a><a class="headerlink" href="#atom-selections" title="Permalink to this headline">¶</a></h3>
+<p>Examples of residue selections, accompanied by comments annotating what is being
+selected, is shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@1</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span><span class="mi">150</span><span class="o">-</span><span class="mi">160</span>   <span class="n">Select</span> <span class="n">the</span> <span class="n">first</span> <span class="mi">100</span> <span class="n">atoms</span> <span class="k">as</span> <span class="n">well</span> <span class="k">as</span> <span class="n">the</span> <span class="mi">11</span> <span class="n">atoms</span> <span class="mi">150</span><span class="o">-</span><span class="mi">160</span>
+<span class="nd">@CA</span><span class="p">,</span><span class="n">C</span><span class="p">,</span><span class="mi">10</span><span class="o">-</span><span class="mi">15</span>      <span class="n">Select</span> <span class="nb">all</span> <span class="n">atoms</span> <span class="n">whose</span> <span class="n">names</span> <span class="n">are</span> <span class="n">CA</span> <span class="ow">or</span> <span class="n">C</span><span class="p">,</span> <span class="ow">and</span> <span class="mi">6</span> <span class="n">atoms</span> <span class="mi">10</span><span class="o">-</span><span class="mi">15</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="atom-type-selections">
+<h3><a class="toc-backref" href="#id5">Atom type selections</a><a class="headerlink" href="#atom-type-selections" title="Permalink to this headline">¶</a></h3>
+<p>In some cases, it is more succinct to select by atom <em>type</em> name, rather than
+atom name. Be careful though! Atom type names can change from force field to
+force field, and are considered an implementation detail.  While atom <em>names</em>
+should never change (and are based on the PDB standard, typically), atom <em>type</em>
+names can be set and/or changed to whatever the force field developer wants.</p>
+<p>You have been warned. If you wish to push on, though, you can use the <code class="docutils literal"><span class="pre">&#64;%</span></code>
+characters to select from type names rather than atom names. Note, no indices
+(or index ranges) can be used, as atom types have no defined order.  Examples
+are shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">@%</span><span class="n">CT</span><span class="p">,</span><span class="n">CX</span>         <span class="n">Select</span> <span class="nb">all</span> <span class="n">atoms</span> <span class="n">whose</span> <span class="n">types</span> <span class="n">are</span> <span class="n">CT</span> <span class="ow">or</span> <span class="n">CX</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="logical-operators">
+<h3><a class="toc-backref" href="#id6">Logical operators</a><a class="headerlink" href="#logical-operators" title="Permalink to this headline">¶</a></h3>
+<p>You often want to select certain atoms from certain residues. You can use the
+<code class="docutils literal"><span class="pre">&amp;</span></code> binary operator to do this, as shown in examples below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">(:</span><span class="mi">1</span><span class="o">-</span><span class="mi">100</span><span class="p">)</span><span class="o">&amp;</span><span class="p">(</span><span class="nd">@CA</span><span class="p">)</span>      <span class="n">Selects</span> <span class="n">atoms</span> <span class="n">named</span> <span class="n">CA</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">first</span> <span class="mi">100</span> <span class="n">residues</span>
+<span class="p">(:</span><span class="mi">1</span><span class="o">-</span><span class="mi">100</span><span class="p">)</span><span class="o">&amp;</span><span class="p">(</span><span class="nd">@CA</span><span class="p">,</span><span class="n">CB</span><span class="p">)</span>   <span class="n">Selects</span> <span class="n">atoms</span> <span class="n">named</span> <span class="n">CA</span> <span class="ow">or</span> <span class="n">CB</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">first</span> <span class="mi">100</span> <span class="n">residues</span>
+<span class="p">(:</span><span class="n">ASP</span><span class="p">,</span><span class="n">GLU</span><span class="p">)</span><span class="o">&amp;</span><span class="p">(</span><span class="nd">@CA</span><span class="p">)</span>    <span class="n">Selects</span> <span class="n">atoms</span> <span class="n">named</span> <span class="n">CA</span> <span class="ow">in</span> <span class="nb">all</span> <span class="n">ASP</span> <span class="ow">or</span> <span class="n">GLU</span> <span class="n">residues</span>
+</pre></div>
+</div>
+<p>This is so common, you can use a simple shortcut, demonstrated below, giving
+equivalent expressions to the examples above:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="mi">1</span><span class="o">-</span><span class="mi">100</span><span class="nd">@CA</span>
+<span class="p">:</span><span class="mi">1</span><span class="o">-</span><span class="mi">100</span><span class="nd">@CA</span><span class="p">,</span><span class="n">CB</span>
+<span class="p">:</span><span class="n">ASP</span><span class="p">,</span><span class="n">GLU</span><span class="nd">@CA</span>
+</pre></div>
+</div>
+<p>You can also expand your selection using the <code class="docutils literal"><span class="pre">|</span></code> (or) operator. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="mi">1</span><span class="o">-</span><span class="mi">100</span><span class="o">|</span><span class="nd">@CA</span>      <span class="n">Selects</span> <span class="nb">all</span> <span class="n">atoms</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">first</span> <span class="mi">100</span> <span class="n">residues</span> <span class="n">AND</span> <span class="nb">all</span> <span class="n">atoms</span> <span class="n">named</span> <span class="n">CA</span>
+</pre></div>
+</div>
+<p>Don&#8217;t get confused between what the <code class="docutils literal"><span class="pre">&amp;</span></code> (and) and <code class="docutils literal"><span class="pre">|</span></code> (or) operators do.
+The above example selects all atoms if it satisfies the criteria of being in the
+first 100 residues <em>or</em> if it satisfies the criteria of having the name <code class="docutils literal"><span class="pre">CA</span></code>,
+meaning it selects all atoms in the first 100 residues <em>and</em> all atoms named
+<code class="docutils literal"><span class="pre">CA</span></code>.</p>
+<p>You can also select all atoms <em>except</em> a particular selection:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>!(:LIG)         Selects all atoms that are NOT in a residue named LIG
+</pre></div>
+</div>
+</div>
+<div class="section" id="wild-cards">
+<h3><a class="toc-backref" href="#id7">Wild-cards</a><a class="headerlink" href="#wild-cards" title="Permalink to this headline">¶</a></h3>
+<p>Let&#8217;s suppose you want to select all hydrogen atoms. These atoms usually have
+many names, but they almost always start with &#8220;H&#8221;, so we would like a way to
+select all atoms that start with the letter &#8220;H&#8221;.  We can do this with
+<em>wild-cards</em>, which is the <code class="docutils literal"><span class="pre">=</span></code> character in Amber masks, and works for both
+atoms and residues. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">AS</span><span class="o">=</span><span class="nd">@H</span><span class="o">=</span>   <span class="n">Select</span> <span class="nb">all</span> <span class="n">atoms</span> <span class="n">whose</span> <span class="n">residue</span> <span class="n">starts</span> <span class="k">with</span> <span class="n">AS</span> <span class="n">AND</span> <span class="n">atom</span> <span class="n">name</span> <span class="n">starts</span> <span class="k">with</span> <span class="n">H</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="distance-based-selections">
+<h3><a class="toc-backref" href="#id8">Distance-based selections</a><a class="headerlink" href="#distance-based-selections" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes you also want to be able to select all atoms within a certain distance
+(or all atoms within a <em>residue</em> that is a certain distance) from a specific set
+of atoms.  For this, the <code class="docutils literal"><span class="pre">&lt;</span></code> and <code class="docutils literal"><span class="pre">&gt;</span></code> operators are used to denote distances
+that are less than or greater than a particular value, respectively.</p>
+<p>This is probably the most complex part of the Amber mask syntax, but it is also
+quite powerful.  In addition to the <code class="docutils literal"><span class="pre">&lt;</span></code> and <code class="docutils literal"><span class="pre">&gt;</span></code> operators, you must use
+either <code class="docutils literal"><span class="pre">&#64;</span></code> or <code class="docutils literal"><span class="pre">:</span></code> to indicate whether you want to select individual <em>atoms</em>
+or whole <em>residues</em> satisfying the distance.  When selecting residues, the whole
+residue is selected if <em>any atom</em> satisfies the distance criteria.  The general
+syntax is <code class="docutils literal"><span class="pre">SELECTION&lt;:DISTANCE</span></code>, where <code class="docutils literal"><span class="pre">SELECTION</span></code> is an Amber mask (<code class="docutils literal"><span class="pre">:</span></code>
+can also be <code class="docutils literal"><span class="pre">&#64;</span></code> to select only atoms), and <code class="docutils literal"><span class="pre">DISTANCE</span></code> is a floating point
+distance that defines the criteria.  Examples are shown below with annotations:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="mi">8</span><span class="o">&lt;</span><span class="nd">@5</span><span class="o">.</span><span class="mi">0</span>     <span class="n">All</span> <span class="n">atoms</span> <span class="n">that</span> <span class="n">are</span> <span class="n">LESS</span> <span class="n">THAN</span> <span class="mi">5</span> <span class="n">Angstroms</span> <span class="n">away</span> <span class="kn">from</span> <span class="nn">any</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">residue</span> <span class="mi">8</span>
+<span class="p">:</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">:</span><span class="mf">10.0</span>    <span class="n">All</span> <span class="n">atoms</span> <span class="ow">in</span> <span class="nb">any</span> <span class="n">residue</span> <span class="ow">in</span> <span class="n">which</span> <span class="n">one</span> <span class="n">atom</span> <span class="ow">is</span> <span class="n">MORE</span> <span class="n">THAN</span> <span class="mi">10</span> <span class="n">angstroms</span> <span class="n">away</span> <span class="kn">from</span> <span class="nn">residue</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="examples-atom-mask-selection-for-trajectory">
+<h2><a class="toc-backref" href="#id9">Examples: Atom mask selection for <code class="docutils literal"><span class="pre">Trajectory</span></code></a><a class="headerlink" href="#examples-atom-mask-selection-for-trajectory" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+
+<span class="gp">In [2]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;data/tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;data/tz2.ortho.parm7&#39;</span><span class="p">)</span>
+
+<span class="gp">In [3]: </span><span class="k">print</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+<span class="go">pytraj.TrajectoryIterator, 10 frames: </span>
+<span class="go">Size: 0.001183 (GB)</span>
+<span class="go">&lt;Topology: 5293 atoms, 1704 residues, 1692 mols, PBC with box type = ortho&gt;</span>
+<span class="go">           </span>
+
+<span class="gp">In [4]: </span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">residue_names</span>
+<span class="go">                                                                                                                                                   Out[4]: {&#39;ASN&#39;, &#39;GLU&#39;, &#39;GLY&#39;, &#39;LYS&#39;, &#39;NHE&#39;, &#39;SER&#39;, &#39;THR&#39;, &#39;TRP&#39;, &#39;WAT&#39;}</span>
+
+<span class="gp">In [5]: </span><span class="nb">list</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">atom_names</span><span class="p">)[:</span><span class="mi">20</span><span class="p">]</span>
+<span class="go">                                                                                                                                                                                                                           Out[5]: </span>
+<span class="go">[&#39;HB3&#39;,</span>
+<span class="go"> &#39;CH2&#39;,</span>
+<span class="go"> &#39;HE3&#39;,</span>
+<span class="go"> &#39;OG1&#39;,</span>
+<span class="go"> &#39;CZ3&#39;,</span>
+<span class="go"> &#39;HG&#39;,</span>
+<span class="go"> &#39;HZ2&#39;,</span>
+<span class="go"> &#39;HG3&#39;,</span>
+<span class="go"> &#39;HG21&#39;,</span>
+<span class="go"> &#39;HD22&#39;,</span>
+<span class="go"> &#39;HD21&#39;,</span>
+<span class="go"> &#39;HD2&#39;,</span>
+<span class="go"> &#39;HB2&#39;,</span>
+<span class="go"> &#39;HG2&#39;,</span>
+<span class="go"> &#39;OE1&#39;,</span>
+<span class="go"> &#39;C&#39;,</span>
+<span class="go"> &#39;CB&#39;,</span>
+<span class="go"> &#39;HD3&#39;,</span>
+<span class="go"> &#39;OD1&#39;,</span>
+<span class="go"> &#39;HN1&#39;]</span>
+
+<span class="c"># Residue selections</span>
+<span class="gp">In [6]: </span><span class="n">traj</span><span class="p">[</span><span class="s1">&#39;:1,3,6-10&#39;</span><span class="p">]</span>  <span class="c1"># Select residues 1, 3, 6, 7, 8, 9, and 10</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                   Out[6]: </span>
+<span class="go">pytraj.Trajectory, 10 frames: </span>
+<span class="go">Size: 0.000024 (GB)</span>
+<span class="go">&lt;Topology: 108 atoms, 7 residues, 3 mols, PBC with box type = ortho&gt;</span>
+<span class="go">           </span>
+
+<span class="gp">In [7]: </span><span class="n">traj</span><span class="p">[</span><span class="s1">&#39;:ALA,LYS,10&#39;</span><span class="p">]</span>  <span class="c1"># Select all residues with names ALA or LYS, and residue 10</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Out[7]: </span>
+<span class="go">pytraj.Trajectory, 10 frames: </span>
+<span class="go">Size: 0.000013 (GB)</span>
+<span class="go">&lt;Topology: 58 atoms, 3 residues, 3 mols, PBC with box type = ortho&gt;</span>
+<span class="go">           </span>
+
+<span class="c"># Atom selections</span>
+<span class="gp">In [8]: </span><span class="n">traj</span><span class="p">[</span><span class="s1">&#39;@1-100,150-160&#39;</span><span class="p">]</span> <span class="c1">#  Select the first 100 atoms as well as the 11 atoms 150-160</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Out[8]: </span>
+<span class="go">pytraj.Trajectory, 10 frames: </span>
+<span class="go">Size: 0.000025 (GB)</span>
+<span class="go">&lt;Topology: 111 atoms, 8 residues, 4 mols, PBC with box type = ortho&gt;</span>
+<span class="go">           </span>
+
+<span class="gp">In [9]: </span><span class="n">traj</span><span class="p">[</span><span class="s1">&#39;@CA,C,10-15&#39;</span><span class="p">]</span> <span class="c1"># Select all atoms whose names are CA or C, and 6 atoms 10-15</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Out[9]: </span>
+<span class="go">pytraj.Trajectory, 10 frames: </span>
+<span class="go">Size: 0.000006 (GB)</span>
+<span class="go">&lt;Topology: 29 atoms, 12 residues, 0 mols, PBC with box type = ortho&gt;</span>
+<span class="go">           </span>
+
+<span class="c"># Logical operators</span>
+<span class="gp">In [10]: </span><span class="n">traj</span><span class="p">[</span><span class="s1">&#39;(:1-100)&amp;(@CA)&#39;</span><span class="p">]</span> <span class="c1"># Selects atoms named CA in the first 100 residues</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      Out[10]: </span>
+<span class="go">pytraj.Trajectory, 10 frames: </span>
+<span class="go">Size: 0.000003 (GB)</span>
+<span class="go">&lt;Topology: 12 atoms, 12 residues, 12 mols, PBC with box type = ortho&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-atom-mask-selection-for-pytraj-topology">
+<h2><a class="toc-backref" href="#id10">Example: Atom mask selection for <code class="docutils literal"><span class="pre">pytraj.Topology</span></code></a><a class="headerlink" href="#example-atom-mask-selection-for-pytraj-topology" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="get-atom-indices">
+<h3><a class="toc-backref" href="#id11">Get atom_indices</a><a class="headerlink" href="#get-atom-indices" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [11]: </span><span class="n">top</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span>
+
+<span class="c"># Topology can be loaded alone by:</span>
+<span class="c">#top = pt.load_topology(&#39;data/tz2.ortho.parm7&#39;)</span>
+<span class="gp">In [12]: </span><span class="n">top</span>
+<span class="gr">Out[12]: </span><span class="o">&lt;</span><span class="n">Topology</span><span class="p">:</span> <span class="mi">5293</span> <span class="n">atoms</span><span class="p">,</span> <span class="mi">1704</span> <span class="n">residues</span><span class="p">,</span> <span class="mi">1692</span> <span class="n">mols</span><span class="p">,</span> <span class="n">PBC</span> <span class="k">with</span> <span class="n">box</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">ortho</span><span class="o">&gt;</span>
+
+<span class="c"># Residue selections, return atom_indices (0-based)</span>
+<span class="gp">In [13]: </span><span class="n">top</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;:1,3,6-10&#39;</span><span class="p">)</span>
+<span class="go">                                                                                     Out[13]: array([  0,   1,   2, ..., 168, 169, 170])</span>
+
+<span class="gp">In [14]: </span><span class="n">top</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;:ALA,LYS,10&#39;</span><span class="p">)</span>
+<span class="go">                                                                                                                                         Out[14]: array([111, 112, 113, ..., 214, 215, 216])</span>
+
+<span class="gp">In [15]: </span><span class="n">top</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;@1-100,150-160&#39;</span><span class="p">)</span>
+<span class="go">                                                                                                                                                                                             Out[15]: array([  0,   1,   2, ..., 157, 158, 159])</span>
+
+<span class="gp">In [16]: </span><span class="n">top</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;(:1-100)&amp;(@CA)&#39;</span><span class="p">)</span>
+<span class="go">                                                                                                                                                                                                                                                 Out[16]: array([  4,  15,  39, ..., 159, 173, 197])</span>
+
+<span class="c"># select based on distance, need to set reference frame</span>
+<span class="gp">In [17]: </span><span class="n">top</span><span class="o">.</span><span class="n">set_distance_mask_reference</span><span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="c"># pick all atoms around residue 1, distance cutoff &lt; 5.0 Angstrom</span>
+<span class="gp">In [18]: </span><span class="n">top</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;:1 &lt;:5.0&#39;</span><span class="p">)</span>
+<span class="gr">Out[18]: </span><span class="n">array</span><span class="p">([</span>   <span class="mi">0</span><span class="p">,</span>    <span class="mi">1</span><span class="p">,</span>    <span class="mi">2</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mi">4732</span><span class="p">,</span> <span class="mi">4733</span><span class="p">,</span> <span class="mi">4734</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-new-topology">
+<h3><a class="toc-backref" href="#id12">Get new <code class="docutils literal"><span class="pre">Topology</span></code></a><a class="headerlink" href="#get-new-topology" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [19]: </span><span class="n">top</span><span class="p">[</span><span class="s1">&#39;:1,3,6-10&#39;</span><span class="p">]</span>
+<span class="gr">Out[19]: </span><span class="o">&lt;</span><span class="n">Topology</span><span class="p">:</span> <span class="mi">108</span> <span class="n">atoms</span><span class="p">,</span> <span class="mi">7</span> <span class="n">residues</span><span class="p">,</span> <span class="mi">3</span> <span class="n">mols</span><span class="p">,</span> <span class="n">PBC</span> <span class="k">with</span> <span class="n">box</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">ortho</span><span class="o">&gt;</span>
+
+<span class="gp">In [20]: </span><span class="n">top</span><span class="p">[</span><span class="s1">&#39;:ALA,LYS,10&#39;</span><span class="p">]</span>
+<span class="go">                                                                              Out[20]: &lt;Topology: 58 atoms, 3 residues, 3 mols, PBC with box type = ortho&gt;</span>
+
+<span class="gp">In [21]: </span><span class="n">top</span><span class="p">[</span><span class="s1">&#39;@1-100,150-160&#39;</span><span class="p">]</span>
+<span class="go">                                                                                                                                                           Out[21]: &lt;Topology: 111 atoms, 8 residues, 4 mols, PBC with box type = ortho&gt;</span>
+
+<span class="gp">In [22]: </span><span class="n">top</span><span class="p">[</span><span class="s1">&#39;(:1-100)&amp;(@CA)&#39;</span><span class="p">]</span>
+<span class="go">                                                                                                                                                                                                                                         Out[22]: &lt;Topology: 12 atoms, 12 residues, 12 mols, PBC with box type = ortho&gt;</span>
+
+<span class="gp">In [23]: </span><span class="n">top</span><span class="p">[</span><span class="s1">&#39;:1 &lt;:5.0&#39;</span><span class="p">]</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                        Out[23]: &lt;Topology: 189 atoms, 32 residues, 27 mols, PBC with box type = ortho&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015-2016, pytraj developers.<br/>
+      Last updated on Oct 25, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
