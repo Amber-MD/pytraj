@@ -4,21 +4,12 @@
 git clone https://github.com/hainm/ambermini_test
 mv ambermini_test ./tests/energies/
 
-if [ "$TRAVIS_OS_NAME" = "osx" ]; then
-    wget http://repo.continuum.io/miniconda/Miniconda-3.7.0-MacOSX-x86_64.sh -O miniconda.sh;
-else
-    wget http://repo.continuum.io/miniconda/Miniconda-3.7.0-Linux-x86_64.sh -O miniconda.sh;
-fi
-
+wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
 bash miniconda.sh -b
 
 export PATH=$HOME/miniconda/bin:$PATH
+ls $HOME/miniconda/bin/
 conda install --yes conda-build jinja2 anaconda-client pip
-
-# create myenv
-conda create --yes -n myenv python=$PYTHON_VERSION nomkl
-
-source activate myenv
 conda install -yes numpy cython h5py libnetcdf
 conda install --yes anaconda-client coverage pyflakes jupyter notebook
 
