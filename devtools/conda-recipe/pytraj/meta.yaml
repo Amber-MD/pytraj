@@ -1,6 +1,11 @@
+{% set name = "pytraj-dev" %}
+{% set version = os.getenv('VERSION', 'v1.1.10.dev') %}
+{% set short_version = version[1:] %}
+{% set cpptraj_version = '4.3.2.1' %}
+
 package:
-  name: pytraj-dev
-  version: !!str 0.1.2.dev
+  name: {{ name }}
+  version: !!str {{ short_version }}
 
 requirements:
   build:
@@ -14,7 +19,11 @@ requirements:
     - libnetcdf
     - numpy
 
+test:
+  commands:
+    - python -c 'import pytraj as pt; pt.show_versions(); from pytraj.testing import get_remd_fn'
+
 about:
   home: http://github.com/amber-md/pytraj
-  license: BSD
-  summary: Python wrapper for cpptraj - a package for data analysis of MD simulations
+  license: GPL v3
+  summary: Python API for cpptraj - a package for data analysis of MD simulations
