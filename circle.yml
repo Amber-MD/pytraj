@@ -1,0 +1,15 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker pull condaforge/linux-anvil
+
+test:
+  override:
+    - ./ci_support/run_docker_build.sh
+  post:
+    - mkdir $CIRCLE_ARTIFACTS/pytraj-build
+    - cp pytraj*bz2 $CIRCLE_ARTIFACTS/pytraj-build/
+    - cp libcpptraj*bz2 $CIRCLE_ARTIFACTS/pytraj-build/
