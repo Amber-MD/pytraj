@@ -34,7 +34,7 @@ addons:
     - libnetcdf-dev
 
 install:
-    - source devtools/travis-ci/setup_env.sh
+    - source devtools/ci/setup_env.sh
     - python --version
 
 script:
@@ -44,7 +44,7 @@ script:
 after_success:
     - echo "after_success"
     - cd tests/
-    - ../devtools/travis-ci/coveralls
+    - ../devtools/ci/coveralls
 
 notifications:
   email: false
