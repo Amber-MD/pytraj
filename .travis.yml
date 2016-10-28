@@ -39,7 +39,7 @@ install:
 
 script:
     - source devtools/travis-ci/install_pytraj.sh
-    - source devtools/travis-ci/run_tests.sh
+    - source devtools/ci/run_tests.sh
 
 after_success:
     - echo "after_success"
