@@ -32,6 +32,9 @@ addons:
     - liblapack-dev
     - libarpack2-dev
     - libnetcdf-dev
+    - openmpi-bin
+    - openmpi-common
+    - libopenmpi-dev
 
 install:
     - source devtools/ci/setup_env.sh
