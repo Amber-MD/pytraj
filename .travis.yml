@@ -32,19 +32,22 @@ addons:
     - liblapack-dev
     - libarpack2-dev
     - libnetcdf-dev
+    - openmpi-bin
+    - openmpi-common
+    - libopenmpi-dev
 
 install:
-    - source devtools/travis-ci/setup_env.sh
+    - source devtools/ci/setup_env.sh
     - python --version
 
 script:
     - source devtools/travis-ci/install_pytraj.sh
-    - source devtools/travis-ci/run_tests.sh
+    - source devtools/ci/run_tests.sh
 
 after_success:
     - echo "after_success"
     - cd tests/
-    - ../devtools/travis-ci/coveralls
+    - ../devtools/ci/coveralls
 
 notifications:
   email: false
