@@ -25,6 +25,7 @@ from pytraj.utils import get_common_objects
 from pytraj.utils import decorators
 from pytraj.analysis import nmr
 from pytraj.datasets import array
+from pytraj.builder import build
 
 
 try:
@@ -89,6 +90,10 @@ class TestDoc(unittest.TestCase):
 
     def test_doc_all_actions(self):
         modules = [pt.all_actions,]
+        assert not get_total_errors(modules)
+
+    def test_builder(self):
+        modules = [build,]
         assert not get_total_errors(modules)
 
 if __name__ == "__main__":
