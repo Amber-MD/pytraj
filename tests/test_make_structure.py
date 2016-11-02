@@ -49,7 +49,7 @@ class TestMakeStructure(unittest.TestCase):
         # pytraj
         traj = pt.load(trajin_rst7, top=tz2_parm7)
         ref = pt.load(ref_rst7, top=tz2_parm7)
-        pt.make_structure(traj, "ref:1-13:myref", ref=ref)
+        pt.make_structure(traj, "ref:1-13:1-13", ref=ref)
         pt.rmsd(traj, ref=ref)
         aa_eq(traj.xyz, cpp_traj.xyz)
 

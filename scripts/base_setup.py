@@ -94,7 +94,7 @@ disable openmp install in pytraj by adding --disable-openmp
 Note: For osx users, pytraj uses clang for compiling cython extension and '--disable-openmp' flag
 must be specified. If experienced users want to hack, please check setup.py file.
 
-Example:
+Examples:
     - Turn off openmp in pytraj: python setup.py install --disable-openmp
     - Turn ON openmp in cpptraj: ./configure -shared -openmp gnu && make libcpptraj -j4
     - Turn ON openmp in cpptraj and using netcdf, lapack, ... in $AMBERHOME (if having

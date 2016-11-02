@@ -471,7 +471,7 @@ class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
         >>> traj[0].xyz[0]
         array([-1.88900006,  9.1590004 ,  7.56899977])
 
-        Example for NGLView::
+        Examples for NGLView::
 
             import pytraj as pt, nglview as nv
             traj = pt.datafiles.load_tz2()
