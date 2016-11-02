@@ -130,8 +130,8 @@ Examples: Atom mask selection for ``Trajectory``
     traj = pt.iterload('data/tz2.ortho.nc', 'data/tz2.ortho.parm7')
     print(traj)
 
-    traj.top.residue_names
-    list(traj.top.atom_names)[:20]
+    print(set(residue.name for residue in traj.top.residues))
+    print([atom.name for atom in traj.top.atoms][:20])
 
     # Residue selections
     traj[':1,3,6-10']  # Select residues 1, 3, 6, 7, 8, 9, and 10
@@ -163,7 +163,7 @@ Get atom_indices
     top.select('@1-100,150-160')
     top.select('(:1-100)&(@CA)')
     # select based on distance, need to set reference frame
-    top.set_distance_mask_reference(traj[0])
+    top.set_reference(traj[0])
     # pick all atoms around residue 1, distance cutoff < 5.0 Angstrom
     top.select(':1 <:5.0')
 

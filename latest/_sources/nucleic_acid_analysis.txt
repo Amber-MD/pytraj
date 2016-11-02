@@ -21,7 +21,7 @@ Longer Examples
     traj
 
     # check unique residue names
-    traj.top.residue_names
+    print(set(residue.name for residue in traj.top.residues))
     na = pt.nastruct(traj)
     na
 

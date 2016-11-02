@@ -247,29 +247,23 @@ Topology and given xyz array.</p>
 <tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.append_xyz" title="pytraj.trajectory.trajectory.Trajectory.append_xyz"><code class="xref py py-obj docutils literal"><span class="pre">append_xyz</span></code></a>(xyz)</td>
 <td>append 3D numpy array</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.at" title="pytraj.trajectory.trajectory.Trajectory.at"><code class="xref py py-obj docutils literal"><span class="pre">at</span></code></a>(index)</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.autoimage" title="pytraj.trajectory.trajectory.Trajectory.autoimage"><code class="xref py py-obj docutils literal"><span class="pre">autoimage</span></code></a>([command])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.autoimage" title="pytraj.trajectory.trajectory.Trajectory.autoimage"><code class="xref py py-obj docutils literal"><span class="pre">autoimage</span></code></a>([command])</td>
 <td>perform autoimage</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.center" title="pytraj.trajectory.trajectory.Trajectory.center"><code class="xref py py-obj docutils literal"><span class="pre">center</span></code></a>(\*args,&nbsp;\*\*kwargs)</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.center" title="pytraj.trajectory.trajectory.Trajectory.center"><code class="xref py py-obj docutils literal"><span class="pre">center</span></code></a>(\*args,&nbsp;\*\*kwargs)</td>
 <td>do centering</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.copy" title="pytraj.trajectory.trajectory.Trajectory.copy"><code class="xref py py-obj docutils literal"><span class="pre">copy</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.copy" title="pytraj.trajectory.trajectory.Trajectory.copy"><code class="xref py py-obj docutils literal"><span class="pre">copy</span></code></a>()</td>
 <td>return a deep copy of trajectory</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.from_iterable" title="pytraj.trajectory.trajectory.Trajectory.from_iterable"><code class="xref py py-obj docutils literal"><span class="pre">from_iterable</span></code></a>(iterables[,&nbsp;top])</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.from_iterable" title="pytraj.trajectory.trajectory.Trajectory.from_iterable"><code class="xref py py-obj docutils literal"><span class="pre">from_iterable</span></code></a>(iterables[,&nbsp;top])</td>
 <td>create a new Trajectory from iterable (produce Frame)</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.iterframe" title="pytraj.trajectory.trajectory.Trajectory.iterframe"><code class="xref py py-obj docutils literal"><span class="pre">iterframe</span></code></a>([start,&nbsp;stop,&nbsp;step,&nbsp;mask,&nbsp;...])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.iterframe" title="pytraj.trajectory.trajectory.Trajectory.iterframe"><code class="xref py py-obj docutils literal"><span class="pre">iterframe</span></code></a>([start,&nbsp;stop,&nbsp;step,&nbsp;mask,&nbsp;...])</td>
 <td>iterate trajectory with given frame_indices or given (start, stop, step)</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.load" title="pytraj.trajectory.trajectory.Trajectory.load"><code class="xref py py-obj docutils literal"><span class="pre">load</span></code></a>([filename])</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.load" title="pytraj.trajectory.trajectory.Trajectory.load"><code class="xref py py-obj docutils literal"><span class="pre">load</span></code></a>([filename])</td>
 <td>load file or files. This is for internal use. User should always use</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.reverse" title="pytraj.trajectory.trajectory.Trajectory.reverse"><code class="xref py py-obj docutils literal"><span class="pre">reverse</span></code></a>()</td>
-<td>reverse Trajectory</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.rmsfit" title="pytraj.trajectory.trajectory.Trajectory.rmsfit"><code class="xref py py-obj docutils literal"><span class="pre">rmsfit</span></code></a>(\*args,&nbsp;\*\*kwd)</td>
 <td>do the fitting to reference Frame by rotation and translation</td>
@@ -375,11 +369,6 @@ Topology and given xyz array.</p>
 </pre></div>
 </div>
 </dd></dl>
-
-<dl class="method">
-<dt id="pytraj.trajectory.trajectory.Trajectory.at">
-<code class="descname">at</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory.Trajectory.at" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="method">
 <dt id="pytraj.trajectory.trajectory.Trajectory.autoimage">
@@ -555,26 +544,6 @@ Topology and given xyz array.</p>
 <dt id="pytraj.trajectory.trajectory.Trajectory.n_frames">
 <code class="descname">n_frames</code><a class="headerlink" href="#pytraj.trajectory.trajectory.Trajectory.n_frames" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-<dl class="method">
-<dt id="pytraj.trajectory.trajectory.Trajectory.reverse">
-<code class="descname">reverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory.Trajectory.reverse" title="Permalink to this definition">¶</a></dt>
-<dd><p>reverse Trajectory</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">self</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()[:]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
-</pre></div>
-</div>
-</dd></dl>
 
 <dl class="method">
 <dt id="pytraj.trajectory.trajectory.Trajectory.rmsfit">
@@ -859,7 +828,7 @@ if given, use it</p>
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Oct 24, 2016.<br/>
+      Last updated on Nov 02, 2016.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.<br/>
     </p>
   </div>
