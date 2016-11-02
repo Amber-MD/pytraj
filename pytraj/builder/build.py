@@ -50,21 +50,31 @@ def make_structure(traj, command="", ref=None):
 
     Notes
     -----
-    cpptraj doc
-
     Apply dihedrals to specified residues using arguments found in <List of Args>,
     where an argument is 1 or more of the following arg types:
-      '<sstype>:<res range>' Apply SS type (phi/psi) to residue range.
-          <sstype> standard = alpha, left, pp2, hairpin, extended
-          <sstype> turn = typeI, typeII, typeVIII, typeI', typeII,
-                          typeVIa1, typeVIa2, typeVIb
-          Turns are applied to 2 residues at a time, so resrange must be divisible by 4.
-      '<custom ss>:<res range>:<phi>:<psi>' Apply custom <phi>/<psi> to residue range.
-      '<custom turn>:<res range>:<phi1>:<psi1>:<phi2>:<psi2>' Apply custom turn <phi>/<psi> pair to residue range.
-      '<custom dih>:<res range>:<dih type>:<angle>' Apply <angle> to dihedrals in range.
-          <dih type> = alpha beta gamma delta epsilon zeta nu1 nu2 h1p c2p chin phi psi chip omega
-      '<custom dih>:<res range>:<at0>:<at1>:<at2>:<at3>:<angle>[:<offset>]'
+
+    r'<sstype>:<res range>'
+        Apply SS type (phi/psi) to residue range.
+
+        <sstype> standard = alpha, left, pp2, hairpin, extended
+
+        <sstype> turn = typeI, typeII, typeVIII, typeI', typeII, typeVIa1, typeVIa2, typeVIb
+            Turns are applied to 2 residues at a time, so resrange must be divisible by 4.
+
+    r'<custom ss>:<res range>:<phi>:<psi>'
+        Apply custom <phi>/<psi> to residue range.
+
+    '<custom turn>:<res range>:<phi1>:<psi1>:<phi2>:<psi2>'
+        Apply custom turn <phi>/<psi> pair to residue range.
+
+    '<custom dih>:<res range>:<dih type>:<angle>'
+        Apply <angle> to dihedrals in range.
+
+        <dih type> = alpha beta gamma delta epsilon zeta nu1 nu2 h1p c2p chin phi psi chip omega
+
+    '<custom dih>:<res range>:<at0>:<at1>:<at2>:<at3>:<angle>[:<offset>]'
           Apply <angle> to dihedral defined by atoms <at1>, <at2>, <at3>, and <at4>.
+
           Offset -2=<a0><a1> in previous res, -1=<a0> in previous res,
                   0=All <aX> in single res,
                   1=<a3> in next res, 2=<a2><a3> in next res.

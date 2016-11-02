@@ -1397,8 +1397,8 @@ def get_velocity(traj, mask=None, frame_indices=None):
     frame_indices : iterable that produces integer, default None, optional
         if not None, only get velocity for given frame indices
 
-    Return
-    ------
+    Returns
+    -------
     out : 3D numpy array, shape (n_frames, n_atoms, 3)
 
     Examples
@@ -3345,8 +3345,8 @@ def lowestcurve(data, points=10, step=0.2):
     points : number of lowest points in each bin, default 10
     step : step size, default 0.2
 
-    Return
-    ------
+    Returns
+    -------
     2d array
     '''
     points_ = 'points ' + str(points)
