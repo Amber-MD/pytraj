@@ -1,17 +1,25 @@
 from __future__ import absolute_import
 from ..trajectory.trajectory import Trajectory
+from ..trajectory.frame import Frame
 from ..analysis.c_action import c_action
 from ..analysis.c_action.actionlist import ActionList
 from ..externals.six import string_types
+from ..datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 
-def make_structure(traj, command=""):
+def make_structure(traj, command="", ref=None):
     """limited support for make_structure
     
     Parameters
     ----------
     traj : Trajectory
     command : cpptraj command or a list of cpptraj commands
+    ref : None or a Frame or a Trajectory with one Frame
+        if not None, use `ref` as reference. If ref.top is None, use `traj.top`, else use ref.top
 
+        If ref is given, the reference name must be 'myref' (which is different from cpptraj usage).
+        If ref is a Trajectory having more than 1 frame, only first frame is considered.
+        This API is unstable.
+      
     Returns
     -------
     traj : itself
@@ -19,13 +27,24 @@ def make_structure(traj, command=""):
     Examples
     --------
     >>> import pytraj as pt
-    >>> traj = pt.datafiles.load_tz2()
+    >>> traj = pt.datafiles.load_tz2()[:]
 
     >>> # Make alpha helix for residue 1 to 12)
     >>> traj = pt.make_structure(traj, "alpha:1-12")
 
     >>> # Make hairpin for residue 1 to 5 and make alpha helix for residue 6 to 12
     >>> traj = pt.make_structure(traj, ["hairpin:1-5", "alpha:6-12"])
+
+    >>> # Make new structure from reference
+    >>> def make_new_by_using_ref(): # doctest: +SKIP
+    ...     tz2_parm7 = 'tz2.parm7'
+    ...     ref_rst7 = 'tz2.rst7'
+    ...     trajin_rst7 = pp2.rst7.save'
+    ...     traj = pt.load(trajin_rst7, top=tz2_parm7)
+    ...     ref = pt.load(ref_rst7, top=tz2_parm7)
+    ...     # must use "myref" for reference name
+    ...     pt.make_structure(traj, "ref:1-13:myref", ref=ref)
+
 
     Notes
     -----
@@ -53,11 +72,27 @@ def make_structure(traj, command=""):
     assert isinstance(command, list) or isinstance(command, string_types), 'command must be a string or a list of string'
     assert isinstance(traj, Trajectory), 'traj must be a Trajectory object'
 
-    actlist = ActionList()
     cmlist = [command,] if isinstance(command, string_types) else command
 
+    if ref is not None:
+        ref_name = 'myref'
+        for cm in cmlist:
+            if cm.startswith('ref'):
+                assert cm.split(':')[2] == ref_name, 'must give ref_name of "myref"'
+        c_dslist = CpptrajDatasetList()
+        frame_dset = c_dslist.add('reference', name='myref')
+        frame_dset.top = ref.top if ref.top is not None else traj.top
+        ref_ = ref if isinstance(ref, Frame) else ref[0]
+        frame_dset.append(ref_)
+    else:
+        c_dslist = None
+    actlist = ActionList()
+
     for cm in cmlist:
-        actlist.add(c_action.Action_MakeStructure(), cm, top=traj.top)
+        if ref is not None:
+            actlist.add(c_action.Action_MakeStructure(), cm, top=traj.top, dslist=c_dslist)
+        else:
+            actlist.add(c_action.Action_MakeStructure(), cm, top=traj.top)
 
     for frame in traj:
         actlist.compute(frame)
