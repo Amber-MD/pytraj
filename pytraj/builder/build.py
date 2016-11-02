@@ -81,7 +81,7 @@ def make_structure(traj, command="", ref=None):
                 assert cm.split(':')[2] == ref_name, 'must give ref_name of "myref"'
         c_dslist = CpptrajDatasetList()
         frame_dset = c_dslist.add('reference', name='myref')
-        frame_dset.top = ref.top if ref.top is None else traj.top
+        frame_dset.top = ref.top if ref.top is not None else traj.top
         ref_ = ref if isinstance(ref, Frame) else ref[0]
         frame_dset.append(ref_)
     else:
