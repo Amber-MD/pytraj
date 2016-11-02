@@ -36,6 +36,15 @@ def make_structure(traj, command="", ref=None):
     >>> # Make hairpin for residue 1 to 5 and make alpha helix for residue 6 to 12
     >>> traj = pt.make_structure(traj, ["hairpin:1-5", "alpha:6-12"])
 
+    >>> # From cpptraj example:
+    >>> # Make residues 1 and 12 ’extended’, residues 6 and 7 a type I’ turn, and two
+    >>> # custom assignments, one (custom1) for residues 2-5, the other (custom2) for residues 8-11:
+    >>> traj = pt.make_structure(traj, ["extended:1,12",
+    ...                                 "custom1:2-5:-80.:130.:-130.:140.",
+    ...                                 "typeI':6-7",
+    ...                                 "custom2:8-11:-140.:170.:-100.:140."])
+    >>>
+
     >>> # Make new structure from reference
     >>> def make_new_by_using_ref(): # doctest: +SKIP
     ...     tz2_parm7 = 'tz2.parm7'
