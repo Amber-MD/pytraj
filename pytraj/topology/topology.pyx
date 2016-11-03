@@ -38,18 +38,26 @@ class SimplifiedAtom(
     __slots__ = ()
 
     def __str__(self):
-        return 'SimplifiedAtom(name={}, type={}, element={}, atomic_number={}, index={}, resname={}, resid={}, molnum={})'.format(
-            self.name, self.type, self.element, self.atomic_number, self.index, self.resname, self.resid, self.molnum)
+        return 'SimplifiedAtom(name={}, type={}, element={}, atomic_number={}, index={},'\
+               'resname={}, resid={}, molnum={})'.format(
+            self.name, self.type, self.element, self.atomic_number,
+            self.index, self.resname, self.resid, self.molnum)
 
     def __repr__(self):
         return str(self)
 
 
-class SimplifiedResidue(
-    namedtuple(
-        'SimplifiedResidue',
-        'name index first last')):
-    __slots__ = ()
+class SimplifiedResidue(object):
+    def __init__(self, name, index, first, last, associated_topology):
+        self.name = name
+        self.index = index
+        self.first = first
+        self.last = last
+        self._simplified_top = associated_topology
+
+    @property
+    def atoms(self):
+        return self._simplified_top.atoms[self.first:self.last]
 
     def __str__(self):
         return 'SimplifiedResidue(name={}, index={}, atom_range={}-{})'.format(
@@ -58,15 +66,21 @@ class SimplifiedResidue(
     def __repr__(self):
         return str(self)
 
+    def __iter__(self):
+        for atom in self.atoms:
+            yield atom
 
-class SimplifiedTopology(namedtuple('SimplifiedTopology', 'atoms residues')):
+
+class SimplifiedTopology(object):
     '''a lightweight Topology for fast iterating and convenient accessing atom, residue
 
     Notes
     -----
     cpptraj does not understand this class (use :class:Topology)
     '''
-    __slots__ = ()
+    def __init__(self, atoms, residues=None):
+        self.atoms = atoms
+        self.residues = residues
 
     def __str__(self):
         return 'SimplifiedTopology({} atoms, {} residues)'.format(
@@ -75,6 +89,9 @@ class SimplifiedTopology(namedtuple('SimplifiedTopology', 'atoms residues')):
     def __repr__(self):
         return str(self)
 
+    def __iter__(self):
+        for atom in self.atoms:
+            yield atom
 
 cdef class Topology:
     def __cinit__(self, *args):
@@ -321,7 +338,8 @@ cdef class Topology:
                 incr(it)
 
     def simplify(self):
-        '''return a (immutable) light version of Topology for fast iterating. (experiment)
+        '''return a (immutable) lightweight version of Topology for fast iterating.
+        The API is not stable.
 
         No writing capabibility (you should use ParmEd for Topology editing)
 
@@ -371,15 +389,18 @@ cdef class Topology:
         # get residues
         rit = self.thisptr.ResStart()
         idx = 0
+        simplified_top = SimplifiedTopology(atoms=atoms)
         while rit != self.thisptr.ResEnd():
             res = deref(rit)
             residues.append(SimplifiedResidue(name=res.c_str().strip(),
                                               index=idx,
                                               first=res.FirstAtom(),
-                                              last=res.LastAtom()))
+                                              last=res.LastAtom(),
+                                              associated_topology=simplified_top))
             idx += 1
             incr(rit)
-        return SimplifiedTopology(atoms=atoms, residues=residues)
+        simplified_top.residues = residues
+        return simplified_top
 
     property residues:
         def __get__(self):
