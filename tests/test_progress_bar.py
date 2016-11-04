@@ -5,8 +5,13 @@ import unittest
 import pytraj as pt
 from pytraj.utils.progress import ProgressBarTrajectory
 from pytraj.utils import eq, aa_eq
-from tqdm import tqdm_notebook
 import pytest
+
+try:
+    import tqdm
+    from tqdm import tqdm_notebook
+except ImportError:
+    tqdm = None
 
 
 class TestProgressLog(unittest.TestCase):
@@ -26,11 +31,12 @@ class TestProgressLog(unittest.TestCase):
         pt.molsurf(p)
 
         # need to run on Jupyter notebook
-        # p = ProgressBarTrajectory(traj, style='tqdm')
-        # pt.molsurf(p)
+        if tqdm is not None:
+            p = ProgressBarTrajectory(traj, style='tqdm')
+            pt.molsurf(p)
 
-        # p = ProgressBarTrajectory(traj, style=tqdm_notebook)
-        # pt.molsurf(p)
+            p = ProgressBarTrajectory(traj, style=tqdm_notebook)
+            pt.molsurf(p)
 
         # make sure not loading all coordinates from TrajectoryIterator
 
