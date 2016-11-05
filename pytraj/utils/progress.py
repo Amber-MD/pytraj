@@ -41,9 +41,13 @@ class CircleProgress(object):
     @classmethod
     def init_display(cls, circle):
         fn = os.path.dirname(__file__) + '/progress-circle/css/circle.css'
-        style = "<style>\n" + open(fn).read() + "</style>" 
+        with open(fn) as fh:
+            style_str = fh.read()
+        style = "<style>\n" + style_str +  "</style>" 
+
         fn2 = os.path.dirname(__file__) + '/progress-circle/progress-circle.js'
-        js = open(fn2).read()
+        with open(fn2) as fh:
+            js = fh.read()
         display(HTML(style + circle_html % (js, circle, circle)))
     
     @classmethod
