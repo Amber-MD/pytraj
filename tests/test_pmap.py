@@ -181,6 +181,16 @@ class TestParallelMapForMatrix(unittest.TestCase):
 
 
 @unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
+class TestParallelMapForHbond(unittest.TestCase):
+    def test_pmap_hbond(self):
+        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        hbond_data_serial = pt.search_hbonds(traj, dtype='dict')
+        hbond_data_pmap = pt.pmap(pt.search_hbonds, traj, n_cores=3)
+        assert sorted(hbond_data_serial.keys()) == sorted(hbond_data_pmap.keys())
+        for key in hbond_data_serial.keys():
+            aa_eq(hbond_data_serial[key], hbond_data_pmap[key])
+
+@unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
 class TestCpptrajCommandStyle(unittest.TestCase):
 
     def test_c_command_style(self):

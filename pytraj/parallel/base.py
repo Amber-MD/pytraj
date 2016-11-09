@@ -2,9 +2,50 @@ import numpy as np
 from functools import partial
 from pytraj import Frame
 from pytraj import pipe
+from pytraj.utils.tools import concat_dict
 from pytraj.datasets import CpptrajDatasetList
 from pytraj.externals.six import string_types
 
+__all__ = [
+        'check_valid_command',
+        'worker_byfunc',
+        'worker_by_actlist',
+        'worker_state',
+        'concat_hbond',
+]
+
+def concat_hbond(data_collection):
+    # TODO: update doc
+    '''
+
+    Parameters
+    ----------
+    data_collection : List[Tuple(cpu_rank, OrderedDict[key, hbond], n_frames)]
+
+    Returns
+    -------
+    OrderedDict[key, hbond]
+
+    Notes
+    -----
+    data_collection will be updated.
+    '''
+
+    all_keys = set()
+    for partial_data in data_collection:
+        all_keys.update(partial_data[1].keys())
+    excluded_keys = [key for key in all_keys if key.startswith('total')]
+    
+    for key in excluded_keys:
+        all_keys.discard(key)
+
+    for partial_data in data_collection:
+        missing_keys = all_keys - set(partial_data[1].keys())
+        n_frames = partial_data[2]
+        if missing_keys:
+            for key in missing_keys:
+                partial_data[1][key] = np.zeros(n_frames)
+    return concat_dict((x[1] for x in data_collection))
 
 def check_valid_command(commands):
     '''
