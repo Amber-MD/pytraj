@@ -165,12 +165,33 @@ then
 Update to AMBERHOME
 ~~~~~~~~~~~~~~~~~~~
 
+
+- From release version
+
 .. code-block:: bash
 
     $ amber.pip install pytraj --prefix=$AMBERHOME
     # if you don't have amber.pip, just use pip
-    
 
+- From github development version
+
+.. code-block:: bash
+
+    rm $AMBERHOME/lib/libcpptraj.so # so we can use cpptraj github version 
+    # (which will be installed by pytraj itself)
+
+    cd /to/your/favorite/dir
+    git clone https://github.com/Amber-MD/pytraj
+    cd pytraj
+
+    # if there's no git
+    # wget https://github.com/Amber-MD/pytraj/archive/master.zip
+    # unzip master
+    # cd pytraj-master
+
+    python setup.py install --prefix=$AMBERHOME # overwrite old version
+
+    
 Uninstall
 ---------
 

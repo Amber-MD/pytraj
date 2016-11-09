@@ -370,8 +370,29 @@ $ python ./setup.py install
 </div>
 <div class="section" id="update-to-amberhome">
 <h3><a class="toc-backref" href="#id17">Update to AMBERHOME</a><a class="headerlink" href="#update-to-amberhome" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>From release version</li>
+</ul>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ amber.pip install pytraj --prefix<span class="o">=</span><span class="nv">$AMBERHOME</span>
 <span class="c1"># if you don&#39;t have amber.pip, just use pip</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>From github development version</li>
+</ul>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>rm <span class="nv">$AMBERHOME</span>/lib/libcpptraj.so <span class="c1"># so we can use cpptraj github version</span>
+<span class="c1"># (which will be installed by pytraj itself)</span>
+
+<span class="nb">cd</span> /to/your/favorite/dir
+git clone https://github.com/Amber-MD/pytraj
+<span class="nb">cd</span> pytraj
+
+<span class="c1"># if there&#39;s no git</span>
+<span class="c1"># wget https://github.com/Amber-MD/pytraj/archive/master.zip</span>
+<span class="c1"># unzip master</span>
+<span class="c1"># cd pytraj-master</span>
+
+python setup.py install --prefix<span class="o">=</span><span class="nv">$AMBERHOME</span> <span class="c1"># overwrite old version</span>
 </pre></div>
 </div>
 </div>
@@ -457,7 +478,7 @@ jupyter notebook <span class="o">{</span>your_notebook_name<span class="o">}</sp
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Nov 02, 2016.<br/>
+      Last updated on Nov 09, 2016.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.<br/>
     </p>
   </div>
