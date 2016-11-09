@@ -6,7 +6,7 @@ import pytraj as pt
 import numpy as np
 from pytraj import adict, allactions
 from pytraj import ArgList, Trajectory, Frame
-from pytraj.utils import eq, aa_eq
+from pytraj.utils import aa_eq
 from pytraj.analysis.c_action import c_action as CA
 from pytraj.datasets import DatasetList as CpptrajDatasetList
 from pytraj.datafiles.datafiles import DataFileList
@@ -41,20 +41,20 @@ class TestActionList(unittest.TestCase):
         # load traj
         farray = pt.load(filename="./data/tz2.truncoct.nc",
                          top="./data/tz2.truncoct.parm7")[:2]
-        fold = farray.copy()
+        farray.copy()
 
-        act = allactions.Action_Image()
+        allactions.Action_Image()
         ptrajin = """
         center :2-11
         image center familiar com :6
         """
 
         # create 'strip' action
-        stripact = allactions.Action_Strip()
+        allactions.Action_Strip()
 
         # creat datasetlist to hold distance data
-        dsetlist = CpptrajDatasetList()
-        dflist = DataFileList()
+        CpptrajDatasetList()
+        DataFileList()
 
         # creat ActionList to hold actions
         alist = ActionList()
@@ -150,7 +150,7 @@ class TestActionList(unittest.TestCase):
                         dslist=dslist)
         actlist.compute(traj)
 
-        dslist2 = pt.calc_angle(traj, mask_list)
+        pt.calc_angle(traj, mask_list)
 
         dslist3_0 = pt.calc_angle(traj, mask_list[0])
         dslist3_1 = pt.calc_angle(traj, mask_list[1])

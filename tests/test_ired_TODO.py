@@ -4,7 +4,8 @@ import os
 import unittest
 import numpy as np
 import pytraj as pt
-from pytraj.testing import eq, aa_eq, cpptraj_test_dir
+from pytraj.testing import aa_eq
+from pytraj.testing import cpptraj_test_dir
 from pytraj.externals.six import zip
 from pytraj.analysis.nmr import _ired
 

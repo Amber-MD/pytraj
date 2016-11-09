@@ -1,7 +1,6 @@
 from __future__ import absolute_import
 
 import unittest
-import numpy as np
 import pytraj as pt
 from pytraj.testing import aa_eq
 from pytraj.all_actions import calc_volmap as volmap

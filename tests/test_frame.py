@@ -4,7 +4,6 @@ from array import array
 import numpy as np
 from pytraj import Frame
 
-from pytraj.math import Vec3
 from pytraj.testing import aa_eq
 from pytraj import *
 
@@ -24,7 +23,7 @@ class TestFrame(unittest.TestCase):
 
         # make sure 0-th frame does not change
         frame0 = traj[0]
-        frame0new = trajnew[0]
+        trajnew[0]
 
         frame1 = traj[1]
         frame1new = trajnew[1]

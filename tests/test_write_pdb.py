@@ -3,7 +3,6 @@ import pytraj as pt
 
 from pytraj import io as mdio
 from pytraj import TrajectoryWriter
-from glob import glob
 from pytraj.testing import aa_eq
 from pytraj.utils import tempfolder
 
@@ -32,7 +31,7 @@ class TestWritePDB(unittest.TestCase):
         # TODO: get absolute path so we can use `tempfolder`
         # if not: wrong dir if using TrajectoryIterator
         traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")[:]
-        trajout = TrajectoryWriter()
+        TrajectoryWriter()
 
         # multiple pdb in multiple files, using `save` method in traj
         with tempfolder():

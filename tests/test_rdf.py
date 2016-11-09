@@ -2,10 +2,8 @@
 from __future__ import print_function
 import unittest
 import numpy as np
-import os
 import pytraj as pt
-from pytraj.utils import eq, aa_eq
-from pytraj.testing import cpptraj_test_dir
+from pytraj.utils import aa_eq
 
 
 class TestRDF(unittest.TestCase):

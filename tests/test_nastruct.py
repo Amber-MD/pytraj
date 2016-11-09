@@ -3,13 +3,12 @@ from __future__ import print_function
 import unittest
 import numpy as np
 import pytraj as pt
-from pytraj.testing import aa_eq, cpptraj_test_dir
+from pytraj.testing import aa_eq
 
 class TestNastruct(unittest.TestCase):
 
     def test_nupars(self):
         fn = "./data/Test_NAstruct/adh026.3.pdb"
-        root = 'data/Test_NAstruct/'
         traj = pt.iterload(fn, fn)
         data = pt.nastruct(traj)
 

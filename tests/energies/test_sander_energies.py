@@ -149,7 +149,6 @@ class TestSander(unittest.TestCase):
         qm_options.qmmask = ":1-2"
         qm_options.qmcharge = 0
         qm_options.scfconv = 1e-10
-        qmmm_tight_p_conv = 1
         qm_options.qmmm_int = 5
 
         edict = pt.esander(traj=traj,

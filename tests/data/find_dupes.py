@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import os
-import sys
 
 
 def find_dupes(my_dir='.'):

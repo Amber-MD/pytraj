@@ -11,7 +11,7 @@ class TestAutoImage(unittest.TestCase):
         traj = pt.iterload("./data/tz2.truncoct.nc",
                            "./data/tz2.truncoct.parm7")
         f0 = traj[0]
-        f0cp = f0.copy()
+        f0.copy()
         adict['autoimage']("", f0, traj.top)
         fsaved = pt.iterload("./data/tz2.truncoct.autoiamge.save.r",
                              "./data/tz2.truncoct.parm7")[0]
@@ -23,7 +23,7 @@ class TestAutoImage(unittest.TestCase):
         traj = pt.iterload("./data/tz2.truncoct.nc",
                            "./data/tz2.truncoct.parm7")
         f0 = traj[0]
-        f0cp = f0.copy()
+        f0.copy()
         do_autoimage(traj=f0, top=traj.top)
 
         fsaved = pt.iterload("./data/tz2.truncoct.autoiamge.save.r",

@@ -3,7 +3,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
-from pytraj.utils import eq, aa_eq
+from pytraj.utils import aa_eq
 
 cm = '''
 pucker p1-as :1@C1' :1@C2' :1@C3' :1@C4' :1@O4'

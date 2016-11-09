@@ -1,10 +1,8 @@
 import unittest
 
-from pytraj import set_world_silent
 from pytraj.utils import Timer
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
-from pytraj.datasets import DatasetCoordsCRD
 from pytraj.datasets.c_datasetlist import DatasetList
 from pytraj.datafiles import DataFileList
 from pytraj.analysis.c_analysis.c_analysis import Analysis_Rms2d
@@ -24,7 +22,6 @@ class Test(unittest.TestCase):
         dslist = DatasetList()
         dflist = DataFileList()
 
-        trajin = "./data/Tc5b.x"
         traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 
         dslist.add("coords", "test_traj")

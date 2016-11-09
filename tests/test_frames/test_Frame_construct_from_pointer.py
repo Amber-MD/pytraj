@@ -1,7 +1,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
-from pytraj.utils import eq, aa_eq
+from pytraj.utils import aa_eq
 from pytraj import *
 
 
@@ -42,7 +42,6 @@ class Test(unittest.TestCase):
         aa_eq(trajectory_t0.xyz, t0.xyz)
 
         try:
-            import mdtraj as md
             pt.rmsd(t0, ref=0)
             pt.rmsd(trajectory_t0, ref=0)
         except ImportError:

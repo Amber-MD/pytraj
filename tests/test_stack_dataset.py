@@ -3,10 +3,8 @@ import numpy as np
 import pytraj as pt
 import unittest
 
-from pytraj import adict
 from pytraj import io as mdio
-from pytraj.utils import eq, aa_eq
-from pytraj.testing import cpptraj_test_dir
+from pytraj.utils import aa_eq
 from pytraj.datasets.datasetlist import stack
 from pytraj.datasets.datasetlist import stack as stack
 
@@ -36,7 +34,7 @@ class Test(unittest.TestCase):
                 pass
 
         arr1 = ds1.to_ndarray()
-        arr2 = ds2.to_ndarray()
+        ds2.to_ndarray()
         arrstack = dstack.to_ndarray()
         arr12 = d12.to_ndarray()
 

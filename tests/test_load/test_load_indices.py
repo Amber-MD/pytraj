@@ -1,9 +1,7 @@
 import unittest
 import numpy as np
-from array import array
 import pytraj as pt
 from pytraj import *
-from pytraj.io import load
 from pytraj.testing import aa_eq
 
 
@@ -30,7 +28,7 @@ class TestIndices(unittest.TestCase):
         for frame in traj1:
             rmsdlist.append(frame.rmsd(ref))
 
-        nparr = np.array(rmsdlist)
+        np.array(rmsdlist)
 
         # make sure we don't suport other frame_indices
         traj2 = Trajectory()
@@ -43,7 +41,6 @@ class TestIndices(unittest.TestCase):
     def test_del_top(self):
         # why here? lazy to make another file
         top = pt.load_topology("./data/Tc5b.top")
-        top2 = top
         del top
 
     def test_load_frame_indices_from_io(self):

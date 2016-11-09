@@ -1,14 +1,14 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
-from pytraj.utils import eq, aa_eq
+from pytraj.utils import aa_eq
 
 
 class TestCenter(unittest.TestCase):
 
     def test_center(self):
         traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
-        saved_traj = pt.load("./data/tz2.center_mass.nc", traj.top)
+        pt.load("./data/tz2.center_mass.nc", traj.top)
 
         fa = traj[:]
         fa2 = traj[:].copy()

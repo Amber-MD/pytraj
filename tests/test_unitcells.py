@@ -86,12 +86,12 @@ class TestBox(unittest.TestCase):
     def test_from_matrix_3x3(self):
         from pytraj.math import Matrix_3x3
         mat = Matrix_3x3()
-        box = Box(mat)
+        Box(mat)
 
     def test_box_constructor_with_type(self):
         # TODO: assertion
-        box = Box('rhombic')
-        box = Box('ortho')
+        Box('rhombic')
+        Box('ortho')
 
 
 if __name__ == "__main__":

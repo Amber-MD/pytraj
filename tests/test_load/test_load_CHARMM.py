@@ -11,7 +11,7 @@ class TestCHARMM(unittest.TestCase):
 
     def test_0(self):
         top = pt.load_topology("./data/ala3.psf")
-        reslit = list(top.residues)
+        list(top.residues)
         atm = AtomMask("@CA")
         top._set_integer_mask(atm)
 

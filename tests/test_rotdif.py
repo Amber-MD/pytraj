@@ -3,7 +3,6 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
-from pytraj.utils import eq, aa_eq
 from pytraj.testing import cpptraj_test_dir
 
 cm = """
@@ -33,7 +32,7 @@ class TestRotdif(unittest.TestCase):
 
         mat = pt.rotation_matrix(traj, ref=ref, mask='@CA,C,N,O')
 
-        data = pt.all_actions._rotdif(mat, short_cm)
+        pt.all_actions._rotdif(mat, short_cm)
 
         state = pt.load_cpptraj_state(cm)
         state.run()

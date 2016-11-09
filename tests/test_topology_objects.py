@@ -3,7 +3,6 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
-from pytraj.utils import eq, aa_eq
 
 
 class TestTopoloyObjects(unittest.TestCase):

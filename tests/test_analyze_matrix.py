@@ -3,7 +3,7 @@ from __future__ import print_function
 import numpy as np
 import unittest
 import pytraj as pt
-from pytraj.utils import eq, aa_eq
+from pytraj.utils import aa_eq
 from pytraj import matrix
 '''figure out why sign of some eigenvectors are different
 '''
@@ -26,7 +26,7 @@ class TestDiagMatrix(unittest.TestCase):
 
         # test triu_indices
         mat2 = mat.__class__()
-        indices = np.triu_indices(mat.n_cols)
+        np.triu_indices(mat.n_cols)
 
         mat2._set_data_half_matrix(mat._to_cpptraj_sparse_matrix(), mat.size,
                                    mat.n_cols)

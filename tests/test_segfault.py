@@ -2,9 +2,6 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 
-from pytraj import adict
-from pytraj import io
-from pytraj.utils.check_and_assert import assert_almost_equal as aa_eq
 from pytraj.externals.six import zip
 from pytraj.trajectory.shared_methods import iterframe_master
 from pytraj import dihedral_analysis as da
@@ -45,11 +42,11 @@ class Test(unittest.TestCase):
         # segmentation fault
         # new DSL
         d0_dummy = pt.search_hbonds(traj)[:][:][:][:][0]
-        d0 = pt.search_hbonds(traj)[0]
+        pt.search_hbonds(traj)[0]
         # filter
 
         dslist = da.calc_phi(traj)
-        x = dslist[0]
+        dslist[0]
 
 
 if __name__ == "__main__":

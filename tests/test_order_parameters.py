@@ -4,8 +4,7 @@ import numpy as np
 import sys
 import unittest
 import pytraj as pt
-from pytraj.utils import eq, aa_eq
-from pytraj import pmap
+from pytraj.utils import aa_eq
 from pytraj.testing import cpptraj_test_dir
 
 

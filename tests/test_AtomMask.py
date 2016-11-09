@@ -2,7 +2,7 @@ import unittest
 import pytraj as pt
 from pytraj import *
 
-from pytraj.utils.check_and_assert import assert_almost_equal, eq
+from pytraj.utils.check_and_assert import assert_almost_equal
 
 
 class TestAtomMask(unittest.TestCase):
@@ -44,7 +44,7 @@ class TestAtomMask(unittest.TestCase):
         assert_almost_equal(indices, atm2.indices)
 
         # test range
-        r100 = range(100)
+        range(100)
         atm3 = AtomMask(range(100))
         assert_almost_equal(indices, atm3.indices)
 
@@ -54,11 +54,11 @@ class TestAtomMask(unittest.TestCase):
 
         t0 = time()
         indices = top(":WAT").indices
-        gap_0 = time() - t0
+        time() - t0
 
         t0 = time()
         _indices_view = top(":WAT")._indices_view
-        gap_1 = time() - t0
+        time() - t0
 
         count = 0
         for i, j in zip(indices, _indices_view):

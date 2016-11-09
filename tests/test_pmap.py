@@ -2,9 +2,8 @@ from __future__ import print_function
 import sys
 import unittest
 from collections import OrderedDict
-import numpy as np
 import pytraj as pt
-from pytraj.utils import eq, aa_eq
+from pytraj.utils import aa_eq
 
 from pytraj.utils.tools import flatten
 from pytraj import matrix

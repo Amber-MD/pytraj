@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import unittest
 import pytraj as pt
-from pytraj import adict
 from pytraj.testing import aa_eq
 from pytraj.utils import tempfolder
 
@@ -42,7 +41,7 @@ class TestSuperposeTrajectory(unittest.TestCase):
         traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         farray = traj[:]
         f0 = traj[0]
-        f0saved = f0.copy()
+        f0.copy()
         f1 = traj[1]
 
         rmsd_0 = f0.rmsd(f1)
@@ -71,7 +70,7 @@ class TestSuperposeTrajectory(unittest.TestCase):
         for _f1 in trajsaved:
             pass
 
-        f0saved = traj[0].copy()
+        traj[0].copy()
         first = traj[0].copy()
 
         # make mutable traj
