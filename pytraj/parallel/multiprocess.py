@@ -14,7 +14,7 @@ from pytraj.utils.tools import concat_dict
 from pytraj.externals.six import string_types
 from pytraj.utils.get_common_objects import get_reference
 
-from .base import worker_byfunc
+from .base import worker_byfunc, concat_hbond
 
 
 def _pmap(func, traj, *args, **kwd):
@@ -237,6 +237,8 @@ def _pmap(func, traj, *args, **kwd):
             frame = Frame(xyz.shape[0])
             frame.xyz[:] = xyz
             return frame
+        elif 'hbond' in func.__name__:
+            return concat_hbond(data)
         else:
             return concat_dict((x[1] for x in data))
 
