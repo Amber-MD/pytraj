@@ -2,4 +2,4 @@ test:
 	py.test -v .
 
 autoflake:
-	autoflake -i *.py */*py --remove-all-unused-imports --remove-unused-variables
+	autoflake -i --remove-all-unused-imports --remove-unused-variables *.py */*.py

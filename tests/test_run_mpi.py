@@ -3,9 +3,10 @@
 from __future__ import print_function
 import subprocess
 from glob import glob
+import pytest
 
-def test_all_mpi_scripts():
-    testlist = glob('test_mpi/test_*py')
-    for testfile in testlist:
-        print(testfile)
-        subprocess.check_call(['mpirun', '-n', '4', 'python', testfile])
+testlist = glob('test_mpi/test_*py')
+
+@pytest.mark.parametrize('pyfile', testlist)
+def test_all_mpi_scripts(pyfile):
+    subprocess.check_call(['mpirun', '-n', '4', 'python', pyfile])

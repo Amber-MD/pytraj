@@ -1,12 +1,9 @@
 # do not use relative import here. Treat this module as a seperated package.
 from __future__ import absolute_import
-import numpy as np
 from functools import partial
-from collections import OrderedDict
 from pytraj.core.c_options import info as compiled_info
 from pytraj import matrix
 from pytraj import mean_structure, volmap
-from pytraj import Frame
 from pytraj import ired_vector_and_matrix, rotation_matrix
 from pytraj import NH_order_parameters
 from multiprocessing import cpu_count
@@ -14,10 +11,11 @@ from pytraj.utils.tools import concat_dict
 from pytraj.externals.six import string_types
 from pytraj.utils.get_common_objects import get_reference
 
-from .base import worker_byfunc, concat_hbond
+from .base import worker_by_func
+from .dataset import PmapDataset
 
 
-def _pmap(func, traj, *args, **kwd):
+def _pmap(func, traj, *args, **kwargs):
     '''use python's multiprocessing to accelerate calculation. Limited calculations.
 
     Parameters
@@ -32,7 +30,7 @@ def _pmap(func, traj, *args, **kwd):
         cpptraj perform calculation for specific indices.
         frame_indices must be pickable so is can be sent to different cores.
 
-    *args, **kwd: additional keywords
+    *args, **kwargs: additional keywords
 
     Returns
     -------
@@ -140,19 +138,19 @@ def _pmap(func, traj, *args, **kwd):
     from multiprocessing import Pool
     from pytraj import TrajectoryIterator
 
-    n_cores = kwd.pop('n_cores') if 'n_cores' in kwd else 2
-    iter_options = kwd.pop('iter_options') if 'iter_options' in kwd else {}
-    apply = kwd.pop('apply') if 'apply' in kwd else None
-    progress = kwd.pop('progress') if 'progress' in kwd else None
-    progress_params = kwd.pop('progress_params') if 'progress_params' in kwd else dict()
+    n_cores = kwargs.pop('n_cores') if 'n_cores' in kwargs else 2
+    iter_options = kwargs.pop('iter_options') if 'iter_options' in kwargs else {}
+    apply = kwargs.pop('apply') if 'apply' in kwargs else None
+    progress = kwargs.pop('progress') if 'progress' in kwargs else None
+    progress_params = kwargs.pop('progress_params') if 'progress_params' in kwargs else dict()
 
     if n_cores <= 0:
         # use all available cores
         n_cores = cpu_count()
 
     # update reference
-    if 'ref' in kwd:
-        kwd['ref'] = get_reference(traj, kwd['ref'])
+    if 'ref' in kwargs:
+        kwargs['ref'] = get_reference(traj, kwargs['ref'])
 
     if isinstance(func, (list, tuple, string_types)):
         # assume using _load_batch_pmap
@@ -164,8 +162,8 @@ def _pmap(func, traj, *args, **kwd):
                                 dtype='dict',
                                 root=0,
                                 mode='multiprocessing',
-                                **kwd)
-        data = concat_dict((x[1] for x in data))
+                                **kwargs)
+        data = concat_dict((x[0] for x in data))
         return data
     else:
         if not callable(func):
@@ -188,25 +186,25 @@ def _pmap(func, traj, *args, **kwd):
         if not isinstance(traj, TrajectoryIterator):
             raise ValueError('only support TrajectoryIterator')
 
-        if 'dtype' not in kwd and func not in [
+        if 'dtype' not in kwargs and func not in [
                 mean_structure, matrix.dist, matrix.idea,
                 ired_vector_and_matrix, rotation_matrix,
                 volmap,
         ]:
-            kwd['dtype'] = 'dict'
+            kwargs['dtype'] = 'dict'
 
         # keyword
         if func is volmap:
-            assert kwd.get('size') is not None, 'must provide "size" value'
+            assert kwargs.get('size') is not None, 'must provide "size" value'
 
         p = Pool(n_cores)
 
-        pfuncs = partial(worker_byfunc,
+        pfuncs = partial(worker_by_func,
                          n_cores=n_cores,
                          func=func,
                          traj=traj,
                          args=args,
-                         kwd=kwd,
+                         kwargs=kwargs,
                          iter_options=iter_options,
                          apply=apply,
                          progress=progress,
@@ -215,48 +213,23 @@ def _pmap(func, traj, *args, **kwd):
         data = p.map(pfuncs, [rank for rank in range(n_cores)])
         p.close()
 
-        if func in [matrix.dist, matrix.idea, volmap]:
-            mat = np.sum((val[1] * val[2] for val in data)) / traj.n_frames
-            return mat
-        elif func in [ired_vector_and_matrix, ]:
-            # data is a list of (rank, (vectors, matrix), n_frames)
-            mat = np.sum((val[1][1] * val[2] for val in data)) / traj.n_frames
-            vecs = np.column_stack(val[1][0] for val in data)
-            return (vecs, mat)
-        elif func in [rotation_matrix, ]:
-            if 'with_rmsd' in kwd.keys() and kwd['with_rmsd']:
-                # data is a list of (rank, (mat, rmsd), n_frames)
-                mat = np.row_stack(val[1][0] for val in data)
-                rmsd_ = np.hstack(val[1][1] for val in data)
-                return OrderedDict(out=(mat, rmsd_))
-            else:
-                mat = np.row_stack(val[1] for val in data)
-                return OrderedDict(mat=mat)
-        elif func == mean_structure:
-            xyz = np.sum((x[2] * x[1].xyz for x in data)) / traj.n_frames
-            frame = Frame(xyz.shape[0])
-            frame.xyz[:] = xyz
-            return frame
-        elif 'hbond' in func.__name__:
-            return concat_hbond(data)
-        else:
-            return concat_dict((x[1] for x in data))
+        dataset_processor = PmapDataset(data, func=func, kwargs=kwargs, traj=traj)
+        return dataset_processor.process()
 
-
-def pmap(func=None, traj=None, *args, **kwd):
+def pmap(func=None, traj=None, *args, **kwargs):
     if func != NH_order_parameters:
-        return _pmap(func, traj, *args, **kwd)
+        return _pmap(func, traj, *args, **kwargs)
     else:
-        if 'n_cores' in kwd.keys():
-            if kwd['n_cores'] == 1:
+        if 'n_cores' in kwargs.keys():
+            if kwargs['n_cores'] == 1:
                 # use default n_cores=2 instead of 1
-                kwd['n_cores'] = 2
-            if kwd['n_cores'] <= 0:
-                kwd['n_cores'] = cpu_count()
+                kwargs['n_cores'] = 2
+            if kwargs['n_cores'] <= 0:
+                kwargs['n_cores'] = cpu_count()
         else:
             # use n_cores=2 for default value
-            kwd['n_cores'] = 2
-        return NH_order_parameters(traj, *args, **kwd)
+            kwargs['n_cores'] = 2
+        return NH_order_parameters(traj, *args, **kwargs)
 
 
 pmap.__doc__ = _pmap.__doc__

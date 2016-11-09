@@ -8,7 +8,7 @@ from pytraj.utils import aa_eq
 from pytraj.utils.tools import flatten
 from pytraj import matrix
 from pytraj.parallel.base import _load_batch_pmap, worker_by_actlist
-from pytraj.parallel.multiprocess import worker_byfunc
+from pytraj.parallel.multiprocess import worker_by_func
 from pytraj.utils import c_commands
 
 import pytest
@@ -82,9 +82,8 @@ class TestNormalPmap(unittest.TestCase):
 
          # test worker
          # need to test this since coverages seems not recognize partial func
-        data = worker_byfunc(rank=2, n_cores=8, func=pt.radgyr, traj=traj, args=(), kwd={'mask': '@CA'}, iter_options={})
-        assert data[0] == 2, 'rank must be 2'
-        assert data[2] == 1, 'n_frames for rank=2 should be 1 (only 10 frames in total)'
+        data = worker_by_func(rank=2, n_cores=8, func=pt.radgyr, traj=traj, args=(), kwargs={'mask': '@CA'}, iter_options={})
+        assert data[1] == 1, 'n_frames for rank=2 should be 1 (only 10 frames in total)'
 
     def test_different_references(self):
         traj = self.traj
@@ -387,7 +386,7 @@ class TestWorker(unittest.TestCase):
         traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
         for ref in [None, traj[0], [traj[0], traj[1]]]:
             data = worker_by_actlist(rank=3, n_cores=8, traj=traj, lines=['radgyr @CA', 'vector :3 :7'],
-                                     ref=ref, kwd=dict())
+                                     ref=ref, kwargs=dict())
 
 
 def change_10_atoms(traj):

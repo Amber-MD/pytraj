@@ -9,7 +9,6 @@ hbond_data_serial = pt.search_hbonds(traj, dtype='dict')
 hbond_data_pmap_mpi = pt.pmap_mpi(pt.search_hbonds, traj)
 
 if rank == 0:
-    print('rank', rank)
     assert sorted(hbond_data_serial.keys()) == sorted(hbond_data_pmap_mpi.keys())
     for key in hbond_data_serial.keys():
         aa_eq(hbond_data_serial[key], hbond_data_pmap_mpi[key])
