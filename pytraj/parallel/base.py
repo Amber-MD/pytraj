@@ -20,7 +20,7 @@ def concat_hbond(data_collection):
 
     Parameters
     ----------
-    data : List[Dict]
+    data : List[Tuple(cpu_rank, Dict[key, hbond], n_frames)]
 
     Notes
     -----
