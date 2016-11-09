@@ -16,10 +16,10 @@ class PmapDataset(object):
 
     Parameters
     ----------
-    data_collection : List[Tuple[OrdereDict[key, array], n_frames]] or some numpy
-    array based on return type
+    data_collection : List[Tuple[OrdereDict[key, array], n_frames]] or numpy
+    array based on returning type
     func : callable
-        a self.function that produces data_collection. We use this to determine data type
+        a function that produces data_collection. We use this to determine data type
     traj : Trajectory-like, original input
     kwargs : Dict
         original kwargs parameters, used to determine return type
