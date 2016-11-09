@@ -170,7 +170,8 @@ Update to AMBERHOME
 
 .. code-block:: bash
 
-    $ amber.pip install pytraj --prefix=$AMBERHOME
+    rm $AMBERHOME/lib/libcpptraj.so # so we can use included libcpptraj.so in pytraj
+    amber.pip install pytraj --prefix=$AMBERHOME
     # if you don't have amber.pip, just use pip
 
 - From github development version

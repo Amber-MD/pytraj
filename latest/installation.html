@@ -373,7 +373,8 @@ $ python ./setup.py install
 <ul class="simple">
 <li>From release version</li>
 </ul>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ amber.pip install pytraj --prefix<span class="o">=</span><span class="nv">$AMBERHOME</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>rm <span class="nv">$AMBERHOME</span>/lib/libcpptraj.so <span class="c1"># so we can use included libcpptraj.so in pytraj</span>
+amber.pip install pytraj --prefix<span class="o">=</span><span class="nv">$AMBERHOME</span>
 <span class="c1"># if you don&#39;t have amber.pip, just use pip</span>
 </pre></div>
 </div>
