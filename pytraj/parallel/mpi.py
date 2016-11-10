@@ -73,8 +73,8 @@ def pmap_mpi(func, traj, *args, **kwargs):
         total = comm.gather(data, root=0)
         n_frames_collection = comm.gather(n_frames, root=0)
         if rank == 0:
-            data_collection = [(val, n_frames)
-                    for val, n_frames in zip(total, n_frames_collection)]
+            data_collection = [(val, n_frames_)
+                    for (val, n_frames_) in zip(total, n_frames_collection)]
             dataset_processor = PmapDataset(data_collection,
                                             func=func,
                                             traj=traj,
