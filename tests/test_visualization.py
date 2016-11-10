@@ -1,5 +1,4 @@
 from __future__ import print_function
-import sys
 import unittest
 import pytraj as pt
 
@@ -46,4 +45,4 @@ class TestVisualization(unittest.TestCase):
     def test_visualization(self):
         """ Test visualization with nglview """
         traj = pt.datafiles.load_tz2()
-        view = traj.visualize()
+        traj.visualize()

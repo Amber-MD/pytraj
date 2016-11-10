@@ -67,7 +67,7 @@ class TestDistanceBasedMask(unittest.TestCase):
         ca_indices = pt.select_atoms(':3@CA', traj.top)
         all_pairs_smaller = list(product(ca_indices, indices_smaler))
 
-        distances = pt.tools.flatten(pt.distance(ref, all_pairs_smaller))
+        pt.tools.flatten(pt.distance(ref, all_pairs_smaller))
 
 
 if __name__ == "__main__":

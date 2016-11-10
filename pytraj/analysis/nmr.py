@@ -158,7 +158,8 @@ def ired_vector_and_matrix(traj=None,
     ired_cm = 'ired order ' + str(order)
     actlist.add(act_matired, ired_cm, _top, dslist=dslist)
 
-    actlist.compute(fi)
+    for frame in fi:
+        actlist.compute(frame)
 
     if dtype == 'tuple':
         mat = dslist[-1].values
@@ -240,5 +241,5 @@ def NH_order_parameters(traj,
     order = [d.values.copy() for d in data if 'S2' in d.key][0]
     return order
 
-# create alis for easy parsing
+# create alias for easy parsing
 calc_NH_order_parameters = NH_order_parameters

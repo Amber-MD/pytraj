@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-import warnings
 
 import unittest
 import numpy as np
@@ -7,7 +6,7 @@ import pytraj as pt
 
 from pytraj.utils import has_
 from pytraj.testing import aa_eq, cpptraj_test_dir
-from pytraj import Trajectory, TrajectoryIterator
+from pytraj import Trajectory
 from pytraj.datasets import CpptrajDatasetList
 from pytraj import AtomMask
 

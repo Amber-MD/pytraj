@@ -1,14 +1,13 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
-from pytraj.utils import eq, aa_eq
 
 
 class Test(unittest.TestCase):
 
     def test_0(self):
         # merge_coordinates
-        import numpy as np
+        pass
 
         # load 2 frames
         traj = pt.iterload("./data/Tc5b.x",

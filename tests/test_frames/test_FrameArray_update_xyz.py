@@ -1,11 +1,8 @@
 from __future__ import print_function
 import unittest
-import pytraj as pt
 from pytraj import *
-from pytraj import adict
 from pytraj import io as mdio
-from pytraj.utils import eq, aa_eq, Timer
-from pytraj.testing import cpptraj_test_dir
+from pytraj.utils import aa_eq
 
 
 class Test(unittest.TestCase):
@@ -34,7 +31,7 @@ class Test(unittest.TestCase):
         aa_eq(fa2.xyz, fa.xyz)
 
         # timing
-        xyz0 = np.empty((fa.n_frames, fa.n_atoms, 3))
+        np.empty((fa.n_frames, fa.n_atoms, 3))
 
 
 if __name__ == "__main__":

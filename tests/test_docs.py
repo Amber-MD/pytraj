@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 from __future__ import print_function
 
-import sys
 import unittest
 import pytraj as pt
-from pytraj.utils import eq, aa_eq
 from pytraj import utils
 import doctest
 from pytraj.externals.six import PY3
@@ -29,7 +27,6 @@ from pytraj.builder import build
 
 
 try:
-    import sander
     has_sander = True
 except ImportError:
     has_sander = False

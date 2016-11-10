@@ -36,7 +36,7 @@ if comm.rank == 0:
     # each core return a tuple (core_id, dict)
     # so you need to concat the dict
     # use `from pytraj.tools import concat_dict
-    data_0 = concat_dict(x[1] for x in data)
+    data_0 = concat_dict(x[0] for x in data)
 
     # assert to serial version (do not need to copy below to your script)
     state = pt.load_batch(traj, lines)

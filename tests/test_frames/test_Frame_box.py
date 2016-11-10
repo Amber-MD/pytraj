@@ -1,9 +1,6 @@
 import unittest
-from pytraj import *
 from pytraj import io as mdio
-from pytraj.utils.check_and_assert import assert_almost_equal
 import numpy as np
-from array import array
 
 
 class Test(unittest.TestCase):
@@ -12,7 +9,7 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         frame0 = traj[0]
         assert frame0.has_box() == False
-        box = frame0.box
+        frame0.box
         assert frame0.box.type == 'nobox'
 
         bview = frame0._boxview

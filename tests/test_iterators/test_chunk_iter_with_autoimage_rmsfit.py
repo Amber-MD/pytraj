@@ -2,9 +2,7 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 from pytraj.utils.context import tempfolder
-from pytraj.utils import eq, aa_eq
-from pytraj.utils import Timer
-from pytraj.externals.six import zip
+from pytraj.utils import aa_eq
 
 
 class Test_iterchunk_autoimage(unittest.TestCase):
@@ -17,7 +15,7 @@ class Test_iterchunk_autoimage(unittest.TestCase):
         traj = self.traj.copy()
         fa = traj[:]
         ref00 = traj[0]
-        ref01 = ref00.copy()
+        ref00.copy()
 
         # test autoimage
         for chunk in traj.iterchunk(chunksize=2, autoimage=True):

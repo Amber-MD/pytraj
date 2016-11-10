@@ -2,7 +2,6 @@ import pytraj as pt
 import numpy as np
 
 try:
-    import sander
     traj = pt.iterload("./data/Ala3/Ala3.crd", "./data/Ala3/Ala3.top")
 
     print(traj.n_atoms, traj.top.n_residues)

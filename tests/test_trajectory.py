@@ -2,7 +2,7 @@ from __future__ import print_function
 import unittest
 import numpy as np
 import pytraj as pt
-from pytraj.utils import eq, aa_eq
+from pytraj.utils import aa_eq
 
 
 class TestAutoImageAndRotateDihedral(unittest.TestCase):
@@ -192,14 +192,14 @@ class TestTrajectory(unittest.TestCase):
             t0.xyz = np.asfortranarray(traj.xyz)
 
         def append_2d():
-            traj1 = pt.load_sample_data('ala3')
+            pt.load_sample_data('ala3')
 
         def set_xyz_not_same_n_atoms():
             traj1 = pt.load_sample_data('ala3')
             t0.xyz = traj1.xyz
 
         def append_2d():
-            traj1 = pt.load_sample_data('ala3')
+            pt.load_sample_data('ala3')
             t0.append_xyz(pt.tools.as_2darray(traj))
 
         # fortran order, autoconvert

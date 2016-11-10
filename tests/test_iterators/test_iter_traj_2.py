@@ -1,6 +1,4 @@
 import unittest
-import pytraj as pt
-from pytraj import *
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 
@@ -44,7 +42,6 @@ class Test(unittest.TestCase):
         assert_almost_equal(frame.xyz, traj[-1].xyz)
 
     def test_3(self):
-        from pytraj import iterframe_master as frame_iter
         traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 
         count = 0

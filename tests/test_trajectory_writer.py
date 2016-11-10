@@ -1,6 +1,5 @@
 import unittest
 import pytraj as pt
-import numpy as np
 
 from pytraj import io as mdio
 from pytraj.testing import aa_eq
@@ -40,7 +39,7 @@ class TestTrajectoryWriter(unittest.TestCase):
         # reload
         farray2 = Trajectory("./output/test_trajout_withstatement.x",
                              "./data/Tc5b.top")
-        frame0_new = farray2[0]
+        farray2[0]
 
     def test_2(self):
         """test open file writen from test_0"""
@@ -79,7 +78,7 @@ class TestTrajectoryWriter(unittest.TestCase):
         aa_eq(f0[:, :, :].xyz, f1[:, :, :].xyz)
 
     def test_5(self):
-        farray = Trajectory("./output/test_0.pdb", "./data/Tc5b.top")[0]
+        Trajectory("./output/test_0.pdb", "./data/Tc5b.top")[0]
 
 
 if __name__ == "__main__":

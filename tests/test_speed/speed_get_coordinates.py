@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import pytraj as pt
-from pytraj.testing import Timer, aa_eq
+from pytraj.testing import Timer
 
 n_frames = 5000
 traj = pt.iterload('md.nc', 'tc5bwat.top', frame_slice=(0, n_frames))

@@ -2,7 +2,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
-from pytraj.utils import eq, aa_eq
+from pytraj.utils import aa_eq
 import pytest
 
 
@@ -12,7 +12,7 @@ class TestVelocity(unittest.TestCase):
         traj = pt.iterload("./data/issue807/trunc.nc",
                            "data/issue807/system.prmtop")
 
-        f = traj[0]
+        traj[0]
 
         # no mask, no frame_indices
         vels = pt.get_velocity(traj)

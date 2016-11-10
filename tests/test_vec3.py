@@ -1,5 +1,4 @@
 from pytraj.math import Vec3
-import numpy as np
 import unittest
 
 
@@ -13,15 +12,15 @@ class Test(unittest.TestCase):
         assert isinstance(v1.tolist(), list) == True
 
         from pytraj.math import Matrix_3x3
-        mat = Matrix_3x3(list(range(9)))
+        Matrix_3x3(list(range(9)))
 
     def test_1(self):
         l = [1., 2., 3.]
-        v1 = Vec3(l)
+        Vec3(l)
         from parmed.vec3 import Vec3 as chem_v3
         cv3 = chem_v3.__new__(chem_v3, *l)
 
-        v2 = Vec3(cv3)
+        Vec3(cv3)
 
 
 if __name__ == "__main__":

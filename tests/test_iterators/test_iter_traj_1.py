@@ -1,7 +1,5 @@
 import unittest
-import pytraj as pt
 import numpy as np
-from pytraj import *
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.externals.six import zip
@@ -43,7 +41,7 @@ class Test(unittest.TestCase):
             pass
         assert_almost_equal(traj[8].xyz, frame0.xyz)
 
-        arr0 = traj[6][0]
+        traj[6][0]
         for frame0 in traj.iterframe(start=2, step=4, stop=8):
             pass
 

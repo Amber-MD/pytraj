@@ -9,7 +9,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         mask = "@CA"
         traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
-        top = traj.top
+        traj.top
         atm = traj.top(mask)
         n_selected_atoms = atm.n_atoms
         newtraj = traj[atm]
@@ -28,7 +28,7 @@ class Test(unittest.TestCase):
         mask = "@CA"
         # creat Trajectory ( [:] )
         traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")[:]
-        top = traj.top
+        traj.top
         atm = traj.top(mask)
         newtraj = traj[atm]
         newtraj2 = traj[mask + ' :frame']

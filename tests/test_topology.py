@@ -1,10 +1,8 @@
-import os
 import numpy as np
 import unittest
 import pytraj as pt
 from pytraj.externals.six import zip
 from pytraj import Topology
-from pytraj.core.c_core import AtomMask
 from pytraj import *
 
 
@@ -21,7 +19,6 @@ class TestTopology(unittest.TestCase):
         assert top.is_empty() == False
 
     def test_1(self):
-        datadir = "./data/"
         filename = "./data/Tc5b.top"
 
         top = pt.load_topology(filename)
@@ -58,7 +55,7 @@ class TestTopology(unittest.TestCase):
 
     def test_select_mask(self):
         top = pt.load_topology("./data/Tc5b.top")
-        arr0 = top.atom_indices("@CA")
+        top.atom_indices("@CA")
 
     def test_len(self):
         traj = Trajectory("./data/Tc5b.x", "./data/Tc5b.top")

@@ -3,7 +3,7 @@ from __future__ import print_function
 import os
 import unittest
 import pytraj as pt
-from pytraj.utils import eq, aa_eq
+from pytraj.utils import aa_eq
 from pytraj.testing import cpptraj_test_dir
 from pytraj.utils import tempfolder
 
@@ -48,7 +48,6 @@ class TestMatrixConprehensive(unittest.TestCase):
         import numpy as np
         from pytraj import ArgList
         from pytraj import matrix as ma
-        from pytraj.externals.six import iteritems
 
         traj = pt.iterload(crd_file, top_file)
 
@@ -67,8 +66,8 @@ class TestMatrixConprehensive(unittest.TestCase):
                 # get function
                 act_key = arg.get_string_key("matrix")
                 slist = arg.get_string_key('out').split(".")
-                mask = arg.get_next_mask()
-                fname = ".".join((slist[0], slist[-1], slist[1]))
+                arg.get_next_mask()
+                ".".join((slist[0], slist[-1], slist[1]))
                 # get correct name
                 func = ma.__dict__[act_key]
 

@@ -8,11 +8,14 @@ from pytraj.externals.six import string_types
 
 __all__ = [
         'check_valid_command',
-        'worker_byfunc',
+        'worker_by_func',
         'worker_by_actlist',
         'worker_state',
         'concat_hbond',
 ]
+
+def consume_iterator(fi):
+    for _ in fi: pass
 
 def concat_hbond(data_collection):
     # TODO: update doc
@@ -20,7 +23,7 @@ def concat_hbond(data_collection):
 
     Parameters
     ----------
-    data_collection : List[Tuple(cpu_rank, OrderedDict[key, hbond], n_frames)]
+    data_collection : List[Tuple(OrderedDict[key, hbond], n_frames)]
 
     Returns
     -------
@@ -30,22 +33,22 @@ def concat_hbond(data_collection):
     -----
     data_collection will be updated.
     '''
-
     all_keys = set()
     for partial_data in data_collection:
-        all_keys.update(partial_data[1].keys())
+        all_keys.update(partial_data[0].keys())
     excluded_keys = [key for key in all_keys if key.startswith('total')]
     
     for key in excluded_keys:
         all_keys.discard(key)
 
     for partial_data in data_collection:
-        missing_keys = all_keys - set(partial_data[1].keys())
-        n_frames = partial_data[2]
+        missing_keys = all_keys - set(partial_data[0].keys())
+        n_frames = partial_data[1]
         if missing_keys:
             for key in missing_keys:
-                partial_data[1][key] = np.zeros(n_frames)
-    return concat_dict((x[1] for x in data_collection))
+                partial_data[0][key] = np.zeros(n_frames)
+    # val : Tuple[OrderedDict, n_frames]
+    return concat_dict((val[0] for val in data_collection))
 
 def check_valid_command(commands):
     '''
@@ -100,26 +103,26 @@ def check_valid_command(commands):
     return new_commands, need_ref
 
 
-def worker_byfunc(rank,
+def worker_by_func(rank,
                   n_cores=None,
                   func=None,
                   traj=None,
                   args=None,
-                  kwd=None,
+                  kwargs=None,
                   iter_options=None,
                   apply=None,
                   progress=False,
                   progress_params=dict()):
     '''worker for pytraj's functions
     '''
-    # need to unpack args and kwd
+    # need to unpack args and kwargs
     if iter_options is None:
         iter_options = {}
     mask = iter_options.get('mask')
     rmsfit = iter_options.get('rmsfit')
     autoimage = iter_options.get('autoimage', False)
     iter_func = apply
-    frame_indices = kwd.pop('frame_indices', None)
+    frame_indices = kwargs.pop('frame_indices', None)
 
     if frame_indices is None:
         my_iter = traj._split_iterators(n_cores,
@@ -138,17 +141,17 @@ def worker_byfunc(rank,
         my_iter = ProgressBarTrajectory(my_iter, style='basic', **progress_params)
 
     n_frames = my_iter.n_frames
-    kwd_cp = {}
-    kwd_cp.update(kwd)
+    kwargs_cp = {}
+    kwargs_cp.update(kwargs)
 
     if iter_func is not None:
         final_iter = iter_func(my_iter)
-        kwd_cp['top'] = my_iter.top
+        kwargs_cp['top'] = my_iter.top
     else:
         final_iter = my_iter
 
-    data = func(final_iter, *args, **kwd_cp)
-    return (rank, data, n_frames)
+    data = func(final_iter, *args, **kwargs_cp)
+    return (data, n_frames)
 
 
 def worker_by_actlist(rank,
@@ -157,7 +160,7 @@ def worker_by_actlist(rank,
                       lines=None,
                       dtype='dict',
                       ref=None,
-                      kwd=None):
+                      kwargs=None):
     '''worker for cpptraj commands (string)
     '''
     # need to make a copy if lines since python's list is dangerous
@@ -166,7 +169,7 @@ def worker_by_actlist(rank,
     # Note: dtype is a dummy argument, it is always 'dict'
     if lines is None:
         lines = []
-    frame_indices = kwd.pop('frame_indices', None)
+    frame_indices = kwargs.pop('frame_indices', None)
 
     new_lines, need_ref = check_valid_command(lines)
 
@@ -197,11 +200,9 @@ def worker_by_actlist(rank,
     fi = pipe(my_iter, commands=new_lines, dslist=dslist)
 
     # just iterate Frame to trigger calculation.
-    for _ in fi:
-        pass
-
+    consume_iterator(fi)
     # remove ref
-    return (rank, dslist[len(reflist):].to_dict())
+    return (dslist[len(reflist):].to_dict(), )
 
 
 def _load_batch_pmap(n_cores=4,
@@ -211,7 +212,7 @@ def _load_batch_pmap(n_cores=4,
                      root=0,
                      mode='multiprocessing',
                      ref=None,
-                     **kwd):
+                     **kwargs):
     '''mpi or multiprocessing
     '''
     if lines is None:
@@ -224,7 +225,7 @@ def _load_batch_pmap(n_cores=4,
                          dtype=dtype,
                          lines=lines,
                          ref=ref,
-                         kwd=kwd)
+                         kwargs=kwargs)
         pool = Pool(n_cores)
         data = pool.map(pfuncs, range(n_cores))
         pool.close()
@@ -240,7 +241,7 @@ def _load_batch_pmap(n_cores=4,
                                        dtype=dtype,
                                        lines=lines,
                                        ref=ref,
-                                       kwd=kwd)
+                                       kwargs=kwargs)
         # it's ok to use python level `gather` method since we only do this once
         # only gather data to root, other cores get None
         data = comm.gather(data_chunk, root=root)

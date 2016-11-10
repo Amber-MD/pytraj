@@ -5,7 +5,7 @@ import unittest
 from pytraj import *
 import numpy as np
 import pytraj as pt
-from pytraj.utils import eq, aa_eq
+from pytraj.utils import aa_eq
 from pytraj.externals.six import string_types
 from pytraj.analysis.hbond_analysis import DatasetHBond
 
