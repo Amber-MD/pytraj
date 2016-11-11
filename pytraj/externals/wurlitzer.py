@@ -48,6 +48,7 @@ import os
 import select
 import sys
 import threading
+import warnings
 
 libc = ctypes.CDLL(None)
 
