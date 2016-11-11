@@ -3,6 +3,12 @@ from contextlib import contextmanager
 import tempfile
 from shutil import rmtree
 
+try:
+    from wurlitzer import pipes
+except ImportError:
+    from ..externals.wurlitzer import pipes
+
+capture_stdout = pipes
 
 @contextmanager
 def tempfolder():

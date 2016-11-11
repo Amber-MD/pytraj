@@ -9,11 +9,13 @@ from .utils.get_common_objects import (get_topology, get_data_from_dtype, get_li
 from .utils import ensure_not_none_or_string
 from .utils import is_int
 from .utils.context import tempfolder
+from .utils.context import capture_stdout
 from .utils.convert import array_to_cpptraj_atommask
 from .externals.six import string_types
 from .datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 from .datasets.datasetlist import DatasetList
 from .trajectory.shared_methods import iterframe_master
+from .trajectory.frame import Frame
 from .utils.decorators import register_pmap, register_openmp
 from .analysis.c_action import c_action
 from .analysis.c_analysis import c_analysis
@@ -22,56 +24,61 @@ from .utils.convert import array2d_to_cpptraj_maskgroup
 from .topology.topology import Topology
 from .builder.build import make_structure
 
-list_of_calc = ['calc_distance',
-                'calc_dihedral',
-                'calc_radgyr',
-                'calc_angle',
-                'calc_surf',
-                'calc_molsurf',
-                'calc_volume',
-                'calc_matrix',
-                'calc_jcoupling',
-                'calc_watershell',
-                'calc_vector',
-                'calc_multivector',
-                'calc_volmap',
-                'calc_rdf',
-                'calc_pairdist',
-                'calc_multidihedral',
-                'calc_atomicfluct',
-                'calc_center_of_mass',
-                'calc_center_of_geometry',
-                'calc_pairwise_rmsd',
-                'calc_grid',
-                'calc_atomiccorr',
-                'calc_bfactors',
-                'calc_diffusion',
-                'calc_distance_rmsd',
-                'calc_mindist',
-                'calc_pairwise_distance',
-                'calc_rmsd_nofit',
-                'calc_rotation_matrix',
-                'calc_pca', ]
+list_of_calc = [
+    'calc_distance',
+    'calc_dihedral',
+    'calc_radgyr',
+    'calc_angle',
+    'calc_surf',
+    'calc_molsurf',
+    'calc_volume',
+    'calc_matrix',
+    'calc_jcoupling',
+    'calc_watershell',
+    'calc_vector',
+    'calc_multivector',
+    'calc_volmap',
+    'calc_rdf',
+    'calc_pairdist',
+    'calc_multidihedral',
+    'calc_atomicfluct',
+    'calc_center_of_mass',
+    'calc_center_of_geometry',
+    'calc_pairwise_rmsd',
+    'calc_grid',
+    'calc_atomiccorr',
+    'calc_bfactors',
+    'calc_diffusion',
+    'calc_distance_rmsd',
+    'calc_mindist',
+    'calc_pairwise_distance',
+    'calc_rmsd_nofit',
+    'calc_rotation_matrix',
+    'calc_pca',
+]
 
 list_of_calc_short = [word.replace('calc_', '')
-                      for word in list_of_calc if not word in ['calc_matrix', ]]
+                      for word in list_of_calc if not word in ['calc_matrix', ]
+]
 
 list_of_do = ['translate', 'rotate', 'autoimage', 'image', 'scale']
 
 list_of_get = ['get_average_frame', 'get_velocity']
 
-list_of_the_rest = ['rmsd', 'align_principal_axis', 'principal_axes', 'closest',
-                    'transform', 'native_contacts', 'set_dihedral',
-                    'check_structure', 'mean_structure', 'lowestcurve',
-                    'make_structure', 'replicate_cell', 'pucker', 'rmsd_perres',
-                    'randomize_ions', 'velocityautocorr',
-                    'timecorr', 'search_neighbors',
-                    'xcorr', 'acorr',
-                    'projection',
-                    'superpose', 'strip',
-                    'density', 'gist',
-                    'center', 'wavelet'
-                    ]
+list_of_the_rest = [
+    'atom_map',
+    'rmsd', 'align_principal_axis', 'principal_axes', 'closest',
+    'transform', 'native_contacts', 'set_dihedral',
+    'check_structure', 'mean_structure', 'lowestcurve',
+    'make_structure', 'replicate_cell', 'pucker', 'rmsd_perres',
+    'randomize_ions', 'velocityautocorr',
+    'timecorr', 'search_neighbors',
+    'xcorr', 'acorr',
+    'projection',
+    'superpose', 'strip',
+    'density', 'gist',
+    'center', 'wavelet'
+]
 
 __all__ = list(set(list_of_do + list_of_calc_short + list_of_get + list_of_the_rest))
 
@@ -3555,3 +3562,49 @@ def wavelet(traj, command):
     act(command, dslist=c_dslist)
     c_dslist.remove_set(c_dslist[crdname])
     return get_data_from_dtype(c_dslist, dtype='dict')
+
+def atom_map(traj, ref, rmsfit=False):
+    ''' Limited support for cpptraj atommap
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    ref : Trajectory-like with one frame
+    rmsfit : bool, default False
+        if True, compute rmsfit
+
+    Notes
+    -----
+    This method in pytraj is not mature yet.
+
+    Returns
+    -------
+    out : Tuple[str, np.ndarray]
+        (mask_out, rmsd data if rmsfit=True) 
+    '''
+    act = c_action.Action_AtomMap()
+    options = 'rmsfit rmsout rmsout.dat' if rmsfit else ''
+    command = ' '.join(('my_target my_ref', options))
+    c_dslist = CpptrajDatasetList()
+
+    target = c_dslist.add('reference', name='my_target')
+    target.top = traj.top
+    target.append(traj[0])
+
+    refset = c_dslist.add('reference', name='my_ref')
+    refset.top = ref.top if ref.top is not None else traj.top
+    if not isinstance(ref, Frame):
+        ref_ = ref[0]
+    else:
+        ref_ = ref
+    refset.append(ref_)
+
+    with capture_stdout() as (out, err):
+        act(command, traj, top=traj.top, dslist=c_dslist)
+    act.post_process()
+
+    # free memory of two reference
+    c_dslist._pop(0)
+    c_dslist._pop(0)
+
+    return (out.read(), get_data_from_dtype(c_dslist, dtype='ndarray'))

@@ -9,6 +9,8 @@ from pytraj.core.c_options import set_world_silent
 # external
 from pytraj.externals.six import string_types
 
+from .context import capture_stdout
+
 try:
     from pytraj.externals.magic import from_file as file_type_info
 except ImportError:
@@ -92,23 +94,25 @@ def info(obj=None):  # pragma: no cover
             # assume `obj` hasattr `help`
             _obj = obj
 
-        if hasattr(_obj, 'help'):
-            set_world_silent(False)
-            _obj.help()
-            set_world_silent(True)
-        elif hasattr(_obj, 'info'):
-            set_world_silent(False)
-            _obj.info()
-            set_world_silent(True)
-        elif 'calc_' in _obj.__name__:
-            key = _obj.__name__.split("_")[-1]
-            set_world_silent(False)
-            adict[key].help()
-            set_world_silent(True)
-        elif hasattr(_obj, '__doc__'):
-            print(_obj.__doc__)
-        else:
-            raise ValueError("object does not have `help` method")
+        with capture_stdout() as (out, err):
+            if hasattr(_obj, 'help'):
+                set_world_silent(False)
+                _obj.help()
+                set_world_silent(True)
+            elif hasattr(_obj, 'info'):
+                set_world_silent(False)
+                _obj.info()
+                set_world_silent(True)
+            elif 'calc_' in _obj.__name__:
+                key = _obj.__name__.split("_")[-1]
+                set_world_silent(False)
+                adict[key].help()
+                set_world_silent(True)
+            elif hasattr(_obj, '__doc__'):
+                print(_obj.__doc__)
+            else:
+                raise ValueError("object does not have `help` method")
+        print(out.read())
 
 
 def show_code(func, get_txt=False):  # pragma: no cover
