@@ -2413,8 +2413,8 @@ def check_structure(traj, mask='', options='', frame_indices=None, top=None, dty
 
     Returns
     -------
-    out : 1D-array
-        number of problems for each frame
+    out : Tuple[np.ndarray, str]
+        number of problems for each frame and detail
 
     Examples
     --------
@@ -2423,9 +2423,8 @@ def check_structure(traj, mask='', options='', frame_indices=None, top=None, dty
     >>> failures = pt.check_structure(traj[0], top=traj.top)
     """
     command = ' '.join((mask, options))
-    # TODO: return stdout too?
-    c_dslist, _ = do_action(traj, command, c_action.Action_CheckStructure)
-    return get_data_from_dtype(c_dslist, dtype=dtype)
+    c_dslist, c_stdout = do_action(traj, command, c_action.Action_CheckStructure)
+    return get_data_from_dtype(c_dslist, dtype=dtype), c_stdout
 
 
 def timecorr(vec0,
