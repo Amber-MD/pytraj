@@ -7,7 +7,7 @@ from pytraj.utils import aa_eq
 
 class TestDRMSD(unittest.TestCase):
 
-    def test_drmsd(self):
+    def test_distance_rmsd(self):
         traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
         txt = '''
         parm data/tz2.parm7

@@ -7,7 +7,7 @@ from pytraj.utils import aa_eq
 
 class TestPrincipalAxis(unittest.TestCase):
 
-    def test_do_rotation(self):
+    def test_principal_axes_and_lign_principal_axis(self):
         traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 
         cm = '''
