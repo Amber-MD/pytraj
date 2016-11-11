@@ -21,8 +21,6 @@ class TestCrank(unittest.TestCase):
         state = pt.load_cpptraj_state(cm)
         with capture_stdout() as (out, _):
             state.run()
-        # TODO: assert please
-        # cpptraj does not dump data to Dataset
         data = pt.crank(dihedrals[0], dihedrals[1], mode='angle')
         assert out.read() == data[0]
 
