@@ -3563,15 +3563,15 @@ def wavelet(traj, command):
     c_dslist.remove_set(c_dslist[crdname])
     return get_data_from_dtype(c_dslist, dtype='dict')
 
-def atom_map(traj, ref, options=''):
+def atom_map(traj, ref, rmsfit=False):
     ''' Limited support for cpptraj atommap
 
     Parameters
     ----------
-    traj : Trajectory-like with one frame
+    traj : Trajectory-like
     ref : Trajectory-like with one frame
-    options : str
-        additional cpptraj options
+    rmsfit : bool, default False
+        if True, compute rmsfit
 
     Notes
     -----
@@ -3579,11 +3579,12 @@ def atom_map(traj, ref, options=''):
 
     Returns
     -------
-    out : str
-        cpptraj output
+    out : Tuple[str, np.ndarray]
+        (mask_out, rmsd data if rmsfit=True) 
     '''
     act = c_action.Action_AtomMap()
-    command = 'my_target my_ref' 
+    options = 'rmsfit rmsout rmsout.dat' if rmsfit else ''
+    command = ' '.join(('my_target my_ref', options))
     c_dslist = CpptrajDatasetList()
 
     target = c_dslist.add('reference', name='my_target')
@@ -3600,9 +3601,10 @@ def atom_map(traj, ref, options=''):
 
     with capture_stdout() as (out, err):
         act(command, traj, top=traj.top, dslist=c_dslist)
+    act.post_process()
 
-    # free memory
+    # free memory of two reference
     c_dslist._pop(0)
     c_dslist._pop(0)
 
-    return out.read()
+    return (out.read(), get_data_from_dtype(c_dslist, dtype='ndarray'))
