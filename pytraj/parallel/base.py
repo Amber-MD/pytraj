@@ -48,7 +48,12 @@ def concat_hbond(data_collection):
             for key in missing_keys:
                 partial_data[0][key] = np.zeros(n_frames)
     # val : Tuple[OrderedDict, n_frames]
-    return concat_dict((val[0] for val in data_collection))
+    data_dict = concat_dict((val[0] for val in data_collection))
+
+    # convert to int
+    for key, val in data_dict.items():
+        data_dict[key] = val.astype('i4')
+    return data_dict
 
 def check_valid_command(commands):
     '''
