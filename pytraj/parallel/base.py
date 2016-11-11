@@ -67,7 +67,8 @@ def check_valid_command(commands):
     cmlist : newly updated command list
     need_ref : bool, whether to provide reference or not
     '''
-    from pytraj.utils.c_commands import analysis_commands
+    from pytraj.utils.c_commands import ANALYSIS_COMMANDS
+    from pytraj.utils.c_commands import PMAP_EXCLUDED_COMMANDS
 
     if isinstance(commands, string_types):
         commands = [line.strip() for line in commands.split('\n') if line]
@@ -96,13 +97,18 @@ def check_valid_command(commands):
         if cm.startswith('matrix'):
             raise ValueError('Not support matrix')
 
-        for word in analysis_commands:
+        for word in ANALYSIS_COMMANDS:
             if cm.startswith(word):
                 raise ValueError(
                     'Not support cpptraj analysis keyword for parallel '
                     'calculation. You can use pmap for cpptraj actions to speed up the '
                     'IO and then perform '
                     'analysis in serial')
+        for word in PMAP_EXCLUDED_COMMANDS:
+            if cm.startswith(word):
+                raise ValueError(
+                    'Not yet support cpptraj {} keyword for parallel. '
+                    'Please use corresponding pytraj method if existing'.format(word))
         new_commands[idx] = cm
 
     return new_commands, need_ref
