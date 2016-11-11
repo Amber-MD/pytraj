@@ -2,6 +2,7 @@ from __future__ import print_function
 import sys
 import unittest
 from collections import OrderedDict
+import numpy as np
 import pytraj as pt
 from pytraj.utils import aa_eq
 
@@ -185,8 +186,9 @@ class TestParallelMapForHbond(unittest.TestCase):
         hbond_data_serial = pt.search_hbonds(traj, dtype='dict')
         hbond_data_pmap = pt.pmap(pt.search_hbonds, traj, n_cores=3)
         assert sorted(hbond_data_serial.keys()) == sorted(hbond_data_pmap.keys())
-        for key in hbond_data_serial.keys():
+        for key, value in hbond_data_serial.items():
             aa_eq(hbond_data_serial[key], hbond_data_pmap[key])
+            assert value.dtype == np.int32
 
 @unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
 class TestCpptrajCommandStyle(unittest.TestCase):
