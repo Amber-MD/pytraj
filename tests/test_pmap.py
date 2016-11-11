@@ -190,6 +190,11 @@ class TestParallelMapForHbond(unittest.TestCase):
             aa_eq(hbond_data_serial[key], hbond_data_pmap[key])
             assert value.dtype == np.int32
 
+        with pytest.raises(ValueError):
+            # cpptraj style
+            # not support yet.
+            pt.pmap(['radgyr', 'hbond'], traj, n_cores=3)
+
 @unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
 class TestCpptrajCommandStyle(unittest.TestCase):
 
@@ -352,7 +357,7 @@ class TestCheckValidCommand(unittest.TestCase):
         self.assertRaises(ValueError, lambda: pt.pmap(['matrix'], traj, n_cores=2))
 
         # do not accept any c analysis command
-        for word in c_commands.analysis_commands:
+        for word in c_commands.ANALYSIS_COMMANDS:
             with pytest.raises(ValueError):
                 pt.pmap(word, traj, n_cores=2)
 
