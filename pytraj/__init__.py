@@ -235,6 +235,7 @@ pair_distribution = pairdist = calc_pairdist
 # compat with cpptraj
 distance = calc_distance
 angle = calc_angle
+atommap = atom_map
 dihedral = calc_dihedral
 jcoupling = calc_jcoupling
 dssp = calc_dssp

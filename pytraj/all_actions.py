@@ -15,6 +15,7 @@ from .externals.six import string_types
 from .datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 from .datasets.datasetlist import DatasetList
 from .trajectory.shared_methods import iterframe_master
+from .trajectory.frame import Frame
 from .utils.decorators import register_pmap, register_openmp
 from .analysis.c_action import c_action
 from .analysis.c_analysis import c_analysis
@@ -3591,7 +3592,11 @@ def atom_map(traj, ref, options=''):
 
     refset = c_dslist.add('reference', name='my_ref')
     refset.top = ref.top if ref.top is not None else traj.top
-    refset.append(ref)
+    if not isinstance(ref, Frame):
+        ref_ = ref[0]
+    else:
+        ref_ = ref
+    refset.append(ref_)
 
     with capture_stdout() as (out, err):
         act(command, traj, top=traj.top, dslist=c_dslist)
