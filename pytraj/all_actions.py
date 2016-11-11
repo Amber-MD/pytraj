@@ -3555,3 +3555,32 @@ def wavelet(traj, command):
     act(command, dslist=c_dslist)
     c_dslist.remove_set(c_dslist[crdname])
     return get_data_from_dtype(c_dslist, dtype='dict')
+
+def atom_map(traj, ref, options=''):
+    ''' Limited support for cpptraj atommap
+
+    Parameters
+    ----------
+    traj : Trajectory-like with one frame
+    ref : Trajectory-like with one frame
+    options : additional cpptraj options
+
+    Notes
+    -----
+    The result will be in stdout.
+    This method in pytraj is not mature yet.
+    '''
+    act = c_action.Action_AtomMap()
+    command = 'my_target my_ref' 
+    c_dslist = CpptrajDatasetList()
+
+    target = c_dslist.add('reference', name='my_target')
+    target.top = traj.top
+    target.append(traj[0])
+
+    refset = c_dslist.add('reference', name='my_ref')
+    refset.top = ref.top if ref.top is not None else traj.top
+    refset.append(ref)
+
+    act(command, traj, top=traj.top, dslist=c_dslist)
+    return c_dslist

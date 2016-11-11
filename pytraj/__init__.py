@@ -99,6 +99,7 @@ from .all_actions import acorr
 from .all_actions import align
 from .all_actions import align_principal_axis
 from .all_actions import atomicfluct
+from .all_actions import atom_map
 from .all_actions import autoimage
 from .all_actions import calc_angle
 from .all_actions import calc_atomiccorr
