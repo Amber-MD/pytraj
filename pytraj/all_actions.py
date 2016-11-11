@@ -2652,7 +2652,7 @@ def crank(data0, data1, mode='distance', dtype='ndarray'):
     command = ' '.join((mode, 'd0', 'd1'))
     with capture_stdout() as (out, err):
         act(command, dslist=c_dslist)
-    return out.read(), get_data_from_dtype(c_dslist[2:], dtype=dtype)
+    return out.read()
 
 
 @super_dispatch()

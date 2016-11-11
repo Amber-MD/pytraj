@@ -22,7 +22,7 @@ class TestCrank(unittest.TestCase):
         with capture_stdout() as (out, _):
             state.run()
         data = pt.crank(dihedrals[0], dihedrals[1], mode='angle')
-        assert out.read() == data[0]
+        assert out.read() == data
 
 
 if __name__ == "__main__":
