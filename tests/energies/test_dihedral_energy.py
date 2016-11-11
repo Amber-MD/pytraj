@@ -1,7 +1,6 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
-from pytraj.utils import eq, aa_eq
 
 try:
     import sander
@@ -25,7 +24,6 @@ class TestUpdateDihedral(unittest.TestCase):
         inp = sander.gas_input(8)
         coords = traj[0].xyz
 
-        fname = "tmp.parm7"
 
         with pt.utils.context.tempfolder():
             for k in range(20, 100):

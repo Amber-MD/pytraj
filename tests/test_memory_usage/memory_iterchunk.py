@@ -1,10 +1,7 @@
 # that stops travis
-import os
 import pytraj as pt
-from numpy import max
-from memory_profiler import profile, memory_usage
+from memory_profiler import profile
 
-from glob import glob
 
 traj = pt.load_sample_data('tz2')
 # make fake large trajectory from 10 frames

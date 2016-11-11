@@ -55,7 +55,7 @@ class Test1(unittest.TestCase):
         aa_eq(frame1[0], traj[1][:, :][0])
         assert traj[0, 0, 0] == -16.492
         assert traj[:, :, 0][0, 0] == traj[0, 0, 0]
-        f0 = traj[0]
+        traj[0]
         farr0 = traj[:2]
 
         fa = traj[2:4]
@@ -78,8 +78,8 @@ class TestSegmentationFault(unittest.TestCase):
     def test_0(self):
         # NOTE: no assert, just check for segfault
         traj = pt.load("./data/Tc5b.x", "./data/Tc5b.top")
-        trajiter = pt.load("./data/Tc5b.x", "./data/Tc5b.top")
-        atm = traj.top("@CA")
+        pt.load("./data/Tc5b.x", "./data/Tc5b.top")
+        traj.top("@CA")
         f0 = traj[5]
         f0 = traj[0]
         f0.top = traj.top

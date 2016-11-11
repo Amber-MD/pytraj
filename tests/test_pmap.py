@@ -4,12 +4,12 @@ import unittest
 from collections import OrderedDict
 import numpy as np
 import pytraj as pt
-from pytraj.utils import eq, aa_eq
+from pytraj.utils import aa_eq
 
 from pytraj.utils.tools import flatten
 from pytraj import matrix
 from pytraj.parallel.base import _load_batch_pmap, worker_by_actlist
-from pytraj.parallel.multiprocess import worker_byfunc
+from pytraj.parallel.multiprocess import worker_by_func
 from pytraj.utils import c_commands
 
 import pytest
@@ -83,9 +83,8 @@ class TestNormalPmap(unittest.TestCase):
 
          # test worker
          # need to test this since coverages seems not recognize partial func
-        data = worker_byfunc(rank=2, n_cores=8, func=pt.radgyr, traj=traj, args=(), kwd={'mask': '@CA'}, iter_options={})
-        assert data[0] == 2, 'rank must be 2'
-        assert data[2] == 1, 'n_frames for rank=2 should be 1 (only 10 frames in total)'
+        data = worker_by_func(rank=2, n_cores=8, func=pt.radgyr, traj=traj, args=(), kwargs={'mask': '@CA'}, iter_options={})
+        assert data[1] == 1, 'n_frames for rank=2 should be 1 (only 10 frames in total)'
 
     def test_different_references(self):
         traj = self.traj
@@ -179,6 +178,22 @@ class TestParallelMapForMatrix(unittest.TestCase):
             aa_eq(saved_mat, mat2)
             aa_eq(saved_rmsd, rmsd_)
 
+
+@unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
+class TestParallelMapForHbond(unittest.TestCase):
+    def test_pmap_hbond(self):
+        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        hbond_data_serial = pt.search_hbonds(traj, dtype='dict')
+        hbond_data_pmap = pt.pmap(pt.search_hbonds, traj, n_cores=3)
+        assert sorted(hbond_data_serial.keys()) == sorted(hbond_data_pmap.keys())
+        for key, value in hbond_data_serial.items():
+            aa_eq(hbond_data_serial[key], hbond_data_pmap[key])
+            assert value.dtype == np.int32
+
+        with pytest.raises(ValueError):
+            # cpptraj style
+            # not support yet.
+            pt.pmap(['radgyr', 'hbond'], traj, n_cores=3)
 
 @unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
 class TestCpptrajCommandStyle(unittest.TestCase):
@@ -342,7 +357,7 @@ class TestCheckValidCommand(unittest.TestCase):
         self.assertRaises(ValueError, lambda: pt.pmap(['matrix'], traj, n_cores=2))
 
         # do not accept any c analysis command
-        for word in c_commands.analysis_commands:
+        for word in c_commands.ANALYSIS_COMMANDS:
             with pytest.raises(ValueError):
                 pt.pmap(word, traj, n_cores=2)
 
@@ -378,7 +393,7 @@ class TestWorker(unittest.TestCase):
         traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
         for ref in [None, traj[0], [traj[0], traj[1]]]:
             data = worker_by_actlist(rank=3, n_cores=8, traj=traj, lines=['radgyr @CA', 'vector :3 :7'],
-                                     ref=ref, kwd=dict())
+                                     ref=ref, kwargs=dict())
 
 
 def change_10_atoms(traj):

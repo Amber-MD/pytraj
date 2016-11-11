@@ -5,15 +5,17 @@ from pytraj.utils import split_range
 from pytraj.utils.tools import concat_dict
 from pytraj.utils.get_common_objects import get_reference
 
+from .dataset import PmapDataset
 
-def pmap_mpi(func, traj, *args, **kwd):
+
+def pmap_mpi(func, traj, *args, **kwargs):
     """parallel with MPI (mpi4py)
 
     Parameters
     ----------
     func : a function
     traj : pytraj.TrajectoryIterator
-    *args, **kwd: additional arguments
+    *args, **kwargs: additional arguments
 
     Examples
     --------
@@ -49,26 +51,35 @@ def pmap_mpi(func, traj, *args, **kwd):
     rank = comm.rank
 
     # update reference
-    if 'ref' in kwd:
-        kwd['ref'] = get_reference(traj, kwd['ref'])
+    if 'ref' in kwargs:
+        kwargs['ref'] = get_reference(traj, kwargs['ref'])
 
     if not isinstance(func, (list, tuple)):
         # split traj to ``n_cores`` chunks, perform calculation
         # for rank-th chunk
-        if 'dtype' not in kwd:
-            kwd['dtype'] = 'dict'
+        if 'dtype' not in kwargs:
+            kwargs['dtype'] = 'dict'
 
-        frame_indices = kwd.pop('frame_indices', None)
+        frame_indices = kwargs.pop('frame_indices', None)
         if frame_indices is None:
             start, stop = split_range(n_cores, 0, traj.n_frames)[rank]
             my_iter = traj.iterframe(start=start, stop=stop)
         else:
             my_indices = np.array_split(frame_indices, n_cores)[rank]
             my_iter = traj.iterframe(frame_indices=my_indices)
-        data = func(my_iter, *args, **kwd)
+        n_frames = my_iter.n_frames
+        data = func(my_iter, *args, **kwargs)
+        # total : List[OrderedDict or Any]
         total = comm.gather(data, root=0)
+        n_frames_collection = comm.gather(n_frames, root=0)
         if rank == 0:
-            total = concat_dict(x for x in total)
+            data_collection = [(val, n_frames_)
+                    for (val, n_frames_) in zip(total, n_frames_collection)]
+            dataset_processor = PmapDataset(data_collection,
+                                            func=func,
+                                            traj=traj,
+                                            kwargs=kwargs)
+            return dataset_processor.process()
     else:
         # cpptraj command style
         from pytraj.parallel.base import _load_batch_pmap
@@ -78,8 +89,8 @@ def pmap_mpi(func, traj, *args, **kwd):
                                  dtype='dict',
                                  root=0,
                                  mode='mpi',
-                                 **kwd)
+                                 **kwargs)
         if rank == 0:
             # otherwise, total=None
-            total = concat_dict((x[1] for x in total))
+            total = concat_dict((x[0] for x in total))
     return total

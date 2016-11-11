@@ -1,18 +1,14 @@
 #!/usr/bin/env python
 
 from __future__ import print_function
-import os
-import sys
 import unittest
 import numpy as np
-import subprocess
 import pytraj as pt
 from pytraj.utils import eq, aa_eq
 from pytraj.version import version
 from pytraj.utils.get_common_objects import get_reference
 from pytraj.utils import misc
 from pytraj import all_actions
-import pytest
 
 
 class TestExtraCoverage(unittest.TestCase):
@@ -50,7 +46,7 @@ class TestExtraCoverage(unittest.TestCase):
         self.assertRaises(ValueError, lambda: aa_eq(np.nan, np.nan))
 
         dslist = pt.multidihedral(traj)
-        string_ = str(dslist[0])
+        str(dslist[0])
 
     def testget_common_objects(self):
         # raises

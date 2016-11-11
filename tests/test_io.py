@@ -4,11 +4,11 @@ import unittest
 import numpy as np
 import pytraj as pt
 from pytraj import Topology, Trajectory, TrajectoryIterator
-from pytraj.testing import aa_eq, get_fn, get_remd_fn, cpptraj_test_dir
-from pytraj.utils import tempfolder
+from pytraj.testing import aa_eq
+from pytraj.testing import cpptraj_test_dir
+from pytraj.testing import get_remd_fn
 
 try:
-    import scipy
     has_scipy = True
 except ImportError:
     has_scipy = False
@@ -438,7 +438,7 @@ class TestREMDTemperature(unittest.TestCase):
         '''
 
     def test_load_cpptraj_state_from_text(self):
-        traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
         text = '''
         parm  data/Test_RemdTraj/ala2.99sb.mbondi2.parm7
         trajin data/Test_RemdTraj/rem.nc.000 remdtraj remdtrajtemp 300.

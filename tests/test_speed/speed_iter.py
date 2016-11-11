@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import pytraj as pt
-from pytraj.testing import Timer, aa_eq
-import numpy as np
+from pytraj.testing import Timer
 import mdtraj as md
 '''compare iteration speed between pytraj.Trajectory and cpptraj's CRD set
 '''

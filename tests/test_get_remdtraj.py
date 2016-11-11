@@ -16,7 +16,7 @@ class Test(unittest.TestCase):
             topfile = "./data/Test_RemdTraj/ala2.99sb.mbondi2.parm7"
             trajlist.append(mdio.iterload(fh, topfile))
 
-        Tset = set([])
+        set([])
         f4922 = Trajectory()
         f4922._allocate(trajlist[0].n_frames, trajlist[0].n_atoms)
         f4922.top = trajlist[0].top.copy()

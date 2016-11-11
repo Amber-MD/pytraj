@@ -3,7 +3,8 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
-from pytraj.testing import get_fn, aa_eq, eq
+from pytraj.testing import aa_eq
+from pytraj.testing import get_fn
 
 fn, tn = get_fn('tz2_dry')
 

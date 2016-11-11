@@ -4,11 +4,9 @@ import unittest
 import pytraj as pt
 import doctest
 from pytraj.externals.six import PY3
-from pytraj import testing
 
 
 try:
-    import sander
     has_sander = True
 except ImportError:
     has_sander = False

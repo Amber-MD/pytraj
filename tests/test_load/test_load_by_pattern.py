@@ -1,7 +1,7 @@
 from __future__ import print_function
 import pytraj as pt
 import unittest
-from pytraj.utils import eq, aa_eq
+from pytraj.utils import aa_eq
 
 
 class Test(unittest.TestCase):

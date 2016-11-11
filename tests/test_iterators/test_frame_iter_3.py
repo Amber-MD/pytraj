@@ -1,9 +1,6 @@
 import unittest
-import pytraj as pt
-from pytraj import *
 from pytraj import adict
 from pytraj import io as mdio
-from pytraj.utils.check_and_assert import assert_almost_equal
 from pytraj.datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 
 

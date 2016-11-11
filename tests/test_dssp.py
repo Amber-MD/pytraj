@@ -33,7 +33,7 @@ class TestDSSP(unittest.TestCase):
     @print_name
     def test_simplified_codes(self):
         traj = pt.load("data/1L2Y.pdb")
-        data_full = pt.dssp(traj)[1]
+        pt.dssp(traj)[1]
         data_sim = pt.dssp(traj, simplified=True)[1]
         expected_1st = ['C', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'C', 'C', 'H',
                         'H', 'H', 'H', 'C', 'C', 'C', 'C', 'C', 'C']

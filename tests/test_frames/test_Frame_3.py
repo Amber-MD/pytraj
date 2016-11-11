@@ -1,6 +1,5 @@
 import unittest
 import pytraj as pt
-from pytraj import *
 from pytraj.testing import aa_eq
 from pytraj import io as mdio
 import numpy as np

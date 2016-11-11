@@ -4,7 +4,7 @@ from __future__ import print_function
 import unittest
 import numpy as np
 import pytraj as pt
-from pytraj.utils import eq, aa_eq
+from pytraj.utils import aa_eq
 import pytest
 
 
@@ -218,7 +218,6 @@ class TestPCA(unittest.TestCase):
     def test_traj_on_disk_fit_to_given_reference_and_restore_transform_commands(self):
         """test_traj_on_disk_fit_to_given_reference_and_restore_transform_commands
         """
-        fit = True 
         traj_on_disk = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
         ref = traj_on_disk[0]
 

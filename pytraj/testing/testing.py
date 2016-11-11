@@ -2,15 +2,22 @@ from __future__ import absolute_import, print_function
 import os
 
 from pytraj.datafiles.load_samples import load_sample_data
-from pytraj.utils import eq, aa_eq
-from pytraj.utils import duplicate_traj, Timer
+from pytraj.utils import eq
+from pytraj.utils import aa_eq
+from pytraj.utils import Timer
+from pytraj.utils import tempfolder
+from pytraj.utils import duplicate_traj
 
 __all__ = ['load_sample_data',
-           'eq', 'aa_eq',
+           'eq',
+           'aa_eq',
            'duplicate_traj',
            'Timer',
-           'amberhome', 'cpptraj_test_dir',
-           'get_fn', 'get_remd_fn',
+           'tempfolder',
+           'amberhome',
+           'cpptraj_test_dir',
+           'get_fn',
+           'get_remd_fn',
            'assert_equal_topology'
 ]
 

@@ -4,7 +4,7 @@ from __future__ import print_function
 import unittest
 import numpy as np
 import pytraj as pt
-from pytraj.testing import eq, aa_eq
+from pytraj.testing import aa_eq
 
 
 class TestIssue991(unittest.TestCase):

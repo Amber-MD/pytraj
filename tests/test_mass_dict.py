@@ -1,13 +1,13 @@
 from __future__ import print_function
 import unittest
 from pytraj import io as mdio
-from pytraj.utils import eq, aa_eq
+from pytraj.utils import aa_eq
 
 
 class Test(unittest.TestCase):
 
     def test_0(self):
-        from pytraj.core import mass_atomic_number_dict, mass_element_dict
+        from pytraj.core import mass_atomic_number_dict
         top = mdio.load_topology("./data/tz2.parm7")
         mass_list = []
 

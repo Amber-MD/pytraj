@@ -4,7 +4,7 @@ from __future__ import print_function
 import unittest
 import numpy as np
 import pytraj as pt
-from pytraj.utils import eq, aa_eq
+from pytraj.utils import aa_eq
 
 command = '''
 # Step one. Generate average structure.
@@ -42,7 +42,7 @@ class TestProjection(unittest.TestCase):
         pt.superpose(traj, mask=mask)
         avg = pt.mean_structure(traj)
         atom_indices = traj.top(mask).indices
-        strip_avg_coords = avg.xyz[atom_indices]
+        avg.xyz[atom_indices]
         pt.superpose(traj, mask=mask, ref=avg)
         avg2 = pt.mean_structure(traj, mask=mask)
 

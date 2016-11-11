@@ -1,6 +1,5 @@
 # always add those lines to your code
 import sys
-import numpy as np
 import pytraj as pt
 from pytraj.testing import aa_eq
 

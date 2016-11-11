@@ -4,7 +4,7 @@ import unittest
 import pytraj as pt
 import numpy as np
 from pytraj.decorators import _register_pmap
-from pytraj.utils import eq, aa_eq
+from pytraj.utils import aa_eq
 
 
 class TestFun(unittest.TestCase):

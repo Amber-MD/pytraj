@@ -2,7 +2,6 @@ import unittest
 import pytraj as pt
 
 from pytraj import adict
-from pytraj.externals.six import zip
 from pytraj.testing import aa_eq
 from pytraj.utils.tools import rmsd_1darray
 
@@ -13,7 +12,7 @@ class TestRegular(unittest.TestCase):
         traj = pt.iterload("./data/tz2.truncoct.nc",
                            "./data/tz2.truncoct.parm7")
         f0 = traj[0]
-        f0cp = f0.copy()
+        f0.copy()
         adict['autoimage']("", f0, traj.top)
 
         fsaved = pt.iterload("./data/tz2.truncoct.autoiamge.save.r",
@@ -26,7 +25,7 @@ class TestRegular(unittest.TestCase):
         traj = pt.iterload("./data/tz2.truncoct.nc",
                            "./data/tz2.truncoct.parm7")
         f0 = traj[0]
-        f0cp = f0.copy()
+        f0.copy()
         do_autoimage(traj=f0, top=traj.top)
 
         fsaved = pt.iterload("./data/tz2.truncoct.autoiamge.save.r",
@@ -96,7 +95,7 @@ class TestWithRmsfit(unittest.TestCase):
 
     def test_1(self):
         # status: OK
-        from pytraj.externals.six import zip
+        pass
         # note: use `load` instead of `iterload`
         traj = pt.load("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
         traj.autoimage()

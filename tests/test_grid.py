@@ -1,18 +1,14 @@
 #!/usr/bin/env python
 from __future__ import print_function
 import unittest
-import os
-import numpy as np
 import pytraj as pt
-from pytraj.utils import eq, aa_eq
-from pytraj.testing import cpptraj_test_dir
+from pytraj.utils import aa_eq
 
 
 class TestGrid(unittest.TestCase):
 
     def test_0(self):
         from pytraj.math import Grid
-        import numpy as np
         nx = ny = nz = 3
         g = Grid(nx, ny, nz)
         assert g.size == nx**3

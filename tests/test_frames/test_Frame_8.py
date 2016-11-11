@@ -1,7 +1,6 @@
 import unittest
 from pytraj import *
 from pytraj import io as mdio
-from pytraj.utils.check_and_assert import assert_almost_equal
 
 
 class Test(unittest.TestCase):
@@ -10,7 +9,7 @@ class Test(unittest.TestCase):
         traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         f0 = traj[0]
         # creat new frame based on f0 and atommask
-        f1 = Frame(f0, traj.top('@CA'))
+        Frame(f0, traj.top('@CA'))
 
         atm = AtomMask("")
         traj.top._set_integer_mask(atm)

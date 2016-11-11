@@ -1,9 +1,6 @@
 import unittest
 import pytraj as pt
-import sys
 from pytraj.testing import aa_eq
-from pytraj.core.c_core import Command
-from pytraj.core.c_core import CpptrajState
 from pytraj.externals.six import zip
 from pytraj import iterframe_master
 from pytraj import Frame, Trajectory
@@ -72,7 +69,7 @@ class TestIterFrameMaster(unittest.TestCase):
 
     def test_iter_with_a_list_of_frame_and_trajectory_and_FrameIterator(self):
         traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
-        ref = traj[0]
+        traj[0]
 
         for idx, frame in enumerate(iterframe_master([traj[0], traj])):
             assert isinstance(frame, Frame), 'must a a Frame'
