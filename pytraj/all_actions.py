@@ -1052,8 +1052,6 @@ def rdf(traj=None,
     '''
 
     traj = get_fiterator(traj, frame_indices)
-    top_ = get_topology(traj, top)
-
     if not isinstance(solvent_mask, string_types):
         solvent_mask = array_to_cpptraj_atommask(solvent_mask)
 
