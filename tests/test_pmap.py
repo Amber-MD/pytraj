@@ -357,7 +357,7 @@ class TestCheckValidCommand(unittest.TestCase):
         self.assertRaises(ValueError, lambda: pt.pmap(['matrix'], traj, n_cores=2))
 
         # do not accept any c analysis command
-        for word in c_commands.analysis_commands:
+        for word in c_commands.ANALYSIS_COMMANDS:
             with pytest.raises(ValueError):
                 pt.pmap(word, traj, n_cores=2)
 
