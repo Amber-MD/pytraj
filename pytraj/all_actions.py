@@ -9,6 +9,7 @@ from .utils.get_common_objects import (get_topology, get_data_from_dtype, get_li
 from .utils import ensure_not_none_or_string
 from .utils import is_int
 from .utils.context import tempfolder
+from .utils.context import capture_stdout
 from .utils.convert import array_to_cpptraj_atommask
 from .externals.six import string_types
 from .datasets.c_datasetlist import DatasetList as CpptrajDatasetList
@@ -22,56 +23,61 @@ from .utils.convert import array2d_to_cpptraj_maskgroup
 from .topology.topology import Topology
 from .builder.build import make_structure
 
-list_of_calc = ['calc_distance',
-                'calc_dihedral',
-                'calc_radgyr',
-                'calc_angle',
-                'calc_surf',
-                'calc_molsurf',
-                'calc_volume',
-                'calc_matrix',
-                'calc_jcoupling',
-                'calc_watershell',
-                'calc_vector',
-                'calc_multivector',
-                'calc_volmap',
-                'calc_rdf',
-                'calc_pairdist',
-                'calc_multidihedral',
-                'calc_atomicfluct',
-                'calc_center_of_mass',
-                'calc_center_of_geometry',
-                'calc_pairwise_rmsd',
-                'calc_grid',
-                'calc_atomiccorr',
-                'calc_bfactors',
-                'calc_diffusion',
-                'calc_distance_rmsd',
-                'calc_mindist',
-                'calc_pairwise_distance',
-                'calc_rmsd_nofit',
-                'calc_rotation_matrix',
-                'calc_pca', ]
+list_of_calc = [
+    'calc_distance',
+    'calc_dihedral',
+    'calc_radgyr',
+    'calc_angle',
+    'calc_surf',
+    'calc_molsurf',
+    'calc_volume',
+    'calc_matrix',
+    'calc_jcoupling',
+    'calc_watershell',
+    'calc_vector',
+    'calc_multivector',
+    'calc_volmap',
+    'calc_rdf',
+    'calc_pairdist',
+    'calc_multidihedral',
+    'calc_atomicfluct',
+    'calc_center_of_mass',
+    'calc_center_of_geometry',
+    'calc_pairwise_rmsd',
+    'calc_grid',
+    'calc_atomiccorr',
+    'calc_bfactors',
+    'calc_diffusion',
+    'calc_distance_rmsd',
+    'calc_mindist',
+    'calc_pairwise_distance',
+    'calc_rmsd_nofit',
+    'calc_rotation_matrix',
+    'calc_pca',
+]
 
 list_of_calc_short = [word.replace('calc_', '')
-                      for word in list_of_calc if not word in ['calc_matrix', ]]
+                      for word in list_of_calc if not word in ['calc_matrix', ]
+]
 
 list_of_do = ['translate', 'rotate', 'autoimage', 'image', 'scale']
 
 list_of_get = ['get_average_frame', 'get_velocity']
 
-list_of_the_rest = ['rmsd', 'align_principal_axis', 'principal_axes', 'closest',
-                    'transform', 'native_contacts', 'set_dihedral',
-                    'check_structure', 'mean_structure', 'lowestcurve',
-                    'make_structure', 'replicate_cell', 'pucker', 'rmsd_perres',
-                    'randomize_ions', 'velocityautocorr',
-                    'timecorr', 'search_neighbors',
-                    'xcorr', 'acorr',
-                    'projection',
-                    'superpose', 'strip',
-                    'density', 'gist',
-                    'center', 'wavelet'
-                    ]
+list_of_the_rest = [
+    'atom_map',
+    'rmsd', 'align_principal_axis', 'principal_axes', 'closest',
+    'transform', 'native_contacts', 'set_dihedral',
+    'check_structure', 'mean_structure', 'lowestcurve',
+    'make_structure', 'replicate_cell', 'pucker', 'rmsd_perres',
+    'randomize_ions', 'velocityautocorr',
+    'timecorr', 'search_neighbors',
+    'xcorr', 'acorr',
+    'projection',
+    'superpose', 'strip',
+    'density', 'gist',
+    'center', 'wavelet'
+]
 
 __all__ = list(set(list_of_do + list_of_calc_short + list_of_get + list_of_the_rest))
 
@@ -3563,12 +3569,17 @@ def atom_map(traj, ref, options=''):
     ----------
     traj : Trajectory-like with one frame
     ref : Trajectory-like with one frame
-    options : additional cpptraj options
+    options : str
+        additional cpptraj options
 
     Notes
     -----
-    The result will be in stdout.
     This method in pytraj is not mature yet.
+
+    Returns
+    -------
+    out : str
+        cpptraj output
     '''
     act = c_action.Action_AtomMap()
     command = 'my_target my_ref' 
@@ -3582,5 +3593,11 @@ def atom_map(traj, ref, options=''):
     refset.top = ref.top if ref.top is not None else traj.top
     refset.append(ref)
 
-    act(command, traj, top=traj.top, dslist=c_dslist)
-    return c_dslist
+    with capture_stdout() as (out, err):
+        act(command, traj, top=traj.top, dslist=c_dslist)
+
+    # free memory
+    c_dslist._pop(0)
+    c_dslist._pop(0)
+
+    return out.read()
