@@ -110,6 +110,9 @@ def do_action(traj, command, action_class, post_process=True):
     command : str
     action_class : derived class of c_action.Action
     '''
+    import inspect
+    assert inspect.isclass(action_class), 'must passing a derived class of c_action.Action' 
+    assert issubclass(action_class, c_action.Action)
     c_dslist = CpptrajDatasetList()
     act = action_class(command=command, top=traj.top, dslist=c_dslist)
     with capture_stdout() as (out, _):
@@ -558,9 +561,7 @@ def mindist(traj=None,
         command = array2d_to_cpptraj_maskgroup(command)
     command = "mindist " + command
 
-    print(traj)
-    c_dslist, _ = do_action(traj, command, c_action.Action_NativeContacts())
-    print(c_dslist)
+    c_dslist, _ = do_action(traj, command, c_action.Action_NativeContacts)
     return get_data_from_dtype(c_dslist, dtype=dtype)[-1]
 
 calc_mindist = mindist
