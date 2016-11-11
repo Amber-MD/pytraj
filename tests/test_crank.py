@@ -1,6 +1,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from pytraj.utils.context import capture_stdout
 
 
 cm = '''
@@ -18,10 +19,12 @@ class TestCrank(unittest.TestCase):
         traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
         dihedrals = pt.dihedral(traj, [':1@C :2@N :2@CA :2@C', ':2@C :3@N :3@CA :3@C'])
         state = pt.load_cpptraj_state(cm)
-        state.run()
+        with capture_stdout() as (out, _):
+            state.run()
         # TODO: assert please
         # cpptraj does not dump data to Dataset
-        pt.crank(dihedrals[0], dihedrals[1], mode='angle')
+        data = pt.crank(dihedrals[0], dihedrals[1], mode='angle')
+        assert out.read() == data[0]
 
 
 if __name__ == "__main__":
