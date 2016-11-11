@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
         import numpy as np
         traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
         top = traj.top
-        d0 = pt.calc_mindist(traj, "@CA @CB")
+        d0 = pt.mindist(traj, "@CA @CB")
         i0 = top("@CA").indices
         i1 = top("@CB").indices
         combinations = np.array(list(product(i0, i1)))

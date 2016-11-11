@@ -5,11 +5,5 @@ import unittest
 import pytraj as pt
 
 
-class Test(unittest.TestCase):
-
-    def test_0(self):
-        pt.iterload("data/tz2.nc", "data/tz2.parm7")
-
-
-if __name__ == "__main__":
-    unittest.main()
+def test_0():
+    traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")

@@ -101,6 +101,24 @@ def _assert_mutable(trajiter):
         raise ValueError(
             "This analysis does not support immutable object. Use `pytraj.Trajectory`")
 
+def do_action(traj, command, action_class, post_process=True):
+    ''' For internal use
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    command : str
+    action_class : derived class of c_action.Action
+    '''
+    c_dslist = CpptrajDatasetList()
+    act = action_class(command=command, top=traj.top, dslist=c_dslist)
+    with capture_stdout() as (out, _):
+        for frame in traj:
+            act.compute(frame)
+        if post_process:
+            act.post_process()
+    return c_dslist, out.read()  
+
 
 @register_pmap
 def distance(traj=None,
@@ -522,6 +540,7 @@ calc_dihedral = dihedral
 
 
 @register_pmap
+@super_dispatch()
 def mindist(traj=None,
             command="",
             top=None,
@@ -535,17 +554,13 @@ def mindist(traj=None,
     >>> traj = pt.datafiles.load_tz2()
     >>> data = pt.mindist(traj, '@CA @H')
     '''
-
-    traj = get_fiterator(traj, frame_indices)
-    act = c_action.Action_NativeContacts()
-    c_dslist = CpptrajDatasetList()
-
     if not isinstance(command, string_types):
         command = array2d_to_cpptraj_maskgroup(command)
-    command_ = "mindist " + command
-    traj = get_fiterator(traj, frame_indices)
-    top_ = get_topology(traj, top)
-    act(command_, traj, top=top_, dslist=c_dslist)
+    command = "mindist " + command
+
+    print(traj)
+    c_dslist, _ = do_action(traj, command, c_action.Action_NativeContacts())
+    print(c_dslist)
     return get_data_from_dtype(c_dslist, dtype=dtype)[-1]
 
 calc_mindist = mindist
@@ -3609,3 +3624,20 @@ def atom_map(traj, ref, rmsfit=False):
     c_dslist._pop(0)
 
     return (out.read(), get_data_from_dtype(c_dslist, dtype='ndarray'))
+
+
+def check_chirality(traj, mask='', dtype='dict'):
+    '''
+    
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, default '' (all)
+
+    Returns
+    -------
+    out : depent on dtype, default 'dict'
+    '''
+    command = mask
+    c_dslist, _ = do_action(traj, command, c_action.Action_CheckChirality)
+    return get_data_from_dtype(c_dslist, dtype=dtype)
