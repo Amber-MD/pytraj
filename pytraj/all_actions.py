@@ -184,7 +184,7 @@ def distance(traj=None,
 
     traj = get_fiterator(traj, frame_indices)
     top_ = get_topology(traj, top)
-    _noimage = 'noimage' if not image else ''
+    noimage_ = 'noimage' if not image else ''
 
     cm_arr = np.asarray(command)
 
@@ -221,7 +221,7 @@ def distance(traj=None,
 
         for cm in list_of_commands:
             if not image:
-                cm = ' '.join((cm, _noimage))
+                cm = ' '.join((cm, noimage_))
             actlist.add(c_action.Action_Distance(),
                         cm,
                         top_,
@@ -596,9 +596,6 @@ def diffusion(traj,
     array([ 0.        ,  0.87027302,  1.64626022,  2.26262651,  2.98068114,
             3.57075535,  4.07030655,  4.71894512,  5.42302306,  6.01310377])
     '''
-    act = c_action.Action_Diffusion()
-    c_dslist = CpptrajDatasetList()
-
     _tsep = 'time ' + str(tstep)
     _individual = 'individual' if individual else ''
 
@@ -606,21 +603,11 @@ def diffusion(traj,
     label = 'df'
     command = ' '.join((mask, label, _tsep, _individual))
 
-    # normally we just need
-    # act(command, traj, top=top_, dslist=c_dslist)
-    # but cpptraj need correct frame idx
-
-    act.read_input(command, top=top, dslist=c_dslist)
-    act.setup(top)
-    for frame in traj:
-        # do not need mass
-        act.compute(frame)
-    act.post_process()
+    c_dslist, _ = do_action(traj, command, c_action.Action_Diffusion)
 
     # make the label nicer
     for d in c_dslist:
         d.key = d.key.replace('[', '').replace(']', '').replace(label, '')
-
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 calc_diffusion = diffusion
@@ -628,6 +615,7 @@ calc_diffusion = diffusion
 
 @register_pmap
 @register_openmp
+@super_dispatch()
 def watershell(traj=None,
                solute_mask='',
                solvent_mask=':WAT',
@@ -662,24 +650,18 @@ def watershell(traj=None,
     >>> data = pt.watershell(traj, solute_mask='!:WAT', lower=5.0, upper=10.)
     """
     _solutemask = solute_mask
-    top_ = get_topology(traj, top)
-    fi = get_fiterator(traj, frame_indices)
-
-    c_dslist = CpptrajDatasetList()
-
-    act = c_action.Action_Watershell()
 
     if _solutemask in [None, '']:
         raise ValueError('must provide solute mask')
 
     _solventmask = solvent_mask if solvent_mask is not None else ''
-    _noimage = 'noimage' if not image else ''
+    noimage_ = 'noimage' if not image else ''
 
-    _lower = 'lower ' + str(lower)
-    _upper = 'upper ' + str(upper)
-    command = ' '.join((_solutemask, _lower, _upper, _noimage, _solventmask))
+    lower_ = 'lower ' + str(lower)
+    upper_ = 'upper ' + str(upper)
+    command = ' '.join((_solutemask, lower_, upper_, noimage_, _solventmask))
 
-    act(command, fi, top=top_, dslist=c_dslist)
+    c_dslist, _ = do_action(traj, command, c_action.Action_Watershell)
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 calc_watershell = watershell
@@ -1110,7 +1092,7 @@ def rdf(traj=None,
     _maximum = str(maximum)
     _solventmask = solvent_mask
     _solutemask = solute_mask
-    _noimage = 'noimage' if not image else ''
+    noimage_ = 'noimage' if not image else ''
     _density = 'density ' + str(density) if density is not None else ''
     volume_ = 'volume' if volume else ''
     _center1 = 'center1' if center_solvent else ''
@@ -1122,7 +1104,7 @@ def rdf(traj=None,
     # to cpptraj's doc (to get correct result)
     command = ' '.join(
         ("pytraj_tmp_output.agr", spacing_, _maximum, _solventmask, _solutemask,
-         _noimage, _density, volume_, _center1, _center2, _nointramol))
+         noimage_, _density, volume_, _center1, _center2, _nointramol))
 
     c_dslist = CpptrajDatasetList()
     act(command, traj, top=top_, dslist=c_dslist)
@@ -2454,11 +2436,11 @@ def native_contacts(traj=None,
     command = ' '.join((mask, mask2))
 
     _distance = str(distance)
-    _noimage = "noimage" if not image else ""
+    noimage_ = "noimage" if not image else ""
     _includesolvent = "includesolvent" if include_solvent else ""
     _byres = "byresidue" if byres else ""
 
-    command_ = " ".join(('ref myframe', command, _distance, _noimage,
+    command_ = " ".join(('ref myframe', command, _distance, noimage_,
                          _includesolvent, _byres))
     c_dslist.add('ref_frame', 'myframe')
     c_dslist[0].top = top
