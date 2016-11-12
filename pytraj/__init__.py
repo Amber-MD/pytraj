@@ -80,7 +80,7 @@ from .analysis.c_action import c_action
 from .analysis.c_analysis import c_analysis as allanalyses
 from .analysis.c_analysis import c_analysis
 
-from .analysis.dssp_analysis import calc_dssp
+from .analysis.dssp_analysis import dssp
 from .analysis.dssp_analysis import dssp_allatoms
 from .analysis.dssp_analysis import dssp_allresidues
 from .analysis.energy_analysis import esander
@@ -220,7 +220,7 @@ calc_pairwise_distance = pairwise_distance
 calc_angle = angles = angle
 calc_dihedral = dihedrals = dihedral
 calc_atomicfluct = rmsf = atomicfluct
-calc_pairwise_rmsd = pairwise_rmsd
+rms2d = calc_pairwise_rmsd = pairwise_rmsd
 calc_rotation_matrix = rotation_matrix
 calc_multidihedral = multidihedral
 calc_bfactors = bfactors
