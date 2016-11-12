@@ -4,6 +4,7 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 from pytraj.testing import cpptraj_test_dir
+from pytraj.utils.context import capture_stdout
 
 cm = """
 parm {cpptraj_test_dir}/tz2.parm7
@@ -21,21 +22,21 @@ reference = lines[1].split()[1]
 trajin = lines[2].split()[-1]
 
 short_cm = ' '.join(lines[-1].split()[1:])
-print(short_cm)
 
 class TestRotdif(unittest.TestCase):
 
-    @unittest.skip("cpptraj rotdif does not dump data to DatasetList yet")
+    # @unittest.skip("cpptraj rotdif does not dump data to DatasetList yet")
     def test_rotdif(self):
         traj = pt.load(trajin, parm)
         ref = pt.load(reference, parm) 
 
         mat = pt.rotation_matrix(traj, ref=ref, mask='@CA,C,N,O')
-
-        pt.all_actions._rotdif(mat, short_cm)
-
+        data = pt.all_actions.rotdif(mat, short_cm)
         state = pt.load_cpptraj_state(cm)
-        state.run()
+        with capture_stdout() as (out, _):
+            state.run()
+
+        assert data == out.read()
 
 if __name__ == "__main__":
     unittest.main()

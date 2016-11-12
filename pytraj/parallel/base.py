@@ -2,7 +2,7 @@ import numpy as np
 from functools import partial
 from pytraj import Frame
 from pytraj import pipe
-from pytraj.utils.tools import concat_dict
+from pytraj.utils.tools import concat_dict, WrapBareIterator
 from pytraj.datasets import CpptrajDatasetList
 from pytraj.externals.six import string_types
 
@@ -156,8 +156,7 @@ def worker_by_func(rank,
     kwargs_cp.update(kwargs)
 
     if iter_func is not None:
-        final_iter = iter_func(my_iter)
-        kwargs_cp['top'] = my_iter.top
+        final_iter = WrapBareIterator(iter_func(my_iter), top=my_iter.top)
     else:
         final_iter = my_iter
 
