@@ -101,33 +101,33 @@ from .all_actions import align_principal_axis
 from .all_actions import atomicfluct
 from .all_actions import atom_map
 from .all_actions import autoimage
-from .all_actions import calc_angle
-from .all_actions import calc_atomiccorr
-from .all_actions import calc_atomicfluct
-from .all_actions import calc_bfactors
-from .all_actions import calc_center_of_geometry
-from .all_actions import calc_center_of_mass
-from .all_actions import calc_diffusion
-from .all_actions import calc_dihedral
-from .all_actions import calc_distance
-from .all_actions import calc_jcoupling
-from .all_actions import calc_matrix
-from .all_actions import calc_mindist
-from .all_actions import calc_molsurf
-from .all_actions import calc_multidihedral
-from .all_actions import calc_multivector
-from .all_actions import calc_pairdist
-from .all_actions import calc_pairwise_distance
-from .all_actions import calc_pairwise_rmsd
-from .all_actions import calc_radgyr
-from .all_actions import calc_rdf
-from .all_actions import calc_rmsd_nofit
-from .all_actions import calc_rotation_matrix
-from .all_actions import calc_surf
-from .all_actions import calc_vector
-from .all_actions import calc_volmap
-from .all_actions import calc_volume
-from .all_actions import calc_watershell
+from .all_actions import angle
+from .all_actions import atomiccorr
+from .all_actions import atomicfluct
+from .all_actions import bfactors
+from .all_actions import center_of_geometry
+from .all_actions import center_of_mass
+from .all_actions import diffusion
+from .all_actions import dihedral
+from .all_actions import distance
+from .all_actions import jcoupling
+from .all_actions import matrix
+from .all_actions import mindist
+from .all_actions import molsurf
+from .all_actions import multidihedral
+from .all_actions import multivector
+from .all_actions import pairdist
+from .all_actions import pairwise_distance
+from .all_actions import pairwise_rmsd
+from .all_actions import radgyr
+from .all_actions import rdf
+from .all_actions import rmsd_nofit
+from .all_actions import rotation_matrix
+from .all_actions import surf
+from .all_actions import vector
+from .all_actions import volmap
+from .all_actions import volume
+from .all_actions import watershell
 from .all_actions import center
 from .all_actions import check_structure
 from .all_actions import check_chirality
@@ -213,49 +213,46 @@ dispatch = Command.dispatch
 energy_decomposition = esander
 check_overlap = check_structure
 fetch_pdb = load_pdb_rcsb
-rmsd_nofit = calc_rmsd_nofit
+calc_rmsd_nofit = rmsd_nofit
 search_hbonds = hbond
-distances = calc_distance
-pairwise_distance = calc_pairwise_distance
-angles = calc_angle
-dihedrals = calc_dihedral
-rmsf = calc_atomicfluct
-pairwise_rmsd = calc_pairwise_rmsd
-rotation_matrix = calc_rotation_matrix
-multidihedral = calc_multidihedral
-bfactors = calc_bfactors
-rdf = calc_rdf
-atomiccorr = calc_atomiccorr
-center_of_mass = calc_center_of_mass
-center_of_geometry = calc_center_of_geometry
+distances = calc_distance = distance
+calc_pairwise_distance = pairwise_distance
+calc_angle = angles = angle
+calc_dihedral = dihedrals = dihedral
+calc_atomicfluct = rmsf = atomicfluct
+calc_pairwise_rmsd = pairwise_rmsd
+calc_rotation_matrix = rotation_matrix
+calc_multidihedral = multidihedral
+calc_bfactors = bfactors
+calc_rdf = rdf
+calc_atomiccorr = atomiccorr
+calc_center_of_mass = center_of_mass
+calc_center_of_geometry = center_of_geometry
 mean_structure = get_average_frame
 average_frame = get_average_frame
 calc_pca = pca
-pair_distribution = pairdist = calc_pairdist
+calc_pairdist = pair_distribution = pairdist
 
 # compat with cpptraj
-distance = calc_distance
-angle = calc_angle
 atommap = atom_map
-dihedral = calc_dihedral
-jcoupling = calc_jcoupling
-dssp = calc_dssp
-drmsd = distance_rmsd
+calc_jcoupling = jcoupling
+calc_dssp = dssp
+calc_distance_rmsd = drmsd = distance_rmsd
 checkoverlap = check_structure
-radgyr = calc_radgyr
+calc_radgyr = radgyr
 nativecontacts = native_contacts
-mindist = calc_mindist
+calc_mindist = mindist
 lowest_curve = lowestcurve
-diffusion = calc_diffusion
-multivector = calc_multivector
-volmap = calc_volmap
+calc_diffusion = diffusion
+calc_multivector = multivector
+calc_volmap = volmap
 randomizeions = randomize_ions
-molsurf = calc_molsurf
-surf = calc_surf
-watershell = calc_watershell
-pairdist = calc_pairdist
-volume = calc_volume
-rms2d = calc_pairwise_rmsd
+calc_molsurf = molsurf
+calc_surf = surf
+calc_watershell = watershell
+calc_pairdist = pairdist
+calc_volume = volume
+calc_pairwise_rmsd = rms2d
 
 adict = ActionDict()
 analdict = AnalysisDict()

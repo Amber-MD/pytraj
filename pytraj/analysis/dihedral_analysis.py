@@ -23,7 +23,7 @@ from ..utils.get_common_objects import super_dispatch
 
 @register_pmap
 @super_dispatch()
-def calc_%s(traj=None, resrange="",
+def %s(traj=None, resrange="",
             range360=False,
             top=None, dtype='dataset',
             frame_indices=None):
@@ -101,7 +101,7 @@ __all__ = []
 
 for key in supported_dihedral_types:
     if key != 'multidihedral':
-        my_func_str = template % (key, key)
+        my_func_str = template % ('calc_' + key, key)
     else:
         my_func_str = template % (key, " ")
     __all__.append('calc_' + key)
