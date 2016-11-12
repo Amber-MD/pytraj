@@ -157,11 +157,11 @@ class FrameIterator(object):
     >>> fi = traj.iterframe(2, 8, mask='@1,2,3,4,5')
 
     >>> # explit use copy=True to give different Frame with list
-    >>> fi = traj.iterframe(2, 8)
-    >>> fi.copy = True
-    >>> pt.radgyr(list(fi), top=traj.top)
-    array([ 18.84969884,  18.90449256,  18.8568644 ,  18.88917208,
-            18.9430491 ,  18.88878079])
+    # >>> fi = traj.iterframe(2, 8)
+    # >>> fi.copy = True
+    # >>> pt.radgyr(list(fi), top=traj.top)
+    # array([ 18.84969884,  18.90449256,  18.8568644 ,  18.88917208,
+    #         18.9430491 ,  18.88878079])
     """
 
     def __init__(self,

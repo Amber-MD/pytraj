@@ -2,6 +2,7 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 from pytraj.utils import aa_eq
+from pytraj.parallel.base import WrapBareIterator
 
 
 class Test(unittest.TestCase):
@@ -10,20 +11,20 @@ class Test(unittest.TestCase):
         traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
 
         # TrajectoryIterator
+        myiter = WrapBareIterator([f.copy() for f in traj], top=traj.top)
         aa_eq(
-            pt.molsurf([f.copy() for f in traj],
-                       top=traj.top),
+            pt.molsurf(myiter),
             pt.molsurf(traj))
 
         # frame_iter
+        myiter = WrapBareIterator([f.copy() for f in traj()], top=traj.top)
         aa_eq(
-            pt.molsurf([f.copy() for f in traj()],
-                       top=traj.top),
+            pt.molsurf(myiter),
             pt.molsurf(traj))
 
+        myiter = WrapBareIterator([f.copy() for f in traj.iterchunk(3)], top=traj.top)
         aa_eq(
-            pt.molsurf([f.copy() for f in traj.iterchunk(3)],
-                       top=traj.top),
+            pt.molsurf(myiter),
             pt.molsurf(traj))
 
 
