@@ -8,7 +8,9 @@ from pytraj.utils import eq, aa_eq
 from pytraj.version import version
 from pytraj.utils.get_common_objects import get_reference
 from pytraj.utils import misc
-from pytraj import all_actions
+from pytraj import all_actions, c_action
+
+import pytest
 
 
 class TestExtraCoverage(unittest.TestCase):
@@ -58,7 +60,16 @@ class TestExtraCoverage(unittest.TestCase):
         self.assertRaises(TypeError, lambda: pt.superpose(self.traj[:], 3))
 
     def test_all_actions(self):
-        self.assertRaises(ValueError, lambda: all_actions._assert_mutable(self.traj))
+        with pytest.raises(ValueError):
+            all_actions._assert_mutable(self.traj)
+
+        with pytest.raises(AssertionError):
+            # passing an Action object
+            all_actions.do_action(self.traj, command='', action_class=c_action.Action_Angle())
+
+        with pytest.raises(AssertionError):
+            # passing a wrong class
+            all_actions.do_action(self.traj, command='', action_class=pt.Trajectory)
 
 if __name__ == "__main__":
     unittest.main()

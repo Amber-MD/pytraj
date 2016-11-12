@@ -12,6 +12,17 @@ import numpy as np
 from pytraj.externals.six import string_types
 
 
+class WrapBareIterator(object):
+    def __init__(self, obj, top):
+        # obj : any iterable object
+        # top : Topology
+        self.obj = obj
+        self.top = top
+
+    def __iter__(self):
+        return iter(self.obj)
+
+
 def estimate_size(n_frames, n_atoms, dtype='f8'):
     '''return MB
 

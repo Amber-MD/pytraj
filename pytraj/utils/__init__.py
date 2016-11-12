@@ -11,6 +11,7 @@ from .context import tempfolder
 from ..externals.six.moves import range
 from . import convert
 from ..externals.six import string_types
+from .tools import WrapBareIterator
 
 
 def duplicate_traj(orig_traj, n_times):
