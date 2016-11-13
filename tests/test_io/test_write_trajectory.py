@@ -5,6 +5,7 @@ import pytraj as pt
 from pytraj.testing import aa_eq
 from pytraj.utils import tempfolder
 
+from utils import fn
 
 class TestWriteTraj(unittest.TestCase):
 
@@ -33,39 +34,40 @@ class TestWriteTraj(unittest.TestCase):
 
     def test_write_xyz(self):
         xyz = self.traj.xyz
-        fname = './output/test_xyz.nc'
-        pt.write_traj(fname, xyz, top=self.traj.top, overwrite=True)
-        t0 = pt.iterload(fname, top=self.traj.top)
-        aa_eq(self.traj.xyz, t0.xyz)
+        fname = 'test_xyz.nc'
+        with tempfolder():
+            pt.write_traj(fname, xyz, top=self.traj.top, overwrite=True)
+            t0 = pt.iterload(fname, top=self.traj.top)
+            aa_eq(self.traj.xyz, t0.xyz)
 
     def test_split_and_write_traj(self):
-        fn = "data/Tc5b.x"
-        traj = pt.iterload([fn, fn], "./data/Tc5b.top")
+        traj = pt.iterload([fn('Tc5b.x'), fn('Tc5b.x')], fn('Tc5b.top'))
         # duplcate
         assert traj.n_frames == 20
         top = traj.top
 
-        # test TrajectoryIterator object
-        pt.tools.split_and_write_traj(traj,
-                                      n_chunks=4,
-                                      root_name='./output/trajiterx',
-                                      overwrite=True)
-        flist = sorted(glob("./output/trajiterx*"))
-        traj4 = pt.iterload(flist, top)
-        aa_eq(traj4.xyz, traj.xyz)
+        with tempfolder():
+            # test TrajectoryIterator object
+            pt.tools.split_and_write_traj(traj,
+                                          n_chunks=4,
+                                          root_name='trajiterx',
+                                          overwrite=True)
+            flist = sorted(glob("trajiterx*"))
+            traj4 = pt.iterload(flist, top)
+            aa_eq(traj4.xyz, traj.xyz)
 
-        # dcd ext
-        pt.tools.split_and_write_traj(traj,
-                                      4,
-                                      root_name='./output/ts',
-                                      ext='dcd',
-                                      overwrite=True)
-        flist = sorted(glob("./output/ts.*.dcd"))
-        traj4 = pt.iterload(flist, top)
-        aa_eq(traj4.xyz, traj.xyz)
+            # dcd ext
+            pt.tools.split_and_write_traj(traj,
+                                          4,
+                                          root_name='ts',
+                                          ext='dcd',
+                                          overwrite=True)
+            flist = sorted(glob("ts.*.dcd"))
+            traj4 = pt.iterload(flist, top)
+            aa_eq(traj4.xyz, traj.xyz)
 
     def test_raise(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
         # list
         self.assertRaises(
