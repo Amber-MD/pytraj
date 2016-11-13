@@ -3,30 +3,34 @@ from __future__ import print_function
 import unittest
 import numpy as np
 import pytraj as pt
-from pytraj.utils import aa_eq
+from pytraj.testing import aa_eq, tempfolder
+
+# local
+from utils import fn
 
 
 class TestRDF(unittest.TestCase):
 
     def test_rdf(self):
-        traj = pt.iterload("./data/tz2.truncoct.nc",
-                           "./data/tz2.truncoct.parm7",
+        traj = pt.iterload(fn("tz2.truncoct.nc"),
+                           fn("tz2.truncoct.parm7"),
                            frame_slice=(0, 10))
 
         command = '''
-        radial output/Radial.agr 0.5 10.0 :5@CD :WAT@O
-        radial output/cRadial.agr 0.5 10.0 :5 :WAT@O center1
-        radial output/cRadial.agr 0.5 10.0 :5 :WAT@O center2
-        radial output/cRadial.agr 0.5 20.0 :3 :WAT@O
-        radial output/cRadial.agr 0.5 20.0 :3 :WAT@O noimage
-        radial output/radial.dat 0.5 10.0 :5@CD :WAT@O
-        radial output/radial2.dat 0.25 10.0 :5@CD :WAT@O
-        radial output/radial2.dat 0.25 10.0 :5@CD :WAT@O volume
+        radial Radial.agr 0.5 10.0 :5@CD :WAT@O
+        radial cRadial.agr 0.5 10.0 :5 :WAT@O center1
+        radial cRadial.agr 0.5 10.0 :5 :WAT@O center2
+        radial cRadial.agr 0.5 20.0 :3 :WAT@O
+        radial cRadial.agr 0.5 20.0 :3 :WAT@O noimage
+        radial radial.dat 0.5 10.0 :5@CD :WAT@O
+        radial radial2.dat 0.25 10.0 :5@CD :WAT@O
+        radial radial2.dat 0.25 10.0 :5@CD :WAT@O volume
         '''
 
-        # get data directly from cpptraj
         state = pt.load_batch(traj, command)
-        state.run()
+        with tempfolder():
+            # get data directly from cpptraj
+            state.run()
 
         # get data from pytraj
         data0 = pt.rdf(traj,
