@@ -36,7 +36,8 @@ def rotation_matrix(traj=None,
                     frame_indices=None,
                     top=None,
                     with_rmsd=False):
-    '''compute rotation matrix with/without rmsd
+    ''' Compute rotation matrix with/without rmsd
+
     Parameters
     ----------
     traj : Trajectory-like
@@ -51,10 +52,12 @@ def rotation_matrix(traj=None,
     with_rmsd : bool, default False
         - if False, return only rotation matrix.
         - if True, return rotation matrix and rmsd values
+
     Returns
     -------
     out : if with_rmsd=False, return numpy array, shape (n_frames, 3, 3)
           if with_rmsd=True, return a tuple (mat, rmsd)
+
     Examples
     --------
     >>> import pytraj as pt
@@ -85,9 +88,11 @@ def pairwise_rmsd(traj=None,
                   dtype='ndarray',
                   mat_type='full',
                   frame_indices=None):
-    """calculate pairwise rmsd with different metrics.
+    """ Calculate pairwise rmsd with different metrics.
+
     Parameters
     ----------
+
     traj : Trajectory-like or iterable object
     mask : mask
         if mask is "", use all atoms
@@ -102,6 +107,7 @@ def pairwise_rmsd(traj=None,
     mat_type : str, {'full', 'half'}
         if 'full': return 2D array, shape=(n_frames, n_frames)
         if 'half': return 1D array, shape=(n_frames*(n_frames-1)/2, )
+
     Examples
     --------
     >>> import pytraj as pt
@@ -160,6 +166,7 @@ def rmsd_perres(traj=None,
                 dtype='dataset', **kwd):
     """superpose ``traj`` to ``ref`` with `mask`, then calculate nofit rms for residues
     in `resrange` with given `perresmask`
+
     Returns
     -------
     out : pytraj.DatasetList, shape=(1+n_residues, n_frames)
@@ -193,6 +200,7 @@ def rmsd_nofit(traj=None,
                top=None,
                dtype='ndarray', **kwd):
     '''compute rmsd without fitting (translating and rotating)
+
     Parameters
     ----------
     traj : Trajectory-like
@@ -202,6 +210,7 @@ def rmsd_nofit(traj=None,
         if True, use mass-weighted
     frame_indices : 1D array-like, default None
         if given, only perform calculation for those frames
+
     Notes
     -----
     This method is equal to pytraj.rmsd(traj, mask, ref, nofit=True, ...)
@@ -230,6 +239,7 @@ def rmsd(traj=None,
          top=None,
          dtype='ndarray'):
     """compute rmsd
+
     Parameters
     ----------
     traj : Trajectory-like
@@ -252,10 +262,12 @@ def rmsd(traj=None,
         if not None, only compute rmsd for given frame indices
     top : {Topology, str}, default None, optional
     dtype : return data type, default='ndarray'
+
     Notes
     -----
     - if traj and ref has diffrent n_atoms, make sure to update ref.top
     - you can use `pytraj.rmsd` to superpose structure (use update_coordinate=True)
+
     Examples
     --------
     >>> import pytraj as pt
@@ -352,6 +364,7 @@ def symmrmsd(traj, mask='', ref=0, ref_mask=None,
              mass=False,
              top=None, dtype='ndarray', frame_indices=None):
     """Compute symmetry-corrected RMSD
+
     Parameters
     ----------
     traj : Trajectory-like
@@ -372,6 +385,7 @@ def symmrmsd(traj, mask='', ref=0, ref_mask=None,
         return data type
     frame_indices : {None, array-like}, default None
        if given, only compute RMSD for those
+
     Examples
     --------
     >>> import pytraj as pt
@@ -426,6 +440,7 @@ def distance_rmsd(traj=None,
                        dtype='ndarray',
                        frame_indices=None):
     '''compute distance rmsd between traj and reference
+
     Parameters
     ----------
     traj : Trajectory-like or iterator that produces Frame
@@ -433,9 +448,11 @@ def distance_rmsd(traj=None,
     mask : str
     top : Topology or str, optional, default None
     dtype : return dtype, default 'ndarray'
+
     Returns
     -------
     1D ndarray if dtype is 'ndarray' (default)
+
     Examples
     --------
     >>> import pytraj as pt
