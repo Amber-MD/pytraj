@@ -1,8 +1,6 @@
 from __future__ import absolute_import
 import numpy as np
 
-from pytraj.trajectory.trajectory import Trajectory
-from pytraj.trajectory.trajectory_iterator import TrajectoryIterator
 from .utils.get_common_objects import (
     get_topology,
     get_data_from_dtype,
@@ -15,17 +13,19 @@ from .utils import is_int
 from .utils.context import tempfolder
 from .utils.context import capture_stdout
 from .utils.convert import array_to_cpptraj_atommask
+from .utils.convert import array2d_to_cpptraj_maskgroup
 from .externals.six import string_types
 from .datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 from .datasets.datasetlist import DatasetList
 from .trajectory.shared_methods import iterframe_master
 from .trajectory.frame import Frame
+from .trajectory.trajectory import Trajectory
+from .trajectory.trajectory_iterator import TrajectoryIterator
 from .utils.decorators import register_pmap, register_openmp
 from .analysis.c_action import c_action
 from .analysis.c_action import do_action
 from .analysis.c_analysis import c_analysis
 from .analysis.c_action.actionlist import ActionList
-from .utils.convert import array2d_to_cpptraj_maskgroup
 from .topology.topology import Topology
 from .builder.build import make_structure
 from .analysis.rmsd import (
@@ -36,9 +36,12 @@ from .analysis.rmsd import (
     rmsd,
     symmrmsd,
     distance_rmsd, )
-from .analysis import matrix
-from .analysis import vector
-from .analysis import nmr
+from .analysis import (
+    matrix,
+    vector,
+    nmr,
+    dssp_analysis,
+    hbond_analysis, )
 
 __all__ = [
     'translate',
