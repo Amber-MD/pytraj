@@ -26,6 +26,8 @@ Analysis
        vector_analysis
        matrix_analysis
        energy_analysis 
+       nmr
+       rmsd
        `Methods that modify Trajectory coordinates <modify_traj>`_
 
     .. toctree::

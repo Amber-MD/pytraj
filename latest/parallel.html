@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Parallel calculation &#8212; pytraj 1.1.0.dev0 documentation</title>
+    <title>Parallel calculation &mdash; pytraj 1.1.0.dev0 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -31,8 +31,6 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="pytraj 1.1.0.dev0 documentation" href="index.html" />
     <link rel="next" title="Developer guide for pytraj" href="developer_guide.html" />
     <link rel="prev" title="Atom mask selection" href="atom_mask_selection.html" />
@@ -323,14 +321,12 @@ vector, multidihedral, ...</p>
 <span class="gp">In [14]: </span><span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">pt</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">misc</span><span class="o">.</span><span class="n">parallel_info</span><span class="p">(</span><span class="s1">&#39;pmap&#39;</span><span class="p">):</span>
 <span class="gp">   ....:</span>     <span class="k">print</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
 <span class="gp">   ....:</span> 
-<span class="go">NH_order_parameters</span>
 <span class="go">angle</span>
 <span class="go">calc_alpha</span>
 <span class="go">calc_beta</span>
 <span class="go">calc_chin</span>
 <span class="go">calc_chip</span>
 <span class="go">calc_delta</span>
-<span class="go">calc_distance_rmsd</span>
 <span class="go">calc_epsilon</span>
 <span class="go">calc_gamma</span>
 <span class="go">calc_nu1</span>
@@ -344,6 +340,7 @@ vector, multidihedral, ...</p>
 <span class="go">dihedral</span>
 <span class="go">dist</span>
 <span class="go">distance</span>
+<span class="go">distance_rmsd</span>
 <span class="go">esander</span>
 <span class="go">get_velocity</span>
 <span class="go">hbond</span>
@@ -353,6 +350,7 @@ vector, multidihedral, ...</p>
 <span class="go">molsurf</span>
 <span class="go">multidihedral</span>
 <span class="go">native_contacts</span>
+<span class="go">nh_order_parameters</span>
 <span class="go">pucker</span>
 <span class="go">radgyr</span>
 <span class="go">rmsd</span>
@@ -360,7 +358,6 @@ vector, multidihedral, ...</p>
 <span class="go">rmsd_perres</span>
 <span class="go">rotation_matrix</span>
 <span class="go">surf</span>
-<span class="go">vector</span>
 <span class="go">volmap</span>
 <span class="go">watershell</span>
 </pre></div>
@@ -376,15 +373,15 @@ vector, multidihedral, ...</p>
 <span class="gp">   ....:</span>     <span class="k">print</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
 <span class="gp">   ....:</span> 
 <span class="go">atomiccorr</span>
-<span class="go">calc_dssp</span>
 <span class="go">closest</span>
+<span class="go">dssp</span>
 <span class="go">pairwise_rmsd</span>
 <span class="go">rdf</span>
 <span class="go">replicate_cell</span>
 <span class="go">watershell</span>
 
 <span class="gp">In [16]: </span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-<span class="go">                                                                         </span>
+<span class="go">                                                                    </span>
 </pre></div>
 </div>
 </div>
@@ -487,8 +484,8 @@ If method supports openmp, use openmp.</p>
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Nov 02, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.<br/>
+      Last updated on Nov 13, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.<br/>
     </p>
   </div>
 </footer>

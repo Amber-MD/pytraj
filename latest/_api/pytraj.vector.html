@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.vector &#8212; pytraj 1.1.0.dev0 documentation</title>
+    <title>pytraj.vector &mdash; pytraj 1.1.0.dev0 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -31,8 +31,6 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
     <link rel="top" title="pytraj 1.1.0.dev0 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="next" title="pytraj.hbond_analysis" href="pytraj.hbond_analysis.html" />
@@ -155,8 +153,111 @@
 <div class="custom-index container">
 <script type="text/javascript" src='../_static/cindex.js'></script></div>
 <span class="target" id="module-pytraj.analysis.vector"></span><dl class="function">
-<dt id="pytraj.analysis.vector.box">
-<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">box</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.box" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.analysis.vector.vector">
+<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">vector</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>perform vector calculation. See example below. Same as &#8216;vector&#8217; command in cpptraj.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or iterable that produces <a class="reference internal" href="pytraj.html#pytraj.Frame" title="pytraj.Frame"><code class="xref py py-class docutils literal"><span class="pre">pytraj.Frame</span></code></a></p>
+<p><strong>command</strong> : str or a list of strings, cpptraj command</p>
+<p><strong>frame_indices</strong> : array-like, optional, default None</p>
+<blockquote>
+<div><p>only perform calculation for given frame indices</p>
+</div></blockquote>
+<p><strong>dtype</strong> : output&#8217;s dtype, default &#8216;ndarray&#8217;</p>
+<p><strong>top</strong> : Topology, optional, default None</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : numpy ndarray, shape (n_frames, 3) if command is a string</p>
+<blockquote class="last">
+<div><p>numpy ndarray, shape (n_vectors, n_frames, 3) if command is a list of strings</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>It&#8217;s faster to calculate with a list of commands.
+For example, if you need to perform 3 calculations for &#8216;ucellx&#8217;, &#8216;boxcenter&#8217;, &#8216;box&#8217;
+like below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">vector</span><span class="o">.</span><span class="n">vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s2">&quot;ucellx&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">vector</span><span class="o">.</span><span class="n">vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s2">&quot;boxcenter&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">vector</span><span class="o">.</span><span class="n">vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s2">&quot;box&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You should use a list of commands for faster calculation.
+&gt;&gt;&gt; comlist = [&#8216;ucellx&#8217;, &#8216;boxcenter&#8217;, &#8216;box&#8217;]
+&gt;&gt;&gt; data = pt.vector.vector(traj, comlist)</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">vector</span><span class="o">.</span><span class="n">vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s2">&quot;@CA @CB&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">vector</span><span class="o">.</span><span class="n">vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;@CA @CB&quot;</span><span class="p">),])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">vector</span><span class="o">.</span><span class="n">vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s2">&quot;principal z&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">vector</span><span class="o">.</span><span class="n">vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s2">&quot;principal x&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">vector</span><span class="o">.</span><span class="n">vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s2">&quot;ucellx&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">vector</span><span class="o">.</span><span class="n">vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s2">&quot;boxcenter&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">vector</span><span class="o">.</span><span class="n">vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s2">&quot;box&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.analysis.vector.vector_mask">
+<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">vector_mask</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.vector_mask" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute vector between two maskes</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or iterable that produces Frame</p>
+<p><strong>mask: str or array of string or array of intergers, shape (n_vectors, 2)</strong></p>
+<blockquote>
+<div><p>vector maskes</p>
+</div></blockquote>
+<p><strong>frame_indices</strong> : array-like or iterable that produces integer number</p>
+<blockquote>
+<div><p>frame indices</p>
+</div></blockquote>
+<p><strong>dtype</strong> : str, default &#8216;ndarray&#8217;</p>
+<blockquote>
+<div><p>output dtype</p>
+</div></blockquote>
+<p><strong>top</strong> : Topology, optional, default None</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">if mask is a string, return 2D ndarray, shape (n_frames, 3)</p>
+<p class="last">if mask is a list of strings or a 2D ndarray, return 3D ndarray, shape (n_vectors, n_frames, 3)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calcualte N-H vector</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj</span> <span class="k">import</span> <span class="n">vector</span> <span class="k">as</span> <span class="n">va</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n_indices</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">select_atoms</span><span class="p">(</span><span class="s1">&#39;@N&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">h_indices</span> <span class="o">=</span> <span class="n">n_indices</span> <span class="o">+</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create n-h pair for vector calculation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n_h_pairs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">n_indices</span><span class="p">,</span> <span class="n">h_indices</span><span class="p">)))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_vec</span> <span class="o">=</span> <span class="n">va</span><span class="o">.</span><span class="n">vector_mask</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">n_h_pairs</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;ndarray&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># compute vectors for specific frame indices (0, 4)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_vec</span> <span class="o">=</span> <span class="n">va</span><span class="o">.</span><span class="n">vector_mask</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">n_h_pairs</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;ndarray&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pytraj.analysis.vector.minimage">
+<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">minimage</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.minimage" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -175,8 +276,8 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="pytraj.analysis.vector.boxcenter">
-<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">boxcenter</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.boxcenter" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.analysis.vector.dipole">
+<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">dipole</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.dipole" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -235,8 +336,8 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="pytraj.analysis.vector.dipole">
-<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">dipole</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.dipole" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.analysis.vector.box">
+<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">box</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.box" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -255,28 +356,8 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="pytraj.analysis.vector.minimage">
-<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">minimage</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.minimage" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
-<p><strong>command</strong> : str or a list-like of strings</p>
-<p><strong>frame_indices</strong> : array-like, default None</p>
-<blockquote>
-<div><p>if specified, only perform calculation with given frames</p>
-</div></blockquote>
-<p class="last"><strong>top</strong> : {str, Topology}, optional, default None</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pytraj.analysis.vector.principal">
-<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">principal</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.principal" title="Permalink to this definition">¶</a></dt>
+<dt id="pytraj.analysis.vector.boxcenter">
+<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">boxcenter</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.boxcenter" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -355,54 +436,23 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="pytraj.analysis.vector.vector_mask">
-<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">vector_mask</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.vector_mask" title="Permalink to this definition">¶</a></dt>
-<dd><p>compute vector between two maskes</p>
-<table class="docutils field-list" frame="void" rules="none">
+<dt id="pytraj.analysis.vector.principal">
+<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">principal</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.principal" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or iterable that produces Frame</p>
-<p><strong>mask: str or array of string or array of intergers, shape (n_vectors, 2)</strong></p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
+<p><strong>command</strong> : str or a list-like of strings</p>
+<p><strong>frame_indices</strong> : array-like, default None</p>
 <blockquote>
-<div><p>vector maskes</p>
+<div><p>if specified, only perform calculation with given frames</p>
 </div></blockquote>
-<p><strong>frame_indices</strong> : array-like or iterable that produces integer number</p>
-<blockquote>
-<div><p>frame indices</p>
-</div></blockquote>
-<p><strong>dtype</strong> : str, default &#8216;ndarray&#8217;</p>
-<blockquote>
-<div><p>output dtype</p>
-</div></blockquote>
-<p><strong>top</strong> : Topology, optional, default None</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">if mask is a string, return 2D ndarray, shape (n_frames, 3)</p>
-<p class="last">if mask is a list of strings or a 2D ndarray, return 3D ndarray, shape (n_vectors, n_frames, 3)</p>
+<p class="last"><strong>top</strong> : {str, Topology}, optional, default None</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># calcualte N-H vector</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj</span> <span class="k">import</span> <span class="n">vector</span> <span class="k">as</span> <span class="n">va</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">n_indices</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">select_atoms</span><span class="p">(</span><span class="s1">&#39;@N&#39;</span><span class="p">,</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">h_indices</span> <span class="o">=</span> <span class="n">n_indices</span> <span class="o">+</span> <span class="mi">1</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># create n-h pair for vector calculation</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">n_h_pairs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">n_indices</span><span class="p">,</span> <span class="n">h_indices</span><span class="p">)))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data_vec</span> <span class="o">=</span> <span class="n">va</span><span class="o">.</span><span class="n">vector_mask</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">n_h_pairs</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;ndarray&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># compute vectors for specific frame indices (0, 4)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data_vec</span> <span class="o">=</span> <span class="n">va</span><span class="o">.</span><span class="n">vector_mask</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">n_h_pairs</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;ndarray&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
 </dd></dl>
 
 </div>
@@ -420,8 +470,8 @@
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Nov 09, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.<br/>
+      Last updated on Nov 13, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.<br/>
     </p>
   </div>
 </footer>

@@ -40,13 +40,6 @@ However, ``pytraj`` offer shorter (and easy?) way to do
     # that's it
     print(data)
 
-``pytraj`` will auto-allocate ``data`` too
-
-.. ipython:: python
-    
-    print([t.filename.split('/')[-1] for t in trajlist])
-    data = pt.radgyr(trajlist, top=trajlist[0].top)
-    print(data)
 
 load from a list of files with frame stride
 -------------------------------------------

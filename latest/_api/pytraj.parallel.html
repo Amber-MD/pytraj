@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.parallel &#8212; pytraj 1.1.0.dev0 documentation</title>
+    <title>pytraj.parallel &mdash; pytraj 1.1.0.dev0 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -31,8 +31,6 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
     <link rel="top" title="pytraj 1.1.0.dev0 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="next" title="pytraj.core.c_core" href="pytraj.core.c_core.html" />
@@ -156,7 +154,7 @@
 <script type="text/javascript" src='../_static/cindex.js'></script></div>
 <span class="target" id="module-pytraj.parallel.multiprocess"><span id="pytraj-pmap"></span></span><dl class="function">
 <dt id="pytraj.parallel.multiprocess.pmap">
-<code class="descclassname">pytraj.parallel.multiprocess.</code><code class="descname">pmap</code><span class="sig-paren">(</span><em>func=None</em>, <em>traj=None</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.parallel.multiprocess.pmap" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.parallel.multiprocess.</code><code class="descname">pmap</code><span class="sig-paren">(</span><em>func=None</em>, <em>traj=None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.parallel.multiprocess.pmap" title="Permalink to this definition">¶</a></dt>
 <dd><p>use python&#8217;s multiprocessing to accelerate calculation. Limited calculations.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -175,7 +173,7 @@
 cpptraj perform calculation for specific indices.
 frame_indices must be pickable so is can be sent to different cores.</p>
 </div></blockquote>
-<p><strong>*args, **kwd: additional keywords</strong></p>
+<p><strong>*args, **kwargs: additional keywords</strong></p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>out</strong> : OrderedDict</p>
@@ -284,7 +282,7 @@ reload before using <code class="docutils literal"><span class="pre">pytraj.pmap
 
 <span class="target" id="module-pytraj.parallel.mpi"><span id="pytraj-pmap-mpi"></span></span><dl class="function">
 <dt id="pytraj.parallel.mpi.pmap_mpi">
-<code class="descclassname">pytraj.parallel.mpi.</code><code class="descname">pmap_mpi</code><span class="sig-paren">(</span><em>func</em>, <em>traj</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.parallel.mpi.pmap_mpi" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.parallel.mpi.</code><code class="descname">pmap_mpi</code><span class="sig-paren">(</span><em>func</em>, <em>traj</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.parallel.mpi.pmap_mpi" title="Permalink to this definition">¶</a></dt>
 <dd><p>parallel with MPI (mpi4py)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -292,7 +290,7 @@ reload before using <code class="docutils literal"><span class="pre">pytraj.pmap
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>func</strong> : a function</p>
 <p><strong>traj</strong> : pytraj.TrajectoryIterator</p>
-<p class="last"><strong>*args, **kwd: additional arguments</strong></p>
+<p class="last"><strong>*args, **kwargs: additional arguments</strong></p>
 </td>
 </tr>
 </tbody>
@@ -340,8 +338,8 @@ $ mpirun -n <span class="m">4</span> python ./test_radgyr.py
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Nov 09, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.<br/>
+      Last updated on Nov 13, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.<br/>
     </p>
   </div>
 </footer>

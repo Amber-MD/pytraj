@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Dihedral Analysis &#8212; pytraj 1.1.0.dev0 documentation</title>
+    <title>Dihedral Analysis &mdash; pytraj 1.1.0.dev0 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -31,8 +31,6 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="pytraj 1.1.0.dev0 documentation" href="index.html" />
     <link rel="up" title="Analysis" href="analysis.html" />
     <link rel="next" title="Vector Analysis" href="vector_analysis.html" />
@@ -155,55 +153,6 @@
 <div class="custom-index container">
 <script type="text/javascript" src='_static/cindex.js'></script></div>
 <span class="target" id="module-pytraj.analysis.dihedral_analysis"></span><dl class="function">
-<dt id="pytraj.analysis.dihedral_analysis.calc_multidihedral">
-<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_multidihedral</code><span class="sig-paren">(</span><em>traj=None</em>, <em>resrange=''</em>, <em>range360=False</em>, <em>top=None</em>, <em>dtype='dataset'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_multidihedral" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or anything that makes iterframe_master(traj) return Frame</p>
-<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default &#8220;&#8221;</p>
-<blockquote>
-<div><p>if resrange is a string, use index of 1-based
-if resrange is a python sequence (range, list, array, ...),</p>
-<blockquote>
-<div><p>use index of 0-based</p>
-</div></blockquote>
-</div></blockquote>
-<p><strong>range360</strong> : bool, default False</p>
-<blockquote>
-<div><p>use -180/180 or 0/360</p>
-</div></blockquote>
-<p><strong>top</strong> : {str, Topology}, optional, default None</p>
-<p><strong>frame_indices</strong> : {None, 1D array-like}, default None</p>
-<blockquote class="last">
-<div><p>if not None, only compute for given indices</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj.dihedral_</span> <span class="k">as</span> <span class="nn">da</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">da</span><span class="o">.</span><span class="n">calc_phi</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">da</span><span class="o">.</span><span class="n">calc_psi</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">resrange</span><span class="o">=</span><span class="s2">&quot;3-10&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">da</span><span class="o">.</span><span class="n">calc_chip</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">resrange</span><span class="o">=</span><span class="s2">&quot;3-10&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">da</span><span class="o">.</span><span class="n">calc_chip</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">resrange</span><span class="o">=</span><span class="s2">&quot;3-10&quot;</span><span class="p">,</span> <span class="n">range360</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">da</span><span class="o">.</span><span class="n">calc_chip</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">resrange</span><span class="o">=</span><span class="s2">&quot;3-10&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">da</span><span class="o">.</span><span class="n">calc_multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">resrange</span><span class="o">=</span><span class="s2">&quot;3-10&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">da</span><span class="o">.</span><span class="n">calc_multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">resrange</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># assert</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj</span> <span class="k">import</span> <span class="n">all_actions</span> <span class="k">as</span> <span class="n">pyca</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">phi0</span> <span class="o">=</span> <span class="n">pyca</span><span class="o">.</span><span class="n">calc_multidihedral</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s2">&quot;phi&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;dataset&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">phi1</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">calc_phi</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;dataset&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytraj.testing</span> <span class="k">import</span> <span class="n">aa_eq</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">phi0</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">aa_eq</span><span class="p">(</span><span class="n">phi0</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">phi1</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
 <dt id="pytraj.analysis.dihedral_analysis.calc_phi">
 <code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_phi</code><span class="sig-paren">(</span><em>traj=None</em>, <em>resrange=''</em>, <em>range360=False</em>, <em>top=None</em>, <em>dtype='dataset'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_phi" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
@@ -855,8 +804,8 @@ if resrange is a python sequence (range, list, array, ...),</p>
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Nov 09, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.<br/>
+      Last updated on Nov 13, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.<br/>
     </p>
   </div>
 </footer>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Tips &#8212; pytraj 1.1.0.dev0 documentation</title>
+    <title>Tips &mdash; pytraj 1.1.0.dev0 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -31,8 +31,6 @@
     <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="pytraj 1.1.0.dev0 documentation" href="index.html" />
     <link rel="up" title="Cookbook" href="cookbook.html" />
     <link rel="next" title="Tips for out-of-core loading" href="tips_iterload.html" />
@@ -225,16 +223,6 @@
 <span class="go">[  9.4451   9.5746  10.1923 ...,   7.4834   7.4324   7.6204]</span>
 </pre></div>
 </div>
-<p><code class="docutils literal"><span class="pre">pytraj</span></code> will auto-allocate <code class="docutils literal"><span class="pre">data</span></code> too</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [15]: </span><span class="k">print</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">trajlist</span><span class="p">])</span>
-<span class="go">[&#39;tz2.0.nc&#39;, &#39;tz2.1.nc&#39;, &#39;tz2.2.nc&#39;, &#39;tz2.3.nc&#39;]</span>
-
-<span class="gp">In [16]: </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">trajlist</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">trajlist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
-
-<span class="gp">In [17]: </span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="go">[  9.4451   9.5746  10.1923 ...,   7.4834   7.4324   7.6204]</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="load-from-a-list-of-files-with-frame-stride">
 <h2><a class="toc-backref" href="#id5">load from a list of files with frame stride</a><a class="headerlink" href="#load-from-a-list-of-files-with-frame-stride" title="Permalink to this headline">¶</a></h2>
@@ -258,44 +246,44 @@ trajin traj4.nc <span class="m">1</span> <span class="m">100</span> 10
 </div>
 <div class="section" id="load-specific-frame-numbers-to-memory">
 <h2><a class="toc-backref" href="#id6">load specific frame numbers to memory</a><a class="headerlink" href="#load-specific-frame-numbers-to-memory" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [18]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [15]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
-<span class="gp">In [19]: </span><span class="n">frame_indices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">53</span><span class="p">]</span>
+<span class="gp">In [16]: </span><span class="n">frame_indices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">53</span><span class="p">]</span>
 
 <span class="c"># use ``load`` to load those frames to memory</span>
-<span class="gp">In [20]: </span><span class="n">traj0</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.parm7&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">)</span>
+<span class="gp">In [17]: </span><span class="n">traj0</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.parm7&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">)</span>
 
-<span class="gp">In [21]: </span><span class="n">traj0</span>
-<span class="gr">Out[21]: </span>
+<span class="gp">In [18]: </span><span class="n">traj0</span>
+<span class="gr">Out[18]: </span>
 <span class="go">pytraj.Trajectory, 5 frames: </span>
 <span class="go">Size: 0.000025 (GB)</span>
 <span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
 <span class="go">           </span>
 
 <span class="c"># only loadd coordinates for specific atoms</span>
-<span class="gp">In [22]: </span><span class="n">traj1</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.parm7&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="gp">In [19]: </span><span class="n">traj1</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.parm7&#39;</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="n">frame_indices</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;@CA&#39;</span><span class="p">)</span>
 
-<span class="gp">In [23]: </span><span class="n">traj1</span>
-<span class="gr">Out[23]: </span>
+<span class="gp">In [20]: </span><span class="n">traj1</span>
+<span class="gr">Out[20]: </span>
 <span class="go">pytraj.Trajectory, 5 frames: </span>
 <span class="go">Size: 0.000001 (GB)</span>
 <span class="go">&lt;Topology: 12 atoms, 12 residues, 12 mols, non-PBC&gt;</span>
 <span class="go">           </span>
 
 <span class="c"># or use ``iterload``</span>
-<span class="gp">In [24]: </span><span class="n">frame_indices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">53</span><span class="p">]</span>
+<span class="gp">In [21]: </span><span class="n">frame_indices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">53</span><span class="p">]</span>
 
-<span class="gp">In [25]: </span><span class="n">traj2</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.parm7&#39;</span><span class="p">)</span>
+<span class="gp">In [22]: </span><span class="n">traj2</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.parm7&#39;</span><span class="p">)</span>
 
-<span class="gp">In [26]: </span><span class="n">traj2</span>
-<span class="gr">Out[26]: </span>
+<span class="gp">In [23]: </span><span class="n">traj2</span>
+<span class="gr">Out[23]: </span>
 <span class="go">pytraj.TrajectoryIterator, 101 frames: </span>
 <span class="go">Size: 0.000503 (GB)</span>
 <span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
 <span class="go">           </span>
 
-<span class="gp">In [27]: </span><span class="n">traj2</span><span class="p">[</span><span class="n">frame_indices</span><span class="p">,</span> <span class="s1">&#39;@CA&#39;</span><span class="p">]</span>
-<span class="go">                                                                                                                                      Out[27]: </span>
+<span class="gp">In [24]: </span><span class="n">traj2</span><span class="p">[</span><span class="n">frame_indices</span><span class="p">,</span> <span class="s1">&#39;@CA&#39;</span><span class="p">]</span>
+<span class="go">                                                                                                                                      Out[24]: </span>
 <span class="go">pytraj.Trajectory, 5 frames: </span>
 <span class="go">Size: 0.000001 (GB)</span>
 <span class="go">&lt;Topology: 12 atoms, 12 residues, 12 mols, non-PBC&gt;</span>
@@ -304,12 +292,12 @@ trajin traj4.nc <span class="m">1</span> <span class="m">100</span> 10
 </div>
 <div class="section" id="merge-multiple-trajectories-to-a-single-file">
 <h2><a class="toc-backref" href="#id7">merge multiple trajectories to a single file</a><a class="headerlink" href="#merge-multiple-trajectories-to-a-single-file" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [28]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [25]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
 <span class="c"># load multiple files</span>
-<span class="gp">In [29]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s1">&#39;tz2.0.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.1.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.2.nc&#39;</span><span class="p">],</span> <span class="n">top</span><span class="o">=</span><span class="s1">&#39;tz2.parm7&#39;</span><span class="p">)</span>
+<span class="gp">In [26]: </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">([</span><span class="s1">&#39;tz2.0.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.1.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.2.nc&#39;</span><span class="p">],</span> <span class="n">top</span><span class="o">=</span><span class="s1">&#39;tz2.parm7&#39;</span><span class="p">)</span>
 
-<span class="gp">In [30]: </span><span class="n">traj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;tz2_combined.nc&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">In [27]: </span><span class="n">traj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;tz2_combined.nc&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -317,21 +305,21 @@ trajin traj4.nc <span class="m">1</span> <span class="m">100</span> 10
 <h2><a class="toc-backref" href="#id8">memory saving</a><a class="headerlink" href="#memory-saving" title="Permalink to this headline">¶</a></h2>
 <p>If memory is critical, do not load all frames into memory.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="c"># DO this (only a single frame will be loaded to memory)</span>
-<span class="gp">In [31]: </span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">301</span><span class="p">])</span>
-<span class="gr">Out[31]: </span><span class="n">array</span><span class="p">([</span> <span class="mf">9.4451</span><span class="p">,</span>  <span class="mf">7.4324</span><span class="p">,</span>  <span class="mf">7.4834</span><span class="p">,</span>  <span class="mf">7.4324</span><span class="p">])</span>
+<span class="gp">In [28]: </span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">301</span><span class="p">])</span>
+<span class="gr">Out[28]: </span><span class="n">array</span><span class="p">([</span> <span class="mf">9.4451</span><span class="p">,</span>  <span class="mf">7.4324</span><span class="p">,</span>  <span class="mf">7.4834</span><span class="p">,</span>  <span class="mf">7.4324</span><span class="p">])</span>
 
 <span class="c"># DON&#39;T do this if you want to save memory (all 4 frames will be loaded to memory)</span>
-<span class="gp">In [32]: </span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">301</span><span class="p">]])</span>
-<span class="go">                                                     Out[32]: array([ 9.4451,  7.4324,  7.4834,  7.4324])</span>
+<span class="gp">In [29]: </span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">(</span><span class="n">traj</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">301</span><span class="p">]])</span>
+<span class="go">                                                     Out[29]: array([ 9.4451,  7.4324,  7.4834,  7.4324])</span>
 
-<span class="gp">In [33]: </span><span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">301</span><span class="p">])</span>
-<span class="go">                                                                                                          Out[33]: </span>
+<span class="gp">In [30]: </span><span class="n">pt</span><span class="o">.</span><span class="n">iterframe</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">301</span><span class="p">])</span>
+<span class="go">                                                                                                          Out[30]: </span>
 <span class="go">&lt;FrameIterator with start=None, stop=None, step=None, n_frames=4, </span>
 <span class="go">frame_indices=[0, 200, 300, 301], </span>
 <span class="go">mask=None, autoimage=False, rmsfit=None, copy=False&gt; </span>
 
-<span class="gp">In [34]: </span><span class="n">traj</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">301</span><span class="p">]]</span>
-<span class="go">                                                                                                                                                                                                                                                                                Out[34]: </span>
+<span class="gp">In [31]: </span><span class="n">traj</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">301</span><span class="p">]]</span>
+<span class="go">                                                                                                                                                                                                                                                                                Out[31]: </span>
 <span class="go">pytraj.Trajectory, 4 frames: </span>
 <span class="go">Size: 0.000020 (GB)</span>
 <span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
@@ -370,12 +358,12 @@ Line <span class="c1">#    Mem usage    Increment   Line Contents</span>
 disk to do further analysis. You have options to save data to different files and write
 code to load the data back. However, you can use <code class="docutils literal"><span class="pre">pytraj.to_pickle</span></code> and
 <code class="docutils literal"><span class="pre">pytraj.read_pickle</span></code> to save the state of data. Check the example:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [35]: </span><span class="n">traj3</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_trpcage</span><span class="p">()</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [32]: </span><span class="n">traj3</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_trpcage</span><span class="p">()</span>
 
-<span class="gp">In [36]: </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;:3-7&#39;</span><span class="p">)</span>
+<span class="gp">In [33]: </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;:3-7&#39;</span><span class="p">)</span>
 
-<span class="gp">In [37]: </span><span class="n">data</span>
-<span class="gr">Out[37]: </span>
+<span class="gp">In [34]: </span><span class="n">data</span>
+<span class="gr">Out[34]: </span>
 <span class="go">(array([&#39;THR:3&#39;, &#39;TRP:4&#39;, &#39;GLU:5&#39;, &#39;ASN:6&#39;, &#39;GLY:7&#39;], </span>
 <span class="go">       dtype=&#39;&lt;U5&#39;), array([[&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
 <span class="go">        [&#39;0&#39;, &#39;0&#39;, &#39;S&#39;, &#39;0&#39;, &#39;0&#39;],</span>
@@ -401,11 +389,11 @@ code to load the data back. However, you can use <code class="docutils literal">
 <span class="go">bend_avg</span>
 <span class="go">[ 0.   0.2  0.2 ...,  0.   0.2  0.2])</span>
 
-<span class="gp">In [38]: </span><span class="n">pt</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;my_data.pk&#39;</span><span class="p">)</span>
+<span class="gp">In [35]: </span><span class="n">pt</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;my_data.pk&#39;</span><span class="p">)</span>
 
 <span class="c"># load the data&#39;s state back for further analysis</span>
-<span class="gp">In [39]: </span><span class="n">pt</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="s1">&#39;my_data.pk&#39;</span><span class="p">)</span>
-<span class="gr">Out[39]: </span>
+<span class="gp">In [36]: </span><span class="n">pt</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="s1">&#39;my_data.pk&#39;</span><span class="p">)</span>
+<span class="gr">Out[36]: </span>
 <span class="go">(array([&#39;THR:3&#39;, &#39;TRP:4&#39;, &#39;GLU:5&#39;, &#39;ASN:6&#39;, &#39;GLY:7&#39;], </span>
 <span class="go">       dtype=&#39;&lt;U5&#39;), array([[&#39;0&#39;, &#39;0&#39;, &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
 <span class="go">        [&#39;0&#39;, &#39;0&#39;, &#39;S&#39;, &#39;0&#39;, &#39;0&#39;],</span>
@@ -467,8 +455,8 @@ $ mpirun -n <span class="m">4</span> python radgyr_mpi.py
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="c"># send pt.radgyr method to `pt.pmap` function</span>
 <span class="c"># need to specify the number of cores</span>
 <span class="c"># (choose wisely)</span>
-<span class="gp">In [40]: </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="gr">Out[40]: </span>
+<span class="gp">In [37]: </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="gr">Out[37]: </span>
 <span class="go">OrderedDict([(&#39;RoG_00000&#39;,</span>
 <span class="go">              array([ 8.1092,  7.7643,  8.0969, ...,  6.3806,  6.2414,  6.4899]))])</span>
 </pre></div>
@@ -499,8 +487,8 @@ $ mpirun -n <span class="m">4</span> python radgyr_mpi.py
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Nov 02, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.<br/>
+      Last updated on Nov 13, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.<br/>
     </p>
   </div>
 </footer>

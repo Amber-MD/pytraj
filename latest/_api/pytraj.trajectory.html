@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.Trajectory &#8212; pytraj 1.1.0.dev0 documentation</title>
+    <title>pytraj.Trajectory &mdash; pytraj 1.1.0.dev0 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -31,8 +31,6 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
     <link rel="top" title="pytraj 1.1.0.dev0 documentation" href="../index.html" />
     <link rel="up" title="API" href="index.html" />
     <link rel="prev" title="pytraj.io" href="pytraj.io.html" />
@@ -235,7 +233,7 @@ Topology and given xyz array.</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code>(\*args,&nbsp;\*\*kwd)</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code>(*args,&nbsp;**kwd)</td>
 <td>shortcut of <code class="docutils literal"><span class="pre">iterframe</span></code> method</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.align_principal_axis" title="pytraj.trajectory.trajectory.Trajectory.align_principal_axis"><code class="xref py py-obj docutils literal"><span class="pre">align_principal_axis</span></code></a>([command])</td>
@@ -250,7 +248,7 @@ Topology and given xyz array.</p>
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.autoimage" title="pytraj.trajectory.trajectory.Trajectory.autoimage"><code class="xref py py-obj docutils literal"><span class="pre">autoimage</span></code></a>([command])</td>
 <td>perform autoimage</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.center" title="pytraj.trajectory.trajectory.Trajectory.center"><code class="xref py py-obj docutils literal"><span class="pre">center</span></code></a>(\*args,&nbsp;\*\*kwargs)</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.center" title="pytraj.trajectory.trajectory.Trajectory.center"><code class="xref py py-obj docutils literal"><span class="pre">center</span></code></a>(*args,&nbsp;**kwargs)</td>
 <td>do centering</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.copy" title="pytraj.trajectory.trajectory.Trajectory.copy"><code class="xref py py-obj docutils literal"><span class="pre">copy</span></code></a>()</td>
@@ -265,7 +263,7 @@ Topology and given xyz array.</p>
 <tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.load" title="pytraj.trajectory.trajectory.Trajectory.load"><code class="xref py py-obj docutils literal"><span class="pre">load</span></code></a>([filename])</td>
 <td>load file or files. This is for internal use. User should always use</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.rmsfit" title="pytraj.trajectory.trajectory.Trajectory.rmsfit"><code class="xref py py-obj docutils literal"><span class="pre">rmsfit</span></code></a>(\*args,&nbsp;\*\*kwd)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.rmsfit" title="pytraj.trajectory.trajectory.Trajectory.rmsfit"><code class="xref py py-obj docutils literal"><span class="pre">rmsfit</span></code></a>(*args,&nbsp;**kwd)</td>
 <td>do the fitting to reference Frame by rotation and translation</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.rotate" title="pytraj.trajectory.trajectory.Trajectory.rotate"><code class="xref py py-obj docutils literal"><span class="pre">rotate</span></code></a>([command])</td>
@@ -289,10 +287,10 @@ Topology and given xyz array.</p>
 <tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.translate" title="pytraj.trajectory.trajectory.Trajectory.translate"><code class="xref py py-obj docutils literal"><span class="pre">translate</span></code></a>([command])</td>
 <td>do translation</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.view" title="pytraj.trajectory.trajectory.Trajectory.view"><code class="xref py py-obj docutils literal"><span class="pre">view</span></code></a>(\*args,&nbsp;\*\*kwargs)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.view" title="pytraj.trajectory.trajectory.Trajectory.view"><code class="xref py py-obj docutils literal"><span class="pre">view</span></code></a>(*args,&nbsp;**kwargs)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.visualize" title="pytraj.trajectory.trajectory.Trajectory.visualize"><code class="xref py py-obj docutils literal"><span class="pre">visualize</span></code></a>(\*args,&nbsp;\*\*kwargs)</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory.Trajectory.visualize" title="pytraj.trajectory.trajectory.Trajectory.visualize"><code class="xref py py-obj docutils literal"><span class="pre">visualize</span></code></a>(*args,&nbsp;**kwargs)</td>
 <td>require NGLView</td>
 </tr>
 </tbody>
@@ -828,8 +826,8 @@ if given, use it</p>
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Nov 09, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.<br/>
+      Last updated on Nov 13, 2016.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.<br/>
     </p>
   </div>
 </footer>

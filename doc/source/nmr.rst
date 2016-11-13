@@ -1,7 +1,7 @@
-.. _dssp_analysis:
+.. _nmr:
 
-DSSP Analysis
-=============
+NMR
+===
 
 .. container:: custom-index
     
@@ -15,4 +15,4 @@ DSSP Analysis
     import numpy as np
     np.set_printoptions(precision=4, suppress=True)
 
-.. automodule:: pytraj.analysis.dssp_analysis
+.. automodule:: pytraj.analysis.nmr
