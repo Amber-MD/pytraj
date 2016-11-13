@@ -93,6 +93,8 @@ __all__ = [
     'matrix',
     'vector',
     'nmr',
+    'dssp_analysis',
+    'hbond_analysis'
 ]
 
 
