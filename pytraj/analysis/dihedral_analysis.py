@@ -1,6 +1,8 @@
 from __future__ import print_function, absolute_import
 
+# will be updated later
 __all__ = []
+
 
 supported_dihedral_types = [
     x
@@ -96,8 +98,6 @@ def %s(traj=None, resrange="",
     act.post_process()
     return get_data_from_dtype(dslist, dtype=dtype)
 '''
-
-__all__ = []
 
 for key in supported_dihedral_types:
     if key != 'multidihedral':
