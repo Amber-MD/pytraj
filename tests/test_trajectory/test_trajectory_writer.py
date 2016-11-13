@@ -2,23 +2,23 @@ import unittest
 import pytraj as pt
 
 from pytraj import io as mdio
-from pytraj.testing import aa_eq
+from pytraj.testing import aa_eq, tempfolder
+from pytraj.utils import fn
 from pytraj import *
 
-farray = pt.load("data/Tc5b.x",
-                 "./data/Tc5b.top",
+farray = pt.load(fn("Tc5b.x"),
+                 fn("Tc5b.top"),
                  frame_indices=list(range(10)))
 
 
-class TestTrajectoryWriter(unittest.TestCase):
-
-    def test_0(self):
-        farray = pt.load("data/Tc5b.x",
-                         "./data/Tc5b.top",
-                         frame_indices=list(range(10)))
-        frame0 = farray[0]
+def test_trajectory_writer_open_close():
+    farray = pt.load(fn("Tc5b.x"),
+                     fn("Tc5b.top"),
+                     frame_indices=list(range(10)))
+    frame0 = farray[0]
+    with tempfolder():
         trajout = TrajectoryWriter()
-        trajout.open(filename="./output/test.x",
+        trajout.open(filename="test.x",
                      top=farray.top,
                      overwrite=True)
         trajout.write(frame0)
@@ -29,57 +29,47 @@ class TestTrajectoryWriter(unittest.TestCase):
 
         trajout.close()
 
-    def test_1_with_statement(self):
-        frame0 = farray[0]
-        with TrajectoryWriter(filename="./output/test_trajout_withstatement.x",
+        farray = Trajectory()
+        farray.top = pt.load_topology(fn('Tc5b.top'))
+        farray.load("test.x")
+
+def test_trajectory_writer__with_statement():
+    frame0 = farray[0]
+    with tempfolder():
+        with TrajectoryWriter(filename="test_trajout_withstatement.x",
                      top=farray.top,
                      overwrite=True) as trajout:
             trajout.write(frame0)
-
         # reload
-        farray2 = Trajectory("./output/test_trajout_withstatement.x",
-                             "./data/Tc5b.top")
+        farray2 = Trajectory("test_trajout_withstatement.x", fn('Tc5b.top'))
         farray2[0]
 
-    def test_2(self):
-        """test open file writen from test_0"""
-        farray = Trajectory()
-        farray.top = pt.load_topology('./data/Tc5b.top')
-        farray.load("./output/test.x")
+def test_trajectory_writer_write_PDBFILE():
+    frame0 = farray[0]
+    with TrajectoryWriter(filename="./output/test_0.pdb",
+                 top=farray.top,
+                 overwrite=True) as trajout:
+        trajout.write(frame0)
 
-    def test_3_write_PDBFILE(self):
-        frame0 = farray[0]
-        with TrajectoryWriter(filename="./output/test_0.pdb",
-                     top=farray.top,
-                     overwrite=True) as trajout:
-            trajout.write(frame0)
-
-    def test_4(self):
-        """test write Trajectory"""
-        farray = pt.load("data/Tc5b.x",
-                         "./data/Tc5b.top",
-                         frame_indices=list(range(10)))
-        pt.write_traj("./output/test_write_output.x",
+def test_trajectory_writer_write_Trajectory():
+    """test write Trajectory"""
+    farray = pt.load(fn("Tc5b.x"),
+                     fn("Tc5b.top"),
+                     frame_indices=list(range(10)))
+    with tempfolder():
+        pt.write_traj("test_write_output.x",
                    farray,
                    top=farray.top,
                    overwrite=True)
-        pt.write_traj("./output/test_pdb_1.dummyext",
+        pt.write_traj("test_pdb_1.dummyext",
                    farray[0],
                    top=farray.top,
                    overwrite=True)
 
         # test 'save'
-        farray.save("./output/test_write_output_save_method.x", overwrite=True)
+        farray.save("test_write_output_save_method.x", overwrite=True)
 
         # reproduce result?
-        f0 = mdio.iterload("./output/test_write_output.x", "./data/Tc5b.top")
-        f1 = mdio.iterload("./output/test_write_output_save_method.x",
-                           "./data/Tc5b.top")
+        f0 = pt.iterload("test_write_output.x", fn('Tc5b.top'))
+        f1 = pt.iterload("test_write_output_save_method.x", fn('Tc5b.top'))
         aa_eq(f0[:, :, :].xyz, f1[:, :, :].xyz)
-
-    def test_5(self):
-        Trajectory("./output/test_0.pdb", "./data/Tc5b.top")[0]
-
-
-if __name__ == "__main__":
-    unittest.main()

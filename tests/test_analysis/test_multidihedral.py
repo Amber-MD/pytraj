@@ -1,9 +1,7 @@
 import numpy as np
 import pytraj as pt
 from pytraj.testing import aa_eq
-
-# local
-from utils import fn
+from pytraj.utils import fn
 
 def test_multidihedral():
     trajin = fn('Tc5b.x')

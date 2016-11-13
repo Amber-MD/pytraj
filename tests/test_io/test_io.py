@@ -21,8 +21,8 @@ except ImportError:
 
 amberhome = os.getenv('AMBERHOME', '')
 tleap = amberhome + '/bin/tleap'
-traj_tz2_ortho = pt.iterload("data/tz2.ortho.nc",
-                             "data/tz2.ortho.parm7")
+traj_tz2_ortho = pt.iterload(fn("tz2.ortho.nc"),
+                             fn("tz2.ortho.parm7"))
 tc5b_trajin = fn('Tc5b.x')
 tc5b_top = fn('Tc5b.top')
 
@@ -186,14 +186,14 @@ def test_ParmFile():
 
 def test_load_and_save_0():
     # need to load to Trajectory to save
-    traj = pt.iterload(filename="./data/Tc5b.x",
-                       top="./data/Tc5b.top")[:]
+    traj = pt.iterload(filename=tc5b_trajin,
+                       top=tc5b_top)[:]
 
     indices = list(range(2, 3, 5)) + [3, 7, 9, 8]
     with tempfolder():
         pt.write_traj(filename="test_io_saved_.x",
                       traj=traj[:],
-                      top="./data/Tc5b.top",
+                      top=tc5b_top,
                       frame_indices=indices,
                       overwrite=True)
 
@@ -430,31 +430,6 @@ def test_write_force_and_velocity():
         forces_traj2 = np.array([frame.force.copy() for frame in traj2])
         aa_eq(forces_traj, forces_traj2)
 
-trajin_text = '''
-    parm  {}
-    trajin {}
-    distance @10 @20
-'''.format(fn('Test_RemdTraj/ala2.99sb.mbondi2.parm7'),
-           fn('Test_RemdTraj/rem.nc.000 '))
-
-def test_load_cpptraj_state_from_text():
-    pt.iterload(fn("tz2.nc"), fn("tz2.parm7"))
-    input_file = fn('Test_RemdTraj/traj.in')
-
-    state_from_file = pt.load_cpptraj_state(input_file)
-    state_from_file.run()
-    # remove DatasetTopology
-    data = state_from_file.data
-    data.remove_set(data[0])
-
-    data_0 = state_from_file.data.values
-    state_from_text = pt.datafiles.load_cpptraj_state(trajin_text)
-    state_from_text.run()
-    data = state_from_text.data
-    data.remove_set(data[0])
-    data_1 = state_from_text.data.values
-    aa_eq(data_0, data_1)
-
 def test_iterload_and_load_remd():
     # iterload_remd
     traj = pt.iterload_remd(fn("Test_RemdTraj/rem.nc.000"),
@@ -464,6 +439,12 @@ def test_iterload_and_load_remd():
         assert frame.temperature == 300.0, 'frame temperature must be 300.0 K'
     dist = pt.distance(traj, '@10 @20')
 
+    trajin_text = '''
+        parm  {}
+        trajin {} remdtraj remdtrajtemp 300.
+        distance @10 @20
+    '''.format(fn('Test_RemdTraj/ala2.99sb.mbondi2.parm7'),
+               fn('Test_RemdTraj/rem.nc.000 '))
     state = pt.load_cpptraj_state(trajin_text)
     state.run()
     aa_eq(dist, state.data[-1].values)
@@ -487,10 +468,10 @@ def test_io_load_and_save_0():
 
     with tempfolder():
         pt.write_traj(filename="test_io_saved_.x",
-                        traj=traj,
-                        top=tc5b_top,
-                        frame_indices=indices,
-                        overwrite=True)
+                       traj=traj,
+                       top=tc5b_top,
+                       frame_indices=indices,
+                       overwrite=True)
 
         # check frames
         traj2 = pt.iterload(filename="test_io_saved_.x", top=tc5b_top)
