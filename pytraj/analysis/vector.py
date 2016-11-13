@@ -19,6 +19,8 @@ SUPPORTED_TYPES = [
     )
 ]
 
+__all__ = ['vector', 'vector_mask'] + SUPPORTED_TYPES[:]
+
 
 def _2darray_to_atommask_groups(seq):
     '''

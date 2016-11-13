@@ -1,13 +1,23 @@
 import numpy as np
 from ..utils.decorators import register_pmap
 from ..datasets.c_datasetlist import DatasetList as CpptrajDatasetList
-from ..analysis.c_action import c_action
+from ..analysis.c_action import c_action, do_action
 from ..analysis.c_analysis import c_analysis
 from ..analysis.c_action.actionlist import ActionList
+from ..utils.get_common_objects import (
+    get_topology,
+    get_data_from_dtype,
+    get_list_of_commands,
+    get_fiterator,
+    super_dispatch
+)
 
-from ..utils.get_common_objects import get_topology, get_data_from_dtype, get_list_of_commands
-from ..utils.get_common_objects import get_fiterator
 
+__all__ = [
+    'jcoupling',
+    'ired_vector_and_matrix',
+    'nh_order_parameters'
+]
 
 def _2darray_to_atommask_groups(seq):
     '''[[0, 3], [4, 7]] turns to ['@1 @4', '@5 @8']
@@ -95,6 +105,37 @@ def _ired(iredvec,
     # return get_data_from_dtype(dslist, dtype=dtype)
     return dslist
 
+@super_dispatch()
+def jcoupling(traj=None,
+              mask="",
+              top=None,
+              kfile=None,
+              dtype='dataset',
+              frame_indices=None):
+    """compute j-coupling
+
+    Parameters
+    ----------
+    traj : any things that make `frame_iter_master` returning Frame object
+    command : str, default ""
+        cpptraj's command/mask
+    kfile : str, default None, optional
+        Dir for Karplus file. If "None", use $AMBERHOME dir
+    dtype : str, {'dataset', ...}, default 'dataset'
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2()
+    >>> data = pt.calc_jcoupling(traj, ':1-12', kfile='data/Karplus.txt')
+    """
+    command = mask
+    if kfile is not None:
+        command += " kfile %s" % kfile
+    c_dslist, _ = do_action(traj, command, c_action.Action_Jcoupling)
+    return get_data_from_dtype(c_dslist, dtype)
+
+
 
 @register_pmap
 def ired_vector_and_matrix(traj=None,
@@ -178,7 +219,7 @@ calc_ired_vector_and_matrix = ired_vector_and_matrix
 
 
 @register_pmap
-def NH_order_parameters(traj,
+def nh_order_parameters(traj,
                         vector_pairs,
                         order=2,
                         tstep=1.,
@@ -206,7 +247,7 @@ def NH_order_parameters(traj,
     >>> h_indices = pt.select('@H', traj.top)
     >>> n_indices = h_indices - 1
     >>> nh_pairs = list(zip(n_indices, h_indices))
-    >>> data = pt.NH_order_parameters(traj, nh_pairs)
+    >>> data = pt.nh_order_parameters(traj, nh_pairs)
     '''
     from pytraj import matrix
 
@@ -242,4 +283,4 @@ def NH_order_parameters(traj,
     return order
 
 # create alias for easy parsing
-calc_NH_order_parameters = NH_order_parameters
+calc_nh_order_parameters = nh_order_parameters

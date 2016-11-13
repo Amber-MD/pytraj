@@ -85,15 +85,18 @@ from .analysis.dssp_analysis import dssp_allresidues
 from .analysis.energy_analysis import esander
 from .analysis.hbond_analysis import hbond
 from .analysis.nucleic_acid_analysis import nastruct
+from .analysis import nmr
 from .analysis.nmr import ired_vector_and_matrix
 from .analysis.nmr import _ired
-from .analysis.nmr import NH_order_parameters
+from .analysis.nmr import nh_order_parameters
+from .analysis.nmr import jcoupling
 
 from .analysis import dssp_analysis
 from .analysis import energy_analysis
 from .analysis import hbond_analysis
 from .analysis import nucleic_acid_analysis
 
+from . import all_actions
 from .all_actions import acorr
 from .all_actions import align
 from .all_actions import align_principal_axis
@@ -109,7 +112,6 @@ from .all_actions import center_of_mass
 from .all_actions import diffusion
 from .all_actions import dihedral
 from .all_actions import distance
-from .all_actions import jcoupling
 from .all_actions import mindist
 from .all_actions import molsurf
 from .all_actions import multidihedral
@@ -226,27 +228,27 @@ mean_structure = get_average_frame
 average_frame = get_average_frame
 calc_pca = pca
 calc_pairdist = pair_distribution = pairdist
-
-# compat with cpptraj
-atommap = atom_map
 calc_jcoupling = jcoupling
 calc_dssp = dssp
 calc_distance_rmsd = drmsd = distance_rmsd
-checkoverlap = check_structure
 calc_radgyr = radgyr
-nativecontacts = native_contacts
 calc_mindist = mindist
-lowest_curve = lowestcurve
 calc_diffusion = diffusion
 calc_multivector = multivector
 calc_volmap = volmap
-randomizeions = randomize_ions
 calc_molsurf = molsurf
 calc_surf = surf
 calc_watershell = watershell
 calc_pairdist = pairdist
 calc_volume = volume
 calc_pairwise_rmsd = rms2d
+
+NH_order_parameters = nh_order_parameters
+atommap = atom_map
+checkoverlap = check_structure
+nativecontacts = native_contacts
+lowest_curve = lowestcurve
+randomizeions = randomize_ions
 
 adict = ActionDict()
 analdict = AnalysisDict()
@@ -276,6 +278,7 @@ def show_versions():
 __all__ = (io.__all__ 
         + all_actions.__all__
         + dihedral_analysis.__all__
+        + nmr.__all__
         + ['nastruct']
         + ['esander']
         + ['Atom', 'Residue', 'Molecule', 'Topology', 'Frame', 'AtomMask',

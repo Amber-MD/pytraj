@@ -55,8 +55,6 @@ __all__ = [
     # rmsd stuff
     'rotation_matrix', 'pairwise_rmsd', 'rmsd_perres',
     'rmsd_nofit', 'rmsd', 'symmrmsd', 'distance_rmsd',
-    # nmr
-    'jcoupling',
     'volmap',
     'volume',
     'atomiccorr',
@@ -902,11 +900,9 @@ def rdf(traj=None,
     # return (bin_centers, values)
     return (np.arange(bin_spacing / 2., maximum, bin_spacing), values)
 
-calc_rdf = rdf
-
 
 @super_dispatch()
-def calc_pairdist(traj,
+def pairdist(traj,
                   mask="*",
                   mask2='',
                   delta=0.1,
@@ -928,7 +924,7 @@ def calc_pairdist(traj,
     --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()
-    >>> data = pt.calc_pairdist(traj)
+    >>> data = pt.pairdist(traj)
     '''
     mask_ = 'mask ' + mask
     mask2_ = 'mask2 ' + str(mask2) if mask2 else ''
@@ -938,39 +934,6 @@ def calc_pairdist(traj,
     c_dslist, _ = do_action(traj, command, c_action.Action_PairDist)
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
-
-pairdist = calc_pairdist
-
-
-@super_dispatch()
-def jcoupling(traj=None,
-              mask="",
-              top=None,
-              kfile=None,
-              dtype='dataset',
-              frame_indices=None):
-    """compute j-coupling
-
-    Parameters
-    ----------
-    traj : any things that make `frame_iter_master` returning Frame object
-    command : str, default ""
-        cpptraj's command/mask
-    kfile : str, default None, optional
-        Dir for Karplus file. If "None", use $AMBERHOME dir
-    dtype : str, {'dataset', ...}, default 'dataset'
-
-    Examples
-    --------
-    >>> import pytraj as pt
-    >>> traj = pt.datafiles.load_tz2()
-    >>> data = pt.calc_jcoupling(traj, ':1-12', kfile='data/Karplus.txt')
-    """
-    command = mask
-    if kfile is not None:
-        command += " kfile %s" % kfile
-    c_dslist, _ = do_action(traj, command, c_action.Action_Jcoupling)
-    return get_data_from_dtype(c_dslist, dtype)
 
 def translate(traj=None, command="", frame_indices=None, top=None):
     '''translate coordinate
@@ -987,9 +950,6 @@ def translate(traj=None, command="", frame_indices=None, top=None):
     '''
     _assert_mutable(traj)
     do_action(traj, command, c_action.Action_Translate)
-
-
-do_translation = translate
 
 
 def do_scaling(traj=None, command="", frame_indices=None, top=None):
