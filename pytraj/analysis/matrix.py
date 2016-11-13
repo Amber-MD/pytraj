@@ -4,7 +4,7 @@ from .c_analysis import c_analysis
 from ..datasets import c_datasets
 from ..datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 
-mat_keys = {
+MATRIX_TYPES = [
     'dist',
     'idea',
     'correl',
@@ -12,9 +12,9 @@ mat_keys = {
     'mwcovar',
     'distcovar',
     'dihcovar',
-}
+]
 
-__all__ = mat_keys
+__all__ = MATRIX_TYPES
 
 __cpptrajdoc__ = """
     cpptraj manual
@@ -35,7 +35,7 @@ from .c_action import c_action
 from ..utils.get_common_objects import super_dispatch, get_data_from_dtype
 
 @super_dispatch()
-def %s(traj=None, mask="", top=None, dtype='ndarray', mat_type='full', frame_indices=None):
+def {method_name}(traj=None, mask="", top=None, dtype='ndarray', mat_type='full', frame_indices=None):
     """Compute matrix
 
     Parameters
@@ -43,23 +43,23 @@ def %s(traj=None, mask="", top=None, dtype='ndarray', mat_type='full', frame_ind
     traj : Trajectory-like
     mask : cpptraj mask
     top : Topology, optional, default None
-    mat_type : str, {'full', 'half', 'cpptraj'}, default 'full'
+    mat_type : str, {{'full', 'half', 'cpptraj'}}, default 'full'
         if 'full': 2D full matrix
         if 'half': triangular matrix
         if 'cpptraj': 1D array
 
     cpptraj compat mode
     -------------------
-    {'distance_matrix' : 'dist',
+    {{'distance_matrix' : 'dist',
     'correlation_matrix' : 'correl',
     'coord_covariance_matrix' : 'covar',
     'mw_covariance_matrix' : 'mwcovar',
     'distcovar_matrix' : 'distcovar',
-    'idea_matrix' : 'idea'}
+    'idea_matrix' : 'idea'}}
     """
 
     dslist = CpptrajDatasetList()
-    template_mask = '%s '
+    template_mask = '{template_mask} '
     template_mask += mask
 
     act = c_action.Action_Matrix()
@@ -80,13 +80,13 @@ def %s(traj=None, mask="", top=None, dtype='ndarray', mat_type='full', frame_ind
         return get_data_from_dtype(dslist, dtype=dtype)
 '''
 
-for k in mat_keys:
-    my_func_str = template % (k, k)
+for key in MATRIX_TYPES:
+    my_func_str = template.format(method_name=key, template_mask=key)
     g_dict = globals()
     exec(my_func_str)
-    g_dict[k].__doc__ += __cpptrajdoc__
+    g_dict[key].__doc__ += __cpptrajdoc__
 
-del k
+del key
 
 exec('''
 from ..utils.decorators import register_pmap, register_openmp

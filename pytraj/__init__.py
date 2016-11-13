@@ -13,6 +13,10 @@ import sys
 import os
 
 from .version import version as __version__
+from .utils import c_commands
+from .utils import tools
+from .utils.misc import info
+from .utils.cyutils import _fast_iterptr as iterframe_from_array
 from .core.c_options import info as compiled_info
 from .core.c_options import __cpptraj_version__
 from .core.c_options import __cpptraj_internal_version__
@@ -28,8 +32,6 @@ from .core.c_core import ArgList
 from .core.c_core import AtomMask
 from .core.c_core import Command
 from .datasets import array
-from .utils import c_commands
-from .utils import tools
 from .trajectory.trajectory import Trajectory
 from .trajectory.trajectory_iterator import TrajectoryIterator
 from .trajectory.c_traj.c_trajout import TrajectoryWriter
@@ -70,9 +72,6 @@ from .io import select_atoms
 # dataset stuff
 from .datafiles import load_cpptraj_state
 from .datasets.datasetlist import DatasetList
-
-# tool
-from .utils import tools
 
 # actions and analyses
 from .analysis.c_action import c_action as allactions
@@ -115,7 +114,6 @@ from .all_actions import matrix
 from .all_actions import mindist
 from .all_actions import molsurf
 from .all_actions import multidihedral
-from .all_actions import multivector
 from .all_actions import pairdist
 from .all_actions import pairwise_distance
 from .all_actions import pairwise_rmsd
@@ -172,6 +170,7 @@ from .all_actions import xcorr
 from .analysis.matrix import dist as distance_matrix
 from .analysis import matrix
 from .analysis import vector
+from .analysis.vector import multivector
 from . import cluster
 
 from .analysis import dihedral_analysis
@@ -194,7 +193,6 @@ from .analysis.c_action.c_action import ActionDict
 from .analysis.c_analysis.analysis_dict import AnalysisDict
 
 # others
-from .utils.misc import info
 from .testing.run_tests import run_tests
 
 # turn off verbose in cpptraj
@@ -203,8 +201,6 @@ from .core.c_options import set_world_silent
 from .core.c_options import set_cpptraj_verbose
 from .core.c_options import set_cpptraj_verbose as _verbose
 set_world_silent(True)
-
-from .utils.cyutils import _fast_iterptr as iterframe_from_array
 
 # alias
 write_trajectory = write_traj

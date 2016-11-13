@@ -1,8 +1,11 @@
 from __future__ import print_function, absolute_import
 import numpy as np
+from ..externals.six import string_types
 from ..utils.decorators import register_pmap
+from ..utils.get_common_objects import super_dispatch, get_data_from_dtype
+from .c_action import do_action, c_action
 
-_supported_types = [
+SUPPORTED_TYPES = [
     x
     for x in
     'minimage dipole center corrplane box boxcenter ucellx ucelly ucellz principal'.split(
@@ -166,7 +169,7 @@ def %s(traj=None, command="", frame_indices=None, dtype='ndarray', top=None):
     return get_data_from_dtype(dslist, dtype=dtype)
 '''
 
-for _key in _supported_types:
+for _key in SUPPORTED_TYPES:
     _my_func_str = _template % (_key, _key)
     exec(_my_func_str)
 
