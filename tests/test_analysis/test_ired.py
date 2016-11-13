@@ -147,144 +147,90 @@ txt = '''
 '''.format(parm_dir, traj_dir)
 
 
-class TestIred(unittest.TestCase):
+def test_ired_simple_for_coverage():
+    '''
+    '''
+    traj = pt.iterload(traj_dir, parm_dir)
+    h_indices = pt.select_atoms('@H', traj.top)
+    n_indices = pt.select_atoms('@H', traj.top) - 1
+    nh_indices = list(zip(n_indices, h_indices))
+    vecs_and_mat = pt.ired_vector_and_matrix(traj, nh_indices, dtype='tuple')
+    vecs_and_mat = pt.ired_vector_and_matrix(traj, nh_indices, dtype='tuple')
+    state_vecs = vecs_and_mat[0]
+    mat_ired = vecs_and_mat[1]
 
-    def test_simple_for_coverage(self):
-        '''
-        '''
-        traj = pt.iterload(traj_dir, parm_dir)
-        h_indices = pt.select_atoms('@H', traj.top)
-        n_indices = pt.select_atoms('@H', traj.top) - 1
-        nh_indices = list(zip(n_indices, h_indices))
-        vecs_and_mat = pt.ired_vector_and_matrix(traj, nh_indices, dtype='tuple')
-        vecs_and_mat = pt.ired_vector_and_matrix(traj, nh_indices, dtype='tuple')
-        state_vecs = vecs_and_mat[0]
-        mat_ired = vecs_and_mat[1]
+    # get eigenvalues and eigenvectors
+    modes = pt.matrix.diagonalize(mat_ired, n_vecs=len(state_vecs))
+    evals, evecs = modes
 
-        # get eigenvalues and eigenvectors
-        modes = pt.matrix.diagonalize(mat_ired, n_vecs=len(state_vecs))
-        evals, evecs = modes
+    data_0 = _ired(state_vecs,
+                   modes=(evals, evecs),
+                   NHbond=True,
+                   tcorr=10000,
+                   tstep=1.)
 
-        data_0 = _ired(state_vecs,
-                       modes=(evals, evecs),
-                       NHbond=True,
-                       tcorr=10000,
-                       tstep=1.)
+    data_1 = _ired(state_vecs,
+                   modes=modes,
+                   NHbond=True,
+                   tcorr=10000,
+                   tstep=1)
 
-        data_1 = _ired(state_vecs,
-                       modes=modes,
-                       NHbond=True,
-                       tcorr=10000,
-                       tstep=1)
+    for d0, d1 in zip(data_0, data_1):
+        if d0.dtype not in ['modes', ]:
+            aa_eq(d0.values, d1.values)
+        else:
+            # modes
+            # values: tuple
+            aa_eq(d0.values[0], d1.values[0])
+            aa_eq(d0.values[1], d1.values[1])
 
-        for d0, d1 in zip(data_0, data_1):
-            if d0.dtype not in ['modes', ]:
-                aa_eq(d0.values, d1.values)
-            else:
-                # modes
-                # values: tuple
-                aa_eq(d0.values[0], d1.values[0])
-                aa_eq(d0.values[1], d1.values[1])
+    # try different dtype
+    out_try_new_dtype = pt.ired_vector_and_matrix(traj, nh_indices, dtype='cpptraj_dataset')
 
-        # try different dtype
-        out_try_new_dtype = pt.ired_vector_and_matrix(traj, nh_indices, dtype='cpptraj_dataset')
+def test_ired_need_lapack_cpptraj():
+    state = pt.load_cpptraj_state(txt)
+    state.run()
+    xyz = state.data['CRD1'].xyz
+    top = state.data['CRD1'].top
+    traj = pt.Trajectory(xyz=xyz, top=top)
+    state_vecs = state.data[1:-3].values
 
-    # TODO: how can I get order paramters?
-    def test_ired_need_lapack_cpptraj(self):
-        state = pt.load_cpptraj_state(txt)
-        state.run()
-        xyz = state.data['CRD1'].xyz
-        top = state.data['CRD1'].top
-        traj = pt.Trajectory(xyz=xyz, top=top)
-        state_vecs = state.data[1:-3].values
+    h_indices = pt.select_atoms('@H', traj.top)
+    n_indices = pt.select_atoms('@H', traj.top) - 1
+    nh_indices = list(zip(n_indices, h_indices))
+    mat_ired = pt.ired_vector_and_matrix(traj,
+                                         mask=nh_indices,
+                                         order=2)[-1]
+    mat_ired /= mat_ired[0, 0]
 
-        h_indices = pt.select_atoms('@H', traj.top)
-        n_indices = pt.select_atoms('@H', traj.top) - 1
-        nh_indices = list(zip(n_indices, h_indices))
-        mat_ired = pt.ired_vector_and_matrix(traj,
-                                             mask=nh_indices,
-                                             order=2)[-1]
-        mat_ired /= mat_ired[0, 0]
+    # matired: make sure to reproduce cpptraj output
+    aa_eq(mat_ired, state.data['matired'].values)
 
-        # matired: make sure to reproduce cpptraj output
-        aa_eq(mat_ired, state.data['matired'].values)
+    # get modes
+    modes = state.data[-2]
+    cpp_eigenvalues = modes.eigenvalues
+    cpp_eigenvectors = modes.eigenvectors
+    evals, evecs = np.linalg.eigh(mat_ired)
 
-        # get modes
-        modes = state.data[-2]
-        cpp_eigenvalues = modes.eigenvalues
-        cpp_eigenvectors = modes.eigenvectors
-        evals, evecs = np.linalg.eigh(mat_ired)
+    # need to sort a bit
+    evals = evals[::-1]
+    # cpptraj's eigvenvalues
+    aa_eq(evals, cpp_eigenvalues)
 
-        # need to sort a bit
-        evals = evals[::-1]
-        # cpptraj's eigvenvalues
-        aa_eq(evals, cpp_eigenvalues)
+    # cpptraj's eigvenvectors
+    # use absolute values to avoid flipped sign
+    # from Dan Roe
+    # In practice, the "sign" of an eigenvector depends on the math library used to calculate it.
+    # This is in fact why the modes command displacement test is disabled for cpptraj.
+    # I bet if you use a different math library (e.g. use your system BLAS/LAPACK instead of the one bundled with Amber
+    # or vice versa) you will get different signs.
+    # Bottom line is that eigenvector sign doesn't matter.
 
-        # cpptraj's eigvenvectors
-        # use absolute values to avoid flipped sign
-        # from Dan Roe
-        # In practice, the "sign" of an eigenvector depends on the math library used to calculate it.
-        # This is in fact why the modes command displacement test is disabled for cpptraj.
-        # I bet if you use a different math library (e.g. use your system BLAS/LAPACK instead of the one bundled with Amber
-        # or vice versa) you will get different signs.
-        # Bottom line is that eigenvector sign doesn't matter.
+    aa_eq(np.abs(evecs[:, ::-1].T), np.abs(cpp_eigenvectors), decimal=4)
+    data = _ired(state_vecs, modes=(cpp_eigenvalues, cpp_eigenvectors))
+    order_s2 = data['IRED_00127[S2]']
 
-        aa_eq(np.abs(evecs[:, ::-1].T), np.abs(cpp_eigenvectors), decimal=4)
-        data = _ired(state_vecs, modes=(cpp_eigenvalues, cpp_eigenvectors))
-        order_s2 = data['IRED_00127[S2]']
-
-        # load cpptraj's output and compare to pytraj' values for S2 order paramters
-        cpp_order_s2 = np.loadtxt(os.path.join(cpptraj_test_dir, 'Test_IRED',
-                                               'orderparam.save')).T[-1]
-        aa_eq(order_s2, cpp_order_s2, decimal=5)
-
-    @unittest.skip('do not test now, get nan in some runs')
-    def test_ired_lapack_in_numpy(self):
-        parmfile = parm_dir
-        trajfile = traj_dir
-
-        # load to TrajectoryIterator
-        traj = pt.iterload(trajfile, parmfile)
-
-        # create N-H vectors
-        h_indices = pt.select_atoms('@H', traj.top)
-        n_indices = pt.select_atoms('@H', traj.top) - 1
-        nh_indices = list(zip(n_indices, h_indices))
-
-        # compute N-H vectors and ired matrix
-        vecs_and_mat = pt.ired_vector_and_matrix(traj,
-                                                 mask=nh_indices,
-                                                 order=2)
-        state_vecs = vecs_and_mat[:-1].values
-        mat_ired = vecs_and_mat[-1]
-        mat_ired /= mat_ired[0, 0]
-
-        # cpptraj
-        data_cpp = pt.matrix.diagonalize(mat_ired, n_vecs=len(state_vecs))[0]
-        print(data_cpp.eigenvectors)
-
-        # numpy
-        data_np = pt.matrix._diag_np(mat_ired, n_vecs=len(state_vecs))
-
-        def order_(modes):
-            data = _ired(state_vecs, modes=modes)
-            order_s2_v0 = data['IRED_00127[S2]']
-            # make sure the S2 values is 1st array
-
-            # load cpptraj's output and compare to pytraj' values for S2 order paramters
-            cpp_order_s2 = np.loadtxt(os.path.join(
-                cpptraj_test_dir, 'Test_IRED', 'orderparam.save')).T[-1]
-            aa_eq(order_s2_v0.values, cpp_order_s2, decimal=4)
-
-        order_(data_cpp.values)
-
-        def plot_(x, y):
-            import seaborn as sb
-            sb.heatmap(x - y)
-            pt.show()
-
-        print((data_cpp.values[1] - data_np[1]).shape)
-
-
-if __name__ == "__main__":
-    unittest.main()
+    # load cpptraj's output and compare to pytraj' values for S2 order paramters
+    cpp_order_s2 = np.loadtxt(os.path.join(cpptraj_test_dir, 'Test_IRED',
+                                           'orderparam.save')).T[-1]
+    aa_eq(order_s2, cpp_order_s2, decimal=5)

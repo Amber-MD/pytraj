@@ -23,13 +23,13 @@ class TestGrid(unittest.TestCase):
 class TestGridAction(unittest.TestCase):
 
     def test_action_grid(self):
-        from pytraj.all_actions import calc_grid
+        from pytraj.all_actions import grid
         traj = pt.load_sample_data("tz2")[:]
         traj.autoimage()
         traj.rmsfit(mask=':1-13')
-        d = calc_grid(traj, " 20 0.5 20 0.5 20 0.5 :WAT@O")
+        d = grid(traj, " 20 0.5 20 0.5 20 0.5 :WAT@O")
 
-        d = calc_grid(traj(), " 20 0.5 20 0.5 20 0.5 :WAT@O", top=traj.top)
+        d = grid(traj(), " 20 0.5 20 0.5 20 0.5 :WAT@O", top=traj.top)
 
     def test_action_bounds(self):
         # creat mutable trajectory

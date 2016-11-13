@@ -7,11 +7,15 @@ from pytraj import Topology, Trajectory, TrajectoryIterator
 from pytraj.testing import aa_eq
 from pytraj.testing import cpptraj_test_dir
 from pytraj.testing import get_remd_fn
+from pytraj.io import _get_amberhome
 
 try:
     has_scipy = True
 except ImportError:
     has_scipy = False
+
+amberhome = os.getenv('AMBERHOME', '')
+tleap = amberhome + '/bin/tleap'
 
 
 class TestIO(unittest.TestCase):
@@ -487,30 +491,40 @@ class TestREMDTemperature(unittest.TestCase):
                                  T=300.0)
         aa_eq(traj.xyz, traj2.xyz)
 
-class TestTleap(unittest.TestCase):
-    def test_amberhome(self):
-        from pytraj.io import _get_amberhome
+def test_io_load_and_save_0():
+    traj = pt.iterload(filename="./data/Tc5b.x",
+                         top="./data/Tc5b.top")[:10]
+    indices = list(range(2, 3, 5)) + [3, 8, 9, 8]
 
-        if os.getenv('AMBERHOME') is None:
-            fake_amberhome = '/home/hc/amber16'
-            os.environ['AMBERHOME'] = fake_amberhome
-            assert _get_amberhome() == fake_amberhome
+    pt.write_traj(filename="./output/test_io_saved_.x",
+                    traj=traj,
+                    top="./data/Tc5b.top",
+                    frame_indices=indices,
+                    overwrite=True)
 
-    amberhome = os.getenv('AMBERHOME', '')
-    tleap = amberhome + '/bin/tleap'
+    # check frames
+    traj2 = pt.iterload(filename="./output/test_io_saved_.x",
+                          top="./data/Tc5b.top")
+    assert traj2.n_frames == len(indices)
 
-    @unittest.skipUnless(os.path.exists(tleap), 'must have tleap')
-    def test_leap(self):
-        cm = """
-        source leaprc.protein.ff14SB
-        TC5b = sequence { NASN LEU TYR ILE GLN TRP LEU LYS
-                                ASP GLY GLY PRO SER SER GLY ARG
-                                PRO PRO PRO CSER }
-        saveamberparm TC5b x.parm7 x.crd
-        %s
-        """
+def test_amberhome():
+    if os.getenv('AMBERHOME') is None:
+        fake_amberhome = '/home/hc/amber16'
+        os.environ['AMBERHOME'] = fake_amberhome
+        assert _get_amberhome() == fake_amberhome
 
-        for quit in ['quit', '']:
-            verbose = False
-            traj = pt.io.load_leap(cm % quit, verbose=verbose)
-            assert traj.n_atoms == 304
+@unittest.skipUnless(os.path.exists(tleap), 'must have tleap')
+def test_leap():
+    cm = """
+    source leaprc.protein.ff14SB
+    TC5b = sequence { NASN LEU TYR ILE GLN TRP LEU LYS
+                            ASP GLY GLY PRO SER SER GLY ARG
+                            PRO PRO PRO CSER }
+    saveamberparm TC5b x.parm7 x.crd
+    %s
+    """
+
+    for quit in ['quit', '']:
+        verbose = False
+        traj = pt.io.load_leap(cm % quit, verbose=verbose)
+        assert traj.n_atoms == 304
