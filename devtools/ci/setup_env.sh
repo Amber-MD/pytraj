@@ -5,7 +5,7 @@ git clone https://github.com/hainm/ambermini_test
 mv ambermini_test ./tests/energies/
 
 osname=`python -c 'import sys; print(sys.platform)'`
-if [ $osname = "osx" ]; then
+if [ $osname = "darwin" ]; then
     wget http://repo.continuum.io/miniconda/Miniconda-3.7.0-MacOSX-x86_64.sh -O miniconda.sh;
 else
     wget http://repo.continuum.io/miniconda/Miniconda-3.7.0-Linux-x86_64.sh -O miniconda.sh;
