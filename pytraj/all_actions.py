@@ -55,7 +55,11 @@ __all__ = [
     # rmsd stuff
     'rotation_matrix', 'pairwise_rmsd', 'rmsd_perres',
     'rmsd_nofit', 'rmsd', 'symmrmsd', 'distance_rmsd',
-
+    # nmr
+    'jcoupling',
+    'volmap',
+    'volume',
+    'atomiccorr',
 ]
 
 
@@ -621,42 +625,6 @@ def watershell(traj=None,
 calc_watershell = watershell
 
 
-@super_dispatch()
-def matrix(traj=None,
-                mask="",
-                dtype='ndarray',
-                frame_indices=None,
-                top=None):
-    '''compute different type of matrices
-
-    Parameters
-    ----------
-    traj : Trajectory-like
-    mask : str, type of matrix and atom mask
-    top : Topology, optional
-    dtype: return data type
-    frame_indices : {None, array-like}
-        if not None, perform calculation for given frame indices
-
-    Notes
-    -----
-    If user wants to use specify matrix's method name, see also ``pytraj.matrix``
-
-    Examples
-    --------
-    >>> import pytraj as pt
-    >>> traj = pt.datafiles.load_trpcage()
-    >>> mat = pt.calc_matrix(traj, 'covar @CA')
-    >>> # this is equal to
-    >>> mat2 = pt.matrix.covar(traj, '@CA')
-    >>> import numpy as np
-    >>> np.testing.assert_equal(mat, mat2)
-    '''
-    command = mask
-    c_dslist, _ = do_action(traj, command, c_action.Action_Matrix)
-    return get_data_from_dtype(c_dslist, dtype)
-
-
 @register_pmap
 @super_dispatch()
 def radgyr(traj=None,
@@ -1003,9 +971,6 @@ def jcoupling(traj=None,
         command += " kfile %s" % kfile
     c_dslist, _ = do_action(traj, command, c_action.Action_Jcoupling)
     return get_data_from_dtype(c_dslist, dtype)
-
-calc_jcoupling = jcoupling
-
 
 def translate(traj=None, command="", frame_indices=None, top=None):
     '''translate coordinate
@@ -1443,75 +1408,6 @@ def bfactors(traj=None,
                             top=top,
                             dtype=dtype,
                             frame_indices=frame_indices)
-
-calc_bfactors = bfactors
-
-
-@register_pmap
-def vector(traj=None,
-           command="",
-           frame_indices=None,
-           dtype='ndarray',
-           top=None):
-    """perform vector calculation. See example below. Same as 'vector' command in cpptraj.
-
-    Parameters
-    ----------
-    traj : Trajectory-like or iterable that produces :class:`pytraj.Frame`
-    command : str or a list of strings, cpptraj command
-    frame_indices : array-like, optional, default None
-        only perform calculation for given frame indices
-    dtype : output's dtype, default 'ndarray'
-    top : Topology, optional, default None
-
-    Returns
-    -------
-    out : numpy ndarray, shape (n_frames, 3) if command is a string
-          numpy ndarray, shape (n_vectors, n_frames, 3) if command is a list of strings
-
-    Examples
-    --------
-    >>> import pytraj as pt
-    >>> traj = pt.datafiles.load_tz2_ortho()
-    >>> data = pt.calc_vector(traj, "@CA @CB")
-    >>> data = pt.calc_vector(traj, [("@CA @CB"),])
-    >>> data = pt.calc_vector(traj, "principal z")
-    >>> data = pt.calc_vector(traj, "principal x")
-    >>> data = pt.calc_vector(traj, "ucellx")
-    >>> data = pt.calc_vector(traj, "boxcenter")
-    >>> data = pt.calc_vector(traj, "box")
-
-    Notes
-    -----
-    It's faster to calculate with a list of commands.
-    For example, if you need to perform 3 calculations for 'ucellx', 'boxcenter', 'box'
-    like below:
-
-    >>> data = pt.calc_vector(traj, "ucellx")
-    >>> data = pt.calc_vector(traj, "boxcenter")
-    >>> data = pt.calc_vector(traj, "box")
-
-    You should use a list of commands for faster calculation.
-
-    >>> comlist = ['ucellx', 'boxcenter', 'box']
-    >>> data = pt.calc_vector(traj, comlist)
-    """
-
-    c_dslist = CpptrajDatasetList()
-    top_ = get_topology(traj, top)
-    list_of_commands = get_list_of_commands(command)
-    fi = get_fiterator(traj, frame_indices)
-    actlist = ActionList()
-
-    for command in list_of_commands:
-        act = c_action.Action_Vector()
-        actlist.add(act, command, top_, dslist=c_dslist)
-    actlist.compute(fi)
-
-    return get_data_from_dtype(c_dslist, dtype=dtype)
-
-calc_vector = vector
-
 
 @super_dispatch()
 def _calc_vector_center(traj=None,

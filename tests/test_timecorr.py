@@ -37,7 +37,7 @@ class Test(unittest.TestCase):
         state.run()
         cpptraj_output = state.data
 
-        dslist0 = pt.calc_vector(traj, [':2 :5', ':3 :7'])
+        dslist0 = pt.vector.vector(traj, [':2 :5', ':3 :7'])
         data = pt.timecorr(dslist0[0], dslist0[1])
         aa_eq(data, cpptraj_output[-1].values)
 
@@ -54,7 +54,7 @@ class Test(unittest.TestCase):
         state.run()
         cpptraj_output = state.data
 
-        dslist0 = pt.calc_vector(traj,
+        dslist0 = pt.vector.vector(traj,
                                  ['@2,@5,@9 corrplane', '@3,@7,@20 corrplane'])
         dslist1 = pt.vector.corrplane(traj, ['@2,@5,@9', '@3,@7,@20'])
         data0 = pt.timecorr(dslist0[0], dslist0[1])

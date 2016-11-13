@@ -1,7 +1,12 @@
 from __future__ import print_function, absolute_import
 import numpy as np
 from .c_analysis import c_analysis
+from .c_action import do_action, c_action
 from ..datasets import c_datasets
+from ..utils.get_common_objects import (
+                                       get_data_from_dtype,
+                                       super_dispatch,
+)
 from ..datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 
 MATRIX_TYPES = [
@@ -15,6 +20,43 @@ MATRIX_TYPES = [
 ]
 
 __all__ = MATRIX_TYPES
+
+@super_dispatch()
+def matrix(traj=None,
+           mask="",
+           dtype='ndarray',
+           frame_indices=None,
+           top=None):
+    '''compute different type of matrices
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, type of matrix and atom mask
+    top : Topology, optional
+    dtype: return data type
+    frame_indices : {None, array-like}
+        if not None, perform calculation for given frame indices
+
+    Notes
+    -----
+    If user wants to use specify matrix's method name, see also ``pytraj.matrix``
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_trpcage()
+    >>> mat = pt.matrix.matrix(traj, 'covar @CA')
+    >>> # this is equal to
+    >>> mat2 = pt.matrix.covar(traj, '@CA')
+    >>> import numpy as np
+    >>> np.testing.assert_equal(mat, mat2)
+    '''
+    command = mask
+    c_dslist, _ = do_action(traj, command, c_action.Action_Matrix)
+    return get_data_from_dtype(c_dslist, dtype)
+
+
 
 __cpptrajdoc__ = """
     cpptraj manual

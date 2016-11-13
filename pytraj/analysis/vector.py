@@ -2,8 +2,15 @@ from __future__ import print_function, absolute_import
 import numpy as np
 from ..externals.six import string_types
 from ..utils.decorators import register_pmap
-from ..utils.get_common_objects import super_dispatch, get_data_from_dtype
 from .c_action import do_action, c_action
+from .c_action.actionlist import ActionList
+from ..utils.get_common_objects import (get_topology,
+                                       get_data_from_dtype,
+                                       get_list_of_commands,
+                                       get_fiterator,
+                                       super_dispatch,
+)
+from ..datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 
 SUPPORTED_TYPES = [
     x
@@ -21,6 +28,68 @@ def _2darray_to_atommask_groups(seq):
     for arr in seq:
         # example: arr = [0, 3]; turns ot '@1 @4'
         yield '@' + str(arr[0] + 1) + ' @' + str(arr[1] + 1)
+
+@register_pmap
+def vector(traj=None,
+           command="",
+           frame_indices=None,
+           dtype='ndarray',
+           top=None):
+    """perform vector calculation. See example below. Same as 'vector' command in cpptraj.
+
+    Parameters
+    ----------
+    traj : Trajectory-like or iterable that produces :class:`pytraj.Frame`
+    command : str or a list of strings, cpptraj command
+    frame_indices : array-like, optional, default None
+        only perform calculation for given frame indices
+    dtype : output's dtype, default 'ndarray'
+    top : Topology, optional, default None
+
+    Returns
+    -------
+    out : numpy ndarray, shape (n_frames, 3) if command is a string
+          numpy ndarray, shape (n_vectors, n_frames, 3) if command is a list of strings
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> data = pt.vector.vector(traj, "@CA @CB")
+    >>> data = pt.vector.vector(traj, [("@CA @CB"),])
+    >>> data = pt.vector.vector(traj, "principal z")
+    >>> data = pt.vector.vector(traj, "principal x")
+    >>> data = pt.vector.vector(traj, "ucellx")
+    >>> data = pt.vector.vector(traj, "boxcenter")
+    >>> data = pt.vector.vector(traj, "box")
+
+    Notes
+    -----
+    It's faster to calculate with a list of commands.
+    For example, if you need to perform 3 calculations for 'ucellx', 'boxcenter', 'box'
+    like below:
+
+    >>> data = pt.vector.vector(traj, "ucellx")
+    >>> data = pt.vector.vector(traj, "boxcenter")
+    >>> data = pt.vector.vector(traj, "box")
+
+    You should use a list of commands for faster calculation.
+    >>> comlist = ['ucellx', 'boxcenter', 'box']
+    >>> data = pt.vector.vector(traj, comlist)
+    """
+    c_dslist = CpptrajDatasetList()
+    top_ = get_topology(traj, top)
+    list_of_commands = get_list_of_commands(command)
+    fi = get_fiterator(traj, frame_indices)
+    actlist = ActionList()
+
+    for command in list_of_commands:
+        act = c_action.Action_Vector()
+        actlist.add(act, command, top_, dslist=c_dslist)
+    actlist.compute(fi)
+
+    return get_data_from_dtype(c_dslist, dtype=dtype)
+
 
 @super_dispatch()
 def multivector(traj,

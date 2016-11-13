@@ -110,7 +110,6 @@ from .all_actions import diffusion
 from .all_actions import dihedral
 from .all_actions import distance
 from .all_actions import jcoupling
-from .all_actions import matrix
 from .all_actions import mindist
 from .all_actions import molsurf
 from .all_actions import multidihedral
@@ -122,7 +121,6 @@ from .all_actions import rdf
 from .all_actions import rmsd_nofit
 from .all_actions import rotation_matrix
 from .all_actions import surf
-from .all_actions import vector
 from .all_actions import volmap
 from .all_actions import volume
 from .all_actions import watershell
