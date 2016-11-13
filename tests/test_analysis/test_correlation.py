@@ -1,26 +1,26 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
-from pytraj.utils import aa_eq
+from pytraj.testing import aa_eq, tempfolder
+from utils import tc5b_trajin, tc5b_top
 
 
-class Test(unittest.TestCase):
+def test_corr():
+    cm = """
+    parm {}
+    trajin {}
+    distance d0 @2 @3
+    distance d1 @4 @7
+    corr d0 d1 out test.out
+    corr d0 out test2.out
+    """.format(tc5b_top, tc5b_trajin)
 
-    def test_0(self):
-        cm = """
-        parm data/Tc5b.top
-        trajin data/Tc5b.x
-        distance d0 @2 @3
-        distance d1 @4 @7
-        corr d0 d1 out test.out
-        corr d0 out test2.out
-        """
-
+    with tempfolder():
         # exclude DatasetTopology (1st)
         state = pt.datafiles.load_cpptraj_state(cm).run()
         cout = state.data[1:]
 
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(tc5b_trajin, tc5b_top)
         dslist = pt.calc_distance(traj, ['@2 @3', '@4, @7'])
 
         pout = pt.xcorr(dslist[0],
@@ -36,7 +36,3 @@ class Test(unittest.TestCase):
         # autocorr d0, d0
         pout = pt.acorr(dslist[0])
         aa_eq(pout, cout[4])
-
-
-if __name__ == "__main__":
-    unittest.main()
