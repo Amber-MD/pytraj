@@ -1,9 +1,10 @@
 import pytraj as pt
 
 from pytraj.testing import aa_eq, tempfolder
-from pytraj.utils import fn
 from pytraj import *
 
+# local
+from utils import fn
 farray = pt.load(fn("Tc5b.x"),
                  fn("Tc5b.top"),
                  frame_indices=list(range(10)))

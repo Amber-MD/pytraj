@@ -4,7 +4,7 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 from pytraj.utils.progress import ProgressBarTrajectory
-from pytraj.utils import aa_eq, fn
+from pytraj.utils import aa_eq
 from pytraj.testing import tempfolder
 import pytest
 
@@ -14,6 +14,9 @@ try:
     import traitlets.traitlets.TraitError
 except ImportError:
     tqdm = None
+
+# local
+from utils import fn
 
 
 def test_progress_log():

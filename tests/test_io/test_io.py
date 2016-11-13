@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+import sys
 import unittest
 import numpy as np
 import pytest
@@ -12,7 +13,7 @@ from pytraj.testing import tempfolder
 from pytraj.io import _get_amberhome
 
 # local
-from pytraj.utils import fn
+from utils import fn
 
 try:
     has_scipy = True
@@ -28,30 +29,30 @@ tc5b_top = fn('Tc5b.top')
 
 
 def test_iterload_comprehensive():
-    fn, tn = ("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+    trajin, tn = fn("tz2.ortho.nc"), fn("tz2.ortho.parm7")
 
     # frame_slice 
-    t0 = pt.iterload(fn, tn, frame_slice=(0, -1, 0))
+    t0 = pt.iterload(trajin, tn, frame_slice=(0, -1, 0))
     aa_eq(traj_tz2_ortho.xyz, t0.xyz)
 
-    t0 = pt.iterload(fn, tn, frame_slice=(0, -1, 2))
+    t0 = pt.iterload(trajin, tn, frame_slice=(0, -1, 2))
     aa_eq(traj_tz2_ortho.xyz[::2], t0.xyz)
 
     # stride
-    t0 = pt.iterload(fn, tn, stride=2)
+    t0 = pt.iterload(trajin, tn, stride=2)
     aa_eq(traj_tz2_ortho.xyz[::2], t0.xyz)
 
     # stride, ignore frame_slice
-    t0 = pt.iterload(fn, tn, stride=2, frame_slice=(0, -1, 3))
+    t0 = pt.iterload(trajin, tn, stride=2, frame_slice=(0, -1, 3))
     aa_eq(traj_tz2_ortho.xyz[::2], t0.xyz)
 
     # stride, load two files
-    t0 = pt.iterload([fn, fn], tn, stride=2)
+    t0 = pt.iterload([trajin, trajin], tn, stride=2)
     xyz_2 = np.vstack((traj_tz2_ortho.xyz[::2], traj_tz2_ortho.xyz[::2]))
     aa_eq(xyz_2, t0.xyz)
 
     # stride, load two files, ignore frame_slice
-    t0 = pt.iterload([fn, fn], tn, stride=2, frame_slice=[(0, -1, 5), (0, -1, 2)])
+    t0 = pt.iterload([trajin, trajin], tn, stride=2, frame_slice=[(0, -1, 5), (0, -1, 2)])
     xyz_2 = np.vstack((traj_tz2_ortho.xyz[::2], traj_tz2_ortho.xyz[::2]))
     aa_eq(xyz_2, t0.xyz)
 
@@ -60,63 +61,61 @@ def test_iterload_comprehensive():
     t0 = pt.iterload(filenames, tn, stride=3)
     # add frame_slice
     t1 = pt.iterload(filenames, tn, frame_slice=[(0, -1, 3),]*4)
-    xyz_expected = np.vstack([pt.iterload(fn, tn)[::3].xyz for fn in filenames])
+    xyz_expected = np.vstack([pt.iterload(fname, tn)[::3].xyz for fname in filenames])
     aa_eq(xyz_expected, t0.xyz)
     aa_eq(xyz_expected, t1.xyz)
 
     # stride, 4 trajs, ignore frame_slice
     filenames, tn = get_remd_fn('remd_ala2')
     t0 = pt.iterload(filenames, tn, stride=3, frame_slice=(0 -1, 4))
-    xyz_expected = np.vstack([pt.iterload(fn, tn)[::3].xyz for fn in filenames])
+    xyz_expected = np.vstack([pt.iterload(fname, tn)[::3].xyz for fname  in filenames])
     aa_eq(xyz_expected, t0.xyz)
 
 
 def test_load_comprehensive():
     traj = traj_tz2_ortho
-    fn, tn = ("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+    trajin , tn = fn("tz2.ortho.nc"), fn("tz2.ortho.parm7")
 
     # load from filelist
-    t0 = pt.load([fn, fn], tn)
+    t0 = pt.load([trajin, trajin], tn)
     n_frames_half = int(t0.n_frames / 2)
     aa_eq(traj.xyz, t0[:n_frames_half].xyz)
     aa_eq(traj.xyz, t0[n_frames_half:].xyz)
 
     # frame_slice
-    t0 = pt.io.load_traj(fn, tn, frame_slice=(0, 3))
+    t0 = pt.io.load_traj(trajin, tn, frame_slice=(0, 3))
     aa_eq(traj_tz2_ortho[:3].xyz, t0.xyz)
 
     # mask
-    t1 = pt.load(fn, tn, mask='@CA')
+    t1 = pt.load(trajin, tn, mask='@CA')
     aa_eq(t1.xyz, traj['@CA'].xyz)
 
     # frame_indices, list
-    t1 = pt.load(fn, tn, frame_indices=[0, 3])
+    t1 = pt.load(trajin, tn, frame_indices=[0, 3])
     aa_eq(t1.xyz, traj[[0, 3]].xyz)
 
     # frame_indices, tuple
-    t1 = pt.load(fn, tn, frame_indices=(0, 3))
+    t1 = pt.load(trajin, tn, frame_indices=(0, 3))
     aa_eq(t1.xyz, traj[[0, 3]].xyz)
 
     # mask and frame_indices
-    t2 = pt.load(fn, tn, mask='@CA', frame_indices=[3, 8])
+    t2 = pt.load(trajin, tn, mask='@CA', frame_indices=[3, 8])
     aa_eq(t2.xyz, traj[[3, 8], '@CA'].xyz)
 
     # stride
-    t2 = pt.load(fn, tn, stride=2)
+    t2 = pt.load(trajin, tn, stride=2)
     aa_eq(t2.xyz, traj[::2].xyz)
 
     # stride with mask
-    t2 = pt.load(fn, tn, stride=2, mask='@CA')
+    t2 = pt.load(trajin, tn, stride=2, mask='@CA')
     aa_eq(t2.xyz, traj[::2, '@CA'].xyz)
 
     # stride, ignore frame_indices if stride is given
-    t2 = pt.load(fn, tn, stride=2, frame_indices=[2, 5, 8])
+    t2 = pt.load(trajin, tn, stride=2, frame_indices=[2, 5, 8])
     aa_eq(t2.xyz, traj[::2].xyz)
 
 def test_save_traj_from_file():
-    traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")[:5]
-    tc5b_trajin = fn('Tc5b.x')
-    tc5b_top = fn('Tc5b.top')
+    traj = pt.iterload(tc5b_trajin, tc5b_top)[:5]
     with tempfolder():
         pt.write_traj(filename="test_0.binpos",
                       traj=traj,
@@ -164,18 +163,18 @@ def test_save_traj_from_file():
         pt.write_traj('xyz.nc', xyz, top=traj.top, overwrite=True)
 
 def test_blind_load():
-    top = pt.load_topology("./data/Tc5b.top")
+    top = pt.load_topology(tc5b_top)
     assert isinstance(top, Topology) == True
 
-    traj = pt.iterload(filename="./data/Tc5b.x",
-                       top="./data/Tc5b.top")
+    traj = pt.iterload(filename=tc5b_trajin,
+                       top=tc5b_top)
 
     is_traj = (isinstance(traj, TrajectoryIterator) or
                isinstance(traj, Trajectory))
     assert is_traj
 
 def test_ParmFile():
-    top = pt.load_topology("./data/Tc5b.top")
+    top = pt.load_topology(tc5b_top)
     with tempfolder():
         pt.write_parm("test_io.top", top, overwrite=True)
         newtop = pt.load_topology("test_io.top")
@@ -412,9 +411,9 @@ def test_options():
         assert os.path.exists('test.1.rst7')
 
 def test_write_force_and_velocity():
-    fn = cpptraj_test_dir + '/Test_systemVF/systemVF.nc'
+    trajin = cpptraj_test_dir + '/Test_systemVF/systemVF.nc'
     tn = cpptraj_test_dir + '/Test_systemVF/systemVF.parm7'
-    traj = pt.iterload(fn, tn)
+    traj = pt.iterload(trajin , tn)
     assert traj.metadata['has_force']
     assert traj.metadata['has_velocity']
 

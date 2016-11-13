@@ -3,6 +3,12 @@ from pytraj import TrajectoryWriter
 from pytraj.testing import aa_eq
 from pytraj.utils import tempfolder
 
+# local
+from utils import fn
+
+tc5b_trajin = fn('Tc5b.x')
+tc5b_top = fn('Tc5b.top')
+
 
 def test_write_CRYST1():
     traj = pt.datafiles.load_tz2_ortho()[:1]
@@ -15,7 +21,7 @@ def test_write_CRYST1():
         aa_eq(traj.unitcells, traj2.unitcells, decimal=3)
 
 def test_trajectory_writer():
-    traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+    traj = pt.iterload(tc5b_trajin, tc5b_top)
     with tempfolder():
         pt.write_traj("test_1.pdb", traj[0], top=traj.top, overwrite=True)
         pt.write_traj("test_1.dcd", traj[0], top=traj.top, overwrite=True)
@@ -26,7 +32,7 @@ def test_trajectory_writer():
 def test_write_pdb():
     # TODO: get absolute path so we can use `tempfolder`
     # if not: wrong dir if using TrajectoryIterator
-    traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")[:]
+    traj = pt.iterload(tc5b_trajin, tc5b_top)[:]
     TrajectoryWriter()
 
     # multiple pdb in multiple files, using `save` method in traj

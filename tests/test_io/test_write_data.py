@@ -4,8 +4,9 @@ from __future__ import print_function
 import os
 import pytraj as pt
 from pytraj.testing import cpptraj_test_dir, tempfolder
-from pytraj.utils import fn
 
+# local
+from utils import fn
 
 def test_write_data():
     traj = pt.iterload(fn("tz2.ortho.nc"), fn("tz2.ortho.parm7"))
