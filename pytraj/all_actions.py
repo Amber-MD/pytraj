@@ -226,9 +226,6 @@ def distance(traj=None,
             "a numpy 2D array")
 
 
-calc_distance = distance
-
-
 def pairwise_distance(traj=None,
                       mask_1='',
                       mask_2='',
@@ -253,7 +250,7 @@ def pairwise_distance(traj=None,
     --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()
-    >>> mat = pt.calc_pairwise_distance(traj, '@CA', '@CB')
+    >>> mat = pt.pairwise_distance(traj, '@CA', '@CB')
 
     Notes
     -----
@@ -267,14 +264,11 @@ def pairwise_distance(traj=None,
     indices_2 = top_.select(mask_2) if isinstance(mask_2,
                                                   string_types) else mask_2
     arr = np.array(list(product(indices_1, indices_2)))
-    mat = calc_distance(
+    mat = distance(
         traj, mask=arr, dtype=dtype, top=top_, frame_indices=frame_indices)
     mat = mat.T
     return (mat.reshape(mat.shape[0], len(indices_1), len(indices_2)),
             arr.reshape(len(indices_1), len(indices_2), 2))
-
-
-calc_pairwise_distance = pairwise_distance
 
 
 @register_pmap
@@ -386,9 +380,6 @@ def angle(traj=None,
             return get_data_from_dtype(py_dslist, dtype)
 
 
-calc_angle = angle
-
-
 def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
     '''compute dihedral within a single residue. For internal use only.
 
@@ -415,7 +406,7 @@ def _dihedral_res(traj, mask=(), resid=0, dtype='ndarray', top=None):
         resid = resid
     m = ' :%s@' % resid
     command = m + m.join(mask)
-    return calc_dihedral(traj=traj, mask=command, top=top, dtype=dtype)
+    return dihedral(traj=traj, mask=command, top=top, dtype=dtype)
 
 
 @register_pmap
@@ -529,9 +520,6 @@ def dihedral(traj=None,
             return get_data_from_dtype(py_dslist, dtype)
 
 
-calc_dihedral = dihedral
-
-
 @register_pmap
 @super_dispatch()
 def mindist(traj=None,
@@ -553,9 +541,6 @@ def mindist(traj=None,
 
     c_dslist, _ = do_action(traj, command, c_action.Action_NativeContacts)
     return get_data_from_dtype(c_dslist, dtype=dtype)[-1]
-
-
-calc_mindist = mindist
 
 
 @super_dispatch()
@@ -600,9 +585,6 @@ def diffusion(traj,
     for d in c_dslist:
         d.key = d.key.replace('[', '').replace(']', '').replace(label, '')
     return get_data_from_dtype(c_dslist, dtype=dtype)
-
-
-calc_diffusion = diffusion
 
 
 @register_pmap
@@ -657,9 +639,6 @@ def watershell(traj=None,
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
-calc_watershell = watershell
-
-
 @register_pmap
 @super_dispatch()
 def radgyr(traj=None,
@@ -684,9 +663,6 @@ def radgyr(traj=None,
     return get_data_from_dtype(c_dslist, dtype)
 
 
-calc_radgyr = radgyr
-
-
 @register_pmap
 @super_dispatch()
 def surf(traj=None, mask="", dtype='ndarray', frame_indices=None, top=None):
@@ -701,9 +677,6 @@ def surf(traj=None, mask="", dtype='ndarray', frame_indices=None, top=None):
     command = mask
     c_dslist, _ = do_action(traj, command, c_action.Action_Surf)
     return get_data_from_dtype(c_dslist, dtype)
-
-
-calc_surf = surf
 
 
 @register_pmap
@@ -737,9 +710,6 @@ def molsurf(traj=None,
     return get_data_from_dtype(c_dslist, dtype)
 
 
-calc_molsurf = molsurf
-
-
 @super_dispatch()
 def volume(traj=None, mask="", top=None, dtype='ndarray', frame_indices=None):
     '''compute volume
@@ -748,7 +718,7 @@ def volume(traj=None, mask="", top=None, dtype='ndarray', frame_indices=None):
     --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()
-    >>> vol = pt.calc_volume(traj, '@CA')
+    >>> vol = pt.volume(traj, '@CA')
     '''
     command = mask
     c_dslist, _ = do_action(traj, command, c_action.Action_Volume)
@@ -834,9 +804,6 @@ def volmap(traj,
                         radscale_, buffer_, centermask_, peakcut_))
     c_dslist, _ = do_action(traj, command, c_action.Action_Volmap)
     return get_data_from_dtype(c_dslist, dtype)
-
-
-calc_volmap = volmap
 
 
 @register_openmp
@@ -1326,9 +1293,6 @@ def multidihedral(traj=None,
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
-calc_multidihedral = multidihedral
-
-
 @super_dispatch()
 def atomicfluct(traj=None,
                 mask="",
@@ -1358,9 +1322,6 @@ def atomicfluct(traj=None,
     command = mask
     c_dslist, _ = do_action(traj, command, c_action.Action_AtomicFluct)
     return get_data_from_dtype(c_dslist, dtype=dtype)
-
-
-calc_atomicfluct = atomicfluct
 
 
 def bfactors(traj=None,
@@ -1393,7 +1354,7 @@ def bfactors(traj=None,
     >>> fn, tn = get_fn('tz2')
     >>> traj = pt.load(fn, tn, mask='!:WAT')
     >>> traj = pt.superpose(traj)
-    >>> bfactor = pt.calc_bfactors(traj, byres=True)
+    >>> bfactor = pt.bfactors(traj, byres=True)
     """
     byres_text = "byres" if byres else ""
 
@@ -1402,7 +1363,7 @@ def bfactors(traj=None,
     if not isinstance(mask, string_types):
         mask = array_to_cpptraj_atommask(mask)
     command_ = " ".join((mask, byres_text, "bfactor"))
-    return calc_atomicfluct(
+    return atomicfluct(
         traj=traj,
         mask=command_,
         top=top,
@@ -1443,7 +1404,6 @@ def center_of_mass(traj=None,
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2()
     >>> # compute center of mass residue 3 for first 2 frames.
-    >>> pt.calc_center_of_mass(traj(stop=2), ':3')
     array([[-0.661702  ,  6.69124347,  3.35159413],
            [ 0.5620708 ,  7.82263042, -0.72707798]])
     '''
@@ -1456,9 +1416,6 @@ def center_of_mass(traj=None,
         mass=True,
         dtype=dtype,
         frame_indices=frame_indices)
-
-
-calc_center_of_mass = center_of_mass
 
 
 @register_pmap
@@ -1476,9 +1433,6 @@ def center_of_geometry(traj=None,
     for frame in iterframe_master(traj):
         c_dslist[0].append(frame.center_of_geometry(atom_mask_obj))
     return get_data_from_dtype(c_dslist, dtype=dtype)
-
-
-calc_center_of_geometry = center_of_geometry
 
 
 @super_dispatch()
@@ -1736,9 +1690,6 @@ def grid(traj=None, command="", top=None, dtype='dataset'):
     with tempfolder():
         c_dslist, _ = do_action(traj, command, c_action.Action_Grid)
     return get_data_from_dtype(c_dslist, dtype=dtype)
-
-
-calc_grid = grid
 
 
 @super_dispatch()
@@ -2022,9 +1973,6 @@ def pucker(traj=None,
         act(command, traj, top=top_, dslist=c_dslist)
 
     return get_data_from_dtype(c_dslist, dtype)
-
-
-calc_pucker = pucker
 
 
 @super_dispatch()
@@ -2397,9 +2345,6 @@ def pca(traj,
     return projection_data, (eigenvalues, eigenvectors)
 
 
-calc_pca = pca
-
-
 @register_openmp
 @super_dispatch()
 def atomiccorr(traj,
@@ -2432,9 +2377,6 @@ def atomiccorr(traj,
     with tempfolder():
         c_dslist, _ = do_action(traj, command, c_action.Action_AtomicCorr)
     return get_data_from_dtype(c_dslist, dtype=dtype)
-
-
-calc_atomiccorr = atomiccorr
 
 
 def gist(traj,
@@ -2559,9 +2501,6 @@ def density(traj,
     if isinstance(result, dict):
         result.update({direction: c_dslist[0]._coord(dim=0)})
     return result
-
-
-calc_density = density
 
 
 @super_dispatch()

@@ -3,7 +3,7 @@ from __future__ import absolute_import
 import unittest
 import pytraj as pt
 from pytraj.testing import aa_eq
-from pytraj.all_actions import calc_volmap as volmap
+from pytraj.all_actions import volmap
 
 cm = "output/dummy.dat 0.5 0.5 0.5 :WAT@O buffer 2.0 centermask !:1-13 radscale 1.36"
 
