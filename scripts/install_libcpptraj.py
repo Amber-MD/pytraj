@@ -101,7 +101,7 @@ def get_compiler_and_build_flag():
 
 def fix_rpath():
     if IS_OSX:
-        subprocess.check_call('(cd lib && install_name_tool -id `pwd`/libcpptraj.dylib libcpptraj.dylib)'.split())
+        subprocess.check_call('cd lib && install_name_tool -id `pwd`/libcpptraj.dylib libcpptraj.dylib'.split())
     else:
         pass
 
