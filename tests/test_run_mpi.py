@@ -5,7 +5,7 @@ import subprocess
 from glob import glob
 import pytest
 
-testlist = glob('test_mpi/test_*py')
+testlist = glob('test_*mpi/test_*py')
 
 @pytest.mark.parametrize('pyfile', testlist)
 def test_all_mpi_scripts(pyfile):
