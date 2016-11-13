@@ -1,19 +1,21 @@
 #!/usr/bin/env python
 from __future__ import print_function
+import os
 import unittest
 import pytraj as pt
-from pytraj.utils import aa_eq
+from pytraj.utils import aa_eq, tempfolder
 
+# local
+from utils import fn
 
 class TestRotationMatrix(unittest.TestCase):
 
     def setUp(self):
-        self.traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        self.traj = pt.iterload(fn("tz2.nc"), fn("tz2.parm7"))
         cm_avg = '''
         average avg.pdb
         run
         '''
-
         pt.load_batch(self.traj, cm_avg).run()
 
     def test_nomass(self):
@@ -74,7 +76,3 @@ class TestRotationMatrix(unittest.TestCase):
                                               with_rmsd=True)
         aa_eq(mat2.flatten(), saved_mat.flatten())
         assert pt.tools.rmsd(rmsd_, state.data['R0']) < 1E-3
-
-
-if __name__ == "__main__":
-    unittest.main()
