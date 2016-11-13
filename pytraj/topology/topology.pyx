@@ -14,7 +14,7 @@ import numpy as np
 
 from pytraj.core.c_dict import get_key, AtomicElementDict
 from pytraj.utils.check_and_assert import is_int, is_array
-from pytraj.utils import capture_stdout
+from pytraj.utils.context import capture_stdout
 from pytraj.externals.six import PY2, PY3, string_types
 from pytraj.externals.six.moves import range
 from pytraj.utils.check_and_assert import is_int
