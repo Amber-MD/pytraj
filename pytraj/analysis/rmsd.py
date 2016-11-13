@@ -124,6 +124,7 @@ def pairwise_rmsd(traj=None,
     >>> arr_np = pt.pairwise_rmsd(traj, "@CA", metric="srmsd", dtype='ndarray')
     >>> # use different dtype
     >>> arr_np = pt.pairwise_rmsd(traj, "@CA", metric="srmsd", dtype='dataset')
+
     Notes
     -----
     Install ``libcpptraj`` with ``openmp`` to get benefit from parallel
