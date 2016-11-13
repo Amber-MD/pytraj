@@ -458,7 +458,7 @@ def test_load_cpptraj_state_from_text():
 def test_iterload_and_load_remd():
     # iterload_remd
     traj = pt.iterload_remd(fn("Test_RemdTraj/rem.nc.000"),
-                            fn("/Test_RemdTraj/ala2.99sb.mbondi2.parm7"),
+                            fn("Test_RemdTraj/ala2.99sb.mbondi2.parm7"),
                             T=300.0)
     for frame in traj:
         assert frame.temperature == 300.0, 'frame temperature must be 300.0 K'
@@ -466,7 +466,7 @@ def test_iterload_and_load_remd():
 
     state = pt.load_cpptraj_state(trajin_text)
     state.run()
-    aa_eq(dist, state.data[-1])
+    aa_eq(dist, state.data[-1].values)
 
     # load_remd
     traj2 = pt.load_remd(fn("Test_RemdTraj/rem.nc.000"),
