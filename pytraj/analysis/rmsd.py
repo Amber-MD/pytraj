@@ -18,6 +18,14 @@ from .c_action.actionlist import ActionList
 from ..datasets.datasetlist import DatasetList
 from ..datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 
+__all__ = [
+    'rotation_matrix',
+    'pairwise_rmsd',
+    'rmsd_perres',
+    'rmsd_nofit',
+    'rmsd',
+    'symmrmsd',
+]
 
 @register_pmap
 @super_dispatch()

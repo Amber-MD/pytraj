@@ -7,6 +7,12 @@ from ..utils.decorators import register_openmp
 from ..datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 from .c_action.c_action import Action_DSSP
 
+__all__ = [
+    'dssp',
+    'dssp_allatoms',
+    'dssp_allresidues'
+]
+
 
 @register_openmp
 @super_dispatch()
