@@ -15,7 +15,7 @@ else
     # set env
     PYTRAJ_HOME=`pwd`
     export CPPTRAJHOME=`pwd`"/cpptraj/"
-    cd tests/energies/fake_amberhome/
+    cd tests/fake_amberhome/
     export AMBERHOME=`pwd`
     
     cd $PYTRAJ_HOME
