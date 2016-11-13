@@ -19,6 +19,47 @@ def _2darray_to_atommask_groups(seq):
         # example: arr = [0, 3]; turns ot '@1 @4'
         yield '@' + str(arr[0] + 1) + ' @' + str(arr[1] + 1)
 
+@super_dispatch()
+def multivector(traj,
+                resrange,
+                names,
+                top=None,
+                dtype='dataset',
+                frame_indices=None):
+    '''
+
+    Parameters
+    ----------
+    traj : Trajectory-like
+    resrange : str, residue range
+    names : {str, tuple of str}
+    top : Topology, optional
+    dtype : str, default 'dataset'
+    frame_indices : {None, 1D array-like}, optional, default None
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> vecs = pt.multivector(traj, resrange='1-5', names=('C', 'N'))
+    >>> vecs = pt.multivector(traj, resrange='1-5', names='C N')
+    '''
+    _resrange = 'resrange ' + resrange
+    if 'name1' in names or 'name2' in names:
+        # cpptraj style
+        _names = names
+    else:
+        if isinstance(names, string_types):
+            name1, name2 = names.split()
+        else:
+            # try to unpack
+            name1, name2 = names
+        _names = ' '.join(('name1', name1, 'name2', name2))
+    command = ' '.join((_resrange, _names))
+
+    c_dslist, _ = do_action(traj, command, c_action.Action_MultiVector)
+    return get_data_from_dtype(c_dslist, dtype)
+
 
 @register_pmap
 def vector_mask(traj=None,

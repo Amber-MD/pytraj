@@ -6,11 +6,9 @@ from pytraj.trajectory.trajectory_iterator import TrajectoryIterator
 from .utils.get_common_objects import (get_topology,
                                        get_data_from_dtype,
                                        get_list_of_commands,
-                                       get_matrix_from_dataset,
                                        get_reference,
                                        get_fiterator,
                                        super_dispatch,
-                                       get_iterator_from_dslist
 )
 from .utils import ensure_not_none_or_string
 from .utils import is_int
@@ -39,12 +37,11 @@ from .analysis.rmsd import (rotation_matrix,
                             distance_rmsd
 )
 
-
-list_of_do = ['translate', 'rotate', 'autoimage', 'image', 'scale']
-list_of_get = ['get_average_frame', 'get_velocity']
-list_of_the_rest = [
+__all__ = [
+    'translate', 'rotate', 'autoimage', 'image', 'scale',
+    'get_average_frame', 'get_velocity',
     'atom_map',
-    'rmsd', 'align_principal_axis', 'principal_axes', 'closest',
+    'align_principal_axis', 'principal_axes', 'closest',
     'transform', 'native_contacts', 'set_dihedral',
     'check_structure', 'mean_structure', 'lowestcurve',
     'make_structure', 'replicate_cell', 'pucker', 'rmsd_perres',
@@ -54,10 +51,12 @@ list_of_the_rest = [
     'projection',
     'superpose', 'strip',
     'density', 'gist',
-    'center', 'wavelet'
-]
+    'center', 'wavelet',
+    # rmsd stuff
+    'rotation_matrix', 'pairwise_rmsd', 'rmsd_perres',
+    'rmsd_nofit', 'rmsd', 'symmrmsd', 'distance_rmsd',
 
-__all__ = list(set(list_of_do + list_of_get + list_of_the_rest))
+]
 
 
 def _2darray_to_atommask_groups(seq):
@@ -756,52 +755,6 @@ def volume(traj=None,
     command = mask
     c_dslist, _ = do_action(traj, command, c_action.Action_Volume)
     return get_data_from_dtype(c_dslist, dtype)
-
-calc_volume = volume
-
-
-@super_dispatch()
-def multivector(traj,
-                resrange,
-                names,
-                top=None,
-                dtype='dataset',
-                frame_indices=None):
-    '''
-
-    Parameters
-    ----------
-    traj : Trajectory-like
-    resrange : str, residue range
-    names : {str, tuple of str}
-    top : Topology, optional
-    dtype : str, default 'dataset'
-    frame_indices : {None, 1D array-like}, optional, default None
-
-    Examples
-    --------
-    >>> import pytraj as pt
-    >>> traj = pt.datafiles.load_tz2_ortho()
-    >>> vecs = pt.multivector(traj, resrange='1-5', names=('C', 'N'))
-    >>> vecs = pt.multivector(traj, resrange='1-5', names='C N')
-    '''
-    _resrange = 'resrange ' + resrange
-    if 'name1' in names or 'name2' in names:
-        # cpptraj style
-        _names = names
-    else:
-        if isinstance(names, string_types):
-            name1, name2 = names.split()
-        else:
-            # try to unpack
-            name1, name2 = names
-        _names = ' '.join(('name1', name1, 'name2', name2))
-    command = ' '.join((_resrange, _names))
-
-    c_dslist, _ = do_action(traj, command, c_action.Action_MultiVector)
-    return get_data_from_dtype(c_dslist, dtype)
-
-calc_multivector = multivector
 
 
 @register_pmap
