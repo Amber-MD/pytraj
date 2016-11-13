@@ -10,7 +10,7 @@ __all__ = [
         'check_valid_command',
         'worker_by_func',
         'worker_by_actlist',
-        'worker_state',
+        'worker_by_state',
         'concat_hbond',
 ]
 
@@ -260,7 +260,7 @@ def _load_batch_pmap(n_cores=4,
         raise ValueError('only support multiprocessing or mpi')
 
 
-def worker_state(rank, n_cores=1, traj=None, lines=None, dtype='dict'):
+def worker_by_state(rank, n_cores=1, traj=None, lines=None, dtype='dict'):
     '''worker for CpptrajState
     '''
     # need to make a copy if lines since python's list is dangerous

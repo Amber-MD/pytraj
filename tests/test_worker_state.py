@@ -4,7 +4,7 @@ import unittest
 from functools import partial
 import pytraj as pt
 from pytraj.utils import aa_eq
-from pytraj.parallel.base import worker_state
+from pytraj.parallel.base import worker_by_state
 from pytraj.utils.tools import concat_dict
 
 
@@ -30,7 +30,7 @@ class TestWorkerState(unittest.TestCase):
             lines = ['angle :3 :7 :9', 'distance :2 :10']
 
             for n_cores in [2, 3]:
-                data_list = [worker_state(rank, n_cores, traj, lines)
+                data_list = [worker_by_state(rank, n_cores, traj, lines)
                              for rank in range(n_cores)]
                 final_data = concat_dict([x[1] for x in data_list])
                 aa_eq(final_data['Ang_00002'], saved_angle)
@@ -46,7 +46,7 @@ class TestWorkerState(unittest.TestCase):
 
         for n_cores in [2, 3]:
             lines = ['angle :3 :10 :11', 'distance :3 :10']
-            pfuncs = partial(worker_state,
+            pfuncs = partial(worker_by_state,
                              n_cores=n_cores,
                              traj=traj,
                              dtype='dict',
