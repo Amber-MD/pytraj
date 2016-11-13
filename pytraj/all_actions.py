@@ -36,6 +36,9 @@ from .analysis.rmsd import (
     rmsd,
     symmrmsd,
     distance_rmsd, )
+from .analysis import matrix
+from .analysis import vector
+from .analysis import nmr
 
 __all__ = [
     'translate',
@@ -83,6 +86,10 @@ __all__ = [
     'volmap',
     'volume',
     'atomiccorr',
+    # module
+    'matrix',
+    'vector',
+    'nmr',
 ]
 
 
