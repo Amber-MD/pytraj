@@ -15,10 +15,10 @@ saveamberparm foo foo.arm7 foo.crd
 quit
 """
 
-@unittest.skipIf(os.getenv("AMBERHOME") is None, "must set AMBERHOME")
+@unittest.skipUnless(os.getenv("AMBERHOME", ''), "must set AMBERHOME")
 class TestLeapNab(unittest.TestCase):
-    tleap = os.getenv("AMBERHOME") + '/bin/tleap'
-    antechamber = os.getenv("AMBERHOME") + '/bin/antechamber'
+    tleap = os.getenv("AMBERHOME", '') + '/bin/tleap'
+    antechamber = os.getenv("AMBERHOME", '') + '/bin/antechamber'
 
     @unittest.skipUnless(os.path.exists(tleap), 'no tleap found')
     def test_leap(self):

@@ -35,14 +35,10 @@ class TestVectorAnalysisModule(unittest.TestCase):
                         dslist=dslist)
         actlist.compute(traj)
 
-        dslist2 = pt.calc_vector(traj, mask_list)
         dslist4 = va.vector_mask(traj, mask_list)
 
-        dslist3_0 = pt.calc_vector(traj, mask_list[0])
-        dslist3_1 = pt.calc_vector(traj, mask_list[1])
-
-        aa_eq(dslist3_0, dslist2[0])
-        aa_eq(dslist3_1, dslist2[1])
+        dslist3_0 = va.vector_mask(traj, mask_list[0])
+        dslist3_1 = va.vector_mask(traj, mask_list[1])
 
         aa_eq(dslist3_0, dslist4[0])
         aa_eq(dslist3_1, dslist4[1])
