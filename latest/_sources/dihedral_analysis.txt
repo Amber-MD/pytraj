@@ -1,7 +1,7 @@
 .. _dihedral_analysis:
 
-Dihedral Analysis
-=================
+Dihedral
+========
 
 .. container:: custom-index
     

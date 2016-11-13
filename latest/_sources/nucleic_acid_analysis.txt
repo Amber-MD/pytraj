@@ -1,7 +1,7 @@
 .. _nucleic_acid:
 
-Nucleic Acid Analysis
-=====================
+Nucleic Acid
+============
 
 .. ipython:: python
     :suppress:

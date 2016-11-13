@@ -1,7 +1,7 @@
 .. _matrix_analysis:
 
-Matrix Analysis
-===============
+Matrix
+======
 
 .. container:: custom-index
     

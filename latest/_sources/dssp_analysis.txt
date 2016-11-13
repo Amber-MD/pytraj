@@ -1,7 +1,7 @@
 .. _dssp_analysis:
 
-DSSP Analysis
-=============
+DSSP
+====
 
 .. container:: custom-index
     

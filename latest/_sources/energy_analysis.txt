@@ -1,7 +1,7 @@
 .. _energy_analysis:
 
-Energy Analysis
-===============
+Energy Decomposition
+====================
 
 .. container:: custom-index
     

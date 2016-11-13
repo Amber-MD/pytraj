@@ -1,7 +1,7 @@
 .. _vector_analysis:
 
-Vector Analysis
-===============
+Vector
+======
 
 .. container:: custom-index
     
