@@ -1,7 +1,5 @@
-import unittest
 import pytraj as pt
 
-from pytraj import io as mdio
 from pytraj.testing import aa_eq, tempfolder
 from pytraj.utils import fn
 from pytraj import *

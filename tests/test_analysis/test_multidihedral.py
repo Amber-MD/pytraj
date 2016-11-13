@@ -1,4 +1,3 @@
-import numpy as np
 import pytraj as pt
 from pytraj.testing import aa_eq
 from pytraj.utils import fn

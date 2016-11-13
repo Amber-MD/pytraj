@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 from __future__ import print_function
 import os
-import unittest
 import numpy as np
 import pytraj as pt
 from pytraj.testing import aa_eq

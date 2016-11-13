@@ -2,11 +2,8 @@
 # issue #991: # Error "ValueError: Buffer not C contiguous" 
 # https://github.com/Amber-MD/pytraj/issues/991
 
-import os
-import argparse
 import numpy
 import pytraj
-from pdb import set_trace as tr
 
 traj = pytraj.load('short.dcd', 'pdb', mask='(!:1-256)&(@H1,@H2,@H3,@H4,@H5)')
 
