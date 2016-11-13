@@ -11,6 +11,7 @@ import pytest
 try:
     import tqdm
     from tqdm import tqdm_notebook
+    import traitlets.traitlets.TraitError
 except ImportError:
     tqdm = None
 
@@ -34,8 +35,11 @@ def test_progress_log():
         p = ProgressBarTrajectory(traj, style='tqdm')
         pt.molsurf(p)
 
-        p = ProgressBarTrajectory(traj, style=tqdm_notebook)
-        pt.molsurf(p)
+        try:
+            p = ProgressBarTrajectory(traj, style=tqdm_notebook)
+            pt.molsurf(p)
+        except traitlets.traitlets.TraitError:
+            pass
 
     # make sure not loading all coordinates from TrajectoryIterator
 
