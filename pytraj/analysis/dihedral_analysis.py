@@ -4,7 +4,7 @@ from __future__ import print_function, absolute_import
 __all__ = []
 
 
-__all__ = supported_dihedral_types = [
+supported_dihedral_types = [
     x
     for x in
     'multidihedral phi psi chip omega alpha beta gamma delta epsilon zeta nu1 nu2 chin'.split(
