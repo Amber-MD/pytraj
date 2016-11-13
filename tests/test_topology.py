@@ -2,11 +2,17 @@ import numpy as np
 import unittest
 import pytraj as pt
 from pytraj.externals.six import zip
-from pytraj import Topology
-from pytraj import *
+from pytraj import Topology, Trajectory, Atom
+from pytraj.core.elements import mass_atomic_number_dict
+from pytraj.testing import aa_eq
+
+# local
+from utils import fn
 
 
-TRAJ = Trajectory("./data/Tc5b.x", "./data/Tc5b.top")
+TRAJ = Trajectory(fn("Tc5b.x"), fn("Tc5b.top"))
+
+tc5b_top = fn('Tc5b.top')
 
 
 class TestTopology(unittest.TestCase):
@@ -14,14 +20,11 @@ class TestTopology(unittest.TestCase):
     def test_empty_top(self):
         top = Topology()
         assert top.is_empty() == True
-        filename = "./data/Tc5b.top"
-        top = pt.load_topology(filename)
+        top = pt.load_topology(tc5b_top)
         assert top.is_empty() == False
 
     def test_1(self):
-        filename = "./data/Tc5b.top"
-
-        top = pt.load_topology(filename)
+        top = pt.load_topology(tc5b_top)
         #
         top.strip("!@CA")
         assert top.n_atoms == 20
@@ -45,8 +48,8 @@ class TestTopology(unittest.TestCase):
 
     def test_get_iter(self):
         top = pt.load_topology("./data/DOPC.parm7")
-        s = [atom.name for atom in top[":PC@H*"]]
-        atom0 = top[":PC@H*"][0]
+        [atom.name for atom in top[":PC@H*"]]
+        top[":PC@H*"][0]
 
         old_natoms = top.n_atoms
         self.assertRaises(ValueError, lambda: top.join(top))
@@ -54,11 +57,11 @@ class TestTopology(unittest.TestCase):
         assert top.n_atoms == 2 * old_natoms
 
     def test_select_mask(self):
-        top = pt.load_topology("./data/Tc5b.top")
+        top = pt.load_topology(tc5b_top)
         top.atom_indices("@CA")
 
     def test_len(self):
-        traj = Trajectory("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = Trajectory(fn("Tc5b.x"), tc5b_top)
         top = traj.top
         assert len(top) == top.n_atoms
 
@@ -126,6 +129,14 @@ class TestTopology(unittest.TestCase):
             assert atom.type == sim_atom.type, 'equal resname'
             assert atom.charge == sim_atom.charge, 'equal resname'
             assert atom.mass == sim_atom.mass, 'equal resname'
+
+def test_mass_atomic_number_dict():
+    top = pt.load_topology(fn("tz2.parm7"))
+    mass_list = []
+
+    for atom in top:
+        mass_list.append(mass_atomic_number_dict[atom.atomic_number])
+    aa_eq(mass_list, top.mass, 2)
 
 if __name__ == "__main__":
     unittest.main()

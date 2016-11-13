@@ -6,6 +6,14 @@ from pytraj.analysis.c_analysis import c_analysis
 from pytraj.datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 
 
+__all__ = [
+    'cluster',
+    'kmeans',
+    'dbscan',
+    'hieragglo'
+    'cluster_dataset',
+]
+
 def _cluster(traj, algorithm, mask="", frame_indices=None, dtype='dataset', top=None, options=''):
     """clustering. Limited support.
 
@@ -210,7 +218,7 @@ def kmeans(traj=None,
                         _output))
     return _cluster(traj, mask, frame_indices=frame_indices, top=top, dtype=dtype, options=command)
 
-def clustering_dataset(array_like, options=''):
+def cluster_dataset(array_like, options=''):
     '''cluster dataset
 
     Parameters
@@ -227,7 +235,7 @@ def clustering_dataset(array_like, options=''):
     >>> import pytraj as pt
     >>> import numpy as np
     >>> array_like = np.random.randint(0, 10, 1000)
-    >>> data = pt.cluster.clustering_dataset(array_like, 'clusters 10 epsilon 3.0')
+    >>> data = pt.cluster.cluster_dataset(array_like, 'clusters 10 epsilon 3.0')
     '''
     import numpy as np
     c_dslist = CpptrajDatasetList()

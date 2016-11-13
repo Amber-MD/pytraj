@@ -10,7 +10,7 @@ from .c_action.c_action import Action_DSSP
 
 @register_openmp
 @super_dispatch()
-def calc_dssp(traj=None,
+def dssp(traj=None,
               mask="",
               frame_indices=None,
               dtype='ndarray',
@@ -203,9 +203,9 @@ def dssp_allatoms(traj, *args, **kwd):
 
     See also
     --------
-    calc_dssp
+    dssp
     '''
-    res_labels, data = calc_dssp(traj, *args, **kwd)[:2]
+    res_labels, data = dssp(traj, *args, **kwd)[:2]
     top = get_topology(traj, kwd.get('top'))
     res_indices = [int(x.split(':')[-1]) - 1 for x in res_labels]
 
@@ -259,9 +259,9 @@ def dssp_allresidues(traj, *args, **kwd):
 
     See also
     --------
-    calc_dssp
+    dssp
     '''
-    res_labels, data = calc_dssp(traj, *args, **kwd)[:2]
+    res_labels, data = dssp(traj, *args, **kwd)[:2]
     top = get_topology(traj, kwd.get('top', None))
 
     # do not need to compute again if there is no solvent or weird residues

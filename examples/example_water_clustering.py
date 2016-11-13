@@ -19,7 +19,7 @@ wat_traj = traj[':100-500@O']
 for frame in wat_traj:
     xyz = frame.xyz
     # clustering for x-coordniates
-    result = pt.cluster.clustering_dataset(xyz[:, 0], 'clusters 10')
+    result = pt.cluster.cluster_dataset(xyz[:, 0], 'clusters 10')
 
     # cluster index for each atom
     print(result)

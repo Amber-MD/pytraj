@@ -14,6 +14,7 @@ import numpy as np
 
 from pytraj.core.c_dict import get_key, AtomicElementDict
 from pytraj.utils.check_and_assert import is_int, is_array
+from pytraj.utils.context import capture_stdout
 from pytraj.externals.six import PY2, PY3, string_types
 from pytraj.externals.six.moves import range
 from pytraj.utils.check_and_assert import is_int
@@ -430,9 +431,11 @@ cdef class Topology:
         """basic info. This information only appears in Ipython or Python shell. 
         It does not appear in Jupyter notebook (due to C++ stdout)
         """
-        set_world_silent(False)
-        self.thisptr.Summary()
-        set_world_silent(True)
+        with capture_stdout() as (out, _):
+            set_world_silent(False)
+            self.thisptr.Summary()
+            set_world_silent(True)
+        print(out)
 
     def start_new_mol(self):
         self.thisptr.StartNewMol()

@@ -13,6 +13,10 @@ import sys
 import os
 
 from .version import version as __version__
+from .utils import c_commands
+from .utils import tools
+from .utils.misc import info
+from .utils.cyutils import _fast_iterptr as iterframe_from_array
 from .core.c_options import info as compiled_info
 from .core.c_options import __cpptraj_version__
 from .core.c_options import __cpptraj_internal_version__
@@ -28,8 +32,6 @@ from .core.c_core import ArgList
 from .core.c_core import AtomMask
 from .core.c_core import Command
 from .datasets import array
-from .utils import c_commands
-from .utils import tools
 from .trajectory.trajectory import Trajectory
 from .trajectory.trajectory_iterator import TrajectoryIterator
 from .trajectory.c_traj.c_trajout import TrajectoryWriter
@@ -71,63 +73,59 @@ from .io import select_atoms
 from .datafiles import load_cpptraj_state
 from .datasets.datasetlist import DatasetList
 
-# tool
-from .utils import tools
-
 # actions and analyses
 from .analysis.c_action import c_action as allactions
 from .analysis.c_action import c_action
 from .analysis.c_analysis import c_analysis as allanalyses
 from .analysis.c_analysis import c_analysis
 
-from .analysis.dssp_analysis import calc_dssp
+from .analysis.dssp_analysis import dssp
 from .analysis.dssp_analysis import dssp_allatoms
 from .analysis.dssp_analysis import dssp_allresidues
 from .analysis.energy_analysis import esander
 from .analysis.hbond_analysis import hbond
 from .analysis.nucleic_acid_analysis import nastruct
+from .analysis import nmr
 from .analysis.nmr import ired_vector_and_matrix
 from .analysis.nmr import _ired
-from .analysis.nmr import NH_order_parameters
+from .analysis.nmr import nh_order_parameters
+from .analysis.nmr import jcoupling
 
 from .analysis import dssp_analysis
 from .analysis import energy_analysis
 from .analysis import hbond_analysis
 from .analysis import nucleic_acid_analysis
 
+from . import all_actions
 from .all_actions import acorr
 from .all_actions import align
 from .all_actions import align_principal_axis
 from .all_actions import atomicfluct
 from .all_actions import atom_map
 from .all_actions import autoimage
-from .all_actions import calc_angle
-from .all_actions import calc_atomiccorr
-from .all_actions import calc_atomicfluct
-from .all_actions import calc_bfactors
-from .all_actions import calc_center_of_geometry
-from .all_actions import calc_center_of_mass
-from .all_actions import calc_diffusion
-from .all_actions import calc_dihedral
-from .all_actions import calc_distance
-from .all_actions import calc_jcoupling
-from .all_actions import calc_matrix
-from .all_actions import calc_mindist
-from .all_actions import calc_molsurf
-from .all_actions import calc_multidihedral
-from .all_actions import calc_multivector
-from .all_actions import calc_pairdist
-from .all_actions import calc_pairwise_distance
-from .all_actions import calc_pairwise_rmsd
-from .all_actions import calc_radgyr
-from .all_actions import calc_rdf
-from .all_actions import calc_rmsd_nofit
-from .all_actions import calc_rotation_matrix
-from .all_actions import calc_surf
-from .all_actions import calc_vector
-from .all_actions import calc_volmap
-from .all_actions import calc_volume
-from .all_actions import calc_watershell
+from .all_actions import angle
+from .all_actions import atomiccorr
+from .all_actions import atomicfluct
+from .all_actions import bfactors
+from .all_actions import center_of_geometry
+from .all_actions import center_of_mass
+from .all_actions import diffusion
+from .all_actions import dihedral
+from .all_actions import distance
+from .all_actions import mindist
+from .all_actions import molsurf
+from .all_actions import multidihedral
+from .all_actions import pairdist
+from .all_actions import pairwise_distance
+from .all_actions import pairwise_rmsd
+from .all_actions import radgyr
+from .all_actions import rdf
+from .all_actions import rmsd_nofit
+from .all_actions import rotation_matrix
+from .all_actions import surf
+from .all_actions import volmap
+from .all_actions import volume
+from .all_actions import watershell
 from .all_actions import center
 from .all_actions import check_structure
 from .all_actions import check_chirality
@@ -172,6 +170,7 @@ from .all_actions import xcorr
 from .analysis.matrix import dist as distance_matrix
 from .analysis import matrix
 from .analysis import vector
+from .analysis.vector import multivector
 from . import cluster
 
 from .analysis import dihedral_analysis
@@ -194,7 +193,6 @@ from .analysis.c_action.c_action import ActionDict
 from .analysis.c_analysis.analysis_dict import AnalysisDict
 
 # others
-from .utils.misc import info
 from .testing.run_tests import run_tests
 
 # turn off verbose in cpptraj
@@ -204,8 +202,6 @@ from .core.c_options import set_cpptraj_verbose
 from .core.c_options import set_cpptraj_verbose as _verbose
 set_world_silent(True)
 
-from .utils.cyutils import _fast_iterptr as iterframe_from_array
-
 # alias
 write_trajectory = write_traj
 select = select_atoms
@@ -213,49 +209,46 @@ dispatch = Command.dispatch
 energy_decomposition = esander
 check_overlap = check_structure
 fetch_pdb = load_pdb_rcsb
-rmsd_nofit = calc_rmsd_nofit
+calc_rmsd_nofit = rmsd_nofit
 search_hbonds = hbond
-distances = calc_distance
-pairwise_distance = calc_pairwise_distance
-angles = calc_angle
-dihedrals = calc_dihedral
-rmsf = calc_atomicfluct
-pairwise_rmsd = calc_pairwise_rmsd
-rotation_matrix = calc_rotation_matrix
-multidihedral = calc_multidihedral
-bfactors = calc_bfactors
-rdf = calc_rdf
-atomiccorr = calc_atomiccorr
-center_of_mass = calc_center_of_mass
-center_of_geometry = calc_center_of_geometry
+distances = calc_distance = distance
+calc_pairwise_distance = pairwise_distance
+calc_angle = angles = angle
+calc_dihedral = dihedrals = dihedral
+calc_atomicfluct = rmsf = atomicfluct
+rms2d = calc_pairwise_rmsd = pairwise_rmsd
+calc_rotation_matrix = rotation_matrix
+calc_multidihedral = multidihedral
+calc_bfactors = bfactors
+calc_rdf = rdf
+calc_atomiccorr = atomiccorr
+calc_center_of_mass = center_of_mass
+calc_center_of_geometry = center_of_geometry
 mean_structure = get_average_frame
 average_frame = get_average_frame
 calc_pca = pca
-pair_distribution = pairdist = calc_pairdist
+calc_pairdist = pair_distribution = pairdist
+calc_jcoupling = jcoupling
+calc_dssp = dssp
+calc_distance_rmsd = drmsd = distance_rmsd
+calc_radgyr = radgyr
+calc_mindist = mindist
+calc_diffusion = diffusion
+calc_multivector = multivector
+calc_volmap = volmap
+calc_molsurf = molsurf
+calc_surf = surf
+calc_watershell = watershell
+calc_pairdist = pairdist
+calc_volume = volume
+calc_pairwise_rmsd = rms2d
 
-# compat with cpptraj
-distance = calc_distance
-angle = calc_angle
+NH_order_parameters = nh_order_parameters
 atommap = atom_map
-dihedral = calc_dihedral
-jcoupling = calc_jcoupling
-dssp = calc_dssp
-drmsd = distance_rmsd
 checkoverlap = check_structure
-radgyr = calc_radgyr
 nativecontacts = native_contacts
-mindist = calc_mindist
 lowest_curve = lowestcurve
-diffusion = calc_diffusion
-multivector = calc_multivector
-volmap = calc_volmap
 randomizeions = randomize_ions
-molsurf = calc_molsurf
-surf = calc_surf
-watershell = calc_watershell
-pairdist = calc_pairdist
-volume = calc_volume
-rms2d = calc_pairwise_rmsd
 
 adict = ActionDict()
 analdict = AnalysisDict()
@@ -285,6 +278,7 @@ def show_versions():
 __all__ = (io.__all__ 
         + all_actions.__all__
         + dihedral_analysis.__all__
+        + nmr.__all__
         + ['nastruct']
         + ['esander']
         + ['Atom', 'Residue', 'Molecule', 'Topology', 'Frame', 'AtomMask',
