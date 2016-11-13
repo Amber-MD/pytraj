@@ -14,6 +14,12 @@ from ..externals.six import string_types
 from .tools import WrapBareIterator
 
 
+def fn(name):
+    # return absolute dir of pytraj/tests/data/name
+    import pytraj
+    base = pytraj.__path__[0]
+    return base + '/../tests/data/' + name
+
 def duplicate_traj(orig_traj, n_times):
     '''
     Examples
