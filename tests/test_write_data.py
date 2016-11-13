@@ -4,15 +4,14 @@ from __future__ import print_function
 import os
 import unittest
 import pytraj as pt
-from pytraj.testing import cpptraj_test_dir
+from pytraj.testing import cpptraj_test_dir, tempfolder
 
 
-class TestWriteData(unittest.TestCase):
+def test_write_data():
+    traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+    rmsd_data = pt.rmsd(traj)
 
-    def test_write_data(self):
-        traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
-        rmsd_data = pt.rmsd(traj)
-
+    with tempfolder():
         try:
             os.remove("test.agr")
             os.remove("test.gnu")
@@ -32,6 +31,3 @@ class TestWriteData(unittest.TestCase):
         output_file = 'test.ccp4'
         pt.datafiles.convert(saved_dx_file, output_file)
         assert os.path.exists("test.ccp4")
-
-if __name__ == "__main__":
-    unittest.main()
