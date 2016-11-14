@@ -3,6 +3,7 @@ import unittest
 import pytraj as pt
 from pytraj.utils import aa_eq, tempfolder
 from pytraj import cluster
+from pytraj.utils.context import capture_stdout
 
 # local
 from utils import fn
@@ -30,7 +31,8 @@ def test_cluster_kmeans():
                       metric='rms',
                       mask='@CA',
                       options=sieve_str)
-        aa_eq(state.data[-2], data)
+        aa_eq(state.data[-2], data.cluster_index)
+        assert data.n_frames == traj.n_frames
 
 def test_cluster_dbscan():
     command = """
@@ -42,12 +44,11 @@ def test_cluster_dbscan():
 
     with tempfolder():
         state = pt.load_cpptraj_state(command)
-        state.run()
-
+        with capture_stdout() as (out, _):
+            state.run()
         traj = pt.iterload(tz2_trajin, tz2_top)
         data = pt.cluster.dbscan(traj, mask='@CA', options='epsilon 1.7 minpoints 5')
-
-        aa_eq(state.data[-2], data[0].values)
+        aa_eq(state.data[-2], data.cluster_index)
 
 def test_cluster_hieragglo():
     command = """
@@ -59,8 +60,8 @@ def test_cluster_hieragglo():
 
     with tempfolder():
         state = pt.load_cpptraj_state(command)
-        state.run()
-
+        with capture_stdout() as (cpp_out, _):
+            state.run()
         traj = pt.iterload(tz2_trajin, tz2_top)
-        data = pt.cluster.hieragglo(traj, mask='!@H=', options='epsilon 0.8 averagelinkage summary sum.info')
-        aa_eq(state.data[-2], data[0].values)
+        data = pt.cluster.hieragglo(traj, mask='!@H=', options='epsilon 0.8 averagelinkage')
+        aa_eq(state.data[-2], data.cluster_index)

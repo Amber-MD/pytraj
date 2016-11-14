@@ -19,10 +19,26 @@ __all__ = [
 
 class ClusteringDataset(object):
     '''
+    Notes
+    -----
+    Unstable API
 
     Parameters
     ----------
     cpp_out : Tuple[CpptrajDatasetList, str]
+
+    Attributes
+    ----------
+    cluster_index : np.ndarray[int]
+        Cluster index of each frame
+    n_frames : int
+        Total frame
+    population : Counter([int, int])
+        Number of frames for each cluster
+    fraction : Counter([int, float])
+        Fraction of each cluster
+    centroids : np.ndarray[int]
+        Representative frame index for each cluster
     '''
     def __init__(self, cpp_out):
         self._cpp_out = cpp_out
@@ -31,7 +47,7 @@ class ClusteringDataset(object):
         return self._cpp_out[1]
 
     @property
-    def cluster_indices(self):
+    def cluster_index(self):
         return self._cpp_out[0]
 
     @property
@@ -40,7 +56,7 @@ class ClusteringDataset(object):
 
     @property
     def population(self):
-        return Counter(self.cluster_indices)
+        return Counter(self.cluster_index)
 
     @property
     def fraction(self):
