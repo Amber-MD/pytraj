@@ -254,8 +254,11 @@ def kmeans(traj=None,
     >>> from pytraj.cluster import kmeans
     >>> traj = pt.datafiles.load_tz2()
     >>> # use default options
-    >>> kmeans(traj)
+    >>> cluster_data = kmeans(traj)
+    >>> cluster_data.cluster_index
     array([8, 8, 6, ..., 0, 0, 0], dtype=int32)
+    >>> cluster_data.centroids
+    array([95, 34, 42, 40, 71, 10, 12, 74,  1, 64], dtype=int32)
     >>> # update n_clusters
     >>> data = kmeans(traj, n_clusters=5)
     >>> # update n_clusters with CA atoms
