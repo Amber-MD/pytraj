@@ -25,24 +25,25 @@ try:
 except ImportError:
     from urllib import urlopen
 
-__all__ = ['load',
-           'iterload',
-           'load_remd',
-           'iterload_remd',
-           'load_pdb_rcsb',
-           'load_cpptraj_file',
-           'load_sample_data',
-           'load_parmed',
-           'load_leap',
-           'load_antechamber',
-           'load_topology',
-           'write_parm',
-           'save',
-           'write_traj',
-           'read_pickle',
-           'to_pickle',
-           'select_atoms',
-           ]
+__all__ = [
+   'load',
+   'iterload',
+   'load_remd',
+   'iterload_remd',
+   'load_pdb_rcsb',
+   'load_cpptraj_file',
+   'load_sample_data',
+   'load_parmed',
+   'load_leap',
+   'load_antechamber',
+   'load_topology',
+   'write_parm',
+   'save',
+   'write_traj',
+   'read_pickle',
+   'to_pickle',
+   'select_atoms',
+]
 
 
 def load(filename, top=None, frame_indices=None, mask=None, stride=None):
