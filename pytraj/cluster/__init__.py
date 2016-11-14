@@ -1,6 +1,9 @@
 from __future__ import absolute_import
+from collections import Counter
+import numpy as np
 from pytraj.utils.get_common_objects import get_topology, get_data_from_dtype
 from pytraj.utils.decorators import register_pmap, register_openmp
+from pytraj.utils.context import capture_stdout
 from pytraj.utils.get_common_objects import super_dispatch, get_iterator_from_dslist
 from pytraj.analysis.c_analysis import c_analysis
 from pytraj.datasets.c_datasetlist import DatasetList as CpptrajDatasetList
@@ -13,6 +16,43 @@ __all__ = [
     'hieragglo'
     'cluster_dataset',
 ]
+
+class ClusteringDataset(object):
+    '''
+
+    Parameters
+    ----------
+    cpp_out : Tuple[CpptrajDatasetList, str]
+    '''
+    def __init__(self, cpp_out):
+        self._cpp_out = cpp_out
+
+    def summary(self):
+        return self._cpp_out[1]
+
+    @property
+    def cluster_indices(self):
+        return self._cpp_out[0]
+
+    @property
+    def n_frames(self):
+        return sum(val for _, val in self.population.items())
+
+    @property
+    def population(self):
+        return Counter(self.cluster_indices)
+
+    @property
+    def fraction(self):
+        return dict((key, val/self.n_frames) for key, val in self.population.items())
+
+    @property
+    def centroids(self):
+        words = '#Representative frames:'
+        for line in self.summary().split('\n'):
+            if line.startswith(words):
+                line = line.strip(words)
+                return np.array(line.split(), dtype='i4')
 
 def _cluster(traj, algorithm, mask="", frame_indices=None, dtype='dataset', top=None, options=''):
     """clustering. Limited support.
@@ -74,14 +114,19 @@ def _cluster(traj, algorithm, mask="", frame_indices=None, dtype='dataset', top=
     crdname = 'DEFAULT_NAME'
     dslist, _top, mask2 = get_iterator_from_dslist(traj, mask, frame_indices, top, crdname=crdname)
 
+    if 'summary' not in options.split():
+        options += ' summary'
+
     # do not output cluster info to STDOUT
     command = ' '.join((algorithm, mask2, "crdset {0}".format(crdname), options, 'noinfo'))
-    ana(command, dslist)
+
+    with capture_stdout() as (out, _):
+        ana(command, dslist)
 
     # remove frames in dslist to save memory
     dslist.remove_set(dslist[crdname])
-    return get_data_from_dtype(dslist[:1], dtype=dtype)
-
+    return ClusteringDataset((get_data_from_dtype(dslist[:1], dtype='ndarray'),
+                              out.read()))
 
 def hieragglo(traj=None, mask="", options='', dtype='dataset'):
     return _cluster(traj=traj, algorithm='hieragglo', mask=mask,
