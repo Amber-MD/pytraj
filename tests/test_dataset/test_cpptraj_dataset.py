@@ -8,12 +8,15 @@ from pytraj.utils import aa_eq
 from pytraj.datasets import c_datasets
 from pytraj.datasets import CpptrajDatasetList
 
+# local
+from utils import fn, tz2_trajin, tz2_top
 # used for loading cpptraj state
+
 txt = '''
 # Step one. Generate average structure.
 # RMS-Fit to first frame to remove global translation/rotation.
-parm data/tz2.parm7
-trajin data/tz2.nc
+parm {}
+trajin {}
 rms first !@H=
 average crdset AVG
 run
@@ -27,7 +30,7 @@ run
 runanalysis diagmatrix MyMatrix vecs 2 name MyEvecs
 # Step four. Project saved fit coordinates along eigenvectors 1 and 2
 crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
-'''
+'''.format(fn('tz2.parm7'), fn('tz2.nc'))
 
 
 class TestCpptrajDatasetWithMathLib(unittest.TestCase):
@@ -35,14 +38,15 @@ class TestCpptrajDatasetWithMathLib(unittest.TestCase):
     def setUp(self):
         self.state = pt.datafiles.load_cpptraj_state(txt)
         self.state.run()
-        self.traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
+        self.traj = pt.iterload(tz2_trajin, tz2_top)
 
+    
     def test_call_values(self):
         for d in self.state.data:
             d.values
 
     def test_dataset_coords_ref(self):
-        traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
+        traj = pt.iterload(tz2_trajin, tz2_top)
         avg_frame = pt.mean_structure(traj(rmsfit=(0, '!@H=')))
         state = self.state
 
@@ -68,7 +72,7 @@ class TestCpptrajDatasetWithMathLib(unittest.TestCase):
 class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
 
     def setUp(self):
-        self.traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
+        self.traj = pt.iterload(tz2_trajin, tz2_top)
 
     def test_DatasetDouble(self):
         dslist = CpptrajDatasetList()
@@ -105,7 +109,6 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
             aa_eq(orig_mat.values, new_mat.values)
 
     def test_add_for_CpptrajDatasetList(self):
-        # TODO:
         dslist = CpptrajDatasetList()
 
         # integer
@@ -145,7 +148,6 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
         dslist[-1].top = self.traj.top
         dslist[-1]._load(self.traj.filename)
         traj_new = dslist[-1]
-        # FIXME: segmentation fault
 
         # CRD
         dslist.add(dtype='coords', name='my_crd')
@@ -186,7 +188,3 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
                           modes.eigenvalues, modes.eigenvectors.flatten())
         aa_eq(modes.eigenvalues, modes2.eigenvalues)
         aa_eq(modes.eigenvectors, modes2.eigenvectors)
-
-
-if __name__ == "__main__":
-    unittest.main()

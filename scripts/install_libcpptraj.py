@@ -99,12 +99,6 @@ def get_compiler_and_build_flag():
         print('install libcpptraj from current ./cpptraj folder')
     return cpptraj_compiler_option, build_flag
 
-def fix_rpath():
-    if IS_OSX:
-        subprocess.check_call('(cd lib && install_name_tool -id `pwd`/libcpptraj.dylib libcpptraj.dylib)'.split())
-    else:
-        pass
-
 def install_libcpptraj(cpptraj_compiler_option, build_flag):
     cwd = os.getcwd()
     try:
@@ -134,7 +128,6 @@ def install_libcpptraj(cpptraj_compiler_option, build_flag):
         add_CPPTRAJ_CXX_to_config('config.h', CPPTRAJ_CXX)
 
     subprocess.check_call('make libcpptraj -j8'.split())
-    fix_rpath()
     os.chdir(cwd)
 
     print("make sure to 'export CPPTRAJHOME=$CPPTRAJHOME'"

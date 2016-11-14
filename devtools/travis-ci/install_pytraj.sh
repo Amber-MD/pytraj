@@ -10,7 +10,9 @@ else
         echo "TEST_SETUP"
     else
         if [ "$COMPILER" == "clang" ]; then
-            CC=clang CXX=clang++ python setup.py install --disable-openmp
+            export CC=clang
+            export CXX=clang++
+            python setup.py install --disable-openmp
         else
             python setup.py install
         fi
