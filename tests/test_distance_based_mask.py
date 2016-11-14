@@ -6,11 +6,12 @@ import pytraj as pt
 from pytraj.testing import aa_eq
 from itertools import product
 
+from utils import fn, tz2_trajin, tz2_top
 
 class TestDistanceBasedMask(unittest.TestCase):
 
     def test_atom_distance(self):
-        traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        traj = pt.iterload(tz2_trajin, tz2_top)
         top = traj.top
 
         ref = traj[0]
@@ -21,7 +22,7 @@ class TestDistanceBasedMask(unittest.TestCase):
         # all atoms within 5 Angtrom from :3@CA
         indices = top.select(":3@CA <@5.0")
 
-        saved_indices = np.loadtxt("./data/mask.tz2.dat",
+        saved_indices = np.loadtxt(fn("mask.tz2.dat"),
                                    skiprows=1,
                                    usecols=(1, ))
 
@@ -56,7 +57,7 @@ class TestDistanceBasedMask(unittest.TestCase):
         aa_eq(neighbors_larger.values, indices_larger)
 
     def test_residue_distance(self):
-        traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        traj = pt.iterload(tz2_trajin, tz2_top)
         top = traj.top
 
         ref = traj[0]

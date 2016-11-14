@@ -138,5 +138,12 @@ def test_mass_atomic_number_dict():
         mass_list.append(mass_atomic_number_dict[atom.atomic_number])
     aa_eq(mass_list, top.mass, 2)
 
-if __name__ == "__main__":
-    unittest.main()
+def test_toplogy_mass():
+    traj = pt.iterload(fn("Tc5b.x"), fn("Tc5b.top"))
+    top = traj.top
+
+    mlist = []
+    for atom in top:
+        mlist.append(atom.mass)
+    mlist = np.array(mlist)
+    aa_eq(top.mass, mlist)
