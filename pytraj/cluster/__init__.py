@@ -35,7 +35,7 @@ class ClusteringDataset(object):
         Total frame
     population : Counter([int, int])
         Number of frames for each cluster
-    fraction : Counter([int, float])
+    fraction : np.ndarray[float]
         Fraction of each cluster
     centroids : np.ndarray[int]
         Representative frame index for each cluster
@@ -60,7 +60,7 @@ class ClusteringDataset(object):
 
     @property
     def fraction(self):
-        return dict((key, val/self.n_frames) for key, val in self.population.items())
+        return np.array([float(val)/self.n_frames for _, val in self.population.items()])
 
     @property
     def centroids(self):
