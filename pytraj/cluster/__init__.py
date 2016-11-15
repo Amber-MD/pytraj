@@ -1,6 +1,9 @@
 from __future__ import absolute_import
+from collections import Counter
+import numpy as np
 from pytraj.utils.get_common_objects import get_topology, get_data_from_dtype
 from pytraj.utils.decorators import register_pmap, register_openmp
+from pytraj.utils.context import capture_stdout
 from pytraj.utils.get_common_objects import super_dispatch, get_iterator_from_dslist
 from pytraj.analysis.c_analysis import c_analysis
 from pytraj.datasets.c_datasetlist import DatasetList as CpptrajDatasetList
@@ -13,6 +16,59 @@ __all__ = [
     'hieragglo'
     'cluster_dataset',
 ]
+
+class ClusteringDataset(object):
+    '''
+    Notes
+    -----
+    Unstable API
+
+    Parameters
+    ----------
+    cpp_out : Tuple[CpptrajDatasetList, str]
+
+    Attributes
+    ----------
+    cluster_index : np.ndarray[int]
+        Cluster index of each frame
+    n_frames : int
+        Total frame
+    population : Counter([int, int])
+        Number of frames for each cluster
+    fraction : np.ndarray[float]
+        Fraction of each cluster
+    centroids : np.ndarray[int]
+        Representative frame index for each cluster
+    '''
+    def __init__(self, cpp_out):
+        self._cpp_out = cpp_out
+
+    def summary(self):
+        return self._cpp_out[1]
+
+    @property
+    def cluster_index(self):
+        return self._cpp_out[0]
+
+    @property
+    def n_frames(self):
+        return sum(val for _, val in self.population.items())
+
+    @property
+    def population(self):
+        return Counter(self.cluster_index)
+
+    @property
+    def fraction(self):
+        return np.array([float(val)/self.n_frames for _, val in self.population.items()])
+
+    @property
+    def centroids(self):
+        words = '#Representative frames:'
+        for line in self.summary().split('\n'):
+            if line.startswith(words):
+                line = line.strip(words)
+                return np.array(line.split(), dtype='i4')
 
 def _cluster(traj, algorithm, mask="", frame_indices=None, dtype='dataset', top=None, options=''):
     """clustering. Limited support.
@@ -74,14 +130,19 @@ def _cluster(traj, algorithm, mask="", frame_indices=None, dtype='dataset', top=
     crdname = 'DEFAULT_NAME'
     dslist, _top, mask2 = get_iterator_from_dslist(traj, mask, frame_indices, top, crdname=crdname)
 
+    if 'summary' not in options.split():
+        options += ' summary'
+
     # do not output cluster info to STDOUT
     command = ' '.join((algorithm, mask2, "crdset {0}".format(crdname), options, 'noinfo'))
-    ana(command, dslist)
+
+    with capture_stdout() as (out, _):
+        ana(command, dslist)
 
     # remove frames in dslist to save memory
     dslist.remove_set(dslist[crdname])
-    return get_data_from_dtype(dslist[:1], dtype=dtype)
-
+    return ClusteringDataset((get_data_from_dtype(dslist[:1], dtype='ndarray'),
+                              out.read()))
 
 def hieragglo(traj=None, mask="", options='', dtype='dataset'):
     return _cluster(traj=traj, algorithm='hieragglo', mask=mask,
@@ -193,8 +254,11 @@ def kmeans(traj=None,
     >>> from pytraj.cluster import kmeans
     >>> traj = pt.datafiles.load_tz2()
     >>> # use default options
-    >>> kmeans(traj)
+    >>> cluster_data = kmeans(traj)
+    >>> cluster_data.cluster_index
     array([8, 8, 6, ..., 0, 0, 0], dtype=int32)
+    >>> cluster_data.centroids
+    array([95, 34, 42, 40, 71, 10, 12, 74,  1, 64], dtype=int32)
     >>> # update n_clusters
     >>> data = kmeans(traj, n_clusters=5)
     >>> # update n_clusters with CA atoms

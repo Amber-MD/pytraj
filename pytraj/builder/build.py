@@ -37,7 +37,7 @@ def make_structure(traj, command="", ref=None):
     >>> traj = pt.make_structure(traj, ["hairpin:1-5", "alpha:6-12"])
 
     >>> # From cpptraj example:
-    >>> # Make residues 1 and 12 ’extended’, residues 6 and 7 a type I’ turn, and two
+    >>> # Make residues 1 and 12 'extended', residues 6 and 7 a type I' turn, and two
     >>> # custom assignments, one (custom1) for residues 2-5, the other (custom2) for residues 8-11:
     >>> traj = pt.make_structure(traj, ["extended:1,12",
     ...                                 "custom1:2-5:-80.:130.:-130.:140.",

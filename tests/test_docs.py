@@ -53,7 +53,6 @@ class TestDoc(unittest.TestCase):
         additional_list = [
             frame,
             actionlist,
-            cluster,
             datafiles,
             pt.topology,
             get_common_objects,
@@ -91,6 +90,10 @@ class TestDoc(unittest.TestCase):
 
     def test_builder(self):
         modules = [build,]
+        assert not get_total_errors(modules)
+
+    def test_clustering(self):
+        modules = [cluster,]
         assert not get_total_errors(modules)
 
 if __name__ == "__main__":
