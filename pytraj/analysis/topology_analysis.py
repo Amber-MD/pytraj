@@ -3,6 +3,10 @@ from ..utils.context import capture_stdout
 
 def compare_topology(top0, top1):
     ''' top0, top1 are :class:`pytraj.Topology`
+
+    Notes
+    -----
+    Experiment 
     '''
 
     # TODO : make copies of topologies?
