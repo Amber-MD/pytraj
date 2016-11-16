@@ -94,12 +94,15 @@ __all__ = [
     'volmap',
     'volume',
     'atomiccorr',
+    'esander',
+    'lie',
     # module
     'matrix',
     'vector',
     'nmr',
     'dssp_analysis',
-    'hbond_analysis'
+    'hbond_analysis',
+    'energy_analysis',
 ]
 
 
