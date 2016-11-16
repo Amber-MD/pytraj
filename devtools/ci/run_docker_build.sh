@@ -41,8 +41,10 @@ conda install --yes conda-build
 conda info
 
 # Embarking on 1 case(s).
+    (cd /feedstock_root && sh devtools/ci/test_pip_build.sh)
     conda build /cpptraj_recipe --quiet || exit 1
     conda build /feedstock_root/devtools/conda-recipe/pytraj --quiet || exit 1
     cp /opt/conda/conda-bld/linux-64/pytraj*  /feedstock_root/
     cp /opt/conda/conda-bld/linux-64/libcpptraj* /feedstock_root/
+    # pip
 EOF

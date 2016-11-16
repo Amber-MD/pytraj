@@ -6,7 +6,8 @@ export OMP_NUM_THREADS=1
 if [ "$TEST_SETUP" == 'true' ]; then
     echo "Test setup command line"
     py.test -vs devtools/ci/test_setup_command.py
-    sh devtools/ci/test_pip_build.sh
+    # run this on circleci
+    # sh devtools/ci/test_pip_build.sh
 else
     sh devtools/ci/pyflakes_check.sh || exit 1
     
