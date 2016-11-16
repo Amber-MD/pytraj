@@ -74,13 +74,17 @@ def get_compiler_and_build_flag():
     # better name for COMPILER?
     # cpptraj: ./configure gnu
     # e.g: COMPILER=gnu python ./scripts/install_libcpptraj.py
-    default_compiler = 'clang' if IS_OSX else 'gnu'
+    os_dependent_default_compiler = 'clang' if IS_OSX else 'gnu'
     compiler_env = os.environ.get('COMPILER', '')  # intel | pgi | clang | cray?
     if compiler_env:
         print('libcpptraj: Using COMPILER env = ', compiler_env)
         compiler = compiler_env
     else:
-        compiler = default_compiler
+        compiler = os_dependent_default_compiler
+        cxx = os.getenv('CXX')
+        if cxx:
+            print('Using preset CXX', cxx)
+            compiler = ''
     if compiler == 'gnu':
         ensure_gnu()
     amberhome = os.environ.get('AMBERHOME', '')

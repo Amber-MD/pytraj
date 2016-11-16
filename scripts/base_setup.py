@@ -411,7 +411,7 @@ def setenv_cc_cxx(ambertools_distro,
     if not ambertools_distro:
         if sys.platform == 'darwin':
             compiler = os.environ.get('COMPILER', 'clang')
-            if compiler == 'clang': 
+            if compiler == 'clang' and not os.getenv('CXX'): 
                 os.environ['CXX'] = DEFAULT_MAC_CXXCOMPILER
                 os.environ['CC'] = DEFAULT_MAC_CCOMPILER
             elif compiler == 'gnu':

@@ -106,6 +106,7 @@ def _ired(iredvec,
     return dslist
 
 @super_dispatch()
+@register_pmap
 def jcoupling(traj=None,
               mask="",
               top=None,

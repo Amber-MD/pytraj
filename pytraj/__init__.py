@@ -83,6 +83,7 @@ from .analysis.dssp_analysis import dssp
 from .analysis.dssp_analysis import dssp_allatoms
 from .analysis.dssp_analysis import dssp_allresidues
 from .analysis.energy_analysis import esander
+from .analysis.energy_analysis import lie
 from .analysis.hbond_analysis import hbond
 from .analysis.nucleic_acid_analysis import nastruct
 from .analysis import nmr

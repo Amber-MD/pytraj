@@ -16,7 +16,7 @@ def test_ClusteringDataset():
     x = pt.cluster.kmeans(traj, n_clusters=5, metric='rms', mask='@CA')
     assert x.n_frames == 101
     assert list(x.centroids) == [24, 101, 76, 13, 9]
-    aa_eq([val for _, val in sorted(x.fraction.items())],
+    aa_eq(x.fraction,
           [0.485, 0.238, 0.139, 0.079, 0.059], decimal=3)
 
 def test_cluster_kmeans():
