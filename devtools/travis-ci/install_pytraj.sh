@@ -9,12 +9,8 @@ else
     if [[ "$TEST_SETUP" == 'true' ]]; then
         echo "TEST_SETUP"
     else
-        if [ "$COMPILER" == "clang" ]; then
-            export CC=clang
-            export CXX=clang++
-            python setup.py install --disable-openmp
-        else
-            python setup.py install
-        fi
+        # pytraj will pick compiler based on COMPILER env
+        # or using default (gnu for linux, clang for osx)
+        python setup.py install
     fi
 fi

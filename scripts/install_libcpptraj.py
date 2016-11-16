@@ -11,14 +11,12 @@ from find_lib import find_lib
 
 # DEFAULT_MAC_BUILD = '-shared -macAccelerate --with-fftw3=/usr/local --with-netcdf=/usr/local -noarpack'
 DEFAULT_MAC_BUILD = '-shared -macAccelerate -noarpack'
-
 DEFAULT_MAC_CCOMPILER = 'clang'
 DEFAULT_MAC_CXXCOMPILER = 'clang++'
-
 CPPTRAJ_CXX = ' '
-IS_OSX = (sys.platform == 'darwin')
+IS_OSX = sys.platform.startswith('darwin')
 
-if sys.platform.startswith('darwin'):
+if IS_OSX:
     # Hack to fix conda
     import distutils.sysconfig as sc
     compiler = sc.get_config_var('CC') or ''
@@ -28,10 +26,8 @@ if sys.platform.startswith('darwin'):
         DEFAULT_MAC_CCOMPILER = "/usr/bin/gcc"
         DEFAULT_MAC_CXXCOMPILER = "/usr/bin/g++"
 
-        # Warning: dirty hack to use libstdc++
-        CPPTRAJ_CXX = '-stdlib=libstdc++'
 
-def add_CPPTRAJ_CXX_to_config(fn, CPPTRAJ_CXX=CPPTRAJ_CXX):
+def add_cpptraj_cxx_to_config(fn, cpptraj_cxx=CPPTRAJ_CXX):
     with open(fn, 'r') as fconfig:
         lines = fconfig.readlines()
 
@@ -39,17 +35,34 @@ def add_CPPTRAJ_CXX_to_config(fn, CPPTRAJ_CXX=CPPTRAJ_CXX):
         for idx, line in enumerate(lines):
             if line.startswith('CXX='):
                 print('line', line)
-                lines[idx] = ' '.join((line.strip(), CPPTRAJ_CXX, '\n'))
+                lines[idx] = ' '.join((line.strip(), cpptraj_cxx, '\n'))
         fh.write(''.join(lines))
     subprocess.check_call('mv tmp.h {}'.format(fn), shell=True)
 
+def ensure_gnu():
+    # both cpptraj and pytraj give priority for CXX and CC environments
+    # check them first.
+    cc = os.getenv('CC', '')
+    gcc_exe = cc if cc else 'gcc'
+    out = subprocess.check_output([gcc_exe, '--version']).decode()
+    if 'clang' in out:
+        print('{} --version'.format(gcc_exe))
+        print(out)
+        print('{} here is actually clang compiler. Please export correct PATH for the real g++\n'.format(gcc_exe))
+        print('Or export CXX and CC environments')
+        print('e.g: ')
+        print('    export CC=/usr/local/bin/gcc-5')
+        print('    export CXX=/usr/local/bin/g++-5')
+        sys.exit(1)
 
 def get_compiler_and_build_flag():
     args = parse_args()
 
     openmp_flag = '-openmp' if args.openmp else ''
     if openmp_flag:
-        assert get_openmp_flag(), 'your system must support openmp'
+        # we turn off OSX openmp anyway, so do not need to check
+        if not IS_OSX:
+            assert get_openmp_flag(), 'your system must support openmp'
 
     install_type = args.install_type
     debug = '-debug' if args.debug else ''
@@ -60,10 +73,22 @@ def get_compiler_and_build_flag():
     except ImportError:
         has_numpy = False
 
-    # better name for CPPTRAJ_COMPILER_OPTION?
+    # better name for COMPILER?
     # cpptraj: ./configure gnu
-    # e.g: CPPTRAJ_COMPILER_OPTION=gnu python ./scripts/install_libcpptraj.py
-    cpptraj_compiler_option = os.environ.get('CPPTRAJ_COMPILER_OPTION', 'gnu')  # intel | pgi | clang | cray?
+    # e.g: COMPILER=gnu python ./scripts/install_libcpptraj.py
+    os_dependent_default_compiler = 'clang' if IS_OSX else 'gnu'
+    compiler_env = os.environ.get('COMPILER', '')  # intel | pgi | clang | cray?
+    if compiler_env:
+        print('libcpptraj: Using COMPILER env = ', compiler_env)
+        compiler = compiler_env
+    else:
+        compiler = os_dependent_default_compiler
+        cxx = os.getenv('CXX')
+        if cxx:
+            print('Using preset CXX', cxx)
+            compiler = ''
+    if compiler == 'gnu':
+        ensure_gnu()
     amberhome = os.environ.get('AMBERHOME', '')
     amberlib = '-amberlib' if amberhome and args.amberlib else ''
 
@@ -97,9 +122,16 @@ def get_compiler_and_build_flag():
         subprocess.check_call('git clone https://github.com/Amber-MD/cpptraj'.split())
     else:
         print('install libcpptraj from current ./cpptraj folder')
-    return cpptraj_compiler_option, build_flag
+    return compiler, build_flag
 
-def install_libcpptraj(cpptraj_compiler_option, build_flag):
+def install_libcpptraj(compiler, build_flag):
+    '''
+
+    Parameters
+    ----------
+    compiler : str, {'clang', 'gnu'}
+    build_flag : str
+    '''
     cwd = os.getcwd()
     try:
         os.chdir('./cpptraj')
@@ -112,27 +144,24 @@ def install_libcpptraj(cpptraj_compiler_option, build_flag):
     except OSError:
         pass
 
-
-    if cpptraj_compiler_option == 'clang' and sys.platform == 'darwin':
-        cxx_overwrite = 'CXX="clang++ -stdlib=libstdc++"'
-    else:
-        cxx_overwrite = ''
+    cxx_overwrite = ''
+    if IS_OSX:
+        if compiler == 'clang' or 'clang' in os.getenv('CXX', ''):
+            cxx_overwrite = 'CXX="clang++ -stdlib=libstdc++"'
+    print('cxx_overwrite flag', cxx_overwrite)
 
     cm = 'bash configure {build_flag} {compiler} {cxx_overwrite}'.format(
-            build_flag=build_flag, compiler=cpptraj_compiler_option, cxx_overwrite=cxx_overwrite)
+            build_flag=build_flag, compiler=compiler, cxx_overwrite=cxx_overwrite)
 
     print('build command: ', cm)
-    subprocess.check_call(cm.split())
+    # do not use subprocess to avoid split cxx_overwrite command
+    os.system(cm)
 
     if IS_OSX:
-        add_CPPTRAJ_CXX_to_config('config.h', CPPTRAJ_CXX)
+        add_cpptraj_cxx_to_config('config.h', CPPTRAJ_CXX)
 
-    subprocess.check_call('make libcpptraj -j8'.split())
+    subprocess.check_call('make libcpptraj -j4'.split())
     os.chdir(cwd)
-
-    print("make sure to 'export CPPTRAJHOME=$CPPTRAJHOME'"
-          "and 'export LD_LIBRARY_PATH=$CPPTRAJHOME/lib:\$LD_LIBRARY_PATH'"
-          "then 'python ./setup.py install'")
 
 def parse_args():
     import argparse
@@ -145,5 +174,5 @@ def parse_args():
     return args
 
 if __name__ == '__main__':
-    cpptraj_compiler_option, build_flag = get_compiler_and_build_flag()
-    install_libcpptraj(cpptraj_compiler_option, build_flag)
+    compiler, build_flag = get_compiler_and_build_flag()
+    install_libcpptraj(compiler, build_flag)

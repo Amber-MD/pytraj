@@ -9,6 +9,9 @@ from glob import glob
 from subprocess import CalledProcessError
 from distutils.command.clean import clean as Clean
 
+# local
+from scripts.install_libcpptraj import ensure_gnu
+
 if sys.version_info[0] >= 3:
     import builtins
 else:
@@ -407,21 +410,14 @@ def setenv_cc_cxx(ambertools_distro,
     '''
     if not ambertools_distro:
         if sys.platform == 'darwin':
-            os.environ['CXX'] = DEFAULT_MAC_CXXCOMPILER
-            os.environ['CC'] = DEFAULT_MAC_CCOMPILER
-            # See which c++ lib we need to link to... sigh.
-            import distutils.sysconfig as sc
-            osxver = tuple(int(x) for x in
-                           sc.get_config_var('MACOSX_DEPLOYMENT_TARGET').split('.') if x)
-            if osxver < (10, 9):
-                import platform
-                minorosxver = int(platform.mac_ver()[0].split('.')[1])
-                if minorosxver > 8:
-                    # OS X 10.8 and earlier do not understand this flag.
-                    extra_compile_args.extend(['-stdlib=libstdc++',
-                                               '-mmacosx-version-min=%d.%d' % osxver])
-                    extra_link_args.extend(['-stdlib=libstdc++',
-                                            '-mmacosx-version-min=%d.%d' % osxver])
+            compiler = os.environ.get('COMPILER', 'clang')
+            if compiler == 'clang' and not os.getenv('CXX'): 
+                os.environ['CXX'] = DEFAULT_MAC_CXXCOMPILER
+                os.environ['CC'] = DEFAULT_MAC_CCOMPILER
+            elif compiler == 'gnu':
+                ensure_gnu()
+            else:
+                pass
     else:
         print('pytraj is inside AMBERHOME')
         # should use CXX and CC from config.h
