@@ -11,7 +11,6 @@ config=$(cat <<CONDARC
 
 channels:
  - defaults # As we need conda-build
-
  - conda-forge
 
 conda-build:
@@ -36,7 +35,7 @@ echo "$config" > ~/.condarc
 conda clean --lock
 
 conda update --yes --all
-conda install --yes conda-build
+conda install --yes conda-build cython
 conda info
 
 # Embarking on 1 case(s).
