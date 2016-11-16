@@ -15,7 +15,7 @@ def test_lie():
     state.run()
 
     mask = ':TCS'
-    options = '12 cutelec 12'
+    options = 'cutvdw 12 cutelec 12'
     data = pt.lie(traj, mask, options=options)
 
     for key in ['LIE[EELEC]', 'LIE[EVDW]']:

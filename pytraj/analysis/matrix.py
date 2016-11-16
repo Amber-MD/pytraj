@@ -5,7 +5,6 @@ from .c_action import do_action, c_action
 from ..datasets import c_datasets
 from ..utils.get_common_objects import (
                                        get_data_from_dtype,
-                                       register_pmap,
                                        super_dispatch,
 )
 from ..datasets.c_datasetlist import DatasetList as CpptrajDatasetList
@@ -23,7 +22,6 @@ MATRIX_TYPES = [
 __all__ = MATRIX_TYPES
 
 @super_dispatch()
-@register_pmap
 def matrix(traj=None,
            mask="",
            dtype='ndarray',
