@@ -35,8 +35,10 @@ echo "$config" > ~/.condarc
 conda clean --lock
 
 conda update --yes --all
-conda install --yes conda-build cython
+conda install --yes conda-build cython numpy nomkl
+pip install auditwheel
 conda info
+yum install gfortran -y
 
 # Embarking on 1 case(s).
     cd /feedstock_root/
