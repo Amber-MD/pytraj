@@ -134,7 +134,7 @@ def _cluster(traj, algorithm, mask="", frame_indices=None, dtype='dataset', top=
         options += ' summary'
 
     # do not output cluster info to STDOUT
-    command = ' '.join((algorithm, mask2, "crdset {0}".format(crdname), options, 'noinfo'))
+    command = ' '.join((algorithm, mask2, "crdset {0}".format(crdname), options))
 
     with capture_stdout() as (out, _):
         ana(command, dslist)
