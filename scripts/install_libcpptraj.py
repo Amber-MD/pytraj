@@ -60,7 +60,9 @@ def get_compiler_and_build_flag():
 
     openmp_flag = '-openmp' if args.openmp else ''
     if openmp_flag:
-        assert get_openmp_flag(), 'your system must support openmp'
+        # we turn off OSX openmp anyway, so do not need to check
+        if not IS_OSX:
+            assert get_openmp_flag(), 'your system must support openmp'
 
     install_type = args.install_type
     debug = '-debug' if args.debug else ''
@@ -142,10 +144,11 @@ def install_libcpptraj(compiler, build_flag):
     except OSError:
         pass
 
-    if compiler == 'clang' and IS_OSX:
-        cxx_overwrite = 'CXX="clang++ -stdlib=libstdc++"'
-    else:
-        cxx_overwrite = ''
+    cxx_overwrite = ''
+    if IS_OSX:
+        if compiler == 'clang' or 'clang' in os.getenv('CXX', ''):
+            cxx_overwrite = 'CXX="clang++ -stdlib=libstdc++"'
+    print('cxx_overwrite flag', cxx_overwrite)
 
     cm = 'bash configure {build_flag} {compiler} {cxx_overwrite}'.format(
             build_flag=build_flag, compiler=compiler, cxx_overwrite=cxx_overwrite)
