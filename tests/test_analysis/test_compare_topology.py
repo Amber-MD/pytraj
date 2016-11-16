@@ -5,8 +5,8 @@ from pytraj.datafiles import load_tz2
 from utils import fn
 
 expected = """
-#<
-#>
+#< tz2.parm7
+#> tz2.parm7
 # Atom types
 # LJ params
 # Bonds
@@ -22,4 +22,4 @@ def test_compare_topology():
     # wait until cpptraj has a proper test for this
     top = pt.load_topology(fn('tz2.parm7'))
     out = compare_topology(top, top)
-    # assert out.strip() == expected.strip()
+    assert out.strip() == expected.strip()
