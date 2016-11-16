@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 FEEDSTOCK_ROOT=$(cd "$(dirname "$0")/../../"; pwd;)
-CONDA=/root/miniconda/bin/conda
 DOCKER_IMAGE=centos:5
 MINICONDA_URL=https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 # MINICONDA_ROOT=/opt/conda
 MINICONDA_ROOT=/root/miniconda3
+CONDA=$MINICONDA_ROOT/bin/conda
 
 docker info
 cat << EOF | docker run -i \
