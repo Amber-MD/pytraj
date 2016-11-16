@@ -9,7 +9,7 @@ import os, sys
 import subprocess
 from glob import glob
 
-REQUIRED_PACKAGES = ['auditwheel', 'conda']
+REQUIRED_PACKAGES = ['auditwheel']
 SUPPORTED_VERSION = ['2.7', '3.4', '3.5']
 assert os.environ.get("CPPTRAJHOME"), "must set CPPTRAJHOME"
 
