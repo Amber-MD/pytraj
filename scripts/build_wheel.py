@@ -34,8 +34,9 @@ def build(tarfile,
         # create whl file for each python version
         if not os.path.exists(miniconda_root + env):
             sys.stdout.write('creating {} env'.format(env))
-            cmlist = 'conda create -n {} python={} --yes'.format(env, python_version).split()
-            subprocess.check_call(cmlist)
+            cmlist = 'conda create -n {} python={} numpy nomkl --yes'.format(env, python_version)
+            print(cmlist)
+            subprocess.check_call(cmlist.split())
     
         python = '/'.join((miniconda_root, env, 'bin/python'))
     
@@ -55,6 +56,34 @@ def build(tarfile,
     
         cmlist = '{} {}'.format(exe, whl_name).split()
         subprocess.check_call(cmlist)
+        test_install(python, python_version, env)
+
+def test_install(python_exe, py_version, env):
+    # e.g: change 2.7 to 27
+    print('Testing pytraj build')
+    version = py_version.replace('.', '')
+    cwd = os.getcwd()
+    pattern = cwd + '/wheelhouse/pytraj-*-cp{}-*.whl'.format(version)
+    whl_file = glob(pattern)[0]
+    try:
+        subprocess.check_call('{} -m pip uninstall pytraj -y'.format(python_exe).split())
+    except subprocess.CalledProcessError:
+        pass
+    subprocess.check_call('{} -m pip install {}'.format(python_exe, whl_file).split())
+    try:
+        print('Installing numpy')
+        subprocess.check_call('{} -c "import numpy"'.format(python_exe), shell=True)
+    except subprocess.CalledProcessError:
+        subprocess.check_call('conda install numpy nomkl -y -n {}'.format(env),
+                              shell=True)
+    output = subprocess.check_output('{} -c "import pytraj as pt; print(pt)"'
+                                   .format(python_exe, whl_file),
+                                   shell=True)
+    output = output.decode()
+    expected_output = 'envs/{env}/lib/python{py_version}/site-packages/pytraj'.format(env=env,
+            py_version=py_version)
+    assert expected_output in output
+    print('PASSED: build test')
 
 if __name__ == '__main__':
     check_package()
