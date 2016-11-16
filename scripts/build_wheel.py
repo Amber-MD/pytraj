@@ -1,11 +1,8 @@
 #!/usr/bin/env python
 
 """build wheel for Linux, OSX
-
 Requirement: python >= 3.4, conda, auditwheel and CPPTRAJHOME
-
 Example: python build_wheel.py pytraj-1.0.9.tar.gz
-
 Note: Recommend to build with centos 5 or 6 to maximize compatibility
 """
 import os, sys
