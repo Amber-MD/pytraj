@@ -1,12 +1,13 @@
 from __future__ import absolute_import
 
 from ..trajectory.shared_methods import iterframe_master
+from .c_action import do_action, c_action
 from ..utils.get_common_objects import get_data_from_dtype, super_dispatch
 from ..utils.decorators import register_pmap
 from ..externals.six.moves import range
 from ..externals.six import string_types
 
-__all__ = ['esander']
+__all__ = ['esander', 'lie']
 
 
 def _default_func():
@@ -211,3 +212,13 @@ def esander(traj=None,
             dslist[-1].resize(size)
             dslist[-1].data[:] = ddict[key]
         return get_data_from_dtype(dslist, dtype)
+
+@super_dispatch()
+@register_pmap
+def lie(traj, mask, options='', dtype='dict', frame_indices=None, top=None):
+    ''' LIE
+    '''
+    name = 'LIE'
+    command = ' '.join((name, mask, options))
+    c_dslist, _ = do_action(traj, command, c_action.Action_LIE)
+    return get_data_from_dtype(c_dslist, dtype=dtype)

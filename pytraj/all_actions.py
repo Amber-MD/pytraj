@@ -36,12 +36,17 @@ from .analysis.rmsd import (
     rmsd,
     symmrmsd,
     distance_rmsd, )
+from .analysis.energy_analysis import (
+    esander,
+    lie, )
 from .analysis import (
     matrix,
     vector,
     nmr,
     dssp_analysis,
-    hbond_analysis, )
+    hbond_analysis,
+    energy_analysis,
+    )
 
 __all__ = [
     'translate',
