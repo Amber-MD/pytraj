@@ -48,8 +48,8 @@ def ensure_gnu():
     if 'clang' in out:
         print('{} --version'.format(gcc_exe))
         print(out)
-        print('{} here is actually clang compiler. Please export correct PATH for the real g++'.format(gcc_exe))
-        print(' Or export CXX and CC environments')
+        print('{} here is actually clang compiler. Please export correct PATH for the real g++\n'.format(gcc_exe))
+        print('Or export CXX and CC environments')
         print('e.g: ')
         print('    export CC=/usr/local/bin/gcc-5')
         print('    export CXX=/usr/local/bin/g++-5')
@@ -75,7 +75,12 @@ def get_compiler_and_build_flag():
     # cpptraj: ./configure gnu
     # e.g: COMPILER=gnu python ./scripts/install_libcpptraj.py
     default_compiler = 'clang' if IS_OSX else 'gnu'
-    compiler = os.environ.get('COMPILER', default_compiler)  # intel | pgi | clang | cray?
+    compiler_env = os.environ.get('COMPILER', '')  # intel | pgi | clang | cray?
+    if compiler_env:
+        print('libcpptraj: Using COMPILER env = ', compiler_env)
+        compiler = compiler_env
+    else:
+        compiler = default_compiler
     if compiler == 'gnu':
         ensure_gnu()
     amberhome = os.environ.get('AMBERHOME', '')
