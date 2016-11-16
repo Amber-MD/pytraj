@@ -25,6 +25,7 @@ yum -y install gcc \
                libgfortran44.x86_64 \
                make \
                m4 \
+               git \
                which
 
 # Embarking on 1 case(s).
