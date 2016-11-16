@@ -4,7 +4,8 @@ machine:
 
 dependencies:
   override:
-    - docker pull condaforge/linux-anvil
+    # - docker pull condaforge/linux-anvil
+    - docker pull centos:5
 
 test:
   override:
