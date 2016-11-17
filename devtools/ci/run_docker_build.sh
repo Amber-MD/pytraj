@@ -24,7 +24,15 @@ cat << EOF | docker run -i \
 export PATH=$MINICONDA_ROOT/bin:\$PATH
 export LD_LIBRARY_PATH=$MINICONDA_ROOT/lib:\$LD_LIBRARY_PATH
 $CONDA update --yes --all
-$CONDA install cython --yes
+$CONDA install -y  \
+    zlib \
+    bzip2 \
+    libnetcdf \
+    openblas \
+    libgfortran \
+    cython \
+    gcc
+$MINICONDA_ROOT/bin/pip install auditwheel
 cd /feedstock_root/
 ls .
 # turn off pip test for now. Got segmentation fault.
