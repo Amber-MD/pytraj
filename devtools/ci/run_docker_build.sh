@@ -10,13 +10,11 @@ MINICONDA_ROOT=/opt/conda/
 
 CONDA=$MINICONDA_ROOT/bin/conda
 CPPTRAJ_RECIPE=$FEEDSTOCK_ROOT/devtools/conda-recipe/libcpptraj
-PYTRAJ_RECIPE=$FEEDSTOCK_ROOT/devtools/conda-recipe/pytraj
 
 docker info
 cat << EOF | docker run -i \
                         -v ${FEEDSTOCK_ROOT}:/feedstock_root \
                         -v ${CPPTRAJ_RECIPE}:/cpptraj_recipe \
-                        -v ${PYTRAJ_RECIPE}:/pytraj_recipe \
                         -a stdin -a stdout -a stderr \
                         $DOCKER_IMAGE \
                         bash || exit $?
@@ -39,7 +37,7 @@ ls .
 sh devtools/ci/test_pip_build.sh
 cd -
 $CONDA build /cpptraj_recipe --quiet || exit 1
-$CONDA build /pytraj_recipe --quiet || exit 1
+$CONDA build /feedstock_root/devtools/conda-recipe/pytraj_recipe --quiet || exit 1
 cp $MINICONDA_ROOT/conda-bld/linux-64/pytraj*  /feedstock_root/
 cp $MINICONDA_ROOT/conda-bld/linux-64/libcpptraj* /feedstock_root/
 EOF
