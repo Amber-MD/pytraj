@@ -96,7 +96,6 @@ def get_compiler_and_build_flag():
         prefix = sys.prefix
         # likely having openblas?
         build_flag_ = ('--with-netcdf={prefix} --with-blas={prefix} '
-                       '--with-bzlib={prefix} --with-zlib={prefix} '
                        '-openblas -noarpack'.format(prefix=prefix))
     elif has_numpy:
         try:
@@ -109,6 +108,9 @@ def get_compiler_and_build_flag():
     else:
         # user gets lucky?
         build_flag_ = '-noarpack'
+
+    zip_stuff = ' --with-bzlib={prefix} --with-zlib={prefix} '
+    build_flag_ += zip_stuff
 
     if IS_OSX:
         build_flag = ' '.join((DEFAULT_MAC_BUILD, amberlib))
