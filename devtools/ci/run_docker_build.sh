@@ -13,6 +13,7 @@ cat << EOF | docker run -i \
                         bash || exit $?
 
 export PATH=$MINICONDA_ROOT/bin:\$PATH
+export LD_LIBRARY_PATH=$MINICONDA_ROOT/lib:\$LD_LIBRARY_PATH
 $CONDA update --yes --all
 cd /feedstock_root/
 ls .
