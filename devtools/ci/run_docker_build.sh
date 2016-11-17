@@ -6,7 +6,7 @@ FEEDSTOCK_ROOT=$(cd "$(dirname "$0")/../../"; pwd;)
 # MINICONDA_ROOT=/root/miniconda3
 
 DOCKER_IMAGE=condaforge/linux-anvil
-MINICONDA_ROOT=/root/conda/
+MINICONDA_ROOT=/opt/conda/
 
 CONDA=$MINICONDA_ROOT/bin/conda
 CPPTRAJ_RECIPE=$FEEDSTOCK_ROOT/devtools/conda-recipe/libcpptraj
