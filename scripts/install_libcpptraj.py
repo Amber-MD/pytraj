@@ -92,11 +92,10 @@ def get_compiler_and_build_flag():
     amberhome = os.environ.get('AMBERHOME', '')
     amberlib = '-amberlib' if amberhome and args.amberlib else ''
 
+    prefix = sys.prefix
     if has_numpy and find_lib('openblas'):
-        prefix = sys.prefix
         # likely having openblas?
         build_flag_ = ('--with-netcdf={prefix} --with-blas={prefix} '
-                       '--with-bzlib={prefix} --with-zlib={prefix} '
                        '-openblas -noarpack'.format(prefix=prefix))
     elif has_numpy:
         try:
@@ -109,6 +108,9 @@ def get_compiler_and_build_flag():
     else:
         # user gets lucky?
         build_flag_ = '-noarpack'
+
+    zip_stuff = ' --with-bzlib={prefix} --with-zlib={prefix} '.format(prefix=prefix)
+    build_flag_ += zip_stuff
 
     if IS_OSX:
         build_flag = ' '.join((DEFAULT_MAC_BUILD, amberlib))
