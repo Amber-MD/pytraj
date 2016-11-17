@@ -20,6 +20,12 @@ def check_package():
         except ImportError:
             raise ImportError('require {}'.format(package))
 
+def find_miniconda_root():
+    command = "conda info | grep 'root environment'"
+    output = subprocess.check_output(command, shell=True).decode()
+    # e.g: outproot = "environment : /home/haichit/anaconda3  (writable)"
+    return output.split()[3] + '/'
+
 def build(tarfile,
           pytraj_home,
           miniconda_root,
@@ -32,6 +38,7 @@ def build(tarfile,
         env = 'pytraj' + python_version
 
         # create whl file for each python version
+        print(miniconda_root + env)
         if not os.path.exists(miniconda_root + env):
             sys.stdout.write('creating {} env'.format(env))
             cmlist = 'conda create -n {} python={} numpy nomkl --yes'.format(env, python_version)
@@ -96,7 +103,7 @@ if __name__ == '__main__':
     python_versions = SUPPORTED_VERSION if args.py is None else [args.py,]
 
     # pytraj tar file
-    miniconda_root = sys.exec_prefix  + '/envs/'
+    miniconda_root = find_miniconda_root() + '/envs/'
     pytraj_home = os.path.dirname(__file__).strip('scripts')
     osx_rpath_script = pytraj_home + '/scripts/misc/fix_rpath_pip_osx.py'
     build(tarfile=tarfile,
