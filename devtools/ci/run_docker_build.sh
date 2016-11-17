@@ -25,7 +25,6 @@ yum -y install gcc \
                libgfortran44.x86_64 \
                make \
                m4 \
-               git-all \
                which
 
 # Embarking on 1 case(s).
@@ -36,6 +35,7 @@ yum -y install gcc \
     $CONDA install --yes conda-build anaconda-client
     $CONDA info
     $CONDA install --yes numpy nomkl zlib bzip2 libnetcdf libgfortran openblas gcc
+    $CONDA install --yes git -c conda-forge
     pip install auditwheel
     cd /feedstock_root/
     ls .
