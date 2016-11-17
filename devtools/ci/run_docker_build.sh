@@ -15,6 +15,7 @@ cat << EOF | docker run -i \
 export PATH=$MINICONDA_ROOT/bin:\$PATH
 export LD_LIBRARY_PATH=$MINICONDA_ROOT/lib:\$LD_LIBRARY_PATH
 $CONDA update --yes --all
+$CONDA install cython --yes
 cd /feedstock_root/
 ls .
 sh devtools/ci/test_pip_build.sh
