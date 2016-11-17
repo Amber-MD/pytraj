@@ -109,7 +109,7 @@ def get_compiler_and_build_flag():
         # user gets lucky?
         build_flag_ = '-noarpack'
 
-    zip_stuff = ' --with-bzlib={prefix} --with-zlib={prefix} '
+    zip_stuff = ' --with-bzlib={prefix} --with-zlib={prefix} '.format(prefix=prefix)
     build_flag_ += zip_stuff
 
     if IS_OSX:
