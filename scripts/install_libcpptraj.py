@@ -92,8 +92,8 @@ def get_compiler_and_build_flag():
     amberhome = os.environ.get('AMBERHOME', '')
     amberlib = '-amberlib' if amberhome and args.amberlib else ''
 
+    prefix = sys.prefix
     if has_numpy and find_lib('openblas'):
-        prefix = sys.prefix
         # likely having openblas?
         build_flag_ = ('--with-netcdf={prefix} --with-blas={prefix} '
                        '-openblas -noarpack'.format(prefix=prefix))
