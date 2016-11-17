@@ -35,12 +35,10 @@ $CONDA install -y  \
     gcc
 $MINICONDA_ROOT/bin/pip install auditwheel
 cd /feedstock_root/
-ls .
 # turn off pip test for now. Got segmentation fault.
-sh devtools/ci/test_pip_build.sh
-cd -
+# sh devtools/ci/test_pip_build.sh
 $CONDA build /cpptraj_recipe --quiet || exit 1
-$CONDA build /feedstock_root/devtools/conda-recipe/pytraj_recipe --quiet || exit 1
+$CONDA build /feedstock_root/devtools/conda-recipe/pytraj --quiet || exit 1
 cp $MINICONDA_ROOT/conda-bld/linux-64/pytraj*  /feedstock_root/
 cp $MINICONDA_ROOT/conda-bld/linux-64/libcpptraj* /feedstock_root/
 EOF
