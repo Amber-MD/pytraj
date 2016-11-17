@@ -23,12 +23,14 @@ export PATH=$MINICONDA_ROOT/bin:\$PATH
 export LD_LIBRARY_PATH=$MINICONDA_ROOT/lib:\$LD_LIBRARY_PATH
 $CONDA update --yes --all
 $CONDA install -y  \
+    cython \
+    numpy \
+    nomkl \
+    openblas \
     zlib \
     bzip2 \
     libnetcdf \
-    openblas \
     libgfortran \
-    cython \
     gcc
 $MINICONDA_ROOT/bin/pip install auditwheel
 cd /feedstock_root/
