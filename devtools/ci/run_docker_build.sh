@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 
 FEEDSTOCK_ROOT=$(cd "$(dirname "$0")/../../"; pwd;)
-DOCKER_IMAGE=ambermd/pytraj_build
-MINICONDA_ROOT=/root/miniconda3
+
+# DOCKER_IMAGE=ambermd/pytraj_build
+# MINICONDA_ROOT=/root/miniconda3
+
+DOCKER_IMAGE=condaforge/linux-anvil
+MINICONDA_ROOT=/root/conda/
+
 CONDA=$MINICONDA_ROOT/bin/conda
 CPPTRAJ_RECIPE=$FEEDSTOCK_ROOT/devtools/conda-recipe/libcpptraj
 PYTRAJ_RECIPE=$FEEDSTOCK_ROOT/devtools/conda-recipe/pytraj
@@ -23,7 +28,7 @@ $CONDA install cython --yes
 cd /feedstock_root/
 ls .
 # turn off pip test for now. Got segmentation fault.
-# sh devtools/ci/test_pip_build.sh
+sh devtools/ci/test_pip_build.sh
 cd -
 $CONDA build /cpptraj_recipe --quiet || exit 1
 $CONDA build /pytraj_recipe --quiet || exit 1

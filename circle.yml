@@ -4,8 +4,8 @@ machine:
 
 dependencies:
   override:
-    # - docker pull condaforge/linux-anvil
-    - docker pull ambermd/pytraj_build
+    - docker pull condaforge/linux-anvil
+    # - docker pull ambermd/pytraj_build
 
 test:
   override:
