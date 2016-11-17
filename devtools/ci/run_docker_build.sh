@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 FEEDSTOCK_ROOT=$(cd "$(dirname "$0")/../../"; pwd;)
-DOCKER_IMAGE=hainm/pytraj_build
+DOCKER_IMAGE=ambermd/pytraj_build
 MINICONDA_ROOT=/root/miniconda3
 CONDA=$MINICONDA_ROOT/bin/conda
 
