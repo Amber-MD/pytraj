@@ -311,7 +311,9 @@ class TestPairwiseRMSD(unittest.TestCase):
                 d2 = pt.pairwise_rmsd(traj(), mask='@CA', metric=metric)
 
                 txt0 = txt.replace('metric_holder', metric)
-                state = pt.datafiles.load_cpptraj_output(txt0, dtype='state')
+                state = pt.load_cpptraj_state(txt0)
+                with tempfolder():
+                    state.run()
                 d3 = state.data[-1].values
 
                 aa_eq(d0, d1)
