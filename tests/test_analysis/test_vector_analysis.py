@@ -62,7 +62,7 @@ class TestVectorAnalysisModule(unittest.TestCase):
 
         n_indices_cpp = []
 
-        with open('data/ired.in', 'r') as fh:
+        with open(fn('ired.in'), 'r') as fh:
             lines = fh.readlines()
             for line in lines:
                 if 'vector' in line and 'ired' in line:
@@ -103,7 +103,7 @@ class TestVectorAnalysisModule(unittest.TestCase):
         # test ired vector with ired matrix
         # open file
 
-        with open('data/ired_reduced.in', 'r') as fh:
+        with open(fn('ired_reduced.in'), 'r') as fh:
             text = ''.join(fh.readlines())
         state2 = pt.load_batch(traj, text)
         state2.run()
