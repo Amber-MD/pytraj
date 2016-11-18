@@ -11,10 +11,10 @@ from pytraj.utils import aa_eq
 class TestDensity(unittest.TestCase):
 
     def test_density(self):
-        fn = "data/DOPC.rst7"
+        fn = fn('DOPC.rst7')
         tn = fn('DOPC.parm7')
 
-        traj = pt.load("data/DOPC.rst7", fn('DOPC.parm7'))
+        traj = pt.load(fn('DOPC.rst7'), fn('DOPC.parm7'))
 
         delta = '0.25'
         masks = [":PC@P31", ":PC@N31", ":PC@C2", ":PC | :OL | :OL2"]

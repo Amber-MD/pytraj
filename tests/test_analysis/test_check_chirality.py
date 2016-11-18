@@ -15,7 +15,7 @@ checkchirality
 """
 
 def test_check_structure():
-    traj = pt.iterload('data/DPDP.nc', fn('DPDP.parm7'))
+    traj = pt.iterload(fn('DPDP.nc'), fn('DPDP.parm7'))
     out_dict = pt.check_chirality(traj)
 
     state = pt.load_cpptraj_state(cm)

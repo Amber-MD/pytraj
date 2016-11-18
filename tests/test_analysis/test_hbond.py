@@ -10,7 +10,7 @@ from pytraj.externals.six import izip as zip
 class TestSearchHbonds(unittest.TestCase):
 
     def test_hbond_general(self):
-        traj = pt.iterload("./data/DPDP.nc", fn('DPDP.parm7'))
+        traj = pt.iterload(fn('DPDP.nc'), fn('DPDP.parm7'))
         dslist = pt.search_hbonds(traj, dtype='dataset')
         for key in dslist.keys():
             if 'UU' not in key:

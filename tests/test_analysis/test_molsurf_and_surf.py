@@ -34,7 +34,7 @@ class TestMolsurf(unittest.TestCase):
             aa_eq(pt.molsurf(traj, mask, probe=1.2, offset=0.3), cpp_data[2])
 
     def test_surf(self):
-        traj = pt.iterload('data/DPDP.nc', fn('DPDP.parm7'))
+        traj = pt.iterload(fn('DPDP.nc'), fn('DPDP.parm7'))
 
         text = '''
         parm {0}

@@ -2,7 +2,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
-from utils import fn
+from utils import fn, tz2_trajin, tz2_top
 
 
 class TestDihedralCovarianceMatrix(unittest.TestCase):
@@ -11,8 +11,8 @@ class TestDihedralCovarianceMatrix(unittest.TestCase):
     def test_dihcovar(self):
         pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         txt = '''
-        parm data/tz2.parm7
-        trajin data/tz2.nc
+        parm {}
+        trajin {}
 
         # Generation of phi/psi dihedral data
         multidihedral BB phi psi resrange 2
@@ -25,7 +25,7 @@ class TestDihedralCovarianceMatrix(unittest.TestCase):
         run
         # Project along eigenvectors
         projection evecs DIHMODES beg 1 end 4 dihedrals BB[*]
-        '''
+        '''.format(tz2_top, tz2_trajin)
 
         state = pt.load_cpptraj_state(txt)
         state.run()
