@@ -8,6 +8,8 @@ from utils import fn
 from pytraj.utils import aa_eq
 import pytest
 
+from utils import tz2_trajin, tz2_top
+
 
 class TestPCA(unittest.TestCase):
 
@@ -20,8 +22,8 @@ class TestPCA(unittest.TestCase):
         command = '''
         # Step one. Generate average structure.
         # RMS-Fit to first frame to remove global translation/rotation.
-        parm data/tz2.parm7
-        trajin data/tz2.nc
+        parm {tz2_top}
+        trajin {tz2_trajin}
 
         rms first !@H=
         average crdset AVG
@@ -39,7 +41,7 @@ class TestPCA(unittest.TestCase):
 
         # Step four. Project saved fit coordinates along eigenvectors 1 and 2
         crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
-        '''
+        '''.format(tz2_top=tz2_top, tz2_trajin=tz2_trajin)
 
         traj = pt.load(fn('tz2.nc'), fn('tz2.parm7'))
 
@@ -64,8 +66,8 @@ class TestPCA(unittest.TestCase):
         '''
 
         command = '''
-        parm data/tz2.parm7
-        trajin data/tz2.nc
+        parm {}
+        trajin {}
 
         matrix covar name MyMatrix !@H=
         createcrd CRD1
@@ -76,7 +78,7 @@ class TestPCA(unittest.TestCase):
 
         # Step four. Project saved fit coordinates along eigenvectors 1 and 2
         crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
-        '''
+        '''.format(tz2_top, tz2_trajin)
 
         traj = pt.load(fn('tz2.nc'), fn('tz2.parm7'))
 
@@ -103,9 +105,9 @@ class TestPCA(unittest.TestCase):
         '''
 
         command_ref_provided = '''
-        parm data/tz2.parm7
-        trajin data/tz2.nc
-        reference data/tz2.rst7
+        parm {}
+        trajin {}
+        reference {}
 
         rms reference !@H=
 
@@ -118,10 +120,10 @@ class TestPCA(unittest.TestCase):
 
         # Step four. Project saved fit coordinates along eigenvectors 1 and 2
         crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
-        '''
+        '''.format(tz2_top, tz2_trajin, fn('tz2.rst7'))
 
         traj = pt.load(fn('tz2.nc'), fn('tz2.parm7'))
-        ref = pt.load('data/tz2.rst7', traj.top)
+        ref = pt.load(fn('tz2.rst7'), traj.top)
 
         state = pt.load_cpptraj_state(command_ref_provided)
         state.run()
@@ -145,10 +147,10 @@ class TestPCA(unittest.TestCase):
         '''
 
         command_ref_provided = '''
-        parm data/tz2.parm7
-        trajin data/tz2.nc
+        parm {}
+        trajin {}
 
-        reference data/tz2.rst7
+        reference {}
 
         # only perform fitting on heavy atoms
         rms reference !@H=
@@ -164,11 +166,11 @@ class TestPCA(unittest.TestCase):
         # Step four. Project saved fit coordinates along eigenvectors 1 and 2
         # all atoms
         crdaction CRD1 projection evecs MyEvecs * out project.dat beg 1 end 2
-        '''
+        '''.format(tz2_top, tz2_trajin, fn('tz2.rst7'))
 
         traj = pt.load(fn('tz2.nc'), fn('tz2.parm7'))
         traj_on_disk  = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
-        ref = pt.load('data/tz2.rst7', traj.top)
+        ref = pt.load(fn('tz2.rst7'), traj.top)
 
         state = pt.load_cpptraj_state(command_ref_provided)
         state.run()
