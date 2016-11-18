@@ -4,10 +4,10 @@
 # always add those lines to your code
 import sys
 import pytraj as pt
-from utils import fn
 from pytraj.testing import aa_eq
 from pytraj.utils.tools import concat_dict
 
+from utils import fn
 try:
     from mpi4py import MPI
 except ImportError:
@@ -21,9 +21,8 @@ comm = MPI.COMM_WORLD
 # _load_batch_pmap is temp method name, will be changed in future
 from pytraj.parallel.base import _load_batch_pmap
 
-root_dir = fn("data/")
-traj_name = root_dir + "tz2.nc"
-parm_name = root_dir + "tz2.parm7"
+traj_name = fn("tz2.nc")
+parm_name = fn("tz2.parm7")
 
 # load to TrajectoryIterator
 traj = pt.iterload(traj_name, parm_name, frame_slice=(0, 4000))
