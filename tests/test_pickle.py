@@ -107,9 +107,9 @@ class TestPickleTrajectoryIterator(unittest.TestCase):
        traj = pt.iterload(fn('tz2.ortho.nc'),
                           fn('tz2.ortho.parm7'))
        traj.autoimage().center('origin').superpose('@CA')
-       fn = 'output/test.pk'
-       pt.to_pickle(traj, fn)
-       traj2 = pt.read_pickle(fn)
+       pk_fn = 'output/test.pk'
+       pt.to_pickle(traj, pk_fn)
+       traj2 = pt.read_pickle(pk_fn)
        print(traj2._transform_commands)
        aa_eq(traj.xyz, traj2.xyz)
 
