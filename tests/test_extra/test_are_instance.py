@@ -6,6 +6,8 @@ from pytraj.utils.check_and_assert import are_instance
 from pytraj.externals.six import string_types
 from pytraj import *
 
+from utils import fn
+
 
 class Test(unittest.TestCase):
 
