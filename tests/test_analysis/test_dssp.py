@@ -5,6 +5,8 @@ import pytraj as pt
 from utils import fn
 from pytraj.testing import aa_eq
 
+from utils import fn
+
 def print_name(func):
     print(func.__name__)
     return func
@@ -20,7 +22,7 @@ class TestDSSP(unittest.TestCase):
             [d0.values for d0 in data if d0.dtype == 'integer'],
             dtype='i4')
         # load cpptraj output
-        cpp_data = np.loadtxt("./data/dssp.Tc5b.dat", skiprows=1)[:, 1:].T
+        cpp_data = np.loadtxt(fn("dssp.Tc5b.dat"), skiprows=1)[:, 1:].T
         aa_eq(data_int.flatten(), cpp_data.flatten())
 
     @print_name
@@ -33,7 +35,7 @@ class TestDSSP(unittest.TestCase):
 
     @print_name
     def test_simplified_codes(self):
-        traj = pt.load("data/1L2Y.pdb")
+        traj = pt.load(fn("1L2Y.pdb"))
         pt.dssp(traj)[1]
         data_sim = pt.dssp(traj, simplified=True)[1]
         expected_1st = ['C', 'H', 'H', 'H', 'H', 'H', 'H', 'H', 'C', 'C', 'H',
@@ -43,7 +45,7 @@ class TestDSSP(unittest.TestCase):
 
     @print_name
     def test_dssp_allatoms(self):
-        traj = pt.load("data/1L2Y.pdb")
+        traj = pt.load(fn("1L2Y.pdb"))
         allatoms_dssp = pt.dssp_allatoms(traj).T
         allresidues_dssp = pt.dssp_allresidues(traj).T
         for idx, res in enumerate(traj.top.residues):
