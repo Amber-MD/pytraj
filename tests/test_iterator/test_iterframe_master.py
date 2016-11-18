@@ -6,12 +6,13 @@ from pytraj.externals.six import zip
 from pytraj import iterframe_master
 from pytraj import Frame, Trajectory
 
+from utils import tc5b_trajin, tc5b_top
 text = """
-parm ./data/Tc5b.top
-trajin ./data/Tc5b.x
+parm {}
+trajin {}
 rotate x 60 y 120 z 50 @CA
 trajout rotated_frame0.x60y120z50.Tc5b.r
-"""
+""".format(tc5b_top, tc5b_trajin)
 
 
 def iter_me(obj, n_frames):

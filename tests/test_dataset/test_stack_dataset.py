@@ -1,6 +1,7 @@
 from __future__ import print_function
 import numpy as np
 import pytraj as pt
+from utils import fn
 import unittest
 
 from pytraj import io as mdio
@@ -8,7 +9,7 @@ from pytraj.utils import aa_eq
 from pytraj.datasets.datasetlist import stack
 from pytraj.datasets.datasetlist import stack as stack
 
-traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+traj = mdio.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
 
 class Test(unittest.TestCase):

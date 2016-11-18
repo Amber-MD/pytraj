@@ -5,11 +5,13 @@ from utils import fn
 from pytraj.utils import aa_eq
 
 
+from utils import fn
+
 class TestCenter(unittest.TestCase):
 
     def test_center(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
-        pt.load("./data/tz2.center_mass.nc", traj.top)
+        pt.load(fn("tz2.center_mass.nc"), traj.top)
 
         fa = traj[:]
         fa2 = traj[:].copy()

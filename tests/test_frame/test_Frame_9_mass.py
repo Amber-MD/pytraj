@@ -4,6 +4,8 @@ from pytraj import *
 from pytraj import io as mdio
 from pytraj.utils.check_and_assert import assert_almost_equal
 
+from utils import fn
+
 
 class Test(unittest.TestCase):
 
@@ -19,7 +21,7 @@ class Test(unittest.TestCase):
             arr0.append(frame.rmsd(f0, use_mass=True))
 
         # load cpptraj output
-        rmsd_save = np.loadtxt("./data/rmsd_allatoms_to_1st.Tc5b.use_mass.dat",
+        rmsd_save = np.loadtxt(fn("rmsd_allatoms_to_1st.Tc5b.use_mass.dat"),
                                skiprows=1)
         rmsd_save = rmsd_save.transpose()
 
