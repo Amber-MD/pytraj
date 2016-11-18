@@ -2,6 +2,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 
 
@@ -11,8 +12,8 @@ class TestCrdFrames(unittest.TestCase):
         '''test crdframes in cpptraj
         '''
         max_frames = 50
-        traj = pt.iterload('data/tz2.nc',
-                           'data/tz2.parm7',
+        traj = pt.iterload(fn('tz2.nc'),
+                           fn('tz2.parm7'),
                            frame_slice=(0, max_frames, 2))
 
         state = pt.load_cpptraj_state('''

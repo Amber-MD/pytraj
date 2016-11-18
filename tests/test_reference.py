@@ -2,6 +2,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 '''for using reference frame internally (without loading from file in Action)
 '''
@@ -10,7 +11,7 @@ from pytraj.utils import aa_eq
 class TestReferenceFrame(unittest.TestCase):
 
     def test_reference(self):
-        traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
         text = '''
         parm {0}
@@ -27,7 +28,7 @@ class TestReferenceFrame(unittest.TestCase):
         rmsd_0 = pt.rmsd(traj, ref=2, mask='@CA')
 
     def test_reference_2(self):
-        traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         from pytraj.analysis.c_action.c_action import Action_Rmsd
         from pytraj.datasets.c_datasetlist import DatasetList
         act = Action_Rmsd()

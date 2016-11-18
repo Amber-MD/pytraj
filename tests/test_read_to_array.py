@@ -1,6 +1,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 
 import numpy as np
@@ -24,7 +25,7 @@ expected_result = np.array("""
 class Test(unittest.TestCase):
 
     def test_0(self):
-        arr = pt.tools.read_to_array("./data/floBF-resp.chg")
+        arr = pt.tools.read_to_array(fn('floBF-resp.chg'))
         assert arr.shape == (84, )
         aa_eq(arr, expected_result)
 

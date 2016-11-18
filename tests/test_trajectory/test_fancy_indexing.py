@@ -1,5 +1,6 @@
 import unittest
 import pytraj as pt
+from utils import fn
 import numpy as np
 from pytraj import Trajectory
 from pytraj.testing import aa_eq
@@ -8,7 +9,7 @@ from pytraj.testing import aa_eq
 class TestSlicingTrajectory(unittest.TestCase):
 
     def test_array_like(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         FA = traj[:]
 
         # slicing with list or array
@@ -33,7 +34,7 @@ class TestSlicingTrajectory(unittest.TestCase):
 
     def test_atommask(self):
         # AtomMask
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         fa = traj[:]
         xyz = traj.xyz[:]
         atm = traj.top("@CA")
@@ -49,7 +50,7 @@ class Test1(unittest.TestCase):
 
     def test_0(self):
         # create Trajectory from Trajing_Single
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")[:]
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))[:]
         aa_eq(traj[3, 3], traj[3][3, :])
         frame1 = traj[1]
         aa_eq(frame1[0], traj[1][:, :][0])
@@ -77,8 +78,8 @@ class TestSegmentationFault(unittest.TestCase):
 
     def test_0(self):
         # NOTE: no assert, just check for segfault
-        traj = pt.load("./data/Tc5b.x", "./data/Tc5b.top")
-        pt.load("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.load(fn('Tc5b.x'), fn('Tc5b.top'))
+        pt.load(fn('Tc5b.x'), fn('Tc5b.top'))
         traj.top("@CA")
         f0 = traj[5]
         f0 = traj[0]

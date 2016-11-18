@@ -3,13 +3,14 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 
 
 class TestPipeline(unittest.TestCase):
 
     def test_pieline(self):
-        traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
         fi = pt.pipe(traj, ['autoimage', ])
         aa_eq(pt.get_coordinates(fi), traj[:].autoimage().xyz)

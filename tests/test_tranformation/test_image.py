@@ -9,7 +9,8 @@ class TestImage(unittest.TestCase):
 
     def test_image(self):
         import pytraj as pt
-        traj_on_disk = pt.iterload('data/tz2.ortho.nc', 'data/tz2.ortho.parm7')
+from utils import fn
+        traj_on_disk = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         traj = traj_on_disk[:]
 
         command = 'origin center :WAT'

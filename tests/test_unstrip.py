@@ -3,6 +3,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 
 
@@ -11,7 +12,7 @@ class TestUnstrip(unittest.TestCase):
     def test_unstrip(self):
         from pytraj.datasets import CpptrajDatasetList
 
-        traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
         dslist = CpptrajDatasetList()
         actlist = pt.ActionList(

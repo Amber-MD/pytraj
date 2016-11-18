@@ -1,5 +1,6 @@
 import unittest
 import pytraj as pt
+from utils import fn
 
 from pytraj.testing import aa_eq
 from pytraj import *
@@ -8,7 +9,7 @@ refilename = "./data/Tc5b.nat.crd"
 trajin = """
 """
 
-ts = pt.iterload('data/Tc5b.x', 'data/Tc5b.top')
+ts = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
 # create Trajectory to store Frame
 FARRAY = Trajectory()
