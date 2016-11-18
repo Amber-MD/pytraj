@@ -48,7 +48,7 @@ from .analysis import (
     energy_analysis,
     )
 
-__all__ = sorted([
+__all__ = [
     'translate',
     'rotate',
     'autoimage',
@@ -83,7 +83,6 @@ __all__ = sorted([
     'gist',
     'center',
     'wavelet',
-    # rmsd stuff
     'rotation_matrix',
     'pairwise_rmsd',
     'rmsd_perres',
@@ -96,14 +95,13 @@ __all__ = sorted([
     'atomiccorr',
     'esander',
     'lie',
-    # module
     'matrix',
     'vector',
     'nmr',
     'dssp_analysis',
     'hbond_analysis',
     'energy_analysis',
-])
+]
 
 
 def _2darray_to_atommask_groups(seq):
@@ -2307,8 +2305,6 @@ def pca(traj,
     '''
     # TODO: move to another file
     # NOTE: do not need to use super_dispatch here since we already use in projection
-    from pytraj import matrix
-
     ref_mask_ = ref_mask if ref_mask is not None else mask
 
     if not isinstance(traj, (Trajectory, TrajectoryIterator)):
