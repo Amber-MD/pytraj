@@ -37,14 +37,14 @@ class TestIssue991(unittest.TestCase):
         exts.remove('crd')
 
         for ext in exts:
-            fn = 'output/junk.' + ext
-            pt.write_traj(filename=fn,
+            junk_fn = 'output/junk.' + ext
+            pt.write_traj(filename=junk_fn,
                           traj=minitraj,
                           top=minitop,
                           overwrite=True)
 
             # load coord back to make sure we correctly write it
-            new_traj = pt.iterload(fn, minitop)
+            new_traj = pt.iterload(junk_fn, minitop)
             # mdcrd, crd, pdb has only 3 digits after decimal
             decimal = 5 if ext in ['nc', 'dcd', 'trr'] else 3
             aa_eq(minitraj, new_traj.xyz, decimal=decimal)
