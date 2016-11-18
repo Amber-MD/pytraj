@@ -48,7 +48,7 @@ from .analysis import (
     energy_analysis,
     )
 
-__all__ = [
+__all__ = sorted([
     'translate',
     'rotate',
     'autoimage',
@@ -103,7 +103,7 @@ __all__ = [
     'dssp_analysis',
     'hbond_analysis',
     'energy_analysis',
-]
+])
 
 
 def _2darray_to_atommask_groups(seq):

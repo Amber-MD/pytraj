@@ -34,10 +34,15 @@ class PipBuilder(object):
     def __init__(self,
                  tarfile,
                  pytraj_home,
-                 python_versions):
+                 python_versions,
+                 cpptraj_dir=''):
         self.miniconda_root = self.find_miniconda_root()
         is_osx = sys.platform.startswith('darwin')
         self.python_versions = python_versions
+        if cpptraj_dir:
+            self.cpptraj_dir = os.path.abspath(cpptraj_dir)
+        else:
+            self.cpptraj_dir = ''
         self.python_exe_paths = dict((python_version,
                                       '/'.join((self.miniconda_root,
                                                 '/envs/pytraj' + python_version,
@@ -114,7 +119,22 @@ class PipBuilder(object):
         print('PASSED: build test for {}'.format(whl_file))
 
     def check_cpptraj_and_required_libs(self):
-        assert os.environ.get("CPPTRAJHOME"), "must set CPPTRAJHOME"
+        pytraj_home = os.path.abspath(os.path.dirname(__file__).strip('scripts'))
+        cpptraj_home = os.environ.get("CPPTRAJHOME", '')
+        if not cpptraj_home:
+            print('CPPTRAJHOME is not yet set')
+            ext = 'so' if not sys.platform.startswith('darwin') else 'dylib'
+            if not self.cpptraj_dir:
+                self.cpptraj_dir = pytraj_home + '/cpptraj/'
+            suggested_libcpptraj = self.cpptraj_dir + '/lib/libcpptraj.' + ext
+            print('Looking for {}'.format(suggested_libcpptraj))
+            if os.path.exists(suggested_libcpptraj):
+                print('Found')
+                os.environ['CPPTRAJHOME'] = self.cpptraj_dir
+                print('CPPTRAJHOME is set to {}'.format(self.cpptraj_dir))
+            else:
+                raise EnvironmentError('Must set CPPTRAJHOME')
+
         for package in self.REQUIRED_PACKAGES:
             try:
                __import__(package) 
@@ -126,6 +146,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser('Build wheel file to upload to pypi')
     parser.add_argument('tarfile')
     parser.add_argument('--py', default=None, help='Python version. Default: build all versions (2.7, 3.4, 3.5)')
+    parser.add_argument('--cpptraj-dir', default='', help='cpptraj dir, optional')
     args = parser.parse_args()
 
     tarfile = os.path.abspath(args.tarfile)
@@ -134,5 +155,6 @@ if __name__ == '__main__':
     pytraj_home = os.path.dirname(__file__).strip('scripts')
     builder = PipBuilder(tarfile=tarfile,
                          pytraj_home=pytraj_home,
-                         python_versions=python_versions)
+                         python_versions=python_versions,
+                         cpptraj_dir=args.cpptraj_dir)
     builder.run()
