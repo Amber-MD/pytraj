@@ -3,6 +3,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 from pytraj.sandbox import to_parmed
 import parmed as pmd
@@ -11,7 +12,7 @@ import parmed as pmd
 class TestParmEdConverter(unittest.TestCase):
 
     def test_parmed_converter(self):
-        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         parm = pmd.load_file(traj.top.filename)
         parm2 = to_parmed(traj)
 

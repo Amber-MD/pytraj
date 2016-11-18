@@ -1,7 +1,8 @@
 from __future__ import print_function
 import unittest
 from pytraj import *
-from pytraj import io as mdio
+import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 
 from pytraj.externals.six import zip
@@ -10,7 +11,7 @@ from pytraj.externals.six import zip
 class Test(unittest.TestCase):
 
     def test_0(self):
-        traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
 
         fa1 = traj[:]
 

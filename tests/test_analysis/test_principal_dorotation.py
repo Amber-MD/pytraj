@@ -1,6 +1,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 
 from pytraj.utils import aa_eq
 
@@ -8,7 +9,7 @@ from pytraj.utils import aa_eq
 class TestPrincipalAxis(unittest.TestCase):
 
     def test_principal_axes_and_lign_principal_axis(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
         cm = '''
         principal * dorotation mass name pout

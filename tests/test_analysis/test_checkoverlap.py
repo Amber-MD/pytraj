@@ -4,6 +4,7 @@ from __future__ import print_function
 import os
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 from pytraj.testing import cpptraj_test_dir
 
@@ -14,7 +15,7 @@ class TestCheckOverlap(unittest.TestCase):
         '''overlap checking
         '''
         tz2_bad = os.path.join(cpptraj_test_dir, 'Test_CheckStructure', 'tz2.stretched.pdb')
-        traj = pt.iterload(tz2_bad, "data/tz2.parm7")
+        traj = pt.iterload(tz2_bad, fn('tz2.parm7'))
 
         data = pt.check_overlap(traj, options='offset 0.7')
         aa_eq(data[0], [4])

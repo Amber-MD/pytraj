@@ -1,5 +1,6 @@
 from __future__ import print_function
 import pytraj as pt
+from utils import fn
 import numpy as np
 import unittest
 from pytraj.testing import aa_eq
@@ -9,7 +10,7 @@ from pytraj.externals.six import izip as zip
 class TestSearchHbonds(unittest.TestCase):
 
     def test_hbond_general(self):
-        traj = pt.iterload("./data/DPDP.nc", "./data/DPDP.parm7")
+        traj = pt.iterload(fn('DPDP.nc'), fn('DPDP.parm7'))
         dslist = pt.search_hbonds(traj, dtype='dataset')
         for key in dslist.keys():
             if 'UU' not in key:
@@ -28,21 +29,21 @@ class TestSearchHbonds(unittest.TestCase):
                           lambda: pt.hbond(traj, series=False, dtype='hbond'))
 
     def test_hbonds_with_image(self):
-        traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
 
         hbonds_0 = pt.search_hbonds(traj(autoimage=True))
         hbonds_1 = pt.search_hbonds(traj, image=True)
         aa_eq(hbonds_0.values, hbonds_1.values)
 
     def test_hbonds_from_pdb(self):
-        traj = pt.load('data/1L2Y.pdb')
+        traj = pt.load(fn('1L2Y.pdb'))
         hb = pt.search_hbonds(traj)
 
         state = pt.load_cpptraj_state('''
-        parm data/1L2Y.pdb
-        trajin data/1L2Y.pdb
+        parm {pdb}
+        trajin {pdb}
         hbond series
-        ''')
+        '''.format(pdb=fn('1L2Y.pdb')))
         state.run()
 
         for data_p, data_cpp in zip(hb.data, state.data[1:]):

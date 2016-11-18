@@ -1,14 +1,17 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 
+
+from utils import fn
 
 class TestCenter(unittest.TestCase):
 
     def test_center(self):
-        traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
-        pt.load("./data/tz2.center_mass.nc", traj.top)
+        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
+        pt.load(fn("tz2.center_mass.nc"), traj.top)
 
         fa = traj[:]
         fa2 = traj[:].copy()
@@ -30,7 +33,7 @@ class TestCenter(unittest.TestCase):
         aa_eq(pt.center_of_geometry(fa2, ':1')[0], [0, 1, 2])
 
         # on_disk
-        traj_on_disk = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        traj_on_disk = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         pt.center(traj_on_disk, ':1', center=[0, 1, 2], mass=True)
         aa_eq(pt.center_of_mass(traj_on_disk, ':1')[0], [0, 1, 2])
 

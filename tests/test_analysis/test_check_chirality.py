@@ -2,6 +2,7 @@
 
 from __future__ import print_function
 import pytraj as pt
+from utils import fn
 from pytraj.testing import cpptraj_test_dir, aa_eq
 
 cpptraj_test_dir + '/tz2.parm7'
@@ -14,7 +15,7 @@ checkchirality
 """
 
 def test_check_structure():
-    traj = pt.iterload('data/DPDP.nc', 'data/DPDP.parm7')
+    traj = pt.iterload(fn('DPDP.nc'), fn('DPDP.parm7'))
     out_dict = pt.check_chirality(traj)
 
     state = pt.load_cpptraj_state(cm)

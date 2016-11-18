@@ -1,5 +1,6 @@
 import unittest
 import pytraj as pt
+from utils import fn
 from array import array
 import numpy as np
 from pytraj import Frame
@@ -17,9 +18,9 @@ FRAME_orig = FRAME.copy()
 class TestFrame(unittest.TestCase):
 
     def test_fit(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
-        trajnew = pt.iterload("./data/md1_prod.fit_to_first.Tc5b.x",
-                              "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
+        trajnew = pt.iterload(fn('md1_prod.fit_to_first.Tc5b.x'),
+                              fn('Tc5b.top'))
 
         # make sure 0-th frame does not change
         frame0 = traj[0]
@@ -56,7 +57,7 @@ class TestFrame(unittest.TestCase):
 
     def test_rmsd_return_mat_vec_vec(self):
         # TODO : add assert
-        farray = Trajectory("./data/Tc5b.x", "./data/Tc5b.top")
+        farray = Trajectory(fn('Tc5b.x'), fn('Tc5b.top'))
         frame0 = farray[0]
         rmsd, mat, v1, v2 = frame0.rmsd(farray[1], get_mvv=True)
         assert abs(rmsd - 10.3964) < 1E-3

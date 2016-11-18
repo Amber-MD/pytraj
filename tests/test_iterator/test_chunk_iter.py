@@ -1,5 +1,6 @@
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj import *
 from pytraj import *
 from pytraj import io as mdio
@@ -12,7 +13,7 @@ class Test(unittest.TestCase):
 
     def test_0(self):
         dslist = CpptrajDatasetList()
-        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
         calc_distance = adict['distance']
 
@@ -22,13 +23,13 @@ class Test(unittest.TestCase):
         act.compute((traj.iterchunk(2), ))
         assert dslist.size == 1
         assert dslist[0].size == traj.n_frames
-        cppout = np.loadtxt("./data/CAres2_CAres10.Tc5b.dat",
+        cppout = np.loadtxt(fn('CAres2_CAres10.Tc5b.dat'),
                             skiprows=1).transpose()[1]
         assert_almost_equal(dslist[0][:], cppout)
         act.compute((traj.iterchunk(chunksize=4, stop=8), ))
 
     def test_1(self):
-        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         i = 0
         for farray in traj.iterchunk(chunksize=4, stop=8):
             i += 1

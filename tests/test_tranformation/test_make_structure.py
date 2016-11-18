@@ -1,6 +1,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 from pytraj.testing import cpptraj_test_dir
 
@@ -10,7 +11,7 @@ class TestMakeStructure(unittest.TestCase):
     def test_makestructure(self):
         # https://github.com/Amber-MD/cpptraj/issues/27
         # load only 1st frame
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
         #  pply polyproline II dihedral to residues 1-13
         t0 = traj[:1].copy()

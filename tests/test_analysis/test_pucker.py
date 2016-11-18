@@ -3,6 +3,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 
 cm = '''
@@ -20,7 +21,7 @@ class TestPucker(unittest.TestCase):
     '''
 
     def test_pucker(self):
-        traj = pt.iterload('data/Test_NAstruct/adh026.3.pdb')
+        traj = pt.iterload(fn('Test_NAstruct/adh026.3.pdb'))
         state = pt.load_cpptraj_state(cm, traj)
         state.run()
 

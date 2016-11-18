@@ -1,5 +1,6 @@
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.testing import aa_eq
 
 

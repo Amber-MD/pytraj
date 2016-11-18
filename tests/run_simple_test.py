@@ -5,6 +5,7 @@
 import unittest
 from pytraj import *
 import pytraj as pt
+from utils import fn
 from pytraj.analysis.c_action.c_action import ActionDict
 from pytraj.trajectory.c_traj import *
 from pytraj.datasets import *

@@ -47,7 +47,7 @@ class TestTopology(unittest.TestCase):
             assert idx == res.index, 'res.index'
 
     def test_get_iter(self):
-        top = pt.load_topology("./data/DOPC.parm7")
+        top = pt.load_topology(fn('DOPC.parm7'))
         [atom.name for atom in top[":PC@H*"]]
         top[":PC@H*"][0]
 
@@ -96,7 +96,7 @@ class TestTopology(unittest.TestCase):
 
     def test_basic(self):
         '''slicing, select'''
-        top = pt.load_topology("./data/Tc5b.top")
+        top = pt.load_topology(fn('Tc5b.top'))
 
         #
         assert isinstance(top[0], Atom)
@@ -120,7 +120,7 @@ class TestTopology(unittest.TestCase):
 
     def test_simplifed_topology(self):
         '''simplify'''
-        top = pt.load_topology("./data/Tc5b.top")
+        top = pt.load_topology(fn('Tc5b.top'))
         sim_top = top.simplify()
 
         for atom, sim_atom in zip(top.atoms, sim_top.atoms):

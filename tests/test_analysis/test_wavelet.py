@@ -3,12 +3,13 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 
 class TestWavelet(unittest.TestCase):
 
     def test_wavelet(self):
-        traj = pt.load("data/DPDP.nc", "data/DPDP.parm7")
+        traj = pt.load(fn('DPDP.nc'), fn('DPDP.parm7'))
         traj.superpose('@C,CA,N', ref=0)
         command = 'name mywave nb 10 s0 2 ds 0.25 type morlet correction 1.01 chival 0.25 :1-22 cluster minpoints 66 epsilon 10.0'
         data = pt.wavelet(traj, command)

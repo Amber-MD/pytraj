@@ -1,13 +1,14 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 
 
 class Test(unittest.TestCase):
 
     def test_0(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
         traj(0, 8, 2, mask='@CA').save('output/test0.nc', overwrite=True)
         pt.write_traj('./output/test1.nc',

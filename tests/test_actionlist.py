@@ -12,13 +12,15 @@ from pytraj.datasets import DatasetList as CpptrajDatasetList
 from pytraj.datafiles.datafiles import DataFileList
 from pytraj import ActionList
 from pytraj import Pipeline
-from pytraj.testing import cpptraj_test_dir
+from pytraj.testing import cpptraj_test_dir, tempfolder
+
+from utils import fn, tc5b_trajin, tc5b_top
 
 
 class TestActionList(unittest.TestCase):
 
     def test_distances(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")[:]
+        traj = pt.iterload(tc5b_trajin, tc5b_top)[:]
 
         trajin = pt.datafiles.tc5b_trajin + """
         distance @CB @CA
@@ -39,15 +41,11 @@ class TestActionList(unittest.TestCase):
 
     def test_run_0(self):
         # load traj
-        farray = pt.load(filename="./data/tz2.truncoct.nc",
-                         top="./data/tz2.truncoct.parm7")[:2]
+        farray = pt.load(filename=fn('tz2.truncoct.nc'),
+                         top=fn("tz2.truncoct.parm7"))[:2]
         farray.copy()
 
         allactions.Action_Image()
-        ptrajin = """
-        center :2-11
-        image center familiar com :6
-        """
 
         # create 'strip' action
         allactions.Action_Strip()
@@ -90,12 +88,12 @@ class TestActionList(unittest.TestCase):
         assert farray2.n_frames == farray.n_frames
 
         fsaved = pt.iterload(cpptraj_test_dir + "/Test_Image/image4.crd.save",
-                             "data/tz2.truncoct.parm7")
+                             fn("tz2.truncoct.parm7"))
         assert fsaved.n_frames == 2
 
     def test_run_1(self):
         # load traj
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(tc5b_trajin, tc5b_top)
         dslist = CpptrajDatasetList()
         dflist = DataFileList()
 
@@ -123,24 +121,24 @@ class TestActionList(unittest.TestCase):
 
     def test_run_2(self):
         # load traj
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(tc5b_trajin, tc5b_top)
         dslist = CpptrajDatasetList()
         dflist = DataFileList()
 
         # creat ActionList to hold actions
         alist = ActionList()
         alist.add(adict['distance'],
-                  ":2@CA :10@CA out ./output/_dist.out", traj.top,
+                  ":2@CA :10@CA out _dist.out", traj.top,
                   dslist, dflist)
-        alist.compute([traj.iterchunk()])
-        print('dslist', dslist[0].size)
+        with tempfolder():
+            alist.compute([traj.iterchunk()])
         assert len(dslist) == 1
         assert dslist[0].size == traj.n_frames
 
     def test_run_3(self):
         dslist = CpptrajDatasetList()
         actlist = ActionList()
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(tc5b_trajin, tc5b_top)
         mask_list = ['@CB @CA @N', '@CA @H @N']
 
         for mask in mask_list:
@@ -149,7 +147,6 @@ class TestActionList(unittest.TestCase):
                         traj.top,
                         dslist=dslist)
         actlist.compute(traj)
-
         pt.calc_angle(traj, mask_list)
 
         dslist3_0 = pt.calc_angle(traj, mask_list[0])
@@ -163,7 +160,7 @@ class TestActionList(unittest.TestCase):
     def test_run_4(self):
         dslist = CpptrajDatasetList()
         actlist = ActionList()
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(tc5b_trajin, tc5b_top)
         mask_list = ['@CB @CA @N @H', '@CA @H @N @H=']
 
         for mask in mask_list:
@@ -184,7 +181,7 @@ class TestActionList(unittest.TestCase):
         aa_eq(dslist3_1, dslist[1].to_ndarray())
 
     def test_run_5(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(tc5b_trajin, tc5b_top)
         mask_list = ('@CB @CA', '@CA @H')
         dslist = CpptrajDatasetList()
         actlist = ActionList()
@@ -200,7 +197,7 @@ class TestActionList(unittest.TestCase):
         aa_eq(dslist.values, dslist2)
 
     def test_6(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(tc5b_trajin, tc5b_top)
         mask_list = ('@CB @CA', '@CA @H')
         dslist = pt.calc_distance(traj, mask_list)
         dslist3_0 = pt.calc_distance(traj, mask_list[0])
@@ -210,7 +207,7 @@ class TestActionList(unittest.TestCase):
         aa_eq(dslist3_1, dslist[1])
 
     def test_constructor_from_command_list_TrajectoryIterator(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(tc5b_trajin, tc5b_top)
 
         commands = ['rmsd @CA', 'distance :3 :7', 'distance     :3 :7',
                     'vector :2 :3']
@@ -237,7 +234,7 @@ class TestActionList(unittest.TestCase):
     def test_constructor_from_command_list_Trajectory(self):
         '''mutable Trajectory'''
         # use `load` method rather `iterload`
-        traj = pt.load("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        traj = pt.load(fn("tz2.ortho.nc"), fn("tz2.ortho.parm7"))
 
         # make sure no space-sensitivity
         # make the code (commands) ugly is my intention.
@@ -268,7 +265,7 @@ class TestActionList(unittest.TestCase):
 
     def test_constructor_from_command_list_TrajectoryIterator_no_DatasetList(
             self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(tc5b_trajin, tc5b_top)
 
         commands = ['rmsd @CA', 'distance :3 :7', 'distance     :3 :7',
                     'vector :2 :3']
@@ -288,7 +285,7 @@ class TestActionList(unittest.TestCase):
             actlist.data[3].values)
 
     def test_modify_frame(self):
-        traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        traj = pt.iterload(fn("tz2.ortho.nc"), fn("tz2.ortho.parm7"))
         dslist = CpptrajDatasetList()
         dslist.add('topology', name='mytop')
 
@@ -307,7 +304,7 @@ class TestActionList(unittest.TestCase):
                                  autoimage=True))
 
     def test_modify_frame_use_Pipeline(self):
-        traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        traj = pt.iterload(fn("tz2.ortho.nc"), fn("tz2.ortho.parm7"))
         dslist = CpptrajDatasetList()
         dslist.add('topology', name='mytop')
 
@@ -326,7 +323,7 @@ class TestActionList(unittest.TestCase):
                                  autoimage=True))
 
     def test_combine_with_frame_iterator(self):
-        traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        traj = pt.iterload(fn("tz2.ortho.nc"), fn("tz2.ortho.parm7"))
         dslist = CpptrajDatasetList()
 
         commands = ['autoimage', 'rms', ]
@@ -351,7 +348,7 @@ class TestActionList(unittest.TestCase):
         aa_eq(np.array([frame.xyz for frame in new_list]), t0.xyz)
 
     def test_combine_cpptraj_iterating_with_pytraj(self):
-        traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        traj = pt.iterload(fn("tz2.ortho.nc"), fn("tz2.ortho.parm7"))
         commands = ['autoimage', 'rms', ]
 
         dslist = CpptrajDatasetList()
@@ -374,7 +371,7 @@ class TestActionList(unittest.TestCase):
         aa_eq(rmsd_nofit_after_fitting, saved_rmsd_)
 
     def test_pipe(self):
-        traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        traj = pt.iterload(fn("tz2.ortho.nc"), fn("tz2.ortho.parm7"))
 
         # from TrajectoryIterator
         fi = pt.pipe(traj, ['autoimage', 'rms'])
@@ -403,7 +400,7 @@ class TestActionList(unittest.TestCase):
         aa_eq(xyz, t0.xyz)
 
     def test_reference(self):
-        traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        traj = pt.iterload(fn("tz2.ortho.nc"), fn("tz2.ortho.parm7"))
 
         # store reference
         dslist = CpptrajDatasetList()
@@ -418,7 +415,6 @@ class TestActionList(unittest.TestCase):
         t0 = (traj[:]
               .autoimage()
               .superpose(ref=traj[3], mask='@CA'))
-        print('ok')
         aa_eq(xyz, t0.xyz)
 
         t1 = traj[:].autoimage()

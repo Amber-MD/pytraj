@@ -2,13 +2,14 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 
 
 class TestMolsurf(unittest.TestCase):
 
     def setUp(self):
-        self.traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        self.traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
     def test_molsurf(self):
         traj = self.traj
@@ -33,7 +34,7 @@ class TestMolsurf(unittest.TestCase):
             aa_eq(pt.molsurf(traj, mask, probe=1.2, offset=0.3), cpp_data[2])
 
     def test_surf(self):
-        traj = pt.iterload('data/DPDP.nc', 'data/DPDP.parm7')
+        traj = pt.iterload(fn('DPDP.nc'), fn('DPDP.parm7'))
 
         text = '''
         parm {0}

@@ -1,7 +1,8 @@
 from __future__ import print_function
 import unittest
 
-from pytraj import io as mdio
+import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 
 
@@ -10,7 +11,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         import numpy as np
         from pytraj import dihedral_analysis as da
-        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
         # resrange 7, phi psi
         saved_file = './data/test_multidihedral.dat'

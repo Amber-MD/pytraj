@@ -3,6 +3,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 
 
@@ -12,7 +13,7 @@ class TestIterFrame(unittest.TestCase):
         '''test iterframe for both Trajectory and TrajectoryIterator
         '''
 
-        orig_traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        orig_traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         # iterframe (already in doctest), just throwing raise to increase coverage score
 
         for traj in [orig_traj, orig_traj[:]]:

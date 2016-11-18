@@ -5,6 +5,7 @@ import unittest
 import os
 import numpy as np
 import pytraj as pt
+from utils import fn
 from pytraj import vector as va
 from pytraj.testing import aa_eq
 from pytraj.testing import cpptraj_test_dir
@@ -16,7 +17,7 @@ from pytraj.analysis.c_action import c_action as CA
 class TestVectorAnalysisModule(unittest.TestCase):
 
     def test_vector_raise(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         arr = np.arange(100).astype('i4').reshape(2, 25, 2)
         self.assertRaises(ValueError, lambda: pt.vector.vector_mask(traj, arr))
 
@@ -25,7 +26,7 @@ class TestVectorAnalysisModule(unittest.TestCase):
         '''
         dslist = DatasetList()
         actlist = ActionList()
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         mask_list = ['@CB @CA', '@CA @H']
 
         for mask in mask_list:
@@ -61,7 +62,7 @@ class TestVectorAnalysisModule(unittest.TestCase):
 
         n_indices_cpp = []
 
-        with open('data/ired.in', 'r') as fh:
+        with open(fn('ired.in'), 'r') as fh:
             lines = fh.readlines()
             for line in lines:
                 if 'vector' in line and 'ired' in line:
@@ -102,7 +103,7 @@ class TestVectorAnalysisModule(unittest.TestCase):
         # test ired vector with ired matrix
         # open file
 
-        with open('data/ired_reduced.in', 'r') as fh:
+        with open(fn('ired_reduced.in'), 'r') as fh:
             text = ''.join(fh.readlines())
         state2 = pt.load_batch(traj, text)
         state2.run()

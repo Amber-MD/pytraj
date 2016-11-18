@@ -1,5 +1,6 @@
 # that stops travis
 import pytraj as pt
+from utils import fn
 from memory_profiler import profile
 
 

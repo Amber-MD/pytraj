@@ -5,19 +5,22 @@ import numpy as np
 import pytraj as pt
 from pytraj.testing import aa_eq
 
+from utils import fn
+
 class TestNastruct(unittest.TestCase):
 
     def test_nupars(self):
-        fn = "./data/Test_NAstruct/adh026.3.pdb"
-        traj = pt.iterload(fn, fn)
+        pdb_fn = fn('Test_NAstruct/adh026.3.pdb')
+        traj = pt.iterload(pdb_fn, pdb_fn)
         data = pt.nastruct(traj)
 
         # default
         text = '''
-        parm "./data/Test_NAstruct/adh026.3.pdb"
-        trajin "./data/Test_NAstruct/adh026.3.pdb"
+        parm {}
+        trajin {}
         nastruct groovecalc 3dna
-        '''
+        '''.format(fn('Test_NAstruct/adh026.3.pdb'),
+                   fn('Test_NAstruct/adh026.3.pdb'))
 
         state = pt.load_cpptraj_state(text)
         state.run()
@@ -50,10 +53,10 @@ class TestNastruct(unittest.TestCase):
         self.assertRaises(ValueError, lambda: pt.nastruct(traj, dtype='ndarray'))
 
     def test_baseref(self):
-        fn = "./data/Test_NAstruct/adh026.3.pdb"
-        baseref_fn = 'data/Test_NAstruct/Atomic_G.pdb.nastruct'
+        pdb_fn = fn('Test_NAstruct/adh026.3.pdb')
+        baseref_fn = fn('Test_NAstruct/Atomic_G.pdb.nastruct')
 
-        traj = pt.iterload(fn, fn)
+        traj = pt.iterload(pdb_fn, pdb_fn)
         data = pt.nastruct(traj, baseref=baseref_fn)
 
         saved_data = """
@@ -78,11 +81,11 @@ class TestNastruct(unittest.TestCase):
         aa_eq(data.minor[1][0], [15.8085, 15.8180, 15.4856], decimal=3)
 
     def test_nupars_vs_x3dna(self):
-        traj = pt.iterload('data/Test_NAstruct/x3dna/rna.pdb')
-        ref = pt.iterload('data/Test_NAstruct/x3dna/rna_nab.pdb')
+        traj = pt.iterload(fn('Test_NAstruct/x3dna/rna.pdb'))
+        ref = pt.iterload(fn('Test_NAstruct/x3dna/rna_nab.pdb'))
         nu = pt.nastruct(traj, ref=ref, groove_3dna=True)
 
-        root = 'data/Test_NAstruct/x3dna/'
+        root = fn('Test_NAstruct/x3dna/')
 
         # helical pars
         saved_helical_pars = np.loadtxt(root + 'bp_helical.par',

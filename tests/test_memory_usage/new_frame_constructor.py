@@ -1,4 +1,5 @@
 import pytraj as pt
+from utils import fn
 from pytraj.testing import Timer
 from memory_profiler import profile
 

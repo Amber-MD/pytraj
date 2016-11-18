@@ -2,6 +2,7 @@ from __future__ import print_function
 import unittest
 import numpy as np
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 from pytraj.testing import cpptraj_test_dir
 
@@ -9,7 +10,7 @@ from pytraj.testing import cpptraj_test_dir
 class TestAtomicFluct(unittest.TestCase):
 
     def test_bfactors(self):
-        traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         iter_options = {'start': 9, 'stop': 30, 'step': 2}
 
         bfactors = pt.calc_bfactors(traj(**iter_options))
@@ -23,7 +24,7 @@ class TestAtomicFluct(unittest.TestCase):
         assert b2[0].key == 'B-factors'
 
     def test_RMSF(self):
-        traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
         state = pt.load_batch(traj, '''
         rms first
@@ -42,7 +43,7 @@ class TestAtomicFluct(unittest.TestCase):
 
     def test_calc_atomicfluct_with_unitcell(self):
         # use iterload for load_batch
-        traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         state = pt.load_cpptraj_state('''
         distance :3 :7
         atomicfluct @CA out output/test.agr
@@ -50,7 +51,7 @@ class TestAtomicFluct(unittest.TestCase):
         state.run()
 
         # use `load` method
-        t0 = pt.load("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        t0 = pt.load(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         data = pt.atomicfluct(traj, '@CA')
         aa_eq(data, state.data[-2].values)
         # make sure that traj's coordinates were not altered

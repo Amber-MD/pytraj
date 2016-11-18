@@ -2,22 +2,24 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 
-from pytraj import io as mdio
+import pytraj as pt
 from pytraj.utils import aa_eq
+
+from utils import fn, tc5b_top, tc5b_trajin
 
 
 class TestDihedral(unittest.TestCase):
 
     def test_dihedral(self):
         import numpy as np
-        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         fa = traj[:]
         mask = ':2@CA :14@CA :15@CA :16@CA'
         txt = '''
-        parm ./data/Tc5b.top
-        trajin ./data/Tc5b.x
-        dihedral %s
-        ''' % mask
+        parm {}
+        trajin {}
+        dihedral {}
+        '''.format(tc5b_top, tc5b_trajin, mask)
         d0 = pt.dihedral(traj, mask, dtype='dataset').to_ndarray()
         d1 = pt.dihedral(traj, mask)
         d2 = pt.calc_dihedral(fa, mask)

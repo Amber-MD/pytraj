@@ -1,5 +1,6 @@
 import unittest
 import pytraj as pt
+from utils import fn
 
 from pytraj import adict
 from pytraj.testing import aa_eq
@@ -9,33 +10,33 @@ from pytraj.utils.tools import rmsd_1darray
 class TestRegular(unittest.TestCase):
 
     def test_1(self):
-        traj = pt.iterload("./data/tz2.truncoct.nc",
-                           "./data/tz2.truncoct.parm7")
+        traj = pt.iterload(fn('tz2.truncoct.nc'),
+                           fn('tz2.truncoct.parm7'))
         f0 = traj[0]
         f0.copy()
         adict['autoimage']("", f0, traj.top)
 
-        fsaved = pt.iterload("./data/tz2.truncoct.autoiamge.save.r",
-                             "./data/tz2.truncoct.parm7")[0]
+        fsaved = pt.iterload(fn('tz2.truncoct.autoiamge.save.r'),
+                             fn('tz2.truncoct.parm7'))[0]
         aa_eq(fsaved.xyz, f0.xyz, decimal=3)
 
     def test_2(self):
         from pytraj.all_actions import do_autoimage
         # test do_autoimage
-        traj = pt.iterload("./data/tz2.truncoct.nc",
-                           "./data/tz2.truncoct.parm7")
+        traj = pt.iterload(fn('tz2.truncoct.nc'),
+                           fn('tz2.truncoct.parm7'))
         f0 = traj[0]
         f0.copy()
         do_autoimage(traj=f0, top=traj.top)
 
-        fsaved = pt.iterload("./data/tz2.truncoct.autoiamge.save.r",
-                             "./data/tz2.truncoct.parm7")[0]
+        fsaved = pt.iterload(fn('tz2.truncoct.autoiamge.save.r'),
+                             fn('tz2.truncoct.parm7'))[0]
         aa_eq(fsaved.xyz, f0.xyz, decimal=3)
 
     def test_4(self):
         # combined with get_coordinates
-        traj0 = pt.iterload("./data/tz2.truncoct.nc",
-                            "./data/tz2.truncoct.parm7")
+        traj0 = pt.iterload(fn('tz2.truncoct.nc'),
+                            fn('tz2.truncoct.parm7'))
 
         # test autoimage
         traj1 = traj0[:]
@@ -80,13 +81,13 @@ class TestWithRmsfit(unittest.TestCase):
         # TrajectoryIterrator
         # status: failed
         from pytraj.externals.six import zip
-        traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         pt.write_traj("./output/tz2.autoimage_with_rmsfit.nc",
                       traj(autoimage=True,
                            rmsfit=(0, '@CA,C,N')),
                       overwrite=True)
 
-        saved_traj = pt.load('data/tz2.autoimage_with_rmsfit.nc', traj.top)
+        saved_traj = pt.load(fn('tz2.autoimage_with_rmsfit.nc'), traj.top)
         p_traj = pt.load('./output/tz2.autoimage_with_rmsfit.nc', traj.top)
 
         aa_eq(saved_traj.xyz, p_traj.xyz)
@@ -97,10 +98,10 @@ class TestWithRmsfit(unittest.TestCase):
         # status: OK
         pass
         # note: use `load` instead of `iterload`
-        traj = pt.load("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        traj = pt.load(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         traj.autoimage()
         traj.rmsfit(mask='@CA,C,N')
-        saved_traj = pt.load('data/tz2.autoimage_with_rmsfit.nc', traj.top)
+        saved_traj = pt.load(fn('tz2.autoimage_with_rmsfit.nc'), traj.top)
 
         # PASSED
         aa_eq(saved_traj.xyz, traj.xyz)

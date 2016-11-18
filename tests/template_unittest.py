@@ -2,7 +2,8 @@
 
 from __future__ import print_function
 import pytraj as pt
+from utils import fn
 
 
 def test_0():
-    traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+    traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))

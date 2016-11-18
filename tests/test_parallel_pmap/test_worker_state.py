@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 from __future__ import print_function
 import unittest
 from functools import partial
@@ -7,6 +6,8 @@ from pytraj.utils import aa_eq
 from pytraj.parallel.base import worker_by_state
 from pytraj.utils.tools import concat_dict
 
+from utils import fn
+
 
 class TestWorkerState(unittest.TestCase):
     '''temp test. name will be changed.
@@ -14,14 +15,14 @@ class TestWorkerState(unittest.TestCase):
 
     def test_different_cores(self):
         # use different frame_slice with different n_cores to test
-        REF_0 = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")[0]
+        REF_0 = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))[0]
 
         for frame_slice in [(0, 100),
                             (10, 100, 3),
                             (50, 80, 2),
                             (51, 80, 3), ]:
-            traj = pt.iterload("./data/tz2.nc",
-                               "./data/tz2.parm7",
+            traj = pt.iterload(fn('tz2.nc'),
+                               fn('tz2.parm7'),
                                frame_slice=frame_slice)
             saved_angle = pt.angle(traj, ':3 :7 :9')
             saved_dist = pt.distance(traj, ':2 :10')
@@ -38,7 +39,7 @@ class TestWorkerState(unittest.TestCase):
 
     def test_multiple_cores(self):
         from multiprocessing import Pool
-        traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         for _ in range(10):
             traj._load(traj.filelist)
         saved_angle = pt.angle(traj, ':3 :10 :11')

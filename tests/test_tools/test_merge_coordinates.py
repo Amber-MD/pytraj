@@ -1,6 +1,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 
 
 class Test(unittest.TestCase):
@@ -10,8 +11,8 @@ class Test(unittest.TestCase):
         pass
 
         # load 2 frames
-        traj = pt.iterload("./data/Tc5b.x",
-                           "./data/Tc5b.top",
+        traj = pt.iterload(fn('Tc5b.x'),
+                           fn('Tc5b.top'),
                            frame_slice=(0, 2))
 
         # test mutable traj
@@ -38,8 +39,8 @@ class Test(unittest.TestCase):
         import numpy as np
 
         # load 2 frames
-        traj = pt.iterload("./data/Tc5b.x",
-                           "./data/Tc5b.top",
+        traj = pt.iterload(fn('Tc5b.x'),
+                           fn('Tc5b.top'),
                            frame_slice=(0, 2))
 
         # test mutable traj

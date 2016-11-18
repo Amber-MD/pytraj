@@ -4,6 +4,7 @@ from __future__ import print_function
 import unittest
 import numpy as np
 import pytraj as pt
+from utils import fn
 from pytraj.utils import eq, aa_eq
 from pytraj.version import version
 from pytraj.utils.get_common_objects import get_reference
@@ -16,7 +17,7 @@ import pytest
 class TestExtraCoverage(unittest.TestCase):
 
     def setUp(self):
-        self.traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        self.traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
     def test_datafiles(self):
         traj = pt.datafiles.load_remd_ala2()
@@ -28,7 +29,7 @@ class TestExtraCoverage(unittest.TestCase):
     def test_extra_coverage(self):
         '''all kind of tests that do not belong to anywhere else
         '''
-        traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
         # show_versions
         pt.show_versions()
