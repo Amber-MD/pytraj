@@ -36,14 +36,14 @@ class TestSearchHbonds(unittest.TestCase):
         aa_eq(hbonds_0.values, hbonds_1.values)
 
     def test_hbonds_from_pdb(self):
-        traj = pt.load('data/1L2Y.pdb')
+        traj = pt.load(fn('1L2Y.pdb'))
         hb = pt.search_hbonds(traj)
 
         state = pt.load_cpptraj_state('''
-        parm data/1L2Y.pdb
-        trajin data/1L2Y.pdb
+        parm {pdb}
+        trajin {pdb}
         hbond series
-        ''')
+        '''.format(pdb=fn('1L2Y.pdb')))
         state.run()
 
         for data_p, data_cpp in zip(hb.data, state.data[1:]):

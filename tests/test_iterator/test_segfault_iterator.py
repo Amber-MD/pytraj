@@ -1,8 +1,9 @@
 from __future__ import print_function
 import unittest
+import itertools as it
 from pytraj import io
 
-import itertools as it
+from utils import fn
 """
 try not to get segmentation fault error (due to whatever freaking reason)
 """

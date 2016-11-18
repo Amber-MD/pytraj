@@ -2,8 +2,9 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
-from utils import fn
 from pytraj.utils import aa_eq
+
+from utils import fn
 
 
 class TestGrid(unittest.TestCase):
@@ -40,12 +41,13 @@ class TestGridAction(unittest.TestCase):
         grid_data = pt._grid(traj, mask=':1-13', grid_spacing=[0.5, 0., 0.])
 
         text = '''
-        parm data/tz2.ortho.parm7
-        trajin data/tz2.ortho.nc
+        parm {}
+        trajin {}
         autoimage
         rms first :1-13&!@H= mass
         bounds :1-13 dx .5 name MyGrid
-        '''
+        '''.format(fn('tz2.ortho.parm7'),
+                   fn('tz2.ortho.nc'))
 
         state = pt.load_cpptraj_state(text)
         state.run()
@@ -54,12 +56,14 @@ class TestGridAction(unittest.TestCase):
 
     def test_just_run_state(self):
         txt = '''
-        parm data/tz2.truncoct.parm7
-        trajin data/tz2.truncoct.nc
-        reference data/tz2.truncoct.nc [REF]
+        parm {}
+        trajin {}
+        reference {} [REF]
         autoimage triclinic
         grid nonortho.dx boxref [REF] 50 50 50 :WAT@O pdb output/test.pdb
-        '''
+        '''.format(fn('tz2.truncoct.parm7'),
+                   fn('tz2.truncoct.nc'),
+                   fn('tz2.truncoct.nc'))
 
         state = pt.load_cpptraj_state(txt)
         state.run()
