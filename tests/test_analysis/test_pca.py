@@ -4,6 +4,7 @@ from __future__ import print_function
 import unittest
 import numpy as np
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 import pytest
 
@@ -40,7 +41,7 @@ class TestPCA(unittest.TestCase):
         crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
         '''
 
-        traj = pt.load("data/tz2.nc", "data/tz2.parm7")
+        traj = pt.load(fn('tz2.nc'), fn('tz2.parm7'))
 
         # no reference
         state = pt.load_cpptraj_state(command)
@@ -77,7 +78,7 @@ class TestPCA(unittest.TestCase):
         crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
         '''
 
-        traj = pt.load("data/tz2.nc", "data/tz2.parm7")
+        traj = pt.load(fn('tz2.nc'), fn('tz2.parm7'))
 
         # no reference
         state = pt.load_cpptraj_state(command)
@@ -119,7 +120,7 @@ class TestPCA(unittest.TestCase):
         crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
         '''
 
-        traj = pt.load("data/tz2.nc", "data/tz2.parm7")
+        traj = pt.load(fn('tz2.nc'), fn('tz2.parm7'))
         ref = pt.load('data/tz2.rst7', traj.top)
 
         state = pt.load_cpptraj_state(command_ref_provided)
@@ -165,8 +166,8 @@ class TestPCA(unittest.TestCase):
         crdaction CRD1 projection evecs MyEvecs * out project.dat beg 1 end 2
         '''
 
-        traj = pt.load("data/tz2.nc", "data/tz2.parm7")
-        traj_on_disk  = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        traj = pt.load(fn('tz2.nc'), fn('tz2.parm7'))
+        traj_on_disk  = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         ref = pt.load('data/tz2.rst7', traj.top)
 
         state = pt.load_cpptraj_state(command_ref_provided)
@@ -186,8 +187,8 @@ class TestPCA(unittest.TestCase):
         """test_traj_on_disk_nofit
         """
         fit = False
-        traj_on_disk = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
-        traj_on_mem = pt.load('data/tz2.nc', 'data/tz2.parm7')
+        traj_on_disk = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
+        traj_on_mem = pt.load(fn('tz2.nc'), fn('tz2.parm7'))
         data0, _ = pt.pca(traj_on_disk, mask='@CA', n_vecs=2, fit=fit)
         data1, _ = pt.pca(traj_on_mem, mask='@CA', n_vecs=2, fit=fit)
         aa_eq(np.abs(data0), np.abs(data1))
@@ -195,8 +196,8 @@ class TestPCA(unittest.TestCase):
     def test_traj_on_disk_default_values(self):
         """test_traj_on_disk_default_values
         """
-        traj_on_disk = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
-        traj_on_mem = pt.load('data/tz2.nc', 'data/tz2.parm7')
+        traj_on_disk = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
+        traj_on_mem = pt.load(fn('tz2.nc'), fn('tz2.parm7'))
 
         data0, _ = pt.pca(traj_on_disk, mask='@CA')
         data1, _ = pt.pca(traj_on_mem, mask='@CA')
@@ -206,8 +207,8 @@ class TestPCA(unittest.TestCase):
         """test_traj_on_disk_fit_to_given_reference
         """
         fit = True 
-        traj_on_disk = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
-        traj_on_mem = pt.load('data/tz2.nc', 'data/tz2.parm7')
+        traj_on_disk = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
+        traj_on_mem = pt.load(fn('tz2.nc'), fn('tz2.parm7'))
         ref0 = traj_on_disk[0]
         ref1 = traj_on_mem[0]
 
@@ -218,7 +219,7 @@ class TestPCA(unittest.TestCase):
     def test_traj_on_disk_fit_to_given_reference_and_restore_transform_commands(self):
         """test_traj_on_disk_fit_to_given_reference_and_restore_transform_commands
         """
-        traj_on_disk = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
+        traj_on_disk = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         ref = traj_on_disk[0]
 
         assert not traj_on_disk._transform_commands
@@ -226,13 +227,13 @@ class TestPCA(unittest.TestCase):
         pt.pca(traj_on_disk, mask='@CA', ref=ref, fit=True)
         assert not traj_on_disk._transform_commands
 
-        traj_on_disk2 = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
+        traj_on_disk2 = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         traj_on_disk2.superpose()
         pt.pca(traj_on_disk2, mask='@CA', ref=ref, fit=True)
         assert len(traj_on_disk2._transform_commands) == 1
 
     def test_raises(self):
-        frame = pt.iterload('data/tz2.nc', 'data/tz2.parm7')[0]
+        frame = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))[0]
         with pytest.raises(ValueError):
             pt.pca(frame, mask='@CA')
 

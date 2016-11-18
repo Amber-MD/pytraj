@@ -3,6 +3,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.testing import cpptraj_test_dir
 from pytraj.utils.context import capture_stdout
 

@@ -2,13 +2,14 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 
 
 class TestDihedralCovarianceMatrix(unittest.TestCase):
     # TODO: add assertion
 
     def test_dihcovar(self):
-        pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         txt = '''
         parm data/tz2.parm7
         trajin data/tz2.nc

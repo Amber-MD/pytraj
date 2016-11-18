@@ -1,6 +1,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 
 
@@ -9,7 +10,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         from itertools import product
         import numpy as np
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         top = traj.top
         d0 = pt.mindist(traj, "@CA @CB")
         i0 = top("@CA").indices

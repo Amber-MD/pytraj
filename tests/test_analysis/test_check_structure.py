@@ -2,6 +2,7 @@
 
 from __future__ import print_function
 import pytraj as pt
+from utils import fn
 from pytraj.testing import cpptraj_test_dir
 
 tz2_fn = cpptraj_test_dir + '/tz2.parm7'

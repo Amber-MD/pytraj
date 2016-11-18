@@ -2,6 +2,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 
 
@@ -33,7 +34,7 @@ class TestGridAction(unittest.TestCase):
 
     def test_action_bounds(self):
         # creat mutable trajectory
-        traj = pt.load('data/tz2.ortho.nc', 'data/tz2.ortho.parm7')
+        traj = pt.load(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         pt.autoimage(traj)
         pt.superpose(traj, ref=0, mask=':1-13&!@H=', mass=True)
         grid_data = pt._grid(traj, mask=':1-13', grid_spacing=[0.5, 0., 0.])

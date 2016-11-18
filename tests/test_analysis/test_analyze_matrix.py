@@ -3,6 +3,7 @@ from __future__ import print_function
 import numpy as np
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 from pytraj import matrix
 '''figure out why sign of some eigenvectors are different
@@ -12,7 +13,7 @@ from pytraj import matrix
 class TestDiagMatrix(unittest.TestCase):
 
     def test_diagmatrix(self):
-        traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
         state = pt.load_batch(traj, '''
         #matrix covar @CA name mymat

@@ -2,6 +2,7 @@ from __future__ import print_function
 import os
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.testing import amberhome, aa_eq
 
 
@@ -177,7 +178,7 @@ class TestSander(unittest.TestCase):
         assert_close(edict['vdw'][0], 384.2512, tol=3E-4)
 
     def test_frame_indices(self):
-        traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         frame_indices = [0, 6, 7, 4, 5]
 
         data_without_frame_indices = pt.esander(traj, igb=8)
@@ -196,7 +197,7 @@ class TestSander(unittest.TestCase):
                   data_with_frame_indices_2[key])
 
     def test_mm_options_as_string(self):
-        traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         igb = 8
         mm_options = sander.gas_input(igb)
         mm_options_str = 'mm_options = sander.gas_input(8)'

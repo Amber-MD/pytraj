@@ -2,6 +2,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 import pytest
 
@@ -9,7 +10,7 @@ import pytest
 class TestVelocity(unittest.TestCase):
 
     def test_velocity(self):
-        traj = pt.iterload("./data/issue807/trunc.nc",
+        traj = pt.iterload(fn('issue807/trunc.nc'),
                            "data/issue807/system.prmtop")
 
         traj[0]
@@ -31,13 +32,13 @@ class TestVelocity(unittest.TestCase):
         aa_eq(vels, vels_)
 
         # raise if not having velocity
-        traj2 = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
+        traj2 = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         with pytest.raises(ValueError):
             pt.get_velocity(traj2)
 
     def test_velocityautocorr(self):
         # usevelocity = False
-        traj = pt.iterload("./data/issue807/trunc.nc",
+        traj = pt.iterload(fn('issue807/trunc.nc'),
                            "data/issue807/system.prmtop")
         data0 = pt.all_actions.velocityautocorr(traj, tstep=2, norm=True, direct=True)
 

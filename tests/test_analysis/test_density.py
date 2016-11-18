@@ -4,6 +4,7 @@ from __future__ import print_function
 import unittest
 import numpy as np
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 
 
@@ -11,9 +12,9 @@ class TestDensity(unittest.TestCase):
 
     def test_density(self):
         fn = "data/DOPC.rst7"
-        tn = "data/DOPC.parm7"
+        tn = fn('DOPC.parm7')
 
-        traj = pt.load("data/DOPC.rst7", "data/DOPC.parm7")
+        traj = pt.load("data/DOPC.rst7", fn('DOPC.parm7'))
 
         delta = '0.25'
         masks = [":PC@P31", ":PC@N31", ":PC@C2", ":PC | :OL | :OL2"]

@@ -10,7 +10,7 @@ from pytraj import *
 class Test(unittest.TestCase):
 
     def test_0(self):
-        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         assert are_instance([traj, traj], TrajectoryIterator) == True
         assert are_instance([traj, ""], TrajectoryIterator) == False
         assert are_instance(["my comment", ""], string_types) == True

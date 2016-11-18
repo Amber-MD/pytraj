@@ -2,6 +2,7 @@
 import unittest
 import numpy as np
 import pytraj as pt
+from utils import fn
 
 from pytraj.testing import aa_eq
 from pytraj import Trajectory
@@ -11,7 +12,7 @@ from pytraj import mean_structure
 class TestAverageFrame(unittest.TestCase):
 
     def test_comprehensive(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         # make sure we DO reproducing cpptraj output
         f_saved = pt.iterload("./data/avg.Tc5b.pdb", traj.top)[0]
 
@@ -60,7 +61,7 @@ class TestAverageFrame(unittest.TestCase):
         self.assertRaises(ValueError, lambda: pt.mean_structure(traj, dtype='trajxyz'))
 
     def test_autoimage(self):
-        traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         t0 = traj[:]
 
         t0.autoimage()
@@ -69,7 +70,7 @@ class TestAverageFrame(unittest.TestCase):
         aa_eq(avg_0.xyz, avg_1.xyz)
 
     def test_autoimage_with_rmsfit(self):
-        traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         t0 = traj[:]
 
         pt.autoimage(t0).superpose()

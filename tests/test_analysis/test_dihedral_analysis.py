@@ -10,7 +10,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         import numpy as np
         from pytraj import dihedral_analysis as da
-        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
         # resrange 7, phi psi
         saved_file = './data/test_multidihedral.dat'

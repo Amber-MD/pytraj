@@ -2,6 +2,7 @@
 import unittest
 import numpy as np
 import pytraj as pt
+from utils import fn
 from pytraj.testing import aa_eq
 
 def print_name(func):
@@ -13,7 +14,7 @@ class TestDSSP(unittest.TestCase):
 
     @print_name
     def test_vs_cpptraj(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         data = pt.dssp(traj, "*", dtype='cpptraj_dataset')
         data_int = np.array(
             [d0.values for d0 in data if d0.dtype == 'integer'],
@@ -25,7 +26,7 @@ class TestDSSP(unittest.TestCase):
     @print_name
     def test_frame_indices(self):
         from numpy.testing import assert_equal
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         s_0 = pt.dssp(traj)[1]
         s_1 = pt.dssp(traj, frame_indices=[0, 2, 5])[1]
         assert_equal(s_0[[0, 2, 5]], s_1)

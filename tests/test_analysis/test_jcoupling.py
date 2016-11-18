@@ -1,6 +1,7 @@
 import os
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.testing import aa_eq, cpptraj_test_dir
 
 
@@ -9,7 +10,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         kfile = os.path.abspath(os.path.join(cpptraj_test_dir,
                                              "Test_Jcoupling", "Karplus.txt"))
-        traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
         d1 = pt.jcoupling(traj, kfile=kfile)
 

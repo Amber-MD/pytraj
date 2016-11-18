@@ -4,6 +4,7 @@ from __future__ import print_function
 import unittest
 import numpy as np
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 
 
@@ -11,10 +12,10 @@ class TestClosest(unittest.TestCase):
 
     def test_closest(self):
         # raise if not has solvent
-        traj0 = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        traj0 = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         self.assertRaises(RuntimeError, lambda: pt.closest(traj0))
 
-        traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         fi, top = pt.closest(traj)
 
         coords = []
@@ -47,7 +48,7 @@ class TestClosest(unittest.TestCase):
         pt.write_traj('output/test.pdb', next(fi), top=top, overwrite=True)
 
     def test_closest_compared_to_cpptraj(self):
-        traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         state = pt.load_cpptraj_state('''
         autoimage
         closest 100 :1-13

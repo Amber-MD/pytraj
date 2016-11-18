@@ -3,6 +3,7 @@ from __future__ import print_function
 import os
 import numpy as np
 import pytraj as pt
+from utils import fn
 from pytraj.testing import aa_eq
 from pytraj.testing import cpptraj_test_dir
 from pytraj.externals.six import zip

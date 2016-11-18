@@ -1,6 +1,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 
 try:
     import sander
@@ -19,7 +20,7 @@ except ImportError:
 class TestUpdateDihedral(unittest.TestCase):
 
     def test_update_dihedral_parm(self):
-        traj = pt.iterload("./data/Tc5b.crd", "./data/Tc5b.top")
+        traj = pt.iterload("./data/Tc5b.crd", fn('Tc5b.top'))
         p = pmd.load_file(traj.top.filename)
         inp = sander.gas_input(8)
         coords = traj[0].xyz

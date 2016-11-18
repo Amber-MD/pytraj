@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.testing import aa_eq
 from pytraj.all_actions import volmap
 
@@ -19,7 +20,7 @@ volmap {0} {1} {2}
 class TestVolmap(unittest.TestCase):
 
     def test_volmap(self):
-        traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")[:1]
+        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))[:1]
         size = ''
         center = ''
         state = pt.load_cpptraj_state(txt.format(cm, size, center))
@@ -70,7 +71,7 @@ class TestVolmap(unittest.TestCase):
         aa_eq(cpp_data, ds)
 
         # raise RuntimeError
-        dry_traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
+        dry_traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         self.assertRaises(RuntimeError, lambda: pt.volmap(dry_traj, mask=':WAT@O',
                                                           grid_spacing=(0.5, 0.5, 0.5)))
 

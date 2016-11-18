@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.testing import aa_eq
 from pytraj.utils import tempfolder
 
@@ -10,7 +11,7 @@ class TestSuperposeTrajectory(unittest.TestCase):
     """
 
     def test_frame_fit(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         f0 = traj[0]
         f1 = traj[1]
 
@@ -27,7 +28,7 @@ class TestSuperposeTrajectory(unittest.TestCase):
         aa_eq(arr0, f0[0])
 
         trajsaved = pt.iterload("./data/fit_to_1stframe.Tc5b.x",
-                                "./data/Tc5b.top")
+                                fn('Tc5b.top'))
         f1saved = trajsaved[1]
 
         # make sure we reproduce cpptraj output
@@ -38,7 +39,7 @@ class TestSuperposeTrajectory(unittest.TestCase):
         aa_eq(farray[1].xyz, f1saved.xyz, decimal=3)
 
     def test_0(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         farray = traj[:]
         f0 = traj[0]
         f0.copy()
@@ -63,9 +64,9 @@ class TestSuperposeTrajectory(unittest.TestCase):
     def test_1(self):
 
         # load frames to immutable traj
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         trajsaved = pt.iterload("./data/fit_to_1stframe.Tc5b.x",
-                                "./data/Tc5b.top")
+                                fn('Tc5b.top'))
 
         for _f1 in trajsaved:
             pass
@@ -91,7 +92,7 @@ class TestSuperposeTrajectory(unittest.TestCase):
 
     def test_frame_indices(self):
         # load frames to immutable traj
-        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         # convert to numpy traj
 
         frame_indices = [0, 3, 5]
@@ -114,7 +115,7 @@ class TestSuperposeTrajectory(unittest.TestCase):
 
     def testsuperpose_vs_rmsd(self):
         # load frames to immutable traj
-        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         t0 = traj[:]
         t1 = traj[:]
         pt.rmsd(t0, ref=traj[0], mask='@CA')
@@ -126,11 +127,11 @@ class TestSuperposeTrajectoryIterator(unittest.TestCase):
     """
 
     def test_superpose_trajectory_iterator_its_own_method(self):
-        traj_on_disk = pt.iterload("data/Tc5b.x", "data/Tc5b.top")
-        traj_on_disk2 = pt.iterload("data/Tc5b.x", "data/Tc5b.top")
-        traj_on_mem = pt.load("data/Tc5b.x", "data/Tc5b.top")
+        traj_on_disk = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
+        traj_on_disk2 = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
+        traj_on_mem = pt.load(fn('Tc5b.x'), fn('Tc5b.top'))
 
-        ref = pt.iterload("data/Tc5b.crd", "data/Tc5b.top")[0]
+        ref = pt.iterload("data/Tc5b.crd", fn('Tc5b.top'))[0]
         traj_on_mem.superpose(ref=ref, mask='@CA')
         traj_on_disk.superpose(ref=ref, mask='@CA')
         assert traj_on_disk._being_transformed == True, '_being_transformed must be True'
@@ -150,11 +151,11 @@ class TestSuperposeTrajectoryIterator(unittest.TestCase):
         aa_eq(traj_on_disk.xyz, traj_on_disk2.xyz)
 
     def test_superpose_trajectory_iterator_pytraj_method(self):
-        traj_on_disk = pt.iterload("data/Tc5b.x", "data/Tc5b.top")
-        traj_on_disk2 = pt.iterload("data/Tc5b.x", "data/Tc5b.top")
-        traj_on_mem = pt.load("data/Tc5b.x", "data/Tc5b.top")
+        traj_on_disk = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
+        traj_on_disk2 = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
+        traj_on_mem = pt.load(fn('Tc5b.x'), fn('Tc5b.top'))
 
-        ref = pt.iterload("data/Tc5b.crd", "data/Tc5b.top")[0]
+        ref = pt.iterload("data/Tc5b.crd", fn('Tc5b.top'))[0]
         pt.superpose(traj_on_mem, ref=ref, mask='@CA')
         pt.superpose(traj_on_disk, ref=ref, mask='@CA')
         assert traj_on_disk._being_transformed == True, '_being_transformed must be True'
@@ -174,10 +175,10 @@ class TestSuperposeTrajectoryIterator(unittest.TestCase):
         aa_eq(traj_on_disk.xyz, traj_on_disk2.xyz)
 
     def test_superpose_different_mask_with_mass(self):
-        traj_on_disk = pt.iterload("data/Tc5b.x", "data/Tc5b.top")
-        traj_on_mem = pt.load("data/Tc5b.x", "data/Tc5b.top")
+        traj_on_disk = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
+        traj_on_mem = pt.load(fn('Tc5b.x'), fn('Tc5b.top'))
 
-        ref = pt.load("data/tz2.nc", "data/tz2.parm7")[:1]
+        ref = pt.load(fn('tz2.nc'), fn('tz2.parm7'))[:1]
 
         mask = ':3-12@CA'
         ref_mask = ':1-10@CA'
@@ -222,8 +223,8 @@ class TestSuperposeTrajectoryIterator(unittest.TestCase):
 class TestAlign(unittest.TestCase):
 
     def test_align(self):
-        traj_on_disk = pt.iterload("data/Tc5b.x", "data/Tc5b.top")
-        traj_on_mem = pt.load("data/Tc5b.x", "data/Tc5b.top")
+        traj_on_disk = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
+        traj_on_mem = pt.load(fn('Tc5b.x'), fn('Tc5b.top'))
 
         ref = traj_on_disk[:1]
 

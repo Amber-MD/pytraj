@@ -3,6 +3,7 @@ from __future__ import print_function
 import unittest
 import numpy as np
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 
 saved_data = '''

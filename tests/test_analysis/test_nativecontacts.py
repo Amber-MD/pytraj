@@ -3,13 +3,14 @@ from __future__ import print_function
 import unittest
 import numpy as np
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 
 
 class TestNativeContacts(unittest.TestCase):
 
     def test_nativecontacts(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
         dslist = pt.native_contacts(traj, top=traj.top)
         cpp = np.loadtxt('data/tc5b.native_contacts.dat',

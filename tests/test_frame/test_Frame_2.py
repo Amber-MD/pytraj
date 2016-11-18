@@ -18,7 +18,7 @@ class TestFrame(unittest.TestCase):
 
     def test_fit(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
-        trajnew = pt.iterload("./data/md1_prod.fit_to_first.Tc5b.x",
+        trajnew = pt.iterload(fn('md1_prod.fit_to_first.Tc5b.x'),
                               fn('Tc5b.top'))
 
         # make sure 0-th frame does not change
@@ -37,7 +37,7 @@ class TestFrame(unittest.TestCase):
 
     def test_1(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
-        trajnew = pt.iterload("./data/md1_prod.fit_to_first.Tc5b.x",
+        trajnew = pt.iterload(fn('md1_prod.fit_to_first.Tc5b.x'),
                               fn('Tc5b.top'))
         frame0 = traj[0]
         assert frame0[0, 2] == frame0.atom(0)[2]

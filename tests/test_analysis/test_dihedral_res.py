@@ -1,13 +1,14 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 
 
 class Test(unittest.TestCase):
 
     def test_0(self):
-        traj = pt.iterload("./data/Test_NAstruct/adh026.3.pdb")
+        traj = pt.iterload(fn('Test_NAstruct/adh026.3.pdb'))
         d = pt.calc_delta(traj, resrange='1').values
 
         d1 = pt.dihedral(traj, ":1@C5' :1@C4' :1@C3' :1@O3'")

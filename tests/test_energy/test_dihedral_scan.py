@@ -1,4 +1,5 @@
 import pytraj as pt
+from utils import fn
 import numpy as np
 
 try:

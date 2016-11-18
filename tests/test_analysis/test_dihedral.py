@@ -1,6 +1,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 
 from pytraj import io as mdio
 from pytraj.utils import aa_eq
@@ -10,7 +11,7 @@ class TestDihedral(unittest.TestCase):
 
     def test_dihedral(self):
         import numpy as np
-        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         fa = traj[:]
         mask = ':2@CA :14@CA :15@CA :16@CA'
         txt = '''
