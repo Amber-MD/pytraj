@@ -9,7 +9,7 @@ class Test(unittest.TestCase):
 
     def test_load_from_list(self):
         from glob import glob
-        pattern = "./data/Test_RemdTraj/rem.nc.*"
+        pattern = fn('Test_RemdTraj/rem.nc.*')
         flist = sorted(glob(pattern))
         top = glob("./data/Test_RemdTraj/ala*parm7")[0]
         traj0 = pt.iterload(flist, top)
