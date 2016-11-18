@@ -15,7 +15,6 @@ from utils import fn, tz2_ortho_trajin, tz2_ortho_top
 DO_GIST = os.getenv("DO_GIST", False)
 
 @unittest.skipUnless(DO_GIST, 'only do gist test if setting DO_GIST=True')
-<<<<<<< 522f50f203dccf44a9f6b410d462b0d1fee8d014
 def test_gist():
     traj = pt.iterload(tz2_ortho_trajin, tz2_ortho_top, frame_slice=(0, 10))
     traj.autoimage('origin')
@@ -38,30 +37,6 @@ def test_gist():
     """.format(tz2_ortho_top, tz2_ortho_trajin, command)
     state = pt.load_cpptraj_state(state_command)
     with capture_stdout() as (out, _):
-=======
-class TestGist(unittest.TestCase):
-    def test_gist(self):
-        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'), frame_slice=(0, 10))
-        traj.autoimage('origin')
-
-        command = "doorder doeij refdens 0.033422885325 gridcntr 1.44 0.67 0.29 \
-                     griddim 10 12 10 gridspacn 2.0"
-        data = pt.all_actions.gist(traj,
-                do_order=True,
-                do_eij=True,
-                reference_density=0.033422885325,
-                grid_center=(1.44, 0.67, 0.29), grid_dim=(10, 12, 10),
-                grid_spacing=2.0,
-                dtype='cpptraj_dataset')
-
-        state_command = """
-        parm data/tz2.ortho.parm7
-        trajin data/tz2.ortho.nc
-        autoimage origin
-        gist {command}
-        """.format(command=command)
-        state = pt.load_cpptraj_state(state_command)
->>>>>>> more
         state.run()
 
     data_dict = data.to_dict()
