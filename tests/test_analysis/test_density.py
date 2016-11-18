@@ -11,7 +11,7 @@ from pytraj.utils import aa_eq
 class TestDensity(unittest.TestCase):
 
     def test_density(self):
-        fn = fn('DOPC.rst7')
+        rst7 = fn('DOPC.rst7')
         tn = fn('DOPC.parm7')
 
         traj = pt.load(fn('DOPC.rst7'), fn('DOPC.parm7'))
@@ -32,7 +32,7 @@ class TestDensity(unittest.TestCase):
 
             center ":PC | :OL | :OL2" origin
             density {density_type} delta {delta} {mask}
-            """.format(parm=tn, trajin=fn,
+            """.format(parm=tn, trajin=rst7,
                        delta=delta, mask=mask_str,
                        density_type=density_type)
 
