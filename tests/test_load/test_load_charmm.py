@@ -1,5 +1,6 @@
 import unittest
 import pytraj as pt
+from utils import fn
 from array import array
 from pytraj import *
 from pytraj import io as mdio

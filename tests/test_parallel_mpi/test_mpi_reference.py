@@ -2,6 +2,7 @@
 
 import sys
 import pytraj as pt
+from utils import fn
 from pytraj.testing import aa_eq
 
 try:
@@ -14,7 +15,7 @@ comm = MPI.COMM_WORLD
 
 rank = comm.rank
 
-traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 data_ref3 = pt.pmap_mpi(pt.rmsd, traj, '@CA', ref=3)
 # data_ref0 = pt.pmap_mpi(pt.rmsd, traj, '@CA')
 

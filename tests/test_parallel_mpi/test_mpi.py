@@ -3,6 +3,7 @@
 import sys
 
 import pytraj as pt
+from utils import fn
 from pytraj.testing import aa_eq
 
 try:
@@ -15,7 +16,7 @@ comm = MPI.COMM_WORLD
 
 rank = comm.rank
 
-traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 data = pt.pmap_mpi(pt.radgyr, traj, '*')
 
 frame_indices = range(10, 50)

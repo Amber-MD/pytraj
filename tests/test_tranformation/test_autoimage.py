@@ -16,7 +16,7 @@ class TestRegular(unittest.TestCase):
         f0.copy()
         adict['autoimage']("", f0, traj.top)
 
-        fsaved = pt.iterload("./data/tz2.truncoct.autoiamge.save.r",
+        fsaved = pt.iterload(fn('tz2.truncoct.autoiamge.save.r'),
                              fn('tz2.truncoct.parm7'))[0]
         aa_eq(fsaved.xyz, f0.xyz, decimal=3)
 
@@ -29,7 +29,7 @@ class TestRegular(unittest.TestCase):
         f0.copy()
         do_autoimage(traj=f0, top=traj.top)
 
-        fsaved = pt.iterload("./data/tz2.truncoct.autoiamge.save.r",
+        fsaved = pt.iterload(fn('tz2.truncoct.autoiamge.save.r'),
                              fn('tz2.truncoct.parm7'))[0]
         aa_eq(fsaved.xyz, f0.xyz, decimal=3)
 
@@ -87,7 +87,7 @@ class TestWithRmsfit(unittest.TestCase):
                            rmsfit=(0, '@CA,C,N')),
                       overwrite=True)
 
-        saved_traj = pt.load('data/tz2.autoimage_with_rmsfit.nc', traj.top)
+        saved_traj = pt.load(fn('tz2.autoimage_with_rmsfit.nc'), traj.top)
         p_traj = pt.load('./output/tz2.autoimage_with_rmsfit.nc', traj.top)
 
         aa_eq(saved_traj.xyz, p_traj.xyz)
@@ -101,7 +101,7 @@ class TestWithRmsfit(unittest.TestCase):
         traj = pt.load(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         traj.autoimage()
         traj.rmsfit(mask='@CA,C,N')
-        saved_traj = pt.load('data/tz2.autoimage_with_rmsfit.nc', traj.top)
+        saved_traj = pt.load(fn('tz2.autoimage_with_rmsfit.nc'), traj.top)
 
         # PASSED
         aa_eq(saved_traj.xyz, traj.xyz)

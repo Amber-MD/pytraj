@@ -5,7 +5,7 @@ from utils import fn
 from pytraj.testing import aa_eq
 from pytraj import *
 
-refilename = "./data/Tc5b.nat.crd"
+refilename = fn('Tc5b.nat.crd')
 trajin = """
 """
 

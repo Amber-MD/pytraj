@@ -54,7 +54,7 @@ class TestNoName(unittest.TestCase):
         # make Trajectory from TrajectoryIterator
         fa = traj[:]
         fa.autoimage()
-        saved_traj = pt.iterload("./data/tz2.autoimage.nc",
+        saved_traj = pt.iterload(fn('tz2.autoimage.nc'),
                                  fn('tz2.ortho.parm7'))
 
         # make sure to reproduce cpptraj's output too

@@ -1,5 +1,6 @@
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj import *
 
 from pytraj.utils.check_and_assert import assert_almost_equal
@@ -10,7 +11,7 @@ class TestAtomMask(unittest.TestCase):
     def test_0(self):
         atm = AtomMask("@CA")
         assert atm.n_atoms == 0
-        top = pt.load_topology("./data/Tc5b.top")
+        top = pt.load_topology(fn('Tc5b.top'))
         top._set_integer_mask(atm)
         assert atm.n_atoms == 20
         top2 = top._modify_state_by_mask(atm)
@@ -27,7 +28,7 @@ class TestAtomMask(unittest.TestCase):
         assert atm.n_atoms == 1
 
     def test_3_indexing(self):
-        top = pt.load_topology("./data/Tc5b.top")
+        top = pt.load_topology(fn('Tc5b.top'))
         atm = AtomMask("@CA")
         top._set_integer_mask(atm)
 
@@ -49,7 +50,7 @@ class TestAtomMask(unittest.TestCase):
         assert_almost_equal(indices, atm3.indices)
 
     def test_5_speed(self):
-        top = pt.load_topology("./data/DOPC.parm7")
+        top = pt.load_topology(fn('DOPC.parm7'))
         from time import time
 
         t0 = time()
@@ -70,7 +71,7 @@ class TestAtomMask(unittest.TestCase):
         import numpy as np
         from pytraj import AtomMask
         # test constructor from list/array/python array
-        top = pt.load_topology("./data/DOPC.parm7")
+        top = pt.load_topology(fn('DOPC.parm7'))
         indices = top.select(":WAT")
 
         atm1 = AtomMask(indices)

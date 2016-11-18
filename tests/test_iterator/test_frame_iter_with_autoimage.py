@@ -10,7 +10,7 @@ from pytraj.externals.six import zip
 class Test(unittest.TestCase):
 
     def test_0(self):
-        traj = mdio.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        traj = mdio.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
 
         fa1 = traj[:]
 

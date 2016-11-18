@@ -29,8 +29,8 @@ class TestTrajectoryIterator(unittest.TestCase):
             orig_list), 'two filename list must be equal'
 
     def test_comprehensive(self):
-        traj = pt.iterload("data/Test_RemdTraj/rem.nc.000",
-                           "data/Test_RemdTraj/ala2.99sb.mbondi2.parm7")
+        traj = pt.iterload(fn('Test_RemdTraj/rem.nc.000'),
+                           fn('Test_RemdTraj/ala2.99sb.mbondi2.parm7'))
         # temperature
         aa_eq(traj.temperatures, [300., 630.5, 630.5, 630.5, 630.5, 630.5,
                                   630.5, 630.5, 492.2, 384.3])
@@ -51,18 +51,18 @@ class TestTrajectoryIterator(unittest.TestCase):
         # has filename but does not have Topology
         self.assertRaises(
             ValueError,
-            lambda: pt.TrajectoryIterator("data/Test_RemdTraj/rem.nc.000", top=None))
+            lambda: pt.TrajectoryIterator(fn('Test_RemdTraj/rem.nc.000'), top=None))
         self.assertRaises(
             ValueError,
-            lambda: pt.TrajectoryIterator("data/Test_RemdTraj/rem.nc.000"))
+            lambda: pt.TrajectoryIterator(fn('Test_RemdTraj/rem.nc.000')))
         # empty Topology
         self.assertRaises(
             ValueError,
-            lambda: pt.TrajectoryIterator("data/Test_RemdTraj/rem.nc.000", top=pt.Topology()))
+            lambda: pt.TrajectoryIterator(fn('Test_RemdTraj/rem.nc.000'), top=pt.Topology()))
         # weird Topology
         self.assertRaises(
             ValueError,
-            lambda: pt.TrajectoryIterator("data/Test_RemdTraj/rem.nc.000", top=pt.Frame))
+            lambda: pt.TrajectoryIterator(fn('Test_RemdTraj/rem.nc.000'), top=pt.Frame))
 
 
 if __name__ == "__main__":

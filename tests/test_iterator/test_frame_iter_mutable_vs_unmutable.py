@@ -1,6 +1,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 
 
@@ -10,7 +11,7 @@ class Test(unittest.TestCase):
         from pytraj.externals.six import zip
         from pytraj import Trajectory, TrajectoryIterator
         # TrajectoryIterator object
-        traj0 = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        traj0 = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         assert isinstance(traj0, TrajectoryIterator)
 
         # Trajectory object

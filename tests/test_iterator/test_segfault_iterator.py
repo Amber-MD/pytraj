@@ -6,7 +6,7 @@ import itertools as it
 """
 try not to get segmentation fault error (due to whatever freaking reason)
 """
-traj = io.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+traj = io.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
 
 class Test(unittest.TestCase):

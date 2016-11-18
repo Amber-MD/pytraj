@@ -6,7 +6,7 @@ from pytraj import io as mdio
 class Test(unittest.TestCase):
 
     def test_0(self):
-        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         indices = traj.top("@CA").indices
         for frame in traj(mask=indices):
             pass
