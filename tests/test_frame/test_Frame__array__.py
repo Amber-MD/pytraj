@@ -8,7 +8,7 @@ class Test(unittest.TestCase):
 
     def test_0(self):
         import numpy as np
-        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = mdio.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         f0 = traj[0]
         arr0 = np.asarray(f0._buffer2d)
         arr1 = np.asarray(f0)

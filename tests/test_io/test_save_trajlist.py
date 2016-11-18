@@ -9,7 +9,7 @@ class Test(unittest.TestCase):
         trajlist = []
         N = 4
         for i in range(N):
-            traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+            traj = mdio.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
             trajlist.append(traj)
 
         traj0 = trajlist[0]
