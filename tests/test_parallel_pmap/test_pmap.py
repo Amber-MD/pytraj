@@ -15,6 +15,7 @@ from pytraj.utils import c_commands
 
 import pytest
 
+from utils import fn
 
 @unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
 class TestNormalPmap(unittest.TestCase):

@@ -1,12 +1,12 @@
-#!/usr/bin/env python
 from __future__ import print_function
 import unittest
 from functools import partial
 import pytraj as pt
-from utils import fn
 from pytraj.utils import aa_eq
 from pytraj.parallel.base import worker_by_state
 from pytraj.utils.tools import concat_dict
+
+from utils import fn
 
 
 class TestWorkerState(unittest.TestCase):
