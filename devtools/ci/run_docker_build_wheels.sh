@@ -11,9 +11,18 @@ cat << EOF | docker run -i \
                         bash || exit $?
 
 cd /feedstock_root/
+
+for pyver in cp35-cp35m cp35-cp35m cp35-cp35m; do
+    export pybin=/opt/python/\${pyver}/bin/
+    \$pybin/python -m pip install cython
+done
+
+# use python=3.5 for workflow
 export pyver=cp35-cp35m
-export pybin=/opt/python/\${pyver}/bin/
 export \$PATH=\$pybin:$PATH
+
+\$pybin/python scripts/install_libcpptraj.py -openmp
+export CPPTRAJHOME=`pwd`/cpptraj/
 \$pybin/python devtools/mkrelease
 cd dist
 \$pybin/python ../scripts/build_wheels.py pytraj*gz --manylinux-docker
