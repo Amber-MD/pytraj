@@ -111,6 +111,18 @@ class PipBuilder(object):
         command = '{} {}'.format(self.repair_exe, whl_name).split()
         subprocess.check_call(command)
 
+    def _check_numpy_and_fix(self, python_exe, env):
+        try:
+            subprocess.check_call('{} -c "import numpy"'.format(python_exe), shell=True)
+        except subprocess.CalledProcessError:
+            print('Installing numpy')
+            if self.use_manylinux:
+                subprocess.check_call('{} -m pip install numpy'.format(python_exe),
+                                      shell=True)
+            else:
+                subprocess.check_call('conda install numpy nomkl -y -n {}'.format(env),
+                                      shell=True)
+
     def validate_install(self, py_version):
         python_exe = self.python_exe_paths[py_version]
         env = 'pytraj' + py_version
@@ -125,6 +137,7 @@ class PipBuilder(object):
         except subprocess.CalledProcessError:
             pass
         subprocess.check_call('{} -m pip install {}'.format(python_exe, whl_file).split())
+        self._check_numpy_and_fix(python_exe, env)
         if self.use_manylinux:
             output = subprocess.check_output('{} -c "import pytraj as pt; print(pt)"'
                                            .format(python_exe, whl_file),
@@ -133,12 +146,6 @@ class PipBuilder(object):
             print('Testing pytraj python={}'.format(py_version))
             print(output)
         else:
-            try:
-                print('Installing numpy')
-                subprocess.check_call('{} -c "import numpy"'.format(python_exe), shell=True)
-            except subprocess.CalledProcessError:
-                subprocess.check_call('conda install numpy nomkl -y -n {}'.format(env),
-                                      shell=True)
             output = subprocess.check_output('{} -c "import pytraj as pt; print(pt)"'
                                            .format(python_exe, whl_file),
                                            shell=True)
