@@ -16,6 +16,7 @@ cd /feedstock_root/
 for pyver in cp35-cp35m cp35-cp35m cp35-cp35m; do
     export pybin=/opt/python/\${pyver}/bin/
     \$pybin/python -m pip install cython
+    \$pybin/python -m pip install numpy
 done
 
 # use python=3.5 for workflow
