@@ -23,7 +23,7 @@ export pyver=cp35-cp35m
 export \$PATH=\$pybin:$PATH
 
 \$pybin/python scripts/install_libcpptraj.py github -openmp
-export CPPTRAJHOME=`pwd`/cpptraj/
+export CPPTRAJHOME=\`pwd\`/cpptraj/
 \$pybin/python devtools/mkrelease
 cd dist
 \$pybin/python ../scripts/build_wheel.py pytraj*gz --manylinux-docker
