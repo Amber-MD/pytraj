@@ -41,7 +41,6 @@ class PipBuilder(object):
                  python_versions,
                  use_manylinux=False,
                  cpptraj_dir=''):
-        self.miniconda_root = self.find_miniconda_root()
         is_osx = sys.platform.startswith('darwin')
         self.python_versions = python_versions
         self.use_manylinux = use_manylinux
@@ -49,6 +48,7 @@ class PipBuilder(object):
             self.cpptraj_dir = os.path.abspath(cpptraj_dir)
         else:
             self.cpptraj_dir = ''
+        self.miniconda_root = self.find_miniconda_root()
         if self.use_manylinux:
             self.python_exe_paths = dict((py_version,
                 PipBuilder.MANY_LINUX_PYTHONS[py_version]) 
@@ -88,10 +88,13 @@ class PipBuilder(object):
         subprocess.check_call(cmlist)
 
     def find_miniconda_root(self):
-        command = "conda info | grep 'root environment'"
-        output = subprocess.check_output(command, shell=True).decode()
-        # e.g: outproot = "environment : /home/haichit/anaconda3  (writable)"
-        return output.split()[3] + '/'
+        if self.use_manylinux:
+            return ''
+        else:
+            command = "conda info | grep 'root environment'"
+            output = subprocess.check_output(command, shell=True).decode()
+            # e.g: outproot = "environment : /home/haichit/anaconda3  (writable)"
+            return output.split()[3] + '/'
 
     def create_env(self, python_version):
         env = 'pytraj' + python_version
@@ -108,6 +111,18 @@ class PipBuilder(object):
         command = '{} {}'.format(self.repair_exe, whl_name).split()
         subprocess.check_call(command)
 
+    def _check_numpy_and_fix(self, python_exe, env):
+        try:
+            subprocess.check_call('{} -c "import numpy"'.format(python_exe), shell=True)
+        except subprocess.CalledProcessError:
+            print('Installing numpy')
+            if self.use_manylinux:
+                subprocess.check_call('{} -m pip install numpy'.format(python_exe),
+                                      shell=True)
+            else:
+                subprocess.check_call('conda install numpy nomkl -y -n {}'.format(env),
+                                      shell=True)
+
     def validate_install(self, py_version):
         python_exe = self.python_exe_paths[py_version]
         env = 'pytraj' + py_version
@@ -122,6 +137,7 @@ class PipBuilder(object):
         except subprocess.CalledProcessError:
             pass
         subprocess.check_call('{} -m pip install {}'.format(python_exe, whl_file).split())
+        self._check_numpy_and_fix(python_exe, env)
         if self.use_manylinux:
             output = subprocess.check_output('{} -c "import pytraj as pt; print(pt)"'
                                            .format(python_exe, whl_file),
@@ -130,12 +146,6 @@ class PipBuilder(object):
             print('Testing pytraj python={}'.format(py_version))
             print(output)
         else:
-            try:
-                print('Installing numpy')
-                subprocess.check_call('{} -c "import numpy"'.format(python_exe), shell=True)
-            except subprocess.CalledProcessError:
-                subprocess.check_call('conda install numpy nomkl -y -n {}'.format(env),
-                                      shell=True)
             output = subprocess.check_output('{} -c "import pytraj as pt; print(pt)"'
                                            .format(python_exe, whl_file),
                                            shell=True)

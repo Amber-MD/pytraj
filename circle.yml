@@ -4,14 +4,15 @@ machine:
 
 dependencies:
   override:
-    - docker pull condaforge/linux-anvil
-    # - docker pull ambermd/pytraj_build
+    # - docker pull condaforge/linux-anvil
+    - docker pull ambermd/manylinux-extra
 
 test:
   override:
-    - sh devtools/ci/run_docker_build.sh
+    # - sh devtools/ci/run_docker_build.sh
+    - sh devtools/ci/run_docker_build_wheels.sh
   post:
     - mkdir $CIRCLE_ARTIFACTS/pytraj-build
-    - cp pytraj*bz2 $CIRCLE_ARTIFACTS/pytraj-build/
-    - cp libcpptraj*bz2 $CIRCLE_ARTIFACTS/pytraj-build/
-    # - cp dist/wheelhouse/pytraj*whl $CIRCLE_ARTIFACTS/pytraj-build/
+    - cp dist/wheelhouse/pytraj*whl $CIRCLE_ARTIFACTS/pytraj-build/
+    # - cp pytraj*bz2 $CIRCLE_ARTIFACTS/pytraj-build/
+    # - cp libcpptraj*bz2 $CIRCLE_ARTIFACTS/pytraj-build/

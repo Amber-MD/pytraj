@@ -47,7 +47,7 @@ os.chdir("./tests/")
 
 if args.simple:
     print('running minimal test\n')
-    subprocess.check_call("python ./run_simple_test.py".split())
+    subprocess.check_call("{bin}/python ./run_simple_test.py".format(bin=bin), shell=True)
 else:
     print('running full test\n')
     if args.with_coverage:
