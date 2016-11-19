@@ -10,7 +10,7 @@ cat << EOF | docker run -i \
                         $DOCKER_IMAGE \
                         bash || exit $?
 
-set -e -x
+set -x
 cd /feedstock_root/
 
 for pyver in cp35-cp35m cp35-cp35m cp35-cp35m; do
