@@ -65,19 +65,22 @@ class PipBuilder(object):
     def run(self):
         self.check_cpptraj_and_required_libs()
         for python_version in self.python_versions:
-            if not self.use_manylinux:
-                print('Using conda to create env')
-                # use conda to create a new env
-                env = 'pytraj' + python_version
-                env_path = self.miniconda_root + '/envs/' + env
-                if not os.path.exists(env_path):
-                    self.create_env(python_version)
-                print('Building pytraj for Python {}'.format(python_version))
-            else:
-                print('Using python version from manylinux')
+            self.initialize_env(python_version)
             self.build_original_wheel(python_version)
             self.repair_wheel(python_version)
             self.validate_install(python_version)
+
+    def initialize_env(self, python_version):
+        if not self.use_manylinux:
+            print('Using conda to create env')
+            # use conda to create a new env
+            env = 'pytraj' + python_version
+            env_path = self.miniconda_root + '/envs/' + env
+            if not os.path.exists(env_path):
+                self.create_env(python_version)
+            print('Building pytraj for Python {}'.format(python_version))
+        else:
+            print('Using python version from manylinux')
 
     def build_original_wheel(self, python_version):
         python = self.python_exe_paths[python_version]
