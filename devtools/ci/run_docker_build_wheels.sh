@@ -25,8 +25,7 @@ export \$PATH=\$pybin:$PATH
 \$pybin/python scripts/install_libcpptraj.py github -openmp
 export CPPTRAJHOME=`pwd`/cpptraj/
 \$pybin/python devtools/mkrelease
-ls .
 cd dist
-\$pybin/python ../scripts/build_wheels.py pytraj*gz --manylinux-docker
+\$pybin/python ../scripts/build_wheel.py pytraj*gz --manylinux-docker
 cd ..
 EOF
