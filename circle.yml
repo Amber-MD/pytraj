@@ -13,6 +13,6 @@ test:
     - sh devtools/ci/run_docker_build_wheels.sh
   post:
     - mkdir $CIRCLE_ARTIFACTS/pytraj-build
-    - cp wheelhouse/pytraj*whl $CIRCLE_ARTIFACTS/pytraj-build/
+    - cp dist/wheelhouse/pytraj*whl $CIRCLE_ARTIFACTS/pytraj-build/
     # - cp pytraj*bz2 $CIRCLE_ARTIFACTS/pytraj-build/
     # - cp libcpptraj*bz2 $CIRCLE_ARTIFACTS/pytraj-build/
