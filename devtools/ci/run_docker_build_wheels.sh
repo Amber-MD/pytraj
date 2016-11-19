@@ -14,7 +14,7 @@ cd /feedstock_root/
 export pyver=cp35-cp35m
 export pybin=/opt/python/\${pyver}/bin/
 export \$PATH=\$pybin:$PATH
-./devtools/mkrelease
+\$pybin/python devtools/mkrelease
 cd dist
 \$pybin/python ../scripts/build_wheels.py pytraj*gz --manylinux-docker
 cd ..
