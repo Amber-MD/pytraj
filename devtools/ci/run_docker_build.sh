@@ -2,10 +2,10 @@
 
 FEEDSTOCK_ROOT=$(cd "$(dirname "$0")/../../"; pwd;)
 
-# DOCKER_IMAGE=ambermd/pytraj_build
 # MINICONDA_ROOT=/root/miniconda3
 
-DOCKER_IMAGE=condaforge/linux-anvil
+# DOCKER_IMAGE=ambermd/pytraj_build
+# DOCKER_IMAGE=condaforge/linux-anvil
 MINICONDA_ROOT=/opt/conda/
 
 CONDA=$MINICONDA_ROOT/bin/conda
