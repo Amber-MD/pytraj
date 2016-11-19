@@ -10,6 +10,7 @@ cat << EOF | docker run -i \
                         $DOCKER_IMAGE \
                         bash || exit $?
 
+set -e -x
 cd /feedstock_root/
 
 for pyver in cp35-cp35m cp35-cp35m cp35-cp35m; do
@@ -21,9 +22,10 @@ done
 export pyver=cp35-cp35m
 export \$PATH=\$pybin:$PATH
 
-\$pybin/python scripts/install_libcpptraj.py -openmp
+\$pybin/python scripts/install_libcpptraj.py github -openmp
 export CPPTRAJHOME=`pwd`/cpptraj/
 \$pybin/python devtools/mkrelease
+ls .
 cd dist
 \$pybin/python ../scripts/build_wheels.py pytraj*gz --manylinux-docker
 cd ..
