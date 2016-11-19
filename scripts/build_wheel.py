@@ -9,7 +9,6 @@ import os
 import sys
 import subprocess
 from glob import glob
-import logging
 
 class PipBuilder(object):
     '''
@@ -67,15 +66,15 @@ class PipBuilder(object):
         self.check_cpptraj_and_required_libs()
         for python_version in self.python_versions:
             if not self.use_manylinux:
-                logging.info('Using conda for creating env')
+                print('Using conda to create env')
                 # use conda to create a new env
                 env = 'pytraj' + python_version
                 env_path = self.miniconda_root + '/envs/' + env
                 if not os.path.exists(env_path):
                     self.create_env(python_version)
-                logging.info('building pytraj for Python {}'.format(python_version))
+                print('Building pytraj for Python {}'.format(python_version))
             else:
-                logging.info('Using python version from manylinux')
+                print('Using python version from manylinux')
             self.build_original_wheel(python_version)
             self.repair_wheel(python_version)
             self.validate_install(python_version)
@@ -95,7 +94,7 @@ class PipBuilder(object):
         env = 'pytraj' + python_version
         sys.stdout.write('creating {} env'.format(env))
         cmlist = 'conda create -n {} python={} numpy nomkl --yes'.format(env, python_version)
-        logging.info(cmlist)
+        print(cmlist)
         subprocess.check_call(cmlist.split())
     
     def _get_wheel_file(self, python_version):
@@ -110,7 +109,7 @@ class PipBuilder(object):
         python_exe = self.python_exe_paths[py_version]
         env = 'pytraj' + py_version
         # e.g: change 2.7 to 27
-        logging.info('Testing pytraj build')
+        print('Testing pytraj build')
         version = py_version.replace('.', '')
         cwd = os.getcwd()
         pattern = cwd + '/wheelhouse/pytraj-*-cp{}-*.whl'.format(version)
@@ -121,42 +120,42 @@ class PipBuilder(object):
             pass
         subprocess.check_call('{} -m pip install {}'.format(python_exe, whl_file).split())
         if self.use_manylinux:
-            output = subprocess.check_output('{} -c "import pytraj as pt; logging.info(pt)"'
+            output = subprocess.check_output('{} -c "import pytraj as pt; print(pt)"'
                                            .format(python_exe, whl_file),
                                            shell=True)
             output = output.decode()
-            logging.info('Testing pytraj python={}'.format(py_version))
-            logging.info(output)
+            print('Testing pytraj python={}'.format(py_version))
+            print(output)
         else:
             try:
-                logging.info('Installing numpy')
+                print('Installing numpy')
                 subprocess.check_call('{} -c "import numpy"'.format(python_exe), shell=True)
             except subprocess.CalledProcessError:
                 subprocess.check_call('conda install numpy nomkl -y -n {}'.format(env),
                                       shell=True)
-            output = subprocess.check_output('{} -c "import pytraj as pt; logging.info(pt)"'
+            output = subprocess.check_output('{} -c "import pytraj as pt; print(pt)"'
                                            .format(python_exe, whl_file),
                                            shell=True)
             output = output.decode()
             expected_output = 'envs/{env}/lib/python{py_version}/site-packages/pytraj'.format(env=env,
                     py_version=py_version)
             assert expected_output in output
-            logging.info('PASSED: build test for {}'.format(whl_file))
+            print('PASSED: build test for {}'.format(whl_file))
 
     def check_cpptraj_and_required_libs(self):
         pytraj_home = os.path.abspath(os.path.dirname(__file__).strip('scripts'))
         cpptraj_home = os.environ.get("CPPTRAJHOME", '')
         if not cpptraj_home:
-            logging.info('CPPTRAJHOME is not yet set')
+            print('CPPTRAJHOME is not set')
             ext = 'so' if not sys.platform.startswith('darwin') else 'dylib'
             if not self.cpptraj_dir:
                 self.cpptraj_dir = pytraj_home + '/cpptraj/'
             suggested_libcpptraj = self.cpptraj_dir + '/lib/libcpptraj.' + ext
-            logging.info('Looking for {}'.format(suggested_libcpptraj))
+            print('Looking for {}'.format(suggested_libcpptraj))
             if os.path.exists(suggested_libcpptraj):
-                logging.info('Found')
+                print('Found')
                 os.environ['CPPTRAJHOME'] = self.cpptraj_dir
-                logging.info('CPPTRAJHOME is set to {}'.format(self.cpptraj_dir))
+                print('CPPTRAJHOME is set to {}'.format(self.cpptraj_dir))
             else:
                 raise EnvironmentError('Must set CPPTRAJHOME')
 
