@@ -41,7 +41,6 @@ class PipBuilder(object):
                  python_versions,
                  use_manylinux=False,
                  cpptraj_dir=''):
-        self.miniconda_root = self.find_miniconda_root()
         is_osx = sys.platform.startswith('darwin')
         self.python_versions = python_versions
         self.use_manylinux = use_manylinux
@@ -49,6 +48,7 @@ class PipBuilder(object):
             self.cpptraj_dir = os.path.abspath(cpptraj_dir)
         else:
             self.cpptraj_dir = ''
+        self.miniconda_root = self.find_miniconda_root()
         if self.use_manylinux:
             self.python_exe_paths = dict((py_version,
                 PipBuilder.MANY_LINUX_PYTHONS[py_version]) 
