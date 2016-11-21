@@ -160,20 +160,22 @@ class PipBuilder(object):
     def check_cpptraj_and_required_libs(self):
         pytraj_home = os.path.abspath(os.path.dirname(__file__).strip('scripts'))
         cpptraj_home = os.environ.get("CPPTRAJHOME", '')
+        ext = 'so' if not sys.platform.startswith('darwin') else 'dylib'
         if not cpptraj_home:
             print('CPPTRAJHOME is not set')
-            ext = 'so' if not sys.platform.startswith('darwin') else 'dylib'
             if not self.cpptraj_dir:
                 self.cpptraj_dir = pytraj_home + '/cpptraj/'
             suggested_libcpptraj = self.cpptraj_dir + '/lib/libcpptraj.' + ext
             print('Looking for {}'.format(suggested_libcpptraj))
             if os.path.exists(suggested_libcpptraj):
-                self.libcpptraj = suggested_libcpptraj
                 print('Found')
                 os.environ['CPPTRAJHOME'] = self.cpptraj_dir
                 print('CPPTRAJHOME is set to {}'.format(self.cpptraj_dir))
             else:
                 raise EnvironmentError('Must set CPPTRAJHOME')
+        else:
+            self.cpptraj_dir = cpptraj_home
+        self.libcpptraj self.cpptraj_dir + '/lib/libcpptraj.' + ext
 
         for package in self.REQUIRED_PACKAGES:
             try:
