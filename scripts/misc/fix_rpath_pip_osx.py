@@ -29,6 +29,7 @@ def copy_libcpptraj_to_pytraj_lib(libcpptraj, python_version):
 
     shutil.copy(libcpptraj, 'pytraj/lib')
     os.system('install_name_tool -id {} pytraj/lib/libcpptraj.dylib'.format(LIBCPPTRAJ_RPATH))
+    return LIBCPPTRAJ_RPATH
 
 
 def main(pkg_name, whl_name, libcpptraj, python_version):
@@ -37,7 +38,7 @@ def main(pkg_name, whl_name, libcpptraj, python_version):
     except OSError:
         pass
     with wheeltools.InWheel(whl_name, out_wheel='wheelhouse/{}'.format(whl_name)):
-        copy_libcpptraj_to_pytraj_lib(libcpptraj, python_version)
+        LIBCPPTRAJ_RPATH = copy_libcpptraj_to_pytraj_lib(libcpptraj, python_version)
         for root, dirs, files in os.walk(pkg_name):
             for fn in (root + '/' +  _ for _ in files):
                 if fn.endswith('.so'):
