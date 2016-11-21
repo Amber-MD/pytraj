@@ -3,7 +3,6 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
-from pytraj.utils.progress import ProgressBarTrajectory
 from pytraj.utils import aa_eq
 from pytraj.testing import tempfolder
 import pytest
@@ -15,10 +14,19 @@ try:
 except ImportError:
     tqdm = None
 
+try:
+    from pytraj.utils.progress import ProgressBarTrajectory
+    import IPython
+    has_ipython = True
+except ImportError:
+    IPython = None
+    has_ipython = False
+
 # local
 from utils import fn
 
 
+@unittest.skipUnless(has_ipython, 'need IPython')
 def test_progress_log():
     """test_progress_log: simple test, just to make sure it is runnable
     """
@@ -57,6 +65,7 @@ def test_progress_log():
     aa_eq(pt.rmsd(p2), pt.rmsd(traj2))
     
 
+@unittest.skipUnless(has_ipython, 'require IPython')
 def test_pickle_progress_bar():
     traj = pt.datafiles.load_tz2()
 

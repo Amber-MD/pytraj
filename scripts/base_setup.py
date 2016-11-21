@@ -526,17 +526,6 @@ def get_ext_modules(cpptraj_info,
     
         library_dirs = [cpptraj_info.lib_dir, ]
     
-        if sys.platform.startswith('darwin') and use_pip:
-            # ship with libcpptraj.dylib in pytraj/lib/
-            try:
-                os.mkdir('pytraj/lib')
-            except OSError:
-                pass
-    
-            shutil.copy('{}/libcpptraj.dylib'.format(cpptraj_info.lib_dir), 'pytraj/lib')
-            os.system('install_name_tool -id @rpath/libcpptraj.dylib pytraj/lib/libcpptraj.dylib')
-            library_dirs = ['pytraj/lib',]
-    
         ext_modules = []
         for ext_name in pyxfiles:
             if need_cython:
