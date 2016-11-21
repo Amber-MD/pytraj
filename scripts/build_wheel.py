@@ -196,6 +196,6 @@ if __name__ == '__main__':
                          python_versions=python_versions,
                          use_manylinux=args.manylinux_docker,
                          cpptraj_dir=args.cpptraj_dir)
-    # builder.run()
-    builder.libcpptraj = '../cpptraj/lib/libcpptraj.dylib'
-    builder.validate_install('3.5')
+    builder.run()
+    # builder.libcpptraj = '../cpptraj/lib/libcpptraj.dylib'
+    # builder.validate_install('3.5')
