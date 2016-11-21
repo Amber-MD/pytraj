@@ -131,11 +131,12 @@ class PipBuilder(object):
         cwd = os.getcwd()
         pattern = cwd + '/wheelhouse/pytraj-*-cp{}-*.whl'.format(version)
         whl_file = glob(pattern)[0]
+        print('Testing wheel file {}'.format(whl_file))
         try:
             subprocess.check_call('{} -m pip uninstall pytraj -y'.format(python_exe).split())
         except subprocess.CalledProcessError:
             pass
-        subprocess.check_call('{} -m pip install {}'.format(python_exe, whl_file).split())
+        subprocess.check_call('{} -m pip install {} --user'.format(python_exe, whl_file).split())
         self._check_numpy_and_fix(python_exe, env)
         if sys.platform.startswith('darwin'):
             with temporarily_move_libcpptraj(self.libcpptraj):
@@ -195,4 +196,6 @@ if __name__ == '__main__':
                          python_versions=python_versions,
                          use_manylinux=args.manylinux_docker,
                          cpptraj_dir=args.cpptraj_dir)
-    builder.run()
+    # builder.run()
+    builder.libcpptraj = '../cpptraj/lib/libcpptraj.dylib'
+    builder.validate_install('3.5')

@@ -13,6 +13,9 @@ from auditwheel import wheeltools
 # 3. Double-check: wheel unpack your_new.whl
 
 # Note: your_new.whl will be in ./wheelhouse folder
+version = '.'.join(str(i) for i in sys.version_info[:2])
+
+LIBCPPTRAJ_RPATH = '@rpath/python{}/site-packages/pytraj/lib/libcpptraj.dylib'.format(version)
 
 def copy_libcpptraj_to_pytraj_lib(libcpptraj):
     try:
@@ -21,7 +24,7 @@ def copy_libcpptraj_to_pytraj_lib(libcpptraj):
         pass
 
     shutil.copy(libcpptraj, 'pytraj/lib')
-    os.system('install_name_tool -id @rpath/libcpptraj.dylib pytraj/lib/libcpptraj.dylib')
+    os.system('install_name_tool -id {} pytraj/lib/libcpptraj.dylib'.format(LIBCPPTRAJ_RPATH))
 
 
 def main(pkg_name, whl_name, libcpptraj):
@@ -35,20 +38,21 @@ def main(pkg_name, whl_name, libcpptraj):
         except OSError:
             pass
         with wheeltools.InWheel(whl_name, out_wheel='wheelhouse/{}'.format(whl_name)):
+            os.system('ls pytraj')
             copy_libcpptraj_to_pytraj_lib(libcpptraj)
-            for fn in (glob('{}/*so'.format(pkg_name)) +
-                       glob('{}/*/*so'.format(pkg_name)) + 
-                       glob('{}/*/*/*/*so'.format(pkg_name))):
-                print('processing {}'.format(fn))
-                libcpptraj_dir = ''
-                for lib in macho.get_dylibs(fn):
-                    if 'libcpptraj' in lib:
-                        libcpptraj_dir = lib
-                        break
-                subprocess.check_call(['install_name_tool', '-change', 
-                                       libcpptraj_dir,
-                                       '@rpath/lib/libcpptraj.dylib',
-                                       fn])
+            for root, dirs, files in os.walk(pkg_name):
+                for fn in (root + '/' +  _ for _ in files):
+                    if fn.endswith('.so'):
+                        libcpptraj_dir = ''
+                        for lib in macho.get_dylibs(fn):
+                            if 'libcpptraj' in lib:
+                                libcpptraj_dir = lib
+                                break
+                        subprocess.check_call(['install_name_tool', '-change', 
+                                               libcpptraj_dir,
+                                               LIBCPPTRAJ_RPATH,
+                                               fn])
+                        os.system('otool -L {}'.format(fn))
 if __name__ == '__main__':
     pkg_name = 'pytraj'
     whl_name = sys.argv[1]

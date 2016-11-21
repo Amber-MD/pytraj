@@ -8,7 +8,7 @@ def temporarily_move_libcpptraj(libcpptraj):
     old_dir = os.path.dirname(libcpptraj)
     new_dir = 'tmp'
     ext = '.so' if not sys.platform.startswith('darwin') else '.dylib'
-    assert os.path.exists(libcpptraj), 'check if {} exists'
+    assert os.path.exists(libcpptraj), 'make sure {} exists'.format(libcpptraj)
     try:
         os.mkdir('./tmp')
     except OSError:
