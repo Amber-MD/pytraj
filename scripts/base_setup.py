@@ -20,7 +20,7 @@ else:
 MAJOR = 1
 MINOR = 1
 MICRO = 0
-is_released = True
+is_released = False
 VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 
 DEFAULT_MAC_CCOMPILER = 'clang'
