@@ -1,7 +1,6 @@
 #!/bin/sh
 
 
-set -x
 export OMP_NUM_THREADS=1
 
 if [ "$TEST_SETUP" == 'true' ]; then
