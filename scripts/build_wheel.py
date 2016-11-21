@@ -115,10 +115,9 @@ class PipBuilder(object):
     
     def repair_wheel(self, python_version):
         whl_name = self._get_wheel_file(python_version)
-        command = '{} {}'.format(self.repair_exe, whl_name).split()
+        command = [self.repair_exe, whl_name]
         if self.is_osx:
-            # force fix_rpath_pip_osx to use the same Python version
-            command = self.python_exe_paths[python_version] + ' ' + command
+            command.extend(['--py', python_version])
         subprocess.check_call(command)
 
     def _check_numpy_and_fix(self, python_exe, env):

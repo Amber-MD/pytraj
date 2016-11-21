@@ -11,10 +11,6 @@ from auditwheel import wheeltools
 # 3. Double-check: wheel unpack your_new.whl
 
 # Note: your_new.whl will be in ./wheelhouse folder
-version = '.'.join(str(i) for i in sys.version_info[:2])
-
-LIBCPPTRAJ_RPATH = '@rpath/python{}/site-packages/pytraj/lib/libcpptraj.dylib'.format(version)
-
 def get_dylibs(fn):
     output = subprocess.check_output([
         'otool',
@@ -23,7 +19,9 @@ def get_dylibs(fn):
     ]).decode()
     return [line.split()[0] for line in output.split('\n') if line]
 
-def copy_libcpptraj_to_pytraj_lib(libcpptraj):
+def copy_libcpptraj_to_pytraj_lib(libcpptraj, python_version):
+    LIBCPPTRAJ_RPATH = '@rpath/python{}/site-packages/pytraj/lib/libcpptraj.dylib'.format(python_version)
+
     try:
         os.mkdir('pytraj/lib')
     except OSError:
@@ -33,14 +31,13 @@ def copy_libcpptraj_to_pytraj_lib(libcpptraj):
     os.system('install_name_tool -id {} pytraj/lib/libcpptraj.dylib'.format(LIBCPPTRAJ_RPATH))
 
 
-def main(pkg_name, whl_name, libcpptraj):
+def main(pkg_name, whl_name, libcpptraj, python_version):
     try:
         os.mkdir('wheelhouse')
     except OSError:
         pass
     with wheeltools.InWheel(whl_name, out_wheel='wheelhouse/{}'.format(whl_name)):
-        os.system('ls pytraj')
-        copy_libcpptraj_to_pytraj_lib(libcpptraj)
+        copy_libcpptraj_to_pytraj_lib(libcpptraj, python_version)
         for root, dirs, files in os.walk(pkg_name):
             for fn in (root + '/' +  _ for _ in files):
                 if fn.endswith('.so'):
@@ -54,8 +51,14 @@ def main(pkg_name, whl_name, libcpptraj):
                                            LIBCPPTRAJ_RPATH,
                                            fn])
 if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser('Fix osx wheel')
+    parser.add_argument('whl_name')
+    parser.add_argument('--py', default='3.5', help='Python version')
+    args = parser.parse_args()
     pkg_name = 'pytraj'
-    whl_name = sys.argv[1]
+    whl_name = args.whl_name
+    python_version = args.py
     cpptrajhome = os.getenv('CPPTRAJHOME', os.path.abspath('../cpptraj'))
     libcpptraj = cpptrajhome + '/lib/libcpptraj.dylib'
-    main(pkg_name, whl_name, libcpptraj)
+    main(pkg_name, whl_name, libcpptraj, python_version)
