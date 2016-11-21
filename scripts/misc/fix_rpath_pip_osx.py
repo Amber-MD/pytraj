@@ -47,7 +47,6 @@ def main(pkg_name, whl_name, libcpptraj):
                                            libcpptraj_dir,
                                            LIBCPPTRAJ_RPATH,
                                            fn])
-                    os.system('otool -L {}'.format(fn))
 if __name__ == '__main__':
     pkg_name = 'pytraj'
     whl_name = sys.argv[1]
