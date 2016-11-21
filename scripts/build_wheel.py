@@ -141,6 +141,7 @@ class PipBuilder(object):
         subprocess.check_call('{} -m pip install {}'.format(python_exe, whl_file).split())
         self._check_numpy_and_fix(python_exe, env)
         if sys.platform.startswith('darwin'):
+            print('libcpptraj', self.libcpptraj)
             with temporarily_move_libcpptraj(self.libcpptraj):
                # moving libcpptraj to make sure pytraj use libcpptraj in pytraj/lib/
                # this is for osx only
