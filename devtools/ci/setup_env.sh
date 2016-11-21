@@ -20,7 +20,7 @@ conda install --yes conda-build jinja2 anaconda-client pip
 conda create -y -n myenv python=$PYTHON_VERSION
 source activate myenv
 conda update -y conda
-conda install -y numpy cython h5py libnetcdf pyflakes conda-build
+conda install -y numpy cython h5py libnetcdf pyflakes
 pip install auditwheel
 
 # for testing

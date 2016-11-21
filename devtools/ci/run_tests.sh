@@ -44,6 +44,9 @@ else
     # test pip install on osx
     if [ "$isOSX" = "True" ]; then
         echo "Testing wheel building"
+        # back to root env
+        # (seems conda-build like root env)
+        source deactivate
         ./devtools/mkrelease
         (cd dist && python ../scripts/build_wheel.py ./pytraj*gz)
     fi
