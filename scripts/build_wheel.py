@@ -48,7 +48,7 @@ class PipBuilder(object):
                  use_manylinux=False,
                  cpptraj_dir=''):
         self.libcpptraj = '' # will be updated later
-        is_osx = sys.platform.startswith('darwin')
+        self.is_osx = sys.platform.startswith('darwin')
         self.python_versions = python_versions
         self.use_manylinux = use_manylinux
         if cpptraj_dir:
@@ -66,7 +66,7 @@ class PipBuilder(object):
                                                     '/envs/pytraj' + py_version,
                                                     'bin/python'))
                                           ) for py_version in self.python_versions)
-        self.repair_exe = (pytraj_home + '/scripts/misc/fix_rpath_pip_osx.py' if is_osx else
+        self.repair_exe = (pytraj_home + '/scripts/misc/fix_rpath_pip_osx.py' if self.is_osx else
                            'auditwheel repair')
 
     def run(self):
@@ -116,6 +116,9 @@ class PipBuilder(object):
     def repair_wheel(self, python_version):
         whl_name = self._get_wheel_file(python_version)
         command = '{} {}'.format(self.repair_exe, whl_name).split()
+        if self.is_osx:
+            # force fix_rpath_pip_osx to use the same Python version
+            command = self.python_exe_paths[python_version] + ' ' + command
         subprocess.check_call(command)
 
     def _check_numpy_and_fix(self, python_exe, env):
