@@ -175,7 +175,7 @@ class PipBuilder(object):
                 raise EnvironmentError('Must set CPPTRAJHOME')
         else:
             self.cpptraj_dir = cpptraj_home
-        self.libcpptraj self.cpptraj_dir + '/lib/libcpptraj.' + ext
+        self.libcpptraj = self.cpptraj_dir + '/lib/libcpptraj.' + ext
 
         for package in self.REQUIRED_PACKAGES:
             try:
