@@ -1,6 +1,7 @@
 #!/bin/sh
 
 
+set -x
 export OMP_NUM_THREADS=1
 
 if [ "$TEST_SETUP" == 'true' ]; then
@@ -40,4 +41,11 @@ else
     
     # go back to pytraj home
     cd $PYTRAJ_HOME
+
+    # test pip install on osx
+    if [ "$isOSX" = "True" ]; then
+        echo "Testing wheel building"
+        ./devtools/mkrelease
+        (cd dist && python ../scripts/build_wheel.py ./pytraj*gz)
+    fi
 fi

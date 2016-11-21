@@ -136,7 +136,7 @@ class PipBuilder(object):
             subprocess.check_call('{} -m pip uninstall pytraj -y'.format(python_exe).split())
         except subprocess.CalledProcessError:
             pass
-        subprocess.check_call('{} -m pip install {} --user'.format(python_exe, whl_file).split())
+        subprocess.check_call('{} -m pip install {}'.format(python_exe, whl_file).split())
         self._check_numpy_and_fix(python_exe, env)
         if sys.platform.startswith('darwin'):
             with temporarily_move_libcpptraj(self.libcpptraj):
