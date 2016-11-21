@@ -66,8 +66,8 @@ class PipBuilder(object):
                                                     '/envs/pytraj' + py_version,
                                                     'bin/python'))
                                           ) for py_version in self.python_versions)
-        self.repair_exe = (pytraj_home + '/scripts/misc/fix_rpath_pip_osx.py' if self.is_osx else
-                           'auditwheel repair')
+        self.repair_exe = ([pytraj_home + '/scripts/misc/fix_rpath_pip_osx.py',] if self.is_osx else
+                           ['auditwheel', 'repair'])
 
     def run(self):
         self.check_cpptraj_and_required_libs()
@@ -115,7 +115,7 @@ class PipBuilder(object):
     
     def repair_wheel(self, python_version):
         whl_name = self._get_wheel_file(python_version)
-        command = [self.repair_exe, whl_name]
+        command = self.repair_exe + [whl_name,]
         if self.is_osx:
             command.extend(['--py', python_version])
         subprocess.check_call(command)
