@@ -138,23 +138,23 @@ class PipBuilder(object):
         whl_file = glob(pattern)[0]
         print('Testing wheel file {}'.format(whl_file))
         try:
-            subprocess.check_call('{} -m pip uninstall pytraj -y'.format(python_exe).split())
+            subprocess.check_call('{} -m pip uninstall pytraj -y'.format(python_exe),
+                                  shell=True)
         except subprocess.CalledProcessError:
             pass
-        subprocess.check_call('{} -m pip install {}'.format(python_exe, whl_file).split())
+        subprocess.check_call('{} -m pip install {}'.format(python_exe, whl_file),
+                              shell=True)
         self._check_numpy_and_fix(python_exe, env)
         if sys.platform.startswith('darwin'):
             print('libcpptraj', self.libcpptraj)
             with temporarily_move_libcpptraj(self.libcpptraj):
                # moving libcpptraj to make sure pytraj use libcpptraj in pytraj/lib/
                # this is for osx only
-               output = subprocess.check_output('{} -c "import pytraj as pt; pt.run_tests()"'
-                                              .format(python_exe, whl_file),
-                                              shell=True)
+               output = subprocess.check_output('{} -c "import pytraj as pt; pt.run_tests()"'.format(python_exe),
+                                                shell=True)
         else:
-            output = subprocess.check_output('{} -c "import pytraj as pt; pt.run_tests())"'
-                                           .format(python_exe, whl_file),
-                                           shell=True)
+            output = subprocess.check_output('{} -c "import pytraj as pt; pt.run_tests()"'.format(python_exe),
+                                             shell=True)
         output = output.decode()
         print(output)
         print('PASSED: build test for {}'.format(whl_file))

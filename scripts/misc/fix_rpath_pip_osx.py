@@ -4,8 +4,6 @@ import os, sys
 import shutil
 import subprocess
 from glob import glob
-from conda_build import post
-from conda_build.os_utils import macho
 from auditwheel import wheeltools
 
 # 1. Install wheel: pip wheel .
@@ -16,6 +14,14 @@ from auditwheel import wheeltools
 version = '.'.join(str(i) for i in sys.version_info[:2])
 
 LIBCPPTRAJ_RPATH = '@rpath/python{}/site-packages/pytraj/lib/libcpptraj.dylib'.format(version)
+
+def get_dylibs(fn):
+    output = subprocess.check_output([
+        'otool',
+        '-L',
+        fn
+    ]).decode()
+    return [line.split()[0] for line in output.split('\n') if line]
 
 def copy_libcpptraj_to_pytraj_lib(libcpptraj):
     try:
@@ -39,7 +45,7 @@ def main(pkg_name, whl_name, libcpptraj):
             for fn in (root + '/' +  _ for _ in files):
                 if fn.endswith('.so'):
                     libcpptraj_dir = ''
-                    for lib in macho.get_dylibs(fn):
+                    for lib in get_dylibs(fn):
                         if 'libcpptraj' in lib:
                             libcpptraj_dir = lib
                             break
