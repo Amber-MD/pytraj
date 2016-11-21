@@ -15,6 +15,7 @@ bash miniconda.sh -b
 
 export PATH=$HOME/miniconda/bin:$PATH
 conda install --yes conda-build jinja2 anaconda-client pip cython numpy
+pip install auditwheel
 
 # create myenv
 conda create -y -n myenv python=$PYTHON_VERSION
