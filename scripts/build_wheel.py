@@ -10,6 +10,10 @@ import sys
 import subprocess
 from glob import glob
 
+sys.path.insert(0, os.path.abspath(__file__))
+from utils import temporarily_move_libcpptraj
+
+
 class PipBuilder(object):
     '''
 
@@ -28,7 +32,7 @@ class PipBuilder(object):
     ----
     Build wheel package from conda package?
     '''
-    REQUIRED_PACKAGES = ['auditwheel']
+    REQUIRED_PACKAGES = ['auditwheel', 'conda_build']
     SUPPORTED_VERSIONS = ['2.7', '3.4', '3.5']
     MANY_LINUX_PYTHONS = dict(
        (py_version, '/opt/python/cp{py}-cp{py}m/bin/python'.format(py=py_version.replace('.', '')))
@@ -41,6 +45,7 @@ class PipBuilder(object):
                  python_versions,
                  use_manylinux=False,
                  cpptraj_dir=''):
+        self.libcpptraj = '' # will be updated later
         is_osx = sys.platform.startswith('darwin')
         self.python_versions = python_versions
         self.use_manylinux = use_manylinux
@@ -115,13 +120,7 @@ class PipBuilder(object):
         try:
             subprocess.check_call('{} -c "import numpy"'.format(python_exe), shell=True)
         except subprocess.CalledProcessError:
-            print('Installing numpy')
-            if self.use_manylinux:
-                subprocess.check_call('{} -m pip install numpy'.format(python_exe),
-                                      shell=True)
-            else:
-                subprocess.check_call('conda install numpy nomkl -y -n {}'.format(env),
-                                      shell=True)
+            subprocess.check_call('{} -m pip install numpy'.format(python_exe), shell=True)
 
     def validate_install(self, py_version):
         python_exe = self.python_exe_paths[py_version]
@@ -138,22 +137,21 @@ class PipBuilder(object):
             pass
         subprocess.check_call('{} -m pip install {}'.format(python_exe, whl_file).split())
         self._check_numpy_and_fix(python_exe, env)
-        if self.use_manylinux:
-            output = subprocess.check_output('{} -c "import pytraj as pt; print(pt)"'
-                                           .format(python_exe, whl_file),
-                                           shell=True)
-            output = output.decode()
-            print('Testing pytraj python={}'.format(py_version))
-            print(output)
+        if sys.platform.startswith('darwin'):
+            with temporarily_move_libcpptraj(self.libcpptraj):
+               # moving libcpptraj to make sure pytraj use libcpptraj in pytraj/lib/
+               # this is for osx only
+               output = subprocess.check_output('{} -c "import pytraj as pt; pt.run_tests()"'
+                                              .format(python_exe, whl_file),
+                                              shell=True)
         else:
-            output = subprocess.check_output('{} -c "import pytraj as pt; print(pt)"'
+            output = subprocess.check_output('{} -c "import pytraj as pt; pt.run_tests())"'
                                            .format(python_exe, whl_file),
                                            shell=True)
-            output = output.decode()
-            expected_output = 'envs/{env}/lib/python{py_version}/site-packages/pytraj'.format(env=env,
-                    py_version=py_version)
-            assert expected_output in output
-            print('PASSED: build test for {}'.format(whl_file))
+        output = output.decode()
+        print(output)
+        print('PASSED: build test for {}'.format(whl_file))
+        subprocess.check_call('{} -m pip uninstall pytraj -y'.format(python_exe).split())
 
     def check_cpptraj_and_required_libs(self):
         pytraj_home = os.path.abspath(os.path.dirname(__file__).strip('scripts'))
@@ -166,6 +164,7 @@ class PipBuilder(object):
             suggested_libcpptraj = self.cpptraj_dir + '/lib/libcpptraj.' + ext
             print('Looking for {}'.format(suggested_libcpptraj))
             if os.path.exists(suggested_libcpptraj):
+                self.libcpptraj = suggested_libcpptraj
                 print('Found')
                 os.environ['CPPTRAJHOME'] = self.cpptraj_dir
                 print('CPPTRAJHOME is set to {}'.format(self.cpptraj_dir))
