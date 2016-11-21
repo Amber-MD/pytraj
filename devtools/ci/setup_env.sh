@@ -6,15 +6,16 @@ mv ambermini_test ./tests/energies/
 
 osname=`python -c 'import sys; print(sys.platform)'`
 if [ $osname = "darwin" ]; then
-    wget http://repo.continuum.io/miniconda/Miniconda-3.7.0-MacOSX-x86_64.sh -O miniconda.sh;
+    wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O miniconda.sh;
 else
-    wget http://repo.continuum.io/miniconda/Miniconda-3.7.0-Linux-x86_64.sh -O miniconda.sh;
+    wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
 fi
 
 bash miniconda.sh -b
 
-export PATH=$HOME/miniconda/bin:$PATH
-conda install --yes conda-build jinja2 anaconda-client pip
+export PATH=$HOME/miniconda3/bin:$PATH
+conda install --yes conda-build jinja2 anaconda-client pip cython numpy
+pip install auditwheel
 
 # create myenv
 conda create -y -n myenv python=$PYTHON_VERSION
