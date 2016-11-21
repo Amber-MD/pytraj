@@ -1,6 +1,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 from pytraj import *
 
@@ -8,14 +9,14 @@ from pytraj import *
 class Test(unittest.TestCase):
 
     def test_0(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
         for xyz0 in traj.xyz:
             frame = pt.Frame(traj.n_atoms, xyz0, _as_ptr=True)
             aa_eq(frame.xyz, xyz0)
 
     def test_1(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         trajectory_t0 = Trajectory(traj)
 
         # __iter__

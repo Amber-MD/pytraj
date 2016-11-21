@@ -3,6 +3,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 from pytraj import sandbox as sb
 
@@ -10,7 +11,7 @@ from pytraj import sandbox as sb
 class TestSuperDispatch(unittest.TestCase):
 
     def test_radgyr_dispatch(self):
-        traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
 
         # mask is an array-like
         aa_eq(sb._toy_radgyr(traj, [0, 3]), pt.radgyr(traj, '@1,4'))

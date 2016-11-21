@@ -4,6 +4,7 @@ from __future__ import print_function
 import unittest
 import numpy as np
 import pytraj as pt
+from utils import fn
 from pytraj.testing import aa_eq
 
 
@@ -12,8 +13,8 @@ class TestIssue991(unittest.TestCase):
     def test_buffer_not_c_contiguous(self):
         # source code was lightly adapted from jmborr
         # https://github.com/Amber-MD/pytraj/issues/991
-        traj = pt.load('data/issue991/short.dcd',
-                       'data/issue991/pdb.gz',
+        traj = pt.load(fn('issue991/short.dcd'),
+                       fn('issue991/pdb.gz'),
                        mask='(!:1-256)&(@H1,@H2,@H3,@H4,@H5)')
 
         # Trajectory of the center of mass of the first two residues
@@ -36,14 +37,14 @@ class TestIssue991(unittest.TestCase):
         exts.remove('crd')
 
         for ext in exts:
-            fn = 'output/junk.' + ext
-            pt.write_traj(filename=fn,
+            junk_fn = 'output/junk.' + ext
+            pt.write_traj(filename=junk_fn,
                           traj=minitraj,
                           top=minitop,
                           overwrite=True)
 
             # load coord back to make sure we correctly write it
-            new_traj = pt.iterload(fn, minitop)
+            new_traj = pt.iterload(junk_fn, minitop)
             # mdcrd, crd, pdb has only 3 digits after decimal
             decimal = 5 if ext in ['nc', 'dcd', 'trr'] else 3
             aa_eq(minitraj, new_traj.xyz, decimal=decimal)

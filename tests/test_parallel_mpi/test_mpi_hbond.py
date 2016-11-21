@@ -1,10 +1,11 @@
 import pytraj as pt
+from utils import fn
 from mpi4py import MPI
 from pytraj.testing import aa_eq
 
 rank = MPI.COMM_WORLD.rank
 
-traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 hbond_data_serial = pt.search_hbonds(traj, dtype='dict')
 hbond_data_pmap_mpi = pt.pmap_mpi(pt.search_hbonds, traj)
 

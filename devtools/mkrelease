@@ -2,6 +2,9 @@
 
 import os
 import sys
+import subprocess
+
+python = sys.prefix + '/bin/python'
 
 cwd = os.getcwd()
 
@@ -18,7 +21,7 @@ else:
 
 os.chdir(pytraj_dir)
 
-os.system('git clean -fdx .')
+subprocess.check_call('git clean -fdx .', shell=True)
 
 # change to release status 
 with open('scripts/base_setup.py', 'r') as fh:
@@ -28,13 +31,13 @@ with open('scripts/base_setup.py', 'r') as fh:
 with open('scripts/tmp.py', 'w') as fh:
     fh.write(new_content)
 
-os.system('mv scripts/tmp.py scripts/base_setup.py')
-os.system('python scripts/cythonize.py')
+subprocess.check_call('mv scripts/tmp.py scripts/base_setup.py', shell=True)
+subprocess.check_call('{} scripts/cythonize.py'.format(python), shell=True)
 
 if not ambertools_distro:
     # upload to pip
-    os.system('python setup.py sdist')
+    subprocess.check_call('{} setup.py sdist'.format(python), shell=True)
     # restore to ISRELEASED = False
-    os.system('git checkout scripts/base_setup.py')
+    subprocess.check_call('git checkout scripts/base_setup.py', shell=True)
 
 os.chdir(cwd)

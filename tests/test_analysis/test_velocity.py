@@ -2,6 +2,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 import pytest
 
@@ -9,8 +10,8 @@ import pytest
 class TestVelocity(unittest.TestCase):
 
     def test_velocity(self):
-        traj = pt.iterload("./data/issue807/trunc.nc",
-                           "data/issue807/system.prmtop")
+        traj = pt.iterload(fn('issue807/trunc.nc'),
+                           fn("issue807/system.prmtop"))
 
         traj[0]
 
@@ -31,21 +32,22 @@ class TestVelocity(unittest.TestCase):
         aa_eq(vels, vels_)
 
         # raise if not having velocity
-        traj2 = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
+        traj2 = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         with pytest.raises(ValueError):
             pt.get_velocity(traj2)
 
     def test_velocityautocorr(self):
         # usevelocity = False
-        traj = pt.iterload("./data/issue807/trunc.nc",
-                           "data/issue807/system.prmtop")
+        traj = pt.iterload(fn('issue807/trunc.nc'),
+                           fn("issue807/system.prmtop"))
         data0 = pt.all_actions.velocityautocorr(traj, tstep=2, norm=True, direct=True)
 
         cm = """
-        parm data/issue807/system.prmtop
-        trajin data/issue807/trunc.nc
+        parm {}
+        trajin {}
         velocityautocorr mydata * tstep 2 norm direct
-        """
+        """.format(fn('issue807/system.prmtop'),
+                   fn('issue807/trunc.nc'))
         
         state = pt.load_cpptraj_state(cm)
         state.run()
@@ -56,10 +58,11 @@ class TestVelocity(unittest.TestCase):
                 tstep=1, norm=False, direct=True, usevelocity=True)
 
         cm = """
-        parm data/issue807/system.prmtop
-        trajin data/issue807/trunc.nc
+        parm {}
+        trajin {}
         velocityautocorr mydata * tstep 1 direct usevelocity
-        """
+        """.format(fn('issue807/system.prmtop'),
+                   fn('issue807/trunc.nc'))
         
         state = pt.load_cpptraj_state(cm)
         state.run()

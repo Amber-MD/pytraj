@@ -1,6 +1,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.testing import aa_eq, tempfolder
 from utils import tc5b_trajin, tc5b_top
 

@@ -83,7 +83,6 @@ __all__ = [
     'gist',
     'center',
     'wavelet',
-    # rmsd stuff
     'rotation_matrix',
     'pairwise_rmsd',
     'rmsd_perres',
@@ -96,7 +95,6 @@ __all__ = [
     'atomiccorr',
     'esander',
     'lie',
-    # module
     'matrix',
     'vector',
     'nmr',
@@ -2307,8 +2305,6 @@ def pca(traj,
     '''
     # TODO: move to another file
     # NOTE: do not need to use super_dispatch here since we already use in projection
-    from pytraj import matrix
-
     ref_mask_ = ref_mask if ref_mask is not None else mask
 
     if not isinstance(traj, (Trajectory, TrajectoryIterator)):

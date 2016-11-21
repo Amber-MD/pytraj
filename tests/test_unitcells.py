@@ -1,6 +1,7 @@
 import unittest
 import numpy as np
 import pytraj as pt
+from utils import fn
 from pytraj import Frame
 from pytraj.core import Box
 from pytraj.testing import aa_eq
@@ -10,7 +11,7 @@ from pytraj.externals.six import zip
 class TestBox(unittest.TestCase):
 
     def test_0(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         frame0 = traj[0]
         frame0.box.tolist()
         frame0.box = np.array([0.0, 1.0, 2.0, 3.0, 4.0, 6.])
@@ -43,8 +44,8 @@ class TestBox(unittest.TestCase):
         aa_eq(f1.box.values, box.values, decimal=7)
 
     def test_real_box(self):
-        traj = pt.load("./data/tz2.ortho.nc", "data/tz2.ortho.parm7")
-        trajiter = pt.iterload("./data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        traj = pt.load(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
+        trajiter = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         saved_box = Box([3.94559740E+01, 4.68215170E+01, 4.04695410E+01, 90.,
                          90., 90.])
         aa_eq(traj.top.box.values, saved_box.values)

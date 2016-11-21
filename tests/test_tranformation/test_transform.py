@@ -3,13 +3,14 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 
 
 class TestTransformation(unittest.TestCase):
 
     def test_transforming_trajectory(self):
-        traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         t0 = traj[:]
 
         t0.transform(['autoimage', 'center origin', 'rotate x 30',
@@ -31,7 +32,7 @@ class TestTransformation(unittest.TestCase):
         aa_eq(t3.xyz, t2.xyz)
 
     def test_align_principal_axis(self):
-        traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         t0 = traj[:]
         t1 = traj[:]
         aa_eq(t0.align_principal_axis().xyz, pt.align_principal_axis(t1).xyz)

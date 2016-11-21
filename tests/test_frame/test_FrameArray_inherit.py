@@ -9,7 +9,7 @@ class Test(unittest.TestCase):
             class FA(Trajectory):
                 pass
 
-            FA("./data/Tc5b.x", "./data/Tc5b.top")
+            FA(fn('Tc5b.x'), fn('Tc5b.top'))
 
         self.assertRaises(TypeError, lambda: test_class())
 

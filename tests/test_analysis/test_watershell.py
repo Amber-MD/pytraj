@@ -1,13 +1,14 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.testing import aa_eq
 
 
 class TestWatershell(unittest.TestCase):
 
     def test_watershell(self):
-        traj = pt.iterload("data/tz2.truncoct.nc", "data/tz2.truncoct.parm7")
+        traj = pt.iterload(fn('tz2.truncoct.nc'), fn('tz2.truncoct.parm7'))
         state = pt.load_batch(traj, '''
         watershell :1-7
         ''')

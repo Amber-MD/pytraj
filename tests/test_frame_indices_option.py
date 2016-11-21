@@ -5,6 +5,7 @@ import unittest
 from pytraj import *
 import numpy as np
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 from pytraj.externals.six import string_types
 from pytraj.analysis.hbond_analysis import DatasetHBond
@@ -13,9 +14,9 @@ from pytraj.analysis.hbond_analysis import DatasetHBond
 class TestFrameIndices(unittest.TestCase):
 
     def setUp(self):
-        self.traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
-        self.traj_ortho = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
-        self.traj_nu = pt.iterload('data/Test_NAstruct/adh026.3.pdb')
+        self.traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
+        self.traj_ortho = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
+        self.traj_nu = pt.iterload(fn('Test_NAstruct/adh026.3.pdb'))
 
     def test_frame_indices_from_yield(self):
         '''extensive and seperated testsing

@@ -4,6 +4,7 @@ from __future__ import print_function
 import unittest
 import numpy as np
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 
 command = '''
@@ -30,7 +31,7 @@ crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
 class TestProjection(unittest.TestCase):
 
     def test_projection_for_pca(self):
-        traj = pt.load("./data/tz2.nc", "./data/tz2.parm7")
+        traj = pt.load(fn('tz2.nc'), fn('tz2.parm7'))
 
         state = pt.load_cpptraj_state(command)
         state.run()
@@ -71,7 +72,7 @@ class TestProjection(unittest.TestCase):
         scalar_type = 'covar'
         cm2 = cm.format(scalar_type=scalar_type)
         
-        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         state = pt.load_cpptraj_state(cm2, traj)
         state.run()
 

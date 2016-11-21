@@ -2,13 +2,14 @@ from __future__ import print_function
 import unittest
 import numpy as np
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 
 
 class TestAutoImageAndRotateDihedral(unittest.TestCase):
 
     def test_autoimage_rotatedihedral(self):
-        traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         farray = traj[:]
 
         t0trajectory = pt.Trajectory(traj)
@@ -32,7 +33,7 @@ class TestAutoImageAndRotateDihedral(unittest.TestCase):
 class TestNoName(unittest.TestCase):
 
     def test_0(self):
-        traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         trajectory_traj = traj[:]
 
         # test xyz
@@ -53,14 +54,14 @@ class TestNoName(unittest.TestCase):
         # make Trajectory from TrajectoryIterator
         fa = traj[:]
         fa.autoimage()
-        saved_traj = pt.iterload("./data/tz2.autoimage.nc",
-                                 "./data/tz2.ortho.parm7")
+        saved_traj = pt.iterload(fn('tz2.autoimage.nc'),
+                                 fn('tz2.ortho.parm7'))
 
         # make sure to reproduce cpptraj's output too
         aa_eq(saved_traj.xyz, fa.xyz)
 
     def test_FromIterable(self):
-        traj = pt.iterload("./data/tz2.ortho.nc", "./data/tz2.ortho.parm7")
+        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         aa_eq(pt.Trajectory.from_iterable(traj).xyz, traj.xyz)
 
 
@@ -69,7 +70,7 @@ class TestAppend(unittest.TestCase):
     def test_append_trajectory(self):
         # test append
         traj = pt.Trajectory()
-        t = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        t = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         traj.top = t.top
 
         # append single Frame
@@ -128,19 +129,19 @@ class TestTrajectory(unittest.TestCase):
 
     def test_slice_basic(self):
         traj2 = pt.Trajectory()
-        traj2.top = pt.load_topology("./data/Tc5b.top")
-        traj2.load("./data/Tc5b.x")
-        traj2.load("./data/Tc5b.x")
-        traj2.load("./data/Tc5b.x")
-        traj2.load("./data/Tc5b.x")
+        traj2.top = pt.load_topology(fn('Tc5b.top'))
+        traj2.load(fn('Tc5b.x'))
+        traj2.load(fn('Tc5b.x'))
+        traj2.load(fn('Tc5b.x'))
+        traj2.load(fn('Tc5b.x'))
         fsub = traj2[2:10]
         fsub[0][0] = 100.
 
     def test_indexing(self):
-        traj = pt.iterload('data/Tc5b.x', 'data/Tc5b.top')
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         traj2 = pt.TrajectoryIterator()
-        traj2.top = pt.load_topology("./data/Tc5b.top")
-        traj2._load("./data/Tc5b.x")
+        traj2.top = pt.load_topology(fn('Tc5b.top'))
+        traj2._load(fn('Tc5b.x'))
         farray = traj2[[0, 9, 1]]
         assert farray.n_frames == 3
         assert traj2[0].atom(0) == farray[0].atom(0)
@@ -165,24 +166,24 @@ class TestTrajectory(unittest.TestCase):
 
     def test_iter_basic(self):
         traj = pt.TrajectoryIterator()
-        traj.top = pt.load_topology("./data/Tc5b.top")
-        traj._load("./data/Tc5b.x")
+        traj.top = pt.load_topology(fn('Tc5b.top'))
+        traj._load(fn('Tc5b.x'))
         for frame in traj:
             pass
 
     def test_traj_topology(self):
         traj = pt.TrajectoryIterator()
         assert traj.top.is_empty() == True
-        traj.top = pt.load_topology("./data/Tc5b.top")
+        traj.top = pt.load_topology(fn('Tc5b.top'))
         assert traj.top.is_empty() == False
-        traj._load("./data/Tc5b.x")
+        traj._load(fn('Tc5b.x'))
 
         # use toplogy
         traj = pt.TrajectoryIterator()
         assert traj.topology.is_empty() == True
-        traj.topology = pt.load_topology("./data/Tc5b.top")
+        traj.topology = pt.load_topology(fn('Tc5b.top'))
         assert traj.topology.is_empty() == False
-        traj._load("./data/Tc5b.x")
+        traj._load(fn('Tc5b.x'))
 
     def test_xyz(self):
         traj = pt.datafiles.load_tz2_ortho()
@@ -244,7 +245,7 @@ class TestTrajectory(unittest.TestCase):
         aa_eq(pt.tools.merge_trajs(traj1, traj2).xyz, (traj1 + trajiter).xyz)
 
     def test_allocate_frames(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         traj2 = pt.Trajectory()
         traj2._allocate(traj.n_frames, traj.n_atoms)
         assert (traj2.shape == traj.shape)
@@ -257,7 +258,7 @@ class TestTrajectory(unittest.TestCase):
 class TestSaveToDisk(unittest.TestCase):
 
     def test_basic_saving(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
         fa = traj[:]
         fname = "./output/test_savemethod.x"
@@ -277,7 +278,7 @@ class TestSaveToDisk(unittest.TestCase):
             aa_eq(f0.xyz, f0new2.xyz)
 
     def test_fancy_save(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         traj[1:8].save("./output/test_fancy_save_frame1_7.x", overwrite=True)
 
         fanew = pt.iterload("./output/test_fancy_save_frame1_7.x", traj.top)
@@ -290,7 +291,7 @@ class TestSaveToDisk(unittest.TestCase):
 class TestSetitem(unittest.TestCase):
 
     def test_setitem(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         fa = traj[:]
 
         # single value

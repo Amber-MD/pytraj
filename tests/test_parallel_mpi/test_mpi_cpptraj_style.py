@@ -1,6 +1,7 @@
 # always add those lines to your code
 import sys
 import pytraj as pt
+from utils import fn
 from pytraj.testing import aa_eq
 
 try:

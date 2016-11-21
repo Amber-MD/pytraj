@@ -1,5 +1,6 @@
 from __future__ import print_function
 import pytraj as pt
+from utils import fn
 import unittest
 from pytraj.testing import aa_eq
 
@@ -9,7 +10,7 @@ class Test(unittest.TestCase):
     def test_0(self):
         import numpy as np
 
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         traj2 = traj[:]
         d1 = pt.calc_center_of_mass(traj, dtype='dataset')
         d2 = pt.calc_center_of_mass(traj2, dtype='dataset')

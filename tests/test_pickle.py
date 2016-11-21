@@ -4,6 +4,7 @@ import unittest
 import numpy as np
 from functools import partial
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 from pytraj.testing import assert_equal_topology
 from pytraj.externals.six import zip
@@ -13,7 +14,7 @@ from pytraj.core import Box
 class TestBuildAndPickleTopology(unittest.TestCase):
 
     def setUp(self):
-        self.traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        self.traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
 
     def test_convert_to_dict_and_rebuild(self):
         '''test_convert_to_dict_and_rebuild
@@ -65,7 +66,7 @@ class TestBuildAndPickleTopology(unittest.TestCase):
 class TestPickleFrame(unittest.TestCase):
 
     def test_set_mass_correctly(self):
-        traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         f0 = traj[0]
 
         f1 = f0.__class__(f0.n_atoms)
@@ -77,7 +78,7 @@ class TestPickleFrame(unittest.TestCase):
         aa_eq(f1.mass, f0.mass)
 
     def test_pickle_frame(self):
-        traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         f0 = traj[0]
         print(f0.mass)
 
@@ -92,8 +93,8 @@ class TestPickleTrajectoryIterator(unittest.TestCase):
     def test_trajiter_normal(self):
         for _pickle_topology in [True, False]:
             for frame_slice in [(0, 8, 2), (0, 10, 1)]:
-                traj = pt.iterload("data/Tc5b.x",
-                                   "data/Tc5b.top",
+                traj = pt.iterload(fn('Tc5b.x'),
+                                   fn('Tc5b.top'),
                                    frame_slice=frame_slice)
                 traj._pickle_topology = _pickle_topology
                 pt.io.to_pickle(traj, 'output/test0.pk')
@@ -103,12 +104,12 @@ class TestPickleTrajectoryIterator(unittest.TestCase):
                 assert_equal_topology(traj.top, t0.top, traj)
 
     def test_trajiter_with_actionlist(self):
-       traj = pt.iterload("data/tz2.ortho.nc",
-                          "data/tz2.ortho.parm7")
+       traj = pt.iterload(fn('tz2.ortho.nc'),
+                          fn('tz2.ortho.parm7'))
        traj.autoimage().center('origin').superpose('@CA')
-       fn = 'output/test.pk'
-       pt.to_pickle(traj, fn)
-       traj2 = pt.read_pickle(fn)
+       pk_fn = 'output/test.pk'
+       pt.to_pickle(traj, pk_fn)
+       traj2 = pt.read_pickle(pk_fn)
        print(traj2._transform_commands)
        aa_eq(traj.xyz, traj2.xyz)
 
@@ -120,10 +121,10 @@ def worker(rank, frame, traj):
 class TestPickleFrame(unittest.TestCase):
 
     def setUp(self):
-        self.traj = pt.iterload("./data/Test_NAstruct/x3dna/rna.pdb")
+        self.traj = pt.iterload(fn('Test_NAstruct/x3dna/rna.pdb'))
 
     def test_frame(self):
-        traj = pt.iterload("data/Tc5b.x", "data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         frame = traj[0]
 
         pt.to_pickle(frame, 'output/frame.pk')
@@ -147,7 +148,7 @@ class TestPickleFrame(unittest.TestCase):
 class TestPickleDatasetList(unittest.TestCase):
 
     def test_pickle_datasetlist(self):
-        traj = pt.iterload("data/Tc5b.x", "data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         dslist = pt.multidihedral(traj)
         pt.to_pickle(dslist, 'output/ds.pk')
         dslist2 = pt.read_pickle('output/ds.pk')

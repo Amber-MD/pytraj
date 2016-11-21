@@ -2,13 +2,14 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 
 
 class TestSegmetationFault(unittest.TestCase):
 
     def test_issue807(self):
         # files are provided by Chris Lee
-        traj = pt.iterload("./data/issue807/trunc.nc",
+        traj = pt.iterload(fn('issue807/trunc.nc'),
                            "./data/issue807/system.prmtop")
 
         traj[0]

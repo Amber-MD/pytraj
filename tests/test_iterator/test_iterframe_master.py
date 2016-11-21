@@ -1,16 +1,18 @@
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.testing import aa_eq
 from pytraj.externals.six import zip
 from pytraj import iterframe_master
 from pytraj import Frame, Trajectory
 
+from utils import tc5b_trajin, tc5b_top
 text = """
-parm ./data/Tc5b.top
-trajin ./data/Tc5b.x
+parm {}
+trajin {}
 rotate x 60 y 120 z 50 @CA
 trajout rotated_frame0.x60y120z50.Tc5b.r
-"""
+""".format(tc5b_top, tc5b_trajin)
 
 
 def iter_me(obj, n_frames):
@@ -23,7 +25,7 @@ def iter_me(obj, n_frames):
 class TestIterFrameMaster(unittest.TestCase):
 
     def test_iter(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         fa = traj[:]
 
         iter_me(traj, traj.n_frames)
@@ -68,7 +70,7 @@ class TestIterFrameMaster(unittest.TestCase):
         self.assertRaises(TypeError, lambda: test_raise())
 
     def test_iter_with_a_list_of_frame_and_trajectory_and_FrameIterator(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         traj[0]
 
         for idx, frame in enumerate(iterframe_master([traj[0], traj])):
@@ -86,14 +88,14 @@ class TestIterFrameMaster(unittest.TestCase):
             assert isinstance(frame, Frame), 'must a a Frame'
 
     def test_assert(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         fa = Trajectory.from_iterable(iterframe_master(traj), top=traj.top)
 
         for f0, f1 in zip(fa, traj):
             aa_eq(f0.xyz, f1.xyz)
 
     def test_TrajectorView(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         # make mutable traj
         t0 = traj[:]
         t1 = traj[:]
@@ -108,7 +110,7 @@ class TestIterFrameMaster(unittest.TestCase):
 class TestIterFrameFromArray(unittest.TestCase):
 
     def test_iterframe_from_array(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
         # no mass
         fi = pt.iterframe_from_array(traj.xyz, traj.n_atoms,

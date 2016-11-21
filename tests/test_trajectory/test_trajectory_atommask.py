@@ -1,14 +1,16 @@
 import unittest
 
-from pytraj import io as mdio
+import pytraj as pt
 from pytraj.utils.check_and_assert import assert_almost_equal
+
+from utils import fn
 
 
 class Test(unittest.TestCase):
 
     def test_0(self):
         mask = "@CA"
-        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         traj.top
         atm = traj.top(mask)
         n_selected_atoms = atm.n_atoms
@@ -27,7 +29,7 @@ class Test(unittest.TestCase):
         # why Trajectory is here? because I am lazy to move
         mask = "@CA"
         # creat Trajectory ( [:] )
-        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")[:]
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))[:]
         traj.top
         atm = traj.top(mask)
         newtraj = traj[atm]

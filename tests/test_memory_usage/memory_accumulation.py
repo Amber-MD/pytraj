@@ -1,6 +1,7 @@
 # that stops travis
 import os
 import pytraj as pt
+from utils import fn
 from numpy import max
 from memory_profiler import profile, memory_usage
 

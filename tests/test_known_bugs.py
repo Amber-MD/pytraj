@@ -2,13 +2,14 @@
 """
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.testing import aa_eq
 
 
 class TestBugs(unittest.TestCase):
 
     def test_0(self):
-        trajcpp = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        trajcpp = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         farray = trajcpp[:]
 
         # bugs: trajcpp[0, 0, 0] != farray[0, 0, 0] (must be equal)

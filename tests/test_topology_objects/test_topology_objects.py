@@ -3,12 +3,13 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 
 
 class TestTopoloyObjects(unittest.TestCase):
 
     def setUp(self):
-        self.traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        self.traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
     def test_atom(self):
         for idx, atom in enumerate(self.traj.top.atoms):

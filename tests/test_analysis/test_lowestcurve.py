@@ -3,7 +3,10 @@ from __future__ import print_function
 import unittest
 import numpy as np
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
+
+from utils import fn
 
 saved_data = '''
    0.348       9.3884
@@ -58,7 +61,7 @@ saved_data = np.array(
 class TestLowestCurve(unittest.TestCase):
 
     def test_lowestcurve_low_level(self):
-        data = np.loadtxt('data/esurf_vs_rmsd.dat').T
+        data = np.loadtxt(fn('esurf_vs_rmsd.dat')).T
         lc_data = pt.lowestcurve(data, points=10, step=0.2)
         aa_eq(saved_data, lc_data, decimal=3)
 

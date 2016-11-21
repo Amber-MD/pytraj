@@ -1,12 +1,13 @@
 import unittest
-from pytraj import io as mdio
+import pytraj as pt
+from utils import fn
 import numpy as np
 
 
 class Test(unittest.TestCase):
 
     def test_0(self):
-        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         frame0 = traj[0]
         assert frame0.has_box() == False
         frame0.box

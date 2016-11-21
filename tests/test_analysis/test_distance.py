@@ -4,13 +4,14 @@ from __future__ import print_function
 import unittest
 import numpy as np
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 
 
 class TestNormalDistance(unittest.TestCase):
 
     def test_general(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         fa = traj[:]
         mask = ':1@CA :14@CB'
         d0 = pt.distance(traj, mask)
@@ -41,7 +42,7 @@ class TestNormalDistance(unittest.TestCase):
     def test_calculate_distance_without_specifying_n_frames(self):
         # TrajectoryIterator
         import numpy as np
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         arr = pt.distance(traj(stop=4), [0, 5])
         arr1 = pt.distance(traj(stop=4), [0, 5], n_frames=4)
         assert np.all(arr == arr1)
@@ -86,7 +87,7 @@ class TestNormalDistance(unittest.TestCase):
 class TestPairwiseDistance(unittest.TestCase):
 
     def test_pairwise(self):
-        traj = pt.iterload('data/tz2.nc', 'data/tz2.parm7')
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         distances = pt.pairwise_distance(traj, '@CA', '@CB')[0]
 
         ca_indices = pt.select_atoms('@CA', traj.top)

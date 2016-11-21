@@ -1,8 +1,10 @@
 from __future__ import print_function
 import unittest
 
-from pytraj import io as mdio
+from pytraj import io as pt
 from pytraj.utils import aa_eq
+
+from utils import fn
 
 
 
@@ -11,7 +13,7 @@ class Test(unittest.TestCase):
     def test_0(self):
 
         # create TrajectoryIter (readonly)
-        traj = mdio.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
         # convert to Trajectory
         fa = traj[:]

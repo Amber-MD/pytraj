@@ -21,6 +21,7 @@ conda create -y -n myenv python=$PYTHON_VERSION
 source activate myenv
 conda update -y conda
 conda install -y numpy cython h5py libnetcdf pyflakes
+pip install auditwheel
 
 # for testing
 source devtools/ci/install_test.sh

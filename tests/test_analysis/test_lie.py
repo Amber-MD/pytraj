@@ -1,5 +1,6 @@
 import sys
 import pytraj as pt
+from utils import fn
 from pytraj.testing import cpptraj_test_dir, aa_eq
 
 def test_lie():

@@ -1,6 +1,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj.utils.context import tempfolder
 from pytraj.utils import aa_eq
 
@@ -8,7 +9,7 @@ from pytraj.utils import aa_eq
 class Test_iterchunk_autoimage(unittest.TestCase):
 
     def setUp(self):
-        self.traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        self.traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         self.mask = '@C,N,CA,O'
 
     def test_only_autoimage(self):

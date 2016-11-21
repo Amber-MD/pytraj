@@ -1,6 +1,7 @@
 import unittest
 import numpy as np
 import pytraj as pt
+from utils import fn
 from pytraj import *
 from pytraj.testing import aa_eq
 
@@ -9,12 +10,12 @@ class TestIndices(unittest.TestCase):
 
     def test_slice(self):
 
-        traj1 = TrajectoryIterator(filename="data/Tc5b.x",
-                                   top="./data/Tc5b.top")
+        traj1 = TrajectoryIterator(filename=fn('Tc5b.x'),
+                                   top=fn('Tc5b.top'))
         frame_indices = slice(9, 6, -1)
 
-        traj0 = pt.load(filename="./data/Tc5b.x",
-                        top=pt.load_topology("./data/Tc5b.top"),
+        traj0 = pt.load(filename=fn('Tc5b.x'),
+                        top=pt.load_topology(fn('Tc5b.top')),
                         frame_indices=frame_indices)
 
         aa_eq(traj0[0].xyz, traj1[9].xyz)
@@ -33,26 +34,26 @@ class TestIndices(unittest.TestCase):
         # make sure we don't suport other frame_indices
         traj2 = Trajectory()
         traj2 = pt.load(
-            filename="./data/Tc5b.x",
-            top=pt.load_topology("./data/Tc5b.top"),
+            filename=fn('Tc5b.x'),
+            top=pt.load_topology(fn('Tc5b.top')),
             frame_indices=list(range(4)) + list(range(9, 5, -1)) + [4, ])
         aa_eq(traj2[-1].xyz, traj1[4].xyz)
 
     def test_del_top(self):
         # why here? lazy to make another file
-        top = pt.load_topology("./data/Tc5b.top")
+        top = pt.load_topology(fn('Tc5b.top'))
         del top
 
     def test_load_frame_indices_from_io(self):
-        traj0 = pt.load(filename="data/Tc5b.x",
-                        top="./data/Tc5b.top",
+        traj0 = pt.load(filename=fn('Tc5b.x'),
+                        top=fn('Tc5b.top'),
                         frame_indices=(1, 3, 7))
-        trajCA = pt.load(filename="data/Tc5b.x",
-                         top="./data/Tc5b.top",
+        trajCA = pt.load(filename=fn('Tc5b.x'),
+                         top=fn('Tc5b.top'),
                          frame_indices=(1, 3, 7),
                          mask='@CA')
-        trajreadonly = pt.iterload(filename="data/Tc5b.x",
-                                   top="./data/Tc5b.top")
+        trajreadonly = pt.iterload(filename=fn('Tc5b.x'),
+                                   top=fn('Tc5b.top'))
         trajCA_10frames = trajreadonly['@CA']
 
         assert isinstance(traj0, Trajectory)
@@ -66,8 +67,8 @@ class TestIndices(unittest.TestCase):
         aa_eq(trajCA[2].xyz, trajCA_10frames[7].xyz)
 
     def test_load_mask(self):
-        traj = pt.iterload(filename="data/Tc5b.x",
-                           top="./data/Tc5b.top")
+        traj = pt.iterload(filename=fn('Tc5b.x'),
+                           top=fn('Tc5b.top'))
         t0 = pt.load(traj.filename, traj.top.filename, mask='@CA')
         aa_eq(traj['@CA'].xyz, t0.xyz)
 

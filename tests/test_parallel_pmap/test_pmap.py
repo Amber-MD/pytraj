@@ -4,6 +4,7 @@ import unittest
 from collections import OrderedDict
 import numpy as np
 import pytraj as pt
+from utils import fn
 from pytraj.utils import aa_eq
 
 from pytraj.utils.tools import flatten
@@ -14,15 +15,16 @@ from pytraj.utils import c_commands
 
 import pytest
 
+from utils import fn
 
 @unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
 class TestNormalPmap(unittest.TestCase):
 
     def setUp(self):
-        self.traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        self.traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
     def test_progress(self):
-        self.traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        self.traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         pt.pmap(pt.radgyr, self.traj, progress=True, progress_params=dict(every=2))
         pt.pmap(pt.radgyr, self.traj, progress=True)
 
@@ -54,7 +56,7 @@ class TestNormalPmap(unittest.TestCase):
         pt.radgyr._is_parallelizable = True
 
     def test_general(self):
-        traj = pt.iterload("./data/Tc5b.x", "./data/Tc5b.top")
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
         # with mask
         saved_data = pt.radgyr(traj, '@CA')
@@ -100,7 +102,7 @@ class TestNormalPmap(unittest.TestCase):
                 aa_eq(pout[0], serial_out)
 
     def test_iter_options(self):
-        traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         t0 = traj[:].autoimage().rmsfit(ref=0)
         saved_avg = pt.mean_structure(t0)
         saved_radgyr = pt.radgyr(traj, '@CA')
@@ -122,8 +124,8 @@ class TestNormalPmap(unittest.TestCase):
 @unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
 class TestParallelMapForTrajectoryIteratorWithTransformation(unittest.TestCase):
     def test_trajectoryiterator_with_transformation(self):
-        traj_on_disk = pt.iterload("data/tz2.nc", "data/tz2.parm7")
-        traj_on_mem  = pt.load("data/tz2.nc", "data/tz2.parm7")
+        traj_on_disk = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
+        traj_on_mem  = pt.load(fn('tz2.nc'), fn('tz2.parm7'))
 
         traj_on_disk.superpose(mask='@CA', ref=3)
         traj_on_mem.superpose(mask='@CA', ref=3)
@@ -138,7 +140,7 @@ class TestParallelMapForTrajectoryIteratorWithTransformation(unittest.TestCase):
 class TestParallelMapForMatrix(unittest.TestCase):
 
     def test_matrix_module(self):
-        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
         for n_cores in [2, 3]:
             for func in [matrix.dist, matrix.idea]:
@@ -146,7 +148,7 @@ class TestParallelMapForMatrix(unittest.TestCase):
                 aa_eq(x, func(traj, '@CA'))
 
     def test_ired_vector_and_matrix_pmap(self):
-        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         h = traj.top.select('@H')
         n = h - 1
         nh = list(zip(n, h))
@@ -161,7 +163,7 @@ class TestParallelMapForMatrix(unittest.TestCase):
             aa_eq(exptected_mat, mat, decimal=7)
 
     def test_rotation_matrix_in_rmsd_calculation(self):
-        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         saved_mat = pt.rotation_matrix(traj, ref=traj[3], mask='@CA')
         saved_rmsd = pt.rmsd(traj, ref=traj[3], mask='@CA')
 
@@ -182,7 +184,7 @@ class TestParallelMapForMatrix(unittest.TestCase):
 @unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
 class TestParallelMapForHbond(unittest.TestCase):
     def test_pmap_hbond(self):
-        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         hbond_data_serial = pt.search_hbonds(traj, dtype='dict')
         hbond_data_pmap = pt.pmap(pt.search_hbonds, traj, n_cores=3)
         assert sorted(hbond_data_serial.keys()) == sorted(hbond_data_pmap.keys())
@@ -199,7 +201,7 @@ class TestParallelMapForHbond(unittest.TestCase):
 class TestCpptrajCommandStyle(unittest.TestCase):
 
     def test_c_command_style(self):
-        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
         angle_ = pt.angle(traj, ':3 :4 :5')
         distance_ = pt.distance(traj, '@10 @20')
@@ -221,7 +223,7 @@ class TestCpptrajCommandStyle(unittest.TestCase):
         aa_eq(distance_, arr[1])
 
     def test_reference(self):
-        traj = pt.iterload("./data/tz2.nc", "./data/tz2.parm7")
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
         for n_cores in [2, 3]:
             # use 4-th Frame for reference
@@ -276,7 +278,7 @@ class TestCpptrajCommandStyle(unittest.TestCase):
 class TestParallelMapForAverageStructure(unittest.TestCase):
 
     def test_pmap_average_structure(self):
-        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         saved_frame = pt.mean_structure(traj, '@CA')
         saved_xyz = saved_frame.xyz
 
@@ -300,7 +302,7 @@ class TestLoadBathPmap(unittest.TestCase):
 class TestFrameIndices(unittest.TestCase):
 
     def test_frame_indices(self):
-        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
         # frame_indices could be a list, range
         frame_indices_list = [[0, 8, 9, 3, 2, 5], range(6)]
@@ -333,7 +335,7 @@ class TestCheckValidCommand(unittest.TestCase):
         assert check_valid_command(['nativecontacts', ]) == (['nativecontacts refindex 0 '], True)
         assert check_valid_command(['nastruct', ]) == (['nastruct refindex 0 '], True)
         assert check_valid_command(['symmetricrmsd', ]) == (['symmetricrmsd refindex 0 '], True)
-        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
         aa_eq(pt.tools.dict_to_ndarray(
             pt.pmap(['rmsd'], traj, ref=traj[3], n_cores=3)),
@@ -366,7 +368,7 @@ class TestCheckValidCommand(unittest.TestCase):
 class TestVolmap(unittest.TestCase):
 
     def test_volmap(self):
-        traj = pt.iterload("data/tz2.ortho.nc", "data/tz2.ortho.parm7")
+        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
 
         # raise if does not provide size
         self.assertRaises(AssertionError, lambda: pt.pmap(pt.volmap, traj, mask=':WAT@O',
@@ -390,7 +392,7 @@ class TestWorker(unittest.TestCase):
 
     def testworker_by_actlist(self):
         # just want to exercise all codes
-        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         for ref in [None, traj[0], [traj[0], traj[1]]]:
             data = worker_by_actlist(rank=3, n_cores=8, traj=traj, lines=['radgyr @CA', 'vector :3 :7'],
                                      ref=ref, kwargs=dict())
@@ -406,7 +408,7 @@ def change_10_atoms(traj):
 class TestInserNewFunction(unittest.TestCase):
 
     def test_insert_new_function(self):
-        traj = pt.iterload("data/tz2.nc", "data/tz2.parm7")
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
         # create mutable Trajectory
         t0 = traj[:]
