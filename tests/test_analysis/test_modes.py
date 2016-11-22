@@ -10,13 +10,16 @@ def test_analyze_modes():
         command = '''
         matrix mwcovar name tz2 {}
         diagmatrix tz2 name my_modes vecs 20
-        # modes fluct name my_modes
+        modes fluct name my_modes
         '''.format(mask)
         
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
         # cpptraj
         state = pt.load_cpptraj_state(command, traj)
+        # pt._verbose()
+        state.run()
+        pt._verbose(False)
         state.run()
         cpp_dict = state.data[1:].to_dict()
         c_dslist = state.data[1:]
@@ -43,3 +46,10 @@ def test_analyze_modes():
             dslist = pt.matrix.diagonalize(mat, n_vecs=20, scalar_type='mwcovar',
                     mass=None,
                     dtype='dataset')
+
+        # pt._verbose()
+        fluct = pt.analyze_modes('fluct', evecs, evals, scalar_type='mwcovar', dtype='dataset') 
+        # pt._verbose(False)
+        p_rms = fluct['FLUCT_00001[rms]'].values
+        c_rms = c_dslist['FLUCT_00003[rms]'].values
+        aa_eq(p_rms, c_rms)

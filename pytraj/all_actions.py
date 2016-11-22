@@ -49,6 +49,7 @@ from .analysis import (
     )
 
 __all__ = [
+    'analyze_modes',
     'translate',
     'rotate',
     'autoimage',
@@ -2873,9 +2874,10 @@ def analyze_modes(mode_type,
     my_modes = 'my_modes'
     modes = c_dslist.add('modes', name=my_modes)
     modes.scalar_type = scalar_type
-    modes._set_modes(False, eigenvectors.shape[1], eigenvectors.shape[0],
+    # cpptraj will use natoms = modes.NavgCrd()
+    modes._allocate_avgcoords(eigenvectors.shape[1])
+    modes._set_modes(False, eigenvectors.shape[0], eigenvectors.shape[1],
                       eigenvalues, eigenvectors.flatten())
-
     command = ' '.join((mode_type, 'name {}'.format(my_modes), options))
     act(command, dslist=c_dslist)
     c_dslist._pop(0)
