@@ -318,7 +318,7 @@ cdef extern from "DataSet_Modes.h":
         int CalcEigen(const _Dataset2D&, int)
         void PrintModes() 
         int EigvalToFreq(double)
-        int MassWtEigvect(Darray&)
+        int MassWtEigvect()
         int ReduceVectors() 
         double Eigenvalue(int i)
         double * Eigenvectors()

@@ -2158,8 +2158,8 @@ def set_dihedral(traj, resid=0, dihedral_type=None, deg=0, top=None):
 @super_dispatch()
 def projection(traj,
                mask='',
-               eigenvalues=None,
                eigenvectors=None,
+               eigenvalues=None,
                scalar_type='covar',
                average_coords=None,
                frame_indices=None,
@@ -2329,7 +2329,7 @@ def pca(traj,
     else:
         n_vecs = n_vecs
 
-    eigenvalues, eigenvectors = matrix.diagonalize(
+    eigenvectors, eigenvalues = matrix.diagonalize(
         mat, n_vecs=n_vecs, dtype='tuple')
     projection_data = projection(
         traj,
@@ -2860,4 +2860,23 @@ def check_chirality(traj, mask='', dtype='dict'):
     '''
     command = mask
     c_dslist, _ = do_action(traj, command, c_action.Action_CheckChirality)
+    return get_data_from_dtype(c_dslist, dtype=dtype)
+
+def analyze_modes(mode_type,
+        eigenvectors,
+        eigenvalues,
+        scalar_type='mwcovar',
+        options='',
+        dtype='dict'):
+    act = c_analysis.Analysis_Modes()
+    c_dslist = CpptrajDatasetList()
+    my_modes = 'my_modes'
+    modes = c_dslist.add('modes', name=my_modes)
+    modes.scalar_type = scalar_type
+    modes._set_modes(False, eigenvectors.shape[1], eigenvectors.shape[0],
+                      eigenvalues, eigenvectors.flatten())
+
+    command = ' '.join((mode_type, 'name {}'.format(my_modes), options))
+    act(command, dslist=c_dslist)
+    c_dslist._pop(0)
     return get_data_from_dtype(c_dslist, dtype=dtype)

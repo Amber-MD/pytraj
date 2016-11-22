@@ -160,7 +160,7 @@ cdef class Dataset:
             self.baseptr0.SetMeta(meta)
 
         def __get__(self):
-            return get_key(self.baseptr0.Meta().ScalarType(), ScalarTypeDict)
+            return get_key(self.baseptr0.Meta().ScalarType(), ScalarTypeDict).lower()
 
     def tolist(self):
         return list(self.data)
@@ -639,6 +639,12 @@ cdef class DatasetMatrixDouble (Dataset2D):
     def n_snapshots(self):
         return self.thisptr.Nsnapshots()
 
+    def _increment_snapshots(self, int n_times=1):
+        cdef int i
+        for i in range(n_times):
+            self.thisptr.IncrementSnapshots()
+
+
     def element(self, size_t x, size_t y):
         return self.thisptr.Element(x, y)
 
@@ -994,9 +1000,11 @@ cdef class DatasetModes(Dataset):
             cdef const double * ptr = self.thisptr.Eigenvectors()
             cdef int n_modes = self.thisptr.Nmodes()
             cdef int vsize = self.vector_size
+            return np.array([ptr[i] for i in range(n_modes*vsize)]).reshape(n_modes, vsize)
 
-            return np.array([ptr[i] for i in
-                             range(n_modes*vsize)]).reshape(n_modes, vsize)
+    def _compute_mw_eigenvectors(self):
+        # only call this once with scalar_type=mwcovar
+        self.thisptr.MassWtEigvect()
 
     def _allocate_avgcoords(self, int n):
         self.thisptr.AllocateAvgCoords(n)
