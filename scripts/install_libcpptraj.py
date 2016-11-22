@@ -160,7 +160,7 @@ def install_libcpptraj(compiler, build_flag):
     cm = 'bash configure {build_flag} {compiler} {cxx_overwrite}'.format(
             build_flag=build_flag, compiler=compiler, cxx_overwrite=cxx_overwrite)
 
-    print('build command: ', cm)
+    print('configure command: ', cm)
     # do not use subprocess to avoid split cxx_overwrite command
     os.system(cm)
 
