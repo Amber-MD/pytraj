@@ -12,7 +12,6 @@
 
 import os
 import sys
-from collections import namedtuple
 
 print('sys.argv', sys.argv)
 try:
@@ -33,8 +32,8 @@ from glob import glob
 from scripts.base_setup import (check_flag, write_version_py, get_version_info,
                                 get_cpptraj_info, check_compile_cython, check_cython,
                                 get_package_data)
-from scripts.base_setup import (setenv_cc_cxx, get_ext_modules)
-from scripts.base_setup import CleanCommand, is_released, message_pip_need_cpptraj_home
+from scripts.base_setup import (compiler_env_info, setenv_cc_cxx, get_ext_modules)
+from scripts.base_setup import CleanCommand, is_released
 
 # python version >= 2.6
 if sys.version_info < (2, 6):
@@ -51,6 +50,7 @@ rootname = os.getcwd()
 pytraj_src = rootname + "/pytraj/"
 cpptraj_home = os.environ.get('CPPTRAJHOME', '')
 
+compiler_env_info('Original compiler envs')
 # danger
 use_pip = (any('egg_info' in arg for arg in sys.argv) or
            any('pip' in arg for arg in sys.argv) or
@@ -71,7 +71,7 @@ cpptraj_included = os.path.exists("./cpptraj/")
 pytraj_home = os.path.abspath(os.path.dirname(__file__))
 
 compile_c_extension = check_compile_cython(pytraj_home, use_pip=use_pip)
-print('compile_c_extension = ', compile_c_extension)
+print('compile_c_extension =', compile_c_extension)
 
 cpptraj_info = get_cpptraj_info(rootname=rootname,
                            cpptraj_home=cpptraj_home,

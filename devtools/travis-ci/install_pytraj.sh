@@ -5,7 +5,8 @@
 
 
 if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-    unset CC CXX
+    # unset CC CXX
+    # g++ is actually clang
     # force to use "clang" name
     python setup.py install --disable-openmp
 else
