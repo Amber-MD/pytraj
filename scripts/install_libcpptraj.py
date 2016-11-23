@@ -49,9 +49,10 @@ def ensure_gnu():
     # both cpptraj and pytraj give priority for CXX and CC environments
     # check them first.
     cc = os.getenv('CC', '')
+    gcc_exe = cc if cc else 'gcc'
+
     if is_clang(gcc_exe):
         print('{} --version'.format(gcc_exe))
-        print(out)
         print('{} here is actually clang compiler. Please export correct PATH for the real g++\n'.format(gcc_exe))
         print('Or export CXX and CC environments')
         print('e.g: ')
