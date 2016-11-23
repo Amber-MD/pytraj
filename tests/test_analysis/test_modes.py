@@ -1,5 +1,5 @@
 import pytraj as pt
-from pytraj.testing import aa_eq
+from pytraj.testing import aa_eq, cpptraj_test_dir
 from utils import fn
 import pytest
 
@@ -53,3 +53,20 @@ def test_analyze_modes():
         p_rms = fluct['FLUCT_00001[rms]'].values
         c_rms = c_dslist['FLUCT_00003[rms]'].values
         aa_eq(p_rms, c_rms)
+    
+def test_mode_disp():
+    tz2_evecs = cpptraj_test_dir + '/Test_Analyze_Modes/tz2.evecs.dat' 
+    c_dslist = pt.io.read_data(tz2_evecs)
+    c_modes = c_dslist[0]
+    disp_dict = pt.analyze_modes('displ', c_modes.eigenvectors, c_modes.eigenvalues, dtype='dict')
+
+    command = """
+    readdata {} name tz2modes
+    analyze modes displ name tz2modes
+    """.format(tz2_evecs)
+    state = pt.load_cpptraj_state(command)
+    state.run()
+    c_disp_dict = state.data[1:].to_dict()
+
+    for key in disp_dict.keys():
+        aa_eq(disp_dict[key], c_disp_dict[key])
