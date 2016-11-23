@@ -2193,7 +2193,7 @@ def projection(traj,
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2()
     >>> mat = pt.matrix.covar(traj, '@CA')
-    >>> eigenvalues, eigenvectors = pt.matrix.diagonalize(mat, 2)
+    >>> eigenvectors, eigenvalues = pt.matrix.diagonalize(mat, 2)
 
     >>> # since we compute covariance matrix, we need to specify
     >>> # scalar_type = 'covar'
