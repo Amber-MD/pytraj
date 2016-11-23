@@ -50,29 +50,22 @@ class TestDiagMatrix(unittest.TestCase):
         # test raise if not having supported dtype
         self.assertRaises(ValueError, lambda: pt.matrix.diagonalize(mat, 3, dtype='ndarray'))
 
-        # plot
-        def plot_():
-            try:
-                from pytraj.plot import plot_matrix
-                from matplotlib import pyplot as plt
+    def test_diagmatrix_mwcovar(self):
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
-                fig, ax, bar = plot_matrix(np.abs(data.eigenvectors) - np.abs(
-                    cpp_evecs))
-                fig.colorbar(bar)
-                plt.title('data vs cpp_evecs')
+        state = pt.load_batch(traj, '''
+        matrix mwcovar @CA name mymat
+        diagmatrix mymat vecs 6 name mydiag''')
+        state.run()
 
-                fig, ax, bar = plot_matrix(np.abs(np_vecs) - np.abs(cpp_evecs))
-                fig.colorbar(bar)
-                plt.title('np vs cpp_evecs')
-
-                fig, ax, bar = plot_matrix(np.abs(np_vecs) - np.abs(
-                    data.eigenvectors))
-                fig.colorbar(bar)
-                plt.title('np vs data')
-                pt.show()
-            except ImportError:
-                pass
-
+        mat = pt.matrix.mwcovar(traj, '@CA')
+        ca_indices = traj.top.select('@CA')
+        eigenvectors, eigenvalues = pt.matrix.diagonalize(mat,
+                n_vecs=6,
+                scalar_type='mwcovar',
+                mass=traj.top.mass[ca_indices])
+        aa_eq(state.data['mydiag'].eigenvalues, eigenvalues)
+        aa_eq(state.data['mydiag'].eigenvectors, eigenvectors)
 
 if __name__ == "__main__":
     unittest.main()

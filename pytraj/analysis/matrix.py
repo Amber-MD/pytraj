@@ -138,7 +138,7 @@ covar = register_openmp(covar)
 ''')
 
 
-def diagonalize(mat, n_vecs, dtype='tuple'):
+def diagonalize(mat, n_vecs, dtype='tuple', scalar_type='covar', mass=None):
     '''diagonalize matrix and return (eigenvalues, eigenvectors)
 
     Parameters
@@ -160,30 +160,40 @@ def diagonalize(mat, n_vecs, dtype='tuple'):
     >>> mat_cpp = pt.matrix.covar(traj, '@CA', dtype='cpptraj_dataset')[0]
     >>> x = pt.matrix.diagonalize(mat_cpp, 4, dtype='tuple')
     >>> print(x[0].shape, x[1].shape)
-    (4,) (4, 36)
+    (4, 36) (4,)
     '''
     _vecs = 'vecs ' + str(n_vecs)
     dslist = CpptrajDatasetList()
-    dslist.add('matrix_dbl', 'mymat')
+    dset_matrix = dslist.add('matrix_dbl', 'mymat')
+
+    dset_matrix.scalar_type = scalar_type
+    if scalar_type == 'mwcovar':
+        assert mass is not None, 'scalar_type = mwcovar requires 1D mass array'
+        dset_matrix.store_mass(mass)
 
     if isinstance(mat, np.ndarray):
         indices = np.triu_indices(mat.shape[0])
         arr = mat[indices]
-        dslist[0]._set_data_half_matrix(
+        dset_matrix._set_data_half_matrix(
             arr.astype('f8'),
             vsize=len(arr),
             n_cols=mat.shape[0])
     elif isinstance(mat, c_datasets.DatasetMatrixDouble):
-        dslist[0]._set_data_half_matrix(mat._to_cpptraj_sparse_matrix(),
+        dset_matrix._set_data_half_matrix(mat._to_cpptraj_sparse_matrix(),
                                         vsize=mat.size,
                                         n_cols=mat.n_cols)
-
     act = c_analysis.Analysis_Matrix()
     act(' '.join(('mymat', _vecs)), dslist=dslist)
+
+    # post process
+    if scalar_type == 'mwcovar':
+        message = 'size of eigenvectors must be equal to 3 * size of mass'
+        assert 3*np.asarray(mass).shape[0] == dslist[-1].eigenvectors.shape[1], message
+        dslist[-1]._compute_mw_eigenvectors()
     dslist._pop(0)
 
     if dtype == 'tuple':
-        return (dslist[-1].eigenvalues, dslist[-1].eigenvectors)
+        return (dslist[-1].eigenvectors, dslist[-1].eigenvalues)
     elif dtype == 'dataset':
         return dslist
     else:

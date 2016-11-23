@@ -39,15 +39,20 @@ def add_cpptraj_cxx_to_config(fn, cpptraj_cxx=CPPTRAJ_CXX):
         fh.write(''.join(lines))
     subprocess.check_call('mv tmp.h {}'.format(fn), shell=True)
 
+def is_clang(cc):
+    # both cpptraj and pytraj give priority for CXX and CC environments
+    # check them first.
+    out = subprocess.check_output([cc, '--version']).decode()
+    return 'clang' in out
+
 def ensure_gnu():
     # both cpptraj and pytraj give priority for CXX and CC environments
     # check them first.
     cc = os.getenv('CC', '')
     gcc_exe = cc if cc else 'gcc'
-    out = subprocess.check_output([gcc_exe, '--version']).decode()
-    if 'clang' in out:
+
+    if is_clang(gcc_exe):
         print('{} --version'.format(gcc_exe))
-        print(out)
         print('{} here is actually clang compiler. Please export correct PATH for the real g++\n'.format(gcc_exe))
         print('Or export CXX and CC environments')
         print('e.g: ')
@@ -148,14 +153,15 @@ def install_libcpptraj(compiler, build_flag):
 
     cxx_overwrite = ''
     if IS_OSX:
-        if compiler == 'clang' or 'clang' in os.getenv('CXX', ''):
+        if ((compiler == 'clang' or 'clang' in os.getenv('CXX', '')) or
+           (os.getenv('CXX') and is_clang(os.getenv('CXX')))):
             cxx_overwrite = 'CXX="clang++ -stdlib=libstdc++"'
     print('cxx_overwrite flag', cxx_overwrite)
 
     cm = 'bash configure {build_flag} {compiler} {cxx_overwrite}'.format(
             build_flag=build_flag, compiler=compiler, cxx_overwrite=cxx_overwrite)
 
-    print('build command: ', cm)
+    print('configure command: ', cm)
     # do not use subprocess to avoid split cxx_overwrite command
     os.system(cm)
 

@@ -85,14 +85,16 @@ def _ired(iredvec,
         dslist[-1].data = np.asarray(dvec, dtype='f8')
 
     # add data to DatasetModes
-    dslist.add('modes', 'mymodes')
+    dslist.add('modes', name='mymodes')
     is_reduced = False  # ?
     if hasattr(modes, 'eigenvalues') and hasattr(modes, 'eigenvectors'):
         eigenvalues = modes.eigenvalues
         eigenvectors = modes.eigenvectors
     else:
-        eigenvalues, eigenvectors = modes
-    dslist[-1]._set_modes(is_reduced, len(eigenvalues), eigenvectors.shape[1],
+        eigenvectors, eigenvalues = modes
+    dslist[-1]._set_modes(is_reduced,
+                          len(eigenvalues),
+                          eigenvectors.shape[1],
                           eigenvalues, eigenvectors.flatten())
 
     act(command, dslist=dslist)
@@ -276,7 +278,7 @@ def nh_order_parameters(traj,
     evals, evecs = modes.eigenvalues, modes.eigenvectors
 
     data = _ired(state_vecs,
-                 modes=(evals, evecs),
+                 modes=(evecs, evals),
                  NHbond=True,
                  tcorr=tcorr,
                  tstep=tstep, **kwargs)
