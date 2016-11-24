@@ -49,6 +49,7 @@ from .analysis import (
     )
 
 __all__ = [
+    'analyze_modes',
     'translate',
     'rotate',
     'autoimage',
@@ -2158,8 +2159,8 @@ def set_dihedral(traj, resid=0, dihedral_type=None, deg=0, top=None):
 @super_dispatch()
 def projection(traj,
                mask='',
-               eigenvalues=None,
                eigenvectors=None,
+               eigenvalues=None,
                scalar_type='covar',
                average_coords=None,
                frame_indices=None,
@@ -2192,7 +2193,7 @@ def projection(traj,
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2()
     >>> mat = pt.matrix.covar(traj, '@CA')
-    >>> eigenvalues, eigenvectors = pt.matrix.diagonalize(mat, 2)
+    >>> eigenvectors, eigenvalues = pt.matrix.diagonalize(mat, 2)
 
     >>> # since we compute covariance matrix, we need to specify
     >>> # scalar_type = 'covar'
@@ -2329,7 +2330,7 @@ def pca(traj,
     else:
         n_vecs = n_vecs
 
-    eigenvalues, eigenvectors = matrix.diagonalize(
+    eigenvectors, eigenvalues = matrix.diagonalize(
         mat, n_vecs=n_vecs, dtype='tuple')
     projection_data = projection(
         traj,
@@ -2860,4 +2861,24 @@ def check_chirality(traj, mask='', dtype='dict'):
     '''
     command = mask
     c_dslist, _ = do_action(traj, command, c_action.Action_CheckChirality)
+    return get_data_from_dtype(c_dslist, dtype=dtype)
+
+def analyze_modes(mode_type,
+        eigenvectors,
+        eigenvalues,
+        scalar_type='mwcovar',
+        options='',
+        dtype='dict'):
+    act = c_analysis.Analysis_Modes()
+    c_dslist = CpptrajDatasetList()
+    my_modes = 'my_modes'
+    modes = c_dslist.add('modes', name=my_modes)
+    modes.scalar_type = scalar_type
+    # cpptraj will use natoms = modes.NavgCrd()
+    modes._allocate_avgcoords(eigenvectors.shape[1])
+    modes._set_modes(False, eigenvectors.shape[0], eigenvectors.shape[1],
+                      eigenvalues, eigenvectors.flatten())
+    command = ' '.join((mode_type, 'name {}'.format(my_modes), options))
+    act(command, dslist=c_dslist)
+    c_dslist._pop(0)
     return get_data_from_dtype(c_dslist, dtype=dtype)

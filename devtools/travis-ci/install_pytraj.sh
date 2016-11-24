@@ -4,9 +4,7 @@
 # python setup.py install --amber-release
 
 
-if [ "$TRAVIS_OS_NAME" == "osx" ]; then
-    unset CC CXX
-    # force to use "clang" name
+if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     python setup.py install --disable-openmp
 else
     if [ "$TEST_SETUP" == 'true' ]; then

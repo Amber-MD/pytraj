@@ -98,6 +98,7 @@ from .analysis import hbond_analysis
 from .analysis import nucleic_acid_analysis
 
 from . import all_actions
+from .all_actions import analyze_modes
 from .all_actions import acorr
 from .all_actions import align
 from .all_actions import align_principal_axis

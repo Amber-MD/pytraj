@@ -227,7 +227,7 @@ def test_ired_need_lapack_cpptraj():
     # Bottom line is that eigenvector sign doesn't matter.
 
     aa_eq(np.abs(evecs[:, ::-1].T), np.abs(cpp_eigenvectors), decimal=4)
-    data = _ired(state_vecs, modes=(cpp_eigenvalues, cpp_eigenvectors))
+    data = _ired(state_vecs, modes=(cpp_eigenvectors, cpp_eigenvalues))
     order_s2 = data['IRED_00127[S2]']
 
     # load cpptraj's output and compare to pytraj' values for S2 order paramters
