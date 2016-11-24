@@ -126,7 +126,7 @@ def get_compiler_and_build_flag():
         print('install libcpptraj from current ./cpptraj folder')
     return compiler, build_flag
 
-def install_libcpptraj(compiler, build_flag):
+def install_libcpptraj(compiler, build_flag, n_cpus=4):
     '''
 
     Parameters
@@ -162,7 +162,7 @@ def install_libcpptraj(compiler, build_flag):
     if IS_OSX:
         add_cpptraj_cxx_to_config('config.h', CPPTRAJ_CXX)
 
-    subprocess.check_call('make libcpptraj -j4'.split())
+    subprocess.check_call('make libcpptraj -j{}'.format(n_cpus).split())
     os.chdir(cwd)
 
 def parse_args():
@@ -171,10 +171,12 @@ def parse_args():
     parser.add_argument('-openmp', action='store_true', help='use openmp')
     parser.add_argument('-amberlib', action='store_true', help='use use amberlib if $AMBERHOME is set')
     parser.add_argument('-debug', action='store_true', help='debug')
+    parser.add_argument('-j', default=4, help='n_cpus')
     parser.add_argument('install_type', default='', nargs='?', help='install_type in amber')
     args = parser.parse_args()
     return args
 
 if __name__ == '__main__':
+    args = parse_args()
     compiler, build_flag = get_compiler_and_build_flag()
-    install_libcpptraj(compiler, build_flag)
+    install_libcpptraj(compiler, build_flag, args.j)
