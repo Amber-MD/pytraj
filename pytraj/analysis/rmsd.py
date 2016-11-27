@@ -45,7 +45,7 @@ def rotation_matrix(traj=None,
         reference
     mask : str, default all atoms
     mass : bool, default False
-        if True, rmsfit with mass
+        if True, rmsfit with mass weighted
     frame_indices : {None, array-like}
         if not None, compute for given indices
     top : Topology, optional
@@ -255,7 +255,7 @@ def rmsd(traj=None,
         if ``traj`` is mutable, its coordinates will be updated
         if True, not fitting.
     mass : bool, default False
-        if True, include mass
+        if True, compute mass-weighted rmsd
     update_coordinate : bool, default True
         if True, coordinates will be updated. But this only apply to mutable Trajectory
         if False (same as `nomod` in cpptraj), no modification
@@ -378,7 +378,7 @@ def symmrmsd(traj, mask='', ref=0, ref_mask=None,
         if True, do fitting
         if False, nofit
     mass : Bool, default False
-        if True, mass-weighted
+        if True, compute mass-weighted rmsd
         if False, no mas-weighted
     remap : Bool, default False
         if True, frames will be modifed for symmetry as well
