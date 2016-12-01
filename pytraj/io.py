@@ -333,9 +333,9 @@ def write_traj(filename,
         If not None, only write output for given frame indices
     overwrite: bool, default: False
     velocity : bool, default False
-        if True, write velocity. Make sure your trajectory or Frame does not velocity
+        if True, write velocity. Make sure your trajectory or Frame does have velocity
     force : bool, default False
-        if True, write force. Make sure your trajectory or Frame does has force
+        if True, write force. Make sure your trajectory or Frame does have force
     options : str, additional cpptraj keywords
 
     Notes
