@@ -317,7 +317,8 @@ def write_traj(filename,
                top=None,
                frame_indices=None,
                overwrite=False,
-               crdinfo=None,
+               force=False,
+               velocity=False,
                options=""):
     """write Trajectory-like or iterable object to trajectory file
 
@@ -331,9 +332,10 @@ def write_traj(filename,
     frame_indices: array-like or iterator that produces integer, default: None
         If not None, only write output for given frame indices
     overwrite: bool, default: False
-    crdinfo : None or dict, default None
-        if None, try to get info from traj._crdinfo (if traj has _crdinfo)
-        if given, use it. `crdinfo` needed to pass if you want to write force/velocity (netcdf)
+    velocity : bool, default False
+        if True, write velocity. Make sure your trajectory or Frame does have velocity
+    force : bool, default False
+        if True, write force. Make sure your trajectory or Frame does have force
     options : str, additional cpptraj keywords
 
     Notes
@@ -421,15 +423,27 @@ def write_traj(filename,
 
         please check http://ambermd.org/doc12/Amber15.pdf
     """
+    # avoid confusion
+    has_force = force
+    has_velocity = velocity
     _top = get_topology(traj, top)
     if _top is None:
         raise ValueError("must provide Topology")
+
+    if hasattr(traj, '_crdinfo'):
+        crdinfo = traj._crdinfo
+    else:
+        crdinfo = dict()
+
+    crdinfo['has_force'] = has_force
+    crdinfo['has_velocity'] = has_velocity
 
     if not isinstance(traj, np.ndarray):
         with TrajectoryWriter(filename=filename,
                      top=_top,
                      format=format,
                      overwrite=overwrite,
+                     crdinfo=crdinfo,
                      options=options) as trajout:
             if isinstance(traj, Frame):
                 if frame_indices is not None:
@@ -456,14 +470,6 @@ def write_traj(filename,
         _frame_indices = range(xyz.shape[
             0]) if frame_indices is None else frame_indices
         fi = iterframe_from_array(xyz, _top.n_atoms, _frame_indices, _top)
-
-        if crdinfo is None:
-            if hasattr(traj, '_crdinfo'):
-                crdinfo = traj._crdinfo
-            else:
-                crdinfo = dict()
-        else:
-            crdinfo = crdinfo
 
         with TrajectoryWriter(filename=filename,
                      top=_top,

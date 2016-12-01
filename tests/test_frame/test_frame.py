@@ -99,5 +99,23 @@ class TestFrame(unittest.TestCase):
         assert frame.has_force()
         assert frame.has_velocity()
 
+    def test_velocity(self):
+        frame = pt.Frame(304)
+        velocity = np.zeros(304*3) + 1.
+        assert frame.velocity is None
+        frame.velocity = velocity
+        assert frame.velocity.shape == (304, 3)
+        frame.velocity = None
+        assert frame.velocity is None
+
+    def test_force(self):
+        frame = pt.Frame(304)
+        force = np.zeros(304*3) + 1.
+        assert frame.force is None
+        frame.force = force
+        assert frame.force.shape == (304, 3)
+        frame.force = None
+        assert frame.force is None
+
 if __name__ == "__main__":
     unittest.main()

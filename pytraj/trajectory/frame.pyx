@@ -416,6 +416,25 @@ cdef class Frame (object):
             else:
                 return None
 
+        def __set__(self, value):
+            if value is None:
+                self.thisptr.RemoveVelocities()
+            else:
+                value = value.flatten()
+                self._set_velocity_or_force_or_mass(value, input_type='velocity')
+
+    def _set_velocity_or_force_or_mass(self, double[:] arr, str input_type):
+        cdef vector[double] v
+        cdef unsigned int i
+        for i in range(arr.shape[0]):
+            v.push_back(arr[i])
+        if input_type == 'velocity':
+            self.thisptr.AddVelocities(v)
+        elif input_type == 'force':
+            self.thisptr.AddForces(v)
+        elif input_type == 'mass':
+            self.thisptr.AddMasses(v)
+
     property force:
         """force, default None
         """
@@ -425,6 +444,13 @@ cdef class Frame (object):
                 return np.asarray(<double[:n_atoms, :3]> self.thisptr.fAddress())
             else:
                 return None
+
+        def __set__(self, value):
+            if value is None:
+                self.thisptr.RemoveForces()
+            else:
+                value = value.flatten()
+                self._set_velocity_or_force_or_mass(value, input_type='force')
 
     property n_atoms:
         '''n_atoms
@@ -552,6 +578,10 @@ cdef class Frame (object):
             for i in range(self.thisptr.Natom()):
                 arr[i] = self.thisptr.Mass(i)
             return np.array(arr)
+
+        def __set__(self, value):
+            value = value.flatten()
+            self._set_velocity_or_force_or_mass(value, input_type='mass')
 
     property box:
         '''unitcell
