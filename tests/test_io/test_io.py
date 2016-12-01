@@ -423,7 +423,7 @@ def test_write_velocity_from_scratch():
         out_fn  = 'out.nc'
         pt.write_traj(out_fn, traj=add_velocity(traj),
                       top=traj.top,
-                      force=True)
+                      velocity=True)
         traj2 = pt.iterload(out_fn, top=traj.top)
         assert traj2.metadata['has_velocity']
         assert not traj2.metadata['has_force']
@@ -445,6 +445,27 @@ def test_write_force_from_scratch():
         traj2 = pt.iterload(out_fn, top=traj.top)
         assert traj2.metadata['has_force']
         assert not traj2.metadata['has_velocity']
+
+def test_write_both_force_and_velocity_from_scratch():
+    traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
+    assert traj[0].force is None
+    assert traj[0].velocity is None
+
+    def add_force_and_velocity(traj):
+        for frame in traj:
+            frame.force = np.zeros(traj.n_atoms*3) + 1.
+            frame.velocity = np.zeros(traj.n_atoms*3) + 1.
+            yield frame
+
+    with tempfolder():
+        out_fn  = 'out.nc'
+        pt.write_traj(out_fn, traj=add_force_and_velocity(traj),
+                      top=traj.top,
+                      force=True,
+                      velocity=True)
+        traj2 = pt.iterload(out_fn, top=traj.top)
+        assert traj2.metadata['has_force']
+        assert traj2.metadata['has_velocity']
 
 def test_write_force_and_velocity():
     trajin = cpptraj_test_dir + '/Test_systemVF/systemVF.nc'

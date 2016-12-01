@@ -332,10 +332,10 @@ def write_traj(filename,
     frame_indices: array-like or iterator that produces integer, default: None
         If not None, only write output for given frame indices
     overwrite: bool, default: False
-    crdinfo : None or dict, default None
-        # TODO: delete
-        if None, try to get info from traj._crdinfo (if traj has _crdinfo)
-        if given, use it. `crdinfo` needed to pass if you want to write force/velocity (netcdf)
+    velocity : bool, default False
+        if True, write velocity. Make sure your trajectory or Frame does not velocity
+    force : bool, default False
+        if True, write force. Make sure your trajectory or Frame does has force
     options : str, additional cpptraj keywords
 
     Notes
