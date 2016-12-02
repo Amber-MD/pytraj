@@ -477,7 +477,7 @@ def write_traj(filename,
                      overwrite=overwrite,
                      options=options) as trajout:
 
-            for frame in fi:
+            for _, frame in fi:
                 trajout.write(frame)
 
 
