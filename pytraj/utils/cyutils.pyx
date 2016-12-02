@@ -86,7 +86,7 @@ def _fast_iterptr(double[:, :, :] xyz, int n_atoms, indices, Topology topology=N
 
     for i in indices:
         frame.thisptr.SetXptr(n_atoms, & xyz[i, 0, 0])
-        yield frame
+        yield i, frame
 
 
 def _fast_iterptr_withbox(double[:, :, :] xyz, double[:, :] boxes, int n_atoms, indices,
@@ -105,4 +105,4 @@ def _fast_iterptr_withbox(double[:, :, :] xyz, double[:, :] boxes, int n_atoms, 
     for i in indices:
         frame.thisptr.SetXptr(n_atoms, & xyz[i, 0, 0])
         frame.thisptr.SetBox(_Box( & boxes[i, 0]))
-        yield frame
+        yield i, frame
