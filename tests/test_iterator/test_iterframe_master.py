@@ -115,7 +115,7 @@ class TestIterFrameFromArray(unittest.TestCase):
         # no mass
         fi = pt.iterframe_from_array(traj.xyz, traj.n_atoms,
                                      range(traj.n_frames))
-        for f_traj, f_fi in zip(traj, fi):
+        for f_traj, (_, f_fi) in zip(traj, fi):
             aa_eq(f_traj.xyz, f_fi.xyz)
             # f_fi mass must be [1.0, ...]
             aa_eq(f_fi.mass, [1.0 for _ in range(traj.n_atoms)])
@@ -123,7 +123,7 @@ class TestIterFrameFromArray(unittest.TestCase):
         # mass from Topology
         fi = pt.iterframe_from_array(traj.xyz, traj.n_atoms,
                                      range(traj.n_frames), traj.top)
-        for f_traj, f_fi in zip(traj, fi):
+        for f_traj, (_, f_fi) in zip(traj, fi):
             aa_eq(f_traj.xyz, f_fi.xyz)
             aa_eq(f_fi.mass, f_traj.mass)
             aa_eq(f_fi.mass, traj.top.mass)
@@ -133,7 +133,7 @@ class TestIterFrameFromArray(unittest.TestCase):
                                      traj.n_atoms,
                                      range(traj.n_frames),
                                      mass=traj.top.mass)
-        for f_traj, f_fi in zip(traj, fi):
+        for f_traj, (_, f_fi) in zip(traj, fi):
             aa_eq(f_traj.xyz, f_fi.xyz)
             aa_eq(f_fi.mass, f_traj.mass)
             aa_eq(f_fi.mass, traj.top.mass)
