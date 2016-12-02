@@ -56,8 +56,14 @@ class Trajectory(SharedTrajectory):
     >>> for frame in traj: pass
     """
 
-    def __init__(self, filename=None, top=None, xyz=None):
+    def __init__(self, filename=None, top=None, xyz=None, velocity=None, force=None):
         self._top = get_topology(filename, top)
+        if velocity is not None:
+            velocity = np.asarray(velocity, dtype='f8')
+        if force is not None:
+            force = np.asarray(force, dtype='f8')
+        self.velocities = velocity
+        self.forces = force
 
         if self._top is None:
             self._top = Topology()
@@ -230,12 +236,27 @@ class Trajectory(SharedTrajectory):
         """
 
         if self._boxes is None:
-            return _fast_iterptr(self.xyz, self.n_atoms, indices, self.top)
+            iter_obj = _fast_iterptr(self.xyz, self.n_atoms, indices, self.top)
         else:
-            return _fast_iterptr_withbox(self.xyz, self._boxes, self.n_atoms,
-                                         indices, self.top)
+            iter_obj = _fast_iterptr_withbox(self.xyz, self._boxes, self.n_atoms,
+                                             indices, self.top)
 
-    def __getitem__(self, idx):
+        for (index, frame) in iter_obj:
+            if self.forces is not None:
+                frame.force = self.forces[index]
+            if self.velocities is not None:
+                frame.velocity = self.velocities[index]
+            yield frame
+
+    def _handle_setting_box_force_velocity(self, frame, index):
+        if self._boxes is not None:
+            frame.box = Box(self._boxes[index])
+        if self.velocities is not None:
+            frame.velocity = self.velocities[index]
+        if self.forces is not None:
+            frame.force = self.forces[index]
+
+    def __getitem__(self, index):
         """return a view or copy of coordinates (follow numpy's rule)
 
         Examples
@@ -270,13 +291,12 @@ class Trajectory(SharedTrajectory):
         if self.n_frames == 0:
             raise IndexError("Your Trajectory is empty, how can I index it?")
 
-        if is_int(idx):
+        if is_int(index):
             # traj[0]
             # return a single Frame as a view
-            arr0 = self._xyz[idx]
+            arr0 = self._xyz[index]
             frame = Frame(self.n_atoms, arr0, _as_ptr=True)
-            if self._boxes is not None:
-                frame.box = Box(self._boxes[idx])
+            self._handle_setting_box_force_velocity(frame, index)
             self._life_holder = frame
         else:
             # return a new Trajectory
@@ -284,70 +304,81 @@ class Trajectory(SharedTrajectory):
             atm = None
             arr0 = None
 
-            if isinstance(idx, (string_types, AtomMask)):
+            if isinstance(index, (string_types, AtomMask)):
                 # return a copy
                 # traj['@CA']
-                atm = self.top(idx) if isinstance(idx, string_types) else idx
+                atm = self.top(index) if isinstance(index, string_types) else index
                 traj.top = self.top._modify_state_by_mask(atm)
                 arr0 = self._xyz[:, atm.indices]
+                if self.forces is not None:
+                    forces = self.forces[:, atm.indices]
+                    traj.forces = forces.copy()
+                if self.velocities is not None:
+                    velocities = self.velocities[:, atm.indices]
+                    traj.velocities = velocities.copy()
                 # make copy to create contigous memory block
-                traj._xyz = arr0.copy()
-
                 if self._boxes is not None:
                     # always make a copy in this case
                     traj._boxes = self._boxes.copy()
-            elif not isinstance(idx, tuple):
+                traj._xyz = arr0.copy()
+            elif not isinstance(index, tuple):
                 # might return a view or a copy
                 # based on numpy array rule
-                # traj.xyz[idx]
+                # traj.xyz[index]
                 traj.top = self.top
-                traj._xyz = self._xyz[idx]
+                traj._xyz = self._xyz[index]
                 if self._boxes is not None:
-                    traj._boxes = self._boxes[idx]
+                    traj._boxes = self._boxes[index]
+                if self.forces is not None:
+                    forces = self.forces[index]
+                    traj.forces = forces
+                if self.velocities is not None:
+                    velocities = self.velocities[index]
+                    traj.velocities = velocities
             else:
                 # is a tuple
-                if len(idx) == 1:
-                    traj = self[idx[0]]
-                elif len(idx) == 2 and is_int(idx[0]) and isinstance(
-                        idx[1], string_types):
+                if len(index) == 1:
+                    traj = self[index[0]]
+                elif len(index) == 2 and is_int(index[0]) and isinstance(
+                        index[1], string_types):
                     # traj[0, '@CA']: return a stripped Frame
-                    frame = self[idx[0]].copy()
+                    frame = self[index[0]].copy()
                     # make AtomMask object
-                    atm = self.top(idx[1])
+                    atm = self.top(index[1])
                     # create new Frame with AtomMask
                     self._life_holder = Frame(frame, atm)
                     return self._life_holder
                 else:
-                    self._life_holder = self[idx[0]]
+                    self._life_holder = self[index[0]]
                     if isinstance(self._life_holder, Frame):
                         self._frame_holder = self._life_holder
-                    traj = self._life_holder[idx[1:]]
+                    traj = self._life_holder[index[1:]]
             self._life_holder = traj
         return self._life_holder
 
-    def __setitem__(self, idx, other):
+    def __setitem__(self, index, other):
         if self.n_frames == 0:
             raise IndexError("Your Trajectory is empty, how can I index it?")
 
         if other is None:
             raise ValueError("why bothering assign None?")
-        if is_int(idx):
+        if is_int(index):
             if hasattr(other, 'xyz') or isinstance(other, Frame):
                 # traj[1] = frame
-                self._xyz[idx] = other.xyz
+                self._xyz[index] = other.xyz
             else:
                 # traj[1] = xyz
                 # check shape?
-                self._xyz[idx] = other
-        elif idx == '*':
+                self._xyz[index] = other
+        elif index == '*':
             # why need this?
             # traj.xyz = xyz
             # update all atoms, use fast version
             self._xyz[:] = other  # xyz
-        elif isinstance(idx, string_types):
+        elif isinstance(index, string_types):
             # update xyz for mask
             # traj['@CA'] = xyz
-            atm = self.top(idx)
+            atm = self.top(index)
             if isinstance(other, Trajectory):
                 indices = atm.indices
 
@@ -363,7 +394,7 @@ class Trajectory(SharedTrajectory):
         else:
             # really need this?
             # example: self[0, 0, 0] = 100.
-            self._xyz[idx] = other
+            self._xyz[index] = other
 
     def append_xyz(self, xyz):
         '''append 3D numpy array
@@ -972,9 +1003,9 @@ class Trajectory(SharedTrajectory):
         else:
             fa._allocate(_n_frames, fa.top.n_atoms)
             fa._boxes = np.empty((_n_frames, 6), dtype='f8')
-            for idx, frame in enumerate(iterables):
-                fa._xyz[idx] = frame.xyz
-                fa._boxes[idx] = frame.box.data
+            for index, frame in enumerate(iterables):
+                fa._xyz[index] = frame.xyz
+                fa._boxes[index] = frame.box.data
         return fa
 
     def __len__(self):

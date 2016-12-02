@@ -4,6 +4,7 @@ import numpy as np
 import pytraj as pt
 from utils import fn
 from pytraj.utils import aa_eq
+from pytraj.externals.six.moves import zip
 
 
 class TestAutoImageAndRotateDihedral(unittest.TestCase):
@@ -60,7 +61,7 @@ class TestNoName(unittest.TestCase):
         # make sure to reproduce cpptraj's output too
         aa_eq(saved_traj.xyz, fa.xyz)
 
-    def test_FromIterable(self):
+    def test_from_iterable(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         aa_eq(pt.Trajectory.from_iterable(traj).xyz, traj.xyz)
 
@@ -136,6 +137,33 @@ class TestTrajectory(unittest.TestCase):
         traj2.load(fn('Tc5b.x'))
         fsub = traj2[2:10]
         fsub[0][0] = 100.
+
+    def test_slice_and_iterate_trajectory_with_force_and_velocity(self):
+        traj_on_disk = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
+        n_atoms = traj_on_disk.n_atoms
+        n_frames = traj_on_disk.n_frames
+        xyz = traj_on_disk.xyz
+        force = np.random.rand(n_frames*n_atoms*3).reshape((n_frames, n_atoms, 3))
+        velocity  = np.random.rand(n_frames*n_atoms*3).reshape((n_frames, n_atoms, 3))
+        top = traj_on_disk.top
+        traj = pt.Trajectory(xyz=xyz, top=top,
+                             force=force, velocity=velocity)
+        aa_eq(traj.forces, force)
+        aa_eq(traj.velocities, velocity)
+
+        # iterating
+        for index, frame in enumerate(traj):
+            aa_eq(frame.force, traj.forces[index])
+            aa_eq(frame.velocity, traj.velocities[index])
+
+        # slicing
+        aa_eq(traj[0].force, traj.forces[0])
+        aa_eq(traj[0].velocity, traj.velocities[0])
+        aa_eq(traj[::2].forces, traj.forces[::2])
+        aa_eq(traj[::2].velocities, traj.velocities[::2])
+        ca_indices = traj_on_disk.top.select('@CA')
+        aa_eq(traj['@CA'].velocities, traj.velocities[:, ca_indices])
+        aa_eq(traj['@CA'].forces, traj.forces[:, ca_indices])
 
     def test_indexing(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
