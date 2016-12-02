@@ -91,6 +91,7 @@ from .analysis.nmr import ired_vector_and_matrix
 from .analysis.nmr import _ired
 from .analysis.nmr import nh_order_parameters
 from .analysis.nmr import jcoupling
+from .analysis.water import spam
 
 from .analysis import dssp_analysis
 from .analysis import energy_analysis
