@@ -262,15 +262,14 @@ Push pytraj and libcpptraj to anaconda.org after successful build on travis
 
 - generate anaconda token to give travis permision to push data in ambermd channel in anaconda.org::
 
-  $ git clone https://github.com/Amber-MD/pytraj
-  $ cd pytraj
-  $ # generate token
-  $ TOKEN=$(anaconda auth --create --name MyToken) 
-  $ echo $TOKEN
+  step 1: Go to https://anaconda.org/{your_user_name}/settings/access to add a token
 
-- need to use ``travis`` to encrypt our token::
+  step 2: encrypt TRAVIS_TO_ANACONDA env for travis and allow master branch to upload to anaconda
 
-  $ travis encrypt TRAVIS_TO_ANACONDA=secretvalue
+      git clone https://github.com/Amber-MD/pytraj
+      cd pytraj
+      # require to install travis (google for it)
+      travis encrypt TRAVIS_TO_ANACONDA=[your token value you generated from step 1]
 
 - make code change, commit, push to github so travis can build pytraj and libcpptraj::
 
