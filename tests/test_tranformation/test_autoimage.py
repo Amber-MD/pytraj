@@ -108,9 +108,9 @@ class TestWithRmsfit(unittest.TestCase):
         aa_eq(saved_traj.xyz, traj.xyz)
 
 def test_autoimage_for_tightly_packed_systems():
-    trajin_fn = os.path.join(cpptraj_test_dir, 'Test_Autoimage', 'G3_3A.rst7') 
-    prmtop_fn = os.path.join(cpptraj_test_dir, 'Test_Autoimage', 'nowat.G3_3A.parm7') 
-    saved_rst7 = os.path.join(cpptraj_test_dir, 'Test_Autoimage', 'image.G3_3A.rst7.save') 
+    trajin_fn = os.path.join(cpptraj_test_dir, 'Test_AutoImage', 'G3_3A.rst7') 
+    prmtop_fn = os.path.join(cpptraj_test_dir, 'Test_AutoImage', 'nowat.G3_3A.parm7') 
+    saved_rst7 = os.path.join(cpptraj_test_dir, 'Test_AutoImage', 'image.G3_3A.rst7.save') 
     saved_traj = pt.iterload(saved_rst7, prmtop_fn)
 
     traj = pt.load(trajin_fn, prmtop_fn)
