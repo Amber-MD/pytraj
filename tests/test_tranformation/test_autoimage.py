@@ -1,9 +1,10 @@
+import os
 import unittest
 import pytraj as pt
 from utils import fn
 
 from pytraj import adict
-from pytraj.testing import aa_eq
+from pytraj.testing import aa_eq, cpptraj_test_dir
 from pytraj.utils.tools import rmsd_1darray
 
 
@@ -106,6 +107,15 @@ class TestWithRmsfit(unittest.TestCase):
         # PASSED
         aa_eq(saved_traj.xyz, traj.xyz)
 
+def test_autoimage_for_tightly_packed_systems():
+    trajin_fn = os.path.join(cpptraj_test_dir, 'Test_Autoimage', 'G3_3A.rst7') 
+    prmtop_fn = os.path.join(cpptraj_test_dir, 'Test_Autoimage', 'nowat.G3_3A.parm7') 
+    saved_rst7 = os.path.join(cpptraj_test_dir, 'Test_Autoimage', 'image.G3_3A.rst7.save') 
+    saved_traj = pt.iterload(saved_rst7, prmtop_fn)
+
+    traj = pt.load(trajin_fn, prmtop_fn)
+    pt.autoimage(traj, 'anchor :96 origin')
+    aa_eq(traj.xyz, saved_traj.xyz)
 
 if __name__ == "__main__":
     unittest.main()
