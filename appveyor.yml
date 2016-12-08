@@ -21,8 +21,8 @@ install:
       diffutils
     \""
   - "sh -lc \"
-       curl -fsS -o cpptraj.zip https://ci.appveyor.com/api/buildjobs/oseo37t05ewnukia/artifacts/cpptraj-5918240.zip &&
-       7z x cpptraj.zip -o$APPVEYOR_BUILD_FOLDER > /dev/null
+       curl -fsS https://ci.appveyor.com/api/buildjobs/oseo37t05ewnukia/artifacts/cpptraj-5918240.zip &&
+       7z x cpptraj-5918240.zip -o$APPVEYOR_BUILD_FOLDER > /dev/null
   \""
 
 build_script:
