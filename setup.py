@@ -81,7 +81,8 @@ cpptraj_info = get_cpptraj_info(rootname=rootname,
                            openmp_flag=openmp_flag,
                            use_amberlib=use_amberlib)
 
-libcpptraj_files = glob(os.path.join(cpptraj_info.lib_dir, 'libcpptraj') + '*')
+libcpptraj_files = (glob(os.path.join(cpptraj_info.lib_dir, 'libcpptraj') + '*') + 
+                    glob(os.path.join(cpptraj_info.lib_dir, 'cpptraj') + '*'))
 
 write_version_py()
 FULLVERSION, GIT_REVISION = get_version_info()
