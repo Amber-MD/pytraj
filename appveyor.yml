@@ -22,9 +22,11 @@ install:
     \""
   - mkdir cpptraj
   - mv cpptraj.zip cpptraj/
-  - 7z x cpptraj/cpptraj.zip
-  - ls cpptraj/
-  - ls cpptraj/lib/
+  - cd cpptraj/
+  - 7z x cpptraj.zip
+  - ls . 
+  - ls lib/
+  - cd ../
 
 build_script:
   - python setup.py build --disable-openmp
