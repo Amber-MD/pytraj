@@ -26,7 +26,7 @@ install:
   - 7z x cpptraj.zip
   - ls . 
   - ls lib/
-  - mv lib/libcpptraj.so lib/libcpptraj.a
+  - mv lib/libcpptraj.lib lib/cpptraj.lib
   - cd ../
 
 build_script:
