@@ -23,6 +23,8 @@ install:
   - mkdir cpptraj
   - mv cpptraj.zip cpptraj/
   - 7z x cpptraj/cpptraj.zip
+  - ls cpptraj/
+  - ls cpptraj/lib/
 
 build_script:
   - python setup.py build --disable-openmp
