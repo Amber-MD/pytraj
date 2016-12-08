@@ -187,8 +187,8 @@ def try_updating_libcpptraj(cpptraj_home,
                     'can not find libcpptraj but found ./cpptraj folder, trying to reinstall it to ./cpptraj/lib/ \n')
                 time.sleep(3)
                 try:
-                    cpptraj_dir = './cpptraj/'
-                    cpptraj_lib_dir = cpptraj_dir + '/lib/'
+                    cpptraj_dir = 'cpptraj'
+                    cpptraj_lib_dir = os.path.join(cpptraj_dir, 'lib')
                     install_libcpptraj(openmp_flag, from_github=False, use_amberlib=use_amberlib)
                     return glob(os.path.join(cpptraj_lib_dir, 'libcpptraj') + '*')
                 except CalledProcessError:
@@ -223,11 +223,11 @@ def get_pyx_pxd():
         in files or '__init__.pxd' in files or '__init__.py' in files
     ]
     
-    pxd_include_patterns = [p + '/*.pxd' for p in pxd_include_dirs]
+    pxd_include_patterns = [os.path.join(p, '*.pxd') for p in pxd_include_dirs]
     
     pyxfiles = []
     for p in pxd_include_dirs:
-        pyxfiles.extend([ext.split(".")[0] for ext in glob(p + '/*.pyx')
+        pyxfiles.extend([ext.split(".")[0] for ext in glob(os.path.join(p, '*.pyx'))
                          if '.pyx' in ext])
     pxdfiles = [p.replace("pytraj/", "") for p in pxd_include_patterns]
     return pyxfiles, pxdfiles
@@ -295,12 +295,12 @@ def get_cpptraj_info(rootname,
         if cpptraj_home:
             # use libcpptraj and header files in CPPTRAJHOME (/lib, /src)
             cpptraj_info.dir = cpptraj_home
-            cpptraj_info.include_dir = cpptraj_info.dir + "/src/"
-            cpptraj_info.lib_dir = cpptraj_info.dir + "/lib/"
+            cpptraj_info.include_dir = os.path.join(cpptraj_info.dir, "src")
+            cpptraj_info.lib_dir = os.path.join(cpptraj_info.dir, "lib")
         elif cpptraj_included:
-            cpptraj_info.dir = os.path.abspath("./cpptraj/")
-            cpptraj_info.include_dir = cpptraj_info.dir + "/src/"
-            cpptraj_info.lib_dir = cpptraj_info.dir + "/lib/"
+            cpptraj_info.dir = os.path.abspath("cpptraj")
+            cpptraj_info.include_dir = os.path.join(cpptraj_info.dir, "src")
+            cpptraj_info.lib_dir = os.path.join(cpptraj_info.dir, "lib")
         else:
 
             if compile_c_extension:
@@ -343,7 +343,7 @@ def setenv_cc_cxx(ambertools_distro,
         if not amber_home:
             raise EnvironmentError('must set AMBERHOME')
 
-        configfile = amber_home + '/config.h'
+        configfile = os.path.join(amber_home, 'config.h')
         if not os.path.exists(configfile):
             raise OSError("must have config.h file")
 
