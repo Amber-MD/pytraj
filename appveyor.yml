@@ -20,11 +20,9 @@ install:
       mingw-w64-x86_64-readline
       diffutils
     \""
-  - "sh -lc \"
-       curl -fsS https://ci.appveyor.com/api/buildjobs/oseo37t05ewnukia/artifacts/cpptraj-5918240.zip
-  \""
-  - ls .
-  - 7z x cpptraj-5918240.zip -o$APPVEYOR_BUILD_FOLDER > /dev/null
+  - mkdir cpptraj
+  - mv cpptraj.zip cpptraj/
+  - 7z x cpptraj/cpptraj.zip
 
 build_script:
   - python setup.py build --disable-openmp
