@@ -60,22 +60,8 @@ def compiler_env_info(message):
 # Numpy is licensed under the BSD license,
 
 def git_version():
-    def _minimal_ext_cmd(cmd):
-        # construct minimal environment
-        env = {}
-        for k in ['SYSTEMROOT', 'PATH']:
-            v = os.environ.get(k)
-            if v is not None:
-                env[k] = v
-        # LANGUAGE is used on win32
-        env['LANGUAGE'] = 'C'
-        env['LANG'] = 'C'
-        env['LC_ALL'] = 'C'
-        out = subprocess.Popen(cmd, stdout=subprocess.PIPE, env=env).communicate()[0]
-        return out
-
     try:
-        out = _minimal_ext_cmd(['git', 'rev-parse', 'HEAD'])
+        out = subprocess.check_output(['git', 'rev-parse', 'HEAD'])
         GIT_REVISION = out.strip().decode('ascii')
     except OSError:
         GIT_REVISION = "Unknown"
@@ -106,9 +92,9 @@ def get_version_info():
             from pytraj.__version__ import git_revision as GIT_REVISION
         except ImportError:
             # FIXME pytraj
-            # raise ImportError("Unable to import git_revision. Try removing " \
-            #                  "numpy/version.py and the build directory " \
-            #                  "before building.")
+            raise ImportError("Unable to import git_revision. Try removing " \
+                              "pytraj/version.py and the build directory " \
+                              "before building.")
             pass
     else:
         GIT_REVISION = "Unknown"
@@ -187,8 +173,8 @@ def try_updating_libcpptraj(cpptraj_home,
                     'can not find libcpptraj but found ./cpptraj folder, trying to reinstall it to ./cpptraj/lib/ \n')
                 time.sleep(3)
                 try:
-                    cpptraj_dir = './cpptraj/'
-                    cpptraj_lib_dir = cpptraj_dir + '/lib/'
+                    cpptraj_dir = 'cpptraj'
+                    cpptraj_lib_dir = os.path.join(cpptraj_dir, 'lib')
                     install_libcpptraj(openmp_flag, from_github=False, use_amberlib=use_amberlib)
                     return glob(os.path.join(cpptraj_lib_dir, 'libcpptraj') + '*')
                 except CalledProcessError:
@@ -223,11 +209,11 @@ def get_pyx_pxd():
         in files or '__init__.pxd' in files or '__init__.py' in files
     ]
     
-    pxd_include_patterns = [p + '/*.pxd' for p in pxd_include_dirs]
+    pxd_include_patterns = [os.path.join(p, '*.pxd') for p in pxd_include_dirs]
     
     pyxfiles = []
     for p in pxd_include_dirs:
-        pyxfiles.extend([ext.split(".")[0] for ext in glob(p + '/*.pyx')
+        pyxfiles.extend([ext.split(".")[0] for ext in glob(os.path.join(p, '*.pyx'))
                          if '.pyx' in ext])
     pxdfiles = [p.replace("pytraj/", "") for p in pxd_include_patterns]
     return pyxfiles, pxdfiles
@@ -295,12 +281,12 @@ def get_cpptraj_info(rootname,
         if cpptraj_home:
             # use libcpptraj and header files in CPPTRAJHOME (/lib, /src)
             cpptraj_info.dir = cpptraj_home
-            cpptraj_info.include_dir = cpptraj_info.dir + "/src/"
-            cpptraj_info.lib_dir = cpptraj_info.dir + "/lib/"
+            cpptraj_info.include_dir = os.path.join(cpptraj_info.dir, "src")
+            cpptraj_info.lib_dir = os.path.join(cpptraj_info.dir, "lib")
         elif cpptraj_included:
-            cpptraj_info.dir = os.path.abspath("./cpptraj/")
-            cpptraj_info.include_dir = cpptraj_info.dir + "/src/"
-            cpptraj_info.lib_dir = cpptraj_info.dir + "/lib/"
+            cpptraj_info.dir = os.path.abspath("cpptraj")
+            cpptraj_info.include_dir = os.path.join(cpptraj_info.dir, "src")
+            cpptraj_info.lib_dir = os.path.join(cpptraj_info.dir, "lib")
         else:
 
             if compile_c_extension:
@@ -343,7 +329,7 @@ def setenv_cc_cxx(ambertools_distro,
         if not amber_home:
             raise EnvironmentError('must set AMBERHOME')
 
-        configfile = amber_home + '/config.h'
+        configfile = os.path.join(amber_home, 'config.h')
         if not os.path.exists(configfile):
             raise OSError("must have config.h file")
 

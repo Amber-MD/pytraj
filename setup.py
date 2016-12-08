@@ -47,7 +47,7 @@ openmp_flag = '-openmp' if not disable_openmp else ''
 debug = check_flag('-debug')
 tarfile = True if 'sdist' in sys.argv else False
 rootname = os.getcwd()
-pytraj_src = rootname + "/pytraj/"
+pytraj_src = os.path.join(rootname, "pytraj")
 cpptraj_home = os.environ.get('CPPTRAJHOME', '')
 
 compiler_env_info('Original compiler envs')
