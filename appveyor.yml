@@ -24,6 +24,7 @@ install:
   - mv cpptraj.zip cpptraj/
   - cd cpptraj/
   - 7z x cpptraj.zip
+  - mv lib/libcpptraj.so lib/libcpptraj.a
   - ls . 
   - ls lib/
   - cd ../
