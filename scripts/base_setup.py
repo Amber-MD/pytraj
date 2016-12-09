@@ -394,7 +394,7 @@ def get_ext_modules(cpptraj_info,
         except IndexError:
             print("Warning:  It seems that there is no libcpptraj. Please install it")
             sys.exit(1)
-        execept subprocess.CalledProcessError:
+        except subprocess.CalledProcessError:
             output_openmp_check = []
     
         libcpptraj_has_openmp = ([line for line in output_openmp_check if 'omp_get_num_threads' in line.lower()]  != [])
