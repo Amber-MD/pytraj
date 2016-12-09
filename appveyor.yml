@@ -21,6 +21,7 @@ install:
       mingw-w64-x86_64-gcc-fortran
       mingw-w64-x86_64-ncurses
       mingw-w64-x86_64-readline
+      mingw-w64-x86_64-python2-numpy
       diffutils
     \""
   - mkdir cpptraj
@@ -36,3 +37,5 @@ build_script:
   - where python
   - python setup.py build --disable-openmp
   - python setup.py install
+  - cd tests
+  - python -c "import numpy; print(numpy)"
