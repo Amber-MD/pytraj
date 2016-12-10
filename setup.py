@@ -56,7 +56,7 @@ except ImportError:
 amber_release = check_flag('--amber_release')
 disable_openmp = check_flag('--disable-openmp')
 use_amberlib = not check_flag('--disable-amberlib')
-use_prebuilt_cythonized_files = not check_flag('--use-pre-cythonized')
+use_prebuilt_cythonized_files = check_flag('--use-pre-cythonized')
 openmp_flag = '-openmp' if not disable_openmp else ''
 debug = check_flag('-debug')
 tarfile = True if 'sdist' in sys.argv else False
