@@ -32,7 +32,8 @@ from glob import glob
 # local import
 from scripts.base_setup import (check_flag, write_version_py, get_version_info,
                                 get_cpptraj_info, check_compile_cython, check_cython,
-                                get_package_data)
+                                get_package_data,
+                                get_pyx_pxd)
 from scripts.base_setup import (compiler_env_info, setenv_cc_cxx, get_ext_modules)
 from scripts.base_setup import CleanCommand, is_released
 
@@ -40,6 +41,17 @@ from scripts.base_setup import CleanCommand, is_released
 if sys.version_info < (2, 6):
     print('You must have at least Python 2.6 for pytraj\n')
     sys.exit(1)
+
+try:
+    if check_flag('--cythonize'):
+        from Cython.Build import cythonize
+        pyxfiles, _ = get_pyx_pxd()
+        cythonize(
+            [pfile + '.pyx' for pfile in pyxfiles],
+        )
+        sys.exit(0)
+except ImportError:
+    pass
 
 amber_release = check_flag('--amber_release')
 disable_openmp = check_flag('--disable-openmp')
