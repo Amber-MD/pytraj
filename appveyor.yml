@@ -37,5 +37,7 @@ build_script:
   - where python
   - python setup.py build --disable-openmp
   - python setup.py install
+  - set WINDIR=C:/msys64/lib/;C:/msys64/usr/lib;%cd%/cpptraj/lib;%WINDIR%
   - cd tests
   - python -c "import numpy; print(numpy)"
+  - python -c "import pytraj; pytraj.run_tests()"
