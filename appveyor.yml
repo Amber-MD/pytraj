@@ -14,7 +14,7 @@ environment:
 
 install:
   # use conda from Miniconda3 first
-  - set PATH=%PYTHON%;%PYTHON%/Scripts:%PATH%
+  - set PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%
   - conda install cython -y
   - python scripts/cythonize.py
   # now go back to mingw64
