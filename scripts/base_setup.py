@@ -219,6 +219,7 @@ def get_pyx_pxd():
     return pyxfiles, pxdfiles
 
 def check_cython(is_released, cmdclass, min_version='0.21', use_prebuilt_cythonized_files=False):
+    print('use_prebuilt_cythonized_files = ', use_prebuilt_cythonized_files)
     if is_released or use_prebuilt_cythonized_files:
         # ./devtools/mkrelease
         need_cython = False
