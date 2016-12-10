@@ -20,7 +20,8 @@ install:
       mingw-w64-x86_64-python2-numpy
       diffutils
     \""
-  - mkdir cpptraj
+  - appveyor DownloadFile https://ci.appveyor.com/api/buildjobs/46egeqnndp33q662/artifacts/cpptraj-6045433.zip -FileName cpptraj.zip
+  - mkdir cpptraj/
   - mv cpptraj.zip cpptraj/
   - cd cpptraj/
   - 7z x cpptraj.zip
