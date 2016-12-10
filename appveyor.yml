@@ -32,8 +32,8 @@ install:
 
 build_script:
   - where python
-  - $PYTHON/python -m pip install cython
-  - $PYTHON/python setup.py --cythonize # use cython from miniconda
+  - %PYTHON%/python -m pip install cython
+  - %PYTHON%/python setup.py --cythonize # use cython from miniconda
   - python setup.py build --disable-openmp
   - python setup.py install
   - cd tests
