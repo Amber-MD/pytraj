@@ -151,7 +151,8 @@ else:
                     extra_link_args=extra_link_args,
                     define_macros=define_macros,
                     use_pip=use_pip,
-                    tarfile=tarfile)
+                    tarfile=tarfile,
+                    use_prebuilt_cythonized_files=use_prebuilt_cythonized_files)
     if sys.platform.startswith('win'): 
         possible_libcpptraj_files = ['libcpptraj.lib', 'cpptraj.lib']
         # copy to pytraj/ folder

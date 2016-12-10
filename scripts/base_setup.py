@@ -378,7 +378,8 @@ def get_ext_modules(cpptraj_info,
                     extra_link_args=[],
                     define_macros=[],
                     use_pip=False,
-                    tarfile=False):
+                    tarfile=False,
+                    use_prebuilt_cythonized_files=False):
     if not tarfile:
         print('install = {}'.format(compile_c_extension))
         if not libcpptraj_files:
@@ -419,7 +420,7 @@ def get_ext_modules(cpptraj_info,
     
         pyxfiles, pxdfiles = get_pyx_pxd()
 
-        if not is_released:
+        if not is_released or not use_prebuilt_cythonized_files:
             from Cython.Build import cythonize
             if sys.platform.startswith("win"):
                 cythonize(
