@@ -115,6 +115,7 @@ setenv_cc_cxx(cpptraj_info.ambertools_distro, extra_compile_args, extra_link_arg
 
 if not compile_c_extension:
     ext_modules = []
+    possible_libcpptraj_files = []
 else:
     ext_modules = get_ext_modules(cpptraj_info=cpptraj_info,
                     pytraj_src=pytraj_src,
@@ -132,6 +133,15 @@ else:
                     define_macros=define_macros,
                     use_pip=use_pip,
                     tarfile=tarfile)
+    if sys.platform.startswith('win'): 
+        possible_libcpptraj_files = ['libcpptraj.lib', 'cpptraj.lib']
+        # copy to pytraj/ folder
+        # TODO: better solution?
+        for fn in libcpptraj_files:
+            print("Copying {} to pytraj".format(fn))
+            shutil.copy(fn, 'pytraj/')
+    else:
+        possible_libcpptraj_files = []
 
 setup_args = {}
 packages = [
@@ -190,5 +200,5 @@ if __name__ == "__main__":
             'Topic :: Scientific/Engineering :: Chemistry',
         ],
         ext_modules=ext_modules,
-        package_data={'pytraj': get_package_data(use_pip)},
+        package_data={'pytraj': get_package_data(use_pip) + possible_libcpptraj_files},
         cmdclass=cmdclass,)

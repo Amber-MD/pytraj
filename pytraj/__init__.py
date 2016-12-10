@@ -12,6 +12,11 @@ except ImportError:
 import sys
 import os
 
+if sys.platform.startswith('win'):
+    # set PATH to find libcpptraj.lib
+    # we copy it (libcpptraj.lib) to pytraj folder during installation.
+    os.environ['PATH'] = os.path.dirname(os.path.abspath(__file__)) + ';' + os.environ['PATH']
+
 from .version import version as __version__
 from .utils import c_commands
 from .utils import tools
