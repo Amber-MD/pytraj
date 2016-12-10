@@ -420,7 +420,7 @@ def get_ext_modules(cpptraj_info,
     
         pyxfiles, pxdfiles = get_pyx_pxd()
 
-        if not is_released or not use_prebuilt_cythonized_files:
+        if not (is_released or use_prebuilt_cythonized_files):
             from Cython.Build import cythonize
             if sys.platform.startswith("win"):
                 cythonize(
