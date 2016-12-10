@@ -8,6 +8,7 @@ environment:
 install:
   - set HOME=.
   - set MSYSTEM=MINGW64
+  - ls C:/msys64/mingw64/lib/
   - set PATH=C:/msys64/usr/bin;C:/msys64/mingw64/bin;%PATH%
   - "sh -lc \"pacman -S --noconfirm --needed
       mingw-w64-x86_64-openblas
@@ -33,7 +34,8 @@ build_script:
   - python setup.py build --disable-openmp
   - python setup.py install
   - cd cpptraj/lib
-  - set PATH=`pwd`:$PATH
+  - echo %cd%
+  - set PATH=%cd%;C:/msys64/mingw64/lib/;%PATH%
   - cd ../../
   - cd tests
   - python -c "import numpy; print(numpy)"
