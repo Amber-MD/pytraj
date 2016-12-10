@@ -6,6 +6,7 @@ import pytraj as pt
 from utils import fn
 from pytraj.utils import aa_eq
 
+from utils import tz2_ortho_trajin, tz2_ortho_top
 
 class TestDiffusion(unittest.TestCase):
 
@@ -13,9 +14,9 @@ class TestDiffusion(unittest.TestCase):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
 
         cm = '''
-        parm data/tz2.ortho.parm7
-        trajin data/tz2.ortho.nc
-        diffusion {0} df {1}
+        parm {0}
+        trajin {1}
+        diffusion {2} df {3}
         '''
 
         options = [
@@ -28,7 +29,7 @@ class TestDiffusion(unittest.TestCase):
 
         for (mask, individual) in options:
             i_text = 'individual' if individual else ''
-            updated_cm = cm.format(mask, i_text)
+            updated_cm = cm.format(tz2_ortho_top, tz2_ortho_trajin, mask, i_text)
 
             state = pt.load_cpptraj_state(updated_cm)
             state.run()

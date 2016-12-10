@@ -4,9 +4,11 @@ import tempfile
 from shutil import rmtree
 
 try:
-    from wurlitzer import pipes
-except ImportError:
     from ..externals.wurlitzer import pipes
+except ImportError:
+    def pipes():
+        # win sucks
+        yield "", ""
 
 capture_stdout = pipes
 

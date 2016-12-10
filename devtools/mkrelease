@@ -15,7 +15,7 @@ except ValueError:
     ambertools_distro = False
 
 if ambertools_distro:
-    pytraj_dir = os.path.abspath('./AmberTools/src/pytraj/')
+    pytraj_dir = os.path.abspath(os.path.join(('AmberTools', 'src', 'pytraj')))
 else:
     pytraj_dir = './'
 

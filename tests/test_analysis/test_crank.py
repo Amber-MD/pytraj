@@ -6,12 +6,12 @@ from pytraj.utils.context import capture_stdout
 
 
 cm = '''
-parm data/tz2.parm7
-trajin data/tz2.nc
+parm {}
+trajin {}
 dihedral phi2 :1@C :2@N :2@CA :2@C type phi
 dihedral phi3 :2@C :3@N :3@CA :3@C type phi
 analyze crankshaft angle phi2 phi3
-'''
+'''.format(fn('tz2.parm7'), fn('tz2.nc'))
 
 
 class TestCrank(unittest.TestCase):

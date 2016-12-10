@@ -12,6 +12,7 @@
 
 import os
 import sys
+import shutil
 
 print('sys.argv', sys.argv)
 try:
@@ -31,7 +32,8 @@ from glob import glob
 # local import
 from scripts.base_setup import (check_flag, write_version_py, get_version_info,
                                 get_cpptraj_info, check_compile_cython, check_cython,
-                                get_package_data)
+                                get_package_data,
+                                get_pyx_pxd)
 from scripts.base_setup import (compiler_env_info, setenv_cc_cxx, get_ext_modules)
 from scripts.base_setup import CleanCommand, is_released
 
@@ -40,9 +42,21 @@ if sys.version_info < (2, 6):
     print('You must have at least Python 2.6 for pytraj\n')
     sys.exit(1)
 
+try:
+    if check_flag('--cythonize'):
+        from Cython.Build import cythonize
+        pyxfiles, _ = get_pyx_pxd()
+        cythonize(
+            [pfile + '.pyx' for pfile in pyxfiles],
+        )
+        sys.exit(0)
+except ImportError:
+    pass
+
 amber_release = check_flag('--amber_release')
 disable_openmp = check_flag('--disable-openmp')
 use_amberlib = not check_flag('--disable-amberlib')
+use_prebuilt_cythonized_files = check_flag('--use-pre-cythonized')
 openmp_flag = '-openmp' if not disable_openmp else ''
 debug = check_flag('-debug')
 tarfile = True if 'sdist' in sys.argv else False
@@ -81,7 +95,8 @@ cpptraj_info = get_cpptraj_info(rootname=rootname,
                            openmp_flag=openmp_flag,
                            use_amberlib=use_amberlib)
 
-libcpptraj_files = glob(os.path.join(cpptraj_info.lib_dir, 'libcpptraj') + '*')
+libcpptraj_files = (glob(os.path.join(cpptraj_info.lib_dir, 'libcpptraj') + '*') + 
+                    glob(os.path.join(cpptraj_info.lib_dir, 'cpptraj') + '*'))
 
 write_version_py()
 FULLVERSION, GIT_REVISION = get_version_info()
@@ -89,10 +104,15 @@ print(FULLVERSION)
 
 # python setup.py clean
 cmdclass = {'clean': CleanCommand}
-need_cython, cmdclass, cythonize  = check_cython(is_released, cmdclass, min_version='0.21')
+need_cython, cmdclass, cythonize  = check_cython(is_released, cmdclass, min_version='0.21',
+        use_prebuilt_cythonized_files=use_prebuilt_cythonized_files)
 
-extra_compile_args = ['-O0', '-ggdb']
-extra_link_args = ['-O0', '-ggdb']
+if sys.platform.startswith('win'):
+    extra_compile_args = []
+    extra_link_args = []
+else:
+    extra_compile_args = ['-O0', '-ggdb']
+    extra_link_args = ['-O0', '-ggdb']
 
 cython_directives = {
     'embedsignature': True,
@@ -114,6 +134,7 @@ setenv_cc_cxx(cpptraj_info.ambertools_distro, extra_compile_args, extra_link_arg
 
 if not compile_c_extension:
     ext_modules = []
+    possible_libcpptraj_files = []
 else:
     ext_modules = get_ext_modules(cpptraj_info=cpptraj_info,
                     pytraj_src=pytraj_src,
@@ -130,7 +151,17 @@ else:
                     extra_link_args=extra_link_args,
                     define_macros=define_macros,
                     use_pip=use_pip,
-                    tarfile=tarfile)
+                    tarfile=tarfile,
+                    use_prebuilt_cythonized_files=use_prebuilt_cythonized_files)
+    if sys.platform.startswith('win'): 
+        possible_libcpptraj_files = ['libcpptraj.lib', 'cpptraj.lib']
+        # copy to pytraj/ folder
+        # TODO: better solution?
+        for fn in libcpptraj_files:
+            print("Copying {} to pytraj".format(fn))
+            shutil.copy(fn, 'pytraj/')
+    else:
+        possible_libcpptraj_files = []
 
 setup_args = {}
 packages = [
@@ -163,12 +194,6 @@ packages = [
     'pytraj.testing',
 ]
 
-tests_require = [
-    'pytest',
-    'pytest-cov',
-    'mpi4py',
-]
-
 if __name__ == "__main__":
     setup(
         name="pytraj",
@@ -176,7 +201,6 @@ if __name__ == "__main__":
         author="Hai Nguyen",
         url="https://github.com/Amber-MD/pytraj",
         packages=packages,
-        tests_require=tests_require,
         description="""Python API for cpptraj: a data analysis package for biomolecular simulation""",
         license="GPL v3",
         classifiers=[
@@ -196,5 +220,5 @@ if __name__ == "__main__":
             'Topic :: Scientific/Engineering :: Chemistry',
         ],
         ext_modules=ext_modules,
-        package_data={'pytraj': get_package_data(use_pip)},
+        package_data={'pytraj': get_package_data(use_pip) + possible_libcpptraj_files},
         cmdclass=cmdclass,)

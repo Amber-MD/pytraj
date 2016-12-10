@@ -218,8 +218,9 @@ def get_pyx_pxd():
     pxdfiles = [p.replace("pytraj/", "") for p in pxd_include_patterns]
     return pyxfiles, pxdfiles
 
-def check_cython(is_released, cmdclass, min_version='0.21'):
-    if is_released:
+def check_cython(is_released, cmdclass, min_version='0.21', use_prebuilt_cythonized_files=False):
+    print('use_prebuilt_cythonized_files = ', use_prebuilt_cythonized_files)
+    if is_released or use_prebuilt_cythonized_files:
         # ./devtools/mkrelease
         need_cython = False
         cythonize = None
@@ -377,7 +378,8 @@ def get_ext_modules(cpptraj_info,
                     extra_link_args=[],
                     define_macros=[],
                     use_pip=False,
-                    tarfile=False):
+                    tarfile=False,
+                    use_prebuilt_cythonized_files=False):
     if not tarfile:
         print('install = {}'.format(compile_c_extension))
         if not libcpptraj_files:
@@ -394,6 +396,8 @@ def get_ext_modules(cpptraj_info,
         except IndexError:
             print("Warning:  It seems that there is no libcpptraj. Please install it")
             sys.exit(1)
+        except subprocess.CalledProcessError:
+            output_openmp_check = []
     
         libcpptraj_has_openmp = ([line for line in output_openmp_check if 'omp_get_num_threads' in line.lower()]  != [])
         if libcpptraj_has_openmp and sys.platform == 'darwin':
@@ -416,7 +420,7 @@ def get_ext_modules(cpptraj_info,
     
         pyxfiles, pxdfiles = get_pyx_pxd()
 
-        if not is_released:
+        if not (is_released or use_prebuilt_cythonized_files):
             from Cython.Build import cythonize
             if sys.platform.startswith("win"):
                 cythonize(
