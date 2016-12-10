@@ -31,9 +31,11 @@ install:
   - cd ../
 
 build_script:
+  - set PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%
   - where python
-  - "%PYTHON%/python" -m pip install cython
-  - "%PYTHON%/python" setup.py --cythonize # use cython from miniconda
+  - python -m pip install cython
+  - python setup.py --cythonize # use miniconda cython
+  - set PATH=C:/msys64/usr/bin;C:/msys64/mingw64/bin;%PATH% # using mingw64 python
   - python setup.py build --disable-openmp
   - python setup.py install
   - cd tests
