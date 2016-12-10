@@ -9,7 +9,7 @@ from pytraj.testing import aa_eq, tempfolder
 from utils import fn
 
 def test_pairdist():
-    traj = pt.iterload(fn("/tz2.crd"), fn("tz2.parm7"))
+    traj = pt.iterload(fn("tz2.crd"), fn("tz2.parm7"))
 
     for (mask, delta) in [('*', 0.1), ('@CA', '0.2')]:
         data = pt.pairdist(traj,
