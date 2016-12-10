@@ -56,6 +56,7 @@ except ImportError:
 amber_release = check_flag('--amber_release')
 disable_openmp = check_flag('--disable-openmp')
 use_amberlib = not check_flag('--disable-amberlib')
+use_prebuilt_cythonized_files = not check_flag('--use-pre-cythonized')
 openmp_flag = '-openmp' if not disable_openmp else ''
 debug = check_flag('-debug')
 tarfile = True if 'sdist' in sys.argv else False
@@ -103,10 +104,15 @@ print(FULLVERSION)
 
 # python setup.py clean
 cmdclass = {'clean': CleanCommand}
-need_cython, cmdclass, cythonize  = check_cython(is_released, cmdclass, min_version='0.21')
+need_cython, cmdclass, cythonize  = check_cython(is_released, cmdclass, min_version='0.21',
+        use_prebuilt_cythonized_files=use_prebuilt_cythonized_files)
 
-extra_compile_args = ['-O0', '-ggdb']
-extra_link_args = ['-O0', '-ggdb']
+if sys.platform.startswith('win'):
+    extra_compile_args = []
+    extra_link_args = []
+else:
+    extra_compile_args = ['-O0', '-ggdb']
+    extra_link_args = ['-O0', '-ggdb']
 
 cython_directives = {
     'embedsignature': True,

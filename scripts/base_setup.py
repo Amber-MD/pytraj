@@ -218,8 +218,8 @@ def get_pyx_pxd():
     pxdfiles = [p.replace("pytraj/", "") for p in pxd_include_patterns]
     return pyxfiles, pxdfiles
 
-def check_cython(is_released, cmdclass, min_version='0.21'):
-    if is_released:
+def check_cython(is_released, cmdclass, min_version='0.21', use_prebuilt_cythonized_files=False):
+    if is_released or use_prebuilt_cythonized_files:
         # ./devtools/mkrelease
         need_cython = False
         cythonize = None

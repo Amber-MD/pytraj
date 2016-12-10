@@ -34,10 +34,9 @@ build_script:
   - set PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%
   - where python
   - python -m conda install cython -y
-  # - python setup.py --cythonize # use miniconda cython
-  - python devtools/mkrelease
+  - python setup.py --cythonize # use miniconda cython
   - set PATH=C:/msys64/usr/bin;C:/msys64/mingw64/bin;%PATH% # using mingw64 python
-  - python setup.py build --disable-openmp
+  - python setup.py build --disable-openmp --use-pre-cythonized
   - python setup.py install
   - cd tests
   - python -c "import numpy; print(numpy)"
