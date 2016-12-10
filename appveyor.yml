@@ -8,9 +8,16 @@ os: Windows Server 2012
 # https://ci.appveyor.com/project/hainm/cpptraj-l282n/build/artifacts
 environment:
   matrix:
-  - PRINTF_EXPONENT_DIGITS: "2"
+    - PYTHON: "C:\\Miniconda3"
+      CONDA_PY: "35"
+      CONDA_NPY: "1.10"
 
 install:
+  # use conda from Miniconda3 first
+  - set PATH=%PYTHON%;%PYTHON%/Scripts:%PATH%
+  - conda install cython -y
+  - python scripts/cythonize.py
+  # now go back to mingw64
   - set HOME=.
   - set MSYSTEM=MINGW64
   - set PATH=C:/msys64/usr/bin;C:/msys64/mingw64/bin;%PATH%
@@ -37,7 +44,7 @@ build_script:
   - where python
   - python setup.py build --disable-openmp
   - python setup.py install
-  - set WINDIR=C:/msys64/lib/;C:/msys64/usr/lib;%cd%/cpptraj/lib;%WINDIR%
+  - set PATH=%cd%/cpptraj/lib;%WINDIR%
   - cd tests
   - python -c "import numpy; print(numpy)"
   - python -c "import pytraj; pytraj.run_tests()"
