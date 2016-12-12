@@ -160,7 +160,9 @@ else:
         for fn in libcpptraj_files:
             print("Copying {} to pytraj".format(fn))
             shutil.copy(fn, 'pytraj/')
-        shutil.copy(fn, 'pytraj/cpptraj.lib')
+            old = os.path.join(('pytraj', fn))
+            new = os.path.join(('pytraj', 'cpptraj.lib'))
+            os.rename(old, new)
     else:
         possible_libcpptraj_files = []
 
