@@ -7,6 +7,6 @@ pacman -S --noconfirm --needed  mingw-w64-x86_64-gcc mingw-w64-x86_64-gcc-fortra
 
 # python
 pacman -S python2
-# pacman -S python2-numpy
+pacman -S mingw-w64-x86_64-python2-numpy
 wget https://bootstrap.pypa.io/get-pip.py
 python get-pip.py

@@ -195,7 +195,7 @@ def _install_libcpptraj_win_msys2():
                  --with-arpack={PREFIX} \
                  -shared \
                  gnu
-    """.format(PREFIX=PREFIX)
+    """.format(PREFIX=PREFIX).strip()
     subprocess.check_call(command, shell=True)
     subprocess.check_call('make libcpptraj -j2', shell=True)
 
