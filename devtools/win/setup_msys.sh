@@ -1,6 +1,6 @@
-pacman -Sy --noconfirm --needed pacman 
-pacman -Syu --noconfirm --needed
-pacman -Su --noconfirm --needed
+# pacman -Sy --noconfirm --needed pacman 
+# pacman -Syu --noconfirm --needed
+# pacman -Su --noconfirm --needed
 pacman -S --noconfirm --needed unzip make rsync git tcsh libbz2-devel zilb-devel diffutils tar
 pacman -S --noconfirm --needed mingw-w64-x86_64-openblas
 pacman -S --noconfirm --needed  mingw-w64-x86_64-gcc mingw-w64-x86_64-gcc-fortran mingw-w64-x86_64-ncurses mingw-w64-x86_64-readline
