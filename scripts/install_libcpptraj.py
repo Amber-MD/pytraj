@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 from __future__ import print_function
 import os
 import sys
@@ -187,15 +186,16 @@ def parse_args():
 
 def _install_libcpptraj_win_msys2():
     PREFIX = '/usr/local/'
+    PREFIX2 = '/mingw64/'
     # assume you do all the setup
     command = """
     sh configure --with-netcdf={PREFIX} \
-                 --with-lapack={PREFIX} \
-                 --with-blas={PREFIX} \
-                 --with-arpack={PREFIX} \
+                 --with-lapack={PREFIX2} \
+                 --with-blas={PREFIX2} \
+                 --with-arpack={PREFIX2} \
                  -shared \
                  gnu
-    """.format(PREFIX=PREFIX).strip()
+    """.format(PREFIX=PREFIX, PREFIX2=PREFIX2).strip()
     subprocess.check_call(command, shell=True)
     subprocess.check_call('make libcpptraj -j2', shell=True)
 

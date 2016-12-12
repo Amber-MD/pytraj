@@ -154,7 +154,7 @@ else:
                     tarfile=tarfile,
                     use_prebuilt_cythonized_files=use_prebuilt_cythonized_files)
     if sys.platform.startswith('win'): 
-        possible_libcpptraj_files = ['libcpptraj.lib', 'cpptraj.lib']
+        possible_libcpptraj_files = ['libcpptraj.dll.a']
         # copy to pytraj/ folder
         # TODO: better solution?
         for fn in libcpptraj_files:
