@@ -22,9 +22,10 @@ install:
       mingw-w64-x86_64-readline
       diffutils
     \""
-  - sh devtools/win/msys_install_netcdf.sh
-  - git clone https://github.com/amber-md/cpptraj
-  - python scripts/install_libcpptraj.py
+  - sh devtools/win/download_libcpptraj.sh
+  # - sh devtools/win/msys_install_netcdf.sh
+  # - git clone https://github.com/amber-md/cpptraj
+  # - python scripts/install_libcpptraj.py
 
 build_script:
   - set PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%
