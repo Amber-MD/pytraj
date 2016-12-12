@@ -131,7 +131,7 @@ def get_compiler_and_build_flag():
         print('install libcpptraj from current ./cpptraj folder')
     return compiler, build_flag
 
-def install_libcpptraj(compiler, build_flag, n_cpus=4):
+def install_libcpptraj(compiler='', build_flag='', n_cpus=4):
     '''
 
     Parameters
@@ -151,25 +151,28 @@ def install_libcpptraj(compiler, build_flag, n_cpus=4):
     except OSError:
         pass
 
-    cxx_overwrite = ''
-    if IS_OSX:
-        if ((compiler == 'clang' or 'clang' in os.getenv('CXX', '')) or
-           (os.getenv('CXX') and is_clang(os.getenv('CXX')))):
-            cxx_overwrite = 'CXX="clang++ -stdlib=libstdc++"'
-    print('cxx_overwrite flag', cxx_overwrite)
+    if sys.platform.startswith('win'):
+        _install_libcpptraj_win_msys2()
+    else:
+        cxx_overwrite = ''
+        if IS_OSX:
+            if ((compiler == 'clang' or 'clang' in os.getenv('CXX', '')) or
+               (os.getenv('CXX') and is_clang(os.getenv('CXX')))):
+                cxx_overwrite = 'CXX="clang++ -stdlib=libstdc++"'
+        print('cxx_overwrite flag', cxx_overwrite)
 
-    cm = 'bash configure {build_flag} {compiler} {cxx_overwrite}'.format(
-            build_flag=build_flag, compiler=compiler, cxx_overwrite=cxx_overwrite)
+        cm = 'bash configure {build_flag} {compiler} {cxx_overwrite}'.format(
+                build_flag=build_flag, compiler=compiler, cxx_overwrite=cxx_overwrite)
 
-    print('configure command: ', cm)
-    # do not use subprocess to avoid split cxx_overwrite command
-    os.system(cm)
+        print('configure command: ', cm)
+        # do not use subprocess to avoid split cxx_overwrite command
+        os.system(cm)
 
-    if IS_OSX:
-        add_cpptraj_cxx_to_config('config.h', CPPTRAJ_CXX)
+        if IS_OSX:
+            add_cpptraj_cxx_to_config('config.h', CPPTRAJ_CXX)
 
-    subprocess.check_call('make libcpptraj -j{}'.format(n_cpus).split())
-    os.chdir(cwd)
+        subprocess.check_call('make libcpptraj -j{}'.format(n_cpus).split())
+        os.chdir(cwd)
 
 def parse_args():
     import argparse
@@ -182,7 +185,7 @@ def parse_args():
     args = parser.parse_args()
     return args
 
-def install_libcpptraj_win_msys2():
+def _install_libcpptraj_win_msys2():
     PREFIX = '/usr/local/'
     # assume you do all the setup
     command = """
@@ -198,7 +201,7 @@ def install_libcpptraj_win_msys2():
 
 if __name__ == '__main__':
     if sys.platform.startswith('win'):
-        install_libcpptraj_win_msys2()
+        install_libcpptraj()
     else:
         args = parse_args()
         compiler, build_flag = get_compiler_and_build_flag()
