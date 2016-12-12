@@ -182,7 +182,24 @@ def parse_args():
     args = parser.parse_args()
     return args
 
+def install_libcpptraj_win_msys2():
+    PREFIX = '/usr/local/'
+    # assume you do all the setup
+    command = """
+    sh configure --with-netcdf={PREFIX} \
+                 --with-lapack={PREFIX} \
+                 --with-blas={PREFIX} \
+                 --with-arpack={PREFIX} \
+                 -shared \
+                 gnu
+    """.format(PREFIX=PREFIX)
+    subprocess.check_call(command, shell=True)
+    subprocess.check_call('make libcpptraj -j2', shell=True)
+
 if __name__ == '__main__':
-    args = parse_args()
-    compiler, build_flag = get_compiler_and_build_flag()
-    install_libcpptraj(compiler, build_flag, args.j)
+    if sys.platform.startswith('win'):
+        install_libcpptraj_win_msys2()
+    else:
+        args = parse_args()
+        compiler, build_flag = get_compiler_and_build_flag()
+        install_libcpptraj(compiler, build_flag, args.j)
