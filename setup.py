@@ -154,15 +154,12 @@ else:
                     tarfile=tarfile,
                     use_prebuilt_cythonized_files=use_prebuilt_cythonized_files)
     if sys.platform.startswith('win'): 
-        possible_libcpptraj_files = ['libcpptraj.dll.a']
+        possible_libcpptraj_files = ['libcpptraj.so', 'cpptraj.lib']
         # copy to pytraj/ folder
         # TODO: better solution?
         for fn in libcpptraj_files:
             print("Copying {} to pytraj".format(fn))
             shutil.copy(fn, 'pytraj/')
-        old = os.path.join('pytraj', fn)
-        new = os.path.join('pytraj', 'cpptraj.lib')
-        os.rename(old, new)
     else:
         possible_libcpptraj_files = []
 

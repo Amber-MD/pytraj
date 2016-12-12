@@ -3,6 +3,7 @@ from __future__ import print_function
 import os
 import sys
 import subprocess
+import shutil
 sys.path.append('scripts')
 from check_openmp import get_openmp_flag
 from find_lib import find_lib
@@ -198,6 +199,7 @@ def _install_libcpptraj_win_msys2():
     """.format(PREFIX=PREFIX, PREFIX2=PREFIX2).strip()
     subprocess.check_call(command, shell=True)
     subprocess.check_call('make libcpptraj -j2', shell=True)
+    shutil.copy('lib/libcpptraj.so', 'lib/cpptraj.lib')
 
 if __name__ == '__main__':
     if sys.platform.startswith('win'):
