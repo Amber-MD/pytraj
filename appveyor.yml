@@ -13,6 +13,15 @@ install:
   - set CC=%MINGWPREFIX%-gcc.exe
   - set CXX=%MINGWPREFIX%-g++.exe
   - set FC=%MINGWPREFIX%-gfortran.exe
+  - "sh -lc \"pacman -S --noconfirm --needed
+      mingw-w64-x86_64-openblas
+      mingw-w64-x86_64-arpack
+      mingw-w64-x86_64-gcc
+      mingw-w64-x86_64-gcc-fortran
+      mingw-w64-x86_64-ncurses
+      mingw-w64-x86_64-readline
+      diffutils
+    \""
   - sh devtools/win/msys_install_netcdf.sh
   - git clone https://github.com/amber-md/cpptraj
   - python scripts/install_libcpptraj.py
