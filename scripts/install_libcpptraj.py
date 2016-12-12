@@ -191,15 +191,18 @@ def _install_libcpptraj_win_msys2():
     # assume you do all the setup
     command = """
     sh configure --with-netcdf={PREFIX} \
-                 --with-lapack={PREFIX2} \
                  --with-blas={PREFIX2} \
                  --with-arpack={PREFIX2} \
+                 --with-readline={PREFIX2} \
+                 -openblas \
                  -shared \
+                 -windows \
                  gnu
     """.format(PREFIX=PREFIX, PREFIX2=PREFIX2).strip()
     subprocess.check_call(command, shell=True)
     subprocess.check_call('make libcpptraj -j2', shell=True)
-    shutil.copy('lib/libcpptraj.so', 'lib/cpptraj.lib')
+    # will create libcpptraj.dll.a
+    # shutil.copy('lib/libcpptraj.so', 'lib/cpptraj.lib')
 
 if __name__ == '__main__':
     if sys.platform.startswith('win'):
