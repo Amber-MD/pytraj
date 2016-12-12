@@ -160,6 +160,7 @@ else:
         for fn in libcpptraj_files:
             print("Copying {} to pytraj".format(fn))
             shutil.copy(fn, 'pytraj/')
+        shutil.copy(fn, 'pytraj/cpptraj.lib')
     else:
         possible_libcpptraj_files = []
 
