@@ -9,7 +9,9 @@ install:
   - set HOME=.
   - set MSYSTEM=MINGW64
   - set PATH=C:/msys64/usr/bin;C:/msys64/mingw64/bin;%PATH%
-  # - sh devtools/win/setup_msys.sh
+  - where gcc
+  - where g++
+  - where gfortran
   - sh devtools/win/msys_install_netcdf.sh
   - git clone https://github.com/amber-md/cpptraj
   - python scripts/install_libcpptraj.py
