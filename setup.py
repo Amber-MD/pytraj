@@ -95,8 +95,7 @@ cpptraj_info = get_cpptraj_info(rootname=rootname,
                            openmp_flag=openmp_flag,
                            use_amberlib=use_amberlib)
 
-libcpptraj_files = (glob(os.path.join(cpptraj_info.lib_dir, 'libcpptraj') + '*') + 
-                    glob(os.path.join(cpptraj_info.lib_dir, 'cpptraj') + '*'))
+libcpptraj_files = glob(os.path.join(cpptraj_info.lib_dir, 'libcpptraj') + '*')
 
 write_version_py()
 FULLVERSION, GIT_REVISION = get_version_info()
@@ -154,9 +153,7 @@ else:
                     tarfile=tarfile,
                     use_prebuilt_cythonized_files=use_prebuilt_cythonized_files)
     if sys.platform.startswith('win'): 
-        possible_libcpptraj_files = ['libcpptraj.so', 'cpptraj.lib']
-        # copy to pytraj/ folder
-        # TODO: better solution?
+        possible_libcpptraj_files = ['libcpptraj.dll.a',]
         for fn in libcpptraj_files:
             print("Copying {} to pytraj".format(fn))
             shutil.copy(fn, 'pytraj/')
