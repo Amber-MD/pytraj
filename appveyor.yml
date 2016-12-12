@@ -16,10 +16,6 @@ install:
   - sh devtools/win/msys_install_netcdf.sh
   - git clone https://github.com/amber-md/cpptraj
   - python scripts/install_libcpptraj.py
-  # - cd cpptraj/
-  # - ls lib/
-  # - cp lib/libcpptraj.lib lib/cpptraj.lib
-  # - cd ../
 
 build_script:
   - set PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%
