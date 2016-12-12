@@ -7,7 +7,7 @@ docker info
 cat << EOF | docker run -i \
                         -v ${FEEDSTOCK_ROOT}:/feedstock_root \
                         -a stdin -a stdout -a stderr \
-                        ${DOCKER_IMAGE }\
+                        ${DOCKER_IMAGE}\
                         bash || exit $?
 
 set -x
