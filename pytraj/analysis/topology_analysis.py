@@ -1,7 +1,6 @@
 from functools import partial
 from ..core.c_core import CpptrajState, Command
 from ..utils.context import capture_stdout
-import time
 
 def compare_topology(top0, top1):
     ''' top0, top1 are :class:`pytraj.Topology`
