@@ -1,9 +1,9 @@
 #!/usr/bin/env python
-
 from __future__ import print_function
 import os
 import sys
 import subprocess
+import shutil
 sys.path.append('scripts')
 from check_openmp import get_openmp_flag
 from find_lib import find_lib
@@ -103,6 +103,8 @@ def get_compiler_and_build_flag():
         build_flag_ = ('--with-netcdf={prefix} --with-blas={prefix} '
                        '-openblas -noarpack'.format(prefix=prefix))
     elif has_numpy:
+        print('has_numpy but can not find openblas')
+        print('try blass and lapack')
         try:
             blas_prefix = np.__config__.blas_opt_info['library_dirs'][0].strip('lib')
             lapack_prefix = np.__config__.lapack_opt_info['library_dirs'][0].strip('lib')
@@ -131,7 +133,7 @@ def get_compiler_and_build_flag():
         print('install libcpptraj from current ./cpptraj folder')
     return compiler, build_flag
 
-def install_libcpptraj(compiler, build_flag, n_cpus=4):
+def install_libcpptraj(compiler='', build_flag='', n_cpus=4):
     '''
 
     Parameters
@@ -151,25 +153,28 @@ def install_libcpptraj(compiler, build_flag, n_cpus=4):
     except OSError:
         pass
 
-    cxx_overwrite = ''
-    if IS_OSX:
-        if ((compiler == 'clang' or 'clang' in os.getenv('CXX', '')) or
-           (os.getenv('CXX') and is_clang(os.getenv('CXX')))):
-            cxx_overwrite = 'CXX="clang++ -stdlib=libstdc++"'
-    print('cxx_overwrite flag', cxx_overwrite)
+    if sys.platform.startswith('win'):
+        _install_libcpptraj_win_msys2()
+    else:
+        cxx_overwrite = ''
+        if IS_OSX:
+            if ((compiler == 'clang' or 'clang' in os.getenv('CXX', '')) or
+               (os.getenv('CXX') and is_clang(os.getenv('CXX')))):
+                cxx_overwrite = 'CXX="clang++ -stdlib=libstdc++"'
+        print('cxx_overwrite flag', cxx_overwrite)
 
-    cm = 'bash configure {build_flag} {compiler} {cxx_overwrite}'.format(
-            build_flag=build_flag, compiler=compiler, cxx_overwrite=cxx_overwrite)
+        cm = 'bash configure {build_flag} {compiler} {cxx_overwrite}'.format(
+                build_flag=build_flag, compiler=compiler, cxx_overwrite=cxx_overwrite)
 
-    print('configure command: ', cm)
-    # do not use subprocess to avoid split cxx_overwrite command
-    os.system(cm)
+        print('configure command: ', cm)
+        # do not use subprocess to avoid split cxx_overwrite command
+        os.system(cm)
 
-    if IS_OSX:
-        add_cpptraj_cxx_to_config('config.h', CPPTRAJ_CXX)
+        if IS_OSX:
+            add_cpptraj_cxx_to_config('config.h', CPPTRAJ_CXX)
 
-    subprocess.check_call('make libcpptraj -j{}'.format(n_cpus).split())
-    os.chdir(cwd)
+        subprocess.check_call('make libcpptraj -j{}'.format(n_cpus).split())
+        os.chdir(cwd)
 
 def parse_args():
     import argparse
@@ -182,7 +187,29 @@ def parse_args():
     args = parser.parse_args()
     return args
 
+def _install_libcpptraj_win_msys2():
+    PREFIX = '/usr/local/'
+    PREFIX2 = '/mingw64/'
+    # assume you do all the setup
+    command = """
+    sh configure --with-netcdf={PREFIX} \
+                 --with-blas={PREFIX2} \
+                 --with-arpack={PREFIX2} \
+                 --with-readline={PREFIX2} \
+                 -openblas \
+                 -shared \
+                 -windows \
+                 gnu
+    """.format(PREFIX=PREFIX, PREFIX2=PREFIX2).strip()
+    subprocess.check_call(command, shell=True)
+    subprocess.check_call('make libcpptraj -j2', shell=True)
+    # will create libcpptraj.dll.a
+    # shutil.copy('lib/libcpptraj.so', 'lib/cpptraj.lib')
+
 if __name__ == '__main__':
-    args = parse_args()
-    compiler, build_flag = get_compiler_and_build_flag()
-    install_libcpptraj(compiler, build_flag, args.j)
+    if sys.platform.startswith('win'):
+        install_libcpptraj()
+    else:
+        args = parse_args()
+        compiler, build_flag = get_compiler_and_build_flag()
+        install_libcpptraj(compiler, build_flag, args.j)

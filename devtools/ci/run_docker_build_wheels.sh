@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
 FEEDSTOCK_ROOT=$(cd "$(dirname "$0")/../../"; pwd;)
-DOCKER_IMAGE=ambermd/manylinux-extra
+DOCKER_IMAGE=ambermd/amber-build-box
 
 docker info
 cat << EOF | docker run -i \
                         -v ${FEEDSTOCK_ROOT}:/feedstock_root \
                         -a stdin -a stdout -a stderr \
-                        $DOCKER_IMAGE \
+                        ${DOCKER_IMAGE}\
                         bash || exit $?
 
 set -x

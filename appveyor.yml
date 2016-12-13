@@ -8,8 +8,11 @@ environment:
 install:
   - set HOME=.
   - set MSYSTEM=MINGW64
-  - ls C:/msys64/mingw64/lib/
   - set PATH=C:/msys64/usr/bin;C:/msys64/mingw64/bin;%PATH%
+  - set MINGWPREFIX=x86_64-w64-mingw32
+  - set CC=%MINGWPREFIX%-gcc.exe
+  - set CXX=%MINGWPREFIX%-g++.exe
+  - set FC=%MINGWPREFIX%-gfortran.exe
   - "sh -lc \"pacman -S --noconfirm --needed
       mingw-w64-x86_64-openblas
       mingw-w64-x86_64-arpack
@@ -20,15 +23,10 @@ install:
       mingw-w64-x86_64-python2-numpy
       diffutils
     \""
-  - appveyor DownloadFile https://ci.appveyor.com/api/buildjobs/46egeqnndp33q662/artifacts/cpptraj-6045433.zip -FileName cpptraj.zip
-  - mkdir cpptraj
-  - mv cpptraj.zip cpptraj/
-  - cd cpptraj/
-  - 7z x cpptraj.zip
-  - ls . 
-  - ls lib/
-  - cp lib/libcpptraj.lib lib/cpptraj.lib
-  - cd ../
+  - sh devtools/win/download_libcpptraj.sh
+  # - sh devtools/win/msys_install_netcdf.sh
+  # - git clone https://github.com/amber-md/cpptraj
+  # - python scripts/install_libcpptraj.py
 
 build_script:
   - set PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%
@@ -37,6 +35,11 @@ build_script:
   - python setup.py --cythonize # use miniconda cython
   - set PATH=C:/msys64/usr/bin;C:/msys64/mingw64/bin;%PATH% # using mingw64 python
   - python setup.py install --disable-openmp --use-pre-cythonized
+ 
+test_script:
   - cd tests
   - python -c "import numpy; print(numpy)"
   - python -c "import pytraj; pytraj.run_tests()"
+
+after_build:
+  - echo "hello"
