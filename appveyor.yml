@@ -35,6 +35,11 @@ build_script:
   - python setup.py --cythonize # use miniconda cython
   - set PATH=C:/msys64/usr/bin;C:/msys64/mingw64/bin;%PATH% # using mingw64 python
   - python setup.py install --disable-openmp --use-pre-cythonized
+ 
+test_script:
   - cd tests
   - python -c "import numpy; print(numpy)"
   - python -c "import pytraj; pytraj.run_tests()"
+
+after_build:
+  - echo "hello"

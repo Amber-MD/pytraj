@@ -103,6 +103,8 @@ def get_compiler_and_build_flag():
         build_flag_ = ('--with-netcdf={prefix} --with-blas={prefix} '
                        '-openblas -noarpack'.format(prefix=prefix))
     elif has_numpy:
+        print('has_numpy but can not find openblas')
+        print('try blass and lapack')
         try:
             blas_prefix = np.__config__.blas_opt_info['library_dirs'][0].strip('lib')
             lapack_prefix = np.__config__.lapack_opt_info['library_dirs'][0].strip('lib')
