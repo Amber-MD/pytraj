@@ -37,7 +37,6 @@ build_script:
   - python setup.py install --disable-openmp --use-pre-cythonized
  
 test_script:
-  - ls dist/
   - cd tests
   - python -c "import numpy; print(numpy)"
   - python -c "import pytraj; pytraj.run_tests()"
