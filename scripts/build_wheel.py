@@ -91,7 +91,7 @@ class PipBuilder(object):
 
     def build_original_wheel(self, python_version):
         python = self.python_exe_paths[python_version]
-        cmlist = '{python} -m pip wheel {tarfile}'.format(python=python, tarfile=tarfile).split()
+        cmlist = '{python} -m pip wheel {tarfile} -v -v'.format(python=python, tarfile=tarfile).split()
         subprocess.check_call(cmlist)
 
     def find_miniconda_root(self):
