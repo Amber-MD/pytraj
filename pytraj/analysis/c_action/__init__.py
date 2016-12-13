@@ -5,6 +5,7 @@ from ...datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 from . import c_action
 from ...utils.context import capture_stdout
 from ...trajectory.shared_methods import iterframe_master
+from ...externals.six import StringIO
 
 def do_action(traj, command, action_class, post_process=True, top=None):
     ''' For internal use
@@ -25,4 +26,4 @@ def do_action(traj, command, action_class, post_process=True, top=None):
             act.compute(frame)
         if post_process:
             act.post_process()
-    return c_dslist, out.read()  
+    return c_dslist, StringIO(out).read()

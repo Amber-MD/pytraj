@@ -1,6 +1,7 @@
 from functools import partial
 from ..core.c_core import CpptrajState, Command
 from ..utils.context import capture_stdout
+from ..externals.six import StringIO
 
 def compare_topology(top0, top1):
     ''' top0, top1 are :class:`pytraj.Topology`
@@ -21,8 +22,8 @@ def compare_topology(top0, top1):
     with capture_stdout() as (out, _):
         with Command() as command:
             command.dispatch(state, 'comparetop top0 top1')
-    content = out.read()[:]
-    return content
+    content = StringIO(out.read())
+    return content.read()
 
 def _whatinfo(top, command, ref, task):
     ''' info for given Topology and Frame.
@@ -45,11 +46,11 @@ def _whatinfo(top, command, ref, task):
     with capture_stdout() as (out, _):
         with Command() as cpp_command:
             cpp_command.dispatch(state, command_)
-    content = out.read()[:]
+    content = StringIO(out.read())
     # note: need to flush the content by print
     # if not: calling more than two commands (e.g: 'bondinfo', 'angleinfo') will not
     # show anything.
-    print(content)
+    return content.read()
     # return content
 
 atominfo = partial(_whatinfo, task='atominfo')
