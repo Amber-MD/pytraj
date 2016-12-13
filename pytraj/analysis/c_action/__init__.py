@@ -26,4 +26,6 @@ def do_action(traj, command, action_class, post_process=True, top=None):
             act.compute(frame)
         if post_process:
             act.post_process()
-    return c_dslist, StringIO(out).read()
+    # make sure to use StringIO
+    # If not, if not, there won't be output in the next function call
+    return c_dslist, StringIO(out.read()).read()
