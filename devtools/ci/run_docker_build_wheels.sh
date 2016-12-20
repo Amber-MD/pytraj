@@ -16,7 +16,9 @@ cd /feedstock_root/
 export python=/opt/python/cp35-cp35m/bin/python
 \$python scripts/install_libcpptraj.py github -openmp
 \$python devtools/mkrelease
+
 cd dist
 \$python ../scripts/build_wheel.py pytraj*gz --manylinux-docker
+
 cd ..
 EOF
