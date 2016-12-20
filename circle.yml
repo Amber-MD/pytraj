@@ -4,9 +4,7 @@ machine:
 
 dependencies:
   override:
-    # hell: not sure why get segmentation fault
-    # turn off circleci now
-    - docker pull ambermd/amber-build-box
+    - docker pull hainm/pytraj-manylinux-build-box
 
 test:
   override:
