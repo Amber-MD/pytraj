@@ -22,10 +22,10 @@ if sys.version_info[0] >= 3:
 else:
     import __builtin__ as builtins
 
-MAJOR = 1
-MINOR = 1
+MAJOR = 2
+MINOR = 0
 MICRO = 0
-is_released = True
+is_released = False
 VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 
 DEFAULT_MAC_CCOMPILER = 'clang'
