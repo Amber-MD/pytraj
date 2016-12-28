@@ -50,7 +50,4 @@ else
         ./devtools/mkrelease
         (cd dist && python ../scripts/build_wheel.py ./pytraj*gz)
     fi
-
-    # test amber tar
-    python devtools/mkrelease --amber
 fi
