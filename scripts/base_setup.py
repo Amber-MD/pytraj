@@ -262,12 +262,16 @@ def get_cpptraj_info(rootname,
     CPPTRAJ_HEADERDIR = os.environ.get('CPPTRAJ_HEADERDIR', '')
     if os.path.join('AmberTools', 'src') in pytraj_home:
         # install pytraj inside AMBER
-        AMBERHOME = os.environ.get('AMBERHOME', '')
+        AMBERHOME = os.getenv('AMBERHOME', '')
+        AMBER_PREFIX = os.getenv('AMBER_PREFIX', '')
         if not AMBERHOME:
             raise EnvironmentError('must set AMBERHOME if you want to install pytraj '
                                    'inside AMBER')
         # overwrite CPPTRAJ_HEADERDIR, CPPTRAJ_LIBDIR
-        CPPTRAJ_LIBDIR = os.path.join(AMBERHOME, 'lib')
+        if AMBER_PREFIX:
+            CPPTRAJ_LIBDIR = os.path.join(AMBER_PREFIX, 'lib')
+        else:
+            CPPTRAJ_LIBDIR = os.path.join(AMBERHOME, 'lib')
         CPPTRAJ_HEADERDIR = os.path.join(AMBERHOME, 'AmberTools', 'src', 'cpptraj', 'src')
 
         cpptraj_info.ambertools_distro = True
@@ -434,7 +438,7 @@ def get_ext_modules(cpptraj_info,
                     compiler_directives=cython_directives,
                 )
     
-        library_dirs = [cpptraj_info.lib_dir, ]
+        library_dirs = [cpptraj_info.lib_dir,]
     
         ext_modules = []
         for ext_name in pyxfiles:
