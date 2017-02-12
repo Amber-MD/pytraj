@@ -22,6 +22,7 @@ conda create -y -n myenv python=$PYTHON_VERSION
 source activate myenv
 conda update -y conda
 conda install -y numpy cython h5py libnetcdf pyflakes
+conda install hdf4=4.2.12 --force -y # https://github.com/ContinuumIO/anaconda-issues/issues/1360
 pip install auditwheel
 
 # for testing
