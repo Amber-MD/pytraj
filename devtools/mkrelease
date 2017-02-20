@@ -14,11 +14,8 @@ try:
 except ValueError:
     ambertools_distro = False
 
-if ambertools_distro:
-    pytraj_dir = os.path.abspath(os.path.join('AmberTools', 'src', 'pytraj'))
-else:
-    pytraj_dir = './'
-
+pytraj_dir = os.path.abspath(os.path.dirname(__file__) + '/../')
+print('pytraj_dir', pytraj_dir)
 os.chdir(pytraj_dir)
 
 subprocess.check_call('git clean -fdx .', shell=True)
