@@ -719,12 +719,12 @@ cdef class Topology:
             atom = Atom(name=aname, type=atype, charge=charge, mass=mass, resid=resid)
             atom.set_mol(mol_number)
             residue = Residue(resname, resid)
+            self.add_atom(atom, residue)
             if idx == 0:
                 self.start_new_mol()
             if mol_number > MOLNUM:
                 self.start_new_mol()
                 MOLNUM += 1
-            self.add_atom(atom, residue)
 
         # add box
         box = Box(d['box'])

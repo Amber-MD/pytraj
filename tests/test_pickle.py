@@ -37,12 +37,12 @@ class TestBuildAndPickleTopology(unittest.TestCase):
                                 resid=resid)
             atom.set_mol(mol_number)
             residue = pt.core.Residue(resname, resid)
+            new_top.add_atom(atom, residue)
             if idx == 0:
                 new_top.start_new_mol()
             if mol_number > MOLNUM:
                 new_top.start_new_mol()
                 MOLNUM += 1
-            new_top.add_atom(atom, residue)
 
         new_top.add_bonds(d['bond_index'])
         new_top.add_dihedrals(d['dihedral_index'])
