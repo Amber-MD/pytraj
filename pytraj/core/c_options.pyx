@@ -22,12 +22,12 @@ def info():
     return s.decode()
 
 cdef extern from "CpptrajStdio.h":
-    void SupressErrorMsg(bint)
+    void SuppressErrorMsg(bint)
     void SetWorldSilent(bint)
 
 
 def set_error_silent(turnoff=True):
-    SupressErrorMsg(turnoff)
+    SuppressErrorMsg(turnoff)
 
 
 def set_world_silent(turnoff=True):
