@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj.io &#8212; pytraj 1.1.0.dev0 documentation</title>
+    <title>pytraj.io &#8212; pytraj 2.0.0.dev0 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,10 +18,11 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.1.0.dev0',
+        VERSION:     '2.0.0.dev0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -33,8 +34,6 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="top" title="pytraj 1.1.0.dev0 documentation" href="../index.html" />
-    <link rel="up" title="API" href="index.html" />
     <link rel="next" title="pytraj.Trajectory" href="pytraj.trajectory.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -55,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.1.0.dev0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.0.0.dev0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -111,7 +110,7 @@
               
                 
   <li>
-    <a href="pytraj.trajectory.html" title="Next Chapter: pytraj.Trajectory"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">pytraj.Trajec... &raquo;</span>
+    <a href="pytraj.trajectory.html" title="Next Chapter: pytraj.Trajectory"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">pytraj.Trajectory &raquo;</span>
     </a>
   </li>
               
@@ -121,7 +120,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/_api/pytraj.io.txt"
+  <a href="../_sources/_api/pytraj.io.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -147,7 +146,7 @@
       
   <div class="section" id="pytraj-io">
 <span id="id1"></span><h1>pytraj.io<a class="headerlink" href="#pytraj-io" title="Permalink to this headline">¶</a></h1>
-<div class="custom-index container">
+<div class="custom-index docutils container">
 <script type="text/javascript" src='../_static/cindex.js'></script></div>
 <span class="target" id="module-pytraj.io"></span><dl class="function">
 <dt id="pytraj.io.load">
@@ -552,7 +551,7 @@ if Trajetory-like, write a trajectory to disk</p>
 
 <dl class="function">
 <dt id="pytraj.io.write_traj">
-<code class="descclassname">pytraj.io.</code><code class="descname">write_traj</code><span class="sig-paren">(</span><em>filename</em>, <em>traj</em>, <em>format='infer'</em>, <em>top=None</em>, <em>frame_indices=None</em>, <em>overwrite=False</em>, <em>crdinfo=None</em>, <em>options=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.write_traj" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.io.</code><code class="descname">write_traj</code><span class="sig-paren">(</span><em>filename</em>, <em>traj</em>, <em>format='infer'</em>, <em>top=None</em>, <em>frame_indices=None</em>, <em>overwrite=False</em>, <em>force=False</em>, <em>velocity=False</em>, <em>options=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.write_traj" title="Permalink to this definition">¶</a></dt>
 <dd><p>write Trajectory-like or iterable object to trajectory file</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -570,10 +569,13 @@ if Trajetory-like, write a trajectory to disk</p>
 <div><p>If not None, only write output for given frame indices</p>
 </div></blockquote>
 <p><strong>overwrite: bool, default: False</strong></p>
-<p><strong>crdinfo</strong> : None or dict, default None</p>
+<p><strong>velocity</strong> : bool, default False</p>
 <blockquote>
-<div><p>if None, try to get info from traj._crdinfo (if traj has _crdinfo)
-if given, use it. <cite>crdinfo</cite> needed to pass if you want to write force/velocity (netcdf)</p>
+<div><p>if True, write velocity. Make sure your trajectory or Frame does have velocity</p>
+</div></blockquote>
+<p><strong>force</strong> : bool, default False</p>
+<blockquote>
+<div><p>if True, write force. Make sure your trajectory or Frame does have force</p>
 </div></blockquote>
 <p class="last"><strong>options</strong> : str, additional cpptraj keywords</p>
 </td>
@@ -773,8 +775,8 @@ unsafe. See: <a class="reference external" href="http://docs.python.org/2.7/libr
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Nov 16, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.<br/>
+      Last updated on Mar 10, 2017.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>
 </footer>

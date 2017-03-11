@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pytraj &#8212; pytraj 1.1.0.dev0 documentation</title>
+    <title>pytraj &#8212; pytraj 2.0.0.dev0 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,10 +18,11 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.1.0.dev0',
+        VERSION:     '2.0.0.dev0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -33,8 +34,6 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="top" title="pytraj 1.1.0.dev0 documentation" href="../index.html" />
-    <link rel="up" title="API" href="index.html" />
     <link rel="prev" title="API" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -55,7 +54,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.1.0.dev0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.0.0.dev0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -123,7 +122,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/_api/pytraj.txt"
+  <a href="../_sources/_api/pytraj.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -149,7 +148,7 @@
       
   <div class="section" id="pytraj">
 <h1>pytraj<a class="headerlink" href="#pytraj" title="Permalink to this headline">¶</a></h1>
-<div class="custom-index container">
+<div class="custom-index docutils container">
 <script type="text/javascript" src='../_static/cindex.js'></script></div>
 <span class="target" id="module-pytraj"></span><p>pytraj</p>
 <dl class="class">
@@ -1676,7 +1675,7 @@ It does not appear in Jupyter notebook (due to C++ stdout)</p>
 
 <dl class="class">
 <dt id="pytraj.Trajectory">
-<em class="property">class </em><code class="descclassname">pytraj.</code><code class="descname">Trajectory</code><span class="sig-paren">(</span><em>filename=None</em>, <em>top=None</em>, <em>xyz=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.Trajectory" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pytraj.</code><code class="descname">Trajectory</code><span class="sig-paren">(</span><em>filename=None</em>, <em>top=None</em>, <em>xyz=None</em>, <em>velocity=None</em>, <em>force=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.Trajectory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pytraj.trajectory.shared_trajectory.SharedTrajectory</span></code></p>
 <p>Simple in-memory Trajectory. It has only information about 3D coordinates
 and unitcells (no time, no velocity, no force, ...)</p>
@@ -2873,6 +2872,11 @@ overwrite : bool, default False</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="pytraj.analyze_modes">
+<code class="descclassname">pytraj.</code><code class="descname">analyze_modes</code><span class="sig-paren">(</span><em>mode_type</em>, <em>eigenvectors</em>, <em>eigenvalues</em>, <em>scalar_type='mwcovar'</em>, <em>options=''</em>, <em>dtype='dict'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analyze_modes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="pytraj.atom_map">
 <code class="descclassname">pytraj.</code><code class="descname">atom_map</code><span class="sig-paren">(</span><em>traj</em>, <em>ref</em>, <em>rmsfit=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.atom_map" title="Permalink to this definition">¶</a></dt>
 <dd><p>Limited support for cpptraj atommap</p>
@@ -3662,7 +3666,7 @@ if array-like, center on that point</p>
 </table>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#pytraj.translate" title="pytraj.translate"><code class="xref py py-obj docutils literal"><span class="pre">pytraj.translate</span></code></a></p>
+<p class="last"><a class="reference internal" href="../modify_traj.html#pytraj.translate" title="pytraj.translate"><code class="xref py py-obj docutils literal"><span class="pre">pytraj.translate</span></code></a></p>
 </div>
 <p class="rubric">Examples</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
@@ -5145,7 +5149,7 @@ if &#8216;half&#8217;: return 1D array, shape=(n_frames*(n_frames-1)/2, )</p>
 
 <dl class="function">
 <dt id="pytraj.projection">
-<code class="descclassname">pytraj.</code><code class="descname">projection</code><span class="sig-paren">(</span><em>traj</em>, <em>mask=''</em>, <em>eigenvalues=None</em>, <em>eigenvectors=None</em>, <em>scalar_type='covar'</em>, <em>average_coords=None</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.projection" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">projection</code><span class="sig-paren">(</span><em>traj</em>, <em>mask=''</em>, <em>eigenvectors=None</em>, <em>eigenvalues=None</em>, <em>scalar_type='covar'</em>, <em>average_coords=None</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.projection" title="Permalink to this definition">¶</a></dt>
 <dd><p>compute projection along given eigenvectors</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -5181,7 +5185,7 @@ Note: not yet support &#8216;dihcovar&#8217; and &#8216;idea&#8217;</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mat</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">covar</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;@CA&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">eigenvalues</span><span class="p">,</span> <span class="n">eigenvectors</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">diagonalize</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eigenvectors</span><span class="p">,</span> <span class="n">eigenvalues</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">diagonalize</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># since we compute covariance matrix, we need to specify</span>
@@ -5346,7 +5350,7 @@ if True, not fitting.</p>
 </div></blockquote>
 <p><strong>mass</strong> : bool, default False</p>
 <blockquote>
-<div><p>if True, include mass</p>
+<div><p>if True, compute mass-weighted rmsd</p>
 </div></blockquote>
 <p><strong>update_coordinate</strong> : bool, default True</p>
 <blockquote>
@@ -5495,7 +5499,7 @@ out[1:]: perres rmsd for all given residues
 <p><strong>mask</strong> : str, default all atoms</p>
 <p><strong>mass</strong> : bool, default False</p>
 <blockquote>
-<div><p>if True, rmsfit with mass</p>
+<div><p>if True, rmsfit with mass weighted</p>
 </div></blockquote>
 <p><strong>frame_indices</strong> : {None, array-like}</p>
 <blockquote>
@@ -5550,7 +5554,7 @@ if Trajetory-like, write a trajectory to disk</p>
 </table>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#pytraj.write_traj" title="pytraj.write_traj"><code class="xref py py-obj docutils literal"><span class="pre">write_traj</span></code></a>, <a class="reference internal" href="#pytraj.write_parm" title="pytraj.write_parm"><code class="xref py py-obj docutils literal"><span class="pre">write_parm</span></code></a></p>
+<p class="last"><a class="reference internal" href="../read_and_write.html#pytraj.write_traj" title="pytraj.write_traj"><code class="xref py py-obj docutils literal"><span class="pre">write_traj</span></code></a>, <a class="reference internal" href="#pytraj.write_parm" title="pytraj.write_parm"><code class="xref py py-obj docutils literal"><span class="pre">write_parm</span></code></a></p>
 </div>
 <p class="rubric">Examples</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
@@ -5744,7 +5748,7 @@ if False, nofit</p>
 </div></blockquote>
 <p><strong>mass</strong> : Bool, default False</p>
 <blockquote>
-<div><p>if True, mass-weighted
+<div><p>if True, compute mass-weighted rmsd
 if False, no mas-weighted</p>
 </div></blockquote>
 <p><strong>remap</strong> : Bool, default False</p>
@@ -6016,7 +6020,7 @@ info if you really want to use it.</p>
 
 <dl class="function">
 <dt id="pytraj.write_traj">
-<code class="descclassname">pytraj.</code><code class="descname">write_traj</code><span class="sig-paren">(</span><em>filename</em>, <em>traj</em>, <em>format='infer'</em>, <em>top=None</em>, <em>frame_indices=None</em>, <em>overwrite=False</em>, <em>crdinfo=None</em>, <em>options=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.write_traj" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">write_traj</code><span class="sig-paren">(</span><em>filename</em>, <em>traj</em>, <em>format='infer'</em>, <em>top=None</em>, <em>frame_indices=None</em>, <em>overwrite=False</em>, <em>force=False</em>, <em>velocity=False</em>, <em>options=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.write_traj" title="Permalink to this definition">¶</a></dt>
 <dd><p>write Trajectory-like or iterable object to trajectory file</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -6034,10 +6038,13 @@ info if you really want to use it.</p>
 <div><p>If not None, only write output for given frame indices</p>
 </div></blockquote>
 <p><strong>overwrite: bool, default: False</strong></p>
-<p><strong>crdinfo</strong> : None or dict, default None</p>
+<p><strong>velocity</strong> : bool, default False</p>
 <blockquote>
-<div><p>if None, try to get info from traj._crdinfo (if traj has _crdinfo)
-if given, use it. <cite>crdinfo</cite> needed to pass if you want to write force/velocity (netcdf)</p>
+<div><p>if True, write velocity. Make sure your trajectory or Frame does have velocity</p>
+</div></blockquote>
+<p><strong>force</strong> : bool, default False</p>
+<blockquote>
+<div><p>if True, write force. Make sure your trajectory or Frame does have force</p>
 </div></blockquote>
 <p class="last"><strong>options</strong> : str, additional cpptraj keywords</p>
 </td>
@@ -6196,8 +6203,8 @@ if given, use it. <cite>crdinfo</cite> needed to pass if you want to write force
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Nov 16, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.<br/>
+      Last updated on Mar 10, 2017.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>
 </footer>

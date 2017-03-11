@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Developer guide for pytraj &#8212; pytraj 1.1.0.dev0 documentation</title>
+    <title>Developer guide for pytraj &#8212; pytraj 2.0.0.dev0 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -18,10 +18,11 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.1.0.dev0',
+        VERSION:     '2.0.0.dev0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
@@ -33,7 +34,6 @@
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="pytraj 1.1.0.dev0 documentation" href="index.html" />
     <link rel="next" title="Misc" href="misc.html" />
     <link rel="prev" title="Parallel calculation" href="parallel.html" />
 <meta charset='utf-8'>
@@ -55,7 +55,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.1.0.dev0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.0.0.dev0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -133,7 +133,7 @@
               
                 
   <li>
-    <a href="parallel.html" title="Previous Chapter: Parallel calculation"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Parallel calc...</span>
+    <a href="parallel.html" title="Previous Chapter: Parallel calculation"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Parallel calculation</span>
     </a>
   </li>
   <li>
@@ -147,7 +147,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="_sources/developer_guide.txt"
+  <a href="_sources/developer_guide.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -478,18 +478,14 @@ $ # just enter your username and password
 </div>
 </li>
 <li><p class="first">generate anaconda token to give travis permision to push data in ambermd channel in anaconda.org:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ git clone https://github.com/Amber-MD/pytraj
-$ cd pytraj
-$ # generate token
-$ TOKEN=$(anaconda auth --create --name MyToken)
-$ echo $TOKEN
-</pre></div>
-</div>
-</li>
-<li><p class="first">need to use <code class="docutils literal"><span class="pre">travis</span></code> to encrypt our token:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ travis encrypt TRAVIS_TO_ANACONDA=secretvalue
-</pre></div>
-</div>
+<p>step 1: Go to <a class="reference external" href="https://anaconda.org">https://anaconda.org</a>/{your_user_name}/settings/access to add a token</p>
+<p>step 2: encrypt TRAVIS_TO_ANACONDA env for travis and allow master branch to upload to anaconda</p>
+<blockquote>
+<div><p>git clone <a class="reference external" href="https://github.com/Amber-MD/pytraj">https://github.com/Amber-MD/pytraj</a>
+cd pytraj
+# require to install travis (google for it)
+travis encrypt TRAVIS_TO_ANACONDA=[your token value you generated from step 1]</p>
+</div></blockquote>
 </li>
 <li><p class="first">make code change, commit, push to github so travis can build pytraj and libcpptraj:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>$ # after successful build, travis will push to anaconda.org by below command
@@ -569,8 +565,8 @@ See <a class="reference external" href="https://raw.githubusercontent.com/Amber-
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Nov 16, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.<br/>
+      Last updated on Mar 10, 2017.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>
 </footer>
