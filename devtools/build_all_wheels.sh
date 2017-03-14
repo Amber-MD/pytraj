@@ -3,6 +3,8 @@
 # Must be in pytraj root folder
 
 # add cpptraj folder
+python -c "import auditwheel" || exit 1
+
 if [ ! -d cpptraj ]; then
     git clone https://github.com/amber-md/cpptraj
 else
