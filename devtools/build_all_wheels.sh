@@ -6,10 +6,11 @@
 python -c "import auditwheel" || exit 1
 
 function main(){
-    clone_or_update_cpptraj
+    # clone_or_update_cpptraj
     # pip_linux
     # pip_osx
-    conda_linux
+    # conda_linux
+    conda_osx
 }
 
 
@@ -32,8 +33,7 @@ function pip_osx(){
     (cd cpptraj && git clean -fdx .)
     export CPPTRAJHOME=`pwd`/cpptraj
     python scripts/install_libcpptraj.py
-    (cd dist && python ../scripts/build_wheel.py pytraj*.tar.gz) # Linux does not havce 3.6 yet.
-    (cd dist && python ../scripts/build_wheel.py pytraj*.tar.gz --py 3.6)
+    (cd dist && python ../scripts/build_wheel.py pytraj*.tar.gz)
 }
 
 
