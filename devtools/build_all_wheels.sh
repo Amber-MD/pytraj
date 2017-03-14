@@ -12,6 +12,7 @@ function main(){
     conda_linux
 }
 
+
 function clone_or_update_cpptraj(){
     if [ ! -d cpptraj ]; then
         git clone https://github.com/amber-md/cpptraj
@@ -20,17 +21,21 @@ function clone_or_update_cpptraj(){
     fi
 }
 
+
 function pip_linux(){
     sh devtools/ci/run_docker_build_wheels.sh
 }
+
 
 
 function pip_osx(){
     (cd cpptraj && git clean -fdx .)
     export CPPTRAJHOME=`pwd`/cpptraj
     python scripts/install_libcpptraj.py
-    (cd dist && python ../scripts/build_wheel.py pytraj*.tar.gz)
+    (cd dist && python ../scripts/build_wheel.py pytraj*.tar.gz) # Linux does not havce 3.6 yet.
+    (cd dist && python ../scripts/build_wheel.py pytraj*.tar.gz --py 3.6)
 }
+
 
 function conda_linux(){
     sh devtools/ci/run_docker_build_conda.sh
@@ -38,7 +43,7 @@ function conda_linux(){
 
 
 function conda_osx(){
-    for pyver in 2.7 3.4 3.5; do
+    for pyver in 2.7 3.4 3.5 3.6; do
         conda build devtools/conda-recipe/pytraj --py $pyver
         tarfile=`conda build devtools/conda-recipe/pytraj --py $pyver --output`
     
