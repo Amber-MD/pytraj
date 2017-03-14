@@ -198,7 +198,8 @@ class PipBuilder(object):
                 os.environ['CPPTRAJHOME'] = self.cpptraj_dir
                 print('CPPTRAJHOME is set to {}'.format(self.cpptraj_dir))
             else:
-                raise EnvironmentError('Must set CPPTRAJHOME')
+                print("Can not find libcpptraj")
+                raise EnvironmentError('Must set CPPTRAJHOME having lib/libcpptraj')
         else:
             self.cpptraj_dir = cpptraj_home
         self.libcpptraj = self.cpptraj_dir + '/lib/libcpptraj.' + ext
