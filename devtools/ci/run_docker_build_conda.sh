@@ -17,12 +17,13 @@ export PATH=\$HOME/miniconda3/bin:\$PATH
 
 for pyver in 2.7 3.4 3.5; do
     conda build devtools/conda-recipe/pytraj --py \$pyver
-    tarfile=`conda build devtools/conda-recipe/pytraj --py \$pyver --output`
+    tarfile=\`conda build devtools/conda-recipe/pytraj --py \$pyver --output\`
+    echo "\$tarfile"
 
     build_dir=dist/conda/linux-64
-    if [ ! -d $build_dir ]; then
-        mkdir -p $build_dir
+    if [ ! -d \$build_dir ]; then
+        mkdir -p \$build_dir
     fi
-    cp \$tarfile $build_dir
+    cp \$tarfile \$build_dir
 done
 EOF
