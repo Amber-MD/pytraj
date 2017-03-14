@@ -110,11 +110,13 @@ class PipBuilder(object):
         print(cmlist)
         subprocess.check_call(cmlist.split())
 
-    def _get_wheel_file(self, python_version):
+    def _get_wheel_file(self, python_version, folder='./'):
         pdict = dict(darwin='macos', linux='linux')
         platform = pdict[sys.platform]
-        return glob('*' + python_version.replace('.', '') + '*{}*.whl'.format(
+        whl_file = glob(folder + '/*' + python_version.replace('.', '') + '*{}*.whl'.format(
             platform))[0]
+        print(whl_file)
+        return whl_file
 
     def repair_wheel(self, python_version):
         print('repair_wheel')
@@ -124,6 +126,7 @@ class PipBuilder(object):
         ]
         if self.is_osx:
             command.extend(['--py', python_version])
+        print(command)
         subprocess.check_call(command)
 
     def _check_numpy_and_fix(self, python_exe, env):
@@ -141,7 +144,7 @@ class PipBuilder(object):
         print('Testing pytraj build')
         version = py_version.replace('.', '')
         cwd = os.getcwd()
-        whl_file = self._get_wheel_file(py_version)
+        whl_file = self._get_wheel_file(py_version, folder='wheelhouse')
         print('Testing wheel file {}'.format(whl_file))
         try:
             subprocess.check_call(

@@ -12,7 +12,7 @@ else
 fi
 
 # Linux build via docker
-# sh devtools/ci/run_docker_build_wheels.sh
+sh devtools/ci/run_docker_build_wheels.sh
 
 # Osx build
 (cd cpptraj && git clean -fdx .)
