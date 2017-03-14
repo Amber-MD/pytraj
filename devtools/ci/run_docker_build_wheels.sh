@@ -14,7 +14,12 @@ set -x
 cd /feedstock_root/
 
 export python=/opt/python/cp35-cp35m/bin/python
-\$python scripts/install_libcpptraj.py github -openmp
+if [ ! -d cpptraj ]; then
+    \$python scripts/install_libcpptraj.py github -openmp
+else
+    (cd cpptraj && git pull)
+    \$python scripts/install_libcpptraj.py -openmp
+fi
 \$python devtools/mkrelease
 
 cd dist
