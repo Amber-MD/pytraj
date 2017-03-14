@@ -9,7 +9,11 @@ version='2.0.0'
 if [ "$isosx" = "True" ]; then
    whlfile=pytraj-$version-cp$pyver2-cp${pyver2}m-macosx_10_7_x86_64.whl
 else
-   whlfile=pytraj-$version-cp$pyver2-cp${pyver2}m-manylinux1_x86_64.whl
+   if [ "$pyver2" = "27" ]; then
+       whlfile=pytraj-$version-cp$pyver2-cp${pyver2}mu-manylinux1_x86_64.whl
+   else
+       whlfile=pytraj-$version-cp$pyver2-cp${pyver2}m-manylinux1_x86_64.whl
+   fi
 fi
 
 wheel unpack $RECIPE_DIR/../../../dist/wheelhouse/$whlfile
