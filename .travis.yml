@@ -1,54 +1,22 @@
-language: cpp
+sudo: required
+services:
+  - docker
 
 matrix:
   include:
-    - { os: linux, env: PYTHON_VERSION=2.7 }
-    - { os: linux, env: PYTHON_VERSION=3.4 }
-    - { os: linux, env: PYTHON_VERSION=3.5 }
-    - { os: linux, env: PYTHON_VERSION=3.5 USE_OPENMP=false }
-    # - { os: linux, env: PYTHON_VERSION=3.5 COMPILER=clang }
-    - { os: linux, env: PYTHON_VERSION=3.5 TEST_SETUP=true }
-    - { os: osx, env: PYTHON_VERSION=3.5 }
-
-sudo: false
+   - { os: osx }
 
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      brew tap homebrew/science;
-      brew update;
-      brew install netcdf fftw;
-    fi
-
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - g++
-    - gfortran
-    - clang
-    - libz-dev
-    - libbz2-dev
-    - libblas-dev
-    - liblapack-dev
-    - libarpack2-dev
-    - libnetcdf-dev
-    - openmpi-bin
-    - openmpi-common
-    - libopenmpi-dev
+    - docker pull hainm/pytraj-build-box
 
 install:
-    - source devtools/ci/setup_env.sh
-    - python --version
+    - source devtools/build_all_wheels.sh
 
 script:
-    - source devtools/travis-ci/install_pytraj.sh
-    - source devtools/ci/run_tests.sh
+    - echo "hello"
 
 after_success:
     - echo "after_success"
-    - cd tests/
-    - ../devtools/ci/coveralls
 
 notifications:
   email: false
