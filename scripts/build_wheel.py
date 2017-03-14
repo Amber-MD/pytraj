@@ -157,6 +157,10 @@ class PipBuilder(object):
                 '{} -m pip uninstall pytraj -y'.format(python_exe), shell=True)
         except subprocess.CalledProcessError:
             pass
+
+        # always try with newest pip
+        subprocess.check_call(
+            '{} -m pip install pip --upgrade'.format(python_exe), shell=True)
         subprocess.check_call(
             '{} -m pip install {}'.format(python_exe, whl_file), shell=True)
         self._check_numpy_and_fix(python_exe, env)
