@@ -7,7 +7,7 @@ pyver2=`python -c "import sys; print(''.join(str(x) for x in sys.version_info[:2
 version='2.0.0'
 
 if [ "$isosx" = "True" ]; then
-   whlfile=pytraj-$version-cp$pyver2-cp${pyver2}m-macosx_10_7_x86_64.whl
+   whlfile=pytraj-$version-cp$pyver2-cp${pyver2}m-macosx_*_x86_64.whl
 else
    if [ "$pyver2" = "27" ]; then
        whlfile=pytraj-$version-cp$pyver2-cp${pyver2}mu-manylinux1_x86_64.whl
@@ -16,5 +16,5 @@ else
    fi
 fi
 
-wheel unpack $RECIPE_DIR/../../../dist/wheelhouse/$whlfile
+wheel unpack `ls $RECIPE_DIR/../../../dist/wheelhouse/$whlfile`
 cp -rf  pytraj-$version/pytraj* $PREFIX/lib/python$pyver/site-packages/
