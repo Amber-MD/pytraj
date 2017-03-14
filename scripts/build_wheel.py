@@ -148,8 +148,6 @@ class PipBuilder(object):
         env = 'pytraj' + py_version
         # e.g: change 2.7 to 27
         print('Testing pytraj build')
-        version = py_version.replace('.', '')
-        cwd = os.getcwd()
         whl_file = self._get_wheel_file(py_version, folder='wheelhouse')
         print('Testing wheel file {}'.format(whl_file))
         try:
