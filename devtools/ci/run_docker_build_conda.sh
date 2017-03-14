@@ -23,6 +23,6 @@ for pyver in 2.7 3.4 3.5; do
     if [ ! -d $build_dir ]; then
         mkdir -p $build_dir
     fi
-    cp $tarfile $build_dir
+    cp \$tarfile $build_dir
 done
 EOF
