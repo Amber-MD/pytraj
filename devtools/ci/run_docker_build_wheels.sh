@@ -17,7 +17,7 @@ export python=/opt/python/cp35-cp35m/bin/python
 if [ ! -d cpptraj ]; then
     \$python scripts/install_libcpptraj.py github -openmp
 else
-    (cd cpptraj && git pull)
+    (cd cpptraj && git pull && git clean -fdx .)
     \$python scripts/install_libcpptraj.py -openmp
 fi
 \$python devtools/mkrelease
