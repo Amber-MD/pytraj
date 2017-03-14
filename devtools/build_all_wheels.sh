@@ -6,10 +6,11 @@
 python -c "import auditwheel" || exit 1
 
 function main(){
-    # clone_or_update_cpptraj
-    # pip_linux
-    # pip_osx
-    # conda_linux
+    # this function will be run in the end of this script
+    clone_or_update_cpptraj
+    pip_linux
+    pip_osx
+    conda_linux
     conda_osx
 }
 
