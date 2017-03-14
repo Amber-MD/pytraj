@@ -1,21 +1,16 @@
-{% set name = "pytraj-dev" %}
-{% set version = os.getenv('VERSION', 'v1.1.10.dev') %}
-{% set short_version = version[1:] %}
-{% set cpptraj_version = '4.3.2.1' %}
+{% set name = "pytraj" %}
+{% set version = "2.0.0" %}
 
 package:
   name: {{ name }}
-  version: !!str {{ short_version }}
+  version: !!str {{ version }}
 
 requirements:
   build:
     - python
-    - cython
-    - libcpptraj-dev
     - libnetcdf
   run:
     - python
-    - libcpptraj-dev
     - libnetcdf
     - numpy
 
