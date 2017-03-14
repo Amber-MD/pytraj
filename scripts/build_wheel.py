@@ -35,11 +35,15 @@ class PipBuilder(object):
     if sys.platform.startswith('darwin'):
         REQUIRED_PACKAGES.append('conda_build')
     # SUPPORTED_VERSIONS = ['2.7', '3.4', '3.5', '3.6']
-    SUPPORTED_VERSIONS = ['2.7', '3.4', '3.5']
+    SUPPORTED_VERSIONS = ['2.7mu', '2.7', '3.4', '3.5']
     MANY_LINUX_PYTHONS = dict(
         (py_version, '/opt/python/cp{py}-cp{py}m/bin/python'.format(
             py=py_version.replace('.', '')))
         for py_version in SUPPORTED_VERSIONS)
+
+    # wide-unicode (to be compatible with miniconda/anaconda python)
+    if '2.7mu' in MANY_LINUX_PYTHONS:
+        MANY_LINUX_PYTHONS['2.7mu'] = '/opt/python/cp27-cp27mu/bin/python'
 
     def __init__(self,
                  tarfile,
