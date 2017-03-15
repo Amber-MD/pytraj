@@ -1,8 +1,20 @@
 #!/bin/sh
 
-export CPPTRAJ_LIBDIR=$PREFIX/lib/
-export CPPTRAJ_HEADERDIR=$PREFIX/include/cpptraj/
+isosx=`python -c "import sys; print(sys.platform.startswith('darwin'))"`
+pyver=`python -c "import sys; print('.'.join(str(x) for x in sys.version_info[:2]))"`
+pyver2=`python -c "import sys; print(''.join(str(x) for x in sys.version_info[:2]))"`
 
-cp -r $RECIPE_DIR/../../.. $SRC_DIR
-$PYTHON setup.py clean
-$PYTHON setup.py install
+version='2.0.0'
+
+if [ "$isosx" = "True" ]; then
+   whlfile=pytraj-$version-cp$pyver2-cp${pyver2}m-macosx_*_x86_64.whl
+else
+   if [ "$pyver2" = "27" ]; then
+       whlfile=pytraj-$version-cp$pyver2-cp${pyver2}mu-manylinux1_x86_64.whl
+   else
+       whlfile=pytraj-$version-cp$pyver2-cp${pyver2}m-manylinux1_x86_64.whl
+   fi
+fi
+
+wheel unpack `ls $RECIPE_DIR/../../../dist/wheelhouse/$whlfile`
+cp -rf  pytraj-$version/pytraj* $PREFIX/lib/python$pyver/site-packages/
