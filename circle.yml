@@ -4,7 +4,7 @@ machine:
 
 dependencies:
   override:
-    - docker pull hainm/pytraj-manylinux-build-box
+    - docker pull hainm/pytraj-build-box
 
 test:
   override:
