@@ -29,7 +29,6 @@ function pip_linux(){
 }
 
 
-
 function pip_osx(){
     (cd cpptraj && git clean -fdx .)
     export CPPTRAJHOME=`pwd`/cpptraj
