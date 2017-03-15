@@ -13,7 +13,7 @@ cat << EOF | docker run -i \
 set -x
 cd /feedstock_root/
 
-export python=/opt/python/cp35-cp35m/bin/python
+export python=/opt/python/cp36-cp36m/bin/python
 if [ ! -d cpptraj ]; then
     \$python scripts/install_libcpptraj.py github -openmp
 else
