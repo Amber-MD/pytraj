@@ -4,7 +4,7 @@ from __future__ import print_function
 import unittest
 import numpy as np
 import pytraj as pt
-from utils import fn
+from utils import fn, outputname
 from pytraj.utils import aa_eq
 
 
@@ -32,9 +32,9 @@ class TestClosest(unittest.TestCase):
         # test write to disk
         fi, top = pt.closest(traj)
 
-        pt.write_traj('output/fi.nc', fi, top=top, overwrite=True)
+        pt.write_traj(outputname('fi.nc'), fi, top=top, overwrite=True)
         # load back
-        t1 = pt.load('output/fi.nc', top=top)
+        t1 = pt.load(outputname('fi.nc'), top=top)
         aa_eq(t0.xyz, t1.xyz)
 
         # make sure n_sovent=10 (default)
@@ -45,7 +45,7 @@ class TestClosest(unittest.TestCase):
         assert n_solvents == 10, 'must be 10 solvents'
 
         fi, top = pt.closest(traj)
-        pt.write_traj('output/test.pdb', next(fi), top=top, overwrite=True)
+        pt.write_traj(outputname('test.pdb'), next(fi), top=top, overwrite=True)
 
     def test_closest_compared_to_cpptraj(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
