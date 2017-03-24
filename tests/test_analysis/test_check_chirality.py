@@ -8,11 +8,9 @@ from pytraj.testing import cpptraj_test_dir, aa_eq
 cpptraj_test_dir + '/tz2.parm7'
 bad_pdb = cpptraj_test_dir + '/Test_CheckStructure/tz2.stretched.pdb'
 
-cm = """
-parm data/DPDP.parm7
-trajin data/DPDP.nc
-checkchirality
-"""
+parm_name = fn('DPDP.parm7')
+traj_name = fn('DPDP.nc')
+cm = "parm " + parm_name + "\ntrajin " + traj_name + "\ncheckchirality\n"
 
 def test_check_structure():
     traj = pt.iterload(fn('DPDP.nc'), fn('DPDP.parm7'))

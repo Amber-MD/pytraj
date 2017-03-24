@@ -18,7 +18,7 @@ class Test(unittest.TestCase):
         for frame in traj:
             pass
 
-        saved_d0 = np.loadtxt("./data/vec.out", skiprows=1, usecols=(1, 2, 3))
+        saved_d0 = np.loadtxt(fn('vec.out'), skiprows=1, usecols=(1, 2, 3))
 
         aa_eq(d1.to_ndarray().flatten(), saved_d0.flatten())
         aa_eq(d2.to_ndarray().flatten(), saved_d0.flatten())
