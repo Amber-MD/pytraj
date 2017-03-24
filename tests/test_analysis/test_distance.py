@@ -64,8 +64,8 @@ class TestNormalDistance(unittest.TestCase):
     def test_distance_with_dry_traj_and_PBC_topology(self):
         '''Situation: there is dry traj (no box) but Topology has box info
         '''
-        traj = pt.iterload('data/dry_traj_with_PBC_top/strip.nc',
-                           'data/dry_traj_with_PBC_top/strip.prmtop')
+        traj = pt.iterload(fn('dry_traj_with_PBC_top/strip.nc'),
+                           fn('dry_traj_with_PBC_top/strip.prmtop'))
         assert traj.top.has_box(), 'Topology must have box for testing'
 
         correct_distance_with_image_True = pt.distance(traj,
