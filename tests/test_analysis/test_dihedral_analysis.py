@@ -14,7 +14,7 @@ class Test(unittest.TestCase):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
         # resrange 7, phi psi
-        saved_file = './data/test_multidihedral.dat'
+        saved_file = fn('test_multidihedral.dat')
         saved_data_phi = np.loadtxt(saved_file, skiprows=1).transpose()[1]
 
         arr0 = da.calc_phi(traj, resrange='7').to_ndarray()

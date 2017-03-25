@@ -4,6 +4,10 @@ def fn(name):
     # return absolute dir of ./data/name
     return os.path.join(os.path.dirname(__file__), 'data', name)
 
+def outputname(name):
+    # return absolute dir of ./output/name
+    return os.path.join(os.path.dirname(__file__), 'output', name)
+
 tc5b_trajin = fn('Tc5b.x')
 tc5b_top = fn('Tc5b.top')
 tz2_trajin  = fn('tz2.nc')
