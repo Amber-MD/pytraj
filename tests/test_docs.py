@@ -28,6 +28,7 @@ from pytraj.builder import build
 
 
 try:
+    import sander
     has_sander = True
 except ImportError:
     has_sander = False
