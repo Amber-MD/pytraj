@@ -28,7 +28,7 @@ Welcome
 
    overview
 
-`AMBER16 users - click me <http://amber-md.github.io/pytraj/release/1.0.4/index.html>`_
+`AMBER17 users - click me <http://amber-md.github.io/pytraj/release/2.0.0/index.html>`_
 
 `Release versions <http://amber-md.github.io/pytraj/release/>`_
 
