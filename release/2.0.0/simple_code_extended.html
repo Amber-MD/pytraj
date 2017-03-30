@@ -1,0 +1,548 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Full version &#8212; pytraj 2.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>2.0.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_and_write.html">Supported file formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Full version</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/simple_code_extended.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="full-version">
+<span id="simple-code-extended"></span><h1>Full version<a class="headerlink" href="#full-version" title="Permalink to this headline">¶</a></h1>
+<div class="ipynotebook" id="notebook-container">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.ortho.parm7&#39;</span><span class="p">)</span>
+<span class="c1">#traj = pt.iterload(&#39;data/tz2.ortho.nc&#39;, &#39;data/tz2.ortho.parm7&#39;)</span>
+<span class="n">traj</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>pytraj.TrajectoryIterator, 10 frames: 
+Size: 0.001183 (GB)
+&lt;Topology: 5293 atoms, 1704 residues, 1692 mols, PBC with box type = ortho&gt;
+           </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># calculate rmsd to 1st frame, mask = CA</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;@CA&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[ 0.          0.26412388  0.38596881  0.26882031  0.26192277  0.45762002
+  0.45645516  0.44428977  0.43628622  0.44746086]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get info about unitcells</span>
+<span class="n">traj</span><span class="o">.</span><span class="n">unitcells</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[3]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[ 35.26277966,  41.84554768,  36.16862953,  90.        ,
+         90.        ,  90.        ],
+       [ 35.2563193 ,  41.83788131,  36.16200321,  90.        ,
+         90.        ,  90.        ],
+       [ 35.25450718,  41.83573091,  36.16014454,  90.        ,
+         90.        ,  90.        ],
+       ..., 
+       [ 35.24903289,  41.82923469,  36.15452962,  90.        ,
+         90.        ,  90.        ],
+       [ 35.26186109,  41.84445763,  36.16768736,  90.        ,
+         90.        ,  90.        ],
+       [ 35.27351853,  41.85829125,  36.17964426,  90.        ,
+         90.        ,  90.        ]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load all coordinates to memory</span>
+<span class="n">xyz</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">xyz</span><span class="p">[:]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">xyz</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[ 15.55458927  28.54844856  17.18908691]
+ [ 16.20579147  29.07935524  17.74959946]
+ [ 14.95065975  29.27651787  16.83513069]
+ ..., 
+ [  0.52251548   8.47930241  18.05087662]
+ [  0.13079797   9.02361012  17.36785507]
+ [ -0.17751557   8.35964298  18.69264793]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># calculate bfactor</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">bfactors</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s1">&#39;@CA&#39;</span><span class="p">,</span> <span class="n">byres</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[  1.          10.05908339]
+ [  2.           8.3347316 ]
+ [  3.           7.59440762]
+ ..., 
+ [ 10.          10.89077958]
+ [ 11.          11.03991199]
+ [ 12.          11.75692999]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># plot bfactor</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">T</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;--bo&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[  1.           2.           3.         ...,  10.          11.          12.        ]
+ [ 10.05908339   8.3347316    7.59440762 ...,  10.89077958  11.03991199
+   11.75692999]]
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&lt;matplotlib.lines.Line2D at 0x10aa88ac8&gt;]</pre>
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+ysqs3U9abs0a2H9/H8G+8473fcllJSX1j5A7doT27T0R107K//M/nqinTfMppprf33LLxjdZ1f3H
+A7xz5V135caUy9q12iiWNGb2WgihrLHnaYQu9Wrd2qte+vXz5PXww7k7/bJ6dcPTHcuXw5dfNvxn
++/Zt/v1qknbN9E779j7q//a3m/9amVBWBgMGwKhRsSORbFOVizRot9186mHiRPjLX2JHU78Q4Pjj
+G/79TE2D1O5cOXOmfxL47W8zc6/mWLzYP3V07x47EolBCV02acgQ79Z39dW52cDLDH70Izj77I0P
+8Cguzs4BHttsA489Brfdlvl7NUb154VNCV02qajIdxy+8EJulcC9+y48+aR/feaZcOutGx7gUVLi
+32drTvvAA71nyurVsGxZdu5ZH9WfF7Yc+hGVXFUzbbF2rfdP79MnbjzPPw/HHecLmDNmQNu2fr28
+PO6i5Nq1vpC8004wfnycGGrqz9u0iXN/iUsjdGmyyy6DAw7wHtuxTJgA3/2uV91Mnrw+meeCoiI4
+9lgvg3ziiezff906OPFEP4VKCpPKFqXJ5s71HaR77eUjwWyXxt14ox943L+/L9RutVV2798Uq1Z5
+ZdCKFf5ppmPH2BFJEjS1bFEjdGmy7bf3AzFeeAFuuCG79w4BXnkFfvADeOaZ3Ezm4Jt6xozxjU1X
+XJHde7//vpdpSuHSCF2aJQQ44QRfkHz9ddh998zeb9Uq76Gy7ba+4FhUlB+bZs491z/FvPEGbLZZ
+du65556+3hFjukcySyN0yQgzL8/bZRf49NPM3uvzz+HII2HgQE/sbdvmRzIH+NOf/B+8bCXzxYt9
+R+/BB2fnfpKbVOUizdajh29eyeTO0Xnz4KijfBrhrrt8KiOf1MydL18Or76a+brwmt4tqj8vbBqh
+S4uYeVfCa67xaYV0evttX/icPdunD3KhP0pLDR0K3//++mZgmTJlCnToAPvsk9n7SG5TQpcW++or
+b7U7aJBPiaRDCN47Zu1aH3Uefnh6XjeW3/zGN2Sdc07j7XdTofpzASV0SUGXLjB2LLz1Flx1Veqv
+V9N/ffx4b3vbksZZuaZnT++t/tRTcN99mbvPzTd7szApbKpykZSddRbceSf885+w334te43rr4fK
+Sm8z0Cphw4y1a330PHOm72zt2jV2RJJvslblYmZFZvaGmT2W6mtJfho1ymvUTz+9+Q281q3zzUJD
+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
+QmCC
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+</div><p>(<a class="reference external" href="simple_code_extended.ipynb">simple_code_extended.ipynb</a>; <a class="reference external" href="simple_code_extended_evaluated.ipynb">simple_code_extended_evaluated.ipynb</a>; <a class="reference external" href="simple_code_extended.py">simple_code_extended.py</a>)</p>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015-2016, pytraj developers.<br/>
+      Last updated on Mar 29, 2017.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

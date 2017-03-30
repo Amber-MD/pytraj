@@ -1,0 +1,618 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Plot H-bond distances &#8212; pytraj 2.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Plot correlation matrix" href="plot_correlation_matrix.html" />
+    <link rel="prev" title="Plots" href="plot.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>2.0.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_and_write.html">Supported file formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Plot H-bond distances</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="plot.html" title="Previous Chapter: Plots"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Plots</span>
+    </a>
+  </li>
+  <li>
+    <a href="plot_correlation_matrix.html" title="Next Chapter: Plot correlation matrix"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Plot correlat... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/tutorials/plot_hbond_basic.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="plot-h-bond-distances">
+<span id="tutorial-plot-hbond-basic"></span><h1>Plot H-bond distances<a class="headerlink" href="#plot-h-bond-distances" title="Permalink to this headline">¶</a></h1>
+<p>try <code class="docutils literal"><span class="pre">pytraj</span></code> online:</p>
+<a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img alt="http://mybinder.org/images/logo.svg" src="http://mybinder.org/images/logo.svg" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<img alt="../_images/plot_hbond_basic.png" src="../_images/plot_hbond_basic.png" />
+<div class="ipynotebook" id="notebook-container">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+
+<span class="c1"># config to get better plot</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span> <span class="c1"># larger image</span>
+<span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.labelcolor&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="s1">&#39;green&#39;</span> <span class="c1"># default green for label</span>
+
+<span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.linewidth&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.5</span>
+
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sb</span> <span class="c1"># add seaborn for pretty plot (vs default one in matplotlib)</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span> <span class="c1"># just to avoid any warning to make this notebook prettier</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-1-7adb29017292&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      7</span> 
+<span class="ansi-green-intense-fg ansi-bold">      8</span> <span class="ansi-green-fg">import</span> matplotlib
+<span class="ansi-green-fg">----&gt; 9</span><span class="ansi-red-fg"> </span>matplotlib<span class="ansi-blue-fg">.</span>rcParams<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;savefig.dpi&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> <span class="ansi-cyan-fg">1.5</span> <span class="ansi-blue-fg">*</span> matplotlib<span class="ansi-blue-fg">.</span>rcParams<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;savefig.dpi&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-red-fg"># larger image</span>
+<span class="ansi-green-intense-fg ansi-bold">     10</span> matplotlib<span class="ansi-blue-fg">.</span>rcParams<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;axes.labelcolor&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span>  <span class="ansi-blue-fg">&#39;green&#39;</span> <span class="ansi-red-fg"># default green for label</span>
+<span class="ansi-green-intense-fg ansi-bold">     11</span> 
+
+<span class="ansi-red-fg">TypeError</span>: can&#39;t multiply sequence by non-int of type &#39;float&#39;</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># import pytraj</span>
+<span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+
+<span class="c1"># load sample data</span>
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.parm7&#39;</span><span class="p">)</span>
+<span class="n">traj</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>pytraj.TrajectoryIterator, 101 frames: 
+Size: 0.000503 (GB)
+&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;
+           </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># find hbond</span>
+<span class="n">hb</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">hbond</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+
+<span class="n">distance_mask</span> <span class="o">=</span> <span class="n">hb</span><span class="o">.</span><span class="n">get_amber_mask</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;hbond distance mask: </span><span class="si">{}</span><span class="s1"> </span><span class="se">\n</span><span class="s1"> &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distance_mask</span><span class="p">))</span>
+
+<span class="n">angle_mask</span> <span class="o">=</span> <span class="n">hb</span><span class="o">.</span><span class="n">get_amber_mask</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;hbond angle mask: </span><span class="si">{}</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">angle_mask</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;hbond data&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hb</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="c1"># 1: have hbond; 0: does not have hbond</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>hbond distance mask: [&#39;:1@OG :2@H&#39; &#39;:5@O :3@HG1&#39; &#39;:3@O :1@H3&#39; ..., &#39;:10@O :12@HZ2&#39; &#39;:5@OE2 :6@H&#39;
+ &#39;:7@O :9@H&#39;] 
+ 
+hbond angle mask: [&#39;:1@OG :2@H :2@N&#39; &#39;:5@O :3@HG1 :3@OG1&#39; &#39;:3@O :1@H3 :1@N&#39; ...,
+ &#39;:10@O :12@HZ2 :12@NZ&#39; &#39;:5@OE2 :6@H :6@N&#39; &#39;:7@O :9@H :9@N&#39;] 
+
+hbond data
+&lt;pytraj.DatasetList with 14 datasets&gt;
+total_solute_hbonds
+[0 1 0 ..., 0 0 0]
+
+SER1_OG-TRP2_N-H
+[0 1 0 ..., 0 0 0]
+
+GLU5_O-THR3_OG1-HG1
+[0 0 0 ..., 0 0 0]
+...
+
+GLU5_OE2-ASN6_N-H
+[0 0 0 ..., 0 0 0]
+
+GLY7_O-TRP9_N-H
+[0 0 0 ..., 0 0 0]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dist</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">hb</span><span class="o">.</span><span class="n">get_amber_mask</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;all hbond distances: &#39;</span><span class="p">,</span> <span class="n">dist</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>all hbond distances:  [[ 2.1924577   1.92054906  2.35839995 ...,  3.93999355  3.81974987
+   4.45726496]
+ [ 8.03544864  3.95953378  4.2438701  ...,  6.47548095  4.97960639
+   6.47500662]
+ [ 4.38455889  3.25022817  3.38755539 ...,  6.45264846  7.37518528
+   6.0956301 ]
+ ..., 
+ [ 6.97851158  9.15141704  8.42936098 ...,  7.2329342   6.74667953
+   5.96993506]
+ [ 4.40668236  4.33245685  4.49102881 ...,  5.0485394   4.88464996
+   6.04310722]
+ [ 2.10765322  3.28954633  4.13369896 ...,  2.22195659  3.01349072
+   3.48705884]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">angle</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">hb</span><span class="o">.</span><span class="n">get_amber_mask</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">angle</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[ 128.26687651,  140.4319339 ,  130.87185144, ...,   98.56379937,
+         107.85608806,   89.34456598],
+       [  65.2705368 ,  165.05104503,   81.00468938, ...,   66.48602645,
+          84.2725392 ,   78.31224007],
+       [ 127.47793034,  153.71941428,  123.90214257, ...,   69.92092063,
+          47.03151176,   46.42478935],
+       ..., 
+       [  24.45322069,   57.47276975,   17.06828405, ...,   50.39660114,
+          91.57680164,   86.05409532],
+       [ 123.22038163,  124.99010481,  114.02273251, ...,   93.20375796,
+         103.8316453 ,   79.2753432 ],
+       [ 151.76613517,   87.21904908,   82.82755457, ...,  142.70348966,
+         111.75891022,  118.95158863]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="plot-demo">plot demo<a class="anchor-link" href="#plot-demo">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sb</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s1">&#39;deep&#39;</span><span class="p">,</span> <span class="n">n_colors</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">desat</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">sb</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+
+<span class="c1"># scatter plot for distance between &#39;:1@OG :2@H&#39; and &#39;:5@O :3@HG1&#39;</span>
+<span class="c1"># the point is colored by frame number (total frame = traj.n_frames (101))</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">dist</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dist</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">n_frames</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;:1@OG :2@H&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;:5@O :3@HG1&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-6-9e63a193aeb3&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>sb<span class="ansi-blue-fg">.</span>color_palette<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;deep&#39;</span><span class="ansi-blue-fg">,</span> n_colors<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">6</span><span class="ansi-blue-fg">,</span> desat<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">0.5</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> sb<span class="ansi-blue-fg">.</span>set_style<span class="ansi-blue-fg">(</span>style<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;white&#39;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> 
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span class="ansi-red-fg"># scatter plot for distance between &#39;:1@OG :2@H&#39; and &#39;:5@O :3@HG1&#39;</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> <span class="ansi-red-fg"># the point is colored by frame number (total frame = traj.n_frames (101))</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;sb&#39; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Do-some-statistics">Do some statistics<a class="anchor-link" href="#Do-some-statistics">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">stat</span><span class="p">(</span><span class="n">hb</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">distance_or_angle_mask</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    hb : get from `pt.hbond(traj, ...)`</span>
+<span class="sd">    data : either distance or angle</span>
+<span class="sd">    distance_mask : distance mask</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="n">arr</span> <span class="o">=</span> <span class="n">hb</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="mi">1</span>
+    
+    <span class="n">std_</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">mean_</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">mask</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">distance_or_angle_mask</span><span class="p">):</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;@&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+        <span class="n">std_</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="n">arr</span><span class="p">[</span><span class="n">idx</span><span class="p">]])</span>
+        <span class="n">mean_</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="n">arr</span><span class="p">[</span><span class="n">idx</span><span class="p">]])</span>
+    
+    <span class="k">return</span> <span class="n">mean_</span><span class="p">,</span> <span class="n">std_</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stat</span><span class="p">(</span><span class="n">hb</span><span class="p">,</span> <span class="n">dist</span><span class="p">,</span> <span class="n">distance_mask</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[8]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>({&#39;:10_O :10_HG1&#39;: 1.9748354521175817,
+  &#39;:10_O :12_HZ1&#39;: 1.9821660107151913,
+  &#39;:10_O :12_HZ2&#39;: 1.9919561276430415,
+  &#39;:10_OG1 :12_HZ1&#39;: 2.0933974614821733,
+  &#39;:10_OG1 :8_HZ3&#39;: 2.0318465603995195,
+  &#39;:1_OG :2_H&#39;: 1.9877602413078141,
+  &#39;:2_O :4_H&#39;: 2.024368646624378,
+  &#39;:3_O :1_H3&#39;: 2.1474342032636846,
+  &#39;:3_OG1 :6_HD21&#39;: 1.9911275635014065,
+  &#39;:5_O :3_HG1&#39;: 1.9397412032380126,
+  &#39;:5_OE2 :6_H&#39;: 1.8608969749703308,
+  &#39;:6_O :8_H&#39;: 2.0379229960419041,
+  &#39;:7_O :9_H&#39;: 2.0647911659846647},
+ {&#39;:10_O :10_HG1&#39;: 0.15869117394166915,
+  &#39;:10_O :12_HZ1&#39;: 0.066799383615652963,
+  &#39;:10_O :12_HZ2&#39;: 0.0,
+  &#39;:10_OG1 :12_HZ1&#39;: 0.0,
+  &#39;:10_OG1 :8_HZ3&#39;: 0.0,
+  &#39;:1_OG :2_H&#39;: 0.075559413677526596,
+  &#39;:2_O :4_H&#39;: 0.0,
+  &#39;:3_O :1_H3&#39;: 0.0,
+  &#39;:3_OG1 :6_HD21&#39;: 0.072596777856622746,
+  &#39;:5_O :3_HG1&#39;: 0.0,
+  &#39;:5_OE2 :6_H&#39;: 0.046113957599139832,
+  &#39;:6_O :8_H&#39;: 0.0,
+  &#39;:7_O :9_H&#39;: 0.0})</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stat</span><span class="p">(</span><span class="n">hb</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">angle_mask</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>({&#39;:10_O :10_HG1 :10_OG1&#39;: 138.92086564596366,
+  &#39;:10_O :12_HZ1 :12_NZ&#39;: 148.28773893308082,
+  &#39;:10_O :12_HZ2 :12_NZ&#39;: 137.44328883519057,
+  &#39;:10_OG1 :12_HZ1 :12_NZ&#39;: 141.56305755865677,
+  &#39;:10_OG1 :8_HZ3 :8_NZ&#39;: 147.54884869246951,
+  &#39;:1_OG :2_H :2_N&#39;: 137.97842992484198,
+  &#39;:2_O :4_H :4_N&#39;: 145.91068614258742,
+  &#39;:3_O :1_H3 :1_N&#39;: 137.2488324606623,
+  &#39;:3_OG1 :6_HD21 :6_ND2&#39;: 155.89624053475271,
+  &#39;:5_O :3_HG1 :3_OG1&#39;: 161.50380087671053,
+  &#39;:5_OE2 :6_H :6_N&#39;: 160.68310341915685,
+  &#39;:6_O :8_H :8_N&#39;: 151.75294915997674,
+  &#39;:7_O :9_H :9_N&#39;: 149.91384027241048},
+ {&#39;:10_O :10_HG1 :10_OG1&#39;: 2.9717056812209393,
+  &#39;:10_O :12_HZ1 :12_NZ&#39;: 1.2669718312419604,
+  &#39;:10_O :12_HZ2 :12_NZ&#39;: 0.0,
+  &#39;:10_OG1 :12_HZ1 :12_NZ&#39;: 0.0,
+  &#39;:10_OG1 :8_HZ3 :8_NZ&#39;: 0.0,
+  &#39;:1_OG :2_H :2_N&#39;: 4.1608017031247266,
+  &#39;:2_O :4_H :4_N&#39;: 0.0,
+  &#39;:3_O :1_H3 :1_N&#39;: 0.0,
+  &#39;:3_OG1 :6_HD21 :6_ND2&#39;: 6.6837505843576395,
+  &#39;:5_O :3_HG1 :3_OG1&#39;: 0.0,
+  &#39;:5_OE2 :6_H :6_N&#39;: 9.3388091911946418,
+  &#39;:6_O :8_H :8_N&#39;: 0.0,
+  &#39;:7_O :9_H :9_N&#39;: 0.0})</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+</div><p>(<a class="reference external" href="plot_hbond_basic.ipynb">plot_hbond_basic.ipynb</a>; <a class="reference external" href="plot_hbond_basic_evaluated.ipynb">plot_hbond_basic_evaluated.ipynb</a>; <a class="reference external" href="plot_hbond_basic.py">plot_hbond_basic.py</a>)</p>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015-2016, pytraj developers.<br/>
+      Last updated on Mar 29, 2017.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

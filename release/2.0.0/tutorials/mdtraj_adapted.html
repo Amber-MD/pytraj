@@ -1,0 +1,1190 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Tutorials adapted from MDtraj &#8212; pytraj 2.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          pytraj</a>
+        <span class="navbar-text navbar-version pull-left"><b>2.0.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../analysis.html">Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_and_write.html">Supported file formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topology.html">Topology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../atom_mask_selection.html">Atom mask selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel.html">Parallel calculation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Tutorials adapted from MDtraj</a><ul>
+<li><a class="reference internal" href="#clustering-with-scipy">Clustering with scipy</a></li>
+<li><a class="reference internal" href="#principal-component-analysis-with-sklearn">Principal component analysis with sklearn</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/tutorials/mdtraj_adapted.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="tutorials-adapted-from-mdtraj">
+<span id="mdtraj-adapted"></span><h1><a class="toc-backref" href="#id1">Tutorials adapted from MDtraj</a><a class="headerlink" href="#tutorials-adapted-from-mdtraj" title="Permalink to this headline">¶</a></h1>
+<p>try <code class="docutils literal"><span class="pre">pytraj</span></code> online:</p>
+<a class="reference external image-reference" href="http://mybinder.org/repo/hainm/notebook-pytraj"><img alt="http://mybinder.org/badge.svg" src="http://mybinder.org/badge.svg" /></a>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#tutorials-adapted-from-mdtraj" id="id1">Tutorials adapted from MDtraj</a><ul>
+<li><a class="reference internal" href="#clustering-with-scipy" id="id2">Clustering with scipy</a></li>
+<li><a class="reference internal" href="#principal-component-analysis-with-sklearn" id="id3">Principal component analysis with sklearn</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="clustering-with-scipy">
+<h2><a class="toc-backref" href="#id2">Clustering with scipy</a><a class="headerlink" href="#clustering-with-scipy" title="Permalink to this headline">¶</a></h2>
+<p>Original tutorial is from <a class="reference external" href="http://mdtraj.org/latest/examples/clustering.html">MDtraj</a></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">this example only shows how to populate <code class="docutils literal"><span class="pre">pytraj</span></code> to <code class="docutils literal"><span class="pre">python</span></code>&#8216;s ecosystem. Users should check <a class="reference internal" href="../_api/clustering.html#clustering"><span class="std std-ref">Cluster Analysis</span></a></p>
+</div>
+<div class="ipynotebook" id="notebook-container">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+
+<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">scipy.cluster.hierarchy</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load data</span>
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.parm7&#39;</span><span class="p">)</span>
+<span class="n">traj</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>pytraj.TrajectoryIterator, 101 frames: 
+Size: 0.000503 (GB)
+&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;
+           </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># calculate pairwise rmsd with `autoimage=True`</span>
+<span class="c1"># generally we only need to cluster a subset of atoms.</span>
+<span class="c1"># cluster for &#39;CA&#39; atoms</span>
+
+<span class="n">distances</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="n">autoimage</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;@CA&#39;</span><span class="p">)</span>
+
+<span class="c1"># use `scipy` to perform clustering</span>
+<span class="n">linkage</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">hierarchy</span><span class="o">.</span><span class="n">ward</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span>
+
+<span class="n">scipy</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">hierarchy</span><span class="o">.</span><span class="n">dendrogram</span><span class="p">(</span><span class="n">linkage</span><span class="p">,</span> <span class="n">no_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">count_sort</span><span class="o">=</span><span class="s1">&#39;descendent&#39;</span><span class="p">)</span>
+<span class="kc">None</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># cluster for all atoms but H</span>
+
+<span class="n">distances</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">pairwise_rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">(</span><span class="n">autoimage</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;!@H=&#39;</span><span class="p">)</span>
+<span class="n">linkage</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">hierarchy</span><span class="o">.</span><span class="n">ward</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span>
+<span class="n">scipy</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">hierarchy</span><span class="o">.</span><span class="n">dendrogram</span><span class="p">(</span><span class="n">linkage</span><span class="p">,</span> <span class="n">no_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">count_sort</span><span class="o">=</span><span class="s1">&#39;descendent&#39;</span><span class="p">)</span>
+<span class="kc">None</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+w1obn21sLb/x2Uapfbt9pQVDCWWvwMgq0wMsulQwr9x+aUOUNgBFdSqjTg+6bOPR37hl61vUcNTt
+qQ+qX53Gpu72FslrOBp+Cmjt6ZVmdtzMPjCzq2Z2uswy6YG6cN+CJOnYY8fUOdDZ8RTJdL7OgY6e
+evQpfXL6E31y+pNty83fO6/eek9vX3tbL7/1srpXugPLTNc7qJw82TCbv3dekrbKWTy7uK2stK5L
+X1nampaG7KD5hm37oP2V7ov++qXT0uX7G57suvOWKapf/3zZdQzb/3n7JW++onL7G+ui/do50Nn6
+/zHwb9btbh6wi4ubB9SlS9IDD9yd1s3ULz3AV1c3QyGVLpMul12m/0BOf0/LzYZVd0CdLl2Sfv7z
+u/P19/CXljbrs7C5vTp2bHu5/frL7Q4+TrYF3fzm/3m9/bb08ss7t7GO7L7sb8TS94oat7z9Wlb/
+J4TsOvoboraf4pm3vWX2Q45Wgt7M9kj6S0m/I+mIpOfN7EiVdeSFWNnlioIhb5mm5RQFc1HI5q27
+ap3KbFPRusvuh6L5qu7/YQ1MmXLLNtbZbV+4b0H377t/5zLZQOt0pL17N4NVKg6QbBgMW2bQAVsm
+aKTNdWdtbOSXVTYgy4ZYur5sI1I3WNvQIAi3LT/ikJ0GbQ3dPCnpqrv/VJLM7A1JJyS931J5A6UH
+dttXYNQ5aTvVV4WMSNn9P4q/U5115C6THRJIP46X+Wje/xG+6sf5QeUWrbtq/YaVO6q6Yuq0NXTz
+sKSPM79fT6YBAMbM3H30KzX7fUnH3f0Pkt+/LunX3f2bmXmWJaVnE35V0gcjrwgAxPaYu88Nm6mt
+oZsbkg5mfn8kmbbF3buSGp7BAQAM09bQzQ8lHTazx81sr6STki60VBYAoEArPXp3/9LMvinpnyTt
+kfS6u7/XRlkAgGKtjNEDAKZHazdMAQCmA0EPAMER9AAQHEEPAMER9AAQHEEPAMER9AAQHEEPAMH9
+PyNxOHG/0ZiDAAAAAElFTkSuQmCC
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+</div><p>(<a class="reference external" href="clustering_mdtraj_adapted.ipynb">clustering_mdtraj_adapted.ipynb</a>; <a class="reference external" href="clustering_mdtraj_adapted_evaluated.ipynb">clustering_mdtraj_adapted_evaluated.ipynb</a>; <a class="reference external" href="clustering_mdtraj_adapted.py">clustering_mdtraj_adapted.py</a>)</p>
+</div>
+<div class="section" id="principal-component-analysis-with-sklearn">
+<h2><a class="toc-backref" href="#id3">Principal component analysis with sklearn</a><a class="headerlink" href="#principal-component-analysis-with-sklearn" title="Permalink to this headline">¶</a></h2>
+<p>Original tutorial is from <a class="reference external" href="http://mdtraj.org/latest/examples/pca.html">here</a></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">cpptraj (then pytraj) has PCA analysis. Doc is coming soon.</p>
+</div>
+<div class="ipynotebook" id="notebook-container">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="PCA-analysis-with-sklearn-(adapted-from-mdtraj-and-cpptraj-tutorial)">PCA analysis with sklearn (adapted from <code>mdtraj</code> and cpptraj tutorial)<a class="anchor-link" href="#PCA-analysis-with-sklearn-(adapted-from-mdtraj-and-cpptraj-tutorial)">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;  # high resolution
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span> <span class="c1"># larger image</span>
+
+<span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="k">import</span> <span class="n">PCA</span>
+<span class="kn">from</span> <span class="nn">pytraj.plot</span> <span class="k">import</span> <span class="n">show_config</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
+<span class="ansi-green-fg">/Users/haichit/miniconda3/lib/python3.5/site-packages/matplotlib/rcsetup.py</span> in <span class="ansi-cyan-fg">validate_dpi</span><span class="ansi-blue-fg">(s)</span>
+<span class="ansi-green-intense-fg ansi-bold">    206</span>     <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 207</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> float<span class="ansi-blue-fg">(</span>s<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    208</span>     <span class="ansi-green-fg">except</span> ValueError<span class="ansi-blue-fg">:</span>
+
+<span class="ansi-red-fg">ValueError</span>: could not convert string to float: &#39;figurefigure&#39;
+
+During handling of the above exception, another exception occurred:
+
+<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
+<span class="ansi-green-fg">/Users/haichit/miniconda3/lib/python3.5/site-packages/matplotlib/__init__.py</span> in <span class="ansi-cyan-fg">__setitem__</span><span class="ansi-blue-fg">(self, key, val)</span>
+<span class="ansi-green-intense-fg ansi-bold">    925</span>             <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 926</span><span class="ansi-red-fg">                 </span>cval <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>validate<span class="ansi-blue-fg">[</span>key<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">(</span>val<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    927</span>             <span class="ansi-green-fg">except</span> ValueError <span class="ansi-green-fg">as</span> ve<span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">/Users/haichit/miniconda3/lib/python3.5/site-packages/matplotlib/rcsetup.py</span> in <span class="ansi-cyan-fg">validate_dpi</span><span class="ansi-blue-fg">(s)</span>
+<span class="ansi-green-intense-fg ansi-bold">    209</span>         raise ValueError(&#39;&#34;%s&#34; is not string &#34;figure&#34; or&#39;
+<span class="ansi-green-fg">--&gt; 210</span><span class="ansi-red-fg">             &#39; could not convert &#34;%s&#34; to float&#39; % (s, s))
+</span><span class="ansi-green-intense-fg ansi-bold">    211</span> 
+
+<span class="ansi-red-fg">ValueError</span>: &#34;figurefigure&#34; is not string &#34;figure&#34; or could not convert &#34;figurefigure&#34; to float
+
+During handling of the above exception, another exception occurred:
+
+<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-1-26cbf5b99efa&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      6</span> get_ipython<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>magic<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;config InlineBackend.figure_format = &#39;retina&#39;  # high resolution&#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      7</span> <span class="ansi-green-fg">import</span> matplotlib
+<span class="ansi-green-fg">----&gt; 8</span><span class="ansi-red-fg"> </span>matplotlib<span class="ansi-blue-fg">.</span>rcParams<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;savefig.dpi&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> <span class="ansi-cyan-fg">2</span> <span class="ansi-blue-fg">*</span> matplotlib<span class="ansi-blue-fg">.</span>rcParams<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;savefig.dpi&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-red-fg"># larger image</span>
+<span class="ansi-green-intense-fg ansi-bold">      9</span> 
+<span class="ansi-green-intense-fg ansi-bold">     10</span> <span class="ansi-green-fg">import</span> pytraj <span class="ansi-green-fg">as</span> pt
+
+<span class="ansi-green-fg">/Users/haichit/miniconda3/lib/python3.5/site-packages/matplotlib/__init__.py</span> in <span class="ansi-cyan-fg">__setitem__</span><span class="ansi-blue-fg">(self, key, val)</span>
+<span class="ansi-green-intense-fg ansi-bold">    926</span>                 cval <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>validate<span class="ansi-blue-fg">[</span>key<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">(</span>val<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    927</span>             <span class="ansi-green-fg">except</span> ValueError <span class="ansi-green-fg">as</span> ve<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 928</span><span class="ansi-red-fg">                 </span><span class="ansi-green-fg">raise</span> ValueError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;Key %s: %s&#34;</span> <span class="ansi-blue-fg">%</span> <span class="ansi-blue-fg">(</span>key<span class="ansi-blue-fg">,</span> str<span class="ansi-blue-fg">(</span>ve<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    929</span>             dict<span class="ansi-blue-fg">.</span>__setitem__<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> key<span class="ansi-blue-fg">,</span> cval<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    930</span>         <span class="ansi-green-fg">except</span> KeyError<span class="ansi-blue-fg">:</span>
+
+<span class="ansi-red-fg">ValueError</span>: Key savefig.dpi: &#34;figurefigure&#34; is not string &#34;figure&#34; or could not convert &#34;figurefigure&#34; to float</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># we use `load` method to load all data to memory. This is good for small data size.</span>
+<span class="c1"># use `pytraj.iterload` for out-of-core traj.</span>
+
+<span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;tz2.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;tz2.parm7&#39;</span><span class="p">)</span>
+<span class="n">traj</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-2-c725c494e36a&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> <span class="ansi-red-fg"># use `pytraj.iterload` for out-of-core traj.</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> 
+<span class="ansi-green-fg">----&gt; 4</span><span class="ansi-red-fg"> </span>traj <span class="ansi-blue-fg">=</span> pt<span class="ansi-blue-fg">.</span>load<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;tz2.nc&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;tz2.parm7&#39;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> traj
+
+<span class="ansi-red-fg">NameError</span>: name &#39;pt&#39; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">pca</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-3-3a38360c2cc9&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>pca <span class="ansi-blue-fg">=</span> PCA<span class="ansi-blue-fg">(</span>n_components<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> pca
+
+<span class="ansi-red-fg">NameError</span>: name &#39;PCA&#39; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># superpose to 1st frame</span>
+<span class="n">pt</span><span class="o">.</span><span class="n">superpose</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;!@H=&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-4-18994d813a5f&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg"># superpose to 1st frame</span>
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>pt<span class="ansi-blue-fg">.</span>superpose<span class="ansi-blue-fg">(</span>traj<span class="ansi-blue-fg">,</span> ref<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">,</span> mask<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;!@H=&#39;</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;pt&#39; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create average structure</span>
+
+<span class="n">avg</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">mean_structure</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+<span class="n">avg</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-5-0afa673d8b2b&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg"># create average structure</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> 
+<span class="ansi-green-fg">----&gt; 3</span><span class="ansi-red-fg"> </span>avg <span class="ansi-blue-fg">=</span> pt<span class="ansi-blue-fg">.</span>mean_structure<span class="ansi-blue-fg">(</span>traj<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> avg
+
+<span class="ansi-red-fg">NameError</span>: name &#39;pt&#39; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># superpose all structures to average frame</span>
+<span class="n">pt</span><span class="o">.</span><span class="n">superpose</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">avg</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;!@H=&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-6-25077ed5f129&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg"># superpose all structures to average frame</span>
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>pt<span class="ansi-blue-fg">.</span>superpose<span class="ansi-blue-fg">(</span>traj<span class="ansi-blue-fg">,</span> ref<span class="ansi-blue-fg">=</span>avg<span class="ansi-blue-fg">,</span> mask<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;!@H=&#39;</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;pt&#39; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># perform PCA calculation and get transformed coords</span>
+<span class="c1"># we need to reshape 3D traj.xyz array to 2D to make sklearn happy</span>
+<span class="c1"># make a new traj by stripping all H atoms</span>
+<span class="n">traj_new</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[</span><span class="s1">&#39;!@H=&#39;</span><span class="p">]</span>
+<span class="n">xyz_2d</span> <span class="o">=</span> <span class="n">traj_new</span><span class="o">.</span><span class="n">xyz</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">traj_new</span><span class="o">.</span><span class="n">n_frames</span><span class="p">,</span> <span class="n">traj_new</span><span class="o">.</span><span class="n">n_atoms</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">xyz_2d</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># (n_frames, n_dimensions)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-7-d0184d7149fd&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> <span class="ansi-red-fg"># we need to reshape 3D traj.xyz array to 2D to make sklearn happy</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> <span class="ansi-red-fg"># make a new traj by stripping all H atoms</span>
+<span class="ansi-green-fg">----&gt; 4</span><span class="ansi-red-fg"> </span>traj_new <span class="ansi-blue-fg">=</span> traj<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;!@H=&#39;</span><span class="ansi-blue-fg">]</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> xyz_2d <span class="ansi-blue-fg">=</span> traj_new<span class="ansi-blue-fg">.</span>xyz<span class="ansi-blue-fg">.</span>reshape<span class="ansi-blue-fg">(</span>traj_new<span class="ansi-blue-fg">.</span>n_frames<span class="ansi-blue-fg">,</span> traj_new<span class="ansi-blue-fg">.</span>n_atoms <span class="ansi-blue-fg">*</span> <span class="ansi-cyan-fg">3</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      6</span> print<span class="ansi-blue-fg">(</span>xyz_2d<span class="ansi-blue-fg">.</span>shape<span class="ansi-blue-fg">)</span> <span class="ansi-red-fg"># (n_frames, n_dimensions)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;traj&#39; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reduced_cartesian</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">xyz_2d</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">reduced_cartesian</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># (n_frames, n_dimensions)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-8-4cbba4e61bf6&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>reduced_cartesian <span class="ansi-blue-fg">=</span> pca<span class="ansi-blue-fg">.</span>fit_transform<span class="ansi-blue-fg">(</span>xyz_2d<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> print<span class="ansi-blue-fg">(</span>reduced_cartesian<span class="ansi-blue-fg">.</span>shape<span class="ansi-blue-fg">)</span> <span class="ansi-red-fg"># (n_frames, n_dimensions)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;pca&#39; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ignore warning</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">reduced_cartesian</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">reduced_cartesian</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">traj_new</span><span class="o">.</span><span class="n">n_frames</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;PC1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;PC2&#39;</span><span class="p">)</span>
+<span class="n">cbar</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;frame #&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-9-78741aadba8b&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> 
+<span class="ansi-green-intense-fg ansi-bold">      5</span> plt<span class="ansi-blue-fg">.</span>figure<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">----&gt; 6</span><span class="ansi-red-fg"> </span>plt<span class="ansi-blue-fg">.</span>scatter<span class="ansi-blue-fg">(</span>reduced_cartesian<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">:</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> reduced_cartesian<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">:</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> marker<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;o&#39;</span><span class="ansi-blue-fg">,</span> c<span class="ansi-blue-fg">=</span>range<span class="ansi-blue-fg">(</span>traj_new<span class="ansi-blue-fg">.</span>n_frames<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> alpha<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">0.5</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      7</span> plt<span class="ansi-blue-fg">.</span>xlabel<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;PC1&#39;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      8</span> plt<span class="ansi-blue-fg">.</span>ylabel<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;PC2&#39;</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;reduced_cartesian&#39; is not defined</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_text output_subarea ">
+<pre>&lt;matplotlib.figure.Figure at 0x1061e9cc0&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Compare-to-cpptraj-data">Compare to cpptraj data<a class="anchor-link" href="#Compare-to-cpptraj-data">&#182;</a></h3><p><strong>note</strong>: stop here if you do not care (a bit compilicated code)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># cpptraj</span>
+
+<span class="c1"># copy from Amber15 manual (page 619)</span>
+<span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1"># Step one. Generate average structure.</span>
+<span class="s1"># RMS-Fit to first frame to remove global translation/rotation.</span>
+<span class="s1">parm tz2.parm7</span>
+<span class="s1">trajin tz2.nc</span>
+<span class="s1">rms first !@H=</span>
+<span class="s1">average crdset AVG</span>
+<span class="s1">run</span>
+<span class="s1"># Step two. RMS-Fit to average structure. Calculate covariance matrix.</span>
+<span class="s1"># Save the fit coordinates.</span>
+<span class="s1">rms ref AVG !@H=</span>
+<span class="s1">matrix covar name MyMatrix !@H=</span>
+<span class="s1">createcrd CRD1</span>
+<span class="s1">run</span>
+<span class="s1"># Step three. Diagonalize matrix.</span>
+<span class="s1">runanalysis diagmatrix MyMatrix vecs 2 name MyEvecs</span>
+<span class="s1"># Step four. Project saved fit coordinates along eigenvectors 1 and 2</span>
+<span class="s1">crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2</span>
+<span class="s1">&#39;&#39;&#39;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">state</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_cpptraj_state</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-11-bf09cdb6c965&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>state <span class="ansi-blue-fg">=</span> pt<span class="ansi-blue-fg">.</span>datafiles<span class="ansi-blue-fg">.</span>load_cpptraj_state
+
+<span class="ansi-red-fg">NameError</span>: name &#39;pt&#39; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">state</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_cpptraj_state</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+<span class="c1"># tell &#39;run&#39; to perform all calculation</span>
+<span class="n">state</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-12-fb6ac06f4aef&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>state <span class="ansi-blue-fg">=</span> pt<span class="ansi-blue-fg">.</span>datafiles<span class="ansi-blue-fg">.</span>load_cpptraj_state<span class="ansi-blue-fg">(</span>command<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> <span class="ansi-red-fg"># tell &#39;run&#39; to perform all calculation</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> state<span class="ansi-blue-fg">.</span>run<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;pt&#39; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get data</span>
+<span class="n">state</span><span class="o">.</span><span class="n">data</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-13-6eac12750354&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg"># get data</span>
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>state<span class="ansi-blue-fg">.</span>data
+
+<span class="ansi-red-fg">NameError</span>: name &#39;state&#39; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">([</span><span class="n">dset</span><span class="o">.</span><span class="n">key</span> <span class="k">for</span> <span class="n">dset</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;MyMatrix&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-14-eba03c85f5cc&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span>dset<span class="ansi-blue-fg">.</span>key <span class="ansi-green-fg">for</span> dset <span class="ansi-green-fg">in</span> state<span class="ansi-blue-fg">.</span>data<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> print<span class="ansi-blue-fg">(</span>state<span class="ansi-blue-fg">.</span>data<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;MyMatrix&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>values<span class="ansi-blue-fg">.</span>shape<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;state&#39; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># reduced_cartesian corresponds to dataset with names of &#39;Mode1&#39;, &#39;Mode2&#39;</span>
+<span class="n">mode_0</span><span class="p">,</span> <span class="n">mode_1</span> <span class="o">=</span> <span class="o">-</span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Mode1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="o">-</span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Mode2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="c1"># mode_0, mode_1 = state.data[&#39;Mode1&#39;].values, state.data[&#39;Mode2&#39;].values</span>
+
+<span class="c1"># plot: cpptraj</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax_0</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
+<span class="n">ax_0</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">mode_0</span><span class="p">,</span> <span class="n">mode_1</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">n_frames</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax_0</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;PC1&#39;</span><span class="p">)</span>
+<span class="n">ax_0</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;PC2&#39;</span><span class="p">)</span>
+<span class="n">ax_0</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">80</span><span class="p">])</span>
+<span class="n">ax_0</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">])</span>
+<span class="n">ax_0</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;cpptraj-flip&#39;</span><span class="p">)</span>
+<span class="n">ax_0</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([</span><span class="o">-</span><span class="mi">40</span><span class="p">,</span> <span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">])</span>
+
+<span class="c1"># plot: sklearn</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax_1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">)</span>
+<span class="n">ax_1</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">reduced_cartesian</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">reduced_cartesian</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">n_frames</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax_1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;PC1&#39;</span><span class="p">)</span>
+<span class="n">ax_1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;PC2&#39;</span><span class="p">)</span>
+<span class="n">ax_1</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([</span><span class="o">-</span><span class="mi">40</span><span class="p">,</span> <span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">])</span>
+<span class="n">ax_1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;sklearn&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-15-28a51c3c6770&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg"># reduced_cartesian corresponds to dataset with names of &#39;Mode1&#39;, &#39;Mode2&#39;</span>
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>mode_0<span class="ansi-blue-fg">,</span> mode_1 <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">-</span>state<span class="ansi-blue-fg">.</span>data<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;Mode1&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>values<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">-</span>state<span class="ansi-blue-fg">.</span>data<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;Mode2&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>values
+<span class="ansi-green-intense-fg ansi-bold">      3</span> <span class="ansi-red-fg"># mode_0, mode_1 = state.data[&#39;Mode1&#39;].values, state.data[&#39;Mode2&#39;].values</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> 
+<span class="ansi-green-intense-fg ansi-bold">      5</span> <span class="ansi-red-fg"># plot: cpptraj</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;state&#39; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sklearn </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">reduced_cartesian</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">reduced_cartesian</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">cpptraj</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1"># flip sign, why?</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mode_0</span><span class="p">,</span> <span class="n">mode_1</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>sklearn 
+
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-16-47225f2601de&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;sklearn \n&#39;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>print<span class="ansi-blue-fg">(</span>reduced_cartesian<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">:</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> reduced_cartesian<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">:</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> 
+<span class="ansi-green-intense-fg ansi-bold">      4</span> print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;\ncpptraj\n&#39;</span><span class="ansi-blue-fg">)</span> <span class="ansi-red-fg"># flip sign, why?</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> print<span class="ansi-blue-fg">(</span>mode_0<span class="ansi-blue-fg">,</span> mode_1<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;reduced_cartesian&#39; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+</div><p>(<a class="reference external" href="pca_mdtraj_adapted.ipynb">pca_mdtraj_adapted.ipynb</a>; <a class="reference external" href="pca_mdtraj_adapted_evaluated.ipynb">pca_mdtraj_adapted_evaluated.ipynb</a>; <a class="reference external" href="pca_mdtraj_adapted.py">pca_mdtraj_adapted.py</a>)</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015-2016, pytraj developers.<br/>
+      Last updated on Mar 29, 2017.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
