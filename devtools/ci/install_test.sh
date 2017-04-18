@@ -2,7 +2,7 @@
 
 # for testing
 conda install -y anaconda-client jupyter notebook
-conda install ambertools=17 -c http://ambermd.org/downloads/ambertools/conda/
+conda install -y ambertools=17 -c http://ambermd.org/downloads/ambertools/conda/
 conda install -y cclib -c omnia
 conda install -y nglview -c bioconda
 pip install coveralls
