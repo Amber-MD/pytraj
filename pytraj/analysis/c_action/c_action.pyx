@@ -378,10 +378,10 @@ cdef class Action_Center(Action):
         self.thisptr.Help()
 
 
-cdef class Action_Hbond(Action):
+cdef class Action_HydrogenBond(Action):
     def __cinit__(self):
-        self.baseptr = <_Action*> new _Action_Hbond()
-        self.thisptr = <_Action_Hbond*> self.baseptr
+        self.baseptr = <_Action*> new _Action_HydrogenBond()
+        self.thisptr = <_Action_HydrogenBond*> self.baseptr
         self.own_memory = True
 
     def __dealloc__(self):

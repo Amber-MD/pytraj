@@ -427,15 +427,15 @@ cdef class Action_GridFreeEnergy (Action):
     cdef _Action_GridFreeEnergy* thisptr
 
 
-cdef extern from "Action_Hbond.h": 
-    cdef cppclass _Action_Hbond "Action_Hbond" (_Action) nogil:
-        _Action_Hbond() 
+cdef extern from "Action_HydrogenBond.h": 
+    cdef cppclass _Action_HydrogenBond "Action_HydrogenBond" (_Action) nogil:
+        _Action_HydrogenBond() 
         _DispatchObject * Alloc() 
         void Help() 
 
 
-cdef class Action_Hbond (Action):
-    cdef _Action_Hbond* thisptr
+cdef class Action_HydrogenBond (Action):
+    cdef _Action_HydrogenBond* thisptr
 
 
 cdef extern from "Action_Image.h": 
