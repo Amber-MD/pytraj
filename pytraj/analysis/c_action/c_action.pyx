@@ -28,6 +28,7 @@ def _get_adict():
     ADICT["rog"] = _ALL['Action_Radgyr']
     ADICT["stfcdiffusion"] = _ALL['Action_STFC_Diffusion']
     ADICT["symmrmsd"] = _ALL['Action_SymmetricRmsd']
+    ADICT["hbond"] = _ALL['Action_HydrogenBond']
 
     return ADICT
 
