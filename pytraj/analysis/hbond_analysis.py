@@ -181,7 +181,7 @@ def hbond(traj,
     >>> # 'GLU5_O-V' mean non-specific hbond between GLU5_O and solvent (:WAT in this case)
     """
     dslist = CpptrajDatasetList()
-    act = c_action.Action_Hbond()
+    act = c_action.Action_HydrogenBond()
 
     s_donor = "solventdonor " + str(solvent_donor) if solvent_donor else ""
     s_acceptor = "solventacceptor " + \
