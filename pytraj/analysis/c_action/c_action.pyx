@@ -28,6 +28,7 @@ def _get_adict():
     ADICT["rog"] = _ALL['Action_Radgyr']
     ADICT["stfcdiffusion"] = _ALL['Action_STFC_Diffusion']
     ADICT["symmrmsd"] = _ALL['Action_SymmetricRmsd']
+    ADICT["hbond"] = _ALL['Action_HydrogenBond']
 
     return ADICT
 
@@ -378,10 +379,10 @@ cdef class Action_Center(Action):
         self.thisptr.Help()
 
 
-cdef class Action_Hbond(Action):
+cdef class Action_HydrogenBond(Action):
     def __cinit__(self):
-        self.baseptr = <_Action*> new _Action_Hbond()
-        self.thisptr = <_Action_Hbond*> self.baseptr
+        self.baseptr = <_Action*> new _Action_HydrogenBond()
+        self.thisptr = <_Action_HydrogenBond*> self.baseptr
         self.own_memory = True
 
     def __dealloc__(self):

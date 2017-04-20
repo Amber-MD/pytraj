@@ -51,7 +51,7 @@ class TestVelocity(unittest.TestCase):
         
         state = pt.load_cpptraj_state(cm)
         state.run()
-        aa_eq(data0, state.data[-1].values)
+        aa_eq(data0[0], state.data[-2].values)
 
         # usevelocity = True
         data = pt.all_actions.velocityautocorr(traj, 
@@ -66,12 +66,12 @@ class TestVelocity(unittest.TestCase):
         
         state = pt.load_cpptraj_state(cm)
         state.run()
-        aa_eq(data, state.data[-1].values)
+        aa_eq(data[0], state.data[-2].values)
 
         # try on memory Trajectory, usevelocity = False
         traj_on_mem = traj[:]
         data2 = pt.all_actions.velocityautocorr(traj_on_mem, tstep=2, norm=True, direct=True)
-        aa_eq(data0, data2)
+        aa_eq(data0[0], data2[0])
 
         # try on memory Trajectory, usevelocity = True
         # need to raise if no `velocity_arr` is given

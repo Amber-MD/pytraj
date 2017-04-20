@@ -177,11 +177,11 @@ def hbond(traj,
     donor_acceptor pairs : 8>
 
     >>> hbonds.donor_acceptor
-    ['LYS8_O-GLU5_N-H', 'GLU5_O-LYS8_N-H', 'LYS8_HZ1-V', 'LYS8_HZ2-V', 'GLU5_OE2-V', 'GLU5_O-V', 'GLU5_OE1-V', 'LYS8_HZ3-V']
+    ['LYS8_O-GLU5_N-H', 'GLU5_O-LYS8_N-H', 'GLU5_OE2-V', 'GLU5_O-V', 'LYS8_HZ2-V', 'GLU5_OE1-V', 'LYS8_HZ1-V', 'LYS8_HZ3-V']
     >>> # 'GLU5_O-V' mean non-specific hbond between GLU5_O and solvent (:WAT in this case)
     """
     dslist = CpptrajDatasetList()
-    act = c_action.Action_Hbond()
+    act = c_action.Action_HydrogenBond()
 
     s_donor = "solventdonor " + str(solvent_donor) if solvent_donor else ""
     s_acceptor = "solventacceptor " + \
