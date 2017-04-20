@@ -68,13 +68,16 @@ class TestDoc(unittest.TestCase):
             array,
             nmr,
             check_and_assert,
-            pt.hbond_analysis,
             pt.tools,
             testing,
             utils,
             base_holder,
         ]
         modules.extend(additional_list)
+        assert not get_total_errors(modules)
+
+    def test_doc_hbond_analysis(self):
+        modules = [pt.hbond_analysis,]
         assert not get_total_errors(modules)
 
     def test_doc_matrix(self):
