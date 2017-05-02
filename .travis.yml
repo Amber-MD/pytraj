@@ -51,4 +51,8 @@ after_success:
     - ../devtools/ci/coveralls
 
 notifications:
-  email: false
+  email:
+    recipients:
+      - nhai.qn@gmail.com
+    on_success: never
+    on_failure: always
