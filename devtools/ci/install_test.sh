@@ -2,10 +2,11 @@
 
 # for testing
 conda install -y anaconda-client jupyter notebook
-conda install -y parmed -c ambermd
-conda install -y pysander -c hainm
+conda install -y ambertools=17 -c http://ambermd.org/downloads/ambertools/conda/
+pip uninstall pytraj -y # from ambertools
 conda install -y cclib -c omnia
-conda install -y nglview -c bioconda
+conda install -y ipywidgets=5.2.2
+pip install nglview
 pip install coveralls
 pip install coverage
 pip install pytest-cov
