@@ -7,7 +7,6 @@ from utils import fn
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         mask = "@CA"
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))

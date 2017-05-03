@@ -43,58 +43,62 @@ class CircleProgress(object):
         fn = os.path.dirname(__file__) + '/progress-circle/css/circle.css'
         with open(fn) as fh:
             style_str = fh.read()
-        style = "<style>\n" + style_str +  "</style>" 
+        style = "<style>\n" + style_str + "</style>"
 
         fn2 = os.path.dirname(__file__) + '/progress-circle/progress-circle.js'
         with open(fn2) as fh:
             js = fh.read()
         display(HTML(style + circle_html % (js, circle, circle)))
-    
+
     @classmethod
     def make_bar(cls, idx, max_frames, circle):
         '''work with jupyter notebook.
         '''
-        percent = str(100*idx/max_frames)
+        percent = str(100 * idx / max_frames)
         display(Javascript(js_circle % (circle, percent)))
-    
+
     @classmethod
     def log_progress(cls, sequence, every=1, size=None):
         index = 0
         circle = str(uuid.uuid4())
         cls.init_display(circle)
-    
+
         for index, record in enumerate(sequence, 1):
             if index == 1 or index % every == 0:
                 cls.make_bar(index, size, circle)
             yield record
+
 
 class BarProgress(object):
     @classmethod
     def init_display(cls, divid0, divid1, color='#0080FF'):
         my_html = pb.format(id0=divid0, id1=divid1, color=color, msg='0')
         display(HTML(my_html))
-    
+
     @classmethod
     def make_bar(cls, idx, max_frames, divid0, divid1):
         '''work with jupyter notebook.
         '''
-        percent = str(100*idx/max_frames)
-        s0 = "$('div#{id0}').text({percent});".format(id0=divid0, percent=percent)
-        s1 = "$('div#{id1}').width('{percent}%');".format(id1=divid1, percent=percent)
+        percent = str(100 * idx / max_frames)
+        s0 = "$('div#{id0}').text({percent});".format(
+            id0=divid0, percent=percent)
+        s1 = "$('div#{id1}').width('{percent}%');".format(
+            id1=divid1, percent=percent)
         s = s0 + '\n' + s1
         display(Javascript(s))
-    
+
     @classmethod
     def log_progress(cls, sequence, every=1, size=None, color='#0080FF'):
         index = 0
         divid0 = str(uuid.uuid4())
         divid1 = str(uuid.uuid4())
         cls.init_display(divid0, divid1, color=color)
-    
+
         for index, record in enumerate(sequence, 1):
             if index == 1 or index % every == 0:
                 cls.make_bar(index, size, divid0, divid1)
             yield record
+
 
 class BasicNumberProgress(object):
     @classmethod
@@ -103,7 +107,7 @@ class BasicNumberProgress(object):
             every = 1
         for index, record in enumerate(sequence, 1):
             if index == 1 or index % every == 0:
-                sys.stdout.write(' {}%'.format(100*index/size))
+                sys.stdout.write(' {}%'.format(100 * index / size))
                 sys.stdout.flush()
             yield record
 
@@ -129,6 +133,7 @@ class ProgressBarTrajectory(object):
     >>> p = ProgressBarTrajectory(traj, style='tqdm')
     >>> pt.molsurf(p) # make sure to use Jupyter notebook
     """
+
     def __init__(self, traj, style='bar', **kwargs):
         self.traj = traj
         self.style = style
@@ -154,14 +159,14 @@ class ProgressBarTrajectory(object):
 
         if self.style == 'bar':
             color = self.params.get('color', '#0080FF')
-            my_iter = BarProgress.log_progress(self.traj, every=self.every,
-                size=self.n_frames, color=color)
+            my_iter = BarProgress.log_progress(
+                self.traj, every=self.every, size=self.n_frames, color=color)
         elif self.style == 'basic':
-            my_iter = BasicNumberProgress.log_progress(self.traj, every=self.every,
-                size=self.n_frames)
+            my_iter = BasicNumberProgress.log_progress(
+                self.traj, every=self.every, size=self.n_frames)
         elif self.style == 'circle':
-            my_iter = CircleProgress.log_progress(self.traj, every=self.every,
-                size=self.n_frames)
+            my_iter = CircleProgress.log_progress(
+                self.traj, every=self.every, size=self.n_frames)
         elif self.style == 'tqdm':
             from tqdm import tqdm_notebook
             my_iter = tqdm_notebook(self.traj, total=self.n_frames)
@@ -174,10 +179,11 @@ class ProgressBarTrajectory(object):
             yield frame
 
     def __getstate__(self):
-        d = {'style': self.style,
-             'every': self.every,
-             'params': self.params,
-             }
+        d = {
+            'style': self.style,
+            'every': self.every,
+            'params': self.params,
+        }
         d['traj'] = self.traj
         return d
 

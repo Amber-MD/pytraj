@@ -8,10 +8,9 @@ import pytest
 
 
 class TestVelocity(unittest.TestCase):
-
     def test_velocity(self):
-        traj = pt.iterload(fn('issue807/trunc.nc'),
-                           fn("issue807/system.prmtop"))
+        traj = pt.iterload(
+            fn('issue807/trunc.nc'), fn("issue807/system.prmtop"))
 
         traj[0]
 
@@ -38,39 +37,39 @@ class TestVelocity(unittest.TestCase):
 
     def test_velocityautocorr(self):
         # usevelocity = False
-        traj = pt.iterload(fn('issue807/trunc.nc'),
-                           fn("issue807/system.prmtop"))
-        data0 = pt.all_actions.velocityautocorr(traj, tstep=2, norm=True, direct=True)
+        traj = pt.iterload(
+            fn('issue807/trunc.nc'), fn("issue807/system.prmtop"))
+        data0 = pt.all_actions.velocityautocorr(
+            traj, tstep=2, norm=True, direct=True)
 
         cm = """
         parm {}
         trajin {}
         velocityautocorr mydata * tstep 2 norm direct
-        """.format(fn('issue807/system.prmtop'),
-                   fn('issue807/trunc.nc'))
-        
+        """.format(fn('issue807/system.prmtop'), fn('issue807/trunc.nc'))
+
         state = pt.load_cpptraj_state(cm)
         state.run()
         aa_eq(data0[0], state.data[-2].values)
 
         # usevelocity = True
-        data = pt.all_actions.velocityautocorr(traj, 
-                tstep=1, norm=False, direct=True, usevelocity=True)
+        data = pt.all_actions.velocityautocorr(
+            traj, tstep=1, norm=False, direct=True, usevelocity=True)
 
         cm = """
         parm {}
         trajin {}
         velocityautocorr mydata * tstep 1 direct usevelocity
-        """.format(fn('issue807/system.prmtop'),
-                   fn('issue807/trunc.nc'))
-        
+        """.format(fn('issue807/system.prmtop'), fn('issue807/trunc.nc'))
+
         state = pt.load_cpptraj_state(cm)
         state.run()
         aa_eq(data[0], state.data[-2].values)
 
         # try on memory Trajectory, usevelocity = False
         traj_on_mem = traj[:]
-        data2 = pt.all_actions.velocityautocorr(traj_on_mem, tstep=2, norm=True, direct=True)
+        data2 = pt.all_actions.velocityautocorr(
+            traj_on_mem, tstep=2, norm=True, direct=True)
         aa_eq(data0[0], data2[0])
 
         # try on memory Trajectory, usevelocity = True
@@ -78,19 +77,24 @@ class TestVelocity(unittest.TestCase):
         traj_on_mem = traj[:]
 
         with pytest.raises(ValueError):
-            pt.all_actions.velocityautocorr(traj_on_mem, tstep=2, norm=True, direct=True,
-                                     usevelocity=True)
+            pt.all_actions.velocityautocorr(
+                traj_on_mem, tstep=2, norm=True, direct=True, usevelocity=True)
         # try on memory Trajectory, usevelocity = True
         traj_on_disk = traj
         velocity_arr = pt.get_velocity(traj_on_disk)
-        data3 = pt.all_actions.velocityautocorr(traj_on_mem, tstep=2, norm=True, direct=True,
-                                     usevelocity=True,
-                                     velocity_arr=velocity_arr)
+        data3 = pt.all_actions.velocityautocorr(
+            traj_on_mem,
+            tstep=2,
+            norm=True,
+            direct=True,
+            usevelocity=True,
+            velocity_arr=velocity_arr)
 
-        data4 = pt.all_actions.velocityautocorr(traj_on_disk, tstep=2, norm=True, direct=True,
-                                     usevelocity=True)
+        data4 = pt.all_actions.velocityautocorr(
+            traj_on_disk, tstep=2, norm=True, direct=True, usevelocity=True)
 
         # raise if velocity_arr has wrong shape
         velocity_arr_2 = velocity_arr.flatten()
         with pytest.raises(ValueError):
-            pt.all_actions.velocityautocorr(traj_on_mem, usevelocity=True, velocity_arr=velocity_arr_2)
+            pt.all_actions.velocityautocorr(
+                traj_on_mem, usevelocity=True, velocity_arr=velocity_arr_2)

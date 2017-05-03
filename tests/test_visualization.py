@@ -15,29 +15,33 @@ try:
     #------------------------------------------------------
     class DummyComm(Comm):
         comm_id = 'a-b-c-d'
-    
+
         def open(self, *args, **kwargs):
             pass
-    
+
         def send(self, *args, **kwargs):
             pass
-    
+
         def close(self, *args, **kwargs):
             pass
-    
+
     _widget_attrs = {}
     displayed = []
     undefined = object()
 
-    _widget_attrs['_comm_default'] = getattr(Widget, '_comm_default', undefined)
+    _widget_attrs['_comm_default'] = getattr(Widget, '_comm_default',
+                                             undefined)
     Widget._comm_default = lambda self: DummyComm()
     _widget_attrs['_ipython_display_'] = Widget._ipython_display_
+
     def raise_not_implemented(*args, **kwargs):
         raise NotImplementedError()
+
     Widget._ipython_display_ = raise_not_implemented
 except ImportError:
     has_nglview = False
-    nglview = Comm = DummyComm = _widget_attrs = displayed = undefined = Widget  = None
+    nglview = Comm = DummyComm = _widget_attrs = displayed = undefined = Widget = None
+
 
 @unittest.skipUnless(has_nglview, "Only test if having nglview")
 class TestVisualization(unittest.TestCase):

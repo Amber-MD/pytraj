@@ -7,7 +7,6 @@ from pytraj.testing import aa_eq
 
 
 class TestSlicingTrajectory(unittest.TestCase):
-
     def test_array_like(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         FA = traj[:]
@@ -47,7 +46,6 @@ class TestSlicingTrajectory(unittest.TestCase):
 
 
 class Test1(unittest.TestCase):
-
     def test_0(self):
         # create Trajectory from Trajing_Single
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))[:]
@@ -75,7 +73,6 @@ class Test1(unittest.TestCase):
 
 
 class TestSegmentationFault(unittest.TestCase):
-
     def test_0(self):
         # NOTE: no assert, just check for segfault
         traj = pt.load(fn('Tc5b.x'), fn('Tc5b.top'))

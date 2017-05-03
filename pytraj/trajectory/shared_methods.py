@@ -2,6 +2,7 @@
 #
 __all__ = ['iterframe_master', '_xyz', 'my_str_method', '_box']
 
+
 def _xyz(self):
     """return a copy of xyz coordinates (wrapper of ndarray, shape=(n_frames, n_atoms, 3)
     We can not return a memoryview since Trajectory is a C++ vector of Frame object
@@ -22,11 +23,12 @@ def _xyz(self):
         myview[i] = frame._buffer2d
     return myview
 
+
 def my_str_method(self):
     name = "pytraj." + self.__class__.__name__
     top_str = self.top.__str__()
-    estimated_size = '\nSize: %3.6f (GB)\n' % (self.n_frames * self.n_atoms *
-                                               3 * 8 / (1024**3))
+    estimated_size = '\nSize: %3.6f (GB)\n' % (
+        self.n_frames * self.n_atoms * 3 * 8 / (1024**3))
     tmps = """{0}, {1} frames: {2}{3}
            """.format(name, self.n_frames, estimated_size, top_str)
     return tmps
@@ -88,8 +90,8 @@ def iterframe_master(obj):
 
 def _box(self):
     import numpy as np
-    boxarr = np.empty(self.n_frames * 6,
-                      dtype=np.float64).reshape(self.n_frames, 6)
+    boxarr = np.empty(
+        self.n_frames * 6, dtype=np.float64).reshape(self.n_frames, 6)
 
     # Note: tried `enumerate` but got wrong result.
     # --> use old fashion

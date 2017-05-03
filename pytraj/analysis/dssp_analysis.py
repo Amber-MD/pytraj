@@ -7,21 +7,17 @@ from ..utils.decorators import register_openmp
 from ..datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 from .c_action.c_action import Action_DSSP
 
-__all__ = [
-    'dssp',
-    'dssp_allatoms',
-    'dssp_allresidues'
-]
+__all__ = ['dssp', 'dssp_allatoms', 'dssp_allresidues']
 
 
 @register_openmp
 @super_dispatch()
 def dssp(traj=None,
-              mask="",
-              frame_indices=None,
-              dtype='ndarray',
-              simplified=False,
-              top=None):
+         mask="",
+         frame_indices=None,
+         dtype='ndarray',
+         simplified=False,
+         top=None):
     """return dssp profile for frame/traj
 
     Parameters
@@ -118,12 +114,14 @@ def dssp(traj=None,
         arr0 = dslist.grep("integer", mode='dtype').values
         keys = dslist.grep("integer", mode='dtype').keys()
         avg_dict = DatasetList(dslist.grep('_avg'))
-        ss_array = np.asarray([_to_string_secondary_structure(
-            arr,
-            simplified=simplified) for arr in arr0]).T
+        ss_array = np.asarray([
+            _to_string_secondary_structure(arr, simplified=simplified)
+            for arr in arr0
+        ]).T
         return np.asarray(keys), ss_array, avg_dict
     else:
         return get_data_from_dtype(dslist, dtype=dtype)
+
 
 # _s0 = ['None', 'Para', 'Anti', '3-10', 'Alpha', 'Pi', 'Turn', 'Bend']
 _s1 = ["0", "b", "B", "G", "H", "I", "T", "S"]
@@ -159,11 +157,7 @@ def _to_string_secondary_structure(arr0, simplified=False):
     return np.vectorize(lambda key: ssdict[key])(arr0)
 
 
-def get_ss_per_frame(arr,
-                     top,
-                     res_indices,
-                     simplified=False,
-                     all_atoms=False):
+def get_ss_per_frame(arr, top, res_indices, simplified=False, all_atoms=False):
     if simplified:
         symbol = 'C'
 
@@ -177,7 +171,9 @@ def get_ss_per_frame(arr,
                 ]
             else:
                 # only residues
-                yield [ss, ]
+                yield [
+                    ss,
+                ]
         else:
             if all_atoms:
                 yield [
@@ -185,7 +181,9 @@ def get_ss_per_frame(arr,
                     for _ in range(res.first_atom_index, res.last_atom_index)
                 ]
             else:
-                yield [symbol, ]
+                yield [
+                    symbol,
+                ]
 
 
 def dssp_allatoms(traj, *args, **kwd):
@@ -222,11 +220,9 @@ def dssp_allatoms(traj, *args, **kwd):
 
     simplified = kwd.get('simplified', False)
     for fid, arr in enumerate(data):
-        new_data[fid][:] = tools.flatten(get_ss_per_frame(arr,
-                                                          top,
-                                                          res_indices,
-                                                          simplified,
-                                                          all_atoms=True))
+        new_data[fid][:] = tools.flatten(
+            get_ss_per_frame(
+                arr, top, res_indices, simplified, all_atoms=True))
     return new_data
 
 
@@ -283,9 +279,7 @@ def dssp_allresidues(traj, *args, **kwd):
 
     simplified = kwd.get('simplified', False)
     for fid, arr in enumerate(data):
-        new_data[fid][:] = tools.flatten(get_ss_per_frame(arr,
-                                                          top,
-                                                          res_indices,
-                                                          simplified,
-                                                          all_atoms=False))
+        new_data[fid][:] = tools.flatten(
+            get_ss_per_frame(
+                arr, top, res_indices, simplified, all_atoms=False))
     return new_data

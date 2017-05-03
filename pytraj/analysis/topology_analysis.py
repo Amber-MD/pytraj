@@ -3,6 +3,7 @@ from ..core.c_core import CpptrajState, Command
 from ..utils.context import capture_stdout
 from ..externals.six import StringIO
 
+
 def compare_topology(top0, top1):
     ''' top0, top1 are :class:`pytraj.Topology`
 
@@ -24,6 +25,7 @@ def compare_topology(top0, top1):
             command.dispatch(state, 'comparetop top0 top1')
     content = StringIO(out.read())
     return content.read()
+
 
 def _whatinfo(top, command, ref, task):
     ''' info for given Topology and Frame.
@@ -52,6 +54,7 @@ def _whatinfo(top, command, ref, task):
     # show anything.
     return content.read()
     # return content
+
 
 atominfo = partial(_whatinfo, task='atominfo')
 resinfo = partial(_whatinfo, task='resinfo')

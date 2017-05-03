@@ -2,9 +2,16 @@ from __future__ import absolute_import
 import os
 from ..trajectory.trajectory_iterator import TrajectoryIterator
 
-__all__ = ['load_sample_data', 'load_rna', 'load_tz2_ortho', 'load_tz2',
-           'load_ala3', 'load_dpdp', 'load_trpcage',
-           'load_remd_ala2',]
+__all__ = [
+    'load_sample_data',
+    'load_rna',
+    'load_tz2_ortho',
+    'load_tz2',
+    'load_ala3',
+    'load_dpdp',
+    'load_trpcage',
+    'load_remd_ala2',
+]
 
 
 def load_sample_data(data_name=None):
@@ -27,12 +34,10 @@ def load_sample_data(data_name=None):
         'rna': ["rna.pdb", "rna.pdb"],
         'trpcage': ["trpcage/trpcage.pdb.gz", "trpcage/trpcage.pdb.gz"],
         'dpdp': ["dpdp/DPDP.nc", "dpdp/DPDP.parm7"],
-        'remd_ala2': [
-                     ["remd_ala2/rem.nc.000",
-                      "remd_ala2/rem.nc.001",
-                      "remd_ala2/rem.nc.002",
-                      "remd_ala2/rem.nc.003"],
-                     "remd_ala2/ala2.parm7"],
+        'remd_ala2': [[
+            "remd_ala2/rem.nc.000", "remd_ala2/rem.nc.001",
+            "remd_ala2/rem.nc.002", "remd_ala2/rem.nc.003"
+        ], "remd_ala2/ala2.parm7"],
     }
 
     mydir = os.path.dirname(os.path.abspath(__file__))
@@ -70,6 +75,7 @@ def load_trpcage():
 
     '''
     return load_sample_data('trpcage')
+
 
 def load_remd_ala2():
     return load_sample_data('remd_ala2')

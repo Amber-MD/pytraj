@@ -7,14 +7,12 @@ from pytraj.utils import aa_eq
 
 
 class TestCrdFrames(unittest.TestCase):
-
     def test_crdframes(self):
         '''test crdframes in cpptraj
         '''
         max_frames = 50
-        traj = pt.iterload(fn('tz2.nc'),
-                           fn('tz2.parm7'),
-                           frame_slice=(0, max_frames, 2))
+        traj = pt.iterload(
+            fn('tz2.nc'), fn('tz2.parm7'), frame_slice=(0, max_frames, 2))
 
         state = pt.load_cpptraj_state('''
                 parm {0}

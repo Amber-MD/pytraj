@@ -16,11 +16,10 @@ FRAME_orig = FRAME.copy()
 
 
 class TestFrame(unittest.TestCase):
-
     def test_fit(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
-        trajnew = pt.iterload(fn('md1_prod.fit_to_first.Tc5b.x'),
-                              fn('Tc5b.top'))
+        trajnew = pt.iterload(
+            fn('md1_prod.fit_to_first.Tc5b.x'), fn('Tc5b.top'))
 
         # make sure 0-th frame does not change
         frame0 = traj[0]
@@ -101,7 +100,7 @@ class TestFrame(unittest.TestCase):
 
     def test_velocity(self):
         frame = pt.Frame(304)
-        velocity = np.zeros(304*3) + 1.
+        velocity = np.zeros(304 * 3) + 1.
         assert frame.velocity is None
         frame.velocity = velocity
         assert frame.velocity.shape == (304, 3)
@@ -110,12 +109,13 @@ class TestFrame(unittest.TestCase):
 
     def test_force(self):
         frame = pt.Frame(304)
-        force = np.zeros(304*3) + 1.
+        force = np.zeros(304 * 3) + 1.
         assert frame.force is None
         frame.force = force
         assert frame.force.shape == (304, 3)
         frame.force = None
         assert frame.force is None
+
 
 if __name__ == "__main__":
     unittest.main()

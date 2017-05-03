@@ -6,7 +6,6 @@ from pytraj.utils import aa_eq
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = pt.iterload(fn('Test_NAstruct/adh026.3.pdb'))
         d = pt.calc_delta(traj, resrange='1').values

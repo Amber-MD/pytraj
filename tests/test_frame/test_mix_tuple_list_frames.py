@@ -1,4 +1,3 @@
-
 import pytraj as pt
 from utils import fn
 
@@ -23,8 +22,9 @@ def count_frames(traj):
 def main():
     global count
     traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
-    boring_list = [traj[0], traj[1], traj, traj(1, 6, 2),
-                   traj.iterchunk(chunksize=4)]
+    boring_list = [
+        traj[0], traj[1], traj, traj(1, 6, 2), traj.iterchunk(chunksize=4)
+    ]
     count_frames(boring_list)
 
 

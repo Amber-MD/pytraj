@@ -11,7 +11,8 @@ try:
     # convert to pytraj object
     # you can use a pdb file, a mol2 file, ... as Topology too
     # as long as pytraj/cpptraj supports
-    traj = pt.Trajectory(xyz=m_traj.xyz.astype('f8'), top='../tests/data/tz2.ortho.parm7')
+    traj = pt.Trajectory(
+        xyz=m_traj.xyz.astype('f8'), top='../tests/data/tz2.ortho.parm7')
     print(traj)
 
     # perform 'action' on traj

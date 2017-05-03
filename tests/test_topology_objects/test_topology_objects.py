@@ -7,7 +7,6 @@ from utils import fn
 
 
 class TestTopoloyObjects(unittest.TestCase):
-
     def setUp(self):
         self.traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
@@ -18,6 +17,7 @@ class TestTopoloyObjects(unittest.TestCase):
     def test_residue(self):
         for idx, res in enumerate(self.traj.top.residues):
             assert res.index == idx, 'residue index'
+
 
 class TestSimplifiedTopology(unittest.TestCase):
     def test_simplified_topology(self):
@@ -44,6 +44,7 @@ class TestSimplifiedTopology(unittest.TestCase):
             # test __iter__
             for simatom in simres:
                 assert simatom.resname == simres.name
+
 
 if __name__ == "__main__":
     unittest.main()

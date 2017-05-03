@@ -3,6 +3,7 @@ from ..utils.decorators import register_pmap, register_openmp
 from .c_action import c_action
 from .c_action import do_action
 
+
 @register_pmap
 @register_openmp
 def spam(traj, peak_file, command, dtype='dict'):

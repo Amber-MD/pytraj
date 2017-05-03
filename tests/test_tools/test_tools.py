@@ -7,7 +7,6 @@ from pytraj.utils import aa_eq
 
 
 class TestTools(unittest.TestCase):
-
     def test_tools(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         aa_eq(pt.tools.as_2darray(traj), pt.tools.as_2darray(traj.xyz))
@@ -16,18 +15,26 @@ class TestTools(unittest.TestCase):
         assert pt.tools.as_2darray(traj).ndim == 2, 'ndim must be 2'
 
         #
-        self.assertRaises(ValueError, lambda: pt.tools.rmsd_1darray([3, 2], [[2, 3], [4, 6]]))
-        self.assertRaises(ValueError, lambda: pt.tools.rmsd_1darray([[2, 3], [4, 6]], [2, 3]))
+        self.assertRaises(
+            ValueError,
+            lambda: pt.tools.rmsd_1darray([3, 2], [[2, 3], [4, 6]]))
+        self.assertRaises(
+            ValueError,
+            lambda: pt.tools.rmsd_1darray([[2, 3], [4, 6]], [2, 3]))
 
         # rmsd
-        self.assertRaises(ValueError, lambda: pt.tools.rmsd([[2, 3], [4, 6]], [2, 3]))
-        self.assertRaises(ValueError, lambda: pt.tools.rmsd([[2, 3]], [2, 3], flatten=False))
+        self.assertRaises(ValueError,
+                          lambda: pt.tools.rmsd([[2, 3], [4, 6]], [2, 3]))
+        self.assertRaises(
+            ValueError, lambda: pt.tools.rmsd([[2, 3]], [2, 3], flatten=False))
 
         #
         for frame in pt.tools.split_traj_by_residues(traj, 0, 12):
             pass
 
-        assert not [name for name in pt.tools.dir_(frame) if name.startswith('_')]
+        assert not [
+            name for name in pt.tools.dir_(frame) if name.startswith('_')
+        ]
 
 
 if __name__ == "__main__":

@@ -12,11 +12,14 @@ traj0 = pt.load_sample_data('tz2')
 for _ in range(9):
     traj0.load(traj0.filelist)
 
-tlist = [traj0, ]
+tlist = [
+    traj0,
+]
 if os.path.exists("./data/nogit/remd/myparm.parm7"):
-    tlist.append(pt.iterload(
-        glob("./data/nogit/remd/remd.x.*")[:10],
-        "./data/nogit/remd/myparm.parm7"))
+    tlist.append(
+        pt.iterload(
+            glob("./data/nogit/remd/remd.x.*")[:10],
+            "./data/nogit/remd/myparm.parm7"))
 
 for traj in tlist[:1]:
     print(traj)
@@ -28,10 +31,8 @@ for traj in tlist[:1]:
 
     @profile
     def test_write():
-        pt.write_traj('test.nc',
-                      traj,
-                      frame_indices=range(10000),
-                      overwrite=True)
+        pt.write_traj(
+            'test.nc', traj, frame_indices=range(10000), overwrite=True)
         print(pt.iterload('./test.nc', traj.top))
 
     @profile
@@ -44,9 +45,7 @@ for traj in tlist[:1]:
     def test_closest():
         print('test_closest')
         for frame in pt.closest(
-                traj(0, 100),
-                n_solvents=10,
-                restype='iterator')[0]:
+                traj(0, 100), n_solvents=10, restype='iterator')[0]:
             pass
 
     @profile
@@ -116,8 +115,8 @@ for traj in tlist[:1]:
     @profile
     def test_iter_frame_indices():
         print('test_iter_frame_indices')
-        for idx, f in enumerate(traj(frame_indices=range(0, traj.n_frames,
-                                                         3))):
+        for idx, f in enumerate(
+                traj(frame_indices=range(0, traj.n_frames, 3))):
             pass
         print(idx)
 

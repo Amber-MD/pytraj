@@ -10,7 +10,6 @@ import numpy as np
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         dslist = CpptrajDatasetList()
         traj = mdio.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
@@ -23,8 +22,8 @@ class Test(unittest.TestCase):
         act.compute((traj.iterchunk(2), ))
         assert dslist.size == 1
         assert dslist[0].size == traj.n_frames
-        cppout = np.loadtxt(fn('CAres2_CAres10.Tc5b.dat'),
-                            skiprows=1).transpose()[1]
+        cppout = np.loadtxt(
+            fn('CAres2_CAres10.Tc5b.dat'), skiprows=1).transpose()[1]
         assert_almost_equal(dslist[0][:], cppout)
         act.compute((traj.iterchunk(chunksize=4, stop=8), ))
 

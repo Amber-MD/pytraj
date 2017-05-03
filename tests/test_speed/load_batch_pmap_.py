@@ -32,8 +32,10 @@ def test_pmap(traj=traj, n_cores=NCORES):
     return pt._load_batch_pmap(
         n_cores=n_cores,
         traj=traj,
-        lines=['autoimage', 'distance :1 :3', 'distance :5 :18', 'molsurf @CA',
-               'multidihedral'])
+        lines=[
+            'autoimage', 'distance :1 :3', 'distance :5 :18', 'molsurf @CA',
+            'multidihedral'
+        ])
 
 
 test_pmap()

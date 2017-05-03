@@ -211,8 +211,8 @@ class DatasetList(list):
             for _idx in range(start, stop, step):
                 new_dslist.append(self[_idx], copy=False)
             return new_dslist
-        elif is_array(idx) or isinstance(idx, list) and not isinstance(idx[0],
-                                                                       bool):
+        elif is_array(idx) or isinstance(
+                idx, list) and not isinstance(idx[0], bool):
             new_dslist = self.__class__()
             for _idx in idx:
                 new_dslist.append(self[_idx], copy=False)

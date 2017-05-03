@@ -25,10 +25,8 @@ try:
 
         flist.append(t0[0].copy())
 
-        en = pt.energy_decomposition(t0,
-                                     igb=8,
-                                     verbose=False,
-                                     parm=traj.top.filename)['dihedral'][0]
+        en = pt.energy_decomposition(
+            t0, igb=8, verbose=False, parm=traj.top.filename)['dihedral'][0]
         print(deg, en)
         deg_ene.append((deg, en))
 
@@ -38,10 +36,12 @@ try:
 
     # write multiple pdb to a single file to visualize
     # rotation with vmd.
-    pt.write_traj("output/test.pdb", flist,
-                  top=traj.top,
-                  overwrite=True,
-                  options='model')
+    pt.write_traj(
+        "output/test.pdb",
+        flist,
+        top=traj.top,
+        overwrite=True,
+        options='model')
 
     # plot the PMF
     try:

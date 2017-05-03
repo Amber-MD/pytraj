@@ -7,7 +7,6 @@ from utils import fn
 
 
 class TestTrajlist(unittest.TestCase):
-
     def test_trajlist(self):
         trajlist = []
         N = 4
@@ -18,10 +17,11 @@ class TestTrajlist(unittest.TestCase):
         traj0 = trajlist[0]
 
         with tempfolder():
-            pt.write_traj("test_savedtrajlist.x",
-                            traj=trajlist,
-                            top=traj.top,
-                            overwrite=True)
+            pt.write_traj(
+                "test_savedtrajlist.x",
+                traj=trajlist,
+                top=traj.top,
+                overwrite=True)
 
             # test loading
             traj2 = pt.iterload("test_savedtrajlist.x", traj.top)

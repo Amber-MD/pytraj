@@ -8,7 +8,6 @@ from utils import fn
 
 
 class TestGrid(unittest.TestCase):
-
     def test_0(self):
         from pytraj.math import Grid
         nx = ny = nz = 3
@@ -23,7 +22,6 @@ class TestGrid(unittest.TestCase):
 
 
 class TestGridAction(unittest.TestCase):
-
     def test_action_grid(self):
         from pytraj.all_actions import grid
         traj = pt.load_sample_data("tz2")[:]
@@ -46,8 +44,7 @@ class TestGridAction(unittest.TestCase):
         autoimage
         rms first :1-13&!@H= mass
         bounds :1-13 dx .5 name MyGrid
-        '''.format(fn('tz2.ortho.parm7'),
-                   fn('tz2.ortho.nc'))
+        '''.format(fn('tz2.ortho.parm7'), fn('tz2.ortho.nc'))
 
         state = pt.load_cpptraj_state(text)
         state.run()
@@ -61,9 +58,9 @@ class TestGridAction(unittest.TestCase):
         reference {} [REF]
         autoimage triclinic
         grid nonortho.dx boxref [REF] 50 50 50 :WAT@O pdb output/test.pdb
-        '''.format(fn('tz2.truncoct.parm7'),
-                   fn('tz2.truncoct.nc'),
-                   fn('tz2.truncoct.nc'))
+        '''.format(
+            fn('tz2.truncoct.parm7'),
+            fn('tz2.truncoct.nc'), fn('tz2.truncoct.nc'))
 
         state = pt.load_cpptraj_state(txt)
         state.run()

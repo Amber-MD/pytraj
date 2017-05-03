@@ -7,6 +7,7 @@ from pytraj.utils import tempfolder
 from utils import tz2_truncoct_trajin
 from utils import tz2_truncoct_top
 
+
 def test_spam():
     peaks_xyz = os.path.join(cpptraj_test_dir, 'Test_SPAM', 'peaks.xyz')
     command = """
@@ -22,7 +23,6 @@ def test_spam():
     with tempfolder():
         state.run()
 
-    
     traj = pt.iterload(tz2_truncoct_trajin, tz2_truncoct_top)
     # cm = 'SPAM cut 12.0 info spam.info out spam.dat reorder summary summary.dat'
     cm = 'SPAM cut 12.0 reorder'

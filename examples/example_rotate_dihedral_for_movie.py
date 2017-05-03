@@ -29,10 +29,12 @@ for deg in range(-180, 180, 5):
 # you can use this pdb file to view in VMD without loading
 # prmtop/gro/psf/...
 
-pt.write_traj("./output/test0.pdb", framelist,
-              top=traj.top,
-              options='model',
-              overwrite=True)
+pt.write_traj(
+    "./output/test0.pdb",
+    framelist,
+    top=traj.top,
+    options='model',
+    overwrite=True)
 
 # you can use VMD to open the new file
 # vmd ./output/test0.pdb

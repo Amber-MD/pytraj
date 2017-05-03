@@ -12,6 +12,7 @@ parm_name = fn('DPDP.parm7')
 traj_name = fn('DPDP.nc')
 cm = "parm " + parm_name + "\ntrajin " + traj_name + "\ncheckchirality\n"
 
+
 def test_check_structure():
     traj = pt.iterload(fn('DPDP.nc'), fn('DPDP.parm7'))
     out_dict = pt.check_chirality(traj)
@@ -20,5 +21,6 @@ def test_check_structure():
     state.run()
     cpp_out_dict = state.data[1:].to_dict()
 
-    for ((key, value), (cpp_key, cpp_value)) in zip(out_dict.items(), cpp_out_dict.items()):
+    for ((key, value), (cpp_key, cpp_value)) in zip(out_dict.items(),
+                                                    cpp_out_dict.items()):
         aa_eq(value, cpp_value)

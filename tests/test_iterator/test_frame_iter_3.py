@@ -6,7 +6,6 @@ from pytraj.datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 

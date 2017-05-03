@@ -4,7 +4,6 @@ import pytraj as pt
 from utils import fn
 from pytraj.utils.context import capture_stdout
 
-
 cm = '''
 parm {}
 trajin {}
@@ -15,10 +14,10 @@ analyze crankshaft angle phi2 phi3
 
 
 class TestCrank(unittest.TestCase):
-
     def test_crank(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
-        dihedrals = pt.dihedral(traj, [':1@C :2@N :2@CA :2@C', ':2@C :3@N :3@CA :3@C'])
+        dihedrals = pt.dihedral(
+            traj, [':1@C :2@N :2@CA :2@C', ':2@C :3@N :3@CA :3@C'])
         state = pt.load_cpptraj_state(cm)
         with capture_stdout() as (out, _):
             state.run()

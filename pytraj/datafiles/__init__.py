@@ -9,9 +9,10 @@ from .load_cpptraj_file import load_cpptraj_file
 from ..core.c_core import _load_batch
 from ..datasets.datasetlist import DatasetList
 
-__all__ = ['convert', 'load_cpptraj_state', 'load_cpptraj_output', 'Ala3_crd',
-           'Ala3_crd_top', 'tz2_ortho_nc', 'tz2_ortho_parm7',
-           'load_cpptraj_file']
+__all__ = [
+    'convert', 'load_cpptraj_state', 'load_cpptraj_output', 'Ala3_crd',
+    'Ala3_crd_top', 'tz2_ortho_nc', 'tz2_ortho_parm7', 'load_cpptraj_file'
+]
 
 mydir = os.path.dirname(os.path.abspath(__file__))
 
@@ -136,5 +137,6 @@ def convert(input_filename, to):
     state = CpptrajState()
 
     with Command() as command:
-        command.dispatch(state, 'readdata {} name mydata'.format(input_filename))
+        command.dispatch(state,
+                         'readdata {} name mydata'.format(input_filename))
         command.dispatch(state, 'writedata {} mydata '.format(to))

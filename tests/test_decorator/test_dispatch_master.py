@@ -9,7 +9,6 @@ from pytraj import sandbox as sb
 
 
 class TestSuperDispatch(unittest.TestCase):
-
     def test_radgyr_dispatch(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
 
@@ -18,23 +17,17 @@ class TestSuperDispatch(unittest.TestCase):
 
         # frame_indices
         aa_eq(
-            sb._toy_radgyr(traj,
-                           '@CA',
-                           frame_indices=[0, 3]),
+            sb._toy_radgyr(traj, '@CA', frame_indices=[0, 3]),
             pt.radgyr(traj, '@CA')[[0, 3]])
 
         # frame_indices, mask in kwd
         aa_eq(
-            sb._toy_radgyr(traj,
-                           mask='@CA',
-                           frame_indices=[0, 3]),
+            sb._toy_radgyr(traj, mask='@CA', frame_indices=[0, 3]),
             pt.radgyr(traj, '@CA')[[0, 3]])
 
         # frame iterator
         aa_eq(
-            sb._toy_radgyr(
-                traj(0, 3),
-                mask='@CA'),
+            sb._toy_radgyr(traj(0, 3), mask='@CA'),
             pt.radgyr(traj, '@CA')[[0, 1, 2]])
 
 

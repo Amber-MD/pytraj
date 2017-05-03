@@ -8,7 +8,6 @@ from utils import fn
 
 
 class TestImage(unittest.TestCase):
-
     def test_image(self):
         traj_on_disk = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         traj = traj_on_disk[:]
@@ -31,6 +30,7 @@ class TestImage(unittest.TestCase):
 
         aa_eq(cpptraj_xyz, traj.xyz)
         aa_eq(cpptraj_xyz, traj_on_disk.xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

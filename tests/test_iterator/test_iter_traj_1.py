@@ -8,7 +8,6 @@ from pytraj.testing import aa_eq
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         farray = traj[:]
@@ -33,7 +32,8 @@ class Test(unittest.TestCase):
         start, stop, step = 2, 8, 4
         indices = list(range(start, stop, step))
 
-        for idx, frame0, f in zip(indices, farray.iterframe(start, stop, step),
+        for idx, frame0, f in zip(indices,
+                                  farray.iterframe(start, stop, step),
                                   traj[indices]):
             aa_eq(frame0.xyz, f.xyz)
         assert_almost_equal(traj[6].xyz, frame0.xyz)

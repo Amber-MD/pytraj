@@ -9,14 +9,12 @@ from pytraj.testing import aa_eq
 # local
 from utils import fn
 
-
 TRAJ = Trajectory(fn("Tc5b.x"), fn("Tc5b.top"))
 
 tc5b_top = fn('Tc5b.top')
 
 
 class TestTopology(unittest.TestCase):
-
     def test_empty_top(self):
         top = Topology()
         assert top.is_empty() == True
@@ -130,6 +128,7 @@ class TestTopology(unittest.TestCase):
             assert atom.charge == sim_atom.charge, 'equal resname'
             assert atom.mass == sim_atom.mass, 'equal resname'
 
+
 def test_mass_atomic_number_dict():
     top = pt.load_topology(fn("tz2.parm7"))
     mass_list = []
@@ -137,6 +136,7 @@ def test_mass_atomic_number_dict():
     for atom in top:
         mass_list.append(mass_atomic_number_dict[atom.atomic_number])
     aa_eq(mass_list, top.mass, 2)
+
 
 def test_toplogy_mass():
     traj = pt.iterload(fn("Tc5b.x"), fn("Tc5b.top"))

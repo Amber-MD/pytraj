@@ -12,7 +12,6 @@ from utils import fn
 
 
 class Test(unittest.TestCase):
-
     def test_1(self):
         # just need to install libcpptraj with openmp
         # that's it
@@ -34,7 +33,8 @@ class Test(unittest.TestCase):
         act = Analysis_Rms2d()
 
         with Timer() as t:
-            act("crdset test_traj rmsout ./output/_test_2drms_CRDtest.openmp.dat",
+            act(
+                "crdset test_traj rmsout ./output/_test_2drms_CRDtest.openmp.dat",
                 dslist=dslist,
                 dflist=dflist)
 
@@ -42,9 +42,10 @@ class Test(unittest.TestCase):
         import numpy as np
         matout = dslist[-1].get_full_matrix()
 
-        tmp = np.loadtxt("./data/test_openmp.Tc5b.n_threads_1.dat",
-                         skiprows=1,
-                         usecols=range(1, dslist[0].size + 1))
+        tmp = np.loadtxt(
+            "./data/test_openmp.Tc5b.n_threads_1.dat",
+            skiprows=1,
+            usecols=range(1, dslist[0].size + 1))
         cpp_save = tmp.flatten()
         # use decimal = 3 to mathc cpptraj's format here
         assert_almost_equal(cpp_save, matout, decimal=3)

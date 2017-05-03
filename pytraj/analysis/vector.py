@@ -4,19 +4,19 @@ from ..externals.six import string_types
 from ..utils.decorators import register_pmap
 from .c_action import do_action, c_action
 from .c_action.actionlist import ActionList
-from ..utils.get_common_objects import (get_topology,
-                                       get_data_from_dtype,
-                                       get_list_of_commands,
-                                       get_fiterator,
-                                       super_dispatch,
-)
+from ..utils.get_common_objects import (
+    get_topology,
+    get_data_from_dtype,
+    get_list_of_commands,
+    get_fiterator,
+    super_dispatch, )
 from ..datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 
 SUPPORTED_TYPES = [
     x
     for x in
-    'minimage dipole center corrplane box boxcenter ucellx ucelly ucellz principal'.split(
-    )
+    'minimage dipole center corrplane box boxcenter ucellx ucelly ucellz principal'.
+    split()
 ]
 
 __all__ = ['vector', 'vector_mask'] + SUPPORTED_TYPES[:]
@@ -30,6 +30,7 @@ def _2darray_to_atommask_groups(seq):
     for arr in seq:
         # example: arr = [0, 3]; turns ot '@1 @4'
         yield '@' + str(arr[0] + 1) + ' @' + str(arr[1] + 1)
+
 
 @register_pmap
 def vector(traj=None,

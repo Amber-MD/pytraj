@@ -10,7 +10,6 @@ import parmed as pmd
 
 
 class TestParmEdConverter(unittest.TestCase):
-
     def test_parmed_converter(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         parm = pmd.load_file(traj.top.filename)
@@ -23,6 +22,7 @@ class TestParmEdConverter(unittest.TestCase):
             assert atom.atomic_number == atom2.atomic_number, 'equal atomic_number'
             assert atom.residue.name == atom2.residue.name, 'residue name'
             aa_eq(atom.charge, atom2.charge, decimal=4)
+
 
 if __name__ == "__main__":
     unittest.main()

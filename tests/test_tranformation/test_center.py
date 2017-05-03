@@ -4,11 +4,10 @@ import pytraj as pt
 from utils import fn
 from pytraj.utils import aa_eq
 
-
 from utils import fn
 
-class TestCenter(unittest.TestCase):
 
+class TestCenter(unittest.TestCase):
     def test_center(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         pt.load(fn("tz2.center_mass.nc"), traj.top)
@@ -36,6 +35,7 @@ class TestCenter(unittest.TestCase):
         traj_on_disk = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         pt.center(traj_on_disk, ':1', center=[0, 1, 2], mass=True)
         aa_eq(pt.center_of_mass(traj_on_disk, ':1')[0], [0, 1, 2])
+
 
 if __name__ == "__main__":
     unittest.main()

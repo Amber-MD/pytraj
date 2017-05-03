@@ -1,7 +1,6 @@
 from __future__ import absolute_import
 import numpy as np
 from pytraj.datasets.c_datasets import Dataset
-
 '''Should always use numpy array or familiar python data structure like Dict, ...
 '''
 

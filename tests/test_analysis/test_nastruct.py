@@ -7,8 +7,8 @@ from pytraj.testing import aa_eq
 
 from utils import fn
 
-class TestNastruct(unittest.TestCase):
 
+class TestNastruct(unittest.TestCase):
     def test_nupars(self):
         pdb_fn = fn('Test_NAstruct/adh026.3.pdb')
         traj = pt.iterload(pdb_fn, pdb_fn)
@@ -19,26 +19,41 @@ class TestNastruct(unittest.TestCase):
         parm {}
         trajin {}
         nastruct groovecalc 3dna
-        '''.format(fn('Test_NAstruct/adh026.3.pdb'),
-                   fn('Test_NAstruct/adh026.3.pdb'))
+        '''.format(
+            fn('Test_NAstruct/adh026.3.pdb'), fn('Test_NAstruct/adh026.3.pdb'))
 
         state = pt.load_cpptraj_state(text)
         state.run()
 
         for key in ['major', 'minor', 'twist']:
-            cpp_data = np.array([x.values for x in state.data if x.aspect ==
-                                 key])
+            cpp_data = np.array(
+                [x.values for x in state.data if x.aspect == key])
             # need to transpose to get shape=(n_frames, n_pairs)
             cpp_data = cpp_data.T
             aa_eq(data[key][1], cpp_data)
 
         # TODO: assert
         data._summary(np.mean, indices=None)
-        data._summary(np.mean, indices=[1, ])
-        data._summary(np.mean, keys=['major', 'twist'], indices=[1, ])
-        data._summary(np.mean, keys='major', indices=[1, ])
-        data._summary(np.std, indices=[1, ])
-        data._summary([np.std, np.mean], indices=[1, ])
+        data._summary(
+            np.mean, indices=[
+                1,
+            ])
+        data._summary(
+            np.mean, keys=['major', 'twist'], indices=[
+                1,
+            ])
+        data._summary(
+            np.mean, keys='major', indices=[
+                1,
+            ])
+        data._summary(
+            np.std, indices=[
+                1,
+            ])
+        data._summary(
+            [np.std, np.mean], indices=[
+                1,
+            ])
         data._explain()
         dir(data)
 
@@ -50,7 +65,8 @@ class TestNastruct(unittest.TestCase):
             aa_eq(data[key][1], na2[key][1])
 
         # raise
-        self.assertRaises(ValueError, lambda: pt.nastruct(traj, dtype='ndarray'))
+        self.assertRaises(ValueError,
+                          lambda: pt.nastruct(traj, dtype='ndarray'))
 
     def test_baseref(self):
         pdb_fn = fn('Test_NAstruct/adh026.3.pdb')
@@ -88,9 +104,8 @@ class TestNastruct(unittest.TestCase):
         root = fn('Test_NAstruct/x3dna/')
 
         # helical pars
-        saved_helical_pars = np.loadtxt(root + 'bp_helical.par',
-                                        skiprows=3,
-                                        usecols=range(1, 13)).T
+        saved_helical_pars = np.loadtxt(
+            root + 'bp_helical.par', skiprows=3, usecols=range(1, 13)).T
         aa_eq(nu.shear[1], saved_helical_pars[0], decimal=3)
         aa_eq(nu.stretch[1], saved_helical_pars[1], decimal=3)
         aa_eq(nu.stagger[1], saved_helical_pars[2], decimal=3)
@@ -105,9 +120,8 @@ class TestNastruct(unittest.TestCase):
         aa_eq(nu.htwist[1], saved_helical_pars[11][1:], decimal=3)
 
         # bp_step
-        saved_helical_pars = np.loadtxt(root + 'bp_step.par',
-                                        skiprows=3,
-                                        usecols=range(1, 13)).T
+        saved_helical_pars = np.loadtxt(
+            root + 'bp_step.par', skiprows=3, usecols=range(1, 13)).T
         aa_eq(nu.shift[1], saved_helical_pars[6][1:], decimal=3)
         aa_eq(nu.slide[1], saved_helical_pars[7][1:], decimal=3)
         aa_eq(nu.tilt[1], saved_helical_pars[9][1:], decimal=3)
