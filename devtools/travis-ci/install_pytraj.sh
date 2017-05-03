@@ -4,6 +4,9 @@
 # python setup.py install --amber-release
 
 
+# from AmberTools
+rm /home/travis/miniconda3/envs/myenv/lib/libcpptraj*
+
 if [ "$TRAVIS_OS_NAME" = "osx" ]; then
     python setup.py build_ext -i --disable-openmp
     pip install .
