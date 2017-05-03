@@ -21,6 +21,7 @@ else
     export AMBERHOME=`pwd`
     
     cd $PYTRAJ_HOME
+    python run_tests.py -s
     if [ "$isOSX" = "True" ]; then
         echo "Minimal tests for OSX"
         (cd tests && py.test -v test_analysis/)
