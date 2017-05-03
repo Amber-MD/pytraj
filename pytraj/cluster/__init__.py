@@ -8,7 +8,6 @@ from pytraj.utils.get_common_objects import super_dispatch, get_iterator_from_ds
 from pytraj.analysis.c_analysis import c_analysis
 from pytraj.datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 
-
 __all__ = [
     'cluster',
     'kmeans',
@@ -16,6 +15,7 @@ __all__ = [
     'hieragglo'
     'cluster_dataset',
 ]
+
 
 class ClusteringDataset(object):
     '''
@@ -40,6 +40,7 @@ class ClusteringDataset(object):
     centroids : np.ndarray[int]
         Representative frame index for each cluster
     '''
+
     def __init__(self, cpp_out):
         self._cpp_out = cpp_out
 
@@ -60,7 +61,11 @@ class ClusteringDataset(object):
 
     @property
     def fraction(self):
-        return np.array([float(val)/self.n_frames for _, val in self.population.items()])
+        n_frames = self.n_frames
+        arr = sorted(
+            (float(val) / n_frames for _, val in self.population.items()),
+            reverse=True)
+        return np.asarray(arr)
 
     @property
     def centroids(self):
@@ -70,7 +75,14 @@ class ClusteringDataset(object):
                 line = line.strip(words)
                 return np.array(line.split(), dtype='i4')
 
-def _cluster(traj, algorithm, mask="", frame_indices=None, dtype='dataset', top=None, options=''):
+
+def _cluster(traj,
+             algorithm,
+             mask="",
+             frame_indices=None,
+             dtype='dataset',
+             top=None,
+             options=''):
     """clustering. Limited support.
 
     Parameters
@@ -128,13 +140,15 @@ def _cluster(traj, algorithm, mask="", frame_indices=None, dtype='dataset', top=
     # need to creat `dslist` here so that every time `do_clustering` is called,
     # we will get a fresh one (or will get segfault)
     crdname = 'DEFAULT_NAME'
-    dslist, _top, mask2 = get_iterator_from_dslist(traj, mask, frame_indices, top, crdname=crdname)
+    dslist, _top, mask2 = get_iterator_from_dslist(
+        traj, mask, frame_indices, top, crdname=crdname)
 
     if 'summary' not in options.split():
         options += ' summary'
 
     # do not output cluster info to STDOUT
-    command = ' '.join((algorithm, mask2, "crdset {0}".format(crdname), options))
+    command = ' '.join((algorithm, mask2, "crdset {0}".format(crdname),
+                        options))
 
     with capture_stdout() as (out, _):
         ana(command, dslist)
@@ -144,25 +158,45 @@ def _cluster(traj, algorithm, mask="", frame_indices=None, dtype='dataset', top=
     return ClusteringDataset((get_data_from_dtype(dslist[:1], dtype='ndarray'),
                               out.read()))
 
+
 def hieragglo(traj=None, mask="", options='', dtype='dataset'):
-    return _cluster(traj=traj, algorithm='hieragglo', mask=mask,
-            dtype=dtype,
-            top=traj.top, options=options)
+    return _cluster(
+        traj=traj,
+        algorithm='hieragglo',
+        mask=mask,
+        dtype=dtype,
+        top=traj.top,
+        options=options)
+
 
 def dbscan(traj=None, mask="", options='', dtype='dataset'):
-    return _cluster(traj=traj, algorithm='dbscan', mask=mask,
-            dtype=dtype,
-            top=traj.top, options=options)
+    return _cluster(
+        traj=traj,
+        algorithm='dbscan',
+        mask=mask,
+        dtype=dtype,
+        top=traj.top,
+        options=options)
+
 
 def dpeaks(traj=None, mask="", options='', dtype='dataset'):
-    return _cluster(traj=traj, algorithm='dpeaks', mask=mask,
-            dtype=dtype,
-            top=traj.top, options=options)
+    return _cluster(
+        traj=traj,
+        algorithm='dpeaks',
+        mask=mask,
+        dtype=dtype,
+        top=traj.top,
+        options=options)
+
 
 def readinfo(traj=None, mask="", options='', dtype='dataset'):
-    return _cluster(traj=traj, algorithm='readinfo', mask=mask,
-            dtype=dtype,
-            top=traj.top, options=options)
+    return _cluster(
+        traj=traj,
+        algorithm='readinfo',
+        mask=mask,
+        dtype=dtype,
+        top=traj.top,
+        options=options)
 
 
 hieragglo.__doc__ = _cluster.__doc__ + """
@@ -185,6 +219,7 @@ dbscan.__doc__ = _cluster.__doc__ + """
 
 dpeaks.__doc__ = _cluster.__doc__
 readinfo.__doc__ = _cluster.__doc__
+
 
 @super_dispatch()
 @register_openmp
@@ -280,7 +315,14 @@ def kmeans(traj=None,
     _output = options
     command = ' '.join((_clusters, _random_point, _kseed, _maxit, _metric,
                         _output))
-    return _cluster(traj, mask, frame_indices=frame_indices, top=top, dtype=dtype, options=command)
+    return _cluster(
+        traj,
+        mask,
+        frame_indices=frame_indices,
+        top=top,
+        dtype=dtype,
+        options=command)
+
 
 def cluster_dataset(array_like, options=''):
     '''cluster dataset
