@@ -4,18 +4,21 @@
 # python setup.py install --amber-release
 
 
-if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-    python setup.py install --disable-openmp
+if [ "$TRAVIS_OS_NAME" = "osx" ]; then
+    python setup.py build --disable-openmp
+    pip install .
 else
-    if [ "$TEST_SETUP" == 'true' ]; then
+    if [ "$TEST_SETUP" = 'true' ]; then
         echo "TEST_SETUP"
     else
-        if [ "$USE_OPENMP" == 'false' ]; then 
-            python setup.py install --disable-openmp
+        if [ "$USE_OPENMP" = 'false' ]; then 
+            python setup.py build --disable-openmp
         else
             # pytraj will pick compiler based on COMPILER env
             # or using default (gnu for linux, clang for osx)
-            python setup.py install
+            python setup.py build
         fi
+        # need to use pip to overwrite version in AmberTools
+        pip install .
     fi
 fi
