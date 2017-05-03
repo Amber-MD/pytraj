@@ -26,23 +26,23 @@ except ImportError:
     from urllib import urlopen
 
 __all__ = [
-   'load',
-   'iterload',
-   'load_remd',
-   'iterload_remd',
-   'load_pdb_rcsb',
-   'load_cpptraj_file',
-   'load_sample_data',
-   'load_parmed',
-   'load_leap',
-   'load_antechamber',
-   'load_topology',
-   'write_parm',
-   'save',
-   'write_traj',
-   'read_pickle',
-   'to_pickle',
-   'select_atoms',
+    'load',
+    'iterload',
+    'load_remd',
+    'iterload_remd',
+    'load_pdb_rcsb',
+    'load_cpptraj_file',
+    'load_sample_data',
+    'load_parmed',
+    'load_leap',
+    'load_antechamber',
+    'load_topology',
+    'write_parm',
+    'save',
+    'write_traj',
+    'read_pickle',
+    'to_pickle',
+    'select_atoms',
 ]
 
 
@@ -439,12 +439,13 @@ def write_traj(filename,
     crdinfo['has_velocity'] = has_velocity
 
     if not isinstance(traj, np.ndarray):
-        with TrajectoryWriter(filename=filename,
-                     top=_top,
-                     format=format,
-                     overwrite=overwrite,
-                     crdinfo=crdinfo,
-                     options=options) as trajout:
+        with TrajectoryWriter(
+                filename=filename,
+                top=_top,
+                format=format,
+                overwrite=overwrite,
+                crdinfo=crdinfo,
+                options=options) as trajout:
             if isinstance(traj, Frame):
                 if frame_indices is not None:
                     raise ValueError(
@@ -467,15 +468,16 @@ def write_traj(filename,
         xyz = np.asarray(traj)
         if not xyz.flags.c_contiguous:
             xyz = np.ascontiguousarray(xyz)
-        _frame_indices = range(xyz.shape[
-            0]) if frame_indices is None else frame_indices
+        _frame_indices = range(
+            xyz.shape[0]) if frame_indices is None else frame_indices
         fi = iterframe_from_array(xyz, _top.n_atoms, _frame_indices, _top)
 
-        with TrajectoryWriter(filename=filename,
-                     top=_top,
-                     crdinfo=crdinfo,
-                     overwrite=overwrite,
-                     options=options) as trajout:
+        with TrajectoryWriter(
+                filename=filename,
+                top=_top,
+                crdinfo=crdinfo,
+                overwrite=overwrite,
+                options=options) as trajout:
 
             for _, frame in fi:
                 trajout.write(frame)
@@ -483,8 +485,8 @@ def write_traj(filename,
 
 def write_parm(filename=None, top=None, format='amberparm', overwrite=False):
     if os.path.exists(filename) and not overwrite:
-        raise RuntimeError('{0} exists, must set overwrite=True'.format(
-            filename))
+        raise RuntimeError(
+            '{0} exists, must set overwrite=True'.format(filename))
     parm = ParmFile()
     parm.write(filename=filename, top=top, format=format)
 
@@ -524,9 +526,7 @@ def load_topology(filename, option=''):
     if isinstance(filename, string_types):
         parm = ParmFile()
         set_error_silent(True)
-        parm.read(filename=filename,
-                      top=top,
-                      option=option)
+        parm.read(filename=filename, top=top, option=option)
         set_error_silent(False)
     else:
         raise ValueError('filename must be a string')
@@ -552,12 +552,14 @@ def loadpdb_rcsb(pdbid):
     url = 'http://files.rcsb.org/download/{}.pdb'.format(pdbid.upper())
     return _make_traj_from_remote_file(url)
 
+
 def load_url(url):
     """
     
     versionadded: 1.0.7
     """
     return _make_traj_from_remote_file(url)
+
 
 def _make_traj_from_remote_file(remote_file):
     import tempfile
@@ -570,6 +572,7 @@ def _make_traj_from_remote_file(remote_file):
         fh.write(txt)
 
     return load(fname)
+
 
 def download_PDB(pdbid, location="./", overwrite=False):
     """download pdb to local disk
@@ -592,6 +595,7 @@ def download_PDB(pdbid, location="./", overwrite=False):
         if PY3:
             txt = txt.decode()
         fh.write(txt)
+
 
 # create alias
 load_pdb_rcsb = loadpdb_rcsb
@@ -723,14 +727,16 @@ def get_coordinates(iterable,
         x is not None for x in (autoimage, rmsfit, mask, frame_indices))
     # try to iterate to get coordinates
     if isinstance(iterable, (Trajectory, TrajectoryIterator)):
-        fi = iterable.iterframe(autoimage=autoimage,
-                                rmsfit=rmsfit,
-                                mask=mask,
-                                frame_indices=frame_indices)
+        fi = iterable.iterframe(
+            autoimage=autoimage,
+            rmsfit=rmsfit,
+            mask=mask,
+            frame_indices=frame_indices)
     else:
         if has_any_iter_options:
             raise ValueError(
-                'only support autoimage, rmsfit or mask for Trajectory and TrajectoryIterator')
+                'only support autoimage, rmsfit or mask for Trajectory and TrajectoryIterator'
+            )
         fi = iterframe_master(iterable)
     if hasattr(fi, 'n_frames') and hasattr(fi, 'n_atoms'):
         # faster
@@ -746,6 +752,7 @@ def get_coordinates(iterable,
         return np.array(
             [frame.xyz.copy() for frame in iterframe_master(iterable)],
             dtype='f8')
+
 
 def load_batch(traj, txt):
     '''perform calculation for traj with cpptraj's batch style. This is for internal use.
@@ -783,6 +790,7 @@ def load_batch(traj, txt):
         raise ValueError('only support TrajectoryIterator')
     return _load_batch(txt, traj=traj)
 
+
 def read_data(filename, options=''):
     """same as readdata in cpptraj
 
@@ -795,6 +803,7 @@ def read_data(filename, options=''):
     cdslist = CpptrajDatasetList()
     cdslist.read_data(filename, options)
     return cdslist
+
 
 def write_data(filename, data):
     """same as writedata in cpptraj. (this is work in progress, only support 1D-array for now)
@@ -819,8 +828,7 @@ def write_data(filename, data):
     """
     data = np.asarray(data, dtype='f8')
 
-    dtype_map = {1: 'double',
-                 3: 'grid_float'}
+    dtype_map = {1: 'double', 3: 'grid_float'}
 
     from pytraj.core.c_core import CpptrajState, Command
 
@@ -834,10 +842,12 @@ def write_data(filename, data):
     d0 = state.data.add(dtype=dtype, name=dataset_name)
     d0.data = np.asarray(data)
 
-    cm = 'writedata {filename} {dataset_name}'.format(filename=filename, dataset_name=dataset_name)
+    cm = 'writedata {filename} {dataset_name}'.format(
+        filename=filename, dataset_name=dataset_name)
 
     with Command() as command:
         command.dispatch(state, cm)
+
 
 def _format_convert(input_filename, output_filename):
     """
@@ -852,14 +862,17 @@ def _format_convert(input_filename, output_filename):
     state = CpptrajState()
 
     with Command() as command:
-        command.dispatch(state, 'readdata {} name mydata'.format(input_filename))
+        command.dispatch(state,
+                         'readdata {} name mydata'.format(input_filename))
         command.dispatch(state, 'writedata {} mydata '.format(output_filename))
+
 
 def _get_amberhome():
     amberhome = os.getenv('AMBERHOME', '')
     if not amberhome:
         raise EnvironmentError("must set AMBERHOME")
     return amberhome
+
 
 def load_leap(command, verbose=False):
     """create pytraj.Trajectory from tleap's command.
@@ -902,6 +915,7 @@ def load_leap(command, verbose=False):
 
         return load(crd, parm)
 
+
 def load_antechamber(filename, format=None, options=''):
     """create pytraj.Trajectory by using antechamber to convert `filename` to mol2 format,
     then using `pytraj.load`
@@ -929,11 +943,15 @@ def load_antechamber(filename, format=None, options=''):
         with open(os.devnull, 'wb') as devnull:
             try:
                 subprocess.check_call(
-                    ['{antechamber} -i {input} -fi {ext} -o {output} -fo mol2 {options}'.format(antechamber=antechamber,
-                                     input=filename,
-                                     ext=ext,
-                                     output=fn,
-                                     options=options)],
+                    [
+                        '{antechamber} -i {input} -fi {ext} -o {output} -fo mol2 {options}'.
+                        format(
+                            antechamber=antechamber,
+                            input=filename,
+                            ext=ext,
+                            output=fn,
+                            options=options)
+                    ],
                     stdout=devnull,
                     stderr=subprocess.STDOUT,
                     shell=True)
@@ -942,6 +960,7 @@ def load_antechamber(filename, format=None, options=''):
                 print('')
                 raise e
         return load(fn)
+
 
 def select_atoms(mask, topology):
     '''return atom indices
@@ -959,4 +978,3 @@ def select_atoms(mask, topology):
     if isinstance(mask, Topology) and isinstance(topology, string_types):
         mask, topology = topology, mask
     return topology.select(mask)
-

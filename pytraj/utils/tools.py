@@ -47,7 +47,7 @@ def groupby(key, seq):
     Examples
     --------
     >>> names = ['Alice', 'Bob', 'Charlie', 'Dan', 'Edith', 'Frank']
-    >>> groupby(len, names)
+    >>> groupby(len, names) # doctest: +SKIP
     {3: ['Bob', 'Dan'], 5: ['Alice', 'Edith', 'Frank'], 7: ['Charlie']}
     '''
     d = defaultdict(lambda: seq.__class__().append)
@@ -68,6 +68,7 @@ def _array_to_cpptraj_range(seq):
     '3,5'
     '''
     return ",".join((str(i + 1) for i in seq))
+
 
 # string_types, PY2, PY3, iteritems were copied from six.py
 # see license in $PYTRAJHOME/license/externals/

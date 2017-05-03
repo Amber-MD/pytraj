@@ -12,7 +12,7 @@ def test_analyze_modes():
         diagmatrix tz2 name my_modes vecs 20
         modes fluct name my_modes
         '''.format(mask)
-        
+
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
         # cpptraj
@@ -26,11 +26,14 @@ def test_analyze_modes():
         cpp_modes = c_dslist[1]
 
         # pytraj
-        mat =  pt.matrix.mwcovar(traj, mask)
+        mat = pt.matrix.mwcovar(traj, mask)
         indices = traj.top.select(mask)
-        dslist = pt.matrix.diagonalize(mat, n_vecs=20, scalar_type='mwcovar',
-                mass=traj.top.mass[indices],
-                dtype='dataset')
+        dslist = pt.matrix.diagonalize(
+            mat,
+            n_vecs=20,
+            scalar_type='mwcovar',
+            mass=traj.top.mass[indices],
+            dtype='dataset')
         evecs, evals = dslist[0].eigenvectors, dslist[0].eigenvalues
         aa_eq(cpp_dict['tz2'], mat)
         aa_eq(evals, cpp_modes.eigenvalues)
@@ -38,27 +41,36 @@ def test_analyze_modes():
 
         with pytest.raises(AssertionError):
             # wrong mass
-            dslist = pt.matrix.diagonalize(mat, n_vecs=20, scalar_type='mwcovar',
-                    mass=traj.top.mass[indices].tolist() + [1],
-                    dtype='dataset')
+            dslist = pt.matrix.diagonalize(
+                mat,
+                n_vecs=20,
+                scalar_type='mwcovar',
+                mass=traj.top.mass[indices].tolist() + [1],
+                dtype='dataset')
         with pytest.raises(AssertionError):
             # mass is None
-            dslist = pt.matrix.diagonalize(mat, n_vecs=20, scalar_type='mwcovar',
-                    mass=None,
-                    dtype='dataset')
+            dslist = pt.matrix.diagonalize(
+                mat,
+                n_vecs=20,
+                scalar_type='mwcovar',
+                mass=None,
+                dtype='dataset')
 
         # pt._verbose()
-        fluct = pt.analyze_modes('fluct', evecs, evals, scalar_type='mwcovar', dtype='dataset') 
+        fluct = pt.analyze_modes(
+            'fluct', evecs, evals, scalar_type='mwcovar', dtype='dataset')
         # pt._verbose(False)
         p_rms = fluct['FLUCT_00001[rms]'].values
         c_rms = c_dslist['FLUCT_00003[rms]'].values
         aa_eq(p_rms, c_rms)
-    
+
+
 def test_mode_disp():
-    tz2_evecs = cpptraj_test_dir + '/Test_Analyze_Modes/tz2.evecs.dat' 
+    tz2_evecs = cpptraj_test_dir + '/Test_Analyze_Modes/tz2.evecs.dat'
     c_dslist = pt.io.read_data(tz2_evecs)
     c_modes = c_dslist[0]
-    disp_dict = pt.analyze_modes('displ', c_modes.eigenvectors, c_modes.eigenvalues, dtype='dict')
+    disp_dict = pt.analyze_modes(
+        'displ', c_modes.eigenvectors, c_modes.eigenvalues, dtype='dict')
 
     command = """
     readdata {} name tz2modes

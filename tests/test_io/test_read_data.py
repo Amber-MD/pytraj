@@ -7,11 +7,13 @@ from utils import fn
 from pytraj.utils import aa_eq
 from pytraj.testing import cpptraj_test_dir
 
-class TestReadWriteData(unittest.TestCase):
 
+class TestReadWriteData(unittest.TestCase):
     def test_read(self):
-        fn0 = "{cpptraj_test_dir}/Test_Vector/vtest.dat.6.save".format(cpptraj_test_dir=cpptraj_test_dir)
-        fn1 = "{cpptraj_test_dir}/Test_Vector/vtest.dat.7.save".format(cpptraj_test_dir=cpptraj_test_dir)
+        fn0 = "{cpptraj_test_dir}/Test_Vector/vtest.dat.6.save".format(
+            cpptraj_test_dir=cpptraj_test_dir)
+        fn1 = "{cpptraj_test_dir}/Test_Vector/vtest.dat.7.save".format(
+            cpptraj_test_dir=cpptraj_test_dir)
 
         cm = """
         readdata {} vector name v6
@@ -25,6 +27,7 @@ class TestReadWriteData(unittest.TestCase):
         data1 = pt.io.read_data(fn1, options='vector name v7')
         aa_eq(state.data[0].values, data0.values)
         aa_eq(state.data[1].values, data1.values)
+
 
 if __name__ == "__main__":
     unittest.main()

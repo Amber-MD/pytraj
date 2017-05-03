@@ -4,6 +4,7 @@ from pytraj.analysis import topology_analysis as ta
 # local
 from utils import fn
 
+
 def test_info():
     traj = pt.load(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
 

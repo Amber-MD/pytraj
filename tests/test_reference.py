@@ -9,7 +9,6 @@ from pytraj.utils import aa_eq
 
 
 class TestReferenceFrame(unittest.TestCase):
-
     def test_reference(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
@@ -38,8 +37,7 @@ class TestReferenceFrame(unittest.TestCase):
         dslist[-1].top = traj.top
         dslist[-1].add_frame(ref)
         act('myrmsd refindex 0 @CA', traj, top=traj.top, dslist=dslist)
-        aa_eq(pt.rmsd(traj, ref=traj[2], mask='@CA'),
-              dslist[-1].values)
+        aa_eq(pt.rmsd(traj, ref=traj[2], mask='@CA'), dslist[-1].values)
 
 
 if __name__ == "__main__":

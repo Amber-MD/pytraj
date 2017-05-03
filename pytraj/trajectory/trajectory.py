@@ -56,7 +56,12 @@ class Trajectory(SharedTrajectory):
     >>> for frame in traj: pass
     """
 
-    def __init__(self, filename=None, top=None, xyz=None, velocity=None, force=None):
+    def __init__(self,
+                 filename=None,
+                 top=None,
+                 xyz=None,
+                 velocity=None,
+                 force=None):
         self._top = get_topology(filename, top)
         if velocity is not None:
             velocity = np.asarray(velocity, dtype='f8')
@@ -238,8 +243,8 @@ class Trajectory(SharedTrajectory):
         if self._boxes is None:
             iter_obj = _fast_iterptr(self.xyz, self.n_atoms, indices, self.top)
         else:
-            iter_obj = _fast_iterptr_withbox(self.xyz, self._boxes, self.n_atoms,
-                                             indices, self.top)
+            iter_obj = _fast_iterptr_withbox(self.xyz, self._boxes,
+                                             self.n_atoms, indices, self.top)
 
         for (index, frame) in iter_obj:
             if self.forces is not None:
@@ -307,7 +312,8 @@ class Trajectory(SharedTrajectory):
             if isinstance(index, (string_types, AtomMask)):
                 # return a copy
                 # traj['@CA']
-                atm = self.top(index) if isinstance(index, string_types) else index
+                atm = self.top(index) if isinstance(index,
+                                                    string_types) else index
                 traj.top = self.top._modify_state_by_mask(atm)
                 arr0 = self._xyz[:, atm.indices]
                 if self.forces is not None:
@@ -782,7 +788,12 @@ class Trajectory(SharedTrajectory):
         """
         return self.superpose(*args, **kwd)
 
-    def superpose(self, mask="*", ref=None, ref_mask='', frame_indices=None, mass=False):
+    def superpose(self,
+                  mask="*",
+                  ref=None,
+                  ref_mask='',
+                  frame_indices=None,
+                  mass=False):
         """do the fitting to reference Frame by rotation and translation
 
         Parameters
@@ -813,9 +824,13 @@ class Trajectory(SharedTrajectory):
         """
         from pytraj.all_actions import superpose
 
-        return superpose(self, mask=mask,
-                         ref=ref, ref_mask=ref_mask,
-                         mass=mass, frame_indices=frame_indices) 
+        return superpose(
+            self,
+            mask=mask,
+            ref=ref,
+            ref_mask=ref_mask,
+            mass=mass,
+            frame_indices=frame_indices)
 
     def _allocate(self, n_frames, n_atoms):
         '''allocate (n_frames, n_atoms, 3) coordinates
@@ -933,18 +948,19 @@ class Trajectory(SharedTrajectory):
 
         frame_iter_super = self._iterframe_indices(indices)
 
-        return FrameIterator(frame_iter_super,
-                             original_top=self.top,
-                             new_top=_top,
-                             start=start,
-                             stop=stop,
-                             step=step,
-                             mask=mask,
-                             autoimage=autoimage,
-                             rmsfit=rmsfit,
-                             n_frames=n_frames,
-                             frame_indices=frame_indices,
-                             copy=False)
+        return FrameIterator(
+            frame_iter_super,
+            original_top=self.top,
+            new_top=_top,
+            start=start,
+            stop=stop,
+            step=step,
+            mask=mask,
+            autoimage=autoimage,
+            rmsfit=rmsfit,
+            n_frames=n_frames,
+            frame_indices=frame_indices,
+            copy=False)
 
     @property
     def _estimated_GB(self):

@@ -8,19 +8,23 @@ from pytraj.utils import aa_eq
 
 
 class TestTransformation(unittest.TestCase):
-
     def test_transforming_trajectory(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         t0 = traj[:]
 
-        t0.transform(['autoimage', 'center origin', 'rotate x 30',
-                      'scale x 1.2', 'translate x 1.3'])
-        t1 = traj[:].autoimage().center('origin').rotate('x 30').scale('x 1.2').translate('x 1.3')
+        t0.transform([
+            'autoimage', 'center origin', 'rotate x 30', 'scale x 1.2',
+            'translate x 1.3'
+        ])
+        t1 = traj[:].autoimage().center('origin').rotate('x 30').scale(
+            'x 1.2').translate('x 1.3')
         aa_eq(t0.xyz, t1.xyz)
 
         t2 = traj[:]
-        pt.transform(t2, ['autoimage', 'center origin', 'rotate x 30',
-                          'scale x 1.2', 'translate x 1.3'])
+        pt.transform(t2, [
+            'autoimage', 'center origin', 'rotate x 30', 'scale x 1.2',
+            'translate x 1.3'
+        ])
         aa_eq(t1.xyz, t2.xyz)
 
         # another way
@@ -45,6 +49,7 @@ class TestTransformation(unittest.TestCase):
         state = pt.load_cpptraj_state(cm, traj)
         state.run()
         aa_eq(state.data['mycrd'].xyz, t1.xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

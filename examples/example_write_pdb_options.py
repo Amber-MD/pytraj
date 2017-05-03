@@ -3,8 +3,7 @@ from pytraj.utils import tempfolder
 
 
 def example_write_pdb():
-    traj = pt.iterload("../tests/data/Tc5b.x",
-                       "../tests/data/Tc5b.top")
+    traj = pt.iterload("../tests/data/Tc5b.x", "../tests/data/Tc5b.top")
     # multiple pdb in multiple files, using `save` method in traj
     with tempfolder():
         basename = "test_pdb_files.pdb"

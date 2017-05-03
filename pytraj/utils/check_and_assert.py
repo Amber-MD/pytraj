@@ -106,9 +106,13 @@ def assert_almost_equal(arr0, arr1, decimal=4):
     import math
 
     if is_number(arr0):
-        arr0 = [arr0, ]
+        arr0 = [
+            arr0,
+        ]
     if is_number(arr1):
-        arr1 = [arr1, ]
+        arr1 = [
+            arr1,
+        ]
 
     almost_equal = True
     SMALL = 10**(-decimal)
@@ -156,7 +160,11 @@ def has_(lib):
 if __name__ == "__main__":
     import numpy as np
     assert_almost_equal([1., 2., 3.], [1., 2., 3.], decimals=3)
-    assert_almost_equal([1., 2., 3.], [1., 2., ], decimals=3)
+    assert_almost_equal(
+        [1., 2., 3.], [
+            1.,
+            2.,
+        ], decimals=3)
 
     arr0 = np.array([1., 2., 3.])
     arr1 = np.array([1., 2., 3.])

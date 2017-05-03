@@ -8,7 +8,6 @@ from pytraj.testing import cpptraj_test_dir
 
 
 class TestAtomicFluct(unittest.TestCase):
-
     def test_bfactors(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         iter_options = {'start': 9, 'stop': 30, 'step': 2}

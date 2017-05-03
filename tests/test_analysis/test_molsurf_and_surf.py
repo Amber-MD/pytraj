@@ -7,7 +7,6 @@ from pytraj.utils import aa_eq
 
 
 class TestMolsurf(unittest.TestCase):
-
     def setUp(self):
         self.traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 

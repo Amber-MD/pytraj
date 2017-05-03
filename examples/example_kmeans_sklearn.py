@@ -21,17 +21,19 @@ def do_clustering():
     n_clusters = 10
 
     # do it
-    data = k_means(X, n_clusters,
-                   init='k-means++',
-                   precompute_distances='auto',
-                   n_init=10,
-                   max_iter=300,
-                   verbose=False,
-                   tol=0.0001,
-                   random_state=None,
-                   copy_x=False,
-                   n_jobs=-1,
-                   return_n_iter=False)
+    data = k_means(
+        X,
+        n_clusters,
+        init='k-means++',
+        precompute_distances='auto',
+        n_init=10,
+        max_iter=300,
+        verbose=False,
+        tol=0.0001,
+        random_state=None,
+        copy_x=False,
+        n_jobs=-1,
+        return_n_iter=False)
 
     # convert 2D to 3D array
     x0 = pt.tools.as_3darray(data[0])
@@ -41,10 +43,8 @@ def do_clustering():
     # 'MODEL' keyword. good for visualizing in VMD.
     # first, need to create a frame iterator for ``pytraj.write_traj``
     frame_iter = pt.iterframe_from_array(x0, t0.n_atoms, range(n_clusters))
-    pt.write_traj('output.pdb', frame_iter,
-                  top=t0.top,
-                  options='model',
-                  overwrite=True)
+    pt.write_traj(
+        'output.pdb', frame_iter, top=t0.top, options='model', overwrite=True)
 
 
 do_clustering()

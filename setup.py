@@ -28,13 +28,12 @@ except ValueError:
         from distutils.extension import Extension
 from glob import glob
 
-
 # local import
 from scripts.base_setup import (check_flag, write_version_py, get_version_info,
-                                get_cpptraj_info, check_compile_cython, check_cython,
-                                get_package_data,
-                                get_pyx_pxd)
-from scripts.base_setup import (compiler_env_info, setenv_cc_cxx, get_ext_modules)
+                                get_cpptraj_info, check_compile_cython,
+                                check_cython, get_package_data, get_pyx_pxd)
+from scripts.base_setup import (compiler_env_info, setenv_cc_cxx,
+                                get_ext_modules)
 from scripts.base_setup import CleanCommand, is_released
 
 # python version >= 2.6
@@ -47,8 +46,7 @@ try:
         from Cython.Build import cythonize
         pyxfiles, _ = get_pyx_pxd()
         cythonize(
-            [pfile + '.pyx' for pfile in pyxfiles],
-        )
+            [pfile + '.pyx' for pfile in pyxfiles], )
         sys.exit(0)
 except ImportError:
     pass
@@ -66,14 +64,16 @@ cpptraj_home = os.environ.get('CPPTRAJHOME', '')
 
 compiler_env_info('Original compiler envs')
 # danger
-use_pip = (any('egg_info' in arg for arg in sys.argv) or
-           any('pip' in arg for arg in sys.argv) or
+use_pip = (any('egg_info' in arg
+               for arg in sys.argv) or any('pip' in arg for arg in sys.argv) or
            any('--no-deps' in arg for arg in sys.argv))
 
 print('use_pip = {}, cpptraj_home = {}'.format(use_pip, cpptraj_home))
 if use_pip and not cpptraj_home:
     if not os.path.exists('./cpptraj'):
-        print('Detect using pip, must set CPPTRAJHOME if there is no cpptraj in current folder')
+        print(
+            'Detect using pip, must set CPPTRAJHOME if there is no cpptraj in current folder'
+        )
         sys.exit(1)
 
 install_type = os.environ.get("INSTALLTYPE", "")
@@ -87,13 +87,14 @@ pytraj_home = os.path.abspath(os.path.dirname(__file__))
 compile_c_extension = check_compile_cython(pytraj_home, use_pip=use_pip)
 print('compile_c_extension =', compile_c_extension)
 
-cpptraj_info = get_cpptraj_info(rootname=rootname,
-                           cpptraj_home=cpptraj_home,
-                           cpptraj_included=cpptraj_included,
-                           compile_c_extension=compile_c_extension,
-                           pytraj_home=pytraj_home,
-                           openmp_flag=openmp_flag,
-                           use_amberlib=use_amberlib)
+cpptraj_info = get_cpptraj_info(
+    rootname=rootname,
+    cpptraj_home=cpptraj_home,
+    cpptraj_included=cpptraj_included,
+    compile_c_extension=compile_c_extension,
+    pytraj_home=pytraj_home,
+    openmp_flag=openmp_flag,
+    use_amberlib=use_amberlib)
 
 libcpptraj_files = glob(os.path.join(cpptraj_info.lib_dir, 'libcpptraj') + '*')
 
@@ -103,8 +104,11 @@ print(FULLVERSION)
 
 # python setup.py clean
 cmdclass = {'clean': CleanCommand}
-need_cython, cmdclass, cythonize  = check_cython(is_released, cmdclass, min_version='0.21',
-        use_prebuilt_cythonized_files=use_prebuilt_cythonized_files)
+need_cython, cmdclass, cythonize = check_cython(
+    is_released,
+    cmdclass,
+    min_version='0.21',
+    use_prebuilt_cythonized_files=use_prebuilt_cythonized_files)
 
 if sys.platform.startswith('win'):
     extra_compile_args = []
@@ -123,37 +127,44 @@ if debug:
     cython_directives.update({
         'profile': True,
         'linetrace': True,
-        'binding': True})
-    define_macros = [('CYTHON_TRACE', 1), ]
+        'binding': True
+    })
+    define_macros = [
+        ('CYTHON_TRACE', 1),
+    ]
     print("adding debug info", cython_directives)
 else:
     define_macros = []
 
-setenv_cc_cxx(cpptraj_info.ambertools_distro, extra_compile_args, extra_link_args)
+setenv_cc_cxx(cpptraj_info.ambertools_distro, extra_compile_args,
+              extra_link_args)
 
 if not compile_c_extension:
     ext_modules = []
     possible_libcpptraj_files = []
 else:
-    ext_modules = get_ext_modules(cpptraj_info=cpptraj_info,
-                    pytraj_src=pytraj_src,
-                    compile_c_extension=compile_c_extension,
-                    is_released=is_released,
-                    need_cython=need_cython,
-                    cpptraj_included=cpptraj_included,
-                    libcpptraj_files=libcpptraj_files,
-                    openmp_flag=openmp_flag,
-                    use_amberlib=use_amberlib,
-                    cython_directives=cython_directives,
-                    Extension=Extension,
-                    extra_compile_args=extra_compile_args,
-                    extra_link_args=extra_link_args,
-                    define_macros=define_macros,
-                    use_pip=use_pip,
-                    tarfile=tarfile,
-                    use_prebuilt_cythonized_files=use_prebuilt_cythonized_files)
-    if sys.platform.startswith('win'): 
-        possible_libcpptraj_files = ['libcpptraj.dll.a',]
+    ext_modules = get_ext_modules(
+        cpptraj_info=cpptraj_info,
+        pytraj_src=pytraj_src,
+        compile_c_extension=compile_c_extension,
+        is_released=is_released,
+        need_cython=need_cython,
+        cpptraj_included=cpptraj_included,
+        libcpptraj_files=libcpptraj_files,
+        openmp_flag=openmp_flag,
+        use_amberlib=use_amberlib,
+        cython_directives=cython_directives,
+        Extension=Extension,
+        extra_compile_args=extra_compile_args,
+        extra_link_args=extra_link_args,
+        define_macros=define_macros,
+        use_pip=use_pip,
+        tarfile=tarfile,
+        use_prebuilt_cythonized_files=use_prebuilt_cythonized_files)
+    if sys.platform.startswith('win'):
+        possible_libcpptraj_files = [
+            'libcpptraj.dll.a',
+        ]
         for fn in libcpptraj_files:
             print("Copying {} to pytraj".format(fn))
             shutil.copy(fn, 'pytraj/')
@@ -198,7 +209,8 @@ if __name__ == "__main__":
         author="Hai Nguyen",
         url="https://github.com/Amber-MD/pytraj",
         packages=packages,
-        description="""Python API for cpptraj: a data analysis package for biomolecular simulation""",
+        description=
+        """Python API for cpptraj: a data analysis package for biomolecular simulation""",
         license="GPL v3",
         classifiers=[
             'Development Status :: 5 - Production/Stable',
@@ -217,5 +229,7 @@ if __name__ == "__main__":
             'Topic :: Scientific/Engineering :: Chemistry',
         ],
         ext_modules=ext_modules,
-        package_data={'pytraj': get_package_data(use_pip) + possible_libcpptraj_files},
-        cmdclass=cmdclass,)
+        package_data={
+            'pytraj': get_package_data(use_pip) + possible_libcpptraj_files
+        },
+        cmdclass=cmdclass, )

@@ -18,7 +18,8 @@ for frame in traj0:
     actlist.compute(frame)
 
 # use transformation
-itertraj = pt.transform(traj1, by=['translate x 1.2', 'center origin', 'rotate x 45.'])
+itertraj = pt.transform(
+    traj1, by=['translate x 1.2', 'center origin', 'rotate x 45.'])
 for frame in itertraj:
     pass
 

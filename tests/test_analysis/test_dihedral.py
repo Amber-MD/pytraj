@@ -9,7 +9,6 @@ from utils import fn, tc5b_top, tc5b_trajin
 
 
 class TestDihedral(unittest.TestCase):
-
     def test_dihedral(self):
         import numpy as np
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))

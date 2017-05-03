@@ -15,7 +15,6 @@ def eq_np_to_mat(npmat, mymat):
 
 
 class TestMatrix_3x3(unittest.TestCase):
-
     def test_construct(self):
         from pytraj.math import Matrix_3x3 as M
 

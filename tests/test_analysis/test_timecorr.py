@@ -9,6 +9,7 @@ from utils import fn
 tc5b_trajin = fn('Tc5b.x')
 tc5b_top = fn('Tc5b.top')
 
+
 def test_timecorr():
 
     with tempfolder():
@@ -58,8 +59,8 @@ def test_timecorr():
         state.run()
         cpptraj_output = state.data
 
-        dslist0 = pt.vector.vector(traj,
-                                 ['@2,@5,@9 corrplane', '@3,@7,@20 corrplane'])
+        dslist0 = pt.vector.vector(
+            traj, ['@2,@5,@9 corrplane', '@3,@7,@20 corrplane'])
         dslist1 = pt.vector.corrplane(traj, ['@2,@5,@9', '@3,@7,@20'])
         data0 = pt.timecorr(dslist0[0], dslist0[1])
         data1 = pt.timecorr(dslist1[0], dslist1[1])

@@ -6,6 +6,7 @@ from ..analysis.c_action.actionlist import ActionList
 from ..externals.six import string_types
 from ..datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 
+
 def make_structure(traj, command="", ref=None):
     """limited support for make_structure
     
@@ -93,17 +94,22 @@ def make_structure(traj, command="", ref=None):
                   0=All <aX> in single res,
                   1=<a3> in next res, 2=<a2><a3> in next res.
     """
-    assert isinstance(command, list) or isinstance(command, string_types), 'command must be a string or a list of string'
+    assert isinstance(command, list) or isinstance(
+        command, string_types), 'command must be a string or a list of string'
     assert isinstance(traj, Trajectory), 'traj must be a Trajectory object'
 
-    cmlist = [command,] if isinstance(command, string_types) else command
+    cmlist = [
+        command,
+    ] if isinstance(command, string_types) else command
 
     if ref is not None:
         ref_name = 'myref'
         for index, cm in enumerate(cmlist):
             if cm.startswith('ref'):
                 tokens = cm.split(':')
-                assert len(tokens) == 3, 'command must follow format ref:<range>:<ref range>'
+                assert len(
+                    tokens
+                ) == 3, 'command must follow format ref:<range>:<ref range>'
                 # insert ref_name
                 cm_ = ':'.join(tokens[:2] + [ref_name] + tokens[-1:])
                 cmlist[index] = cm_
@@ -118,7 +124,11 @@ def make_structure(traj, command="", ref=None):
 
     for cm in cmlist:
         if ref is not None:
-            actlist.add(c_action.Action_MakeStructure(), cm, top=traj.top, dslist=c_dslist)
+            actlist.add(
+                c_action.Action_MakeStructure(),
+                cm,
+                top=traj.top,
+                dslist=c_dslist)
         else:
             actlist.add(c_action.Action_MakeStructure(), cm, top=traj.top)
 

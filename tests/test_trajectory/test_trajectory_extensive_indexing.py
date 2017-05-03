@@ -18,7 +18,6 @@ FARRAY = ts[:FRAMENUM]
 
 
 class TestTrajectory(unittest.TestCase):
-
     def test_len(self):
         N = 10
         farray = FARRAY[:N].copy()

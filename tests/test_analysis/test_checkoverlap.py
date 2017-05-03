@@ -10,11 +10,11 @@ from pytraj.testing import cpptraj_test_dir
 
 
 class TestCheckOverlap(unittest.TestCase):
-
     def test_check_overlap(self):
         '''overlap checking
         '''
-        tz2_bad = os.path.join(cpptraj_test_dir, 'Test_CheckStructure', 'tz2.stretched.pdb')
+        tz2_bad = os.path.join(cpptraj_test_dir, 'Test_CheckStructure',
+                               'tz2.stretched.pdb')
         traj = pt.iterload(tz2_bad, fn('tz2.parm7'))
 
         data = pt.check_overlap(traj, options='offset 0.7')

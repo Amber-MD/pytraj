@@ -27,6 +27,8 @@ try:
     if comm.rank == 0:
         # make sure to reproduce serial output
         serial_data = pt.energy_decomposition(traj, mm_options=inp)
-        aa_eq(pt.tools.dict_to_ndarray(data), pt.tools.dict_to_ndarray(serial_data))
+        aa_eq(
+            pt.tools.dict_to_ndarray(data),
+            pt.tools.dict_to_ndarray(serial_data))
 except ImportError:
     print('does not have sander. skip this example')

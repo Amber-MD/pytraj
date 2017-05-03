@@ -4,20 +4,12 @@ from ..datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 from ..analysis.c_action import c_action, do_action
 from ..analysis.c_analysis import c_analysis
 from ..analysis.c_action.actionlist import ActionList
-from ..utils.get_common_objects import (
-    get_topology,
-    get_data_from_dtype,
-    get_list_of_commands,
-    get_fiterator,
-    super_dispatch
-)
+from ..utils.get_common_objects import (get_topology, get_data_from_dtype,
+                                        get_list_of_commands, get_fiterator,
+                                        super_dispatch)
 
+__all__ = ['jcoupling', 'ired_vector_and_matrix', 'nh_order_parameters']
 
-__all__ = [
-    'jcoupling',
-    'ired_vector_and_matrix',
-    'nh_order_parameters'
-]
 
 def _2darray_to_atommask_groups(seq):
     '''[[0, 3], [4, 7]] turns to ['@1 @4', '@5 @8']
@@ -93,9 +85,8 @@ def _ired(iredvec,
     else:
         eigenvectors, eigenvalues = modes
     dslist[-1]._set_modes(is_reduced,
-                          len(eigenvalues),
-                          eigenvectors.shape[1],
-                          eigenvalues, eigenvectors.flatten())
+                          len(eigenvalues), eigenvectors.shape[1], eigenvalues,
+                          eigenvectors.flatten())
 
     act(command, dslist=dslist)
     # remove input datasets to free memory
@@ -106,6 +97,7 @@ def _ired(iredvec,
     # return values
     # return get_data_from_dtype(dslist, dtype=dtype)
     return dslist
+
 
 @super_dispatch()
 @register_pmap
@@ -137,7 +129,6 @@ def jcoupling(traj=None,
         command += " kfile %s" % kfile
     c_dslist, _ = do_action(traj, command, c_action.Action_Jcoupling)
     return get_data_from_dtype(c_dslist, dtype)
-
 
 
 @register_pmap
@@ -227,7 +218,8 @@ def nh_order_parameters(traj,
                         order=2,
                         tstep=1.,
                         tcorr=10000.,
-                        n_cores=1, **kwargs):
+                        n_cores=1,
+                        **kwargs):
     '''compute NH order parameters
 
     Parameters
@@ -256,34 +248,37 @@ def nh_order_parameters(traj,
 
     # compute N-H vectors and ired matrix
     if n_cores == 1:
-        vecs_and_mat = ired_vector_and_matrix(traj,
-                                              vector_pairs,
-                                              order=order,
-                                              dtype='tuple')
+        vecs_and_mat = ired_vector_and_matrix(
+            traj, vector_pairs, order=order, dtype='tuple')
     else:
         # use _pmap to avoid cicular import
         from pytraj import _pmap
-        vecs_and_mat = _pmap(ired_vector_and_matrix,
-                             traj,
-                             vector_pairs,
-                             order=order,
-                             dtype='tuple',
-                             n_cores=n_cores)
+        vecs_and_mat = _pmap(
+            ired_vector_and_matrix,
+            traj,
+            vector_pairs,
+            order=order,
+            dtype='tuple',
+            n_cores=n_cores)
 
     state_vecs = vecs_and_mat[0]
     mat_ired = vecs_and_mat[1]
 
     # get eigenvalues and eigenvectors
-    modes = matrix.diagonalize(mat_ired, n_vecs=len(state_vecs), dtype='dataset')[0]
+    modes = matrix.diagonalize(
+        mat_ired, n_vecs=len(state_vecs), dtype='dataset')[0]
     evals, evecs = modes.eigenvalues, modes.eigenvectors
 
-    data = _ired(state_vecs,
-                 modes=(evecs, evals),
-                 NHbond=True,
-                 tcorr=tcorr,
-                 tstep=tstep, **kwargs)
+    data = _ired(
+        state_vecs,
+        modes=(evecs, evals),
+        NHbond=True,
+        tcorr=tcorr,
+        tstep=tstep,
+        **kwargs)
     order = [d.values.copy() for d in data if 'S2' in d.key][0]
     return order
+
 
 # create alias for easy parsing
 calc_nh_order_parameters = nh_order_parameters

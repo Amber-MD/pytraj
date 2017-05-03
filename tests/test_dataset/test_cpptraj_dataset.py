@@ -34,13 +34,11 @@ crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
 
 
 class TestCpptrajDatasetWithMathLib(unittest.TestCase):
-
     def setUp(self):
         self.state = pt.datafiles.load_cpptraj_state(txt)
         self.state.run()
         self.traj = pt.iterload(tz2_trajin, tz2_top)
 
-    
     def test_call_values(self):
         for d in self.state.data:
             d.values
@@ -70,7 +68,6 @@ class TestCpptrajDatasetWithMathLib(unittest.TestCase):
 
 
 class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
-
     def setUp(self):
         self.traj = pt.iterload(tz2_trajin, tz2_top)
 
@@ -178,7 +175,8 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
 
         # modes
         mat = pt.matrix.covar(self.traj, '@CA')
-        modes = pt.matrix.diagonalize(mat, n_vecs=mat.shape[0], dtype='dataset')[0]
+        modes = pt.matrix.diagonalize(
+            mat, n_vecs=mat.shape[0], dtype='dataset')[0]
         modes2 = modes.__class__()
         # dummy test to set name and scalar_type
         # (prepare for pca)

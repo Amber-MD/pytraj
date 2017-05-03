@@ -29,7 +29,6 @@ crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
 
 
 class TestProjection(unittest.TestCase):
-
     def test_projection_for_pca(self):
         traj = pt.load(fn('tz2.nc'), fn('tz2.parm7'))
 
@@ -52,14 +51,22 @@ class TestProjection(unittest.TestCase):
 
         aa_eq(cpp_arr_crd, avg2.xyz)
 
-        aa_eq(np.abs(modes.eigenvalues), np.abs(state.data['MyEvecs'].eigenvalues))
-        aa_eq(np.abs(modes.eigenvectors), np.abs(state.data['MyEvecs'].eigenvectors))
+        aa_eq(
+            np.abs(modes.eigenvalues),
+            np.abs(state.data['MyEvecs'].eigenvalues))
+        aa_eq(
+            np.abs(modes.eigenvectors),
+            np.abs(state.data['MyEvecs'].eigenvectors))
 
-        projection_data = pt.all_actions.projection(traj, mask=mask, average_coords=avg2.xyz,
-                                                     eigenvalues=modes.eigenvalues,
-                                                     eigenvectors=modes.eigenvectors,
-                                                     scalar_type='covar')
-        aa_eq(np.abs(projection_data), np.abs(state.data[-2:].values), decimal=3)
+        projection_data = pt.all_actions.projection(
+            traj,
+            mask=mask,
+            average_coords=avg2.xyz,
+            eigenvalues=modes.eigenvalues,
+            eigenvectors=modes.eigenvectors,
+            scalar_type='covar')
+        aa_eq(
+            np.abs(projection_data), np.abs(state.data[-2:].values), decimal=3)
 
     def test_projection_with_None_average_coord(self):
         cm = '''
@@ -71,19 +78,21 @@ class TestProjection(unittest.TestCase):
 
         scalar_type = 'covar'
         cm2 = cm.format(scalar_type=scalar_type)
-        
+
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         state = pt.load_cpptraj_state(cm2, traj)
         state.run()
 
         mat = pt.matrix.covar(traj, '@CA')
-        eigenvalues, eigenvectors = pt.matrix.diagonalize(mat, 2, dtype='tuple')
+        eigenvalues, eigenvectors = pt.matrix.diagonalize(
+            mat, 2, dtype='tuple')
 
-        data = pt.all_actions.projection(traj, '@CA', eigenvalues, eigenvectors,
-                                          scalar_type=scalar_type)
+        data = pt.all_actions.projection(
+            traj, '@CA', eigenvalues, eigenvectors, scalar_type=scalar_type)
         aa_eq(np.abs(state.data['Mode1'].values), np.abs(data[0]))
         aa_eq(np.abs(state.data['Mode2'].values), np.abs(data[1]))
         assert data.shape == (2, traj.n_frames)
+
 
 if __name__ == "__main__":
     unittest.main()

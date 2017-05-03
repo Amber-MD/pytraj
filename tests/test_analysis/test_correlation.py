@@ -24,14 +24,12 @@ def test_corr():
         traj = pt.iterload(tc5b_trajin, tc5b_top)
         dslist = pt.calc_distance(traj, ['@2 @3', '@4, @7'])
 
-        pout = pt.xcorr(dslist[0],
-                        dslist[1])
+        pout = pt.xcorr(dslist[0], dslist[1])
         # corr d0, d1
         aa_eq(pout, cout[2])
 
         # corr d0, d0
-        pout = pt.xcorr(dslist[0],
-                        dslist[0])
+        pout = pt.xcorr(dslist[0], dslist[0])
         aa_eq(pout, cout[4])
 
         # autocorr d0, d0

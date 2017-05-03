@@ -7,7 +7,6 @@ from pytraj.utils import aa_eq
 
 
 class TestCreateCRD(unittest.TestCase):
-
     def test_autoimage_rms_strip(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
 

@@ -6,7 +6,6 @@ from pytraj.utils import aa_eq
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         from pytraj.externals.six import zip
         from pytraj import Trajectory, TrajectoryIterator
@@ -22,10 +21,8 @@ class Test(unittest.TestCase):
         ref = traj0[0]
 
         for f0, f1 in zip(
-                traj0(autoimage=True,
-                      rmsfit=(ref, '@CA,C,N')),
-                traj1(autoimage=True,
-                      rmsfit=(ref, '@CA,C,N'))):
+                traj0(autoimage=True, rmsfit=(ref, '@CA,C,N')),
+                traj1(autoimage=True, rmsfit=(ref, '@CA,C,N'))):
             aa_eq(f0.xyz, f1.xyz)
             assert f0.rmsd_nofit(f1) == 0.
 

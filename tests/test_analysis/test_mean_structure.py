@@ -10,7 +10,6 @@ from pytraj import mean_structure
 
 
 class TestAverageFrame(unittest.TestCase):
-
     def test_comprehensive(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         # make sure we DO reproducing cpptraj output
@@ -45,20 +44,21 @@ class TestAverageFrame(unittest.TestCase):
         aa_eq(frame5_1.xyz, frame6.xyz, decimal=3)
 
         xyz_0 = pt.get_coordinates(traj(1, 8, 2))
-        xyz_1 = np.array([frame.xyz.copy(
-        ) for frame in traj.iterframe(frame_indices=range(1, 8, 2))])
+        xyz_1 = np.array([
+            frame.xyz.copy()
+            for frame in traj.iterframe(frame_indices=range(1, 8, 2))
+        ])
         aa_eq(xyz_0, xyz_1, decimal=3)
 
         # test as traj
-        out_traj = mean_structure(traj,
-                                  mask='@CA',
-                                  frame_indices=[0, 3, 7],
-                                  dtype='traj')
+        out_traj = mean_structure(
+            traj, mask='@CA', frame_indices=[0, 3, 7], dtype='traj')
         assert isinstance(out_traj, Trajectory), 'must be Trajectory'
         aa_eq(out_traj.xyz, frame6.xyz, decimal=3)
 
         # raise if not trajectory, traj or frame
-        self.assertRaises(ValueError, lambda: pt.mean_structure(traj, dtype='trajxyz'))
+        self.assertRaises(ValueError,
+                          lambda: pt.mean_structure(traj, dtype='trajxyz'))
 
     def test_autoimage(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
@@ -99,18 +99,20 @@ class TestAverageFrame(unittest.TestCase):
 
         # use ref=5 which correspond to original index
         # try with pytraj.TrajectoryIterator
-        avg_1 = pt.mean_structure(traj,
-                                  autoimage=True,
-                                  rmsfit=5,
-                                  mask='@CA',
-                                  frame_indices=frame_indices)
+        avg_1 = pt.mean_structure(
+            traj,
+            autoimage=True,
+            rmsfit=5,
+            mask='@CA',
+            frame_indices=frame_indices)
         # try with pytraj.Trajectory
         avg_2 = pt.mean_structure(t1, autoimage=True, rmsfit=-1, mask='@CA')
-        avg_3 = pt.mean_structure(traj[:],
-                                  autoimage=True,
-                                  rmsfit=5,
-                                  mask='@CA',
-                                  frame_indices=frame_indices)
+        avg_3 = pt.mean_structure(
+            traj[:],
+            autoimage=True,
+            rmsfit=5,
+            mask='@CA',
+            frame_indices=frame_indices)
 
         aa_eq(avg_0.xyz, avg_1.xyz)
         aa_eq(avg_0.xyz, avg_2.xyz)

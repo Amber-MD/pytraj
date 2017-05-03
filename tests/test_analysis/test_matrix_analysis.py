@@ -40,11 +40,12 @@ all_commands = not_byres + byres_cm
 
 # return a list of non-blank lines
 command_list = [line for line in not_byres.split('\n')[3:] if line]
-command_list = command_list + [line for line in byres_cm.split('\n')[3:] if line] 
+command_list = command_list + [
+    line for line in byres_cm.split('\n')[3:] if line
+]
 
 
 class TestMatrixConprehensive(unittest.TestCase):
-
     def test_matrix(self):
         import numpy as np
         from pytraj import ArgList

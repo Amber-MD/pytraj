@@ -8,7 +8,6 @@ from pytraj.utils import aa_eq
 
 
 class TestUnstrip(unittest.TestCase):
-
     def test_unstrip(self):
         from pytraj.datasets import CpptrajDatasetList
 
@@ -27,9 +26,7 @@ class TestUnstrip(unittest.TestCase):
 
         dslist2 = CpptrajDatasetList()
         actlist2 = pt.ActionList(
-            ['strip !@CA', 'radgyr nomax'],
-            top=traj.top,
-            dslist=dslist2)
+            ['strip !@CA', 'radgyr nomax'], top=traj.top, dslist=dslist2)
         actlist2.compute(traj)
         # make sure get correct radgyr after stripping all but CA atoms
         aa_eq(dslist2.values, pt.radgyr(traj, '@CA'))

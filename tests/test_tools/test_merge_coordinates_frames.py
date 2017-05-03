@@ -5,15 +5,12 @@ from utils import fn
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         # merge_coordinates
         pass
 
         # load 2 frames
-        traj = pt.iterload(fn('Tc5b.x'),
-                           fn('Tc5b.top'),
-                           frame_slice=(0, 2))
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'), frame_slice=(0, 2))
 
         # test mutable traj
         coords = pt.tools.merge_coordinates(traj[:])
@@ -39,9 +36,7 @@ class Test(unittest.TestCase):
         import numpy as np
 
         # load 2 frames
-        traj = pt.iterload(fn('Tc5b.x'),
-                           fn('Tc5b.top'),
-                           frame_slice=(0, 2))
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'), frame_slice=(0, 2))
 
         # test mutable traj
         frame = pt.tools.merge_frames(traj[:])
@@ -49,26 +44,31 @@ class Test(unittest.TestCase):
         assert r0 == 0.
 
         #, True) test immutable traj
-        assert np.any(pt.tools.merge_frames(traj).xyz.flatten() ==
-                      pt.get_coordinates(traj).flatten())
+        assert np.any(
+            pt.tools.merge_frames(traj).xyz.flatten() == pt.get_coordinates(
+                traj).flatten())
 
         # tuple
-        assert np.any(pt.tools.merge_frames((
-            frame for frame in traj)).xyz.flatten() == pt.get_coordinates(
-                traj).flatten())
+        assert np.any(
+            pt.tools.merge_frames(
+                (frame for frame in traj
+                 )).xyz.flatten() == pt.get_coordinates(traj).flatten())
 
         # list
-        assert np.any(pt.tools.merge_frames(
-            [frame for frame in traj]).xyz.flatten() == pt.get_coordinates(
-                traj).flatten())
+        assert np.any(
+            pt.tools.merge_frames([
+                frame for frame in traj
+            ]).xyz.flatten() == pt.get_coordinates(traj).flatten())
 
         # frame_iter: all atoms
-        assert np.any(pt.tools.merge_frames(traj()).xyz.flatten() ==
-                      pt.get_coordinates(traj()).flatten())
+        assert np.any(
+            pt.tools.merge_frames(traj()).xyz.flatten() == pt.get_coordinates(
+                traj()).flatten())
 
         # frame_iter: CA atoms
-        assert np.any(pt.tools.merge_frames(traj(mask='@CA')).xyz.flatten() ==
-                      pt.get_coordinates(traj(mask='@CA')).flatten())
+        assert np.any(
+            pt.tools.merge_frames(traj(mask='@CA')).xyz.flatten() ==
+            pt.get_coordinates(traj(mask='@CA')).flatten())
 
 
 if __name__ == "__main__":

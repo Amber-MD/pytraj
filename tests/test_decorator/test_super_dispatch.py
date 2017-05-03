@@ -10,7 +10,6 @@ from pytraj.externals.six import string_types
 
 
 class TestSuperDispatch(unittest.TestCase):
-
     def setUp(self):
         self.traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
@@ -64,11 +63,8 @@ class TestSuperDispatch(unittest.TestCase):
             # frame_indices with mask
             frame_indices = [0, 5, 8]
             aa_eq(
-                func(traj[frame_indices],
-                     mask=mask),
-                func(traj,
-                     mask=atom_indices,
-                     frame_indices=frame_indices))
+                func(traj[frame_indices], mask=mask),
+                func(traj, mask=atom_indices, frame_indices=frame_indices))
 
 
 if __name__ == "__main__":

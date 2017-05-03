@@ -17,6 +17,7 @@ expected = """
 # Dihedral Parameters
 """
 
+
 def test_compare_topology():
     # TODO: this is dummy test for coverage
     # wait until cpptraj has a proper test for this

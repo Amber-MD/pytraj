@@ -2,6 +2,7 @@ from .shared_trajectory import SharedTrajectory
 from .shared_methods import _xyz, _box
 from .frame import Frame
 
+
 class StrippedTrajectoryIterator(SharedTrajectory):
     """Out-of-core, indexable StrippedTrajectory
     This class is used for NGLView, nothing else.

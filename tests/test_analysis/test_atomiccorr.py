@@ -7,7 +7,6 @@ from pytraj.utils import aa_eq
 
 
 class TestAtomicCorr(unittest.TestCase):
-
     def test_atomiccorr(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         state = pt.load_batch(traj, '''
@@ -24,7 +23,7 @@ class TestAtomicCorr(unittest.TestCase):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
         arr_out_of_memory = pt.atomiccorr(traj(0, 8, 2), '@CA')
-        arr_in_memory = pt.atomiccorr(traj[0: 8: 2], '@CA')
+        arr_in_memory = pt.atomiccorr(traj[0:8:2], '@CA')
         aa_eq(arr_out_of_memory, arr_in_memory)
 
 

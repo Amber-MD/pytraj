@@ -10,7 +10,6 @@ from pytraj.testing import cpptraj_test_dir
 
 
 class TestNHOrderParamters(unittest.TestCase):
-
     @unittest.skipIf(sys.platform != 'linux', 'pmap for linux')
     def test_nh_paramters(self):
         parmfile = cpptraj_test_dir + '/Test_IRED/1IEE_A_prot.prmtop'
@@ -34,17 +33,16 @@ class TestNHOrderParamters(unittest.TestCase):
         aa_eq(orders, saved_S2)
 
         for n_cores in [1, 2, 3, 4, -1]:
-            orders = pt.NH_order_parameters(traj,
-                                            nh_indices,
-                                            tcorr=8000.,
-                                            n_cores=n_cores)
+            orders = pt.NH_order_parameters(
+                traj, nh_indices, tcorr=8000., n_cores=n_cores)
             aa_eq(orders, saved_S2)
 
-            orders = pt.pmap(pt.NH_order_parameters,
-                             traj,
-                             nh_indices,
-                             tcorr=8000.,
-                             n_cores=n_cores)
+            orders = pt.pmap(
+                pt.NH_order_parameters,
+                traj,
+                nh_indices,
+                tcorr=8000.,
+                n_cores=n_cores)
             aa_eq(orders, saved_S2)
 
 

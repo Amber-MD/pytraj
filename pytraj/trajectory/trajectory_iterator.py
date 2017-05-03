@@ -17,9 +17,11 @@ from .frameiter import FrameIterator
 from ..utils.get_common_objects import _load_Topology
 from ..utils import split_range
 from ..utils.convert import array_to_cpptraj_atommask
-from pytraj.utils.get_common_objects import  get_reference
+from pytraj.utils.get_common_objects import get_reference
 
-__all__ = ['TrajectoryIterator', ]
+__all__ = [
+    'TrajectoryIterator',
+]
 
 
 # tryint, alphanum_key, sort_filename_by_number are adapted from
@@ -74,11 +76,13 @@ def _make_frame_slices(n_files, original_frame_slice):
             new_list = original_frame_slice
         else:
             raise ValueError(
-                "len of frame_slice tuple-list must be smaller or equal number of files")
+                "len of frame_slice tuple-list must be smaller or equal number of files"
+            )
         return new_list
     else:
         raise ValueError(
-            "must be a tuple of integer values or a list of tuple of integer values")
+            "must be a tuple of integer values or a list of tuple of integer values"
+        )
 
 
 class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
@@ -180,7 +184,11 @@ class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
             other._load(fname, frame_slice=frame_slice)
         return other
 
-    def _load(self, filename=None, top=None, frame_slice=(0, -1, 1), stride=None):
+    def _load(self,
+              filename=None,
+              top=None,
+              frame_slice=(0, -1, 1),
+              stride=None):
         """load trajectory/trajectories from filename/filenames
         with a single frame_slice or a list of frame_slice
 
@@ -204,23 +212,26 @@ class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
             flist = sort_filename_by_number(glob(filename))
             if not flist:
                 raise ValueError(
-                    "must provie a filename or list of filenames or file pattern")
-                frame_slice_ = [(0, -1, stride),] * len(flist) if stride is not None else frame_slice_
+                    "must provie a filename or list of filenames or file pattern"
+                )
+                frame_slice_ = [
+                    (0, -1, stride),
+                ] * len(flist) if stride is not None else frame_slice_
             self._load(flist, top=top, frame_slice=frame_slice_)
         elif isinstance(filename, (list, tuple)):
             flist = filename
 
             if stride is None:
-                full_frame_slice = _make_frame_slices(
-                    len(flist), frame_slice)
+                full_frame_slice = _make_frame_slices(len(flist), frame_slice)
             else:
-                full_frame_slice = [(0, -1, stride),] * len(flist)
+                full_frame_slice = [
+                    (0, -1, stride),
+                ] * len(flist)
 
             for fname, fslice in zip(flist, full_frame_slice):
                 self._frame_slice_list.append(frame_slice)
-                super(TrajectoryIterator, self)._load(fname,
-                                                      top_,
-                                                      frame_slice=fslice)
+                super(TrajectoryIterator, self)._load(
+                    fname, top_, frame_slice=fslice)
         else:
             raise ValueError("filename must a string or a list of string")
 
@@ -341,8 +352,8 @@ class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
             elif stop < 0:
                 stop = get_positive_idx(stop, self.n_frames)
             n_frames = len(range(start, stop, step))
-            frame_iter_super = super(TrajectoryIterator,
-                                     self).iterframe(start, stop, step)
+            frame_iter_super = super(TrajectoryIterator, self).iterframe(
+                start, stop, step)
         else:
             stop = None
             start = None
@@ -355,18 +366,19 @@ class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
             frame_iter_super = super(TrajectoryIterator,
                                      self)._iterframe_indices(frame_indices)
 
-        return FrameIterator(frame_iter_super,
-                             original_top=self.top,
-                             new_top=top_,
-                             start=start,
-                             stop=stop,
-                             step=step,
-                             mask=mask,
-                             autoimage=autoimage,
-                             rmsfit=rmsfit,
-                             n_frames=n_frames,
-                             copy=copy,
-                             frame_indices=frame_indices)
+        return FrameIterator(
+            frame_iter_super,
+            original_top=self.top,
+            new_top=top_,
+            start=start,
+            stop=stop,
+            step=step,
+            mask=mask,
+            autoimage=autoimage,
+            rmsfit=rmsfit,
+            n_frames=n_frames,
+            copy=copy,
+            frame_indices=frame_indices)
 
     def iterchunk(self,
                   chunksize=2,
@@ -404,8 +416,8 @@ class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
             need_align = False
             ref, mask_for_rmsfit = None, None
 
-        for chunk in super(TrajectoryIterator, self).iterchunk(chunksize,
-                                                               start, stop):
+        for chunk in super(TrajectoryIterator, self).iterchunk(
+                chunksize, start, stop):
             # always perform autoimage before doing fitting
             # chunk is `Trajectory` object, having very fast `autoimage` and
             # `rmsfit` methods
@@ -480,7 +492,8 @@ class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
             view
         """
         ref = get_reference(self, ref)
-        super(TrajectoryIterator, self).superpose(mask=mask, ref=ref, ref_mask=ref_mask, mass=mass)
+        super(TrajectoryIterator, self).superpose(
+            mask=mask, ref=ref, ref_mask=ref_mask, mass=mass)
         return self
 
     def _split_iterators(self,
@@ -531,26 +544,27 @@ class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
             stop = self.n_frames
 
         if rank >= 0:
-            _start, _stop = split_range(n_chunks=n_chunks,
-                                        start=start,
-                                        stop=stop)[rank]
-            return self.iterframe(start=_start,
-                                  stop=_stop,
-                                  step=step,
-                                  mask=mask,
-                                  autoimage=autoimage,
-                                  rmsfit=rmsfit)
+            _start, _stop = split_range(
+                n_chunks=n_chunks, start=start, stop=stop)[rank]
+            return self.iterframe(
+                start=_start,
+                stop=_stop,
+                step=step,
+                mask=mask,
+                autoimage=autoimage,
+                rmsfit=rmsfit)
         else:
             list_of_iterators = []
-            for (_start, _stop) in split_range(n_chunks=n_chunks,
-                                               start=start,
-                                               stop=stop):
-                list_of_iterators.append(self.iterframe(start=_start,
-                                                        stop=_stop,
-                                                        step=step,
-                                                        mask=mask,
-                                                        autoimage=autoimage,
-                                                        rmsfit=rmsfit))
+            for (_start, _stop) in split_range(
+                    n_chunks=n_chunks, start=start, stop=stop):
+                list_of_iterators.append(
+                    self.iterframe(
+                        start=_start,
+                        stop=_stop,
+                        step=step,
+                        mask=mask,
+                        autoimage=autoimage,
+                        rmsfit=rmsfit))
             return list_of_iterators
 
     @property

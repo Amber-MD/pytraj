@@ -15,7 +15,6 @@ import pytest
 
 
 class TestExtraCoverage(unittest.TestCase):
-
     def setUp(self):
         self.traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
@@ -66,11 +65,14 @@ class TestExtraCoverage(unittest.TestCase):
 
         with pytest.raises(AssertionError):
             # passing an Action object
-            all_actions.do_action(self.traj, command='', action_class=c_action.Action_Angle())
+            all_actions.do_action(
+                self.traj, command='', action_class=c_action.Action_Angle())
 
         with pytest.raises(AssertionError):
             # passing a wrong class
-            all_actions.do_action(self.traj, command='', action_class=pt.Trajectory)
+            all_actions.do_action(
+                self.traj, command='', action_class=pt.Trajectory)
+
 
 if __name__ == "__main__":
     unittest.main()

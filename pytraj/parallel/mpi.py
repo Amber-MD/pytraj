@@ -73,23 +73,24 @@ def pmap_mpi(func, traj, *args, **kwargs):
         total = comm.gather(data, root=0)
         n_frames_collection = comm.gather(n_frames, root=0)
         if rank == 0:
-            data_collection = [(val, n_frames_)
-                    for (val, n_frames_) in zip(total, n_frames_collection)]
-            dataset_processor = PmapDataset(data_collection,
-                                            func=func,
-                                            traj=traj,
-                                            kwargs=kwargs)
+            data_collection = [
+                (val, n_frames_)
+                for (val, n_frames_) in zip(total, n_frames_collection)
+            ]
+            dataset_processor = PmapDataset(
+                data_collection, func=func, traj=traj, kwargs=kwargs)
             return dataset_processor.process()
     else:
         # cpptraj command style
         from pytraj.parallel.base import _load_batch_pmap
-        total = _load_batch_pmap(n_cores=n_cores,
-                                 traj=traj,
-                                 lines=func,
-                                 dtype='dict',
-                                 root=0,
-                                 mode='mpi',
-                                 **kwargs)
+        total = _load_batch_pmap(
+            n_cores=n_cores,
+            traj=traj,
+            lines=func,
+            dtype='dict',
+            root=0,
+            mode='mpi',
+            **kwargs)
         if rank == 0:
             # otherwise, total=None
             total = concat_dict((x[0] for x in total))
