@@ -9,35 +9,31 @@ from pytraj.utils.tools import rmsd_1darray
 
 
 class TestRegular(unittest.TestCase):
-
     def test_1(self):
-        traj = pt.iterload(fn('tz2.truncoct.nc'),
-                           fn('tz2.truncoct.parm7'))
+        traj = pt.iterload(fn('tz2.truncoct.nc'), fn('tz2.truncoct.parm7'))
         f0 = traj[0]
         f0.copy()
         adict['autoimage']("", f0, traj.top)
 
-        fsaved = pt.iterload(fn('tz2.truncoct.autoiamge.save.r'),
-                             fn('tz2.truncoct.parm7'))[0]
+        fsaved = pt.iterload(
+            fn('tz2.truncoct.autoiamge.save.r'), fn('tz2.truncoct.parm7'))[0]
         aa_eq(fsaved.xyz, f0.xyz, decimal=3)
 
     def test_2(self):
         from pytraj.all_actions import do_autoimage
         # test do_autoimage
-        traj = pt.iterload(fn('tz2.truncoct.nc'),
-                           fn('tz2.truncoct.parm7'))
+        traj = pt.iterload(fn('tz2.truncoct.nc'), fn('tz2.truncoct.parm7'))
         f0 = traj[0]
         f0.copy()
         do_autoimage(traj=f0, top=traj.top)
 
-        fsaved = pt.iterload(fn('tz2.truncoct.autoiamge.save.r'),
-                             fn('tz2.truncoct.parm7'))[0]
+        fsaved = pt.iterload(
+            fn('tz2.truncoct.autoiamge.save.r'), fn('tz2.truncoct.parm7'))[0]
         aa_eq(fsaved.xyz, f0.xyz, decimal=3)
 
     def test_4(self):
         # combined with get_coordinates
-        traj0 = pt.iterload(fn('tz2.truncoct.nc'),
-                            fn('tz2.truncoct.parm7'))
+        traj0 = pt.iterload(fn('tz2.truncoct.nc'), fn('tz2.truncoct.parm7'))
 
         # test autoimage
         traj1 = traj0[:]
@@ -64,8 +60,8 @@ class TestRegular(unittest.TestCase):
         # reset traj1
         traj1 = traj0[:]
         # get new trajectory from traj0
-        traj2 = pt.load_from_frame_iter(traj0(autoimage=True,
-                                               rmsfit=(0, '@CA,C,N')))
+        traj2 = pt.load_from_frame_iter(
+            traj0(autoimage=True, rmsfit=(0, '@CA,C,N')))
         traj1.autoimage()
         traj1.rmsfit(ref=0, mask='@CA,C,N')
 
@@ -77,16 +73,15 @@ class TestRegular(unittest.TestCase):
 
 
 class TestWithRmsfit(unittest.TestCase):
-
     def test_0(self):
         # TrajectoryIterrator
         # status: failed
         from pytraj.externals.six import zip
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
-        pt.write_traj("./output/tz2.autoimage_with_rmsfit.nc",
-                      traj(autoimage=True,
-                           rmsfit=(0, '@CA,C,N')),
-                      overwrite=True)
+        pt.write_traj(
+            "./output/tz2.autoimage_with_rmsfit.nc",
+            traj(autoimage=True, rmsfit=(0, '@CA,C,N')),
+            overwrite=True)
 
         saved_traj = pt.load(fn('tz2.autoimage_with_rmsfit.nc'), traj.top)
         p_traj = pt.load('./output/tz2.autoimage_with_rmsfit.nc', traj.top)
@@ -107,15 +102,19 @@ class TestWithRmsfit(unittest.TestCase):
         # PASSED
         aa_eq(saved_traj.xyz, traj.xyz)
 
+
 def test_autoimage_for_tightly_packed_systems():
-    trajin_fn = os.path.join(cpptraj_test_dir, 'Test_AutoImage', 'G3_3A.rst7') 
-    prmtop_fn = os.path.join(cpptraj_test_dir, 'Test_AutoImage', 'nowat.G3_3A.parm7') 
-    saved_rst7 = os.path.join(cpptraj_test_dir, 'Test_AutoImage', 'image.G3_3A.rst7.save') 
+    trajin_fn = os.path.join(cpptraj_test_dir, 'Test_AutoImage', 'G3_3A.rst7')
+    prmtop_fn = os.path.join(cpptraj_test_dir, 'Test_AutoImage',
+                             'nowat.G3_3A.parm7')
+    saved_rst7 = os.path.join(cpptraj_test_dir, 'Test_AutoImage',
+                              'image.G3_3A.rst7.save')
     saved_traj = pt.iterload(saved_rst7, prmtop_fn)
 
     traj = pt.load(trajin_fn, prmtop_fn)
     pt.autoimage(traj, 'anchor :96 origin')
     aa_eq(traj.xyz, saved_traj.xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

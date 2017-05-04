@@ -7,7 +7,6 @@ from pytraj.utils import aa_eq
 
 
 class Test_iterchunk_autoimage(unittest.TestCase):
-
     def setUp(self):
         self.traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         self.mask = '@C,N,CA,O'
@@ -47,9 +46,8 @@ class Test_iterchunk_autoimage(unittest.TestCase):
         ref0 = traj[0]
         # need to autoimage reference frame first
         pt.autoimage(ref0, top=traj.top)
-        for chunk in traj.iterchunk(chunksize=2,
-                                    rmsfit=(ref0, self.mask),
-                                    autoimage=True):
+        for chunk in traj.iterchunk(
+                chunksize=2, rmsfit=(ref0, self.mask), autoimage=True):
             pass
 
         fa0 = traj[-2:]

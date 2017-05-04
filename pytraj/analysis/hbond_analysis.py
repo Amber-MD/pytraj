@@ -217,6 +217,7 @@ def hbond(traj,
             return hdata
         else:
             raise ValueError(
-                'series=False does not work with dtype="hbond", try dtype="dataset"')
+                'series=False does not work with dtype="hbond", try dtype="dataset"'
+            )
     else:
         return get_data_from_dtype(dslist, dtype=dtype)

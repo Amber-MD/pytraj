@@ -6,7 +6,6 @@ from pytraj.testing import aa_eq
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         import numpy as np
 
@@ -24,10 +23,8 @@ class Test(unittest.TestCase):
         aa_eq(d2.to_ndarray().flatten(), saved_d0.flatten())
 
         aa_eq(
-            pt.center_of_geometry(traj,
-                                  dtype='ndarray'),
-            pt.center_of_geometry(traj2,
-                                  dtype='ndarray'))
+            pt.center_of_geometry(traj, dtype='ndarray'),
+            pt.center_of_geometry(traj2, dtype='ndarray'))
 
 
 if __name__ == "__main__":

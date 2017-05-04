@@ -7,7 +7,6 @@ import pytest
 
 
 class TestIteraframeIndices(unittest.TestCase):
-
     def test_iterframe_indices(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
@@ -23,8 +22,11 @@ class TestIteraframeIndices(unittest.TestCase):
         # only care about TrajectoryCpptraj since we would get segmentation fault
         # if index is larger than max n_frame
         with pytest.raises(AssertionError):
-            for _ in traj._iterframe_indices([traj.n_frames, ]):
+            for _ in traj._iterframe_indices([
+                    traj.n_frames,
+            ]):
                 print(_.xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

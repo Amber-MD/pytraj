@@ -6,7 +6,6 @@ from pytraj.utils import aa_eq
 
 
 class TestReplicateCell(unittest.TestCase):
-
     def test_vs_cpptraj(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         txt = '''
@@ -27,7 +26,8 @@ class TestReplicateCell(unittest.TestCase):
         traj1 = pt.replicate_cell(traj, direction=('001', '0-10'))
         aa_eq(traj0.xyz, traj1.xyz)
 
-        self.assertRaises(ValueError, lambda: pt.replicate_cell(traj, direction=traj[0]))
+        self.assertRaises(ValueError,
+                          lambda: pt.replicate_cell(traj, direction=traj[0]))
 
 
 if __name__ == "__main__":

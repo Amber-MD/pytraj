@@ -11,8 +11,8 @@ from pytraj.utils.context import capture_stdout
 # local
 from utils import fn, tz2_ortho_trajin, tz2_ortho_top
 
-
 DO_GIST = os.getenv("DO_GIST", False)
+
 
 @unittest.skipUnless(DO_GIST, 'only do gist test if setting DO_GIST=True')
 def test_gist():
@@ -21,13 +21,16 @@ def test_gist():
 
     command = "doorder doeij refdens 0.033422885325 gridcntr 1.44 0.67 0.29 \
                  griddim 10 12 10 gridspacn 2.0"
-    data = pt.all_actions.gist(traj,
-            do_order=True,
-            do_eij=True,
-            reference_density=0.033422885325,
-            grid_center=(1.44, 0.67, 0.29), grid_dim=(10, 12, 10),
-            grid_spacing=2.0,
-            dtype='cpptraj_dataset')
+
+    data = pt.all_actions.gist(
+        traj,
+        do_order=True,
+        do_eij=True,
+        reference_density=0.033422885325,
+        grid_center=(1.44, 0.67, 0.29),
+        grid_dim=(10, 12, 10),
+        grid_spacing=2.0,
+        dtype='cpptraj_dataset')
 
     state_command = """
     parm {}
@@ -42,5 +45,6 @@ def test_gist():
     data_dict = data.to_dict()
     data_state_dict = state.data[1:].to_dict()
 
-    for key, state_key  in zip(sorted(data_dict.keys()), sorted(data_state_dict.keys())):
+    for key, state_key in zip(
+            sorted(data_dict.keys()), sorted(data_state_dict.keys())):
         aa_eq(data_dict[key], data_state_dict[state_key])

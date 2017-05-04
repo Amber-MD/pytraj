@@ -8,4 +8,3 @@ print(pt.pca.__doc__)
 print('##################')
 print('output')
 print(data)
-

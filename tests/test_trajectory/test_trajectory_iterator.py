@@ -9,10 +9,11 @@ from pytraj.trajectory.trajectory_iterator import sort_filename_by_number
 
 
 class TestTrajectoryIterator(unittest.TestCase):
-
     def test_sorting_filelist(self):
-        orig_list = ['md10.nc', 'md11.nc', 'md12.nc', 'md4.nc', 'md5.nc',
-                     'md100.nc', 'md6.nc', 'md7.nc', 'md8.nc', 'md9.nc']
+        orig_list = [
+            'md10.nc', 'md11.nc', 'md12.nc', 'md4.nc', 'md5.nc', 'md100.nc',
+            'md6.nc', 'md7.nc', 'md8.nc', 'md9.nc'
+        ]
         expected = [
             'md4.nc',
             'md5.nc',
@@ -29,11 +30,13 @@ class TestTrajectoryIterator(unittest.TestCase):
             orig_list), 'two filename list must be equal'
 
     def test_comprehensive(self):
-        traj = pt.iterload(fn('Test_RemdTraj/rem.nc.000'),
-                           fn('Test_RemdTraj/ala2.99sb.mbondi2.parm7'))
+        traj = pt.iterload(
+            fn('Test_RemdTraj/rem.nc.000'),
+            fn('Test_RemdTraj/ala2.99sb.mbondi2.parm7'))
         # temperature
-        aa_eq(traj.temperatures, [300., 630.5, 630.5, 630.5, 630.5, 630.5,
-                                  630.5, 630.5, 492.2, 384.3])
+        aa_eq(traj.temperatures, [
+            300., 630.5, 630.5, 630.5, 630.5, 630.5, 630.5, 630.5, 492.2, 384.3
+        ])
 
         # iterframe (already in doctest), just throwing raise to increase coverage score
         self.assertRaises(ValueError, lambda: traj.iterframe(rmsfit='crazy'))

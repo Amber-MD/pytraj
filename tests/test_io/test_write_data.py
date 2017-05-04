@@ -8,6 +8,7 @@ from pytraj.testing import cpptraj_test_dir, tempfolder
 # local
 from utils import fn
 
+
 def test_write_data():
     traj = pt.iterload(fn("tz2.ortho.nc"), fn("tz2.ortho.parm7"))
     rmsd_data = pt.rmsd(traj)

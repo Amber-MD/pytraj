@@ -8,7 +8,6 @@ from pytraj.externals.six.moves import zip
 
 
 class TestAutoImageAndRotateDihedral(unittest.TestCase):
-
     def test_autoimage_rotatedihedral(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         farray = traj[:]
@@ -32,7 +31,6 @@ class TestAutoImageAndRotateDihedral(unittest.TestCase):
 
 
 class TestNoName(unittest.TestCase):
-
     def test_0(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         trajectory_traj = traj[:]
@@ -55,8 +53,7 @@ class TestNoName(unittest.TestCase):
         # make Trajectory from TrajectoryIterator
         fa = traj[:]
         fa.autoimage()
-        saved_traj = pt.iterload(fn('tz2.autoimage.nc'),
-                                 fn('tz2.ortho.parm7'))
+        saved_traj = pt.iterload(fn('tz2.autoimage.nc'), fn('tz2.ortho.parm7'))
 
         # make sure to reproduce cpptraj's output too
         aa_eq(saved_traj.xyz, fa.xyz)
@@ -67,7 +64,6 @@ class TestNoName(unittest.TestCase):
 
 
 class TestAppend(unittest.TestCase):
-
     def test_append_trajectory(self):
         # test append
         traj = pt.Trajectory()
@@ -116,7 +112,6 @@ class TestAppend(unittest.TestCase):
 
 
 class TestTrajectory(unittest.TestCase):
-
     def test_raise_construtor(self):
         self.assertRaises(ValueError, lambda: pt.Trajectory(pt.trajectory))
         # raise if filename is not string or list of string
@@ -126,7 +121,8 @@ class TestTrajectory(unittest.TestCase):
 
         # raise if empty Topology
         xyz = np.arange(90).astype('f8').reshape(3, 10, 3)
-        self.assertRaises(ValueError, lambda: pt.Trajectory(xyz=xyz, top=pt.Topology()))
+        self.assertRaises(ValueError,
+                          lambda: pt.Trajectory(xyz=xyz, top=pt.Topology()))
 
     def test_slice_basic(self):
         traj2 = pt.Trajectory()
@@ -143,11 +139,12 @@ class TestTrajectory(unittest.TestCase):
         n_atoms = traj_on_disk.n_atoms
         n_frames = traj_on_disk.n_frames
         xyz = traj_on_disk.xyz
-        force = np.random.rand(n_frames*n_atoms*3).reshape((n_frames, n_atoms, 3))
-        velocity  = np.random.rand(n_frames*n_atoms*3).reshape((n_frames, n_atoms, 3))
+        force = np.random.rand(n_frames * n_atoms * 3).reshape((n_frames,
+                                                                n_atoms, 3))
+        velocity = np.random.rand(n_frames * n_atoms * 3).reshape((n_frames,
+                                                                   n_atoms, 3))
         top = traj_on_disk.top
-        traj = pt.Trajectory(xyz=xyz, top=top,
-                             force=force, velocity=velocity)
+        traj = pt.Trajectory(xyz=xyz, top=top, force=force, velocity=velocity)
         aa_eq(traj.forces, force)
         aa_eq(traj.velocities, velocity)
 
@@ -284,7 +281,6 @@ class TestTrajectory(unittest.TestCase):
 
 
 class TestSaveToDisk(unittest.TestCase):
-
     def test_basic_saving(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
@@ -317,7 +313,6 @@ class TestSaveToDisk(unittest.TestCase):
 
 
 class TestSetitem(unittest.TestCase):
-
     def test_setitem(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         fa = traj[:]

@@ -163,20 +163,15 @@ def test_ired_simple_for_coverage():
     modes = pt.matrix.diagonalize(mat_ired, n_vecs=len(state_vecs))
     evals, evecs = modes
 
-    data_0 = _ired(state_vecs,
-                   modes=(evals, evecs),
-                   NHbond=True,
-                   tcorr=10000,
-                   tstep=1.)
+    data_0 = _ired(
+        state_vecs, modes=(evals, evecs), NHbond=True, tcorr=10000, tstep=1.)
 
-    data_1 = _ired(state_vecs,
-                   modes=modes,
-                   NHbond=True,
-                   tcorr=10000,
-                   tstep=1)
+    data_1 = _ired(state_vecs, modes=modes, NHbond=True, tcorr=10000, tstep=1)
 
     for d0, d1 in zip(data_0, data_1):
-        if d0.dtype not in ['modes', ]:
+        if d0.dtype not in [
+                'modes',
+        ]:
             aa_eq(d0.values, d1.values)
         else:
             # modes
@@ -185,7 +180,9 @@ def test_ired_simple_for_coverage():
             aa_eq(d0.values[1], d1.values[1])
 
     # try different dtype
-    out_try_new_dtype = pt.ired_vector_and_matrix(traj, nh_indices, dtype='cpptraj_dataset')
+    out_try_new_dtype = pt.ired_vector_and_matrix(
+        traj, nh_indices, dtype='cpptraj_dataset')
+
 
 def test_ired_need_lapack_cpptraj():
     state = pt.load_cpptraj_state(txt)
@@ -198,9 +195,7 @@ def test_ired_need_lapack_cpptraj():
     h_indices = pt.select_atoms('@H', traj.top)
     n_indices = pt.select_atoms('@H', traj.top) - 1
     nh_indices = list(zip(n_indices, h_indices))
-    mat_ired = pt.ired_vector_and_matrix(traj,
-                                         mask=nh_indices,
-                                         order=2)[-1]
+    mat_ired = pt.ired_vector_and_matrix(traj, mask=nh_indices, order=2)[-1]
     mat_ired /= mat_ired[0, 0]
 
     # matired: make sure to reproduce cpptraj output
@@ -231,6 +226,6 @@ def test_ired_need_lapack_cpptraj():
     order_s2 = data['IRED_00127[S2]']
 
     # load cpptraj's output and compare to pytraj' values for S2 order paramters
-    cpp_order_s2 = np.loadtxt(os.path.join(cpptraj_test_dir, 'Test_IRED',
-                                           'orderparam.save')).T[-1]
+    cpp_order_s2 = np.loadtxt(
+        os.path.join(cpptraj_test_dir, 'Test_IRED', 'orderparam.save')).T[-1]
     aa_eq(order_s2, cpp_order_s2, decimal=5)

@@ -4,7 +4,8 @@
 from __future__ import print_function
 import matplotlib
 import matplotlib.pyplot as plt
-matplotlib.rcParams['savefig.dpi'] = 2 * matplotlib.rcParams['savefig.dpi']  # larger image
+matplotlib.rcParams['savefig.dpi'] = 2 * matplotlib.rcParams[
+    'savefig.dpi']  # larger image
 
 from sklearn.decomposition import PCA
 import pytraj as pt
@@ -36,7 +37,12 @@ reduced_cartesian = pca.fit_transform(xyz_2d)
 print(reduced_cartesian.shape)  # (n_frames, n_dimensions)
 
 plt.figure()
-plt.scatter(reduced_cartesian[:, 0], reduced_cartesian[:, 1], marker='o', c=range(traj_new.n_frames), alpha=0.5)
+plt.scatter(
+    reduced_cartesian[:, 0],
+    reduced_cartesian[:, 1],
+    marker='o',
+    c=range(traj_new.n_frames),
+    alpha=0.5)
 plt.xlabel('PC1')
 plt.ylabel('PC2')
 cbar = plt.colorbar()
@@ -92,7 +98,12 @@ ax_0.set_yticks([-40, -20, 0, 20, 40])
 
 # plot: sklearn
 ax_1 = fig.add_subplot(212)
-ax_1.scatter(reduced_cartesian[:, 0], reduced_cartesian[:, 1], marker='o', c=range(traj.n_frames), alpha=0.5)
+ax_1.scatter(
+    reduced_cartesian[:, 0],
+    reduced_cartesian[:, 1],
+    marker='o',
+    c=range(traj.n_frames),
+    alpha=0.5)
 ax_1.set_xlabel('PC1')
 ax_1.set_ylabel('PC2')
 ax_1.set_yticks([-40, -20, 0, 20, 40])

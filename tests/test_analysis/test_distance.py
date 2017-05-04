@@ -9,7 +9,6 @@ from pytraj.utils import aa_eq
 
 
 class TestNormalDistance(unittest.TestCase):
-
     def test_general(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         fa = traj[:]
@@ -28,7 +27,8 @@ class TestNormalDistance(unittest.TestCase):
         d5 = pt.distance(traj, arr)
         d6 = pt.distance(fa, arr)
         d7 = pt.distance([fa, traj], arr, n_frames=2 * fa.n_frames)
-        d8 = pt.distance([fa, traj], arr, n_frames=2 * fa.n_frames, dtype='dataset')
+        d8 = pt.distance(
+            [fa, traj], arr, n_frames=2 * fa.n_frames, dtype='dataset')
         aa_eq(d3, d4)
         aa_eq(d3, d5)
         aa_eq(d3, d6)
@@ -64,16 +64,15 @@ class TestNormalDistance(unittest.TestCase):
     def test_distance_with_dry_traj_and_PBC_topology(self):
         '''Situation: there is dry traj (no box) but Topology has box info
         '''
-        traj = pt.iterload(fn('dry_traj_with_PBC_top/strip.nc'),
-                           fn('dry_traj_with_PBC_top/strip.prmtop'))
+        traj = pt.iterload(
+            fn('dry_traj_with_PBC_top/strip.nc'),
+            fn('dry_traj_with_PBC_top/strip.prmtop'))
         assert traj.top.has_box(), 'Topology must have box for testing'
 
-        correct_distance_with_image_True = pt.distance(traj,
-                                                       ':8@OP2 :5@N1',
-                                                       image=True)
-        correct_distance_with_image_False = pt.distance(traj,
-                                                        ':8@OP2 :5@N1',
-                                                        image=False)
+        correct_distance_with_image_True = pt.distance(
+            traj, ':8@OP2 :5@N1', image=True)
+        correct_distance_with_image_False = pt.distance(
+            traj, ':8@OP2 :5@N1', image=False)
         state = pt.load_batch(traj, '''
         distance :8@OP2 :5@N1
         ''')
@@ -85,7 +84,6 @@ class TestNormalDistance(unittest.TestCase):
 
 
 class TestPairwiseDistance(unittest.TestCase):
-
     def test_pairwise(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         distances = pt.pairwise_distance(traj, '@CA', '@CB')[0]

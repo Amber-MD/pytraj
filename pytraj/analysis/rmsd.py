@@ -1,14 +1,9 @@
 import numpy as np
 
 from ..externals.six import string_types
-from ..utils.get_common_objects import (get_topology,
-                                       get_data_from_dtype,
-                                       get_matrix_from_dataset,
-                                       get_reference,
-                                       get_fiterator,
-                                       super_dispatch,
-                                       get_iterator_from_dslist
-)
+from ..utils.get_common_objects import (
+    get_topology, get_data_from_dtype, get_matrix_from_dataset, get_reference,
+    get_fiterator, super_dispatch, get_iterator_from_dslist)
 from ..utils.convert import array_to_cpptraj_atommask
 from ..utils.decorators import register_pmap, register_openmp
 from .c_action import c_action
@@ -26,6 +21,7 @@ __all__ = [
     'rmsd',
     'symmrmsd',
 ]
+
 
 @register_pmap
 @super_dispatch()
@@ -79,6 +75,7 @@ def rotation_matrix(traj=None,
         return mat[1:], np.array(c_dslist[0].values[1:])
     else:
         return mat[1:]
+
 
 @register_openmp
 def pairwise_rmsd(traj=None,
@@ -137,9 +134,11 @@ def pairwise_rmsd(traj=None,
     act = c_analysis.Analysis_Rms2d()
 
     crdname = 'default_coords'
-    c_dslist, top_, command = get_iterator_from_dslist(traj, mask, frame_indices, top, crdname=crdname)
+    c_dslist, top_, command = get_iterator_from_dslist(
+        traj, mask, frame_indices, top, crdname=crdname)
 
-    command = ' '.join((command, metric, "crdset {} rmsout mycrazyoutput".format(crdname)))
+    command = ' '.join((command, metric,
+                        "crdset {} rmsout mycrazyoutput".format(crdname)))
 
     act(command, dslist=c_dslist)
     # remove dataset coords to free memory
@@ -149,6 +148,7 @@ def pairwise_rmsd(traj=None,
         return get_matrix_from_dataset(c_dslist[0], mat_type)
     else:
         return get_data_from_dtype(c_dslist, dtype)
+
 
 calc_pairwise_rmsd = pairwise_rmsd
 
@@ -164,7 +164,8 @@ def rmsd_perres(traj=None,
                 perres_invert=False,
                 frame_indices=None,
                 top=None,
-                dtype='dataset', **kwd):
+                dtype='dataset',
+                **kwd):
     """superpose ``traj`` to ``ref`` with `mask`, then calculate nofit rms for residues
     in `resrange` with given `perresmask`
 
@@ -182,14 +183,16 @@ def rmsd_perres(traj=None,
 
     cm = " ".join((mask, 'perres', range_, perresmask_, perrestcenter_,
                    perrestinvert_))
-    return rmsd(traj=traj,
-                mask=cm,
-                ref=ref,
-                nofit=False,
-                mass=mass,
-                frame_indices=frame_indices,
-                top=top,
-                dtype=dtype, **kwd)
+    return rmsd(
+        traj=traj,
+        mask=cm,
+        ref=ref,
+        nofit=False,
+        mass=mass,
+        frame_indices=frame_indices,
+        top=top,
+        dtype=dtype,
+        **kwd)
 
 
 @register_pmap
@@ -199,7 +202,8 @@ def rmsd_nofit(traj=None,
                mass=False,
                frame_indices=None,
                top=None,
-               dtype='ndarray', **kwd):
+               dtype='ndarray',
+               **kwd):
     '''compute rmsd without fitting (translating and rotating)
 
     Parameters
@@ -216,14 +220,17 @@ def rmsd_nofit(traj=None,
     -----
     This method is equal to pytraj.rmsd(traj, mask, ref, nofit=True, ...)
     '''
-    return rmsd(traj=traj,
-                mask=mask,
-                ref=ref,
-                mass=mass,
-                nofit=True,
-                frame_indices=frame_indices,
-                top=top,
-                dtype=dtype, **kwd)
+    return rmsd(
+        traj=traj,
+        mask=mask,
+        ref=ref,
+        mass=mass,
+        nofit=True,
+        frame_indices=frame_indices,
+        top=top,
+        dtype=dtype,
+        **kwd)
+
 
 calc_rmsd_nofit = rmsd_nofit
 
@@ -305,7 +312,9 @@ def rmsd(traj=None,
             ref_mask = array_to_cpptraj_atommask(ref_mask)
 
     if isinstance(mask, string_types):
-        command = [mask, ]
+        command = [
+            mask,
+        ]
     else:
         try:
             cmd = np.asarray(mask)
@@ -316,7 +325,9 @@ def rmsd(traj=None,
             command = cmd
         elif 'int' in dname:
             if cmd.ndim == 1:
-                command = [array_to_cpptraj_atommask(mask), ]
+                command = [
+                    array_to_cpptraj_atommask(mask),
+                ]
             else:
                 # assume ndim==2
                 command = [array_to_cpptraj_atommask(x) for x in mask]
@@ -344,12 +355,11 @@ def rmsd(traj=None,
 
     for cm in command:
         cm_ = ' '.join((cm, ref_mask, options))
-        if 'savematrices' in cm_ and dtype not in ['dataset', 'cpptraj_dataset']:
+        if 'savematrices' in cm_ and dtype not in [
+                'dataset', 'cpptraj_dataset'
+        ]:
             raise ValueError('if savematrices, dtype must be "dataset"')
-        alist.add(c_action.Action_Rmsd(),
-                  cm_,
-                  top=top_,
-                  dslist=c_dslist)
+        alist.add(c_action.Action_Rmsd(), cm_, top=top_, dslist=c_dslist)
 
     alist.compute(fi)
 
@@ -359,11 +369,18 @@ def rmsd(traj=None,
     dnew = DatasetList(c_dslist)
     return get_data_from_dtype(dnew, dtype=dtype)
 
+
 @super_dispatch()
-def symmrmsd(traj, mask='', ref=0, ref_mask=None,
-             fit=True, remap=False,
+def symmrmsd(traj,
+             mask='',
+             ref=0,
+             ref_mask=None,
+             fit=True,
+             remap=False,
              mass=False,
-             top=None, dtype='ndarray', frame_indices=None):
+             top=None,
+             dtype='ndarray',
+             frame_indices=None):
     """Compute symmetry-corrected RMSD
 
     Parameters
@@ -432,14 +449,15 @@ def symmrmsd(traj, mask='', ref=0, ref_mask=None,
 
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
+
 @register_pmap
 @super_dispatch()
 def distance_rmsd(traj=None,
-                       mask='',
-                       ref=0,
-                       top=None,
-                       dtype='ndarray',
-                       frame_indices=None):
+                  mask='',
+                  ref=0,
+                  top=None,
+                  dtype='ndarray',
+                  frame_indices=None):
     '''compute distance rmsd between traj and reference
 
     Parameters
@@ -464,7 +482,8 @@ def distance_rmsd(traj=None,
     >>> data = pt.distance_rmsd(traj, ref=0, mask='@CA')
     '''
     command = mask
-    c_dslist, _ = do_action([ref, traj], command, c_action.Action_DistRmsd, top=top)
+    c_dslist, _ = do_action(
+        [ref, traj], command, c_action.Action_DistRmsd, top=top)
     # exclude ref value
     for d in c_dslist:
         d.data = d.data[1:]

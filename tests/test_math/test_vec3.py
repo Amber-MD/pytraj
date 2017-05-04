@@ -3,7 +3,6 @@ import unittest
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         v1 = Vec3(0., 0., 0.)
         v1[0] = 200.

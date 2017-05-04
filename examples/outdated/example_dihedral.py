@@ -18,8 +18,8 @@ for i in range(1, 22):
 print(traj)
 
 iter_options = {'stop': -1, 'stride': 1}
-dslist = da.calc_multidihedral(traj(**iter_options), "chin alpha gamma",
-                               top=traj.top)
+dslist = da.calc_multidihedral(
+    traj(**iter_options), "chin alpha gamma", top=traj.top)
 
 io.to_pickle(dslist.to_dict(), "chin_alpha_gamma.pk")
 #print (dslist.to_dict())

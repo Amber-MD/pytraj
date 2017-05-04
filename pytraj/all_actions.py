@@ -45,8 +45,7 @@ from .analysis import (
     nmr,
     dssp_analysis,
     hbond_analysis,
-    energy_analysis,
-    )
+    energy_analysis, )
 
 __all__ = [
     'analyze_modes',
@@ -355,12 +354,13 @@ def angle(traj=None,
             actlist = ActionList()
 
             for cm in list_of_commands:
-                actlist.add(c_action.Action_Angle(),
-                            cm,
-                            top_,
-                            dslist=c_dslist,
-                            *args,
-                            **kwargs)
+                actlist.add(
+                    c_action.Action_Angle(),
+                    cm,
+                    top_,
+                    dslist=c_dslist,
+                    *args,
+                    **kwargs)
             actlist.compute(traj)
             return get_data_from_dtype(c_dslist, dtype)
 
@@ -497,12 +497,13 @@ def dihedral(traj=None,
             actlist = ActionList()
 
             for cm in list_of_commands:
-                actlist.add(c_action.Action_Dihedral(),
-                            cm,
-                            top_,
-                            dslist=c_dslist,
-                            *args,
-                            **kwargs)
+                actlist.add(
+                    c_action.Action_Dihedral(),
+                    cm,
+                    top_,
+                    dslist=c_dslist,
+                    *args,
+                    **kwargs)
             actlist.compute(traj)
             return get_data_from_dtype(c_dslist, dtype)
     else:
@@ -1767,8 +1768,8 @@ def timecorr(vec0,
     tstep_ = "tstep " + str(tstep)
     tcorr_ = "tcorr " + str(tcorr)
     norm_ = "norm" if norm else ""
-    command = " ".join(
-        ('vec1 _vec0 vec2 _vec1', order_, tstep_, tcorr_, norm_))
+    command = " ".join(('vec1 _vec0 vec2 _vec1', order_, tstep_, tcorr_,
+                        norm_))
     act(command, dslist=c_dslist)
     return get_data_from_dtype(c_dslist[2:], dtype=dtype)
 
@@ -2425,8 +2426,9 @@ def gist(traj,
     out :  dict (or another data type based on dtype)
         User should always use the default dtype
     """
-    grid_center_ = grid_center if isinstance(
-        grid_center, string_types) else " ".join(str(x) for x in grid_center)
+    grid_center_ = grid_center if isinstance(grid_center,
+                                             string_types) else " ".join(
+                                                 str(x) for x in grid_center)
     grid_center_ = ' '.join(('gridcntr ', grid_center_))
     grid_dim_ = grid_dim if isinstance(grid_dim, string_types) else " ".join(
         str(x) for x in grid_dim)
@@ -2863,12 +2865,13 @@ def check_chirality(traj, mask='', dtype='dict'):
     c_dslist, _ = do_action(traj, command, c_action.Action_CheckChirality)
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
+
 def analyze_modes(mode_type,
-        eigenvectors,
-        eigenvalues,
-        scalar_type='mwcovar',
-        options='',
-        dtype='dict'):
+                  eigenvectors,
+                  eigenvalues,
+                  scalar_type='mwcovar',
+                  options='',
+                  dtype='dict'):
     act = c_analysis.Analysis_Modes()
     c_dslist = CpptrajDatasetList()
     my_modes = 'my_modes'
@@ -2877,7 +2880,7 @@ def analyze_modes(mode_type,
     # cpptraj will use natoms = modes.NavgCrd()
     modes._allocate_avgcoords(eigenvectors.shape[1])
     modes._set_modes(False, eigenvectors.shape[0], eigenvectors.shape[1],
-                      eigenvalues, eigenvectors.flatten())
+                     eigenvalues, eigenvectors.flatten())
     command = ' '.join((mode_type, 'name {}'.format(my_modes), options))
     act(command, dslist=c_dslist)
     c_dslist._pop(0)

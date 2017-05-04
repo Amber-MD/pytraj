@@ -15,6 +15,7 @@ with sander.setup(traj.top.filename, traj[0].xyz, traj.top.box, inp):
         ene, frc = sander.energy_forces()
         frcs.append(np.array(frc).reshape(traj.n_atoms, 3))
 
+
 def get_frame_with_force(traj, forces=frcs):
     frame0 = pt.Frame()
     crdinfo = dict(has_force=True)
@@ -23,11 +24,13 @@ def get_frame_with_force(traj, forces=frcs):
 
     for frame, frc in zip(traj, frcs):
         frame0.xyz[:] = frame.xyz
-        frame0.force[:] = frc 
+        frame0.force[:] = frc
         yield frame0
 
-pt.write_traj('traj.nc',
-              traj=get_frame_with_force(traj),
-              top=traj.top,
-              overwrite=True,
-              options='force')
+
+pt.write_traj(
+    'traj.nc',
+    traj=get_frame_with_force(traj),
+    top=traj.top,
+    overwrite=True,
+    options='force')

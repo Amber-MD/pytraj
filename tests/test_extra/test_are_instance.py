@@ -10,7 +10,6 @@ from utils import fn
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = mdio.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         assert are_instance([traj, traj], TrajectoryIterator) == True

@@ -7,7 +7,6 @@ from pytraj.utils.check_and_assert import assert_almost_equal
 
 
 class TestAtomMask(unittest.TestCase):
-
     def test_0(self):
         atm = AtomMask("@CA")
         assert atm.n_atoms == 0

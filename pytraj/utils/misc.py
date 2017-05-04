@@ -33,12 +33,15 @@ def parallel_info(key=None):
     methodlist_pmap = []
     methodlist_openmp = []
 
-    for method_str in chain(dir(pt), dir(matrix), dir(vector), dir(nmr), dir(cluster)):
+    for method_str in chain(
+            dir(pt), dir(matrix), dir(vector), dir(nmr), dir(cluster)):
         try:
             method = getattr(pt, method_str)
-            if hasattr(method, '_is_parallelizable') and method._is_parallelizable:
+            if hasattr(method,
+                       '_is_parallelizable') and method._is_parallelizable:
                 methodlist_pmap.append(method)
-            if hasattr(method, '_openmp_capability') and method._openmp_capability:
+            if hasattr(method,
+                       '_openmp_capability') and method._openmp_capability:
                 methodlist_openmp.append(method)
         except AttributeError:
             pass
@@ -58,8 +61,7 @@ def parallel_info(key=None):
         #    name = name.split('calc_')[-1]
         openmp_.append(name)
     supported_openmp_methods = sorted(openmp_)
-    d = {'pmap': supported_pmap_methods,
-         'openmp': supported_openmp_methods}
+    d = {'pmap': supported_pmap_methods, 'openmp': supported_openmp_methods}
     return d if key is None else d[key]
 
 

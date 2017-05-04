@@ -7,15 +7,18 @@ from pytraj.datasets import CpptrajDatasetList
 from pytraj.externals.six import string_types
 
 __all__ = [
-        'check_valid_command',
-        'worker_by_func',
-        'worker_by_actlist',
-        'worker_by_state',
-        'concat_hbond',
+    'check_valid_command',
+    'worker_by_func',
+    'worker_by_actlist',
+    'worker_by_state',
+    'concat_hbond',
 ]
 
+
 def consume_iterator(fi):
-    for _ in fi: pass
+    for _ in fi:
+        pass
+
 
 def concat_hbond(data_collection):
     # TODO: update doc
@@ -37,7 +40,7 @@ def concat_hbond(data_collection):
     for partial_data in data_collection:
         all_keys.update(partial_data[0].keys())
     excluded_keys = [key for key in all_keys if key.startswith('total')]
-    
+
     for key in excluded_keys:
         all_keys.discard(key)
 
@@ -54,6 +57,7 @@ def concat_hbond(data_collection):
     for key, val in data_dict.items():
         data_dict[key] = val.astype('i4')
     return data_dict
+
 
 def check_valid_command(commands):
     '''
@@ -84,12 +88,10 @@ def check_valid_command(commands):
         if 'refindex' in cm:
             need_ref = True
 
-        if ((cm.startswith('rms') or
-             cm.startswith('nastruct') or
-             cm.startswith('center') or
-             cm.startswith('distrmsd') or
-             cm.startswith('nativecontacts') or
-             cm.startswith('symmetricrmsd')) and 'refindex' not in cm):
+        if ((cm.startswith('rms') or cm.startswith('nastruct') or
+             cm.startswith('center') or cm.startswith('distrmsd') or
+             cm.startswith('nativecontacts') or cm.startswith('symmetricrmsd'))
+                and 'refindex' not in cm):
 
             cm = cm + ' refindex 0 '
             need_ref = True
@@ -108,22 +110,23 @@ def check_valid_command(commands):
             if cm.startswith(word):
                 raise ValueError(
                     'Not yet support cpptraj {} keyword for parallel. '
-                    'Please use corresponding pytraj method if existing'.format(word))
+                    'Please use corresponding pytraj method if existing'.
+                    format(word))
         new_commands[idx] = cm
 
     return new_commands, need_ref
 
 
 def worker_by_func(rank,
-                  n_cores=None,
-                  func=None,
-                  traj=None,
-                  args=None,
-                  kwargs=None,
-                  iter_options=None,
-                  apply=None,
-                  progress=False,
-                  progress_params=dict()):
+                   n_cores=None,
+                   func=None,
+                   traj=None,
+                   args=None,
+                   kwargs=None,
+                   iter_options=None,
+                   apply=None,
+                   progress=False,
+                   progress_params=dict()):
     '''worker for pytraj's functions
     '''
     # need to unpack args and kwargs
@@ -136,20 +139,19 @@ def worker_by_func(rank,
     frame_indices = kwargs.pop('frame_indices', None)
 
     if frame_indices is None:
-        my_iter = traj._split_iterators(n_cores,
-                                        rank=rank,
-                                        mask=mask,
-                                        rmsfit=rmsfit,
-                                        autoimage=autoimage)
+        my_iter = traj._split_iterators(
+            n_cores, rank=rank, mask=mask, rmsfit=rmsfit, autoimage=autoimage)
     else:
         my_indices = np.array_split(frame_indices, n_cores)[rank]
-        my_iter = traj.iterframe(frame_indices=my_indices,
-                                 mask=mask,
-                                 rmsfit=rmsfit,
-                                 autoimage=autoimage)
+        my_iter = traj.iterframe(
+            frame_indices=my_indices,
+            mask=mask,
+            rmsfit=rmsfit,
+            autoimage=autoimage)
     if progress and rank == 0:
         from pytraj.utils.progress import ProgressBarTrajectory
-        my_iter = ProgressBarTrajectory(my_iter, style='basic', **progress_params)
+        my_iter = ProgressBarTrajectory(
+            my_iter, style='basic', **progress_params)
 
     n_frames = my_iter.n_frames
     kwargs_cp = {}
@@ -186,17 +188,21 @@ def worker_by_actlist(rank,
     if frame_indices is None:
         my_iter = traj._split_iterators(n_cores, rank=rank)
     else:
-        my_iter = traj.iterframe(
-            frame_indices=np.array_split(frame_indices, n_cores)[rank])
+        my_iter = traj.iterframe(frame_indices=np.array_split(
+            frame_indices, n_cores)[rank])
 
     if ref is not None:
         if isinstance(ref, Frame):
-            reflist = [ref, ]
+            reflist = [
+                ref,
+            ]
         else:
             # list/tuplex
             reflist = ref
     else:
-        reflist = [traj[0],] if need_ref else []
+        reflist = [
+            traj[0],
+        ] if need_ref else []
 
     dslist = CpptrajDatasetList()
 
@@ -229,13 +235,14 @@ def _load_batch_pmap(n_cores=4,
         lines = []
     if mode == 'multiprocessing':
         from multiprocessing import Pool
-        pfuncs = partial(worker_by_actlist,
-                         n_cores=n_cores,
-                         traj=traj,
-                         dtype=dtype,
-                         lines=lines,
-                         ref=ref,
-                         kwargs=kwargs)
+        pfuncs = partial(
+            worker_by_actlist,
+            n_cores=n_cores,
+            traj=traj,
+            dtype=dtype,
+            lines=lines,
+            ref=ref,
+            kwargs=kwargs)
         pool = Pool(n_cores)
         data = pool.map(pfuncs, range(n_cores))
         pool.close()
@@ -245,13 +252,14 @@ def _load_batch_pmap(n_cores=4,
         from mpi4py import MPI
         comm = MPI.COMM_WORLD
         rank = comm.rank
-        data_chunk = worker_by_actlist(rank=rank,
-                                       n_cores=n_cores,
-                                       traj=traj,
-                                       dtype=dtype,
-                                       lines=lines,
-                                       ref=ref,
-                                       kwargs=kwargs)
+        data_chunk = worker_by_actlist(
+            rank=rank,
+            n_cores=n_cores,
+            traj=traj,
+            dtype=dtype,
+            lines=lines,
+            ref=ref,
+            kwargs=kwargs)
         # it's ok to use python level `gather` method since we only do this once
         # only gather data to root, other cores get None
         data = comm.gather(data_chunk, root=root)
@@ -278,12 +286,14 @@ def worker_by_state(rank, n_cores=1, traj=None, lines=None, dtype='dict'):
 
     for idx, line in enumerate(my_lines):
         if not line.lstrip().startswith('reference'):
-            my_lines[idx] = ' '.join(('crdaction traj', line, crdframes_string
-                                      ))
+            my_lines[idx] = ' '.join(('crdaction traj', line,
+                                      crdframes_string))
 
     # do not use 'extend' in this case
     # will get weird output
-    my_lines = ['loadtraj name traj', ] + my_lines
+    my_lines = [
+        'loadtraj name traj',
+    ] + my_lines
 
     state = _load_batch(my_lines, traj)
 

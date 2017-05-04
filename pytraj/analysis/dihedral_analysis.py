@@ -3,12 +3,11 @@ from __future__ import print_function, absolute_import
 # will be updated later
 __all__ = []
 
-
 supported_dihedral_types = [
     x
     for x in
-    'multidihedral phi psi chip omega alpha beta gamma delta epsilon zeta nu1 nu2 chin'.split(
-    )
+    'multidihedral phi psi chip omega alpha beta gamma delta epsilon zeta nu1 nu2 chin'.
+    split()
 ]
 
 chinu = {

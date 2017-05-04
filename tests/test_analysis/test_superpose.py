@@ -29,8 +29,7 @@ class TestSuperposeTrajectory(unittest.TestCase):
         # expect reference `f0` xyz are not changed
         aa_eq(arr0, f0[0])
 
-        trajsaved = pt.iterload(fn("fit_to_1stframe.Tc5b.x"),
-                                fn('Tc5b.top'))
+        trajsaved = pt.iterload(fn("fit_to_1stframe.Tc5b.x"), fn('Tc5b.top'))
         f1saved = trajsaved[1]
 
         # make sure we reproduce cpptraj output
@@ -67,8 +66,7 @@ class TestSuperposeTrajectory(unittest.TestCase):
 
         # load frames to immutable traj
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
-        trajsaved = pt.iterload(fn("fit_to_1stframe.Tc5b.x"),
-                                fn('Tc5b.top'))
+        trajsaved = pt.iterload(fn("fit_to_1stframe.Tc5b.x"), fn('Tc5b.top'))
 
         for _f1 in trajsaved:
             pass
@@ -124,6 +122,7 @@ class TestSuperposeTrajectory(unittest.TestCase):
         pt.superpose(t1, ref=traj[0], mask='@CA')
         aa_eq(t0.xyz, t1.xyz)
 
+
 class TestSuperposeTrajectoryIterator(unittest.TestCase):
     """test superpose TrajectoryIterator
     """
@@ -145,8 +144,9 @@ class TestSuperposeTrajectoryIterator(unittest.TestCase):
             traj_on_mem.save('t0.nc')
             traj_on_disk.save('t1.nc')
 
-            aa_eq(pt.load('t0.nc', traj_on_mem.top).xyz,
-                  pt.load('t1.nc', traj_on_disk.top).xyz)
+            aa_eq(
+                pt.load('t0.nc', traj_on_mem.top).xyz,
+                pt.load('t1.nc', traj_on_disk.top).xyz)
 
         # turn off superpose
         traj_on_disk._being_transformed = False
@@ -169,8 +169,9 @@ class TestSuperposeTrajectoryIterator(unittest.TestCase):
             traj_on_mem.save('t0.nc', overwrite=True)
             traj_on_disk.save('t1.nc', overwrite=True)
 
-            aa_eq(pt.load('t0.nc', traj_on_mem.top).xyz,
-                  pt.load('t1.nc', traj_on_disk.top).xyz)
+            aa_eq(
+                pt.load('t0.nc', traj_on_mem.top).xyz,
+                pt.load('t1.nc', traj_on_disk.top).xyz)
 
         # turn off superpose
         traj_on_disk._being_transformed = False
@@ -199,10 +200,13 @@ class TestSuperposeTrajectoryIterator(unittest.TestCase):
         reference {tz2} 1 1 parm [tz2]
         align reference {mask} {refmask}
         createcrd mycrd
-        """.format(parm_tc5b=tc5b_top,
-                   parm_tz2=fn('tz2.parm7'),
-                   tz2=fn('tz2.nc'),
-                   tc5b=tc5b_trajin, mask=mask, refmask=ref_mask)
+        """.format(
+            parm_tc5b=tc5b_top,
+            parm_tz2=fn('tz2.parm7'),
+            tz2=fn('tz2.nc'),
+            tc5b=tc5b_trajin,
+            mask=mask,
+            refmask=ref_mask)
 
         state = pt.load_cpptraj_state(cm)
         state.run()
@@ -215,10 +219,13 @@ class TestSuperposeTrajectoryIterator(unittest.TestCase):
         reference {tz2} 1 1 parm [tz2]
         rms reference {mask} {refmask}
         createcrd mycrd
-        """.format(parm_tc5b=tc5b_top,
-                   parm_tz2=fn('tz2.parm7'),
-                   tz2=fn('tz2.nc'),
-                   tc5b=tc5b_trajin, mask=mask, refmask=ref_mask)
+        """.format(
+            parm_tc5b=tc5b_top,
+            parm_tz2=fn('tz2.parm7'),
+            tz2=fn('tz2.nc'),
+            tc5b=tc5b_trajin,
+            mask=mask,
+            refmask=ref_mask)
 
         state2 = pt.load_cpptraj_state(cm2)
         state2.run()
@@ -228,8 +235,8 @@ class TestSuperposeTrajectoryIterator(unittest.TestCase):
         aa_eq(state.data['mycrd'].xyz, traj_on_disk.xyz)
         aa_eq(state.data['mycrd'].xyz, traj_on_mem.xyz)
 
-class TestAlign(unittest.TestCase):
 
+class TestAlign(unittest.TestCase):
     def test_align(self):
         traj_on_disk = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         traj_on_mem = pt.load(fn('Tc5b.x'), fn('Tc5b.top'))
@@ -240,6 +247,7 @@ class TestAlign(unittest.TestCase):
         traj_on_disk.superpose(ref=ref, mask='@CA')
 
         aa_eq(traj_on_mem.xyz, traj_on_disk.xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -8,14 +8,12 @@ from pytraj.testing import aa_eq, tempfolder
 # local
 from utils import fn
 
+
 def test_pairdist():
     traj = pt.iterload(fn("tz2.crd"), fn("tz2.parm7"))
 
     for (mask, delta) in [('*', 0.1), ('@CA', '0.2')]:
-        data = pt.pairdist(traj,
-                           delta=delta,
-                           mask=mask,
-                           dtype='ndarray')
+        data = pt.pairdist(traj, delta=delta, mask=mask, dtype='ndarray')
         data0 = data[0].T
         data1 = data[1].T
 

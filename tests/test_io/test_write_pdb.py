@@ -20,6 +20,7 @@ def test_write_CRYST1():
         traj2 = pt.load(fn)
         aa_eq(traj.unitcells, traj2.unitcells, decimal=3)
 
+
 def test_trajectory_writer():
     traj = pt.iterload(tc5b_trajin, tc5b_top)
     with tempfolder():
@@ -28,6 +29,7 @@ def test_trajectory_writer():
 
         with TrajectoryWriter("test_1", overwrite=True) as trajout:
             trajout.write(traj[0])
+
 
 def test_write_pdb():
     # TODO: get absolute path so we can use `tempfolder`

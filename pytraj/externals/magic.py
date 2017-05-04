@@ -178,8 +178,10 @@ if not libmagic or not libmagic._name:
         ['/opt/local/lib/libmagic.dylib', '/usr/local/lib/libmagic.dylib'
          ] +  # Assumes there will only be one version installed
         glob.glob('/usr/local/Cellar/libmagic/*/lib/libmagic.dylib'),
-        'win32': windows_dlls,
-        'cygwin': windows_dlls
+        'win32':
+        windows_dlls,
+        'cygwin':
+        windows_dlls
     }
     for dll in platform_to_lib.get(sys.platform, []):
         try:

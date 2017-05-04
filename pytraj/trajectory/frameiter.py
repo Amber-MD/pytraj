@@ -1,8 +1,9 @@
 from __future__ import absolute_import
 from pytraj.trajectory.frame import Frame
-from . shared_methods import iterframe_master
+from .shared_methods import iterframe_master
 
 __all__ = ['iterframe', 'iterchunk', 'FrameIterator']
+
 
 def iterframe(traj, *args, **kwd):
     """create frame iterator with given indices, mask or some iter_options
@@ -39,6 +40,7 @@ def iterframe(traj, *args, **kwd):
         return traj.iterframe(*args, **kwd)
     else:
         return iterframe_master(traj)
+
 
 def iterchunk(traj, *args, **kwd):
     """iterate ``traj`` by chunk
@@ -235,14 +237,15 @@ class FrameIterator(object):
         >>> traj(2, 8, 2, mask='@CA').save('output/test.nc', overwrite=True)
         '''
         from pytraj.io import write_traj
-        write_traj(filename=filename,
-                   traj=self,
-                   top=self.top,
-                   frame_indices=None,
-                   overwrite=overwrite,
-                   options=options,
-                   *args,
-                   **kwd)
+        write_traj(
+            filename=filename,
+            traj=self,
+            top=self.top,
+            frame_indices=None,
+            overwrite=overwrite,
+            options=options,
+            *args,
+            **kwd)
 
     def __iter__(self):
         from pytraj.analysis.c_action import c_action

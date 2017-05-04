@@ -9,6 +9,7 @@ from __future__ import absolute_import
 from .load_other_packages import load_MDAnalysis, load_mdtraj, load_parmed
 
 __all__ = [
-           'load_MDAnalysis',
-           'load_mdtraj',
-           'load_parmed', ]
+    'load_MDAnalysis',
+    'load_mdtraj',
+    'load_parmed',
+]

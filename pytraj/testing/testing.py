@@ -8,17 +8,10 @@ from pytraj.utils import Timer
 from pytraj.utils import tempfolder
 from pytraj.utils import duplicate_traj
 
-__all__ = ['load_sample_data',
-           'eq',
-           'aa_eq',
-           'duplicate_traj',
-           'Timer',
-           'tempfolder',
-           'amberhome',
-           'cpptraj_test_dir',
-           'get_fn',
-           'get_remd_fn',
-           'assert_equal_topology'
+__all__ = [
+    'load_sample_data', 'eq', 'aa_eq', 'duplicate_traj', 'Timer', 'tempfolder',
+    'amberhome', 'cpptraj_test_dir', 'get_fn', 'get_remd_fn',
+    'assert_equal_topology'
 ]
 
 # find cpptraj test dir
@@ -49,7 +42,6 @@ DEFAULT_PATH = "../cpptraj/test/"
 if os.path.exists(DEFAULT_PATH):
     cpptraj_test_dir = os.path.abspath(DEFAULT_PATH)
 
-
 header_doc = '''
 import pytraj as pt
 import pytraj.all_actions as pyca
@@ -76,10 +68,12 @@ def assert_equal_topology(top, new_top, traj):
     aa_eq(new_top.charge, top.charge)
     aa_eq(new_top.box.values, top.box.values)
 
-    assert [res.name for res in top.residues
-            ] == [res.name for res in new_top.residues], 'equal resnames'
-    assert [atom.name for atom in top.atoms
-            ] == [atom.name for atom in new_top.atoms], 'equal resnames'
+    assert [res.name for res in top.residues] == [
+        res.name for res in new_top.residues
+    ], 'equal resnames'
+    assert [atom.name for atom in top.atoms] == [
+        atom.name for atom in new_top.atoms
+    ], 'equal resnames'
 
     for res, res_new in zip(top.residues, new_top.residues):
         assert res.first_atom_index == res_new.first_atom_index, 'first atom'

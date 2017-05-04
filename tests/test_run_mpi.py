@@ -7,6 +7,7 @@ import pytest
 
 testlist = glob('test_*mpi/test_*py')
 
+
 @pytest.mark.parametrize('pyfile', testlist)
 def test_all_mpi_scripts(pyfile):
     subprocess.check_call(['mpirun', '-n', '4', 'python', pyfile])

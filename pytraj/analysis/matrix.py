@@ -4,9 +4,8 @@ from .c_analysis import c_analysis
 from .c_action import do_action, c_action
 from ..datasets import c_datasets
 from ..utils.get_common_objects import (
-                                       get_data_from_dtype,
-                                       super_dispatch,
-)
+    get_data_from_dtype,
+    super_dispatch, )
 from ..datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 
 MATRIX_TYPES = [
@@ -21,12 +20,9 @@ MATRIX_TYPES = [
 
 __all__ = MATRIX_TYPES
 
+
 @super_dispatch()
-def matrix(traj=None,
-           mask="",
-           dtype='ndarray',
-           frame_indices=None,
-           top=None):
+def matrix(traj=None, mask="", dtype='ndarray', frame_indices=None, top=None):
     '''compute different type of matrices
 
     Parameters
@@ -55,7 +51,6 @@ def matrix(traj=None,
     command = mask
     c_dslist, _ = do_action(traj, command, c_action.Action_Matrix)
     return get_data_from_dtype(c_dslist, dtype)
-
 
 
 __cpptrajdoc__ = """
@@ -175,20 +170,18 @@ def diagonalize(mat, n_vecs, dtype='tuple', scalar_type='covar', mass=None):
         indices = np.triu_indices(mat.shape[0])
         arr = mat[indices]
         dset_matrix._set_data_half_matrix(
-            arr.astype('f8'),
-            vsize=len(arr),
-            n_cols=mat.shape[0])
+            arr.astype('f8'), vsize=len(arr), n_cols=mat.shape[0])
     elif isinstance(mat, c_datasets.DatasetMatrixDouble):
-        dset_matrix._set_data_half_matrix(mat._to_cpptraj_sparse_matrix(),
-                                        vsize=mat.size,
-                                        n_cols=mat.n_cols)
+        dset_matrix._set_data_half_matrix(
+            mat._to_cpptraj_sparse_matrix(), vsize=mat.size, n_cols=mat.n_cols)
     act = c_analysis.Analysis_Matrix()
     act(' '.join(('mymat', _vecs)), dslist=dslist)
 
     # post process
     if scalar_type == 'mwcovar':
         message = 'size of eigenvectors must be equal to 3 * size of mass'
-        assert 3*np.asarray(mass).shape[0] == dslist[-1].eigenvectors.shape[1], message
+        assert 3 * np.asarray(mass).shape[0] == dslist[-1].eigenvectors.shape[
+            1], message
         dslist[-1]._compute_mw_eigenvectors()
     dslist._pop(0)
 

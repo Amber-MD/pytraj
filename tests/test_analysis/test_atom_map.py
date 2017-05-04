@@ -5,12 +5,15 @@ from pytraj.testing import aa_eq
 from pytraj.testing import tempfolder
 from pytraj.testing import cpptraj_test_dir
 
+
 def fn(name):
-    return cpptraj_test_dir + '/Test_AtomMap/' + name 
+    return cpptraj_test_dir + '/Test_AtomMap/' + name
+
 
 def get_content(fn):
     with open(fn) as fh:
         return fh.read()
+
 
 def test_atom_map():
     start_fn = fn('start.mol2')
@@ -20,7 +23,7 @@ def test_atom_map():
     saved_xta_reordered_traj = pt.iterload(saved_xta_reordered_file)
     saved_rmsd_file = fn('rmsd.dat.save')
 
-    saved_data = get_content(saved_atommap_file) 
+    saved_data = get_content(saved_atommap_file)
 
     # using iterload to make sure trajectory coordinates won't be changed
     traj = pt.iterload(xta_fn)

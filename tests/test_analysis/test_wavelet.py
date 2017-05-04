@@ -6,8 +6,8 @@ import pytraj as pt
 from utils import fn
 from pytraj.utils import aa_eq
 
-class TestWavelet(unittest.TestCase):
 
+class TestWavelet(unittest.TestCase):
     def test_wavelet(self):
         traj = pt.load(fn('DPDP.nc'), fn('DPDP.parm7'))
         traj.superpose('@C,CA,N', ref=0)
@@ -29,7 +29,7 @@ class TestWavelet(unittest.TestCase):
 
         for (k0, v0) in data.items():
             aa_eq(v0, cpp_data[k0])
-        
+
 
 if __name__ == "__main__":
     unittest.main()

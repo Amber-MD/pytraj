@@ -9,7 +9,6 @@ from pytraj.utils import aa_eq
 
 
 class TestClosest(unittest.TestCase):
-
     def test_closest(self):
         # raise if not has solvent
         traj0 = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
@@ -45,7 +44,8 @@ class TestClosest(unittest.TestCase):
         assert n_solvents == 10, 'must be 10 solvents'
 
         fi, top = pt.closest(traj)
-        pt.write_traj(outputname('test.pdb'), next(fi), top=top, overwrite=True)
+        pt.write_traj(
+            outputname('test.pdb'), next(fi), top=top, overwrite=True)
 
     def test_closest_compared_to_cpptraj(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
@@ -55,13 +55,18 @@ class TestClosest(unittest.TestCase):
         createcrd mycrd''', traj)
         state.run()
 
-        fi, top = pt.closest(traj(autoimage=True), mask=':1-13', n_solvents=100)
+        fi, top = pt.closest(
+            traj(autoimage=True), mask=':1-13', n_solvents=100)
         xyz = pt.get_coordinates(fi)
         t0 = pt.Trajectory(xyz=xyz, top=top)
         aa_eq(state.data['mycrd'].xyz, t0.xyz)
 
         # dtype = 'trajectory'
-        t1 = pt.closest(traj(autoimage=True), mask=':1-13', n_solvents=100, dtype='trajectory')
+        t1 = pt.closest(
+            traj(autoimage=True),
+            mask=':1-13',
+            n_solvents=100,
+            dtype='trajectory')
         aa_eq(state.data['mycrd'].xyz, t1.xyz)
 
 

@@ -5,7 +5,6 @@ from pytraj.testing import aa_eq
 
 
 class TestLoadSampleData(unittest.TestCase):
-
     def test_load_samples(self):
         traj = pt.load_sample_data()[:]
         assert isinstance(traj, pt.Trajectory) == True

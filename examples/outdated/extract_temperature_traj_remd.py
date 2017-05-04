@@ -41,8 +41,9 @@ def get_frames_same_T():
                 f4922[idx] = frame
 
     # make sure f4922 only hold frames having T = 492.2 K
-    arr0 = array('d', [492.2, 492.2, 492.2, 492.2, 492.2, 492.2, 492.2, 492.2,
-                       492.2, 492.2])
+    arr0 = array('d', [
+        492.2, 492.2, 492.2, 492.2, 492.2, 492.2, 492.2, 492.2, 492.2, 492.2
+    ])
     assert f4922.temperatures == arr0
 
     # make sure we reproduce cpptraj output

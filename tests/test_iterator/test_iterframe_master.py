@@ -23,7 +23,6 @@ def iter_me(obj, n_frames):
 
 
 class TestIterFrameMaster(unittest.TestCase):
-
     def test_iter(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         fa = traj[:]
@@ -57,7 +56,9 @@ class TestIterFrameMaster(unittest.TestCase):
         assert i == traj.n_frames
 
         i = 0
-        for frame in iterframe_master([traj.iterchunk(), ]):
+        for frame in iterframe_master([
+                traj.iterchunk(),
+        ]):
             i += 1
             assert isinstance(frame, Frame)
         assert i == traj.n_frames
@@ -108,7 +109,6 @@ class TestIterFrameMaster(unittest.TestCase):
 
 
 class TestIterFrameFromArray(unittest.TestCase):
-
     def test_iterframe_from_array(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
@@ -129,10 +129,8 @@ class TestIterFrameFromArray(unittest.TestCase):
             aa_eq(f_fi.mass, traj.top.mass)
 
         # mass from array
-        fi = pt.iterframe_from_array(traj.xyz,
-                                     traj.n_atoms,
-                                     range(traj.n_frames),
-                                     mass=traj.top.mass)
+        fi = pt.iterframe_from_array(
+            traj.xyz, traj.n_atoms, range(traj.n_frames), mass=traj.top.mass)
         for f_traj, (_, f_fi) in zip(traj, fi):
             aa_eq(f_traj.xyz, f_fi.xyz)
             aa_eq(f_fi.mass, f_traj.mass)

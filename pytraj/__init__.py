@@ -15,7 +15,8 @@ import os
 if sys.platform.startswith('win'):
     # set PATH to find libcpptraj.lib
     # we copy it (libcpptraj.lib) to pytraj folder during installation.
-    os.environ['PATH'] = os.path.dirname(os.path.abspath(__file__)) + ';' + os.environ['PATH']
+    os.environ['PATH'] = os.path.dirname(
+        os.path.abspath(__file__)) + ';' + os.environ['PATH']
 
 from .version import version as __version__
 from .utils import c_commands
@@ -275,6 +276,7 @@ from .parallel.mpi import pmap_mpi
 from .parallel.base import _load_batch_pmap
 from .visualization import view
 
+
 def show_versions():
     """
     >>> show_versions() # doctest: +SKIP
@@ -289,16 +291,13 @@ def show_versions():
 
 # for website
 # do not put __all__ in the top of this file to avoid circular import (all_actions)
-__all__ = sorted(io.__all__
-        + all_actions.__all__
-        + dihedral_analysis.__all__
-        + nmr.__all__
-        + ['nastruct']
-        + ['esander']
-        + ['Atom', 'Residue', 'Molecule', 'Topology', 'Frame', 'AtomMask',
-           'Trajectory', 'TrajectoryIterator', 'TrajectoryWriter',
-           'ActionList', 'ActionDict', 'AnalysisDict', 'adict', 'analdict',
-           'dispatch', 'iterchunk', 'iterframe',
-           'select', 'set_cpptraj_verbose', 'show_versions',
-           'dihedral_analysis', 'hbond_analysis', 'dssp_analysis',
-           'nucleic_acid_analysis','tools'])
+__all__ = sorted(
+    io.__all__ + all_actions.__all__ + dihedral_analysis.__all__ + nmr.__all__
+    + ['nastruct'] + ['esander'] + [
+        'Atom', 'Residue', 'Molecule', 'Topology', 'Frame', 'AtomMask',
+        'Trajectory', 'TrajectoryIterator', 'TrajectoryWriter', 'ActionList',
+        'ActionDict', 'AnalysisDict', 'adict', 'analdict', 'dispatch',
+        'iterchunk', 'iterframe', 'select', 'set_cpptraj_verbose',
+        'show_versions', 'dihedral_analysis', 'hbond_analysis',
+        'dssp_analysis', 'nucleic_acid_analysis', 'tools'
+    ])
