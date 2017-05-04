@@ -6,7 +6,6 @@ from utils import fn
 from pytraj.externals.six import zip
 from pytraj.trajectory.shared_methods import iterframe_master
 from pytraj import dihedral_analysis as da
-
 """
 try not to get segmentation fault error (due to whatever freaking reason)
 """
@@ -14,7 +13,6 @@ traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         it = iterframe_master(traj)
 

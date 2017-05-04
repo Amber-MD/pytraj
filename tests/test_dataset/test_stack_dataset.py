@@ -13,7 +13,6 @@ traj = mdio.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         _ds1 = pt.calc_dssp(traj[:5], dtype='dataset')
         ds1 = _ds1.grep('LYS')

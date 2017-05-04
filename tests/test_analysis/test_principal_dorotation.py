@@ -7,7 +7,6 @@ from pytraj.utils import aa_eq
 
 
 class TestPrincipalAxis(unittest.TestCase):
-
     def test_principal_axes_and_lign_principal_axis(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
@@ -21,13 +20,15 @@ class TestPrincipalAxis(unittest.TestCase):
         mut_traj_0 = traj[:]
         mut_traj_1 = traj[:]
 
-        data = pt.principal_axes(mut_traj_0, mask='*', dorotation=True, mass=True)
+        data = pt.principal_axes(
+            mut_traj_0, mask='*', dorotation=True, mass=True)
         pt.align_principal_axis(mut_traj_1, mask='*', mass=True)
 
         aa_eq(data[0], state.data[1].values)
         aa_eq(data[1], state.data[2].values)
         aa_eq(state.data[-1].xyz, mut_traj_0.xyz)
         aa_eq(state.data[-1].xyz, mut_traj_1.xyz)
+
 
 if __name__ == "__main__":
     unittest.main()

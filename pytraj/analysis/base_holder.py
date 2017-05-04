@@ -2,7 +2,6 @@ from pytraj.datasets.datasetlist import DatasetList
 
 
 class BaseDataHolder(object):
-
     def __init__(self, dslist=None):
         '''
         >>> holder = BaseDataHolder()

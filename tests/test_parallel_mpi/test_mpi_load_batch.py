@@ -37,11 +37,8 @@ def test_mpi_load_batch():
     # gather the data to 1st core (rank=0)
     #
     n_cores = comm.size
-    data = _load_batch_pmap(n_cores,
-                            lines=lines,
-                            traj=traj,
-                            mode='mpi',
-                            dtype='dict')
+    data = _load_batch_pmap(
+        n_cores, lines=lines, traj=traj, mode='mpi', dtype='dict')
 
     if comm.rank != 0:
         assert data is None
@@ -59,6 +56,7 @@ def test_mpi_load_batch():
 
         for key_0, key in zip(sorted(data_0.keys()), sorted(data.keys())):
             aa_eq(data_0[key_0], data[key])
+
 
 if __name__ == '__main__':
     test_mpi_load_batch()

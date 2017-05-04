@@ -9,13 +9,13 @@ from pytraj.testing import aa_eq
 
 
 class TestIssue991(unittest.TestCase):
-
     def test_buffer_not_c_contiguous(self):
         # source code was lightly adapted from jmborr
         # https://github.com/Amber-MD/pytraj/issues/991
-        traj = pt.load(fn('issue991/short.dcd'),
-                       fn('issue991/pdb.gz'),
-                       mask='(!:1-256)&(@H1,@H2,@H3,@H4,@H5)')
+        traj = pt.load(
+            fn('issue991/short.dcd'),
+            fn('issue991/pdb.gz'),
+            mask='(!:1-256)&(@H1,@H2,@H3,@H4,@H5)')
 
         # Trajectory of the center of mass of the first two residues
         minitraj = np.empty((2, traj.n_frames, 3))
@@ -38,10 +38,8 @@ class TestIssue991(unittest.TestCase):
 
         for ext in exts:
             junk_fn = 'output/junk.' + ext
-            pt.write_traj(filename=junk_fn,
-                          traj=minitraj,
-                          top=minitop,
-                          overwrite=True)
+            pt.write_traj(
+                filename=junk_fn, traj=minitraj, top=minitop, overwrite=True)
 
             # load coord back to make sure we correctly write it
             new_traj = pt.iterload(junk_fn, minitop)

@@ -20,6 +20,7 @@ def fn(name):
     base = pytraj.__path__[0]
     return base + '/../tests/data/' + name
 
+
 def duplicate_traj(orig_traj, n_times):
     '''
     Examples

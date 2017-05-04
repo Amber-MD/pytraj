@@ -18,18 +18,14 @@ try:
 
         flist.append(t0[0].copy())
 
-        en = pt.energy_decomposition(t0,
-                                     igb=8,
-                                     prmtop=traj.top.filename)['dihedral'][0]
+        en = pt.energy_decomposition(
+            t0, igb=8, prmtop=traj.top.filename)['dihedral'][0]
         deg_ene.append((deg, en))
 
     arr = np.array(deg_ene).T
 
-    pt.write_traj("test.pdb",
-                  flist,
-                  top=traj.top,
-                  overwrite=True,
-                  options='model')
+    pt.write_traj(
+        "test.pdb", flist, top=traj.top, overwrite=True, options='model')
 
     arr[1] = arr[1] - np.min(arr[1])
 except ImportError:

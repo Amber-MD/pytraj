@@ -210,10 +210,14 @@ class nupars(object):
         '''
         _keys = keys if keys is not None else self.keys()
         if isinstance(_keys, string_types):
-            _keys = [_keys, ]
+            _keys = [
+                _keys,
+            ]
 
         sumlist = []
-        ops = [ops, ] if not isinstance(ops, (list, tuple)) else ops
+        ops = [
+            ops,
+        ] if not isinstance(ops, (list, tuple)) else ops
 
         for op in ops:
             sumdict = {}

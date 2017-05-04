@@ -9,7 +9,6 @@ from pytraj.utils import aa_eq
 
 
 class TestDensity(unittest.TestCase):
-
     def test_density(self):
         rst7 = fn('DOPC.rst7')
         tn = fn('DOPC.parm7')
@@ -32,9 +31,12 @@ class TestDensity(unittest.TestCase):
 
             center ":PC | :OL | :OL2" origin
             density {density_type} delta {delta} {mask}
-            """.format(parm=tn, trajin=rst7,
-                       delta=delta, mask=mask_str,
-                       density_type=density_type)
+            """.format(
+                parm=tn,
+                trajin=rst7,
+                delta=delta,
+                mask=mask_str,
+                density_type=density_type)
 
             state = pt.load_cpptraj_state(command)
             state.run()
@@ -44,7 +46,8 @@ class TestDensity(unittest.TestCase):
         pt.center(traj, '":PC | :OL | :OL2" origin')
         density_dict = {}
         for density_type in density_types:
-            density_data = pt.density(traj, mask=masks, delta=delta, density_type=density_type)
+            density_data = pt.density(
+                traj, mask=masks, delta=delta, density_type=density_type)
             density_dict[density_type] = density_data
 
         # compate to cpptraj
@@ -60,8 +63,9 @@ class TestDensity(unittest.TestCase):
         self.assertRaises(AssertionError, func)
 
         # test 'z' value
-        saved_z_values = np.linspace(-24.1250,  23.8750, 193)
+        saved_z_values = np.linspace(-24.1250, 23.8750, 193)
         aa_eq(density_data['z'], saved_z_values)
+
 
 if __name__ == "__main__":
     unittest.main()

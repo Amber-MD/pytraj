@@ -43,5 +43,6 @@ def test_mpi_cpptraj_style():
         aa_eq(pt.distance(t0, ':3 :7'), arr[0])
         aa_eq(pt.angle(t0, ':3 :7 :8'), arr[1])
 
+
 if __name__ == '__main__':
     test_mpi_cpptraj_style()

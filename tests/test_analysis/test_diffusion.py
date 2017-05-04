@@ -8,8 +8,8 @@ from pytraj.utils import aa_eq
 
 from utils import tz2_ortho_trajin, tz2_ortho_top
 
-class TestDiffusion(unittest.TestCase):
 
+class TestDiffusion(unittest.TestCase):
     def test_diffusion(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
 
@@ -29,7 +29,8 @@ class TestDiffusion(unittest.TestCase):
 
         for (mask, individual) in options:
             i_text = 'individual' if individual else ''
-            updated_cm = cm.format(tz2_ortho_top, tz2_ortho_trajin, mask, i_text)
+            updated_cm = cm.format(tz2_ortho_top, tz2_ortho_trajin, mask,
+                                   i_text)
 
             state = pt.load_cpptraj_state(updated_cm)
             state.run()
@@ -39,8 +40,8 @@ class TestDiffusion(unittest.TestCase):
             label = 'df'
 
             for d in state.data[1:]:
-                d.key = d.key.replace('[', '').replace(']', '').replace(label,
-                                                                        '')
+                d.key = d.key.replace('[', '').replace(']', '').replace(
+                    label, '')
 
             saved_data = state.data[1:].to_dict()
             data = pt.diffusion(traj, mask, individual=individual).to_dict()

@@ -11,7 +11,6 @@ from pytraj import matrix
 
 
 class TestDiagMatrix(unittest.TestCase):
-
     def test_diagmatrix(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
@@ -48,7 +47,8 @@ class TestDiagMatrix(unittest.TestCase):
         aa_eq(np.abs(np_vecs), np.abs(cpp_evecs))
 
         # test raise if not having supported dtype
-        self.assertRaises(ValueError, lambda: pt.matrix.diagonalize(mat, 3, dtype='ndarray'))
+        self.assertRaises(
+            ValueError, lambda: pt.matrix.diagonalize(mat, 3, dtype='ndarray'))
 
     def test_diagmatrix_mwcovar(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
@@ -60,12 +60,14 @@ class TestDiagMatrix(unittest.TestCase):
 
         mat = pt.matrix.mwcovar(traj, '@CA')
         ca_indices = traj.top.select('@CA')
-        eigenvectors, eigenvalues = pt.matrix.diagonalize(mat,
-                n_vecs=6,
-                scalar_type='mwcovar',
-                mass=traj.top.mass[ca_indices])
+        eigenvectors, eigenvalues = pt.matrix.diagonalize(
+            mat,
+            n_vecs=6,
+            scalar_type='mwcovar',
+            mass=traj.top.mass[ca_indices])
         aa_eq(state.data['mydiag'].eigenvalues, eigenvalues)
         aa_eq(state.data['mydiag'].eigenvectors, eigenvectors)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -8,10 +8,8 @@ traj = pt.iterload('md.nc', 'tc5bwat.top', frame_slice=(0, n_frames))
 
 @Timer()
 def _get_coordinates(traj):
-    return pt.get_coordinates(traj,
-                              autoimage=True,
-                              rmsfit=(0, '@CA'),
-                              mask='@CA')
+    return pt.get_coordinates(
+        traj, autoimage=True, rmsfit=(0, '@CA'), mask='@CA')
 
 
 @Timer()

@@ -61,6 +61,7 @@ def write_traj(filename, traj=None, mode='', frame_indices=None):
     _top = traj.top
     act(command, fi, top=_top)
 
+
 def write_mask(traj, command):
     """very simple wrapping.
     """
@@ -96,10 +97,10 @@ class TrajectoryWriter:
     def __exit__(self, *args):
         pass
 
+
 # for testing
 from pytraj.utils.get_common_objects import (get_data_from_dtype, get_topology,
-                                       get_reference,
-                                       get_fiterator)
+                                             get_reference, get_fiterator)
 from pytraj.analysis.c_action import c_action
 from pytraj.datasets import CpptrajDatasetList
 from pytraj.externals.six import string_types
@@ -176,6 +177,7 @@ def calc_linear_interaction_energy(traj=None,
     act(command, traj, top=top, dslist=dslist, *args, **kwd)
     return get_data_from_dtype(dslist, dtype)
 
+
 # alias
 calc_LIE = calc_linear_interaction_energy
 
@@ -229,6 +231,7 @@ def _dbscan(traj=None,
     command = ' '.join((_clusters, _epsilon, _sievetoframe, _kdist, _sieve,
                         _kfile, _metric, _random_sieveseed, _mask, _output))
     return _cluster(traj, command, top=_top, dtype='ndarray')
+
 
 #@_super_dispatch()
 
@@ -332,7 +335,9 @@ def lifetime(data, cut=0.5, rawcurve=False, more_options='', dtype='ndarray'):
     """
     data = np.asarray(data)
     if data.ndim == 1:
-        data_ = [data, ]
+        data_ = [
+            data,
+        ]
     else:
         data_ = data
 
@@ -363,6 +368,7 @@ def lifetime(data, cut=0.5, rawcurve=False, more_options='', dtype='ndarray'):
         cdslist.remove_set(cdslist[name])
     return get_data_from_dtype(cdslist, dtype=dtype)
 
+
 # parallel
 
 
@@ -371,14 +377,13 @@ def to_parmed(traj, all_coords=False):
 
     parm = pmd.Structure()
     for atom in traj.top.simplify().atoms:
-        p_atom = pmd.Atom(name=atom.name,
-                          type=atom.type,
-                          atomic_number=atom.atomic_number,
-                          charge=atom.charge,
-                          mass=atom.mass)
-        parm.add_atom(p_atom,
-                      resname=atom.resname,
-                      resnum=atom.resid)
+        p_atom = pmd.Atom(
+            name=atom.name,
+            type=atom.type,
+            atomic_number=atom.atomic_number,
+            charge=atom.charge,
+            mass=atom.mass)
+        parm.add_atom(p_atom, resname=atom.resname, resnum=atom.resid)
         # chain=str(atom.molnum))
     if all_coords:
         parm.coordinates = traj.xyz

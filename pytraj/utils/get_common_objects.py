@@ -100,7 +100,9 @@ def get_list_of_commands(mask_or_commands):
     ValueError: must be string or list/tuple of strings
     '''
     if isinstance(mask_or_commands, string_types):
-        return [mask_or_commands, ]
+        return [
+            mask_or_commands,
+        ]
     elif isinstance(mask_or_commands, (list, tuple)):
         return list(mask_or_commands)
     else:
@@ -196,7 +198,9 @@ def get_resrange(resrange):
 
     if resrange is not None:
         if is_int(resrange):
-            resrange = [resrange, ]
+            resrange = [
+                resrange,
+            ]
         if isinstance(resrange, string_types):
             _resrange = "resrange " + resrange
         else:
@@ -233,9 +237,10 @@ class super_dispatch(object):
             args_spec = inspect.getargspec(f)
         n_default = len(args_spec.defaults) if args_spec.defaults else 0
         try:
-            kwargs_spec = dict((k, v) for (k, v) in
-                               zip(args_spec.args[-n_default:],
-                                   args_spec.defaults))
+            kwargs_spec = dict(
+                (k, v)
+                for (k, v
+                     ) in zip(args_spec.args[-n_default:], args_spec.defaults))
         except TypeError:
             kwargs_spec = {}
 
@@ -273,7 +278,9 @@ class super_dispatch(object):
             if has_ref_arg:
                 if ref is None:
                     try:
-                        ref = args[self.refindex] if self.refindex is not None else args[2]
+                        ref = args[
+                            self.
+                            refindex] if self.refindex is not None else args[2]
                     except IndexError:
                         ref = 0
                 ref = get_reference(traj, ref)
@@ -309,7 +316,11 @@ class super_dispatch(object):
         return inner
 
 
-def get_iterator_from_dslist(traj, mask, frame_indices, top, crdname='dataset_coords'):
+def get_iterator_from_dslist(traj,
+                             mask,
+                             frame_indices,
+                             top,
+                             crdname='dataset_coords'):
     from pytraj import Trajectory, TrajectoryIterator
     from pytraj.datasets import CpptrajDatasetList
 

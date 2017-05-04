@@ -14,7 +14,6 @@ from utils import fn, tc5b_trajin, tc5b_top, tz2_trajin, tz2_top
 
 
 class TestSimpleRMSD(unittest.TestCase):
-
     def setUp(self):
         self.traj = pt.iterload(tc5b_trajin, tc5b_top)
 
@@ -27,8 +26,7 @@ class TestSimpleRMSD(unittest.TestCase):
         aa_eq(rmsd_1, rmsd_0)
 
     def test_rmsd_with_mask(self):
-        TRAJ = pt.iterload(filename=tc5b_trajin,
-                           top=tc5b_top)
+        TRAJ = pt.iterload(filename=tc5b_trajin, top=tc5b_top)
         cpptraj_rmsd = np.loadtxt(
             fn("rmsd_to_firstFrame_CA_allres.Tc5b.dat"),
             skiprows=1).transpose()[1]
@@ -59,8 +57,7 @@ class TestSimpleRMSD(unittest.TestCase):
         aa_eq(t0.xyz, t1.xyz)
 
     def test_reference_with_different_topology_basic(self):
-        traj1 = pt.iterload(filename=tc5b_trajin,
-                           top=tc5b_top)
+        traj1 = pt.iterload(filename=tc5b_trajin, top=tc5b_top)
         traj2 = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
         # re-establish ActionList
@@ -70,16 +67,16 @@ class TestSimpleRMSD(unittest.TestCase):
         dslist[0].top = traj2.top
         dslist[0].add_frame(traj2[0])
 
-        actlist = pt.ActionList(['rmsd @1-11 @CB ref myref'], top=traj1.top,
-                                dslist=dslist)
+        actlist = pt.ActionList(
+            ['rmsd @1-11 @CB ref myref'], top=traj1.top, dslist=dslist)
         for frame in traj1:
             actlist.compute(frame)
 
         # raise if ref_mask is given but not mask
-        self.assertRaises(ValueError, lambda:
-                pt.rmsd(traj1, ref=3, ref_mask='@CB'))
-        self.assertRaises(ValueError, lambda:
-                pt.rmsd(traj1, ref=traj2[:1], ref_mask='@CB'))
+        self.assertRaises(ValueError,
+                          lambda: pt.rmsd(traj1, ref=3, ref_mask='@CB'))
+        self.assertRaises(
+            ValueError, lambda: pt.rmsd(traj1, ref=traj2[:1], ref_mask='@CB'))
 
         # assert to cpptraj
         tc5b_traj = traj1[:]
@@ -97,24 +94,22 @@ class TestSimpleRMSD(unittest.TestCase):
             state.run()
 
         expected_rmsd = state.data[-1].values
-        rmsd_data = pt.rmsd(tc5b_traj, mask='@1-10',
-                            ref=tz2_traj,
-                            ref_mask='@11-20')
+        rmsd_data = pt.rmsd(
+            tc5b_traj, mask='@1-10', ref=tz2_traj, ref_mask='@11-20')
         aa_eq(expected_rmsd, rmsd_data)
-
 
     @unittest.skipIf(not has_('mdtraj'), 'does not have mdtraj')
     def test_ComparetoMDtraj(self):
         import mdtraj as md
-        traj = pt.load(filename=tc5b_trajin,
-                       top=tc5b_top)
+        traj = pt.load(filename=tc5b_trajin, top=tc5b_top)
         m_top = md.load_prmtop(tc5b_top)
         m_traj = md.load_mdcrd(tc5b_trajin, m_top)
         m_traj.xyz = m_traj.xyz * 10  # convert `nm` to `Angstrom` unit
 
         arr0 = pt.rmsd(traj, ref=0)
         arr1 = pt.rmsd(traj, ref=0)
-        arr2 = pt.rmsd(traj, )
+        arr2 = pt.rmsd(
+            traj, )
         a_md0 = md.rmsd(m_traj, m_traj, 0)
         aa_eq(arr0, arr1)
         aa_eq(arr0, arr2)
@@ -206,22 +201,23 @@ class TestSimpleRMSD(unittest.TestCase):
         unmut_traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         mut_traj = unmut_traj[:]
 
-        data = pt.rmsd(mut_traj, mask='@CA', mass=True, nofit=True, update_coordinate=False)
+        data = pt.rmsd(
+            mut_traj,
+            mask='@CA',
+            mass=True,
+            nofit=True,
+            update_coordinate=False)
         aa_eq(data, state.data[-1])
 
 
 class TestRMSDPerRes(unittest.TestCase):
-
     def test_noreference(self):
         from pytraj.datafiles import load_cpptraj_output, tz2_ortho_trajin
         traj = pt.iterload(fn("tz2.ortho.nc"), fn("tz2.ortho.parm7"))
         cout = load_cpptraj_output(tz2_ortho_trajin + """
         rmsd first @CA perres range 2-7""")
-        d = pt.rmsd_perres(traj,
-                           ref=0,
-                           mask='@CA',
-                           resrange='2-7',
-                           dtype='ndarray')
+        d = pt.rmsd_perres(
+            traj, ref=0, mask='@CA', resrange='2-7', dtype='ndarray')
         aa_eq(cout[1:].values, d)
 
     def test_reference(self):
@@ -237,20 +233,22 @@ class TestRMSDPerRes(unittest.TestCase):
 
         # cpptraj use 2nd reference
         rmsd0 = pt.rmsd(traj, ref=1, mask=':2-11')
-        rmsdperres = pt.rmsd_perres(traj,
-                                    ref=1,
-                                    mask=':2-11',
-                                    perres_mask='*',
-                                    resrange='1',
-                                    perres_center=True)
+        rmsdperres = pt.rmsd_perres(
+            traj,
+            ref=1,
+            mask=':2-11',
+            perres_mask='*',
+            resrange='1',
+            perres_center=True)
         aa_eq(rmsd0, state.data[2])
         aa_eq(rmsdperres[1], state.data[3].values)
 
     def test_frame_indices(self):
         traj = pt.iterload(fn("tz2.truncoct.nc"), fn("tz2.truncoct.parm7"))
-        traj2 = pt.iterload(fn("tz2.truncoct.nc"),
-                            fn("tz2.truncoct.parm7"),
-                            frame_slice=(2, 8))
+        traj2 = pt.iterload(
+            fn("tz2.truncoct.nc"),
+            fn("tz2.truncoct.parm7"),
+            frame_slice=(2, 8))
 
         txt = '''
         reference {} 2 2
@@ -263,19 +261,19 @@ class TestRMSDPerRes(unittest.TestCase):
 
         frame_indices = range(2, 8)
         rmsd0 = pt.rmsd(traj, ref=1, mask=':2-11', frame_indices=frame_indices)
-        rmsdperres = pt.rmsd_perres(traj,
-                                    ref=1,
-                                    mask=':2-11',
-                                    perres_mask='*',
-                                    resrange='1',
-                                    perres_center=True,
-                                    frame_indices=frame_indices)
+        rmsdperres = pt.rmsd_perres(
+            traj,
+            ref=1,
+            mask=':2-11',
+            perres_mask='*',
+            resrange='1',
+            perres_center=True,
+            frame_indices=frame_indices)
         aa_eq(rmsd0, state.data[2])
         aa_eq(rmsdperres[1], state.data[3].values)
 
 
 class TestRMSDnofit(unittest.TestCase):
-
     def test_0(self):
         tz2_ortho_trajin = fn('tz2.ortho.nc')
         tz2_ortho_top = fn('tz2.ortho.parm7')
@@ -292,7 +290,6 @@ class TestRMSDnofit(unittest.TestCase):
 
 
 class TestPairwiseRMSD(unittest.TestCase):
-
     def testTwoTrajTypes(self):
         '''test different metrics with different traj objects
         '''
@@ -322,7 +319,6 @@ class TestPairwiseRMSD(unittest.TestCase):
 
 
 class TestActionListRMSD(unittest.TestCase):
-
     def test_actionlist(self):
         traj = pt.iterload(tc5b_trajin, tc5b_top)
         standard_rmsd = pt.rmsd(traj, mask='@CA')
@@ -347,10 +343,7 @@ class TestActionListRMSD(unittest.TestCase):
             alist = ActionList()
             dslist = DatasetList()
             act = Action_Rmsd()
-            alist.add(act,
-                      'first @CA',
-                      top=input_traj.top,
-                      dslist=dslist)
+            alist.add(act, 'first @CA', top=input_traj.top, dslist=dslist)
 
             for frame in input_traj:
                 alist.compute(frame)
@@ -368,12 +361,13 @@ class TestActionListRMSD(unittest.TestCase):
         aa_eq(standard_rmsd, rmsd3)
         aa_eq(standard_rmsd, rmsd4)
 
-class TestSymmRmsd(unittest.TestCase):
 
+class TestSymmRmsd(unittest.TestCase):
     def test_symmrmsd(self):
-        tyr_trajin  = cpptraj_test_dir + '/Test_SymmRmsd/TYR.nc'
+        tyr_trajin = cpptraj_test_dir + '/Test_SymmRmsd/TYR.nc'
         tn = cpptraj_test_dir + '/Test_SymmRmsd/TYR.parm7'
-        saved_traj = pt.iterload(cpptraj_test_dir + '/Test_SymmRmsd/TYR.remap.crd.save', tn)
+        saved_traj = pt.iterload(
+            cpptraj_test_dir + '/Test_SymmRmsd/TYR.remap.crd.save', tn)
 
         traj_on_disk = pt.iterload(tyr_trajin, tn)
         traj_on_mem = pt.load(tyr_trajin, tn)
@@ -399,6 +393,7 @@ class TestSymmRmsd(unittest.TestCase):
         # coordinates
         aa_eq(state.data['mycrd'].xyz, saved_traj.xyz, decimal=3)
         aa_eq(state.data['mycrd'].xyz, traj_on_mem.xyz, decimal=3)
+
 
 def test_distance_rmsd():
     traj = pt.iterload(tz2_trajin, tz2_top)

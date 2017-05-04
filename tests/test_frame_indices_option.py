@@ -12,10 +12,10 @@ from pytraj.analysis.hbond_analysis import DatasetHBond
 
 
 class TestFrameIndices(unittest.TestCase):
-
     def setUp(self):
         self.traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
-        self.traj_ortho = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
+        self.traj_ortho = pt.iterload(
+            fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         self.traj_nu = pt.iterload(fn('Test_NAstruct/adh026.3.pdb'))
 
     def test_frame_indices_from_yield(self):
@@ -27,8 +27,8 @@ class TestFrameIndices(unittest.TestCase):
             for i in range(0, 10, 2):
                 yield i
 
-        for idx, frame in enumerate(pt.iterframe(traj,
-                                                 frame_indices=gen_int())):
+        for idx, frame in enumerate(
+                pt.iterframe(traj, frame_indices=gen_int())):
             pass
 
         assert idx == len(range(0, 10, 2)) - 1
@@ -38,9 +38,9 @@ class TestFrameIndices(unittest.TestCase):
         traj = self.traj
 
         pdict = pt.__dict__
-        funclist = list(set(pdict[key]
-                            for key in dir(pt)
-                            if hasattr(pdict[key], '_issuper_dispatched')))
+        funclist = list(
+            set(pdict[key] for key in dir(pt)
+                if hasattr(pdict[key], '_issuper_dispatched')))
 
         frame_indices = [0, 2]
 
@@ -48,39 +48,56 @@ class TestFrameIndices(unittest.TestCase):
         # remove energy_decomposition since does not have sander
         # remove center, why?
         # remove search_neighbors, why? (got messup with Frame memory owner)
-        excluded_fn = [jcoupling, volmap,
-                       center, search_neighbors,
-                       atomiccorr, autoimage, closest,
-                       volume, superpose, randomize_ions,
-                       check_structure,
-                       align_principal_axis, ]
+        excluded_fn = [
+            jcoupling,
+            volmap,
+            center,
+            search_neighbors,
+            atomiccorr,
+            autoimage,
+            closest,
+            volume,
+            superpose,
+            randomize_ions,
+            check_structure,
+            align_principal_axis,
+        ]
         func_nu = [
-            calc_epsilon, calc_alpha, calc_zeta, calc_beta, calc_nu1, calc_nu2,
-            calc_delta, calc_chin,
-            calc_gamma, ]
+            calc_epsilon,
+            calc_alpha,
+            calc_zeta,
+            calc_beta,
+            calc_nu1,
+            calc_nu2,
+            calc_delta,
+            calc_chin,
+            calc_gamma,
+        ]
 
         # default mask, default ref
         for func in funclist:
             if func not in excluded_fn:
                 if func is pt.calc_multivector:
-                    data_0 = func(traj,
-                                  resrange='1-6',
-                                  names='C N',
-                                  frame_indices=frame_indices)
-                    data_1 = func(traj[frame_indices],
-                                  resrange='1-6',
-                                  names='C N')
+                    data_0 = func(
+                        traj,
+                        resrange='1-6',
+                        names='C N',
+                        frame_indices=frame_indices)
+                    data_1 = func(
+                        traj[frame_indices], resrange='1-6', names='C N')
                 elif func is pt.volmap:
                     # use water
-                    data_0 = func(self.traj_ortho,
-                                  mask=':WAT@O',
-                                  grid_spacing=(0.2, 0.2, 0.2),
-                                  centermask='!:1-13',
-                                  frame_indices=frame_indices)
-                    data_1 = func(self.traj_ortho[frame_indices],
-                                  mask=':WAT@O',
-                                  centermask='!:1-13',
-                                  grid_spacing=(0.2, 0.2, 0.2))
+                    data_0 = func(
+                        self.traj_ortho,
+                        mask=':WAT@O',
+                        grid_spacing=(0.2, 0.2, 0.2),
+                        centermask='!:1-13',
+                        frame_indices=frame_indices)
+                    data_1 = func(
+                        self.traj_ortho[frame_indices],
+                        mask=':WAT@O',
+                        centermask='!:1-13',
+                        grid_spacing=(0.2, 0.2, 0.2))
                 elif func in func_nu:
                     data_0 = func(self.traj_nu, frame_indices=frame_indices)
                     data_1 = func(self.traj_nu[frame_indices])
@@ -106,8 +123,9 @@ class TestFrameIndices(unittest.TestCase):
                         'must return ndarray or DatasetList or DatasetHBond')
 
         # test excluded fns
-        aa_eq(pt.atomiccorr(traj[frame_indices], '@CA'),
-              pt.atomiccorr(traj, '@CA', frame_indices=frame_indices))
+        aa_eq(
+            pt.atomiccorr(traj[frame_indices], '@CA'),
+            pt.atomiccorr(traj, '@CA', frame_indices=frame_indices))
 
         # align_principal_axis
         indices = [0, 3, 7]

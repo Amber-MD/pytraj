@@ -12,7 +12,6 @@ from utils import tz2_trajin, tz2_top
 
 
 class TestPCA(unittest.TestCase):
-
     def test_pca_noref(self):
         '''test_pca_noref: no reference
         
@@ -41,7 +40,8 @@ class TestPCA(unittest.TestCase):
 
         # Step four. Project saved fit coordinates along eigenvectors 1 and 2
         crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
-        '''.format(tz2_top=tz2_top, tz2_trajin=tz2_trajin)
+        '''.format(
+            tz2_top=tz2_top, tz2_trajin=tz2_trajin)
 
         traj = pt.load(fn('tz2.nc'), fn('tz2.parm7'))
 
@@ -89,7 +89,8 @@ class TestPCA(unittest.TestCase):
         mask = '!@H='
 
         data = pt.pca(traj, mask, n_vecs=2, fit=False)
-        data_ref = pt.pca(traj, mask, n_vecs=2, fit=False, ref=3, ref_mask='@CA')
+        data_ref = pt.pca(
+            traj, mask, n_vecs=2, fit=False, ref=3, ref_mask='@CA')
         cpp_data = state.data[-2:].values
         # use absolute values
         aa_eq(np.abs(data[0]), np.abs(cpp_data), decimal=3)
@@ -169,7 +170,7 @@ class TestPCA(unittest.TestCase):
         '''.format(tz2_top, tz2_trajin, fn('tz2.rst7'))
 
         traj = pt.load(fn('tz2.nc'), fn('tz2.parm7'))
-        traj_on_disk  = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
+        traj_on_disk = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         ref = pt.load(fn('tz2.rst7'), traj.top)
 
         state = pt.load_cpptraj_state(command_ref_provided)
@@ -178,8 +179,14 @@ class TestPCA(unittest.TestCase):
         mask_ref = '!@H='
         mask_matrix = '*'
 
-        data = pt.pca(traj, mask=mask_matrix, n_vecs=2, ref=ref, ref_mask=mask_ref)
-        data2 = pt.pca(traj_on_disk, mask=mask_matrix, n_vecs=2, ref=ref, ref_mask=mask_ref)
+        data = pt.pca(
+            traj, mask=mask_matrix, n_vecs=2, ref=ref, ref_mask=mask_ref)
+        data2 = pt.pca(
+            traj_on_disk,
+            mask=mask_matrix,
+            n_vecs=2,
+            ref=ref,
+            ref_mask=mask_ref)
         cpp_data = state.data[-2:].values
         # use absolute values
         aa_eq(np.abs(data[0]), np.abs(cpp_data), decimal=3)
@@ -208,17 +215,19 @@ class TestPCA(unittest.TestCase):
     def test_traj_on_disk_fit_to_given_reference(self):
         """test_traj_on_disk_fit_to_given_reference
         """
-        fit = True 
+        fit = True
         traj_on_disk = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         traj_on_mem = pt.load(fn('tz2.nc'), fn('tz2.parm7'))
         ref0 = traj_on_disk[0]
         ref1 = traj_on_mem[0]
 
-        data0, _ = pt.pca(traj_on_disk, mask='@CA', n_vecs=2, fit=fit, ref=ref0)
+        data0, _ = pt.pca(
+            traj_on_disk, mask='@CA', n_vecs=2, fit=fit, ref=ref0)
         data1, _ = pt.pca(traj_on_mem, mask='@CA', n_vecs=2, fit=fit, ref=ref1)
         aa_eq(np.abs(data0), np.abs(data1))
 
-    def test_traj_on_disk_fit_to_given_reference_and_restore_transform_commands(self):
+    def test_traj_on_disk_fit_to_given_reference_and_restore_transform_commands(
+            self):
         """test_traj_on_disk_fit_to_given_reference_and_restore_transform_commands
         """
         traj_on_disk = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))

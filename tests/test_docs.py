@@ -26,7 +26,6 @@ from pytraj.analysis import nmr
 from pytraj.datasets import array
 from pytraj.builder import build
 
-
 try:
     import sander
     has_sander = True
@@ -77,11 +76,15 @@ class TestDoc(unittest.TestCase):
         assert not get_total_errors(modules)
 
     def test_doc_hbond_analysis(self):
-        modules = [pt.hbond_analysis,]
+        modules = [
+            pt.hbond_analysis,
+        ]
         assert not get_total_errors(modules)
 
     def test_doc_matrix(self):
-        modules = [pt.matrix,]
+        modules = [
+            pt.matrix,
+        ]
         assert not get_total_errors(modules)
 
     def test_doc_trajectory(self):
@@ -93,16 +96,23 @@ class TestDoc(unittest.TestCase):
         assert not get_total_errors(modules)
 
     def test_doc_all_actions(self):
-        modules = [pt.all_actions,]
+        modules = [
+            pt.all_actions,
+        ]
         assert not get_total_errors(modules)
 
     def test_builder(self):
-        modules = [build,]
+        modules = [
+            build,
+        ]
         assert not get_total_errors(modules)
 
     def test_clustering(self):
-        modules = [cluster,]
+        modules = [
+            cluster,
+        ]
         assert not get_total_errors(modules)
+
 
 if __name__ == "__main__":
     unittest.main()

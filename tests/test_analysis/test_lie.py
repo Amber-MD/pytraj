@@ -3,11 +3,12 @@ import pytraj as pt
 from utils import fn
 from pytraj.testing import cpptraj_test_dir, aa_eq
 
+
 def test_lie():
     topology_fn = cpptraj_test_dir + '/FtuFabI.NAD.TCL.parm7'
     trajin_fn = cpptraj_test_dir + '/FtuFabI.NAD.TCL.nc'
     traj = pt.iterload(trajin_fn, topology_fn)
-    cpptraj_in= """
+    cpptraj_in = """
     parm {}
     trajin {}
     lie LIE :TCS cutvdw 12 cutelec 12

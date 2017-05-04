@@ -6,11 +6,14 @@ from shutil import rmtree
 try:
     from ..externals.wurlitzer import pipes
 except ImportError:
+
     def pipes():
         # win sucks
         yield "", ""
 
+
 capture_stdout = pipes
+
 
 @contextmanager
 def tempfolder():

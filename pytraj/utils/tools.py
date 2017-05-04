@@ -69,6 +69,7 @@ def _array_to_cpptraj_range(seq):
     '''
     return ",".join((str(i + 1) for i in seq))
 
+
 # string_types, PY2, PY3, iteritems were copied from six.py
 # see license in $PYTRAJHOME/license/externals/
 PY2 = _sys.version_info[0] == 2

@@ -139,10 +139,12 @@ def _pmap(func, traj, *args, **kwargs):
     from pytraj import TrajectoryIterator
 
     n_cores = kwargs.pop('n_cores') if 'n_cores' in kwargs else 2
-    iter_options = kwargs.pop('iter_options') if 'iter_options' in kwargs else {}
+    iter_options = kwargs.pop(
+        'iter_options') if 'iter_options' in kwargs else {}
     apply = kwargs.pop('apply') if 'apply' in kwargs else None
     progress = kwargs.pop('progress') if 'progress' in kwargs else None
-    progress_params = kwargs.pop('progress_params') if 'progress_params' in kwargs else dict()
+    progress_params = kwargs.pop(
+        'progress_params') if 'progress_params' in kwargs else dict()
 
     if n_cores <= 0:
         # use all available cores
@@ -156,13 +158,14 @@ def _pmap(func, traj, *args, **kwargs):
         # assume using _load_batch_pmap
         from pytraj.parallel.base import _load_batch_pmap
         #check_valid_command(func)
-        data = _load_batch_pmap(n_cores=n_cores,
-                                traj=traj,
-                                lines=func,
-                                dtype='dict',
-                                root=0,
-                                mode='multiprocessing',
-                                **kwargs)
+        data = _load_batch_pmap(
+            n_cores=n_cores,
+            traj=traj,
+            lines=func,
+            dtype='dict',
+            root=0,
+            mode='multiprocessing',
+            **kwargs)
         data = concat_dict((x[0] for x in data))
         return data
     else:
@@ -175,20 +178,23 @@ def _pmap(func, traj, *args, **kwargs):
             raise ValueError("this method does not support parallel")
         else:
             if hasattr(
-                    func,
-                    '_openmp_capability') and func._openmp_capability and 'OPENMP' in compiled_info(
-            ):
+                    func, '_openmp_capability'
+            ) and func._openmp_capability and 'OPENMP' in compiled_info():
                 raise RuntimeError(
                     "this method supports both openmp and pmap, but your cpptraj "
                     "version was installed with openmp. Should not use both openmp and pmap at the "
-                    "same time. In this case, do not use pmap since openmp is more efficient")
+                    "same time. In this case, do not use pmap since openmp is more efficient"
+                )
 
         if not isinstance(traj, TrajectoryIterator):
             raise ValueError('only support TrajectoryIterator')
 
         if 'dtype' not in kwargs and func not in [
-                mean_structure, matrix.dist, matrix.idea,
-                ired_vector_and_matrix, rotation_matrix,
+                mean_structure,
+                matrix.dist,
+                matrix.idea,
+                ired_vector_and_matrix,
+                rotation_matrix,
                 volmap,
         ]:
             kwargs['dtype'] = 'dict'
@@ -199,22 +205,25 @@ def _pmap(func, traj, *args, **kwargs):
 
         p = Pool(n_cores)
 
-        pfuncs = partial(worker_by_func,
-                         n_cores=n_cores,
-                         func=func,
-                         traj=traj,
-                         args=args,
-                         kwargs=kwargs,
-                         iter_options=iter_options,
-                         apply=apply,
-                         progress=progress,
-                         progress_params=progress_params)
+        pfuncs = partial(
+            worker_by_func,
+            n_cores=n_cores,
+            func=func,
+            traj=traj,
+            args=args,
+            kwargs=kwargs,
+            iter_options=iter_options,
+            apply=apply,
+            progress=progress,
+            progress_params=progress_params)
 
         data = p.map(pfuncs, [rank for rank in range(n_cores)])
         p.close()
 
-        dataset_processor = PmapDataset(data, func=func, kwargs=kwargs, traj=traj)
+        dataset_processor = PmapDataset(
+            data, func=func, kwargs=kwargs, traj=traj)
         return dataset_processor.process()
+
 
 def pmap(func=None, traj=None, *args, **kwargs):
     if func != NH_order_parameters:

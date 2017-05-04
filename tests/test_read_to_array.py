@@ -6,7 +6,8 @@ from pytraj.utils import aa_eq
 
 import numpy as np
 
-expected_result = np.array("""
+expected_result = np.array(
+    """
  -0.149000  0.097600  0.097600  0.097600 -0.415700  0.271900  0.214802 -0.455023
   0.440678 -0.580394  0.230150  0.546609  0.627861 -0.775845 -0.673807 -0.790615
   0.129410  0.093648 -0.352368  0.116022  0.596326 -0.386959  0.079841  0.148065
@@ -23,7 +24,6 @@ expected_result = np.array("""
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         arr = pt.tools.read_to_array(fn('floBF-resp.chg'))
         assert arr.shape == (84, )

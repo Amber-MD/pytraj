@@ -6,7 +6,6 @@ from pytraj.utils import aa_eq
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         from itertools import product
         import numpy as np

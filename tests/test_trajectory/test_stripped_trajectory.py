@@ -8,6 +8,7 @@ from pytraj.testing import tempfolder
 
 from utils import fn
 
+
 def test_stripped_trajectory():
     traj_on_disk = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
 
@@ -21,7 +22,7 @@ def test_stripped_trajectory():
     f0 = traj_on_mem_strip[0]
     f1 = straj[0]
     aa_eq(f0.xyz, f1.xyz)
-    
+
     # known failure
     # aa_eq(traj_on_mem_strip[0].xyz, straj[0].xyz)
 

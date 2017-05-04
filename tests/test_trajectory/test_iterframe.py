@@ -8,7 +8,6 @@ from pytraj.utils import aa_eq
 
 
 class TestIterFrame(unittest.TestCase):
-
     def test_iterframe(self):
         '''test iterframe for both Trajectory and TrajectoryIterator
         '''
@@ -17,15 +16,13 @@ class TestIterFrame(unittest.TestCase):
         # iterframe (already in doctest), just throwing raise to increase coverage score
 
         for traj in [orig_traj, orig_traj[:]]:
-            self.assertRaises(ValueError,
-                              lambda: traj.iterframe(rmsfit='crazy'))
+            self.assertRaises(
+                ValueError, lambda: traj.iterframe(rmsfit='crazy'))
 
             # rmsfit is an int
             t0 = orig_traj[:].rmsfit(ref=3)
             aa_eq(
-                pt.rmsd_nofit(
-                    traj(rmsfit=3),
-                    ref=orig_traj[-1]),
+                pt.rmsd_nofit(traj(rmsfit=3), ref=orig_traj[-1]),
                 pt.rmsd_nofit(t0, ref=orig_traj[-1]))
 
         # test TypeError if not has n_frames info

@@ -4,7 +4,6 @@ import pytraj as pt
 from utils import fn
 from pytraj.utils import aa_eq
 
-
 try:
     import cclib
     has_cclib = True

@@ -8,14 +8,12 @@ from pytraj.utils import aa_eq
 
 
 class TestNativeContacts(unittest.TestCase):
-
     def test_nativecontacts(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
         dslist = pt.native_contacts(traj, top=traj.top)
-        cpp = np.loadtxt('data/tc5b.native_contacts.dat',
-                         skiprows=1,
-                         usecols=(1, 2)).T
+        cpp = np.loadtxt(
+            'data/tc5b.native_contacts.dat', skiprows=1, usecols=(1, 2)).T
         aa_eq(dslist.values, cpp)
 
         # mask2

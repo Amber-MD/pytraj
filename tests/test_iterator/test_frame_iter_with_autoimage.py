@@ -9,7 +9,6 @@ from pytraj.externals.six import zip
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
 

@@ -14,13 +14,16 @@ from pytraj.all_actions import *
 from pytraj.core import c_dict
 from pytraj.utils.misc import get_atts
 
+
 def run_tests():
     print("try to load sample data")
     load_sample_data()
     load_sample_data('tz2')
 
     print("try to make all action objects")
-    failed_list = ['createreservoir', ]
+    failed_list = [
+        'createreservoir',
+    ]
     DatasetList()
     print("try to make all analysis objects")
     from pytraj import analdict

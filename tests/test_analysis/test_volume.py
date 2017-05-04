@@ -8,7 +8,6 @@ from pytraj.utils import aa_eq
 
 
 class TestVolume(unittest.TestCase):
-
     def test_volume(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         state = pt.load_cpptraj_state('''

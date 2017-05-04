@@ -22,8 +22,7 @@ except ImportError:
 
 amberhome = os.getenv('AMBERHOME', '')
 tleap = amberhome + '/bin/tleap'
-traj_tz2_ortho = pt.iterload(fn("tz2.ortho.nc"),
-                             fn("tz2.ortho.parm7"))
+traj_tz2_ortho = pt.iterload(fn("tz2.ortho.nc"), fn("tz2.ortho.parm7"))
 tc5b_trajin = fn('Tc5b.x')
 tc5b_top = fn('Tc5b.top')
 
@@ -52,7 +51,8 @@ def test_iterload_comprehensive():
     aa_eq(xyz_2, t0.xyz)
 
     # stride, load two files, ignore frame_slice
-    t0 = pt.iterload([trajin, trajin], tn, stride=2, frame_slice=[(0, -1, 5), (0, -1, 2)])
+    t0 = pt.iterload(
+        [trajin, trajin], tn, stride=2, frame_slice=[(0, -1, 5), (0, -1, 2)])
     xyz_2 = np.vstack((traj_tz2_ortho.xyz[::2], traj_tz2_ortho.xyz[::2]))
     aa_eq(xyz_2, t0.xyz)
 
@@ -60,21 +60,26 @@ def test_iterload_comprehensive():
     filenames, tn = get_remd_fn('remd_ala2')
     t0 = pt.iterload(filenames, tn, stride=3)
     # add frame_slice
-    t1 = pt.iterload(filenames, tn, frame_slice=[(0, -1, 3),]*4)
-    xyz_expected = np.vstack([pt.iterload(fname, tn)[::3].xyz for fname in filenames])
+    t1 = pt.iterload(
+        filenames, tn, frame_slice=[
+            (0, -1, 3),
+        ] * 4)
+    xyz_expected = np.vstack(
+        [pt.iterload(fname, tn)[::3].xyz for fname in filenames])
     aa_eq(xyz_expected, t0.xyz)
     aa_eq(xyz_expected, t1.xyz)
 
     # stride, 4 trajs, ignore frame_slice
     filenames, tn = get_remd_fn('remd_ala2')
-    t0 = pt.iterload(filenames, tn, stride=3, frame_slice=(0 -1, 4))
-    xyz_expected = np.vstack([pt.iterload(fname, tn)[::3].xyz for fname  in filenames])
+    t0 = pt.iterload(filenames, tn, stride=3, frame_slice=(0 - 1, 4))
+    xyz_expected = np.vstack(
+        [pt.iterload(fname, tn)[::3].xyz for fname in filenames])
     aa_eq(xyz_expected, t0.xyz)
 
 
 def test_load_comprehensive():
     traj = traj_tz2_ortho
-    trajin , tn = fn("tz2.ortho.nc"), fn("tz2.ortho.parm7")
+    trajin, tn = fn("tz2.ortho.nc"), fn("tz2.ortho.parm7")
 
     # load from filelist
     t0 = pt.load([trajin, trajin], tn)
@@ -114,29 +119,22 @@ def test_load_comprehensive():
     t2 = pt.load(trajin, tn, stride=2, frame_indices=[2, 5, 8])
     aa_eq(t2.xyz, traj[::2].xyz)
 
+
 def test_save_traj_from_file():
     traj = pt.iterload(tc5b_trajin, tc5b_top)[:5]
     with tempfolder():
-        pt.write_traj(filename="test_0.binpos",
-                      traj=traj,
-                      top=tc5b_top,
-                      overwrite=True)
+        pt.write_traj(
+            filename="test_0.binpos", traj=traj, top=tc5b_top, overwrite=True)
 
         savedtraj = pt.iterload("test_0.binpos", traj.top)
         assert savedtraj.n_frames == traj.n_frames
 
         # write_xyz
-        pt.write_traj("test_0.nc",
-                      traj.xyz,
-                      top=tc5b_top,
-                      overwrite=True)
+        pt.write_traj("test_0.nc", traj.xyz, top=tc5b_top, overwrite=True)
         aa_eq(pt.iterload('test_0.nc', traj.top).xyz, traj.xyz)
 
         # write single Frame
-        pt.write_traj("test_0.nc",
-                      traj[0],
-                      top=traj.top,
-                      overwrite=True)
+        pt.write_traj("test_0.nc", traj[0], top=traj.top, overwrite=True)
         aa_eq(pt.iterload('test_0.nc', traj.top).xyz, traj[0].xyz)
 
         # raise if traj is None
@@ -144,13 +142,20 @@ def test_save_traj_from_file():
             pt.write_traj("test_0.nc", None, overwrite=True)
 
         # raise if _top is None
-        fi = pt.pipe(traj, ['autoimage', ])
+        fi = pt.pipe(traj, [
+            'autoimage',
+        ])
         with pytest.raises(ValueError):
             pt.write_traj("test_0.nc", traj=fi, overwrite=True)
 
         # raise if Frame with frame_indices: 
         with pytest.raises(ValueError):
-            pt.write_traj("test_0.nc", traj[0], top=tc5b_top, frame_indices=[3, 2], overwrite=True)
+            pt.write_traj(
+                "test_0.nc",
+                traj[0],
+                top=tc5b_top,
+                frame_indices=[3, 2],
+                overwrite=True)
 
         # raise if Frame with no Topology
         with pytest.raises(ValueError):
@@ -162,16 +167,17 @@ def test_save_traj_from_file():
         # make sure no ValueError or TypeError is raised
         pt.write_traj('xyz.nc', xyz, top=traj.top, overwrite=True)
 
+
 def test_blind_load():
     top = pt.load_topology(tc5b_top)
     assert isinstance(top, Topology) == True
 
-    traj = pt.iterload(filename=tc5b_trajin,
-                       top=tc5b_top)
+    traj = pt.iterload(filename=tc5b_trajin, top=tc5b_top)
 
     is_traj = (isinstance(traj, TrajectoryIterator) or
                isinstance(traj, Trajectory))
     assert is_traj
+
 
 def test_ParmFile():
     top = pt.load_topology(tc5b_top)
@@ -183,48 +189,47 @@ def test_ParmFile():
         with pytest.raises(RuntimeError):
             pt.write_parm("test_io.top", top, overwrite=False)
 
+
 def test_load_and_save_0():
     # need to load to Trajectory to save
-    traj = pt.iterload(filename=tc5b_trajin,
-                       top=tc5b_top)[:]
+    traj = pt.iterload(filename=tc5b_trajin, top=tc5b_top)[:]
 
     indices = list(range(2, 3, 5)) + [3, 7, 9, 8]
     with tempfolder():
-        pt.write_traj(filename="test_io_saved_.x",
-                      traj=traj[:],
-                      top=tc5b_top,
-                      frame_indices=indices,
-                      overwrite=True)
+        pt.write_traj(
+            filename="test_io_saved_.x",
+            traj=traj[:],
+            top=tc5b_top,
+            frame_indices=indices,
+            overwrite=True)
 
         # check frames
-        traj2 = pt.iterload(filename="test_io_saved_.x",
-                            top=tc5b_top)
+        traj2 = pt.iterload(filename="test_io_saved_.x", top=tc5b_top)
         # about 50% failures
         assert traj2.n_frames == len(indices)
+
 
 def test_load_and_save_1():
     # do not support frame_indices for TrajectoryIterator
     with pytest.raises(ValueError):
-        pt.iterload(
-        filename=tc5b_trajin,
-        top=tc5b_top, frame_indices=[0, 5])
+        pt.iterload(filename=tc5b_trajin, top=tc5b_top, frame_indices=[0, 5])
 
-    traj = pt.iterload(filename=tc5b_trajin,
-                       top=tc5b_top)
+    traj = pt.iterload(filename=tc5b_trajin, top=tc5b_top)
 
     indices = list(range(2, 4)) + [3, 7, 9, 8]
     with tempfolder():
-        pt.write_traj(filename="test_io_saved.pdb",
-                      traj=traj,
-                      top=tc5b_top,
-                      frame_indices=indices,
-                      overwrite=True)
+        pt.write_traj(
+            filename="test_io_saved.pdb",
+            traj=traj,
+            top=tc5b_top,
+            frame_indices=indices,
+            overwrite=True)
 
         # check frames
-        traj = pt.iterload(filename="test_io_saved.pdb",
-                           top=tc5b_top)
+        traj = pt.iterload(filename="test_io_saved.pdb", top=tc5b_top)
         assert traj.n_frames == len(indices)
         assert traj.top.n_atoms == 304
+
 
 def test_get_coordinates_trajecotoryiterator():
     '''immutable pytraj.TrajectoryIterator
@@ -246,16 +251,12 @@ def test_get_coordinates_trajecotoryiterator():
     # given frames, autoimage=True, rmsfit=ref
     ref = traj[-3]
     pt.autoimage(ref, top=traj.top)
-    xyz = pt.get_coordinates(traj,
-                             frame_indices=[0, 5],
-                             autoimage=True,
-                             rmsfit=ref)
+    xyz = pt.get_coordinates(
+        traj, frame_indices=[0, 5], autoimage=True, rmsfit=ref)
     aa_eq(traj[[0, 5]].autoimage().superpose(ref=ref).xyz, xyz)
 
-    xyz = pt.get_coordinates(traj,
-                             frame_indices=range(3),
-                             autoimage=True,
-                             rmsfit=ref)
+    xyz = pt.get_coordinates(
+        traj, frame_indices=range(3), autoimage=True, rmsfit=ref)
 
     # with mask
     xyz = pt.get_coordinates(traj, mask='@CA')
@@ -269,11 +270,11 @@ def test_get_coordinates_trajecotoryiterator():
     with pytest.raises(ValueError):
         pt.get_coordinates(traj(), frame_indices=[0, 2])
 
+
 def test_get_coordinates_trajectory():
     '''mutable pytraj.Trajectory
     '''
-    traj = pt.Trajectory(xyz=traj_tz2_ortho.xyz,
-                         top=traj_tz2_ortho.top)
+    traj = pt.Trajectory(xyz=traj_tz2_ortho.xyz, top=traj_tz2_ortho.top)
     # make a different copy since ``traj`` is mutable
     traj2 = traj.copy()
 
@@ -292,11 +293,10 @@ def test_get_coordinates_trajectory():
     # given frames, autoimage=True, rmsfit=ref
     ref = traj[-3]
     pt.autoimage(ref, top=traj.top)
-    xyz = pt.get_coordinates(traj,
-                             frame_indices=[0, 5],
-                             autoimage=True,
-                             rmsfit=ref)
+    xyz = pt.get_coordinates(
+        traj, frame_indices=[0, 5], autoimage=True, rmsfit=ref)
     aa_eq(traj2[[0, 5]].autoimage().superpose(ref=ref).xyz, xyz)
+
 
 def test_load_and_save_topology():
     top = traj_tz2_ortho.top
@@ -315,6 +315,7 @@ def test_load_and_save_topology():
         with pytest.raises(ValueError):
             pt.load_topology(100)
 
+
 def test_single_frame():
     traj = pt.load_sample_data('tz2')
     frame = pt.io.load_frame(traj.filename, traj.top.filename, 3)
@@ -326,6 +327,7 @@ def test_single_frame():
     with pytest.raises(RuntimeError):
         pt.io.load_frame(filename='afddsfdsfa', top=traj.top.filename, index=3)
 
+
 # @unittest.skip('download_PDB')
 def test_download_pdb():
     with tempfolder():
@@ -335,16 +337,22 @@ def test_download_pdb():
         with pytest.raises(ValueError):
             pt.io.download_PDB('1l2y', './', overwrite=False)
 
+
 def test_short_save():
     with tempfolder():
-        (pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
-           .save('mini.nc', overwrite=True))
-        assert pt.iterload('mini.nc', fn('tz2.parm7')).n_frames == 101, 'must be 101 frames'
+        (pt.iterload(fn('tz2.nc'), fn('tz2.parm7')).save(
+            'mini.nc', overwrite=True))
+        assert pt.iterload(
+            'mini.nc', fn('tz2.parm7')).n_frames == 101, 'must be 101 frames'
+
 
 def test_formats():
     '''make sure to save correct format
     '''
-    def assert_has_exptected_line_textfile(expected_line, line_index, fn='test'):
+
+    def assert_has_exptected_line_textfile(expected_line,
+                                           line_index,
+                                           fn='test'):
         with open(fn, 'r') as fh:
             lines = [fh.readline() for _ in range(3)]
         # print(lines)
@@ -355,7 +363,7 @@ def test_formats():
             buffer_ = fh.read()
         # print(buffer_)
         assert expected_line.encode() in buffer_
-            
+
     traj = pt.datafiles.load_tz2()
     fn = 'test'
 
@@ -395,11 +403,13 @@ def test_formats():
         expected_line = 'GMX_trn_file'
         assert_has_exptected_line_binaryfile(expected_line, fn)
 
+
 def test_load_url():
     url = 'https://raw.githubusercontent.com/Amber-MD/pytraj/master/tests/data/1L2Y.pdb'
     local_traj = pt.load(fn('1L2Y.pdb'))
     github_traj = pt.io.load_url(url)
     aa_eq(local_traj.xyz, github_traj.xyz)
+
 
 def test_options():
     '''specify cpptraj options
@@ -410,23 +420,24 @@ def test_options():
         traj_tz2_ortho[:1].save('test.rst7', options='keepext')
         assert os.path.exists('test.1.rst7')
 
+
 def test_write_velocity_from_scratch():
     traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
     assert traj[0].velocity is None
 
     def add_velocity(traj):
         for frame in traj:
-            frame.velocity = np.zeros(traj.n_atoms*3) + 1.
+            frame.velocity = np.zeros(traj.n_atoms * 3) + 1.
             yield frame
 
     with tempfolder():
-        out_fn  = 'out.nc'
-        pt.write_traj(out_fn, traj=add_velocity(traj),
-                      top=traj.top,
-                      velocity=True)
+        out_fn = 'out.nc'
+        pt.write_traj(
+            out_fn, traj=add_velocity(traj), top=traj.top, velocity=True)
         traj2 = pt.iterload(out_fn, top=traj.top)
         assert traj2.metadata['has_velocity']
         assert not traj2.metadata['has_force']
+
 
 def test_write_force_from_scratch():
     traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
@@ -434,17 +445,16 @@ def test_write_force_from_scratch():
 
     def add_force(traj):
         for frame in traj:
-            frame.force = np.zeros(traj.n_atoms*3) + 1.
+            frame.force = np.zeros(traj.n_atoms * 3) + 1.
             yield frame
 
     with tempfolder():
-        out_fn  = 'out.nc'
-        pt.write_traj(out_fn, traj=add_force(traj),
-                      top=traj.top,
-                      force=True)
+        out_fn = 'out.nc'
+        pt.write_traj(out_fn, traj=add_force(traj), top=traj.top, force=True)
         traj2 = pt.iterload(out_fn, top=traj.top)
         assert traj2.metadata['has_force']
         assert not traj2.metadata['has_velocity']
+
 
 def test_write_both_force_and_velocity_from_scratch():
     traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
@@ -453,24 +463,27 @@ def test_write_both_force_and_velocity_from_scratch():
 
     def add_force_and_velocity(traj):
         for frame in traj:
-            frame.force = np.zeros(traj.n_atoms*3) + 1.
-            frame.velocity = np.zeros(traj.n_atoms*3) + 1.
+            frame.force = np.zeros(traj.n_atoms * 3) + 1.
+            frame.velocity = np.zeros(traj.n_atoms * 3) + 1.
             yield frame
 
     with tempfolder():
-        out_fn  = 'out.nc'
-        pt.write_traj(out_fn, traj=add_force_and_velocity(traj),
-                      top=traj.top,
-                      force=True,
-                      velocity=True)
+        out_fn = 'out.nc'
+        pt.write_traj(
+            out_fn,
+            traj=add_force_and_velocity(traj),
+            top=traj.top,
+            force=True,
+            velocity=True)
         traj2 = pt.iterload(out_fn, top=traj.top)
         assert traj2.metadata['has_force']
         assert traj2.metadata['has_velocity']
 
+
 def test_write_force_and_velocity():
     trajin = cpptraj_test_dir + '/Test_systemVF/systemVF.nc'
     tn = cpptraj_test_dir + '/Test_systemVF/systemVF.parm7'
-    traj = pt.iterload(trajin , tn)
+    traj = pt.iterload(trajin, tn)
     assert traj.metadata['has_force']
     assert traj.metadata['has_velocity']
 
@@ -486,11 +499,13 @@ def test_write_force_and_velocity():
         forces_traj2 = np.array([frame.force.copy() for frame in traj2])
         aa_eq(forces_traj, forces_traj2)
 
+
 def test_iterload_and_load_remd():
     # iterload_remd
-    traj = pt.iterload_remd(fn("Test_RemdTraj/rem.nc.000"),
-                            fn("Test_RemdTraj/ala2.99sb.mbondi2.parm7"),
-                            T=300.0)
+    traj = pt.iterload_remd(
+        fn("Test_RemdTraj/rem.nc.000"),
+        fn("Test_RemdTraj/ala2.99sb.mbondi2.parm7"),
+        T=300.0)
     for frame in traj:
         assert frame.temperature == 300.0, 'frame temperature must be 300.0 K'
     dist = pt.distance(traj, '@10 @20')
@@ -499,45 +514,49 @@ def test_iterload_and_load_remd():
         parm  {}
         trajin {} remdtraj remdtrajtemp 300.
         distance @10 @20
-    '''.format(fn('Test_RemdTraj/ala2.99sb.mbondi2.parm7'),
-               fn('Test_RemdTraj/rem.nc.000 '))
+    '''.format(
+        fn('Test_RemdTraj/ala2.99sb.mbondi2.parm7'),
+        fn('Test_RemdTraj/rem.nc.000 '))
     state = pt.load_cpptraj_state(trajin_text)
     state.run()
     aa_eq(dist, state.data[-1].values)
 
     # load_remd
-    traj2 = pt.load_remd(fn("Test_RemdTraj/rem.nc.000"),
-                         fn("Test_RemdTraj/ala2.99sb.mbondi2.parm7"),
-                         T=300.0)
+    traj2 = pt.load_remd(
+        fn("Test_RemdTraj/rem.nc.000"),
+        fn("Test_RemdTraj/ala2.99sb.mbondi2.parm7"),
+        T=300.0)
     aa_eq(traj.xyz, traj2.xyz)
 
     # with Topology
-    traj2 = pt.iterload_remd(fn("Test_RemdTraj/rem.nc.000"),
-                             top=traj.top,
-                             T=300.0)
+    traj2 = pt.iterload_remd(
+        fn("Test_RemdTraj/rem.nc.000"), top=traj.top, T=300.0)
     aa_eq(traj.xyz, traj2.xyz)
 
+
 def test_io_load_and_save_0():
-    traj = pt.iterload(filename=tc5b_trajin,
-                         top=tc5b_top)[:10]
+    traj = pt.iterload(filename=tc5b_trajin, top=tc5b_top)[:10]
     indices = list(range(2, 3, 5)) + [3, 8, 9, 8]
 
     with tempfolder():
-        pt.write_traj(filename="test_io_saved_.x",
-                       traj=traj,
-                       top=tc5b_top,
-                       frame_indices=indices,
-                       overwrite=True)
+        pt.write_traj(
+            filename="test_io_saved_.x",
+            traj=traj,
+            top=tc5b_top,
+            frame_indices=indices,
+            overwrite=True)
 
         # check frames
         traj2 = pt.iterload(filename="test_io_saved_.x", top=tc5b_top)
         assert traj2.n_frames == len(indices)
+
 
 def test_amberhome():
     if os.getenv('AMBERHOME') is None:
         fake_amberhome = '/home/hc/amber16'
         os.environ['AMBERHOME'] = fake_amberhome
         assert _get_amberhome() == fake_amberhome
+
 
 @unittest.skipUnless(os.path.exists(tleap), 'must have tleap')
 def test_leap():

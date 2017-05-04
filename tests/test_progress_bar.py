@@ -57,13 +57,12 @@ def test_progress_log():
     traj2 = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
     traj2._size_limit_in_GB = traj2._estimated_GB - 0.001
 
-    
     with pytest.raises(MemoryError):
         traj2.xyz
 
     p2 = ProgressBarTrajectory(traj2)
     aa_eq(pt.rmsd(p2), pt.rmsd(traj2))
-    
+
 
 @unittest.skipUnless(has_ipython, 'require IPython')
 def test_pickle_progress_bar():

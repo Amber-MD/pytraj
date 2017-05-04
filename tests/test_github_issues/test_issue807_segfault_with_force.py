@@ -6,11 +6,10 @@ from utils import fn
 
 
 class TestSegmetationFault(unittest.TestCase):
-
     def test_issue807(self):
         # files are provided by Chris Lee
-        traj = pt.iterload(fn('issue807/trunc.nc'),
-                           "./data/issue807/system.prmtop")
+        traj = pt.iterload(
+            fn('issue807/trunc.nc'), "./data/issue807/system.prmtop")
 
         traj[0]
         for frame in traj:

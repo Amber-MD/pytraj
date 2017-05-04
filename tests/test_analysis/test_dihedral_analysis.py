@@ -7,7 +7,6 @@ from pytraj.utils import aa_eq
 
 
 class Test(unittest.TestCase):
-
     def test_0(self):
         import numpy as np
         from pytraj import dihedral_analysis as da

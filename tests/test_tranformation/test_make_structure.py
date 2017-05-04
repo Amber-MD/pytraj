@@ -7,7 +7,6 @@ from pytraj.testing import cpptraj_test_dir
 
 
 class TestMakeStructure(unittest.TestCase):
-
     def test_makestructure(self):
         # https://github.com/Amber-MD/cpptraj/issues/27
         # load only 1st frame
@@ -16,17 +15,13 @@ class TestMakeStructure(unittest.TestCase):
         #  pply polyproline II dihedral to residues 1-13
         t0 = traj[:1].copy()
         pt.make_structure(t0, 'pp2:1-13')
-        pt.write_traj('./output/test0.pdb',
-                      t0,
-                      options='model',
-                      overwrite=True)
+        pt.write_traj(
+            './output/test0.pdb', t0, options='model', overwrite=True)
 
         t1 = traj[:1].copy()
         pt.make_structure(t1, "chi1:8:N:CA:CB:CG:35")
-        pt.write_traj('./output/test1.pdb',
-                      t1,
-                      options='model',
-                      overwrite=True)
+        pt.write_traj(
+            './output/test1.pdb', t1, options='model', overwrite=True)
 
     def test_makestructure_with_reference(self):
         tz2_parm7 = cpptraj_test_dir + '/tz2.parm7'
@@ -53,6 +48,7 @@ class TestMakeStructure(unittest.TestCase):
         pt.make_structure(traj, "ref:1-13:1-13", ref=ref)
         pt.rmsd(traj, ref=ref)
         aa_eq(traj.xyz, cpp_traj.xyz)
+
 
 if __name__ == "__main__":
     unittest.main()
