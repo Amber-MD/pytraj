@@ -63,7 +63,7 @@ def git_version():
     try:
         out = subprocess.check_output(['git', 'rev-parse', 'HEAD'])
         GIT_REVISION = out.strip().decode('ascii')
-    except OSError:
+    except (OSError, subprocess.CalledProcessError):
         GIT_REVISION = "Unknown"
 
     return GIT_REVISION
