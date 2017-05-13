@@ -5,8 +5,12 @@ pytraj change log
 Lastest change
 =============
 
-Features and bugfixs added (from May 2015 - )
------------------------------------
+Features and bugfixs added (from May 2017)
+------------------------------------------
+* SUPPORT: ti (test_analysis/test_check_chirality.py)
+
+Features and bugfixs added (from May 2015)
+------------------------------------------
 * speed up compiling time (~10 times) without using multiprocess
 * move all cpptraj's Analysis classes to a single file (CpptrajAnalyses)
 * move all cpptraj's Action classes to a single file (CpptrajActions)
