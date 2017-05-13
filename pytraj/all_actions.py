@@ -101,6 +101,7 @@ __all__ = [
     'dssp_analysis',
     'hbond_analysis',
     'energy_analysis',
+    'ti',
 ]
 
 
@@ -2892,9 +2893,20 @@ def ti(fn, options=''):
 
     Parameters
     ----------
-    fn : ...
+    fn : DV/DL energies filename
     option : str
-        more cpptraj options
+        cpptraj options
+
+    Examples
+    --------
+    >>> dvdl_fn = 'dvdl.dat'
+    >>> options = 'nq 9'
+    >>> pt.ti(dvdl_fn, options) # doctest: +SKIP
+
+    Notes
+    -----
+        - cpptraj help: pytraj.info('ti')
+        - EXPERIMENTAL
     """
     from pytraj import io
     c_dslist = io.read_data(fn, 'name TI_set index 1')

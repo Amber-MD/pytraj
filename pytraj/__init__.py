@@ -181,6 +181,7 @@ from .all_actions import translate
 from .all_actions import velocityautocorr
 from .all_actions import wavelet
 from .all_actions import xcorr
+from .all_actions import ti
 
 from .analysis.matrix import dist as distance_matrix
 from .analysis import matrix

@@ -11,7 +11,7 @@ class TestTI(unittest.TestCase):
     def test_ti(self):
         dvdl_fn = cpptraj_test_dir + '/Test_TI/dvdl.dat'
         options = 'nq 9'
-        pt.all_actions.ti(dvdl_fn, options)
+        pt.ti(dvdl_fn, options)
 
 
 if __name__ == "__main__":
