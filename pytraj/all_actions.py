@@ -2885,3 +2885,20 @@ def analyze_modes(mode_type,
     act(command, dslist=c_dslist)
     c_dslist._pop(0)
     return get_data_from_dtype(c_dslist, dtype=dtype)
+
+
+def ti(fn, options=''):
+    """compute TI
+
+    Parameters
+    ----------
+    fn : ...
+    option : str
+        more cpptraj options
+    """
+    from pytraj import io
+    c_dslist = io.read_data(fn, 'name TI_set index 1')
+    act = c_analysis.Analysis_TI()
+    command = 'TI_set ' + options
+    act(command, dslist=c_dslist)
+    return c_dslist
