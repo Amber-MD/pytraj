@@ -37,7 +37,7 @@ else:
         amberhome = ''
         cpptraj_test_dir = ''
 
-DEFAULT_PATH = "../cpptraj/test/"
+DEFAULT_PATH = os.path.dirname(__file__) + "/../../cpptraj/test"
 
 if os.path.exists(DEFAULT_PATH):
     cpptraj_test_dir = os.path.abspath(DEFAULT_PATH)
