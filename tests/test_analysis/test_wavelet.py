@@ -15,11 +15,11 @@ class TestWavelet(unittest.TestCase):
         data = pt.wavelet(traj, command)
 
         state = pt.load_cpptraj_state("""
-        parm data/DPDP.parm7
-        trajin data/DPDP.nc
+        parm {}
+        trajin {}
         rms @C,CA,N first
         wavelet name mywave nb 10 s0 2 ds 0.25 type morlet correction 1.01 chival 0.25 :1-22 cluster minpoints 66 epsilon 10.0
-        """)
+        """.format(fn('DPDP.parm7'), fn('DPDP.nc')))
 
         state.run()
 

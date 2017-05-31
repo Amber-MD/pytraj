@@ -2,10 +2,13 @@ import pytraj as pt
 from pytraj.testing import aa_eq, cpptraj_test_dir
 from utils import fn
 import pytest
+import numpy as np
+
+def aa_eq_abs(arr0, arr1):
+    aa_eq(np.abs(arr0), np.abs(arr1))
 
 
 def test_analyze_modes():
-
     for mask in ['@CA', '@N,CA', '@CA,H']:
         command = '''
         matrix mwcovar name tz2 {}
@@ -17,9 +20,7 @@ def test_analyze_modes():
 
         # cpptraj
         state = pt.load_cpptraj_state(command, traj)
-        # pt._verbose()
         state.run()
-        pt._verbose(False)
         state.run()
         cpp_dict = state.data[1:].to_dict()
         c_dslist = state.data[1:]
@@ -35,9 +36,9 @@ def test_analyze_modes():
             mass=traj.top.mass[indices],
             dtype='dataset')
         evecs, evals = dslist[0].eigenvectors, dslist[0].eigenvalues
-        aa_eq(cpp_dict['tz2'], mat)
-        aa_eq(evals, cpp_modes.eigenvalues)
-        aa_eq(evecs, cpp_modes.eigenvectors)
+        aa_eq_abs(cpp_dict['tz2'], mat)
+        aa_eq_abs(evals, cpp_modes.eigenvalues)
+        aa_eq_abs(evecs, cpp_modes.eigenvectors)
 
         with pytest.raises(AssertionError):
             # wrong mass
@@ -56,13 +57,11 @@ def test_analyze_modes():
                 mass=None,
                 dtype='dataset')
 
-        # pt._verbose()
         fluct = pt.analyze_modes(
             'fluct', evecs, evals, scalar_type='mwcovar', dtype='dataset')
-        # pt._verbose(False)
         p_rms = fluct['FLUCT_00001[rms]'].values
         c_rms = c_dslist['FLUCT_00003[rms]'].values
-        aa_eq(p_rms, c_rms)
+        aa_eq_abs(p_rms, c_rms)
 
 
 def test_mode_disp():
@@ -81,4 +80,4 @@ def test_mode_disp():
     c_disp_dict = state.data[1:].to_dict()
 
     for key in disp_dict.keys():
-        aa_eq(disp_dict[key], c_disp_dict[key])
+        aa_eq_abs(disp_dict[key], c_disp_dict[key])
