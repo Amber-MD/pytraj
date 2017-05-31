@@ -9,6 +9,7 @@ from utils import tz2_truncoct_top
 
 
 def test_spam():
+    # FIXME: assert?
     peaks_xyz = os.path.join(cpptraj_test_dir, 'Test_SPAM', 'peaks.xyz')
     command = """
     parm {}
@@ -26,7 +27,5 @@ def test_spam():
     traj = pt.iterload(tz2_truncoct_trajin, tz2_truncoct_top)
     # cm = 'SPAM cut 12.0 info spam.info out spam.dat reorder summary summary.dat'
     cm = 'SPAM cut 12.0 reorder'
-    pt._verbose()
     with tempfolder():
         spam_out = pt.spam(traj, peak_file=peaks_xyz, command=cm)
-    print(spam_out)

@@ -65,8 +65,8 @@ class TestDiagMatrix(unittest.TestCase):
             n_vecs=6,
             scalar_type='mwcovar',
             mass=traj.top.mass[ca_indices])
-        aa_eq(state.data['mydiag'].eigenvalues, eigenvalues)
-        aa_eq(state.data['mydiag'].eigenvectors, eigenvectors)
+        aa_eq(np.abs(state.data['mydiag'].eigenvalues), np.abs(eigenvalues))
+        aa_eq(np.abs(state.data['mydiag'].eigenvectors), np.abs(eigenvectors))
 
 
 if __name__ == "__main__":

@@ -10,8 +10,8 @@ from pytraj.utils import aa_eq
 command = '''
 # Step one. Generate average structure.
 # RMS-Fit to first frame to remove global translation/rotation.
-parm data/tz2.parm7
-trajin data/tz2.nc
+parm {}
+trajin {}
 rms first !@H=
 average crdset AVG
 run
@@ -25,7 +25,7 @@ run
 runanalysis diagmatrix MyMatrix vecs 2 name MyEvecs
 # Step four. Project saved fit coordinates along eigenvectors 1 and 2
 crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
-'''
+'''.format(fn('tz2.parm7'), fn('tz2.nc'))
 
 
 class TestProjection(unittest.TestCase):

@@ -57,7 +57,7 @@ class TestGridAction(unittest.TestCase):
         trajin {}
         reference {} [REF]
         autoimage triclinic
-        grid nonortho.dx boxref [REF] 50 50 50 :WAT@O pdb output/test.pdb
+        grid nonortho.dx boxref [REF] 50 50 50 :WAT@O pdb test.pdb
         '''.format(
             fn('tz2.truncoct.parm7'),
             fn('tz2.truncoct.nc'), fn('tz2.truncoct.nc'))

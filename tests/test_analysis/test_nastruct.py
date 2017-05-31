@@ -58,8 +58,8 @@ class TestNastruct(unittest.TestCase):
         dir(data)
 
         # pickle
-        pt.to_pickle(data, 'data/na.pk')
-        na2 = pt.read_pickle('data/na.pk')
+        pt.to_pickle(data, 'na.pk')
+        na2 = pt.read_pickle('na.pk')
 
         for key in data.keys():
             aa_eq(data[key][1], na2[key][1])
