@@ -13,7 +13,7 @@ class TestNativeContacts(unittest.TestCase):
 
         dslist = pt.native_contacts(traj, top=traj.top)
         cpp = np.loadtxt(
-            'data/tc5b.native_contacts.dat', skiprows=1, usecols=(1, 2)).T
+            fn('tc5b.native_contacts.dat'), skiprows=1, usecols=(1, 2)).T
         aa_eq(dslist.values, cpp)
 
         # mask2

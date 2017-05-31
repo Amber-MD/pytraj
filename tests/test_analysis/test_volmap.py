@@ -6,14 +6,14 @@ from utils import fn
 from pytraj.testing import aa_eq
 from pytraj.all_actions import volmap
 
-cm = "output/dummy.dat 0.5 0.5 0.5 :WAT@O buffer 2.0 centermask !:1-13 radscale 1.36"
+cm = "dummy.dat 0.5 0.5 0.5 :WAT@O buffer 2.0 centermask !:1-13 radscale 1.36"
 
 txt = """
-parm data/tz2.ortho.parm7
-trajin data/tz2.ortho.nc 1 1
+parm {}
+trajin {} 1 1
 rms first :1-13
 center :1-13 mass origin
-volmap {0} {1} {2}
+volmap {} {} {}
 """
 
 
@@ -22,7 +22,10 @@ class TestVolmap(unittest.TestCase):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))[:1]
         size = ''
         center = ''
-        state = pt.load_cpptraj_state(txt.format(cm, size, center))
+        state = pt.load_cpptraj_state(txt.format(
+            fn('tz2.ortho.parm7'),
+            fn('tz2.ortho.nc'),
+            cm, size, center))
         state.run()
         cpp_data = state.data[-1].values
 
@@ -51,8 +54,10 @@ class TestVolmap(unittest.TestCase):
     @unittest.skip('skip due to segmentation fault with cpptraj.OMP')
     def test_volmap_size(self):
         cm_no_buffer = cm.replace('buffer 2.0', '')
-        state = pt.load_cpptraj_state(
-            txt.format(cm_no_buffer, 'size 20,20,20', ''))
+        state = pt.load_cpptraj_state(txt.format(
+            fn('tz2.ortho.parm7'),
+            fn('tz2.ortho.nc'),
+            cm_no_buffer, 'size 20,20,20', ''))
         state.run()
         cpp_data = state.data[-1].values
         ds = volmap(
@@ -70,7 +75,9 @@ class TestVolmap(unittest.TestCase):
         # test center
         cm_no_buffer = cm.replace('buffer 2.0', '')
         state = pt.load_cpptraj_state(
-            txt.format(cm_no_buffer, 'size 20,20,20', 'center 0.5,0.5,0.5'))
+            txt.format(fn('tz2.ortho.parm7'),
+                fn('tz2.ortho.nc'),
+                cm_no_buffer, 'size 20,20,20', 'center 0.5,0.5,0.5'))
         state.run()
         cpp_data = state.data[-1].values
         ds = volmap(

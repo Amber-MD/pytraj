@@ -9,10 +9,10 @@ class TestReplicateCell(unittest.TestCase):
     def test_vs_cpptraj(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         txt = '''
-        parm ./data/tz2.ortho.parm7
-        trajin ./data/tz2.ortho.nc
+        parm {}
+        trajin {}
         replicatecell name test all
-        '''
+        '''.format(fn('tz2.ortho.parm7'), fn('tz2.ortho.nc'))
 
         t0 = pt.replicate_cell(traj, direction='all')
         state = pt.load_cpptraj_state(txt)
