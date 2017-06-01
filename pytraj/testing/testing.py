@@ -30,8 +30,8 @@ if cpptrajhome:
     cpptraj_test_dir = os.path.join(cpptrajhome, 'test')
 else:
     if amberhome:
-        cpptraj_test_dir = os.path.join(amberhome, 'AmberTools', 'test',
-                                        'cpptraj')
+        cpptraj_test_dir = os.path.join(amberhome, 'AmberTools', 'src',
+                                        'cpptraj', 'test')
     else:
         cpptrajhome = ''
         amberhome = ''
