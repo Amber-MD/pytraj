@@ -6,9 +6,14 @@ import pytraj as pt
 from utils import fn
 from pytraj.utils import aa_eq
 from pytraj.sandbox import to_parmed
-import parmed as pmd
+
+try:
+    import parmed as pmd
+except ImportError:
+    pmd = None
 
 
+@unittest.skipIf(pmd is None, "Must install ParmEd")
 class TestParmEdConverter(unittest.TestCase):
     def test_parmed_converter(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
