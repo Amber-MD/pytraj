@@ -108,9 +108,10 @@ class SimplifiedTopology(object):
     - cpptraj does not understand this class (use :class:Topology)
     - read only
     '''
-    def __init__(self, atoms=None, residues=None):
+    def __init__(self, atoms=None, residues=None, cpptraj_topology=None):
         self.atoms = np.asarray(atoms)
         self.residues = np.asarray(residues)
+        self._top = cpptraj_topology
 
     def __str__(self):
         return 'SimplifiedTopology({} atoms, {} residues)'.format(
@@ -122,6 +123,10 @@ class SimplifiedTopology(object):
     def __iter__(self):
         for atom in self.atoms:
             yield atom
+
+    def select(self, mask):
+        return self._top.select(mask)
+
 
 cdef class Topology:
     def __cinit__(self, *args):
@@ -348,7 +353,7 @@ cdef class Topology:
         -----
         support openmp for distance-based atommask selction
         """
-        return self(mask).indices
+        return np.asarray(self(mask).indices, dtype='int')
 
     property atoms:
         def __get__(self):
@@ -446,6 +451,7 @@ cdef class Topology:
             idx += 1
             incr(rit)
         simplified_top.residues = np.asarray(residues)
+        simplified_top._top = self
         return simplified_top
 
     property residues:
