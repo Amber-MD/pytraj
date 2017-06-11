@@ -121,6 +121,8 @@ class TestTopology(unittest.TestCase):
         top = pt.load_topology(fn('Tc5b.top'))
         sim_top = top.simplify()
 
+        assert sim_top.select('@CA').tolist() == top.select('@CA').tolist()
+
         for atom, sim_atom in zip(top.atoms, sim_top.atoms):
             assert atom.resname == sim_atom.resname
             assert atom.name == sim_atom.name
