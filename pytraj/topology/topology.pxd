@@ -14,6 +14,7 @@ from ..core.c_core cimport _FileName, FileName, _ArgList, ArgList
 ctypedef cppvector[_Atom].const_iterator atom_iterator
 ctypedef cppvector[_Residue].const_iterator res_iterator
 ctypedef cppvector[_Molecule].const_iterator mol_iterator
+ctypedef cppvector[int].const_iterator bond_iterator
 
 cdef extern from "CoordinateInfo.h": 
     cdef cppclass _CoordinateInfo "CoordinateInfo" nogil:
@@ -146,6 +147,7 @@ cdef extern from "Topology.h":
 cdef class Topology:
     cdef _Topology* thisptr
     cdef public bint _own_memory
+    cdef cppvector[int] _get_atom_bond_indices(self, _Atom)
 
 cdef extern from "ParmFile.h": 
     ctypedef enum ParmFormatType "ParmFile::ParmFormatType":

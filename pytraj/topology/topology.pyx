@@ -32,11 +32,35 @@ else:
 __all__ = ['Topology', 'ParmFile', 'SimplifiedTopology', 'SimplifiedAtom', 'SimplifiedResidue']
 
 
-class SimplifiedAtom(
-    namedtuple(
-        'SimplifiedAtom',
-        'name type element charge mass index atomic_number resname resid molnum')):
-    __slots__ = ()
+class SimplifiedAtom(object):
+    '''EXPERIMENTAL
+
+    read only
+    '''
+    def __init__(self, name, type, element, charge, mass, index, atomic_number,
+            resname, resid, molnum,
+            bond_indices=None,
+            simplified_top=None):
+        self.name = name
+        self.type = type
+        self.element = element
+        self.charge = charge
+        self.mass = mass
+        self.index = index
+        self.atomic_number = atomic_number
+        self.resname = resname
+        self.resid = resid
+        self.molnum = molnum
+        self._bond_indices = bond_indices
+        self._simplified_top = simplified_top
+
+    @property
+    def residue(self):
+        return self._simplified_top.residues[self.resid]
+
+    @property
+    def bond_partners(self):
+        return self._simplified_top.atoms[self._bond_indices]
 
     def __str__(self):
         return 'SimplifiedAtom(name={}, type={}, element={}, atomic_number={}, index={},'\
@@ -49,6 +73,10 @@ class SimplifiedAtom(
 
 
 class SimplifiedResidue(object):
+    '''EXPERIMENTAL
+
+    read only
+    '''
     def __init__(self, name, index, first, last, associated_topology):
         self.name = name
         self.index = index
@@ -73,15 +101,16 @@ class SimplifiedResidue(object):
 
 
 class SimplifiedTopology(object):
-    '''a lightweight Topology for fast iterating and convenient accessing atom, residue
+    '''EXPERIMENTAL: a lightweight Topology for fast iterating and convenient accessing atom, residue
 
     Notes
     -----
-    cpptraj does not understand this class (use :class:Topology)
+    - cpptraj does not understand this class (use :class:Topology)
+    - read only
     '''
-    def __init__(self, atoms, residues=None):
-        self.atoms = atoms
-        self.residues = residues
+    def __init__(self, atoms=None, residues=None):
+        self.atoms = np.asarray(atoms)
+        self.residues = np.asarray(residues)
 
     def __str__(self):
         return 'SimplifiedTopology({} atoms, {} residues)'.format(
@@ -133,13 +162,12 @@ cdef class Topology:
         else:
             box_txt = "non-PBC"
 
-        tmp = "<%s: %s atoms, %s residues, %s mols, %s>" % (
+        return "<%s: %s atoms, %s residues, %s mols, %s>" % (
             self.__class__.__name__,
             self.n_atoms,
             self.n_residues,
             self.n_mols,
             box_txt)
-        return tmp
 
     def add_atom(self, Atom atom, Residue residue):
         self.thisptr.AddTopAtom(atom.thisptr[0], residue.thisptr[0])
@@ -338,6 +366,18 @@ cdef class Topology:
                 idx += 1
                 incr(it)
 
+    cdef cppvector[int] _get_atom_bond_indices(self, _Atom atom):
+        cdef cppvector[int] arr
+        cdef bond_iterator it
+        cdef int i = 0
+
+        it = atom.bondbegin()
+        while it != atom.bondend():
+            arr.push_back(deref(it))
+            incr(it)
+            i += 1
+        return arr
+
     def simplify(self):
         '''return a (immutable) lightweight version of Topology for fast iterating.
         The API is not stable.
@@ -368,12 +408,14 @@ cdef class Topology:
         atoms = []
         residues = []
 
+        simplified_top = SimplifiedTopology()
+
         # get atoms
         ait = self.thisptr.begin()
         while ait != self.thisptr.end():
             atom = deref(ait)
             res = self.thisptr.Res(atom.ResNum())
-            atoms.append(SimplifiedAtom(name=atom.c_str().strip(),
+            sim_atom = SimplifiedAtom(name=atom.c_str().strip(),
                                         type=atom.Type().Truncated(),
                                         element=get_key(
                                             atom.Element(), AtomicElementDict).lower(),
@@ -383,14 +425,17 @@ cdef class Topology:
                                         atomic_number=atom.AtomicNumber(),
                                         resname=res.c_str().strip(),
                                         resid=res.OriginalResNum() - 1,
-                                        molnum=atom.MolNum()))
+                                        molnum=atom.MolNum(),
+                                        simplified_top=simplified_top)
+            sim_atom._bond_indices = np.asarray(self._get_atom_bond_indices(atom), dtype='int')
+            atoms.append(sim_atom)
             idx += 1
             incr(ait)
 
         # get residues
         rit = self.thisptr.ResStart()
         idx = 0
-        simplified_top = SimplifiedTopology(atoms=atoms)
+        simplified_top.atoms = np.asarray(atoms)
         while rit != self.thisptr.ResEnd():
             res = deref(rit)
             residues.append(SimplifiedResidue(name=res.c_str().strip(),
@@ -400,7 +445,7 @@ cdef class Topology:
                                               associated_topology=simplified_top))
             idx += 1
             incr(rit)
-        simplified_top.residues = residues
+        simplified_top.residues = np.asarray(residues)
         return simplified_top
 
     property residues:
