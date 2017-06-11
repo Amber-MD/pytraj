@@ -5,6 +5,7 @@ from cpython.array cimport array as pyarray
 from pytraj.core.c_dict import get_key, AtomicElementDict
 from pytraj.externals.six import string_types
 from pytraj.core.elements import Element
+import numpy as np
 
 cdef class Atom:
     '''Atom
@@ -54,14 +55,16 @@ cdef class Atom:
     def bonded_indices(self):
         """get bond indices that `self` bonds to
         """
-        cdef pyarray arr0 = pyarray('i', [])
+        cdef int[:] arr = np.empty(self.thisptr.Nbonds(), dtype='int')
         cdef bond_iterator it
+        cdef int i = 0
 
         it = self.thisptr.bondbegin()
         while it != self.thisptr.bondend():
-            arr0.append(deref(it))
+            arr[i] = deref(it)
             incr(it)
-        return arr0
+            i += 1
+        return np.asarray(arr)
 
     property resid:
         def __set__(self, int residIn):

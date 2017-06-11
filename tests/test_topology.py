@@ -122,11 +122,18 @@ class TestTopology(unittest.TestCase):
         sim_top = top.simplify()
 
         for atom, sim_atom in zip(top.atoms, sim_top.atoms):
-            assert atom.resname == sim_atom.resname, 'equal resname'
-            assert atom.name == sim_atom.name, 'equal resname'
-            assert atom.type == sim_atom.type, 'equal resname'
-            assert atom.charge == sim_atom.charge, 'equal resname'
-            assert atom.mass == sim_atom.mass, 'equal resname'
+            assert atom.resname == sim_atom.resname
+            assert atom.name == sim_atom.name
+            assert atom.type == sim_atom.type
+            assert atom.charge == sim_atom.charge
+            assert atom.mass == sim_atom.mass
+        
+        # API
+        atom = sim_top.atoms[0]
+        atom.residue
+        atom.residue.name
+        atom.residue.index
+        atom.bond_partners
 
 
 def test_mass_atomic_number_dict():
