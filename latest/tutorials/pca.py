@@ -32,8 +32,8 @@ print('eigvenvectors of first two modes: \n', data[1][1])
 
 # In[3]:
 
-get_ipython().magic('matplotlib inline')
-get_ipython().magic("config InlineBackend.figure_format = 'retina'  # high resolution")
+get_ipython().magic(u'matplotlib inline')
+get_ipython().magic(u"config InlineBackend.figure_format = 'retina'  # high resolution")
 import matplotlib
 matplotlib.rcParams['savefig.dpi'] = 2 * matplotlib.rcParams['savefig.dpi'] # larger image
 

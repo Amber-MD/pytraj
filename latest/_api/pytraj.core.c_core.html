@@ -1,19 +1,14 @@
 
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>pytraj.core.c_core &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -41,7 +36,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body role="document">
+  <body>
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -85,7 +80,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -331,7 +326,7 @@
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.c_core.NameType.replace_asterisk" title="pytraj.core.c_core.NameType.replace_asterisk"><code class="xref py py-obj docutils literal"><span class="pre">replace_asterisk</span></code></a>(self)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.c_core.NameType.to_buffer" title="pytraj.core.c_core.NameType.to_buffer"><code class="xref py py-obj docutils literal"><span class="pre">to_buffer</span></code></a>(self,&nbsp;char&nbsp;\*c)</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.c_core.NameType.to_buffer" title="pytraj.core.c_core.NameType.to_buffer"><code class="xref py py-obj docutils literal"><span class="pre">to_buffer</span></code></a>(self,&nbsp;char&nbsp;*c)</td>
 <td></td>
 </tr>
 </tbody>
@@ -512,13 +507,13 @@ argument over and over.</dd>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.c_core.ArgList.command_is" title="pytraj.core.c_core.ArgList.command_is"><code class="xref py py-obj docutils literal"><span class="pre">command_is</span></code></a>(self,&nbsp;char&nbsp;\*cm)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.c_core.ArgList.command_is" title="pytraj.core.c_core.ArgList.command_is"><code class="xref py py-obj docutils literal"><span class="pre">command_is</span></code></a>(self,&nbsp;char&nbsp;*cm)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.c_core.ArgList.get_key_double" title="pytraj.core.c_core.ArgList.get_key_double"><code class="xref py py-obj docutils literal"><span class="pre">get_key_double</span></code></a>(self,&nbsp;char&nbsp;\*key,&nbsp;double&nbsp;defd)</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.c_core.ArgList.get_key_double" title="pytraj.core.c_core.ArgList.get_key_double"><code class="xref py py-obj docutils literal"><span class="pre">get_key_double</span></code></a>(self,&nbsp;char&nbsp;*key,&nbsp;double&nbsp;defd)</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.c_core.ArgList.get_key_int" title="pytraj.core.c_core.ArgList.get_key_int"><code class="xref py py-obj docutils literal"><span class="pre">get_key_int</span></code></a>(self,&nbsp;char&nbsp;\*key,&nbsp;int&nbsp;defint)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.c_core.ArgList.get_key_int" title="pytraj.core.c_core.ArgList.get_key_int"><code class="xref py py-obj docutils literal"><span class="pre">get_key_int</span></code></a>(self,&nbsp;char&nbsp;*key,&nbsp;int&nbsp;defint)</td>
 <td></td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#pytraj.core.c_core.ArgList.get_next_double" title="pytraj.core.c_core.ArgList.get_next_double"><code class="xref py py-obj docutils literal"><span class="pre">get_next_double</span></code></a>(self,&nbsp;double&nbsp;defd)</td>
@@ -539,7 +534,7 @@ argument over and over.</dd>
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.c_core.ArgList.get_string_key" title="pytraj.core.c_core.ArgList.get_string_key"><code class="xref py py-obj docutils literal"><span class="pre">get_string_key</span></code></a>(self,&nbsp;c)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.c_core.ArgList.has_key" title="pytraj.core.c_core.ArgList.has_key"><code class="xref py py-obj docutils literal"><span class="pre">has_key</span></code></a>(self,&nbsp;char&nbsp;\*key)</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.core.c_core.ArgList.has_key" title="pytraj.core.c_core.ArgList.has_key"><code class="xref py py-obj docutils literal"><span class="pre">has_key</span></code></a>(self,&nbsp;char&nbsp;*key)</td>
 <td></td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.core.c_core.ArgList.is_empty" title="pytraj.core.c_core.ArgList.is_empty"><code class="xref py py-obj docutils literal"><span class="pre">is_empty</span></code></a>(self)</td>
@@ -624,8 +619,8 @@ argument over and over.</dd>
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Mar 29, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
+      Last updated on Jun 23, 2017.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
     </p>
   </div>
 </footer>

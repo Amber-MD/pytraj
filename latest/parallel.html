@@ -1,19 +1,14 @@
 
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Parallel calculation &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -42,7 +37,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body role="document">
+  <body>
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -86,7 +81,7 @@
 <li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -103,9 +98,9 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">Parallel calculation</a><ul>
 <li><a class="reference internal" href="#example-parallel-calculation-with-single-action">Example: parallel calculation with single action</a></li>
-<li><a class="reference internal" href="#example-parallel-calculation-with-cpptraj-s-command-style">Example: parallel calculation with cpptraj&#8217;s command style</a></li>
-<li><a class="reference internal" href="#supported-methods-for-pmap-if-using-pytraj-s-methods">Supported methods for <code class="docutils literal"><span class="pre">pmap</span></code> if using pytraj&#8217;s methods</a></li>
-<li><a class="reference internal" href="#supported-methods-for-pmap-if-using-cpptraj-s-command-style">Supported methods for <code class="docutils literal"><span class="pre">pmap</span></code> if using cpptraj&#8217;s command style</a></li>
+<li><a class="reference internal" href="#example-parallel-calculation-with-cpptraj-s-command-style">Example: parallel calculation with cpptraj’s command style</a></li>
+<li><a class="reference internal" href="#supported-methods-for-pmap-if-using-pytraj-s-methods">Supported methods for <code class="docutils literal"><span class="pre">pmap</span></code> if using pytraj’s methods</a></li>
+<li><a class="reference internal" href="#supported-methods-for-pmap-if-using-cpptraj-s-command-style">Supported methods for <code class="docutils literal"><span class="pre">pmap</span></code> if using cpptraj’s command style</a></li>
 <li><a class="reference internal" href="#supported-methods-for-openmp">Supported methods for <code class="docutils literal"><span class="pre">openmp</span></code></a></li>
 <li><a class="reference internal" href="#rule-of-thumb-for-choosing-pmap-or-openmp">Rule of thumb for choosing <code class="docutils literal"><span class="pre">pmap</span></code> or <code class="docutils literal"><span class="pre">openmp</span></code>?</a></li>
 <li><a class="reference internal" href="#benchmark">Benchmark</a><ul>
@@ -177,9 +172,9 @@
 <ul class="simple">
 <li><a class="reference internal" href="#parallel-calculation" id="id1">Parallel calculation</a><ul>
 <li><a class="reference internal" href="#example-parallel-calculation-with-single-action" id="id2">Example: parallel calculation with single action</a></li>
-<li><a class="reference internal" href="#example-parallel-calculation-with-cpptraj-s-command-style" id="id3">Example: parallel calculation with cpptraj&#8217;s command style</a></li>
-<li><a class="reference internal" href="#supported-methods-for-pmap-if-using-pytraj-s-methods" id="id4">Supported methods for <code class="docutils literal"><span class="pre">pmap</span></code> if using pytraj&#8217;s methods</a></li>
-<li><a class="reference internal" href="#supported-methods-for-pmap-if-using-cpptraj-s-command-style" id="id5">Supported methods for <code class="docutils literal"><span class="pre">pmap</span></code> if using cpptraj&#8217;s command style</a></li>
+<li><a class="reference internal" href="#example-parallel-calculation-with-cpptraj-s-command-style" id="id3">Example: parallel calculation with cpptraj’s command style</a></li>
+<li><a class="reference internal" href="#supported-methods-for-pmap-if-using-pytraj-s-methods" id="id4">Supported methods for <code class="docutils literal"><span class="pre">pmap</span></code> if using pytraj’s methods</a></li>
+<li><a class="reference internal" href="#supported-methods-for-pmap-if-using-cpptraj-s-command-style" id="id5">Supported methods for <code class="docutils literal"><span class="pre">pmap</span></code> if using cpptraj’s command style</a></li>
 <li><a class="reference internal" href="#supported-methods-for-openmp" id="id6">Supported methods for <code class="docutils literal"><span class="pre">openmp</span></code></a></li>
 <li><a class="reference internal" href="#rule-of-thumb-for-choosing-pmap-or-openmp" id="id7">Rule of thumb for choosing <code class="docutils literal"><span class="pre">pmap</span></code> or <code class="docutils literal"><span class="pre">openmp</span></code>?</a></li>
 <li><a class="reference internal" href="#benchmark" id="id8">Benchmark</a><ul>
@@ -204,26 +199,26 @@
 
 <span class="gp">In [3]: </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="gr">Out[3]: </span>
-<span class="go">OrderedDict([(&#39;RoG_00000&#39;,</span>
+<span class="go">OrderedDict([(u&#39;RoG_00000&#39;,</span>
 <span class="go">              array([ 18.9111,  18.9365,  18.8497,  18.9045,  18.8569,  18.8892,</span>
 <span class="go">                      18.943 ,  18.8888,  18.9167,  18.8707]))])</span>
 
 <span class="c"># auto-join the data</span>
 <span class="gp">In [4]: </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">radgyr</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="go">                                                                                                                                                                                      Out[4]: </span>
-<span class="go">OrderedDict([(&#39;RoG_00000&#39;,</span>
+<span class="gr">Out[4]: </span>
+<span class="go">OrderedDict([(u&#39;RoG_00000&#39;,</span>
 <span class="go">              array([ 18.9111,  18.9365,  18.8497,  18.9045,  18.8569,  18.8892,</span>
 <span class="go">                      18.943 ,  18.8888,  18.9167,  18.8707]))])</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="example-parallel-calculation-with-cpptraj-s-command-style">
-<h2><a class="toc-backref" href="#id3">Example: parallel calculation with cpptraj&#8217;s command style</a><a class="headerlink" href="#example-parallel-calculation-with-cpptraj-s-command-style" title="Permalink to this headline">¶</a></h2>
-<p><strong>Rule of thumb</strong>: Only support limited cpptraj&#8217;s actions (not analysis). For now, there
+<h2><a class="toc-backref" href="#id3">Example: parallel calculation with cpptraj’s command style</a><a class="headerlink" href="#example-parallel-calculation-with-cpptraj-s-command-style" title="Permalink to this headline">¶</a></h2>
+<p><strong>Rule of thumb</strong>: Only support limited cpptraj’s actions (not analysis). For now, there
 is no list of supported actions yet but you can perform any action in parallel if the
-result does not depend on the number of frame. For example, you can NOT use &#8216;atomicfluct&#8217;
-or &#8216;matrix covar&#8217;, ... This parallel method is GOOD for distance, angle, rms, dihedral,
-vector, multidihedral, ...</p>
+result does not depend on the number of frame. For example, you can NOT use ‘atomicfluct’
+or ‘matrix covar’, … This parallel method is GOOD for distance, angle, rms, dihedral,
+vector, multidihedral, …</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="c"># perform autoimage, then rmsfit to 1st frame</span>
 <span class="c"># create a reference</span>
 <span class="gp">In [5]: </span><span class="n">ref</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -234,7 +229,7 @@ vector, multidihedral, ...</p>
 <span class="c"># need to explicitly do autoimage to reproduce cpptraj&#39;s serial run</span>
 <span class="c"># since `ref` is a single Frame, we need to provide Topology for `pt.autoimage`</span>
 <span class="gp">In [7]: </span><span class="n">pt</span><span class="o">.</span><span class="n">autoimage</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
-<span class="go">                                Out[7]: &lt;Frame with 5293 atoms&gt;</span>
+<span class="gr">Out[7]: </span><span class="o">&lt;</span><span class="n">Frame</span> <span class="k">with</span> <span class="mi">5293</span> <span class="n">atoms</span><span class="o">&gt;</span>
 
 <span class="c"># add to reference list</span>
 <span class="gp">In [8]: </span><span class="n">reflist</span> <span class="o">=</span> <span class="p">[</span><span class="n">ref</span><span class="p">,</span> <span class="p">]</span>
@@ -244,28 +239,28 @@ vector, multidihedral, ...</p>
 <span class="c"># we need to explicitly specify the index so pytraj can correctly send the reference to different cores.</span>
 <span class="gp">In [9]: </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">([</span><span class="s1">&#39;autoimage&#39;</span><span class="p">,</span> <span class="s1">&#39;rms refindex 0&#39;</span><span class="p">,</span> <span class="s1">&#39;distance :3 :8&#39;</span><span class="p">,</span> <span class="s1">&#39;multidihedral phi psi resrange 3-5&#39;</span><span class="p">],</span> <span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">reflist</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="gr">Out[9]: </span>
-<span class="go">OrderedDict([(&#39;RMSD_00001&#39;,</span>
+<span class="go">OrderedDict([(u&#39;RMSD_00001&#39;,</span>
 <span class="go">              array([  0.    ,   8.7689,  10.4369,  11.2591,  11.7381,  12.4922,</span>
 <span class="go">                      13.2369,  13.3734,  14.0668,  14.1891])),</span>
-<span class="go">             (&#39;Dis_00002&#39;,</span>
+<span class="go">             (u&#39;Dis_00002&#39;,</span>
 <span class="go">              array([ 8.7609,  8.6396,  8.6156,  9.0299,  9.3541,  9.0833,  9.4822,</span>
 <span class="go">                      9.3856,  9.4454,  9.2076])),</span>
-<span class="go">             (&#39;phi:3&#39;,</span>
+<span class="go">             (u&#39;phi:3&#39;,</span>
 <span class="go">              array([-157.0477, -153.8516, -141.437 , -168.1823, -156.3095, -152.9399,</span>
 <span class="go">                     -156.9742, -145.4146, -145.431 , -128.4447])),</span>
-<span class="go">             (&#39;psi:3&#39;,</span>
+<span class="go">             (u&#39;psi:3&#39;,</span>
 <span class="go">              array([ 156.5559,  156.2962,  144.6531,  131.3405,  130.1539,  147.6546,</span>
 <span class="go">                      141.0764,  153.2045,  153.2009,  144.8442])),</span>
-<span class="go">             (&#39;phi:4&#39;,</span>
+<span class="go">             (u&#39;phi:4&#39;,</span>
 <span class="go">              array([-74.4914, -79.0893, -79.84  , -57.2843, -57.6254, -93.2022,</span>
 <span class="go">                     -73.5377, -81.4212, -82.5295, -69.2517])),</span>
-<span class="go">             (&#39;psi:4&#39;,</span>
+<span class="go">             (u&#39;psi:4&#39;,</span>
 <span class="go">              array([ 119.2348,  109.0394,   88.3558,   89.5826,  108.1446,   96.5808,</span>
 <span class="go">                      113.5317,  133.1828,  134.3665,   86.1773])),</span>
-<span class="go">             (&#39;phi:5&#39;,</span>
+<span class="go">             (u&#39;phi:5&#39;,</span>
 <span class="go">              array([-133.9119, -138.1535, -122.0902, -121.3041, -133.1023, -124.2474,</span>
 <span class="go">                     -139.1863, -163.4636, -147.6285, -114.5396])),</span>
-<span class="go">             (&#39;psi:5&#39;,</span>
+<span class="go">             (u&#39;psi:5&#39;,</span>
 <span class="go">              array([ 120.1839,  124.425 ,  130.1307,  136.707 ,  118.9966,  139.0724,</span>
 <span class="go">                      132.4688,  128.3897,  132.1973,  135.4395]))])</span>
 
@@ -288,36 +283,36 @@ vector, multidihedral, ...</p>
 <span class="c"># pull output from state.data</span>
 <span class="c"># since cpptraj store Topology in `state.data`, we need to skip it</span>
 <span class="gp">In [12]: </span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
-<span class="go">                                                           Out[12]: </span>
-<span class="go">OrderedDict([(&#39;RMSD_00001&#39;,</span>
+<span class="gr">Out[12]: </span>
+<span class="go">OrderedDict([(u&#39;RMSD_00001&#39;,</span>
 <span class="go">              array([  0.    ,   8.7689,  10.4369,  11.2591,  11.7381,  12.4922,</span>
 <span class="go">                      13.2369,  13.3734,  14.0668,  14.1891])),</span>
-<span class="go">             (&#39;Dis_00002&#39;,</span>
+<span class="go">             (u&#39;Dis_00002&#39;,</span>
 <span class="go">              array([ 8.7609,  8.6396,  8.6156,  9.0299,  9.3541,  9.0833,  9.4822,</span>
 <span class="go">                      9.3856,  9.4454,  9.2076])),</span>
-<span class="go">             (&#39;phi:3&#39;,</span>
+<span class="go">             (u&#39;phi:3&#39;,</span>
 <span class="go">              array([-157.0477, -153.8516, -141.437 , -168.1823, -156.3095, -152.9399,</span>
 <span class="go">                     -156.9742, -145.4146, -145.431 , -128.4447])),</span>
-<span class="go">             (&#39;psi:3&#39;,</span>
+<span class="go">             (u&#39;psi:3&#39;,</span>
 <span class="go">              array([ 156.5559,  156.2962,  144.6531,  131.3405,  130.1539,  147.6546,</span>
 <span class="go">                      141.0764,  153.2045,  153.2009,  144.8442])),</span>
-<span class="go">             (&#39;phi:4&#39;,</span>
+<span class="go">             (u&#39;phi:4&#39;,</span>
 <span class="go">              array([-74.4914, -79.0893, -79.84  , -57.2843, -57.6254, -93.2022,</span>
 <span class="go">                     -73.5377, -81.4212, -82.5295, -69.2517])),</span>
-<span class="go">             (&#39;psi:4&#39;,</span>
+<span class="go">             (u&#39;psi:4&#39;,</span>
 <span class="go">              array([ 119.2348,  109.0394,   88.3558,   89.5826,  108.1446,   96.5808,</span>
 <span class="go">                      113.5317,  133.1828,  134.3665,   86.1773])),</span>
-<span class="go">             (&#39;phi:5&#39;,</span>
+<span class="go">             (u&#39;phi:5&#39;,</span>
 <span class="go">              array([-133.9119, -138.1535, -122.0902, -121.3041, -133.1023, -124.2474,</span>
 <span class="go">                     -139.1863, -163.4636, -147.6285, -114.5396])),</span>
-<span class="go">             (&#39;psi:5&#39;,</span>
+<span class="go">             (u&#39;psi:5&#39;,</span>
 <span class="go">              array([ 120.1839,  124.425 ,  130.1307,  136.707 ,  118.9966,  139.0724,</span>
 <span class="go">                      132.4688,  128.3897,  132.1973,  135.4395]))])</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="supported-methods-for-pmap-if-using-pytraj-s-methods">
-<h2><a class="toc-backref" href="#id4">Supported methods for <code class="docutils literal"><span class="pre">pmap</span></code> if using pytraj&#8217;s methods</a><a class="headerlink" href="#supported-methods-for-pmap-if-using-pytraj-s-methods" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">Supported methods for <code class="docutils literal"><span class="pre">pmap</span></code> if using pytraj’s methods</a><a class="headerlink" href="#supported-methods-for-pmap-if-using-pytraj-s-methods" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [13]: </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 
 <span class="gp">In [14]: </span><span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">pt</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">misc</span><span class="o">.</span><span class="n">parallel_info</span><span class="p">(</span><span class="s1">&#39;pmap&#39;</span><span class="p">):</span>
@@ -369,7 +364,7 @@ vector, multidihedral, ...</p>
 </div>
 </div>
 <div class="section" id="supported-methods-for-pmap-if-using-cpptraj-s-command-style">
-<h2><a class="toc-backref" href="#id5">Supported methods for <code class="docutils literal"><span class="pre">pmap</span></code> if using cpptraj&#8217;s command style</a><a class="headerlink" href="#supported-methods-for-pmap-if-using-cpptraj-s-command-style" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">Supported methods for <code class="docutils literal"><span class="pre">pmap</span></code> if using cpptraj’s command style</a><a class="headerlink" href="#supported-methods-for-pmap-if-using-cpptraj-s-command-style" title="Permalink to this headline">¶</a></h2>
 <p><strong>coming soon</strong></p>
 </div>
 <div class="section" id="supported-methods-for-openmp">
@@ -387,7 +382,6 @@ vector, multidihedral, ...</p>
 <span class="go">watershell</span>
 
 <span class="gp">In [16]: </span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-<span class="go">                                                                         </span>
 </pre></div>
 </div>
 </div>
@@ -490,8 +484,8 @@ If method supports openmp, use openmp.</p>
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Mar 29, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
+      Last updated on Jun 23, 2017.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
     </p>
   </div>
 </footer>

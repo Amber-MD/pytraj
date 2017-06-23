@@ -13,7 +13,7 @@ import warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning)
 
 # do some configs to get better plot
-get_ipython().magic('matplotlib inline')
+get_ipython().magic(u'matplotlib inline')
 #%config InlineBackend.figure_format = 'retina'
 import matplotlib
 #matplotlib.rcParams['savefig.dpi'] = 2 * matplotlib.rcParams['savefig.dpi'] # larger image

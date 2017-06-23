@@ -12,7 +12,6 @@ get_ipython().magic('matplotlib inline')
 from __future__ import print_function
 get_ipython().magic("config InlineBackend.figure_format = 'retina'  # high resolution")
 import matplotlib
-matplotlib.rcParams['savefig.dpi'] = 2 * matplotlib.rcParams['savefig.dpi'] # larger image
 
 import pytraj as pt
 import matplotlib.pyplot as plt

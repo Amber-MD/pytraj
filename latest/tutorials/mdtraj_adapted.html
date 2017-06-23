@@ -1,19 +1,14 @@
 
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Tutorials adapted from MDtraj &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -40,7 +35,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body role="document">
+  <body>
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -84,7 +79,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -162,7 +157,7 @@
 <p>Original tutorial is from <a class="reference external" href="http://mdtraj.org/latest/examples/clustering.html">MDtraj</a></p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">this example only shows how to populate <code class="docutils literal"><span class="pre">pytraj</span></code> to <code class="docutils literal"><span class="pre">python</span></code>&#8216;s ecosystem. Users should check <a class="reference internal" href="../_api/clustering.html#clustering"><span class="std std-ref">Cluster Analysis</span></a></p>
+<p class="last">this example only shows how to populate <code class="docutils literal"><span class="pre">pytraj</span></code> to <code class="docutils literal"><span class="pre">python</span></code>’s ecosystem. Users should check <a class="reference internal" href="../_api/clustering.html#clustering"><span class="std std-ref">Cluster Analysis</span></a></p>
 </div>
 <div class="ipynotebook" id="notebook-container">
 
@@ -211,7 +206,7 @@
 
 <div class="output_text output_subarea output_execute_result">
 <pre>pytraj.TrajectoryIterator, 101 frames: 
-Size: 0.000503 (GB)
+Size: 0.000000 (GB)
 &lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;
            </pre>
 </div>
@@ -247,6 +242,14 @@ Size: 0.000503 (GB)
 <div class="output_wrapper">
 <div class="output">
 
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/Users/haichit/miniconda3/envs/py2/lib/python2.7/site-packages/scipy/cluster/hierarchy.py:471: ClusterWarning: scipy.cluster: The symmetric non-negative hollow observation matrix looks suspiciously like an uncondensed distance matrix
+  return linkage(y, method=&#39;ward&#39;, metric=&#39;euclidean&#39;)
+</pre>
+</div>
+</div>
 
 <div class="output_area"><div class="prompt"></div>
 
@@ -523,39 +526,14 @@ PyNxOHG/0ZiDAAAAAElFTkSuQmCC
 <pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
-<span class="ansi-green-fg">/Users/haichit/miniconda3/lib/python3.5/site-packages/matplotlib/rcsetup.py</span> in <span class="ansi-cyan-fg">validate_dpi</span><span class="ansi-blue-fg">(s)</span>
-<span class="ansi-green-intense-fg ansi-bold">    206</span>     <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 207</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> float<span class="ansi-blue-fg">(</span>s<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    208</span>     <span class="ansi-green-fg">except</span> ValueError<span class="ansi-blue-fg">:</span>
-
-<span class="ansi-red-fg">ValueError</span>: could not convert string to float: &#39;figurefigure&#39;
-
-During handling of the above exception, another exception occurred:
-
-<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
-<span class="ansi-green-fg">/Users/haichit/miniconda3/lib/python3.5/site-packages/matplotlib/__init__.py</span> in <span class="ansi-cyan-fg">__setitem__</span><span class="ansi-blue-fg">(self, key, val)</span>
-<span class="ansi-green-intense-fg ansi-bold">    925</span>             <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 926</span><span class="ansi-red-fg">                 </span>cval <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>validate<span class="ansi-blue-fg">[</span>key<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">(</span>val<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    927</span>             <span class="ansi-green-fg">except</span> ValueError <span class="ansi-green-fg">as</span> ve<span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/Users/haichit/miniconda3/lib/python3.5/site-packages/matplotlib/rcsetup.py</span> in <span class="ansi-cyan-fg">validate_dpi</span><span class="ansi-blue-fg">(s)</span>
-<span class="ansi-green-intense-fg ansi-bold">    209</span>         raise ValueError(&#39;&#34;%s&#34; is not string &#34;figure&#34; or&#39;
-<span class="ansi-green-fg">--&gt; 210</span><span class="ansi-red-fg">             &#39; could not convert &#34;%s&#34; to float&#39; % (s, s))
-</span><span class="ansi-green-intense-fg ansi-bold">    211</span> 
-
-<span class="ansi-red-fg">ValueError</span>: &#34;figurefigure&#34; is not string &#34;figure&#34; or could not convert &#34;figurefigure&#34; to float
-
-During handling of the above exception, another exception occurred:
-
-<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-1-26cbf5b99efa&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">      6</span> get_ipython<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>magic<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;config InlineBackend.figure_format = &#39;retina&#39;  # high resolution&#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">&lt;ipython-input-1-95a3fdf11459&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      6</span> get_ipython<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>magic<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">u&#34;config InlineBackend.figure_format = &#39;retina&#39;  # high resolution&#34;</span><span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">      7</span> <span class="ansi-green-fg">import</span> matplotlib
 <span class="ansi-green-fg">----&gt; 8</span><span class="ansi-red-fg"> </span>matplotlib<span class="ansi-blue-fg">.</span>rcParams<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;savefig.dpi&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> <span class="ansi-cyan-fg">2</span> <span class="ansi-blue-fg">*</span> matplotlib<span class="ansi-blue-fg">.</span>rcParams<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;savefig.dpi&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-red-fg"># larger image</span>
 <span class="ansi-green-intense-fg ansi-bold">      9</span> 
 <span class="ansi-green-intense-fg ansi-bold">     10</span> <span class="ansi-green-fg">import</span> pytraj <span class="ansi-green-fg">as</span> pt
 
-<span class="ansi-green-fg">/Users/haichit/miniconda3/lib/python3.5/site-packages/matplotlib/__init__.py</span> in <span class="ansi-cyan-fg">__setitem__</span><span class="ansi-blue-fg">(self, key, val)</span>
+<span class="ansi-green-fg">/Users/haichit/miniconda3/envs/py2/lib/python2.7/site-packages/matplotlib/__init__.pyc</span> in <span class="ansi-cyan-fg">__setitem__</span><span class="ansi-blue-fg">(self, key, val)</span>
 <span class="ansi-green-intense-fg ansi-bold">    926</span>                 cval <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>validate<span class="ansi-blue-fg">[</span>key<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">(</span>val<span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">    927</span>             <span class="ansi-green-fg">except</span> ValueError <span class="ansi-green-fg">as</span> ve<span class="ansi-blue-fg">:</span>
 <span class="ansi-green-fg">--&gt; 928</span><span class="ansi-red-fg">                 </span><span class="ansi-green-fg">raise</span> ValueError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;Key %s: %s&#34;</span> <span class="ansi-blue-fg">%</span> <span class="ansi-blue-fg">(</span>key<span class="ansi-blue-fg">,</span> str<span class="ansi-blue-fg">(</span>ve<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
@@ -780,7 +758,7 @@ During handling of the above exception, another exception occurred:
 <span class="ansi-green-intense-fg ansi-bold">      3</span> <span class="ansi-red-fg"># make a new traj by stripping all H atoms</span>
 <span class="ansi-green-fg">----&gt; 4</span><span class="ansi-red-fg"> </span>traj_new <span class="ansi-blue-fg">=</span> traj<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;!@H=&#39;</span><span class="ansi-blue-fg">]</span>
 <span class="ansi-green-intense-fg ansi-bold">      5</span> xyz_2d <span class="ansi-blue-fg">=</span> traj_new<span class="ansi-blue-fg">.</span>xyz<span class="ansi-blue-fg">.</span>reshape<span class="ansi-blue-fg">(</span>traj_new<span class="ansi-blue-fg">.</span>n_frames<span class="ansi-blue-fg">,</span> traj_new<span class="ansi-blue-fg">.</span>n_atoms <span class="ansi-blue-fg">*</span> <span class="ansi-cyan-fg">3</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      6</span> print<span class="ansi-blue-fg">(</span>xyz_2d<span class="ansi-blue-fg">.</span>shape<span class="ansi-blue-fg">)</span> <span class="ansi-red-fg"># (n_frames, n_dimensions)</span>
+<span class="ansi-green-intense-fg ansi-bold">      6</span> <span class="ansi-green-fg">print</span><span class="ansi-blue-fg">(</span>xyz_2d<span class="ansi-blue-fg">.</span>shape<span class="ansi-blue-fg">)</span> <span class="ansi-red-fg"># (n_frames, n_dimensions)</span>
 
 <span class="ansi-red-fg">NameError</span>: name &#39;traj&#39; is not defined</pre>
 </div>
@@ -814,7 +792,7 @@ During handling of the above exception, another exception occurred:
 <span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
 <span class="ansi-green-fg">&lt;ipython-input-8-4cbba4e61bf6&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
 <span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>reduced_cartesian <span class="ansi-blue-fg">=</span> pca<span class="ansi-blue-fg">.</span>fit_transform<span class="ansi-blue-fg">(</span>xyz_2d<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span> print<span class="ansi-blue-fg">(</span>reduced_cartesian<span class="ansi-blue-fg">.</span>shape<span class="ansi-blue-fg">)</span> <span class="ansi-red-fg"># (n_frames, n_dimensions)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> <span class="ansi-green-fg">print</span><span class="ansi-blue-fg">(</span>reduced_cartesian<span class="ansi-blue-fg">.</span>shape<span class="ansi-blue-fg">)</span> <span class="ansi-red-fg"># (n_frames, n_dimensions)</span>
 
 <span class="ansi-red-fg">NameError</span>: name &#39;pca&#39; is not defined</pre>
 </div>
@@ -869,7 +847,7 @@ During handling of the above exception, another exception occurred:
 
 
 <div class="output_text output_subarea ">
-<pre>&lt;matplotlib.figure.Figure at 0x1061e9cc0&gt;</pre>
+<pre>&lt;matplotlib.figure.Figure at 0x104aaaf50&gt;</pre>
 </div>
 
 </div>
@@ -1047,8 +1025,8 @@ During handling of the above exception, another exception occurred:
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
 <span class="ansi-green-fg">&lt;ipython-input-14-eba03c85f5cc&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span>dset<span class="ansi-blue-fg">.</span>key <span class="ansi-green-fg">for</span> dset <span class="ansi-green-fg">in</span> state<span class="ansi-blue-fg">.</span>data<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span> print<span class="ansi-blue-fg">(</span>state<span class="ansi-blue-fg">.</span>data<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;MyMatrix&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>values<span class="ansi-blue-fg">.</span>shape<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">print</span><span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span>dset<span class="ansi-blue-fg">.</span>key <span class="ansi-green-fg">for</span> dset <span class="ansi-green-fg">in</span> state<span class="ansi-blue-fg">.</span>data<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> <span class="ansi-green-fg">print</span><span class="ansi-blue-fg">(</span>state<span class="ansi-blue-fg">.</span>data<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;MyMatrix&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>values<span class="ansi-blue-fg">.</span>shape<span class="ansi-blue-fg">)</span>
 
 <span class="ansi-red-fg">NameError</span>: name &#39;state&#39; is not defined</pre>
 </div>
@@ -1150,11 +1128,11 @@ During handling of the above exception, another exception occurred:
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
 <span class="ansi-green-fg">&lt;ipython-input-16-47225f2601de&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">      1</span> print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;sklearn \n&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>print<span class="ansi-blue-fg">(</span>reduced_cartesian<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">:</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> reduced_cartesian<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">:</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-green-fg">print</span><span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;sklearn \n&#39;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">print</span><span class="ansi-blue-fg">(</span>reduced_cartesian<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">:</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> reduced_cartesian<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">:</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">      3</span> 
-<span class="ansi-green-intense-fg ansi-bold">      4</span> print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;\ncpptraj\n&#39;</span><span class="ansi-blue-fg">)</span> <span class="ansi-red-fg"># flip sign, why?</span>
-<span class="ansi-green-intense-fg ansi-bold">      5</span> print<span class="ansi-blue-fg">(</span>mode_0<span class="ansi-blue-fg">,</span> mode_1<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span class="ansi-green-fg">print</span><span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;\ncpptraj\n&#39;</span><span class="ansi-blue-fg">)</span> <span class="ansi-red-fg"># flip sign, why?</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> <span class="ansi-green-fg">print</span><span class="ansi-blue-fg">(</span>mode_0<span class="ansi-blue-fg">,</span> mode_1<span class="ansi-blue-fg">)</span>
 
 <span class="ansi-red-fg">NameError</span>: name &#39;reduced_cartesian&#39; is not defined</pre>
 </div>
@@ -1181,8 +1159,8 @@ During handling of the above exception, another exception occurred:
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Mar 29, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
+      Last updated on Jun 23, 2017.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
     </p>
   </div>
 </footer>

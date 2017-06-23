@@ -1,19 +1,14 @@
 
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Weird things in pytraj &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -42,7 +37,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body role="document">
+  <body>
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -86,7 +81,7 @@
 <li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -164,10 +159,10 @@
 
 <span class="c"># coords of 1st and last frames are the same and are [0.0, ...]</span>
 <span class="gp">In [4]: </span><span class="k">print</span><span class="p">(</span><span class="n">xyz</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-<span class="go">[ 0.     8.801  0.   ]</span>
+<span class="go">[ 4.466  8.801  1.89 ]</span>
 
 <span class="gp">In [5]: </span><span class="k">print</span><span class="p">(</span><span class="n">xyz</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-<span class="go">                       [ 0.     8.801  0.   ]</span>
+<span class="go">[ 4.466  8.801  1.89 ]</span>
 
 <span class="c"># need to explicitly copy</span>
 <span class="gp">In [6]: </span><span class="n">xyz</span> <span class="o">=</span> <span class="p">[</span><span class="n">frame</span><span class="o">.</span><span class="n">xyz</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">]</span>
@@ -177,14 +172,14 @@
 <span class="go">[-1.889  9.159  7.569]</span>
 
 <span class="gp">In [8]: </span><span class="k">print</span><span class="p">(</span><span class="n">xyz</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-<span class="go">                       [ 4.466  8.801  1.89 ]</span>
+<span class="go">[ 4.466  8.801  1.89 ]</span>
 </pre></div>
 </div>
 <p>Why does this happen? When iterating <code class="docutils literal"><span class="pre">pytraj.TrajectoryIteatory</span></code> (by pytraj.iterload),
 pytraj create a Frame object behaving like a buffer. When getting to next snapshot, new
 coordinates with box will replace the old ones. When reaching final snapshot, the Frame is
 free and all coordinates are set to 0. We intend to design this behaviour since data
-copying is expensive. If you want to keep the coordinates, please make sure to &#8216;copy&#8217;.</p>
+copying is expensive. If you want to keep the coordinates, please make sure to ‘copy’.</p>
 <p>Or you can use <code class="docutils literal"><span class="pre">pytraj.get_coordinates</span></code></p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [9]: </span><span class="n">xyz</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">get_coordinates</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">frame_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
 </pre></div>
@@ -205,8 +200,8 @@ copying is expensive. If you want to keep the coordinates, please make sure to &
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Mar 29, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
+      Last updated on Jun 23, 2017.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
     </p>
   </div>
 </footer>

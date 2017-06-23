@@ -13,18 +13,18 @@ error_files = []
 for fn in glob('latest/*html') + glob('latest/*/*html'):
     with open(fn) as fh:
         content = fh.read()
-        if 'ImportError' in content:
-            error_files.append(fn)
-        if 'DeprecationWarning:' in content:
-            error_files.append(fn)
-        if 'NameError:' in content:
-            error_files.append(fn)
-        if 'OSError' in content:
-            error_files.append(fn)
-        if 'NotImplementedError' in content:
-            error_files.append(fn)
-        if 'AttributeError' in content:
-            error_files.append(fn)
+        possible_errors = [
+                'ImportError',
+                'TypeError',
+                'DeprecationWarning',
+                'NameError',
+                'OSError',
+                'NotImplementedError',
+                'AttributeError'
+        ]
+        for error in possible_errors:
+            if error in content:
+                error_files.append(fn)
 
 print(set(error_files))
 assert set(error_files) - excluded_files == set()

@@ -1,19 +1,14 @@
 
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>rmsd &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -42,7 +37,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body role="document">
+  <body>
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -86,7 +81,7 @@
 <li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -155,7 +150,7 @@
 <script type="text/javascript" src='_static/cindex.js'></script></div>
 <span class="target" id="module-pytraj.analysis.rmsd"></span><dl class="function">
 <dt id="pytraj.analysis.rmsd.rotation_matrix">
-<code class="descclassname">pytraj.analysis.rmsd.</code><code class="descname">rotation_matrix</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>ref=0</em>, <em>mass=False</em>, <em>frame_indices=None</em>, <em>top=None</em>, <em>with_rmsd=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.rmsd.rotation_matrix" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.rmsd.</code><code class="descname">rotation_matrix</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.rmsd.rotation_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute rotation matrix with/without rmsd</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -205,7 +200,7 @@
 
 <dl class="function">
 <dt id="pytraj.analysis.rmsd.pairwise_rmsd">
-<code class="descclassname">pytraj.analysis.rmsd.</code><code class="descname">pairwise_rmsd</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>metric='rms'</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>mat_type='full'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.rmsd.pairwise_rmsd" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.rmsd.</code><code class="descname">pairwise_rmsd</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.rmsd.pairwise_rmsd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate pairwise rmsd with different metrics.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -214,24 +209,24 @@
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or iterable object</p>
 <p><strong>mask</strong> : mask</p>
 <blockquote>
-<div><p>if mask is &#8220;&#8221;, use all atoms</p>
+<div><p>if mask is “”, use all atoms</p>
 </div></blockquote>
-<p><strong>metric</strong> : {&#8216;rms&#8217;, &#8216;dme&#8217;, &#8216;srmsd&#8217;, &#8216;nofit&#8217;}</p>
+<p><strong>metric</strong> : {‘rms’, ‘dme’, ‘srmsd’, ‘nofit’}</p>
 <blockquote>
-<div><p>if &#8216;rms&#8217;, perform rms fit
-if &#8216;dme&#8217;, use distance RMSD
-if &#8216;srmsd&#8217;, use symmetry-corrected RMSD
-if &#8216;nofit&#8217;, perform rmsd without fitting</p>
+<div><p>if ‘rms’, perform rms fit
+if ‘dme’, use distance RMSD
+if ‘srmsd’, use symmetry-corrected RMSD
+if ‘nofit’, perform rmsd without fitting</p>
 </div></blockquote>
 <p><strong>top</strong> : Topology, optional, default=None</p>
 <p><strong>dtype: ndarray</strong></p>
 <blockquote>
 <div><p>return type</p>
 </div></blockquote>
-<p><strong>mat_type</strong> : str, {&#8216;full&#8217;, &#8216;half&#8217;}</p>
+<p><strong>mat_type</strong> : str, {‘full’, ‘half’}</p>
 <blockquote class="last">
-<div><p>if &#8216;full&#8217;: return 2D array, shape=(n_frames, n_frames)
-if &#8216;half&#8217;: return 1D array, shape=(n_frames*(n_frames-1)/2, )</p>
+<div><p>if ‘full’: return 2D array, shape=(n_frames, n_frames)
+if ‘half’: return 1D array, shape=(n_frames*(n_frames-1)/2, )</p>
 </div></blockquote>
 </td>
 </tr>
@@ -260,7 +255,7 @@ if &#8216;half&#8217;: return 1D array, shape=(n_frames*(n_frames-1)/2, )</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.rmsd.rmsd_perres">
-<code class="descclassname">pytraj.analysis.rmsd.</code><code class="descname">rmsd_perres</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>ref=0</em>, <em>mass=False</em>, <em>resrange=None</em>, <em>perres_mask=None</em>, <em>perres_center=False</em>, <em>perres_invert=False</em>, <em>frame_indices=None</em>, <em>top=None</em>, <em>dtype='dataset'</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.rmsd.rmsd_perres" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.rmsd.</code><code class="descname">rmsd_perres</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.rmsd.rmsd_perres" title="Permalink to this definition">¶</a></dt>
 <dd><p>superpose <code class="docutils literal"><span class="pre">traj</span></code> to <code class="docutils literal"><span class="pre">ref</span></code> with <cite>mask</cite>, then calculate nofit rms for residues
 in <cite>resrange</cite> with given <cite>perresmask</cite></p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -281,7 +276,7 @@ out[1:]: perres rmsd for all given residues
 
 <dl class="function">
 <dt id="pytraj.analysis.rmsd.rmsd_nofit">
-<code class="descclassname">pytraj.analysis.rmsd.</code><code class="descname">rmsd_nofit</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>ref=0</em>, <em>mass=False</em>, <em>frame_indices=None</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.rmsd.rmsd_nofit" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.rmsd.</code><code class="descname">rmsd_nofit</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.rmsd.rmsd_nofit" title="Permalink to this definition">¶</a></dt>
 <dd><p>compute rmsd without fitting (translating and rotating)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -303,12 +298,12 @@ out[1:]: perres rmsd for all given residues
 </tbody>
 </table>
 <p class="rubric">Notes</p>
-<p>This method is equal to pytraj.rmsd(traj, mask, ref, nofit=True, ...)</p>
+<p>This method is equal to pytraj.rmsd(traj, mask, ref, nofit=True, …)</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pytraj.analysis.rmsd.rmsd">
-<code class="descclassname">pytraj.analysis.rmsd.</code><code class="descname">rmsd</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>ref=0</em>, <em>ref_mask=''</em>, <em>nofit=False</em>, <em>mass=False</em>, <em>update_coordinate=True</em>, <em>frame_indices=None</em>, <em>top=None</em>, <em>dtype='ndarray'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.rmsd.rmsd" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.rmsd.</code><code class="descname">rmsd</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.rmsd.rmsd" title="Permalink to this definition">¶</a></dt>
 <dd><p>compute rmsd</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -347,7 +342,7 @@ if False (same as <cite>nomod</cite> in cpptraj), no modification</p>
 <div><p>if not None, only compute rmsd for given frame indices</p>
 </div></blockquote>
 <p><strong>top</strong> : {Topology, str}, default None, optional</p>
-<p class="last"><strong>dtype</strong> : return data type, default=&#8217;ndarray&#8217;</p>
+<p class="last"><strong>dtype</strong> : return data type, default=’ndarray’</p>
 </td>
 </tr>
 </tbody>
@@ -384,18 +379,18 @@ if False (same as <cite>nomod</cite> in cpptraj), no modification</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.rmsd.symmrmsd">
-<code class="descclassname">pytraj.analysis.rmsd.</code><code class="descname">symmrmsd</code><span class="sig-paren">(</span><em>traj</em>, <em>mask=''</em>, <em>ref=0</em>, <em>ref_mask=None</em>, <em>fit=True</em>, <em>remap=False</em>, <em>mass=False</em>, <em>top=None</em>, <em>dtype='ndarray'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.rmsd.symmrmsd" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.rmsd.</code><code class="descname">symmrmsd</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.rmsd.symmrmsd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute symmetry-corrected RMSD</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like</p>
-<p><strong>mask</strong> : str, default &#8216;&#8217; (all atoms)</p>
+<p><strong>mask</strong> : str, default ” (all atoms)</p>
 <p><strong>ref</strong> : {int, Frame}, default 0 (first frame)</p>
 <p><strong>ref_mask</strong> : {str, None}, default None</p>
 <blockquote>
-<div><p>if None, use traj&#8217;s mask
+<div><p>if None, use traj’s mask
 if given, use it</p>
 </div></blockquote>
 <p><strong>fit</strong> : Bool, default True</p>
@@ -412,7 +407,7 @@ if False, no mas-weighted</p>
 <blockquote>
 <div><p>if True, frames will be modifed for symmetry as well</p>
 </div></blockquote>
-<p><strong>dtype</strong> : str, default &#8216;ndarray&#8217;</p>
+<p><strong>dtype</strong> : str, default ‘ndarray’</p>
 <blockquote>
 <div><p>return data type</p>
 </div></blockquote>
@@ -450,8 +445,8 @@ if False, no mas-weighted</p>
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Mar 29, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
+      Last updated on Jun 23, 2017.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
     </p>
   </div>
 </footer>

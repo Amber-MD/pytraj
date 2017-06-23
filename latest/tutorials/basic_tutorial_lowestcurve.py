@@ -3,7 +3,7 @@
 
 # In[1]:
 
-get_ipython().system(' head esurf_vs_rmsd.dat')
+get_ipython().system(u' head esurf_vs_rmsd.dat')
 
 
 # In[2]:
@@ -31,8 +31,8 @@ lowest_data
 
 # In[4]:
 
-get_ipython().magic('matplotlib inline')
-get_ipython().magic("config InlineBackend.figure_format = 'retina'  # high resolution")
+get_ipython().magic(u'matplotlib inline')
+get_ipython().magic(u"config InlineBackend.figure_format = 'retina'  # high resolution")
 import matplotlib
 matplotlib.rcParams['savefig.dpi'] = 2 * matplotlib.rcParams['savefig.dpi'] # larger image
 

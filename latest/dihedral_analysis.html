@@ -1,19 +1,14 @@
 
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Dihedral &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -42,7 +37,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body role="document">
+  <body>
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -86,7 +81,7 @@
 <li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -155,16 +150,16 @@
 <script type="text/javascript" src='_static/cindex.js'></script></div>
 <span class="target" id="module-pytraj.analysis.dihedral_analysis"></span><dl class="function">
 <dt id="pytraj.analysis.dihedral_analysis.calc_phi">
-<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_phi</code><span class="sig-paren">(</span><em>traj=None</em>, <em>resrange=''</em>, <em>range360=False</em>, <em>top=None</em>, <em>dtype='dataset'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_phi" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_phi</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_phi" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or anything that makes iterframe_master(traj) return Frame</p>
-<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default &#8220;&#8221;</p>
+<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default “”</p>
 <blockquote>
 <div><p>if resrange is a string, use index of 1-based
-if resrange is a python sequence (range, list, array, ...),</p>
+if resrange is a python sequence (range, list, array, …),</p>
 <blockquote>
 <div><p>use index of 0-based</p>
 </div></blockquote>
@@ -204,16 +199,16 @@ if resrange is a python sequence (range, list, array, ...),</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.dihedral_analysis.calc_psi">
-<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_psi</code><span class="sig-paren">(</span><em>traj=None</em>, <em>resrange=''</em>, <em>range360=False</em>, <em>top=None</em>, <em>dtype='dataset'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_psi" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_psi</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_psi" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or anything that makes iterframe_master(traj) return Frame</p>
-<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default &#8220;&#8221;</p>
+<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default “”</p>
 <blockquote>
 <div><p>if resrange is a string, use index of 1-based
-if resrange is a python sequence (range, list, array, ...),</p>
+if resrange is a python sequence (range, list, array, …),</p>
 <blockquote>
 <div><p>use index of 0-based</p>
 </div></blockquote>
@@ -253,16 +248,16 @@ if resrange is a python sequence (range, list, array, ...),</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.dihedral_analysis.calc_chip">
-<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_chip</code><span class="sig-paren">(</span><em>traj=None</em>, <em>resrange=''</em>, <em>range360=False</em>, <em>top=None</em>, <em>dtype='dataset'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_chip" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_chip</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_chip" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or anything that makes iterframe_master(traj) return Frame</p>
-<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default &#8220;&#8221;</p>
+<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default “”</p>
 <blockquote>
 <div><p>if resrange is a string, use index of 1-based
-if resrange is a python sequence (range, list, array, ...),</p>
+if resrange is a python sequence (range, list, array, …),</p>
 <blockquote>
 <div><p>use index of 0-based</p>
 </div></blockquote>
@@ -302,16 +297,16 @@ if resrange is a python sequence (range, list, array, ...),</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.dihedral_analysis.calc_omega">
-<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_omega</code><span class="sig-paren">(</span><em>traj=None</em>, <em>resrange=''</em>, <em>range360=False</em>, <em>top=None</em>, <em>dtype='dataset'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_omega" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_omega</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_omega" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or anything that makes iterframe_master(traj) return Frame</p>
-<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default &#8220;&#8221;</p>
+<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default “”</p>
 <blockquote>
 <div><p>if resrange is a string, use index of 1-based
-if resrange is a python sequence (range, list, array, ...),</p>
+if resrange is a python sequence (range, list, array, …),</p>
 <blockquote>
 <div><p>use index of 0-based</p>
 </div></blockquote>
@@ -351,16 +346,16 @@ if resrange is a python sequence (range, list, array, ...),</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.dihedral_analysis.calc_alpha">
-<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_alpha</code><span class="sig-paren">(</span><em>traj=None</em>, <em>resrange=''</em>, <em>range360=False</em>, <em>top=None</em>, <em>dtype='dataset'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_alpha" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_alpha</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_alpha" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or anything that makes iterframe_master(traj) return Frame</p>
-<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default &#8220;&#8221;</p>
+<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default “”</p>
 <blockquote>
 <div><p>if resrange is a string, use index of 1-based
-if resrange is a python sequence (range, list, array, ...),</p>
+if resrange is a python sequence (range, list, array, …),</p>
 <blockquote>
 <div><p>use index of 0-based</p>
 </div></blockquote>
@@ -400,16 +395,16 @@ if resrange is a python sequence (range, list, array, ...),</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.dihedral_analysis.calc_beta">
-<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_beta</code><span class="sig-paren">(</span><em>traj=None</em>, <em>resrange=''</em>, <em>range360=False</em>, <em>top=None</em>, <em>dtype='dataset'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_beta" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_beta</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_beta" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or anything that makes iterframe_master(traj) return Frame</p>
-<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default &#8220;&#8221;</p>
+<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default “”</p>
 <blockquote>
 <div><p>if resrange is a string, use index of 1-based
-if resrange is a python sequence (range, list, array, ...),</p>
+if resrange is a python sequence (range, list, array, …),</p>
 <blockquote>
 <div><p>use index of 0-based</p>
 </div></blockquote>
@@ -449,16 +444,16 @@ if resrange is a python sequence (range, list, array, ...),</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.dihedral_analysis.calc_gamma">
-<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_gamma</code><span class="sig-paren">(</span><em>traj=None</em>, <em>resrange=''</em>, <em>range360=False</em>, <em>top=None</em>, <em>dtype='dataset'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_gamma" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_gamma</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_gamma" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or anything that makes iterframe_master(traj) return Frame</p>
-<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default &#8220;&#8221;</p>
+<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default “”</p>
 <blockquote>
 <div><p>if resrange is a string, use index of 1-based
-if resrange is a python sequence (range, list, array, ...),</p>
+if resrange is a python sequence (range, list, array, …),</p>
 <blockquote>
 <div><p>use index of 0-based</p>
 </div></blockquote>
@@ -498,16 +493,16 @@ if resrange is a python sequence (range, list, array, ...),</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.dihedral_analysis.calc_delta">
-<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_delta</code><span class="sig-paren">(</span><em>traj=None</em>, <em>resrange=''</em>, <em>range360=False</em>, <em>top=None</em>, <em>dtype='dataset'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_delta" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_delta</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_delta" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or anything that makes iterframe_master(traj) return Frame</p>
-<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default &#8220;&#8221;</p>
+<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default “”</p>
 <blockquote>
 <div><p>if resrange is a string, use index of 1-based
-if resrange is a python sequence (range, list, array, ...),</p>
+if resrange is a python sequence (range, list, array, …),</p>
 <blockquote>
 <div><p>use index of 0-based</p>
 </div></blockquote>
@@ -547,16 +542,16 @@ if resrange is a python sequence (range, list, array, ...),</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.dihedral_analysis.calc_epsilon">
-<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_epsilon</code><span class="sig-paren">(</span><em>traj=None</em>, <em>resrange=''</em>, <em>range360=False</em>, <em>top=None</em>, <em>dtype='dataset'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_epsilon" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_epsilon</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_epsilon" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or anything that makes iterframe_master(traj) return Frame</p>
-<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default &#8220;&#8221;</p>
+<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default “”</p>
 <blockquote>
 <div><p>if resrange is a string, use index of 1-based
-if resrange is a python sequence (range, list, array, ...),</p>
+if resrange is a python sequence (range, list, array, …),</p>
 <blockquote>
 <div><p>use index of 0-based</p>
 </div></blockquote>
@@ -596,16 +591,16 @@ if resrange is a python sequence (range, list, array, ...),</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.dihedral_analysis.calc_zeta">
-<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_zeta</code><span class="sig-paren">(</span><em>traj=None</em>, <em>resrange=''</em>, <em>range360=False</em>, <em>top=None</em>, <em>dtype='dataset'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_zeta" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_zeta</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_zeta" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or anything that makes iterframe_master(traj) return Frame</p>
-<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default &#8220;&#8221;</p>
+<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default “”</p>
 <blockquote>
 <div><p>if resrange is a string, use index of 1-based
-if resrange is a python sequence (range, list, array, ...),</p>
+if resrange is a python sequence (range, list, array, …),</p>
 <blockquote>
 <div><p>use index of 0-based</p>
 </div></blockquote>
@@ -645,16 +640,16 @@ if resrange is a python sequence (range, list, array, ...),</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.dihedral_analysis.calc_nu1">
-<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_nu1</code><span class="sig-paren">(</span><em>traj=None</em>, <em>resrange=''</em>, <em>range360=False</em>, <em>top=None</em>, <em>dtype='dataset'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_nu1" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_nu1</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_nu1" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or anything that makes iterframe_master(traj) return Frame</p>
-<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default &#8220;&#8221;</p>
+<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default “”</p>
 <blockquote>
 <div><p>if resrange is a string, use index of 1-based
-if resrange is a python sequence (range, list, array, ...),</p>
+if resrange is a python sequence (range, list, array, …),</p>
 <blockquote>
 <div><p>use index of 0-based</p>
 </div></blockquote>
@@ -694,16 +689,16 @@ if resrange is a python sequence (range, list, array, ...),</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.dihedral_analysis.calc_nu2">
-<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_nu2</code><span class="sig-paren">(</span><em>traj=None</em>, <em>resrange=''</em>, <em>range360=False</em>, <em>top=None</em>, <em>dtype='dataset'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_nu2" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_nu2</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_nu2" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or anything that makes iterframe_master(traj) return Frame</p>
-<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default &#8220;&#8221;</p>
+<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default “”</p>
 <blockquote>
 <div><p>if resrange is a string, use index of 1-based
-if resrange is a python sequence (range, list, array, ...),</p>
+if resrange is a python sequence (range, list, array, …),</p>
 <blockquote>
 <div><p>use index of 0-based</p>
 </div></blockquote>
@@ -743,16 +738,16 @@ if resrange is a python sequence (range, list, array, ...),</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.dihedral_analysis.calc_chin">
-<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_chin</code><span class="sig-paren">(</span><em>traj=None</em>, <em>resrange=''</em>, <em>range360=False</em>, <em>top=None</em>, <em>dtype='dataset'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_chin" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.dihedral_analysis.</code><code class="descname">calc_chin</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dihedral_analysis.calc_chin" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or anything that makes iterframe_master(traj) return Frame</p>
-<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default &#8220;&#8221;</p>
+<p><strong>resrange</strong> : string or iterable, cpptraj resrange, default “”</p>
 <blockquote>
 <div><p>if resrange is a string, use index of 1-based
-if resrange is a python sequence (range, list, array, ...),</p>
+if resrange is a python sequence (range, list, array, …),</p>
 <blockquote>
 <div><p>use index of 0-based</p>
 </div></blockquote>
@@ -805,8 +800,8 @@ if resrange is a python sequence (range, list, array, ...),</p>
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Mar 29, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
+      Last updated on Jun 23, 2017.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
     </p>
   </div>
 </footer>

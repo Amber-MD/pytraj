@@ -1,27 +1,23 @@
 
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Energy decomposition with sander and igb8 solvent model &#8212; pytraj 1.1.0.dev0 documentation</title>
+    <title>Energy decomposition with sander and igb8 solvent model &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.1.0.dev0',
+        VERSION:     '2.0.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -33,8 +29,6 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="top" title="pytraj 1.1.0.dev0 documentation" href="../index.html" />
-    <link rel="up" title="Tutorials" href="index.html" />
     <link rel="next" title="Closest solvents" href="closest_waters_.html" />
     <link rel="prev" title="Basic examples" href="basic_examples.html" />
 <meta charset='utf-8'>
@@ -43,7 +37,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body role="document">
+  <body>
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -56,7 +50,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.1.0.dev0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.0.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -87,7 +81,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -126,7 +120,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/tutorials/energy_decomposition.txt"
+  <a href="../_sources/tutorials/energy_decomposition.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -200,7 +194,7 @@
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>pytraj.TrajectoryIterator, 101 frames: 
-Size: 0.000503 (GB)
+Size: 0.000000 (GB)
 &lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;
            
 </pre>
@@ -233,50 +227,50 @@ Size: 0.000503 (GB)
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>OrderedDict([(&#39;pb&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+<pre>OrderedDict([(&#39;disp&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&#39;emap&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&#39;hbond&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&#39;scf&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
              (&#39;vdw_14&#39;,
               array([ 52.55761103,  50.03499738,  54.29855009, ...,  50.42610919,
                       48.27053805,  51.9298654 ])),
-             (&#39;angle&#39;,
-              array([ 128.54514846,  105.06494493,  103.52028376, ...,   99.46042639,
-                      103.49664937,   98.18016593])),
-             (&#39;dihedral&#39;,
-              array([ 111.61132908,  105.39241304,   93.03084989, ...,  101.81038715,
-                       94.63365271,   92.27451698])),
-             (&#39;hbond&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&#39;vdw&#39;,
-              array([-44.9811844 , -43.77030705, -52.33589852, ..., -70.01048987,
-                     -66.01297848, -67.78679498])),
-             (&#39;elec&#39;,
-              array([-781.59559933, -807.4891344 , -741.17534022, ..., -835.16025964,
-                     -805.08867184, -825.97031683])),
-             (&#39;elec_14&#39;,
-              array([ 720.65923256,  731.53353441,  717.35440566, ...,  736.47531336,
-                      732.27034385,  726.61630671])),
-             (&#39;cmap&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
              (&#39;gb&#39;,
               array([-412.53266438, -400.09042163, -439.92701343, ..., -365.74056055,
                      -395.14074215, -368.44262754])),
-             (&#39;les&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&#39;emap&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&#39;elec_14&#39;,
+              array([ 720.65923256,  731.53353441,  717.35440566, ...,  736.47531336,
+                      732.27034385,  726.61630671])),
              (&#39;ct&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&#39;dvdl&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&#39;bond&#39;,
-              array([ 0.01531366,  0.01358172,  0.01252056, ...,  0.0154962 ,
-                      0.01510391,  0.0175098 ])),
+             (&#39;angle&#39;,
+              array([ 128.54514846,  105.06494493,  103.52028376, ...,   99.46042639,
+                      103.49664937,   98.18016593])),
              (&#39;angle_ub&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&#39;disp&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
              (&#39;tot&#39;,
               array([-225.72081333, -259.3103916 , -265.22164221, ..., -282.72357777,
                      -287.55610458, -293.18137453])),
-             (&#39;scf&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&#39;constraint&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
              (&#39;amd_boost&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&#39;pb&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&#39;imp&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&#39;surf&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
              (&#39;polar&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
              (&#39;rism&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&#39;dihedral&#39;,
+              array([ 111.61132908,  105.39241304,   93.03084989, ...,  101.81038715,
+                       94.63365271,   92.27451698])),
              (&#39;noe&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&#39;surf&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&#39;imp&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.]))])</pre>
+             (&#39;les&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&#39;dvdl&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&#39;elec&#39;,
+              array([-781.59559933, -807.4891344 , -741.17534022, ..., -835.16025964,
+                     -805.08867184, -825.97031683])),
+             (&#39;vdw&#39;,
+              array([-44.9811844 , -43.77030705, -52.33589852, ..., -70.01048987,
+                     -66.01297848, -67.78679498])),
+             (&#39;constraint&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&#39;cmap&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
+             (&#39;bond&#39;,
+              array([ 0.01531366,  0.01358172,  0.01252056, ...,  0.0154962 ,
+                      0.01510391,  0.0175098 ]))])</pre>
 </div>
 
 </div>
@@ -304,8 +298,8 @@ Size: 0.000503 (GB)
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>potential energy [-225.72081333 -259.3103916  -265.22164221 ..., -282.72357777 -287.55610458
- -293.18137453]
+<pre>(&#39;potential energy&#39;, array([-225.72081333, -259.3103916 , -265.22164221, ..., -282.72357777,
+       -287.55610458, -293.18137453]))
 </pre>
 </div>
 </div>
@@ -333,8 +327,8 @@ Size: 0.000503 (GB)
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>solvation energy [-412.53266438 -400.09042163 -439.92701343 ..., -365.74056055 -395.14074215
- -368.44262754]
+<pre>(&#39;solvation energy&#39;, array([-412.53266438, -400.09042163, -439.92701343, ..., -365.74056055,
+       -395.14074215, -368.44262754]))
 </pre>
 </div>
 </div>
@@ -365,32 +359,32 @@ Size: 0.000503 (GB)
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&#39;pb&#39;,
- &#39;vdw_14&#39;,
- &#39;angle&#39;,
- &#39;dihedral&#39;,
- &#39;hbond&#39;,
- &#39;vdw&#39;,
- &#39;elec&#39;,
- &#39;elec_14&#39;,
- &#39;cmap&#39;,
- &#39;gb&#39;,
- &#39;les&#39;,
+<pre>[&#39;disp&#39;,
  &#39;emap&#39;,
- &#39;ct&#39;,
- &#39;dvdl&#39;,
- &#39;bond&#39;,
- &#39;angle_ub&#39;,
- &#39;disp&#39;,
- &#39;tot&#39;,
+ &#39;hbond&#39;,
  &#39;scf&#39;,
- &#39;constraint&#39;,
+ &#39;vdw_14&#39;,
+ &#39;gb&#39;,
+ &#39;elec_14&#39;,
+ &#39;ct&#39;,
+ &#39;angle&#39;,
+ &#39;angle_ub&#39;,
+ &#39;tot&#39;,
  &#39;amd_boost&#39;,
+ &#39;pb&#39;,
+ &#39;imp&#39;,
+ &#39;surf&#39;,
  &#39;polar&#39;,
  &#39;rism&#39;,
+ &#39;dihedral&#39;,
  &#39;noe&#39;,
- &#39;surf&#39;,
- &#39;imp&#39;]</pre>
+ &#39;les&#39;,
+ &#39;dvdl&#39;,
+ &#39;elec&#39;,
+ &#39;vdw&#39;,
+ &#39;constraint&#39;,
+ &#39;cmap&#39;,
+ &#39;bond&#39;]</pre>
 </div>
 
 </div>
@@ -458,8 +452,8 @@ Size: 0.000503 (GB)
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Nov 16, 2016.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.<br/>
+      Last updated on Jun 23, 2017.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
     </p>
   </div>
 </footer>

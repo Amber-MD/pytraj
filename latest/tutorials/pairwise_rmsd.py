@@ -25,8 +25,8 @@ mat
 
 # In[4]:
 
-get_ipython().magic('matplotlib inline')
-get_ipython().magic("config InlineBackend.figure_format = 'retina'")
+get_ipython().magic(u'matplotlib inline')
+get_ipython().magic(u"config InlineBackend.figure_format = 'retina'")
 import matplotlib
 
 fig, asp, axi, = plot_matrix(mat)

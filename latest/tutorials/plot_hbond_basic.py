@@ -1,29 +1,21 @@
 
 # coding: utf-8
 
-# In[1]:
+# In[18]:
 
 import warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning)
-
 # config to get better plot
 get_ipython().magic('matplotlib inline')
 get_ipython().magic("config InlineBackend.figure_format = 'retina'")
-
 import matplotlib
-matplotlib.rcParams['savefig.dpi'] = 1.5 * matplotlib.rcParams['savefig.dpi'] # larger image
 matplotlib.rcParams['axes.labelcolor'] =  'green' # default green for label
-
 matplotlib.rcParams['axes.linewidth'] =  0.5
-
 from matplotlib import pyplot as plt
 import seaborn as sb # add seaborn for pretty plot (vs default one in matplotlib)
 
-import warnings # just to avoid any warning to make this notebook prettier
-warnings.filterwarnings('ignore')
 
-
-# In[2]:
+# In[19]:
 
 # import pytraj
 import pytraj as pt
@@ -33,7 +25,7 @@ traj = pt.iterload('tz2.nc', 'tz2.parm7')
 traj
 
 
-# In[3]:
+# In[20]:
 
 # find hbond
 hb = pt.hbond(traj)
@@ -48,21 +40,22 @@ print("hbond data")
 print(hb.data) # 1: have hbond; 0: does not have hbond
 
 
-# In[4]:
+# In[21]:
 
+# compute distance between donor-acceptor for ALL frames (also include frames that do not form hbond)
 dist = pt.distance(traj, hb.get_amber_mask()[0])
 print('all hbond distances: ', dist)
 
 
-# In[5]:
+# In[22]:
 
 angle = pt.angle(traj, hb.get_amber_mask()[1])
 angle
 
 
-# ### plot demo
+# ### Plot demo
 
-# In[6]:
+# In[25]:
 
 sb.color_palette('deep', n_colors=6, desat=0.5)
 sb.set_style(style='white')
@@ -76,38 +69,44 @@ plt.xlabel(':1@OG :2@H')
 plt.ylabel(':5@O :3@HG1')
 
 
-# ### Do some statistics
+# # Stats
 
-# In[7]:
+# In[35]:
 
-def stat(hb, data, distance_or_angle_mask):
-    '''
-    
-    Parameters
-    ----------
-    hb : get from `pt.hbond(traj, ...)`
-    data : either distance or angle
-    distance_mask : distance mask
-    '''
-    import numpy as np
-    arr = hb.data[1:].values == 1
-    
-    std_ = {}
-    mean_ = {}
-    for idx, mask in enumerate(distance_or_angle_mask):
-        mask = mask.replace('@', '_')
-        std_[mask] = np.std(data[idx][arr[idx]])
-        mean_[mask] = np.mean(data[idx][arr[idx]])
-    
-    return mean_, std_
+# Filter frames that form hbond for specific donor-acceptor
+
+# 1st pairs: SER1_OG-TRP2_N-H
+h_values = hb.data['SER1_OG-TRP2_N-H'].values # 1: For hbond; 0: not form hbond
+print(h_values)
 
 
-# In[8]:
+# In[36]:
 
-stat(hb, dist, distance_mask)
+# ':1@OG :2@H' distance
+dist[0]
 
 
-# In[9]:
+# In[43]:
 
-stat(hb, angle, angle_mask)
+# filter distances from frames forming hbond
+import numpy
+
+h_frames = numpy.where(h_values==1)[0] # frame indices forming hbond
+print('h_frames', h_frames)
+
+
+# In[45]:
+
+arr = dist[0][h_frames]
+print('hbond distance', arr)
+
+
+# In[46]:
+
+numpy.mean(arr)
+
+
+# In[47]:
+
+numpy.std(arr)
 

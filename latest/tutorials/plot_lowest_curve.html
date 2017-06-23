@@ -1,19 +1,14 @@
 
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Lowest curve plot below data cloud &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -42,7 +37,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body role="document">
+  <body>
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -86,7 +81,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -301,37 +296,12 @@
 <pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
-<span class="ansi-green-fg">/Users/haichit/miniconda3/lib/python3.5/site-packages/matplotlib/rcsetup.py</span> in <span class="ansi-cyan-fg">validate_dpi</span><span class="ansi-blue-fg">(s)</span>
-<span class="ansi-green-intense-fg ansi-bold">    206</span>     <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 207</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> float<span class="ansi-blue-fg">(</span>s<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    208</span>     <span class="ansi-green-fg">except</span> ValueError<span class="ansi-blue-fg">:</span>
-
-<span class="ansi-red-fg">ValueError</span>: could not convert string to float: &#39;figurefigure&#39;
-
-During handling of the above exception, another exception occurred:
-
-<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
-<span class="ansi-green-fg">/Users/haichit/miniconda3/lib/python3.5/site-packages/matplotlib/__init__.py</span> in <span class="ansi-cyan-fg">__setitem__</span><span class="ansi-blue-fg">(self, key, val)</span>
-<span class="ansi-green-intense-fg ansi-bold">    925</span>             <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 926</span><span class="ansi-red-fg">                 </span>cval <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>validate<span class="ansi-blue-fg">[</span>key<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">(</span>val<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    927</span>             <span class="ansi-green-fg">except</span> ValueError <span class="ansi-green-fg">as</span> ve<span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/Users/haichit/miniconda3/lib/python3.5/site-packages/matplotlib/rcsetup.py</span> in <span class="ansi-cyan-fg">validate_dpi</span><span class="ansi-blue-fg">(s)</span>
-<span class="ansi-green-intense-fg ansi-bold">    209</span>         raise ValueError(&#39;&#34;%s&#34; is not string &#34;figure&#34; or&#39;
-<span class="ansi-green-fg">--&gt; 210</span><span class="ansi-red-fg">             &#39; could not convert &#34;%s&#34; to float&#39; % (s, s))
-</span><span class="ansi-green-intense-fg ansi-bold">    211</span> 
-
-<span class="ansi-red-fg">ValueError</span>: &#34;figurefigure&#34; is not string &#34;figure&#34; or could not convert &#34;figurefigure&#34; to float
-
-During handling of the above exception, another exception occurred:
-
-<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-4-c01d62fb780f&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span> get_ipython<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>magic<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;config InlineBackend.figure_format = &#39;retina&#39;  # high resolution&#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">&lt;ipython-input-4-d8dfc3aaa558&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> get_ipython<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>magic<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">u&#34;config InlineBackend.figure_format = &#39;retina&#39;  # high resolution&#34;</span><span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">      3</span> <span class="ansi-green-fg">import</span> matplotlib
 <span class="ansi-green-fg">----&gt; 4</span><span class="ansi-red-fg"> </span>matplotlib<span class="ansi-blue-fg">.</span>rcParams<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;savefig.dpi&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> <span class="ansi-cyan-fg">2</span> <span class="ansi-blue-fg">*</span> matplotlib<span class="ansi-blue-fg">.</span>rcParams<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;savefig.dpi&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-red-fg"># larger image</span>
 
-<span class="ansi-green-fg">/Users/haichit/miniconda3/lib/python3.5/site-packages/matplotlib/__init__.py</span> in <span class="ansi-cyan-fg">__setitem__</span><span class="ansi-blue-fg">(self, key, val)</span>
+<span class="ansi-green-fg">/Users/haichit/miniconda3/envs/py2/lib/python2.7/site-packages/matplotlib/__init__.pyc</span> in <span class="ansi-cyan-fg">__setitem__</span><span class="ansi-blue-fg">(self, key, val)</span>
 <span class="ansi-green-intense-fg ansi-bold">    926</span>                 cval <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>validate<span class="ansi-blue-fg">[</span>key<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">(</span>val<span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">    927</span>             <span class="ansi-green-fg">except</span> ValueError <span class="ansi-green-fg">as</span> ve<span class="ansi-blue-fg">:</span>
 <span class="ansi-green-fg">--&gt; 928</span><span class="ansi-red-fg">                 </span><span class="ansi-green-fg">raise</span> ValueError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;Key %s: %s&#34;</span> <span class="ansi-blue-fg">%</span> <span class="ansi-blue-fg">(</span>key<span class="ansi-blue-fg">,</span> str<span class="ansi-blue-fg">(</span>ve<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
@@ -372,7 +342,7 @@ During handling of the above exception, another exception occurred:
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.text.Text at 0x10a520828&gt;</pre>
+<pre>&lt;matplotlib.text.Text at 0x112fd17d0&gt;</pre>
 </div>
 
 </div>
@@ -2471,8 +2441,8 @@ MzOrIk4AzMzMzMyqiBMAMzMzM7Mq4gTAzMzMzKyKOAEwMzMzM6siTgDMzMzMzKqIEwAzMzMzsyry
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Mar 29, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
+      Last updated on Jun 23, 2017.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
     </p>
   </div>
 </footer>
