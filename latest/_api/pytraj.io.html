@@ -1,14 +1,19 @@
 
 <!DOCTYPE html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>pytraj.io &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -36,7 +41,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -80,7 +85,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -181,7 +186,7 @@ if string, load coordinates for given atom mask</p>
 <p class="rubric">Notes</p>
 <ul class="simple">
 <li>For further slicing options, see pytraj.TrajectoryIterator (created by <code class="docutils literal"><span class="pre">pytraj.iterload</span></code>)</li>
-<li>Also see <cite>pytraj.iterload</cite> for loading a series of trajectories that don’t fit to
+<li>Also see <cite>pytraj.iterload</cite> for loading a series of trajectories that don&#8217;t fit to
 memory</li>
 </ul>
 <p class="rubric">Examples</p>
@@ -326,12 +331,12 @@ so, first load trajectories to TrajectoryIterator object, then do fancy slicing<
 
 <dl class="function">
 <dt id="pytraj.io.load_remd">
-<code class="descclassname">pytraj.io.</code><code class="descname">load_remd</code><span class="sig-paren">(</span><em>filename</em>, <em>top=None</em>, <em>T=‘300.0’</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.load_remd" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.io.</code><code class="descname">load_remd</code><span class="sig-paren">(</span><em>filename</em>, <em>top=None</em>, <em>T='300.0'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.load_remd" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="pytraj.io.iterload_remd">
-<code class="descclassname">pytraj.io.</code><code class="descname">iterload_remd</code><span class="sig-paren">(</span><em>filename</em>, <em>top=None</em>, <em>T=‘300.0’</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.iterload_remd" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.io.</code><code class="descname">iterload_remd</code><span class="sig-paren">(</span><em>filename</em>, <em>top=None</em>, <em>T='300.0'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.iterload_remd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load temperature remd trajectory for single temperature.
 e.g: Suppose you have replica trajectoris remd.x.00{1-4}.
 You want to load and extract only frames at 300 K, use this method</p>
@@ -364,19 +369,19 @@ You want to load and extract only frames at 300 K, use this method</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<p>io.loadpdb_rcsb(“2KOC”) # popular RNA hairpin</p>
+<p>io.loadpdb_rcsb(&#8220;2KOC&#8221;) # popular RNA hairpin</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pytraj.io.load_cpptraj_file">
-<code class="descclassname">pytraj.io.</code><code class="descname">load_cpptraj_file</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.load_cpptraj_file" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.io.</code><code class="descname">load_cpptraj_file</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.load_cpptraj_file" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>fname</strong> : str, name of cpptraj input file</p>
 <blockquote class="last">
-<div><p>(“cpptraj -i input.txt” –&gt; fname = “input.txt”)</p>
+<div><p>(&#8220;cpptraj -i input.txt&#8221; &#8211;&gt; fname = &#8220;input.txt&#8221;)</p>
 </div></blockquote>
 </td>
 </tr>
@@ -392,26 +397,26 @@ You want to load and extract only frames at 300 K, use this method</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data_name</strong> : str, {‘ala3’, ‘tz2’, ‘rna’, ‘trpcage’}, default ‘ala3’</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data_name</strong> : str, {&#8216;ala3&#8217;, &#8216;tz2&#8217;, &#8216;rna&#8217;, &#8216;trpcage&#8217;}, default &#8216;ala3&#8217;</td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Notes</p>
 <dl class="docutils">
-<dt>tz2 dataset <span class="classifier-delimiter">:</span> <span class="classifier">$AMBERHOME/AmberTools/test/cpptraj/</span></dt>
-<dd>explicit water, ortho box</dd>
+<dt>tz2 dataset</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">$AMBERHOME/AmberTools/test/cpptraj/</span><dd>explicit water, ortho box</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="pytraj.io.load_parmed">
 <code class="descclassname">pytraj.io.</code><code class="descname">load_parmed</code><span class="sig-paren">(</span><em>parm</em>, <em>traj=True</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.load_parmed" title="Permalink to this definition">¶</a></dt>
-<dd><p>return pytraj’s Topology or Trajectory objects</p>
+<dd><p>return pytraj&#8217;s Topology or Trajectory objects</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>parm</strong> : ParmEd’s Structure object</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>parm</strong> : ParmEd&#8217;s Structure object</p>
 <p><strong>traj: bool, default True</strong></p>
 <blockquote>
 <div><p>if True, return pytraj.Trajectory
@@ -419,7 +424,7 @@ if False, return Topology</p>
 </div></blockquote>
 <p><strong>&gt;&gt;&gt; import parmed as pmd</strong></p>
 <p><strong>&gt;&gt;&gt; import pytraj as pt</strong></p>
-<p><strong>&gt;&gt;&gt; p = pmd.download_PDB(“1l2y”)</strong></p>
+<p><strong>&gt;&gt;&gt; p = pmd.download_PDB(&#8220;1l2y&#8221;)</strong></p>
 <p class="last"><strong>&gt;&gt;&gt; traj = pt.load_parmed(p)</strong></p>
 </td>
 </tr>
@@ -430,7 +435,7 @@ if False, return Topology</p>
 <dl class="function">
 <dt id="pytraj.io.load_leap">
 <code class="descclassname">pytraj.io.</code><code class="descname">load_leap</code><span class="sig-paren">(</span><em>command</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.load_leap" title="Permalink to this definition">¶</a></dt>
-<dd><p>create pytraj.Trajectory from tleap’s command.</p>
+<dd><p>create pytraj.Trajectory from tleap&#8217;s command.</p>
 <p class="rubric">Notes</p>
 <p>If you load pdb file, make sure to use absolute dir.
 This method is not extensively tested. Use it with your own risk.</p>
@@ -438,10 +443,10 @@ This method is not extensively tested. Use it with your own risk.</p>
 
 <dl class="function">
 <dt id="pytraj.io.load_antechamber">
-<code class="descclassname">pytraj.io.</code><code class="descname">load_antechamber</code><span class="sig-paren">(</span><em>filename</em>, <em>format=None</em>, <em>options=”</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.load_antechamber" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.io.</code><code class="descname">load_antechamber</code><span class="sig-paren">(</span><em>filename</em>, <em>format=None</em>, <em>options=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.load_antechamber" title="Permalink to this definition">¶</a></dt>
 <dd><p>create pytraj.Trajectory by using antechamber to convert <cite>filename</cite> to mol2 format,
 then using <cite>pytraj.load</cite></p>
-<p>Good for file formats that cpptraj and ParmEd do not support (.ac, …)</p>
+<p>Good for file formats that cpptraj and ParmEd do not support (.ac, ...)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -461,7 +466,7 @@ else, use given format</p>
 
 <dl class="function">
 <dt id="pytraj.io.load_topology">
-<code class="descclassname">pytraj.io.</code><code class="descname">load_topology</code><span class="sig-paren">(</span><em>filename</em>, <em>option=”</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.load_topology" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.io.</code><code class="descname">load_topology</code><span class="sig-paren">(</span><em>filename</em>, <em>option=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.load_topology" title="Permalink to this definition">¶</a></dt>
 <dd><p>load Topology from a filename or from url or from ParmEd object. Adapted from cpptraj doc.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -470,7 +475,7 @@ else, use given format</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str, Amber prmtop, pdb, mol2, psf, cif, gromacs topology, sdf, tinker formats</p>
 <p><strong>option</strong> : cpptraj options.</p>
 <blockquote class="last">
-<div><p>if filename is a pdb file, option = {‘pqr’, ‘noconnect’}.</p>
+<div><p>if filename is a pdb file, option = {&#8216;pqr&#8217;, &#8216;noconnect&#8217;}.</p>
 <ul class="simple">
 <li>pqr     : Read atomic charge/radius from occupancy/B-factor columns.</li>
 <li>noconect: Do not read CONECT records if present.</li>
@@ -498,7 +503,7 @@ file. cpptraj will do the bond guess based on distance.</p>
 
 <dl class="function">
 <dt id="pytraj.io.write_parm">
-<code class="descclassname">pytraj.io.</code><code class="descname">write_parm</code><span class="sig-paren">(</span><em>filename=None</em>, <em>top=None</em>, <em>format=’amberparm’</em>, <em>overwrite=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.write_parm" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.io.</code><code class="descname">write_parm</code><span class="sig-paren">(</span><em>filename=None</em>, <em>top=None</em>, <em>format='amberparm'</em>, <em>overwrite=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.write_parm" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -546,7 +551,7 @@ if Trajetory-like, write a trajectory to disk</p>
 
 <dl class="function">
 <dt id="pytraj.io.write_traj">
-<code class="descclassname">pytraj.io.</code><code class="descname">write_traj</code><span class="sig-paren">(</span><em>filename</em>, <em>traj</em>, <em>format=’infer’</em>, <em>top=None</em>, <em>frame_indices=None</em>, <em>overwrite=False</em>, <em>force=False</em>, <em>velocity=False</em>, <em>options=”</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.write_traj" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.io.</code><code class="descname">write_traj</code><span class="sig-paren">(</span><em>filename</em>, <em>traj</em>, <em>format='infer'</em>, <em>top=None</em>, <em>frame_indices=None</em>, <em>overwrite=False</em>, <em>force=False</em>, <em>velocity=False</em>, <em>options=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.io.write_traj" title="Permalink to this definition">¶</a></dt>
 <dd><p>write Trajectory-like or iterable object to trajectory file</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -554,9 +559,9 @@ if Trajetory-like, write a trajectory to disk</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <p><strong>traj</strong> : Trajectory-like or iterator that produces Frame or 3D ndarray with shape=(n_frames, n_atoms, 3)</p>
-<p><strong>format</strong> : str, default ‘infer’</p>
+<p><strong>format</strong> : str, default &#8216;infer&#8217;</p>
 <blockquote>
-<div><p>if ‘inter’, detect format based on extension. If can not detect, use amber mdcdf format.</p>
+<div><p>if &#8216;inter&#8217;, detect format based on extension. If can not detect, use amber mdcdf format.</p>
 </div></blockquote>
 <p><strong>top</strong> : Topology, optional, default: None</p>
 <p><strong>frame_indices: array-like or iterator that produces integer, default: None</strong></p>
@@ -621,7 +626,7 @@ if Trajetory-like, write a trajectory to disk</p>
 </tr>
 </tbody>
 </table>
-<p>‘options’ for writing to pdb format (cptraj manual):</p>
+<p>&#8216;options&#8217; for writing to pdb format (cptraj manual):</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">dumpq</span><span class="p">:</span>       <span class="n">Write</span> <span class="n">atom</span> <span class="n">charge</span><span class="o">/</span><span class="n">GB</span> <span class="n">radius</span> <span class="ow">in</span> <span class="n">occupancy</span><span class="o">/</span><span class="n">B</span><span class="o">-</span><span class="n">factor</span> <span class="n">columns</span> <span class="p">(</span><span class="n">PQR</span> <span class="nb">format</span><span class="p">)</span><span class="o">.</span><span class="s2">&quot;</span>
 <span class="n">parse</span><span class="p">:</span>       <span class="n">Write</span> <span class="n">atom</span> <span class="n">charge</span><span class="o">/</span><span class="n">PARSE</span> <span class="n">radius</span> <span class="ow">in</span> <span class="n">occupancy</span><span class="o">/</span><span class="n">B</span><span class="o">-</span><span class="n">factor</span> <span class="n">columns</span> <span class="p">(</span><span class="n">PQR</span> <span class="nb">format</span><span class="p">)</span><span class="o">.</span><span class="s2">&quot;</span>
 <span class="n">vdw</span><span class="p">:</span>         <span class="n">Write</span> <span class="n">atom</span> <span class="n">charge</span><span class="o">/</span><span class="n">VDW</span> <span class="n">radius</span> <span class="ow">in</span> <span class="n">occupancy</span><span class="o">/</span><span class="n">B</span><span class="o">-</span><span class="n">factor</span> <span class="n">columns</span> <span class="p">(</span><span class="n">PQR</span> <span class="nb">format</span><span class="p">)</span><span class="o">.</span><span class="s2">&quot;</span>
@@ -669,13 +674,13 @@ if Trajetory-like, write a trajectory to disk</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">write_traj</span><span class="p">(</span><span class="s2">&quot;output/test_xyz_fake_top.nc&quot;</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">top2</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>‘options’ for writing to amber netcdf format (cptraj manual):</p>
+<p>&#8216;options&#8217; for writing to amber netcdf format (cptraj manual):</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">remdtraj</span><span class="p">:</span> <span class="n">Write</span> <span class="n">temperature</span> <span class="n">to</span> <span class="n">trajectory</span> <span class="p">(</span><span class="n">makes</span> <span class="n">REMD</span> <span class="n">trajectory</span><span class="p">)</span><span class="o">.</span><span class="s2">&quot;</span>
 <span class="n">velocity</span><span class="p">:</span> <span class="n">Write</span> <span class="n">velocities</span> <span class="n">to</span> <span class="n">trajectory</span><span class="o">.</span><span class="s2">&quot;</span>
 <span class="n">force</span><span class="p">:</span> <span class="n">Write</span> <span class="n">forces</span> <span class="n">to</span> <span class="n">trajectory</span><span class="o">.</span><span class="s2">&quot;);</span>
 </pre></div>
 </div>
-<p>‘options’ for writing to amber netcdf restart format(cptraj manual):</p>
+<p>&#8216;options&#8217; for writing to amber netcdf restart format(cptraj manual):</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">novelocity</span><span class="p">:</span> <span class="n">Do</span> <span class="ow">not</span> <span class="n">write</span> <span class="n">velocities</span> <span class="n">to</span> <span class="n">restart</span> <span class="n">file</span><span class="o">.</span><span class="s2">&quot;</span>
 <span class="n">notime</span><span class="p">:</span>     <span class="n">Do</span> <span class="ow">not</span> <span class="n">write</span> <span class="n">time</span> <span class="n">to</span> <span class="n">restart</span> <span class="n">file</span><span class="o">.</span><span class="s2">&quot;</span>
 <span class="n">remdtraj</span><span class="p">:</span>   <span class="n">Write</span> <span class="n">temperature</span> <span class="n">to</span> <span class="n">restart</span> <span class="n">file</span><span class="o">.</span><span class="s2">&quot;</span>
@@ -684,13 +689,13 @@ if Trajetory-like, write a trajectory to disk</p>
 <span class="n">keepext</span>     <span class="n">Keep</span> <span class="n">filename</span> <span class="n">extension</span><span class="p">;</span> <span class="n">write</span> <span class="s1">&#39;&lt;name&gt;.&lt;num&gt;.&lt;ext&gt;&#39;</span> <span class="n">instead</span> <span class="p">(</span><span class="n">example</span><span class="p">:</span> <span class="n">myfile</span><span class="o">.</span><span class="mf">1.</span><span class="n">rst7</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>‘options’ for writing to mol2 format (cptraj manual):</p>
+<p>&#8216;options&#8217; for writing to mol2 format (cptraj manual):</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">single</span>   <span class="p">:</span> <span class="n">Write</span> <span class="n">to</span> <span class="n">a</span> <span class="n">single</span> <span class="n">file</span><span class="o">.</span><span class="s2">&quot;</span>
 <span class="n">multi</span>    <span class="p">:</span> <span class="n">Write</span> <span class="n">each</span> <span class="n">frame</span> <span class="n">to</span> <span class="n">a</span> <span class="n">separate</span> <span class="n">file</span><span class="o">.</span><span class="s2">&quot;</span>
 <span class="n">sybyltype</span><span class="p">:</span> <span class="n">Convert</span> <span class="n">Amber</span> <span class="n">atom</span> <span class="n">types</span> <span class="p">(</span><span class="k">if</span> <span class="n">present</span><span class="p">)</span> <span class="n">to</span> <span class="n">SYBYL</span> <span class="n">types</span><span class="o">.</span><span class="s2">&quot;);</span>
 </pre></div>
 </div>
-<p>‘options’  for other formats:</p>
+<p>&#8216;options&#8217;  for other formats:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">please</span> <span class="n">check</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">ambermd</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">doc12</span><span class="o">/</span><span class="n">Amber15</span><span class="o">.</span><span class="n">pdf</span>
 </pre></div>
 </div>
@@ -771,7 +776,7 @@ unsafe. See: <a class="reference external" href="http://docs.python.org/2.7/libr
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
       Last updated on Jun 23, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>
 </footer>

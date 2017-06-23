@@ -1,14 +1,19 @@
 
 <!DOCTYPE html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>pytraj.energy_decomposition &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -36,7 +41,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -80,7 +85,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -145,7 +150,7 @@
 <script type="text/javascript" src='../_static/cindex.js'></script></div>
 <span class="target" id="module-pytraj.analysis.energy_analysis"></span><dl class="function">
 <dt id="pytraj.analysis.energy_analysis.esander">
-<code class="descclassname">pytraj.analysis.energy_analysis.</code><code class="descname">esander</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.energy_analysis.esander" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.energy_analysis.</code><code class="descname">esander</code><span class="sig-paren">(</span><em>traj=None</em>, <em>prmtop=None</em>, <em>igb=8</em>, <em>mm_options=None</em>, <em>qm_options=None</em>, <em>dtype='dict'</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.energy_analysis.esander" title="Permalink to this definition">¶</a></dt>
 <dd><p>energy decomposition by calling <cite>libsander</cite></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -178,7 +183,7 @@ If <cite>mm_options</cite> is not None, use this</p>
 <blockquote>
 <div><p>only need to specify this <code class="docutils literal"><span class="pre">top</span></code> if <code class="docutils literal"><span class="pre">traj</span></code> does not hold Topology</p>
 </div></blockquote>
-<p><strong>dtype</strong> : str, {‘dict’, ‘dataset’, ‘ndarray’, ‘dataframe’}, default=’dict’</p>
+<p><strong>dtype</strong> : str, {&#8216;dict&#8217;, &#8216;dataset&#8217;, &#8216;ndarray&#8217;, &#8216;dataframe&#8217;}, default=&#8217;dict&#8217;</p>
 <blockquote>
 <div><p>return data type</p>
 </div></blockquote>
@@ -278,7 +283,7 @@ in each core without pickling.</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.energy_analysis.lie">
-<code class="descclassname">pytraj.analysis.energy_analysis.</code><code class="descname">lie</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.energy_analysis.lie" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.energy_analysis.</code><code class="descname">lie</code><span class="sig-paren">(</span><em>traj</em>, <em>mask</em>, <em>options=''</em>, <em>dtype='dict'</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.energy_analysis.lie" title="Permalink to this definition">¶</a></dt>
 <dd><p>LIE</p>
 </dd></dl>
 
@@ -298,7 +303,7 @@ in each core without pickling.</p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
       Last updated on Jun 23, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>
 </footer>

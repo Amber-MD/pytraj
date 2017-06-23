@@ -1,14 +1,19 @@
 
 <!DOCTYPE html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Modify trajectory &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -37,7 +42,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -81,7 +86,7 @@
 <li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -160,7 +165,7 @@
 </ul>
 <span class="target" id="rmsd"></span><dl class="function">
 <dt id="pytraj.rmsd">
-<code class="descclassname">pytraj.</code><code class="descname">rmsd</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.rmsd" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">rmsd</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>ref=0</em>, <em>ref_mask=''</em>, <em>nofit=False</em>, <em>mass=False</em>, <em>update_coordinate=True</em>, <em>frame_indices=None</em>, <em>top=None</em>, <em>dtype='ndarray'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.rmsd" title="Permalink to this definition">¶</a></dt>
 <dd><p>compute rmsd</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -199,7 +204,7 @@ if False (same as <cite>nomod</cite> in cpptraj), no modification</p>
 <div><p>if not None, only compute rmsd for given frame indices</p>
 </div></blockquote>
 <p><strong>top</strong> : {Topology, str}, default None, optional</p>
-<p class="last"><strong>dtype</strong> : return data type, default=’ndarray’</p>
+<p class="last"><strong>dtype</strong> : return data type, default=&#8217;ndarray&#8217;</p>
 </td>
 </tr>
 </tbody>
@@ -241,7 +246,7 @@ if False (same as <cite>nomod</cite> in cpptraj), no modification</p>
 
 <span class="target" id="center"></span><dl class="function">
 <dt id="pytraj.center">
-<code class="descclassname">pytraj.</code><code class="descname">center</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.center" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">center</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>center='box'</em>, <em>mass=False</em>, <em>top=None</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.center" title="Permalink to this definition">¶</a></dt>
 <dd><p>Center coordinates in <cite>mask</cite> to specified point.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -249,10 +254,10 @@ if False (same as <cite>nomod</cite> in cpptraj), no modification</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or Frame iterator</p>
 <p><strong>mask</strong> : str, mask</p>
-<p><strong>center</strong> : str, {‘box’, ‘origin’, array-like}, default ‘box’</p>
+<p><strong>center</strong> : str, {&#8216;box&#8217;, &#8216;origin&#8217;, array-like}, default &#8216;box&#8217;</p>
 <blockquote>
-<div><p>if ‘origin’, center on coordinate origin (0, 0, 0)
-if ‘box’, center on box center
+<div><p>if &#8216;origin&#8217;, center on coordinate origin (0, 0, 0)
+if &#8216;box&#8217;, center on box center
 if array-like, center on that point</p>
 </div></blockquote>
 <p><strong>mass</strong> : bool, default: False</p>
@@ -293,7 +298,7 @@ if array-like, center on that point</p>
 
 <span class="target" id="translate"></span><dl class="function">
 <dt id="pytraj.translate">
-<code class="descclassname">pytraj.</code><code class="descname">translate</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=”</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.translate" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">translate</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.translate" title="Permalink to this definition">¶</a></dt>
 <dd><p>translate coordinate</p>
 <p class="rubric">Examples</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
@@ -309,7 +314,7 @@ if array-like, center on that point</p>
 
 <span class="target" id="scale"></span><dl class="function">
 <dt id="pytraj.scale">
-<code class="descclassname">pytraj.</code><code class="descname">scale</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=”</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.scale" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">scale</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.scale" title="Permalink to this definition">¶</a></dt>
 <dd><p class="rubric">Examples</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># load to mutable trajectory by `load` method</span>
@@ -324,7 +329,7 @@ if array-like, center on that point</p>
 
 <span class="target" id="rotate"></span><dl class="function">
 <dt id="pytraj.rotate">
-<code class="descclassname">pytraj.</code><code class="descname">rotate</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=”</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.rotate" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">rotate</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.rotate" title="Permalink to this definition">¶</a></dt>
 <dd><p class="rubric">Notes</p>
 <p><code class="docutils literal"><span class="pre">rotate</span></code> is an alias of <code class="docutils literal"><span class="pre">do_rotation</span></code></p>
 <p class="rubric">Examples</p>
@@ -341,7 +346,7 @@ if array-like, center on that point</p>
 
 <span class="target" id="autoimage"></span><dl class="function">
 <dt id="pytraj.autoimage">
-<code class="descclassname">pytraj.</code><code class="descname">autoimage</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.autoimage" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">autoimage</code><span class="sig-paren">(</span><em>traj</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.autoimage" title="Permalink to this definition">¶</a></dt>
 <dd><p>perform autoimage and return the updated-coordinate traj</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()[:]</span>
@@ -353,7 +358,7 @@ if array-like, center on that point</p>
 <span class="target" id="transform"></span><dl class="function">
 <dt id="pytraj.transform">
 <code class="descclassname">pytraj.</code><code class="descname">transform</code><span class="sig-paren">(</span><em>traj</em>, <em>by</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.transform" title="Permalink to this definition">¶</a></dt>
-<dd><p>transform pytraj.Trajectory by a series of cpptraj’s commands</p>
+<dd><p>transform pytraj.Trajectory by a series of cpptraj&#8217;s commands</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -366,7 +371,7 @@ if array-like, center on that point</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">transformed Trajectory. Trajectory’s coordinates will be inplace-updated</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">transformed Trajectory. Trajectory&#8217;s coordinates will be inplace-updated</p>
 </td>
 </tr>
 </tbody>
@@ -382,7 +387,7 @@ if array-like, center on that point</p>
 
 <span class="target" id="rotate-dihedral"></span><dl class="function">
 <dt id="pytraj.rotate_dihedral">
-<code class="descclassname">pytraj.</code><code class="descname">rotate_dihedral</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=”</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.rotate_dihedral" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">rotate_dihedral</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.rotate_dihedral" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -392,7 +397,7 @@ if array-like, center on that point</p>
 </tbody>
 </table>
 <p class="rubric">Notes</p>
-<p>Syntax and method’s name might be changed</p>
+<p>Syntax and method&#8217;s name might be changed</p>
 <p class="rubric">Examples</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_rna</span><span class="p">()[:]</span>
@@ -404,22 +409,22 @@ if array-like, center on that point</p>
 
 <span class="target" id="replicate-cell"></span><dl class="function">
 <dt id="pytraj.replicate_cell">
-<code class="descclassname">pytraj.</code><code class="descname">replicate_cell</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.replicate_cell" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.</code><code class="descname">replicate_cell</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>direction='all'</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.replicate_cell" title="Permalink to this definition">¶</a></dt>
 <dd><p>create a trajectory where the unit cell is replicated in 1 or more direction (up to 27)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : Trajectory-like or Frame iterator</p>
-<p><strong>mask</strong> : str, default: “”</p>
+<p><strong>mask</strong> : str, default: &#8220;&#8221;</p>
 <blockquote>
 <div><p>if default, using all atoms
 else: given mask</p>
 </div></blockquote>
-<p><strong>direction: {‘all’, ‘dir’} or list/tuple of &lt;XYZ&gt; (below)</strong></p>
+<p><strong>direction: {&#8216;all&#8217;, &#8216;dir&#8217;} or list/tuple of &lt;XYZ&gt; (below)</strong></p>
 <blockquote>
-<div><p>if ‘all’, replicate cell once in all possible directions
-if ‘dir’, need to specify the direction with format ‘dir &lt;XYZ&gt;’, where each X (Y, Z)
+<div><p>if &#8216;all&#8217;, replicate cell once in all possible directions
+if &#8216;dir&#8217;, need to specify the direction with format &#8216;dir &lt;XYZ&gt;&#8217;, where each X (Y, Z)
 is either 0, 1 or -1 (see example below)</p>
 </div></blockquote>
 <p><strong>top</strong> : Topology, optional, default: None</p>
@@ -462,7 +467,7 @@ is either 0, 1 or -1 (see example below)</p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
       Last updated on Jun 23, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>
 </footer>

@@ -1,14 +1,19 @@
 
 <!DOCTYPE html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>pytraj.hbond_analysis &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -36,7 +41,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -80,7 +85,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -227,7 +232,7 @@
 
 <dl class="function">
 <dt id="pytraj.analysis.hbond_analysis.hbond">
-<code class="descclassname">pytraj.analysis.hbond_analysis.</code><code class="descname">hbond</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.hbond_analysis.hbond" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.hbond_analysis.</code><code class="descname">hbond</code><span class="sig-paren">(</span><em>traj</em>, <em>mask=''</em>, <em>solvent_donor=None</em>, <em>solvent_acceptor=None</em>, <em>distance=3.0</em>, <em>angle=135.0</em>, <em>image=False</em>, <em>series=True</em>, <em>options=''</em>, <em>dtype='hbond'</em>, <em>frame_indices=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.hbond_analysis.hbond" title="Permalink to this definition">¶</a></dt>
 <dd><p>(combined with cpptraj doc) Searching for Hbond donors/acceptors in region specified by <code class="docutils literal"><span class="pre">mask</span></code>.
 Hydrogen bond is defined as A-HD, where A is acceptor heavy atom, H is hydrogen, D is
 donor heavy atom. Hydrogen bond is formed when A to D distance &lt; distance cutoff and A-H-D angle
@@ -257,13 +262,13 @@ between solute and solvent too.</p>
 <blockquote>
 <div><p>hbond angle cut off</p>
 </div></blockquote>
-<p><strong>dtype</strong> : return output’s type, default ‘hbond’</p>
+<p><strong>dtype</strong> : return output&#8217;s type, default &#8216;hbond&#8217;</p>
 <p><strong>image</strong> : bool, default False</p>
 <p><strong>series</strong> : bool, default True</p>
 <blockquote>
 <div><ul class="simple">
 <li>output time series (array of 1 and 0) for hbond or not (highly recommend to use this default value)</li>
-<li>if False, you must specify dtype=’dataset’</li>
+<li>if False, you must specify dtype=&#8217;dataset&#8217;</li>
 </ul>
 </div></blockquote>
 <p><strong>options</strong> : str</p>
@@ -283,7 +288,7 @@ occur.</li>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>out</strong> : DatasetHBond if series is True else return ‘DatasetList’</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>out</strong> : DatasetHBond if series is True else return &#8216;DatasetList&#8217;</p>
 </td>
 </tr>
 </tbody>
@@ -294,8 +299,8 @@ occur.</li>
 </div>
 <p class="rubric">Notes</p>
 <ul class="simple">
-<li>pytraj use ‘series’ as default. In cpptraj, you need to explicitly specify ‘series’.</li>
-<li>if ‘series’ is False, the ‘dtype’ argument will be ignored.</li>
+<li>pytraj use &#8216;series&#8217; as default. In cpptraj, you need to explicitly specify &#8216;series&#8217;.</li>
+<li>if &#8216;series&#8217; is False, the &#8216;dtype&#8217; argument will be ignored.</li>
 </ul>
 <p class="rubric">Examples</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
@@ -348,7 +353,7 @@ occur.</li>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
       Last updated on Jun 23, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>
 </footer>

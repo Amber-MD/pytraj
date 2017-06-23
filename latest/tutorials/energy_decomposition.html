@@ -1,14 +1,19 @@
 
 <!DOCTYPE html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Energy decomposition with sander and igb8 solvent model &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -37,7 +42,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -81,7 +86,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -194,7 +199,7 @@
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>pytraj.TrajectoryIterator, 101 frames: 
-Size: 0.000000 (GB)
+Size: 0.000503 (GB)
 &lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;
            
 </pre>
@@ -223,56 +228,49 @@ Size: 0.000000 (GB)
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ImportError</span>                               Traceback (most recent call last)
+<span class="ansi-green-fg">/Users/haichit/miniconda3/lib/python3.5/site-packages/pytraj/analysis/energy_analysis.py</span> in <span class="ansi-cyan-fg">esander</span><span class="ansi-blue-fg">(traj, prmtop, igb, mm_options, qm_options, dtype, frame_indices, top)</span>
+<span class="ansi-green-intense-fg ansi-bold">    141</span>     <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 142</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">import</span> sander
+<span class="ansi-green-intense-fg ansi-bold">    143</span>     <span class="ansi-green-fg">except</span> ImportError<span class="ansi-blue-fg">:</span>
 
+<span class="ansi-red-fg">ImportError</span>: No module named &#39;sander&#39;
 
-<div class="output_text output_subarea output_execute_result">
-<pre>OrderedDict([(&#39;disp&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&#39;emap&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&#39;hbond&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&#39;scf&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&#39;vdw_14&#39;,
-              array([ 52.55761103,  50.03499738,  54.29855009, ...,  50.42610919,
-                      48.27053805,  51.9298654 ])),
-             (&#39;gb&#39;,
-              array([-412.53266438, -400.09042163, -439.92701343, ..., -365.74056055,
-                     -395.14074215, -368.44262754])),
-             (&#39;elec_14&#39;,
-              array([ 720.65923256,  731.53353441,  717.35440566, ...,  736.47531336,
-                      732.27034385,  726.61630671])),
-             (&#39;ct&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&#39;angle&#39;,
-              array([ 128.54514846,  105.06494493,  103.52028376, ...,   99.46042639,
-                      103.49664937,   98.18016593])),
-             (&#39;angle_ub&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&#39;tot&#39;,
-              array([-225.72081333, -259.3103916 , -265.22164221, ..., -282.72357777,
-                     -287.55610458, -293.18137453])),
-             (&#39;amd_boost&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&#39;pb&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&#39;imp&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&#39;surf&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&#39;polar&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&#39;rism&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&#39;dihedral&#39;,
-              array([ 111.61132908,  105.39241304,   93.03084989, ...,  101.81038715,
-                       94.63365271,   92.27451698])),
-             (&#39;noe&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&#39;les&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&#39;dvdl&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&#39;elec&#39;,
-              array([-781.59559933, -807.4891344 , -741.17534022, ..., -835.16025964,
-                     -805.08867184, -825.97031683])),
-             (&#39;vdw&#39;,
-              array([-44.9811844 , -43.77030705, -52.33589852, ..., -70.01048987,
-                     -66.01297848, -67.78679498])),
-             (&#39;constraint&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&#39;cmap&#39;, array([ 0.,  0.,  0., ...,  0.,  0.,  0.])),
-             (&#39;bond&#39;,
-              array([ 0.01531366,  0.01358172,  0.01252056, ...,  0.0154962 ,
-                      0.01510391,  0.0175098 ]))])</pre>
+During handling of the above exception, another exception occurred:
+
+<span class="ansi-red-fg">ImportError</span>                               Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-2-d6ad523f1ff0&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg"># compute the energy with igb=8 (GBneck2 solvation model)</span>
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>data <span class="ansi-blue-fg">=</span> pt<span class="ansi-blue-fg">.</span>energy_decomposition<span class="ansi-blue-fg">(</span>traj<span class="ansi-blue-fg">,</span> igb<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">8</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> data
+
+<span class="ansi-green-fg">/Users/haichit/miniconda3/lib/python3.5/site-packages/pytraj/utils/decorators.py</span> in <span class="ansi-cyan-fg">inner</span><span class="ansi-blue-fg">(*args, **kwd)</span>
+<span class="ansi-green-intense-fg ansi-bold">      9</span>     <span class="ansi-blue-fg">@</span>wraps<span class="ansi-blue-fg">(</span>f<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     10</span>     <span class="ansi-green-fg">def</span> inner<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwd<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">---&gt; 11</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> f<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwd<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     12</span> 
+<span class="ansi-green-intense-fg ansi-bold">     13</span>     inner<span class="ansi-blue-fg">.</span>_is_parallelizable <span class="ansi-blue-fg">=</span> <span class="ansi-green-fg">True</span>
+
+<span class="ansi-green-fg">/Users/haichit/miniconda3/lib/python3.5/site-packages/pytraj/utils/get_common_objects.py</span> in <span class="ansi-cyan-fg">inner</span><span class="ansi-blue-fg">(*args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    304</span>                         <span class="ansi-green-fg">except</span> IndexError<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    305</span>                             args<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>mask<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">--&gt; 306</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> f<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    307</span> 
+<span class="ansi-green-intense-fg ansi-bold">    308</span>         inner<span class="ansi-blue-fg">.</span>_is_super_dispatched <span class="ansi-blue-fg">=</span> <span class="ansi-green-fg">True</span>
+
+<span class="ansi-green-fg">/Users/haichit/miniconda3/lib/python3.5/site-packages/pytraj/analysis/energy_analysis.py</span> in <span class="ansi-cyan-fg">esander</span><span class="ansi-blue-fg">(traj, prmtop, igb, mm_options, qm_options, dtype, frame_indices, top)</span>
+<span class="ansi-green-intense-fg ansi-bold">    142</span>         <span class="ansi-green-fg">import</span> sander
+<span class="ansi-green-intense-fg ansi-bold">    143</span>     <span class="ansi-green-fg">except</span> ImportError<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 144</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">raise</span> ImportError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;need both `pysander` installed. Check Ambertools15&#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    145</span> 
+<span class="ansi-green-intense-fg ansi-bold">    146</span>     ddict <span class="ansi-blue-fg">=</span> defaultdict<span class="ansi-blue-fg">(</span>_default_func<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">ImportError</span>: need both `pysander` installed. Check Ambertools15</pre>
 </div>
-
 </div>
 
 </div>
@@ -297,10 +295,15 @@ Size: 0.000000 (GB)
 
 
 <div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>(&#39;potential energy&#39;, array([-225.72081333, -259.3103916 , -265.22164221, ..., -282.72357777,
-       -287.55610458, -293.18137453]))
-</pre>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-3-16fd3c6626ca&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg"># get energy you want</span>
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;potential energy&#39;</span><span class="ansi-blue-fg">,</span> data<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;tot&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;data&#39; is not defined</pre>
 </div>
 </div>
 
@@ -326,10 +329,15 @@ Size: 0.000000 (GB)
 
 
 <div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>(&#39;solvation energy&#39;, array([-412.53266438, -400.09042163, -439.92701343, ..., -365.74056055,
-       -395.14074215, -368.44262754]))
-</pre>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-4-da37a496e385&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg"># solvation energy (igb=8)</span>
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;solvation energy&#39;</span><span class="ansi-blue-fg">,</span> data<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;gb&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;data&#39; is not defined</pre>
 </div>
 </div>
 
@@ -355,38 +363,18 @@ Size: 0.000000 (GB)
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-5-b4b8a35470e0&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg"># you can also get other energies.</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> <span class="ansi-red-fg"># for example: data[&#39;dihedral&#39;]</span>
+<span class="ansi-green-fg">----&gt; 3</span><span class="ansi-red-fg"> </span>list<span class="ansi-blue-fg">(</span>data<span class="ansi-blue-fg">.</span>keys<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
 
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[&#39;disp&#39;,
- &#39;emap&#39;,
- &#39;hbond&#39;,
- &#39;scf&#39;,
- &#39;vdw_14&#39;,
- &#39;gb&#39;,
- &#39;elec_14&#39;,
- &#39;ct&#39;,
- &#39;angle&#39;,
- &#39;angle_ub&#39;,
- &#39;tot&#39;,
- &#39;amd_boost&#39;,
- &#39;pb&#39;,
- &#39;imp&#39;,
- &#39;surf&#39;,
- &#39;polar&#39;,
- &#39;rism&#39;,
- &#39;dihedral&#39;,
- &#39;noe&#39;,
- &#39;les&#39;,
- &#39;dvdl&#39;,
- &#39;elec&#39;,
- &#39;vdw&#39;,
- &#39;constraint&#39;,
- &#39;cmap&#39;,
- &#39;bond&#39;]</pre>
+<span class="ansi-red-fg">NameError</span>: name &#39;data&#39; is not defined</pre>
 </div>
-
 </div>
 
 </div>
@@ -422,14 +410,75 @@ Size: 0.000000 (GB)
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">RemoteTraceback</span>                           Traceback (most recent call last)
+<span class="ansi-red-fg">RemoteTraceback</span>: 
+&#34;&#34;&#34;
+Traceback (most recent call last):
+  File &#34;/Users/haichit/miniconda3/lib/python3.5/site-packages/pytraj/analysis/energy_analysis.py&#34;, line 142, in esander
+    import sander
+ImportError: No module named &#39;sander&#39;
 
+During handling of the above exception, another exception occurred:
 
-<div class="output_text output_subarea output_execute_result">
-<pre>array([-412.53266438, -400.09042163, -439.92701343, ..., -365.74056055,
-       -395.14074215, -368.44262754])</pre>
+Traceback (most recent call last):
+  File &#34;/Users/haichit/miniconda3/lib/python3.5/multiprocessing/pool.py&#34;, line 119, in worker
+    result = (True, func(*args, **kwds))
+  File &#34;/Users/haichit/miniconda3/lib/python3.5/multiprocessing/pool.py&#34;, line 44, in mapstar
+    return list(map(*args))
+  File &#34;/Users/haichit/miniconda3/lib/python3.5/site-packages/pytraj/parallel/base.py&#34;, line 163, in worker_by_func
+    data = func(final_iter, *args, **kwargs_cp)
+  File &#34;/Users/haichit/miniconda3/lib/python3.5/site-packages/pytraj/utils/decorators.py&#34;, line 11, in inner
+    return f(*args, **kwd)
+  File &#34;/Users/haichit/miniconda3/lib/python3.5/site-packages/pytraj/utils/get_common_objects.py&#34;, line 306, in inner
+    return f(*args, **kwargs)
+  File &#34;/Users/haichit/miniconda3/lib/python3.5/site-packages/pytraj/analysis/energy_analysis.py&#34;, line 144, in esander
+    raise ImportError(&#34;need both `pysander` installed. Check Ambertools15&#34;)
+ImportError: need both `pysander` installed. Check Ambertools15
+&#34;&#34;&#34;
+
+The above exception was the direct cause of the following exception:
+
+<span class="ansi-red-fg">ImportError</span>                               Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-6-e8efe1eafcce&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> 
+<span class="ansi-green-intense-fg ansi-bold">      3</span> <span class="ansi-red-fg"># parallel</span>
+<span class="ansi-green-fg">----&gt; 4</span><span class="ansi-red-fg"> </span>data2 <span class="ansi-blue-fg">=</span> pt<span class="ansi-blue-fg">.</span>pmap<span class="ansi-blue-fg">(</span>func<span class="ansi-blue-fg">=</span>pt<span class="ansi-blue-fg">.</span>energy_decomposition<span class="ansi-blue-fg">,</span> traj<span class="ansi-blue-fg">=</span>traj<span class="ansi-blue-fg">,</span> igb<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">8</span><span class="ansi-blue-fg">,</span> n_cores<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> data2<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;gb&#39;</span><span class="ansi-blue-fg">]</span>
+
+<span class="ansi-green-fg">/Users/haichit/miniconda3/lib/python3.5/site-packages/pytraj/parallel/multiprocess.py</span> in <span class="ansi-cyan-fg">pmap</span><span class="ansi-blue-fg">(func, traj, *args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    219</span> <span class="ansi-green-fg">def</span> pmap<span class="ansi-blue-fg">(</span>func<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> traj<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    220</span>     <span class="ansi-green-fg">if</span> func <span class="ansi-blue-fg">!=</span> NH_order_parameters<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 221</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> _pmap<span class="ansi-blue-fg">(</span>func<span class="ansi-blue-fg">,</span> traj<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    222</span>     <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    223</span>         <span class="ansi-green-fg">if</span> <span class="ansi-blue-fg">&#39;n_cores&#39;</span> <span class="ansi-green-fg">in</span> kwargs<span class="ansi-blue-fg">.</span>keys<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">/Users/haichit/miniconda3/lib/python3.5/site-packages/pytraj/parallel/multiprocess.py</span> in <span class="ansi-cyan-fg">_pmap</span><span class="ansi-blue-fg">(func, traj, *args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    211</span>                          progress_params=progress_params)
+<span class="ansi-green-intense-fg ansi-bold">    212</span> 
+<span class="ansi-green-fg">--&gt; 213</span><span class="ansi-red-fg">         </span>data <span class="ansi-blue-fg">=</span> p<span class="ansi-blue-fg">.</span>map<span class="ansi-blue-fg">(</span>pfuncs<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">[</span>rank <span class="ansi-green-fg">for</span> rank <span class="ansi-green-fg">in</span> range<span class="ansi-blue-fg">(</span>n_cores<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    214</span>         p<span class="ansi-blue-fg">.</span>close<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    215</span> 
+
+<span class="ansi-green-fg">/Users/haichit/miniconda3/lib/python3.5/multiprocessing/pool.py</span> in <span class="ansi-cyan-fg">map</span><span class="ansi-blue-fg">(self, func, iterable, chunksize)</span>
+<span class="ansi-green-intense-fg ansi-bold">    258</span>         <span class="ansi-green-fg">in</span> a list that <span class="ansi-green-fg">is</span> returned<span class="ansi-blue-fg">.</span>
+<span class="ansi-green-intense-fg ansi-bold">    259</span>         &#39;&#39;&#39;
+<span class="ansi-green-fg">--&gt; 260</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> self<span class="ansi-blue-fg">.</span>_map_async<span class="ansi-blue-fg">(</span>func<span class="ansi-blue-fg">,</span> iterable<span class="ansi-blue-fg">,</span> mapstar<span class="ansi-blue-fg">,</span> chunksize<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>get<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    261</span> 
+<span class="ansi-green-intense-fg ansi-bold">    262</span>     <span class="ansi-green-fg">def</span> starmap<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> func<span class="ansi-blue-fg">,</span> iterable<span class="ansi-blue-fg">,</span> chunksize<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">/Users/haichit/miniconda3/lib/python3.5/multiprocessing/pool.py</span> in <span class="ansi-cyan-fg">get</span><span class="ansi-blue-fg">(self, timeout)</span>
+<span class="ansi-green-intense-fg ansi-bold">    606</span>             <span class="ansi-green-fg">return</span> self<span class="ansi-blue-fg">.</span>_value
+<span class="ansi-green-intense-fg ansi-bold">    607</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 608</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">raise</span> self<span class="ansi-blue-fg">.</span>_value
+<span class="ansi-green-intense-fg ansi-bold">    609</span> 
+<span class="ansi-green-intense-fg ansi-bold">    610</span>     <span class="ansi-green-fg">def</span> _set<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> i<span class="ansi-blue-fg">,</span> obj<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-red-fg">ImportError</span>: need both `pysander` installed. Check Ambertools15</pre>
 </div>
-
 </div>
 
 </div>
@@ -453,7 +502,7 @@ Size: 0.000000 (GB)
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
       Last updated on Jun 23, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>
 </footer>

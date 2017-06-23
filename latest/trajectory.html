@@ -1,14 +1,19 @@
 
 <!DOCTYPE html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Trajectory &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -37,7 +42,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -81,7 +86,7 @@
 <li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -222,12 +227,12 @@
 <span class="gp">In [3]: </span><span class="n">traj</span>
 <span class="gr">Out[3]: </span>
 <span class="go">pytraj.TrajectoryIterator, 10 frames: </span>
-<span class="go">Size: 0.000000 (GB)</span>
+<span class="go">Size: 0.001183 (GB)</span>
 <span class="go">&lt;Topology: 5293 atoms, 1704 residues, 1692 mols, PBC with box type = ortho&gt;</span>
 <span class="go">           </span>
 
 <span class="gp">In [4]: </span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;@CA&#39;</span><span class="p">)</span>
-<span class="gr">Out[4]: </span>
+<span class="go">                                                                                                                                                            Out[4]: </span>
 <span class="go">array([ 0.    ,  0.2641,  0.386 ,  0.2688,  0.2619,  0.4576,  0.4565,</span>
 <span class="go">        0.4443,  0.4363,  0.4475])</span>
 </pre></div>
@@ -246,7 +251,7 @@
 <span class="go">6</span>
 
 <span class="gp">In [6]: </span><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-<span class="go">&lt;Frame with 5293 atoms&gt;</span>
+<span class="go">        &lt;Frame with 5293 atoms&gt;</span>
 <span class="go">&lt;Frame with 5293 atoms&gt;</span>
 <span class="go">&lt;Frame with 5293 atoms&gt;</span>
 <span class="go">&lt;Frame with 5293 atoms&gt;</span>
@@ -254,21 +259,21 @@
 </div>
 <p>However, TrajectoryIterator is much more than that, you can slice atoms:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [7]: </span><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;@CA&#39;</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">xyz</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="go">(&lt;Frame with 12 atoms&gt;, array([ 14.8788,  27.639 ,  18.088 ]))</span>
-<span class="go">(&lt;Frame with 12 atoms&gt;, array([ 14.4703,  27.9171,  18.2456]))</span>
-<span class="go">(&lt;Frame with 12 atoms&gt;, array([ 14.5707,  27.8402,  17.4244]))</span>
-<span class="go">(&lt;Frame with 12 atoms&gt;, array([ 14.7721,  28.067 ,  16.9504]))</span>
+<span class="go">&lt;Frame with 12 atoms&gt; [ 14.8788  27.639   18.088 ]</span>
+<span class="go">&lt;Frame with 12 atoms&gt; [ 14.4703  27.9171  18.2456]</span>
+<span class="go">&lt;Frame with 12 atoms&gt; [ 14.5707  27.8402  17.4244]</span>
+<span class="go">&lt;Frame with 12 atoms&gt; [ 14.7721  28.067   16.9504]</span>
 </pre></div>
 </div>
 <p>To load all frames to memory at once, use <code class="docutils literal"><span class="pre">[]</span></code> notation:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [8]: </span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">8</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;@CA&#39;</span><span class="p">]</span>
 <span class="gr">Out[8]: </span>
 <span class="go">pytraj.Trajectory, 4 frames: </span>
-<span class="go">Size: 0.000000 (GB)</span>
+<span class="go">Size: 0.000001 (GB)</span>
 <span class="go">&lt;Topology: 12 atoms, 12 residues, 12 mols, PBC with box type = ortho&gt;</span>
 </pre></div>
 </div>
-<p>How to perform analysis with TrajectoryIterator? It’s very simple. For example, if you want to calculate
+<p>How to perform analysis with TrajectoryIterator? It&#8217;s very simple. For example, if you want to calculate
 rmsd to 3rd frame (index starts from 0) for all atoms, just:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [9]: </span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="gr">Out[9]: </span>
@@ -279,7 +284,7 @@ rmsd to 3rd frame (index starts from 0) for all atoms, just:</p>
 <p>You have TB of data and want to speed up your calculation, just add more cpus</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [10]: </span><span class="n">pt</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="gr">Out[10]: </span>
-<span class="go">OrderedDict([(u&#39;RMSD_00001&#39;,</span>
+<span class="go">OrderedDict([(&#39;RMSD_00001&#39;,</span>
 <span class="go">              array([ 11.2707,  10.0133,   8.3305,   0.    ,   8.288 ,  10.0907,</span>
 <span class="go">                      11.2475,  11.9937,  12.0499,  12.3873]))])</span>
 </pre></div>
@@ -306,7 +311,7 @@ rmsd to 3rd frame (index starts from 0) for all atoms, just:</p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
       Last updated on Jun 23, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>
 </footer>

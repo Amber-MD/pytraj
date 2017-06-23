@@ -1,14 +1,19 @@
 
 <!DOCTYPE html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>NMR &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -37,7 +42,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -81,7 +86,7 @@
 <li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -150,22 +155,22 @@
 <script type="text/javascript" src='_static/cindex.js'></script></div>
 <span class="target" id="module-pytraj.analysis.nmr"></span><dl class="function">
 <dt id="pytraj.analysis.nmr.jcoupling">
-<code class="descclassname">pytraj.analysis.nmr.</code><code class="descname">jcoupling</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.nmr.jcoupling" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.nmr.</code><code class="descname">jcoupling</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>top=None</em>, <em>kfile=None</em>, <em>dtype='dataset'</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.nmr.jcoupling" title="Permalink to this definition">¶</a></dt>
 <dd><p>compute j-coupling</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>traj</strong> : any things that make <cite>frame_iter_master</cite> returning Frame object</p>
-<p><strong>command</strong> : str, default “”</p>
+<p><strong>command</strong> : str, default &#8220;&#8221;</p>
 <blockquote>
-<div><p>cpptraj’s command/mask</p>
+<div><p>cpptraj&#8217;s command/mask</p>
 </div></blockquote>
 <p><strong>kfile</strong> : str, default None, optional</p>
 <blockquote>
-<div><p>Dir for Karplus file. If “None”, use $AMBERHOME dir</p>
+<div><p>Dir for Karplus file. If &#8220;None&#8221;, use $AMBERHOME dir</p>
 </div></blockquote>
-<p class="last"><strong>dtype</strong> : str, {‘dataset’, …}, default ‘dataset’</p>
+<p class="last"><strong>dtype</strong> : str, {&#8216;dataset&#8217;, ...}, default &#8216;dataset&#8217;</p>
 </td>
 </tr>
 </tbody>
@@ -180,7 +185,7 @@
 
 <dl class="function">
 <dt id="pytraj.analysis.nmr.ired_vector_and_matrix">
-<code class="descclassname">pytraj.analysis.nmr.</code><code class="descname">ired_vector_and_matrix</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.nmr.ired_vector_and_matrix" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.nmr.</code><code class="descname">ired_vector_and_matrix</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>order=2</em>, <em>dtype='tuple'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.nmr.ired_vector_and_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>perform vector calculation and then calculate ired matrix</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -193,13 +198,13 @@
 <div><p>only perform calculation for given frame indices</p>
 </div></blockquote>
 <p><strong>order</strong> : default 2</p>
-<p><strong>dtype</strong> : output’s dtype, {‘dataset’, ‘tuple’} default ‘dataset’</p>
+<p><strong>dtype</strong> : output&#8217;s dtype, {&#8216;dataset&#8217;, &#8216;tuple&#8217;} default &#8216;dataset&#8217;</p>
 <p><strong>top</strong> : Topology, optional, default None</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : if dtype is ‘dataset’, return pytraj.DatasetList with shape=(n_vectors+1,)</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : if dtype is &#8216;dataset&#8217;, return pytraj.DatasetList with shape=(n_vectors+1,)</p>
 <blockquote class="last">
-<div><p>last index is a matrix, otherwise n_vectors. If dtype is ‘tuple’, return a a tuple
+<div><p>last index is a matrix, otherwise n_vectors. If dtype is &#8216;tuple&#8217;, return a a tuple
 of vectors and matrix</p>
 </div></blockquote>
 </td>
@@ -220,7 +225,7 @@ of vectors and matrix</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.nmr.nh_order_parameters">
-<code class="descclassname">pytraj.analysis.nmr.</code><code class="descname">nh_order_parameters</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.nmr.nh_order_parameters" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.nmr.</code><code class="descname">nh_order_parameters</code><span class="sig-paren">(</span><em>traj</em>, <em>vector_pairs</em>, <em>order=2</em>, <em>tstep=1.0</em>, <em>tcorr=10000.0</em>, <em>n_cores=1</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.nmr.nh_order_parameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>compute NH order parameters</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -266,7 +271,7 @@ of vectors and matrix</p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
       Last updated on Jun 23, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>
 </footer>

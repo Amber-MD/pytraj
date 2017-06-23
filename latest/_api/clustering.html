@@ -1,14 +1,19 @@
 
 <!DOCTYPE html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Cluster Analysis &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -35,7 +40,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -79,7 +84,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -138,7 +143,7 @@
 <span id="clustering"></span><h1>Cluster Analysis<a class="headerlink" href="#cluster-analysis" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="pytraj.cluster.kmeans">
-<code class="descclassname">pytraj.cluster.</code><code class="descname">kmeans</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.cluster.kmeans" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.cluster.</code><code class="descname">kmeans</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask='*'</em>, <em>n_clusters=10</em>, <em>random_point=True</em>, <em>kseed=1</em>, <em>maxit=100</em>, <em>metric='rms'</em>, <em>top=None</em>, <em>frame_indices=None</em>, <em>options=''</em>, <em>dtype='ndarray'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.cluster.kmeans" title="Permalink to this definition">¶</a></dt>
 <dd><p>perform clustering and return cluster index for each frame</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -152,7 +157,7 @@
 <blockquote>
 <div><p>max iterations</p>
 </div></blockquote>
-<p><strong>metric</strong> : str, {‘rms’, ‘dme’}</p>
+<p><strong>metric</strong> : str, {&#8216;rms&#8217;, &#8216;dme&#8217;}</p>
 <blockquote>
 <div><p>distance metric</p>
 </div></blockquote>
@@ -167,7 +172,7 @@ different from <code class="docutils literal"><span class="pre">sieve</span></co
 </div></blockquote>
 <p><strong>options</strong> : str, optional</p>
 <blockquote>
-<div><p>extra cpptraj options controlling output, sieve, …</p>
+<div><p>extra cpptraj options controlling output, sieve, ...</p>
 </div></blockquote>
 <p><strong>Sieve options::</strong></p>
 <blockquote>
@@ -241,7 +246,7 @@ different from <code class="docutils literal"><span class="pre">sieve</span></co
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
       Last updated on Jun 23, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>
 </footer>

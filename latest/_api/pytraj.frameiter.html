@@ -1,14 +1,19 @@
 
 <!DOCTYPE html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>pytraj.FrameIterator &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -35,7 +40,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -79,7 +84,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -219,7 +224,7 @@
 
 <dl class="class">
 <dt id="pytraj.trajectory.frameiter.FrameIterator">
-<em class="property">class </em><code class="descclassname">pytraj.trajectory.frameiter.</code><code class="descname">FrameIterator</code><span class="sig-paren">(</span><em>fi_generator</em>, <em>original_top=None</em>, <em>new_top=None</em>, <em>start=0</em>, <em>stop=-1</em>, <em>step=1</em>, <em>mask=”</em>, <em>autoimage=False</em>, <em>rmsfit=None</em>, <em>n_frames=None</em>, <em>copy=True</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.frameiter.FrameIterator" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pytraj.trajectory.frameiter.</code><code class="descname">FrameIterator</code><span class="sig-paren">(</span><em>fi_generator</em>, <em>original_top=None</em>, <em>new_top=None</em>, <em>start=0</em>, <em>stop=-1</em>, <em>step=1</em>, <em>mask=''</em>, <em>autoimage=False</em>, <em>rmsfit=None</em>, <em>n_frames=None</em>, <em>copy=True</em>, <em>frame_indices=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.frameiter.FrameIterator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>create this class to hold all iterating information. This class is for internal use.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -258,7 +263,7 @@ do <code class="docutils literal"><span class="pre">autoimage</span></code> firs
 </tbody>
 </table>
 <p class="rubric">Notes</p>
-<p>if ‘autoimage’ and ‘rmsfit’, reference frame is also autoimaged</p>
+<p>if &#8216;autoimage&#8217; and &#8216;rmsfit&#8217;, reference frame is also autoimaged</p>
 <p class="rubric">Examples</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># short cut:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># create FrameIterator with start=0, stop=8, step=2</span>
@@ -367,7 +372,7 @@ do <code class="docutils literal"><span class="pre">autoimage</span></code> firs
 
 <dl class="method">
 <dt id="pytraj.trajectory.frameiter.FrameIterator.save">
-<code class="descname">save</code><span class="sig-paren">(</span><em>filename=”</em>, <em>overwrite=False</em>, <em>options=”</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.frameiter.FrameIterator.save" title="Permalink to this definition">¶</a></dt>
+<code class="descname">save</code><span class="sig-paren">(</span><em>filename=''</em>, <em>overwrite=False</em>, <em>options=''</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.frameiter.FrameIterator.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>save to different file format.</p>
 <p class="rubric">Notes</p>
 <p>FrameIterator will be exhausted since this is an iterator.</p>
@@ -400,7 +405,7 @@ do <code class="docutils literal"><span class="pre">autoimage</span></code> firs
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
       Last updated on Jun 23, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>
 </footer>

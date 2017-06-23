@@ -1,14 +1,19 @@
 
 <!DOCTYPE html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Misc &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -37,7 +42,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -81,7 +86,7 @@
 <li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -208,7 +213,7 @@ If want to use external package, import it inside the function</p>
 <dl class="function">
 <dt id="pytraj.utils.tools.compose">
 <code class="descclassname">pytraj.utils.tools.</code><code class="descname">compose</code><span class="sig-paren">(</span><em>*funcs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.compose" title="Permalink to this definition">¶</a></dt>
-<dd><p>Notes: copied from pandas (added pytraj’s example)
+<dd><p>Notes: copied from pandas (added pytraj&#8217;s example)
 see license in pytraj/license/</p>
 <p>Compose 2 or more callables</p>
 <p class="rubric">Examples</p>
@@ -259,12 +264,12 @@ see license in pytraj/license/</p>
 <dl class="function">
 <dt id="pytraj.utils.tools.dir_">
 <code class="descclassname">pytraj.utils.tools.</code><code class="descname">dir_</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.dir_" title="Permalink to this definition">¶</a></dt>
-<dd><p>return a list of obj’s attributes with no private method</p>
+<dd><p>return a list of obj&#8217;s attributes with no private method</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pytraj.utils.tools.estimate_size">
-<code class="descclassname">pytraj.utils.tools.</code><code class="descname">estimate_size</code><span class="sig-paren">(</span><em>n_frames</em>, <em>n_atoms</em>, <em>dtype=’f8’</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.estimate_size" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">estimate_size</code><span class="sig-paren">(</span><em>n_frames</em>, <em>n_atoms</em>, <em>dtype='f8'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.estimate_size" title="Permalink to this definition">¶</a></dt>
 <dd><p>return MB</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2_ortho</span><span class="p">()</span>
@@ -336,7 +341,7 @@ from the sequence and all recursively contained sub-sequences
 <dt id="pytraj.utils.tools.make_fake_topology">
 <code class="descclassname">pytraj.utils.tools.</code><code class="descname">make_fake_topology</code><span class="sig-paren">(</span><em>n_atoms</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.make_fake_topology" title="Permalink to this definition">¶</a></dt>
 <dd><p>make fake Topology, just for writing xyz array to supported formats
-(netcdf, dcd, trr, …)</p>
+(netcdf, dcd, trr, ...)</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">top</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">make_fake_topology</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">top</span><span class="o">.</span><span class="n">n_atoms</span>
@@ -411,9 +416,9 @@ from the sequence and all recursively contained sub-sequences
 <code class="descclassname">pytraj.utils.tools.</code><code class="descname">merge_frames</code><span class="sig-paren">(</span><em>iterables</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.merge_frames" title="Permalink to this definition">¶</a></dt>
 <dd><p>merge from frames to a single Frame. Order matters.
 Examples
-——–
+&#8212;&#8212;&#8211;
 &gt;&gt;&gt; import pytraj as pt
-&gt;&gt;&gt; traj = pt.load_sample_data(‘tz2’)
+&gt;&gt;&gt; traj = pt.load_sample_data(&#8216;tz2&#8217;)
 &gt;&gt;&gt; traj[0]
 &lt;Frame with 5293 atoms&gt;
 &gt;&gt;&gt; merge_frames(traj(0, 3))
@@ -581,7 +586,7 @@ if None, use <cite>antechamber</cite> to generate mol2 file, need set $AMBERHOME
 
 <dl class="function">
 <dt id="pytraj.utils.tools.split_and_write_traj">
-<code class="descclassname">pytraj.utils.tools.</code><code class="descname">split_and_write_traj</code><span class="sig-paren">(</span><em>self</em>, <em>n_chunks=None</em>, <em>root_name=’trajx’</em>, <em>ext=’nc’</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.split_and_write_traj" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.utils.tools.</code><code class="descname">split_and_write_traj</code><span class="sig-paren">(</span><em>self</em>, <em>n_chunks=None</em>, <em>root_name='trajx'</em>, <em>ext='nc'</em>, <em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.utils.tools.split_and_write_traj" title="Permalink to this definition">¶</a></dt>
 <dd><p class="rubric">Examples</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">load_sample_data</span><span class="p">(</span><span class="s1">&#39;tz2&#39;</span><span class="p">)</span>
@@ -621,7 +626,7 @@ if None, use <cite>antechamber</cite> to generate mol2 file, need set $AMBERHOME
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
       Last updated on Jun 23, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>
 </footer>

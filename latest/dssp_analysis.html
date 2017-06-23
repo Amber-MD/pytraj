@@ -1,14 +1,19 @@
 
 <!DOCTYPE html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>DSSP &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -36,7 +41,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -80,7 +85,7 @@
 <li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -145,7 +150,7 @@
 <script type="text/javascript" src='_static/cindex.js'></script></div>
 <span class="target" id="module-pytraj.analysis.dssp_analysis"></span><dl class="function">
 <dt id="pytraj.analysis.dssp_analysis.dssp">
-<code class="descclassname">pytraj.analysis.dssp_analysis.</code><code class="descname">dssp</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dssp_analysis.dssp" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.dssp_analysis.</code><code class="descname">dssp</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>simplified=False</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.dssp_analysis.dssp" title="Permalink to this definition">¶</a></dt>
 <dd><p>return dssp profile for frame/traj</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -161,14 +166,14 @@
 <div><p>specify frame numbers for calculation.
 if None, do all frames</p>
 </div></blockquote>
-<p><strong>dtype</strong> : str, default ‘ndarray’</p>
+<p><strong>dtype</strong> : str, default &#8216;ndarray&#8217;</p>
 <blockquote>
 <div><p>return data type, for regular user, just use default one (ndarray).
-use dtype=’dataset’ if wanting to get secondary structure in integer format</p>
+use dtype=&#8217;dataset&#8217; if wanting to get secondary structure in integer format</p>
 </div></blockquote>
 <p><strong>simplified</strong> : bool, default False</p>
 <blockquote>
-<div><p>if True, use simplified codes, only has ‘H’, ‘E’ and ‘C’
+<div><p>if True, use simplified codes, only has &#8216;H&#8217;, &#8216;E&#8217; and &#8216;C&#8217;
 if False, use all DSSP codes</p>
 </div></blockquote>
 </td>
@@ -207,42 +212,42 @@ if False, use all DSSP codes</p>
 <tbody valign="top">
 <tr class="row-even"><td>0</td>
 <td>0</td>
-<td>‘0’</td>
+<td>&#8216;0&#8217;</td>
 <td>None</td>
 </tr>
 <tr class="row-odd"><td>b</td>
 <td>1</td>
-<td>‘E’</td>
+<td>&#8216;E&#8217;</td>
 <td>Parallel Beta-sheet</td>
 </tr>
 <tr class="row-even"><td>B</td>
 <td>2</td>
-<td>‘B’</td>
+<td>&#8216;B&#8217;</td>
 <td>Anti-parallel Beta-sheet</td>
 </tr>
 <tr class="row-odd"><td>G</td>
 <td>3</td>
-<td>‘G’</td>
+<td>&#8216;G&#8217;</td>
 <td>3-10 helix</td>
 </tr>
 <tr class="row-even"><td>H</td>
 <td>4</td>
-<td>‘H’</td>
+<td>&#8216;H&#8217;</td>
 <td>Alpha helix</td>
 </tr>
 <tr class="row-odd"><td>I</td>
 <td>5</td>
-<td>‘I’</td>
+<td>&#8216;I&#8217;</td>
 <td>Pi (3-14) helix</td>
 </tr>
 <tr class="row-even"><td>T</td>
 <td>6</td>
-<td>‘T’</td>
+<td>&#8216;T&#8217;</td>
 <td>Turn</td>
 </tr>
 <tr class="row-odd"><td>S</td>
 <td>7</td>
-<td>‘S’</td>
+<td>&#8216;S&#8217;</td>
 <td>Bend</td>
 </tr>
 </tbody>
@@ -371,7 +376,7 @@ if False, use all DSSP codes</p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
       Last updated on Jun 23, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>
 </footer>

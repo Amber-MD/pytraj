@@ -1,14 +1,19 @@
 
 <!DOCTYPE html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Vector &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -37,7 +42,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -81,7 +86,7 @@
 <li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -150,8 +155,8 @@
 <script type="text/javascript" src='_static/cindex.js'></script></div>
 <span class="target" id="module-pytraj.analysis.vector"></span><dl class="function">
 <dt id="pytraj.analysis.vector.vector">
-<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">vector</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.vector" title="Permalink to this definition">¶</a></dt>
-<dd><p>perform vector calculation. See example below. Same as ‘vector’ command in cpptraj.</p>
+<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">vector</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>perform vector calculation. See example below. Same as &#8216;vector&#8217; command in cpptraj.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -162,7 +167,7 @@
 <blockquote>
 <div><p>only perform calculation for given frame indices</p>
 </div></blockquote>
-<p><strong>dtype</strong> : output’s dtype, default ‘ndarray’</p>
+<p><strong>dtype</strong> : output&#8217;s dtype, default &#8216;ndarray&#8217;</p>
 <p><strong>top</strong> : Topology, optional, default None</p>
 </td>
 </tr>
@@ -175,8 +180,8 @@
 </tbody>
 </table>
 <p class="rubric">Notes</p>
-<p>It’s faster to calculate with a list of commands.
-For example, if you need to perform 3 calculations for ‘ucellx’, ‘boxcenter’, ‘box’
+<p>It&#8217;s faster to calculate with a list of commands.
+For example, if you need to perform 3 calculations for &#8216;ucellx&#8217;, &#8216;boxcenter&#8217;, &#8216;box&#8217;
 like below:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">vector</span><span class="o">.</span><span class="n">vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s2">&quot;ucellx&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">vector</span><span class="o">.</span><span class="n">vector</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="s2">&quot;boxcenter&quot;</span><span class="p">)</span>
@@ -184,7 +189,7 @@ like below:</p>
 </pre></div>
 </div>
 <p>You should use a list of commands for faster calculation.
-&gt;&gt;&gt; comlist = [‘ucellx’, ‘boxcenter’, ‘box’]
+&gt;&gt;&gt; comlist = [&#8216;ucellx&#8217;, &#8216;boxcenter&#8217;, &#8216;box&#8217;]
 &gt;&gt;&gt; data = pt.vector.vector(traj, comlist)</p>
 <p class="rubric">Examples</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
@@ -202,7 +207,7 @@ like below:</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.vector.vector_mask">
-<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">vector_mask</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.vector_mask" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">vector_mask</code><span class="sig-paren">(</span><em>traj=None</em>, <em>mask=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.vector_mask" title="Permalink to this definition">¶</a></dt>
 <dd><p>compute vector between two maskes</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -217,7 +222,7 @@ like below:</p>
 <blockquote>
 <div><p>frame indices</p>
 </div></blockquote>
-<p><strong>dtype</strong> : str, default ‘ndarray’</p>
+<p><strong>dtype</strong> : str, default &#8216;ndarray&#8217;</p>
 <blockquote>
 <div><p>output dtype</p>
 </div></blockquote>
@@ -253,7 +258,7 @@ like below:</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.vector.minimage">
-<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">minimage</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.minimage" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">minimage</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.minimage" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -273,7 +278,7 @@ like below:</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.vector.dipole">
-<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">dipole</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.dipole" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">dipole</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.dipole" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -293,7 +298,7 @@ like below:</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.vector.center">
-<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">center</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.center" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">center</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.center" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -313,7 +318,7 @@ like below:</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.vector.corrplane">
-<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">corrplane</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.corrplane" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">corrplane</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.corrplane" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -333,7 +338,7 @@ like below:</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.vector.box">
-<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">box</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.box" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">box</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.box" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -353,7 +358,7 @@ like below:</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.vector.boxcenter">
-<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">boxcenter</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.boxcenter" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">boxcenter</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.boxcenter" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -373,7 +378,7 @@ like below:</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.vector.ucellx">
-<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">ucellx</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.ucellx" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">ucellx</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.ucellx" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -393,7 +398,7 @@ like below:</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.vector.ucelly">
-<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">ucelly</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.ucelly" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">ucelly</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.ucelly" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -413,7 +418,7 @@ like below:</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.vector.ucellz">
-<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">ucellz</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.ucellz" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">ucellz</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.ucellz" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -433,7 +438,7 @@ like below:</p>
 
 <dl class="function">
 <dt id="pytraj.analysis.vector.principal">
-<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">principal</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.principal" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pytraj.analysis.vector.</code><code class="descname">principal</code><span class="sig-paren">(</span><em>traj=None</em>, <em>command=''</em>, <em>frame_indices=None</em>, <em>dtype='ndarray'</em>, <em>top=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.analysis.vector.principal" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -467,7 +472,7 @@ like below:</p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
       Last updated on Jun 23, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>
 </footer>

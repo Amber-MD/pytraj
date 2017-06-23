@@ -1,14 +1,19 @@
 
 <!DOCTYPE html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Endless streaming calculation &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -37,7 +42,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -81,7 +86,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -165,7 +170,7 @@
 <span class="gp">In [4]: </span><span class="n">traj</span>
 <span class="gr">Out[4]: </span>
 <span class="go">pytraj.TrajectoryIterator, 10 frames: </span>
-<span class="go">Size: 0.000000 (GB)</span>
+<span class="go">Size: 0.001183 (GB)</span>
 <span class="go">&lt;Topology: 5293 atoms, 1704 residues, 1692 mols, PBC with box type = ortho&gt;</span>
 <span class="go">           </span>
 
@@ -199,7 +204,7 @@
 
 <span class="c"># get values for each Dataset</span>
 <span class="gp">In [10]: </span><span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dslist</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-<span class="go">&lt;pytraj.datasets.DatasetDouble: size=10, key=Dis_00000&gt; </span>
+<span class="go">                                                  &lt;pytraj.datasets.DatasetDouble: size=10, key=Dis_00000&gt; </span>
 <span class="go">values: </span>
 <span class="go">[  9.4844   9.7962   9.3545   9.5726  10.0996   9.6236  10.3602  10.0464</span>
 <span class="go">  10.0329   9.4562]</span>
@@ -213,7 +218,7 @@
 
 <span class="c"># get raw data for the last DatsetVector (x values of unitcells (&#39;vector ucellx&#39;))</span>
 <span class="gp">In [11]: </span><span class="k">print</span><span class="p">(</span><span class="n">dslist</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
-<span class="go">[[ 35.2628   0.       0.    ]</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                [[ 35.2628   0.       0.    ]</span>
 <span class="go"> [ 35.2563   0.       0.    ]</span>
 <span class="go"> [ 35.2545   0.       0.    ]</span>
 <span class="go"> ..., </span>
@@ -238,7 +243,7 @@
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
       Last updated on Jun 23, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>
 </footer>

@@ -1,14 +1,19 @@
 
 <!DOCTYPE html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Parallel computing tutorial &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -37,7 +42,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -81,7 +86,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -189,7 +194,7 @@
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>pytraj.TrajectoryIterator, 101 frames: 
-Size: 0.000000 (GB)
+Size: 0.000503 (GB)
 &lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;
            
 </pre>
@@ -220,7 +225,7 @@ Size: 0.000000 (GB)
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>OrderedDict([(u&#39;RMSD_00001&#39;,
+<pre>OrderedDict([(&#39;RMSD_00001&#39;,
               array([  1.94667955e-07,   2.54596866e+00,   4.22333034e+00, ...,
                        4.97189564e+00,   5.53947712e+00,   4.83201237e+00]))])</pre>
 </div>
@@ -312,7 +317,7 @@ if rank == 0:
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>OrderedDict([(u&#39;RMSD_00001&#39;, array([  1.94667955e-07,   2.54596866e+00,   4.22333034e+00, ...,
+<pre>OrderedDict([(&#39;RMSD_00001&#39;, array([  1.94667955e-07,   2.54596866e+00,   4.22333034e+00, ...,
          4.97189564e+00,   5.53947712e+00,   4.83201237e+00]))])
 </pre>
 </div>
@@ -339,7 +344,7 @@ if rank == 0:
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
       Last updated on Jun 23, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>
 </footer>

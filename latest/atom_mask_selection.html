@@ -1,14 +1,19 @@
 
 <!DOCTYPE html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Atom mask selection &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -37,7 +42,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -81,7 +86,7 @@
 <li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -191,11 +196,11 @@
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Section describing <code class="docutils literal"><span class="pre">Amber</span> <span class="pre">mask</span> <span class="pre">syntax</span></code> is direct excerpt from <a class="reference external" href="http://parmed.github.io/ParmEd/html/amber.html#amber-mask-syntax">parmed’s website</a></p>
+<p class="last">Section describing <code class="docutils literal"><span class="pre">Amber</span> <span class="pre">mask</span> <span class="pre">syntax</span></code> is direct excerpt from <a class="reference external" href="http://parmed.github.io/ParmEd/html/amber.html#amber-mask-syntax">parmed&#8217;s website</a></p>
 </div>
 <div class="section" id="amber-mask-syntax">
 <h2><a class="toc-backref" href="#id2">Amber mask syntax</a><a class="headerlink" href="#amber-mask-syntax" title="Permalink to this headline">¶</a></h2>
-<p>The Amber programs use a selection syntax very similar to Chimera’s selection
+<p>The Amber programs use a selection syntax very similar to Chimera&#8217;s selection
 syntax, referred to as an <em>Amber mask</em>. The character <code class="docutils literal"><span class="pre">:</span></code> is used for residue
 selections and <code class="docutils literal"><span class="pre">&#64;</span></code> is used for atom selections.  Both numbers and names are
 supported in the atom and residue selections (where the serial numbers range
@@ -259,7 +264,7 @@ equivalent expressions to the examples above:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="mi">1</span><span class="o">-</span><span class="mi">100</span><span class="o">|</span><span class="nd">@CA</span>      <span class="n">Selects</span> <span class="nb">all</span> <span class="n">atoms</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">first</span> <span class="mi">100</span> <span class="n">residues</span> <span class="n">AND</span> <span class="nb">all</span> <span class="n">atoms</span> <span class="n">named</span> <span class="n">CA</span>
 </pre></div>
 </div>
-<p>Don’t get confused between what the <code class="docutils literal"><span class="pre">&amp;</span></code> (and) and <code class="docutils literal"><span class="pre">|</span></code> (or) operators do.
+<p>Don&#8217;t get confused between what the <code class="docutils literal"><span class="pre">&amp;</span></code> (and) and <code class="docutils literal"><span class="pre">|</span></code> (or) operators do.
 The above example selects all atoms if it satisfies the criteria of being in the
 first 100 residues <em>or</em> if it satisfies the criteria of having the name <code class="docutils literal"><span class="pre">CA</span></code>,
 meaning it selects all atoms in the first 100 residues <em>and</em> all atoms named
@@ -271,9 +276,9 @@ meaning it selects all atoms in the first 100 residues <em>and</em> all atoms na
 </div>
 <div class="section" id="wild-cards">
 <h3><a class="toc-backref" href="#id7">Wild-cards</a><a class="headerlink" href="#wild-cards" title="Permalink to this headline">¶</a></h3>
-<p>Let’s suppose you want to select all hydrogen atoms. These atoms usually have
-many names, but they almost always start with “H”, so we would like a way to
-select all atoms that start with the letter “H”.  We can do this with
+<p>Let&#8217;s suppose you want to select all hydrogen atoms. These atoms usually have
+many names, but they almost always start with &#8220;H&#8221;, so we would like a way to
+select all atoms that start with the letter &#8220;H&#8221;.  We can do this with
 <em>wild-cards</em>, which is the <code class="docutils literal"><span class="pre">=</span></code> character in Amber masks, and works for both
 atoms and residues. For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">AS</span><span class="o">=</span><span class="nd">@H</span><span class="o">=</span>   <span class="n">Select</span> <span class="nb">all</span> <span class="n">atoms</span> <span class="n">whose</span> <span class="n">residue</span> <span class="n">starts</span> <span class="k">with</span> <span class="n">AS</span> <span class="n">AND</span> <span class="n">atom</span> <span class="n">name</span> <span class="n">starts</span> <span class="k">with</span> <span class="n">H</span>
@@ -308,51 +313,51 @@ distance that defines the criteria.  Examples are shown below with annotations:<
 
 <span class="gp">In [3]: </span><span class="k">print</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
 <span class="go">pytraj.TrajectoryIterator, 10 frames: </span>
-<span class="go">Size: 0.000000 (GB)</span>
+<span class="go">Size: 0.001183 (GB)</span>
 <span class="go">&lt;Topology: 5293 atoms, 1704 residues, 1692 mols, PBC with box type = ortho&gt;</span>
 <span class="go">           </span>
 
 <span class="gp">In [4]: </span><span class="k">print</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">residue</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">residue</span> <span class="ow">in</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">residues</span><span class="p">))</span>
-<span class="go">set([u&#39;NHE&#39;, u&#39;SER&#39;, u&#39;LYS&#39;, u&#39;THR&#39;, u&#39;GLU&#39;, u&#39;GLY&#39;, u&#39;TRP&#39;, u&#39;WAT&#39;, u&#39;ASN&#39;])</span>
+<span class="go">                                                                                                                                                   {&#39;GLY&#39;, &#39;NHE&#39;, &#39;LYS&#39;, &#39;GLU&#39;, &#39;TRP&#39;, &#39;ASN&#39;, &#39;THR&#39;, &#39;SER&#39;, &#39;WAT&#39;}</span>
 
 <span class="gp">In [5]: </span><span class="k">print</span><span class="p">([</span><span class="n">atom</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">traj</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">atoms</span><span class="p">][:</span><span class="mi">20</span><span class="p">])</span>
-<span class="go">[u&#39;N&#39;, u&#39;H1&#39;, u&#39;H2&#39;, u&#39;H3&#39;, u&#39;CA&#39;, u&#39;HA&#39;, u&#39;CB&#39;, u&#39;HB2&#39;, u&#39;HB3&#39;, u&#39;OG&#39;, u&#39;HG&#39;, u&#39;C&#39;, u&#39;O&#39;, u&#39;N&#39;, u&#39;H&#39;, u&#39;CA&#39;, u&#39;HA&#39;, u&#39;CB&#39;, u&#39;HB2&#39;, u&#39;HB3&#39;]</span>
+<span class="go">                                                                                                                                                                                                                   [&#39;N&#39;, &#39;H1&#39;, &#39;H2&#39;, &#39;H3&#39;, &#39;CA&#39;, &#39;HA&#39;, &#39;CB&#39;, &#39;HB2&#39;, &#39;HB3&#39;, &#39;OG&#39;, &#39;HG&#39;, &#39;C&#39;, &#39;O&#39;, &#39;N&#39;, &#39;H&#39;, &#39;CA&#39;, &#39;HA&#39;, &#39;CB&#39;, &#39;HB2&#39;, &#39;HB3&#39;]</span>
 
 <span class="c"># Residue selections</span>
 <span class="gp">In [6]: </span><span class="n">traj</span><span class="p">[</span><span class="s1">&#39;:1,3,6-10&#39;</span><span class="p">]</span>  <span class="c1"># Select residues 1, 3, 6, 7, 8, 9, and 10</span>
-<span class="gr">Out[6]: </span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                           Out[6]: </span>
 <span class="go">pytraj.Trajectory, 10 frames: </span>
-<span class="go">Size: 0.000000 (GB)</span>
+<span class="go">Size: 0.000024 (GB)</span>
 <span class="go">&lt;Topology: 108 atoms, 7 residues, 3 mols, PBC with box type = ortho&gt;</span>
 <span class="go">           </span>
 
 <span class="gp">In [7]: </span><span class="n">traj</span><span class="p">[</span><span class="s1">&#39;:ALA,LYS,10&#39;</span><span class="p">]</span>  <span class="c1"># Select all residues with names ALA or LYS, and residue 10</span>
-<span class="gr">Out[7]: </span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Out[7]: </span>
 <span class="go">pytraj.Trajectory, 10 frames: </span>
-<span class="go">Size: 0.000000 (GB)</span>
+<span class="go">Size: 0.000013 (GB)</span>
 <span class="go">&lt;Topology: 58 atoms, 3 residues, 3 mols, PBC with box type = ortho&gt;</span>
 <span class="go">           </span>
 
 <span class="c"># Atom selections</span>
 <span class="gp">In [8]: </span><span class="n">traj</span><span class="p">[</span><span class="s1">&#39;@1-100,150-160&#39;</span><span class="p">]</span> <span class="c1">#  Select the first 100 atoms as well as the 11 atoms 150-160</span>
-<span class="gr">Out[8]: </span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Out[8]: </span>
 <span class="go">pytraj.Trajectory, 10 frames: </span>
-<span class="go">Size: 0.000000 (GB)</span>
+<span class="go">Size: 0.000025 (GB)</span>
 <span class="go">&lt;Topology: 111 atoms, 8 residues, 4 mols, PBC with box type = ortho&gt;</span>
 <span class="go">           </span>
 
 <span class="gp">In [9]: </span><span class="n">traj</span><span class="p">[</span><span class="s1">&#39;@CA,C,10-15&#39;</span><span class="p">]</span> <span class="c1"># Select all atoms whose names are CA or C, and 6 atoms 10-15</span>
-<span class="gr">Out[9]: </span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 Out[9]: </span>
 <span class="go">pytraj.Trajectory, 10 frames: </span>
-<span class="go">Size: 0.000000 (GB)</span>
+<span class="go">Size: 0.000006 (GB)</span>
 <span class="go">&lt;Topology: 29 atoms, 12 residues, 0 mols, PBC with box type = ortho&gt;</span>
 <span class="go">           </span>
 
 <span class="c"># Logical operators</span>
 <span class="gp">In [10]: </span><span class="n">traj</span><span class="p">[</span><span class="s1">&#39;(:1-100)&amp;(@CA)&#39;</span><span class="p">]</span> <span class="c1"># Selects atoms named CA in the first 100 residues</span>
-<span class="gr">Out[10]: </span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              Out[10]: </span>
 <span class="go">pytraj.Trajectory, 10 frames: </span>
-<span class="go">Size: 0.000000 (GB)</span>
+<span class="go">Size: 0.000003 (GB)</span>
 <span class="go">&lt;Topology: 12 atoms, 12 residues, 12 mols, PBC with box type = ortho&gt;</span>
 </pre></div>
 </div>
@@ -370,16 +375,16 @@ distance that defines the criteria.  Examples are shown below with annotations:<
 
 <span class="c"># Residue selections, return atom_indices (0-based)</span>
 <span class="gp">In [13]: </span><span class="n">top</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;:1,3,6-10&#39;</span><span class="p">)</span>
-<span class="gr">Out[13]: </span><span class="n">array</span><span class="p">([</span>  <span class="mi">0</span><span class="p">,</span>   <span class="mi">1</span><span class="p">,</span>   <span class="mi">2</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mi">168</span><span class="p">,</span> <span class="mi">169</span><span class="p">,</span> <span class="mi">170</span><span class="p">])</span>
+<span class="go">                                                                                     Out[13]: array([  0,   1,   2, ..., 168, 169, 170])</span>
 
 <span class="gp">In [14]: </span><span class="n">top</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;:ALA,LYS,10&#39;</span><span class="p">)</span>
-<span class="gr">Out[14]: </span><span class="n">array</span><span class="p">([</span><span class="mi">111</span><span class="p">,</span> <span class="mi">112</span><span class="p">,</span> <span class="mi">113</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mi">214</span><span class="p">,</span> <span class="mi">215</span><span class="p">,</span> <span class="mi">216</span><span class="p">])</span>
+<span class="go">                                                                                                                                         Out[14]: array([111, 112, 113, ..., 214, 215, 216])</span>
 
 <span class="gp">In [15]: </span><span class="n">top</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;@1-100,150-160&#39;</span><span class="p">)</span>
-<span class="gr">Out[15]: </span><span class="n">array</span><span class="p">([</span>  <span class="mi">0</span><span class="p">,</span>   <span class="mi">1</span><span class="p">,</span>   <span class="mi">2</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mi">157</span><span class="p">,</span> <span class="mi">158</span><span class="p">,</span> <span class="mi">159</span><span class="p">])</span>
+<span class="go">                                                                                                                                                                                             Out[15]: array([  0,   1,   2, ..., 157, 158, 159])</span>
 
 <span class="gp">In [16]: </span><span class="n">top</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;(:1-100)&amp;(@CA)&#39;</span><span class="p">)</span>
-<span class="gr">Out[16]: </span><span class="n">array</span><span class="p">([</span>  <span class="mi">4</span><span class="p">,</span>  <span class="mi">15</span><span class="p">,</span>  <span class="mi">39</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mi">159</span><span class="p">,</span> <span class="mi">173</span><span class="p">,</span> <span class="mi">197</span><span class="p">])</span>
+<span class="go">                                                                                                                                                                                                                                                 Out[16]: array([  4,  15,  39, ..., 159, 173, 197])</span>
 
 <span class="c"># select based on distance, need to set reference frame</span>
 <span class="gp">In [17]: </span><span class="n">top</span><span class="o">.</span><span class="n">set_reference</span><span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -396,16 +401,16 @@ distance that defines the criteria.  Examples are shown below with annotations:<
 <span class="gr">Out[19]: </span><span class="o">&lt;</span><span class="n">Topology</span><span class="p">:</span> <span class="mi">108</span> <span class="n">atoms</span><span class="p">,</span> <span class="mi">7</span> <span class="n">residues</span><span class="p">,</span> <span class="mi">3</span> <span class="n">mols</span><span class="p">,</span> <span class="n">PBC</span> <span class="k">with</span> <span class="n">box</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">ortho</span><span class="o">&gt;</span>
 
 <span class="gp">In [20]: </span><span class="n">top</span><span class="p">[</span><span class="s1">&#39;:ALA,LYS,10&#39;</span><span class="p">]</span>
-<span class="gr">Out[20]: </span><span class="o">&lt;</span><span class="n">Topology</span><span class="p">:</span> <span class="mi">58</span> <span class="n">atoms</span><span class="p">,</span> <span class="mi">3</span> <span class="n">residues</span><span class="p">,</span> <span class="mi">3</span> <span class="n">mols</span><span class="p">,</span> <span class="n">PBC</span> <span class="k">with</span> <span class="n">box</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">ortho</span><span class="o">&gt;</span>
+<span class="go">                                                                              Out[20]: &lt;Topology: 58 atoms, 3 residues, 3 mols, PBC with box type = ortho&gt;</span>
 
 <span class="gp">In [21]: </span><span class="n">top</span><span class="p">[</span><span class="s1">&#39;@1-100,150-160&#39;</span><span class="p">]</span>
-<span class="gr">Out[21]: </span><span class="o">&lt;</span><span class="n">Topology</span><span class="p">:</span> <span class="mi">111</span> <span class="n">atoms</span><span class="p">,</span> <span class="mi">8</span> <span class="n">residues</span><span class="p">,</span> <span class="mi">4</span> <span class="n">mols</span><span class="p">,</span> <span class="n">PBC</span> <span class="k">with</span> <span class="n">box</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">ortho</span><span class="o">&gt;</span>
+<span class="go">                                                                                                                                                           Out[21]: &lt;Topology: 111 atoms, 8 residues, 4 mols, PBC with box type = ortho&gt;</span>
 
 <span class="gp">In [22]: </span><span class="n">top</span><span class="p">[</span><span class="s1">&#39;(:1-100)&amp;(@CA)&#39;</span><span class="p">]</span>
-<span class="gr">Out[22]: </span><span class="o">&lt;</span><span class="n">Topology</span><span class="p">:</span> <span class="mi">12</span> <span class="n">atoms</span><span class="p">,</span> <span class="mi">12</span> <span class="n">residues</span><span class="p">,</span> <span class="mi">12</span> <span class="n">mols</span><span class="p">,</span> <span class="n">PBC</span> <span class="k">with</span> <span class="n">box</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">ortho</span><span class="o">&gt;</span>
+<span class="go">                                                                                                                                                                                                                                         Out[22]: &lt;Topology: 12 atoms, 12 residues, 12 mols, PBC with box type = ortho&gt;</span>
 
 <span class="gp">In [23]: </span><span class="n">top</span><span class="p">[</span><span class="s1">&#39;:1 &lt;:5.0&#39;</span><span class="p">]</span>
-<span class="gr">Out[23]: </span><span class="o">&lt;</span><span class="n">Topology</span><span class="p">:</span> <span class="mi">189</span> <span class="n">atoms</span><span class="p">,</span> <span class="mi">32</span> <span class="n">residues</span><span class="p">,</span> <span class="mi">27</span> <span class="n">mols</span><span class="p">,</span> <span class="n">PBC</span> <span class="k">with</span> <span class="n">box</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">ortho</span><span class="o">&gt;</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                        Out[23]: &lt;Topology: 189 atoms, 32 residues, 27 mols, PBC with box type = ortho&gt;</span>
 </pre></div>
 </div>
 </div>
@@ -426,7 +431,7 @@ distance that defines the criteria.  Examples are shown below with annotations:<
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
       Last updated on Jun 23, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>
 </footer>

@@ -1,14 +1,19 @@
 
 <!DOCTYPE html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Trajectory design &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/my-styles.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -35,7 +40,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -79,7 +84,7 @@
 <li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What&#8217;s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -148,7 +153,7 @@
 to memory is not really a good choice. So we first design <cite>TrajectoryIterator</cite>
 as an out-of-core trajetory holder (same as <cite>cpptraj</cite>).</p>
 <p>But sometimes we need to load a small chunk of data to memory for fast
-calculation, for structure editting (rotate dihedral, …), we need 2nd
+calculation, for structure editting (rotate dihedral, ...), we need 2nd
 <cite>Trajectory</cite> class to hold the in-memory data.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="kn">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s1">&#39;./tz2.ortho.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;./tz2.ortho.parm7&#39;</span><span class="p">)</span> <span class="c1"># out-of-core</span>
@@ -162,7 +167,7 @@ calculation, for structure editting (rotate dihedral, …), we need 2nd
 </pre></div>
 </div>
 <p>You can perform most of analysis with those two. Note that any actions modifying
-coordinates don’t apply to <cite>TrajectoryIterator</cite></p>
+coordinates don&#8217;t apply to <cite>TrajectoryIterator</cite></p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s1">&#39;@CA&#39;</span><span class="p">)</span>
 <span class="n">mem_traj</span> <span class="o">=</span> <span class="n">traj</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="s1">&#39;@CA&#39;</span><span class="p">]</span>
 <span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">mem_traj</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -172,7 +177,7 @@ coordinates don’t apply to <cite>TrajectoryIterator</cite></p>
 <div class="section" id="advantages-of-trajectoryiterator">
 <h2>Advantages of TrajectoryIterator<a class="headerlink" href="#advantages-of-trajectoryiterator" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>immutable (like python’s tuple)</li>
+<li>immutable (like python&#8217;s tuple)</li>
 <li>use very little RAM</li>
 <li>still have random access to frame/frames</li>
 <li>easy to <a class="reference external" href="parallel">parallelize</a></li>
@@ -180,24 +185,24 @@ coordinates don’t apply to <cite>TrajectoryIterator</cite></p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">traj</span>
 <span class="gr">Out[1]: </span>
 <span class="go">pytraj.TrajectoryIterator, 101 frames: </span>
-<span class="go">Size: 0.000000 (GB)</span>
+<span class="go">Size: 0.000503 (GB)</span>
 <span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
 <span class="go">           </span>
 
 <span class="gp">In [2]: </span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="gr">Out[2]: </span><span class="o">&lt;</span><span class="n">Frame</span> <span class="k">with</span> <span class="mi">223</span> <span class="n">atoms</span><span class="o">&gt;</span>
+<span class="go">                                                                                                                                     Out[2]: &lt;Frame with 223 atoms&gt;</span>
 
 <span class="gp">In [3]: </span><span class="n">traj</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">88</span><span class="p">]]</span>
-<span class="gr">Out[3]: </span>
+<span class="go">                                                                                                                                                                    Out[3]: </span>
 <span class="go">pytraj.Trajectory, 3 frames: </span>
-<span class="go">Size: 0.000000 (GB)</span>
+<span class="go">Size: 0.000015 (GB)</span>
 <span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
 <span class="go">           </span>
 
 <span class="gp">In [4]: </span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">40</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
-<span class="gr">Out[4]: </span>
+<span class="go">                                                                                                                                                                                                                                                                                               Out[4]: </span>
 <span class="go">pytraj.Trajectory, 20 frames: </span>
-<span class="go">Size: 0.000000 (GB)</span>
+<span class="go">Size: 0.000100 (GB)</span>
 <span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
 </pre></div>
 </div>
@@ -219,7 +224,7 @@ coordinates don’t apply to <cite>TrajectoryIterator</cite></p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
       Last updated on Jun 23, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>
 </footer>

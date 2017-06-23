@@ -8,7 +8,7 @@
 import warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning)
 
-get_ipython().magic(u'matplotlib inline')
+get_ipython().magic('matplotlib inline')
 
 # add matplotlib and seaborn package
 # http://matplotlib.org/

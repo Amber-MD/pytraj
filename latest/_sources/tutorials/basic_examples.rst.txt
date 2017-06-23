@@ -80,7 +80,6 @@ Hbond analysis
    h = pt.search_hbonds(pdb, ':9,16')
    h.donor_acceptor
 
-.. include:: load_pdb_rcsb.rst
 
 More examples
 -------------

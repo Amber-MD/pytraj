@@ -1,14 +1,19 @@
 
 <!DOCTYPE html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>pytraj.parallel &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -36,7 +41,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -80,7 +85,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -151,12 +156,12 @@
 <span class="target" id="module-pytraj.parallel.multiprocess"><span id="pytraj-pmap"></span></span><dl class="function">
 <dt id="pytraj.parallel.multiprocess.pmap">
 <code class="descclassname">pytraj.parallel.multiprocess.</code><code class="descname">pmap</code><span class="sig-paren">(</span><em>func=None</em>, <em>traj=None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.parallel.multiprocess.pmap" title="Permalink to this definition">¶</a></dt>
-<dd><p>use python’s multiprocessing to accelerate calculation. Limited calculations.</p>
+<dd><p>use python&#8217;s multiprocessing to accelerate calculation. Limited calculations.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>func</strong> : a pytraj’s methods or a list of string or simply as a cpptraj’ text</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>func</strong> : a pytraj&#8217;s methods or a list of string or simply as a cpptraj&#8217; text</p>
 <p><strong>traj</strong> : pytraj.TrajectoryIterator</p>
 <p><strong>n_cores</strong> : int, number of cores to be used, default 2. Specify n_cores=-1 to use all available cores</p>
 <p><strong>iter_options</strong> : dict, default {}</p>
@@ -183,13 +188,13 @@ frame_indices must be pickable so is can be sent to different cores.</p>
 </div>
 <p class="rubric">Notes</p>
 <ul class="simple">
-<li>If you not sure about parallel’s results, you should compare the output to serial run.</li>
+<li>If you not sure about parallel&#8217;s results, you should compare the output to serial run.</li>
 <li>This is absolutely experimental. The syntax might be changed in future.</li>
 </ul>
 <p>Rule of thumbs: start with small number of frames (saying 10 frames), varying
 n_cores=1, 2, 3, 4 to see if the data makes sense or not.</p>
-<p>There are two modes in this method, use pytraj’s methods (pytraj.rmsd, pytraj.radgyr,
-…) or use cpptraj’s command text syntax (‘autoimage’, ‘rms’, …)</p>
+<p>There are two modes in this method, use pytraj&#8217;s methods (pytraj.rmsd, pytraj.radgyr,
+...) or use cpptraj&#8217;s command text syntax (&#8216;autoimage&#8217;, &#8216;rms&#8217;, ...)</p>
 <p>If using cpptraj syntax:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytraj</span> <span class="n">only</span> <span class="n">supports</span> <span class="n">limited</span> <span class="n">cpptraj</span><span class="s1">&#39;s Actions (not Analysis, checm Amber15 manual</span>
 <span class="n">about</span> <span class="n">Action</span> <span class="ow">and</span> <span class="n">Analysis</span><span class="p">),</span> <span class="n">say</span> <span class="n">no</span>  <span class="n">to</span> <span class="s1">&#39;matrix&#39;</span><span class="p">,</span> <span class="s1">&#39;atomicfluct&#39;</span><span class="p">,</span> <span class="o">...</span> <span class="ow">or</span> <span class="nb">any</span> <span class="n">action</span>
@@ -197,12 +202,12 @@ n_cores=1, 2, 3, 4 to see if the data makes sense or not.</p>
 </pre></div>
 </div>
 <p>This method only benifits you if your calculation is quite long (saying few minutes to
-few hours). For calculation that takes less than 1 minutes, you won’t see the
+few hours). For calculation that takes less than 1 minutes, you won&#8217;t see the
 significant speed up (or even slower) since pytraj need to warm up and need to gather
 data when the calculation done.</p>
 <p>The parallel cacluation is very simple, trajectory will be split (almost equal) to
 different chunk (n_chunks = n_cores), pytraj/cpptraj perform calculation for each
-chunk in each core and then send data back to master. Note that we are using Python’s
+chunk in each core and then send data back to master. Note that we are using Python&#8217;s
 built-in multiprocessing module, so you can use this method interactively in Ipython
 and ipython/jupyter notebook. This behavior is different from using MPI, in which you
 need to write a script, escaping ipython ession and type something like:</p>
@@ -335,7 +340,7 @@ $ mpirun -n <span class="m">4</span> python ./test_radgyr.py
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
       Last updated on Jun 23, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>
 </footer>

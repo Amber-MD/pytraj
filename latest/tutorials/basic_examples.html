@@ -1,14 +1,19 @@
 
 <!DOCTYPE html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Basic examples &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -37,7 +42,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -81,7 +86,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -194,7 +199,7 @@
 <span class="gp">In [3]: </span><span class="n">traj</span>
 <span class="gr">Out[3]: </span>
 <span class="go">pytraj.Trajectory, 101 frames: </span>
-<span class="go">Size: 0.000000 (GB)</span>
+<span class="go">Size: 0.000503 (GB)</span>
 <span class="go">&lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;</span>
 </pre></div>
 </div>
@@ -236,15 +241,15 @@
 <span class="gp">In [13]: </span><span class="n">result</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">dssp</span><span class="p">(</span><span class="n">pdb</span><span class="p">)</span>
 
 <span class="gp">In [14]: </span><span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-<span class="go">(array([u&#39;ASN:1&#39;, u&#39;LEU:2&#39;, u&#39;TYR:3&#39;, ..., u&#39;PRO:18&#39;, u&#39;PRO:19&#39;, u&#39;SER:20&#39;],</span>
+<span class="go">(array([&#39;ASN:1&#39;, &#39;LEU:2&#39;, &#39;TYR:3&#39;, ..., &#39;PRO:18&#39;, &#39;PRO:19&#39;, &#39;SER:20&#39;], </span>
 <span class="go">      dtype=&#39;&lt;U6&#39;), array([[&#39;0&#39;, &#39;H&#39;, &#39;H&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
 <span class="go">       [&#39;0&#39;, &#39;T&#39;, &#39;H&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
 <span class="go">       [&#39;0&#39;, &#39;0&#39;, &#39;H&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
 <span class="go">       ..., </span>
 <span class="go">       [&#39;0&#39;, &#39;H&#39;, &#39;H&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
 <span class="go">       [&#39;0&#39;, &#39;0&#39;, &#39;H&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;],</span>
-<span class="go">       [&#39;0&#39;, &#39;T&#39;, &#39;H&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;]],</span>
-<span class="go">      dtype=&#39;|S1&#39;), &lt;pytraj.DatasetList with 8 datasets&gt;</span>
+<span class="go">       [&#39;0&#39;, &#39;T&#39;, &#39;H&#39;, ..., &#39;0&#39;, &#39;0&#39;, &#39;0&#39;]], </span>
+<span class="go">      dtype=&#39;&lt;U1&#39;), &lt;pytraj.DatasetList with 8 datasets&gt;</span>
 <span class="go">none_avg</span>
 <span class="go">[ 0.3   0.25  0.35 ...,  0.3   0.3   0.3 ]</span>
 
@@ -275,15 +280,15 @@
 
 <span class="c"># print first few hbond</span>
 <span class="gp">In [17]: </span><span class="n">hbonds</span><span class="o">.</span><span class="n">donor_acceptor</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
-<span class="gr">Out[17]: </span>
-<span class="go">[u&#39;ASN1_O-GLN5_N-H&#39;,</span>
-<span class="go"> u&#39;ARG16_O-TRP6_NE1-HE1&#39;,</span>
-<span class="go"> u&#39;TYR3_O-LEU7_N-H&#39;,</span>
-<span class="go"> u&#39;ILE4_O-LYS8_N-H&#39;,</span>
-<span class="go"> u&#39;LEU7_O-GLY10_N-H&#39;]</span>
+<span class="go">                                                                 Out[17]: </span>
+<span class="go">[&#39;ASN1_O-GLN5_N-H&#39;,</span>
+<span class="go"> &#39;ARG16_O-TRP6_NE1-HE1&#39;,</span>
+<span class="go"> &#39;TYR3_O-LEU7_N-H&#39;,</span>
+<span class="go"> &#39;ILE4_O-LYS8_N-H&#39;,</span>
+<span class="go"> &#39;LEU7_O-GLY10_N-H&#39;]</span>
 
 <span class="gp">In [18]: </span><span class="n">hbonds</span><span class="o">.</span><span class="n">values</span>
-<span class="gr">Out[18]: </span>
+<span class="go">                                                                                                                                                                                     Out[18]: </span>
 <span class="go">array([[6, 7, 8, ..., 7, 6, 6],</span>
 <span class="go">       [1, 0, 0, ..., 0, 0, 0],</span>
 <span class="go">       [1, 1, 1, ..., 1, 1, 1],</span>
@@ -297,11 +302,11 @@
 
 <span class="gp">In [20]: </span><span class="n">h</span><span class="o">.</span><span class="n">donor_acceptor</span>
 <span class="gr">Out[20]: </span>
-<span class="go">[u&#39;ASP9_OD2-ARG16_NH1-HH12&#39;,</span>
-<span class="go"> u&#39;ASP9_OD2-ARG16_NH2-HH22&#39;,</span>
-<span class="go"> u&#39;ASP9_OD2-ARG16_NE-HE&#39;,</span>
-<span class="go"> u&#39;ASP9_OD2-ARG16_NH2-HH21&#39;,</span>
-<span class="go"> u&#39;ASP9_OD2-ARG16_NH1-HH11&#39;]</span>
+<span class="go">[&#39;ASP9_OD2-ARG16_NH1-HH12&#39;,</span>
+<span class="go"> &#39;ASP9_OD2-ARG16_NH2-HH22&#39;,</span>
+<span class="go"> &#39;ASP9_OD2-ARG16_NE-HE&#39;,</span>
+<span class="go"> &#39;ASP9_OD2-ARG16_NH2-HH21&#39;,</span>
+<span class="go"> &#39;ASP9_OD2-ARG16_NH1-HH11&#39;]</span>
 </pre></div>
 </div>
 </div>
@@ -325,7 +330,7 @@
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
       Last updated on Jun 23, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>
 </footer>

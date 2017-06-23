@@ -1,14 +1,19 @@
 
 <!DOCTYPE html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>Plot H-bond distances &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -37,7 +42,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -81,7 +86,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -202,7 +207,7 @@
 
 <div class="output_text output_subarea output_execute_result">
 <pre>pytraj.TrajectoryIterator, 101 frames: 
-Size: 0.000000 (GB)
+Size: 0.000503 (GB)
 &lt;Topology: 223 atoms, 13 residues, 1 mols, non-PBC&gt;
            </pre>
 </div>
@@ -241,11 +246,11 @@ Size: 0.000000 (GB)
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>hbond distance mask: [u&#39;:1@OG :2@H&#39; u&#39;:5@O :3@HG1&#39; u&#39;:3@O :1@H3&#39; ..., u&#39;:10@O :12@HZ2&#39;
- u&#39;:5@OE2 :6@H&#39; u&#39;:7@O :9@H&#39;] 
+<pre>hbond distance mask: [&#39;:1@OG :2@H&#39; &#39;:5@O :3@HG1&#39; &#39;:3@O :1@H3&#39; ..., &#39;:10@O :12@HZ2&#39; &#39;:5@OE2 :6@H&#39;
+ &#39;:7@O :9@H&#39;] 
  
-hbond angle mask: [u&#39;:1@OG :2@H :2@N&#39; u&#39;:5@O :3@HG1 :3@OG1&#39; u&#39;:3@O :1@H3 :1@N&#39; ...,
- u&#39;:10@O :12@HZ2 :12@NZ&#39; u&#39;:5@OE2 :6@H :6@N&#39; u&#39;:7@O :9@H :9@N&#39;] 
+hbond angle mask: [&#39;:1@OG :2@H :2@N&#39; &#39;:5@O :3@HG1 :3@OG1&#39; &#39;:3@O :1@H3 :1@N&#39; ...,
+ &#39;:10@O :12@HZ2 :12@NZ&#39; &#39;:5@OE2 :6@H :6@N&#39; &#39;:7@O :9@H :9@N&#39;] 
 
 hbond data
 &lt;pytraj.DatasetList with 14 datasets&gt;
@@ -292,19 +297,19 @@ GLY7_O-TRP9_N-H
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>(&#39;all hbond distances: &#39;, array([[ 2.1924577 ,  1.92054906,  2.35839995, ...,  3.93999355,
-         3.81974987,  4.45726496],
-       [ 8.03544864,  3.95953378,  4.2438701 , ...,  6.47548095,
-         4.97960639,  6.47500662],
-       [ 4.38455889,  3.25022817,  3.38755539, ...,  6.45264846,
-         7.37518528,  6.0956301 ],
-       ..., 
-       [ 6.97851158,  9.15141704,  8.42936098, ...,  7.2329342 ,
-         6.74667953,  5.96993506],
-       [ 4.40668236,  4.33245685,  4.49102881, ...,  5.0485394 ,
-         4.88464996,  6.04310722],
-       [ 2.10765322,  3.28954633,  4.13369896, ...,  2.22195659,
-         3.01349072,  3.48705884]]))
+<pre>all hbond distances:  [[ 2.1924577   1.92054906  2.35839995 ...,  3.93999355  3.81974987
+   4.45726496]
+ [ 8.03544864  3.95953378  4.2438701  ...,  6.47548095  4.97960639
+   6.47500662]
+ [ 4.38455889  3.25022817  3.38755539 ...,  6.45264846  7.37518528
+   6.0956301 ]
+ ..., 
+ [ 6.97851158  9.15141704  8.42936098 ...,  7.2329342   6.74667953
+   5.96993506]
+ [ 4.40668236  4.33245685  4.49102881 ...,  5.0485394   4.88464996
+   6.04310722]
+ [ 2.10765322  3.28954633  4.13369896 ...,  2.22195659  3.01349072
+   3.48705884]]
 </pre>
 </div>
 </div>
@@ -393,7 +398,7 @@ GLY7_O-TRP9_N-H
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.text.Text at 0x10f791290&gt;</pre>
+<pre>&lt;matplotlib.text.Text at 0x10dcb0f98&gt;</pre>
 </div>
 
 </div>
@@ -1659,7 +1664,7 @@ AGARSwAAABaxBAAAYAkgsSjKk7F2LgAAAABJRU5ErkJggg==
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>(&#39;h_frames&#39;, array([ 1, 11, 13, 15, 19, 35, 41, 44]))
+<pre>h_frames [ 1 11 13 15 19 35 41 44]
 </pre>
 </div>
 </div>
@@ -1687,8 +1692,8 @@ AGARSwAAABaxBAAAYAkgsSjKk7F2LgAAAABJRU5ErkJggg==
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>(&#39;hbond distance&#39;, array([ 1.92054906,  2.0764068 ,  1.9627273 ,  2.10848969,  2.05082457,
-        1.97018252,  1.88931148,  1.92359052]))
+<pre>hbond distance [ 1.92054906  2.0764068   1.9627273   2.10848969  2.05082457  1.97018252
+  1.88931148  1.92359052]
 </pre>
 </div>
 </div>
@@ -1772,7 +1777,7 @@ AGARSwAAABaxBAAAYAkgsSjKk7F2LgAAAABJRU5ErkJggg==
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
       Last updated on Jun 23, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>
 </footer>

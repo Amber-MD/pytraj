@@ -1,14 +1,19 @@
 
 <!DOCTYPE html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>pytraj.TrajectoryIterator &#8212; pytraj 2.0.0 documentation</title>
     
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/my-styles.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -35,7 +40,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -79,7 +84,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../developer_guide.html">Developer guide for pytraj</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../misc.html">Misc</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What&#8217;s new?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
 </ul>
@@ -147,7 +152,7 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pytraj.trajectory.c_traj.c_trajectory.TrajectoryCpptraj</span></code>, <code class="xref py py-class docutils literal"><span class="pre">pytraj.trajectory.shared_trajectory.SharedTrajectory</span></code></p>
 <p>out-of-core trajectory holder.</p>
 <p class="rubric">Notes</p>
-<p>It’s a bit tricky to pickle this class. As default, new TrajectoryIterator will
+<p>It&#8217;s a bit tricky to pickle this class. As default, new TrajectoryIterator will
 use original trj filename and top filename.</p>
 <p class="rubric">Examples</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
@@ -209,8 +214,8 @@ use original trj filename and top filename.</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code>(…)&nbsp;&lt;==&gt;&nbsp;x(…)</td>
-<td></td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code></td>
+<td>Call self as a function.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.at" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.at"><code class="xref py py-obj docutils literal"><span class="pre">at</span></code></a>(index)</td>
 <td>same as traj[index]</td>
@@ -227,10 +232,10 @@ use original trj filename and top filename.</p>
 <tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.image" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.image"><code class="xref py py-obj docutils literal"><span class="pre">image</span></code></a>(self[,&nbsp;command])</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.iterchunk" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.iterchunk"><code class="xref py py-obj docutils literal"><span class="pre">iterchunk</span></code></a>([chunksize,&nbsp;start,&nbsp;stop,&nbsp;…])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.iterchunk" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.iterchunk"><code class="xref py py-obj docutils literal"><span class="pre">iterchunk</span></code></a>([chunksize,&nbsp;start,&nbsp;stop,&nbsp;...])</td>
 <td>iterate trajectory by chunk</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.iterframe" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.iterframe"><code class="xref py py-obj docutils literal"><span class="pre">iterframe</span></code></a>([start,&nbsp;stop,&nbsp;step,&nbsp;mask,&nbsp;…])</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.iterframe" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.iterframe"><code class="xref py py-obj docutils literal"><span class="pre">iterframe</span></code></a>([start,&nbsp;stop,&nbsp;step,&nbsp;mask,&nbsp;...])</td>
 <td>iterate trajectory with given frame_indices or given (start, stop, step)</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.principal" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.principal"><code class="xref py py-obj docutils literal"><span class="pre">principal</span></code></a>(self,&nbsp;command)</td>
@@ -254,10 +259,10 @@ use original trj filename and top filename.</p>
 <tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.translate" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.translate"><code class="xref py py-obj docutils literal"><span class="pre">translate</span></code></a>(self,&nbsp;command)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.view" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.view"><code class="xref py py-obj docutils literal"><span class="pre">view</span></code></a>(*args,&nbsp;**kwargs)</td>
+<tr class="row-even"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.view" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.view"><code class="xref py py-obj docutils literal"><span class="pre">view</span></code></a>(\*args,&nbsp;\*\*kwargs)</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.visualize" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.visualize"><code class="xref py py-obj docutils literal"><span class="pre">visualize</span></code></a>(*args,&nbsp;**kwargs)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.visualize" title="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.visualize"><code class="xref py py-obj docutils literal"><span class="pre">visualize</span></code></a>(\*args,&nbsp;\*\*kwargs)</td>
 <td>require NGLView</td>
 </tr>
 </tbody>
@@ -270,12 +275,12 @@ use original trj filename and top filename.</p>
 
 <dl class="method">
 <dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.autoimage">
-<code class="descname">autoimage</code><span class="sig-paren">(</span><em>self</em>, <em>command=”</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.autoimage" title="Permalink to this definition">¶</a></dt>
+<code class="descname">autoimage</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.autoimage" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.center">
-<code class="descname">center</code><span class="sig-paren">(</span><em>self</em>, <em>command=”</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.center" title="Permalink to this definition">¶</a></dt>
+<code class="descname">center</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.center" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -299,7 +304,7 @@ the filenames</p>
 
 <dl class="method">
 <dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.image">
-<code class="descname">image</code><span class="sig-paren">(</span><em>self</em>, <em>command=”</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.image" title="Permalink to this definition">¶</a></dt>
+<code class="descname">image</code><span class="sig-paren">(</span><em>self</em>, <em>command=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.image" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -312,7 +317,7 @@ the filenames</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>chunk</strong> : int, default=2</p>
 <blockquote>
-<div><p>size of each chunk. Notes: final chunk’s size might be changed</p>
+<div><p>size of each chunk. Notes: final chunk&#8217;s size might be changed</p>
 </div></blockquote>
 <p><strong>start</strong> : int, default=0 (first frame)</p>
 <p><strong>stop</strong> : int, default=-1 (last frame)</p>
@@ -323,7 +328,7 @@ the filenames</p>
 </tbody>
 </table>
 <p class="rubric">Notes</p>
-<p>if using ‘autoimage` with reference frame for rms-fit, make sure to <cite>autoimage</cite>
+<p>if using &#8216;autoimage` with reference frame for rms-fit, make sure to <cite>autoimage</cite>
 ref first</p>
 <p class="rubric">Examples</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
@@ -431,7 +436,7 @@ ref first</p>
 
 <dl class="method">
 <dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.save">
-<code class="descname">save</code><span class="sig-paren">(</span><em>filename=”</em>, <em>overwrite=False</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.save" title="Permalink to this definition">¶</a></dt>
+<code class="descname">save</code><span class="sig-paren">(</span><em>filename=''</em>, <em>overwrite=False</em>, <em>**kwd</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.save" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -458,7 +463,7 @@ ref first</p>
 
 <dl class="method">
 <dt id="pytraj.trajectory.trajectory_iterator.TrajectoryIterator.superpose">
-<code class="descname">superpose</code><span class="sig-paren">(</span><em>mask=’*’</em>, <em>ref=None</em>, <em>ref_mask=”</em>, <em>mass=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.superpose" title="Permalink to this definition">¶</a></dt>
+<code class="descname">superpose</code><span class="sig-paren">(</span><em>mask='*'</em>, <em>ref=None</em>, <em>ref_mask=''</em>, <em>mass=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.trajectory.trajectory_iterator.TrajectoryIterator.superpose" title="Permalink to this definition">¶</a></dt>
 <dd><p>register to superpose to reference frame when iterating. 
 To turn off superposing, set traj._being_transformed = False</p>
 <p class="rubric">Notes</p>
@@ -466,7 +471,7 @@ To turn off superposing, set traj._being_transformed = False</p>
 It does not change the coordinates of TrajectoryCpptraj/TrajectoryIterator itself but 
 changing the coordinates of copied Frame.</p>
 <p>This method is mainly for NGLView in Jupyter notebook, to view out-of-core data.
-It’s good to do translation and rotation on the fly.</p>
+It&#8217;s good to do translation and rotation on the fly.</p>
 <p class="rubric">Examples</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pytraj</span> <span class="k">as</span> <span class="nn">pt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">datafiles</span><span class="o">.</span><span class="n">load_tz2</span><span class="p">()</span>
@@ -552,7 +557,7 @@ It’s good to do translation and rotation on the fly.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args and kwargs</strong> : NGLView’s arguments</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args and kwargs</strong> : NGLView&#8217;s arguments</td>
 </tr>
 </tbody>
 </table>
@@ -582,7 +587,7 @@ It’s good to do translation and rotation on the fly.</p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
       Last updated on Jun 23, 2017.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>
 </footer>
