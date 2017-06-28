@@ -4,6 +4,7 @@ import sys
 import os
 import subprocess
 import argparse
+import pytraj
 
 bin = sys.prefix + '/bin/'
 # from: http://ascii.co.uk/art/batman
@@ -42,6 +43,7 @@ parser.add_argument('-n', '--ncores', default=1, help='n_cores')
 args = parser.parse_args()
 
 print(bin)
+print(pytraj)
 print("start testing. Go to ./tests folder")
 os.chdir("./tests/")
 

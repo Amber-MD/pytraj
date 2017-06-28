@@ -2867,6 +2867,18 @@ def check_chirality(traj, mask='', dtype='dict'):
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
+def fiximagedbonds(traj, mask=''):
+    '''
+    
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, default '' (all)
+    '''
+    command = mask
+    c_dslist, _ = do_action(traj, command, c_action.Action_FixImagedBonds)
+
+
 def analyze_modes(mode_type,
                   eigenvectors,
                   eigenvalues,

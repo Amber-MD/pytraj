@@ -972,3 +972,14 @@ cdef extern from "Action_Unstrip.h":
 
 cdef class Action_Unstrip(Action):
     cdef _Action_Unstrip* thisptr
+
+
+cdef extern from "Action_FixImagedBonds.h": 
+    cdef cppclass _Action_FixImagedBonds "Action_FixImagedBonds" (_Action) nogil:
+        _Action_FixImagedBonds()
+        _DispatchObject * Alloc() 
+        void Help() 
+
+
+cdef class Action_FixImagedBonds(Action):
+    cdef _Action_FixImagedBonds* thisptr
