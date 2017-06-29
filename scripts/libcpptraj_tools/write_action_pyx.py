@@ -39,6 +39,19 @@ cdef class {action_name}(Action):
         self.thisptr.Help()
 """
 
+text_pxd = """
+cdef extern from "{action_name}.h": 
+    cdef cppclass _{action_name} "{action_name}" (_Action) nogil:
+        _{action_name}()
+        _DispatchObject * Alloc() 
+        void Help() 
+
+
+cdef class {action_name}(Action):
+    cdef _{action_name}* thisptr
+"""
+
 for action in actionlist:
-    tmp = text.format(action_name=action)
+    # tmp = text.format(action_name=action)
+    tmp = text_pxd.format(action_name=action)
     print(tmp)

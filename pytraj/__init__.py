@@ -144,6 +144,7 @@ from .all_actions import watershell
 from .all_actions import center
 from .all_actions import check_structure
 from .all_actions import check_chirality
+from .all_actions import fiximagedbonds
 from .all_actions import closest
 from .all_actions import crank
 from .all_actions import density
