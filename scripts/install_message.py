@@ -1,10 +1,6 @@
-
 __all__ = [
-    'message_cython',
-    'message_pip_need_cpptraj_home',
-    'message_auto_install',
-    'message_openmp_cpptraj',
-    'message_serial_cpptraj',
+    'message_cython', 'message_pip_need_cpptraj_home', 'message_auto_install',
+    'message_openmp_cpptraj', 'message_serial_cpptraj',
     'message_after_sucessful_install'
 ]
 

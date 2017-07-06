@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 
 from __future__ import print_function
+import os
 import unittest
 import numpy as np
 import pytraj as pt
 from utils import fn
 from pytraj.utils import aa_eq
+from pytraj.testing import cpptraj_test_dir
 
 
 class TestNormalDistance(unittest.TestCase):
@@ -82,6 +84,35 @@ class TestNormalDistance(unittest.TestCase):
         aa_eq(correct_distance_with_image_False, expected_distance)
         aa_eq(correct_distance_with_image_True, [0., 0.])
 
+    def test_distance_to_point_or_reference(self):
+        tz2_pdb = os.path.join(cpptraj_test_dir, 'tz2.pdb')
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
+        ref_traj = pt.load(tz2_pdb)
+        ref = ref_traj[0]
+        ref.top = ref_traj.top
+
+        cmd = """
+        parm {parm}
+        reference {reference} name myref
+        trajin {trajin}
+        
+        distance EndToEnd :1 :13
+        distance ToRef @1 @1 reference
+        distance Point :1 point 0.0 0.0 0.0
+        """.format(
+            parm=fn("tz2.parm7"), reference=tz2_pdb, trajin=fn("tz2.nc"))
+        state = pt.load_cpptraj_state(cmd)
+        state.run()
+
+        # ensure same reference
+        aa_eq(ref.xyz, state.data.to_dict()['myref:1'], decimal=3)
+
+        dist_point = pt.distance_to_point(traj, ':1', point=[0., 0., 0.])
+        aa_eq(dist_point, state.data['Point'])
+
+        dist_ref = pt.distance_to_reference(traj, '@1 @1', ref=ref)
+        aa_eq(dist_ref, state.data['ToRef'].values)
+
 
 class TestPairwiseDistance(unittest.TestCase):
     def test_pairwise(self):
@@ -99,7 +130,3 @@ class TestPairwiseDistance(unittest.TestCase):
                 slow_distances.append(pt.distance(traj, [ca_i, cb_i]))
         slow_distances = np.array(slow_distances).T
         aa_eq(slow_distances.flatten(), distances.flatten())
-
-
-if __name__ == "__main__":
-    unittest.main()

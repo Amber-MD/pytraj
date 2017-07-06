@@ -15,9 +15,13 @@ from itertools import chain
 def find_lib(libname, unique=True):
     """return a list of all library files"""
 
-    envlist = ['LD_LIBRARY_PATH', 'AMBERHOME', 'PYTHONPATH',
-               'CPPTRAJHOME', 'PATH', 'ANCONDAHOME']
-    paths = list(chain.from_iterable([os.environ.get(env_name, '').split(':') for env_name in envlist]))
+    envlist = [
+        'LD_LIBRARY_PATH', 'AMBERHOME', 'PYTHONPATH', 'CPPTRAJHOME', 'PATH',
+        'ANCONDAHOME'
+    ]
+    paths = list(
+        chain.from_iterable(
+            [os.environ.get(env_name, '').split(':') for env_name in envlist]))
 
     prefix_real_path = os.path.realpath(sys.prefix)
     if 'miniconda' in prefix_real_path:
@@ -25,16 +29,16 @@ def find_lib(libname, unique=True):
         paths.append(miniconda_dir + '/lib/')
     else:
         miniconda_dir = ''
-        paths.append(prefix_real_path+ '/lib/')
+        paths.append(prefix_real_path + '/lib/')
 
     anconda_dir = os.environ.get('ANCONDAHOME', '')
 
     if anconda_dir:
         pattern = os.path.join(anconda_dir, 'envs', '*')
-        paths += [os.path.join(dir, 'lib')  for dir in glob(pattern)]
+        paths += [os.path.join(dir, 'lib') for dir in glob(pattern)]
     if miniconda_dir:
         pattern = os.path.join(miniconda_dir, 'envs', '*')
-        paths += [os.path.join(dir, 'lib')  for dir in glob(pattern)]
+        paths += [os.path.join(dir, 'lib') for dir in glob(pattern)]
 
     lib_path_list = []
     key = libname + '*' if libname.startswith('lib') else "lib" + libname + "*"

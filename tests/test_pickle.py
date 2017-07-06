@@ -25,11 +25,11 @@ class TestBuildAndPickleTopology(unittest.TestCase):
 
         MOLNUM = 0
 
-        for idx, (
-                aname, atype, charge, mass, resid, resname, mol_number
-        ) in enumerate(
-                zip(d['atom_name'], d['atom_type'], d['atom_charge'], d[
-                    'atom_mass'], d['resid'], d['resname'], d['mol_number'])):
+        for idx, (aname, atype, charge, mass, resid, resname,
+                  mol_number) in enumerate(
+                      zip(d['atom_name'], d['atom_type'], d['atom_charge'], d[
+                          'atom_mass'], d['resid'], d['resname'], d[
+                              'mol_number'])):
             atom = pt.core.Atom(
                 name=aname, type=atype, charge=charge, mass=mass, resid=resid)
             atom.set_mol(mol_number)

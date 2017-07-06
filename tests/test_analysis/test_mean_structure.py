@@ -27,8 +27,8 @@ class TestAverageFrame(unittest.TestCase):
 
         # test iter
         frame5 = mean_structure(traj=traj(1, 8, 2), top=traj.top)
-        f5_saved = pt.iterload(fn("avg.Tc5b.frame_2_to_8_skip_2.pdb"),
-                               traj.top)[0]
+        f5_saved = pt.iterload(
+            fn("avg.Tc5b.frame_2_to_8_skip_2.pdb"), traj.top)[0]
         aa_eq(frame5.xyz, f5_saved.xyz, decimal=3)
 
         # test iter CA

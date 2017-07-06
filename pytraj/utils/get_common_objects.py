@@ -239,8 +239,9 @@ class super_dispatch(object):
         try:
             kwargs_spec = dict(
                 (k, v)
-                for (k, v
-                     ) in zip(args_spec.args[-n_default:], args_spec.defaults))
+                for (
+                    k,
+                    v) in zip(args_spec.args[-n_default:], args_spec.defaults))
         except TypeError:
             kwargs_spec = {}
 

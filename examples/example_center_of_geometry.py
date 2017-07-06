@@ -6,7 +6,7 @@ traj = pt.load("../tests/data/Tc5b.x", "../tests/data/Tc5b.top")
 # compute center of geometry for residue 1, use all atoms
 mask0 = ':1'
 cog_0 = pt.center_of_geometry(traj, mask=mask0)
-# should be ndarray, shape=(n_frames, 3) 
+# should be ndarray, shape=(n_frames, 3)
 print(cog_0)
 
 # compute center of geometry for residue 1, exclude H atoms

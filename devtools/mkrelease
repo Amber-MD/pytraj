@@ -20,10 +20,11 @@ os.chdir(pytraj_dir)
 
 subprocess.check_call('git clean -fdx .', shell=True)
 
-# change to release status 
+# change to release status
 with open('scripts/base_setup.py', 'r') as fh:
     old_content = fh.read()
-    new_content = old_content.replace('is_released = False', 'is_released = True') 
+    new_content = old_content.replace('is_released = False',
+                                      'is_released = True')
 
 with open('scripts/tmp.py', 'w') as fh:
     fh.write(new_content)

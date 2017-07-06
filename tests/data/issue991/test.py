@@ -1,5 +1,5 @@
 # datafiles and this test.py were provided by jmborr
-# issue #991: # Error "ValueError: Buffer not C contiguous" 
+# issue #991: # Error "ValueError: Buffer not C contiguous"
 # https://github.com/Amber-MD/pytraj/issues/991
 
 import numpy

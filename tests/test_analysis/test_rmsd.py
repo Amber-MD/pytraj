@@ -214,11 +214,12 @@ class TestRMSDPerRes(unittest.TestCase):
     def test_noreference(self):
         from pytraj.datafiles import load_cpptraj_output, tz2_ortho_trajin
         traj = pt.iterload(fn("tz2.ortho.nc"), fn("tz2.ortho.parm7"))
-        cout = load_cpptraj_output("""
+        cout = load_cpptraj_output(
+            """
         parm {}
         trajin {}
-        rmsd first @CA perres range 2-7""".format(fn('tz2.ortho.parm7'),
-            fn('tz2.ortho.nc')))
+        rmsd first @CA perres range 2-7"""
+            .format(fn('tz2.ortho.parm7'), fn('tz2.ortho.nc')))
         d = pt.rmsd_perres(
             traj, ref=0, mask='@CA', resrange='2-7', dtype='ndarray')
         aa_eq(cout[1:].values, d)

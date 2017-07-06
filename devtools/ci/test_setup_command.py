@@ -3,10 +3,12 @@ import os
 from contextlib import contextmanager
 import subprocess
 
+
 # tested with py3.5
 # utils
 def clone_cpptraj():
     os.system('git clone https://github.com/amber-md/cpptraj')
+
 
 @contextmanager
 def temporarily_rename_cpptraj_folder():
@@ -22,6 +24,7 @@ def temporarily_rename_cpptraj_folder():
         yield
         print("nothing done")
 
+
 def capture_stderr(command):
     """capture_stderr"""
     try:
@@ -30,14 +33,17 @@ def capture_stderr(command):
     except subprocess.CalledProcessError as e:
         return e.output.decode()
 
+
 def git_clean_folder(name):
     """git_clean_folder"""
     command = 'git clean -fdx {}'.format(name)
     print('clean: ', command)
     subprocess.check_call(command.split())
 
+
 def get_output(command):
     return subprocess.check_output(command.split()).decode()
+
 
 # do not need cpptraj folder
 def test_setup_clean():
@@ -50,6 +56,7 @@ def test_setup_clean():
     assert 'libcpptraj' not in output
     assert 'github' not in output
 
+
 def test_setup_help():
     """ python setup.py --help """
     for command in ['python setup.py --help', 'python setup.py -h']:
@@ -58,11 +65,13 @@ def test_setup_help():
         assert 'libcpptraj' not in output
         assert 'github' not in output
 
+
 def test_pip_help():
     """ pip install --help """
     command = 'pip install --help'
     output = subprocess.check_output(command.split()).decode()
     assert 'Install Options' in output
+
 
 def test_raise_if_using_pip_but_does_not_have_cpptraj_home():
     """ test_raise_if_using_pip_but_does_not_have_cpptraj_home_or_not_cpptraj_in_this_folder
@@ -77,24 +86,29 @@ def test_raise_if_using_pip_but_does_not_have_cpptraj_home():
             output = capture_stderr(command)
             assert 'using pip, must set CPPTRAJHOME' in output
 
+
 def test_install_libcpptraj_if_having_cpptraj_folder_here():
     clone_cpptraj()
     git_clean_folder('./cpptraj/lib/libcpptraj*')
     command = 'python setup.py build'
     output = get_output(command)
     assert 'cpptraj/lib/libcpptraj' in output
-    assert 'install libcpptraj from current'in  output
+    assert 'install libcpptraj from current' in output
+
 
 def test_install_to_amberhome():
     fn = './fake_amberhome'
-    subprocess.check_call('mkdir -p {}/lib/python3.5/site-packages/'.format(fn).split())
+    subprocess.check_call(
+        'mkdir -p {}/lib/python3.5/site-packages/'.format(fn).split())
     full_name = os.path.abspath(fn)
-    command = 'python setup.py install --prefix={} --no-setuptools'.format(full_name)
+    command = 'python setup.py install --prefix={} --no-setuptools'.format(
+        full_name)
     output = subprocess.check_output(command.split()).decode()
-    assert 'running install_egg_info' in  output
+    assert 'running install_egg_info' in output
     assert 'running install_lib' in output
     assert 'Writing' in output
     git_clean_folder(full_name)
+
 
 def test_default_raise_if_install_cpptraj_without_openmp():
     """ test_default_raise_if_install_cpptraj_without_openmp """

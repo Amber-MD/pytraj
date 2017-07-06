@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 import numpy as np
+from functools import partial
 
 from .utils.get_common_objects import (
     get_topology,
@@ -233,6 +234,65 @@ def distance(traj=None,
         raise ValueError(
             "command must be a string, a list/tuple of strings, or "
             "a numpy 2D array")
+
+
+@register_pmap
+def _distance_to_ref_or_point(traj=None,
+                              mask="",
+                              point=None,
+                              ref=None,
+                              dtype='ndarray'):
+    if point and ref:
+        raise ValueError("Must be either point or ref, not bot")
+
+    top = traj.top
+    command = mask
+    if not isinstance(command, np.ndarray):
+        list_of_commands = get_list_of_commands(command)
+    else:
+        list_of_commands = command
+
+    c_dslist = CpptrajDatasetList()
+
+    if ref is not None:
+        refname = 'myref'
+        ref_top = ref.top or traj.top
+        c_dslist.add('reference', name=refname)
+        c_dslist[0].top = ref_top
+        c_dslist[0].add_frame(ref)
+    actlist = ActionList()
+
+    for cm in list_of_commands:
+        if point is not None:
+            point_str = 'point ' + ' '.join(str(_) for _ in point)
+            cm = ' '.join((cm, point_str))
+        elif ref is not None:
+            cm = ' '.join((cm, 'reference'))
+        print('cm', cm)
+        actlist.add(c_action.Action_Distance(), cm, top, dslist=c_dslist)
+
+    for frame in traj:
+        actlist.compute(frame)
+
+    if ref is not None:
+        # remove ref
+        c_dslist._pop(0)
+    return get_data_from_dtype(c_dslist, dtype)
+
+
+distance_to_point = partial(_distance_to_ref_or_point, ref=None)
+distance_to_point.__doc__ = """
+Examples
+--------
+    pytraj.distance_to_point(traj, ':1', point=[0., 0., 0.]) # doctest: +SKIP
+"""
+
+distance_to_reference = partial(_distance_to_ref_or_point, point=None)
+distance_to_reference.__doc__ = """
+Examples
+--------
+    pytraj.distance_to_reference(traj, '@1 @1', ref=ref) # doctest: +SKIP
+"""
 
 
 def pairwise_distance(traj=None,

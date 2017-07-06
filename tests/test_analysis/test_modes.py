@@ -4,6 +4,7 @@ from utils import fn
 import pytest
 import numpy as np
 
+
 def aa_eq_abs(arr0, arr1):
     aa_eq(np.abs(arr0), np.abs(arr1))
 

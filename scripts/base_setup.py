@@ -12,10 +12,10 @@ from distutils.command.clean import clean as Clean
 # local, call from pytraj root folder
 from scripts.install_libcpptraj import ensure_gnu
 from scripts.install_message import (
-   message_auto_install,
-   message_openmp_cpptraj,
-   message_serial_cpptraj,
-   message_cython, )
+    message_auto_install,
+    message_openmp_cpptraj,
+    message_serial_cpptraj,
+    message_cython, )
 
 if sys.version_info[0] >= 3:
     import builtins
@@ -31,6 +31,7 @@ VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 DEFAULT_MAC_CCOMPILER = 'clang'
 DEFAULT_MAC_CXXCOMPILER = 'clang++'
 
+
 def check_flag(key):
     try:
         sys.argv.remove(key)
@@ -38,26 +39,33 @@ def check_flag(key):
     except ValueError:
         return False
 
+
 def check_cpptraj_version(header_dir, version=(4, 2, 9)):
     vfile = os.path.join(header_dir, 'Version.h')
     with open(vfile) as fh:
         for line in fh.readlines():
             if line.startswith('#define CPPTRAJ_INTERNAL_VERSION'):
                 break
-        int_version = tuple(int(i) for i in line.split()[-1].strip('"').replace('V', '').split('.'))
+        int_version = tuple(
+            int(i)
+            for i in line.split()[-1].strip('"').replace('V', '').split('.'))
         if int_version < version:
-            sys.stderr.write('must have cpptraj version >= {}\n'.format(version))
+            sys.stderr.write(
+                'must have cpptraj version >= {}\n'.format(version))
             sys.exit(1)
+
 
 def compiler_env_info(message):
     print(message)
     for env in ['CXX', 'CC', 'COMPILER']:
         print('{} = {}'.format(env, os.getenv(env, '')))
 
+
 # Return the git revision as a string
 # git_version, get_version_info, write_version_py  was lightly adapted from numpy package
 # http://www.numpy.org/
 # Numpy is licensed under the BSD license,
+
 
 def git_version():
     try:
@@ -67,6 +75,7 @@ def git_version():
         GIT_REVISION = "Unknown"
 
     return GIT_REVISION
+
 
 # BEFORE importing distutils, remove MANIFEST. distutils doesn't properly
 # update it when the contents of directories change.
@@ -121,12 +130,15 @@ if not release:
 
     a = open(filename, 'w')
     try:
-        a.write(cnt % {'version': VERSION,
-                       'full_version': FULLVERSION,
-                       'git_revision': GIT_REVISION,
-                       'isrelease': str(is_released)})
+        a.write(cnt % {
+            'version': VERSION,
+            'full_version': FULLVERSION,
+            'git_revision': GIT_REVISION,
+            'isrelease': str(is_released)
+        })
     finally:
         a.close()
+
 
 def check_compile_cython(pytraj_home, use_pip=False):
     compile_c_extension = False
@@ -136,29 +148,27 @@ def check_compile_cython(pytraj_home, use_pip=False):
     elif use_pip:
         compile_c_extension = True
     else:
-        if ('install' in sys.argv or
-            'build' in sys.argv or
-            'build_ext' in sys.argv):
+        if ('install' in sys.argv or 'build' in sys.argv or
+                'build_ext' in sys.argv):
             compile_c_extension = True
     return compile_c_extension
+
 
 def install_libcpptraj(openmp_flag, from_github=False, use_amberlib=True):
     '''If AMBERHOME is set and amberlib is True, use -amberlib for libcpptraj
     '''
     github = 'github' if from_github else ''
     amberlib_flag = '-amberlib' if use_amberlib else ''
-    options = dict(github=github,
-                   openmp_flag=openmp_flag,
-                   amberlib_flag=amberlib_flag)
-    cmd = "python scripts/install_libcpptraj.py {github} {openmp_flag} {amberlib_flag}".format(**options)
+    options = dict(
+        github=github, openmp_flag=openmp_flag, amberlib_flag=amberlib_flag)
+    cmd = "python scripts/install_libcpptraj.py {github} {openmp_flag} {amberlib_flag}".format(
+        **options)
     print('command = ', cmd)
     subprocess.check_call(cmd, shell=True)
 
-def try_updating_libcpptraj(cpptraj_home,
-                            compile_c_extension,
-                            cpptraj_included,
-                            openmp_flag,
-                            use_amberlib):
+
+def try_updating_libcpptraj(cpptraj_home, compile_c_extension,
+                            cpptraj_included, openmp_flag, use_amberlib):
     if cpptraj_home:
         raise ValueError(
             '$CPPTRAJHOME exists but there is no libcpptraj in $CPPTRAJHOME/lib \n'
@@ -170,26 +180,30 @@ def try_updating_libcpptraj(cpptraj_home,
             print('compile_c_extension')
             if cpptraj_included:
                 print(
-                    'can not find libcpptraj but found ./cpptraj folder, trying to reinstall it to ./cpptraj/lib/ \n')
+                    'can not find libcpptraj but found ./cpptraj folder, trying to reinstall it to ./cpptraj/lib/ \n'
+                )
                 time.sleep(3)
                 try:
                     cpptraj_dir = 'cpptraj'
                     cpptraj_lib_dir = os.path.join(cpptraj_dir, 'lib')
-                    install_libcpptraj(openmp_flag, from_github=False, use_amberlib=use_amberlib)
-                    return glob(os.path.join(cpptraj_lib_dir, 'libcpptraj') + '*')
+                    install_libcpptraj(
+                        openmp_flag,
+                        from_github=False,
+                        use_amberlib=use_amberlib)
+                    return glob(
+                        os.path.join(cpptraj_lib_dir, 'libcpptraj') + '*')
                 except CalledProcessError:
                     print(
-                        'can not install libcpptraj, you need to install it manually \n')
+                        'can not install libcpptraj, you need to install it manually \n'
+                    )
                     sys.exit(1)
             else:
                 print('can not find libcpptraj in $CPPTRAJHOME/lib. '
-                                 'You need to install ``libcpptraj`` manually. ')
+                      'You need to install ``libcpptraj`` manually. ')
                 sys.exit(1)
 
 
-def add_openmp_flag(openmp_flag,
-                    libcpptraj_has_openmp,
-                    extra_compile_args,
+def add_openmp_flag(openmp_flag, libcpptraj_has_openmp, extra_compile_args,
                     extra_link_args):
     if not openmp_flag:
         if libcpptraj_has_openmp:
@@ -201,24 +215,36 @@ def add_openmp_flag(openmp_flag,
         if not libcpptraj_has_openmp:
             raise ValueError(message_serial_cpptraj)
         # make copy
-        return (extra_compile_args[:] + ["-fopenmp",], extra_link_args[:] + ["-fopenmp",])
+        return (extra_compile_args[:] + [
+            "-fopenmp",
+        ], extra_link_args[:] + [
+            "-fopenmp",
+        ])
+
 
 def get_pyx_pxd():
     pxd_include_dirs = [
-        directory for directory, dirs, files in os.walk('pytraj') if '__init__.pyx'
-        in files or '__init__.pxd' in files or '__init__.py' in files
+        directory for directory, dirs, files in os.walk('pytraj')
+        if '__init__.pyx' in files or '__init__.pxd' in files or
+        '__init__.py' in files
     ]
-    
+
     pxd_include_patterns = [os.path.join(p, '*.pxd') for p in pxd_include_dirs]
-    
+
     pyxfiles = []
     for p in pxd_include_dirs:
-        pyxfiles.extend([ext.split(".")[0] for ext in glob(os.path.join(p, '*.pyx'))
-                         if '.pyx' in ext])
+        pyxfiles.extend([
+            ext.split(".")[0] for ext in glob(os.path.join(p, '*.pyx'))
+            if '.pyx' in ext
+        ])
     pxdfiles = [p.replace("pytraj/", "") for p in pxd_include_patterns]
     return pyxfiles, pxdfiles
 
-def check_cython(is_released, cmdclass, min_version='0.21', use_prebuilt_cythonized_files=False):
+
+def check_cython(is_released,
+                 cmdclass,
+                 min_version='0.21',
+                 use_prebuilt_cythonized_files=False):
     print('use_prebuilt_cythonized_files = ', use_prebuilt_cythonized_files)
     if is_released or use_prebuilt_cythonized_files:
         # ./devtools/mkrelease
@@ -247,12 +273,9 @@ class CpptrajInfo(object):
     int_version = None
     ambertools_distro = False
 
-def get_cpptraj_info(rootname,
-                     cpptraj_home,
-                     cpptraj_included,
-                     compile_c_extension,
-                     pytraj_home,
-                     openmp_flag,
+
+def get_cpptraj_info(rootname, cpptraj_home, cpptraj_included,
+                     compile_c_extension, pytraj_home, openmp_flag,
                      use_amberlib):
 
     cpptraj_info = CpptrajInfo()
@@ -265,14 +288,16 @@ def get_cpptraj_info(rootname,
         AMBERHOME = os.getenv('AMBERHOME', '')
         AMBER_PREFIX = os.getenv('AMBER_PREFIX', '')
         if not AMBERHOME:
-            raise EnvironmentError('must set AMBERHOME if you want to install pytraj '
-                                   'inside AMBER')
+            raise EnvironmentError(
+                'must set AMBERHOME if you want to install pytraj '
+                'inside AMBER')
         # overwrite CPPTRAJ_HEADERDIR, CPPTRAJ_LIBDIR
         if AMBER_PREFIX:
             CPPTRAJ_LIBDIR = os.path.join(AMBER_PREFIX, 'lib')
         else:
             CPPTRAJ_LIBDIR = os.path.join(AMBERHOME, 'lib')
-        CPPTRAJ_HEADERDIR = os.path.join(AMBERHOME, 'AmberTools', 'src', 'cpptraj', 'src')
+        CPPTRAJ_HEADERDIR = os.path.join(AMBERHOME, 'AmberTools', 'src',
+                                         'cpptraj', 'src')
 
         cpptraj_info.ambertools_distro = True
     else:
@@ -301,26 +326,29 @@ def get_cpptraj_info(rootname,
                     sys.stdout.flush()
                     time.sleep(1)
                 try:
-                    install_libcpptraj(openmp_flag, from_github=True, use_amberlib=use_amberlib)
+                    install_libcpptraj(
+                        openmp_flag,
+                        from_github=True,
+                        use_amberlib=use_amberlib)
                 except CalledProcessError:
                     print(
-                        'can not install libcpptraj, you need to install it manually \n')
+                        'can not install libcpptraj, you need to install it manually \n'
+                    )
                     sys.exit(1)
             cpptraj_info.dir = os.path.join(rootname, "cpptraj")
             cpptraj_info.include_dir = os.path.join(cpptraj_info.dir, 'src')
             cpptraj_info.lib_dir = os.path.join(cpptraj_info.dir, 'lib')
     return cpptraj_info
 
-def setenv_cc_cxx(ambertools_distro,
-        extra_compile_args,
-        extra_link_args):
+
+def setenv_cc_cxx(ambertools_distro, extra_compile_args, extra_link_args):
     '''force pytraj and cpptraj to use the sample compiler if pytraj
     is distribued by AmberTools.
     '''
     if not ambertools_distro:
         if sys.platform == 'darwin':
             compiler = os.environ.get('COMPILER', 'clang')
-            if compiler == 'clang' and not os.getenv('CXX'): 
+            if compiler == 'clang' and not os.getenv('CXX'):
                 os.environ['CXX'] = DEFAULT_MAC_CXXCOMPILER
                 os.environ['CC'] = DEFAULT_MAC_CCOMPILER
             elif compiler == 'gnu':
@@ -343,8 +371,8 @@ def setenv_cc_cxx(ambertools_distro,
             CC = DEFAULT_MAC_CCOMPILER
             CXX = DEFAULT_MAC_CXXCOMPILER
         elif sys.platform.startswith('linux'):
-            CC='gcc'
-            CXX='g++'
+            CC = 'gcc'
+            CXX = 'g++'
         else:
             pass
 
@@ -367,6 +395,7 @@ def setenv_cc_cxx(ambertools_distro,
 
     compiler_env_info('Final compiler envs')
 
+
 def get_ext_modules(cpptraj_info,
                     pytraj_src,
                     compile_c_extension,
@@ -388,40 +417,50 @@ def get_ext_modules(cpptraj_info,
         print('install = {}'.format(compile_c_extension))
         if not libcpptraj_files:
             libcpptraj_files = try_updating_libcpptraj(
-                    cpptraj_home=cpptraj_info.home_env,
-                    compile_c_extension=compile_c_extension,
-                    cpptraj_included=cpptraj_included,
-                    openmp_flag=openmp_flag,
-                    use_amberlib=use_amberlib
-            )
-    
+                cpptraj_home=cpptraj_info.home_env,
+                compile_c_extension=compile_c_extension,
+                cpptraj_included=cpptraj_included,
+                openmp_flag=openmp_flag,
+                use_amberlib=use_amberlib)
+
         try:
-            output_openmp_check = subprocess.check_output(['nm', libcpptraj_files[0]]).decode().split('\n')
+            output_openmp_check = subprocess.check_output(
+                ['nm', libcpptraj_files[0]]).decode().split('\n')
         except IndexError:
-            print("Warning:  It seems that there is no libcpptraj. Please install it")
+            print(
+                "Warning:  It seems that there is no libcpptraj. Please install it"
+            )
             sys.exit(1)
         except subprocess.CalledProcessError:
             output_openmp_check = []
-    
-        libcpptraj_has_openmp = ([line for line in output_openmp_check if 'omp_get_num_threads' in line.lower()]  != [])
+
+        libcpptraj_has_openmp = ([
+            line for line in output_openmp_check
+            if 'omp_get_num_threads' in line.lower()
+        ] != [])
         if libcpptraj_has_openmp and sys.platform == 'darwin':
-            raise OSError("pytraj does not (yet) support openmp in osx. Please recompile libcpptraj without openmp")
-    
+            raise OSError(
+                "pytraj does not (yet) support openmp in osx. Please recompile libcpptraj without openmp"
+            )
+
         if sys.platform == 'darwin' or sys.platform.startswith("win"):
             sys.stdout.write('does not support openmp on osx/win - disable\n')
             openmp_flag = ''
-    
-        extra_compile_args, extra_link_args = add_openmp_flag(openmp_flag,
-            libcpptraj_has_openmp, extra_compile_args, extra_link_args)
-    
+
+        extra_compile_args, extra_link_args = add_openmp_flag(
+            openmp_flag, libcpptraj_has_openmp, extra_compile_args,
+            extra_link_args)
+
         if sys.platform.startswith('linux'):
             # set rpath
             sys.stdout.write('set rpath to {}\n'.format(cpptraj_info.lib_dir))
-            extra_link_args.append('-Wl,-rpath={}'.format(cpptraj_info.lib_dir))
-            extra_compile_args.append('-Wl,-rpath={}'.format(cpptraj_info.lib_dir))
-    
+            extra_link_args.append(
+                '-Wl,-rpath={}'.format(cpptraj_info.lib_dir))
+            extra_compile_args.append(
+                '-Wl,-rpath={}'.format(cpptraj_info.lib_dir))
+
         check_cpptraj_version(cpptraj_info.include_dir, (4, 3, 1))
-    
+
         pyxfiles, pxdfiles = get_pyx_pxd()
 
         if not (is_released or use_prebuilt_cythonized_files):
@@ -429,17 +468,17 @@ def get_ext_modules(cpptraj_info,
             if sys.platform.startswith("win"):
                 cythonize(
                     [pfile + '.pyx' for pfile in pyxfiles],
-                    compiler_directives=cython_directives,
-                )
+                    compiler_directives=cython_directives, )
             else:
                 cythonize(
                     [pfile + '.pyx' for pfile in pyxfiles],
                     nthreads=int(os.environ.get('NUM_THREADS', 4)),
-                    compiler_directives=cython_directives,
-                )
-    
-        library_dirs = [cpptraj_info.lib_dir,]
-    
+                    compiler_directives=cython_directives, )
+
+        library_dirs = [
+            cpptraj_info.lib_dir,
+        ]
+
         ext_modules = []
         for ext_name in pyxfiles:
             if need_cython:
@@ -447,47 +486,52 @@ def get_ext_modules(cpptraj_info,
             else:
                 ext = ".cpp"
             pyxfile = ext_name + ext
-    
+
             # replace "/" by "." get module
             if "/" in ext_name:
                 ext_name = ext_name.replace("/", ".")
-    
+
             sources = [pyxfile]
-            extmod = Extension(ext_name,
-                               sources=sources,
-                               libraries=['cpptraj'],
-                               language='c++',
-                               library_dirs=library_dirs,
-                               define_macros=define_macros,
-                               include_dirs=[cpptraj_info.include_dir, pytraj_src],
-                               extra_compile_args=extra_compile_args,
-                               extra_link_args=extra_link_args)
+            extmod = Extension(
+                ext_name,
+                sources=sources,
+                libraries=['cpptraj'],
+                language='c++',
+                library_dirs=library_dirs,
+                define_macros=define_macros,
+                include_dirs=[cpptraj_info.include_dir, pytraj_src],
+                extra_compile_args=extra_compile_args,
+                extra_link_args=extra_link_args)
             ext_modules.append(extmod)
 
         return ext_modules
 
+
 def get_package_data(use_pip=False):
-    sample_datafiles  = ["datafiles/ala3/Ala3.*",
-                         "datafiles/tz2/tz2.*",
-                         "datafiles/rna.pdb",
-                         "datafiles/trpcage/trpcage*",
-                         "datafiles/remd_ala2/*",
-                         "datafiles/dpdp/DPDP*"]
-    
-    js_css_files = ['utils/progress-circle/css/*css',
-                    'utils/progress-circle/*js',
-                    'utils/css/*css',]
-    
+    sample_datafiles = [
+        "datafiles/ala3/Ala3.*", "datafiles/tz2/tz2.*", "datafiles/rna.pdb",
+        "datafiles/trpcage/trpcage*", "datafiles/remd_ala2/*",
+        "datafiles/dpdp/DPDP*"
+    ]
+
+    js_css_files = [
+        'utils/progress-circle/css/*css',
+        'utils/progress-circle/*js',
+        'utils/css/*css',
+    ]
+
     _, pxdfiles = get_pyx_pxd()
     pkdata = pxdfiles + sample_datafiles + js_css_files
-    
+
     if sys.platform.startswith('darwin') and use_pip:
         pkdata.append('lib/libcpptraj.dylib')
     return pkdata
 
+
 # CleanCommand was copied and lightly adapted from scikit-learn package
 # https://github.com/scikit-learn/scikit-learn
 # New BSD License
+
 
 # Custom clean command to remove build artifacts
 class CleanCommand(Clean):
@@ -499,13 +543,14 @@ class CleanCommand(Clean):
             shutil.rmtree('build')
         for dirpath, dirnames, filenames in os.walk('pytraj'):
             for filename in filenames:
-                if (filename.endswith('.so') or filename.endswith('.pyd')
-                        or filename.endswith('.dll')
-                        or filename.endswith('.pyc')):
+                if (filename.endswith('.so') or filename.endswith('.pyd') or
+                        filename.endswith('.dll') or
+                        filename.endswith('.pyc')):
                     os.unlink(os.path.join(dirpath, filename))
             for dirname in dirnames:
                 if dirname == '__pycache__':
                     shutil.rmtree(os.path.join(dirpath, dirname))
+
 
 if __name__ == '__main__':
     print(get_version_info())

@@ -30,7 +30,7 @@ tc5b_top = fn('Tc5b.top')
 def test_iterload_comprehensive():
     trajin, tn = fn("tz2.ortho.nc"), fn("tz2.ortho.parm7")
 
-    # frame_slice 
+    # frame_slice
     t0 = pt.iterload(trajin, tn, frame_slice=(0, -1, 0))
     aa_eq(traj_tz2_ortho.xyz, t0.xyz)
 
@@ -148,7 +148,7 @@ def test_save_traj_from_file():
         with pytest.raises(ValueError):
             pt.write_traj("test_0.nc", traj=fi, overwrite=True)
 
-        # raise if Frame with frame_indices: 
+        # raise if Frame with frame_indices:
         with pytest.raises(ValueError):
             pt.write_traj(
                 "test_0.nc",

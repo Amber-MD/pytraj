@@ -8,7 +8,6 @@ sys.path.append('scripts')
 from check_openmp import get_openmp_flag
 from find_lib import find_lib
 
-
 # DEFAULT_MAC_BUILD = '-shared -macAccelerate --with-fftw3=/usr/local --with-netcdf=/usr/local -noarpack'
 DEFAULT_MAC_BUILD = '-shared -macAccelerate -noarpack'
 DEFAULT_MAC_CCOMPILER = 'clang'
@@ -39,11 +38,13 @@ def add_cpptraj_cxx_to_config(fn, cpptraj_cxx=CPPTRAJ_CXX):
         fh.write(''.join(lines))
     subprocess.check_call('mv tmp.h {}'.format(fn), shell=True)
 
+
 def is_clang(cc):
     # both cpptraj and pytraj give priority for CXX and CC environments
     # check them first.
     out = subprocess.check_output([cc, '--version']).decode()
     return 'clang' in out
+
 
 def ensure_gnu():
     # both cpptraj and pytraj give priority for CXX and CC environments
@@ -53,12 +54,15 @@ def ensure_gnu():
 
     if is_clang(gcc_exe):
         print('{} --version'.format(gcc_exe))
-        print('{} here is actually clang compiler. Please export correct PATH for the real g++\n'.format(gcc_exe))
+        print(
+            '{} here is actually clang compiler. Please export correct PATH for the real g++\n'.
+            format(gcc_exe))
         print('Or export CXX and CC environments')
         print('e.g: ')
         print('    export CC=/usr/local/bin/gcc-5')
         print('    export CXX=/usr/local/bin/g++-5')
         sys.exit(1)
+
 
 def get_compiler_and_build_flag():
     args = parse_args()
@@ -82,7 +86,8 @@ def get_compiler_and_build_flag():
     # cpptraj: ./configure gnu
     # e.g: COMPILER=gnu python ./scripts/install_libcpptraj.py
     os_dependent_default_compiler = 'clang' if IS_OSX else 'gnu'
-    compiler_env = os.environ.get('COMPILER', '')  # intel | pgi | clang | cray?
+    compiler_env = os.environ.get('COMPILER',
+                                  '')  # intel | pgi | clang | cray?
     if compiler_env:
         print('libcpptraj: Using COMPILER env = ', compiler_env)
         compiler = compiler_env
@@ -106,9 +111,12 @@ def get_compiler_and_build_flag():
         print('has_numpy but can not find openblas')
         print('try blass and lapack')
         try:
-            blas_prefix = np.__config__.blas_opt_info['library_dirs'][0].strip('lib')
-            lapack_prefix = np.__config__.lapack_opt_info['library_dirs'][0].strip('lib')
-            build_flag_ = ('-noarpack --with-blas={blas_prefix} --with-lapack={lapack_prefix}'
+            blas_prefix = np.__config__.blas_opt_info['library_dirs'][0].strip(
+                'lib')
+            lapack_prefix = np.__config__.lapack_opt_info['library_dirs'][
+                0].strip('lib')
+            build_flag_ = (
+                '-noarpack --with-blas={blas_prefix} --with-lapack={lapack_prefix}'
                 .format(blas_prefix=blas_prefix, lapack_prefix=lapack_prefix))
         except (KeyError, IndexError):
             build_flag_ = '-noarpack'
@@ -116,7 +124,8 @@ def get_compiler_and_build_flag():
         # user gets lucky?
         build_flag_ = '-noarpack'
 
-    zip_stuff = ' --with-bzlib={prefix} --with-zlib={prefix} '.format(prefix=prefix)
+    zip_stuff = ' --with-bzlib={prefix} --with-zlib={prefix} '.format(
+        prefix=prefix)
     build_flag_ += zip_stuff
 
     if IS_OSX:
@@ -128,10 +137,12 @@ def get_compiler_and_build_flag():
 
     if install_type == 'github':
         print('install libcpptraj from github')
-        subprocess.check_call('git clone https://github.com/Amber-MD/cpptraj'.split())
+        subprocess.check_call(
+            'git clone https://github.com/Amber-MD/cpptraj'.split())
     else:
         print('install libcpptraj from current ./cpptraj folder')
     return compiler, build_flag
+
 
 def install_libcpptraj(compiler='', build_flag='', n_cpus=4):
     '''
@@ -159,12 +170,14 @@ def install_libcpptraj(compiler='', build_flag='', n_cpus=4):
         cxx_overwrite = ''
         if IS_OSX:
             if ((compiler == 'clang' or 'clang' in os.getenv('CXX', '')) or
-               (os.getenv('CXX') and is_clang(os.getenv('CXX')))):
+                (os.getenv('CXX') and is_clang(os.getenv('CXX')))):
                 cxx_overwrite = 'CXX="clang++ -stdlib=libstdc++"'
         print('cxx_overwrite flag', cxx_overwrite)
 
         cm = 'bash configure {build_flag} {compiler} {cxx_overwrite}'.format(
-                build_flag=build_flag, compiler=compiler, cxx_overwrite=cxx_overwrite)
+            build_flag=build_flag,
+            compiler=compiler,
+            cxx_overwrite=cxx_overwrite)
 
         print('configure command: ', cm)
         # do not use subprocess to avoid split cxx_overwrite command
@@ -176,16 +189,22 @@ def install_libcpptraj(compiler='', build_flag='', n_cpus=4):
         subprocess.check_call('make libcpptraj -j{}'.format(n_cpus).split())
         os.chdir(cwd)
 
+
 def parse_args():
     import argparse
     parser = argparse.ArgumentParser(description='install options')
     parser.add_argument('-openmp', action='store_true', help='use openmp')
-    parser.add_argument('-amberlib', action='store_true', help='use use amberlib if $AMBERHOME is set')
+    parser.add_argument(
+        '-amberlib',
+        action='store_true',
+        help='use use amberlib if $AMBERHOME is set')
     parser.add_argument('-debug', action='store_true', help='debug')
     parser.add_argument('-j', default=4, help='n_cpus')
-    parser.add_argument('install_type', default='', nargs='?', help='install_type in amber')
+    parser.add_argument(
+        'install_type', default='', nargs='?', help='install_type in amber')
     args = parser.parse_args()
     return args
+
 
 def _install_libcpptraj_win_msys2():
     PREFIX = '/usr/local/'
@@ -200,11 +219,13 @@ def _install_libcpptraj_win_msys2():
                  -shared \
                  -windows \
                  gnu
-    """.format(PREFIX=PREFIX, PREFIX2=PREFIX2).strip()
+    """.format(
+        PREFIX=PREFIX, PREFIX2=PREFIX2).strip()
     subprocess.check_call(command, shell=True)
     subprocess.check_call('make libcpptraj -j2', shell=True)
     # will create libcpptraj.dll.a
     # shutil.copy('lib/libcpptraj.so', 'lib/cpptraj.lib')
+
 
 if __name__ == '__main__':
     if sys.platform.startswith('win'):
