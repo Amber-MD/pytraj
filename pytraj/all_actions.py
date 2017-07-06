@@ -237,20 +237,15 @@ def distance(traj=None,
 
 
 @register_pmap
-def _distance_to_ref_or_point(
-             traj=None,
-             mask="",
-             frame_indices=None,
-             dtype='ndarray',
-             top=None,
-             image=False,
-             n_frames=None,
-             point=None,
-             ref=None):
+def _distance_to_ref_or_point(traj=None,
+                              mask="",
+                              point=None,
+                              ref=None,
+                              dtype='ndarray'):
     if point and ref:
         raise ValueError("Must be either point or ref, not bot")
 
-    top = top or traj.top
+    top = traj.top
     command = mask
     if not isinstance(command, np.ndarray):
         list_of_commands = get_list_of_commands(command)
@@ -284,8 +279,20 @@ def _distance_to_ref_or_point(
         c_dslist._pop(0)
     return get_data_from_dtype(c_dslist, dtype)
 
+
 distance_to_point = partial(_distance_to_ref_or_point, ref=None)
+distance_to_point.__doc__ = """
+Examples
+--------
+    pytraj.distance_to_point(traj, ':1', point=[0., 0., 0.]) # doctest: +SKIP
+"""
+
 distance_to_reference = partial(_distance_to_ref_or_point, point=None)
+distance_to_reference.__doc__ = """
+Examples
+--------
+    pytraj.distance_to_reference(traj, '@1 @1', ref=ref) # doctest: +SKIP
+"""
 
 
 def pairwise_distance(traj=None,
