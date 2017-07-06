@@ -99,9 +99,8 @@ class TestNormalDistance(unittest.TestCase):
         distance EndToEnd :1 :13
         distance ToRef @1 @1 reference
         distance Point :1 point 0.0 0.0 0.0
-        """.format(parm=fn("tz2.parm7"),
-                   reference=tz2_pdb,
-                   trajin=fn("tz2.nc"))
+        """.format(
+            parm=fn("tz2.parm7"), reference=tz2_pdb, trajin=fn("tz2.nc"))
         state = pt.load_cpptraj_state(cmd)
         state.run()
 

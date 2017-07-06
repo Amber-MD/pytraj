@@ -42,5 +42,6 @@ def get_openmp_flag():
     else:
         return '-openmp'
 
+
 if __name__ == '__main__':
     print(get_openmp_flag())

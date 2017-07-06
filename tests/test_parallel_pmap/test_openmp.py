@@ -33,8 +33,7 @@ class Test(unittest.TestCase):
         act = Analysis_Rms2d()
 
         with Timer() as t:
-            act(
-                "crdset test_traj rmsout ./output/_test_2drms_CRDtest.openmp.dat",
+            act("crdset test_traj rmsout ./output/_test_2drms_CRDtest.openmp.dat",
                 dslist=dslist,
                 dflist=dflist)
 

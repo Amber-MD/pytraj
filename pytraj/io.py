@@ -455,7 +455,8 @@ def write_traj(filename,
                 if frame_indices is not None:
                     if isinstance(traj, (list, tuple, Frame)):
                         raise NotImplementedError(
-                            "must be Trajectory or TrajectoryIterator instance")
+                            "must be Trajectory or TrajectoryIterator instance"
+                        )
                     for frame in traj.iterframe(frame_indices=frame_indices):
                         trajout.write(frame)
 

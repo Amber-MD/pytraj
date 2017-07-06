@@ -129,7 +129,7 @@ class TestTopology(unittest.TestCase):
             assert atom.type == sim_atom.type
             assert atom.charge == sim_atom.charge
             assert atom.mass == sim_atom.mass
-        
+
         # API
         atom = sim_top.atoms[0]
         atom.residue

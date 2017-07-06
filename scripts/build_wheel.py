@@ -38,10 +38,10 @@ class PipBuilder(object):
         REQUIRED_PACKAGES.append('conda_build')
         SUPPORTED_VERSIONS.remove('2.7mu')
 
-    MANY_LINUX_PYTHONS = dict(
-        (py_version, '/opt/python/cp{py}-cp{py}m/bin/python'.format(
-            py=py_version.replace('.', '')))
-        for py_version in SUPPORTED_VERSIONS)
+    MANY_LINUX_PYTHONS = dict((py_version,
+                               '/opt/python/cp{py}-cp{py}m/bin/python'.format(
+                                   py=py_version.replace('.', '')))
+                              for py_version in SUPPORTED_VERSIONS)
     # wide-unicode (to be compatible with miniconda/anaconda python)
     if '2.7mu' in MANY_LINUX_PYTHONS:
         MANY_LINUX_PYTHONS['2.7mu'] = '/opt/python/cp27-cp27mu/bin/python'
@@ -119,8 +119,8 @@ class PipBuilder(object):
     def _get_wheel_file(self, python_version, folder='./'):
         pdict = dict(darwin='macos', linux='linux')
         platform = pdict[sys.platform]
-        whl_file = glob(folder + '/*' + python_version.replace('.', '') + '*{}*.whl'.format(
-            platform))[0]
+        whl_file = glob(folder + '/*' + python_version.replace('.', '') +
+                        '*{}*.whl'.format(platform))[0]
         print(whl_file)
         return whl_file
 
@@ -199,7 +199,8 @@ class PipBuilder(object):
                 print('CPPTRAJHOME is set to {}'.format(self.cpptraj_dir))
             else:
                 print("Can not find libcpptraj")
-                raise EnvironmentError('Must set CPPTRAJHOME having lib/libcpptraj')
+                raise EnvironmentError(
+                    'Must set CPPTRAJHOME having lib/libcpptraj')
         else:
             self.cpptraj_dir = cpptraj_home
         self.libcpptraj = self.cpptraj_dir + '/lib/libcpptraj.' + ext
