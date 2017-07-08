@@ -154,6 +154,7 @@ from .all_actions import _dihedral_res
 from .all_actions import distance_rmsd
 from .all_actions import get_average_frame
 from .all_actions import get_velocity
+from .all_actions import set_velocity
 from .all_actions import gist
 from .all_actions import grid
 from .all_actions import _grid

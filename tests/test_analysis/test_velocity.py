@@ -8,7 +8,14 @@ import pytest
 
 
 class TestVelocity(unittest.TestCase):
-    def test_velocity(self):
+    def test_set_velocity(self):
+        traj = pt.load(fn("tz2.nc"), fn("tz2.parm7"))
+        pt._verbose()
+        pt.set_velocity(traj, temperature=300, ig=10)
+        for frame in traj:
+            print(frame.velocity)
+
+    def test_get_velocity(self):
         traj = pt.iterload(
             fn('issue807/trunc.nc'), fn("issue807/system.prmtop"))
 
