@@ -183,6 +183,7 @@ def hbond(traj,
     dslist = CpptrajDatasetList()
     act = c_action.Action_HydrogenBond()
 
+    dset_name = 'HB'
     s_donor = "solventdonor " + str(solvent_donor) if solvent_donor else ""
     s_acceptor = "solventacceptor " + \
         str(solvent_acceptor) if solvent_acceptor else ""
@@ -192,7 +193,7 @@ def hbond(traj,
     _series = 'series' if series else ''
     _options = options
 
-    command = " ".join((_series, mask, s_donor, s_acceptor, _dist, _angle,
+    command = " ".join((dset_name, _series, mask, s_donor, s_acceptor, _dist, _angle,
                         _image, _options))
 
     # need to get correct frame number
