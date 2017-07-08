@@ -191,12 +191,12 @@ class TestParallelMapForMatrix(unittest.TestCase):
             aa_eq(saved_rmsd, rmsd_)
 
 
-@unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
+# @unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
 class TestParallelMapForHbond(unittest.TestCase):
     def test_pmap_hbond(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
-        hbond_data_serial = pt.search_hbonds(traj, dtype='dict')
-        hbond_data_pmap = pt.pmap(pt.search_hbonds, traj, n_cores=3)
+        hbond_data_serial = pt.hbond(traj, dtype='dict')
+        hbond_data_pmap = pt.pmap(pt.hbond, traj, n_cores=3)
         assert sorted(hbond_data_serial.keys()) == sorted(
             hbond_data_pmap.keys())
         for key, value in hbond_data_serial.items():
@@ -207,6 +207,25 @@ class TestParallelMapForHbond(unittest.TestCase):
             # cpptraj style
             # not support yet.
             pt.pmap(['radgyr', 'hbond'], traj, n_cores=3)
+
+    def test_pmap_hbond_with_solvent_bridge(self):
+        for trajin_fn, parm_fn in [('tz2.ortho.nc', 'tz2.ortho.parm7'),
+                                   ('tz2.truncoct.nc', 'tz2.truncoct.parm7')]:
+            traj = pt.iterload(fn(trajin_fn), fn(parm_fn))
+            kwargs = dict(solvent_donor=':WAT@O', solvent_acceptor=':WAT')
+            hbond_data_serial = pt.hbond(traj, dtype='dict', **kwargs)
+            hbond_data_pmap = pt.pmap(pt.hbond, traj, dtype='dict', n_cores=3, **kwargs)
+
+            assert sorted(hbond_data_serial.keys()) == sorted(
+                hbond_data_pmap.keys())
+
+            for key, value in hbond_data_serial.items():
+                if key.endswith('HB[ID]'):
+                    assert hbond_data_pmap[key].tolist() == hbond_data_serial[key].tolist()
+                    print(hbond_data_pmap[key].tolist(), hbond_data_serial[key].tolist())
+                else:
+                    aa_eq(hbond_data_serial[key], hbond_data_pmap[key])
+                    assert value.dtype == np.int32
 
 
 @unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')

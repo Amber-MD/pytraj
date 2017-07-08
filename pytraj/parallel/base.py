@@ -55,7 +55,11 @@ def concat_hbond(data_collection):
 
     # convert to int
     for key, val in data_dict.items():
-        data_dict[key] = val.astype('i4')
+        try:
+            val = val.astype('i4')
+        except ValueError:
+            val = val
+        data_dict[key] = val
     return data_dict
 
 
