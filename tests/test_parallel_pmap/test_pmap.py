@@ -219,7 +219,7 @@ class TestParallelMapForHbond(unittest.TestCase):
 
         for key, value in hbond_data_serial.items():
             if key.endswith('HB[ID]'):
-                assert value.tolist() == hbond_data_serial[key].tolist()
+                assert hbond_data_pmap[key].tolist() == hbond_data_serial[key].tolist()
             else:
                 aa_eq(hbond_data_serial[key], hbond_data_pmap[key])
                 assert value.dtype == np.int32
