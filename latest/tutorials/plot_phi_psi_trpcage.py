@@ -75,7 +75,7 @@ traj
 # In[7]:
 
 # only plot for residue 2 (python uses 0-based index)
-phi, psi = pt.multidihedral(traj, resrange=[1,], dhtypes='psi phi')
+phi, psi = pt.multidihedral(traj, resrange=[1,], dihedral_types='psi phi')
 phi, psi
 
 

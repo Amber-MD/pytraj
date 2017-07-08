@@ -16,7 +16,7 @@ for fn in glob('latest/*html') + glob('latest/*/*html'):
         possible_errors = [
                 'ImportError',
                 'TypeError',
-                'DeprecationWarning',
+                # 'DeprecationWarning',
                 'NameError',
                 'OSError',
                 'NotImplementedError',
