@@ -170,7 +170,8 @@ Update to AMBERHOME
 
 .. code-block:: bash
 
-    rm $AMBERHOME/lib/libcpptraj.so # so we can use included libcpptraj.so in pytraj
+    rm $AMBERHOME/lib/libcpptraj.so # if using Macos, using "libcpptraj.dylib"
+    rm -rf $AMBERHOME/lib/python2.7/site-packages/pytraj* # replace "python2.7" by your own version (e.g: python3.6)
     amber.pip install pytraj --prefix=$AMBERHOME
     # if you don't have amber.pip, just use pip
 
@@ -178,7 +179,8 @@ Update to AMBERHOME
 
 .. code-block:: bash
 
-    rm $AMBERHOME/lib/libcpptraj.so # so we can use cpptraj github version 
+    rm $AMBERHOME/lib/libcpptraj.so # if using Macos, using "libcpptraj.dylib"
+    rm -rf $AMBERHOME/lib/python2.7/site-packages/pytraj* # replace "python2.7" by your own version (e.g: python3.6)
     # (which will be installed by pytraj itself)
 
     cd /to/your/favorite/dir
@@ -190,7 +192,7 @@ Update to AMBERHOME
     # unzip master
     # cd pytraj-master
 
-    python setup.py install --prefix=$AMBERHOME # overwrite old version
+    python setup.py install --prefix=$AMBERHOME
 
     
 Uninstall

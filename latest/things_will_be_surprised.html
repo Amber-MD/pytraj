@@ -164,10 +164,10 @@
 
 <span class="c"># coords of 1st and last frames are the same and are [0.0, ...]</span>
 <span class="gp">In [4]: </span><span class="k">print</span><span class="p">(</span><span class="n">xyz</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-<span class="go">[ 0.     8.801  0.   ]</span>
+<span class="go">[ 0.  0.  0.]</span>
 
 <span class="gp">In [5]: </span><span class="k">print</span><span class="p">(</span><span class="n">xyz</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-<span class="go">                       [ 0.     8.801  0.   ]</span>
+<span class="go">              [ 0.  0.  0.]</span>
 
 <span class="c"># need to explicitly copy</span>
 <span class="gp">In [6]: </span><span class="n">xyz</span> <span class="o">=</span> <span class="p">[</span><span class="n">frame</span><span class="o">.</span><span class="n">xyz</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">]</span>

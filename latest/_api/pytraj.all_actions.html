@@ -1789,6 +1789,36 @@ in each core without pickling.</p>
 <dd><p>LIE</p>
 </dd></dl>
 
+<dl class="function">
+<dt id="pytraj.all_actions.ti">
+<code class="descclassname">pytraj.all_actions.</code><code class="descname">ti</code><span class="sig-paren">(</span><em>fn</em>, <em>options=''</em><span class="sig-paren">)</span><a class="headerlink" href="#pytraj.all_actions.ti" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute TI</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>fn</strong> : DV/DL energies filename</p>
+<p><strong>option</strong> : str</p>
+<blockquote class="last">
+<div><p>cpptraj options</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>cpptraj help: pytraj.info(&#8216;ti&#8217;)</li>
+<li>EXPERIMENTAL</li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dvdl_fn</span> <span class="o">=</span> <span class="s1">&#39;dvdl.dat&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">options</span> <span class="o">=</span> <span class="s1">&#39;nq 9&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">ti</span><span class="p">(</span><span class="n">dvdl_fn</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span> 
+</pre></div>
+</div>
+</dd></dl>
+
 </div>
 
 

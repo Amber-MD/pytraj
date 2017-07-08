@@ -373,7 +373,8 @@ $ python ./setup.py install
 <ul class="simple">
 <li>From release version</li>
 </ul>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>rm <span class="nv">$AMBERHOME</span>/lib/libcpptraj.so <span class="c1"># so we can use included libcpptraj.so in pytraj</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>rm <span class="nv">$AMBERHOME</span>/lib/libcpptraj.so <span class="c1"># if using Macos, using &quot;libcpptraj.dylib&quot;</span>
+rm -rf <span class="nv">$AMBERHOME</span>/lib/python2.7/site-packages/pytraj* <span class="c1"># replace &quot;python2.7&quot; by your own version (e.g: python3.6)</span>
 amber.pip install pytraj --prefix<span class="o">=</span><span class="nv">$AMBERHOME</span>
 <span class="c1"># if you don&#39;t have amber.pip, just use pip</span>
 </pre></div>
@@ -381,7 +382,8 @@ amber.pip install pytraj --prefix<span class="o">=</span><span class="nv">$AMBER
 <ul class="simple">
 <li>From github development version</li>
 </ul>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>rm <span class="nv">$AMBERHOME</span>/lib/libcpptraj.so <span class="c1"># so we can use cpptraj github version</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>rm <span class="nv">$AMBERHOME</span>/lib/libcpptraj.so <span class="c1"># if using Macos, using &quot;libcpptraj.dylib&quot;</span>
+rm -rf <span class="nv">$AMBERHOME</span>/lib/python2.7/site-packages/pytraj* <span class="c1"># replace &quot;python2.7&quot; by your own version (e.g: python3.6)</span>
 <span class="c1"># (which will be installed by pytraj itself)</span>
 
 <span class="nb">cd</span> /to/your/favorite/dir
@@ -393,7 +395,7 @@ git clone https://github.com/Amber-MD/pytraj
 <span class="c1"># unzip master</span>
 <span class="c1"># cd pytraj-master</span>
 
-python setup.py install --prefix<span class="o">=</span><span class="nv">$AMBERHOME</span> <span class="c1"># overwrite old version</span>
+python setup.py install --prefix<span class="o">=</span><span class="nv">$AMBERHOME</span>
 </pre></div>
 </div>
 </div>
