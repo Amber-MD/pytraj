@@ -72,7 +72,7 @@ def _update_key_hbond(_dslist):
         d0.key = d0.key.replace("@", "_")
 
     for d0 in _dslist:
-        if d0.key == 'HB00000[UU]':
+        if d0.key == 'HB[UU]':
             d0.key = 'total_solute_hbonds'
 
 
