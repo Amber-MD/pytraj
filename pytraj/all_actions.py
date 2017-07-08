@@ -1927,10 +1927,10 @@ def velocityautocorr(
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
-def set_velocity(traj, temperature=298, ig=10):
+def set_velocity(traj, temperature=298, ig=10, options=''):
     """
     """
-    command = "tempi {} ig {}".format(temperature, ig)
+    command = "tempi {} ig {} {}".format(temperature, ig, options)
 
     top = traj.top
 

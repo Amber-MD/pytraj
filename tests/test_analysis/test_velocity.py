@@ -11,7 +11,7 @@ class TestVelocity(unittest.TestCase):
     def test_set_velocity(self):
         traj = pt.load(fn("tz2.nc"), fn("tz2.parm7"))
         pt._verbose()
-        pt.set_velocity(traj, temperature=300, ig=10)
+        pt.set_velocity(traj, temperature=300, ig=10, options='modify')
         for frame in traj:
             print(frame.velocity)
 
