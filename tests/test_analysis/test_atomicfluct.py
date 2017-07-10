@@ -57,6 +57,24 @@ class TestAtomicFluct(unittest.TestCase):
         # https://github.com/Amber-MD/pytraj/issues/1166
         aa_eq(pt.distance(t0, ':3 :7'), state.data[-1])
         aa_eq(traj.xyz, t0.xyz)
+        
+    def test_calc_atomicfluct_with_unitcell(self):
+        # use iterload for load_batch
+        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
+        state = pt.load_cpptraj_state('''
+        distance :3 :7
+        atomicfluct @CA out output/test.agr
+        distance :3 :7''', traj)
+        state.run()
+
+        # use `load` method
+        t0 = pt.load(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
+        data = pt.atomicfluct(traj, '@CA')
+        aa_eq(data, state.data[-2].values)
+        # make sure that traj's coordinates were not altered
+        # https://github.com/Amber-MD/pytraj/issues/1166
+        aa_eq(pt.distance(t0, ':3 :7'), state.data[-1])
+        aa_eq(traj.xyz, t0.xyz)
 
 
 if __name__ == "__main__":
