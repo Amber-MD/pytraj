@@ -37,6 +37,10 @@ class DatasetHBond(BaseDataHolder):
     """Hold data for hbond analysis.
     """
 
+    def __init__(self, *args, **kwargs):
+        super(DatasetHBond, self).__init__(*args, **kwargs)
+        self._resnames = None
+
     def __str__(self):
         root_msg = "<pytraj.hbonds.DatasetHBond"
         more_info = "donor_acceptor pairs : %s>" % len(self.donor_acceptor)
@@ -63,6 +67,25 @@ class DatasetHBond(BaseDataHolder):
         '''
         return np.array(list(to_amber_mask(self._old_keys))).T
 
+    def _get_bridge(self):
+        # FIXME: docs
+        import re
+
+        bridge_ids = self.data['HB[ID]'].values
+        bridges = []
+        rdict = self._resnames
+
+        for bid in bridge_ids:
+            # each frame
+            bridge_per_frame = []
+            for st in bid.split(','):
+                # each bridge
+                nums = re.findall(r'\d+', st)
+                if nums:
+                    new_nums = tuple(rdict[s] + s  for s in nums)
+                    bridge_per_frame.append(new_nums)
+            bridges.append(bridge_per_frame)
+        return bridges
 
 def _update_key_hbond(_dslist):
 
@@ -215,6 +238,7 @@ def hbond(traj,
             dslist_new = get_data_from_dtype(dslist, dtype='dataset')
             hdata = DatasetHBond(dslist_new)
             hdata._old_keys = old_keys
+            hdata._resnames = dict((str(res.index+1), res.name)for res in top.residues)
             return hdata
         else:
             raise ValueError(
