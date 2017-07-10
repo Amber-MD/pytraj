@@ -40,7 +40,7 @@ class TestAtomicFluct(unittest.TestCase):
         data = pt.rmsf(t0)
         aa_eq(data, state.data[-1].values)
 
-    def test_RMSF(self):
+    def test_RMSF_with_options(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
         state = pt.load_batch(traj, '''
