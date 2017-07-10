@@ -1390,7 +1390,7 @@ def atomicfluct(traj=None,
            [ 16.        ,   0.5627449 ],
            [ 40.        ,   0.53717119]])
     '''
-    command = mask
+    command = ' '.join(mask, options)
     c_dslist, _ = do_action(traj, command, c_action.Action_AtomicFluct)
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
