@@ -34,6 +34,23 @@ class TestSearchHbonds(unittest.TestCase):
         hbonds_1 = pt.search_hbonds(traj, image=True)
         aa_eq(hbonds_0.values, hbonds_1.values)
 
+    def test_hbonds_solvent_bridge(self):
+        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
+        # find solvent bridge between residue 10 and 11.
+        hb = pt.hbond(
+            traj, ':10,11', solvent_donor=':WAT', solvent_acceptor=':WAT')
+        assert hb._get_bridge() ==  \
+         [[('WAT208', 'THR10', 'TRP11')],
+          [('WAT208', 'THR10', 'TRP11')],
+          [('WAT208', 'THR10', 'TRP11')],
+          [('WAT208', 'THR10', 'TRP11')],
+          [],
+          [],
+          [],
+          [],
+          [],
+          [('WAT266', 'THR10', 'TRP11')]]
+
     def test_hbonds_from_pdb(self):
         traj = pt.load(fn('1L2Y.pdb'))
         hb = pt.search_hbonds(traj)
@@ -58,7 +75,6 @@ class TestSearchHbonds(unittest.TestCase):
         angles = pt.angles(traj, hb.get_amber_mask()[1])
         dist_indices = np.where(distances > distance_cutoff)
         angle_indices = np.where(angles < angle_cutoff)
-        print('FILL ME', dist_indices, angle_indices)
 
         saved_donor_acceptors = [
             'ASP9_OD2-ARG16_NH1-HH12', 'ASP9_OD2-ARG16_NH2-HH22',
