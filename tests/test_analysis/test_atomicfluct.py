@@ -40,6 +40,16 @@ class TestAtomicFluct(unittest.TestCase):
         data = pt.rmsf(t0)
         aa_eq(data, state.data[-1].values)
 
+    def test_RMSF_with_options(self):
+        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
+
+        state = pt.load_batch(traj, '''
+        atomicfluct @CA byres out fluct.agr''')
+        state.run()
+
+        data = pt.rmsf(traj, '@CA', options='byres')
+        aa_eq(data, state.data[-1].values)
+
     def test_calc_atomicfluct_with_unitcell(self):
         # use iterload for load_batch
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
