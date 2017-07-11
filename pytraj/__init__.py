@@ -297,12 +297,19 @@ def show_versions():
 # for website
 # do not put __all__ in the top of this file to avoid circular import (all_actions)
 __all__ = sorted(
-    io.__all__ + all_actions.__all__ + dihedral_analysis.__all__ + nmr.__all__
-    + ['nastruct'] + ['esander'] + [
+    io.__all__ +
+    all_actions.__all__ +
+    dihedral_analysis.__all__ +
+    nmr.__all__ +
+    ['nastruct'] +
+    ['esander'] +
+    [
         'Atom', 'Residue', 'Molecule', 'Topology', 'Frame', 'AtomMask',
         'Trajectory', 'TrajectoryIterator', 'TrajectoryWriter', 'ActionList',
         'ActionDict', 'AnalysisDict', 'adict', 'analdict', 'dispatch',
-        'iterchunk', 'iterframe', 'select', 'set_cpptraj_verbose',
+        'iterchunk', 'iterframe', 'select',
         'show_versions', 'dihedral_analysis', 'hbond_analysis',
         'dssp_analysis', 'nucleic_acid_analysis', 'tools'
-    ])
+         'set_cpptraj_verbose',
+    ]
+)

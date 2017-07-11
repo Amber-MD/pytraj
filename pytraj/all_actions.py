@@ -1929,6 +1929,10 @@ def velocityautocorr(
 
 def set_velocity(traj, temperature=298, ig=10, options=''):
     """
+
+    Notes
+    -----
+    Added in v2.0.1
     """
     command = "tempi {} ig {} {}".format(temperature, ig, options)
 
@@ -1941,9 +1945,8 @@ def set_velocity(traj, temperature=298, ig=10, options=''):
     if traj.velocities is None:
         traj.velocities = np.empty(traj.xyz.shape)
     for index, frame in enumerate(traj):
-        act.compute(frame)
-        print(frame.velocity)
-        traj.velocities[index] = frame.velocity
+        new_frame = act.compute(frame, get_new_frame=True)
+        traj.velocities[index] = new_frame.velocity
     return traj
 
 
