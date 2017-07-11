@@ -309,7 +309,7 @@ __all__ = sorted(
         'ActionDict', 'AnalysisDict', 'adict', 'analdict', 'dispatch',
         'iterchunk', 'iterframe', 'select',
         'show_versions', 'dihedral_analysis', 'hbond_analysis',
-        'dssp_analysis', 'nucleic_acid_analysis', 'tools'
-         'set_cpptraj_verbose',
+        'dssp_analysis', 'nucleic_acid_analysis', 'tools',
+        'set_cpptraj_verbose',
     ]
 )
