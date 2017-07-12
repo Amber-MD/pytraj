@@ -451,6 +451,7 @@ cdef class TrajectoryCpptraj:
             return traj
 
         else:
+            traj.velocities = np.zeros((n_frames, n_atoms, 3), dtype='f8')
             # slower
             frame = Frame()
             frame.thisptr[0] = self.thisptr.AllocateFrame()
@@ -463,6 +464,7 @@ cdef class TrajectoryCpptraj:
                     self._do_transformation(frame)
                 traj.xyz[j] = frame.xyz
                 traj.unitcells[j] = frame.box._get_data()
+                traj.velocities[j] = frame.velocity
             return traj
 
     def _iterframe_indices(self, frame_indices):
