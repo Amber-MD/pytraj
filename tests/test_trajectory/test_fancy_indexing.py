@@ -31,6 +31,16 @@ class TestSlicingTrajectory(unittest.TestCase):
         aa_eq(fa4[1].xyz, traj[2].xyz)
         aa_eq(fa4[0].xyz, traj[1].xyz)
 
+    def test_velocity(self):
+        traj = pt.iterload(
+            fn('issue807/trunc.nc'), fn("issue807/system.prmtop"))
+
+        aa_eq(pt.get_velocity(traj),
+              pt.get_velocity(traj[:]))
+
+        aa_eq(pt.get_velocity(traj, frame_indices=[1, 3, 5]),
+              pt.get_velocity(traj[[1, 3, 5]]))
+
     def test_atommask(self):
         # AtomMask
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
@@ -45,49 +55,43 @@ class TestSlicingTrajectory(unittest.TestCase):
         aa_eq(traj[0, atm, 0], xyz[0][indices][0])
 
 
-class Test1(unittest.TestCase):
-    def test_0(self):
-        # create Trajectory from Trajing_Single
-        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))[:]
-        aa_eq(traj[3, 3], traj[3][3, :])
-        frame1 = traj[1]
-        aa_eq(frame1[0], traj[1][:, :][0])
-        assert traj[0, 0, 0] == -16.492
-        assert traj[:, :, 0][0, 0] == traj[0, 0, 0]
-        traj[0]
-        farr0 = traj[:2]
+def test_slice_from_Trajin_Single():
+    # create Trajectory from Trajing_Single
+    traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))[:]
+    aa_eq(traj[3, 3], traj[3][3, :])
+    frame1 = traj[1]
+    aa_eq(frame1[0], traj[1][:, :][0])
+    assert traj[0, 0, 0] == -16.492
+    assert traj[:, :, 0][0, 0] == traj[0, 0, 0]
+    traj[0]
+    farr0 = traj[:2]
 
-        fa = traj[2:4]
+    fa = traj[2:4]
 
-        # we don't support traj[:, idx] or traj[:, idx, idy] since this give wrong answer
-        #  got ~0.0 value
-        aa_eq(traj[:, 0, 0], np.asarray(traj[0][0]))
+    # we don't support traj[:, idx] or traj[:, idx, idy] since this give wrong answer
+    #  got ~0.0 value
+    aa_eq(traj[:, 0, 0], np.asarray(traj[0][0]))
 
-        for i in range(traj[0]._buffer2d.shape[0]):
-            aa_eq(traj[:, :, 0][i], traj[0]._buffer2d[i])
+    for i in range(traj[0]._buffer2d.shape[0]):
+        aa_eq(traj[:, :, 0][i], traj[0]._buffer2d[i])
 
-        # slicing with mask
-        atm = traj.top("@CA")
-        traj[atm]
-        traj[:, atm]
-
-
-class TestSegmentationFault(unittest.TestCase):
-    def test_0(self):
-        # NOTE: no assert, just check for segfault
-        traj = pt.load(fn('Tc5b.x'), fn('Tc5b.top'))
-        pt.load(fn('Tc5b.x'), fn('Tc5b.top'))
-        traj.top("@CA")
-        f0 = traj[5]
-        f0 = traj[0]
-        f0.top = traj.top
-        f0['@CA']
-        traj[0, '@CA']
-
-        f0 = traj[0, '@CA']
-        f1 = traj['@CA'][0]
-        assert pt.tools.rmsd(f0.xyz, f1.xyz) == 0.0
+    # slicing with mask
+    atm = traj.top("@CA")
+    traj[atm]
+    traj[:, atm]
 
 
-if __name__ == "__main__":
-    unittest.main()
+def test_segmentation_fault():
+    # NOTE: no assert, just check for segfault
+    traj = pt.load(fn('Tc5b.x'), fn('Tc5b.top'))
+    pt.load(fn('Tc5b.x'), fn('Tc5b.top'))
+    traj.top("@CA")
+    f0 = traj[5]
+    f0 = traj[0]
+    f0.top = traj.top
+    f0['@CA']
+    traj[0, '@CA']
+
+    f0 = traj[0, '@CA']
+    f1 = traj['@CA'][0]
+    assert pt.tools.rmsd(f0.xyz, f1.xyz) == 0.0
