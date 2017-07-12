@@ -35,7 +35,6 @@ class TestSlicingTrajectory(unittest.TestCase):
         traj = pt.iterload(
             fn('issue807/trunc.nc'), fn("issue807/system.prmtop"))
 
-        mem_traj = traj[:]
         aa_eq(pt.get_velocity(traj),
               pt.get_velocity(traj[:]))
 
