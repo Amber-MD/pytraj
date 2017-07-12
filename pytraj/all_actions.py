@@ -1927,6 +1927,29 @@ def velocityautocorr(
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
+def set_velocity(traj, temperature=298, ig=10, options=''):
+    """
+
+    Notes
+    -----
+    Added in v2.0.1
+    """
+    command = "tempi {} ig {} {}".format(temperature, ig, options)
+
+    top = traj.top
+
+    act = c_action.Action_SetVelocity()
+    act.read_input(command, top=top)
+    act.setup(top)
+
+    if traj.velocities is None:
+        traj.velocities = np.empty(traj.xyz.shape)
+    for index, frame in enumerate(traj):
+        new_frame = act.compute(frame, get_new_frame=True)
+        traj.velocities[index] = new_frame.velocity
+    return traj
+
+
 def crank(data0, data1, mode='distance', dtype='ndarray'):
     """
 

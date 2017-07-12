@@ -154,6 +154,7 @@ from .all_actions import _dihedral_res
 from .all_actions import distance_rmsd
 from .all_actions import get_average_frame
 from .all_actions import get_velocity
+from .all_actions import set_velocity
 from .all_actions import gist
 from .all_actions import grid
 from .all_actions import _grid
@@ -296,12 +297,19 @@ def show_versions():
 # for website
 # do not put __all__ in the top of this file to avoid circular import (all_actions)
 __all__ = sorted(
-    io.__all__ + all_actions.__all__ + dihedral_analysis.__all__ + nmr.__all__
-    + ['nastruct'] + ['esander'] + [
+    io.__all__ +
+    all_actions.__all__ +
+    dihedral_analysis.__all__ +
+    nmr.__all__ +
+    ['nastruct'] +
+    ['esander'] +
+    [
         'Atom', 'Residue', 'Molecule', 'Topology', 'Frame', 'AtomMask',
         'Trajectory', 'TrajectoryIterator', 'TrajectoryWriter', 'ActionList',
         'ActionDict', 'AnalysisDict', 'adict', 'analdict', 'dispatch',
-        'iterchunk', 'iterframe', 'select', 'set_cpptraj_verbose',
+        'iterchunk', 'iterframe', 'select',
         'show_versions', 'dihedral_analysis', 'hbond_analysis',
-        'dssp_analysis', 'nucleic_acid_analysis', 'tools'
-    ])
+        'dssp_analysis', 'nucleic_acid_analysis', 'tools',
+        'set_cpptraj_verbose',
+    ]
+)
