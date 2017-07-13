@@ -88,9 +88,6 @@ class TestVelocity(unittest.TestCase):
         # need to raise if no `velocity_arr` is given
         traj_on_mem = traj[:]
 
-        with pytest.raises(ValueError):
-            pt.all_actions.velocityautocorr(
-                traj_on_mem, tstep=2, norm=True, direct=True, usevelocity=True)
         # try on memory Trajectory, usevelocity = True
         traj_on_disk = traj
         velocity_arr = pt.get_velocity(traj_on_disk)
