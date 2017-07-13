@@ -10,15 +10,6 @@ from auditwheel import wheeltools
 # 2. Use this script to fix wheel
 # 3. Double-check: wheel unpack your_new.whl
 
-# Note: your_new.whl will be in ./wheelhouse folder
-def get_so_files(folder):
-    # all python extensions needed to be fixed
-    level = 6
-    all_so_files = []
-    cmd = "find {} -type f -name '*.so'".format(folder)
-    output = subprocess.check_output(cmd, shell=True)
-    return [fn for fn in output.decode().split('\n') if fn]
-
 
 def get_dylibs(fn):
     output = subprocess.check_output([
@@ -29,54 +20,70 @@ def get_dylibs(fn):
     return [line.split()[0] for line in output.split('\n') if line]
 
 
-def copy_and_update_libs(pytraj_dir, libcpptraj, python_version):
+def copy_and_update_libs(pytraj_dir, libcpptraj):
     """ Copy libcpptraj.dylib and libnetcdf.7.dylib to pytraj/lib folder
     Update their ids to @rpath/{libcpptraj.dylib, libnetcdf.7.dylib}
 
     Also add loader_path to .so files in pytraj folder.
     """
-    pytraj_lib = os.path.join(pytraj_dir, 'lib')
+    pytraj_lib = os.path.join(pytraj_dir, 'pytraj_3rd_party')
     new_libcpptraj = pytraj_lib + '/libcpptraj.dylib'
+    new_libnetcdf = pytraj_lib + '/libnetcdf.7.dylib'
 
     try:
         os.mkdir(pytraj_lib)
     except OSError:
         pass
-    shutil.copy(libcpptraj, pytraj_lib)
-    netcdf_lib = [lib for lib in get_dylibs(new_libcpptraj) if 'libnetcdf.7.dylib' in lib][0]
-    shutil.copy(netcdf_lib, pytraj_lib)
-    os.system('install_name_tool -id {} {}'.format('@rpath/libcpptraj.dylib', new_libcpptraj))
-    os.system('install_name_tool -id {} {}'.format('@rpath/libnetcdf.7.dylib', netcdf_lib))
+    shutil.copy(libcpptraj, new_libcpptraj)
+    netcdf_lib = [lib for lib in get_dylibs(libcpptraj) if 'libnetcdf.7.dylib' in lib][0]
+    print('netcdf_lib', netcdf_lib)
+    shutil.copy(netcdf_lib, new_libnetcdf)
+    os.system('install_name_tool -id {} {}'.format('@rpath/pytraj_3rd_party/libcpptraj.dylib', new_libcpptraj))
+    os.system('sudo install_name_tool -id {} {}'.format('@rpath/pytraj_3rd_party/libnetcdf.7.dylib', new_libnetcdf))
 
 
-def main(pkg_name, whl_name, libcpptraj, python_version):
+def pack(pkg_name, whl_name, libcpptraj):
+    print('libcpptraj', libcpptraj)
     try:
         os.mkdir('wheelhouse')
     except OSError:
         pass
     with wheeltools.InWheel(whl_name, out_wheel='wheelhouse/{}'.format(whl_name)):
-        LIBCPPTRAJ_RPATH = copy_and_update_libs(libcpptraj, python_version)
+        pkg_dir = os.path.abspath(pkg_name)
+        copy_and_update_libs(pkg_dir, libcpptraj)
+        rpath_libcpptraj = '@rpath/pytraj_3rd_party/libcpptraj.dylib'
+
+        lib_dir = os.path.join(pkg_name, 'lib')
+
         for root, dirs, files in os.walk(pkg_name):
-            for fn in (root + '/' +  _ for _ in files):
+            for fn in (os.path.join(root,  _) for _ in files):
                 if fn.endswith('.so'):
                     libcpptraj_dir = ''
                     for lib in get_dylibs(fn):
                         if 'libcpptraj' in lib:
                             libcpptraj_dir = lib
                             break
+                    relpath = os.path.relpath(pkg_dir, os.path.abspath(os.path.dirname(fn)))
+                    print('relpath', relpath)
                     subprocess.check_call(['install_name_tool', '-change', 
                                            libcpptraj_dir,
-                                           LIBCPPTRAJ_RPATH,
+                                           rpath_libcpptraj,
                                            fn])
-if __name__ == '__main__':
+                    loader_path = '@loader_path/{}/'.format(relpath)
+                    print('loader_path', loader_path)
+                    subprocess.check_call(['install_name_tool', '-add_rpath', 
+                                           loader_path,
+                                           fn])
+
+def main():
     import argparse
     parser = argparse.ArgumentParser('Fix osx wheel')
     parser.add_argument('whl_name')
-    parser.add_argument('--py', default='3.5', help='Python version')
+    parser.add_argument('--libcpptraj')
     args = parser.parse_args()
     pkg_name = 'pytraj'
-    whl_name = args.whl_name
-    python_version = args.py
-    cpptrajhome = os.getenv('CPPTRAJHOME', os.path.abspath('../cpptraj'))
-    libcpptraj = cpptrajhome + '/lib/libcpptraj.dylib'
-    main(pkg_name, whl_name, libcpptraj, python_version)
+    pack(pkg_name, args.whl_name, os.path.abspath(args.libcpptraj))
+
+
+if __name__ == '__main__':
+    main()
