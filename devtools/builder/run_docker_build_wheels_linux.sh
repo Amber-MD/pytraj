@@ -21,8 +21,14 @@ else
     \$python scripts/install_libcpptraj.py -openmp
 fi
 
+fn=`ls dist/pytraj*gz`
+
+if [ ! -f $fn ]; then
+    ./devtools/mkrelease
+fi
+
 cd dist
-\$python ../../scripts/build_wheel.py pytraj*gz --manylinux-docker
+\$python ../scripts/build_wheel.py pytraj*gz --manylinux-docker
 
 cd ..
 EOF
