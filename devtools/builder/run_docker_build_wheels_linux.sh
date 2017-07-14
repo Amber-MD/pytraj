@@ -14,17 +14,16 @@ set -x
 cd /feedstock_root/
 
 export python=/opt/python/cp36-cp36m/bin/python
+
+if [ ! -d dist ]; then
+    \$python ./devtools/mkrelease
+fi
+
 if [ ! -d cpptraj ]; then
     \$python scripts/install_libcpptraj.py github -openmp
 else
     (cd cpptraj && git pull && git clean -fdx .)
     \$python scripts/install_libcpptraj.py -openmp
-fi
-
-fn=`ls dist/pytraj*gz`
-
-if [ ! -f $fn ]; then
-    ./devtools/mkrelease
 fi
 
 cd dist
