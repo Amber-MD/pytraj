@@ -24,7 +24,7 @@ else:
 
 MAJOR = 2
 MINOR = 0
-MICRO = 1
+MICRO = 2
 is_released = False
 VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 
