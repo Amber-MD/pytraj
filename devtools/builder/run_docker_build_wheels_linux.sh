@@ -22,7 +22,7 @@ else
 fi
 
 cd dist
-\$python ../scripts/build_wheel.py pytraj*gz --manylinux-docker
+\$python ../../scripts/build_wheel.py pytraj*gz --manylinux-docker
 
 cd ..
 EOF
