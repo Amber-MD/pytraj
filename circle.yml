@@ -8,7 +8,7 @@ dependencies:
 
 test:
   override:
-    - sh devtools/ci/run_docker_build_wheels.sh
+    - sh devtools/builder/run_docker_build_wheels_linux.sh
   post:
     - mkdir $CIRCLE_ARTIFACTS/pytraj-build
     - cp dist/wheelhouse/pytraj*whl $CIRCLE_ARTIFACTS/pytraj-build/

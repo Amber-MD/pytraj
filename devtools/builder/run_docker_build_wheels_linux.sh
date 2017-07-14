@@ -13,17 +13,21 @@ cat << EOF | docker run -i \
 set -x
 cd /feedstock_root/
 
-export PATH=\$HOME/miniconda3/bin:\$PATH
+export python=/opt/python/cp36-cp36m/bin/python
 
-for pyver in 2.7 3.4 3.5; do
-    conda build devtools/conda-recipe/pytraj --py \$pyver
-    tarfile=\`conda build devtools/conda-recipe/pytraj --py \$pyver --output\`
-    echo "\$tarfile"
+if [ ! -d dist ]; then
+    \$python ./devtools/mkrelease
+fi
 
-    build_dir=dist/conda/linux-64
-    if [ ! -d \$build_dir ]; then
-        mkdir -p \$build_dir
-    fi
-    cp \$tarfile \$build_dir
-done
+if [ ! -d cpptraj ]; then
+    \$python scripts/install_libcpptraj.py github -openmp
+else
+    (cd cpptraj && git pull && git clean -fdx .)
+    \$python scripts/install_libcpptraj.py -openmp
+fi
+
+cd dist
+\$python ../scripts/build_wheel.py pytraj*gz --manylinux-docker
+
+cd ..
 EOF

@@ -131,7 +131,7 @@ class PipBuilder(object):
             whl_name,
         ]
         if self.is_osx:
-            command.extend(['--py', python_version])
+            command.extend(['--libcpptraj', self.libcpptraj])
         print(command)
         subprocess.check_call(command)
 
@@ -203,7 +203,7 @@ class PipBuilder(object):
                     'Must set CPPTRAJHOME having lib/libcpptraj')
         else:
             self.cpptraj_dir = cpptraj_home
-        self.libcpptraj = self.cpptraj_dir + '/lib/libcpptraj.' + ext
+        self.libcpptraj = os.path.join(self.cpptraj_dir, 'lib', 'libcpptraj.' + ext)
 
         for package in self.REQUIRED_PACKAGES:
             try:

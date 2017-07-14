@@ -7,6 +7,7 @@ python -c "import auditwheel" || exit 1
 
 function main(){
     # this function will be run in the end of this script
+    devtools/mkrelease
     clone_or_update_cpptraj
     pip_linux
     pip_osx
@@ -25,7 +26,7 @@ function clone_or_update_cpptraj(){
 
 
 function pip_linux(){
-    sh devtools/ci/run_docker_build_wheels.sh
+    sh devtools/builder/run_docker_build_wheels_linux.sh
 }
 
 
@@ -38,7 +39,7 @@ function pip_osx(){
 
 
 function conda_linux(){
-    sh devtools/ci/run_docker_build_conda.sh
+    sh devtools/builder/run_docker_build_conda_linux.sh
 }
 
 
