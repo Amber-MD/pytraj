@@ -20,7 +20,6 @@ else
     (cd cpptraj && git pull && git clean -fdx .)
     \$python scripts/install_libcpptraj.py -openmp
 fi
-\$python devtools/mkrelease
 
 cd dist
 \$python ../scripts/build_wheel.py pytraj*gz --manylinux-docker

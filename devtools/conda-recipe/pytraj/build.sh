@@ -4,7 +4,8 @@ isosx=`python -c "import sys; print(sys.platform.startswith('darwin'))"`
 pyver=`python -c "import sys; print('.'.join(str(x) for x in sys.version_info[:2]))"`
 pyver2=`python -c "import sys; print(''.join(str(x) for x in sys.version_info[:2]))"`
 
-version='2.0.0'
+# FIXME: why hard code the version here?
+version='2.0.2'
 
 if [ "$isosx" = "True" ]; then
    whlfile=pytraj-$version-cp$pyver2-cp${pyver2}m-macosx_*_x86_64.whl

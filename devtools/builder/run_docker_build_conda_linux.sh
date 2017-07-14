@@ -15,7 +15,7 @@ cd /feedstock_root/
 
 export PATH=\$HOME/miniconda3/bin:\$PATH
 
-for pyver in 2.7 3.4 3.5; do
+for pyver in 2.7 3.4 3.5 3.6; do
     conda build devtools/conda-recipe/pytraj --py \$pyver
     tarfile=\`conda build devtools/conda-recipe/pytraj --py \$pyver --output\`
     echo "\$tarfile"
