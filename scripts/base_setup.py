@@ -287,17 +287,20 @@ def get_cpptraj_info(rootname, cpptraj_home, cpptraj_included,
         # install pytraj inside AMBER
         AMBERHOME = os.getenv('AMBERHOME', '')
         AMBER_PREFIX = os.getenv('AMBER_PREFIX', '')
-        if not AMBERHOME:
-            raise EnvironmentError(
-                'must set AMBERHOME if you want to install pytraj '
-                'inside AMBER')
-        # overwrite CPPTRAJ_HEADERDIR, CPPTRAJ_LIBDIR
-        if AMBER_PREFIX:
-            CPPTRAJ_LIBDIR = os.path.join(AMBER_PREFIX, 'lib')
-        else:
-            CPPTRAJ_LIBDIR = os.path.join(AMBERHOME, 'lib')
-        CPPTRAJ_HEADERDIR = os.path.join(AMBERHOME, 'AmberTools', 'src',
-                                         'cpptraj', 'src')
+        
+        # if the paths were not manually specified (as by the CMake buildsystem), try to get them from AMBERHOME
+        if not (CPPTRAJ_LIBDIR and CPPTRAJ_HEADERDIR):
+            if not AMBERHOME:
+                raise EnvironmentError(
+                    'must set AMBERHOME if you want to install pytraj '
+                    'inside AMBER')
+            # overwrite CPPTRAJ_HEADERDIR, CPPTRAJ_LIBDIR
+            if AMBER_PREFIX:
+                CPPTRAJ_LIBDIR = os.path.join(AMBER_PREFIX, 'lib')
+            else:
+                CPPTRAJ_LIBDIR = os.path.join(AMBERHOME, 'lib')
+            CPPTRAJ_HEADERDIR = os.path.join(AMBERHOME, 'AmberTools', 'src',
+                                             'cpptraj', 'src')
 
         cpptraj_info.ambertools_distro = True
     else:
