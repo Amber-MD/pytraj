@@ -288,7 +288,7 @@ def get_cpptraj_info(rootname, cpptraj_home, cpptraj_included,
         AMBERHOME = os.getenv('AMBERHOME', '')
         AMBER_PREFIX = os.getenv('AMBER_PREFIX', '')
         
-        #if the paths were not manually specified (as by the CMake buildsystem), try to get them from AMBERHOME
+        # if the paths were not manually specified (as by the CMake buildsystem), try to get them from AMBERHOME
         if not (CPPTRAJ_LIBDIR and CPPTRAJ_HEADERDIR):
             if not AMBERHOME:
                 raise EnvironmentError(

@@ -1,4 +1,8 @@
-#CMake buildfile for the pytraj wrapper for cpptraj
+# AmberTools CMake buildfile for the pytraj wrapper for cpptraj
+# NOTE: This is NOT a standalone build file
+# It is used by the Amber build system for when it builds pytraj
+# If you are just trying to build pytraj, run setup.py, not this!
+
 project(pytraj)
 
 
