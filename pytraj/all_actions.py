@@ -49,6 +49,32 @@ from .analysis import (
     energy_analysis, )
 
 __all__ = [
+    'align',
+    'angle',
+    'atomicfluct',
+    'bfactors',
+    'center_of_geometry',
+    'center_of_mass',
+    'check_chirality',
+    'crank',
+    'diffusion',
+    'dihedral',
+    'distance',
+    'distance_to_point',
+    'distance_to_reference',
+    'fiximagedbonds',
+    'mindist',
+    'molsurf',
+    'multidihedral',
+    'pairdist',
+    'pairwise_distance',
+    'pca',
+    'radgyr',
+    'rdf',
+    'rotate_dihedral',
+    'set_velocity',
+    'surf',
+    'watershell',
     'analyze_modes',
     'translate',
     'rotate',
@@ -89,6 +115,7 @@ __all__ = [
     'rmsd_perres',
     'rmsd_nofit',
     'rmsd',
+    'rmsf',
     'symmrmsd',
     'distance_rmsd',
     'volmap',
@@ -102,6 +129,7 @@ __all__ = [
     'dssp_analysis',
     'hbond_analysis',
     'energy_analysis',
+    'rotdif',
     'ti',
 ]
 
@@ -1393,6 +1421,8 @@ def atomicfluct(traj=None,
     command = ' '.join((mask, options))
     c_dslist, _ = do_action(traj, command, c_action.Action_AtomicFluct)
     return get_data_from_dtype(c_dslist, dtype=dtype)
+
+rmsf = atomicfluct
 
 
 def bfactors(traj=None,
