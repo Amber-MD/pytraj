@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Tips &#8212; pytraj 2.0.1.dev0 documentation</title>
+    <title>Tips &#8212; pytraj 2.0.2.dev0 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.0.1.dev0',
+        VERSION:     '2.0.2.dev0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -55,7 +55,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>2.0.1.dev0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.0.2.dev0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -230,11 +230,11 @@
 <p>Supposed you have a list of 5 (or whatever) trajectories, you only want to load those files 1st to 100-th frames
 and skip every 10 frames. Below is a convention <code class="docutils literal"><span class="pre">cpptraj</span></code> input.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>parm 2koc.parm7
-trajin traj0.nc <span class="m">1</span> <span class="m">100</span> 10
-trajin traj1.nc <span class="m">1</span> <span class="m">100</span> 10
-trajin traj2.nc <span class="m">1</span> <span class="m">100</span> 10
-trajin traj3.nc <span class="m">1</span> <span class="m">100</span> 10
-trajin traj4.nc <span class="m">1</span> <span class="m">100</span> 10
+trajin traj0.nc <span class="m">1</span> <span class="m">100</span> <span class="m">10</span>
+trajin traj1.nc <span class="m">1</span> <span class="m">100</span> <span class="m">10</span>
+trajin traj2.nc <span class="m">1</span> <span class="m">100</span> <span class="m">10</span>
+trajin traj3.nc <span class="m">1</span> <span class="m">100</span> <span class="m">10</span>
+trajin traj4.nc <span class="m">1</span> <span class="m">100</span> <span class="m">10</span>
 </pre></div>
 </div>
 <p>In <code class="docutils literal"><span class="pre">pytraj</span></code>, you can specify <code class="docutils literal"><span class="pre">frame_slice</span></code></p>
@@ -330,18 +330,18 @@ trajin traj4.nc <span class="m">1</span> <span class="m">100</span> 10
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ python memory/pairwise_rmsd_shorter_version.py
 
 pytraj.TrajectoryIterator, <span class="m">3000</span> frames:
-Size: 3.911264 <span class="o">(</span>GB<span class="o">)</span>
+Size: <span class="m">3</span>.911264 <span class="o">(</span>GB<span class="o">)</span>
 &lt;Topology: <span class="m">58329</span> atoms, <span class="m">19202</span> residues, <span class="m">19168</span> mols, PBC with box <span class="nb">type</span> <span class="o">=</span> ortho&gt;
 
 Filename: memory/pairwise_rmsd_shorter_version.py
 
 Line <span class="c1">#    Mem usage    Increment   Line Contents</span>
 <span class="o">================================================</span>
-     <span class="m">6</span>     30.1 MiB      0.0 MiB   @profile
+     <span class="m">6</span>     <span class="m">30</span>.1 MiB      <span class="m">0</span>.0 MiB   @profile
      <span class="m">7</span>                             def compute<span class="o">(</span><span class="nv">mask</span><span class="o">=</span><span class="s1">&#39;!:WAT,K+,Cl-&#39;</span>, <span class="nv">mat_type</span><span class="o">=</span><span class="s1">&#39;half&#39;</span><span class="o">)</span>:
-     <span class="m">8</span>     64.0 MiB     33.9 MiB       <span class="nv">traj</span> <span class="o">=</span> pt.iterload<span class="o">(</span><span class="s1">&#39;GAAC3.5000frames.nc&#39;</span>, <span class="s1">&#39;GAAC.topo&#39;</span>, <span class="nv">frame_slice</span><span class="o">=(</span>0, 3000<span class="o">))</span>
-     <span class="m">9</span>     64.1 MiB      0.1 MiB       print<span class="o">(</span>traj<span class="o">)</span>
-    <span class="m">10</span>    112.7 MiB     48.5 MiB       <span class="k">return</span> pt.pairwise_rmsd<span class="o">(</span>traj, <span class="nv">mask</span><span class="o">=</span>mask, <span class="nv">mat_type</span><span class="o">=</span>mat_type<span class="o">)</span>
+     <span class="m">8</span>     <span class="m">64</span>.0 MiB     <span class="m">33</span>.9 MiB       <span class="nv">traj</span> <span class="o">=</span> pt.iterload<span class="o">(</span><span class="s1">&#39;GAAC3.5000frames.nc&#39;</span>, <span class="s1">&#39;GAAC.topo&#39;</span>, <span class="nv">frame_slice</span><span class="o">=(</span><span class="m">0</span>, <span class="m">3000</span><span class="o">))</span>
+     <span class="m">9</span>     <span class="m">64</span>.1 MiB      <span class="m">0</span>.1 MiB       print<span class="o">(</span>traj<span class="o">)</span>
+    <span class="m">10</span>    <span class="m">112</span>.7 MiB     <span class="m">48</span>.5 MiB       <span class="k">return</span> pt.pairwise_rmsd<span class="o">(</span>traj, <span class="nv">mask</span><span class="o">=</span>mask, <span class="nv">mat_type</span><span class="o">=</span>mat_type<span class="o">)</span>
 </pre></div>
 </div>
 <p>See also: <a class="reference internal" href="trajectory_slice.html#trajectory-slice"><span class="std std-ref">Fancy indexing of trajectory</span></a></p>
@@ -488,7 +488,7 @@ $ mpirun -n <span class="m">4</span> python radgyr_mpi.py
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Jul 08, 2017.<br/>
+      Last updated on Jul 23, 2017.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>

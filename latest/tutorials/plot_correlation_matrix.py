@@ -3,6 +3,7 @@
 
 # In[1]:
 
+
 # require: matplotlib, seaborn, pytraj
 # how? "conda install matplotib seaborn"
 
@@ -31,16 +32,19 @@ traj
 
 # In[2]:
 
+
 # calculate coordinate covariance matrix
 mat = matrix.covar(traj, '@CA')
 
 
 # In[3]:
 
+
 mat
 
 
 # In[5]:
+
 
 # adapted from: https://stanford.edu/~mwaskom/software/seaborn/examples/many_pairwise_correlations.html
 # Set up the matplotlib figure

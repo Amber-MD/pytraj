@@ -3,6 +3,7 @@
 
 # In[18]:
 
+
 import warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning)
 # config to get better plot
@@ -17,6 +18,7 @@ import seaborn as sb # add seaborn for pretty plot (vs default one in matplotlib
 
 # In[19]:
 
+
 # import pytraj
 import pytraj as pt
 
@@ -26,6 +28,7 @@ traj
 
 
 # In[20]:
+
 
 # find hbond
 hb = pt.hbond(traj)
@@ -42,12 +45,14 @@ print(hb.data) # 1: have hbond; 0: does not have hbond
 
 # In[21]:
 
+
 # compute distance between donor-acceptor for ALL frames (also include frames that do not form hbond)
 dist = pt.distance(traj, hb.get_amber_mask()[0])
 print('all hbond distances: ', dist)
 
 
 # In[22]:
+
 
 angle = pt.angle(traj, hb.get_amber_mask()[1])
 angle
@@ -56,6 +61,7 @@ angle
 # ### Plot demo
 
 # In[25]:
+
 
 sb.color_palette('deep', n_colors=6, desat=0.5)
 sb.set_style(style='white')
@@ -73,6 +79,7 @@ plt.ylabel(':5@O :3@HG1')
 
 # In[35]:
 
+
 # Filter frames that form hbond for specific donor-acceptor
 
 # 1st pairs: SER1_OG-TRP2_N-H
@@ -82,11 +89,13 @@ print(h_values)
 
 # In[36]:
 
+
 # ':1@OG :2@H' distance
 dist[0]
 
 
 # In[43]:
+
 
 # filter distances from frames forming hbond
 import numpy
@@ -97,16 +106,19 @@ print('h_frames', h_frames)
 
 # In[45]:
 
+
 arr = dist[0][h_frames]
 print('hbond distance', arr)
 
 
 # In[46]:
 
+
 numpy.mean(arr)
 
 
 # In[47]:
+
 
 numpy.std(arr)
 

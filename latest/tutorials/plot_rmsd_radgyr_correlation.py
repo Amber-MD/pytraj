@@ -3,6 +3,7 @@
 
 # In[1]:
 
+
 # require: matplotlib, seaborn, pytraj
 # how? "conda install matplotib seaborn"
 import warnings
@@ -30,6 +31,7 @@ traj
 
 # In[2]:
 
+
 # caculate rmsd to 1st frame, use only backbone atoms
 rmsd_data = pt.rmsd(traj, ref=0, mask='@C,N,O')
 
@@ -41,6 +43,7 @@ print('rg_data', rg_data)
 
 
 # In[3]:
+
 
 # plot the correlation
 # adapted from: 

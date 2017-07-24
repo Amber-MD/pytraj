@@ -194,6 +194,24 @@ Update to AMBERHOME
 
     python setup.py install --prefix=$AMBERHOME
 
+
+- From github development version with existing pytraj folder
+
+.. code-block:: bash
+
+    rm $AMBERHOME/lib/libcpptraj.so # if using Macos, using "libcpptraj.dylib"
+    rm -rf $AMBERHOME/lib/python2.7/site-packages/pytraj* # replace "python2.7" by your own version (e.g: python3.6)
+
+    cd /to/your/pytraj/folder
+    git clean -fdx .
+    git pull # update newest code
+    cd cpptraj 
+    git clean -fdx .
+    git pull
+    cd ../
+
+    python setup.py install --prefix=$AMBERHOME
+
     
 Uninstall
 ---------

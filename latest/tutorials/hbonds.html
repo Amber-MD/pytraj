@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Hbond &#8212; pytraj 2.0.1.dev0 documentation</title>
+    <title>Hbond &#8212; pytraj 2.0.2.dev0 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.0.1.dev0',
+        VERSION:     '2.0.2.dev0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -55,7 +55,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>2.0.1.dev0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.0.2.dev0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -179,7 +179,11 @@
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[1]:</div>
+
+
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -216,7 +220,11 @@ Size: 0.000258 (GB)
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>&lt;pytraj.hbonds.DatasetHBond
 donor_acceptor pairs : 31&gt;
@@ -245,23 +253,14 @@ donor_acceptor pairs : 31&gt;
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">KeyError</span>                                  Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-3-bf35c65833cd&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg"># get total solute hbonds</span>
-<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>print<span class="ansi-blue-fg">(</span>dataset<span class="ansi-blue-fg">.</span>total_solute_hbonds<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<div class="output_area">
 
-<span class="ansi-green-fg">/Users/haichit/pytraj_github/pytraj/pytraj/analysis/hbond_analysis.py</span> in <span class="ansi-cyan-fg">total_solute_hbonds</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">     57</span>         See also<span class="ansi-blue-fg">:</span> DatasetHBond<span class="ansi-blue-fg">.</span>data<span class="ansi-blue-fg">.</span>keys<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     58</span>         &#39;&#39;&#39;
-<span class="ansi-green-fg">---&gt; 59</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> self<span class="ansi-blue-fg">.</span>data<span class="ansi-blue-fg">.</span>to_dict<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;total_solute_hbonds&#39;</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">     60</span> 
-<span class="ansi-green-intense-fg ansi-bold">     61</span>     <span class="ansi-green-fg">def</span> get_amber_mask<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<div class="prompt"></div>
 
-<span class="ansi-red-fg">KeyError</span>: &#39;total_solute_hbonds&#39;</pre>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[6 7 8 ..., 7 6 6]
+</pre>
 </div>
 </div>
 
@@ -286,7 +285,11 @@ donor_acceptor pairs : 31&gt;
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>&lt;pytraj.array.DataArray: size=38, key=ARG16_O-TRP6_NE1-HE1, dtype=int32, ndim=1&gt; 
 values:
@@ -299,6 +302,9 @@ values:
 </div>
 
 </div>
+ 
+
+
 </div><p>(<a class="reference external" href="hbonds_tutorial.ipynb">hbonds_tutorial.ipynb</a>; <a class="reference external" href="hbonds_tutorial_evaluated.ipynb">hbonds_tutorial_evaluated.ipynb</a>; <a class="reference external" href="hbonds_tutorial.py">hbonds_tutorial.py</a>)</p>
 </div>
 
@@ -315,7 +321,7 @@ values:
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Jul 08, 2017.<br/>
+      Last updated on Jul 23, 2017.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>

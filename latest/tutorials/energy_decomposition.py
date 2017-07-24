@@ -13,6 +13,7 @@
 
 # In[1]:
 
+
 # load pytraj and load trajectories
 
 import warnings
@@ -26,6 +27,7 @@ print(traj)
 
 # In[2]:
 
+
 # compute the energy with igb=8 (GBneck2 solvation model)
 data = pt.energy_decomposition(traj, igb=8)
 data
@@ -33,17 +35,20 @@ data
 
 # In[3]:
 
+
 # get energy you want
 print('potential energy', data['tot'])
 
 
 # In[4]:
 
+
 # solvation energy (igb=8)
 print('solvation energy', data['gb'])
 
 
 # In[5]:
+
 
 # you can also get other energies.
 # for example: data['dihedral']
@@ -53,6 +58,7 @@ list(data.keys())
 # # Parallel calculation
 
 # In[6]:
+
 
 # serial: pt.energy_decomposition(traj, igb=8)
 

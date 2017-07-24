@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Use pytraj in Julia &#8212; pytraj 2.0.1.dev0 documentation</title>
+    <title>Use pytraj in Julia &#8212; pytraj 2.0.2.dev0 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.0.1.dev0',
+        VERSION:     '2.0.2.dev0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -53,7 +53,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>2.0.1.dev0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.0.2.dev0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -143,17 +143,17 @@
 <span id="julia"></span><h1>Use <code class="docutils literal"><span class="pre">pytraj</span></code> in Julia<a class="headerlink" href="#use-pytraj-in-julia" title="Permalink to this headline">¶</a></h1>
 <div class="highlight-julia"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">PyCall</span>
 
-<span class="p">@</span><span class="n">pyimport</span> <span class="n">pytraj</span> <span class="n">as</span> <span class="n">pt</span>
-<span class="p">@</span><span class="n">pyimport</span> <span class="n">pytraj</span><span class="o">.</span><span class="n">sandbox</span> <span class="n">as</span> <span class="n">sb</span>
+<span class="nd">@pyimport</span> <span class="n">pytraj</span> <span class="n">as</span> <span class="n">pt</span>
+<span class="nd">@pyimport</span> <span class="n">pytraj</span><span class="o">.</span><span class="n">sandbox</span> <span class="n">as</span> <span class="n">sb</span>
 
 <span class="n">traj</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">iterload</span><span class="p">(</span><span class="s">&quot;./data/md1_prod.Tc5b.x&quot;</span><span class="p">,</span> <span class="s">&quot;./data/Tc5b.top&quot;</span><span class="p">)</span>
 <span class="n">println</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">frame</span> <span class="k">in</span> <span class="n">traj</span>
+<span class="k">for</span> <span class="n">frame</span> <span class="kp">in</span> <span class="n">traj</span>
     <span class="n">println</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
 <span class="k">end</span>
 
-<span class="n">println</span><span class="p">(</span><span class="n">sb</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="s">&quot;@CA&quot;</span><span class="p">)))</span>
+<span class="n">println</span><span class="p">(</span><span class="n">sb</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="s">&quot;@CA&quot;</span><span class="p">)))</span>
 <span class="n">println</span><span class="p">(</span><span class="n">sb</span><span class="o">.</span><span class="n">get_top</span><span class="p">(</span><span class="n">traj</span><span class="p">))</span>
 <span class="n">println</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">))</span>
 <span class="n">println</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">rmsd</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&quot;dict&quot;</span><span class="p">))</span>
@@ -174,7 +174,7 @@
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Jul 08, 2017.<br/>
+      Last updated on Jul 23, 2017.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>

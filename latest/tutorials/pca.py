@@ -5,6 +5,7 @@
 
 # In[1]:
 
+
 import warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning)
 # load pytraj
@@ -17,6 +18,7 @@ traj = pt.load('tz2.nc', 'tz2.parm7')
 # ### Get the data
 
 # In[2]:
+
 
 # compute pca
 data = pt.pca(traj, mask='!@H=', n_vecs=2)
@@ -31,6 +33,7 @@ print('eigvenvectors of first two modes: \n', data[1][1])
 # ### plot
 
 # In[3]:
+
 
 get_ipython().magic('matplotlib inline')
 get_ipython().magic("config InlineBackend.figure_format = 'retina'  # high resolution")

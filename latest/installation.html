@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Installation &#8212; pytraj 2.0.1.dev0 documentation</title>
+    <title>Installation &#8212; pytraj 2.0.2.dev0 documentation</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -18,7 +18,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.0.1.dev0',
+        VERSION:     '2.0.2.dev0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -55,7 +55,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           pytraj</a>
-        <span class="navbar-text navbar-version pull-left"><b>2.0.1.dev0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.0.2.dev0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -263,7 +263,7 @@
 conda install -c ambermd pytraj
 
 <span class="c1"># install specific version</span>
-conda install -c ambermd <span class="nv">pytraj</span><span class="o">==</span>1.0.8
+conda install -c ambermd <span class="nv">pytraj</span><span class="o">==</span><span class="m">1</span>.0.8
 </pre></div>
 </div>
 <p>This takes only less than 30 seconds.</p>
@@ -280,7 +280,7 @@ $ sh Miniconda3-latest-Linux-x86_64.sh
 pip install pytraj
 
 <span class="c1"># specific version</span>
-pip install <span class="nv">pytraj</span><span class="o">==</span>1.0.8
+pip install <span class="nv">pytraj</span><span class="o">==</span><span class="m">1</span>.0.8
 </pre></div>
 </div>
 </div>
@@ -398,6 +398,23 @@ git clone https://github.com/Amber-MD/pytraj
 python setup.py install --prefix<span class="o">=</span><span class="nv">$AMBERHOME</span>
 </pre></div>
 </div>
+<ul class="simple">
+<li>From github development version with existing pytraj folder</li>
+</ul>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>rm <span class="nv">$AMBERHOME</span>/lib/libcpptraj.so <span class="c1"># if using Macos, using &quot;libcpptraj.dylib&quot;</span>
+rm -rf <span class="nv">$AMBERHOME</span>/lib/python2.7/site-packages/pytraj* <span class="c1"># replace &quot;python2.7&quot; by your own version (e.g: python3.6)</span>
+
+<span class="nb">cd</span> /to/your/pytraj/folder
+git clean -fdx .
+git pull <span class="c1"># update newest code</span>
+<span class="nb">cd</span> cpptraj
+git clean -fdx .
+git pull
+<span class="nb">cd</span> ../
+
+python setup.py install --prefix<span class="o">=</span><span class="nv">$AMBERHOME</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="uninstall">
@@ -481,7 +498,7 @@ jupyter notebook <span class="o">{</span>your_notebook_name<span class="o">}</sp
     </p>
     <p>
         &copy; Copyright 2015-2016, pytraj developers.<br/>
-      Last updated on Jul 08, 2017.<br/>
+      Last updated on Jul 23, 2017.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>

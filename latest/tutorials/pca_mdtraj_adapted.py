@@ -5,6 +5,7 @@
 
 # In[1]:
 
+
 import warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning)
 
@@ -21,6 +22,7 @@ from pytraj.plot import show_config
 
 # In[2]:
 
+
 # we use `load` method to load all data to memory. This is good for small data size.
 # use `pytraj.iterload` for out-of-core traj.
 
@@ -30,17 +32,20 @@ traj
 
 # In[3]:
 
+
 pca = PCA(n_components=2)
 pca
 
 
 # In[4]:
 
+
 # superpose to 1st frame
 pt.superpose(traj, ref=0, mask='!@H=')
 
 
 # In[5]:
+
 
 # create average structure
 
@@ -50,11 +55,13 @@ avg
 
 # In[6]:
 
+
 # superpose all structures to average frame
 pt.superpose(traj, ref=avg, mask='!@H=')
 
 
 # In[ ]:
+
 
 # perform PCA calculation and get transformed coords
 # we need to reshape 3D traj.xyz array to 2D to make sklearn happy
@@ -66,11 +73,13 @@ print(xyz_2d.shape) # (n_frames, n_dimensions)
 
 # In[ ]:
 
+
 reduced_cartesian = pca.fit_transform(xyz_2d)
 print(reduced_cartesian.shape) # (n_frames, n_dimensions)
 
 
 # In[ ]:
+
 
 # ignore warning
 import warnings
@@ -89,6 +98,7 @@ cbar.set_label('frame #')
 # **note**: stop here if you do not care (a bit compilicated code)
 
 # In[ ]:
+
 
 # cpptraj
 
@@ -116,10 +126,12 @@ crdaction CRD1 projection evecs MyEvecs !@H= out project.dat beg 1 end 2
 
 # In[ ]:
 
+
 state = pt.datafiles.load_cpptraj_state
 
 
 # In[ ]:
+
 
 state = pt.datafiles.load_cpptraj_state(command)
 # tell 'run' to perform all calculation
@@ -128,17 +140,20 @@ state.run()
 
 # In[ ]:
 
+
 # get data
 state.data
 
 
 # In[ ]:
 
+
 print([dset.key for dset in state.data])
 print(state.data['MyMatrix'].values.shape)
 
 
 # In[ ]:
+
 
 # reduced_cartesian corresponds to dataset with names of 'Mode1', 'Mode2'
 mode_0, mode_1 = -state.data['Mode1'].values, -state.data['Mode2'].values
@@ -166,6 +181,7 @@ ax_1.set_title('sklearn')
 
 
 # In[ ]:
+
 
 print('sklearn \n')
 print(reduced_cartesian[:, 0], reduced_cartesian[:, 1])

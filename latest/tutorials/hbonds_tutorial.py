@@ -3,6 +3,7 @@
 
 # In[7]:
 
+
 # load data
 # pdb file from: http://www.rcsb.org/pdb/explore/explore.do?pdbId=1l2y
 import warnings
@@ -16,6 +17,7 @@ traj
 
 # In[10]:
 
+
 # search hbonds for all residues
 # dump data to `dataset` (similiar to python'list and dict)
 dataset = pt.hbond(traj)
@@ -26,11 +28,13 @@ print(dataset)
 
 # In[12]:
 
+
 # get total solute hbonds
 print(dataset.total_solute_hbonds())
 
 
 # In[14]:
+
 
 # take data for specific hbond
 print(dataset.data['ARG16_O-TRP6_NE1-HE1'])

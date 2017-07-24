@@ -3,6 +3,7 @@
 
 # In[1]:
 
+
 from __future__ import print_function
 import warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning)
@@ -17,12 +18,14 @@ import scipy.cluster.hierarchy
 
 # In[2]:
 
+
 # load data
 traj = pt.iterload('tz2.nc', 'tz2.parm7')
 traj
 
 
 # In[3]:
+
 
 
 # calculate pairwise rmsd with `autoimage=True`
@@ -39,6 +42,7 @@ None
 
 
 # In[4]:
+
 
 # cluster for all atoms but H
 

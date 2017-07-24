@@ -9,6 +9,7 @@
 
 # In[1]:
 
+
 import warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning)
 
@@ -24,12 +25,14 @@ import pytraj as pt
 
 # In[2]:
 
+
 traj = pt.datafiles.load_trpcage()
 print(traj)
 print(set(res.name for res in traj.top.residues))
 
 
 # In[3]:
+
 
 # calculate phi/psi for Gly residues
 # need to get indcies of Gly residues
@@ -41,6 +44,7 @@ print(dataset)
 
 
 # In[4]:
+
 
 # take data for 'phi' and flatten to 1D array
 phi = np.array([d.values for d in dataset if 'phi' in d.key]).flatten()
@@ -63,16 +67,19 @@ plt.scatter(phi, psi, alpha=0.5, c=colors)
 
 # In[5]:
 
+
 traj = pt.iterload('ala3.dcd', 'ala3.psf')
 print([res.name for res in traj.top.residues])
 
 
 # In[6]:
 
+
 traj
 
 
 # In[7]:
+
 
 # only plot for residue 2 (python uses 0-based index)
 phi, psi = pt.multidihedral(traj, resrange=[1,], dihedral_types='psi phi')
@@ -81,11 +88,13 @@ phi, psi
 
 # In[8]:
 
+
 from matplotlib import pyplot as plt
 import seaborn as snb
 
 
 # In[9]:
+
 
 snb.jointplot(phi, psi, kind='scatter', stat_func=None)
 #plt.savefig('phipsi_ala3.png')
