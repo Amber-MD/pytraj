@@ -7,11 +7,9 @@ $ python ./find_missing_cpptraj_action_names.py
 '''
 
 import os
+import sys
 
-cpptrajhome = os.environ.get('CPPTRAJHOME', '')
-
-if not cpptrajhome:
-    raise EnvironmentError('must set CPPTRAJHOME')
+cpptrajhome = sys.argv[1]
 
 cpptraj_actlist = []
 cpptraj_analist = []
