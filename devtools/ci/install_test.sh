@@ -12,7 +12,7 @@ pip install memory_profiler
 pip install psutil
 pip install tqdm
 
-conda install ambertools=17 -c http://ambermd.org/downloads/ambertools/conda/
+conda install ambertools=17 -c http://ambermd.org/downloads/ambertools/conda/ -y
 pip uninstall pytraj -y
 pip uninstall pytraj -y # twice
 
