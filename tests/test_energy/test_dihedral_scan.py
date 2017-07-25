@@ -3,7 +3,7 @@ from utils import fn
 import numpy as np
 
 try:
-    traj = pt.iterload("./data/Ala3/Ala3.crd", fn('Ala3/Ala3.top'))
+    traj = pt.iterload(fn('Ala3/Ala3.crd'), fn('Ala3/Ala3.top'))
 
     print(traj.n_atoms, traj.top.n_residues)
     print(pt.multidihedral(traj).to_dict())
