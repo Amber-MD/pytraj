@@ -37,7 +37,7 @@ addons:
 
 install:
     - source devtools/ci/setup_env.sh
-    - python --version
+    - source devtools/ci/install_test.sh
 
 script:
     - source devtools/travis-ci/install_pytraj.sh
