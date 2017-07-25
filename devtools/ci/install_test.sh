@@ -16,7 +16,8 @@ conda install ambertools=17 -c http://ambermd.org/downloads/ambertools/conda/ -y
 pip uninstall pytraj -y
 pip uninstall pytraj -y # twice
 
-libcpptraj=`python -c 'import sys; print(sys.prefix)'` + '/lib/libcpptraj.*'
+prefix=`python -c 'import sys; print(sys.prefix)'`
+libcpptraj='$prefix/lib/libcpptraj.*'
 rm $libcpptraj
 
 osname=`python -c 'import sys; print(sys.platform)'`
