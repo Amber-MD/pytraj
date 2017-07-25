@@ -62,7 +62,9 @@ class ClusteringDataset(object):
     @property
     def fraction(self):
         return np.array(
-            [float(val) / self.n_frames for _, val in self.population.items()])
+            sorted([float(val) / self.n_frames
+                for _, val in self.population.items()],
+                reverse=True))
 
     @property
     def centroids(self):
