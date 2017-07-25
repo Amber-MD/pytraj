@@ -13,10 +13,12 @@ pip install psutil
 pip install tqdm
 
 conda install ambertools=17 -c http://ambermd.org/downloads/ambertools/conda/ -y
-pytraj_dir=`python -c "import pytraj; print(os.path.dirname(pytraj.__file__))"`
-rm -rf $pytraj_dir/pytraj*
+(cd $HOME && pytraj_dir=`python -c "import pytraj; print(os.path.dirname(pytraj.__file__))"` &&
+    rm -rf $pytraj_dir/pytraj*
+)
 prefix=`python -c 'import sys; print(sys.prefix)'`
-libcpptraj='$prefix/lib/libcpptraj.*'
+echo $prefix
+libcpptraj=$prefix/lib/libcpptraj.*
 rm $libcpptraj
 
 osname=`python -c 'import sys; print(sys.platform)'`
