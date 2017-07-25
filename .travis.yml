@@ -41,6 +41,7 @@ install:
 
 script:
     - source devtools/travis-ci/install_pytraj.sh
+    - python -c "import ptraj; print(pytraj.__version__)"
     - source devtools/ci/run_tests.sh
 
 after_success:
