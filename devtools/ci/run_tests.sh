@@ -5,7 +5,7 @@ export OMP_NUM_THREADS=1
 
 if [ "$TEST_SETUP" == 'true' ]; then
     echo "Test setup command line"
-    pytest -vs devtools/ci/test_setup_command.py
+    py.test -vs devtools/ci/test_setup_command.py
     # run this on circleci
     # sh devtools/ci/test_pip_build.sh
 else
@@ -23,9 +23,9 @@ else
     cd $PYTRAJ_HOME
     if [ "$isOSX" = "True" ]; then
         echo "Minimal tests for OSX"
-        (cd tests && pytest -v test_analysis/ -rsx)
+        (cd tests && py.test -v test_analysis/)
     else
-        (cd tests && pytest -vs --cov=pytraj --cov-report=html -rsx . || exit 1)
+        python run_tests.py -c || exit 1
     fi
     
     # run examples
