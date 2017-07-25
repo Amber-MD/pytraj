@@ -23,9 +23,9 @@ else
     cd $PYTRAJ_HOME
     if [ "$isOSX" = "True" ]; then
         echo "Minimal tests for OSX"
-        (cd tests && py.test -v test_analysis/ -rsx)
+        (cd tests && pytest -v test_analysis/ -rsx)
     else
-        python run_tests.py -c || exit 1
+        (cd tests && pytest -vs --cov=pytraj --cov-report=html -rsx . || exit 1)
     fi
     
     # run examples
