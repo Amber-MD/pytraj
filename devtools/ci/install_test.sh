@@ -2,6 +2,8 @@
 
 # for testing
 conda install -y anaconda-client jupyter notebook
+conda install -y parmed -c ambermd
+conda install -y pysander -c hainm
 conda install -y cclib -c omnia
 conda install -y nglview -c bioconda
 pip install coveralls
@@ -11,15 +13,6 @@ pip install nose
 pip install memory_profiler
 pip install psutil
 pip install tqdm
-
-conda install ambertools=17 -c http://ambermd.org/downloads/ambertools/conda/ -y
-(cd $HOME && pytraj_dir=`python -c "import pytraj; print(os.path.dirname(pytraj.__file__))"` &&
-    rm -rf $pytraj_dir/pytraj*
-)
-prefix=`python -c 'import sys; print(sys.prefix)'`
-echo $prefix
-libcpptraj=$prefix/lib/libcpptraj.*
-rm $libcpptraj
 
 osname=`python -c 'import sys; print(sys.platform)'`
 if [ $osname = "linux" ]; then
