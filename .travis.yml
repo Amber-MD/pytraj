@@ -3,12 +3,10 @@ language: cpp
 matrix:
   include:
     - { os: linux, env: PYTHON_VERSION=2.7 }
-    - { os: linux, env: PYTHON_VERSION=3.4 }
-    - { os: linux, env: PYTHON_VERSION=3.5 }
-    - { os: linux, env: PYTHON_VERSION=3.5 USE_OPENMP=false }
-    # - { os: linux, env: PYTHON_VERSION=3.5 COMPILER=clang }
-    - { os: linux, env: PYTHON_VERSION=3.5 TEST_SETUP=true }
-    - { os: osx, env: PYTHON_VERSION=3.5 }
+    - { os: linux, env: PYTHON_VERSION=3.6 }
+    - { os: linux, env: PYTHON_VERSION=3.6 USE_OPENMP=false }
+    - { os: linux, env: PYTHON_VERSION=3.6 TEST_SETUP=true }
+    - { os: osx, env: PYTHON_VERSION=3.6 }
 
 sudo: false
 
@@ -39,7 +37,7 @@ addons:
 
 install:
     - source devtools/ci/setup_env.sh
-    - python --version
+    - source devtools/ci/install_test.sh
 
 script:
     - source devtools/travis-ci/install_pytraj.sh

@@ -47,8 +47,7 @@ def groupby(key, seq):
     Examples
     --------
     >>> names = ['Alice', 'Bob', 'Charlie', 'Dan', 'Edith', 'Frank']
-    >>> groupby(len, names)
-    {3: ['Bob', 'Dan'], 5: ['Alice', 'Edith', 'Frank'], 7: ['Charlie']}
+    >>> _ = groupby(len, names)
     '''
     d = defaultdict(lambda: seq.__class__().append)
     for item in seq:

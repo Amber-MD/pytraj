@@ -25,5 +25,3 @@ conda install -y numpy cython h5py libnetcdf pyflakes
 conda install -y hdf4 # temporary install to fix error "libmfhdf.so.0: cannot open shared object file"
 pip install auditwheel
 
-# for testing
-source devtools/ci/install_test.sh

@@ -50,8 +50,8 @@ class TestBuildAndPickleTopology(unittest.TestCase):
     def test_picle(self):
         '''test_picle
         '''
-        pt.to_pickle(self.traj.top, 'output/new_top.pk')
-        new_top = pt.read_pickle('output/new_top.pk')
+        pt.to_pickle(self.traj.top, 'new_top.pk')
+        new_top = pt.read_pickle('new_top.pk')
         assert_equal_topology(self.traj.top, new_top, self.traj)
 
     def test_to_and_from_dict(self):
@@ -78,7 +78,7 @@ class TestPickleFrame(unittest.TestCase):
         f0 = traj[0]
         print(f0.mass)
 
-        fn = 'output/f.pk'
+        fn = 'f.pk'
         pt.to_pickle(f0, fn)
         f1 = pt.read_pickle(fn)
         print(f1.mass)
@@ -91,8 +91,8 @@ class TestPickleTrajectoryIterator(unittest.TestCase):
                 traj = pt.iterload(
                     fn('Tc5b.x'), fn('Tc5b.top'), frame_slice=frame_slice)
                 traj._pickle_topology = _pickle_topology
-                pt.io.to_pickle(traj, 'output/test0.pk')
-                t0 = pt.io.read_pickle('output/test0.pk')
+                pt.io.to_pickle(traj, 'test0.pk')
+                t0 = pt.io.read_pickle('test0.pk')
 
                 aa_eq(traj.xyz, t0.xyz)
                 assert_equal_topology(traj.top, t0.top, traj)
@@ -100,7 +100,7 @@ class TestPickleTrajectoryIterator(unittest.TestCase):
     def test_trajiter_with_actionlist(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         traj.autoimage().center('origin').superpose('@CA')
-        pk_fn = 'output/test.pk'
+        pk_fn = 'test.pk'
         pt.to_pickle(traj, pk_fn)
         traj2 = pt.read_pickle(pk_fn)
         print(traj2._transform_commands)
@@ -119,12 +119,12 @@ class TestPickleFrame(unittest.TestCase):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         frame = traj[0]
 
-        pt.to_pickle(frame, 'output/frame.pk')
-        frame0 = pt.read_pickle('output/frame.pk')
+        pt.to_pickle(frame, 'frame.pk')
+        frame0 = pt.read_pickle('frame.pk')
         aa_eq(frame0.xyz, frame.xyz)
 
         # test list of frames
-        fname = 'output/flist.pk'
+        fname = 'flist.pk'
         pt.to_pickle([traj[0], traj[1]], fname)
         f01 = pt.read_pickle(fname)
         aa_eq(np.array([f.xyz for f in f01]), traj[[0, 1]].xyz)
@@ -141,8 +141,8 @@ class TestPickleDatasetList(unittest.TestCase):
     def test_pickle_datasetlist(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         dslist = pt.multidihedral(traj)
-        pt.to_pickle(dslist, 'output/ds.pk')
-        dslist2 = pt.read_pickle('output/ds.pk')
+        pt.to_pickle(dslist, 'ds.pk')
+        dslist2 = pt.read_pickle('ds.pk')
         aa_eq(dslist.values, dslist2.values)
 
 

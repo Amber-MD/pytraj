@@ -21,10 +21,13 @@ class TestActionList(unittest.TestCase):
     def test_distances(self):
         traj = pt.iterload(tc5b_trajin, tc5b_top)[:]
 
-        trajin = pt.datafiles.tc5b_trajin + """
+        trajin = """
+        parm {}
+        trajin {}
         distance @CB @CA
         distance @CA @H
-        """
+        """.format(fn('Tc5b.parm7'),
+                   fn('Tc5b.x'))
 
         cout = pt.datafiles.load_cpptraj_output(trajin)[1:]
 
