@@ -362,36 +362,44 @@ def setenv_cc_cxx(ambertools_distro, extra_compile_args, extra_link_args):
         print('pytraj is inside AMBERHOME')
         # should use CXX and CC from config.h
         amber_home = os.environ.get('AMBERHOME', '')
-        if not amber_home:
+        if amber_home:
             raise EnvironmentError('must set AMBERHOME')
 
-        configfile = os.path.join(amber_home, 'config.h')
-        if not os.path.exists(configfile):
-            raise OSError("must have config.h file")
+            configfile = os.path.join(amber_home, 'config.h')
+            if not os.path.exists(configfile):
+                raise OSError("must have config.h file")
 
-        # make default compiler first
-        if sys.platform.startswith('darwin'):
-            CC = DEFAULT_MAC_CCOMPILER
-            CXX = DEFAULT_MAC_CXXCOMPILER
-        elif sys.platform.startswith('linux'):
-            CC = 'gcc'
-            CXX = 'g++'
+            # make default compiler first
+            if sys.platform.startswith('darwin'):
+                CC = DEFAULT_MAC_CCOMPILER
+                CXX = DEFAULT_MAC_CXXCOMPILER
+            elif sys.platform.startswith('linux'):
+                CC = 'gcc'
+                CXX = 'g++'
+            else:
+                pass
+
+            # then parse $AMBERHOME/config.h
+            with open(configfile) as fh:
+                lines = fh.readlines()
+                for line in lines:
+                    if line.startswith('CC='):
+                        CC = line.split('=', 1)[-1]
+                        break
+
+                for line in lines:
+                    if line.startswith('CXX='):
+                        CXX = line.split('=', 1)[-1]
+                        break
         else:
-            pass
-
-        # then parse $AMBERHOME/config.h
-        with open(configfile) as fh:
-            lines = fh.readlines()
-            for line in lines:
-                if line.startswith('CC='):
-                    CC = line.split('=', 1)[-1]
-                    break
-
-            for line in lines:
-                if line.startswith('CXX='):
-                    CXX = line.split('=', 1)[-1]
-                    break
-
+            #detect environment variables passed from CMake script
+            CC = os.environ.get('CC')
+            CXX = os.environ.get('CXX')
+            if CC and CXX:
+                print('using environment: CC={}, CXX={}'.format(CC, CXX))
+            else:
+                raise EnvironmentError('must set AMBERHOME or sec compiler environment variables')
+                
         os.environ['CXX'] = CXX
         os.environ['CC'] = CC
         print('using CC={}, CXX={}'.format(CC, CXX))
