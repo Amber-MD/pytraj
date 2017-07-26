@@ -390,7 +390,7 @@ def setenv_cc_cxx(ambertools_distro, extra_compile_args, extra_link_args):
                         CXX = line.split('=', 1)[-1]
                         break
         else:
-            #detect environment variables passed from CMake script
+            # detect environment variables passed from CMake script
             CC = os.environ.get('CC')
             CXX = os.environ.get('CXX')
             if CC and CXX:
