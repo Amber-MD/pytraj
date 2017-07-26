@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 from __future__ import print_function
 
+import sys
 import unittest
+import doctest
 import pytraj as pt
 from utils import fn
 from pytraj import utils
-import doctest
 from pytraj.externals.six import PY3
 from pytraj import testing
 from pytraj.datafiles import load_samples
@@ -39,7 +40,7 @@ def get_total_errors(modules):
     return sum([doctest.testmod(mod).failed for mod in modules])
 
 
-@unittest.skipUnless(PY3, 'only test for PY3')
+@unittest.skipIf(not PY3 or sys.platform.startswith('darwin'), 'only test for PY3 in Linux')
 class TestDoc(unittest.TestCase):
     '''testing for light modules
     '''
@@ -112,7 +113,3 @@ class TestDoc(unittest.TestCase):
             cluster,
         ]
         assert not get_total_errors(modules)
-
-
-if __name__ == "__main__":
-    unittest.main()

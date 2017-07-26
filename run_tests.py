@@ -55,7 +55,7 @@ else:
     print('running full test\n')
     if args.with_coverage:
         print('with coverage')
-        cm_list = "{bin}/py.test --cov=pytraj --cov-report=html -vs .".format(
+        cm_list = "{bin}/py.test --cov=pytraj --cov-report=html -vs -rsx .".format(
             bin=bin).split()
     else:
         print('without coverage\n')

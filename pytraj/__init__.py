@@ -137,6 +137,7 @@ from .all_actions import pairwise_distance
 from .all_actions import pairwise_rmsd
 from .all_actions import radgyr
 from .all_actions import rdf
+from .all_actions import rotdif
 from .all_actions import rmsd_nofit
 from .all_actions import rotation_matrix
 from .all_actions import surf
