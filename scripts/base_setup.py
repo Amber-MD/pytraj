@@ -363,8 +363,6 @@ def setenv_cc_cxx(ambertools_distro, extra_compile_args, extra_link_args):
         # should use CXX and CC from config.h
         amber_home = os.environ.get('AMBERHOME', '')
         if amber_home:
-            raise EnvironmentError('must set AMBERHOME')
-
             configfile = os.path.join(amber_home, 'config.h')
             if not os.path.exists(configfile):
                 raise OSError("must have config.h file")
