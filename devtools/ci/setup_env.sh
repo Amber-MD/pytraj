@@ -21,7 +21,7 @@ pip install auditwheel
 conda create -y -n myenv python=$PYTHON_VERSION
 source activate myenv
 conda update -y conda
-conda install -y numpy cython=0.25 5py libnetcdf pyflakes
+conda install -y numpy cython=0.25 h5py libnetcdf pyflakes
 conda install -y hdf4 # temporary install to fix error "libmfhdf.so.0: cannot open shared object file"
 pip install auditwheel
 
