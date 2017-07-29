@@ -5,15 +5,30 @@ code generation for Action_*.pyx
 
 CPPTRAJHOME must be set
 '''
+import sys
 import os
 
-cpptrajhome = os.environ.get('CPPTRAJHOME', '')
+cpptrajhome = sys.argv[1]
 
 if not cpptrajhome:
     raise EnvironmentError('must set CPPTRAJHOME')
 
 actionlist = []
 cpptraj_analist = []
+
+action_pyx = os.path.join(
+        os.path.dirname(__file__), '../..',
+        'pytraj/analysis/c_action/c_action.pyx')
+
+
+def get_header(action_pyx):
+    with open(action_pyx) as fh:
+        lines = fh.readlines()
+        for index, line in enumerate(lines):
+            if line.startswith('cdef class Action_Angle'):
+                break
+        return ''.join(lines[:index])
+
 
 with open(cpptrajhome + '/src/Command.cpp') as fh:
     lines = fh.readlines()
@@ -51,7 +66,11 @@ cdef class {action_name}(Action):
     cdef _{action_name}* thisptr
 """
 
-for action in actionlist:
-    # tmp = text.format(action_name=action)
-    tmp = text_pxd.format(action_name=action)
-    print(tmp)
+with open('tmp.pyx', 'w') as fh:
+    fh.write(get_header(action_pyx))
+    for action in actionlist:
+        tmp = text.format(action_name=action)
+        # tmp = text_pxd.format(action_name=action)
+        fh.write(tmp)
+
+print(action_pyx)
