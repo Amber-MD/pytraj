@@ -20,12 +20,18 @@ action_pyx = os.path.join(
         os.path.dirname(__file__), '../..',
         'pytraj/analysis/c_action/c_action.pyx')
 
+action_pxd = os.path.join(
+        os.path.dirname(__file__), '../..',
+        'pytraj/analysis/c_action/c_action.pxd')
 
-def get_header(action_pyx):
+pxd_stop = 'cdef extern from "Action_Angle.h"'
+pyx_stop = 'cdef class Action_Align(Action)'
+
+def get_header(action_pyx, word):
     with open(action_pyx) as fh:
         lines = fh.readlines()
         for index, line in enumerate(lines):
-            if line.startswith('cdef class Action_Angle'):
+            if line.startswith(word):
                 break
         header_lines = lines[:index]
         line = header_lines.pop()
@@ -59,22 +65,23 @@ cdef class {action_name}(Action):
 """
 
 text_pxd = """
-cdef extern from "{action_name}.h": 
+cdef extern from "{action_name}.h":
     cdef cppclass _{action_name} "{action_name}" (_Action) nogil:
         _{action_name}()
-        _DispatchObject * Alloc() 
-        void Help() 
+        _DispatchObject * Alloc()
+        void Help()
 
 
 cdef class {action_name}(Action):
     cdef _{action_name}* thisptr
 """
 
-with open('tmp.pyx', 'w') as fh:
-    fh.write(get_header(action_pyx))
+with open('tmp.pyx', 'w') as pyx_fh, open('tmp.pxd', 'w') as pxd_fh:
+    pyx_fh.write(get_header(action_pyx, pyx_stop))
+    pxd_fh.write(get_header(action_pxd, pxd_stop))
     for action in sorted(actionlist):
-        tmp = text.format(action_name=action)
-        # tmp = text_pxd.format(action_name=action)
-        fh.write(tmp)
+        pyx_fh.write(text.format(action_name=action))
+        pxd_fh.write(text_pxd.format(action_name=action))
 
-print(action_pyx)
+print('cp tmp.pyx {}'.format(action_pyx))
+print('cp tmp.pxd {}'.format(action_pxd))
