@@ -2974,7 +2974,7 @@ def check_chirality(traj, mask='', dtype='dict'):
 
     Returns
     -------
-    out : depent on dtype, default 'dict'
+    out : depend on dtype, default 'dict'
     '''
     command = mask
     c_dslist, _ = do_action(traj, command, c_action.Action_CheckChirality)
@@ -3003,7 +3003,7 @@ def lipidscd(traj, mask='', options='', dtype='dict'):
 
     Returns
     -------
-    out : depent on dtype, default 'dict'
+    out : depend on dtype, default 'dict'
     '''
     command = ' '.join((mask, options))
     c_dslist, _ = do_action(traj, command, c_action.Action_LipidOrder)
