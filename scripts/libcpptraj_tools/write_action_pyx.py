@@ -27,6 +27,10 @@ def get_header(action_pyx):
         for index, line in enumerate(lines):
             if line.startswith('cdef class Action_Angle'):
                 break
+        header_lines = lines[:index]
+        line = header_lines.pop()
+        while not line:
+            line = header_lines.pop()
         return ''.join(lines[:index])
 
 
@@ -68,7 +72,7 @@ cdef class {action_name}(Action):
 
 with open('tmp.pyx', 'w') as fh:
     fh.write(get_header(action_pyx))
-    for action in actionlist:
+    for action in sorted(actionlist):
         tmp = text.format(action_name=action)
         # tmp = text_pxd.format(action_name=action)
         fh.write(tmp)
