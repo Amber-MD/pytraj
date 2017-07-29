@@ -2993,7 +2993,7 @@ def fiximagedbonds(traj, mask=''):
     c_dslist, _ = do_action(traj, command, c_action.Action_FixImagedBonds)
 
 
-def lipidscd(traj, mask='', dtype='dict'):
+def lipidscd(traj, mask='', options='', dtype='dict'):
     '''
     
     Parameters
@@ -3005,7 +3005,8 @@ def lipidscd(traj, mask='', dtype='dict'):
     -------
     out : depent on dtype, default 'dict'
     '''
-    c_dslist, _ = do_action(traj, mask, c_action.Action_LipidOrder)
+    command = ' '.join((mask, options))
+    c_dslist, _ = do_action(traj, command, c_action.Action_LipidOrder)
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
