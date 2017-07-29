@@ -24,7 +24,7 @@ action_pxd = os.path.join(
         os.path.dirname(__file__), '../..',
         'pytraj/analysis/c_action/c_action.pxd')
 
-pxd_stop = pyx_stop = '# Stop mark for generated scriptj'
+pxd_stop = pyx_stop = 'Stop mark for generated script'
 
 
 def get_header(action_pyx, word):
@@ -76,7 +76,7 @@ cdef class {action_name}(Action):
 with open('tmp.pyx', 'w') as pyx_fh, open('tmp.pxd', 'w') as pxd_fh:
     pyx_fh.write(get_header(action_pyx, pyx_stop))
     pxd_fh.write(get_header(action_pxd, pxd_stop))
-    for action in sorted(actionlist):
+    for action in sorted(set(actionlist)):
         pyx_fh.write(text.format(action_name=action))
         pxd_fh.write(text_pxd.format(action_name=action))
 
