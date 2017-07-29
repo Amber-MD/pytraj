@@ -24,7 +24,7 @@ action_pxd = os.path.join(
         os.path.dirname(__file__), '../..',
         'pytraj/analysis/c_action/c_action.pxd')
 
-pxd_stop = 'cdef extern from "Action_Angle.h"'
+pxd_stop = 'cdef extern from "Action_Align.h"'
 pyx_stop = 'cdef class Action_Align(Action)'
 
 def get_header(action_pyx, word):
@@ -74,6 +74,7 @@ cdef extern from "{action_name}.h":
 
 cdef class {action_name}(Action):
     cdef _{action_name}* thisptr
+
 """
 
 with open('tmp.pyx', 'w') as pyx_fh, open('tmp.pxd', 'w') as pxd_fh:
