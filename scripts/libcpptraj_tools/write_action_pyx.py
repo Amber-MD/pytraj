@@ -24,8 +24,7 @@ action_pxd = os.path.join(
         os.path.dirname(__file__), '../..',
         'pytraj/analysis/c_action/c_action.pxd')
 
-pxd_stop = 'cdef bint own_memory'
-pyx_stop = 'cdef class Action_Align(Action)'
+pxd_stop = pyx_stop = '# Stop mark for generated scriptj'
 
 
 def get_header(action_pyx, word):
@@ -33,9 +32,8 @@ def get_header(action_pyx, word):
         lines = fh.readlines()
         for index, line in enumerate(lines):
             if word in line:
-                print('word', word, index)
                 break
-        return ''.join(lines[:index])
+        return ''.join(lines[:index+2])
 
 
 with open(cpptrajhome + '/src/Command.cpp') as fh:
