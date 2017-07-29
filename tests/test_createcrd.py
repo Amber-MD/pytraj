@@ -10,11 +10,11 @@ class TestCreateCRD(unittest.TestCase):
     def test_autoimage_rms_strip(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
 
-        state = pt.load_batch(traj, '''
+        state = pt.load_cpptraj_state('''
         autoimage
         rms
         strip !@CA
-        createcrd''')
+        createcrd''', traj)
         state.run()
 
         # get last datset (DatasetCoordsCRD)
