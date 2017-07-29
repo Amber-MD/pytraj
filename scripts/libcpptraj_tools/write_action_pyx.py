@@ -24,19 +24,17 @@ action_pxd = os.path.join(
         os.path.dirname(__file__), '../..',
         'pytraj/analysis/c_action/c_action.pxd')
 
-pxd_stop = 'cdef extern from "Action_Align.h"'
+pxd_stop = 'cdef bint own_memory'
 pyx_stop = 'cdef class Action_Align(Action)'
+
 
 def get_header(action_pyx, word):
     with open(action_pyx) as fh:
         lines = fh.readlines()
         for index, line in enumerate(lines):
-            if line.startswith(word):
+            if word in line:
+                print('word', word, index)
                 break
-        header_lines = lines[:index]
-        line = header_lines.pop()
-        while not line:
-            line = header_lines.pop()
         return ''.join(lines[:index])
 
 
