@@ -2,7 +2,7 @@
 
 # for testing
 conda install -y anaconda-client jupyter notebook
-conda install -y cclib -c omnia
+pip install cclib
 conda install -y nglview -c bioconda
 pip install coveralls
 pip install coverage
