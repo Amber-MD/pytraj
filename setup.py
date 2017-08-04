@@ -121,6 +121,7 @@ cython_directives = {
     'embedsignature': True,
     'boundscheck': False,
     'wraparound': False,
+    'auto_pickle': False,
 }
 
 if debug:
