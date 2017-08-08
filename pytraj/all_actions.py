@@ -131,6 +131,7 @@ __all__ = [
     'energy_analysis',
     'rotdif',
     'ti',
+    'lipidscd',
 ]
 
 
@@ -2973,7 +2974,7 @@ def check_chirality(traj, mask='', dtype='dict'):
 
     Returns
     -------
-    out : depent on dtype, default 'dict'
+    out : depend on dtype, default 'dict'
     '''
     command = mask
     c_dslist, _ = do_action(traj, command, c_action.Action_CheckChirality)
@@ -2990,6 +2991,23 @@ def fiximagedbonds(traj, mask=''):
     '''
     command = mask
     c_dslist, _ = do_action(traj, command, c_action.Action_FixImagedBonds)
+
+
+def lipidscd(traj, mask='', options='', dtype='dict'):
+    '''
+    
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, default '' (all)
+
+    Returns
+    -------
+    out : depend on dtype, default 'dict'
+    '''
+    command = ' '.join((mask, options))
+    c_dslist, _ = do_action(traj, command, c_action.Action_LipidOrder)
+    return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
 def analyze_modes(mode_type,
