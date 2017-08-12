@@ -535,9 +535,6 @@ def get_package_data(use_pip=False):
 
     _, pxdfiles = get_pyx_pxd()
     pkdata = pxdfiles + sample_datafiles + js_css_files
-
-    if sys.platform.startswith('darwin') and use_pip:
-        pkdata.append('lib/libcpptraj.dylib')
     return pkdata
 
 
