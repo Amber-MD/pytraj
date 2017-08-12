@@ -504,6 +504,11 @@ def get_ext_modules(cpptraj_info,
             if "/" in ext_name:
                 ext_name = ext_name.replace("/", ".")
 
+            # also replace backslashes on Windows
+            # FIXME: how's about "\"? Using os.path.sep?
+            if "\\" in ext_name:
+                ext_name = ext_name.replace("\\", ".")
+
             sources = [pyxfile]
             extmod = Extension(
                 ext_name,
