@@ -142,7 +142,6 @@ setenv_cc_cxx(cpptraj_info.ambertools_distro, extra_compile_args,
 
 if not compile_c_extension:
     ext_modules = []
-    possible_libcpptraj_files = []
 else:
     ext_modules = get_ext_modules(
         cpptraj_info=cpptraj_info,
@@ -162,15 +161,6 @@ else:
         use_pip=use_pip,
         tarfile=tarfile,
         use_prebuilt_cythonized_files=use_prebuilt_cythonized_files)
-    if sys.platform.startswith('win'):
-        possible_libcpptraj_files = [
-            'libcpptraj.dll.a',
-        ]
-        for fn in libcpptraj_files:
-            print("Copying {} to pytraj".format(fn))
-            shutil.copy(fn, 'pytraj/')
-    else:
-        possible_libcpptraj_files = []
 
 setup_args = {}
 packages = [
@@ -232,6 +222,6 @@ if __name__ == "__main__":
         ],
         ext_modules=ext_modules,
         package_data={
-            'pytraj': get_package_data(use_pip) + possible_libcpptraj_files
+            'pytraj': get_package_data(use_pip)
         },
         cmdclass=cmdclass, )

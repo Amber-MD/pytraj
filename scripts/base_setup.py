@@ -489,6 +489,10 @@ def get_ext_modules(cpptraj_info,
         ]
 
         ext_modules = []
+        if sys.platform.startswith('win'):
+            libraries=['libcpptraj']
+        else:
+            libraries=['cpptraj']
         for ext_name in pyxfiles:
             if need_cython:
                 ext = ".pyx"
