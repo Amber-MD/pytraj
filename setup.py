@@ -15,17 +15,7 @@ import sys
 import shutil
 
 print('sys.argv', sys.argv)
-try:
-    # for amber
-    sys.argv.remove('--no-setuptools')
-    from distutils.core import setup
-    from distutils.extension import Extension
-except ValueError:
-    try:
-        from setuptools import setup, Extension
-    except ImportError:
-        from distutils.core import setup
-        from distutils.extension import Extension
+from setuptools import setup, Extension
 from glob import glob
 
 # local import
