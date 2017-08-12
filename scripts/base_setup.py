@@ -488,11 +488,17 @@ def get_ext_modules(cpptraj_info,
             cpptraj_info.lib_dir,
         ]
 
+        include_dirs=[cpptraj_info.include_dir, pytraj_src],
         ext_modules = []
         if sys.platform.startswith('win'):
             libraries=['libcpptraj']
+            # scripts/3rd_party/unistd.h
+            include_dir.append(os.path.join(
+                    os.path.dirname(__file__),
+                    '3rd_party'))
         else:
             libraries=['cpptraj']
+
         for ext_name in pyxfiles:
             if need_cython:
                 ext = ".pyx"
@@ -517,7 +523,7 @@ def get_ext_modules(cpptraj_info,
                 language='c++',
                 library_dirs=library_dirs,
                 define_macros=define_macros,
-                include_dirs=[cpptraj_info.include_dir, pytraj_src],
+                include_dirs=include_dirs,
                 extra_compile_args=extra_compile_args,
                 extra_link_args=extra_link_args)
             ext_modules.append(extmod)
