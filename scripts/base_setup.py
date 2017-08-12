@@ -488,7 +488,7 @@ def get_ext_modules(cpptraj_info,
             cpptraj_info.lib_dir,
         ]
 
-        include_dirs=[cpptraj_info.include_dir, pytraj_src],
+        include_dirs=[cpptraj_info.include_dir, pytraj_src]
         ext_modules = []
         if sys.platform.startswith('win'):
             libraries=['libcpptraj']
