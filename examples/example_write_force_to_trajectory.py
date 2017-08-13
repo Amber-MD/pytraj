@@ -1,13 +1,13 @@
 from __future__ import print_function
 import sys
-from parmed.utils.netcdf import netcdf_file
 import pytraj as pt
 import numpy as np
 
 try:
     import sander
+    from parmed.utils.netcdf import netcdf_file
 except ImportError:
-    print("Example requires pysander installed")
+    print("Example requires pysander and  parmed installed")
     sys.exit(0)
 
 fh = netcdf_file(
