@@ -488,7 +488,17 @@ def get_ext_modules(cpptraj_info,
             cpptraj_info.lib_dir,
         ]
 
+        include_dirs=[cpptraj_info.include_dir, pytraj_src]
         ext_modules = []
+        if sys.platform.startswith('win'):
+            libraries=['libcpptraj']
+            # scripts/3rd_party/unistd.h
+            include_dir.append(os.path.join(
+                    os.path.dirname(__file__),
+                    '3rd_party'))
+        else:
+            libraries=['cpptraj']
+
         for ext_name in pyxfiles:
             if need_cython:
                 ext = ".pyx"
@@ -500,6 +510,11 @@ def get_ext_modules(cpptraj_info,
             if "/" in ext_name:
                 ext_name = ext_name.replace("/", ".")
 
+            # also replace backslashes on Windows
+            # FIXME: how's about "\"? Using os.path.sep?
+            if "\\" in ext_name:
+                ext_name = ext_name.replace("\\", ".")
+
             sources = [pyxfile]
             extmod = Extension(
                 ext_name,
@@ -508,13 +523,18 @@ def get_ext_modules(cpptraj_info,
                 language='c++',
                 library_dirs=library_dirs,
                 define_macros=define_macros,
-                include_dirs=[cpptraj_info.include_dir, pytraj_src],
+                include_dirs=include_dirs,
                 extra_compile_args=extra_compile_args,
                 extra_link_args=extra_link_args)
             ext_modules.append(extmod)
 
         return ext_modules
 
+
+def _correct_path(paths):
+    # type: (List[str]) -> List[str]
+    # convert "/" to os.path.sep
+    return [path.replace('/', os.path.sep) for path in paths]
 
 def get_package_data(use_pip=False):
     sample_datafiles = [
@@ -531,10 +551,7 @@ def get_package_data(use_pip=False):
 
     _, pxdfiles = get_pyx_pxd()
     pkdata = pxdfiles + sample_datafiles + js_css_files
-
-    if sys.platform.startswith('darwin') and use_pip:
-        pkdata.append('lib/libcpptraj.dylib')
-    return pkdata
+    return _correct_path(pkdata)
 
 
 # CleanCommand was copied and lightly adapted from scikit-learn package

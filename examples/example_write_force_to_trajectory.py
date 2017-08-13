@@ -1,7 +1,14 @@
 from __future__ import print_function
-from parmed.utils.netcdf import netcdf_file
+import sys
 import pytraj as pt
 import numpy as np
+
+try:
+    import sander
+    from parmed.utils.netcdf import netcdf_file
+except ImportError:
+    print("Example requires pysander and  parmed installed")
+    sys.exit(0)
 
 fh = netcdf_file(
     'data/mdfrc', mmap=False)  # change mdfrc to your force filename
