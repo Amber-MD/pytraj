@@ -1,6 +1,12 @@
+import sys
 import numpy as np
 import pytraj as pt
-import sander
+try:
+    import sander
+except ImportError:
+    print("Example requires pysander installed")
+    sys.exit(0)
+
 
 traj = pt.datafiles.load_tz2()
 

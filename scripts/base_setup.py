@@ -531,6 +531,11 @@ def get_ext_modules(cpptraj_info,
         return ext_modules
 
 
+def _correct_path(paths):
+    # type: (List[str]) -> List[str]
+    # convert "/" to os.path.sep
+    return [path.replace('/', os.path.sep) for path in paths]
+
 def get_package_data(use_pip=False):
     sample_datafiles = [
         "datafiles/ala3/Ala3.*", "datafiles/tz2/tz2.*", "datafiles/rna.pdb",
@@ -546,7 +551,7 @@ def get_package_data(use_pip=False):
 
     _, pxdfiles = get_pyx_pxd()
     pkdata = pxdfiles + sample_datafiles + js_css_files
-    return pkdata
+    return _correct_path(pkdata)
 
 
 # CleanCommand was copied and lightly adapted from scikit-learn package
