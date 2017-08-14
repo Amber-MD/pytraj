@@ -4,7 +4,7 @@ from contextlib import contextmanager
 import subprocess
 
 
-# tested with py3.5
+# tested with py3.6
 # utils
 def clone_cpptraj():
     os.system('git clone https://github.com/amber-md/cpptraj')
@@ -98,12 +98,15 @@ def test_install_libcpptraj_if_having_cpptraj_folder_here():
 
 def test_install_to_amberhome():
     fn = './fake_amberhome'
-    subprocess.check_call(
-        'mkdir -p {}/lib/python3.5/site-packages/'.format(fn).split())
+    python_path = '{}/lib/python3.6/site-packages/'.format(fn)
+    mkdir_cmd = 'mkdir -p {}'.format(python_path)
+    subprocess.check_call(mkdir_cmd, shell=True)
     full_name = os.path.abspath(fn)
-    command = 'python setup.py install --prefix={} --no-setuptools'.format(
+    command = 'PYTHONPATH={} python setup.py install --prefix={}'.format(
+        python_path,
         full_name)
-    output = subprocess.check_output(command.split()).decode()
+    print(command)
+    output = subprocess.check_output(command, shell=True).demcode()
     assert 'running install_egg_info' in output
     assert 'running install_lib' in output
     assert 'Writing' in output
