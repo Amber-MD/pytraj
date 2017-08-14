@@ -107,9 +107,7 @@ def test_install_to_amberhome():
         full_name)
     print(command)
     output = subprocess.check_output(command, shell=True).decode()
-    assert 'running install_egg_info' in output
-    assert 'running install_lib' in output
-    assert 'Writing' in output
+    assert 'Finished processing dependencies for pytraj' in output
     git_clean_folder(full_name)
 
 
