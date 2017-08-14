@@ -106,7 +106,7 @@ def test_install_to_amberhome():
         python_path,
         full_name)
     print(command)
-    output = subprocess.check_output(command, shell=True).demcode()
+    output = subprocess.check_output(command, shell=True).decode()
     assert 'running install_egg_info' in output
     assert 'running install_lib' in output
     assert 'Writing' in output
