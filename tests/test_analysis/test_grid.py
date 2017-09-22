@@ -31,26 +31,6 @@ class TestGridAction(unittest.TestCase):
 
         d = grid(traj(), " 20 0.5 20 0.5 20 0.5 :WAT@O", top=traj.top)
 
-    def test_action_bounds(self):
-        # creat mutable trajectory
-        traj = pt.load(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
-        pt.autoimage(traj)
-        pt.superpose(traj, ref=0, mask=':1-13&!@H=', mass=True)
-        grid_data = pt._grid(traj, mask=':1-13', grid_spacing=[0.5, 0., 0.])
-
-        text = '''
-        parm {}
-        trajin {}
-        autoimage
-        rms first :1-13&!@H= mass
-        bounds :1-13 dx .5 name MyGrid
-        '''.format(fn('tz2.ortho.parm7'), fn('tz2.ortho.nc'))
-
-        state = pt.load_cpptraj_state(text)
-        state.run()
-        cpp_grid = state.data['MyGrid'].values
-        aa_eq(cpp_grid, grid_data)
-
     def test_just_run_state(self):
         txt = '''
         parm {}
