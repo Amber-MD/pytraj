@@ -531,7 +531,12 @@ cdef class DatasetVector(Dataset):
             cdef int i
             cdef int size = self.size
             cdef _Vec3 _vec3
-            cdef double[:, ::1] dview = np.empty((size, 3), dtype='f8')
+            cdef double[:, ::1] dview
+
+            if self.thisptr.HasOrigins():
+                dview = np.empty((size, 6), dtype='f8')
+            else:
+                dview = np.empty((size, 3), dtype='f8')
 
             # copy data to arr by dview
             for i in range(size):
@@ -539,6 +544,11 @@ cdef class DatasetVector(Dataset):
                 dview[i, 0] = _vec3.Dptr()[0]
                 dview[i, 1] = _vec3.Dptr()[1]
                 dview[i, 2] = _vec3.Dptr()[2]
+                if self.thisptr.HasOrigins():
+                    _vec3 = self.thisptr.OXYZ(i)
+                    dview[i, 3] = _vec3.Dptr()[0]
+                    dview[i, 4] = _vec3.Dptr()[1]
+                    dview[i, 5] = _vec3.Dptr()[2]
             return np.asarray(dview, dtype='f8')
 
         def __set__(self, values):
