@@ -768,7 +768,6 @@ def radgyr(traj=None,
 def radgyr_tensor(traj=None,
            mask="",
            top=None,
-           nomax=True,
            frame_indices=None,
            dtype='ndarray'):
     '''compute radius of gyration with tensore
@@ -778,14 +777,13 @@ def radgyr_tensor(traj=None,
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()
     >>> data = pt.radgyr_tensor(traj, '@CA',)
-    >>> data = pt.radgyr_tensor(traj, '!:WAT', nomax=False)
     >>> data = pt.radgyr_tensor(traj, '@CA', frame_indices=[2, 4, 6])
 
     Returns
     -------
     out : Dict[str, np.ndarray]
     '''
-    nomax_ = 'nomax' if nomax else ""
+    nomax_ = 'nomax'
     command = " ".join((mask, nomax_, "tensor"))
     c_dslist, _ = do_action(traj, command, c_action.Action_Radgyr)
     k0, v0 = c_dslist[0].key, c_dslist[0].values.copy() # use copy to avoid early memory free
