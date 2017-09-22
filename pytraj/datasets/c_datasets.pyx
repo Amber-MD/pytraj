@@ -555,7 +555,7 @@ cdef class DatasetVector(Dataset):
         def __get__(self):
             data = self.possible_data6
             if data.shape[1] == 6:
-                return data[:, :3]
+                return np.ascontiguousarray(data[:, :3])
             else:
                 return data
 
