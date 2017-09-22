@@ -70,6 +70,7 @@ __all__ = [
     'pairwise_distance',
     'pca',
     'radgyr',
+    'radgyr_tensor',
     'rdf',
     'rotate_dihedral',
     'set_velocity',
@@ -297,7 +298,6 @@ def _distance_to_ref_or_point(traj=None,
             cm = ' '.join((cm, point_str))
         elif ref is not None:
             cm = ' '.join((cm, 'reference'))
-        print('cm', cm)
         actlist.add(c_action.Action_Distance(), cm, top, dslist=c_dslist)
 
     for frame in traj:
@@ -761,6 +761,41 @@ def radgyr(traj=None,
     command = " ".join((mask, nomax_))
     c_dslist, _ = do_action(traj, command, c_action.Action_Radgyr)
     return get_data_from_dtype(c_dslist, dtype)
+
+
+@register_pmap
+@super_dispatch()
+def radgyr_tensor(traj=None,
+           mask="",
+           top=None,
+           nomax=True,
+           frame_indices=None,
+           dtype='ndarray'):
+    '''compute radius of gyration with tensore
+
+    Examples
+    --------
+    >>> import pytraj as pt
+    >>> traj = pt.datafiles.load_tz2_ortho()
+    >>> data = pt.radgyr_tensor(traj, '@CA',)
+    >>> data = pt.radgyr_tensor(traj, '!:WAT', nomax=False)
+    >>> data = pt.radgyr_tensor(traj, '@CA', frame_indices=[2, 4, 6])
+
+    Returns
+    -------
+    out : Dict[str, np.ndarray]
+    '''
+    nomax_ = 'nomax' if nomax else ""
+    command = " ".join((mask, nomax_, "tensor"))
+    c_dslist, _ = do_action(traj, command, c_action.Action_Radgyr)
+    k0, v0 = c_dslist[0].key, c_dslist[0].values.copy() # use copy to avoid early memory free
+    k1, v1 = c_dslist[1].key, c_dslist[1].possible_data6
+    if dtype == 'dict':
+        return {k0: v0, k1: v1}
+    elif dtype == 'ndarray':
+        return v0, v1
+    else:
+        raise ValueError("only support dtype='dict'|'ndarray'")
 
 
 @register_pmap

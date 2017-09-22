@@ -526,7 +526,7 @@ cdef class DatasetVector(Dataset):
     def append(self, Vec3 vec):
         self.thisptr.AddVxyz(vec.thisptr[0])
 
-    property data:
+    property possible_data6:
         def __get__(self):
             cdef int i
             cdef int size = self.size
@@ -550,6 +550,14 @@ cdef class DatasetVector(Dataset):
                     dview[i, 4] = _vec3.Dptr()[1]
                     dview[i, 5] = _vec3.Dptr()[2]
             return np.asarray(dview, dtype='f8')
+
+    property data:
+        def __get__(self):
+            data = self.possible_data6
+            if data.shape[1] == 6:
+                return data[:, :3]
+            else:
+                return data
 
         def __set__(self, values):
             '''values must be 2D array that support memory view (such as numpy array)

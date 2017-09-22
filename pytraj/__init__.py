@@ -136,6 +136,7 @@ from .all_actions import pairdist
 from .all_actions import pairwise_distance
 from .all_actions import pairwise_rmsd
 from .all_actions import radgyr
+from .all_actions import radgyr_tensor
 from .all_actions import rdf
 from .all_actions import rotdif
 from .all_actions import rmsd_nofit

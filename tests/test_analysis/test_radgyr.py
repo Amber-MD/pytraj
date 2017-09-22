@@ -10,7 +10,7 @@ from utils import fn
 def test_radgyr_tensor():
     traj = pt.iterload(fn("tz2.truncoct.nc"), fn("tz2.truncoct.parm7"))
 
-    d = pt.radgyr(traj, mask=':1-13 tensor', dtype='dict')
+    d = pt.radgyr_tensor(traj, mask=':1-13', dtype='dict')
     expectect_tensor = [[
         18.26403420734941, 12.330493458000614, 15.326805252790127,
         -2.125659395015517, -8.632996672082086, 4.7252454067158975
@@ -45,6 +45,10 @@ def test_radgyr_tensor():
 
     key = 'RoG_00000[Tensor]'
     np.testing.assert_almost_equal(d.get(key), expectect_tensor)
+
+    d2 = pt.radgyr_tensor(traj, mask=':1-13')
+    np.testing.assert_almost_equal(d2[1], expectect_tensor)
+    np.testing.assert_almost_equal(d2[0], pt.radgyr(traj, ':1-13'))
 
 
 def test_radgyr_default():
