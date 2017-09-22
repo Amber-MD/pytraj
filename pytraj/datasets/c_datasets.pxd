@@ -149,7 +149,9 @@ cdef extern from "DataSet_Vector.h":
         void Resize(size_t s)
         void Resize(size_t s, const _Vec3& v)
         bint Empty() const 
+        bint HasOrigins() const
         _Vec3& index_opr "operator[]" (int i)
+        const _Vec3& VXYZ(int i) const 
         const _Vec3& OXYZ(int i) const 
         void ReserveVecs(size_t n)
         void AddVxyz(const _Vec3& v)
