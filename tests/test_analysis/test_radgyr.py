@@ -45,3 +45,14 @@ def test_radgyr_tensor():
 
     key = 'RoG_00000[Tensor]'
     np.testing.assert_almost_equal(d.get(key), expectect_tensor)
+
+
+def test_radgyr_default():
+    traj = pt.iterload(fn("tz2.truncoct.nc"), fn("tz2.truncoct.parm7"))
+    state = pt.load_cpptraj_state("""
+    radgyr :1-13
+    """, traj)
+    state.run()
+    np.testing.assert_almost_equal(
+            pt.radgyr(traj, ':1-13'),
+            state.data['RoG_00001'].values)
