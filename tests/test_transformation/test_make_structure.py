@@ -8,20 +8,21 @@ from pytraj.testing import cpptraj_test_dir
 
 class TestMakeStructure(unittest.TestCase):
     def test_makestructure(self):
+        # FIXME: What does this test?
         # https://github.com/Amber-MD/cpptraj/issues/27
         # load only 1st frame
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
-        #  pply polyproline II dihedral to residues 1-13
+        # polyproline II dihedral to residues 1-13
         t0 = traj[:1].copy()
         pt.make_structure(t0, 'pp2:1-13')
         pt.write_traj(
-            './output/test0.pdb', t0, options='model', overwrite=True)
+            'dummy_test0.pdb', t0, options='model', overwrite=True)
 
         t1 = traj[:1].copy()
         pt.make_structure(t1, "chi1:8:N:CA:CB:CG:35")
         pt.write_traj(
-            './output/test1.pdb', t1, options='model', overwrite=True)
+            'dummy_test1.pdb', t1, options='model', overwrite=True)
 
     def test_makestructure_with_reference(self):
         tz2_parm7 = cpptraj_test_dir + '/tz2.parm7'
