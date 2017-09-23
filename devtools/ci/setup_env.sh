@@ -17,8 +17,6 @@ bash miniconda.sh -b
 export PATH=$HOME/miniconda3/bin:$PATH
 conda install --yes conda-build jinja2 anaconda-client pip numpy
 pip install auditwheel
-pip uninstall mock -y # I have no idea why I need do this to make mock (travis) work
-pip install mock
 pip install cython==$cython_version
 
 # create myenv
@@ -29,4 +27,4 @@ conda install -y numpy h5py libnetcdf pyflakes
 conda install -y hdf4 # temporary install to fix error "libmfhdf.so.0: cannot open shared object file"
 pip install cython==$cython_version
 pip install auditwheel
-
+pip install mock
