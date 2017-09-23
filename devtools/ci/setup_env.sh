@@ -17,6 +17,7 @@ bash miniconda.sh -b
 export PATH=$HOME/miniconda3/bin:$PATH
 conda install --yes conda-build jinja2 anaconda-client pip numpy
 pip install auditwheel
+pip uninstall mock -y # I have no idea why I need do this to make mock (travis) work
 pip install mock
 pip install cython==$cython_version
 
