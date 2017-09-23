@@ -293,11 +293,11 @@ for attr in _urllib_request_moved_attributes:
     setattr(Module_six_moves_urllib_request, attr.name, attr)
 del attr
 
-sys.modules[__name__ +
-            ".moves.urllib_request"] = Module_six_moves_urllib_request(
+sys.modules[__name__
+            + ".moves.urllib_request"] = Module_six_moves_urllib_request(
                 __name__ + ".moves.urllib_request")
-sys.modules[__name__ +
-            ".moves.urllib.request"] = Module_six_moves_urllib_request(
+sys.modules[__name__
+            + ".moves.urllib.request"] = Module_six_moves_urllib_request(
                 __name__ + ".moves.urllib.request")
 
 
@@ -315,11 +315,11 @@ for attr in _urllib_response_moved_attributes:
     setattr(Module_six_moves_urllib_response, attr.name, attr)
 del attr
 
-sys.modules[__name__ +
-            ".moves.urllib_response"] = Module_six_moves_urllib_response(
+sys.modules[__name__
+            + ".moves.urllib_response"] = Module_six_moves_urllib_response(
                 __name__ + ".moves.urllib_response")
-sys.modules[__name__ +
-            ".moves.urllib.response"] = Module_six_moves_urllib_response(
+sys.modules[__name__
+            + ".moves.urllib.response"] = Module_six_moves_urllib_response(
                 __name__ + ".moves.urllib.response")
 
 

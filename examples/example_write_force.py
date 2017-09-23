@@ -7,7 +7,6 @@ except ImportError:
     print("Example requires pysander installed")
     sys.exit(0)
 
-
 traj = pt.datafiles.load_tz2()
 
 inp = sander.gas_input(8)

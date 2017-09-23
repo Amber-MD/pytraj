@@ -766,10 +766,10 @@ def radgyr(traj=None,
 @register_pmap
 @super_dispatch()
 def radgyr_tensor(traj=None,
-           mask="",
-           top=None,
-           frame_indices=None,
-           dtype='ndarray'):
+                  mask="",
+                  top=None,
+                  frame_indices=None,
+                  dtype='ndarray'):
     '''compute radius of gyration with tensore
 
     Examples
@@ -786,7 +786,8 @@ def radgyr_tensor(traj=None,
     nomax_ = 'nomax'
     command = " ".join((mask, nomax_, "tensor"))
     c_dslist, _ = do_action(traj, command, c_action.Action_Radgyr)
-    k0, v0 = c_dslist[0].key, c_dslist[0].values.copy() # use copy to avoid early memory free
+    k0, v0 = c_dslist[0].key, c_dslist[
+        0].values.copy()  # use copy to avoid early memory free
     k1, v1 = c_dslist[1].key, c_dslist[1].possible_data6
     if dtype == 'dict':
         return {k0: v0, k1: v1}
@@ -1428,11 +1429,11 @@ def multidihedral(traj=None,
 
 @super_dispatch()
 def rmsf(traj=None,
-        mask="",
-        top=None,
-        dtype='ndarray',
-        frame_indices=None,
-        options=''):
+         mask="",
+         top=None,
+         dtype='ndarray',
+         frame_indices=None,
+         options=''):
     '''compute atomicfluct (RMSF)
 
     Parameters
@@ -1455,6 +1456,7 @@ def rmsf(traj=None,
     command = ' '.join((mask, options))
     c_dslist, _ = do_action(traj, command, c_action.Action_AtomicFluct)
     return get_data_from_dtype(c_dslist, dtype=dtype)
+
 
 atomicfluct = rmsf
 

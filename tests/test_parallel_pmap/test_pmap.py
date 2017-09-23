@@ -214,15 +214,18 @@ class TestParallelMapForHbond(unittest.TestCase):
             traj = pt.iterload(fn(trajin_fn), fn(parm_fn))
             kwargs = dict(solvent_donor=':WAT@O', solvent_acceptor=':WAT')
             hbond_data_serial = pt.hbond(traj, dtype='dict', **kwargs)
-            hbond_data_pmap = pt.pmap(pt.hbond, traj, dtype='dict', n_cores=3, **kwargs)
+            hbond_data_pmap = pt.pmap(
+                pt.hbond, traj, dtype='dict', n_cores=3, **kwargs)
 
             assert sorted(hbond_data_serial.keys()) == sorted(
                 hbond_data_pmap.keys())
 
             for key, value in hbond_data_serial.items():
                 if key.endswith('HB[ID]'):
-                    assert hbond_data_pmap[key].tolist() == hbond_data_serial[key].tolist()
-                    print(hbond_data_pmap[key].tolist(), hbond_data_serial[key].tolist())
+                    assert hbond_data_pmap[key].tolist() == hbond_data_serial[
+                        key].tolist()
+                    print(hbond_data_pmap[key].tolist(),
+                          hbond_data_serial[key].tolist())
                 else:
                     aa_eq(hbond_data_serial[key], hbond_data_pmap[key])
                     assert value.dtype == np.int32

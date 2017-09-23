@@ -58,5 +58,4 @@ def test_radgyr_default():
     """, traj)
     state.run()
     np.testing.assert_almost_equal(
-            pt.radgyr(traj, ':1-13'),
-            state.data['RoG_00001'].values)
+        pt.radgyr(traj, ':1-13'), state.data['RoG_00001'].values)

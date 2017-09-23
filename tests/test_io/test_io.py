@@ -174,8 +174,8 @@ def test_blind_load():
 
     traj = pt.iterload(filename=tc5b_trajin, top=tc5b_top)
 
-    is_traj = (isinstance(traj, TrajectoryIterator) or
-               isinstance(traj, Trajectory))
+    is_traj = (isinstance(traj, TrajectoryIterator)
+               or isinstance(traj, Trajectory))
     assert is_traj
 
 
