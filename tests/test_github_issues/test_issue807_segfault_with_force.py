@@ -9,7 +9,7 @@ class TestSegmetationFault(unittest.TestCase):
     def test_issue807(self):
         # files are provided by Chris Lee
         traj = pt.iterload(
-            fn('issue807/trunc.nc'), "./data/issue807/system.prmtop")
+            fn('issue807/trunc.nc'), fn("issue807/system.prmtop"))
 
         traj[0]
         for frame in traj:
@@ -23,7 +23,3 @@ class TestSegmetationFault(unittest.TestCase):
         pt.radgyr(traj(mask='@O'))
         for c in pt.iterchunk(traj, 4):
             assert c[0].n_atoms == traj.top.n_atoms
-
-
-if __name__ == "__main__":
-    unittest.main()
