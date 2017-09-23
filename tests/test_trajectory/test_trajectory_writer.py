@@ -43,10 +43,13 @@ def test_trajectory_writer__with_statement():
 
 def test_trajectory_writer_write_PDBFILE():
     frame0 = farray[0]
+    filename="dummy_test_dafd.pdb"
     with TrajectoryWriter(
-            filename="./output/test_0.pdb", top=farray.top,
+            filename="dummy_test_dafd.pdb", top=farray.top,
             overwrite=True) as trajout:
         trajout.write(frame0)
+    with open(filename) as fh:
+        assert "" in fh.read()
 
 
 def test_trajectory_writer_write_Trajectory():
