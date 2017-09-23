@@ -31,7 +31,7 @@ class TestWorkerState(unittest.TestCase):
 
             lines = ['angle :3 :7 :9', 'distance :2 :10']
 
-            for n_cores in [2, 3]:
+            for n_cores in [1, 2]:
                 data_list = [
                     worker_by_state(rank, n_cores, traj, lines)
                     for rank in range(n_cores)
@@ -48,7 +48,7 @@ class TestWorkerState(unittest.TestCase):
         saved_angle = pt.angle(traj, ':3 :10 :11')
         saved_dist = pt.distance(traj, ':3 :10')
 
-        for n_cores in [2, 3]:
+        for n_cores in [1, 2]:
             lines = ['angle :3 :10 :11', 'distance :3 :10']
             pfuncs = partial(
                 worker_by_state,
@@ -65,7 +65,3 @@ class TestWorkerState(unittest.TestCase):
             final_data = concat_dict(data_list_sorted_rank)
             aa_eq(final_data['Ang_00002'], saved_angle)
             aa_eq(final_data['Dis_00003'], saved_dist)
-
-
-if __name__ == "__main__":
-    unittest.main()
