@@ -43,8 +43,6 @@ class TestWorkerState(unittest.TestCase):
     def test_multiple_cores(self):
         from multiprocessing import Pool
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
-        for _ in range(10):
-            traj._load(traj.filelist)
         saved_angle = pt.angle(traj, ':3 :10 :11')
         saved_dist = pt.distance(traj, ':3 :10')
 
