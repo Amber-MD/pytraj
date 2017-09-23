@@ -37,7 +37,7 @@ class TestIssue991(unittest.TestCase):
         exts.remove('crd')
 
         for ext in exts:
-            junk_fn = 'output/junk.' + ext
+            junk_fn = 'junk.' + ext
             pt.write_traj(
                 filename=junk_fn, traj=minitraj, top=minitop, overwrite=True)
 
