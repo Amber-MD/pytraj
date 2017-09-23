@@ -92,8 +92,8 @@ def check_valid_command(commands):
         if 'refindex' in cm:
             need_ref = True
 
-        if ((cm.startswith('rms') or cm.startswith('nastruct') or
-             cm.startswith('center') or cm.startswith('distrmsd') or
+        if ((cm.startswith('rms') or cm.startswith('nastruct')
+             or cm.startswith('center') or cm.startswith('distrmsd') or
              cm.startswith('nativecontacts') or cm.startswith('symmetricrmsd'))
                 and 'refindex' not in cm):
 

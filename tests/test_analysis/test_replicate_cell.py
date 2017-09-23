@@ -7,14 +7,15 @@ from pytraj.utils import aa_eq
 
 class TestReplicateCell(unittest.TestCase):
     def test_vs_cpptraj(self):
-        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
+        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'),
+                frame_slice=[(0, 1)])
         txt = '''
         parm {}
-        trajin {}
-        replicatecell name test all
+        trajin {} 1 1
+        replicatecell name test dir 001
         '''.format(fn('tz2.ortho.parm7'), fn('tz2.ortho.nc'))
 
-        t0 = pt.replicate_cell(traj, direction='all')
+        t0 = pt.replicate_cell(traj, direction='dir 001')
         state = pt.load_cpptraj_state(txt)
         state.run()
         saved_t0 = state.data[1]

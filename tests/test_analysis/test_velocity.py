@@ -50,13 +50,14 @@ class TestVelocity(unittest.TestCase):
     def test_velocityautocorr(self):
         # usevelocity = False
         traj = pt.iterload(
-            fn('issue807/trunc.nc'), fn("issue807/system.prmtop"))
+            fn('issue807/trunc.nc'), fn("issue807/system.prmtop"),
+            frame_slice=(0, 3))
         data0 = pt.all_actions.velocityautocorr(
             traj, tstep=2, norm=True, direct=True)
 
         cm = """
         parm {}
-        trajin {}
+        trajin {} 1 3
         velocityautocorr mydata * tstep 2 norm direct
         """.format(fn('issue807/system.prmtop'), fn('issue807/trunc.nc'))
 
@@ -70,7 +71,7 @@ class TestVelocity(unittest.TestCase):
 
         cm = """
         parm {}
-        trajin {}
+        trajin {} 1 3
         velocityautocorr mydata * tstep 1 direct usevelocity
         """.format(fn('issue807/system.prmtop'), fn('issue807/trunc.nc'))
 

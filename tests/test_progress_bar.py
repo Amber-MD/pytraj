@@ -30,15 +30,15 @@ from utils import fn
 def test_progress_log():
     """test_progress_log: simple test, just to make sure it is runnable
     """
-    traj = pt.datafiles.load_tz2()
+    traj = pt.datafiles.load_tz2()[:10]
 
-    p = ProgressBarTrajectory(traj, style='basic', every=20)
+    p = ProgressBarTrajectory(traj, style='basic', every=5)
     pt.molsurf(p)
 
-    p = ProgressBarTrajectory(traj, style='bar', every=20)
+    p = ProgressBarTrajectory(traj, style='bar', every=5)
     pt.molsurf(p)
 
-    p = ProgressBarTrajectory(traj, style='circle', every=20)
+    p = ProgressBarTrajectory(traj, style='circle', every=5)
     pt.molsurf(p)
 
     # need to run on Jupyter notebook

@@ -11,10 +11,11 @@ from pytraj.utils import aa_eq
 class TestClosest(unittest.TestCase):
     def test_closest(self):
         # raise if not has solvent
-        traj0 = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
+        traj0 = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'), frame_slice=[(0, 2)])
         self.assertRaises(RuntimeError, lambda: pt.closest(traj0))
 
-        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
+        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'),
+                frame_slice=[(0, 2)])
         fi, top = pt.closest(traj)
 
         coords = []
@@ -48,11 +49,16 @@ class TestClosest(unittest.TestCase):
             outputname('test.pdb'), next(fi), top=top, overwrite=True)
 
     def test_closest_compared_to_cpptraj(self):
-        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
+        trajin = fn('tz2.ortho.nc')
+        parm = fn('tz2.ortho.parm7')
+        traj = pt.iterload(trajin, parm,
+                frame_slice=[(0, 2),])
         state = pt.load_cpptraj_state('''
+        parm {}
+        trajin {} 1 2
         autoimage
         closest 100 :1-13
-        createcrd mycrd''', traj)
+        createcrd mycrd'''.format(parm, trajin))
         state.run()
 
         fi, top = pt.closest(

@@ -6,6 +6,7 @@ import pytraj as pt
 from utils import fn
 from pytraj.utils import aa_eq
 from pytraj.trajectory.trajectory_iterator import sort_filename_by_number
+from mock import patch
 
 
 class TestTrajectoryIterator(unittest.TestCase):
@@ -44,10 +45,15 @@ class TestTrajectoryIterator(unittest.TestCase):
         # raise
         # memory error if load larger than 1GB for xyz
         traj = pt.datafiles.load_tz2_ortho()
-        for _ in range(11):
+        for _ in range(2):
             traj._load(traj.filelist)
 
-        self.assertRaises(MemoryError, lambda: traj.xyz)
+        with patch('pytraj.trajectory.trajectory_iterator.TrajectoryIterator._estimated_GB') as \
+                mem:
+             def mock_get(*args, **kwargs):
+                 return 10000000
+             mem.__get__ = mock_get
+             self.assertRaises(MemoryError, lambda: traj.xyz)
 
         # can not find filename
         self.assertRaises(ValueError, lambda: traj._load(None))

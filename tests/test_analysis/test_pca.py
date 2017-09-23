@@ -149,7 +149,7 @@ class TestPCA(unittest.TestCase):
 
         command_ref_provided = '''
         parm {}
-        trajin {}
+        trajin {} 1 3
 
         reference {}
 
@@ -169,8 +169,10 @@ class TestPCA(unittest.TestCase):
         crdaction CRD1 projection evecs MyEvecs * out project.dat beg 1 end 2
         '''.format(tz2_top, tz2_trajin, fn('tz2.rst7'))
 
-        traj = pt.load(fn('tz2.nc'), fn('tz2.parm7'))
-        traj_on_disk = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
+        traj = pt.load(fn('tz2.nc'), fn('tz2.parm7'),
+                frame_indices=range(0, 3))
+        traj_on_disk = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'),
+                frame_slice=[(0, 3)])
         ref = pt.load(fn('tz2.rst7'), traj.top)
 
         state = pt.load_cpptraj_state(command_ref_provided)

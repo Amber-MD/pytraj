@@ -5,6 +5,7 @@ from utils import fn
 
 from pytraj import adict
 from pytraj.testing import aa_eq, cpptraj_test_dir
+from pytraj.externals.six import zip
 from pytraj.utils.tools import rmsd_1darray
 
 
@@ -73,33 +74,28 @@ class TestRegular(unittest.TestCase):
 
 
 class TestWithRmsfit(unittest.TestCase):
-    def test_0(self):
+    def test_on_disk_trajectory(self):
         # TrajectoryIterrator
-        # status: failed
-        from pytraj.externals.six import zip
+        output = "ok_to_delete.nc"
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         pt.write_traj(
-            "./output/tz2.autoimage_with_rmsfit.nc",
+            output,
             traj(autoimage=True, rmsfit=(0, '@CA,C,N')),
             overwrite=True)
 
         saved_traj = pt.load(fn('tz2.autoimage_with_rmsfit.nc'), traj.top)
-        p_traj = pt.load('./output/tz2.autoimage_with_rmsfit.nc', traj.top)
+        p_traj = pt.load(output, traj.top)
 
         aa_eq(saved_traj.xyz, p_traj.xyz)
+        # ensure iterable without memory freeing
         for f1, f2 in zip(p_traj, saved_traj):
-            pass
+            aa_eq(f1.xyz, f2.xyz)
 
-    def test_1(self):
-        # status: OK
-        pass
-        # note: use `load` instead of `iterload`
+    def test_in_memory_trajectory(self):
         traj = pt.load(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         traj.autoimage()
         traj.rmsfit(mask='@CA,C,N')
         saved_traj = pt.load(fn('tz2.autoimage_with_rmsfit.nc'), traj.top)
-
-        # PASSED
         aa_eq(saved_traj.xyz, traj.xyz)
 
 

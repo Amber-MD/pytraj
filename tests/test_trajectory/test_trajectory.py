@@ -285,8 +285,8 @@ class TestSaveToDisk(unittest.TestCase):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
         fa = traj[:]
-        fname = "./output/test_savemethod.x"
-        fname2 = "./output/test_savemethod_2.x"
+        fname = "dummy_test_savemethod.x"
+        fname2 = "dummy_test_savemethod_2.x"
         fa.save(fname, overwrite=True)
         traj.save(fname2, overwrite=True)
 
@@ -303,9 +303,9 @@ class TestSaveToDisk(unittest.TestCase):
 
     def test_fancy_save(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
-        traj[1:8].save("./output/test_fancy_save_frame1_7.x", overwrite=True)
-
-        fanew = pt.iterload("./output/test_fancy_save_frame1_7.x", traj.top)
+        output = 'dummy_test_fancy_save_frame1_7.x'
+        traj[1:8].save(output, overwrite=True)
+        fanew = pt.iterload(output, traj.top)
 
         for idx, f0 in enumerate(traj[1:8]):
             f0new = fanew[idx]

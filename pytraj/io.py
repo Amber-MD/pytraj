@@ -57,7 +57,7 @@ def load(filename, top=None, frame_indices=None, mask=None, stride=None):
         only load frames with given number given in frame_indices
     stride : {None, int}, default None
         if given, frame will be skip every `stride`.
-        Note: if bot frame_indices and stride are given, `frame_indices` will be ignored.
+        Note: if both frame_indices and stride are given, `frame_indices` will be ignored.
     mask : {str, None}, default None
         if None: load coordinates for all atoms
         if string, load coordinates for given atom mask

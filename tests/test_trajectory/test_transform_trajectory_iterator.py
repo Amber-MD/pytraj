@@ -109,16 +109,16 @@ class TestActionList(unittest.TestCase):
 
         traj_on_disk0 = pt.iterload([
             fn,
-        ] * 10, tn)  # 1010 frames
+        ] * 2, tn)
         traj_on_disk1 = pt.iterload([
             fn,
-        ] * 10, tn)  # 1010 frames
+        ] * 2, tn)
         traj_on_mem = pt.load([
             fn,
-        ] * 10, tn)  # 1010 frames
+        ] * 2, tn)
         traj_on_mem2 = pt.load([
             fn,
-        ] * 10, tn)  # 1010 frames
+        ] * 2, tn)
 
         traj_on_disk0.autoimage().superpose()
         traj_on_disk1.autoimage().superpose()

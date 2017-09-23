@@ -108,8 +108,7 @@ class TestSimpleRMSD(unittest.TestCase):
 
         arr0 = pt.rmsd(traj, ref=0)
         arr1 = pt.rmsd(traj, ref=0)
-        arr2 = pt.rmsd(
-            traj, )
+        arr2 = pt.rmsd(traj, )
         a_md0 = md.rmsd(m_traj, m_traj, 0)
         aa_eq(arr0, arr1)
         aa_eq(arr0, arr2)

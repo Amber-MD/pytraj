@@ -26,8 +26,7 @@ class TestActionList(unittest.TestCase):
         trajin {}
         distance @CB @CA
         distance @CA @H
-        """.format(fn('Tc5b.parm7'),
-                   fn('Tc5b.x'))
+        """.format(fn('Tc5b.parm7'), fn('Tc5b.x'))
 
         cout = pt.datafiles.load_cpptraj_output(trajin)[1:]
 

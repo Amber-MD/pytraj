@@ -18,6 +18,7 @@ volmap {} {} {}
 
 
 class TestVolmap(unittest.TestCase):
+
     def test_volmap(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))[:1]
         size = ''
@@ -96,7 +97,3 @@ class TestVolmap(unittest.TestCase):
         dry_traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         self.assertRaises(RuntimeError, lambda: pt.volmap(dry_traj, mask=':WAT@O',
                                                           grid_spacing=(0.5, 0.5, 0.5)))
-
-
-if __name__ == "__main__":
-    unittest.main()

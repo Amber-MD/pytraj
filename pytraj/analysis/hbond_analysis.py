@@ -82,10 +82,11 @@ class DatasetHBond(BaseDataHolder):
                 # each bridge
                 nums = re.findall(r'\d+', st)
                 if nums:
-                    new_nums = tuple(rdict[s] + s  for s in nums)
+                    new_nums = tuple(rdict[s] + s for s in nums)
                     bridge_per_frame.append(new_nums)
             bridges.append(bridge_per_frame)
         return bridges
+
 
 def _update_key_hbond(_dslist):
 
@@ -216,8 +217,8 @@ def hbond(traj,
     _series = 'series' if series else ''
     _options = options
 
-    command = " ".join((dset_name, _series, mask, s_donor, s_acceptor, _dist, _angle,
-                        _image, _options))
+    command = " ".join((dset_name, _series, mask, s_donor, s_acceptor, _dist,
+                        _angle, _image, _options))
 
     # need to get correct frame number
     act.read_input(command, top=top, dslist=dslist)
@@ -238,7 +239,8 @@ def hbond(traj,
             dslist_new = get_data_from_dtype(dslist, dtype='dataset')
             hdata = DatasetHBond(dslist_new)
             hdata._old_keys = old_keys
-            hdata._resnames = dict((str(res.index+1), res.name)for res in top.residues)
+            hdata._resnames = dict((str(res.index + 1), res.name)
+                                   for res in top.residues)
             return hdata
         else:
             raise ValueError(
