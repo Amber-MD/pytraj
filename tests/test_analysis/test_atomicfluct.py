@@ -55,7 +55,7 @@ class TestAtomicFluct(unittest.TestCase):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         state = pt.load_cpptraj_state('''
         distance :3 :7
-        atomicfluct @CA out output/test.agr
+        atomicfluct @CA
         distance :3 :7''', traj)
         state.run()
 
@@ -67,7 +67,3 @@ class TestAtomicFluct(unittest.TestCase):
         # https://github.com/Amber-MD/pytraj/issues/1166
         aa_eq(pt.distance(t0, ':3 :7'), state.data[-1])
         aa_eq(traj.xyz, t0.xyz)
-
-
-if __name__ == "__main__":
-    unittest.main()
