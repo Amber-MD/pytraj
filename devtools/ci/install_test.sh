@@ -8,8 +8,6 @@ pip install coveralls
 pip install coverage
 pip install pytest-cov
 pip install nose
-pip install memory_profiler
-pip install psutil
 pip install tqdm
 
 source devtools/ci/install_ambertools.sh
