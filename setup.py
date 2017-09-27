@@ -62,7 +62,7 @@ print('use_pip = {}, cpptraj_home = {}'.format(use_pip, cpptraj_home))
 if use_pip and not cpptraj_home:
     if not os.path.exists('./cpptraj'):
         print(
-            'Detect using pip, must set CPPTRAJHOME if there is no cpptraj in current folder'
+            'Detected use of pip; you must set CPPTRAJHOME if there is no cpptraj in the current folder'
         )
         sys.exit(1)
 
@@ -86,7 +86,12 @@ cpptraj_info = get_cpptraj_info(
     openmp_flag=openmp_flag,
     use_amberlib=use_amberlib)
 
-libcpptraj_files = glob(os.path.join(cpptraj_info.lib_dir, 'libcpptraj') + '*')
+# CMake's libcpptraj has an _omp suffix to denote that it's OpenMP, so look for that first.
+if openmp_flag:
+    libcpptraj_files = glob(os.path.join(cpptraj_info.lib_dir, 'libcpptraj_omp') + '*')
+
+if (not openmp_flag) or len(libcpptraj_files) == 0:
+    libcpptraj_files = glob(os.path.join(cpptraj_info.lib_dir, 'libcpptraj') + '*')
 
 write_version_py()
 FULLVERSION, GIT_REVISION = get_version_info()
