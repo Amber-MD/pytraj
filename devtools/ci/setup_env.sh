@@ -22,8 +22,5 @@ pip install cython==$cython_version
 # create myenv
 conda create -y -n myenv python=$PYTHON_VERSION
 source activate myenv
-# conda install -y numpy=1.13.1 nomkl h5py=2.7.0 libnetcdf=4.4.1  pyflakes
-conda install -y conda=4.3.25
-conda install -y libnetcdf=4.4.1
-conda install -y hdf4=4.2.12 # temporary install to fix error "libmfhdf.so.0: cannot open shared object file"
+conda install -y --file conda-requirements.txt
 pip install -r pip-requirements.txt
