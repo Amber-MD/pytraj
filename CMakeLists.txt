@@ -22,6 +22,7 @@ set(LIBDIR_FILE ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/libcpptraj.l
 
 set_property(DIRECTORY PROPERTY ADDITIONAL_MAKE_CLEAN_FILES ${BUILD_DIR})
 
+file(MAKE_DIRECTORY ${BUILD_DIR})
 #find all python library files as dependencies
 file(GLOB_RECURSE PYTHON_SOURCES "*.py" "*.pyx" "*.pxd")
 

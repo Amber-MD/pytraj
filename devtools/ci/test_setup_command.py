@@ -84,7 +84,7 @@ def test_raise_if_using_pip_but_does_not_have_cpptraj_home():
         for command in ['pip install -e .', 'pip install .', 'pip wheel .']:
             print(command)
             output = capture_stderr(command)
-            assert 'using pip, must set CPPTRAJHOME' in output
+            assert 'Detected use of pip; you must set CPPTRAJHOME' in output
 
 
 def test_install_libcpptraj_if_having_cpptraj_folder_here():
