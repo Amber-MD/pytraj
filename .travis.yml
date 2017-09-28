@@ -17,7 +17,7 @@ before_install:
       brew install netcdf fftw;
     else
       export CXX=g++-6;
-      export CCC=gCC-6;
+      export CC=gcc-6;
     fi
 
 addons:
