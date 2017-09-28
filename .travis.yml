@@ -40,6 +40,10 @@ install:
     - source devtools/ci/install_test.sh
 
 script:
+    - which gcc
+    - gcc -v
+    - which g++
+    - g++ -v
     - source devtools/travis-ci/install_pytraj.sh
     - source devtools/ci/run_tests.sh
 
