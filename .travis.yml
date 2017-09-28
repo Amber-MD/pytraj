@@ -44,6 +44,8 @@ script:
     - gcc -v
     - which g++
     - g++ -v
+    - export CXX=g++-5
+    - export CC=gcc-5
     - source devtools/travis-ci/install_pytraj.sh
     - source devtools/ci/run_tests.sh
 
