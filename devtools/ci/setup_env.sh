@@ -23,7 +23,10 @@ pip install cython==$cython_version
 conda create -y -n myenv python=$PYTHON_VERSION
 source activate myenv
 conda update -y conda
-conda install -y numpy=1.13.1 nomkl h5py=2.7.0 libnetcdf=4.4.1  pyflakes
+# conda install -y numpy=1.13.1 nomkl h5py=2.7.0 libnetcdf=4.4.1  pyflakes
+conda install -y libnetcdf=4.4.1  pyflakes
+pip install numpy
+pip install h5py
 conda install -y hdf4 # temporary install to fix error "libmfhdf.so.0: cannot open shared object file"
 pip install cython==$cython_version
 pip install auditwheel
