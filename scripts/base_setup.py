@@ -453,7 +453,7 @@ def get_ext_modules(cpptraj_info,
             )
 
         if sys.platform == 'darwin' or sys.platform.startswith("win"):
-            sys.stdout.write('does not support openmp on osx/win - disable\n')
+            sys.stdout.write('pytraj does not support openmp on osx/win - disabled\n')
             openmp_flag = ''
 
         extra_compile_args, extra_link_args = add_openmp_flag(
