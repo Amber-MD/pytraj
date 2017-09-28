@@ -3,7 +3,7 @@
 # for testing
 conda install -y anaconda-client jupyter notebook
 pip install cclib
-conda install -y nglview -c bioconda
+pip install nglview
 pip install coveralls
 pip install coverage
 pip install pytest-cov
