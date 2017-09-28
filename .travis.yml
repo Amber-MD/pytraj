@@ -27,6 +27,7 @@ addons:
     packages:
     - gcc-6
     - g++-6
+    - gfortran-6
     - gfortran-5
     - g++
     - gfortran
