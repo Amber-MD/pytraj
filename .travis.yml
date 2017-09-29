@@ -54,6 +54,8 @@ script:
     - which g++
     - g++ -v
     - source devtools/travis-ci/install_pytraj.sh
+    - otool -L cpptraj/lib/libcpptraj.dylib
+    - otool -L /Users/travis/miniconda3/envs/myenv/lib/python3.6/site-packages/pytraj-2.0.3.dev0-py3.6-macosx-10.9-x86_64.egg/pytraj/topology/topology.cpython-36m-darwin.so
     - source devtools/ci/run_tests.sh
 
 after_success:
