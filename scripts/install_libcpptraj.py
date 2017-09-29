@@ -171,7 +171,8 @@ def install_libcpptraj(compiler='', build_flag='', n_cpus=4):
         if IS_OSX:
             if ((compiler == 'clang' or 'clang' in os.getenv('CXX', '')) or
                 (os.getenv('CXX') and is_clang(os.getenv('CXX')))):
-                cxx_overwrite = 'CXX="clang++ -stdlib=libstdc++"'
+                # cxx_overwrite = 'CXX="clang++ -stdlib=libstdc++"'
+                print("FIXME: update this")
         print('cxx_overwrite flag', cxx_overwrite)
 
         cm = 'bash configure {build_flag} {compiler} {cxx_overwrite}'.format(
