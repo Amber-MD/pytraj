@@ -32,6 +32,13 @@ DEFAULT_MAC_CCOMPILER = 'clang'
 DEFAULT_MAC_CXXCOMPILER = 'clang++'
 
 
+def is_clang(cc):
+    # both cpptraj and pytraj give priority for CXX and CC environments
+    # check them first.
+    out = subprocess.check_output([cc, '--version']).decode()
+    return 'clang' in out
+
+
 def check_flag(key):
     try:
         sys.argv.remove(key)

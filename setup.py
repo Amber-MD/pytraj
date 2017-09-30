@@ -23,7 +23,8 @@ from scripts.base_setup import (check_flag, write_version_py, get_version_info,
                                 get_cpptraj_info, check_compile_cython,
                                 check_cython, get_package_data, get_pyx_pxd)
 from scripts.base_setup import (compiler_env_info, setenv_cc_cxx,
-                                get_ext_modules)
+                                get_ext_modules,
+                                is_clang)
 from scripts.base_setup import CleanCommand, is_released
 
 # python version >= 2.6
@@ -113,9 +114,6 @@ else:
     extra_link_args = ['-O0', '-ggdb']
 
 
-if sys.platform.startswith('darwin'):
-    extra_link_args.append('-stdlib=libstdc++')
-
 cython_directives = {
     'embedsignature': True,
     'boundscheck': False,
@@ -138,6 +136,10 @@ else:
 
 setenv_cc_cxx(cpptraj_info.ambertools_distro, extra_compile_args,
               extra_link_args)
+if sys.platform.startswith('darwin') and is_clang(os.getenv('CXX')):
+    # FIXME: should check if Python is built with GNU or clang compiler
+    extra_compile_args.append('-stdlib=libstdc++')
+
 
 if not compile_c_extension:
     ext_modules = []
