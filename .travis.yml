@@ -18,7 +18,6 @@ before_install:
       export CXX=clang++;
       export CC=clang;
       shell_session_update() { echo "Overriding shell_session_update"; };
-    fi
     else
       export CXX=g++-6;
       export CC=gcc-6;
