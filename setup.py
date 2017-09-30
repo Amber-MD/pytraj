@@ -112,6 +112,10 @@ else:
     extra_compile_args = ['-O0', '-ggdb']
     extra_link_args = ['-O0', '-ggdb']
 
+
+if sys.platform.startswith('darwin'):
+    extra_link_args.append('-stdlib=libstdc++')
+
 cython_directives = {
     'embedsignature': True,
     'boundscheck': False,
