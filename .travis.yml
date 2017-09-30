@@ -17,6 +17,8 @@ before_install:
       brew install netcdf fftw;
       export CXX=clang++;
       export CC=clang;
+      shell_session_update() { echo "Overriding shell_session_update"; };
+    fi
     else
       export CXX=g++-6;
       export CC=gcc-6;
@@ -54,10 +56,6 @@ script:
     - which g++
     - g++ -v
     - source devtools/travis-ci/install_pytraj.sh
-    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-        otool -L cpptraj/lib/libcpptraj.dylib;
-        otool -L /Users/travis/miniconda3/envs/myenv/lib/python3.6/site-packages/pytraj-2.0.3.dev0-py3.6-macosx-10.9-x86_64.egg/pytraj/topology/topology.cpython-36m-darwin.so;
-      fi
     - source devtools/ci/run_tests.sh
 
 after_success:
