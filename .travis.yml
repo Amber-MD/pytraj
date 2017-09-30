@@ -15,6 +15,9 @@ before_install:
       brew tap homebrew/science;
       brew update;
       brew install netcdf fftw;
+      export CXX=clang++;
+      export CC=clang;
+      shell_session_update() { echo "Overriding shell_session_update"; };
     else
       export CXX=g++-6;
       export CC=gcc-6;

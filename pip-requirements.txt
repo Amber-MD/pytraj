@@ -1,0 +1,6 @@
+pyflakes==1.6.0
+numpy==1.13.1
+h5py==2.7.0
+cython==0.26
+auditwheel==1.7.0
+mock==2.0.0

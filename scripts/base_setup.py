@@ -24,12 +24,19 @@ else:
 
 MAJOR = 2
 MINOR = 0
-MICRO = 2
+MICRO = 3
 is_released = False
 VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 
 DEFAULT_MAC_CCOMPILER = 'clang'
 DEFAULT_MAC_CXXCOMPILER = 'clang++'
+
+
+def is_clang(cc):
+    # both cpptraj and pytraj give priority for CXX and CC environments
+    # check them first.
+    out = subprocess.check_output([cc, '--version']).decode()
+    return 'clang' in out
 
 
 def check_flag(key):
