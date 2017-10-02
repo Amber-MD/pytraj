@@ -389,12 +389,12 @@ def setenv_cc_cxx(ambertools_distro, extra_compile_args, extra_link_args):
                 lines = fh.readlines()
                 for line in lines:
                     if line.startswith('CC='):
-                        CC = line.split('=', 1)[-1]
+                        CC = line.split('=', 1)[-1].strip()
                         break
 
                 for line in lines:
                     if line.startswith('CXX='):
-                        CXX = line.split('=', 1)[-1]
+                        CXX = line.split('=', 1)[-1].strip()
                         break
         else:
             # detect environment variables passed from CMake script
