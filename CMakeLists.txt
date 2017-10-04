@@ -8,7 +8,7 @@ project(pytraj)
 
 #figure out arguments
 
-if(OPENMP)
+if(OPENMP AND NOT TARGET_OSX) # pytraj will not build with OpenMP on macOS
 	set(OPENMP_ARG "")
 else()
 	set(OPENMP_ARG --disable-openmp)
