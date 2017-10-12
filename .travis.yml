@@ -6,6 +6,7 @@ matrix:
     - { os: linux, env: PYTHON_VERSION=3.6 }
     - { os: linux, env: PYTHON_VERSION=3.6 USE_OPENMP=false }
     - { os: linux, env: PYTHON_VERSION=3.6 TEST_SETUP=true }
+    - { os: linux, env: PYTHON_VERSION=2.7 PYPY=truel }
     - { os: osx, env: PYTHON_VERSION=3.6 }
 
 sudo: false
