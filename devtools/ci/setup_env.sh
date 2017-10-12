@@ -18,6 +18,7 @@ if [ "$PYPY" = "true" ]; then
     pypy get-pip.py
     pypy -m pip install cython numpy
     cd $cwd
+    pypy -m pip install -r pip-requirements.txt
 else
     miniconda_version=4.3.21
     # download ambermini_test for energy calculation
