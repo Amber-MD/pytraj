@@ -5,8 +5,6 @@ import sys
 cimport cython
 from cython.operator cimport dereference as deref, preincrement as incr
 from libcpp.string cimport string
-from cpython.array cimport array as pyarray
-from cpython cimport array as pyarray_master
 from pytraj.core.c_options import set_world_silent  # turn on and off cpptraj's stdout
 
 from collections import namedtuple
@@ -644,7 +642,7 @@ cdef class Topology:
         ----------
         atom_name : name of the atom
         """
-        cdef pyarray arr0 = pyarray('i', [])
+        cdef list arr0 = []
         cdef int i, count = 0
 
         # convert to lower case
@@ -657,7 +655,7 @@ cdef class Topology:
                 if self[i].name.startswith(atom_name):
                     count += 1
             arr0.append(count)
-        return arr0
+        return np.array(arr0)
 
     def add_bonds(self, cython.integral[:, ::1] indices):
         """add bond for pairs of atoms.

@@ -2,9 +2,6 @@
 import numpy as np
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
-from cpython.array cimport array as pyarray
-from cpython cimport array
-
 from ..utils import is_array, is_int
 from ..utils.cyutils import _int_array1d_like_to_memview
 from ..externals.six import string_types
@@ -70,10 +67,8 @@ cdef class AtomMask(object):
     @property
     def _indices_view(self):
         cdef vector[int] v = self.thisptr.Selected()
-        cdef pyarray a_empty = pyarray('i', [])
         cdef int size = v.size()
-        cdef pyarray arr0 = array.clone(a_empty, size, zero=True)
-        cdef int[:] myview = arr0
+        cdef int[:] myview = np.empty(size, dtype='i4')
         cdef int i
 
         for i in range(size):

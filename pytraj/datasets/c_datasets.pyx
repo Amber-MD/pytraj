@@ -6,7 +6,6 @@ from ..datafiles.datafiles import DataFileList, DataFile
 
 import operator
 from cython.operator cimport preincrement as incr, dereference as deref
-from cython.view cimport array as cyarray
 
 # python level
 import numpy as np
@@ -297,8 +296,8 @@ cdef class DatasetDouble (Dataset1D):
         def __get__(self):
             """return memoryview of data array
             """
-            cdef cyarray myview
             cdef int size = self.size
+            cdef double[:] myview = np.empty(size, dtype='f8')
             cdef double* ptr
 
             if size == 0:
@@ -347,8 +346,8 @@ cdef class DatasetFloat (Dataset1D):
         def __get__(self):
             """return memoryview of data array
             """
-            cdef cyarray myview
             cdef int size = self.size
+            cdef float[:] myview = np.empty(size, dtype='f4')
             cdef float* ptr
 
             if size == 0:
@@ -428,8 +427,8 @@ cdef class DatasetInteger (Dataset1D):
         def __get__(self):
             """return memoryview of data array
             """
-            cdef cyarray myview
             cdef int size = self.size
+            cdef int[:] myview = np.empty(size, dtype='i4')
             cdef int* ptr
 
             if size == 0:

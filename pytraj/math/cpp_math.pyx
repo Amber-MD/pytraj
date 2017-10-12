@@ -1,12 +1,10 @@
 # distutils: language = c++
 from __future__ import absolute_import
-from cython.view cimport array as cyarray
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 from libcpp.vector cimport vector
 from libc.math cimport sqrt
 from libcpp.string cimport string
-from cpython.array cimport array
 
 from ..trajectory.frame cimport Frame, _Frame
 # from ..core.box cimport _Box, Box
@@ -66,9 +64,7 @@ cdef class Grid:
             cdef size_t nx, ny, nz
             nx, ny, nz = self.nx, self.ny, self.nz
             cdef int i, j, k
-            cdef cyarray carr = cyarray(shape=(nx, ny, nz),
-                                        itemsize=sizeof(float), format="f")
-            cdef float[:, :, :] myview = carr
+            cdef float[:, :, :] myview = np.empty((nx, ny, nz), dtype='f4')
 
             for i in range(nx):
                 for j in range(ny):
