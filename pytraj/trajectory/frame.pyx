@@ -240,7 +240,7 @@ cdef class Frame (object):
             # idx.selected_indices()
             # TODO : add doc
             if idx.n_atoms == 0:
-                raise ValueError("emtpy mask")
+                raise ValueError("empty mask")
             return self.xyz[idx.indices]
         elif isinstance(idx, tuple) and isinstance(idx[0], AtomMask):
             # (AtomMask, )
@@ -551,7 +551,7 @@ cdef class Frame (object):
         >>> frame.box
         <Box: nobox, (x, y, z, alpha, beta, gamma) = (0.0, 0.0, 0.0, 0.0, 0.0, 0.0)>
         '''
-        self._boxview[:] = np.empty([0,]*6, dtype='f8')
+        self._boxview[:] = np.zeros([0,]*6, dtype='f8')
 
     def has_box(self):
         return self.box.has_box()
@@ -910,7 +910,7 @@ cdef class Frame (object):
         cdef int idx0, idx1, idx2
         cdef int n_arr = int_arr.shape[0]
         cdef int i
-        cdef double[:] arr0_view = np.emtpy(n_arr, dtpye='f8')
+        cdef double[:] arr0_view = np.empty(n_arr, dtpye='f8')
 
         for i in range(n_arr):
             idx0 = int_arr[i, 0]
