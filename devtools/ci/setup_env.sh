@@ -13,7 +13,7 @@ if [ "$PYPY" = "true" ]; then
     mv $bz2fn $HOME/pypy
     cd $HOME/pypy
     tar -xf $bz2fn
-    export PATH=$HOME/pypy/$fn:$PATH 
+    export PATH=$HOME/pypy/$fn/bin:$PATH 
     wget wget https://bootstrap.pypa.io/get-pip.py
     pypy get-pip.py
     pypy -m pip install cython numpy
