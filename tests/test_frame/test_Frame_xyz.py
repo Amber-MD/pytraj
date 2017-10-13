@@ -14,7 +14,7 @@ class Test(unittest.TestCase):
 
         farray[9].xyz[:] = farray[0].xyz
         aa_eq(farray[9].xyz, farray[0].xyz)
-        aa_eq(farray[9].xyz, xyz_save.flatten())
+        aa_eq(farray[9].xyz, xyz_save)
 
         f0 = Frame(traj.n_atoms)
         f0.xyz[:] = farray[0].xyz
