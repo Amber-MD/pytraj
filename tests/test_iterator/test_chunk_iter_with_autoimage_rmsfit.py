@@ -3,7 +3,7 @@ import unittest
 import pytraj as pt
 from utils import fn
 from pytraj.utils.context import tempfolder
-from pytraj.utils import aa_eq
+from pytraj.testing import aa_eq
 
 
 class Test_iterchunk_autoimage(unittest.TestCase):

@@ -2,7 +2,7 @@ from __future__ import print_function
 import pytraj as pt
 from utils import fn
 import unittest
-from pytraj.utils import aa_eq
+from pytraj.testing import aa_eq
 
 
 class Test(unittest.TestCase):

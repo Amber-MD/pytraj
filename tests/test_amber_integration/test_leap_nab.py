@@ -5,7 +5,7 @@ import os
 import unittest
 
 import pytraj as pt
-from pytraj.utils import aa_eq
+from pytraj.testing import aa_eq
 
 leapin = """
 source leaprc.protein.ff14SB

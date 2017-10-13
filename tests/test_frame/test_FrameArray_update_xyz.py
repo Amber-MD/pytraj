@@ -3,7 +3,7 @@ import unittest
 from pytraj import *
 import pytraj as pt
 from utils import fn
-from pytraj.utils import aa_eq
+from pytraj.testing import aa_eq
 
 
 class Test(unittest.TestCase):
