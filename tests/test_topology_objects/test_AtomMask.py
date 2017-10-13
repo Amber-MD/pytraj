@@ -3,7 +3,7 @@ import pytraj as pt
 from utils import fn
 from pytraj import *
 
-from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.testing import aa_eq
 
 
 class TestAtomMask(unittest.TestCase):
@@ -36,17 +36,17 @@ class TestAtomMask(unittest.TestCase):
         atm = AtomMask()
         indices = array('i', range(100))
         atm.add_selected_indices(indices)
-        assert_almost_equal(indices, atm.selected_indices())
-        assert_almost_equal(indices, atm.indices)
+        aa_eq(indices, atm.selected_indices())
+        aa_eq(indices, atm.indices)
 
         # test list
         atm2 = AtomMask(list(indices))
-        assert_almost_equal(indices, atm2.indices)
+        aa_eq(indices, atm2.indices)
 
         # test range
         range(100)
         atm3 = AtomMask(range(100))
-        assert_almost_equal(indices, atm3.indices)
+        aa_eq(indices, atm3.indices)
 
     def test_5_speed(self):
         top = pt.load_topology(fn('DOPC.parm7'))

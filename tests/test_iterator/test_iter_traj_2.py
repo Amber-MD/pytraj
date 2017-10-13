@@ -1,7 +1,7 @@
 import unittest
 import pytraj as pt
 from utils import fn
-from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.testing import aa_eq
 
 
 class Test(unittest.TestCase):
@@ -34,12 +34,12 @@ class Test(unittest.TestCase):
         count = 0
         for frame in frame_iter(traj):
             count += 1
-        assert_almost_equal(frame.xyz, traj[-1].xyz)
+        aa_eq(frame.xyz, traj[-1].xyz)
 
         count = 0
         for frame in frame_iter(farray):
             count += 1
-        assert_almost_equal(frame.xyz, traj[-1].xyz)
+        aa_eq(frame.xyz, traj[-1].xyz)
 
     def test_3(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
@@ -47,18 +47,18 @@ class Test(unittest.TestCase):
         count = 0
         for frame in traj.iterframe():
             count += 1
-        assert_almost_equal(frame.xyz, traj[-1].xyz)
+        aa_eq(frame.xyz, traj[-1].xyz)
 
         count = 0
         for frame in traj.iterframe(2, 8, 2):
             count += 1
         assert count == 3
-        assert_almost_equal(frame.xyz, traj[6].xyz)
+        aa_eq(frame.xyz, traj[6].xyz)
 
         count = 0
         for frame in traj[:].iterframe():
             count += 1
-        assert_almost_equal(frame.xyz, traj[-1].xyz)
+        aa_eq(frame.xyz, traj[-1].xyz)
 
 
 if __name__ == "__main__":

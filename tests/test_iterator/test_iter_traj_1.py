@@ -2,7 +2,7 @@ import unittest
 import numpy as np
 import pytraj as pt
 from utils import fn
-from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.testing import aa_eq
 from pytraj.externals.six import zip
 from pytraj.testing import aa_eq
 
@@ -27,7 +27,7 @@ class Test(unittest.TestCase):
         for frame0 in farray.iterframe(start=0, step=1):
             i += 1
 
-        assert_almost_equal(traj[-1].xyz, frame0.xyz)
+        aa_eq(traj[-1].xyz, frame0.xyz)
 
         start, stop, step = 2, 8, 4
         indices = list(range(start, stop, step))
@@ -36,11 +36,11 @@ class Test(unittest.TestCase):
                                   farray.iterframe(start, stop, step),
                                   traj[indices]):
             aa_eq(frame0.xyz, f.xyz)
-        assert_almost_equal(traj[6].xyz, frame0.xyz)
+        aa_eq(traj[6].xyz, frame0.xyz)
 
         for frame0 in farray.iterframe(start=2, step=2):
             pass
-        assert_almost_equal(traj[8].xyz, frame0.xyz)
+        aa_eq(traj[8].xyz, frame0.xyz)
 
         traj[6][0]
         for frame0 in traj.iterframe(start=2, step=4, stop=8):
@@ -48,57 +48,57 @@ class Test(unittest.TestCase):
 
         for frame0 in traj.iterframe(start=2, step=4, stop=8):
             pass
-        assert_almost_equal(traj[6].xyz, frame0.xyz)
+        aa_eq(traj[6].xyz, frame0.xyz)
 
         for frame0 in traj.iterframe(start=2, step=2):
             pass
-        assert_almost_equal(traj[8].xyz, frame0.xyz)
+        aa_eq(traj[8].xyz, frame0.xyz)
 
         count = 0
         for frame0 in traj.iterframe(start=2):
             count += 1
-        assert_almost_equal(traj[-1].xyz, frame0.xyz)
+        aa_eq(traj[-1].xyz, frame0.xyz)
 
         count = 0
         for frame0 in traj.iterframe(start=2, stop=7):
             count += 1
-        assert_almost_equal(traj[6].xyz, frame0.xyz)
+        aa_eq(traj[6].xyz, frame0.xyz)
 
         for frame0 in traj.iterframe():
             pass
-        assert_almost_equal(traj[-1].xyz, frame0.xyz)
+        aa_eq(traj[-1].xyz, frame0.xyz)
 
         for frame0 in farray.iterframe():
             pass
-        assert_almost_equal(traj[-1].xyz, frame0.xyz)
+        aa_eq(traj[-1].xyz, frame0.xyz)
 
         for frame0 in traj():
             pass
-        assert_almost_equal(traj[-1].xyz, frame0.xyz)
+        aa_eq(traj[-1].xyz, frame0.xyz)
 
         for frame0 in farray():
             pass
-        assert_almost_equal(farray[-1].xyz, frame0.xyz)
+        aa_eq(farray[-1].xyz, frame0.xyz)
 
         count = 0
         for frame0 in traj(start=2, stop=7):
             count += 1
-        assert_almost_equal(traj[6].xyz, frame0.xyz)
+        aa_eq(traj[6].xyz, frame0.xyz)
 
         count = 0
         for frame0 in farray(start=2, stop=7):
             count += 1
-        assert_almost_equal(traj[6].xyz, frame0.xyz)
+        aa_eq(traj[6].xyz, frame0.xyz)
 
         count = 0
         for frame0 in farray(2, 7, 1):
             count += 1
-        assert_almost_equal(traj[6].xyz, frame0.xyz)
+        aa_eq(traj[6].xyz, frame0.xyz)
 
         count = 0
         for frame0 in farray(2, 7, 2):
             count += 1
-        assert_almost_equal(traj[6].xyz, frame0.xyz)
+        aa_eq(traj[6].xyz, frame0.xyz)
 
     def test_1(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
@@ -118,7 +118,7 @@ class Test(unittest.TestCase):
 
         f0 = traj[-1]
         f0.strip(traj.top('!@CA'))
-        assert_almost_equal(f0.xyz, frame.xyz)
+        aa_eq(f0.xyz, frame.xyz)
         assert frame.n_atoms == top2.n_atoms
 
         for frame in traj[:]():
@@ -132,7 +132,7 @@ class Test(unittest.TestCase):
             pass
         f0 = traj[-1]
         f0.strip(traj.top('!@CA'))
-        assert_almost_equal(f0.xyz, frame.xyz)
+        aa_eq(f0.xyz, frame.xyz)
 
 
 if __name__ == "__main__":
