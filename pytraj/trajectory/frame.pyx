@@ -910,7 +910,7 @@ cdef class Frame (object):
         cdef int idx0, idx1, idx2
         cdef int n_arr = int_arr.shape[0]
         cdef int i
-        cdef double[:] arr0_view = np.empty(n_arr, dtpye='f8')
+        cdef double[:] arr0_view = np.empty(n_arr, dtype='f8')
 
         for i in range(n_arr):
             idx0 = int_arr[i, 0]

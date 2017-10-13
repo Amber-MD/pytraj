@@ -17,8 +17,8 @@ if [ "$PYPY" = "true" ]; then
     wget wget https://bootstrap.pypa.io/get-pip.py
     pypy get-pip.py
     pypy -m pip install cython numpy
+    pypy -m pip install pytest
     cd $cwd
-    pypy -m pip install -r pip-requirements.txt
 else
     miniconda_version=4.3.21
     # download ambermini_test for energy calculation
