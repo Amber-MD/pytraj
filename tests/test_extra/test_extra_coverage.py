@@ -5,7 +5,8 @@ import unittest
 import numpy as np
 import pytraj as pt
 from utils import fn
-from pytraj.utils import eq, aa_eq
+from pytraj.utils import eq
+from pytraj.testing import aa_eq
 from pytraj.version import version
 from pytraj.utils.get_common_objects import get_reference
 from pytraj.utils import misc

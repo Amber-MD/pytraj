@@ -1,7 +1,6 @@
 """"""
 from __future__ import absolute_import
-from .check_and_assert import assert_almost_equal, file_exist, is_generator
-from .check_and_assert import assert_almost_equal as aa_eq
+from .check_and_assert import file_exist, is_generator
 from .check_and_assert import eq
 from .check_and_assert import _import, is_int
 from .check_and_assert import has_, is_array

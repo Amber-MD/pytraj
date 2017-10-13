@@ -3,10 +3,13 @@ import os
 
 from pytraj.datafiles.load_samples import load_sample_data
 from pytraj.utils import eq
-from pytraj.utils import aa_eq
 from pytraj.utils import Timer
 from pytraj.utils import tempfolder
 from pytraj.utils import duplicate_traj
+from numpy.testing import assert_almost_equal
+from functools import partial
+
+aa_eq = partial(assert_almost_equal, decimal=4)
 
 __all__ = [
     'load_sample_data', 'eq', 'aa_eq', 'duplicate_traj', 'Timer', 'tempfolder',

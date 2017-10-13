@@ -2,7 +2,7 @@ import unittest
 import numpy as np
 from pytraj import *
 from pytraj import io as mdio
-from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.testing import aa_eq
 
 from utils import fn
 
@@ -24,7 +24,7 @@ class Test(unittest.TestCase):
             fn("rmsd_allatoms_to_1st.Tc5b.use_mass.dat"), skiprows=1)
         rmsd_save = rmsd_save.transpose()
 
-        assert_almost_equal(arr0, rmsd_save[1])
+        aa_eq(arr0, rmsd_save[1])
 
     def test_0(self):
         traj = mdio.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
