@@ -3,13 +3,13 @@
 
 export OMP_NUM_THREADS=1
 
-if [ "$TEST_SETUP" == 'true' ]; then
+if [ "$TEST_SETUP" = 'true' ]; then
     echo "Test setup command line"
     py.test -vs devtools/ci/test_setup_command.py
     # run this on circleci
     # sh devtools/ci/test_pip_build.sh
 else
-    if [ "$PYPY" = "true" ];
+    if [ "$PYPY" = "true" ]; then
         cd tests && pypy -c "import pytraj; pytraj.run_tests()"
     else
         sh devtools/ci/pyflakes_check.sh || exit 1
