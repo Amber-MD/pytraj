@@ -5,7 +5,7 @@ import unittest
 import numpy as np
 import pytraj as pt
 from utils import fn
-from pytraj.utils import aa_eq
+from pytraj.testing import aa_eq
 import pytest
 
 from utils import tz2_trajin, tz2_top

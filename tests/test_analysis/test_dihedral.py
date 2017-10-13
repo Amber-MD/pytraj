@@ -3,7 +3,7 @@ import unittest
 import pytraj as pt
 
 import pytraj as pt
-from pytraj.utils import aa_eq
+from pytraj.testing import aa_eq
 
 from utils import fn, tc5b_top, tc5b_trajin
 

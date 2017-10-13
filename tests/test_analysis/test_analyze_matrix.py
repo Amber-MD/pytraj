@@ -4,7 +4,7 @@ import numpy as np
 import unittest
 import pytraj as pt
 from utils import fn
-from pytraj.utils import aa_eq
+from pytraj.testing import aa_eq
 from pytraj import matrix
 '''figure out why sign of some eigenvectors are different
 '''

@@ -54,7 +54,7 @@ class TestAverageFrame(unittest.TestCase):
         out_traj = mean_structure(
             traj, mask='@CA', frame_indices=[0, 3, 7], dtype='traj')
         assert isinstance(out_traj, Trajectory), 'must be Trajectory'
-        aa_eq(out_traj.xyz, frame6.xyz, decimal=3)
+        aa_eq(out_traj.xyz, [frame6.xyz], decimal=3)
 
         # raise if not trajectory, traj or frame
         self.assertRaises(ValueError,
