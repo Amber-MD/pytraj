@@ -43,7 +43,7 @@ class TestFrame(unittest.TestCase):
         assert FRAME[0, 0] == 0.1
         assert FRAME._buffer1d[-1] == FRAME[-1, 2]
 
-        FRAME._buffer1d[:3] = array('d', [1, 2.3, 3.4])
+        FRAME._buffer1d[:3] = np.array([1, 2.3, 3.4], dtype='f8')
         aa_eq(FRAME.xyz[0], array('d', [1, 2.3, 3.4]))
 
         arr0 = np.asarray(FRAME._buffer1d)

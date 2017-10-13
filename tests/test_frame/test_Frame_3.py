@@ -4,7 +4,6 @@ from utils import fn
 from pytraj.testing import aa_eq
 from pytraj import io as mdio
 import numpy as np
-from array import array
 
 
 class Test(unittest.TestCase):
@@ -33,9 +32,9 @@ class Test(unittest.TestCase):
         assert frame0._buffer1d.shape == (912, )
         assert frame0._buffer2d.shape == (304, 3)
         assert frame0._buffer1d.is_c_contig() == True
-        frame0._buffer2d[1:3, 0] = array('d', [1., 2.])
-        aa_eq(frame0[1:3, 0], array('d', frame0._buffer2d[1:3, 0]))
-        aa_eq(frame0._buffer2d[1:3, 0], array('d', frame0._buffer2d[1:3, 0]))
+        frame0._buffer2d[1:3, 0] = np.array([1., 2.], dtype='f8')
+        aa_eq(frame0[1:3, 0], np.array(frame0._buffer2d[1:3, 0], dtype='f8'))
+        aa_eq(frame0._buffer2d[1:3, 0], np.array(frame0._buffer2d[1:3, 0]))
 
     def test_1(self):
         traj = mdio.iterload(fn('Tc5b.x'), fn('Tc5b.top'))

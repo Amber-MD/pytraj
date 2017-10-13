@@ -114,7 +114,7 @@ cdef class AtomMask(object):
     def invert_mask(self):
         self.thisptr.InvertMask()
 
-    def add_selected_indices(self, arr0):
+    def add_selected_indices(self, arr):
         """add atom index without sorting
 
         See Also
@@ -124,15 +124,8 @@ cdef class AtomMask(object):
         cdef int[:] int_view
         cdef int i
 
-        # try casting to memview
-        if not is_array(arr0):
-            int_view = _int_array1d_like_to_memview(arr0)
-        else:
-            try:
-                int_view = arr0
-            except:
-                # numpy compat
-                int_view = arr0.astype('i4')
+        arr = np.asarray(arr, dtype='i4')
+        int_view = arr
 
         for i in range(int_view.shape[0]):
             self.thisptr.AddSelectedAtom(int_view[i])
