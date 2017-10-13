@@ -49,7 +49,7 @@ class TestDoc(unittest.TestCase):
     # @unittest.skipIf(sys.platform == 'darwin', 'linux testing only')
     def test_doc(self):
 
-        modules = [convert, vector]
+        modules = [vector]
         # avoid adding 'u' to string in PY2: u'GLU5_O-LYS8_N-H'
         if has_sander:
             modules.append(energy_analysis)
@@ -75,6 +75,12 @@ class TestDoc(unittest.TestCase):
             base_holder,
         ]
         modules.extend(additional_list)
+        assert not get_total_errors(modules)
+
+    def test_doc_convert(self):
+        modules = [
+            convert
+        ]
         assert not get_total_errors(modules)
 
     def test_doc_hbond_analysis(self):

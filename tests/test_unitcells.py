@@ -15,7 +15,7 @@ class TestBox(unittest.TestCase):
         frame0.box.tolist()
         frame0.box = np.array([0.0, 1.0, 2.0, 3.0, 4.0, 6.])
         assert frame0.has_box(), 'must has box'
-        frame0.set_nobox()
+        frame0.box = [0] * 6
         assert not frame0.has_box(), 'must not has box when setting no box'
 
     def test_1(self):

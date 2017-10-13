@@ -518,7 +518,7 @@ cdef class Frame (object):
         >>> traj = pt.datafiles.load_tz2()
         >>> frame = traj[0]
         >>> frame.atom(10)
-        array('d', [0.27399998903274536, 11.727999687194824, 8.701000213623047])
+        array([  0.27399999,  11.72799969,   8.70100021])
         """
         # return XYZ for atomnum
         # cpptraj: return double*
@@ -536,22 +536,6 @@ cdef class Frame (object):
         arr[1] = self.thisptr.XYZ(atomnum)[1]
         arr[2] = self.thisptr.XYZ(atomnum)[2]
         return arr
-
-    def set_nobox(self):
-        '''set nobox
-
-        Examples
-        --------
-        >>> import pytraj as pt
-        >>> traj = pt.datafiles.load_tz2_ortho()
-        >>> frame = traj[0]
-        >>> frame.box
-        <Box: ortho, (x, y, z, alpha, beta, gamma) = (35.262779662258, 41.845547679864616, 36.16862952899312, 90.0, 90.0, 90.0)>
-        >>> frame.set_nobox()
-        >>> frame.box
-        <Box: nobox, (x, y, z, alpha, beta, gamma) = (0.0, 0.0, 0.0, 0.0, 0.0, 0.0)>
-        '''
-        self._boxview[:] = np.zeros([0,]*6, dtype='f8')
 
     def has_box(self):
         return self.box.has_box()
@@ -611,8 +595,7 @@ cdef class Frame (object):
         def __get__(self):
             """return a memoryview of box array"""
             cdef double* ptr = self.thisptr.bAddress()
-            cdef view.array my_arr
-            my_arr = <double[:6]> ptr
+            cdef double[:] my_arr = <double[:6]> ptr
             return my_arr
 
     def set_mass(self, Topology top):
