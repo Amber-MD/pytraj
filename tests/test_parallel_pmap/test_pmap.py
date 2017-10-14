@@ -385,7 +385,7 @@ class TestCheckValidCommand(unittest.TestCase):
         # if user does not provide reference, need to give it to them
         aa_eq(
             pt.tools.dict_to_ndarray(pt.pmap(['rmsd'], traj, n_cores=3)),
-            pt.rmsd(traj, ref=traj[0]))
+            [pt.rmsd(traj, ref=traj[0])])
 
         # does not support matrix
         self.assertRaises(ValueError,
