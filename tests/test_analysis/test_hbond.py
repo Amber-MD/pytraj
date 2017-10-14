@@ -65,7 +65,7 @@ class TestSearchHbonds(unittest.TestCase):
         for data_p, data_cpp in zip(hb.data, state.data[1:]):
             assert len(
                 data_p) == traj.n_frames == 38, 'size of dataset must be 38'
-            aa_eq(data_p, data_cpp)
+            aa_eq(data_p, data_cpp.values)
 
         # make sure distances are smaller than cutoff
         distance_cutoff = 2.5
