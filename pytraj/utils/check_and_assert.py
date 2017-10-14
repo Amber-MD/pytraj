@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 import os
 import numbers
-from ..externals.six import string_types, zip
+from ..externals.six import string_types
 
 
 def eq(arr0, arr1):
@@ -119,17 +119,3 @@ def has_(lib):
     >>> has_np = has_("numpy")
     """
     return _import(lib)[0]
-
-
-if __name__ == "__main__":
-    import numpy as np
-    assert_almost_equal([1., 2., 3.], [1., 2., 3.], decimals=3)
-    assert_almost_equal(
-        [1., 2., 3.], [
-            1.,
-            2.,
-        ], decimals=3)
-
-    arr0 = np.array([1., 2., 3.])
-    arr1 = np.array([1., 2., 3.])
-    assert_almost_equal(arr0, arr1)
