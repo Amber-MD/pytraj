@@ -372,7 +372,7 @@ class TestCheckValidCommand(unittest.TestCase):
         aa_eq(
             pt.tools.dict_to_ndarray(
                 pt.pmap(['rmsd refindex 0'], traj, ref=traj[3], n_cores=3)),
-            pt.rmsd(traj, ref=traj[3]))
+            [pt.rmsd(traj, ref=traj[3])])
 
         aa_eq(
             pt.tools.dict_to_ndarray(

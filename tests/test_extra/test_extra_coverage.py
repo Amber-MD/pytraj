@@ -35,7 +35,6 @@ class TestExtraCoverage(unittest.TestCase):
         pt.show_versions()
         pt._verbose()
         pt._verbose(False)
-        print(version)
 
         # info
         pt.info()
@@ -45,8 +44,6 @@ class TestExtraCoverage(unittest.TestCase):
         misc.parallel_info(None)
 
         eq([2, 3], [2, 3])
-        # raise if comparing NaN
-        self.assertRaises(ValueError, lambda: aa_eq(np.nan, np.nan))
 
         dslist = pt.multidihedral(traj)
         str(dslist[0])
