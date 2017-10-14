@@ -3,7 +3,6 @@ from __future__ import absolute_import
 
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
-from cpython.array cimport array
 from ..trajectory.c_traj.c_trajectory cimport TrajectoryCpptraj
 
 # python level

@@ -1,7 +1,7 @@
 from __future__ import print_function
 import unittest
 import pytraj as pt
-from pytraj.utils import aa_eq, tempfolder
+from pytraj.testing import aa_eq, tempfolder
 from pytraj import cluster
 from pytraj.utils.context import capture_stdout
 

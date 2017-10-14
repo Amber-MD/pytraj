@@ -4,7 +4,7 @@ import pytraj as pt
 from utils import fn
 
 from pytraj import io as mdio
-from pytraj.utils import aa_eq
+from pytraj.testing import aa_eq
 
 
 class Test(unittest.TestCase):
@@ -36,7 +36,7 @@ class Test(unittest.TestCase):
         d8 = pt.angle(traj, mask, dtype='dataset')
         d9 = pt.tools.dict_to_ndarray(pt.angle(traj, mask, dtype='dict'))
         aa_eq(d0, d8.values)
-        aa_eq(d0, d9)
+        aa_eq([d0], d9)
 
 
 if __name__ == "__main__":

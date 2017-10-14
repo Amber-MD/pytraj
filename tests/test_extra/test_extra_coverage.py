@@ -5,7 +5,8 @@ import unittest
 import numpy as np
 import pytraj as pt
 from utils import fn
-from pytraj.utils import eq, aa_eq
+from pytraj.utils import eq
+from pytraj.testing import aa_eq
 from pytraj.version import version
 from pytraj.utils.get_common_objects import get_reference
 from pytraj.utils import misc
@@ -34,7 +35,6 @@ class TestExtraCoverage(unittest.TestCase):
         pt.show_versions()
         pt._verbose()
         pt._verbose(False)
-        print(version)
 
         # info
         pt.info()
@@ -44,8 +44,6 @@ class TestExtraCoverage(unittest.TestCase):
         misc.parallel_info(None)
 
         eq([2, 3], [2, 3])
-        # raise if comparing NaN
-        self.assertRaises(ValueError, lambda: aa_eq(np.nan, np.nan))
 
         dslist = pt.multidihedral(traj)
         str(dslist[0])

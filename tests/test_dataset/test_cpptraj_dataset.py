@@ -4,7 +4,7 @@ from __future__ import print_function
 import unittest
 import numpy as np
 import pytraj as pt
-from pytraj.utils import aa_eq
+from pytraj.testing import aa_eq
 from pytraj.datasets import c_datasets
 from pytraj.datasets import CpptrajDatasetList
 
@@ -79,7 +79,7 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
         # append
         for i in a:
             d.append(i)
-        aa_eq(a, d)
+        aa_eq(a, d.values)
         assert int(d[2]) == a[2] == 2, 'must be equal'
 
     def test_DatasetMatrix3x3(self):

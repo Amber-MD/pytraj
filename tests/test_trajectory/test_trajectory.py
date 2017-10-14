@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 import pytraj as pt
 from utils import fn
-from pytraj.utils import aa_eq
+from pytraj.testing import aa_eq
 from pytraj.externals.six.moves import zip
 
 
@@ -169,9 +169,9 @@ class TestTrajectory(unittest.TestCase):
         traj2._load(fn('Tc5b.x'))
         farray = traj2[[0, 9, 1]]
         assert farray.n_frames == 3
-        assert traj2[0].atom(0) == farray[0].atom(0)
-        assert traj2[9].atom(0) == farray[1].atom(0)
-        assert traj2[1].atom(0) == farray[2].atom(0)
+        aa_eq(traj2[0].atom(0), farray[0].atom(0))
+        aa_eq(traj2[9].atom(0), farray[1].atom(0))
+        aa_eq(traj2[1].atom(0), farray[2].atom(0))
 
         arr = np.asarray(traj2[0]._buffer1d[:])
         frame0 = traj2[0]

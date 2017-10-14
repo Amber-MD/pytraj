@@ -2,7 +2,7 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 from utils import fn
-from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.testing import aa_eq
 
 from pytraj.externals.six import izip
 
@@ -13,7 +13,7 @@ class Test(unittest.TestCase):
         itertraj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
         for idx, (f0, f1) in enumerate(izip(traj, itertraj)):
-            assert_almost_equal(f0.xyz, f1.xyz)
+            aa_eq(f0.xyz, f1.xyz)
         assert idx == traj.n_frames - 1
 
 

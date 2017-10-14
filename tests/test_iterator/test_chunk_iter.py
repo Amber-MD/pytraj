@@ -4,7 +4,7 @@ from utils import fn
 from pytraj import *
 from pytraj import *
 from pytraj import io as mdio
-from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.testing import aa_eq
 from pytraj.datasets.datasetlist import CpptrajDatasetList
 import numpy as np
 
@@ -24,7 +24,7 @@ class Test(unittest.TestCase):
         assert dslist[0].size == traj.n_frames
         cppout = np.loadtxt(
             fn('CAres2_CAres10.Tc5b.dat'), skiprows=1).transpose()[1]
-        assert_almost_equal(dslist[0][:], cppout)
+        aa_eq(dslist[0][:], cppout)
         act.compute((traj.iterchunk(chunksize=4, stop=8), ))
 
     def test_1(self):
@@ -58,7 +58,7 @@ class Test(unittest.TestCase):
 
         rmsd0 = pt.rmsd(traj.iterchunk(3), ref=traj[-1], top=traj.top)
         rmsd1 = pt.rmsd(traj, ref=-1)
-        assert_almost_equal(rmsd0, rmsd1)
+        aa_eq(rmsd0, rmsd1)
 
 
 if __name__ == "__main__":

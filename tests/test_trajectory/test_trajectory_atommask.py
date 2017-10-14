@@ -1,7 +1,7 @@
 import unittest
 
 import pytraj as pt
-from pytraj.utils.check_and_assert import assert_almost_equal
+from pytraj.testing import aa_eq
 
 from utils import fn
 
@@ -15,8 +15,8 @@ class Test(unittest.TestCase):
         n_selected_atoms = atm.n_atoms
         newtraj = traj[atm]
         newtraj2 = traj[mask + ' :frame']
-        assert_almost_equal(newtraj2.xyz.flatten(), newtraj.xyz.flatten())
-        assert_almost_equal(newtraj2.xyz.flatten(), newtraj.xyz.flatten())
+        aa_eq(newtraj2.xyz.flatten(), newtraj.xyz.flatten())
+        aa_eq(newtraj2.xyz.flatten(), newtraj.xyz.flatten())
         assert (newtraj.xyz.shape == (traj.n_frames, n_selected_atoms, 3))
 
         # check if there is segmentation fault
@@ -33,8 +33,8 @@ class Test(unittest.TestCase):
         atm = traj.top(mask)
         newtraj = traj[atm]
         newtraj2 = traj[mask + ' :frame']
-        assert_almost_equal(newtraj2.xyz.flatten(), newtraj.xyz.flatten())
-        assert_almost_equal(newtraj2.xyz.flatten(), newtraj.xyz.flatten())
+        aa_eq(newtraj2.xyz.flatten(), newtraj.xyz.flatten())
+        aa_eq(newtraj2.xyz.flatten(), newtraj.xyz.flatten())
 
 
 if __name__ == "__main__":

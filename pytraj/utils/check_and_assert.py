@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 import os
 import numbers
-from ..externals.six import string_types, zip
+from ..externals.six import string_types
 
 
 def eq(arr0, arr1):
@@ -97,42 +97,6 @@ def ensure_not_none_or_string(obj):
         raise ValueError(msg)
 
 
-def assert_almost_equal(arr0, arr1, decimal=4):
-    '''numpy-like assert,
-    use default decimal=4 to match cpptraj's output
-    >>> assert_almost_equal(0, 0)
-    >>> assert_almost_equal([1, 2], [1.0000000003, 2.00000003])
-    '''
-    import math
-
-    if is_number(arr0):
-        arr0 = [
-            arr0,
-        ]
-    if is_number(arr1):
-        arr1 = [
-            arr1,
-        ]
-
-    almost_equal = True
-    SMALL = 10**(-decimal)
-
-    if hasattr(arr0, 'flatten') and hasattr(arr1, 'flatten'):
-        _arr0 = arr0.flatten()
-        _arr1 = arr1.flatten()
-    else:
-        _arr0 = arr0
-        _arr1 = arr1
-    assert len(_arr0) == len(_arr1), 'two arrays must have the same length'
-
-    for x, y in zip(_arr0, _arr1):
-        if math.isnan(x) or math.isnan(y):
-            raise ValueError('do not support NAN comparison')
-        if abs(x - y) > SMALL:  # pragma: no cover
-            almost_equal = False
-    assert almost_equal is True
-
-
 def _import(modname):
     """has_numpy, np = _import('numpy')
     >>> has_np, np = _import('numpy')
@@ -155,17 +119,3 @@ def has_(lib):
     >>> has_np = has_("numpy")
     """
     return _import(lib)[0]
-
-
-if __name__ == "__main__":
-    import numpy as np
-    assert_almost_equal([1., 2., 3.], [1., 2., 3.], decimals=3)
-    assert_almost_equal(
-        [1., 2., 3.], [
-            1.,
-            2.,
-        ], decimals=3)
-
-    arr0 = np.array([1., 2., 3.])
-    arr1 = np.array([1., 2., 3.])
-    assert_almost_equal(arr0, arr1)

@@ -5,7 +5,7 @@ from utils import fn
 import unittest
 
 from pytraj import io as mdio
-from pytraj.utils import aa_eq
+from pytraj.testing import aa_eq
 from pytraj.datasets.datasetlist import stack
 from pytraj.datasets.datasetlist import stack as stack
 

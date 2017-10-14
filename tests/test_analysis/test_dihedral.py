@@ -3,7 +3,7 @@ import unittest
 import pytraj as pt
 
 import pytraj as pt
-from pytraj.utils import aa_eq
+from pytraj.testing import aa_eq
 
 from utils import fn, tc5b_top, tc5b_trajin
 
@@ -47,7 +47,7 @@ class TestDihedral(unittest.TestCase):
         d8 = pt.dihedral(traj, mask, dtype='dataset')
         d9 = pt.tools.dict_to_ndarray(pt.dihedral(traj, mask, dtype='dict'))
         aa_eq(d0, d8.values)
-        aa_eq(d0, d9)
+        aa_eq([d0], d9)
 
         # raise
         self.assertRaises(ValueError, lambda: pt.dihedrals(traj, [[0, 3, 2]]))

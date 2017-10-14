@@ -2,7 +2,7 @@ from __future__ import print_function
 import unittest
 from functools import partial
 import pytraj as pt
-from pytraj.utils import aa_eq
+from pytraj.testing import aa_eq
 from pytraj.parallel.base import worker_by_state
 from pytraj.utils.tools import concat_dict
 

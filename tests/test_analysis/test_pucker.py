@@ -4,7 +4,7 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 from utils import fn
-from pytraj.utils import aa_eq
+from pytraj.testing import aa_eq
 
 cm = '''
 pucker p1-as :1@C1' :1@C2' :1@C3' :1@C4' :1@O4'

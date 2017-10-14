@@ -144,7 +144,7 @@ def test_mass_atomic_number_dict():
 
     for atom in top:
         mass_list.append(mass_atomic_number_dict[atom.atomic_number])
-    aa_eq(mass_list, top.mass, 2)
+    aa_eq(mass_list, top.mass, decimal=2)
 
 
 def test_toplogy_mass():

@@ -10,8 +10,6 @@ import math
 cimport cython
 from libc.math cimport sqrt
 from cython cimport view
-from cpython cimport array as cparray  # for extend python array
-from cpython.array cimport array as pyarray
 from cython.parallel import prange
 from cython.operator cimport dereference as deref
 from libcpp.vector cimport vector
@@ -237,14 +235,12 @@ cdef class Frame (object):
         cdef int i, j
         cdef int[:] int_view
 
-        if isinstance(idx, pyarray):
-            return self.xyz[idx]
-        elif isinstance(idx, AtomMask):
+        if isinstance(idx, AtomMask):
             # return a sub-array copy with indices got from
             # idx.selected_indices()
             # TODO : add doc
             if idx.n_atoms == 0:
-                raise ValueError("emtpy mask")
+                raise ValueError("empty mask")
             return self.xyz[idx.indices]
         elif isinstance(idx, tuple) and isinstance(idx[0], AtomMask):
             # (AtomMask, )
@@ -488,7 +484,10 @@ cdef class Frame (object):
         # xyz : 1D array
         if len(indices) != len(xyz)/3:
             raise ValueError("TODO: add doc")
-        self._cy_update_atoms(pyarray('i', indices), pyarray('d', xyz), len(indices))
+        self._cy_update_atoms(
+                np.asarray(indices, 'i4'),
+                np.asarray(xyz, dtype='f8'),
+                len(indices))
 
     @cython.boundscheck(False)
     @cython.wraparound(False)
@@ -519,7 +518,7 @@ cdef class Frame (object):
         >>> traj = pt.datafiles.load_tz2()
         >>> frame = traj[0]
         >>> frame.atom(10)
-        array('d', [0.27399998903274536, 11.727999687194824, 8.701000213623047])
+        array([  0.27399999,  11.72799969,   8.70100021])
         """
         # return XYZ for atomnum
         # cpptraj: return double*
@@ -527,32 +526,16 @@ cdef class Frame (object):
         # can we change it?
 
         cdef int i
-        cdef pyarray arr = pyarray('d', [])
+        cdef arr = np.empty(3, dtype='f8')
 
         if atomnum >= self.n_atoms or atomnum < 0:
             raise ValueError("Index is out of range")
 
         # TODO: check if this is not empty Frame
-        arr.append(self.thisptr.XYZ(atomnum)[0])
-        arr.append(self.thisptr.XYZ(atomnum)[1])
-        arr.append(self.thisptr.XYZ(atomnum)[2])
+        arr[0] = self.thisptr.XYZ(atomnum)[0]
+        arr[1] = self.thisptr.XYZ(atomnum)[1]
+        arr[2] = self.thisptr.XYZ(atomnum)[2]
         return arr
-
-    def set_nobox(self):
-        '''set nobox
-
-        Examples
-        --------
-        >>> import pytraj as pt
-        >>> traj = pt.datafiles.load_tz2_ortho()
-        >>> frame = traj[0]
-        >>> frame.box
-        <Box: ortho, (x, y, z, alpha, beta, gamma) = (35.262779662258, 41.845547679864616, 36.16862952899312, 90.0, 90.0, 90.0)>
-        >>> frame.set_nobox()
-        >>> frame.box
-        <Box: nobox, (x, y, z, alpha, beta, gamma) = (0.0, 0.0, 0.0, 0.0, 0.0, 0.0)>
-        '''
-        self._boxview[:] = pyarray('d', [0. for _ in range(6)])
 
     def has_box(self):
         return self.box.has_box()
@@ -612,8 +595,7 @@ cdef class Frame (object):
         def __get__(self):
             """return a memoryview of box array"""
             cdef double* ptr = self.thisptr.bAddress()
-            cdef view.array my_arr
-            my_arr = <double[:6]> ptr
+            cdef double[:] my_arr = <double[:6]> ptr
             return my_arr
 
     def set_mass(self, Topology top):
@@ -884,8 +866,7 @@ cdef class Frame (object):
         cdef int id0, idx1, idx2, idx3
         cdef int n_arr = int_arr.shape[0]
         cdef int i
-        cdef pyarray arr0 = cparray.clone(pyarray('d', []), n_arr, zero=False)
-        cdef double[:] arr0_view = arr0
+        cdef double[:] arr0_view = np.empty(n_arr, dtype='f8')
 
         for i in range(n_arr):
             idx0 = int_arr[i, 0]
@@ -897,7 +878,7 @@ cdef class Frame (object):
                 self.thisptr.XYZ(idx1),
                 self.thisptr.XYZ(idx2),
                 self.thisptr.XYZ(idx3))
-        return arr0
+        return np.asarray(arr0_view)
 
     def _angle(self, cython.integral[:, :] int_arr):
         """return python array of angles for three atoms with indices idx1-3
@@ -912,8 +893,7 @@ cdef class Frame (object):
         cdef int idx0, idx1, idx2
         cdef int n_arr = int_arr.shape[0]
         cdef int i
-        cdef pyarray arr0 = cparray.clone(pyarray('d', []), n_arr, zero=False)
-        cdef double[:] arr0_view = arr0
+        cdef double[:] arr0_view = np.empty(n_arr, dtype='f8')
 
         for i in range(n_arr):
             idx0 = int_arr[i, 0]
@@ -921,7 +901,7 @@ cdef class Frame (object):
             idx2 = int_arr[i, 2]
             arr0_view[i] = RADDEG * cppangle(self.thisptr.XYZ(idx0),
                                              self.thisptr.XYZ(idx1), self.thisptr.XYZ(idx2))
-        return arr0
+        return np.asarray(arr0_view)
 
     def _distance(self, arr, parallel=False):
         # TODO: use `cdef _calc_distance`
@@ -944,8 +924,7 @@ cdef class Frame (object):
         cdef int idx0, idx1
         cdef int n_arr = int_arr.shape[0]
         cdef int i
-        cdef pyarray arr0 = cparray.clone(pyarray('d', []), n_arr, zero=False)
-        cdef double[:] arr0_view = arr0
+        cdef double[:] arr0_view = np.empty(n_arr, dtype='f8')
 
         if parallel:
             for i in prange(n_arr, nogil=True):
@@ -964,7 +943,7 @@ cdef class Frame (object):
                     DIST2_NoImage(
                         self.thisptr.XYZ(idx0),
                         self.thisptr.XYZ(idx1)))
-        return arr0
+        return np.asarray(arr0_view)
 
     def to_ndarray(self):
         """return a ndarray as a view of Frame's coordinates"""

@@ -5,7 +5,7 @@ import numpy as np
 from functools import partial
 import pytraj as pt
 from utils import fn
-from pytraj.utils import aa_eq
+from pytraj.testing import aa_eq
 from pytraj.testing import assert_equal_topology
 from pytraj.externals.six import zip
 from pytraj.core import Box

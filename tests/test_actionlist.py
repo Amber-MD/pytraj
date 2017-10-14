@@ -6,7 +6,7 @@ import pytraj as pt
 import numpy as np
 from pytraj import adict, allactions
 from pytraj import ArgList, Trajectory, Frame
-from pytraj.utils import aa_eq
+from pytraj.testing import aa_eq
 from pytraj.analysis.c_action import c_action as CA
 from pytraj.datasets import DatasetList as CpptrajDatasetList
 from pytraj.datafiles.datafiles import DataFileList

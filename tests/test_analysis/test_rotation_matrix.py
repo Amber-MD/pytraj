@@ -3,7 +3,7 @@ from __future__ import print_function
 import os
 import unittest
 import pytraj as pt
-from pytraj.utils import aa_eq, tempfolder
+from pytraj.testing import aa_eq, tempfolder
 
 # local
 from utils import fn

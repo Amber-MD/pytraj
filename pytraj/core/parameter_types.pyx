@@ -1,6 +1,6 @@
 # distutils: language = c++
 
-from cpython.array cimport array as pyarray
+import numpy as np
 
 cdef class AngleType:
     def __cinit__(self, arg=None):
@@ -24,11 +24,8 @@ cdef class AngleType:
     @property
     def indices(self):
         """return atom indices as a python array"""
-        # cdef pyarray arr = pyarray('i', [self.thisptr.Idx(), self.thisptr.A1(),
-        #                                 self.thisptr.A2(), self.thisptr.A3()])
-        cdef pyarray arr = pyarray('i', [self.thisptr.A1(),
+        np.array([self.thisptr.A1(),
                                          self.thisptr.A2(), self.thisptr.A3()])
-        return arr
 
 
 cdef class LES_AtomType:
@@ -130,9 +127,8 @@ cdef class DihedralType:
         """return atom indices as a python array"""
         # cdef pyarray arr = pyarray('i', [self.thisptr.Idx(), self.thisptr.A1(), self.thisptr.A2(),
         #                                 self.thisptr.A3(), self.thisptr.A4()])
-        cdef pyarray arr = pyarray('i', [self.thisptr.A1(), self.thisptr.A2(),
+        return np.array([self.thisptr.A1(), self.thisptr.A2(),
                                          self.thisptr.A3(), self.thisptr.A4()])
-        return arr
 
 cdef class BondType:
     def __cinit__(self, arg=None):
@@ -161,8 +157,7 @@ cdef class BondType:
         """return atom indices as a python array"""
         # cdef pyarray arr = pyarray('i', [self.thisptr.Idx(), self.thisptr.A1(),
         # self.thisptr.A2()])
-        cdef pyarray arr = pyarray('i', [self.thisptr.A1(), self.thisptr.A2()])
-        return arr
+        return np.array([self.thisptr.A1(), self.thisptr.A2()])
 
 
 cdef class DihedralParmType:
