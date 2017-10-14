@@ -135,7 +135,7 @@ def test_save_traj_from_file():
 
         # write single Frame
         pt.write_traj("test_0.nc", traj[0], top=traj.top, overwrite=True)
-        aa_eq(pt.iterload('test_0.nc', traj.top).xyz, traj[0].xyz)
+        aa_eq(pt.iterload('test_0.nc', traj.top).xyz, [traj[0].xyz])
 
         # raise if traj is None
         with pytest.raises(ValueError):

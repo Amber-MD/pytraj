@@ -63,7 +63,7 @@ class TestNormalPmap(unittest.TestCase):
         saved_data = pt.radgyr(traj, '@CA')
         data = pt.pmap(pt.radgyr, traj, '@CA')
         data = pt.tools.dict_to_ndarray(data)
-        aa_eq(saved_data, data)
+        aa_eq([saved_data], data)
 
         # with a series of functions
         func_list = [pt.radgyr, pt.molsurf, pt.rmsd]
@@ -145,7 +145,7 @@ class TestParallelMapForTrajectoryIteratorWithTransformation(
             pt.rmsd_nofit, traj_on_disk, mask='@CB', n_cores=2, ref=0)
         rmsd1 = pt.rmsd_nofit(traj_on_mem, mask='@CB', ref=0)
 
-        aa_eq(pt.tools.dict_to_ndarray(rmsd0_dict), rmsd1)
+        aa_eq(pt.tools.dict_to_ndarray(rmsd0_dict), [rmsd1])
 
 
 @unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
@@ -337,8 +337,8 @@ class TestFrameIndices(unittest.TestCase):
                     pt.radgyr, traj, '@CA', frame_indices=frame_indices)
                 parallel_out_c_style = pt.pmap(
                     ['radgyr @CA nomax'], traj, frame_indices=frame_indices)
-                aa_eq(serial_out, pt.tools.dict_to_ndarray(parallel_out))
-                aa_eq(serial_out,
+                aa_eq([serial_out], pt.tools.dict_to_ndarray(parallel_out))
+                aa_eq([serial_out],
                       pt.tools.dict_to_ndarray(parallel_out_c_style))
 
 
@@ -366,7 +366,7 @@ class TestCheckValidCommand(unittest.TestCase):
         aa_eq(
             pt.tools.dict_to_ndarray(
                 pt.pmap(['rmsd'], traj, ref=traj[3], n_cores=3)),
-            pt.rmsd(traj, ref=traj[3]))
+            [pt.rmsd(traj, ref=traj[3])])
 
         # provide refindex
         aa_eq(
