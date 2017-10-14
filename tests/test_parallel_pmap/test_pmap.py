@@ -380,7 +380,7 @@ class TestCheckValidCommand(unittest.TestCase):
                     ['rmsd refindex 0'],
                     traj,
                     ref=[traj[3], traj[0]],
-                    n_cores=3)), pt.rmsd(traj, ref=traj[3]))
+                    n_cores=3)), [pt.rmsd(traj, ref=traj[3])])
 
         # if user does not provide reference, need to give it to them
         aa_eq(
