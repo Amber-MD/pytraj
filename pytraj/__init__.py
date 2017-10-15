@@ -60,11 +60,9 @@ from .io import load_remd
 from .io import iterload_remd
 from .io import _load_from_frame_iter as load_from_frame_iter
 from .io import load_pdb_rcsb
-from .io import load_cpptraj_file
 from .io import load_sample_data
 from .io import load_parmed
 from .io import load_leap
-from .io import load_antechamber
 from .io import load_topology
 from .io import load_batch
 from .io import write_parm

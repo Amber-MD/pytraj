@@ -14,29 +14,10 @@ saveamberparm foo foo.arm7 foo.crd
 quit
 """
 
+tleap = os.getenv("AMBERHOME", '') + '/bin/tleap'
 
-@unittest.skipUnless(os.getenv("AMBERHOME", ''), "must set AMBERHOME")
-class TestLeapNab(unittest.TestCase):
-    tleap = os.getenv("AMBERHOME", '') + '/bin/tleap'
-    antechamber = os.getenv("AMBERHOME", '') + '/bin/antechamber'
-
-    @unittest.skipUnless(os.path.exists(tleap), 'no tleap found')
-    def test_leap(self):
-        traj = pt.io.load_leap(leapin)
-        assert traj.n_atoms == 22
-        assert traj.top.n_residues == 3
-
-    @unittest.skipUnless(os.path.exists(antechamber), 'no antechamber found')
-    def test_antechamber(self):
-        fn = 'data/cro.ac'
-        traj = pt.io.load_antechamber(fn)
-        assert traj.n_atoms == 40
-        assert traj.top.n_residues == 1
-        aa_eq([atom.charge
-               for atom in traj.top.atoms][:3], [-0.895800, 0.113200, 0.11110])
-        aa_eq([atom.charge
-               for atom in traj.top.atoms][-3:], [0.146500, 0.146500, 0.42300])
-
-
-if __name__ == "__main__":
-    unittest.main()
+@unittest.skipUnless(os.path.exists(tleap), 'no tleap found')
+def test_leap():
+    traj = pt.io.load_leap(leapin)
+    assert traj.n_atoms == 22
+    assert traj.top.n_residues == 3
