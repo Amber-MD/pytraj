@@ -7,7 +7,6 @@ from .externals.six import string_types, PY3
 from .externals.load_other_packages import load_parmed
 from .serialize.serialize import to_pickle, read_pickle
 from .datafiles.load_samples import load_sample_data
-from .datafiles.load_cpptraj_file import load_cpptraj_file
 from .core.c_options import set_error_silent
 from .topology.topology import Topology, ParmFile
 from .trajectory.shared_methods import iterframe_master
@@ -31,7 +30,6 @@ __all__ = [
     'load_remd',
     'iterload_remd',
     'load_pdb_rcsb',
-    'load_cpptraj_file',
     'load_sample_data',
     'load_parmed',
     'load_leap',

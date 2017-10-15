@@ -5,13 +5,12 @@ from ..trajectory.trajectory_iterator import TrajectoryIterator
 from ..utils.context import tempfolder
 from .datafiles import DataFile, DataFileList
 from .load_samples import *
-from .load_cpptraj_file import load_cpptraj_file
 from ..core.c_core import _load_batch
 from ..datasets.datasetlist import DatasetList
 
 __all__ = [
     'convert', 'load_cpptraj_state', 'load_cpptraj_output', 'Ala3_crd',
-    'Ala3_crd_top', 'tz2_ortho_nc', 'tz2_ortho_parm7', 'load_cpptraj_file'
+    'Ala3_crd_top', 'tz2_ortho_nc', 'tz2_ortho_parm7',
 ]
 
 mydir = os.path.dirname(os.path.abspath(__file__))
@@ -116,12 +115,8 @@ def load_cpptraj_state(txt, traj=None):
     CpptrajState, include:
     <datasetlist: 2 datasets>
     """
-    if os.path.exists(txt):
-        # txt is a file
-        return load_cpptraj_file(txt)
-    else:
-        from pytraj.core.c_core import _load_batch
-        return _load_batch(txt, traj=traj)
+    from pytraj.core.c_core import _load_batch
+    return _load_batch(txt, traj=traj)
 
 
 def convert(input_filename, to):
