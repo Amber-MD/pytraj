@@ -183,7 +183,6 @@ packages = [
     'pytraj.datafiles.dpdp',
     'pytraj.datafiles.trpcage',
     'pytraj.datafiles.remd_ala2',
-    'pytraj.plot',
     'pytraj.math',
     'pytraj.core',
     'pytraj.parallel',
