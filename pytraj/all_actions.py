@@ -1909,7 +1909,7 @@ def velocityautocorr(
         tstep=1.0,
         direct=True,
         norm=False,
-        usevelocity=False,
+        usecoords=False,
         dtype='ndarray',
         top=None,
         velocity_arr=None, ):
@@ -1929,18 +1929,18 @@ def velocityautocorr(
         else, use FFT to compute autocorrelation function
     norm : bool, default False
         if True, normalize autocorrelation function to 1.0
-    usevelocity : bool, default False
+    usecoords : bool, default False
         if True, use velocity info in Frame
     dtype : str, default 'ndarray'
         return data type
     top : None or Topology, default None, optional
     velocity_arr : None or 3D like array, default None
-        only use `velocity_arr` if usevelocity is True
+        only use `velocity_arr` if usecoords is True
 
     Notes
     -----
     If you create Trajectory by `pytraj.load` method, there is no velocity information.
-    So if you want to use `usevelocity=True`, you need to provide 3D-array velocity_arr
+    So if you want to use `usecoords=True`, you need to provide 3D-array velocity_arr
     """
     from pytraj import Frame
 
@@ -1959,17 +1959,17 @@ def velocityautocorr(
     tstep_ = ' '.join(('tstep', str(tstep)))
     direct_ = 'direct' if direct else ''
     norm_ = 'norm' if norm else ''
-    usevelocity_ = 'usevelocity' if usevelocity else ''
+    usecoords_ = 'usecoords' if usecoords else ''
 
-    command = ' '.join((maxlag_, tstep_, direct_, norm_, usevelocity_))
-    crdinfo = dict(has_velocity=True) if usevelocity else dict()
+    command = ' '.join((maxlag_, tstep_, direct_, norm_, usecoords_))
+    crdinfo = dict(has_velocity=True)
 
     act.read_input(command, top, dslist=c_dslist)
     act.setup(top, crdinfo=crdinfo)
 
     frame_template = Frame()
 
-    if usevelocity and velocity_arr is not None:
+    if usecoords and velocity_arr is not None:
         frame_template._allocate_force_and_velocity(
             top, crdinfo=dict(has_velocity=True))
         use_template = True
@@ -1978,9 +1978,9 @@ def velocityautocorr(
 
     for idx, frame in enumerate(traj):
         if not use_template:
-            if usevelocity and not frame.has_velocity():
+            if usecoords and not frame.has_velocity():
                 raise ValueError(
-                    "Frame must have velocity if specify 'usevelocity'")
+                    "Frame must have velocity if specify 'usecoords'")
             act.compute(frame)
         else:
             vel = velocity_arr[idx]
