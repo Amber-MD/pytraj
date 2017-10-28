@@ -92,7 +92,7 @@ def test_install_libcpptraj_if_having_cpptraj_folder_here():
     git_clean_folder('./cpptraj/lib/libcpptraj*')
     command = 'python setup.py build'
     output = get_output(command)
-    assert 'cpptraj/lib/libcpptraj' in output
+    assert 'cpptraj/lib/"libcpptraj' in output
     assert 'install libcpptraj from current' in output
 
 
