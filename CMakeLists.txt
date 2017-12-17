@@ -53,8 +53,6 @@ add_custom_target(pytraj ALL DEPENDS ${STAMP_FILE} SOURCES ${PYTHON_SOURCES})
 
 #you can't put a generator expression into an install SCRIPT rule, which I need to do.
 #waiting on https://gitlab.kitware.com/cmake/cmake/issues/15785
-get_property(LIBCPPTRAJ_INCDIR TARGET ${CPPTRAJ_TARGET} PROPERTY INTERFACE_INCLUDE_DIRECTORIES)
-
 file(GENERATE OUTPUT ${LIBDIR_FILE} CONTENT "
 	#this file contains the real location of libcpptraj, which is a Special Thing in CMake.  It is read by the install script.
 	set(CPPTRAJ_LIBDIR $<TARGET_FILE_DIR:${CPPTRAJ_TARGET}>)")
@@ -67,7 +65,7 @@ install(CODE "
     \"CPPTRAJ_HEADERDIR=${CMAKE_CURRENT_SOURCE_DIR}/../cpptraj/src\" \"CPPTRAJ_LIBDIR=\${CPPTRAJ_LIBDIR}\"
     \"CXX=${CMAKE_CXX_COMPILER}\"
     \"CC=${CMAKE_C_COMPILER}\"
-    \"${RPATH_ARG}\"
+    ${RPATH_ARG}
     ${PYTHONPATH_SET_CMD}
 	${PYTHON_EXECUTABLE} ./setup.py build -b ${BUILD_DIR} ${OPENMP_ARG} ${PYTHON_COMPILER_ARG} ${WIN64_DEFINE_ARG} install ${PYTHON_PREFIX_ARG}
     WORKING_DIRECTORY \"${CMAKE_CURRENT_SOURCE_DIR}\")")
