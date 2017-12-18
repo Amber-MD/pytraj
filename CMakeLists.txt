@@ -10,8 +10,17 @@ project(pytraj)
 
 if(OPENMP AND NOT TARGET_OSX) # pytraj will not build with OpenMP on macOS
 	set(OPENMP_ARG "")
+	set(CPPTRAJ_TARGET "libcpptraj_omp")
 else()
 	set(OPENMP_ARG --disable-openmp)
+	set(CPPTRAJ_TARGET "libcpptraj")
+endif()
+
+set(RPATH_ARG "")
+
+if(TARGET_OSX)
+	# OS X: set RPATH to path up from pysander's pyd modules to AMBERHOME/lib
+	set(RPATH_ARG LDFLAGS="-Wl,-rpath,@loader_path/../../../../..")
 endif()
 
 #------------------------------------------------------------------------------------------
@@ -30,12 +39,12 @@ file(GLOB_RECURSE PYTHON_SOURCES "*.py" "*.pyx" "*.pxd")
 
 add_custom_command(OUTPUT ${STAMP_FILE}
 	COMMAND ${CMAKE_COMMAND} -E env --unset=AMBERHOME 
-		CPPTRAJ_HEADERDIR=${CMAKE_CURRENT_SOURCE_DIR}/../cpptraj/src CPPTRAJ_LIBDIR=$<TARGET_FILE_DIR:libcpptraj>
-		CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
+		CPPTRAJ_HEADERDIR=${CMAKE_CURRENT_SOURCE_DIR}/../cpptraj/src CPPTRAJ_LIBDIR=$<TARGET_FILE_DIR:${CPPTRAJ_TARGET}>
+		CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER} ${RPATH_ARG}
 		${PYTHON_EXECUTABLE} setup.py build -b ${BUILD_DIR} ${OPENMP_ARG} ${PYTHON_COMPILER_ARG} ${WIN64_DEFINE_ARG}
 	COMMAND ${CMAKE_COMMAND} -E touch ${STAMP_FILE}
 	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-	DEPENDS ${PYTHON_SOURCES} libcpptraj
+	DEPENDS ${PYTHON_SOURCES} ${CPPTRAJ_TARGET}
 	VERBATIM
 	COMMENT "Building pytraj native library")
 
@@ -44,11 +53,9 @@ add_custom_target(pytraj ALL DEPENDS ${STAMP_FILE} SOURCES ${PYTHON_SOURCES})
 
 #you can't put a generator expression into an install SCRIPT rule, which I need to do.
 #waiting on https://gitlab.kitware.com/cmake/cmake/issues/15785
-get_property(LIBCPPTRAJ_INCDIR TARGET libcpptraj PROPERTY INTERFACE_INCLUDE_DIRECTORIES)
-
 file(GENERATE OUTPUT ${LIBDIR_FILE} CONTENT "
 	#this file contains the real location of libcpptraj, which is a Special Thing in CMake.  It is read by the install script.
-	set(CPPTRAJ_LIBDIR $<TARGET_FILE_DIR:libcpptraj>)")
+	set(CPPTRAJ_LIBDIR $<TARGET_FILE_DIR:${CPPTRAJ_TARGET}>)")
 
 install(CODE "
 	include(${LIBDIR_FILE})
@@ -58,6 +65,7 @@ install(CODE "
     \"CPPTRAJ_HEADERDIR=${CMAKE_CURRENT_SOURCE_DIR}/../cpptraj/src\" \"CPPTRAJ_LIBDIR=\${CPPTRAJ_LIBDIR}\"
     \"CXX=${CMAKE_CXX_COMPILER}\"
     \"CC=${CMAKE_C_COMPILER}\"
+    ${RPATH_ARG}
     ${PYTHONPATH_SET_CMD}
 	${PYTHON_EXECUTABLE} ./setup.py build -b ${BUILD_DIR} ${OPENMP_ARG} ${PYTHON_COMPILER_ARG} ${WIN64_DEFINE_ARG} install ${PYTHON_PREFIX_ARG}
     WORKING_DIRECTORY \"${CMAKE_CURRENT_SOURCE_DIR}\")")
