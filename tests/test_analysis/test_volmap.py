@@ -27,7 +27,7 @@ class TestVolmap(unittest.TestCase):
             txt.format(
                 fn('tz2.ortho.parm7'), fn('tz2.ortho.nc'), cm, size, center))
         state.run()
-        cpp_data = state.data[-1].values
+        cpp_data = state.data[-2].values # last one is totalvolume
 
         traj = traj.superpose(mask=':1-13').center(':1-13 mass origin')
         ds = pt.volmap(
@@ -51,15 +51,16 @@ class TestVolmap(unittest.TestCase):
 
         # test size
 
-    @unittest.skip('skip due to segmentation fault with cpptraj.OMP')
+    # @unittest.skip('skip due to segmentation fault with cpptraj.OMP')
     def test_volmap_size(self):
+        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))[:1]
         cm_no_buffer = cm.replace('buffer 2.0', '')
         state = pt.load_cpptraj_state(
             txt.format(
                 fn('tz2.ortho.parm7'),
                 fn('tz2.ortho.nc'), cm_no_buffer, 'size 20,20,20', ''))
         state.run()
-        cpp_data = state.data[-1].values
+        cpp_data = state.data[-2].values # last one is totalvolume
         ds = volmap(
             traj,
             mask=':WAT@O',
@@ -70,9 +71,10 @@ class TestVolmap(unittest.TestCase):
             radscale=1.36)
         aa_eq(cpp_data, ds)
 
-    @unittest.skip('skip due to segmentation fault with cpptraj.OMP')
+    # @unittest.skip('skip due to segmentation fault with cpptraj.OMP')
     def test_volmap_center(self):
         # test center
+        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))[:1]
         cm_no_buffer = cm.replace('buffer 2.0', '')
         state = pt.load_cpptraj_state(
             txt.format(
@@ -80,7 +82,7 @@ class TestVolmap(unittest.TestCase):
                 fn('tz2.ortho.nc'), cm_no_buffer, 'size 20,20,20',
                 'center 0.5,0.5,0.5'))
         state.run()
-        cpp_data = state.data[-1].values
+        cpp_data = state.data[-2].values # last one is totalvolume
         ds = volmap(
             traj,
             mask=':WAT@O',

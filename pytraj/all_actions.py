@@ -872,7 +872,8 @@ def volmap(traj,
            peakcut=0.05,
            top=None,
            dtype='ndarray',
-           frame_indices=None):
+           frame_indices=None,
+           options=""):
     '''(combined with cpptraj doc) Grid data as a volumetric map, similar to the
     volmap command in VMD. The density is calculated by treating each atom as a
     3-dimensional Gaussian function whose standard deviation is equal to the van der Waals radius
@@ -894,6 +895,9 @@ def volmap(traj,
     radscale : float, default 1.36 (to match to VMD calculation)
         factor by which to scale radii (by devision)
     peakcut : float
+    dtype : str, default 'ndarray'
+        Note: To get all the output from cpptraj, it would be better to specify
+        dtype='dict'
 
     Examples
     --------
@@ -935,8 +939,14 @@ def volmap(traj,
         center_ = ''
 
     command = ' '.join((dummy_filename, grid_spacing_, center_, size_, mask,
-                        radscale_, buffer_, centermask_, peakcut_))
+                        radscale_, buffer_, centermask_, peakcut_, options))
     c_dslist, _ = do_action(traj, command, c_action.Action_Volmap)
+    index = None
+    for i, volume_ds in enumerate(c_dslist):
+        if volume_ds.key.endswith("[totalvol]"):
+            index = i
+    if index is not None:
+        c_dslist._pop(index)
     return get_data_from_dtype(c_dslist, dtype)
 
 
