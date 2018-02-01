@@ -308,6 +308,27 @@ def load_remd(filename, top=None, T="300.0"):
     return iterload_remd(filename, top, T)[:]
 
 
+def _files_exist(filename, n_frames, options):
+    """ Will be used for `write_traj` with options that will write
+    multilple frames.
+
+    Parameters
+    ----------
+    filename : str
+    n_frames : int
+    options : str
+    """
+    option_set = set([s for s in options.split() if s])
+    if 'multi' in option_set:
+        # 'multi' is only available with pdb format.
+        ext = filename.split()[-1]
+    else:
+        if os.path.exists(filename):
+            print('File {} exists. Please use overwrite=True or remove the existing file'.format(filename))
+            return True
+    return False
+
+
 def write_traj(filename,
                traj,
                format='infer',
@@ -322,7 +343,7 @@ def write_traj(filename,
     Parameters
     ----------
     filename : str
-    traj : Trajectory-like or iterator that produces Frame or 3D ndarray with shape=(n_frames, n_atoms, 3)
+    traj : Trajectory-like or iterator that produces Frame
     format : str, default 'infer'
         if 'inter', detect format based on extension. If can not detect, use amber mdcdf format.
     top : Topology, optional, default: None
@@ -440,7 +461,6 @@ def write_traj(filename,
                 filename=filename,
                 top=_top,
                 format=format,
-                overwrite=overwrite,
                 crdinfo=crdinfo,
                 options=options) as trajout:
             if isinstance(traj, Frame):
@@ -474,7 +494,6 @@ def write_traj(filename,
                 filename=filename,
                 top=_top,
                 crdinfo=crdinfo,
-                overwrite=overwrite,
                 options=options) as trajout:
 
             for _, frame in fi:

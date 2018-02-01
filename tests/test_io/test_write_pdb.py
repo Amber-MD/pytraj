@@ -1,3 +1,4 @@
+import pytest
 import pytraj as pt
 from pytraj import TrajectoryWriter
 from pytraj.testing import aa_eq
@@ -54,6 +55,10 @@ def test_write_pdb():
             fname = basename + "." + str(i + 1)  # cpptraj use `1`
             frame = pt.iterload(fname, traj.top)[0]
             aa_eq(frame.xyz, traj[i].xyz)
+
+        with pytest.raises(OSError):
+            # write files again, raise if file exists
+            pt.write_traj(basename, traj, overwrite=True, options="multi")
 
     # multiple pdb in SINGLE file
     with tempfolder():
