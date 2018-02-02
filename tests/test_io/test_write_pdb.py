@@ -60,6 +60,19 @@ def test_write_pdb():
             # write files again, raise if file exists
             pt.write_traj(basename, traj, overwrite=True, options="multi")
 
+    # keepext
+    with tempfolder():
+        basename = 'test_pdb_files_pt_write_traj.pdb'
+        basename2 = 'test_pdb_files_pt_write_traj'
+        pt.write_traj(basename, traj, overwrite=True, options="multi keepext")
+        for i in range(10):
+            fname = "{}.{}.pdb".format(basename2, i+1)
+            frame = pt.iterload(fname, traj.top)[0]
+            aa_eq(frame.xyz, traj[i].xyz)
+
+        with pytest.raises(IOError):
+             pt.write_traj(basename, traj, overwrite=True, options="multi keepext")
+
     # multiple pdb in SINGLE file
     with tempfolder():
         basename = "test_pdb_files.pdb"

@@ -322,9 +322,19 @@ def _files_exist(filename, n_frames, options):
     exists = []
     if 'multi' in option_set:
         # 'multi' is only available with pdb format.
-        exists = []
         for index in range(n_frames):
-            fn = filename + '.' + str(index+1)
+            if 'keepext' in option_set:
+                # e.g: x.1.pdb
+                words = filename.split('.')
+                if len(words) == 1:
+                    fn = filename + '.' + str(index+1)
+                else:
+                    ext = words[-1]
+                    fn = "{}.{}.{}".format(filename.strip(ext), index+1, '.' + ext)
+            else:
+                # e.g: x.pdb.1
+                fn = filename + '.' + str(index+1)
+
             if os.path.exists(fn):
                 exists.append(fn)
     else:
