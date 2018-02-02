@@ -319,37 +319,40 @@ def _files_exist(filename, n_frames, options):
     options : str
     """
     option_set = set([s for s in options.split() if s])
+    exists = []
     if 'multi' in option_set:
         # 'multi' is only available with pdb format.
-        ext = filename.split()[-1]
+        exists = []
+        for index in range(frame):
+            fn = filename + '.' + str(index+1)
+            if os.path.exists(filename):
+                exists.append(fn)
     else:
         if os.path.exists(filename):
-            print('File {} exists. Please use overwrite=True or remove the existing file'.format(filename))
-            return True
-    return False
+            exists.append(filename)
+    return exists
 
 
 def write_traj(filename,
                traj,
                format='infer',
-               top=None,
                frame_indices=None,
                overwrite=False,
                force=False,
                velocity=False,
                options=""):
-    """write Trajectory-like or iterable object to trajectory file
+    """
 
     Parameters
     ----------
     filename : str
-    traj : Trajectory-like or iterator that produces Frame
+    traj : Trajectory
     format : str, default 'infer'
-        if 'inter', detect format based on extension. If can not detect, use amber mdcdf format.
-    top : Topology, optional, default: None
+        if 'inter', detect format based on extension. If can not detect, use amber mdcrd format.
     frame_indices: array-like or iterator that produces integer, default: None
         If not None, only write output for given frame indices
     overwrite: bool, default: False
+        Note: does not respect options='keepext'
     velocity : bool, default False
         if True, write velocity. Make sure your trajectory or Frame does have velocity
     force : bool, default False
@@ -441,63 +444,22 @@ def write_traj(filename,
 
         please check http://ambermd.org/doc12/Amber15.pdf
     """
-    # avoid confusion
-    has_force = force
-    has_velocity = velocity
-    _top = get_topology(traj, top)
-    if _top is None:
-        raise ValueError("must provide Topology")
-
     if hasattr(traj, '_crdinfo'):
         crdinfo = traj._crdinfo
     else:
         crdinfo = dict()
 
-    crdinfo['has_force'] = has_force
-    crdinfo['has_velocity'] = has_velocity
+    crdinfo['has_force'] = force
+    crdinfo['has_velocity'] = velocity
 
-    if not isinstance(traj, np.ndarray):
-        with TrajectoryWriter(
-                filename=filename,
-                top=_top,
-                format=format,
-                crdinfo=crdinfo,
-                options=options) as trajout:
-            if isinstance(traj, Frame):
-                if frame_indices is not None:
-                    raise ValueError(
-                        "frame indices does not work with single Frame")
-                trajout.write(traj)
-            else:
-                if frame_indices is not None:
-                    if isinstance(traj, (list, tuple, Frame)):
-                        raise NotImplementedError(
-                            "must be Trajectory or TrajectoryIterator instance"
-                        )
-                    for frame in traj.iterframe(frame_indices=frame_indices):
-                        trajout.write(frame)
-
-                else:
-                    for frame in iterframe_master(traj):
-                        trajout.write(frame)
-    else:
-        # is ndarray, shape=(n_frames, n_atoms, 3)
-        # create frame iterator
-        xyz = np.asarray(traj)
-        if not xyz.flags.c_contiguous:
-            xyz = np.ascontiguousarray(xyz)
-        _frame_indices = range(
-            xyz.shape[0]) if frame_indices is None else frame_indices
-        fi = iterframe_from_array(xyz, _top.n_atoms, _frame_indices, _top)
-
-        with TrajectoryWriter(
-                filename=filename,
-                top=_top,
-                crdinfo=crdinfo,
-                options=options) as trajout:
-
-            for _, frame in fi:
-                trajout.write(frame)
+    with TrajectoryWriter(
+            filename=filename,
+            top=top,
+            format=format,
+            crdinfo=crdinfo,
+            options=options) as writer:
+        for frame in traj.iterframe(frame_indices=frame_indices):
+            writer.write(frame)
 
 
 def write_parm(filename=None, top=None, format='amberparm', overwrite=False):
