@@ -13,7 +13,6 @@ pt.write_traj(
     'traj_append.nc',
     traj=traj,
     frame_indices=chain(range(0, 3), range(5, 9)),
-    top=traj.top,
     overwrite=True, )
 
 # you can load many files to a single traj and write specific frames too
