@@ -461,8 +461,6 @@ def write_traj(filename,
     crdinfo['has_force'] = force
     crdinfo['has_velocity'] = velocity
 
-    import os
-    os.system('ls *pdb*')
     with TrajectoryWriter(
             filename=filename,
             top=traj.top,

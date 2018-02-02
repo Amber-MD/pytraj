@@ -7,7 +7,6 @@ subtraj = traj[:10]
 pt.write_traj(
     filename="./output/subtraj_0_CHARMM.dcd",
     traj=subtraj,
-    top=traj.top,
     overwrite=True)
 
 # make sure we can load the traj,
