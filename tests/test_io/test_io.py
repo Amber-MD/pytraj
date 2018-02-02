@@ -124,17 +124,17 @@ def test_save_traj_from_file():
     traj = pt.iterload(tc5b_trajin, tc5b_top)[:5]
     with tempfolder():
         pt.write_traj(
-            filename="test_0.binpos", traj=traj, top=tc5b_top, overwrite=True)
+            filename="test_0.binpos", traj=traj, overwrite=True)
 
         savedtraj = pt.iterload("test_0.binpos", traj.top)
         assert savedtraj.n_frames == traj.n_frames
 
         # write_xyz
-        pt.write_traj("test_0.nc", traj.xyz, top=tc5b_top, overwrite=True)
+        pt.write_traj("test_0.nc", traj.xyz, overwrite=True)
         aa_eq(pt.iterload('test_0.nc', traj.top).xyz, traj.xyz)
 
         # write single Frame
-        pt.write_traj("test_0.nc", traj[0], top=traj.top, overwrite=True)
+        pt.write_traj("test_0.nc", traj[:1], overwrite=True)
         aa_eq(pt.iterload('test_0.nc', traj.top).xyz, [traj[0].xyz])
 
         # raise if traj is None
@@ -147,25 +147,6 @@ def test_save_traj_from_file():
         ])
         with pytest.raises(ValueError):
             pt.write_traj("test_0.nc", traj=fi, overwrite=True)
-
-        # raise if Frame with frame_indices:
-        with pytest.raises(ValueError):
-            pt.write_traj(
-                "test_0.nc",
-                traj[0],
-                top=tc5b_top,
-                frame_indices=[3, 2],
-                overwrite=True)
-
-        # raise if Frame with no Topology
-        with pytest.raises(ValueError):
-            pt.write_traj("test_0.nc", traj[0], overwrite=True)
-
-        # test if xyz is not c-contiguous
-        # pytraj will autoconvert to c-contiguous
-        xyz = np.asfortranarray(traj.xyz)
-        # make sure no ValueError or TypeError is raised
-        pt.write_traj('xyz.nc', xyz, top=traj.top, overwrite=True)
 
 
 def test_blind_load():
@@ -199,7 +180,6 @@ def test_load_and_save_0():
         pt.write_traj(
             filename="test_io_saved_.x",
             traj=traj[:],
-            top=tc5b_top,
             frame_indices=indices,
             overwrite=True)
 
@@ -221,7 +201,6 @@ def test_load_and_save_1():
         pt.write_traj(
             filename="test_io_saved.pdb",
             traj=traj,
-            top=tc5b_top,
             frame_indices=indices,
             overwrite=True)
 
@@ -450,7 +429,7 @@ def test_write_force_from_scratch():
 
     with tempfolder():
         out_fn = 'out.nc'
-        pt.write_traj(out_fn, traj=add_force(traj), top=traj.top, force=True)
+        pt.write_traj(out_fn, traj=add_force(traj), force=True)
         traj2 = pt.iterload(out_fn, top=traj.top)
         assert traj2.metadata['has_force']
         assert not traj2.metadata['has_velocity']

@@ -12,6 +12,7 @@ from .topology.topology import Topology, ParmFile
 from .trajectory.shared_methods import iterframe_master
 from .trajectory.trajectory import Trajectory
 from .trajectory.trajectory_iterator import TrajectoryIterator
+from .trajectory.frameiter import iterframe
 from .trajectory.frame import Frame
 from .trajectory.c_traj.c_trajout import TrajectoryWriter
 from .utils.cyutils import _fast_iterptr as iterframe_from_array
@@ -310,7 +311,9 @@ def load_remd(filename, top=None, T="300.0"):
 
 def _files_exist(filename, n_frames, options):
     """ Will be used for `write_traj` with options that will write
-    multilple frames.
+    multilple frames; example: x.pdb -> x.pdb.{1, 2, 3, ...}
+    
+    Note: does not support format 'x.{1, 2, ...}.pdb'
 
     Parameters
     ----------
@@ -323,9 +326,9 @@ def _files_exist(filename, n_frames, options):
     if 'multi' in option_set:
         # 'multi' is only available with pdb format.
         exists = []
-        for index in range(frame):
+        for index in range(n_frames):
             fn = filename + '.' + str(index+1)
-            if os.path.exists(filename):
+            if os.path.exists(fn):
                 exists.append(fn)
     else:
         if os.path.exists(filename):
@@ -444,6 +447,12 @@ def write_traj(filename,
 
         please check http://ambermd.org/doc12/Amber15.pdf
     """
+    existing_files = _files_exist(filename, traj.n_frames, options)
+    if existing_files:
+        for fn in existing_files:
+            print("{} exists. Use overwrite=True or remove the file".format(fn))
+        raise IOError()
+
     if hasattr(traj, '_crdinfo'):
         crdinfo = traj._crdinfo
     else:
@@ -452,13 +461,15 @@ def write_traj(filename,
     crdinfo['has_force'] = force
     crdinfo['has_velocity'] = velocity
 
+    import os
+    os.system('ls *pdb*')
     with TrajectoryWriter(
             filename=filename,
-            top=top,
+            top=traj.top,
             format=format,
             crdinfo=crdinfo,
             options=options) as writer:
-        for frame in traj.iterframe(frame_indices=frame_indices):
+        for frame in iterframe(traj, frame_indices=frame_indices):
             writer.write(frame)
 
 

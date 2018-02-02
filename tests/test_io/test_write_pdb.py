@@ -25,8 +25,8 @@ def test_write_CRYST1():
 def test_trajectory_writer():
     traj = pt.iterload(tc5b_trajin, tc5b_top)
     with tempfolder():
-        pt.write_traj("test_1.pdb", traj[0], top=traj.top, overwrite=True)
-        pt.write_traj("test_1.dcd", traj[0], top=traj.top, overwrite=True)
+        pt.write_traj("test_1.pdb", traj[:1], overwrite=True)
+        pt.write_traj("test_1.dcd", traj[:1], overwrite=True)
 
         with TrajectoryWriter("test_1", overwrite=True) as trajout:
             trajout.write(traj[0])
@@ -56,7 +56,7 @@ def test_write_pdb():
             frame = pt.iterload(fname, traj.top)[0]
             aa_eq(frame.xyz, traj[i].xyz)
 
-        with pytest.raises(OSError):
+        with pytest.raises(IOError):
             # write files again, raise if file exists
             pt.write_traj(basename, traj, overwrite=True, options="multi")
 
