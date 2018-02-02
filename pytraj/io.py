@@ -13,11 +13,8 @@ from .trajectory.shared_methods import iterframe_master
 from .trajectory.trajectory import Trajectory
 from .trajectory.trajectory_iterator import TrajectoryIterator
 from .trajectory.frameiter import iterframe
-from .trajectory.frame import Frame
 from .trajectory.c_traj.c_trajout import TrajectoryWriter
-from .utils.cyutils import _fast_iterptr as iterframe_from_array
 from .utils.decorators import ensure_exist
-from .utils.get_common_objects import get_topology
 from .utils.context import tempfolder
 
 try:
