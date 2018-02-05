@@ -58,9 +58,9 @@ def test_trajectory_writer_write_Trajectory():
         fn("Tc5b.x"), fn("Tc5b.top"), frame_indices=list(range(10)))
     with tempfolder():
         pt.write_traj(
-            "test_write_output.x", farray, top=farray.top, overwrite=True)
+            "test_write_output.x", farray, overwrite=True)
         pt.write_traj(
-            "test_pdb_1.dummyext", farray[0], top=farray.top, overwrite=True)
+                "test_pdb_1.dummyext", farray[:1], overwrite=True)
 
         # test 'save'
         farray.save("test_write_output_save_method.x", overwrite=True)

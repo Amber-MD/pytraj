@@ -317,6 +317,7 @@ def _files_exist(filename, n_frames, options):
     filename : str
     n_frames : int
     options : str
+        cpptraj options
     """
     option_set = set([s for s in options.split() if s])
     exists = []
