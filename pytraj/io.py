@@ -331,7 +331,7 @@ def _files_exist(filename, n_frames, options):
                     fn = filename + '.' + str(index+1)
                 else:
                     ext = words[-1]
-                    fn = "{}.{}.{}".format(filename.strip(ext), index+1, '.' + ext)
+                    fn = "{}{}.{}".format(filename.strip(ext), index+1, ext)
             else:
                 # e.g: x.pdb.1
                 fn = filename + '.' + str(index+1)

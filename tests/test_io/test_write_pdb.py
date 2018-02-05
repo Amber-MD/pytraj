@@ -28,7 +28,7 @@ def test_trajectory_writer():
         pt.write_traj("test_1.pdb", traj[:1], overwrite=True)
         pt.write_traj("test_1.dcd", traj[:1], overwrite=True)
 
-        with TrajectoryWriter("test_1", overwrite=True) as trajout:
+        with TrajectoryWriter("test_1") as trajout:
             trajout.write(traj[0])
 
 
