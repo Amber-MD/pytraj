@@ -31,8 +31,11 @@ class TestClosest(unittest.TestCase):
 
         # test write to disk
         fi, top = pt.closest(traj)
+        new_traj = pt.Trajectory(top=top)
+        for frame in fi:
+            new_traj.append(frame)
 
-        pt.write_traj(outputname('fi.nc'), fi, overwrite=True)
+        pt.write_traj(outputname('fi.nc'), new_traj, overwrite=True)
         # load back
         t1 = pt.load(outputname('fi.nc'), top=top)
         aa_eq(t0.xyz, t1.xyz)

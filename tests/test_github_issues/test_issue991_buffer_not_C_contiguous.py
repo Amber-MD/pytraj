@@ -18,13 +18,13 @@ class TestIssue991(unittest.TestCase):
             mask='(!:1-256)&(@H1,@H2,@H3,@H4,@H5)')
 
         # Trajectory of the center of mass of the first two residues
-        minitraj = np.empty((2, traj.n_frames, 3))
-        minitraj[0] = pt.center_of_mass(traj, mask=':1')
-        minitraj[1] = pt.center_of_mass(traj, mask=':2')
-        minitraj = minitraj.transpose((1, 0, 2))
+        xyz = np.empty((2, traj.n_frames, 3))
+        xyz[0] = pt.center_of_mass(traj, mask=':1')
+        xyz[1] = pt.center_of_mass(traj, mask=':2')
 
         # "topology" using the first two atoms
         minitop = traj.top['@1,2']
+        minitraj = pt.Trajectory(xyz=np.ascontiguousarray(xyz.transpose((1, 0, 2))), top=minitop)
 
         # Save trajectory
         # make sure there is no ValueError
@@ -39,13 +39,13 @@ class TestIssue991(unittest.TestCase):
         for ext in exts:
             junk_fn = 'junk.' + ext
             pt.write_traj(
-                filename=junk_fn, traj=minitraj, top=minitop, overwrite=True)
+                filename=junk_fn, traj=minitraj, overwrite=True)
 
             # load coord back to make sure we correctly write it
             new_traj = pt.iterload(junk_fn, minitop)
             # mdcrd, crd, pdb has only 3 digits after decimal
             decimal = 5 if ext in ['nc', 'dcd', 'trr'] else 3
-            aa_eq(minitraj, new_traj.xyz, decimal=decimal)
+            aa_eq(minitraj.xyz, new_traj.xyz, decimal=decimal)
 
 
 if __name__ == "__main__":

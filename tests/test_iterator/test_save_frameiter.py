@@ -5,20 +5,14 @@ from utils import fn
 from pytraj.testing import aa_eq
 
 
-class Test(unittest.TestCase):
-    def test_0(self):
-        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
+def test_save_frameiter():
+    traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
-        traj(0, 8, 2, mask='@CA').save('dummy_test0.nc', overwrite=True)
-        pt.write_traj(
-            'dummy_test1.nc', traj(0, 8, 2, mask='@CA'), overwrite=True)
+    traj(0, 8, 2, mask='@CA').save('dummy_test0.nc', overwrite=True)
+    pt.write_traj(
+        'dummy_test1.nc', traj(0, 8, 2, mask='@CA'), overwrite=True)
 
-        new_top = traj.top._get_new_from_mask('@CA')
-        t0 = pt.iterload('dummy_test0.nc', new_top)
-        t1 = pt.iterload('dummy_test1.nc', new_top)
-
-        aa_eq(t0.xyz, t1.xyz)
-
-
-if __name__ == "__main__":
-    unittest.main()
+    new_top = traj.top._get_new_from_mask('@CA')
+    t0 = pt.iterload('dummy_test0.nc', new_top)
+    t1 = pt.iterload('dummy_test1.nc', new_top)
+    aa_eq(t0.xyz, t1.xyz)
