@@ -419,17 +419,6 @@ def write_traj(filename,
     >>> # write to DCD file
     >>> pt.write_traj("output/test.dcd", traj, overwrite=True)
 
-    >>> # write to netcdf file from 3D numpy array, need to provide Topology
-    >>> xyz = traj.xyz
-    >>> top = traj.top
-    >>> pt.write_traj("output/test_xyz.nc", xyz, top=traj.top, overwrite=True)
-    >>> pt.write_traj("output/test_xyz.nc", xyz, top=traj.top, overwrite=True)
-
-    >>> # you can make a fake Topology to write xyz coordinates too
-    >>> n_atoms = xyz.shape[1]
-    >>> top2 = pt.tools.make_fake_topology(n_atoms)
-    >>> pt.write_traj("output/test_xyz_fake_top.nc", xyz, top=top2, overwrite=True)
-
     'options' for writing to amber netcdf format (cptraj manual)::
 
         remdtraj: Write temperature to trajectory (makes REMD trajectory)."
@@ -456,7 +445,7 @@ def write_traj(filename,
         please check http://ambermd.org/doc12/Amber15.pdf
     """
     existing_files = _files_exist(filename, traj.n_frames, options)
-    if existing_files:
+    if existing_files and not overwrite:
         for fn in existing_files:
             print("{} exists. Use overwrite=True or remove the file".format(fn))
         raise IOError()

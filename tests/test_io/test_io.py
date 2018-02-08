@@ -181,6 +181,15 @@ def test_load_and_save_1():
         assert traj.top.n_atoms == 304
 
 
+def test_overwrite():
+    trajin, tn = fn("tz2.nc"), fn("tz2.parm7")
+    with tempfolder():
+        traj = pt.iterload(trajin, tn)
+        pt.write_traj('what.nc', traj)
+        # ensure no IOError is raised.
+        pt.write_traj('what.nc', traj, overwrite=True)
+
+
 def test_get_coordinates_trajecotoryiterator():
     '''immutable pytraj.TrajectoryIterator
     '''
