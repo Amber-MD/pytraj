@@ -58,7 +58,7 @@ def test_write_pdb():
 
         with pytest.raises(IOError):
             # write files again, raise if file exists
-            pt.write_traj(basename, traj, overwrite=True, options="multi")
+            pt.write_traj(basename, traj, overwrite=False, options="multi")
 
     # keepext
     with tempfolder():
@@ -71,7 +71,7 @@ def test_write_pdb():
             aa_eq(frame.xyz, traj[i].xyz)
 
         with pytest.raises(IOError):
-             pt.write_traj(basename, traj, overwrite=True, options="multi keepext")
+             pt.write_traj(basename, traj, overwrite=False, options="multi keepext")
 
     # multiple pdb in SINGLE file
     with tempfolder():
