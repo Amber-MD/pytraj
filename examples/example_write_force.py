@@ -36,6 +36,5 @@ def get_frame_with_force(traj, forces=frcs):
 pt.write_traj(
     'traj.nc',
     traj=get_frame_with_force(traj),
-    top=traj.top,
     overwrite=True,
     options='force')
