@@ -12,11 +12,9 @@ from .topology.topology import Topology, ParmFile
 from .trajectory.shared_methods import iterframe_master
 from .trajectory.trajectory import Trajectory
 from .trajectory.trajectory_iterator import TrajectoryIterator
-from .trajectory.frame import Frame
+from .trajectory.frameiter import iterframe
 from .trajectory.c_traj.c_trajout import TrajectoryWriter
-from .utils.cyutils import _fast_iterptr as iterframe_from_array
 from .utils.decorators import ensure_exist
-from .utils.get_common_objects import get_topology
 from .utils.context import tempfolder
 
 try:
@@ -308,27 +306,64 @@ def load_remd(filename, top=None, T="300.0"):
     return iterload_remd(filename, top, T)[:]
 
 
+def _files_exist(filename, n_frames, options):
+    """ Will be used for `write_traj` with options that will write
+    multilple frames; example: x.pdb -> x.pdb.{1, 2, 3, ...}
+    
+    Note: does not support format 'x.{1, 2, ...}.pdb'
+
+    Parameters
+    ----------
+    filename : str
+    n_frames : int
+    options : str
+        cpptraj options
+    """
+    option_set = set([s for s in options.split() if s])
+    exists = []
+    if 'multi' in option_set:
+        # 'multi' is only available with pdb format.
+        for index in range(n_frames):
+            if 'keepext' in option_set:
+                # e.g: x.1.pdb
+                words = filename.split('.')
+                if len(words) == 1:
+                    fn = filename + '.' + str(index+1)
+                else:
+                    ext = words[-1]
+                    fn = "{}{}.{}".format(filename.strip(ext), index+1, ext)
+            else:
+                # e.g: x.pdb.1
+                fn = filename + '.' + str(index+1)
+
+            if os.path.exists(fn):
+                exists.append(fn)
+    else:
+        if os.path.exists(filename):
+            exists.append(filename)
+    return exists
+
+
 def write_traj(filename,
                traj,
                format='infer',
-               top=None,
                frame_indices=None,
                overwrite=False,
                force=False,
                velocity=False,
                options=""):
-    """write Trajectory-like or iterable object to trajectory file
+    """
 
     Parameters
     ----------
     filename : str
-    traj : Trajectory-like or iterator that produces Frame or 3D ndarray with shape=(n_frames, n_atoms, 3)
+    traj : Trajectory
     format : str, default 'infer'
-        if 'inter', detect format based on extension. If can not detect, use amber mdcdf format.
-    top : Topology, optional, default: None
+        if 'inter', detect format based on extension. If can not detect, use amber mdcrd format.
     frame_indices: array-like or iterator that produces integer, default: None
         If not None, only write output for given frame indices
     overwrite: bool, default: False
+        Note: does not respect options='keepext'
     velocity : bool, default False
         if True, write velocity. Make sure your trajectory or Frame does have velocity
     force : bool, default False
@@ -384,17 +419,6 @@ def write_traj(filename,
     >>> # write to DCD file
     >>> pt.write_traj("output/test.dcd", traj, overwrite=True)
 
-    >>> # write to netcdf file from 3D numpy array, need to provide Topology
-    >>> xyz = traj.xyz
-    >>> top = traj.top
-    >>> pt.write_traj("output/test_xyz.nc", xyz, top=traj.top, overwrite=True)
-    >>> pt.write_traj("output/test_xyz.nc", xyz, top=traj.top, overwrite=True)
-
-    >>> # you can make a fake Topology to write xyz coordinates too
-    >>> n_atoms = xyz.shape[1]
-    >>> top2 = pt.tools.make_fake_topology(n_atoms)
-    >>> pt.write_traj("output/test_xyz_fake_top.nc", xyz, top=top2, overwrite=True)
-
     'options' for writing to amber netcdf format (cptraj manual)::
 
         remdtraj: Write temperature to trajectory (makes REMD trajectory)."
@@ -420,65 +444,28 @@ def write_traj(filename,
 
         please check http://ambermd.org/doc12/Amber15.pdf
     """
-    # avoid confusion
-    has_force = force
-    has_velocity = velocity
-    _top = get_topology(traj, top)
-    if _top is None:
-        raise ValueError("must provide Topology")
+    existing_files = _files_exist(filename, traj.n_frames, options)
+    if existing_files and not overwrite:
+        for fn in existing_files:
+            print("{} exists. Use overwrite=True or remove the file".format(fn))
+        raise IOError()
 
     if hasattr(traj, '_crdinfo'):
         crdinfo = traj._crdinfo
     else:
         crdinfo = dict()
 
-    crdinfo['has_force'] = has_force
-    crdinfo['has_velocity'] = has_velocity
+    crdinfo['has_force'] = force
+    crdinfo['has_velocity'] = velocity
 
-    if not isinstance(traj, np.ndarray):
-        with TrajectoryWriter(
-                filename=filename,
-                top=_top,
-                format=format,
-                overwrite=overwrite,
-                crdinfo=crdinfo,
-                options=options) as trajout:
-            if isinstance(traj, Frame):
-                if frame_indices is not None:
-                    raise ValueError(
-                        "frame indices does not work with single Frame")
-                trajout.write(traj)
-            else:
-                if frame_indices is not None:
-                    if isinstance(traj, (list, tuple, Frame)):
-                        raise NotImplementedError(
-                            "must be Trajectory or TrajectoryIterator instance"
-                        )
-                    for frame in traj.iterframe(frame_indices=frame_indices):
-                        trajout.write(frame)
-
-                else:
-                    for frame in iterframe_master(traj):
-                        trajout.write(frame)
-    else:
-        # is ndarray, shape=(n_frames, n_atoms, 3)
-        # create frame iterator
-        xyz = np.asarray(traj)
-        if not xyz.flags.c_contiguous:
-            xyz = np.ascontiguousarray(xyz)
-        _frame_indices = range(
-            xyz.shape[0]) if frame_indices is None else frame_indices
-        fi = iterframe_from_array(xyz, _top.n_atoms, _frame_indices, _top)
-
-        with TrajectoryWriter(
-                filename=filename,
-                top=_top,
-                crdinfo=crdinfo,
-                overwrite=overwrite,
-                options=options) as trajout:
-
-            for _, frame in fi:
-                trajout.write(frame)
+    with TrajectoryWriter(
+            filename=filename,
+            top=traj.top,
+            format=format,
+            crdinfo=crdinfo,
+            options=options) as writer:
+        for frame in iterframe(traj, frame_indices=frame_indices):
+            writer.write(frame)
 
 
 def write_parm(filename=None, top=None, format='amberparm', overwrite=False):

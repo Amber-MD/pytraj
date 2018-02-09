@@ -20,9 +20,8 @@ class SharedTrajectory(object):
         from pytraj.trajectory.c_traj.c_trajout import TrajectoryWriter
 
         with TrajectoryWriter(
-                filename=filename, top=self.top, overwrite=overwrite,
+                filename=filename, top=self.top,
                 **kwd) as trajout:
-
             for frame in self:
                 trajout.write(frame)
 

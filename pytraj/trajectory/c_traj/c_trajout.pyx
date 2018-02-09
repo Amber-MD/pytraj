@@ -29,7 +29,7 @@ cdef class TrajectoryWriter:
     def open(self, filename='', top=Topology(),
              crdinfo=dict(),
              format='infer',
-             options='', overwrite=False):
+             options=''):
         '''
         filename : str, output filename
         top : Topology
@@ -37,7 +37,6 @@ cdef class TrajectoryWriter:
             if 'infer', determine file format based on extension.
             If can not detect extension, use AMBER mdcrd format
         options : str, additional keywords for writing file (good for pdb, mol2, ...)
-        overwrite : bool, default False
         '''
         cdef ArgList arglist
         cdef Topology top_
@@ -54,12 +53,6 @@ cdef class TrajectoryWriter:
         crdinfo_ = CoordinateInfo(crdinfo2)
 
         filename = filename.encode("UTF-8")
-        if not overwrite:
-            # TODO : what's about 'append'?
-            if file_exist(filename):
-                err = "file exist and you're in overwrite=%s mode" % str(overwrite)
-                raise RuntimeError(err)
-
         # check Topology
         if isinstance(top, string_types):
             top_ = Topology(top)

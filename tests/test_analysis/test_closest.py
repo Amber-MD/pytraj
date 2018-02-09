@@ -31,8 +31,11 @@ class TestClosest(unittest.TestCase):
 
         # test write to disk
         fi, top = pt.closest(traj)
+        new_traj = pt.Trajectory(top=top)
+        for frame in fi:
+            new_traj.append(frame)
 
-        pt.write_traj(outputname('fi.nc'), fi, top=top, overwrite=True)
+        pt.write_traj(outputname('fi.nc'), new_traj, overwrite=True)
         # load back
         t1 = pt.load(outputname('fi.nc'), top=top)
         aa_eq(t0.xyz, t1.xyz)
@@ -43,10 +46,6 @@ class TestClosest(unittest.TestCase):
             if mol.is_solvent():
                 n_solvents += 1
         assert n_solvents == 10, 'must be 10 solvents'
-
-        fi, top = pt.closest(traj)
-        pt.write_traj(
-            outputname('test.pdb'), next(fi), top=top, overwrite=True)
 
     def test_closest_compared_to_cpptraj(self):
         trajin = fn('tz2.ortho.nc')

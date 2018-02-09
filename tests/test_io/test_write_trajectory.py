@@ -28,17 +28,9 @@ class TestWriteTraj(unittest.TestCase):
             # write from frame_iter, need to provide top
             fname = "traj_frame_iter.nc"
             # raise ValueError if there is no Topology
-            pt.write_traj(fname, traj(), top=traj.top, overwrite=True)
+            pt.write_traj(fname, traj(), overwrite=True)
             t = pt.iterload(fname, traj.top)
             aa_eq(t.xyz, traj.xyz)
-
-    def test_write_xyz(self):
-        xyz = self.traj.xyz
-        fname = 'test_xyz.nc'
-        with tempfolder():
-            pt.write_traj(fname, xyz, top=self.traj.top, overwrite=True)
-            t0 = pt.iterload(fname, top=self.traj.top)
-            aa_eq(self.traj.xyz, t0.xyz)
 
     def test_split_and_write_traj(self):
         traj = pt.iterload([fn('Tc5b.x'), fn('Tc5b.x')], fn('Tc5b.top'))
@@ -60,25 +52,3 @@ class TestWriteTraj(unittest.TestCase):
             flist = sorted(glob("ts.*.dcd"))
             traj4 = pt.iterload(flist, top)
             aa_eq(traj4.xyz, traj.xyz)
-
-    def test_raise(self):
-        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
-
-        # list
-        self.assertRaises(
-            NotImplementedError,
-            lambda: pt.write_traj('output/test.pdb', [traj[0], traj[1]], top=traj.top, frame_indices=range(3), overwrite=True))
-
-        # single Frame
-        self.assertRaises(
-            ValueError,
-            lambda: pt.write_traj('output/test.pdb', traj[0], top=traj.top, frame_indices=range(3), overwrite=True))
-
-        # single Frame, no Topology
-        self.assertRaises(
-            ValueError,
-            lambda: pt.write_traj('output/test.pdb', traj[0], top=None, overwrite=True))
-
-
-if __name__ == "__main__":
-    unittest.main()

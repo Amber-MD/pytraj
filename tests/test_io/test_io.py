@@ -5,7 +5,7 @@ import unittest
 import numpy as np
 import pytest
 import pytraj as pt
-from pytraj import Topology, Trajectory, TrajectoryIterator
+from pytraj import Topology, Trajectory, TrajectoryIterator, TrajectoryWriter
 from pytraj.testing import aa_eq
 from pytraj.testing import cpptraj_test_dir
 from pytraj.testing import get_remd_fn
@@ -120,54 +120,6 @@ def test_load_comprehensive():
     aa_eq(t2.xyz, traj[::2].xyz)
 
 
-def test_save_traj_from_file():
-    traj = pt.iterload(tc5b_trajin, tc5b_top)[:5]
-    with tempfolder():
-        pt.write_traj(
-            filename="test_0.binpos", traj=traj, top=tc5b_top, overwrite=True)
-
-        savedtraj = pt.iterload("test_0.binpos", traj.top)
-        assert savedtraj.n_frames == traj.n_frames
-
-        # write_xyz
-        pt.write_traj("test_0.nc", traj.xyz, top=tc5b_top, overwrite=True)
-        aa_eq(pt.iterload('test_0.nc', traj.top).xyz, traj.xyz)
-
-        # write single Frame
-        pt.write_traj("test_0.nc", traj[0], top=traj.top, overwrite=True)
-        aa_eq(pt.iterload('test_0.nc', traj.top).xyz, [traj[0].xyz])
-
-        # raise if traj is None
-        with pytest.raises(ValueError):
-            pt.write_traj("test_0.nc", None, overwrite=True)
-
-        # raise if _top is None
-        fi = pt.pipe(traj, [
-            'autoimage',
-        ])
-        with pytest.raises(ValueError):
-            pt.write_traj("test_0.nc", traj=fi, overwrite=True)
-
-        # raise if Frame with frame_indices:
-        with pytest.raises(ValueError):
-            pt.write_traj(
-                "test_0.nc",
-                traj[0],
-                top=tc5b_top,
-                frame_indices=[3, 2],
-                overwrite=True)
-
-        # raise if Frame with no Topology
-        with pytest.raises(ValueError):
-            pt.write_traj("test_0.nc", traj[0], overwrite=True)
-
-        # test if xyz is not c-contiguous
-        # pytraj will autoconvert to c-contiguous
-        xyz = np.asfortranarray(traj.xyz)
-        # make sure no ValueError or TypeError is raised
-        pt.write_traj('xyz.nc', xyz, top=traj.top, overwrite=True)
-
-
 def test_blind_load():
     top = pt.load_topology(tc5b_top)
     assert isinstance(top, Topology) == True
@@ -199,7 +151,6 @@ def test_load_and_save_0():
         pt.write_traj(
             filename="test_io_saved_.x",
             traj=traj[:],
-            top=tc5b_top,
             frame_indices=indices,
             overwrite=True)
 
@@ -221,7 +172,6 @@ def test_load_and_save_1():
         pt.write_traj(
             filename="test_io_saved.pdb",
             traj=traj,
-            top=tc5b_top,
             frame_indices=indices,
             overwrite=True)
 
@@ -229,6 +179,15 @@ def test_load_and_save_1():
         traj = pt.iterload(filename="test_io_saved.pdb", top=tc5b_top)
         assert traj.n_frames == len(indices)
         assert traj.top.n_atoms == 304
+
+
+def test_overwrite():
+    trajin, tn = fn("tz2.nc"), fn("tz2.parm7")
+    with tempfolder():
+        traj = pt.iterload(trajin, tn)
+        pt.write_traj('what.nc', traj)
+        # ensure no IOError is raised.
+        pt.write_traj('what.nc', traj, overwrite=True)
 
 
 def test_get_coordinates_trajecotoryiterator():
@@ -432,8 +391,9 @@ def test_write_velocity_from_scratch():
 
     with tempfolder():
         out_fn = 'out.nc'
-        pt.write_traj(
-            out_fn, traj=add_velocity(traj), top=traj.top, velocity=True)
+        with TrajectoryWriter(out_fn, top=traj.top, crdinfo={'has_velocity': True}) as writer:
+            for frame in add_velocity(traj):
+                writer.write(frame)
         traj2 = pt.iterload(out_fn, top=traj.top)
         assert traj2.metadata['has_velocity']
         assert not traj2.metadata['has_force']
@@ -450,7 +410,9 @@ def test_write_force_from_scratch():
 
     with tempfolder():
         out_fn = 'out.nc'
-        pt.write_traj(out_fn, traj=add_force(traj), top=traj.top, force=True)
+        with TrajectoryWriter(out_fn, top=traj.top, crdinfo={'has_force': True}) as writer:
+            for frame in add_force(traj):
+                writer.write(frame)
         traj2 = pt.iterload(out_fn, top=traj.top)
         assert traj2.metadata['has_force']
         assert not traj2.metadata['has_velocity']
@@ -469,12 +431,10 @@ def test_write_both_force_and_velocity_from_scratch():
 
     with tempfolder():
         out_fn = 'out.nc'
-        pt.write_traj(
-            out_fn,
-            traj=add_force_and_velocity(traj),
-            top=traj.top,
-            force=True,
-            velocity=True)
+        with TrajectoryWriter(out_fn, top=traj.top,
+                crdinfo={'has_force': True, 'has_velocity': True}) as writer:
+            for frame in add_force_and_velocity(traj):
+                writer.write(frame)
         traj2 = pt.iterload(out_fn, top=traj.top)
         assert traj2.metadata['has_force']
         assert traj2.metadata['has_velocity']
@@ -542,7 +502,6 @@ def test_io_load_and_save_0():
         pt.write_traj(
             filename="test_io_saved_.x",
             traj=traj,
-            top=tc5b_top,
             frame_indices=indices,
             overwrite=True)
 

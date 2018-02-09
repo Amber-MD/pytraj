@@ -1,3 +1,4 @@
+import pytest
 import pytraj as pt
 from pytraj import TrajectoryWriter
 from pytraj.testing import aa_eq
@@ -24,10 +25,10 @@ def test_write_CRYST1():
 def test_trajectory_writer():
     traj = pt.iterload(tc5b_trajin, tc5b_top)
     with tempfolder():
-        pt.write_traj("test_1.pdb", traj[0], top=traj.top, overwrite=True)
-        pt.write_traj("test_1.dcd", traj[0], top=traj.top, overwrite=True)
+        pt.write_traj("test_1.pdb", traj[:1], overwrite=True)
+        pt.write_traj("test_1.dcd", traj[:1], overwrite=True)
 
-        with TrajectoryWriter("test_1", overwrite=True) as trajout:
+        with TrajectoryWriter("test_1") as trajout:
             trajout.write(traj[0])
 
 
@@ -54,6 +55,23 @@ def test_write_pdb():
             fname = basename + "." + str(i + 1)  # cpptraj use `1`
             frame = pt.iterload(fname, traj.top)[0]
             aa_eq(frame.xyz, traj[i].xyz)
+
+        with pytest.raises(IOError):
+            # write files again, raise if file exists
+            pt.write_traj(basename, traj, overwrite=False, options="multi")
+
+    # keepext
+    with tempfolder():
+        basename = 'test_pdb_files_pt_write_traj.pdb'
+        basename2 = 'test_pdb_files_pt_write_traj'
+        pt.write_traj(basename, traj, overwrite=True, options="multi keepext")
+        for i in range(10):
+            fname = "{}.{}.pdb".format(basename2, i+1)
+            frame = pt.iterload(fname, traj.top)[0]
+            aa_eq(frame.xyz, traj[i].xyz)
+
+        with pytest.raises(IOError):
+             pt.write_traj(basename, traj, overwrite=False, options="multi keepext")
 
     # multiple pdb in SINGLE file
     with tempfolder():

@@ -13,8 +13,8 @@ def test_trajectory_writer_open_close():
         fn("Tc5b.x"), fn("Tc5b.top"), frame_indices=list(range(10)))
     frame0 = farray[0]
     with tempfolder():
-        trajout = TrajectoryWriter()
-        trajout.open(filename="test.x", top=farray.top, overwrite=True)
+        trajout = TrajectoryWriter(top=farray.top)
+        trajout.open(filename="test.x")
         trajout.write(frame0)
 
         # add more frames
@@ -33,8 +33,7 @@ def test_trajectory_writer__with_statement():
     with tempfolder():
         with TrajectoryWriter(
                 filename="test_trajout_withstatement.x",
-                top=farray.top,
-                overwrite=True) as trajout:
+                top=farray.top) as trajout:
             trajout.write(frame0)
         # reload
         farray2 = Trajectory("test_trajout_withstatement.x", fn('Tc5b.top'))
@@ -45,8 +44,7 @@ def test_trajectory_writer_write_PDBFILE():
     frame0 = farray[0]
     filename="dummy_test_dafd.pdb"
     with TrajectoryWriter(
-            filename="dummy_test_dafd.pdb", top=farray.top,
-            overwrite=True) as trajout:
+            filename="dummy_test_dafd.pdb", top=farray.top) as trajout:
         trajout.write(frame0)
     with open(filename) as fh:
         assert "" in fh.read()
@@ -58,9 +56,9 @@ def test_trajectory_writer_write_Trajectory():
         fn("Tc5b.x"), fn("Tc5b.top"), frame_indices=list(range(10)))
     with tempfolder():
         pt.write_traj(
-            "test_write_output.x", farray, top=farray.top, overwrite=True)
+            "test_write_output.x", farray, overwrite=True)
         pt.write_traj(
-            "test_pdb_1.dummyext", farray[0], top=farray.top, overwrite=True)
+                "test_pdb_1.dummyext", farray[:1], overwrite=True)
 
         # test 'save'
         farray.save("test_write_output_save_method.x", overwrite=True)

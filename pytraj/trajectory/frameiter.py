@@ -240,7 +240,6 @@ class FrameIterator(object):
         write_traj(
             filename=filename,
             traj=self,
-            top=self.top,
             frame_indices=None,
             overwrite=overwrite,
             options=options,
