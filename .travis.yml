@@ -14,8 +14,6 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       brew tap homebrew/science;
       brew install netcdf fftw;
-      export CXX=clang++;
-      export CC=clang;
       shell_session_update() { echo "Overriding shell_session_update"; };
       sudo bash devtools/ci/install_gfortran.sh
     else
