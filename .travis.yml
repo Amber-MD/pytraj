@@ -52,6 +52,7 @@ script:
         export CC=gcc-6;
       fi
     - source devtools/travis-ci/install_pytraj.sh
+    - python -c "import pytraj; pytraj.run_tests()"
     - source devtools/ci/run_tests.sh
 
 after_success:
