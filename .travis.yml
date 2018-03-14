@@ -15,7 +15,7 @@ before_install:
       brew tap homebrew/science;
       brew install netcdf fftw;
       shell_session_update() { echo "Overriding shell_session_update"; };
-      sudo bash devtools/ci/install_gfortran.sh
+      sudo bash devtools/ci/install_gfortran.sh;
     fi
 
 addons:
@@ -46,7 +46,7 @@ install:
 
 script:
     - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
-          unset CC CXX
+          unset CC CXX;
       else
         export CXX=g++-6;
         export CC=gcc-6;
