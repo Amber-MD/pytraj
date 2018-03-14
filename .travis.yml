@@ -11,14 +11,11 @@ matrix:
 sudo: false
 
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
       brew tap homebrew/science;
       brew install netcdf fftw;
       shell_session_update() { echo "Overriding shell_session_update"; };
       sudo bash devtools/ci/install_gfortran.sh
-    else
-      export CXX=g++-6;
-      export CC=gcc-6;
     fi
 
 addons:
@@ -48,10 +45,12 @@ install:
     - source devtools/ci/install_test.sh
 
 script:
-    - which gcc
-    - gcc -v
-    - which g++
-    - g++ -v
+    - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
+          unset CC CXX
+      else
+        export CXX=g++-6;
+        export CC=gcc-6;
+      fi
     - source devtools/travis-ci/install_pytraj.sh
     - source devtools/ci/run_tests.sh
 
