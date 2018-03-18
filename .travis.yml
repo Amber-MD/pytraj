@@ -2,10 +2,10 @@ language: cpp
 
 matrix:
   include:
-    - { os: linux, env: PYTHON_VERSION=2.7 PYPY=true }
-    - { os: linux, env: PYTHON_VERSION=2.7 }
+      #  - { os: linux, env: PYTHON_VERSION=2.7 PYPY=true }
+      # - { os: linux, env: PYTHON_VERSION=2.7 }
     - { os: linux, env: PYTHON_VERSION=3.6 }
-    - { os: linux, env: PYTHON_VERSION=3.6 USE_OPENMP=false }
+      # - { os: linux, env: PYTHON_VERSION=3.6 USE_OPENMP=false }
     # - { os: osx, env: PYTHON_VERSION=3.6 }
 
 sudo: false
@@ -54,7 +54,10 @@ script:
     - gcc -v
     - which g++
     - g++ -v
+    - gfortran -v
     - source devtools/travis-ci/install_pytraj.sh
+    - (cd tests && python -c "import pytraj; pytraj.run_tests()")
+    - ldd cpptraj/lib/libcpptraj.so
     - source devtools/ci/run_tests.sh
 
 after_success:
