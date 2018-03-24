@@ -84,11 +84,12 @@ class TestSimpleRMSD(unittest.TestCase):
 
         cm = '''
         parm  {} [tc5b]
-        trajin {} [tc5b]
+        trajin {}
         parm {} [tz2]
         reference {} parm [tz2] 1 [myref]
         rms myrmsd ref [myref] @1-10 @11-20
         '''.format(tc5b_top, tc5b_trajin, tz2_top, tz2_trajin)
+        print(cm)
         state = pt.load_cpptraj_state(cm)
         with tempfolder():
             state.run()
