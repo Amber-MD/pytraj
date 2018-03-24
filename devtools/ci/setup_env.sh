@@ -16,7 +16,7 @@ if [ "$PYPY" = "true" ]; then
     export PATH=$HOME/pypy/$fn/bin:$PATH 
     wget wget https://bootstrap.pypa.io/get-pip.py
     pypy get-pip.py
-    pypy -m pip install cython numpy
+    pypy -m pip install cython==0.27 numpy
     pypy -m pip install pytest
     cd $cwd
 else
