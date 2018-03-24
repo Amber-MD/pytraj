@@ -10,5 +10,5 @@ bash miniconda.sh -b
 export PATH=$HOME/miniconda/bin:$PATH
 ls $HOME/miniconda/bin/
 conda install --yes conda-build jinja2 anaconda-client pip
-conda install -yes numpy cython h5py libnetcdf
+conda install -yes numpy cython=0.26 h5py libnetcdf
 source devtools/ci/install_test.sh
