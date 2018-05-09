@@ -555,7 +555,7 @@ cdef class TrajectoryCpptraj:
         return self
 
     def _remove_transformations(self):
-        self._actionlist = ActionList()
+        self._actionlist = ActionList(top=self.top)
         self._cdslist = CpptrajDatasetList()
         self._being_transformed = False
         self._being_superposed = False
