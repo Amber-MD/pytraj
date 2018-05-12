@@ -227,6 +227,11 @@ class TestPCA(unittest.TestCase):
             traj_on_disk, mask='@CA', n_vecs=2, fit=fit, ref=ref0)
         data1, _ = pt.pca(traj_on_mem, mask='@CA', n_vecs=2, fit=fit, ref=ref1)
         aa_eq(np.abs(data0), np.abs(data1))
+        # try again
+        # https://github.com/Amber-MD/pytraj/issues/1452
+        data2, _ = pt.pca(
+            traj_on_disk, mask='@CA', n_vecs=2, fit=fit, ref=ref0)
+        aa_eq(np.abs(data0), np.abs(data2))
 
     def test_traj_on_disk_fit_to_given_reference_and_restore_transform_commands(
             self):
