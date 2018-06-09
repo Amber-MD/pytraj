@@ -380,6 +380,19 @@ def test_options():
         assert os.path.exists('test.1.rst7')
 
 
+def test_write_time():
+    top_fname = os.path.join(cpptraj_test_dir, 'FtuFabI.NAD.TCL.parm7')
+    traj_fname = os.path.join(cpptraj_test_dir, 'FtuFabI.NAD.TCL.nc')
+    traj = pt.iterload(traj_fname, top_fname)
+    aa_eq(np.array([f.time for f in traj]), 
+            [37031.0, 37032.0, 37033.0, 37034.0, 37035.0, 37036.0, 37037.0, 37038.0, 37039.0, 37040.0])
+    with tempfolder():
+        pt.write_traj('test.nc', traj, time=True)
+        traj2 = pt.iterload('test.nc', traj.top)
+        aa_eq(np.array([f.time for f in traj2]), 
+                [37031.0, 37032.0, 37033.0, 37034.0, 37035.0, 37036.0, 37037.0, 37038.0, 37039.0, 37040.0])
+
+
 def test_write_velocity_from_scratch():
     traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
     assert traj[0].velocity is None
