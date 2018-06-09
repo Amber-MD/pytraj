@@ -396,6 +396,10 @@ def test_write_time():
         out_traj = pt.iterload('test.nc', traj.top)
         aa_eq(np.array([f.time for f in out_traj]), time_arr)
 
+        # load method
+        out_traj2 = pt.load('test.nc', traj.top)
+        aa_eq(np.array([f.time for f in out_traj2]), time_arr)
+
 
 def test_write_velocity_from_scratch():
     traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
