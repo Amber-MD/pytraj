@@ -369,7 +369,7 @@ def write_traj(filename,
         if True, write velocity. Make sure your trajectory or Frame does have velocity
     force : bool, default False
         if True, write force. Make sure your trajectory or Frame does have force
-    force : bool, default False
+    time: bool, default False
         if True, write time.
     options : str, additional cpptraj keywords
 
