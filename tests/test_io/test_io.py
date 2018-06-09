@@ -384,13 +384,15 @@ def test_write_time():
     top_fname = os.path.join(cpptraj_test_dir, 'FtuFabI.NAD.TCL.parm7')
     traj_fname = os.path.join(cpptraj_test_dir, 'FtuFabI.NAD.TCL.nc')
     traj = pt.iterload(traj_fname, top_fname)
-    aa_eq(np.array([f.time for f in traj]), 
-            [37031.0, 37032.0, 37033.0, 37034.0, 37035.0, 37036.0, 37037.0, 37038.0, 37039.0, 37040.0])
+    time_arr = np.array([37031.0, 37032.0, 37033.0, 37034.0, 37035.0, 37036.0, 37037.0, 37038.0, 37039.0, 37040.0])
+    aa_eq(np.array([f.time for f in traj]), time_arr)
+    traj2 = traj[:] # in memory
+    aa_eq(np.array([f.time for f in traj2]), time_arr)
+
     with tempfolder():
         pt.write_traj('test.nc', traj, time=True)
-        traj2 = pt.iterload('test.nc', traj.top)
-        aa_eq(np.array([f.time for f in traj2]), 
-                [37031.0, 37032.0, 37033.0, 37034.0, 37035.0, 37036.0, 37037.0, 37038.0, 37039.0, 37040.0])
+        traj3 = pt.iterload('test.nc', traj.top)
+        aa_eq(np.array([f.time for f in traj3]), time_arr)
 
 
 def test_write_velocity_from_scratch():

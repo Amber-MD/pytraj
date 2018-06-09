@@ -61,14 +61,18 @@ class Trajectory(SharedTrajectory):
                  top=None,
                  xyz=None,
                  velocity=None,
-                 force=None):
+                 force=None,
+                 time=None):
         self._top = get_topology(filename, top)
         if velocity is not None:
             velocity = np.asarray(velocity, dtype='f8')
         if force is not None:
             force = np.asarray(force, dtype='f8')
+        if time is not None:
+            time = np.asarray(time, dtype='f8')
         self.velocities = velocity
         self.forces = force
+        self.time = time
 
         if self._top is None:
             self._top = Topology()
@@ -251,6 +255,8 @@ class Trajectory(SharedTrajectory):
                 frame.force = self.forces[index]
             if self.velocities is not None:
                 frame.velocity = self.velocities[index]
+            if self.time is not None:
+                frame.time = self.time[index]
             yield frame
 
     def _handle_setting_box_force_velocity(self, frame, index):
