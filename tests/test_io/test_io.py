@@ -385,14 +385,16 @@ def test_write_time():
     traj_fname = os.path.join(cpptraj_test_dir, 'FtuFabI.NAD.TCL.nc')
     traj = pt.iterload(traj_fname, top_fname)
     time_arr = np.array([37031.0, 37032.0, 37033.0, 37034.0, 37035.0, 37036.0, 37037.0, 37038.0, 37039.0, 37040.0])
-    aa_eq(np.array([f.time for f in traj]), time_arr)
+    aa_eq([f.time for f in traj], time_arr)
     traj2 = traj[:] # in memory
-    aa_eq(np.array([f.time for f in traj2]), time_arr)
+    aa_eq(traj2.time, time_arr)
+    traj3 = traj2[:] # slice in memory trajectory again
+    aa_eq(traj3.time, time_arr)
 
     with tempfolder():
         pt.write_traj('test.nc', traj, time=True)
-        traj3 = pt.iterload('test.nc', traj.top)
-        aa_eq(np.array([f.time for f in traj3]), time_arr)
+        out_traj = pt.iterload('test.nc', traj.top)
+        aa_eq(np.array([f.time for f in out_traj]), time_arr)
 
 
 def test_write_velocity_from_scratch():
@@ -409,7 +411,7 @@ def test_write_velocity_from_scratch():
         with TrajectoryWriter(out_fn, top=traj.top, crdinfo={'has_velocity': True}) as writer:
             for frame in add_velocity(traj):
                 writer.write(frame)
-        traj2 = pt.iterload(out_fn, top=traj.top)
+        tra2 = pt.iterload(out_fn, top=traj.top)
         assert traj2.metadata['has_velocity']
         assert not traj2.metadata['has_force']
 

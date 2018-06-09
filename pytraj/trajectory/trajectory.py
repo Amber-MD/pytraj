@@ -266,6 +266,8 @@ class Trajectory(SharedTrajectory):
             frame.velocity = self.velocities[index]
         if self.forces is not None:
             frame.force = self.forces[index]
+        if self.time is not None:
+            frame.time = self.time[index]
 
     def __getitem__(self, index):
         """return a view or copy of coordinates (follow numpy's rule)
@@ -332,6 +334,9 @@ class Trajectory(SharedTrajectory):
                 if self._boxes is not None:
                     # always make a copy in this case
                     traj._boxes = self._boxes.copy()
+                if self.time is not None:
+                    # always make a copy in this case
+                    traj.time = self.time.copy()
                 traj._xyz = arr0.copy()
             elif not isinstance(index, tuple):
                 # might return a view or a copy
@@ -347,6 +352,8 @@ class Trajectory(SharedTrajectory):
                 if self.velocities is not None:
                     velocities = self.velocities[index]
                     traj.velocities = velocities
+                if self.time is not None:
+                    traj.time = self.time[index]
             else:
                 # is a tuple
                 if len(index) == 1:
