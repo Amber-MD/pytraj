@@ -387,9 +387,9 @@ def test_write_time():
     time_arr = np.array([37031.0, 37032.0, 37033.0, 37034.0, 37035.0, 37036.0, 37037.0, 37038.0, 37039.0, 37040.0])
     aa_eq([f.time for f in traj], time_arr)
     traj2 = traj[:] # in memory
-    aa_eq(traj2.time, time_arr)
+    aa_eq(np.array([f.time for f in traj2]), time_arr)
     traj3 = traj2[:] # slice in memory trajectory again
-    aa_eq(traj3.time, time_arr)
+    aa_eq(np.array([f.time for f in traj3]), time_arr)
 
     with tempfolder():
         pt.write_traj('test.nc', traj, time=True)
