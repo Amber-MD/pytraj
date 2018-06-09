@@ -411,7 +411,7 @@ def test_write_velocity_from_scratch():
         with TrajectoryWriter(out_fn, top=traj.top, crdinfo={'has_velocity': True}) as writer:
             for frame in add_velocity(traj):
                 writer.write(frame)
-        tra2 = pt.iterload(out_fn, top=traj.top)
+        traj2 = pt.iterload(out_fn, top=traj.top)
         assert traj2.metadata['has_velocity']
         assert not traj2.metadata['has_force']
 
