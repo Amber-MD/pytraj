@@ -380,6 +380,30 @@ def test_options():
         assert os.path.exists('test.1.rst7')
 
 
+def test_write_time():
+    top_fname = os.path.join(cpptraj_test_dir, 'FtuFabI.NAD.TCL.parm7')
+    traj_fname = os.path.join(cpptraj_test_dir, 'FtuFabI.NAD.TCL.nc')
+    traj = pt.iterload(traj_fname, top_fname)
+    time_arr = np.array([
+        37031.0, 37032.0, 37033.0, 37034.0, 37035.0, 37036.0, 37037.0, 37038.0,
+        37039.0, 37040.0
+    ])
+    aa_eq([f.time for f in traj], time_arr)
+    traj2 = traj[:]  # in memory
+    aa_eq(np.array([f.time for f in traj2]), time_arr)
+    traj3 = traj2[:]  # slice in memory trajectory again
+    aa_eq(np.array([f.time for f in traj3]), time_arr)
+
+    with tempfolder():
+        pt.write_traj('test.nc', traj, time=True)
+        out_traj = pt.iterload('test.nc', traj.top)
+        aa_eq(np.array([f.time for f in out_traj]), time_arr)
+
+        # load method
+        out_traj2 = pt.load('test.nc', traj.top)
+        aa_eq(np.array([f.time for f in out_traj2]), time_arr)
+
+
 def test_write_velocity_from_scratch():
     traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
     assert traj[0].velocity is None
@@ -391,7 +415,10 @@ def test_write_velocity_from_scratch():
 
     with tempfolder():
         out_fn = 'out.nc'
-        with TrajectoryWriter(out_fn, top=traj.top, crdinfo={'has_velocity': True}) as writer:
+        with TrajectoryWriter(
+                out_fn, top=traj.top, crdinfo={
+                    'has_velocity': True
+                }) as writer:
             for frame in add_velocity(traj):
                 writer.write(frame)
         traj2 = pt.iterload(out_fn, top=traj.top)
@@ -410,7 +437,10 @@ def test_write_force_from_scratch():
 
     with tempfolder():
         out_fn = 'out.nc'
-        with TrajectoryWriter(out_fn, top=traj.top, crdinfo={'has_force': True}) as writer:
+        with TrajectoryWriter(
+                out_fn, top=traj.top, crdinfo={
+                    'has_force': True
+                }) as writer:
             for frame in add_force(traj):
                 writer.write(frame)
         traj2 = pt.iterload(out_fn, top=traj.top)
@@ -431,8 +461,13 @@ def test_write_both_force_and_velocity_from_scratch():
 
     with tempfolder():
         out_fn = 'out.nc'
-        with TrajectoryWriter(out_fn, top=traj.top,
-                crdinfo={'has_force': True, 'has_velocity': True}) as writer:
+        with TrajectoryWriter(
+                out_fn,
+                top=traj.top,
+                crdinfo={
+                    'has_force': True,
+                    'has_velocity': True
+                }) as writer:
             for frame in add_force_and_velocity(traj):
                 writer.write(frame)
         traj2 = pt.iterload(out_fn, top=traj.top)

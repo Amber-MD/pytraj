@@ -351,6 +351,7 @@ def write_traj(filename,
                overwrite=False,
                force=False,
                velocity=False,
+               time=False,
                options=""):
     """
 
@@ -368,6 +369,8 @@ def write_traj(filename,
         if True, write velocity. Make sure your trajectory or Frame does have velocity
     force : bool, default False
         if True, write force. Make sure your trajectory or Frame does have force
+    time: bool, default False
+        if True, write time.
     options : str, additional cpptraj keywords
 
     Notes
@@ -457,6 +460,7 @@ def write_traj(filename,
 
     crdinfo['has_force'] = force
     crdinfo['has_velocity'] = velocity
+    crdinfo['has_time'] = time
 
     with TrajectoryWriter(
             filename=filename,

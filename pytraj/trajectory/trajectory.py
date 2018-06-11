@@ -61,14 +61,18 @@ class Trajectory(SharedTrajectory):
                  top=None,
                  xyz=None,
                  velocity=None,
-                 force=None):
+                 force=None,
+                 time=None):
         self._top = get_topology(filename, top)
         if velocity is not None:
             velocity = np.asarray(velocity, dtype='f8')
         if force is not None:
             force = np.asarray(force, dtype='f8')
+        if time is not None:
+            time = np.asarray(time, dtype='f8')
         self.velocities = velocity
         self.forces = force
+        self.time = time
 
         if self._top is None:
             self._top = Topology()
@@ -251,6 +255,8 @@ class Trajectory(SharedTrajectory):
                 frame.force = self.forces[index]
             if self.velocities is not None:
                 frame.velocity = self.velocities[index]
+            if self.time is not None:
+                frame.time = self.time[index]
             yield frame
 
     def _handle_setting_box_force_velocity(self, frame, index):
@@ -260,6 +266,8 @@ class Trajectory(SharedTrajectory):
             frame.velocity = self.velocities[index]
         if self.forces is not None:
             frame.force = self.forces[index]
+        if self.time is not None:
+            frame.time = self.time[index]
 
     def __getitem__(self, index):
         """return a view or copy of coordinates (follow numpy's rule)
@@ -326,6 +334,9 @@ class Trajectory(SharedTrajectory):
                 if self._boxes is not None:
                     # always make a copy in this case
                     traj._boxes = self._boxes.copy()
+                if self.time is not None:
+                    # always make a copy in this case
+                    traj.time = self.time.copy()
                 traj._xyz = arr0.copy()
             elif not isinstance(index, tuple):
                 # might return a view or a copy
@@ -341,6 +352,8 @@ class Trajectory(SharedTrajectory):
                 if self.velocities is not None:
                     velocities = self.velocities[index]
                     traj.velocities = velocities
+                if self.time is not None:
+                    traj.time = self.time[index]
             else:
                 # is a tuple
                 if len(index) == 1:
