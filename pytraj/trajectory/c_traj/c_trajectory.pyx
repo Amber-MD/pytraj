@@ -425,6 +425,7 @@ cdef class TrajectoryCpptraj:
         cdef Frame frame
         cdef double[:, :, :] xyz
         cdef int n_frames = len(indices)
+        cdef bint has_time
 
         traj = Trajectory()
         traj.top = self.top
@@ -436,7 +437,9 @@ cdef class TrajectoryCpptraj:
         traj.top = self.top
         xyz = traj.xyz
 
-        if self.thisptr.CoordsInfo().HasTime():
+        has_time = self.thisptr.CoordsInfo().HasTime()
+
+        if has_time:
             traj.time = np.zeros(n_frames, dtype='f8')
 
         # FIXME: make a function to update time, box, ...
@@ -452,7 +455,8 @@ cdef class TrajectoryCpptraj:
                 if self._being_transformed:
                     self._do_transformation(frame)
                 traj.unitcells[j] = frame.box._get_data()
-                traj.time[j] = frame.time
+                if has_time:
+                    traj.time[j] = frame.time
             return traj
 
         else:
@@ -470,7 +474,8 @@ cdef class TrajectoryCpptraj:
                 traj.xyz[j] = frame.xyz
                 traj.unitcells[j] = frame.box._get_data()
                 traj.velocities[j] = frame.velocity
-                traj.time[j] = frame.time
+                if has_time:
+                    traj.time[j] = frame.time
             return traj
 
     def _iterframe_indices(self, frame_indices):
