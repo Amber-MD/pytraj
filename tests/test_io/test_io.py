@@ -334,7 +334,7 @@ def test_formats():
 
         # mol2
         traj.save(fn, format='mol2', overwrite=True)
-        expected_line = 'Cpptraj generated mol2 file'
+        expected_line = 'Cpptraj Generated mol2 file'
         assert_has_exptected_line_textfile(expected_line, 1, fn)
 
         # mdcrd
@@ -349,12 +349,12 @@ def test_formats():
 
         # dcd
         traj.save(fn, format='dcd', overwrite=True)
-        expected_line = 'Cpptraj generated dcd file'
+        expected_line = 'Cpptraj Generated dcd file'
         assert_has_exptected_line_binaryfile(expected_line, fn)
 
         # cif, not supported
         # traj.save(fn, format='cif', overwrite=True)
-        # expected_line = 'Cpptraj generated cif file'
+        # expected_line = 'Cpptraj Generated cif file'
         # assert_has_exptected_line_textfile(expected_line, 1, fn)
 
         # trr
