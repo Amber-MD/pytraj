@@ -5,23 +5,20 @@ import numpy as np
 import pytraj as pt
 from utils import fn
 from pytraj.testing import aa_eq
+from mock import patch
 
 
-class TestNativeContacts(unittest.TestCase):
-    def test_nativecontacts(self):
-        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
+def test_nativecontacts(tmpdir):
+    with tmpdir.as_cwd():
+        traj_fname = fn('DPDP.nc')
+        top_fname = fn('DPDP.parm7')
+        traj = pt.iterload(traj_fname, top_fname)
 
-        dslist = pt.native_contacts(traj, top=traj.top)
-        cpp = np.loadtxt(
-            fn('tc5b.native_contacts.dat'), skiprows=1, usecols=(1, 2)).T
-        aa_eq(dslist.values, cpp)
+        c_raw = pt.compute("""
+        nativecontacts name NC3 :1-21&!@H= byresidue out nc.all.res.dat distance 3.0
+        """, traj)
 
-        # mask2
-        cb_indices = pt.select('@CB', traj.top)
-        dslist2 = pt.native_contacts(traj, mask='@CA', mask2='@CB')
-        dslist3 = pt.native_contacts(traj, mask='@CA', mask2=cb_indices)
-        aa_eq(dslist2.values, dslist3.values)
-
-
-if __name__ == "__main__":
-    unittest.main()
+        data = pt.nativecontacts(traj, mask=':1-21&!@H=', byres=True,
+                distance=3.0, options='name NC3', dtype='dict')
+        print(c_raw, data)
+        aa_eq(c_raw['NC3[native]'], data['NC3[native]'])

@@ -1786,8 +1786,14 @@ def native_contacts(traj=None,
                     include_solvent=False,
                     byres=False,
                     frame_indices=None,
+                    options='',
                     top=None):
     """compute native contacts
+
+    Parameters
+    ----------
+    options : str, extra cpptraj command(s).
+
 
     Examples
     --------
@@ -1810,19 +1816,19 @@ def native_contacts(traj=None,
     if not isinstance(mask2, string_types):
         # [1, 3, 5] to "@1,3,5
         mask2 = array_to_cpptraj_atommask(mask2)
-    command = ' '.join((mask, mask2))
+    mask_ = ' '.join((mask, mask2))
 
-    _distance = str(distance)
+    distance_ = 'distance %s' % str(distance)
     noimage_ = "noimage" if not image else ""
-    _includesolvent = "includesolvent" if include_solvent else ""
-    _byres = "byresidue" if byres else ""
+    includesolvent_ = "includesolvent" if include_solvent else ""
+    byres_ = "byresidue" if byres else ""
 
-    command_ = " ".join(('ref myframe', command, _distance, noimage_,
-                         _includesolvent, _byres))
+    command = " ".join(('ref myframe', mask_, distance_, noimage_,
+                         includesolvent_, byres_, options))
     c_dslist.add('ref_frame', 'myframe')
     c_dslist[0].top = top
     c_dslist[0].add_frame(ref)
-    act(command_, traj, top=top, dslist=c_dslist)
+    act(command, traj, top=top, dslist=c_dslist)
     c_dslist._pop(0)
 
     return get_data_from_dtype(c_dslist, dtype=dtype)
