@@ -14,6 +14,7 @@ fi
 # (cd cpptraj && git checkout d1d762564952d1a7df55126f5550a407b054f118)
 
 # use cpptraj master branch
+echo "Cython version `cython -V`"
 if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     $python setup.py install --disable-openmp
 else
