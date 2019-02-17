@@ -5,7 +5,7 @@ matrix:
     - { os: linux, env: PYTHON_VERSION=2.7 }
     - { os: linux, env: PYTHON_VERSION=3.6 }
     - { os: linux, env: PYTHON_VERSION=3.7 }
-    - { os: linux, env: PYTHON_VERSION=2.7 PYPY=true }
+      # - { os: linux, env: PYTHON_VERSION=2.7 PYPY=true } # see [1]
     - { os: linux, env: PYTHON_VERSION=3.6 USE_OPENMP=false }
     - { os: osx, env: PYTHON_VERSION=3.7 }
 
@@ -64,3 +64,7 @@ notifications:
       - nhai.qn@gmail.com
     on_success: never
     on_failure: always
+
+# [1]:   File "/home/travis/pypy/pypy-5.9-linux_x86_64-portable/site-packages/numpy/core/multiarray.py", line 44, in <module>
+         # _reconstruct.__module__ = 'numpy.core.multiarray'
+         # TypeError: readonly attribute
