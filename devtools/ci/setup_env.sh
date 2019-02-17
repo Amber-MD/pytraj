@@ -16,8 +16,7 @@ if [ "$PYPY" = "true" ]; then
     export PATH=$HOME/pypy/$fn/bin:$PATH 
     wget wget https://bootstrap.pypa.io/get-pip.py
     pypy get-pip.py
-    pypy -m pip install cython==0.26 numpy
-    pypy -m pip install pytest
+    pypy -m pip -r pip-requirements.txt
     cd $cwd
 else
     miniconda_version=4.3.21
@@ -33,9 +32,8 @@ else
     bash miniconda.sh -b
     
     export PATH=$HOME/miniconda3/bin:$PATH
-    conda install --yes conda-build=3.0.19 jinja2 anaconda-client pip numpy=1.13.1 nomkl
-    pip install auditwheel==1.7.0
-    pip install cython==0.26
+    conda install --yes conda-build=3.0.19 jinja2 anaconda-client pip
+    pypy -m pip -r pip-requirements.txt
     
     # create myenv
     conda create -y -n myenv python=$PYTHON_VERSION
