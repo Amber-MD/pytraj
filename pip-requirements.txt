@@ -3,3 +3,5 @@ numpy==1.16.1
 cython==0.29
 auditwheel==2.0.0
 mock==2.0.0
+pytest==4.2.1
+pytest-cov==2.6.1

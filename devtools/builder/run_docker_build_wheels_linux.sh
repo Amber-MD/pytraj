@@ -16,6 +16,7 @@ cd /feedstock_root/
 export python=/opt/python/cp36-cp36m/bin/python
 
 if [ ! -d dist ]; then
+    \$python -m pip install -r ./pip-requirements.txt
     \$python ./devtools/mkrelease
 fi
 
