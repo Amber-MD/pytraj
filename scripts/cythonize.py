@@ -4,8 +4,8 @@ import Cython
 from Cython.Build import cythonize
 from glob import glob
 
-if Cython.__version__ < '0.21':
-    sys.stderr.write('require cython version >=0.21')
+if Cython.__version__ < '0.29':
+    sys.stderr.write('require cython version >=0.29')
     sys.exit(1)
 
 print("INFO: Cython version = ", Cython.__version__)
