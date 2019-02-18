@@ -9,3 +9,6 @@ tests/TestListTravis.sh
 *nogit*
 Makefile
 set_env.sh
+
+# editors
+.vscode
