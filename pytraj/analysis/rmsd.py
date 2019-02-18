@@ -219,6 +219,9 @@ def rmsd_nofit(traj=None,
     Notes
     -----
     This method is equal to pytraj.rmsd(traj, mask, ref, nofit=True, ...)
+
+    When comparing the same structures (e.g. small ligands), the atoms need to be in the exact same order in the trajectory and reference frames.
+    The function `atom_map(traj, ref, rmsfit=False)` can be used to attempt to reorder the atoms in the correct way before a RMSD calculation.
     '''
     return rmsd(
         traj=traj,
@@ -298,6 +301,9 @@ def rmsd(traj=None,
     Notes
     -----
     if ``traj`` is mutable and update_coordinate=True, its coordinates will be updated.
+
+    When comparing the same structures (e.g. small ligands), the atoms need to be in the exact same order in the trajectory and reference frames.
+    The function `atom_map(traj, ref, rmsfit=False)` can be used to attempt to reorder the atoms in the correct way before a RMSD calculation.
     """
 
     nofit_ = 'nofit' if nofit else ''
@@ -412,6 +418,9 @@ def symmrmsd(traj,
     Notes
     -----
     versionadded: 1.0.6
+
+    When comparing the same structures (e.g. small ligands), the atoms need to be in the exact same order in the trajectory and reference frames.
+    The function `atom_map(traj, ref, rmsfit=False)` can be used to attempt to reorder the atoms in the correct way before a RMSD calculation.
     """
 
     mask_ = mask
