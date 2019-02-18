@@ -103,10 +103,8 @@ class PipBuilder(object):
         if self.use_manylinux:
             return ''
         else:
-            command = "conda info | grep 'root environment'"
-            output = subprocess.check_output(command, shell=True).decode()
-            # e.g: outproot = "environment : /home/haichit/anaconda3  (writable)"
-            return output.split()[3] + '/'
+            command = "conda info --base"
+            return subprocess.check_output(command, shell=True).decode().strip()
 
     def create_env(self, python_version):
         env = 'pytraj' + python_version
