@@ -321,6 +321,7 @@ def rmsd(traj=None,
         except ValueError:
             raise ValueError("don't mix different types")
         dname = cmd.dtype.name
+        print("DNAME", dname)
         if 'str' in dname:
             command = cmd
         elif 'int' in dname:
