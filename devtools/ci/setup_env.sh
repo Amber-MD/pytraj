@@ -33,7 +33,8 @@ else
     
     export PATH=$HOME/miniconda3/bin:$PATH
     conda install --yes conda-build=3.0.19 jinja2 anaconda-client pip
-    pypy -m pip -r pip-requirements.txt
+    conda install -y --file conda-requirements.txt
+    pip install -r pip-requirements.txt
     
     # create myenv
     conda create -y -n myenv python=$PYTHON_VERSION
