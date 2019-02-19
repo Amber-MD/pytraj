@@ -136,10 +136,12 @@ else:
 
 setenv_cc_cxx(cpptraj_info.ambertools_distro, extra_compile_args,
               extra_link_args)
-if sys.platform.startswith('darwin') and is_clang(os.getenv('CXX')):
-    # FIXME: should check if Python is built with GNU or clang compiler
-    print("Detect MacOS build with clang compiler. Adding -stdlib=libstdc++")
-    extra_compile_args.append('-stdlib=libstdc++')
+
+# We don't need this anymore?
+# if sys.platform.startswith('darwin') and is_clang(os.getenv('CXX')):
+#     # FIXME: should check if Python is built with GNU or clang compiler
+#     # print("Detect MacOS build with clang compiler. Adding -stdlib=libstdc++")
+#     # extra_compile_args.append('-stdlib=libstdc++')
 
 
 if not compile_c_extension:
