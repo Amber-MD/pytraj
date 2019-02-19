@@ -45,6 +45,8 @@ install:
 script:
     - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
           unset CC CXX;
+          sw_vers;
+          export MACOSX_DEPLOYMENT_TARGET=10.14;
       else
         export CXX=g++-6;
         export CC=gcc-6;
