@@ -12,7 +12,7 @@ from ...datasets.c_datasetlist cimport DatasetList as CpptrajDatasetList, _Datas
 from ...analysis.c_action.actionlist cimport _ActionList, ActionList
 
 
-cdef extern from "DataSet_Coords_TRJ.h" nogil: 
+cdef extern from "DataSet_Coords_TRJ.h": 
     cdef cppclass _TrajectoryCpptraj "DataSet_Coords_TRJ" (_DatasetCoords):
         _TrajectoryCpptraj() 
         int AddSingleTrajin(const string&, _ArgList&, _Topology *)
