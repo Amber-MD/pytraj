@@ -169,11 +169,12 @@ def install_libcpptraj(compiler='', build_flag='', n_cpus=4):
         _install_libcpptraj_win_msys2()
     else:
         cxx_overwrite = ''
-        if IS_OSX:
-            if ((compiler == 'clang' or 'clang' in os.getenv('CXX', '')) or
-                (os.getenv('CXX') and is_clang(os.getenv('CXX')))):
-                cxx_overwrite = 'CXX="clang++ -stdlib=libstdc++"'
-                # print("FIXME: update this")
+
+        # We don't need this anymore?
+        # if IS_OSX:
+        #     if ((compiler == 'clang' or 'clang' in os.getenv('CXX', '')) or
+        #         (os.getenv('CXX') and is_clang(os.getenv('CXX')))):
+        #         # cxx_overwrite = 'CXX="clang++ -stdlib=libstdc++"'
         print('cxx_overwrite flag', cxx_overwrite)
 
         cm = 'bash configure {build_flag} {compiler} {cxx_overwrite}'.format(
