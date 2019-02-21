@@ -2,12 +2,15 @@ language: cpp
 
 matrix:
   include:
+    # - { os: linux, env: PYTHON_VERSION=2.7 PYPY=true }
     - { os: linux, env: PYTHON_VERSION=2.7 }
     - { os: linux, env: PYTHON_VERSION=3.6 }
     - { os: linux, env: PYTHON_VERSION=3.7 }
       # - { os: linux, env: PYTHON_VERSION=2.7 PYPY=true } # see [1]
     - { os: linux, env: PYTHON_VERSION=3.6 USE_OPENMP=false }
-    - { os: osx, env: PYTHON_VERSION=3.7 }
+      # - { os: linux, env: PYTHON_VERSION=3.7 }
+    - { os: osx, env: PYTHON_VERSION=3.6 }
+
 
 sudo: false
 

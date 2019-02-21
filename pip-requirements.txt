@@ -1,5 +1,5 @@
 pyflakes==1.6.0
-numpy==1.16.1
+numpy==1.13.3
 cython==0.29
 auditwheel==2.0.0
 mock==2.0.0
