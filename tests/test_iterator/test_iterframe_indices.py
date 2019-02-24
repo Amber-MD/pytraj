@@ -1,12 +1,12 @@
 from __future__ import print_function
-import unittest
 import pytraj as pt
 from utils import fn
+import numpy as np
 from pytraj.testing import aa_eq
 import pytest
 
 
-class TestIteraframeIndices(unittest.TestCase):
+class TestIteraframeIndices:
     def test_iterframe_indices(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
@@ -18,15 +18,11 @@ class TestIteraframeIndices(unittest.TestCase):
 
         aa_eq(d2, d1)
 
-        # raise if out of bound
-        # only care about TrajectoryCpptraj since we would get segmentation fault
-        # if index is larger than max n_frame
-        with pytest.raises(AssertionError):
-            for _ in traj._iterframe_indices([
-                    traj.n_frames,
-            ]):
-                print(_.xyz)
-
-
-if __name__ == "__main__":
-    unittest.main()
+        n_frames = traj.n_frames
+        aa_eq(
+             np.array([frame.xyz.copy() for frame in
+                       traj._iterframe_indices([-2, -1])]),
+             traj[[n_frames-2, n_frames-1]].xyz) # yapf: disable
+        aa_eq(
+             traj[[-2, -1]].xyz,
+             traj[[n_frames-2, n_frames-1]].xyz) # yapf: disable

@@ -20,15 +20,16 @@ def _fast_count(cython.integral[:] values, int target):
     return count
 
 
-def get_positive_idx(int idx, int size):
+cpdef int get_positive_idx(int idx, int size):
     """Used for negative indexing"""
+    cdef int idx_pos = idx
     if idx < 0:
-        idx = size + idx
-        if idx < 0:
+        idx_pos = size + idx
+        if idx_pos< 0:
             raise ValueError("index is out of range")
-    if idx >= size:
+    if idx_pos >= size:
         raise ValueError("index is out of range")
-    return idx
+    return idx_pos
 
 
 def _int_array2d_like_to_memview(mylist):

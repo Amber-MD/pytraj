@@ -89,6 +89,8 @@ def load(filename, top=None, frame_indices=None, mask=None, stride=None):
     >>> fn, tn = get_fn('tz2_dry')
     >>> traj = pt.load(fn, top=tn, frame_indices=[0, 3, 5, 12, 20])
     >>> traj = pt.load(fn, top=tn, frame_indices=[0, 3, 5, 12, 20], mask='!@H=')
+    >>> # load last frame
+    >>> traj = pt.load(fn, top=tn, frame_indices=[-1])
 
     >>> # load with frame slice
     >>> traj = pt.load(fn, tn, frame_indices=slice(0, 10, 2))
