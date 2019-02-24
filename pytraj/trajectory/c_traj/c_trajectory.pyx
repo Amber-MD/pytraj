@@ -449,6 +449,7 @@ cdef class TrajectoryCpptraj:
             for j, i in enumerate(indices):
                 # use `frame` as a pointer pointing to `xyz` memory
                 # dump coords to xyz array
+                i = get_positive_idx(i, self.n_frames)
                 frame.thisptr.SetXptr(frame.n_atoms, &xyz[j, 0, 0])
                 # copy coordinates of `self[i]` to j-th frame in `traj`
                 self.thisptr.GetFrame(i, frame.thisptr[0])
@@ -468,6 +469,7 @@ cdef class TrajectoryCpptraj:
                 # use `frame` as a pointer pointing to `xyz` memory
                 # dump coords to xyz array
                 # copy coordinates of `self[i]` to j-th frame in `traj`
+                i = get_positive_idx(i, self.n_frames)
                 self.thisptr.GetFrame(i, frame.thisptr[0])
                 if self._being_transformed:
                     self._do_transformation(frame)
@@ -486,7 +488,7 @@ cdef class TrajectoryCpptraj:
         frame.thisptr[0] = self.thisptr.AllocateFrame()
 
         for i in frame_indices:
-            assert 0 <= i < max_frame, 'frame index must be between 0 and max_frame - 1'
+            i = get_positive_idx(i, self.n_frames)
             self.thisptr.GetFrame(i, frame.thisptr[0])
             if self._being_transformed:
                 self._do_transformation(frame)

@@ -103,6 +103,10 @@ def test_load_comprehensive():
     t1 = pt.load(trajin, tn, frame_indices=(0, 3))
     aa_eq(t1.xyz, traj[[0, 3]].xyz)
 
+    # frame_indices with negative index
+    t12 = pt.load(trajin, tn, frame_indices=(-2, -1))
+    aa_eq(t12.xyz, traj[[traj.n_frames-2, traj.n_frames-1]].xyz)
+
     # mask and frame_indices
     t2 = pt.load(trajin, tn, mask='@CA', frame_indices=[3, 8])
     aa_eq(t2.xyz, traj[[3, 8], '@CA'].xyz)
