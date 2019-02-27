@@ -137,8 +137,29 @@ else:
 setenv_cc_cxx(cpptraj_info.ambertools_distro, extra_compile_args,
               extra_link_args)
 
-# We don't need this anymore?
-# if sys.platform.startswith('darwin') and is_clang(os.getenv('CXX')):
+def prepare_env_for_osx():
+   # Copied from ParmEd
+   # https://github.com/ParmEd/ParmEd/blob/8ea11835cacbb986d76439f56bb529c83d34aa1f/setup.py#L28
+    """ Prepares the environment for OS X building """
+    darwin_major_to_osx_map = {
+        '11': '10.7',
+        '12': '10.8',
+        '13': '10.9',
+        '14': '10.10',
+        '15': '10.11',
+        '16': '10.12',
+        '17': '10.13',
+        '18': '10.14',
+    }
+    os.environ['CXX'] = 'clang++'
+    os.environ['CC'] = 'clang'
+    darwin_major = os.uname()[2].split('.')[0]
+    if darwin_major in darwin_major_to_osx_map:
+        os.environ['MACOSX_DEPLOYMENT_TARGET'] = darwin_major_to_osx_map[darwin_major]
+
+if sys.platform.startswith('darwin') and is_clang(os.getenv('CXX')):
+    prepare_env_for_osx()
+    # We don't need this anymore?
 #     # FIXME: should check if Python is built with GNU or clang compiler
 #     # print("Detect MacOS build with clang compiler. Adding -stdlib=libstdc++")
 #     # extra_compile_args.append('-stdlib=libstdc++')
