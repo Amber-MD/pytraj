@@ -170,7 +170,10 @@ def distance(traj=None,
     Parameters
     ----------
     traj : Trajectory-like, list of Trajectory, list of Frames
-    mask : str or a list of string or a 2D array-like of integers
+    mask : str or a list of string or a 2D array-like of integers.
+           If `mask` is a 2D-array, the `image` option is always `False`.
+           In this case, make sure to `autoimage` your trajectory before
+           calling `distance`.
     frame_indices : array-like, optional, default None
     dtype : return type, default 'ndarray'
     top : Topology, optional
