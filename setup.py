@@ -155,7 +155,10 @@ def prepare_env_for_osx():
     os.environ['CC'] = 'clang'
     darwin_major = os.uname()[2].split('.')[0]
     if darwin_major in darwin_major_to_osx_map:
-        os.environ['MACOSX_DEPLOYMENT_TARGET'] = darwin_major_to_osx_map[darwin_major]
+        dev_target = darwin_major_to_osx_map[darwin_major]
+        print("Setting MACOSX_DEPLOYMENT_TARGET to %s " % dev_target)
+        os.environ['MACOSX_DEPLOYMENT_TARGET'] = dev_target
+
 
 if sys.platform.startswith('darwin') and is_clang(os.getenv('CXX')):
     prepare_env_for_osx()
