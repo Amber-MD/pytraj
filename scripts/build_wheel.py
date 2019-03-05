@@ -97,14 +97,16 @@ class PipBuilder(object):
         python = self.python_exe_paths[python_version]
         cmlist = '{python} -m pip wheel {tarfile}'.format(
             python=python, tarfile=tarfile).split()
-        output = subprocess.check_output(cmlist)
+        subprocess.check_call(cmlist)
 
     def find_miniconda_root(self):
         if self.use_manylinux:
             return ''
         else:
-            command = "conda info --base"
-            return subprocess.check_output(command, shell=True).decode()
+            command = "conda info | grep 'root environment'"
+            output = subprocess.check_output(command, shell=True).decode()
+            # e.g: outproot = "environment : /home/haichit/anaconda3  (writable)"
+            return output.split()[3] + '/'
 
     def create_env(self, python_version):
         env = 'pytraj' + python_version
