@@ -3083,6 +3083,7 @@ def xtalsymm(traj, mask='', options='', ref=None):
         c_dslist.add('reference', name='xtalsymm_ref')
         c_dslist[0].top = top
         c_dslist[0].add_frame(ref)
+        command = ' '.join((command, 'reference'))
 
     act = c_action.Action_XtalSymm()
     act.read_input(command, top=top, dslist=c_dslist)

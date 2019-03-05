@@ -22,4 +22,4 @@ def test_xtalsymm(tmpdir):
         ref = pt.load(x6dky_refname, traj.top)
         pt.xtalsymm(traj, mask=':1-16', ref=ref, options="group P22(1)2(1) na 2 nb 1 nc 1")
         c_traj = pt.load('mdAsuOnly.pdb')
-        aa_eq(traj.xyz, c_traj.xyz)
+        aa_eq(traj.xyz, c_traj.xyz, decimal=2)
