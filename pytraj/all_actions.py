@@ -3065,6 +3065,7 @@ def lipidscd(traj, mask='', options='', dtype='dict'):
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
+@super_dispatch()
 def xtalsymm(traj, mask='', options='', ref=None):
     '''
     
@@ -3083,7 +3084,7 @@ def xtalsymm(traj, mask='', options='', ref=None):
         c_dslist[0].top = top
         c_dslist[0].add_frame(ref)
 
-    act = c_action.Action_Xtalsymm()
+    act = c_action.Action_XtalSymm()
     act.read_input(command, top=top, dslist=c_dslist)
     act.setup(top)
 
