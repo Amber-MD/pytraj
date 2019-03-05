@@ -33,7 +33,7 @@ else
     bash miniconda.sh -b
     
     export PATH=$HOME/miniconda3/bin:$PATH
-    conda install --yes conda-build=3.0.19 jinja2 anaconda-client pip numpy=1.13.1 nomkl
+    conda install --yes conda-build=3.17.8 jinja2 anaconda-client pip numpy=1.13.1 nomkl
     pip install auditwheel==1.7.0
     pip install cython==0.26
     
