@@ -3066,13 +3066,18 @@ def lipidscd(traj, mask='', options='', dtype='dict'):
 
 
 @super_dispatch()
-def xtalsymm(traj, mask='', options='', ref=None):
+def xtalsymm(traj, mask='', options='', ref=None, **kwargs):
     '''
     
     Parameters
     ----------
-    traj : Trajectory-like
+    traj : Mutable `pytraj.Trajectory`
     mask : str, default '' (all)
+    options : str, extra cpptraj's options
+        See `pytraj.info("xtalsymm")` for further information.
+    ref : Frame | Trajectory
+        Reference frame
+    kwargs : dummy key words arguments for `super_dispatch`
     '''
     top = traj.top
     command = ' '.join((mask, options))

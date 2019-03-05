@@ -293,8 +293,7 @@ class super_dispatch(object):
                 args[0] = get_fiterator(traj, frame_indices)
 
             # update topology to kwargs
-            if 'top' in kwargs:
-                kwargs['top'] = get_topology(traj, top)
+            kwargs['top'] = get_topology(traj, top)
 
             # update reference to args or kwargs
             if has_ref_arg:
