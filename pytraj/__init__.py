@@ -187,6 +187,7 @@ from .all_actions import wavelet
 from .all_actions import xcorr
 from .all_actions import ti
 from .all_actions import lipidscd
+from .all_actions import xtalsymm
 
 from .analysis.matrix import dist as distance_matrix
 from .analysis import matrix

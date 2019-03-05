@@ -1292,3 +1292,16 @@ cdef class Action_Watershell(Action):
 
     def help(self):
         self.thisptr.Help()
+
+cdef class Action_XtalSymm(Action):
+    def __cinit__(self):
+        self.baseptr = <_Action*> new _Action_XtalSymm()
+        self.thisptr = <_Action_XtalSymm*> self.baseptr
+        self.own_memory = True
+
+    def __dealloc__(self):
+        if self.baseptr is not NULL and self.own_memory:
+            del self.baseptr
+
+    def help(self):
+        self.thisptr.Help()

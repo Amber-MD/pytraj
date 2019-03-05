@@ -959,3 +959,13 @@ cdef extern from "Action_Watershell.h":
 cdef class Action_Watershell(Action):
     cdef _Action_Watershell* thisptr
 
+
+cdef extern from "Action_XtalSymm.h":
+    cdef cppclass _Action_XtalSymm "Action_XtalSymm" (_Action) nogil:
+        _Action_XtalSymm()
+        _DispatchObject * Alloc()
+        void Help()
+
+
+cdef class Action_XtalSymm(Action):
+    cdef _Action_XtalSymm* thisptr
