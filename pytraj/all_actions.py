@@ -3079,6 +3079,10 @@ def xtalsymm(traj, mask='', options='', ref=None, **kwargs):
     ref : Frame | Trajectory
         Reference frame
     kwargs : dummy key words arguments for `super_dispatch`
+
+    Examples
+    --------
+        >>> pytraj.xtalsymm(traj, mask=':1-16', ref=ref, options="group P22(1)2(1) na 2 nb 1 nc 1") # doctest: +SKIP
     '''
     top = traj.top
     command = ' '.join((mask, options))
