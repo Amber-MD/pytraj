@@ -133,6 +133,7 @@ __all__ = [
     'rotdif',
     'ti',
     'lipidscd',
+    'xtalsymm',
 ]
 
 
@@ -3062,6 +3063,38 @@ def lipidscd(traj, mask='', options='', dtype='dict'):
     command = ' '.join((mask, options))
     c_dslist, _ = do_action(traj, command, c_action.Action_LipidOrder)
     return get_data_from_dtype(c_dslist, dtype=dtype)
+
+
+def xtalsymm(traj, mask='', options='', ref=None):
+    '''
+    
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, default '' (all)
+    '''
+    top = traj.top
+    command = ' '.join((mask, options))
+
+    c_dslist = CpptrajDatasetList()
+
+    if ref is not None:
+        c_dslist.add('reference', name='xtalsymm_ref')
+        c_dslist[0].top = top
+        c_dslist[0].add_frame(ref)
+
+    act = c_action.Action_Xtalsymm()
+    act.read_input(command, top=top, dslist=c_dslist)
+    act.setup(top)
+
+    for frame in traj:
+        act.compute(frame)
+    act.post_process()
+
+    # remove ref
+    c_dslist._pop(0)
+
+    return traj
 
 
 def analyze_modes(mode_type,
