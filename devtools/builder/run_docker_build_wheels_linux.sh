@@ -22,7 +22,7 @@ fi
 if [ ! -d cpptraj ]; then
     \$python scripts/install_libcpptraj.py github -openmp
 else
-    (cd cpptraj && git pull && git clean -fdx .)
+    # (cd cpptraj && git pull && git clean -fdx .)
     \$python scripts/install_libcpptraj.py -openmp
 fi
 
