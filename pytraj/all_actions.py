@@ -133,6 +133,7 @@ __all__ = [
     'rotdif',
     'ti',
     'lipidscd',
+    'xtalsymm',
 ]
 
 
@@ -3062,6 +3063,50 @@ def lipidscd(traj, mask='', options='', dtype='dict'):
     command = ' '.join((mask, options))
     c_dslist, _ = do_action(traj, command, c_action.Action_LipidOrder)
     return get_data_from_dtype(c_dslist, dtype=dtype)
+
+
+@super_dispatch()
+def xtalsymm(traj, mask='', options='', ref=None, **kwargs):
+    '''
+    
+    Parameters
+    ----------
+    traj : Mutable `pytraj.Trajectory`
+    mask : str, default '' (all)
+    options : str, extra cpptraj's options
+        See `pytraj.info("xtalsymm")` for further information.
+        NOTE: Should not provide 'mask' or 'reference' in `options`, use the keyword arguments.
+    ref : Frame | Trajectory
+        Reference frame
+    kwargs : dummy key words arguments for `super_dispatch`
+
+    Examples
+    --------
+        >>> pytraj.xtalsymm(traj, mask=':1-16', ref=ref, options="group P22(1)2(1) na 2 nb 1 nc 1") # doctest: +SKIP
+    '''
+    top = traj.top
+    command = ' '.join((mask, options))
+
+    c_dslist = CpptrajDatasetList()
+
+    if ref is not None:
+        c_dslist.add('reference', name='xtalsymm_ref')
+        c_dslist[0].top = top
+        c_dslist[0].add_frame(ref)
+        command = ' '.join((command, 'reference'))
+
+    act = c_action.Action_XtalSymm()
+    act.read_input(command, top=top, dslist=c_dslist)
+    act.setup(top)
+
+    for frame in traj:
+        act.compute(frame)
+    act.post_process()
+
+    # remove ref
+    c_dslist._pop(0)
+
+    return traj
 
 
 def analyze_modes(mode_type,
