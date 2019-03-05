@@ -3075,6 +3075,7 @@ def xtalsymm(traj, mask='', options='', ref=None, **kwargs):
     mask : str, default '' (all)
     options : str, extra cpptraj's options
         See `pytraj.info("xtalsymm")` for further information.
+        NOTE: Should not provide 'mask' or 'reference' in `options`, use the keyword arguments.
     ref : Frame | Trajectory
         Reference frame
     kwargs : dummy key words arguments for `super_dispatch`

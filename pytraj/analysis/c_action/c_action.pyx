@@ -1302,3 +1302,6 @@ cdef class Action_XtalSymm(Action):
     def __dealloc__(self):
         if self.baseptr is not NULL and self.own_memory:
             del self.baseptr
+
+    def help(self):
+        self.thisptr.Help()
