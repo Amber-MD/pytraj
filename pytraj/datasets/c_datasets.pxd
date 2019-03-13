@@ -113,9 +113,9 @@ cdef class DatasetFloat (Dataset1D):
     cdef _DatasetFloat* thisptr
     cdef bint _own_memory 
 
-cdef extern from "DataSet_integer.h": 
-    cdef cppclass _DatasetInteger "DataSet_integer" (_Dataset1D):
-        _DatasetInteger() 
+cdef extern from "DataSet_integer_mem.h": 
+    cdef cppclass _DatasetIntegerMem "DataSet_integer_mem" (_Dataset1D):
+        _DatasetIntegerMem() 
         @staticmethod
         _Dataset * Alloc() 
         int& operator[](size_t idx)
@@ -126,7 +126,7 @@ cdef extern from "DataSet_integer.h":
         void Add( size_t, const void* )
 
 cdef class DatasetInteger (Dataset1D):
-    cdef _DatasetInteger* thisptr
+    cdef _DatasetIntegerMem* thisptr
     cdef bint _own_memory 
 
 cdef extern from "DataSet_string.h": 
