@@ -403,10 +403,8 @@ cdef class DatasetInteger (Dataset1D):
         else:
             raise NotImplementedError("only support single indexing or slice(None)")
 
-    # def __setitem__(self, int idx, int value):
-    #     cdef int * ptr
-    #     ptr = &(self.thisptr.index_opr(idx))
-    #     ptr[0] = value
+    def __setitem__(self, int idx, int value):
+        self.thisptr.SetElement(idx, value)
 
     def __iter__(self):
         cdef int i

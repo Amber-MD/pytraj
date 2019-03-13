@@ -118,8 +118,8 @@ cdef extern from "DataSet_integer_mem.h":
         _DatasetIntegerMem() 
         @staticmethod
         _Dataset * Alloc() 
-        int& operator[](size_t idx)
-        int& index_opr "operator[]"(size_t idx)
+        void SetElement(size_t idx, int val)
+        int index_opr "operator[]"(size_t idx)
         void AddElement(int i)
         int Size()
         void Resize(size_t)
