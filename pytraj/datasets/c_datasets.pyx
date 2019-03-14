@@ -441,9 +441,8 @@ cdef class DatasetInteger (Dataset1D):
             cdef unsigned int i
 
             self.thisptr.Resize(size)
-            # let numpy handle, just need to resize self
-            values = np.asarray(self.data)
-            values[:] = data
+            for i in range(size):
+                self.thisptr.SetElement(i, data[i])
 
 
 cdef class DatasetString (Dataset1D):
