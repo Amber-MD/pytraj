@@ -376,10 +376,10 @@ cdef class DatasetFloat (Dataset1D):
 cdef class DatasetInteger (Dataset1D):
     def __cinit__(self):
         # TODO : Use only one pointer?
-        self.baseptr0 = <_Dataset*> new _DatasetInteger()
+        self.baseptr0 = <_Dataset*> new _DatasetIntegerMem()
         # make sure 3 pointers pointing to the same address?
         self.baseptr_1 = <_Dataset1D*> self.baseptr0
-        self.thisptr = <_DatasetInteger*> self.baseptr0
+        self.thisptr = <_DatasetIntegerMem*> self.baseptr0
 
         # let Python/Cython free memory
         self._own_memory = True
@@ -404,9 +404,7 @@ cdef class DatasetInteger (Dataset1D):
             raise NotImplementedError("only support single indexing or slice(None)")
 
     def __setitem__(self, int idx, int value):
-        cdef int * ptr
-        ptr = &(self.thisptr.index_opr(idx))
-        ptr[0] = value
+        self.thisptr.SetElement(idx, value)
 
     def __iter__(self):
         cdef int i
@@ -427,14 +425,15 @@ cdef class DatasetInteger (Dataset1D):
         def __get__(self):
             """return memoryview of data array
             """
+            cdef int i
             cdef int size = self.size
             cdef int[:] myview = np.empty(size, dtype='i4')
             cdef int* ptr
 
             if size == 0:
                 return None
-            ptr = &self.thisptr.index_opr(0)
-            myview = <int[:size]> ptr
+            for i in range(size):
+                myview[i] = self.thisptr.index_opr(i)
             return myview
 
         def __set__(self, data):
@@ -442,9 +441,8 @@ cdef class DatasetInteger (Dataset1D):
             cdef unsigned int i
 
             self.thisptr.Resize(size)
-            # let numpy handle, just need to resize self
-            values = np.asarray(self.data)
-            values[:] = data
+            for i in range(size):
+                self.thisptr.SetElement(i, data[i])
 
 
 cdef class DatasetString (Dataset1D):

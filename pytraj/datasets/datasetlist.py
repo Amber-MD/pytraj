@@ -311,13 +311,7 @@ class DatasetList(list):
     def read_data(cls, filename, arg=""):
         '''
         >>> from pytraj.datasets.datasetlist import DatasetList
-        >>> DatasetList.read_data('data/tc5b.native_contacts.dat')
-        <pytraj.DatasetList with 2 datasets>
-        Contacts_00001[native]
-        [ 7095.  5904.  5638.  5600.  5695.  5745.  5611.  5556.  5739.  5748.]
-        <BLANKLINE>
-        Contacts_00001[nonnative]
-        [    0.  2696.  3065.  3552.  3700.  2624.  4000.  3797.  3482.  4265.]
+        >>> d = DatasetList.read_data('data/tc5b.native_contacts.dat')
         '''
         df = DataFile()
         dslist = CpptrajDatasetList()
