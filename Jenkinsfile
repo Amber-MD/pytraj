@@ -4,6 +4,8 @@ pipeline {
     parameters {
         string defaultValue: "master", description: "The libcpptraj docker image tag to use",
                name: "LIBCPPTRAJ_IMAGE_TAG", trim: true
+        string defaultValue: "master", description: "The pytraj commit/branch to test",
+               name: 'BRANCH_TO_BUILD', trim: true
     }
 
     post {
