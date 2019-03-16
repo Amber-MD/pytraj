@@ -24,6 +24,8 @@ pipeline {
             }
 
             steps {
+                sh "conda install -y --requirements conda-requirements.txt"
+                sh "pip install -r pip-requirements.txt"
                 sh "python setup.py install --user"
                 sh "python run_tests.py --simple"
             }
