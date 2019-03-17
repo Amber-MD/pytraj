@@ -12,7 +12,7 @@ pipeline {
         failure {
             emailext attachLog: true, compressLog: true,
                      subject: "pytraj tests failed",
-                     body: "The pytraj tests failed when running against the ambermd/libcpptraj:${LIBCPPTRAJ_IMAGE_TAG}",
+                     body: "The pytraj tests failed when running against the ambermd/libcpptraj:${LIBCPPTRAJ_IMAGE_TAG} docker image",
                      recipientProviders: [culprits(), brokenTestsSuspects(), developers()]
         }
     }
