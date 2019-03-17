@@ -174,7 +174,9 @@ cdef extern from "DataSet_2D.h":
         int Allocate(SizeArray)
         int AllocateHalf(size_t) 
         int AllocateTriangle(size_t) 
+        int Allocate2D(size_t, size_t)
         double GetElement(size_t, size_t) const  
+        void UpdateElement(size_t, size_t, double) const  
         size_t Nrows() const  
         size_t Ncols() const  
         double * MatrixArray() const  

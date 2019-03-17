@@ -615,6 +615,9 @@ cdef class Dataset2D (Dataset):
     def get_element(self, int x, int y):
         return self.baseptr_1.GetElement(x, y)
 
+    def resize(self, size_t x, size_t y):
+        self.baseptr_1.Allocate2D(x, y)
+
     def _allocate_2D(self, size_t x, size_t y):
         cdef vector[size_t] v
         v.push_back(x)
@@ -694,10 +697,23 @@ cdef class DatasetMatrixDouble (Dataset2D):
                 arr[i, j] = self.baseptr_1.GetElement(i, j)
         return np.asarray(arr)
 
-    property data:
-        def __get__(self):
-            """return 1D python array of matrix' data"""
-            return self.to_ndarray()
+    @property
+    def data(self):
+        """return 1D python array of matrix' data"""
+        return self.to_ndarray()
+
+    @data.setter
+    def data(self, double[:, :] data):
+        cdef size_t i,j 
+        cdef int n_rows
+        cdef int n_cols
+
+        n_rows, n_cols = data.shape[:2]
+        self.resize(n_rows, n_cols)
+
+        for i in range(n_rows):
+            for j in range(n_cols):
+                self.thisptr.SetElement(i, j, data[i, j])
 
     def _set_data_half_matrix(self, double[:] values, size_t vsize, size_t n_cols):
         '''only support half matrix

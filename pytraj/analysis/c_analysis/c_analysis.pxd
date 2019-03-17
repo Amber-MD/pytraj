@@ -456,3 +456,13 @@ cdef extern from "Analysis_State.h":
 
 cdef class Analysis_State (Analysis):
     cdef _Analysis_State* thisptr
+
+
+cdef extern from "Analysis_HausdorffDistance.h":
+    cdef cppclass _Analysis_Hausdorff "Analysis_HausdorffDistance" (_Analysis) nogil:
+        _Analysis_Hausdorff()
+        _DispatchObject * Alloc()
+        void Help()
+
+cdef class Analysis_Hausdorff (Analysis):
+    cdef _Analysis_Hausdorff* thisptr

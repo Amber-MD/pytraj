@@ -134,6 +134,7 @@ __all__ = [
     'ti',
     'lipidscd',
     'xtalsymm',
+    'hausdorff',
 ]
 
 
@@ -3156,3 +3157,30 @@ def ti(fn, options=''):
     command = 'TI_set ' + options
     act(command, dslist=c_dslist)
     return c_dslist
+
+
+def hausdorff(matrix, options='', dtype='ndarray'):
+    """
+
+    Parameters
+    ----------
+    matrix : 2D array
+    option : str
+        cpptraj options
+
+    Returns
+    -------
+    out : 1D numpy array
+
+    Notes
+    -----
+        - cpptraj help: pytraj.info('hausdorff')
+    """
+    c_dslist = CpptrajDatasetList()
+    c_dslist.add('matrix_dbl', name='my_matrix')
+    c_dslist[0].data = np.asarray(matrix, dtype='f8')
+    act = c_analysis.Analysis_Hausdorff()
+    command = " ".join(("my_matrix", options))
+    act(command, dslist=c_dslist)
+    c_dslist._pop(0)
+    return get_data_from_dtype(c_dslist, dtype)
