@@ -189,6 +189,7 @@ from .all_actions import ti
 from .all_actions import lipidscd
 from .all_actions import xtalsymm
 from .all_actions import hausdorff
+from .all_actions import permute_dihedrals
 
 from .analysis.matrix import dist as distance_matrix
 from .analysis import matrix
@@ -272,6 +273,7 @@ checkoverlap = check_structure
 nativecontacts = native_contacts
 lowest_curve = lowestcurve
 randomizeions = randomize_ions
+permutedihedrals = permute_dihedrals
 
 adict = ActionDict()
 analdict = AnalysisDict()
