@@ -7,8 +7,8 @@ from pytraj.testing import aa_eq
 
 class TestReplicateCell(unittest.TestCase):
     def test_vs_cpptraj(self):
-        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'),
-                frame_slice=[(0, 1)])
+        traj = pt.iterload(
+            fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'), frame_slice=[(0, 1)])
         txt = '''
         parm {}
         trajin {} 1 1

@@ -4,8 +4,9 @@ from pytraj.testing import aa_eq
 from pytraj.testing import tempfolder
 from pytraj.testing import cpptraj_test_dir
 
-
 print("cpptraj_test_dir", cpptraj_test_dir)
+
+
 def fn(name):
     return cpptraj_test_dir + '/Test_AtomMap/' + name
 
