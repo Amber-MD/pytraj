@@ -39,8 +39,8 @@ class TestGridAction(unittest.TestCase):
         autoimage triclinic
         grid nonortho.dx boxref [REF] 50 50 50 :WAT@O pdb test.pdb
         '''.format(
-            fn('tz2.truncoct.parm7'),
-            fn('tz2.truncoct.nc'), fn('tz2.truncoct.nc'))
+            fn('tz2.truncoct.parm7'), fn('tz2.truncoct.nc'),
+            fn('tz2.truncoct.nc'))
 
         state = pt.load_cpptraj_state(txt)
         state.run()

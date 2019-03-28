@@ -1,5 +1,5 @@
 # distutils: language = c++
-from .c_datasets cimport(_Dataset, Dataset, Dataset1D, _Dataset1D, DatasetInteger, _DatasetInteger,
+from .c_datasets cimport(_Dataset, Dataset, Dataset1D, _Dataset1D, DatasetInteger, _DatasetIntegerMem,
                            _DatasetFloat, DatasetFloat, DatasetDouble, _DatasetDouble,
                            DatasetString, _DatasetString, _DatasetVector, DatasetVector,
                            Dataset2D, _Dataset2D, DatasetMatrixDouble,
@@ -99,7 +99,7 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_integer.baseptr0 = dset.baseptr0
         # make sure other pointers pointing to the same address
         newset_integer.baseptr_1 = <_Dataset1D*> dset.baseptr0
-        newset_integer.thisptr = <_DatasetInteger*> dset.baseptr0
+        newset_integer.thisptr = <_DatasetIntegerMem*> dset.baseptr0
         return newset_integer
 
     elif dtype in ['STRING']:

@@ -50,7 +50,8 @@ class TestVelocity(unittest.TestCase):
     def test_velocityautocorr(self):
         # usecoords = False
         traj = pt.iterload(
-            fn('issue807/trunc.nc'), fn("issue807/system.prmtop"),
+            fn('issue807/trunc.nc'),
+            fn("issue807/system.prmtop"),
             frame_slice=(0, 3))
         data0 = pt.all_actions.velocityautocorr(
             traj, tstep=2, norm=True, direct=True)

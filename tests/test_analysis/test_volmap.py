@@ -18,7 +18,6 @@ volmap {} {} {}
 
 
 class TestVolmap(unittest.TestCase):
-
     def test_volmap(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))[:1]
         size = ''
@@ -27,7 +26,7 @@ class TestVolmap(unittest.TestCase):
             txt.format(
                 fn('tz2.ortho.parm7'), fn('tz2.ortho.nc'), cm, size, center))
         state.run()
-        cpp_data = state.data[-2].values # last one is totalvolume
+        cpp_data = state.data[-2].values  # last one is totalvolume
 
         traj = traj.superpose(mask=':1-13').center(':1-13 mass origin')
         ds = pt.volmap(

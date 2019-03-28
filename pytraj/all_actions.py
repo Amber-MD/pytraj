@@ -134,6 +134,8 @@ __all__ = [
     'ti',
     'lipidscd',
     'xtalsymm',
+    'hausdorff',
+    'permute_dihedrals',
 ]
 
 
@@ -3156,3 +3158,64 @@ def ti(fn, options=''):
     command = 'TI_set ' + options
     act(command, dslist=c_dslist)
     return c_dslist
+
+
+def hausdorff(matrix, options='', dtype='ndarray'):
+    """
+
+    Parameters
+    ----------
+    matrix : 2D array
+    option : str
+        cpptraj options
+
+    Returns
+    -------
+    out : 1D numpy array
+
+    Notes
+    -----
+        - cpptraj help: pytraj.info('hausdorff')
+    """
+    c_dslist = CpptrajDatasetList()
+    c_dslist.add('matrix_dbl', name='my_matrix')
+    c_dslist[0].data = np.asarray(matrix, dtype='f8')
+    act = c_analysis.Analysis_Hausdorff()
+    command = " ".join(("my_matrix", options))
+    act(command, dslist=c_dslist)
+    c_dslist._pop(0)
+    data = get_data_from_dtype(c_dslist, dtype)
+    return data
+
+
+def permute_dihedrals(traj, filename, options=''):
+    """
+    Parameters
+    ----------
+    traj : Trajectory like
+    filename : str
+        Output filename for resulted trajectory
+    options: str
+        cpptraj's option. Do not specify `outtraj` here since
+        it's specified in `filename`.
+
+    This function returns None.
+    """
+    from .core.c_core import CpptrajState, Command
+
+    state = CpptrajState()
+    top_data = state.data.add('topology', name='my_top')
+    top_data.data = traj.top
+
+    ref_data = state.data.add('coords', name='my_coords')
+    ref_data.top = traj.top
+    for frame in traj:
+       ref_data.add_frame(frame)
+
+    command = 'permutedihedrals crdset my_coords {options} outtraj {filename}'.format(
+            options=options, filename=filename)
+
+    with Command() as executor:
+        executor.dispatch(state, command)
+    state.data._pop(0)
+    state.data._pop(0)
