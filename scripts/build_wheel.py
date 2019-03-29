@@ -32,7 +32,7 @@ class PipBuilder(object):
     Build wheel package from conda package?
     '''
     REQUIRED_PACKAGES = ['auditwheel']
-    SUPPORTED_VERSIONS = ['2.7mu', '2.7', '3.4', '3.5', '3.6']
+    SUPPORTED_VERSIONS = ['2.7mu', '2.7', '3.7', '3.5', '3.6']
 
     if sys.platform.startswith('darwin'):
         REQUIRED_PACKAGES.append('conda_build')
