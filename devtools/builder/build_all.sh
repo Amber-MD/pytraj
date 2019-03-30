@@ -44,7 +44,7 @@ function conda_linux(){
 
 
 function conda_osx(){
-    for pyver in 2.7 3.4 3.5 3.6; do
+    for pyver in 2.7 3.7 3.5 3.6; do
         conda build devtools/conda-recipe/pytraj --py $pyver
         tarfile=`conda build devtools/conda-recipe/pytraj --py $pyver --output`
     
