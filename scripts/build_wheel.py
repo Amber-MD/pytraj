@@ -127,8 +127,9 @@ class PipBuilder(object):
     def _get_wheel_file(self, python_version, folder='./'):
         pdict = dict(darwin='macos', linux='linux')
         platform = pdict[sys.platform]
-        whl_file = glob(folder + '/*' + python_version.replace('.', '') +
-                        '*{}*.whl'.format(platform))[0]
+        files = glob(folder + '/*' + python_version.replace('.', '') +
+                        '*{}*.whl'.format(platform))
+        whl_file = sorted(files, key=os.path.getmtime)[-1]
         print(whl_file)
         return whl_file
 
