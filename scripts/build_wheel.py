@@ -32,7 +32,7 @@ class PipBuilder(object):
     Build wheel package from conda package?
     '''
     REQUIRED_PACKAGES = ['auditwheel']
-    SUPPORTED_VERSIONS = ['2.7mu', '2.7', '3.4', '3.5', '3.6']
+    SUPPORTED_VERSIONS = ['2.7mu', '2.7', '3.7', '3.5', '3.6']
 
     if sys.platform.startswith('darwin'):
         REQUIRED_PACKAGES.append('conda_build')
@@ -61,6 +61,7 @@ class PipBuilder(object):
         else:
             self.cpptraj_dir = ''
         self.miniconda_root = self.find_miniconda_root()
+        print('INFO: miniconda_root = ', self.miniconda_root)
         if self.use_manylinux:
             self.python_exe_paths = dict(
                 (py_version, PipBuilder.MANY_LINUX_PYTHONS[py_version])
@@ -69,6 +70,7 @@ class PipBuilder(object):
             self.python_exe_paths = dict((py_version, '/'.join(
                 (self.miniconda_root, '/envs/pytraj' + py_version,
                  'bin/python'))) for py_version in self.python_versions)
+        print('INFO: python_exe_paths', self.python_exe_paths)
         self.repair_exe = ([
             pytraj_home + '/scripts/misc/fix_rpath_pip_osx.py',
         ] if self.is_osx else ['auditwheel', 'repair'])
@@ -97,16 +99,22 @@ class PipBuilder(object):
         python = self.python_exe_paths[python_version]
         cmlist = '{python} -m pip wheel {tarfile}'.format(
             python=python, tarfile=tarfile).split()
+        print("Building original wheel")
+        print("CMD", cmlist)
         subprocess.check_call(cmlist)
 
     def find_miniconda_root(self):
         if self.use_manylinux:
             return ''
         else:
-            command = "conda info | grep 'root environment'"
-            output = subprocess.check_output(command, shell=True).decode()
-            # e.g: outproot = "environment : /home/haichit/anaconda3  (writable)"
-            return output.split()[3] + '/'
+            try:
+                command = "conda info | grep 'root environment'"
+                output = subprocess.check_output(command, shell=True).decode()
+                # e.g: outproot = "environment : /home/haichit/anaconda3  (writable)"
+                return output.split()[3] + '/'
+            except subprocess.CalledProcessError:
+                command = "conda info --base"
+                return subprocess.check_output(command, shell=True).decode().strip()
 
     def create_env(self, python_version):
         env = 'pytraj' + python_version
@@ -119,8 +127,9 @@ class PipBuilder(object):
     def _get_wheel_file(self, python_version, folder='./'):
         pdict = dict(darwin='macos', linux='linux')
         platform = pdict[sys.platform]
-        whl_file = glob(folder + '/*' + python_version.replace('.', '') +
-                        '*{}*.whl'.format(platform))[0]
+        files = glob(folder + '/*' + python_version.replace('.', '') +
+                        '*{}*.whl'.format(platform))
+        whl_file = sorted(files, key=os.path.getmtime)[-1]
         print(whl_file)
         return whl_file
 

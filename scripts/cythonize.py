@@ -8,6 +8,8 @@ if Cython.__version__ < '0.21':
     sys.stderr.write('require cython version >=0.21')
     sys.exit(1)
 
+print("Cython version", Cython.__version__)
+
 DEBUG = False
 
 pxd_include_dirs = [
