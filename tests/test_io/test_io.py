@@ -429,6 +429,7 @@ def test_write_velocity_from_scratch():
         assert traj2.metadata['has_velocity']
         assert not traj2.metadata['has_force']
         # make sure no segmentation fault
+        # issues/1486
         assert traj2[:].n_frames == traj2.n_frames
 
 
@@ -452,6 +453,7 @@ def test_write_force_from_scratch():
         traj2 = pt.iterload(out_fn, top=traj.top)
         assert traj2.metadata['has_force']
         assert not traj2.metadata['has_velocity']
+        # issues/1486
         assert traj2[:].n_frames == traj2.n_frames
 
 
