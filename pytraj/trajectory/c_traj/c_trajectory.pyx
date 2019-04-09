@@ -443,7 +443,7 @@ cdef class TrajectoryCpptraj:
             traj.time = np.zeros(n_frames, dtype='f8')
 
         # FIXME: make a function to update time, box, ...
-        if not self.thisptr.CoordsInfo().HasVel():
+        if not (self.thisptr.CoordsInfo().HasVel() or self.thisptr.CoordsInfo().HasForce()):
             # faster
             frame = Frame(n_atoms, xyz[0], _as_ptr=True)
             for j, i in enumerate(indices):
