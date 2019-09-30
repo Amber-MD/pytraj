@@ -319,7 +319,7 @@ def test_formats():
         with open(fn, 'r') as fh:
             lines = [fh.readline() for _ in range(3)]
         # print(lines)
-        assert expected_line in lines[line_index]
+        assert expected_line in lines[line_index], lines[line_index]
 
     def assert_has_exptected_line_binaryfile(expected_line, fn='test'):
         with open(fn, 'rb') as fh:
