@@ -333,7 +333,7 @@ def test_formats():
     with tempfolder():
         # pdb
         traj.save(fn, format='pdb', overwrite=True)
-        expected_line = 'ATOM      1  N   SER     1      -1.889   9.159   7.569'
+        expected_line = 'ATOM      1  N   SER'
         assert_has_exptected_line_textfile(expected_line, 0, fn)
 
         # mol2
