@@ -29,7 +29,6 @@ def test_cluster_kmeans(tmpdir):
     cm = 'cluster kmeans clusters 10 @CA rms randompoint kseed 2 {0} noinfo'
 
     for sieve in [2, 3, 4]:
-        pt._verbose(True)
         sieve_str = "sieve {0} sieveseed 12".format(sieve)
         command = cm.format(sieve_str) + ' cpopvtime cpptraj_cpopvtime.agr normframe'
         state = pt.load_cpptraj_state(command, traj)
