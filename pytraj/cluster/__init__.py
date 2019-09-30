@@ -7,6 +7,7 @@ from pytraj.utils.context import capture_stdout
 from pytraj.utils.get_common_objects import super_dispatch, get_iterator_from_dslist
 from pytraj.analysis.c_analysis import c_analysis
 from pytraj.datasets.c_datasetlist import DatasetList as CpptrajDatasetList
+from pytraj.datafiles.datafiles import DataFileList
 
 __all__ = [
     'cluster',
@@ -144,19 +145,21 @@ def _cluster(traj,
     crdname = 'DEFAULT_NAME'
     dslist, _top, mask2 = get_iterator_from_dslist(
         traj, mask, frame_indices, top, crdname=crdname)
+    dflist = DataFileList()
 
     if 'summary' not in options.split():
         options += ' summary'
 
     # do not output cluster info to STDOUT
     command = ' '.join((algorithm, mask2, "crdset {0}".format(crdname),
-                        options))
+                       options))
 
     with capture_stdout() as (out, _):
-        ana(command, dslist)
+        ana(command, dslist, dflist=dflist)
 
     # remove frames in dslist to save memory
     dslist.remove_set(dslist[crdname])
+    dflist.write_all_datafiles()
     return ClusteringDataset((get_data_from_dtype(dslist[:1], dtype='ndarray'),
                               out.read()))
 

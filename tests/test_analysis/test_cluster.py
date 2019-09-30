@@ -1,4 +1,5 @@
 from __future__ import print_function
+import os
 import unittest
 import pytraj as pt
 from pytraj.testing import aa_eq, tempfolder
@@ -20,7 +21,7 @@ def test_ClusteringDataset():
     aa_eq(x.fraction, [0.485, 0.238, 0.139, 0.079, 0.059], decimal=3)
 
 
-def test_cluster_kmeans():
+def test_cluster_kmeans(tmpdir):
 
     kmeans = cluster.kmeans
     traj = pt.iterload(tz2_trajin, tz2_top)
@@ -29,7 +30,7 @@ def test_cluster_kmeans():
 
     for sieve in [2, 3, 4]:
         sieve_str = "sieve {0} sieveseed 12".format(sieve)
-        command = cm.format(sieve_str)
+        command = cm.format(sieve_str) + ' cpopvtime cpptraj_cpopvtime.agr normframe'
         state = pt.load_cpptraj_state(command, traj)
         state.run()
 
@@ -40,9 +41,11 @@ def test_cluster_kmeans():
             random_point=True,
             metric='rms',
             mask='@CA',
-            options=sieve_str)
-        aa_eq(state.data[-2], data.cluster_index)
+            options=sieve_str + ' cpopvtime pytraj_cpopvtime.agr normframe')
         assert data.n_frames == traj.n_frames
+        assert os.path.exists('cpptraj_cpopvtime.agr')
+        # Make sure pytraj could write data file.
+        assert os.path.exists('pytraj_cpopvtime.agr')
 
 
 def test_cluster_dbscan():
