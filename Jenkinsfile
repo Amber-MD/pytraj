@@ -26,7 +26,7 @@ pipeline {
             steps {
                 sh "pip install -r pip-requirements.txt"
                 sh "python setup.py install --user"
-                sh "python run_tests.py"
+                sh "cd tests && pytest -vs --ignore=test_parallel_pmap"
             }
         }
     }
