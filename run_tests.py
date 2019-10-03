@@ -55,11 +55,11 @@ else:
     print('running full test\n')
     if args.with_coverage:
         print('with coverage')
-        cm_list = "{bin}/py.test --cov=pytraj --cov-report=html -vs -rsx .".format(
+        cm_list = "{bin}/pytest --cov=pytraj --cov-report=html -vs -rsx .".format(
             bin=bin).split()
     else:
         print('without coverage\n')
-        cm_list = "{bin}/py.test -vs .".format(bin=bin).split()
+        cm_list = "{bin}/pytest -vs .".format(bin=bin).split()
     if int(args.ncores) > 1:
         cm_list.extend(['-n', args.ncores])
     print("using {} cores".format(args.ncores))

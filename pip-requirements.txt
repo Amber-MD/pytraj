@@ -4,3 +4,4 @@ h5py==2.7.0
 cython==0.29
 auditwheel==1.7.0
 mock==2.0.0
+pytest==5.2.0
