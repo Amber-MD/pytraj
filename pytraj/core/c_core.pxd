@@ -163,7 +163,6 @@ cdef extern from "NameType.h":
         const char* opr_star "operator*" () const 
         char opr_idx "operator[]"(int) const 
         string Truncated() const 
-        void ReplaceAsterisk() 
 
 
 cdef class NameType:

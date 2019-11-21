@@ -239,9 +239,6 @@ cdef class NameType:
         """return string"""
         return self.thisptr.Truncated().decode()
 
-    def replace_asterisk(self):
-        self.thisptr.ReplaceAsterisk()
-
     def __str__(self):
         return (self.thisptr.opr_star()).decode()
 
