@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 pipeline {
     agent none
 
@@ -26,7 +28,10 @@ pipeline {
             steps {
                 sh "pip install -r pip-requirements.txt"
                 sh "python setup.py install --user"
-                sh "cd tests && pytest -vs --ignore=test_parallel_pmap"
+                // 20 minute timeout, then kill the job. If it doesn't hang, it works in <10min
+                timeout(20) {
+                    sh "cd tests && pytest -vs --ignore=test_parallel_pmap"
+                }
             }
         }
     }
