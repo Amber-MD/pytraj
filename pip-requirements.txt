@@ -1,5 +1,6 @@
 pyflakes==1.6.0
-numpy==1.13.3
+# numpy==1.13.3
+numpy
 h5py==2.7.0
 cython==0.29
 auditwheel==1.7.0
