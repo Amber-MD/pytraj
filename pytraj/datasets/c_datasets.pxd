@@ -195,7 +195,7 @@ cdef extern from "DataSet_Vector_OXYZ.h":
         void AddVxyzo(const _Vec3& v, const _Vec3& c)
 
 cdef class DatasetVectorOXYZ(DatasetVector):
-    cdef _DatasetVectorOXYZ* thiptr
+    cdef _DatasetVectorOXYZ* thisptr
     cdef bint _own_memory
 
 

@@ -2,6 +2,8 @@
 from .c_datasets cimport(_Dataset, Dataset, Dataset1D, _Dataset1D, DatasetInteger, _DatasetIntegerMem,
                            _DatasetFloat, DatasetFloat, DatasetDouble, _DatasetDouble,
                            DatasetString, _DatasetString, _DatasetVector, DatasetVector,
+                           _DatasetVectorXYZ, DatasetVectorXYZ,
+                           _DatasetVectorOXYZ, DatasetVectorOXYZ,
                            Dataset2D, _Dataset2D, DatasetMatrixDouble,
                            _DatasetMatrixDouble, DatasetMatrixFloat, _DatasetMatrixFloat,
                            Dataset3D, _Dataset3D, DatasetGridFloat, _DatasetGridFloat,
@@ -131,14 +133,25 @@ def cast_dataset(dsetin=None, dtype='general'):
         newset_modes.thisptr = <_DatasetModes*> dset.baseptr0
         return newset_modes
 
-    elif dtype in ['VECTOR']:
-        newset_vector = DatasetVector()
+    elif dtype in ['VEC_XYZ']:
+        newset_vecxyz = DatasetVectorXYZ()
         # since we introduce memory view, we let cpptraj free memory
-        newset_vector._own_memory = False
-        newset_vector.baseptr0 = dset.baseptr0
+        newset_vecxyz._own_memory = False
+        newset_vecxyz.baseptr0 = dset.baseptr0
         # make sure other pointers pointing to the same address
-        newset_vector.thisptr = <_DatasetVector*> dset.baseptr0
-        return newset_vector
+        newset_vecxyz.baseptr_1 = <_DatasetVector*> dset.baseptr0
+        newset_vecxyz.thisptr = <_DatasetVectorXYZ*> dset.baseptr0
+        return newset_vecxyz
+
+    elif dtype in ['VEC_OXYZ']:
+        newset_vecoxyz = DatasetVectorOXYZ()
+        # since we introduce memory view, we let cpptraj free memory
+        newset_vecoxyz._own_memory = False
+        newset_vecoxyz.baseptr0 = dset.baseptr0
+        # make sure other pointers pointing to the same address
+        newset_vecoxyz.baseptr_1 = <_DatasetVector*> dset.baseptr0
+        newset_vecoxyz.thisptr = <_DatasetVectorOXYZ*> dset.baseptr0
+        return newset_vecoxyz
 
     elif dtype in ['MAT3X3', 'MATRIX3X3']:
         newset_matrix3x3 = DatasetMatrix3x3()
