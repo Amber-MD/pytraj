@@ -144,22 +144,60 @@ cdef class DatasetString(Dataset1D):
 
 cdef extern from "DataSet_Vector.h": 
     cdef cppclass _DatasetVector "DataSet_Vector" (_Dataset):
-        _DatasetVector() 
-        _Dataset * Alloc() 
-        void Resize(size_t s)
-        void Resize(size_t s, const _Vec3& v)
-        bint Empty() const 
-        bint HasOrigins() const
+        _DatasetVector()
+        _DatasetVector(Dataset)
+        # DataSet methods
+        size_t Size()
+        void Info()
+        SizeArray DimSizes()
+        # virtual methods
+        void reset()
+        void Resize(size_t)
+        void Resize(size_t, const _Vec3&)
+        # vector methods
         _Vec3& index_opr "operator[]" (int i)
         const _Vec3& VXYZ(int i) const 
-        const _Vec3& OXYZ(int i) const 
-        void ReserveVecs(size_t n)
         void AddVxyz(const _Vec3& v)
-        void AddVxyz(const _Vec3& v, const _Vec3& c)
 
 cdef class DatasetVector (Dataset):
-    cdef _DatasetVector* thisptr
+    # baseptr0 is from Dataset
+    cdef _DatasetVector* baseptr_1
+# distutils: language = c++
+cdef extern from "DataSet_Vector_XYZ.h":
+    cdef cppclass _DatasetVectorXYZ "DataSet_Vector_XYZ" (_DatasetVector):
+        _DatasetVectorXYZ()
+        @staticmethod
+        _Dataset * Alloc()
+        void reset() 
+        void Resize(size_t s)
+        void Resize(size_t s, const _Vec3& v)
+        # Dataset functions
+        int Allocate(SizeArray)
+        void Add(size_t, const void *)
+
+cdef class DatasetVectorXYZ(DatasetVector):
+    cdef _DatasetVectorXYZ* thisptr
     cdef bint _own_memory
+
+cdef extern from "DataSet_Vector_OXYZ.h":
+    cdef cppclass _DatasetVectorOXYZ "DataSet_Vector_OXYZ" (_DatasetVector):
+        _DatasetVectorOXYZ()
+        @staticmethod
+        _Dataset * Alloc()
+        void reset() 
+        void Resize(size_t s)
+        void Resize(size_t s, const _Vec3& v)
+        # Dataset functions
+        int Allocate(SizeArray)
+        void Add(size_t, const void *)
+        # vector oxyz functions
+        const _Vec3& OXYZ(int i) const 
+        void AddVxyzo(const _Vec3& v, const _Vec3& c)
+
+cdef class DatasetVectorOXYZ(DatasetVector):
+    cdef _DatasetVectorOXYZ* thiptr
+    cdef bint _own_memory
+
 
 cdef extern from "DataSet_2D.h": 
     # DataSet_2D.h
