@@ -488,16 +488,15 @@ cdef class DatasetString (Dataset1D):
     def tolist(self):
         return self.data
 
-
+# ------------------------------------------------
 cdef class DatasetVector(Dataset):
     def __cinit__(self):
-        self._own_memory = True
-        self.thisptr = new _DatasetVector()
-        self.baseptr0 = <_Dataset*> self.thisptr
+        # Since DatasetVector inherits from Dataset, make sure two pointers
+        # pointing to the same address
+        self.baseptr_1 = <_DatasetVector*> self.baseptr0
 
     def __dealloc__(self):
-        if self._own_memory:
-            del self.thisptr
+        pass
 
     @property
     def shape(self):
@@ -517,23 +516,33 @@ cdef class DatasetVector(Dataset):
         for i in range(self.size):
             yield self[i]
 
+# ------------------------------------------------
+cdef class DatasetVectorXYZ(DatasetVector):
+    def __cinit__(self):
+        self.baseptr0 = <_Dataset*> new _DatasetVector()
+        self.baseptr_1 = <_DatasetVector*> self.baseptr0
+        self.thisptr = <_DatasetVectorXYZ*> self.baseptr0
+        # let Python/Cython free memory
+        self._own_memory = True
+
+    def __dealloc__(self):
+        if self._own_memory:
+            del self.thisptr
+
     def resize(self, size_t sizeIn):
         self.thisptr.Resize(sizeIn)
 
     def append(self, Vec3 vec):
         self.thisptr.AddVxyz(vec.thisptr[0])
 
-    property possible_data6:
+    property data:
         def __get__(self):
             cdef int i
             cdef int size = self.size
             cdef _Vec3 _vec3
             cdef double[:, ::1] dview
 
-            if self.thisptr.HasOrigins():
-                dview = np.empty((size, 6), dtype='f8')
-            else:
-                dview = np.empty((size, 3), dtype='f8')
+            dview = np.empty((size, 3), dtype='f8')
 
             # copy data to arr by dview
             for i in range(size):
@@ -541,18 +550,54 @@ cdef class DatasetVector(Dataset):
                 dview[i, 0] = _vec3.Dptr()[0]
                 dview[i, 1] = _vec3.Dptr()[1]
                 dview[i, 2] = _vec3.Dptr()[2]
-                if self.thisptr.HasOrigins():
-                    _vec3 = self.thisptr.OXYZ(i)
-                    dview[i, 3] = _vec3.Dptr()[0]
-                    dview[i, 4] = _vec3.Dptr()[1]
-                    dview[i, 5] = _vec3.Dptr()[2]
+
             return np.asarray(dview, dtype='f8')
+
+# ------------------------------------------------
+cdef class DatasetVectorOXYZ(DatasetVector):
+    def __cinit__(self):
+        self.baseptr0 = <_Dataset*> new _DatasetVector()
+        self.baseptr_1 = <_DatasetVector*> self.baseptr0
+        self.thisptr = <_DatasetVectorOXYZ*> self.baseptr0
+        # let Python/Cython free memory
+        self._own_memory = True
+
+    def __dealloc__(self):
+        if self._own_memory:
+            del self.thisptr
+
+    def resize(self, size_t sizeIn):
+        self.thisptr.Resize(sizeIn)
+
+    def append(self, Vec3 vec):
+        self.thisptr.AddVxyz(vec.thisptr[0])
+
+    property data:
+        def __get__(self):
+            cdef int i
+            cdef int size = self.size
+            cdef _Vec3 _vec3
+            cdef double[:, ::1] dview
+
+            dview = np.empty((size, 6), dtype='f8')
+
+            # copy data to arr by dview
+            for i in range(size):
+                _vec3 = self.thisptr.index_opr(i)
+                dview[i, 0] = _vec3.Dptr()[0]
+                dview[i, 1] = _vec3.Dptr()[1]
+                dview[i, 2] = _vec3.Dptr()[2]
+                _vec3 = self.thisptr.OXYZ(i)
+                dview[i, 3] = _vec3.Dptr()[0]
+                dview[i, 4] = _vec3.Dptr()[1]
+                dview[i, 5] = _vec3.Dptr()[2]
+            tmpdata = np.asarray(dview, dtype='f8')
+            return np.ascontiguousarray(tmpdata[:, :3])
 
     property data:
         def __get__(self):
             data = self.possible_data6
             if data.shape[1] == 6:
-                return np.ascontiguousarray(data[:, :3])
             else:
                 return data
 
