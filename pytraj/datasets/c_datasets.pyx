@@ -519,7 +519,7 @@ cdef class DatasetVector(Dataset):
 # ------------------------------------------------
 cdef class DatasetVectorXYZ(DatasetVector):
     def __cinit__(self):
-        self.baseptr0 = <_Dataset*> new _DatasetVector()
+        self.baseptr0 = <_Dataset*> new _DatasetVectorXYZ()
         self.baseptr_1 = <_DatasetVector*> self.baseptr0
         self.thisptr = <_DatasetVectorXYZ*> self.baseptr0
         # let Python/Cython free memory
@@ -556,7 +556,7 @@ cdef class DatasetVectorXYZ(DatasetVector):
 # ------------------------------------------------
 cdef class DatasetVectorOXYZ(DatasetVector):
     def __cinit__(self):
-        self.baseptr0 = <_Dataset*> new _DatasetVector()
+        self.baseptr0 = <_Dataset*> new _DatasetVectorOXYZ()
         self.baseptr_1 = <_DatasetVector*> self.baseptr0
         self.thisptr = <_DatasetVectorOXYZ*> self.baseptr0
         # let Python/Cython free memory
@@ -631,6 +631,7 @@ cdef class DatasetVectorOXYZ(DatasetVector):
         return pd.DataFrame(self.to_ndarray(), columns=list('xyz'))
 
 
+# ------------------------------------------------
 cdef class Dataset2D (Dataset):
     def __cinit__(self):
         # since Dataset2D inherits from Dataset, make sure two pointers pointing
