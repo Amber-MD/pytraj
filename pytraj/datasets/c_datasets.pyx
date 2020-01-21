@@ -509,7 +509,7 @@ cdef class DatasetVector(Dataset):
         if idx == -1:
             idx = self.size - 1
         vec._own_memory = False
-        vec.thisptr = &(self.thisptr.index_opr(idx))
+        vec.thisptr = &(self.baseptr_1.index_opr(idx))
         return vec
 
     def __iter__(self):
@@ -553,6 +553,35 @@ cdef class DatasetVectorXYZ(DatasetVector):
 
             return np.asarray(dview, dtype='f8')
 
+        def __set__(self, values):
+            '''values must be 2D array that support memory view (such as numpy array)
+            '''
+            cdef int i
+            cdef double[:] xyz
+            cdef _Vec3 _vec
+            cdef double[:, ::1] arr = values
+
+            if arr.shape[1] != 3:
+                raise ValueError("must have shape = (n_frames, 3))")
+
+            self.resize(0)
+            for i in range(arr.shape[0]):
+                xyz = arr[i]
+                _vec.Assign( &xyz[0])
+                self.thisptr.AddVxyz(_vec)
+
+    def tolist(self):
+        # overwrite
+        # x is memview array
+        return [x.tolist() for x in self.data]
+
+    def to_ndarray(self, copy=True):
+        return np.asarray(self.data)
+
+    def to_dataframe(self):
+        import pandas as pd
+        return pd.DataFrame(self.to_ndarray(), columns=list('xyz'))
+
 # ------------------------------------------------
 cdef class DatasetVectorOXYZ(DatasetVector):
     def __cinit__(self):
@@ -593,43 +622,6 @@ cdef class DatasetVectorOXYZ(DatasetVector):
                 dview[i, 5] = _vec3.Dptr()[2]
             tmpdata = np.asarray(dview, dtype='f8')
             return np.ascontiguousarray(tmpdata[:, :3])
-
-    property data:
-        def __get__(self):
-            data = self.possible_data6
-            if data.shape[1] == 6:
-            else:
-                return data
-
-        def __set__(self, values):
-            '''values must be 2D array that support memory view (such as numpy array)
-            '''
-            cdef int i
-            cdef double[:] xyz
-            cdef _Vec3 _vec
-            cdef double[:, ::1] arr = values
-
-            if arr.shape[1] != 3:
-                raise ValueError("must have shape = (n_frames, 3))")
-
-            self.resize(0)
-            for i in range(arr.shape[0]):
-                xyz = arr[i]
-                _vec.Assign( &xyz[0])
-                self.thisptr.AddVxyz(_vec)
-
-    def tolist(self):
-        # overwrite
-        # x is memview array
-        return [x.tolist() for x in self.data]
-
-    def to_ndarray(self, copy=True):
-        return np.asarray(self.data)
-
-    def to_dataframe(self):
-        import pandas as pd
-        return pd.DataFrame(self.to_ndarray(), columns=list('xyz'))
-
 
 # ------------------------------------------------
 cdef class Dataset2D (Dataset):

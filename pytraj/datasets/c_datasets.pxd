@@ -142,6 +142,7 @@ cdef class DatasetString(Dataset1D):
     cdef _DatasetString* thisptr
     cdef bint _own_memory
 
+# ------------------------------------------------
 cdef extern from "DataSet_Vector.h": 
     cdef cppclass _DatasetVector "DataSet_Vector" (_Dataset):
         _DatasetVector()
@@ -162,6 +163,8 @@ cdef extern from "DataSet_Vector.h":
 cdef class DatasetVector (Dataset):
     # baseptr0 is from Dataset
     cdef _DatasetVector* baseptr_1
+
+# ------------------------------------------------
 # distutils: language = c++
 cdef extern from "DataSet_Vector_XYZ.h":
     cdef cppclass _DatasetVectorXYZ "DataSet_Vector_XYZ" (_DatasetVector):
@@ -179,6 +182,7 @@ cdef class DatasetVectorXYZ(DatasetVector):
     cdef _DatasetVectorXYZ* thisptr
     cdef bint _own_memory
 
+# ------------------------------------------------
 cdef extern from "DataSet_Vector_OXYZ.h":
     cdef cppclass _DatasetVectorOXYZ "DataSet_Vector_OXYZ" (_DatasetVector):
         _DatasetVectorOXYZ()
@@ -198,7 +202,7 @@ cdef class DatasetVectorOXYZ(DatasetVector):
     cdef _DatasetVectorOXYZ* thisptr
     cdef bint _own_memory
 
-
+# ------------------------------------------------
 cdef extern from "DataSet_2D.h": 
     # DataSet_2D.h
     ctypedef enum MatrixType "DataSet_2D::MatrixType":
