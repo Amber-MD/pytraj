@@ -794,7 +794,7 @@ def radgyr_tensor(traj=None,
     c_dslist, _ = do_action(traj, command, c_action.Action_Radgyr)
     k0, v0 = c_dslist[0].key, c_dslist[
         0].values.copy()  # use copy to avoid early memory free
-    k1, v1 = c_dslist[1].key, c_dslist[1].possible_data6
+    k1, v1 = c_dslist[1].key, c_dslist[1].data
     if dtype == 'dict':
         return {k0: v0, k1: v1}
     elif dtype == 'ndarray':
