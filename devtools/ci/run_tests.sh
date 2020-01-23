@@ -9,7 +9,7 @@ if [ "$TEST_SETUP" = 'true' ]; then
     # run this on circleci
     # sh devtools/ci/test_pip_build.sh
 else
-    (cd examples/mpi_examples && mpirun -n 4 python mpi_molsurf.py)
+    (cd examples/mpi_examples && mpirun -n 2 python mpi_molsurf.py)
     if [ "$PYPY" = "true" ]; then
         cd tests && pypy -c "import pytraj; pytraj.run_tests()"
     else
