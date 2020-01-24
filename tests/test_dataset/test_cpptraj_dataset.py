@@ -155,7 +155,7 @@ class TestCpptrajDatasetWithoutMathLib(unittest.TestCase):
         aa_eq(pt.rmsd(traj_new), pt.rmsd(self.traj))
 
         # vector
-        dslist.add(dtype='vector', name='my_vec')
+        dslist.add(dtype='vec_xyz', name='my_vec')
         vecs = pt.vector.vector_mask(self.traj, ':3 :2')
         dslist[-1].data = vecs
         aa_eq(dslist[-1].values, vecs)
