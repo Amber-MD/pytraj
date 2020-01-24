@@ -30,7 +30,7 @@ pipeline {
                 sh "python setup.py install --user"
                 // 20 minute timeout, then kill the job. If it doesn't hang, it works in <10min
                 timeout(20) {
-                    sh "cd tests && pytest -vs --ignore=test_parallel_pmap --ignore=test_run_mpi.py"
+                    sh "cd tests && pytest -vs --ignore=test_parallel_pmap --ignore=test_run_mpi.py --ignore=test_energy/test_pmap_sander.py"
                 }
             }
         }
