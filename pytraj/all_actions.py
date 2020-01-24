@@ -1581,7 +1581,7 @@ def center_of_geometry(traj=None,
 
     atom_mask_obj = top(mask)
     c_dslist = CpptrajDatasetList()
-    c_dslist.add("vector")
+    c_dslist.add("vec_xyz")
 
     for frame in iterframe_master(traj):
         c_dslist[0].append(frame.center_of_geometry(atom_mask_obj))
@@ -1908,8 +1908,8 @@ def timecorr(vec0,
 
     c_dslist = CpptrajDatasetList()
 
-    c_dslist.add("vector", "_vec0")
-    c_dslist.add("vector", "_vec1")
+    c_dslist.add("vec_xyz", "_vec0")
+    c_dslist.add("vec_xyz", "_vec1")
     c_dslist[0].data = np.asarray(vec0).astype('f8')
     c_dslist[1].data = np.asarray(vec1).astype('f8')
 
