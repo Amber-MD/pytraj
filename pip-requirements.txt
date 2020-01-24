@@ -1,6 +1,6 @@
 pyflakes==1.6.0
 numpy
 cython==0.29
-auditwheel==1.7.0
+# auditwheel==1.7.0
 mock==2.0.0
 pytest
