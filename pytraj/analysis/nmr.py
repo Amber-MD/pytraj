@@ -72,7 +72,7 @@ def _ired(iredvec,
 
     for idx, dvec in enumerate(iredvec):
         name = 'ired_' + str(idx)
-        dslist.add('vector', name)
+        dslist.add('vec_xyz', name)
         dslist[-1].scalar_type = 'iredvec'
         dslist[-1].data = np.asarray(dvec, dtype='f8')
 
