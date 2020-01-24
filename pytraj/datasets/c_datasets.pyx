@@ -620,8 +620,7 @@ cdef class DatasetVectorOXYZ(DatasetVector):
                 dview[i, 3] = _vec3.Dptr()[0]
                 dview[i, 4] = _vec3.Dptr()[1]
                 dview[i, 5] = _vec3.Dptr()[2]
-            tmpdata = np.asarray(dview, dtype='f8')
-            return np.ascontiguousarray(tmpdata[:, :3])
+            return np.asarray(dview, dtype='f8')
 
 # ------------------------------------------------
 cdef class Dataset2D (Dataset):
