@@ -1,4 +1,4 @@
-pyflakes==1.6.0
+pyflakes==2.1.1
 numpy
 cython==0.29
 # auditwheel==1.7.0
