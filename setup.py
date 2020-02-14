@@ -27,11 +27,6 @@ from scripts.base_setup import (compiler_env_info, setenv_cc_cxx,
                                 is_clang)
 from scripts.base_setup import CleanCommand, is_released
 
-# python version >= 2.6
-if sys.version_info < (2, 6):
-    print('You must have at least Python 2.6 for pytraj\n')
-    sys.exit(1)
-
 try:
     if check_flag('--cythonize'):
         from Cython.Build import cythonize
@@ -236,9 +231,6 @@ if __name__ == "__main__":
             'Operating System :: MacOS',
             'Intended Audience :: Science/Research',
             'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
-            'Programming Language :: Python :: 2.6',
-            'Programming Language :: Python :: 2.7',
-            'Programming Language :: Python :: 3.4',
             'Programming Language :: Python :: 3.5',
             'Programming Language :: Python :: 3.6',
             'Programming Language :: Python :: 3.7',
