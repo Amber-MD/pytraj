@@ -18,7 +18,10 @@ except ImportError:
 @pytest.mark.parametrize('pyfile', testlist)
 def test_all_mpi_scripts(pyfile):
     try:
-        subprocess.check_output(['mpirun', '--use-hwthread-cpus', 'python', pyfile])
+        subprocess.check_output(
+            ['mpirun', '--use-hwthread-cpus', 'python', pyfile],
+            stderr=subprocess.STDOUT
+        )
     except subprocess.CalledProcessError as e:
         raise Exception('CalledProcessError: return code %r, cmd: %r, output: %r' % (
             e.returncode, e.cmd, e.output
