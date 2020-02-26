@@ -232,7 +232,7 @@ if __name__ == "__main__":
         license="GPL v3",
         install_requires=['numpy'],
         tests_require=['tqdm', 'traitlets', 'IPython', 'mpi4py', 'pytest', 'cclib',
-                       'pysander', 'ipywidgets', 'nglview', 'ipykernel'],
+                       'ipywidgets', 'nglview', 'ipykernel'],
         setup_requires=['Cython'],
         classifiers=[
             'Development Status :: 5 - Production/Stable',
