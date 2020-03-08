@@ -17,4 +17,7 @@ except ImportError:
                     reason='require mpi4py')
 @pytest.mark.parametrize('pyfile', testlist)
 def test_all_mpi_scripts(pyfile):
-    subprocess.check_call(['mpirun', '-n', '4', 'python', pyfile])
+    try:
+        output = subprocess.check_output(['mpirun', '-n', '4', '--oversubscribe', 'python', pyfile])
+    except subprocess.CalledProcessError as e:
+        raise e
