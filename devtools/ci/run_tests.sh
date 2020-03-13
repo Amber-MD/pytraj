@@ -12,6 +12,10 @@ else
     if [ "$PYPY" = "true" ]; then
         cd tests && pypy -c "import pytraj; pytraj.run_tests()"
     else
+        set -x
+        mpirun --Version
+        (cd examples/mpi_examples && mpirun -n 1 python mpi_molsurf.py)
+        set +x
         sh devtools/ci/pyflakes_check.sh || exit 1
         
         isOSX=`python -c 'import sys; print(sys.platform.startswith("darwin"))'`
