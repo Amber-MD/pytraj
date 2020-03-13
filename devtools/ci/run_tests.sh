@@ -38,7 +38,7 @@ else
         
         # only do mpi test for linux
         if [ "$isOSX" != "True" ]; then
-            sh run_mpi_examples.sh 4 || exit 1
+            sh run_mpi_examples.sh 1 || exit 1
         fi
         
         # go back to pytraj home
