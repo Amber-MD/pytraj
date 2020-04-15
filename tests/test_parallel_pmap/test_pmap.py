@@ -234,6 +234,7 @@ class TestParallelMapForHbond(unittest.TestCase):
 
 @unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
 class TestCpptrajCommandStyle(unittest.TestCase):
+    @unittest.skipIf(sys.version_info[:2] == (3, 8), 'Timeout on Python 3.8. Skip for now')
     def test_c_command_style(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
 
