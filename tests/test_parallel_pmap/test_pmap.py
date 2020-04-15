@@ -208,6 +208,7 @@ class TestParallelMapForHbond(unittest.TestCase):
             # not support yet.
             pt.pmap(['radgyr', 'hbond'], traj, n_cores=3)
 
+    @unittest.skipIf(sys.version_info[:2] == (3, 8), 'Timeout on Python 3.8. Skip for now')
     def test_pmap_hbond_with_solvent_bridge(self):
         for trajin_fn, parm_fn in [('tz2.ortho.nc', 'tz2.ortho.parm7'),
                                    ('tz2.truncoct.nc', 'tz2.truncoct.parm7')]:
