@@ -264,7 +264,7 @@ class super_dispatch(object):
             frame_indices = kwargs.get('frame_indices')
             top = kwargs.get('top')
 
-            if has_mask_arg and mask is '':
+            if has_mask_arg and mask == '':
                 if has_traj_arg:
                     try:
                         mask = args[0]

@@ -1255,7 +1255,7 @@ def mean_structure(traj,
     if dtype.lower() == 'frame':
         return frame
     elif dtype.lower() in ['traj', 'trajectory']:
-        new_top = top_ if mask is '' else top_[mask]
+        new_top = top_ if mask == '' else top_[mask]
         return Trajectory(
             xyz=frame.xyz.reshape(1, frame.n_atoms, 3).copy(), top=new_top)
     else:

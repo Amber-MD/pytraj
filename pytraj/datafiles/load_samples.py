@@ -43,7 +43,7 @@ def load_sample_data(data_name=None):
     mydir = os.path.dirname(os.path.abspath(__file__))
     if data_name is None:
         data_name = 'ala3'
-    if data_name is 'remd_ala2':
+    if data_name == 'remd_ala2':
         crd = [os.path.join(mydir, fn) for fn in data_dict[data_name][0]]
     else:
         crd = os.path.join(mydir, data_dict[data_name][0])
