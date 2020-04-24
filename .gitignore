@@ -9,6 +9,9 @@ tests/TestListTravis.sh
 *nogit*
 Makefile
 set_env.sh
+venv
+__pycache__
 
 # editors
+.idea
 .vscode

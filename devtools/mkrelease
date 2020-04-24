@@ -1,41 +1,16 @@
-#!/usr/bin/env python
+#!/usr/bin/env bash
+set -e
 
-import os
-import sys
-import subprocess
+pytraj_root="$(realpath $(dirname $(readlink -f $0))/..)"
+echo "Building in $pytraj_root using Python at $(which python)"
+cd "${pytraj_root}"
+git clean -fdx .
+sed -i 's/is_released = False/is_released = True/' scripts/base_setup.py
+python scripts/cythonize.py
 
-python = sys.prefix + '/bin/python'
+# build source package
+python setup.py sdist
+# restore to ISRELEASED = False
+git checkout scripts/base_setup.py
 
-cwd = os.getcwd()
-
-try:
-    sys.argv.remove('--amber')
-    ambertools_distro = True
-except ValueError:
-    ambertools_distro = False
-
-pytraj_dir = os.path.abspath(os.path.dirname(__file__) + '/../')
-print('pytraj_dir', pytraj_dir)
-os.chdir(pytraj_dir)
-
-subprocess.check_call('git clean -fdx .', shell=True)
-
-# change to release status
-with open('scripts/base_setup.py', 'r') as fh:
-    old_content = fh.read()
-    new_content = old_content.replace('is_released = False',
-                                      'is_released = True')
-
-with open('scripts/tmp.py', 'w') as fh:
-    fh.write(new_content)
-
-subprocess.check_call('mv scripts/tmp.py scripts/base_setup.py', shell=True)
-subprocess.check_call('{} scripts/cythonize.py'.format(python), shell=True)
-
-if not ambertools_distro:
-    # upload to pip
-    subprocess.check_call('{} setup.py sdist'.format(python), shell=True)
-    # restore to ISRELEASED = False
-    subprocess.check_call('git checkout scripts/base_setup.py', shell=True)
-
-os.chdir(cwd)
+cd -

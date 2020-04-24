@@ -32,19 +32,23 @@ class PipBuilder(object):
     Build wheel package from conda package?
     '''
     REQUIRED_PACKAGES = ['auditwheel']
-    SUPPORTED_VERSIONS = ['2.7mu', '2.7', '3.7', '3.5', '3.6']
+    SUPPORTED_VERSIONS = {
+        '2.7': 'cp27-cp27m',
+        '2.7u': 'cp27-cp27mu',
+        '3.5': 'cp35-cp35m',
+        '3.6': 'cp36-cp36m',
+        '3.7': 'cp37-cp37m',
+        '3.8': 'cp38-cp38',
+    }
 
     if sys.platform.startswith('darwin'):
         REQUIRED_PACKAGES.append('conda_build')
-        SUPPORTED_VERSIONS.remove('2.7mu')
+        del SUPPORTED_VERSIONS['2.7u']
 
-    MANY_LINUX_PYTHONS = dict((py_version,
-                               '/opt/python/cp{py}-cp{py}m/bin/python'.format(
-                                   py=py_version.replace('.', '')))
-                              for py_version in SUPPORTED_VERSIONS)
-    # wide-unicode (to be compatible with miniconda/anaconda python)
-    if '2.7mu' in MANY_LINUX_PYTHONS:
-        MANY_LINUX_PYTHONS['2.7mu'] = '/opt/python/cp27-cp27mu/bin/python'
+    MANY_LINUX_PYTHONS = {
+        py_version: '/opt/python/{tag}/bin/python'.format(tag=tag)
+        for py_version, tag in SUPPORTED_VERSIONS.items()
+    }
 
     def __init__(self,
                  tarfile,
@@ -228,7 +232,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--py',
         default=None,
-        help='Python version. Default: build all versions (2.7, 3.4, 3.5)')
+        help='Python version (e.g. 2.7 or 3.8). Default: build all supported versions')
     parser.add_argument(
         '--cpptraj-dir', default='', help='cpptraj dir, optional')
     parser.add_argument(
@@ -238,7 +242,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     tarfile = os.path.abspath(args.tarfile)
-    python_versions = PipBuilder.SUPPORTED_VERSIONS if args.py is None else [
+    python_versions = list(PipBuilder.SUPPORTED_VERSIONS.keys()) if args.py is None else [
         args.py,
     ]
     # pytraj tar file
