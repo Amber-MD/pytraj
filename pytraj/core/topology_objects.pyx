@@ -54,7 +54,7 @@ cdef class Atom:
     def bonded_indices(self):
         """get bond indices that `self` bonds to
         """
-        cdef int[:] arr = np.empty(self.thisptr.Nbonds(), dtype='int')
+        cdef int[:] arr = np.empty(self.thisptr.Nbonds(), dtype='i4')
         cdef bond_iterator it
         cdef int i = 0
 
