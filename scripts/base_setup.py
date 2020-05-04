@@ -481,15 +481,9 @@ def get_ext_modules(cpptraj_info,
 
         if not (is_released or use_prebuilt_cythonized_files):
             from Cython.Build import cythonize
-            if sys.platform.startswith("win"):
-                cythonize(
+            cythonize(
                     [pfile + '.pyx' for pfile in pyxfiles],
-                    compiler_directives=cython_directives, )
-            else:
-                cythonize(
-                    [pfile + '.pyx' for pfile in pyxfiles],
-                    nthreads=int(os.environ.get('NUM_THREADS', 4)),
-                    compiler_directives=cython_directives, )
+                    compiler_directives=cython_directives)
 
         library_dirs = [
             cpptraj_info.lib_dir,

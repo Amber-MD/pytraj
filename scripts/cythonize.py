@@ -43,5 +43,4 @@ else:
 
 cythonize(
     [pfile + '.pyx' for pfile in pyxfiles],
-    nthreads=int(os.environ.get('NUM_THREADS', 4)),
     compiler_directives=cython_directives, )
