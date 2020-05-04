@@ -98,7 +98,7 @@ def test_install_libcpptraj_if_having_cpptraj_folder_here():
 
 def test_install_to_amberhome():
     fn = './fake_amberhome'
-    python_path = '{}/lib/python3.6/site-packages/'.format(fn)
+    python_path = '{}/lib/python3.8/site-packages/'.format(fn)
     mkdir_cmd = 'mkdir -p {}'.format(python_path)
     subprocess.check_call(mkdir_cmd, shell=True)
     full_name = os.path.abspath(fn)

@@ -32,30 +32,33 @@ class PipBuilder(object):
     Build wheel package from conda package?
     '''
     REQUIRED_PACKAGES = ['auditwheel']
-    SUPPORTED_VERSIONS = ['2.7mu', '2.7', '3.7', '3.5', '3.6']
+    SUPPORTED_VERSIONS = {
+        '3.5': 'cp35-cp35m',
+        '3.6': 'cp36-cp36m',
+        '3.7': 'cp37-cp37m',
+        '3.8': 'cp38-cp38',
+    }
 
     if sys.platform.startswith('darwin'):
         REQUIRED_PACKAGES.append('conda_build')
-        SUPPORTED_VERSIONS.remove('2.7mu')
 
-    MANY_LINUX_PYTHONS = dict((py_version,
-                               '/opt/python/cp{py}-cp{py}m/bin/python'.format(
-                                   py=py_version.replace('.', '')))
-                              for py_version in SUPPORTED_VERSIONS)
-    # wide-unicode (to be compatible with miniconda/anaconda python)
-    if '2.7mu' in MANY_LINUX_PYTHONS:
-        MANY_LINUX_PYTHONS['2.7mu'] = '/opt/python/cp27-cp27mu/bin/python'
+    MANY_LINUX_PYTHONS = {
+        py_version: '/opt/python/{tag}/bin/python'.format(tag=tag)
+        for py_version, tag in SUPPORTED_VERSIONS.items()
+    }
 
     def __init__(self,
                  tarfile,
                  pytraj_home,
                  python_versions,
                  use_manylinux=False,
-                 cpptraj_dir=''):
+                 cpptraj_dir='',
+                 validate_only=False):
         self.libcpptraj = ''  # will be updated later
         self.is_osx = sys.platform.startswith('darwin')
         self.python_versions = python_versions
         self.use_manylinux = use_manylinux
+        self.validate_only = validate_only
         if cpptraj_dir:
             self.cpptraj_dir = os.path.abspath(cpptraj_dir)
         else:
@@ -78,10 +81,13 @@ class PipBuilder(object):
     def run(self):
         self.check_cpptraj_and_required_libs()
         for python_version in self.python_versions:
-            self.initialize_env(python_version)
-            self.build_original_wheel(python_version)
-            self.repair_wheel(python_version)
-            self.validate_install(python_version)
+            if self.validate_only:
+                self.validate_install(python_version)
+            else:
+                self.initialize_env(python_version)
+                self.build_original_wheel(python_version)
+                self.repair_wheel(python_version)
+                self.validate_install(python_version)
 
     def initialize_env(self, python_version):
         if not self.use_manylinux:
@@ -157,7 +163,7 @@ class PipBuilder(object):
         env = 'pytraj' + py_version
         # e.g: change 2.7 to 27
         print('Testing pytraj build')
-        whl_file = self._get_wheel_file(py_version, folder='wheelhouse')
+        whl_file = os.path.abspath(self._get_wheel_file(py_version, folder='wheelhouse'))
         print('Testing wheel file {}'.format(whl_file))
         try:
             subprocess.check_call(
@@ -228,19 +234,23 @@ if __name__ == '__main__':
     parser.add_argument(
         '--py',
         default=None,
-        help='Python version. Default: build all versions (2.7, 3.4, 3.5)')
+        nargs='+',
+        help='Python version (e.g. 2.7 or 3.8). Default: build all supported versions')
     parser.add_argument(
         '--cpptraj-dir', default='', help='cpptraj dir, optional')
     parser.add_argument(
         '--manylinux-docker',
         action='store_true',
         help='If specified, use Python versions from manylinux')
+    parser.add_argument(
+        '--validate-only',
+        action='store_true',
+        help='Only validate the exisint repaired wheel')
     args = parser.parse_args()
 
     tarfile = os.path.abspath(args.tarfile)
-    python_versions = PipBuilder.SUPPORTED_VERSIONS if args.py is None else [
-        args.py,
-    ]
+    python_versions = args.py or list(PipBuilder.SUPPORTED_VERSIONS.keys())
+    print(f"Building package for python: {python_versions}")
     # pytraj tar file
     pytraj_home = os.path.dirname(__file__).strip('scripts')
     builder = PipBuilder(
@@ -248,7 +258,8 @@ if __name__ == '__main__':
         pytraj_home=pytraj_home,
         python_versions=python_versions,
         use_manylinux=args.manylinux_docker,
-        cpptraj_dir=args.cpptraj_dir)
+        cpptraj_dir=args.cpptraj_dir,
+        validate_only=args.validate_only)
     builder.run()
     # builder.libcpptraj = '../cpptraj/lib/libcpptraj.dylib'
     # builder.validate_install('3.5')

@@ -37,6 +37,11 @@ try:
 except ImportError:
     pass
 
+if sys.platform.startswith('linux'):
+    libcpptraj = 'libcpptraj.so'
+else:
+    libcpptraj = 'libcpptraj.dylib'
+
 amber_release = check_flag('--amber_release')
 disable_openmp = check_flag('--disable-openmp')
 use_amberlib = not check_flag('--disable-amberlib')
@@ -87,7 +92,7 @@ if openmp_flag:
     libcpptraj_files = glob(os.path.join(cpptraj_info.lib_dir, 'libcpptraj_omp') + '*')
 
 if (not openmp_flag) or len(libcpptraj_files) == 0:
-    libcpptraj_files = glob(os.path.join(cpptraj_info.lib_dir, 'libcpptraj') + '*')
+    libcpptraj_files = glob(os.path.join(cpptraj_info.lib_dir, libcpptraj) + '*')
 
 write_version_py()
 FULLVERSION, GIT_REVISION = get_version_info()

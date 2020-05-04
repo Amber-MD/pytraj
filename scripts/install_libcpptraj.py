@@ -165,32 +165,18 @@ def install_libcpptraj(compiler='', build_flag='', n_cpus=4):
     except OSError:
         pass
 
-    if sys.platform.startswith('win'):
-        _install_libcpptraj_win_msys2()
-    else:
-        cxx_overwrite = ''
+    cm = 'bash configure {build_flag} {compiler}'.format(
+        build_flag=build_flag,
+        compiler=compiler)
 
-        # We don't need this anymore?
-        # if IS_OSX:
-        #     if ((compiler == 'clang' or 'clang' in os.getenv('CXX', '')) or
-        #         (os.getenv('CXX') and is_clang(os.getenv('CXX')))):
-        #         # cxx_overwrite = 'CXX="clang++ -stdlib=libstdc++"'
-        print('cxx_overwrite flag', cxx_overwrite)
+    print('configure command: ', cm)
+    subprocess.check_call(cm, shell=True)
 
-        cm = 'bash configure {build_flag} {compiler} {cxx_overwrite}'.format(
-            build_flag=build_flag,
-            compiler=compiler,
-            cxx_overwrite=cxx_overwrite)
+    if IS_OSX:
+        add_cpptraj_cxx_to_config('config.h', CPPTRAJ_CXX)
 
-        print('configure command: ', cm)
-        # do not use subprocess to avoid split cxx_overwrite command
-        os.system(cm)
-
-        if IS_OSX:
-            add_cpptraj_cxx_to_config('config.h', CPPTRAJ_CXX)
-
-        subprocess.check_call('make libcpptraj -j{}'.format(n_cpus).split())
-        os.chdir(cwd)
+    subprocess.check_call('make libcpptraj -j{}'.format(n_cpus).split())
+    os.chdir(cwd)
 
 
 def parse_args():
