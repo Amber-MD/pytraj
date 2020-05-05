@@ -834,11 +834,12 @@ cdef class Topology:
         def __get__(self):
             return sum([atom.charge for atom in self.atoms])
 
-    def save(self, filename=None, format='AMBERPARM'):
+    def save(self, filename=None, format='AMBERPARM', overwrite=False):
         """save to given file format (parm7, psf, ...)
         """
         parm = ParmFile()
-        parm.write(filename=filename, top=self, format=format)
+        parm.write(filename=filename, top=self, format=format,
+                       overwrite=overwrite)
 
     def set_solvent(self, mask):
         '''set ``mask`` as solvent
@@ -908,7 +909,7 @@ cdef class ParmFile:
                 _top.thisptr[0], filename, arglist.thisptr[0], debug)
 
     def write(self, Topology top=Topology(), filename="default.top",
-                  ArgList arglist=ArgList(), format=""):
+                  ArgList arglist=ArgList(), format="", overwrite=False):
         cdef int debug = 0
         cdef int err
         # change `for` to upper
@@ -926,6 +927,10 @@ cdef class ParmFile:
 
         if top.is_empty():
             raise ValueError("empty topology")
+
+        if os.path.exists(filename) and not overwrite:
+            raise RuntimeError(
+                '{0} exists, must set overwrite=True'.format(filename))
 
         err = self.thisptr.WriteTopology(
             top.thisptr[0], filename, arglist.thisptr[0], parmtype, debug)
