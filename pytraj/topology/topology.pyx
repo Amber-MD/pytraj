@@ -834,12 +834,11 @@ cdef class Topology:
         def __get__(self):
             return sum([atom.charge for atom in self.atoms])
 
-    def save(self, filename=None, format='AMBERPARM', overwrite=False):
+    def save(self, filename=None, format='AMBERPARM'):
         """save to given file format (parm7, psf, ...)
         """
         parm = ParmFile()
-        parm.write(filename=filename, top=self, format=format,
-                       overwrite=overwrite)
+        parm.write(filename=filename, top=self, format=format)
 
     def set_solvent(self, mask):
         '''set ``mask`` as solvent
@@ -873,7 +872,7 @@ cdef class Topology:
         from pytraj.utils import tempfolder
 
         with tempfolder():
-            self.save("tmp.prmtop", overwrite=True)
+            self.save("tmp.prmtop")
             return pmd.load_file("tmp.prmtop")
 
 cdef class ParmFile:
@@ -909,7 +908,7 @@ cdef class ParmFile:
                 _top.thisptr[0], filename, arglist.thisptr[0], debug)
 
     def write(self, Topology top=Topology(), filename="default.top",
-                  ArgList arglist=ArgList(), format="", overwrite=False):
+                  ArgList arglist=ArgList(), format=""):
         cdef int debug = 0
         cdef int err
         # change `for` to upper
@@ -927,10 +926,6 @@ cdef class ParmFile:
 
         if top.is_empty():
             raise ValueError("empty topology")
-
-        if os.path.exists(filename) and not overwrite:
-            raise RuntimeError(
-                '{0} exists, must set overwrite=True'.format(filename))
 
         err = self.thisptr.WriteTopology(
             top.thisptr[0], filename, arglist.thisptr[0], parmtype, debug)

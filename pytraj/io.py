@@ -475,8 +475,11 @@ def write_traj(filename,
 
 
 def write_parm(filename=None, top=None, format='amberparm', overwrite=False):
+    if os.path.exists(filename) and not overwrite:
+        raise RuntimeError(
+            '{0} exists, must set overwrite=True'.format(filename))
     parm = ParmFile()
-    parm.write(filename=filename, top=top, format=format, overwrite=overwrite)
+    parm.write(filename=filename, top=top, format=format)
 
 
 def load_topology(filename, option=''):
