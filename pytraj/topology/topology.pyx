@@ -872,7 +872,7 @@ cdef class Topology:
         from pytraj.utils import tempfolder
 
         with tempfolder():
-            self.save("tmp.prmtop", overwrite=True)
+            self.save("tmp.prmtop")
             return pmd.load_file("tmp.prmtop")
 
 cdef class ParmFile:
