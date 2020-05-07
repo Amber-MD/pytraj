@@ -36,32 +36,32 @@ class PmapDataset(object):
         # val : Tuple[OrdereDict, n_frames]
 
         if self.func in [matrix.dist, matrix.idea, volmap]:
-            mat = np.sum((val[0] * val[1]
-                          for val in self.data)) / self.traj.n_frames
+            mat = sum([val[0] * val[1]
+                       for val in self.data]) / self.traj.n_frames
             return mat
         elif self.func in [
                 ired_vector_and_matrix,
         ]:
             # val : Tuple[(vecs, mat), n_frames]
-            mat = np.sum((val[0][1] * val[1]
-                          for val in self.data)) / self.traj.n_frames
-            vecs = np.column_stack(val[0][0] for val in self.data)
+            mat = sum([val[0][1] * val[1]
+                       for val in self.data]) / self.traj.n_frames
+            vecs = np.column_stack([val[0][0] for val in self.data])
             return (vecs, mat)
         elif self.func in [
                 rotation_matrix,
         ]:
             if 'with_rmsd' in self.kwargs.keys() and self.kwargs['with_rmsd']:
                 # val : Tuple[(mat, rmsd), n_frames]
-                mat = np.row_stack(val[0][0] for val in self.data)
-                rmsd_ = np.hstack(val[0][1] for val in self.data)
+                mat = np.row_stack([val[0][0] for val in self.data])
+                rmsd_ = np.hstack([val[0][1] for val in self.data])
                 return OrderedDict(out=(mat, rmsd_))
             else:
                 # val : Tuple[mat, n_frames]
-                mat = np.row_stack(val[0] for val in self.data)
+                mat = np.row_stack([val[0] for val in self.data])
                 return OrderedDict(mat=mat)
         elif self.func == mean_structure:
-            xyz = np.sum((x[1] * x[0].xyz
-                          for x in self.data)) / self.traj.n_frames
+            xyz = sum([x[1] * x[0].xyz
+                       for x in self.data]) / self.traj.n_frames
             frame = Frame(xyz.shape[0])
             frame.xyz[:] = xyz
             return frame

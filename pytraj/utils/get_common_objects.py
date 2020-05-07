@@ -264,17 +264,18 @@ class super_dispatch(object):
             frame_indices = kwargs.get('frame_indices')
             top = kwargs.get('top')
 
-            if has_mask_arg and mask == '':
-                if has_traj_arg:
-                    try:
-                        mask = args[0]
-                    except IndexError:
-                        mask = ''
-                else:
-                    try:
-                        mask = args[1]
-                    except IndexError:
-                        mask = ''
+            if has_mask_arg and isinstance(mask, string_types):
+                if mask == '':
+                    if has_traj_arg:
+                        try:
+                            mask = args[0]
+                        except IndexError:
+                            mask = ''
+                    else:
+                        try:
+                            mask = args[1]
+                        except IndexError:
+                            mask = ''
 
             if has_ref_arg:
                 if ref is None:

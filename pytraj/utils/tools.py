@@ -309,7 +309,7 @@ def merge_coordinates(iterables):
            [ 34.4160347 ,   8.53098011,  15.01716137],
            [ 34.29132462,   8.27471733,  16.50368881]])
     """
-    return np.vstack((f.xyz.copy() for f in iterables))
+    return np.vstack([f.xyz.copy() for f in iterables])
 
 
 def merge_frames(iterables):
@@ -324,7 +324,7 @@ def merge_frames(iterables):
     <Frame with 15879 atoms>
     """
     from pytraj import Frame
-    xyz = np.vstack((f.xyz.copy() for f in iterables))
+    xyz = np.vstack([f.xyz.copy() for f in iterables])
     frame = Frame()
     frame.append_xyz(xyz)
     return frame
