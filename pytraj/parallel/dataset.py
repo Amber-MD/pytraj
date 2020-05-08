@@ -60,8 +60,8 @@ class PmapDataset(object):
                 mat = np.row_stack([val[0] for val in self.data])
                 return OrderedDict(mat=mat)
         elif self.func == mean_structure:
-            xyz = np.sum((x[1] * x[0].xyz
-                          for x in self.data)) / self.traj.n_frames
+            xyz = sum([x[1] * x[0].xyz
+                       for x in self.data]) / self.traj.n_frames
             frame = Frame(xyz.shape[0])
             frame.xyz[:] = xyz
             return frame
