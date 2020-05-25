@@ -116,6 +116,11 @@ class TestTopology(unittest.TestCase):
         assert len(top[:]) == top.n_atoms
         assert len(top[:10]) == 10
 
+        # API
+        top.bond_indices
+        top.angle_indices
+        top.dihedral_indices
+
     def test_simplifed_topology(self):
         '''simplify'''
         top = pt.load_topology(fn('Tc5b.top'))

@@ -24,8 +24,8 @@ cdef class AngleType:
     @property
     def indices(self):
         """return atom indices as a python array"""
-        np.array([self.thisptr.A1(),
-                                         self.thisptr.A2(), self.thisptr.A3()])
+        return np.array([self.thisptr.A1(),
+                         self.thisptr.A2(), self.thisptr.A3()])
 
 
 cdef class LES_AtomType:
