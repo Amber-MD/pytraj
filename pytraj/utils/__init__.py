@@ -29,7 +29,7 @@ class Timer:
         return self
 
     def __exit__(self, *args, **kwargs):
-        self.value = time.time() - self._t0()
+        self.value = time.time() - self._t0
 
 
 

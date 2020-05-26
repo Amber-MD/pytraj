@@ -4,6 +4,7 @@ from utils import fn
 import numpy as np
 from pytraj import Trajectory
 from pytraj.testing import aa_eq
+from pytraj.utils import Timer
 import time
 
 
@@ -34,7 +35,7 @@ class TestSlicingTrajectory:
         aa_eq(fa4[0].xyz, traj[1].xyz)
 
         # tuple
-        aa_eq(traj[(1,)]
+        traj[(1,)]
 
     def test_velocity(self):
         traj = pt.iterload(
@@ -90,7 +91,18 @@ def test_slice_from_on_disk_trajectory():
 
 
 def test_speed():
-    traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
+
+    with Timer() as t0:
+        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
+        xyz0 = traj['@CA', [1,]]
+
+    with Timer() as t1:
+        traj = pt.load(fn('Tc5b.x'), fn('Tc5b.top'))
+        xyz1 = traj.strip('!@CA')[1,]
+
+    print(xyz0.shape)
+    print(xyz1.shape)
+    aa_eq(xyz0, xyz1)
 
 
 def test_segmentation_fault():
