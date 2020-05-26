@@ -577,7 +577,7 @@ cdef class Topology:
             atm = self(mask)
             return self._modify_state_by_mask(atm)
 
-    def strip(Topology self, mask, copy=False):
+    def strip(Topology self, mask):
         """strip atoms with given mask"""
         cdef AtomMask atm
         cdef Topology new_top
@@ -587,12 +587,11 @@ cdef class Topology:
         if atm.n_atoms == 0:
             raise ValueError("number of stripped atoms must be > 1")
         atm.invert_mask()
-        new_top = self._modify_state_by_mask(atm)
 
-        if copy:
-            return new_top
-        else:
-            self.thisptr[0] = new_top.thisptr[0]
+        cdef _Topology *top_ptr = self.thisptr.modifyStateByMask(atm.thisptr[0])
+        # Delete existing topology to avoid memory leak
+        del self.thisptr
+        self.thisptr = top_ptr
 
     def is_empty(self):
         return self.n_atoms == 0
