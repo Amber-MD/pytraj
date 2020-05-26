@@ -12,6 +12,11 @@ from pytraj.testing import get_remd_fn
 from pytraj.testing import tempfolder
 from pytraj.io import _get_amberhome
 
+try:
+    import parmed
+except ImportError:
+    parmed = None
+
 # local
 from utils import fn
 
@@ -576,3 +581,14 @@ def test_leap():
         verbose = False
         traj = pt.io.load_leap(cm % quit, verbose=verbose)
         assert traj.n_atoms == 304
+
+
+@pytest.mark.skipif(parmed is None, reason="parmed is not available")
+def test_load_parmed():
+    top_fname = fn("tz2.ortho.parm7")
+    traj_fname = fn("tz2.ortho.nc")
+    parm = parmed.load_file(top_fname, xyz=traj_fname) 
+    traj = pt.load_parmed(parm, traj=True)
+    aa_eq(parm.get_coordinates(), traj.xyz)
+    aa_eq(parm.box, traj.top.box.tolist())
+    aa_eq(parm.get_box(), traj.unitcells)
