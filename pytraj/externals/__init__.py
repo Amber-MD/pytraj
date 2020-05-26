@@ -6,10 +6,8 @@
 from __future__ import absolute_import
 # don't import _load_HDF5 here to avoid circular importing
 
-from .load_other_packages import load_MDAnalysis, load_mdtraj, load_parmed
+from .load_other_packages import load_parmed
 
 __all__ = [
-    'load_MDAnalysis',
-    'load_mdtraj',
     'load_parmed',
 ]

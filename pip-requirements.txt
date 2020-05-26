@@ -3,4 +3,5 @@ numpy
 cython==0.29.16 # should be used with latest python vesion to cythonize for release.
 # auditwheel==1.7.0
 mock==2.0.0
+parmed
 pytest
