@@ -8,6 +8,7 @@ import pytraj as pt
 from utils import fn
 from pytraj.testing import aa_eq
 from pytraj.testing import cpptraj_test_dir
+import pytest
 
 
 class TestNormalDistance(unittest.TestCase):
@@ -39,7 +40,8 @@ class TestNormalDistance(unittest.TestCase):
         aa_eq(d7, d8.values)
 
         # raise
-        self.assertRaises(ValueError, lambda: pt.dihedrals(traj, [[0, 3, 2]]))
+        with pytest.raises(ValueError):
+            pt.dihedrals(traj, [[0, 3, 2]])
 
     def test_calculate_distance_without_specifying_n_frames(self):
         # TrajectoryIterator

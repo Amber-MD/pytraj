@@ -8,6 +8,7 @@ from pytraj.testing import aa_eq
 
 # local
 from utils import fn
+import pytest
 
 TRAJ = Trajectory(fn("Tc5b.x"), fn("Tc5b.top"))
 
@@ -50,7 +51,8 @@ class TestTopology(unittest.TestCase):
         top[":PC@H*"][0]
 
         old_natoms = top.n_atoms
-        self.assertRaises(ValueError, lambda: top.join(top))
+        with pytest.raises(ValueError):
+            top.join(top)
         top.join(top.copy())
         assert top.n_atoms == 2 * old_natoms
 
@@ -64,7 +66,8 @@ class TestTopology(unittest.TestCase):
         assert len(top) == top.n_atoms
 
     def test_raise_RuntimeError(self):
-        self.assertRaises(RuntimeError, lambda: pt.load_topology('dummy'))
+        with pytest.raises(RuntimeError):
+            pt.load_topology('dummy')
 
     def test_get_atom_view(self):
         traj = pt.datafiles.load_ala3()

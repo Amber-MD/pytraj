@@ -6,6 +6,7 @@ import numpy as np
 import pytraj as pt
 from utils import fn, outputname
 from pytraj.testing import aa_eq
+import pytest
 
 
 class TestClosest(unittest.TestCase):
@@ -13,7 +14,8 @@ class TestClosest(unittest.TestCase):
         # raise if not has solvent
         traj0 = pt.iterload(
             fn('tz2.nc'), fn('tz2.parm7'), frame_slice=[(0, 2)])
-        self.assertRaises(RuntimeError, lambda: pt.closest(traj0))
+        with pytest.raises(RuntimeError):
+            pt.closest(traj0)
 
         traj = pt.iterload(
             fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'), frame_slice=[(0, 2)])

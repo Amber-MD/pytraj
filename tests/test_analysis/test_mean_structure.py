@@ -7,6 +7,7 @@ from utils import fn
 from pytraj.testing import aa_eq
 from pytraj import Trajectory
 from pytraj import mean_structure
+import pytest
 
 
 class TestAverageFrame(unittest.TestCase):
@@ -57,8 +58,8 @@ class TestAverageFrame(unittest.TestCase):
         aa_eq(out_traj.xyz, [frame6.xyz], decimal=3)
 
         # raise if not trajectory, traj or frame
-        self.assertRaises(ValueError,
-                          lambda: pt.mean_structure(traj, dtype='trajxyz'))
+        with pytest.raises(ValueError):
+            pt.mean_structure(traj, dtype='trajxyz')
 
     def test_autoimage(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))

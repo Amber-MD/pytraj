@@ -7,6 +7,7 @@ from utils import fn
 from pytraj.testing import aa_eq
 from pytraj.trajectory.trajectory_iterator import sort_filename_by_number
 from mock import patch
+import pytest
 
 
 class TestTrajectoryIterator(unittest.TestCase):
@@ -40,7 +41,8 @@ class TestTrajectoryIterator(unittest.TestCase):
         ])
 
         # iterframe (already in doctest), just throwing raise to increase coverage score
-        self.assertRaises(ValueError, lambda: traj.iterframe(rmsfit='crazy'))
+        with pytest.raises(ValueError):
+            traj.iterframe(rmsfit='crazy')
 
         # raise
         # memory error if load larger than 1GB for xyz
@@ -53,25 +55,23 @@ class TestTrajectoryIterator(unittest.TestCase):
              def mock_get(*args, **kwargs):
                  return 10000000
              mem.__get__ = mock_get
-             self.assertRaises(MemoryError, lambda: traj.xyz)
+             with pytest.raises(MemoryError):
+                 traj.xyz
 
         # can not find filename
-        self.assertRaises(ValueError, lambda: traj._load(None))
+        with pytest.raises(ValueError):
+            traj._load(None)
         # has filename but does not have Topology
-        self.assertRaises(
-            ValueError,
-            lambda: pt.TrajectoryIterator(fn('Test_RemdTraj/rem.nc.000'), top=None))
-        self.assertRaises(
-            ValueError,
-            lambda: pt.TrajectoryIterator(fn('Test_RemdTraj/rem.nc.000')))
+        with pytest.raises(ValueError):
+            pt.TrajectoryIterator(fn('Test_RemdTraj/rem.nc.000'), top=None)
+        with pytest.raises(ValueError):
+            pt.TrajectoryIterator(fn('Test_RemdTraj/rem.nc.000'))
         # empty Topology
-        self.assertRaises(
-            ValueError,
-            lambda: pt.TrajectoryIterator(fn('Test_RemdTraj/rem.nc.000'), top=pt.Topology()))
+        with pytest.raises(ValueError):
+            pt.TrajectoryIterator(fn('Test_RemdTraj/rem.nc.000'), top=pt.Topology())
         # weird Topology
-        self.assertRaises(
-            ValueError,
-            lambda: pt.TrajectoryIterator(fn('Test_RemdTraj/rem.nc.000'), top=pt.Frame))
+        with pytest.raises(ValueError):
+            pt.TrajectoryIterator(fn('Test_RemdTraj/rem.nc.000'), top=pt.Frame)
 
 
 if __name__ == "__main__":

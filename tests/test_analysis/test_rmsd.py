@@ -11,6 +11,7 @@ from pytraj.datasets import CpptrajDatasetList
 from pytraj import AtomMask
 
 from utils import fn, tc5b_trajin, tc5b_top, tz2_trajin, tz2_top
+import pytest
 
 
 class TestSimpleRMSD(unittest.TestCase):
@@ -73,10 +74,10 @@ class TestSimpleRMSD(unittest.TestCase):
             actlist.compute(frame)
 
         # raise if ref_mask is given but not mask
-        self.assertRaises(ValueError,
-                          lambda: pt.rmsd(traj1, ref=3, ref_mask='@CB'))
-        self.assertRaises(
-            ValueError, lambda: pt.rmsd(traj1, ref=traj2[:1], ref_mask='@CB'))
+        with pytest.raises(ValueError):
+            pt.rmsd(traj1, ref=3, ref_mask='@CB')
+        with pytest.raises(ValueError):
+            pt.rmsd(traj1, ref=traj2[:1], ref_mask='@CB')
 
         # assert to cpptraj
         tc5b_traj = traj1[:]
@@ -162,7 +163,8 @@ class TestSimpleRMSD(unittest.TestCase):
             aa_eq(arr[idx], pt.rmsd(traj, mask=traj.top.select(m)))
 
         mask = ['@CA', '@CB', ':3-18@CA,C', [0, 3, 5]]
-        self.assertRaises(TypeError, lambda: pt.rmsd(traj, mask=mask))
+        with pytest.raises(TypeError):
+            pt.rmsd(traj, mask=mask)
 
         mask_2 = [[0, 3, 6], range(50)]
         aa_eq(pt.rmsd(traj, mask=mask_2)[0], pt.rmsd(traj, mask=mask_2[0]))
@@ -175,9 +177,8 @@ class TestSimpleRMSD(unittest.TestCase):
 
     def test_raise_savematrices_if_not_dataset(self):
         traj = self.traj.copy()
-        self.assertRaises(
-            ValueError,
-            lambda: pt.rmsd(traj, mask='@CA savematrices', dtype='ndarray'))
+        with pytest.raises(ValueError):
+            pt.rmsd(traj, mask='@CA savematrices', dtype='ndarray')
 
     def test_not_update_coordinates(self):
         traj = self.traj[:]

@@ -7,6 +7,7 @@ from pytraj import iterframe_master
 from pytraj import Frame, Trajectory
 
 from utils import tc5b_trajin, tc5b_top
+import pytest
 text = """
 parm {}
 trajin {}
@@ -68,7 +69,8 @@ class TestIterFrameMaster(unittest.TestCase):
             for frame in pt.iterframe_master([0, 3]):
                 pass
 
-        self.assertRaises(TypeError, lambda: test_raise())
+        with pytest.raises(TypeError):
+            test_raise()
 
     def test_iter_with_a_list_of_frame_and_trajectory_and_FrameIterator(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))

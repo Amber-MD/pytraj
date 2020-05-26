@@ -2,6 +2,7 @@ from __future__ import print_function
 import unittest
 import pytraj as pt
 from utils import fn
+import pytest
 from pytraj.testing import aa_eq
 
 from utils import fn
@@ -18,7 +19,8 @@ class TestCenter(unittest.TestCase):
         aa_eq(fa.xyz, fa.xyz, decimal=5)
 
         # raise if center not in 'origin', 'box'
-        self.assertRaises(ValueError, lambda: pt.center(fa, center='oh'))
+        with pytest.raises(ValueError):
+            pt.center(fa, center='oh')
 
         # center to point
 

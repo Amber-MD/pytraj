@@ -3,6 +3,7 @@ import unittest
 import pytraj as pt
 from utils import fn
 from pytraj.testing import aa_eq
+import pytest
 
 
 class TestReplicateCell(unittest.TestCase):
@@ -27,8 +28,8 @@ class TestReplicateCell(unittest.TestCase):
         traj1 = pt.replicate_cell(traj, direction=('001', '0-10'))
         aa_eq(traj0.xyz, traj1.xyz)
 
-        self.assertRaises(ValueError,
-                          lambda: pt.replicate_cell(traj, direction=traj[0]))
+        with pytest.raises(ValueError):
+            pt.replicate_cell(traj, direction=traj[0])
 
 
 if __name__ == "__main__":
