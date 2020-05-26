@@ -9,6 +9,7 @@ from pytraj.testing import aa_eq
 class TestSlicingTrajectory:
     def test_array_like(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
+        xyz_source = traj.xyz[:]
         traj_mem = traj[:]
 
         # slicing with list or array
@@ -30,6 +31,9 @@ class TestSlicingTrajectory:
         aa_eq(fa3[0].xyz, traj[1].xyz)
         aa_eq(fa4[1].xyz, traj[2].xyz)
         aa_eq(fa4[0].xyz, traj[1].xyz)
+
+        # tuple
+        aa_eq(traj[(1,)]
 
     def test_velocity(self):
         traj = pt.iterload(

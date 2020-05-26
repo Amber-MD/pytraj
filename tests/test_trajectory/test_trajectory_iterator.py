@@ -10,7 +10,7 @@ from mock import patch
 import pytest
 
 
-class TestTrajectoryIterator(unittest.TestCase):
+class TestTrajectoryIterator:
     def test_sorting_filelist(self):
         orig_list = [
             'md10.nc', 'md11.nc', 'md12.nc', 'md4.nc', 'md5.nc', 'md100.nc',
@@ -72,10 +72,3 @@ class TestTrajectoryIterator(unittest.TestCase):
         # weird Topology
         with pytest.raises(ValueError):
             pt.TrajectoryIterator(fn('Test_RemdTraj/rem.nc.000'), top=pt.Frame)
-
-
-if __name__ == "__main__":
-    unittest.main()
-    # nosetests --with-coverage --cover-package pytraj -vs .
-    # nosetests -vs --processes 6 --process-timeout 200 .
-    # nosetests -vs --processes 6 --process-timeout 200 --with-coverage --cover-package pytraj .
