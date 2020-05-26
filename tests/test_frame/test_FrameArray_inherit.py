@@ -1,5 +1,6 @@
 import unittest
 from pytraj import *
+import pytest
 
 
 class Test(unittest.TestCase):
@@ -10,7 +11,8 @@ class Test(unittest.TestCase):
 
             FA(fn('Tc5b.x'), fn('Tc5b.top'))
 
-        self.assertRaises(TypeError, lambda: test_class())
+        with pytest.raises(TypeError):
+            test_class()
 
 
 if __name__ == "__main__":

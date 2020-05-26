@@ -4,6 +4,7 @@ import unittest
 import pytraj as pt
 from utils import fn
 from pytraj.testing import aa_eq
+import pytest
 
 
 class TestTools(unittest.TestCase):
@@ -15,18 +16,16 @@ class TestTools(unittest.TestCase):
         assert pt.tools.as_2darray(traj).ndim == 2, 'ndim must be 2'
 
         #
-        self.assertRaises(
-            ValueError,
-            lambda: pt.tools.rmsd_1darray([3, 2], [[2, 3], [4, 6]]))
-        self.assertRaises(
-            ValueError,
-            lambda: pt.tools.rmsd_1darray([[2, 3], [4, 6]], [2, 3]))
+        with pytest.raises(ValueError):
+            pt.tools.rmsd_1darray([3, 2], [[2, 3], [4, 6]])
+        with pytest.raises(ValueError):
+            pt.tools.rmsd_1darray([[2, 3], [4, 6]], [2, 3])
 
         # rmsd
-        self.assertRaises(ValueError,
-                          lambda: pt.tools.rmsd([[2, 3], [4, 6]], [2, 3]))
-        self.assertRaises(
-            ValueError, lambda: pt.tools.rmsd([[2, 3]], [2, 3], flatten=False))
+        with pytest.raises(ValueError):
+            pt.tools.rmsd([[2, 3], [4, 6]], [2, 3])
+        with pytest.raises(ValueError):
+            pt.tools.rmsd([[2, 3]], [2, 3], flatten=False)
 
         #
         for frame in pt.tools.split_traj_by_residues(traj, 0, 12):

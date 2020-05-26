@@ -6,6 +6,7 @@ import pytraj as pt
 from pytraj.testing import aa_eq
 
 from utils import fn
+import pytest
 
 
 class TestNastruct(unittest.TestCase):
@@ -65,8 +66,8 @@ class TestNastruct(unittest.TestCase):
             aa_eq(data[key][1], na2[key][1])
 
         # raise
-        self.assertRaises(ValueError,
-                          lambda: pt.nastruct(traj, dtype='ndarray'))
+        with pytest.raises(ValueError):
+            pt.nastruct(traj, dtype='ndarray')
 
     def test_baseref(self):
         pdb_fn = fn('Test_NAstruct/adh026.3.pdb')

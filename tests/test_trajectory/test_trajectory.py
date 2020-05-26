@@ -5,6 +5,7 @@ import pytraj as pt
 from utils import fn
 from pytraj.testing import aa_eq
 from pytraj.externals.six.moves import zip
+import pytest
 
 
 class TestAutoImageAndRotateDihedral(unittest.TestCase):
@@ -113,16 +114,18 @@ class TestAppend(unittest.TestCase):
 
 class TestTrajectory(unittest.TestCase):
     def test_raise_construtor(self):
-        self.assertRaises(ValueError, lambda: pt.Trajectory(pt.trajectory))
+        with pytest.raises(ValueError):
+            pt.Trajectory(pt.trajectory)
         # raise if filename is not string or list of string
         empty_traj = pt.Trajectory()
         empty_traj.top = pt.datafiles.load_tz2()[:].top
-        self.assertRaises(ValueError, lambda: empty_traj.load(pt.Trajectory))
+        with pytest.raises(ValueError):
+            empty_traj.load(pt.Trajectory)
 
         # raise if empty Topology
         xyz = np.arange(90).astype('f8').reshape(3, 10, 3)
-        self.assertRaises(ValueError,
-                          lambda: pt.Trajectory(xyz=xyz, top=pt.Topology()))
+        with pytest.raises(ValueError):
+            pt.Trajectory(xyz=xyz, top=pt.Topology())
 
     def test_slice_basic(self):
         traj2 = pt.Trajectory()
@@ -186,8 +189,10 @@ class TestTrajectory(unittest.TestCase):
         # raise if size = 0
         traj3 = pt.Trajectory()
         assert traj3.n_frames == 0, 'empty Trajectory, n_frames must be 0'
-        self.assertRaises(IndexError, lambda: traj3[0])
-        self.assertRaises(IndexError, lambda: traj3.__setitem__(0, traj[3]))
+        with pytest.raises(IndexError):
+            traj3[0]
+        with pytest.raises(IndexError):
+            traj3.__setitem__(0, traj[3])
 
     def test_iter_basic(self):
         traj = pt.TrajectoryIterator()
@@ -232,8 +237,10 @@ class TestTrajectory(unittest.TestCase):
         # make sure there is no TypeError
         set_xyz_not_c_contiguous()
 
-        self.assertRaises(ValueError, lambda: set_xyz_not_same_n_atoms())
-        self.assertRaises(ValueError, lambda: append_2d())
+        with pytest.raises(ValueError):
+            set_xyz_not_same_n_atoms()
+        with pytest.raises(ValueError):
+            append_2d()
 
         # make sure to autoconvert from f4 to f8
         xyz_f4 = np.array(traj.xyz, dtype='f4')
@@ -248,7 +255,8 @@ class TestTrajectory(unittest.TestCase):
         traj = pt.datafiles.load_tz2_ortho()
         fi = pt.pipe(traj, ['autoimage'])
         # does not have Topology info
-        self.assertRaises(ValueError, lambda: pt.Trajectory.from_iterable(fi))
+        with pytest.raises(ValueError):
+            pt.Trajectory.from_iterable(fi)
 
     def test_add_merge_two_trajs(self):
         '''test_add_merge_two_trajs'''
@@ -257,7 +265,8 @@ class TestTrajectory(unittest.TestCase):
         trajiter = pt.datafiles.load_rna()(stop=1)
 
         # raise if do not have the same n_frames
-        self.assertRaises(ValueError, lambda: traj1 + traj2)
+        with pytest.raises(ValueError):
+            traj1 + traj2
 
         traj1 = traj1[:1]
         traj2 = traj2[:1]
@@ -354,18 +363,21 @@ class TestSetitem(unittest.TestCase):
         def shape_mismatch():
             fa[0] = xyz
 
-        self.assertRaises(ValueError, lambda: shape_mismatch())
+        with pytest.raises(ValueError):
+            shape_mismatch()
 
         def shape_mismatch2():
             fa[0] = pt.Frame()
 
-        self.assertRaises(ValueError, lambda: shape_mismatch2())
+        with pytest.raises(ValueError):
+            shape_mismatch2()
 
         # assign to None
         def None_value():
             fa[0] = None
 
-        self.assertRaises(ValueError, lambda: None_value())
+        with pytest.raises(ValueError):
+            None_value()
 
 
 if __name__ == "__main__":

@@ -3,6 +3,7 @@ import unittest
 import pytraj as pt
 from utils import fn
 from pytraj.testing import aa_eq
+import pytest
 
 
 class TestWatershell(unittest.TestCase):
@@ -17,7 +18,8 @@ class TestWatershell(unittest.TestCase):
         aa_eq(d0.values, state.data[[1, 2]].values)
 
         # need to provide solute_mask
-        self.assertRaises(ValueError, lambda: pt.watershell(traj))
+        with pytest.raises(ValueError):
+            pt.watershell(traj)
 
 
 if __name__ == "__main__":

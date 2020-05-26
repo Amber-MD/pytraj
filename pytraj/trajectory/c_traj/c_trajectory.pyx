@@ -316,22 +316,26 @@ cdef class TrajectoryCpptraj:
             try:
                 return self[self.top(mask)]
             except:
-                txt = "not supported keyword `%s`" % idxs
-                raise NotImplementedError(txt)
+                raise NotImplementedError(f"not supported keyword {idxs}")
         elif isinstance(idxs, slice):
             start, stop, step = idxs.indices(self.n_frames)
             self.tmpfarray = self._load_traj_by_indices(range(start, stop, step))
             return self.tmpfarray
         else:
-            # not is a slice
+            # not is a slice or string or AtomMask
             if idxs == ():
                 return self
             elif isinstance(idxs, tuple):
                 idxs_size = len(idxs)
                 if idxs_size >= 4:
                     raise NotImplementedError("number of elements must me smaller than 4")
-                idx0 = idxs[0]
+                elif idxs_size == 1:
+                    return self[idxs[0]]
 
+                if isinstance(idxs[0], string_types):
+                    # move the atom stripping to the end
+                    idxs = tuple(idxs[1:] + (idxs[0],))
+                idx0 = idxs[0]
                 idx1 = idxs[1]
                 if isinstance(self[idx0], Frame):
                     frame = self[idx0]
@@ -360,6 +364,7 @@ cdef class TrajectoryCpptraj:
                         except:
                             raise NotImplementedError()
             elif is_array(idxs) or isinstance(idxs, list) or is_range(idxs):
+                # Always return a Trajectory object
                 # traj[[2, 6, 3]]
                 # support indexing that having 'len'
                 if any(isinstance(x, bool) for x in idxs):

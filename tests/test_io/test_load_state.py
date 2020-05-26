@@ -5,6 +5,7 @@ import pytraj as pt
 from utils import fn
 from pytraj.testing import aa_eq
 from pytraj import load_batch
+import pytest
 
 
 class TestState(unittest.TestCase):
@@ -51,7 +52,8 @@ class TestState(unittest.TestCase):
         radgyr @CA nomax
         '''
 
-        self.assertRaises(ValueError, lambda: load_batch(t0, text))
+        with pytest.raises(ValueError):
+            load_batch(t0, text)
 
 
 if __name__ == "__main__":

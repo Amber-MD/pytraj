@@ -5,6 +5,7 @@ import numpy as np
 import unittest
 from pytraj.testing import aa_eq
 from pytraj.externals.six import izip as zip
+import pytest
 
 
 class TestSearchHbonds(unittest.TestCase):
@@ -24,8 +25,8 @@ class TestSearchHbonds(unittest.TestCase):
             aa_eq(mydict[key], mydict_np[key])
 
         # raise if dtype='hbond' and series=False
-        self.assertRaises(ValueError,
-                          lambda: pt.hbond(traj, series=False, dtype='hbond'))
+        with pytest.raises(ValueError):
+            pt.hbond(traj, series=False, dtype='hbond')
 
     def test_hbonds_with_image(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))

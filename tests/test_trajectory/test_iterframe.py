@@ -5,6 +5,7 @@ import unittest
 import pytraj as pt
 from utils import fn
 from pytraj.testing import aa_eq
+import pytest
 
 
 class TestIterFrame(unittest.TestCase):
@@ -16,8 +17,8 @@ class TestIterFrame(unittest.TestCase):
         # iterframe (already in doctest), just throwing raise to increase coverage score
 
         for traj in [orig_traj, orig_traj[:]]:
-            self.assertRaises(
-                ValueError, lambda: traj.iterframe(rmsfit='crazy'))
+            with pytest.raises(ValueError):
+                traj.iterframe(rmsfit='crazy')
 
             # rmsfit is an int
             t0 = orig_traj[:].rmsfit(ref=3)

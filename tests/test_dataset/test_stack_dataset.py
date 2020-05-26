@@ -8,6 +8,7 @@ from pytraj import io as mdio
 from pytraj.testing import aa_eq
 from pytraj.datasets.datasetlist import stack
 from pytraj.datasets.datasetlist import stack as stack
+import pytest
 
 traj = mdio.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
@@ -44,8 +45,10 @@ class Test(unittest.TestCase):
         dslist0 = pt.calc_phi(traj)
         dslist1 = pt.calc_psi(traj)
         dslist2 = pt.search_hbonds(traj)
-        self.assertRaises(KeyError, lambda: stack((dslist0, dslist1)))
-        self.assertRaises(TypeError, lambda: stack((dslist0, dslist2)))
+        with pytest.raises(KeyError):
+            stack((dslist0, dslist1))
+        with pytest.raises(TypeError):
+            stack((dslist0, dslist2))
 
         stack((dslist0 for _ in range(3)))
 

@@ -31,21 +31,24 @@ class TestNormalPmap(unittest.TestCase):
 
     def test_raise(self):
         # if func is not support pmap
-        self.assertRaises(ValueError, lambda: pt.pmap(pt.bfactors, self.traj))
+        with pytest.raises(ValueError):
+            pt.pmap(pt.bfactors, self.traj)
 
         # run time: openmp vs pmap
         if 'OPENMP' in pt.compiled_info():
-            self.assertRaises(RuntimeError,
-                              lambda: pt.pmap(pt.watershell, self.traj))
+            with pytest.raises(RuntimeError):
+                pt.pmap(pt.watershell, self.traj)
 
         # if traj is not TrajectoryIterator
-        self.assertRaises(ValueError, lambda: pt.pmap(pt.radgyr, self.traj[:]))
+        with pytest.raises(ValueError):
+            pt.pmap(pt.radgyr, self.traj[:])
 
         # raise if a given method does not support pmap
         def need_to_raise(traj=self.traj):
             pt.pmap(2, pt.bfactors, traj)
 
-        self.assertRaises(ValueError, lambda: need_to_raise())
+        with pytest.raises(ValueError):
+            need_to_raise()
 
         # raise if a traj is not TrajectoryIterator
         def need_to_raise_2(traj=self.traj):
@@ -53,7 +56,8 @@ class TestNormalPmap(unittest.TestCase):
 
         # raise if turn off pmap by setting _is_parallelizable to False
         pt.radgyr._is_parallelizable = False
-        self.assertRaises(ValueError, lambda: pt.pmap(pt.radgyr, self.traj))
+        with pytest.raises(ValueError):
+            pt.pmap(pt.radgyr, self.traj)
         pt.radgyr._is_parallelizable = True
 
     def test_general(self):
@@ -318,9 +322,8 @@ class TestLoadBathPmap(unittest.TestCase):
     def test_load_batch(self):
         '''just test ValueError
         '''
-        self.assertRaises(
-            ValueError,
-            lambda: _load_batch_pmap(n_cores=4, lines=['autoimage'], traj=None, dtype='dict', root=0, mode='xyz', ref=None))
+        with pytest.raises(ValueError):
+            _load_batch_pmap(n_cores=4, lines=['autoimage'], traj=None, dtype='dict', root=0, mode='xyz', ref=None)
 
 
 @unittest.skipUnless(sys.platform.startswith('linux'), 'pmap for linux')
@@ -391,8 +394,8 @@ class TestCheckValidCommand(unittest.TestCase):
             [pt.rmsd(traj, ref=traj[0])])
 
         # does not support matrix
-        self.assertRaises(ValueError,
-                          lambda: pt.pmap(['matrix'], traj, n_cores=2))
+        with pytest.raises(ValueError):
+            pt.pmap(['matrix'], traj, n_cores=2)
 
         # do not accept any c analysis command
         for word in c_commands.ANALYSIS_COMMANDS:
@@ -406,9 +409,10 @@ class TestVolmap(unittest.TestCase):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
 
         # raise if does not provide size
-        self.assertRaises(AssertionError, lambda: pt.pmap(pt.volmap, traj, mask=':WAT@O',
+        with pytest.raises(AssertionError):
+            pt.pmap(pt.volmap, traj, mask=':WAT@O',
                                                           grid_spacing=(0.5, 0.5, 0.5),
-                                                          n_cores=2))
+                                                          n_cores=2)
 
         mask = ':WAT@O'
         grid_spacing = (0.5, 0.5, 0.5)
@@ -424,7 +428,7 @@ class TestVolmap(unittest.TestCase):
                     grid_spacing=grid_spacing,
                     size=size,
                     n_cores=n_cores)
-                self.assertEqual(serial_out.shape, tuple(2 * x for x in size))
+                assert serial_out.shape == tuple(2 * x for x in size)
                 aa_eq(serial_out, parallel_out)
 
 

@@ -51,11 +51,14 @@ class TestExtraCoverage(unittest.TestCase):
     def testget_common_objects(self):
         # raises
         # raise if try to index traj()
-        self.assertRaises(TypeError, lambda: get_reference(self.traj(), 3))
-        self.assertRaises(TypeError, lambda: get_reference(self.traj(), None))
+        with pytest.raises(TypeError):
+            get_reference(self.traj(), 3)
+        with pytest.raises(TypeError):
+            get_reference(self.traj(), None)
 
         # specify wrong mask
-        self.assertRaises(TypeError, lambda: pt.superpose(self.traj[:], 3))
+        with pytest.raises(TypeError):
+            pt.superpose(self.traj[:], 3)
 
     def test_all_actions(self):
         with pytest.raises(ValueError):

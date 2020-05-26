@@ -1,23 +1,27 @@
-import unittest
+import pytest
 import pytraj as pt
 from utils import fn
 import numpy as np
 from pytraj import Trajectory
 from pytraj.testing import aa_eq
+from pytraj.utils import Timer
+from pytraj.testing import cpptraj_test_dir
+import time
 
 
-class TestSlicingTrajectory(unittest.TestCase):
+class TestSlicingTrajectory:
     def test_array_like(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
-        FA = traj[:]
+        xyz_source = traj.xyz[:].copy()
+        traj_mem = traj[:]
 
         # slicing with list or array
         indices = [1, 2, 3]
         fa = traj[indices]
-        fa2 = FA[indices]
+        fa2 = traj_mem[indices]
         fa3 = traj[range(1, 4)]
-        fa4 = FA[range(1, 4)]
-        self.assertIsInstance(fa, Trajectory)
+        fa4 = traj_mem[range(1, 4)]
+        assert isinstance(fa, Trajectory)
         # from TrajectoryIterator
         aa_eq(fa[0].xyz, traj[1].xyz)
         aa_eq(fa[1].xyz, traj[2].xyz)
@@ -25,11 +29,18 @@ class TestSlicingTrajectory(unittest.TestCase):
         aa_eq(fa2[1].xyz, traj[2].xyz)
         aa_eq(fa2[0].xyz, traj[1].xyz)
 
+        # a list with one element
+        assert isinstance(traj[[1,]], Trajectory)
+        aa_eq(traj[[1,]].xyz, traj[1:2].xyz)
+
         # from "range"
         aa_eq(fa3[1].xyz, traj[2].xyz)
         aa_eq(fa3[0].xyz, traj[1].xyz)
         aa_eq(fa4[1].xyz, traj[2].xyz)
         aa_eq(fa4[0].xyz, traj[1].xyz)
+
+        # tuple
+        aa_eq(traj[(1,)].xyz, xyz_source[1])
 
     def test_velocity(self):
         traj = pt.iterload(
@@ -55,10 +66,13 @@ class TestSlicingTrajectory(unittest.TestCase):
         aa_eq(traj[0, atm, 0], xyz[0][indices][0])
 
 
-def test_slice_from_Trajin_Single():
-    # create Trajectory from Trajing_Single
+def test_slice_from_on_disk_trajectory():
     traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))[:]
+    
+    # list
     aa_eq(traj[3, 3], traj[3][3, :])
+
+    # frame
     frame1 = traj[1]
     aa_eq(frame1[0], traj[1][:, :][0])
     assert traj[0, 0, 0] == -16.492
@@ -79,6 +93,24 @@ def test_slice_from_Trajin_Single():
     atm = traj.top("@CA")
     traj[atm]
     traj[:, atm]
+
+
+def test_speed():
+
+    top_fname = f"{cpptraj_test_dir}/DOPC.parm7"
+    traj_fname = f"{cpptraj_test_dir}/DOPC.rst7"
+    traj = pt.iterload([traj_fname]*100, top_fname)
+    indices = list(range(50, 60))
+    with Timer() as t0:
+        xyz0 = traj[':WAT,OL', indices].xyz
+
+    with Timer() as t1:
+        xyz1 = traj[indices, ':WAT,OL'].xyz
+
+    # https://github.com/Amber-MD/pytraj/issues/1494
+    aa_eq(xyz0, xyz1)
+    assert xyz0.shape[0] == 10
+    assert abs(t0.value - t1.value) < 0.5
 
 
 def test_segmentation_fault():
