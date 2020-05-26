@@ -18,7 +18,8 @@ class StrippedTrajectoryIterator(SharedTrajectory):
     """
 
     def __init__(self, origtraj, mask):
-        top = origtraj.top.strip(mask, copy=True)
+        top = origtraj.top.copy()
+        top.strip(mask)
         self.top = top
         self._traj = origtraj
         self._atm = self._traj.top(mask)
