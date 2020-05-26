@@ -292,7 +292,6 @@ cdef class TrajectoryCpptraj:
         cdef list tmplist
         cdef AtomMask atom_mask_obj
         cdef idxs_size
-        print(idxs)
 
         frame.thisptr[0] = self.thisptr.AllocateFrame()
 
@@ -335,7 +334,7 @@ cdef class TrajectoryCpptraj:
 
                 if isinstance(idxs[0], string_types):
                     # move the atom stripping to the end
-                    idxs = idxs[::-1]
+                    idxs = tuple(idxs[1:] + (idxs[0],))
                 idx0 = idxs[0]
                 idx1 = idxs[1]
                 if isinstance(self[idx0], Frame):

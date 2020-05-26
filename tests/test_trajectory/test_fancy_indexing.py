@@ -5,6 +5,7 @@ import numpy as np
 from pytraj import Trajectory
 from pytraj.testing import aa_eq
 from pytraj.utils import Timer
+from pytraj.testing import cpptraj_test_dir
 import time
 
 
@@ -96,19 +97,20 @@ def test_slice_from_on_disk_trajectory():
 
 def test_speed():
 
-    traj = pt.iterload([fn('.ortho.nc')]*100, fn('tz2.ortho.parm7'))
-    print(traj.n_frames)
+    top_fname = f"{cpptraj_test_dir}/DOPC.parm7"
+    traj_fname = f"{cpptraj_test_dir}/DOPC.rst7"
+    traj = pt.iterload([traj_fname]*100, top_fname)
+    indices = list(range(50, 60))
     with Timer() as t0:
-        print("HELLO 0")
-        xyz0 = traj['!@CA', [9,]].xyz
+        xyz0 = traj[':WAT,OL', indices].xyz
 
     with Timer() as t1:
-        print("HELLO 1")
-        xyz1 = traj[[9,], '!@CA'].xyz
+        xyz1 = traj[indices, ':WAT,OL'].xyz
 
     # https://github.com/Amber-MD/pytraj/issues/1494
-    assert t0.value == pytest.approx(t1.value)
     aa_eq(xyz0, xyz1)
+    assert xyz0.shape[0] == 10
+    assert abs(t0.value - t1.value) < 0.5
 
 
 def test_segmentation_fault():
