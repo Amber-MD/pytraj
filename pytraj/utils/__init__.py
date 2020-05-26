@@ -1,5 +1,5 @@
 """"""
-from __future__ import absolute_import
+import time
 from .check_and_assert import file_exist, is_generator
 from .check_and_assert import eq
 from .check_and_assert import _import, is_int
@@ -18,6 +18,19 @@ def fn(name):
     import pytraj
     base = pytraj.__path__[0]
     return base + '/../tests/data/' + name
+
+
+class Timer:
+    def __init__(self):
+        self._t0 = self.value = None
+
+    def __enter__(self):
+        self._t0 = time.time()
+        return self
+
+    def __exit__(self, *args, **kwargs):
+        self.value = time.time() - self._t0()
+
 
 
 def duplicate_traj(orig_traj, n_times):

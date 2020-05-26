@@ -4,6 +4,7 @@ from utils import fn
 import numpy as np
 from pytraj import Trajectory
 from pytraj.testing import aa_eq
+import time
 
 
 class TestSlicingTrajectory:
@@ -59,10 +60,13 @@ class TestSlicingTrajectory:
         aa_eq(traj[0, atm, 0], xyz[0][indices][0])
 
 
-def test_slice_from_Trajin_Single():
-    # create Trajectory from Trajing_Single
+def test_slice_from_on_disk_trajectory():
     traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))[:]
+    
+    # list
     aa_eq(traj[3, 3], traj[3][3, :])
+
+    # frame
     frame1 = traj[1]
     aa_eq(frame1[0], traj[1][:, :][0])
     assert traj[0, 0, 0] == -16.492
@@ -83,6 +87,10 @@ def test_slice_from_Trajin_Single():
     atm = traj.top("@CA")
     traj[atm]
     traj[:, atm]
+
+
+def test_speed():
+    traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
 
 def test_segmentation_fault():
