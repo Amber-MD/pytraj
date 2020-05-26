@@ -1,4 +1,4 @@
-import unittest
+import pytest
 import pytraj as pt
 from utils import fn
 import numpy as np
@@ -11,7 +11,7 @@ import time
 class TestSlicingTrajectory:
     def test_array_like(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
-        xyz_source = traj.xyz[:]
+        xyz_source = traj.xyz[:].copy()
         traj_mem = traj[:]
 
         # slicing with list or array
@@ -28,6 +28,10 @@ class TestSlicingTrajectory:
         aa_eq(fa2[1].xyz, traj[2].xyz)
         aa_eq(fa2[0].xyz, traj[1].xyz)
 
+        # a list with one element
+        assert isinstance(traj[[1,]], Trajectory)
+        aa_eq(traj[[1,]].xyz, traj[1:2].xyz)
+
         # from "range"
         aa_eq(fa3[1].xyz, traj[2].xyz)
         aa_eq(fa3[0].xyz, traj[1].xyz)
@@ -35,7 +39,7 @@ class TestSlicingTrajectory:
         aa_eq(fa4[0].xyz, traj[1].xyz)
 
         # tuple
-        traj[(1,)]
+        aa_eq(traj[(1,)].xyz, xyz_source[1])
 
     def test_velocity(self):
         traj = pt.iterload(
@@ -92,16 +96,18 @@ def test_slice_from_on_disk_trajectory():
 
 def test_speed():
 
+    traj = pt.iterload([fn('.ortho.nc')]*100, fn('tz2.ortho.parm7'))
+    print(traj.n_frames)
     with Timer() as t0:
-        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
-        xyz0 = traj['@CA', [1,]]
+        print("HELLO 0")
+        xyz0 = traj['!@CA', [9,]].xyz
 
     with Timer() as t1:
-        traj = pt.load(fn('Tc5b.x'), fn('Tc5b.top'))
-        xyz1 = traj.strip('!@CA')[1,]
+        print("HELLO 1")
+        xyz1 = traj[[9,], '!@CA'].xyz
 
-    print(xyz0.shape)
-    print(xyz1.shape)
+    # https://github.com/Amber-MD/pytraj/issues/1494
+    assert t0.value == pytest.approx(t1.value)
     aa_eq(xyz0, xyz1)
 
 
