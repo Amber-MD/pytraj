@@ -1,7 +1,6 @@
 from __future__ import absolute_import
 from ..utils.get_common_objects import _load_Topology
 from ..utils.context import tempfolder
-from .six import string_types
 
 
 def load_parmed(parm, traj=True, **kwd):
@@ -19,8 +18,6 @@ def load_parmed(parm, traj=True, **kwd):
     >>> p = pmd.download_PDB("1l2y")
     >>> traj = pt.load_parmed(p)
     """
-    from parmed.amber import AmberParm
-
     with tempfolder():
         fname = 'tmp.parm7'
         parm.save(fname)
