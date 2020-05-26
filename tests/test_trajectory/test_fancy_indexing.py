@@ -6,18 +6,18 @@ from pytraj import Trajectory
 from pytraj.testing import aa_eq
 
 
-class TestSlicingTrajectory(unittest.TestCase):
+class TestSlicingTrajectory:
     def test_array_like(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
-        FA = traj[:]
+        traj_mem = traj[:]
 
         # slicing with list or array
         indices = [1, 2, 3]
         fa = traj[indices]
-        fa2 = FA[indices]
+        fa2 = traj_mem[indices]
         fa3 = traj[range(1, 4)]
-        fa4 = FA[range(1, 4)]
-        self.assertIsInstance(fa, Trajectory)
+        fa4 = traj_mem[range(1, 4)]
+        assert isinstance(fa, Trajectory)
         # from TrajectoryIterator
         aa_eq(fa[0].xyz, traj[1].xyz)
         aa_eq(fa[1].xyz, traj[2].xyz)
