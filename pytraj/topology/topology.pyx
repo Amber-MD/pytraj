@@ -714,10 +714,11 @@ cdef class Topology:
 
             for btype.thisptr[0] in bondarray:
                 yield btype
+                btype = BondType()
 
     property angles:
         def __get__(self):
-            """return bond iterator"""
+            """return angle iterator"""
             cdef AngleArray anglearray, anglearray_h
             cdef AngleType atype = AngleType()
 
@@ -727,6 +728,7 @@ cdef class Topology:
 
             for atype.thisptr[0] in anglearray:
                 yield atype
+                atype = AngleType()
 
     property dihedrals:
         def __get__(self):
@@ -740,6 +742,7 @@ cdef class Topology:
 
             for dhtype.thisptr[0] in dharr:
                 yield dhtype
+                dhtype = DihedralType()
 
     property bond_indices:
         def __get__(self):
