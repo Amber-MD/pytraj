@@ -2,6 +2,8 @@
 import os
 import sys
 import unittest
+from mock import patch, MagicMock
+from pathlib import Path
 import numpy as np
 import pytest
 import pytraj as pt
@@ -296,14 +298,17 @@ def test_single_frame():
         pt.io.load_frame(filename='afddsfdsfa', top=traj.top.filename, index=3)
 
 
-# @unittest.skip('download_PDB')
-def test_download_pdb():
-    with tempfolder():
-        pt.io.download_PDB('1l2y', './', overwrite=True)
+@patch.object(pt.io, "urlopen")
+def test_download_pdb(mock_urlopen, tmpdir):
+    fname = Path(fn("1L2Y.pdb"))
+    content = fname.read_bytes()
+    obj = MagicMock()
+    obj.read.return_value = content
+    mock_urlopen.return_value = obj
+    with tmpdir.as_cwd():
+        pt.io.download_PDB('1l2y')
         t2 = pt.load('1l2y.pdb')
         assert t2.n_atoms == 304, 'must have 304 atoms'
-        with pytest.raises(ValueError):
-            pt.io.download_PDB('1l2y', './', overwrite=False)
 
 
 def test_short_save():

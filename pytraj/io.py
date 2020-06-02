@@ -1,5 +1,6 @@
-from __future__ import absolute_import
 import os
+from pathlib import Path
+import tempfile
 import numpy as np
 
 from .core.c_core import _load_batch
@@ -540,7 +541,8 @@ def loadpdb_rcsb(pdbid):
     --------
         io.loadpdb_rcsb("2KOC") # popular RNA hairpin
     """
-    url = 'http://files.rcsb.org/download/{}.pdb'.format(pdbid.upper())
+    pdbid = pdbid.upper()
+    url = f'http://files.rcsb.org/download/{pdbid}.pdb'
     return _make_traj_from_remote_file(url)
 
 
@@ -553,42 +555,23 @@ def load_url(url):
 
 
 def _make_traj_from_remote_file(remote_file):
-    import tempfile
-
-    fd, fname = tempfile.mkstemp()
-    txt = urlopen(remote_file).read()
-    with open(fname, 'w') as fh:
-        if PY3:
-            txt = txt.decode()
-        fh.write(txt)
-
+    _, fname = tempfile.mkstemp()
+    content = urlopen(remote_file).read()
+    Path(fname).write_text(content.decode())
     return load(fname)
 
 
-def download_PDB(pdbid, location="./", overwrite=False):
+def download_pdb(pdbid, location="./"):
     """download pdb to local disk
-
-    Returns
-    -------
-    None
-
-    Notes
-    -----
-    this method is different from `parmed.download_PDB`, which return a `Structure` object
     """
     fname = location + pdbid + ".pdb"
-    if os.path.exists(fname) and not overwrite:
-        raise ValueError("must set overwrite to True")
-
     url = 'http://www.rcsb.org/pdb/files/%s.pdb' % pdbid
-    txt = urlopen(url).read()
-    with open(fname, 'w') as fh:
-        if PY3:
-            txt = txt.decode()
-        fh.write(txt)
+    content = urlopen(url).read().decode()
+    Path(fname).write_text(content)
 
 
 # create alias
+download_PDB = download_pdb
 load_pdb_rcsb = loadpdb_rcsb
 
 
