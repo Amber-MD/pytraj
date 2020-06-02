@@ -4,7 +4,7 @@ import tempfile
 import numpy as np
 
 from .core.c_core import _load_batch
-from .externals.six import string_types, PY3
+from .externals.six import string_types
 from .externals.load_other_packages import load_parmed
 from .serialize.serialize import to_pickle, read_pickle
 from .datafiles.load_samples import load_sample_data
