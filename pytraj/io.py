@@ -542,7 +542,7 @@ def loadpdb_rcsb(pdbid):
         io.loadpdb_rcsb("2KOC") # popular RNA hairpin
     """
     pdbid = pdbid.upper()
-    url = f'http://files.rcsb.org/download/{pdbid}.pdb'
+    url = 'http://files.rcsb.org/download/{pdbid}.pdb'.format(pdbid=pdbid)
     return _make_traj_from_remote_file(url)
 
 
