@@ -84,9 +84,9 @@ Contributors and Acknowledgement
 Citation
 --------
 
-If you would like to acknowledge our work, please cite both ``cpptraj`` and ``pytraj`` papers.
+If you would like to acknowledge our work, please cite both ``cpptraj`` and ``pytraj``.
 
-something like: 
+Something like: 
 
     "...used pytraj [1], a Python package binding to cpptraj program [2]"
 
