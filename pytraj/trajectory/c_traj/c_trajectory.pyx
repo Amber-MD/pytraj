@@ -467,6 +467,7 @@ cdef class TrajectoryCpptraj:
 
         else:
             traj.velocities = np.zeros((n_frames, n_atoms, 3), dtype='f8')
+            traj.forces = np.zeros((n_frames, n_atoms, 3), dtype='f8')
             # slower
             frame = Frame()
             frame.thisptr[0] = self.thisptr.AllocateFrame()
@@ -481,6 +482,7 @@ cdef class TrajectoryCpptraj:
                 traj.xyz[j] = frame.xyz
                 traj.unitcells[j] = frame.box._get_data()
                 traj.velocities[j] = frame.velocity
+                traj.forces[j] = frame.force
                 if has_time:
                     traj.time[j] = frame.time
             return traj
