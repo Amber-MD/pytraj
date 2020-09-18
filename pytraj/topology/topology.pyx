@@ -486,8 +486,8 @@ cdef class Topology:
             set_world_silent(True)
         print(out)
 
-    def start_new_mol(self):
-        self.thisptr.StartNewMol()
+    #def start_new_mol(self):
+    #    self.thisptr.StartNewMol()
 
     property filename:
         """return original filename. This is for testing purpose.
