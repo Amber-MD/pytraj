@@ -9,7 +9,7 @@ from pytraj.testing import aa_eq
 
 class TestPipeline(unittest.TestCase):
     def test_pieline(self):
-        traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
+        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
 
         fi = pt.pipe(traj, [
             'autoimage',
