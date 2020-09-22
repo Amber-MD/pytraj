@@ -1155,6 +1155,8 @@ def autoimage(traj, mask="", frame_indices=None, top=None):
     >>> traj = pt.datafiles.load_tz2_ortho()[:]
     >>> traj = pt.autoimage(traj)
     '''
+    top = top or traj.top
+    assert top.has_box(), "Topology must have box information"
     _assert_mutable(traj)
     command = mask
     do_action(traj, command, c_action.Action_AutoImage, top=top)
