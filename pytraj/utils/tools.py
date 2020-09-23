@@ -557,8 +557,8 @@ def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
 
     # merge Topology
     top = top1.copy()
-    if start_new_mol:
-        top.start_new_mol()
+    #if start_new_mol:
+    #    top.start_new_mol()
     top.join(top2)
     traj.top = top
 
