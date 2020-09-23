@@ -302,8 +302,10 @@ cdef class Topology:
                 range(idx.first_atom_index, idx.last_atom_index))
             return self._get_new_from_mask(mask)
         elif isinstance(idx, Molecule):
-            mol = idx
-            mask = array_to_cpptraj_atommask(range(mol.begin_atom, mol.end_atom))
+            # TODO fix for Molecule Unit
+            #mol = idx
+            #mask = array_to_cpptraj_atommask(range(mol.begin_atom, mol.end_atom))
+            raise NotImplementedError("")
         else:
             raise NotImplementedError("")
 
