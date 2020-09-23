@@ -175,10 +175,11 @@ cdef class Action:
         actionsetup_ = _ActionSetup(top.thisptr, crdinfo_.thisptr[0], n_frames_t)
         status = self.baseptr.Setup(actionsetup_)
 
-        if status == ERR:
+        if status == ERR or status == SKIP:
             # cpptraj have a bunch of options, so we only check if there is
-            # ERR
-            raise RuntimeError('failed to setup action')
+            # ERR or SKIP
+            raise RuntimeError("Failed to setup action. Use pytraj._verbose() to "
+                    "turn on the error report.")
 
         if get_new_top:
             new_top._own_memory = False

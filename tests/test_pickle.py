@@ -15,38 +15,6 @@ class TestBuildAndPickleTopology(unittest.TestCase):
     def setUp(self):
         self.traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
 
-    def test_convert_to_dict_and_rebuild(self):
-        '''test_convert_to_dict_and_rebuild
-        '''
-        top = self.traj.top
-        d = top.to_dict()
-
-        new_top = pt.Topology()
-
-        MOLNUM = 0
-
-        for idx, (aname, atype, charge, mass, resid, resname,
-                  mol_number) in enumerate(
-                      zip(d['atom_name'], d['atom_type'], d['atom_charge'], d[
-                          'atom_mass'], d['resid'], d['resname'], d[
-                              'mol_number'])):
-            atom = pt.core.Atom(
-                name=aname, type=atype, charge=charge, mass=mass, resid=resid)
-            atom.set_mol(mol_number)
-            residue = pt.core.Residue(resname, resid)
-            new_top.add_atom(atom, residue)
-            if idx == 0:
-                new_top.start_new_mol()
-            if mol_number > MOLNUM:
-                new_top.start_new_mol()
-                MOLNUM += 1
-
-        new_top.add_bonds(d['bond_index'])
-        new_top.add_dihedrals(d['dihedral_index'])
-        new_top.box = Box(top.box.values)
-
-        assert_equal_topology(top, new_top, self.traj)
-
     def test_picle(self):
         '''test_picle
         '''

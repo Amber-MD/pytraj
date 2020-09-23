@@ -302,8 +302,10 @@ cdef class Topology:
                 range(idx.first_atom_index, idx.last_atom_index))
             return self._get_new_from_mask(mask)
         elif isinstance(idx, Molecule):
-            mol = idx
-            mask = array_to_cpptraj_atommask(range(mol.begin_atom, mol.end_atom))
+            # TODO fix for Molecule Unit
+            #mol = idx
+            #mask = array_to_cpptraj_atommask(range(mol.begin_atom, mol.end_atom))
+            raise NotImplementedError("")
         else:
             raise NotImplementedError("")
 
@@ -485,9 +487,6 @@ cdef class Topology:
             self.thisptr.Summary()
             set_world_silent(True)
         print(out)
-
-    def start_new_mol(self):
-        self.thisptr.StartNewMol()
 
     property filename:
         """return original filename. This is for testing purpose.
@@ -771,18 +770,16 @@ cdef class Topology:
             atom.set_mol(mol_number)
             residue = Residue(resname, resid)
             self.add_atom(atom, residue)
-            if idx == 0:
-                self.start_new_mol()
-            if mol_number > MOLNUM:
-                self.start_new_mol()
-                MOLNUM += 1
 
         # add box
         box = Box(d['box'])
         self.box = box
 
         self.add_bonds(d['bond_index'])
-        self.add_dihedrals(d['dihedral_index'])
+        self.thisptr.DetermineMolecules()
+        dihedral_index = d['dihedral_index']
+        if dihedral_index.shape[0] != 0:
+            self.add_dihedrals(d['dihedral_index'])
 
     @classmethod
     def from_dict(cls, dict_data):

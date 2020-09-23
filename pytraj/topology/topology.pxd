@@ -35,6 +35,7 @@ cdef extern from "CoordinateInfo.h":
 cdef extern from "Topology.h": 
     cdef cppclass _Topology "Topology" nogil:
         _Topology() 
+        int DetermineMolecules()
         void SetOffset(double oIn)
         void SetDebug(int dIn)
         void SetIpol(int iIn)
