@@ -178,7 +178,8 @@ cdef class Action:
         if status == ERR or status == SKIP:
             # cpptraj have a bunch of options, so we only check if there is
             # ERR or SKIP
-            raise RuntimeError('Failed to setup action')
+            raise RuntimeError("Failed to setup action. Use pytraj._verbose() to "
+                    "turn on the error report.")
 
         if get_new_top:
             new_top._own_memory = False

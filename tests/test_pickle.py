@@ -23,7 +23,6 @@ class TestBuildAndPickleTopology(unittest.TestCase):
         assert_equal_topology(self.traj.top, new_top, self.traj)
 
     def test_to_and_from_dict(self):
-        pt._verbose()
         cls = self.traj.top.__class__
         top = self.traj.top
         assert_equal_topology(top, cls.from_dict(top.to_dict()), self.traj)
