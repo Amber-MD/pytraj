@@ -768,17 +768,13 @@ cdef class Topology:
             atom.set_mol(mol_number)
             residue = Residue(resname, resid)
             self.add_atom(atom, residue)
-            if idx == 0:
-                self.thisptr.DetermineMolecules()
-            if mol_number > MOLNUM:
-                self.thisptr.DetermineMolecules()
-                MOLNUM += 1
 
         # add box
         box = Box(d['box'])
         self.box = box
 
         self.add_bonds(d['bond_index'])
+        self.thisptr.DetermineMolecules()
         dihedral_index = d['dihedral_index']
         if dihedral_index.shape[0] != 0:
             self.add_dihedrals(d['dihedral_index'])
