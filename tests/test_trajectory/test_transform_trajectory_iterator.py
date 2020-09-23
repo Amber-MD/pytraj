@@ -52,9 +52,9 @@ class TestActionList(unittest.TestCase):
         aa_eq(traj_on_disk.xyz, traj_on_mem.xyz)
 
     def test_combination_of_differnt_transformations(self):
-        traj_on_disk = pt.iterload(fn, tn)
-        traj_on_disk_2 = pt.iterload(fn, tn)
-        traj_on_mem = pt.load(fn, tn)
+        traj_on_disk = pt.datafiles.load_tz2_ortho()
+        traj_on_disk_2 = pt.datafiles.load_tz2_ortho()
+        traj_on_mem = pt.datafiles.load_tz2_ortho()[:]
 
         ref = pt.autoimage(traj_on_disk[:1])
 

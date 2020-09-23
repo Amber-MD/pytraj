@@ -10,7 +10,7 @@ from utils import fn
 
 
 def test_pytraj_do():
-    traj = pt.iterload(fn("tz2.nc"), fn("tz2.parm7"))
+    traj = pt.iterload(fn("tz2.ortho.nc"), fn("tz2.ortho.parm7"))
 
     ref0 = pt.autoimage(traj[0], top=traj.top)
     ref1 = pt.autoimage(traj[1], top=traj.top)
