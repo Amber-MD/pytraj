@@ -113,6 +113,17 @@ class TestAppend(unittest.TestCase):
 
 
 class TestTrajectory(unittest.TestCase):
+    def test_constructor(self):
+        pname = fn("tz2.ortho.parm7")
+        tname = fn("tz2.ortho.nc")
+        traj = pt.Trajectory(tname, top=pname)
+        assert traj.n_frames == 10
+
+        traj = pt.Trajectory([tname, tname], top=pname)
+        on_dis_traj = pt.iterload([tname, tname], pname)
+        assert traj.n_frames == on_dis_traj.n_frames == 20
+        aa_eq(traj.unitcells, on_dis_traj.unitcells)
+
     def test_raise_construtor(self):
         with pytest.raises(ValueError):
             pt.Trajectory(pt.trajectory)
