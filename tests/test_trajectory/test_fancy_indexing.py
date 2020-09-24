@@ -42,6 +42,15 @@ class TestSlicingTrajectory:
         # tuple
         aa_eq(traj[(1,)].xyz, xyz_source[1])
 
+        # boolean
+        bool_arr = np.array([False]*traj.n_frames)
+        bool_arr[0] = True
+        bool_arr[2] = True
+        print(traj[bool_arr])
+        aa_eq(traj[bool_arr].xyz, traj_mem[bool_arr].xyz)
+        aa_eq(traj[bool_arr].xyz, np.array([traj[0].xyz, traj[2].xyz]))
+
+
     def test_velocity(self):
         traj = pt.iterload(
             fn('issue807/trunc.nc'), fn("issue807/system.prmtop"))
