@@ -119,6 +119,7 @@ cython_directives = {
     'boundscheck': False,
     'wraparound': False,
     'auto_pickle': False,
+    'language_level': 3
 }
 
 if debug:
