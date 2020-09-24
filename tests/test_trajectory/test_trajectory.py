@@ -1,5 +1,3 @@
-from __future__ import print_function
-import unittest
 import numpy as np
 import pytraj as pt
 from utils import fn
@@ -8,7 +6,7 @@ from pytraj.externals.six.moves import zip
 import pytest
 
 
-class TestAutoImageAndRotateDihedral(unittest.TestCase):
+class TestAutoImageAndRotateDihedral:
     def test_autoimage_rotatedihedral(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         farray = traj[:]
@@ -31,7 +29,7 @@ class TestAutoImageAndRotateDihedral(unittest.TestCase):
             [120 for _ in range(t0trajectory.n_frames)])
 
 
-class TestNoName(unittest.TestCase):
+class TestNoName:
     def test_0(self):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         trajectory_traj = traj[:]
@@ -64,7 +62,7 @@ class TestNoName(unittest.TestCase):
         aa_eq(pt.Trajectory.from_iterable(traj).xyz, traj.xyz)
 
 
-class TestAppend(unittest.TestCase):
+class TestAppend:
     def test_append_trajectory(self):
         # test append
         traj = pt.Trajectory()
@@ -112,7 +110,7 @@ class TestAppend(unittest.TestCase):
         assert traj.n_frames == 2 * n0 + n1
 
 
-class TestTrajectory(unittest.TestCase):
+class TestTrajectory:
     def test_constructor(self):
         pname = fn("tz2.ortho.parm7")
         tname = fn("tz2.ortho.nc")
@@ -300,7 +298,7 @@ class TestTrajectory(unittest.TestCase):
         aa_eq(traj2.xyz, traj.xyz)
 
 
-class TestSaveToDisk(unittest.TestCase):
+class TestSaveToDisk:
     def test_basic_saving(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
@@ -332,7 +330,7 @@ class TestSaveToDisk(unittest.TestCase):
             aa_eq(f0.xyz, f0new.xyz)
 
 
-class TestSetitem(unittest.TestCase):
+class TestSetitem:
     def test_setitem(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         fa = traj[:]
@@ -389,7 +387,3 @@ class TestSetitem(unittest.TestCase):
 
         with pytest.raises(ValueError):
             None_value()
-
-
-if __name__ == "__main__":
-    unittest.main()
