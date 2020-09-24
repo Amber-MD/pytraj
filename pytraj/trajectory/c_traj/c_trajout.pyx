@@ -23,8 +23,8 @@ cdef class TrajectoryWriter:
 
     @classmethod
     def help(cls):
-        print "TrajFormat"
-        print TrajFormatDict.keys()
+        print("TrajFormat")
+        print(TrajFormatDict.keys())
 
     def open(self, filename='', top=Topology(),
              crdinfo=dict(),
