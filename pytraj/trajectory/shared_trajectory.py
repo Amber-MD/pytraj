@@ -1,7 +1,7 @@
 from .shared_methods import my_str_method
 
 
-class SharedTrajectory(object):
+class SharedTrajectory:
     def view(self, *args, **kwargs):
         return self.visualize(*args, **kwargs)
 

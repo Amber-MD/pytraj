@@ -171,7 +171,7 @@ cdef class Frame (object):
         # TODO: add assert
         # for internal use
         cdef int i
-        cdef int N = <int> xyz.shape[0] / 3
+        cdef int N = <int> xyz.shape[0] // 3
 
         for i in range(N):
             self.thisptr.AddXYZ( &xyz[i*3])

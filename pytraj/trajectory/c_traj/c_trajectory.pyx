@@ -367,8 +367,12 @@ cdef class TrajectoryCpptraj:
                 # Always return a Trajectory object
                 # traj[[2, 6, 3]]
                 # support indexing that having 'len'
-                if any(isinstance(x, bool) for x in idxs):
-                    raise NotImplementedError("do not support bool indexing")
+                new_idxs = np.asarray(idxs)
+                if new_idxs.dtype == np.dtype("bool"):
+                    if new_idxs.shape[0] != self.n_frames:
+                        raise IndexError("boolean index did not match the number of frames = %s " % self.n_frames)
+                    # Overwrite the `idxs`
+                    idxs = np.arange(self.n_frames, dtype='int')[new_idxs]
                 self.tmpfarray = self._load_traj_by_indices(idxs)
                 return self.tmpfarray
 

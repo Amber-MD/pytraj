@@ -42,6 +42,20 @@ class TestSlicingTrajectory:
         # tuple
         aa_eq(traj[(1,)].xyz, xyz_source[1])
 
+        # boolean
+        bool_arr = np.array([False]*traj.n_frames)
+        bool_arr[0] = True
+        bool_arr[2] = True
+        new_xyz = traj[bool_arr].xyz
+        aa_eq(traj[bool_arr].xyz, traj_mem[bool_arr].xyz)
+        aa_eq(new_xyz[0], traj[0].xyz)
+        aa_eq(new_xyz[1], traj[2].xyz)
+
+        with pytest.raises(IndexError):
+            # Try to index with a list with len of 2 (< traj.n_frames)
+            traj[[False, True]]
+
+
     def test_velocity(self):
         traj = pt.iterload(
             fn('issue807/trunc.nc'), fn("issue807/system.prmtop"))

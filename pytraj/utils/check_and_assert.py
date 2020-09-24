@@ -13,23 +13,14 @@ def file_exist(filename):
     return os.path.isfile(filename)
 
 
-def is_word_in_class_name(obj, word):
-    """check if a `word` is in obj.__class__.__name__
-    """
-    return word in obj.__class__.__name__
-
-
 def is_range(obj):
-    return is_word_in_class_name(obj, 'range')
+    return 'range' in obj.__class__.__name__
 
 
 def is_array(obj):
     """check if a `word` is in obj.__class__.__name__
     """
-    if is_word_in_class_name(obj, 'array'):
-        return True
-    else:
-        return False
+    return 'array' in obj.__class__.__name__
 
 
 def are_instance(obj_list, cls):

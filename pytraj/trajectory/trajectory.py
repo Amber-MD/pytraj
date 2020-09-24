@@ -569,7 +569,7 @@ class Trajectory(SharedTrajectory):
         return self.iterframe(*args, **kwd)
 
     def load(self, filename=''):
-        '''load file or files. This is for internal use. User should always use
+        '''This is for internal use. User should always use
         ``pytraj.load`` (or ``iterload``) method
 
         Examples
@@ -599,17 +599,15 @@ class Trajectory(SharedTrajectory):
             raise RuntimeError('Must have a valid Topology')
 
         # always use self.top
-        if isinstance(filename, string_types):
-            from pytraj import TrajectoryIterator
-            ts = TrajectoryIterator()
-            ts.top = self.top.copy()
-            ts._load(filename)
-            self._xyz = ts[:].xyz
-        elif isinstance(filename, (list, tuple)):
-            for fn in filename:
-                self.load(fn)
-        else:
-            raise ValueError('filename must be string or a list of strings')
+        from pytraj import TrajectoryIterator
+        ts = TrajectoryIterator()
+        ts.top = self.top.copy()
+        ts._load(filename)
+        ts = ts[:]
+        self._xyz = ts.xyz
+        self.unitcells = ts.unitcells
+        self.forces = ts.forces
+        self.velocities = ts.velocities
 
     def autoimage(self, command=''):
         '''perform autoimage
