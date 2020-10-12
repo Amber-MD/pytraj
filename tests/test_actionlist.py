@@ -416,7 +416,6 @@ class TestActionList:
         aa_eq(pt.rmsd(t1, ref=traj[3], mask='@CA'), dslist[-1].values)
 
     def test_raising_error(self):
-        pt._verbose()
         traj = pt.datafiles.load_tz2()
         with pytest.raises(ValueError, match="ERROR: radgyr myrms @CA nomax"):
             pt.compute(['rms myrms @CA','radgyr myrms @CA nomax'], traj)
