@@ -315,11 +315,8 @@ cdef class ActionList:
         status = self.thisptr.AddAction(action_.baseptr, _arglist.thisptr[0],
                                         actioninit_)
 
-        if check_status:
-            # return "0" if sucess "1" if failed
-            return status
-        else:
-            return None
+        if status != 0:
+            raise ValueError("ERROR: " + "%s %s" % (action, command))
 
     def setup(self, Topology top, crdinfo={}, n_frames_t=0, bint exit_on_error=True):
         '''perform Topology checking and some stuff

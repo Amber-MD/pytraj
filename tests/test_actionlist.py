@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-from __future__ import print_function
 import unittest
 import pytraj as pt
 import numpy as np
+import pytest
 from pytraj import adict, allactions
 from pytraj import ArgList, Trajectory, Frame
 from pytraj.testing import aa_eq
@@ -17,7 +17,7 @@ from pytraj.testing import cpptraj_test_dir, tempfolder
 from utils import fn, tc5b_trajin, tc5b_top
 
 
-class TestActionList(unittest.TestCase):
+class TestActionList:
     def test_distances(self):
         traj = pt.iterload(tc5b_trajin, tc5b_top)[:]
 
@@ -415,6 +415,7 @@ class TestActionList(unittest.TestCase):
         t1 = traj[:].autoimage()
         aa_eq(pt.rmsd(t1, ref=traj[3], mask='@CA'), dslist[-1].values)
 
-
-if __name__ == "__main__":
-    unittest.main()
+    def test_raising_error(self):
+        traj = pt.datafiles.load_tz2()
+        with pytest.raises(ValueError, match="ERROR: radgyr myrms @CA nomax"):
+            pt.compute(['rms myrms @CA','radgyr myrms @CA nomax'], traj)
