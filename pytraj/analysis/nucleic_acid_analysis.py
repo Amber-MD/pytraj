@@ -117,6 +117,7 @@ def nastruct(traj=None,
     act = c_action.Action_NAstruct(command, top=_top, dslist=dslist)
     act.compute(ref)
     act.compute(fi)
+    act.post_process()
 
     if dtype == 'cpptraj_dataset':
         return dslist
