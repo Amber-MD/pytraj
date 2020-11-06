@@ -212,9 +212,13 @@ class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
 
             flist = sort_filename_by_number(glob(filename))
             if not flist:
-                raise ValueError(
-                    "must provie a filename or list of filenames or file pattern"
-                )
+                if "\\" in filename:
+                    # filename with white space
+                    flist = [filename]
+                if not flist:
+                    raise ValueError(
+                        "Must provie a filename or list of filenames or file pattern"
+                    )
                 frame_slice_ = [
                     (0, -1, stride),
                 ] * len(flist) if stride is not None else frame_slice_
