@@ -54,8 +54,6 @@ cdef class TrajectoryCpptraj:
         top : Topology-like object
         take_slice : add slice
         '''
-        ensure_exist(filename)
-
         cdef Topology tmp_top
         cdef ArgList _arglist
 

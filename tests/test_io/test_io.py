@@ -34,7 +34,7 @@ tc5b_trajin = fn('Tc5b.x')
 tc5b_top = fn('Tc5b.top')
 
 
-def test_iterload_comprehensive():
+def test_iterload_comprehensive(tmpdir):
     trajin, tn = fn("tz2.ortho.nc"), fn("tz2.ortho.parm7")
 
     # frame_slice
@@ -82,6 +82,14 @@ def test_iterload_comprehensive():
     xyz_expected = np.vstack(
         [pt.iterload(fname, tn)[::3].xyz for fname in filenames])
     aa_eq(xyz_expected, t0.xyz)
+
+    # filename with space
+    with tmpdir.as_cwd():
+        traj = pt.datafiles.load_tz2()
+        fname = "abc\ xyz.nc"
+        traj.save(fname)
+        traj2 = pt.iterload(fname, traj.top)
+        assert traj2.n_frames == traj.n_frames
 
 
 def test_load_comprehensive():
@@ -201,7 +209,7 @@ def test_overwrite():
         pt.write_traj('what.nc', traj, overwrite=True)
 
 
-def test_get_coordinates_trajecotoryiterator():
+def test_get_coordinates_trajectory_iterator():
     '''immutable pytraj.TrajectoryIterator
     '''
     traj = traj_tz2_ortho.copy()
