@@ -79,9 +79,7 @@ def load_cpptraj_output(txt, dtype=None):
     txt = "\n".join([line for line in commands])
     state = _load_batch(txt, traj=None)
 
-    print("HELLO")
     state.run()
-    print("THERE")
 
     if dtype == 'state':
         out = state
