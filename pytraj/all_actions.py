@@ -224,6 +224,8 @@ def distance(traj=None,
     traj = get_fiterator(traj, frame_indices)
     top_ = get_topology(traj, top)
     noimage_ = 'noimage' if not image else ''
+    if hasattr(traj, 'crdinfo') and not traj.crdinfo['has_box'] and top_.has_box():
+        noimage_ = 'noimage'
 
     cm_arr = np.asarray(command)
 
@@ -259,7 +261,7 @@ def distance(traj=None,
         actlist = ActionList()
 
         for cm in list_of_commands:
-            if not image:
+            if noimage_:
                 cm = ' '.join((cm, noimage_))
             actlist.add(c_action.Action_Distance(), cm, top_, dslist=c_dslist)
 

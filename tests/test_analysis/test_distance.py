@@ -2,7 +2,6 @@
 
 from __future__ import print_function
 import os
-import unittest
 import numpy as np
 import pytraj as pt
 from utils import fn
@@ -11,7 +10,7 @@ from pytraj.testing import cpptraj_test_dir
 import pytest
 
 
-class TestNormalDistance(unittest.TestCase):
+class TestNormalDistance:
     def test_general(self):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         fa = traj[:]
@@ -45,7 +44,6 @@ class TestNormalDistance(unittest.TestCase):
 
     def test_calculate_distance_without_specifying_n_frames(self):
         # TrajectoryIterator
-        import numpy as np
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         arr = pt.distance(traj(stop=4), [0, 5])
         arr1 = pt.distance(traj(stop=4), [0, 5], n_frames=4)
@@ -66,7 +64,7 @@ class TestNormalDistance(unittest.TestCase):
         assert np.all(arr2 == arr3)
 
     def test_distance_with_dry_traj_and_PBC_topology(self):
-        '''Situation: there is dry traj (no box) but Topology has box info
+        '''Issue: trajectory has no box but its topology does has box.
         '''
         traj = pt.iterload(
             fn('dry_traj_with_PBC_top/strip.nc'),
@@ -74,17 +72,13 @@ class TestNormalDistance(unittest.TestCase):
         assert traj.top.has_box(), 'Topology must have box for testing'
 
         correct_distance_with_image_True = pt.distance(
-            traj, ':8@OP2 :5@N1', image=True)
+            traj, ':8@OP2 :5@N1', image=True) # image=True will be ignored with message
         correct_distance_with_image_False = pt.distance(
             traj, ':8@OP2 :5@N1', image=False)
-        state = pt.load_batch(traj, '''
-        distance :8@OP2 :5@N1
-        ''')
-        state.run()
         expected_distance = [3.08030475, 2.68452183]
 
+        aa_eq(correct_distance_with_image_True, expected_distance)
         aa_eq(correct_distance_with_image_False, expected_distance)
-        aa_eq(correct_distance_with_image_True, [0., 0.])
 
     def test_distance_to_point_or_reference(self):
         tz2_pdb = os.path.join(cpptraj_test_dir, 'tz2.pdb')
@@ -116,7 +110,7 @@ class TestNormalDistance(unittest.TestCase):
         aa_eq(dist_ref, state.data['ToRef'].values)
 
 
-class TestPairwiseDistance(unittest.TestCase):
+class TestPairwiseDistance:
     def test_pairwise(self):
         traj = pt.iterload(fn('tz2.nc'), fn('tz2.parm7'))
         distances = pt.pairwise_distance(traj, '@CA', '@CB')[0]
