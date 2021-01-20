@@ -2,7 +2,7 @@
 
 from ..cython_extra_header.cpp_vector cimport vector as cppvector
 from ..core.topology_objects cimport _Atom, Atom, _Residue, Residue, _Molecule, Molecule
-from ..core.box cimport _Box, Box, BoxType
+from ..core.box cimport _Box, Box
 from ..core.parameter_types cimport *
 from ..core.c_core cimport (_FileName, FileName, _NameType, NameType)
 from ..core.c_core cimport _AtomMask, AtomMask
@@ -123,8 +123,6 @@ cdef extern from "Topology.h":
         void PrintAngles(const AngleArray&, const _AtomMask&, int&) const
         void PrintDihedrals(const DihedralArray&, const _AtomMask&, int&) const
         inline const _Box& ParmBox() const 
-        inline BoxType _BoxType() const 
-        #void SetParmBox(const _Box& bIn)
         void SetParmBox(_Box& bIn)
         int AddTopAtom(_Atom&, _Residue&)
         void AddAngle(int, int, int)

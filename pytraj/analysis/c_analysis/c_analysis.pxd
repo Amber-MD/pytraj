@@ -20,10 +20,11 @@ cdef extern from "ActionState.h":
 
 ctypedef _ActionInit _AnalysisSetup
 
-
 cdef extern from "Analysis.h": 
     ctypedef enum RetType "Analysis::RetType":
-        pass
+        OKANALYSIS "Analysis::OK"
+        ERRANALYSIS "Analysis::ERR"
+
     cdef cppclass _Analysis "Analysis" nogil:
         RetType Setup(_ArgList&, _AnalysisSetup&, int)
         RetType Analyze()

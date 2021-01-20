@@ -580,23 +580,34 @@ cdef class Frame (object):
         '''
         def __get__(self):
             '''return unitcell'''
+            # FIXME: return a view?
             cdef Box box = Box()
-            box.thisptr.SetBox(self.thisptr.bAddress())
+            cdef _Box _box = self.thisptr.ModifyBox()
+            box.thisptr.SetupFromXyzAbg(_box.XyzPtr())
             return box
 
-        def __set__(self, other):
-            """
-            other : {Box, array-like}
-            """
-            _box = Box(other)
-            self._boxview[:] = _box[:]
+        def __set__(self, Box other):
+            self.thisptr.SetBox(deref(other.thisptr))
 
-    property _boxview:
-        def __get__(self):
-            """return a memoryview of box array"""
-            cdef double* ptr = self.thisptr.bAddress()
-            cdef double[:] my_arr = <double[:6]> ptr
-            return my_arr
+    def set_nobox(self):
+        self.thisptr.ModifyBox().SetNoBox()
+
+
+        # FIXME: remove?
+        # def __set__(self, other):
+        #     """
+        #     other : {Box, array-like}
+        #     """
+        #     _box = Box(other)
+        #     self._boxview[:] = _box[:]
+
+    # FIXME: remove?
+    # property _boxview:
+    #     def __get__(self):
+    #         """return a memoryview of box array"""
+    #         cdef double* ptr = self.thisptr.bAddress()
+    #         cdef double[:] my_arr = <double[:6]> ptr
+    #         return my_arr
 
     def set_mass(self, Topology top):
         '''set mass for Frame, requires a Topology

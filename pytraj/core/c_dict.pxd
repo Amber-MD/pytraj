@@ -150,12 +150,17 @@ cdef extern from "Mol2File.h":
         SUBSTRUCT "Mol2File::SUBSTRUCT"
 
 cdef extern from "Box.h":
-    ctypedef enum BoxType "Box::BoxType":
-        NOBOX "Box::NOBOX"
-        ORTHO "Box::ORTHO"
-        TRUNCOCT "Box::TRUNCOCT"
-        RHOMBIC "Box::RHOMBIC"
-        NONORTHO "Box::NONORTHO"
+    ctypedef enum BoxType "Box::CellShapeType":
+        NO_SHAPE "Box::NO_SHAPE"
+        CUBIC "Box::CUBIC"
+        TETRAGONAL "Box::TETRAGONAL"
+        ORTHORHOMBIC "Box::ORTHORHOMBIC"
+        MONOCLINIC "Box::MONOCLINIC"
+        TRICLINIC "Box::TRICLINIC"
+        HEXAGONAL "Box::HEXAGONAL"
+        RHOMBOHEDRAL "Box::RHOMBOHEDRAL"
+        OCTAHEDRAL "Box::OCTAHEDRAL"
+        RHOMBIC_DODECAHEDRON "Box::RHOMBIC_DODECAHEDRON"
 
 cdef extern from "TrajectoryFile.h":
     ctypedef enum TrajFormatType "TrajectoryFile::TrajFormatType":

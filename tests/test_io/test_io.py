@@ -252,9 +252,9 @@ def test_get_coordinates_trajectory_iterator():
 def test_get_coordinates_trajectory():
     '''mutable pytraj.Trajectory
     '''
-    traj = pt.Trajectory(xyz=traj_tz2_ortho.xyz, top=traj_tz2_ortho.top)
+    traj = pt.datafiles.load_tz2_ortho()[:]
     # make a different copy since ``traj`` is mutable
-    traj2 = traj.copy()
+    traj2 = pt.datafiles.load_tz2_ortho()[:]
 
     # all coordinates
     xyz = pt.get_coordinates(traj)

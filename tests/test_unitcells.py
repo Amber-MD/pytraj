@@ -10,37 +10,13 @@ from pytraj.externals.six import zip
 
 class TestBox(unittest.TestCase):
     def test_0(self):
-        traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
+        traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
         frame0 = traj[0]
-        frame0.box.tolist()
-        frame0.box = np.array([0.0, 1.0, 2.0, 3.0, 4.0, 6.])
-        assert frame0.has_box(), 'must has box'
-        frame0.box = [0] * 6
-        assert not frame0.has_box(), 'must not has box when setting no box'
-
-    def test_1(self):
-        box = Box()
-        box.type = 'truncoct'
-        box.set_nobox()
-
-        dummy = 100.
-        box.data[0] = dummy
-        assert box.data[0] == dummy
-        assert box.values[0] == dummy
-
-    def test_2(self):
-        import numpy as np
-        box = Box()
-        arr0 = np.arange(6).astype(np.float64)
-        box.data[:] = arr0
-
-        for idx, x in enumerate(arr0):
-            assert box.data[idx] == x
-
-        # set Box for Frame
-        f1 = Frame()
-        f1.box = box
-        aa_eq(f1.box.values, box.values, decimal=7)
+        frame0.box
+        # frame0.box.tolist()
+        # assert frame0.has_box(), 'must has box'
+        # frame0.set_nobox()
+        # assert not frame0.has_box(), 'must not has box when setting no box'
 
     def test_real_box(self):
         traj = pt.load(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
@@ -49,7 +25,7 @@ class TestBox(unittest.TestCase):
             [3.94559740E+01, 4.68215170E+01, 4.04695410E+01, 90., 90., 90.])
         aa_eq(traj.top.box.values, saved_box.values)
         for frame in traj:
-            assert frame.box.type == 'ortho'
+            assert frame.box.type == 'orthorhombic'
             aa_eq(
                 frame.box.values,
                 [35.2627796623, 41.8455476799, 36.168629529, 90.0, 90.0, 90.0],
@@ -72,25 +48,11 @@ class TestBox(unittest.TestCase):
         aa_eq(b.values, saved_box.values, decimal=7)
         aa_eq(b2.values, saved_box.values, decimal=7)
         # assign frame.box with list/tuple
-        frame.box = b.values
+        frame.box = Box(b.values)
         b3 = frame.box
         aa_eq(b3.values, saved_box.values, decimal=7)
-
-    def test_nobox(self):
-        from pytraj import Trajectory
-        traj = Trajectory()
-        traj._allocate(10, 10)
 
     def test_from_matrix_3x3(self):
         from pytraj.math import Matrix_3x3
         mat = Matrix_3x3()
         Box(mat)
-
-    def test_box_constructor_with_type(self):
-        # TODO: assertion
-        Box('rhombic')
-        Box('ortho')
-
-
-if __name__ == "__main__":
-    unittest.main()

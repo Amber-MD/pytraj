@@ -21,20 +21,24 @@ cdef class Box(object):
             if isinstance(args[0], Box):
                 rhs = args[0]
                 self.thisptr = new _Box(rhs.thisptr[0])
+
+            # FIXME: remove?
             elif isinstance(args[0], Matrix_3x3):
                 mat = args[0]
-                self.thisptr = new _Box(mat.thisptr[0])
-            elif isinstance(args[0], string_types):
-                # set box based on type
                 self.thisptr = new _Box()
-                self.type = args[0]
-            else:
+                self.thisptr.SetupFromUcell(deref(mat.thisptr))
+            # elif isinstance(args[0], string_types): # FIXME: remove?
+            #     # set box based on type
+            #     self.thisptr = new _Box()
+            #     self.type = args[0]
+            else: # FIXME: remove?
                 try:
                     # if args[0] has buffer interface
                     boxIn = args[0]
                 except:
                     boxIn = np.array([item for item in args[0]], dtype='f8')
-                self.thisptr = new _Box( &boxIn[0])
+                self.thisptr = new _Box()
+                self.thisptr.SetupFromXyzAbg(&boxIn[0])
         else:
             raise ValueError("")
 
@@ -55,11 +59,11 @@ cdef class Box(object):
     property data:
         def __get__(self):
             """memoryview for box array"""
-            return <double[:6]> self.thisptr.boxPtr()
+            return <double[:6]> self.thisptr.XyzPtr()
 
     def _get_data(self):
         """memoryview for box array"""
-        return <double[:6]> self.thisptr.boxPtr()
+        return <double[:6]> self.thisptr.XyzPtr()
 
     def __dealloc__(self):
         del self.thisptr
@@ -79,108 +83,109 @@ cdef class Box(object):
     def all_box_types(cls):
         return [x.lower() for x in BoxTypeDict.keys()]
 
-    def _update_box_type(self):
-        """trick to let cpptraj correctly set boxtype
-        Example
-        -------
-        >>> from pytraj.core import Box
-        >>> box = Box()
-        >>> box.alpha, box.beta, box.gamma = 90., 90., 90.
-        >>> print (box.type)
-        nobox
-        >>> box._update_box_type()
-        >>> print (box.type)
-        ortho
-        """
-        cdef double[:] data = self.data
+    # def _update_box_type(self):
+    #     """trick to let cpptraj correctly set boxtype
+    #     Example
+    #     -------
+    #     >>> from pytraj.core import Box
+    #     >>> box = Box()
+    #     >>> box.alpha, box.beta, box.gamma = 90., 90., 90.
+    #     >>> print (box.type)
+    #     nobox
+    #     >>> box._update_box_type()
+    #     >>> print (box.type)
+    #     ortho
+    #     """
+    #     cdef double[:] data = self.data
 
-        self.thisptr.SetBox( &data[0])
+    #     self.thisptr.SetBox( &data[0])
 
-    def set_beta_lengths(self, double beta, double xin, double yin, double zin):
-        self.thisptr.SetBetaLengths(beta, xin, yin, zin)
+    # def set_beta_lengths(self, double beta, double xin, double yin, double zin):
+    #     self.thisptr.SetBetaLengths(beta, xin, yin, zin)
 
     def set_nobox(self):
         self.thisptr.SetNoBox()
 
-    def to_recip(self):
-        cdef Matrix_3x3 ucell = Matrix_3x3()
-        cdef Matrix_3x3 recip = Matrix_3x3()
-        self.thisptr.ToRecip(ucell.thisptr[0], recip.thisptr[0])
-        return np.array(ucell), np.array(recip)
+    # def to_recip(self):
+    #     cdef Matrix_3x3 ucell = Matrix_3x3()
+    #     cdef Matrix_3x3 recip = Matrix_3x3()
+    #     self.thisptr.ToRecip(ucell.thisptr[0], recip.thisptr[0])
+    #     return np.array(ucell), np.array(recip)
 
     property type:
         def __get__(self):
-            if self.tolist()[3:] == [60., 90., 60]:
-                # cpptraj does not handle this correctly
-                # so we introduce our own version
-                return 'rhombic'
-            else:
-                return get_key(self.thisptr.Type(), BoxTypeDict).lower()
+            # if self.tolist()[3:] == [60., 90., 60]:
+            #     # cpptraj does not handle this correctly
+            #     # so we introduce our own version
+            #     return 'rhombic'
+            # else:
+            #     return get_key(self.thisptr.CellShape(), BoxTypeDict).lower()
+            return get_key(self.thisptr.CellShape(), BoxTypeDict).lower()
 
-        def __set__(self, value):
-            all_box_types = self.all_box_types()
-            value = value.lower()
-            if value == 'ortho':
-                self.alpha, self.beta, self.gamma = 90., 90., 90.
-            elif value == 'truncoct':
-                # use cpptraj' method
-                self.thisptr.SetTruncOct()
-            elif value == 'rhombic':
-                # check cpptraj' code to know why
-                self.alpha, self.beta, self.gamma = 0., 60., 0.
-            elif value == 'nobox':
-                self.set_nobox()
-            else:
-                msg = "supported boxtype is ortho | truncoct | rhombic | nobox\n"
-                msg2 = """use box.alpha, box.beta, box.gamma to explicitly assign values
-                          and use `_update_box_type() method`"""
-                raise ValueError(msg + msg2)
-            # need to update all info so cpptraj will `SetBoxType` (private method)
-            # sounds dummy to set your box to yourself to do this trick :D
-            # should update cpptraj code
-            self._update_box_type()
+    #     def __set__(self, value):
+    #         all_box_types = self.all_box_types()
+    #         value = value.lower()
+    #         if value == 'ortho':
+    #             self.alpha, self.beta, self.gamma = 90., 90., 90.
+    #         elif value == 'truncoct':
+    #             # use cpptraj' method
+    #             self.thisptr.SetTruncOct()
+    #         elif value == 'rhombic':
+    #             # check cpptraj' code to know why
+    #             self.alpha, self.beta, self.gamma = 0., 60., 0.
+    #         elif value == 'nobox':
+    #             self.set_nobox()
+    #         else:
+    #             msg = "supported boxtype is ortho | truncoct | rhombic | nobox\n"
+    #             msg2 = """use box.alpha, box.beta, box.gamma to explicitly assign values
+    #                       and use `_update_box_type() method`"""
+    #             raise ValueError(msg + msg2)
+    #         # need to update all info so cpptraj will `SetBoxType` (private method)
+    #         # sounds dummy to set your box to yourself to do this trick :D
+    #         # should update cpptraj code
+    #         self._update_box_type()
 
-    property x:
-        def __get__(self):
-            return self.thisptr.BoxX()
+    # property x:
+    #     def __get__(self):
+    #         return self.thisptr.BoxX()
 
-        def __set__(self, double value):
-            self.thisptr.SetX(value)
+    #     def __set__(self, double value):
+    #         self.thisptr.SetX(value)
 
-    property y:
-        def __get__(self):
-            return self.thisptr.BoxY()
+    # property y:
+    #     def __get__(self):
+    #         return self.thisptr.BoxY()
 
-        def __set__(self, double value):
-            self.thisptr.SetY(value)
+    #     def __set__(self, double value):
+    #         self.thisptr.SetY(value)
 
-    property z:
-        def __get__(self):
-            return self.thisptr.BoxZ()
+    # property z:
+    #     def __get__(self):
+    #         return self.thisptr.BoxZ()
 
-        def __set__(self, double value):
-            self.thisptr.SetZ(value)
+    #     def __set__(self, double value):
+    #         self.thisptr.SetZ(value)
 
-    property alpha:
-        def __get__(self):
-            return self.thisptr.Alpha()
+    # property alpha:
+    #     def __get__(self):
+    #         return self.thisptr.Alpha()
 
-        def __set__(self, double value):
-            self.thisptr.SetAlpha(value)
+    #     def __set__(self, double value):
+    #         self.thisptr.SetAlpha(value)
 
-    property beta:
-        def __get__(self):
-            return self.thisptr.Beta()
+    # property beta:
+    #     def __get__(self):
+    #         return self.thisptr.Beta()
 
-        def __set__(self, double value):
-            self.thisptr.SetBeta(value)
+    #     def __set__(self, double value):
+    #         self.thisptr.SetBeta(value)
 
-    property gamma:
-        def __get__(self):
-            return self.thisptr.Gamma()
+    # property gamma:
+    #     def __get__(self):
+    #         return self.thisptr.Gamma()
 
-        def __set__(self, double value):
-            self.thisptr.SetGamma(value)
+    #     def __set__(self, double value):
+    #         self.thisptr.SetGamma(value)
 
     def has_box(self):
         return self.thisptr.HasBox()

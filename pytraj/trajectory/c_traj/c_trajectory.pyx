@@ -1,5 +1,6 @@
 # distutils: language = c++
 import os
+import warnings
 import numpy as np
 from ..trajectory import Trajectory
 
@@ -272,7 +273,7 @@ cdef class TrajectoryCpptraj:
                     if self._being_transformed:
                         self._do_transformation(frame)
                     farray._xyz[idx] = frame.xyz
-                    farray._boxes[idx] = frame.box._get_data()
+                    farray._boxes[idx] = frame.box.values
                 yield farray
 
     def __setitem__(self, idx, value):
@@ -462,7 +463,7 @@ cdef class TrajectoryCpptraj:
                 self.thisptr.GetFrame(i, frame.thisptr[0])
                 if self._being_transformed:
                     self._do_transformation(frame)
-                traj.unitcells[j] = frame.box._get_data()
+                traj.unitcells[j] = frame.box.values
                 if has_time:
                     traj.time[j] = frame.time
             return traj
@@ -482,7 +483,7 @@ cdef class TrajectoryCpptraj:
                 if self._being_transformed:
                     self._do_transformation(frame)
                 traj.xyz[j] = frame.xyz
-                traj.unitcells[j] = frame.box._get_data()
+                traj.unitcells[j] = frame.box.values
                 traj.velocities[j] = frame.velocity
                 traj.forces[j] = frame.force
                 if has_time:
@@ -616,6 +617,11 @@ cdef class TrajectoryCpptraj:
          'n_atoms': 5293,
          'n_frames': 10}
         '''
+        warnings.warn("deprecated, use crdinfo", DeprecationWarning)
+        return self._crdinfo
+
+    @property
+    def crdinfo(self):
         return self._crdinfo
 
     property _crdinfo:

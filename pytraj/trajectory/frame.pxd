@@ -4,7 +4,7 @@ from libcpp.vector cimport vector
 from libcpp.string cimport string
 from ..math.cpp_math cimport _Vec3, Vec3, _Matrix_3x3, Matrix_3x3
 from ..core.topology_objects cimport _Atom, Atom
-from ..core.box cimport _Box, Box, BoxType
+from ..core.box cimport _Box, Box
 from ..topology.topology cimport _Topology, Topology
 from ..core.coordinfo cimport _CoordinateInfo, CoordinateInfo
 from ..core.c_core cimport _AtomMask, AtomMask
@@ -49,15 +49,16 @@ cdef extern from "Frame.h" nogil:
         const double * VXYZ(int atnum) const 
         const double * FXYZ(int atnum) const 
         double Mass(int atnum) const 
-        _Box& BoxCrd() const 
+        # _Box& BoxCrd() const 
         inline double * xAddress() 
         inline double * vAddress() 
         inline double* fAddress()
-        inline double * bAddress() 
+        # inline double * bAddress()  # FIXME: remove
         inline double * tAddress() 
         inline int * iAddress() 
         inline const int * iAddress() const 
         inline void SetBoxAngles(const double *)
+        const _Box& BoxCrd()
         void SetBox(const _Box&)
         void SetTemperature(double tIn)
         void SetTime(double tIn)
@@ -115,6 +116,8 @@ cdef extern from "Frame.h" nogil:
         _Vec3 SetAxisOfRotation(int, int)
         _Vec3 CalculateInertia(const _AtomMask&, _Matrix_3x3&) const 
         double CalcTemperature(const _AtomMask&, int) const 
+
+        _Box& ModifyBox()
 
 
 cdef class Frame:

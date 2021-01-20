@@ -95,6 +95,7 @@ def _fast_iterptr_withbox(double[:, :, :] xyz, double[:, :] boxes, int n_atoms, 
     # withbox
     cdef int i
     cdef int n_frames = xyz.shape[0]
+    cdef _Box _box
 
     # just create a pointer
     cdef Frame frame = Frame(n_atoms, xyz[0], _as_ptr=True)
@@ -105,5 +106,7 @@ def _fast_iterptr_withbox(double[:, :, :] xyz, double[:, :] boxes, int n_atoms, 
 
     for i in indices:
         frame.thisptr.SetXptr(n_atoms, & xyz[i, 0, 0])
-        frame.thisptr.SetBox(_Box( & boxes[i, 0]))
+        _box = _Box()
+        _box.SetupFromXyzAbg(&boxes[i, 0])
+        frame.thisptr.SetBox(_box)
         yield i, frame

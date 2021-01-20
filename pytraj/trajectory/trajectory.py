@@ -1080,3 +1080,15 @@ class Trajectory(SharedTrajectory):
         for f1, f2, frame in zip(self, other, traj):
             frame.xyz[:] = np.vstack((f1.xyz, f2.xyz))
         return traj
+
+    @property
+    def crdinfo(self):
+        return {'has_velocity': self.velocities is not None,
+         'has_temperature': False,
+         'has_time': self.time is not None,
+         'has_force': self.forces is not None,
+         'has_box': self.unitcells is not None,
+         'has_replcica_dims': False,
+         'n_frames': self.n_frames,
+         'n_atoms': self.top.n_atoms,
+         'box_type': self.unitcells is not None and self.top.box.type or None}
