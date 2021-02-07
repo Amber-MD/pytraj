@@ -3,9 +3,6 @@ import numpy as np
 from collections import OrderedDict
 from pytraj.datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 from pytraj.utils import is_int, is_array, is_generator
-from pytraj.externals.six import string_types
-from pytraj.externals.six.moves import map
-from pytraj.externals.six import iteritems
 from pytraj.datafiles import DataFile
 from pytraj.core.c_core import ArgList
 from .array import DataArray
@@ -21,7 +18,7 @@ def _groupby(self, key):
     for item in self:
         d[key(item)](item)
     rv = {}
-    for k, v in iteritems(d):
+    for k, v in d.items():
         rv[k] = v.__self__
     return rv
 
@@ -199,7 +196,7 @@ class DatasetList(list):
 
         if is_int(idx):
             return super(DatasetList, self).__getitem__(idx)
-        elif isinstance(idx, string_types):
+        elif isinstance(idx, str):
             for d0 in self:
                 if d0.key.upper() == idx.upper():
                     d0._base = self
@@ -264,7 +261,7 @@ class DatasetList(list):
         # dont free mem here
         for d0 in self:
             att = getattr(d0, mode)
-            if isinstance(key, string_types):
+            if isinstance(key, str):
                 if re.search(key, att):
                     dtmp.append(d0, copy=copy)
             elif isinstance(key, (list, tuple)):

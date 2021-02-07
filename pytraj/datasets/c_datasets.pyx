@@ -1,6 +1,5 @@
 # distutils: language = c++
 
-from __future__ import division
 from ..core.c_dict import DataTypeDict, ScalarTypeDict, get_key
 from ..datafiles.datafiles import DataFileList, DataFile
 
@@ -14,7 +13,6 @@ from ..utils.cyutils import get_positive_idx
 from ..trajectory.shared_methods import _xyz, my_str_method
 from ..trajectory.c_traj.c_trajectory import TrajectoryCpptraj
 from ..topology.topology cimport Topology
-from ..externals.six import string_types
 
 
 cdef class Dataset:
