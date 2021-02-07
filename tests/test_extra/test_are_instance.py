@@ -8,7 +8,7 @@ from pytraj import *
 from utils import fn
 
 
-def (self):
+def test():
     traj = mdio.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
     assert are_instance([traj, traj], TrajectoryIterator) == True
     assert are_instance([traj, ""], TrajectoryIterator) == False

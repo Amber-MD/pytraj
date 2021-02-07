@@ -3,7 +3,7 @@ from utils import fn
 from pytraj.testing import aa_eq
 
 
-def test:
+def test():
     traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
     itertraj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 

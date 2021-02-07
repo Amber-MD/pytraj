@@ -5,7 +5,7 @@ from pytraj import Trajectory, TrajectoryIterator
 from utils import fn
 
 
-def test:
+def test():
     # TrajectoryIterator object
     traj0 = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))
     assert isinstance(traj0, TrajectoryIterator)
