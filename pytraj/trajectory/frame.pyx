@@ -19,7 +19,6 @@ import numpy as np
 from pytraj.utils.check_and_assert import is_int
 from pytraj.core.c_core import ArgList
 from pytraj.trajectory.c_traj.c_trajout import TrajectoryWriter
-from pytraj.externals.six import string_types
 
 DEF RADDEG = 57.29577951308232
 
@@ -259,7 +258,7 @@ cdef class Frame (object):
             atm = AtomMask(idx['mask'])
             idx['top']._set_integer_mask(atm)
             return self[atm.indices]
-        elif isinstance(idx, string_types):
+        elif isinstance(idx, str):
             # Example: frame['@CA']
             if self.top is not None and not self.top.is_empty():
                 return self[<AtomMask> self.top(idx)]
@@ -267,7 +266,7 @@ cdef class Frame (object):
                 raise ValueError('must have non-empty topology. Use self.set_top'
                                  ' or use self[AtomMask]')
 
-        elif isinstance(idx, tuple) and isinstance(idx[0], string_types):
+        elif isinstance(idx, tuple) and isinstance(idx[0], str):
             # (AtomMask, )
             if len(idx) == 1:
                 return self[idx[0]]
@@ -283,7 +282,7 @@ cdef class Frame (object):
     def __setitem__(self, idx, value):
         if isinstance(idx, AtomMask):
             self.xyz[idx.indices] = value
-        elif isinstance(value, string_types):
+        elif isinstance(value, str):
             # assume this is atom mask
             if self.top is None:
                 raise ValueError("must set Topology for frame")
