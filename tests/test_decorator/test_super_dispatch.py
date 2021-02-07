@@ -1,12 +1,10 @@
 #!/usr/bin/env python
 
-from __future__ import print_function
 import unittest
 import pytraj as pt
 from utils import fn
 from pytraj.testing import aa_eq
 from pytraj.utils.get_common_objects import super_dispatch
-from pytraj.externals.six import string_types
 
 
 class TestSuperDispatch(unittest.TestCase):
@@ -30,14 +28,14 @@ class TestSuperDispatch(unittest.TestCase):
 
         # make sure to convert array to Amber mask
         def func_convert_mask_array(traj, top=None, mask=None):
-            assert isinstance(mask, string_types)
+            assert isinstance(mask, str)
 
         func = super_dispatch()(func_convert_mask_array)
         func(self.traj, mask=[0, 3, 7])
 
         # test all: top, mask, ref
         def func_all_3(traj, mask='', ref=0, top=None):
-            assert isinstance(mask, string_types)
+            assert isinstance(mask, str)
             assert isinstance(ref, pt.Frame)
             assert isinstance(top, pt.Topology)
 

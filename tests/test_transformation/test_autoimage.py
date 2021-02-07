@@ -5,7 +5,6 @@ from utils import fn
 
 from pytraj import adict
 from pytraj.testing import aa_eq, cpptraj_test_dir
-from pytraj.externals.six import zip
 from pytraj.utils.tools import rmsd_1darray
 
 

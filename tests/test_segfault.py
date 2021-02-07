@@ -3,7 +3,6 @@ import unittest
 import pytraj as pt
 from utils import fn
 
-from pytraj.externals.six import zip
 from pytraj.trajectory.shared_methods import iterframe_master
 from pytraj import dihedral_analysis as da
 """

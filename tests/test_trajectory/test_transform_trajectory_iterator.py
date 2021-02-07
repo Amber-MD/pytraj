@@ -81,8 +81,6 @@ class TestActionList(unittest.TestCase):
         aa_eq(traj_on_mem[:1].xyz, traj_on_disk[:1].xyz)
         aa_eq(traj_on_mem[:].xyz, traj_on_disk[:].xyz)
 
-        from pytraj.externals.six import zip
-
         for f0, f1 in zip(traj_on_disk(0, 8, 2), traj_on_mem(0, 8, 2)):
             aa_eq(f0.xyz, f1.xyz)
 

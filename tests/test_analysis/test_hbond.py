@@ -4,7 +4,6 @@ from utils import fn
 import numpy as np
 import unittest
 from pytraj.testing import aa_eq
-from pytraj.externals.six import izip as zip
 import pytest
 
 
