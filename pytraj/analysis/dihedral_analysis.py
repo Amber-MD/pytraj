@@ -67,7 +67,6 @@ def %s(traj=None, resrange="",
     from ..datasets.c_datasetlist import DatasetList
     from .c_action.c_action import Action_MultiDihedral
     from ..utils.get_common_objects import get_data_from_dtype
-    from ..externals.six import string_types
     from ..utils import is_int
 
     if range360:
@@ -79,7 +78,7 @@ def %s(traj=None, resrange="",
         if is_int(resrange):
             resrange = [resrange,]
 
-        if isinstance(resrange, string_types):
+        if isinstance(resrange, str):
             _resrange = "resrange " + str(resrange)
         else:
             from pytraj.utils import convert as cv

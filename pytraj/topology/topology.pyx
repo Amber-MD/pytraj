@@ -13,19 +13,11 @@ import numpy as np
 from pytraj.core.c_dict import get_key, AtomicElementDict
 from pytraj.utils.check_and_assert import is_int, is_array
 from pytraj.utils.context import capture_stdout
-from pytraj.externals.six import PY2, PY3, string_types
 from pytraj.externals.six.moves import range
 from pytraj.utils.check_and_assert import is_int
 from pytraj.core.c_dict import ParmFormatDict
 from pytraj.utils.convert import array_to_cpptraj_atommask
 
-PY2 = sys.version_info[0] == 2
-PY3 = sys.version_info[0] == 3
-
-if PY3:
-    string_types = str
-else:
-    string_types = basestring
 
 __all__ = ['Topology', 'ParmFile', 'SimplifiedTopology', 'SimplifiedAtom', 'SimplifiedResidue']
 
@@ -281,7 +273,7 @@ cdef class Topology:
                 # negative indexing
                 atom.thisptr[0] = self.thisptr.index_opr(self.n_atoms + i)
             return atom
-        elif isinstance(idx, string_types):
+        elif isinstance(idx, str):
             # return atom object iterator with given mask
             # self(idx) return AtomMask object
             mask = idx
@@ -899,7 +891,7 @@ cdef class ParmFile:
         if not option:
             self.thisptr.ReadTopology(_top.thisptr[0], filename, debug)
         else:
-            if isinstance(option, string_types):
+            if isinstance(option, str):
                 arglist = ArgList(option)
             else:
                 arglist = <ArgList > option

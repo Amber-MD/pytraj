@@ -1,7 +1,6 @@
 # distutils: language = c++
 from cython.operator cimport dereference as deref
 
-from ...externals.six import string_types
 from .c_action import ActionDict
 from ...trajectory.shared_methods import iterframe_master
 
@@ -63,7 +62,7 @@ def pipe(traj, commands, DatasetList dslist=DatasetList(), frame_indices=None):
 
     if isinstance(commands, (list, tuple)):
         commands = commands
-    elif isinstance(commands, string_types):
+    elif isinstance(commands, str):
         commands = [line.lstrip().rstrip()
                     for line in commands.split('\n') if line.strip() != '']
 
@@ -160,7 +159,7 @@ def compute(lines, traj, *args, **kwd):
     else:
         kwd.pop('color')
 
-    if isinstance(lines, (list, tuple, string_types)):
+    if isinstance(lines, (list, tuple, str)):
         ref = kwd.get('ref')
         if ref is not None:
             if isinstance(ref, Frame):
@@ -299,7 +298,7 @@ cdef class ActionList:
         cdef _ActionInit actioninit_
         actioninit_ = _ActionInit(dslist.thisptr[0], dflist.thisptr[0])
 
-        if isinstance(action, string_types):
+        if isinstance(action, str):
             # create action object from string
             action_ = ActionDict()[action]
         else:
