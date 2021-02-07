@@ -5,7 +5,6 @@ import numpy as np
 from ..trajectory import Trajectory
 
 from ...utils.cyutils import get_positive_idx
-from pytraj.externals.six import string_types
 from ..shared_methods import (my_str_method, _xyz, _box)
 from ...utils.check_and_assert import ensure_exist
 from ...utils.check_and_assert import is_array, is_range
@@ -88,7 +87,7 @@ cdef class TrajectoryCpptraj:
         # slice(0, 10, None) --> python does not take last `10`
         arg = " ".join((str(start), str(stop), str(step)))
 
-        if isinstance(filename, string_types):
+        if isinstance(filename, str):
             # use absolute path so we can go to different folder
             filename = os.path.abspath(filename)
             _arglist = ArgList(arg)
@@ -199,7 +198,7 @@ cdef class TrajectoryCpptraj:
 
         if mask is not None:
             #    del frame.thisptr
-            if isinstance(mask, string_types):
+            if isinstance(mask, str):
                 atm = self.top(mask)
             else:
                 try:
@@ -308,7 +307,7 @@ cdef class TrajectoryCpptraj:
             self.tmpfarray = _farray
             # hold _farray in self.tmpfarray to avoid memory lost
             return self.tmpfarray
-        elif isinstance(idxs, string_types):
+        elif isinstance(idxs, str):
             # return array with given mask
             # traj['@CA']
             mask = idxs
@@ -331,7 +330,7 @@ cdef class TrajectoryCpptraj:
                 elif idxs_size == 1:
                     return self[idxs[0]]
 
-                if isinstance(idxs[0], string_types):
+                if isinstance(idxs[0], str):
                     # move the atom stripping to the end
                     idxs = tuple(idxs[1:] + (idxs[0],))
                 idx0 = idxs[0]
@@ -341,7 +340,7 @@ cdef class TrajectoryCpptraj:
                     if self._being_transformed:
                         self._do_transformation(frame)
                     self.tmpfarray = frame
-                    if isinstance(idx1, string_types):
+                    if isinstance(idx1, str):
                         # traj[0, '@CA']
                         atm = self.top(idx1)
                         self.tmpfarray = Frame(frame, atm)
@@ -352,7 +351,7 @@ cdef class TrajectoryCpptraj:
                 elif isinstance(self[idx0], Trajectory):
                     farray = self[idx0]
                     self.tmpfarray = farray
-                    if isinstance(idx1, AtomMask) or isinstance(idx1, string_types):
+                    if isinstance(idx1, AtomMask) or isinstance(idx1, str):
                         if idxs_size == 2:
                             return self.tmpfarray[idxs[1]]
                         else:

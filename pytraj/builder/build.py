@@ -3,7 +3,6 @@ from ..trajectory.trajectory import Trajectory
 from ..trajectory.frame import Frame
 from ..analysis.c_action import c_action
 from ..analysis.c_action.actionlist import ActionList
-from ..externals.six import string_types
 from ..datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 
 
@@ -95,12 +94,12 @@ def make_structure(traj, command="", ref=None):
                   1=<a3> in next res, 2=<a2><a3> in next res.
     """
     assert isinstance(command, list) or isinstance(
-        command, string_types), 'command must be a string or a list of string'
+        command, str), 'command must be a string or a list of string'
     assert isinstance(traj, Trajectory), 'traj must be a Trajectory object'
 
     cmlist = [
         command,
-    ] if isinstance(command, string_types) else command
+    ] if isinstance(command, str) else command
 
     if ref is not None:
         ref_name = 'myref'

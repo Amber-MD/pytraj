@@ -4,7 +4,6 @@ from ..trajectory.shared_methods import iterframe_master
 from .c_action import do_action, c_action
 from ..utils.get_common_objects import get_data_from_dtype, super_dispatch
 from ..utils.decorators import register_pmap
-from ..externals.six.moves import range
 
 __all__ = ['esander', 'lie']
 

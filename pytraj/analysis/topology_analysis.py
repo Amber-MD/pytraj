@@ -1,7 +1,7 @@
 from functools import partial
 from ..core.c_core import CpptrajState, Command
 from ..utils.context import capture_stdout
-from ..externals.six import StringIO
+from io import StringIO
 
 
 def compare_topology(top0, top1):

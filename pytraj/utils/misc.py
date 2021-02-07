@@ -6,9 +6,6 @@ import os
 from glob import glob
 from pytraj.core.c_options import set_world_silent
 
-# external
-from pytraj.externals.six import string_types
-
 from .context import capture_stdout
 
 try:
@@ -80,7 +77,7 @@ def info(obj=None):  # pragma: no cover
         print("action's keys", adict_keys)
         print("analysis' keys", anal_keys)
     else:
-        if isinstance(obj, string_types):
+        if isinstance(obj, str):
             if obj == 'parallel':
                 print(parallel_info())
                 return

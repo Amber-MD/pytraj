@@ -13,7 +13,6 @@ import numpy as np
 from pytraj.core.c_dict import get_key, AtomicElementDict
 from pytraj.utils.check_and_assert import is_int, is_array
 from pytraj.utils.context import capture_stdout
-from pytraj.externals.six.moves import range
 from pytraj.utils.check_and_assert import is_int
 from pytraj.core.c_dict import ParmFormatDict
 from pytraj.utils.convert import array_to_cpptraj_atommask

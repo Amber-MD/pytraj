@@ -4,7 +4,6 @@ from pytraj import Frame
 from pytraj import pipe
 from pytraj.utils.tools import concat_dict, WrapBareIterator
 from pytraj.datasets import CpptrajDatasetList
-from pytraj.externals.six import string_types
 
 __all__ = [
     'check_valid_command',
@@ -78,7 +77,7 @@ def check_valid_command(commands):
     from pytraj.utils.c_commands import ANALYSIS_COMMANDS
     from pytraj.utils.c_commands import PMAP_EXCLUDED_COMMANDS
 
-    if isinstance(commands, string_types):
+    if isinstance(commands, str):
         commands = [line.strip() for line in commands.split('\n') if line]
     else:
         commands = commands
