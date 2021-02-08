@@ -4,7 +4,6 @@ If want to use external package, import it inside the function
 This module stores all useful functions that does not fit to anywhere else.
 """
 
-import sys as _sys
 import os
 from itertools import islice
 from collections import OrderedDict, defaultdict
