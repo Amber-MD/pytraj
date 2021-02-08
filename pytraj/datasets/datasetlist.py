@@ -114,7 +114,7 @@ class DatasetList(list):
         if dslist:
             if isinstance(dslist, dict):
                 # {'x': [1, 3, 5], 'y': [4, 7, 8]}
-                for key, values in iteritems(dslist):
+                for key, values in dslist.items():
                     self.append(DataArray({key: values}), copy=copy)
             else:
                 for d0 in dslist:
@@ -353,7 +353,7 @@ class DatasetList(list):
             check_key(self, dset.key)
             super(DatasetList, self).append(d0)
         elif isinstance(dset, dict):
-            for key, values in iteritems(dset):
+            for key, values in dset.items():
                 check_key(self, key)
                 super(DatasetList, self).append(DataArray({key: values}))
         else:

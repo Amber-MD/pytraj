@@ -4,7 +4,6 @@ import tempfile
 import numpy as np
 
 from .core.c_core import _load_batch
-from .externals.load_other_packages import load_parmed
 from .serialize.serialize import to_pickle, read_pickle
 from .datafiles.load_samples import load_sample_data
 from .core.c_options import set_error_silent

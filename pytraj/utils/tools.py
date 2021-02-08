@@ -268,7 +268,7 @@ def concat_dict(iterables):
             # make a copy of first dict
             new_dict.update(d)
         else:
-            for k, v in iteritems(new_dict):
+            for k, v in new_dict.items():
                 new_dict[k] = np.concatenate((new_dict[k], d[k]))
     return new_dict
 
