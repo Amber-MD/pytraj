@@ -18,15 +18,16 @@ volmap {} {} {}
 """
 
 
-class TestVolmap(unittest.TestCase):
-    def test_volmap(self):
+class TestVolmap:
+    def test_volmap(self, tmpdir):
         traj = pt.iterload(fn('tz2.ortho.nc'), fn('tz2.ortho.parm7'))[:1]
         size = ''
         center = ''
-        state = pt.load_cpptraj_state(
-            txt.format(
-                fn('tz2.ortho.parm7'), fn('tz2.ortho.nc'), cm, size, center))
-        state.run()
+        with tmpdir.as_cwd():
+            state = pt.load_cpptraj_state(
+                txt.format(
+                    fn('tz2.ortho.parm7'), fn('tz2.ortho.nc'), cm, size, center))
+            state.run()
         cpp_data = state.data[-2].values  # last one is totalvolume
 
         traj = traj.superpose(mask=':1-13').center(':1-13 mass origin')

@@ -1,4 +1,3 @@
-""""""
 import time
 from .check_and_assert import file_exist, is_generator
 from .check_and_assert import eq
@@ -7,9 +6,7 @@ from .check_and_assert import has_, is_array
 from .check_and_assert import ensure_not_none_or_string
 from .Timer import Timer
 from .context import tempfolder
-from ..externals.six.moves import range
 from . import convert
-from ..externals.six import string_types
 from .tools import WrapBareIterator
 
 
@@ -75,7 +72,7 @@ def join_mask(m, res=None):
     else:
         res = res
 
-    if isinstance(m, string_types):
+    if isinstance(m, str):
         # 'CA CB' to ['CA', 'CB']
         m = m.split()
     elif not isinstance(m, (list, tuple)):

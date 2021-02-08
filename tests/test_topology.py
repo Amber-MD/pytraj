@@ -1,7 +1,6 @@
 import numpy as np
 import unittest
 import pytraj as pt
-from pytraj.externals.six import zip
 from pytraj import Topology, Trajectory, Atom
 from pytraj.core.elements import mass_atomic_number_dict
 from pytraj.testing import aa_eq

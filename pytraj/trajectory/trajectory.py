@@ -5,8 +5,6 @@ from ..core.box import Box
 from .frame import Frame
 from ..utils.check_and_assert import is_int, is_frame_iter
 from ..utils.convert import array_to_cpptraj_atommask
-from ..externals.six import string_types
-from ..externals.six.moves import range
 from ..core.c_core import AtomMask
 from .shared_trajectory import SharedTrajectory
 
@@ -97,7 +95,7 @@ class Trajectory(SharedTrajectory):
         elif hasattr(filename, 'xyz'):
             # make sure to use `float64`
             self._xyz = filename.xyz.astype(np.float64)
-        elif isinstance(filename, (string_types, list, tuple)):
+        elif isinstance(filename, (str, list, tuple)):
             self.load(filename)
         else:
             raise ValueError('filename must be None, a Trajectory or a string')
@@ -317,11 +315,11 @@ class Trajectory(SharedTrajectory):
             atm = None
             arr0 = None
 
-            if isinstance(index, (string_types, AtomMask)):
+            if isinstance(index, (str, AtomMask)):
                 # return a copy
                 # traj['@CA']
                 atm = self.top(index) if isinstance(index,
-                                                    string_types) else index
+                                                    str) else index
                 traj.top = self.top._modify_state_by_mask(atm)
                 arr0 = self._xyz[:, atm.indices]
                 if self.forces is not None:
@@ -359,7 +357,7 @@ class Trajectory(SharedTrajectory):
                 if len(index) == 1:
                     traj = self[index[0]]
                 elif len(index) == 2 and is_int(index[0]) and isinstance(
-                        index[1], string_types):
+                        index[1], str):
                     # traj[0, '@CA']: return a stripped Frame
                     frame = self[index[0]].copy()
                     # make AtomMask object
@@ -394,7 +392,7 @@ class Trajectory(SharedTrajectory):
             # traj.xyz = xyz
             # update all atoms, use fast version
             self._xyz[:] = other  # xyz
-        elif isinstance(index, string_types):
+        elif isinstance(index, str):
             # update xyz for mask
             # traj['@CA'] = xyz
             atm = self.top(index)
@@ -920,7 +918,7 @@ class Trajectory(SharedTrajectory):
         if mask is None:
             _top = self.top
         else:
-            if isinstance(mask, string_types):
+            if isinstance(mask, str):
                 mask = mask
                 _top = self.top._get_new_from_mask(mask)
             else:

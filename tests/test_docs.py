@@ -7,7 +7,6 @@ import doctest
 import pytraj as pt
 from utils import fn
 from pytraj import utils
-from pytraj.externals.six import PY3
 from pytraj import testing
 from pytraj.datafiles import load_samples
 from pytraj import energy_analysis

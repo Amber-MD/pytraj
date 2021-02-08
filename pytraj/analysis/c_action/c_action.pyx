@@ -1,7 +1,6 @@
 # distutils: language = c++
 from __future__ import print_function
 from pytraj.utils.decorators import makesureABC
-from pytraj.externals.six import string_types
 from pytraj.utils import is_generator
 from pytraj.trajectory.shared_methods import iterframe_master
 from cython.operator cimport dereference as deref
@@ -132,7 +131,7 @@ cdef class Action:
 
         self.top = top
 
-        if isinstance(command, string_types):
+        if isinstance(command, str):
             #command = command.encode("UTF-8")
             arglist = ArgList(command)
         elif isinstance(command, ArgList):

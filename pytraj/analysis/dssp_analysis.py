@@ -1,6 +1,5 @@
 from __future__ import absolute_import
 import numpy as np
-from pytraj.externals.six import PY3
 from pytraj import DatasetList, tools
 from ..utils.get_common_objects import get_data_from_dtype, super_dispatch, get_topology
 from ..utils.decorators import register_openmp
@@ -213,11 +212,7 @@ def dssp_allatoms(traj, *args, **kwd):
     top = get_topology(traj, kwd.get('top'))
     res_indices = [int(x.split(':')[-1]) - 1 for x in res_labels]
 
-    if not PY3:
-        new_data = np.empty((traj.n_frames, traj.n_atoms), dtype='S2')
-    else:  # pragma: no cover
-        new_data = np.empty((traj.n_frames, traj.n_atoms), dtype='U2')
-
+    new_data = np.empty((traj.n_frames, traj.n_atoms), dtype='U2')
     simplified = kwd.get('simplified', False)
     for fid, arr in enumerate(data):
         new_data[fid][:] = tools.flatten(
@@ -272,10 +267,7 @@ def dssp_allresidues(traj, *args, **kwd):
 
     res_indices = [int(x.split(':')[-1]) - 1 for x in res_labels]
 
-    if not PY3:
-        new_data = np.empty((traj.n_frames, traj.top.n_residues), dtype='S2')
-    else:  # pragma no cover
-        new_data = np.empty((traj.n_frames, traj.top.n_residues), dtype='U2')
+    new_data = np.empty((traj.n_frames, traj.top.n_residues), dtype='U2')
 
     simplified = kwd.get('simplified', False)
     for fid, arr in enumerate(data):

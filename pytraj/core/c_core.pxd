@@ -1,5 +1,4 @@
 # distutil: language = c++
-from __future__ import absolute_import
 
 from libcpp.string cimport string
 from posix.unistd cimport off_t

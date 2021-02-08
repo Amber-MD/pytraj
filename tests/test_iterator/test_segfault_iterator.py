@@ -13,7 +13,6 @@ traj = io.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 class Test(unittest.TestCase):
     def test_0_trajiter(self):
         traj = io.load_sample_data("tz2")
-        from pytraj.externals.six import zip
 
         for idx, (f0, f1) in enumerate(zip(traj, traj)):
             pass

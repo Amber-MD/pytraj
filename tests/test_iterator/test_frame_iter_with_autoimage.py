@@ -5,8 +5,6 @@ import pytraj as pt
 from utils import fn
 from pytraj.testing import aa_eq
 
-from pytraj.externals.six import zip
-
 
 class Test(unittest.TestCase):
     def test_0(self):

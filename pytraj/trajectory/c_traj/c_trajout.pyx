@@ -1,5 +1,4 @@
 # distutils: language = c++
-from pytraj.externals.six import string_types
 from pytraj.core.c_dict import TrajFormatDict
 from pytraj.utils.check_and_assert import file_exist
 
@@ -54,7 +53,7 @@ cdef class TrajectoryWriter:
 
         filename = filename.encode("UTF-8")
         # check Topology
-        if isinstance(top, string_types):
+        if isinstance(top, str):
             top_ = Topology(top)
         elif isinstance(top, Topology):
             # assume this is Topology instance
@@ -66,7 +65,7 @@ cdef class TrajectoryWriter:
             options = ' '.join((format.lower(), options))
 
         if options:
-            if isinstance(options, string_types):
+            if isinstance(options, str):
                 inputstring = options
                 arglist = <ArgList> ArgList(inputstring)
             elif isinstance(options, ArgList):

@@ -2,7 +2,6 @@ import numpy as np
 import pytraj as pt
 from utils import fn
 from pytraj.testing import aa_eq
-from pytraj.externals.six.moves import zip
 import pytest
 
 
@@ -299,18 +298,18 @@ class TestTrajectory:
 
 
 class TestSaveToDisk:
-    def test_basic_saving(self):
+    def test_basic_saving(self, tmpdir):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
 
         fa = traj[:]
         fname = "dummy_test_savemethod.x"
         fname2 = "dummy_test_savemethod_2.x"
-        fa.save(fname, overwrite=True)
-        traj.save(fname2, overwrite=True)
-
-        # load
-        fanew = pt.iterload(fname, fa.top)
-        fanew2 = pt.iterload(fname2, fa.top)
+        with tmpdir.as_cwd():
+            fa.save(fname, overwrite=True)
+            traj.save(fname2, overwrite=True)
+            # load
+            fanew = pt.iterload(fname, fa.top)
+            fanew2 = pt.iterload(fname2, fa.top)
         assert fanew.n_frames == fa.n_frames == fanew2.n_frames
 
         for idx, f0 in enumerate(fa):

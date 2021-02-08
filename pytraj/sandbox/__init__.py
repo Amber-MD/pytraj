@@ -103,7 +103,6 @@ from pytraj.utils.get_common_objects import (get_data_from_dtype, get_topology,
                                              get_reference, get_fiterator)
 from pytraj.analysis.c_action import c_action
 from pytraj.datasets import CpptrajDatasetList
-from pytraj.externals.six import string_types
 from pytraj.utils.convert import array_to_cpptraj_atommask
 
 
@@ -129,7 +128,7 @@ def _dispatch_traj_ref_top_frame_indices(f):
             kwd['traj'] = get_fiterator(traj, frame_indices)
         else:
             args[0] = get_fiterator(traj, frame_indices)
-        if not isinstance(mask, string_types):
+        if not isinstance(mask, str):
             mask = array_to_cpptraj_atommask(mask)
         if 'mask' in kwd.keys():
             kwd['mask'] = mask

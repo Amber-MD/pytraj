@@ -4,8 +4,6 @@ from ..trajectory.shared_methods import iterframe_master
 from .c_action import do_action, c_action
 from ..utils.get_common_objects import get_data_from_dtype, super_dispatch
 from ..utils.decorators import register_pmap
-from ..externals.six.moves import range
-from ..externals.six import string_types
 
 __all__ = ['esander', 'lie']
 
@@ -147,13 +145,13 @@ def esander(traj=None,
 
     inp = sander.gas_input(igb) if mm_options is None else mm_options
 
-    if isinstance(inp, string_types):
+    if isinstance(inp, str):
         # dangerous
         local_dict = {'sander': sander}
         exec(inp.lstrip(), local_dict)
         inp = local_dict['mm_options']
 
-    if isinstance(qm_options, string_types):
+    if isinstance(qm_options, str):
         # dangerous
         local_dict = {'sander': sander}
         exec(qm_options.lstrip(), local_dict)

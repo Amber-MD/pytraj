@@ -3,15 +3,7 @@ from contextlib import contextmanager
 import tempfile
 from shutil import rmtree
 
-try:
-    from ..externals.wurlitzer import pipes
-except ImportError:
-
-    def pipes():
-        # win sucks
-        yield "", ""
-
-
+from ..externals.wurlitzer import pipes
 capture_stdout = pipes
 
 

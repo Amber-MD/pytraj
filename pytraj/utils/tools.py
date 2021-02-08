@@ -3,13 +3,12 @@ If want to use external package, import it inside the function
 
 This module stores all useful functions that does not fit to anywhere else.
 """
-from __future__ import absolute_import
-import sys as _sys
+
 import os
 from itertools import islice
 from collections import OrderedDict, defaultdict
 import numpy as np
-from pytraj.externals.six import string_types
+from functools import reduce
 
 
 class WrapBareIterator(object):
@@ -69,17 +68,6 @@ def _array_to_cpptraj_range(seq):
     return ",".join((str(i + 1) for i in seq))
 
 
-# string_types, PY2, PY3, iteritems were copied from six.py
-# see license in $PYTRAJHOME/license/externals/
-PY2 = _sys.version_info[0] == 2
-PY3 = _sys.version_info[0] == 3
-
-if PY3:
-    _iteritems = "items"
-else:  # pragma: no covert
-    _iteritems = "iteritems"
-
-
 def iteritems(d, **kw):
     """Return an iterator over the (key, value) pairs of a dictionary.
 
@@ -89,15 +77,8 @@ def iteritems(d, **kw):
     x 3
     y 4
     """
-    return iter(getattr(d, _iteritems)(**kw))
+    return iter(d.items())(**kw)
 
-
-try:
-    # PY3
-    from functools import reduce
-except ImportError:
-    #
-    pass
 
 # this module gathers commonly used functions
 # from toolz, stackoverflow, ... and from myself
@@ -217,7 +198,7 @@ def flatten(x):
     result = []
     for el in x:
         # if isinstance(el, (list, tuple)):
-        if hasattr(el, "__iter__") and not isinstance(el, string_types):
+        if hasattr(el, "__iter__") and not isinstance(el, str):
             result.extend(flatten(el))
         else:
             result.append(el)
@@ -267,9 +248,7 @@ def dict_to_ndarray(dict_of_array):
     """
     if not isinstance(dict_of_array, OrderedDict):
         raise NotImplementedError("support only OrderedDict")
-    from pytraj.externals.six import iteritems
-
-    return np.array([v for _, v in iteritems(dict_of_array)])
+    return np.array([v for _, v in dict_of_array.items()])
 
 
 def concat_dict(iterables):
@@ -288,7 +267,7 @@ def concat_dict(iterables):
             # make a copy of first dict
             new_dict.update(d)
         else:
-            for k, v in iteritems(new_dict):
+            for k, v in new_dict.items():
                 new_dict[k] = np.concatenate((new_dict[k], d[k]))
     return new_dict
 
@@ -442,7 +421,6 @@ def split_traj_by_residues(traj, start=0, stop=-1, step=1):
     >>> print(t0.top.n_residues)
     1
     '''
-    from pytraj.externals.six.moves import range
     from pytraj.utils.cyutils import get_positive_idx
 
     _stop = get_positive_idx(stop, traj.top.n_residues)
@@ -527,7 +505,6 @@ def merge_trajs(traj1, traj2, start_new_mol=True, n_frames=None):
     -----
     Code might be changed
     """
-    from pytraj.externals.six import zip
     from pytraj import Trajectory
     import numpy as np
 

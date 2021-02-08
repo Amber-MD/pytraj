@@ -1,10 +1,9 @@
 """perform nucleic acid analysis
 """
-from __future__ import absolute_import
+
 import numpy as np
 from ..utils.get_common_objects import get_topology, get_resrange
 from ..utils.get_common_objects import get_reference, get_fiterator
-from pytraj.externals.six import iteritems, string_types
 
 __all__ = ['nastruct', 'nupars']
 
@@ -18,7 +17,7 @@ def _group(self, key):
     for item in self:
         d[key(item)](item)
     rv = {}
-    for k, v in iteritems(d):
+    for k, v in d.items():
         rv[k] = v.__self__
     return rv
 
@@ -210,7 +209,7 @@ class nupars(object):
         self._summary(np.mean, indices=range(2, 8))
         '''
         _keys = keys if keys is not None else self.keys()
-        if isinstance(_keys, string_types):
+        if isinstance(_keys, str):
             _keys = [
                 _keys,
             ]

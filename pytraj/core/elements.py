@@ -1,8 +1,6 @@
 """
 Store extra information for Atom's elements
 """
-from __future__ import absolute_import
-from ..externals.six.moves import zip
 # copied from cpptraj's code "Atom.cpp"
 # /** Values taken from 'http://www.webelements.com/' */
 

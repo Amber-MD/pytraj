@@ -5,7 +5,7 @@ from ...datasets.c_datasetlist import DatasetList as CpptrajDatasetList
 from . import c_action
 from ...utils.context import capture_stdout
 from ...trajectory.shared_methods import iterframe_master
-from ...externals.six import StringIO
+from io import StringIO
 
 
 def do_action(traj, command, action_class, post_process=True, top=None):

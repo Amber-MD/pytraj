@@ -1,6 +1,5 @@
 from __future__ import print_function, absolute_import
 import numpy as np
-from ..externals.six import string_types
 from ..utils.decorators import register_pmap
 from .c_action import do_action, c_action
 from .c_action.actionlist import ActionList
@@ -124,7 +123,7 @@ def multivector(traj,
         # cpptraj style
         _names = names
     else:
-        if isinstance(names, string_types):
+        if isinstance(names, str):
             name1, name2 = names.split()
         else:
             # try to unpack

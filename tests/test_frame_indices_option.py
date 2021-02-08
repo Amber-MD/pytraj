@@ -7,7 +7,6 @@ import numpy as np
 import pytraj as pt
 from utils import fn
 from pytraj.testing import aa_eq
-from pytraj.externals.six import string_types
 from pytraj.analysis.hbond_analysis import DatasetHBond
 
 
@@ -111,7 +110,7 @@ class TestFrameIndices(unittest.TestCase):
                     for arr0, arr1 in zip(data_0, data_1):
                         # do each element in case we can not convert DatasetList to
                         # ndarray
-                        if not isinstance(arr0[0], string_types):
+                        if not isinstance(arr0[0], str):
                             aa_eq(arr0.values, arr1.values)
                 elif isinstance(data_0, DatasetHBond):
                     aa_eq(data_0.data.values, data_1.data.values)

@@ -1,7 +1,6 @@
 from __future__ import absolute_import
 import os
 import numbers
-from ..externals.six import string_types
 
 
 def eq(arr0, arr1):
@@ -84,7 +83,7 @@ def ensure_not_none_or_string(obj):
     '''
     name = obj.__str__()
     msg = "<%s> is a wrong input. Can not use `None` or string type" % name
-    if obj is None or isinstance(obj, string_types):
+    if obj is None or isinstance(obj, str):
         raise ValueError(msg)
 
 

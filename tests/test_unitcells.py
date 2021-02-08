@@ -5,7 +5,6 @@ from utils import fn
 from pytraj import Frame
 from pytraj.core import Box
 from pytraj.testing import aa_eq
-from pytraj.externals.six import zip
 
 
 class TestBox(unittest.TestCase):

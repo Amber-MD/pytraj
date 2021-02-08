@@ -1,7 +1,4 @@
-from __future__ import absolute_import
-from ..externals.six.moves import cPickle as pkl
-from ..externals.six import PY3
-
+import pickle
 
 # all below are adapted from pandas package
 def to_pickle(obj, path):
@@ -15,7 +12,7 @@ def to_pickle(obj, path):
         File path
     """
     with open(path, 'wb') as f:
-        pkl.dump(obj, f, protocol=pkl.HIGHEST_PROTOCOL)
+        pickle.dump(obj, f, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 def read_pickle(path):
@@ -46,11 +43,9 @@ def read_pickle(path):
         # cpickle
         # GH 6899
         with open(path, 'rb') as fh:
-            return pkl.load(fh)
+            return pickle.load(fh)
 
     try:
         return try_read(path)
     except:
-        if PY3:
-            return try_read(path, encoding='latin1')
-        raise
+        return try_read(path, encoding='latin1')

@@ -2,7 +2,6 @@ import unittest
 import pytraj as pt
 from utils import fn
 from pytraj.testing import aa_eq
-from pytraj.externals.six import zip
 from pytraj import iterframe_master
 from pytraj import Frame, Trajectory
 

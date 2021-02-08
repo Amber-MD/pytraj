@@ -1,8 +1,6 @@
 # distutils: language = c++
 from cython.operator cimport dereference as deref
 from pytraj.utils.decorators import makesureABC
-from pytraj.externals.six import PY3
-from pytraj.externals.six import string_types
 
 
 cdef class Analysis:
@@ -45,7 +43,7 @@ cdef class Analysis:
         analysis_setup_ = _AnalysisSetup(dslist.thisptr[0], dflist.thisptr[0])
 
 
-        if isinstance(command, string_types):
+        if isinstance(command, str):
             arglist = ArgList(command)
         elif isinstance(command, ArgList):
             arglist = <ArgList> command

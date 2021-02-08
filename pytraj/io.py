@@ -4,8 +4,6 @@ import tempfile
 import numpy as np
 
 from .core.c_core import _load_batch
-from .externals.six import string_types
-from .externals.load_other_packages import load_parmed
 from .serialize.serialize import to_pickle, read_pickle
 from .datafiles.load_samples import load_sample_data
 from .core.c_options import set_error_silent
@@ -237,7 +235,7 @@ def load_traj(filename=None, top=None, *args, **kwd):
     TrajectoryIterator : if frame_indices is None
     Trajectory : if there is indices
     """
-    if isinstance(top, string_types):
+    if isinstance(top, str):
         top = load_topology(top)
     if top is None or top.is_empty():
         top = load_topology(filename)
@@ -284,7 +282,7 @@ def iterload_remd(filename, top=None, T="300.0"):
 
     # add keyword 'remdtraj' to trick cpptraj
     trajin = ' '.join(('trajin', filename, 'remdtraj remdtrajtemp', str(T)))
-    if isinstance(top, string_types):
+    if isinstance(top, str):
         top = load_topology(top)
     else:
         top = top
@@ -515,7 +513,7 @@ def load_topology(filename, option=''):
     # always read box info from pdb
     option = ' '.join(('readbox', option))
 
-    if isinstance(filename, string_types):
+    if isinstance(filename, str):
         parm = ParmFile()
         set_error_silent(True)
         parm.read(filename=filename, top=top, option=option)
@@ -528,6 +526,34 @@ def load_topology(filename, option=''):
             'n_atoms = 0: make sure to load correct Topology filename '
             'or load supported topology (pdb, amber parm, psf, ...)')
     return top
+
+
+def load_parmed(parm, traj=True, **kwd):
+    """return pytraj's Topology or Trajectory objects
+
+    Parameters
+    ----------
+    parm : ParmEd's Structure object
+    traj: bool, default True
+        if True, return pytraj.Trajectory
+        if False, return Topology
+
+    >>> import parmed as pmd
+    >>> import pytraj as pt
+    >>> p = pmd.download_PDB("1l2y")
+    >>> traj = pt.load_parmed(p)
+    """
+    with tempfolder():
+        fname = 'tmp.parm7'
+        parm.save(fname)
+        top = load_topology(fname)
+    if traj:
+        coords = parm.get_coordinates()
+        traj = Trajectory(xyz=coords, top=top)
+        traj.unitcells = parm.get_box()
+        return traj
+    else:
+        return top
 
 
 def loadpdb_rcsb(pdbid):
@@ -903,6 +929,6 @@ def select_atoms(mask, topology):
     >>> pt.select_atoms(traj.top, '@CA')
     array([  4,  15,  39, ..., 159, 173, 197])
     '''
-    if isinstance(mask, Topology) and isinstance(topology, string_types):
+    if isinstance(mask, Topology) and isinstance(topology, str):
         mask, topology = topology, mask
     return topology.select(mask)

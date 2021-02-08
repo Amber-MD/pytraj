@@ -1,6 +1,5 @@
 import numpy as np
 
-from ..externals.six import string_types
 from ..utils.get_common_objects import (
     get_topology, get_data_from_dtype, get_matrix_from_dataset, get_reference,
     get_fiterator, super_dispatch, get_iterator_from_dslist)
@@ -128,7 +127,7 @@ def pairwise_rmsd(traj=None,
     """
     # we copy Frame coordinates to DatasetCoordsCRD first
 
-    if not isinstance(mask, string_types):
+    if not isinstance(mask, str):
         mask = array_to_cpptraj_atommask(mask)
 
     act = c_analysis.Analysis_Rms2d()
@@ -314,10 +313,10 @@ def rmsd(traj=None,
     if ref_mask:
         if not mask:
             raise ValueError('mask must be provided if ref_mask is given')
-        if not isinstance(ref_mask, string_types):
+        if not isinstance(ref_mask, str):
             ref_mask = array_to_cpptraj_atommask(ref_mask)
 
-    if isinstance(mask, string_types):
+    if isinstance(mask, str):
         command = [
             mask,
         ]

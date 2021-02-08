@@ -6,7 +6,6 @@ from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as incr
 
 from .c_dict import BoxTypeDict, get_key
-from ..externals.six import string_types
 
 
 cdef class Box(object):
@@ -27,7 +26,7 @@ cdef class Box(object):
                 mat = args[0]
                 self.thisptr = new _Box()
                 self.thisptr.SetupFromUcell(deref(mat.thisptr))
-            # elif isinstance(args[0], string_types): # FIXME: remove?
+            # elif isinstance(args[0], str): # FIXME: remove?
             #     # set box based on type
             #     self.thisptr = new _Box()
             #     self.type = args[0]
