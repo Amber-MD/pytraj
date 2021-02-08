@@ -1,4 +1,3 @@
-""""""
 import time
 from .check_and_assert import file_exist, is_generator
 from .check_and_assert import eq

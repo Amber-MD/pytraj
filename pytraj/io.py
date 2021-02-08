@@ -529,6 +529,34 @@ def load_topology(filename, option=''):
     return top
 
 
+def load_parmed(parm, traj=True, **kwd):
+    """return pytraj's Topology or Trajectory objects
+
+    Parameters
+    ----------
+    parm : ParmEd's Structure object
+    traj: bool, default True
+        if True, return pytraj.Trajectory
+        if False, return Topology
+
+    >>> import parmed as pmd
+    >>> import pytraj as pt
+    >>> p = pmd.download_PDB("1l2y")
+    >>> traj = pt.load_parmed(p)
+    """
+    with tempfolder():
+        fname = 'tmp.parm7'
+        parm.save(fname)
+        top = load_topology(fname)
+    if traj:
+        coords = parm.get_coordinates()
+        traj = Trajectory(xyz=coords, top=top)
+        traj.unitcells = parm.get_box()
+        return traj
+    else:
+        return top
+
+
 def loadpdb_rcsb(pdbid):
     """load pdb file from rcsb website
 
