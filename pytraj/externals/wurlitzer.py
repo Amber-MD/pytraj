@@ -1,35 +1,14 @@
-# Note: This code is copied from
-# https://github.com/minrk/wurlitzer
-# git tag: e9549c29ead108cbe4e7cf5bf0cbe0dcbc1ce9e0
-
 # The MIT License (MIT)
-#
+# 
 # Copyright (c) 2016 Min RK
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
+
 """Capture C-level FD output on pipes
 
 Use `wurlitzer.pipes` or `wurlitzer.sys_pipes` as context managers.
 """
 from __future__ import print_function
 
-__version__ = '0.2.1.dev'
+__version__ = '2.0.2.dev'
 
 __all__ = [
     'pipes',
@@ -41,12 +20,25 @@ __all__ = [
 
 from contextlib import contextmanager
 import ctypes
+import errno
 from fcntl import fcntl, F_GETFL, F_SETFL
 import io
 import os
-import select
+
+try:
+    from queue import Queue
+except ImportError:
+    from Queue import Queue
+
+try:
+    import selectors
+except ImportError:
+    # py < 3.4
+    import selectors2 as selectors
+
 import sys
 import threading
+import time
 import warnings
 
 libc = ctypes.CDLL(None)
@@ -66,6 +58,23 @@ _default_encoding = getattr(sys.stdin, 'encoding', None) or 'utf8'
 if _default_encoding.lower() == 'ascii':
     # don't respect ascii
     _default_encoding = 'utf8'  # pragma: no cover
+
+
+def dup2(a, b, timeout=3):
+    """Like os.dup2, but retry on EBUSY"""
+    dup_err = None
+    # give FDs 3 seconds to not be busy anymore
+    for i in range(int(10 * timeout)):
+        try:
+            return os.dup2(a, b)
+        except OSError as e:
+            dup_err = e
+            if e.errno == errno.EBUSY:
+                time.sleep(0.1)
+            else:
+                raise
+    if dup_err:
+        raise dup_err
 
 
 class Wurlitzer(object):
@@ -104,7 +113,7 @@ class Wurlitzer(object):
         self._save_fds[name] = save_fd
 
         pipe_out, pipe_in = os.pipe()
-        os.dup2(pipe_in, real_fd)
+        dup2(pipe_in, real_fd)
         os.close(pipe_in)
         self._real_fds[name] = real_fd
 
@@ -116,7 +125,7 @@ class Wurlitzer(object):
     def _decode(self, data):
         """Decode data, if any
         
-        Called before pasing to stdout/stderr streams
+        Called before passing to stdout/stderr streams
         """
         if self.encoding:
             data = data.decode(self.encoding, 'replace')
@@ -138,16 +147,26 @@ class Wurlitzer(object):
         """Finish handle, if anything should be done when it's all wrapped up."""
         pass
 
-    def __enter__(self):
-        # flush anything out before starting
+    def _flush(self):
+        """flush sys.stdout/err and low-level FDs"""
+        if self._stdout and sys.stdout:
+            sys.stdout.flush()
+        if self._stderr and sys.stderr:
+            sys.stderr.flush()
+
         libc.fflush(c_stdout_p)
         libc.fflush(c_stderr_p)
+
+    def __enter__(self):
+        # flush anything out before starting
+        self._flush()
         # setup handle
         self._setup_handle()
+        self._control_r, self._control_w = os.pipe()
 
         # create pipe for stdout
-        pipes = []
-        names = {}
+        pipes = [self._control_r]
+        names = {self._control_r: 'control'}
         if self._stdout:
             pipe = self._setup_pipe('stdout')
             pipes.append(pipe)
@@ -157,28 +176,75 @@ class Wurlitzer(object):
             pipes.append(pipe)
             names[pipe] = 'stderr'
 
+        # flush pipes in a background thread to avoid blocking
+        # the reader thread when the buffer is full
+        flush_queue = Queue()
+
+        def flush_main():
+            while True:
+                msg = flush_queue.get()
+                if msg == 'stop':
+                    return
+                self._flush()
+
+        flush_thread = threading.Thread(target=flush_main)
+        flush_thread.daemon = True
+        flush_thread.start()
+
         def forwarder():
             """Forward bytes on a pipe to stream messages"""
-            while True:
-                # flush libc's buffers before calling select
-                libc.fflush(c_stdout_p)
-                libc.fflush(c_stderr_p)
-                r, w, x = select.select(pipes, [], [], self.flush_interval)
-                if not r:
-                    # nothing to read, next iteration will flush and check again
-                    continue
-                for pipe in r:
-                    name = names[pipe]
-                    data = os.read(pipe, 1024)
+            draining = False
+            flush_interval = 0
+            poller = selectors.DefaultSelector()
+
+            for pipe_ in pipes:
+                poller.register(pipe_, selectors.EVENT_READ)
+
+            while pipes:
+                events = poller.select(flush_interval)
+                if events:
+                    # found something to read, don't block select until
+                    # we run out of things to read
+                    flush_interval = 0
+                else:
+                    # nothing to read
+                    if draining:
+                        # if we are draining and there's nothing to read, stop
+                        break
+                    else:
+                        # nothing to read, get ready to wait.
+                        # flush the streams in case there's something waiting
+                        # to be written.
+                        flush_queue.put('flush')
+                        flush_interval = self.flush_interval
+                        continue
+
+                for selector_key, flags in events:
+                    fd = selector_key.fd
+                    if fd == self._control_r:
+                        draining = True
+                        pipes.remove(self._control_r)
+                        poller.unregister(self._control_r)
+                        os.close(self._control_r)
+                        continue
+                    name = names[fd]
+                    data = os.read(fd, 1024)
                     if not data:
-                        # pipe closed, stop polling
-                        pipes.remove(pipe)
+                        # pipe closed, stop polling it
+                        pipes.remove(fd)
+                        poller.unregister(fd)
+                        os.close(fd)
                     else:
                         handler = getattr(self, '_handle_%s' % name)
                         handler(data)
                 if not pipes:
                     # pipes closed, we are done
                     break
+            # stop flush thread
+            flush_queue.put('stop')
+            flush_thread.join()
+            # cleanup pipes
+            [os.close(pipe) for pipe in pipes]
 
         self.thread = threading.Thread(target=forwarder)
         self.thread.daemon = True
@@ -187,18 +253,18 @@ class Wurlitzer(object):
         return self.handle
 
     def __exit__(self, exc_type, exc_value, traceback):
-        # flush the underlying C buffers
-        libc.fflush(c_stdout_p)
-        libc.fflush(c_stderr_p)
-        # close FDs, signaling output is complete
-        for real_fd in self._real_fds.values():
-            os.close(real_fd)
+        # flush before exiting
+        self._flush()
+
+        # signal output is complete on control pipe
+        os.write(self._control_w, b'\1')
         self.thread.join()
+        os.close(self._control_w)
 
         # restore original state
         for name, real_fd in self._real_fds.items():
             save_fd = self._save_fds[name]
-            os.dup2(save_fd, real_fd)
+            dup2(save_fd, real_fd)
             os.close(save_fd)
         # finalize handle
         self._finish_handle()
@@ -207,12 +273,12 @@ class Wurlitzer(object):
 @contextmanager
 def pipes(stdout=PIPE, stderr=PIPE, encoding=_default_encoding):
     """Capture C-level stdout/stderr in a context manager.
-    
+
     The return value for the context manager is (stdout, stderr).
-    
+
     Examples
     --------
-    
+
     >>> with capture() as (stdout, stderr):
     ...     printf("C-level stdout")
     ... output = stdout.read()
@@ -270,25 +336,28 @@ def sys_pipes(encoding=_default_encoding):
 
 
 _mighty_wurlitzer = None
+_mighty_lock = threading.Lock()
 
 
 def sys_pipes_forever(encoding=_default_encoding):
     """Redirect all C output to sys.stdout/err
-    
+
     This is not a context manager; it turns on C-forwarding permanently.
     """
     global _mighty_wurlitzer
-    if _mighty_wurlitzer is None:
-        _mighty_wurlitzer = sys_pipes(encoding)
-    _mighty_wurlitzer.__enter__()
+    with _mighty_lock:
+        if _mighty_wurlitzer is None:
+            _mighty_wurlitzer = sys_pipes(encoding)
+            _mighty_wurlitzer.__enter__()
 
 
 def stop_sys_pipes():
     """Stop permanent redirection started by sys_pipes_forever"""
     global _mighty_wurlitzer
-    if _mighty_wurlitzer is not None:
-        _mighty_wurlitzer.__exit__(None, None, None)
-        _mighty_wurlitzer = None
+    with _mighty_lock:
+        if _mighty_wurlitzer is not None:
+            _mighty_wurlitzer.__exit__(None, None, None)
+            _mighty_wurlitzer = None
 
 
 def load_ipython_extension(ip):
@@ -317,3 +386,6 @@ def unload_ipython_extension(ip):
         return
     ip.events.unregister('pre_execute', sys_pipes_forever)
     ip.events.unregister('post_execute', stop_sys_pipes)
+    # sys_pipes_forever was called in pre_execute
+    # after unregister we need to call it explicitly:
+    stop_sys_pipes()
