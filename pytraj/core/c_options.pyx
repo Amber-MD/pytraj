@@ -21,6 +21,18 @@ def info():
     s = Cpptraj.Defines()
     return s.decode()
 
+# These are functions in cpptraj specially wrapped for pytraj
+cdef extern from "ExternalFxn.h":
+    void EXT_SetDefaultRng(int)
+
+## set_default_rng
+#
+# This calls Cpptraj::Random_Number::SetDefaultRng() to change default
+# random number generator. Primarily used for tests to set the RNG
+# back to the old Marsaglia generator (rtype 0).
+def set_default_rng(rtype):
+    EXT_SetDefaultRng(rtype) 
+
 cdef extern from "CpptrajStdio.h":
     void SuppressErrorMsg(bint)
     void SetWorldSilent(bint)
