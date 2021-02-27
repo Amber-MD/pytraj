@@ -17,7 +17,8 @@ class TestRandomizeIons(unittest.TestCase):
                           'adh206.ff10.tip3p.parm7.gz')
         saved_traj_name = os.path.join(cpptraj_test_dir, 'Test_RandomizeIons',
                                        'random.crd.save')
-
+        # Set default RNG back to Marsaglia
+        pt.set_default_rng(0)
         traj = pt.iterload(fn, tn)
         traj_mut = traj[:]
         saved_traj = pt.iterload(saved_traj_name, traj.top)

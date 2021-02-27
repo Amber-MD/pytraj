@@ -225,6 +225,8 @@ from .core.c_options import set_world_silent
 from .core.c_options import set_cpptraj_verbose
 from .core.c_options import set_cpptraj_verbose as _verbose
 set_world_silent(True)
+# Allow tests to set RNG back to Marsaglia
+from .core.c_options import set_default_rng
 
 # alias
 write_trajectory = write_traj
