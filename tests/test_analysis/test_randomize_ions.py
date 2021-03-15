@@ -16,7 +16,7 @@ class TestRandomizeIons(unittest.TestCase):
         tn = os.path.join(cpptraj_test_dir, 'Test_RandomizeIons',
                           'adh206.ff10.tip3p.parm7.gz')
         saved_traj_name = os.path.join(cpptraj_test_dir, 'Test_RandomizeIons',
-                                       'random.crd.save')
+                                       'around.overlap.rst7.save')
         # Set default RNG back to Marsaglia
         pt.set_default_rng(0)
         traj = pt.iterload(fn, tn)
@@ -29,7 +29,7 @@ class TestRandomizeIons(unittest.TestCase):
             around=':1-16',
             by=5.0,
             overlap=3.0,
-            seed=113698)
+            seed=1)
         aa_eq(traj_mut.xyz, saved_traj.xyz, decimal=2)
 
 
