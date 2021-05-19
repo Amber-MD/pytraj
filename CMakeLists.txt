@@ -69,3 +69,5 @@ install(CODE "
     ${PYTHONPATH_SET_CMD}
 	${PYTHON_EXECUTABLE} ./setup.py build -b ${BUILD_DIR} ${OPENMP_ARG} ${PYTHON_COMPILER_ARG} ${WIN64_DEFINE_ARG} install ${PYTHON_PREFIX_ARG}
     WORKING_DIRECTORY \"${CMAKE_CURRENT_SOURCE_DIR}\")")
+
+add_subdirectory(tests)
