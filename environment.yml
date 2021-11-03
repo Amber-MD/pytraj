@@ -1,6 +1,7 @@
 channels:
     - conda-forge
 dependencies:
+    - netcdf4
     - pyflakes
     - numpy
     - cython
