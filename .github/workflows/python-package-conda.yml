@@ -20,6 +20,16 @@ jobs:
         echo $CONDA/bin >> $GITHUB_PATH
     - name: Install dependencies
       run: |
+        curl -OL ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-4.6.1.tar.gz
+        tar -zxf netcdf-4.6.1.tar.gz
+        cd netcdf-4.6.1
+        ./configure --disable-netcdf-4 --disable-dap --disable-doxygen --prefix=$HOME
+        make -j2
+        make install
+        cd ..
+        export PATH=$HOME/bin:$PATH
+    - name: Install pytraj
+      run: |
         conda env update --file environment.yml --name base
         python setup.py install
         # - name: Lint with flake8
