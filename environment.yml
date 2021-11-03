@@ -1,5 +1,8 @@
-pyflakes
-numpy
-cython
-parmed
-pytest
+channels:
+    - conda-forge
+dependencies:
+    - pyflakes
+    - numpy
+    - cython
+    - parmed
+    - pytest
