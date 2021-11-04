@@ -28,15 +28,19 @@ jobs:
         make install
         cd ..
         export PATH=$HOME/bin:$PATH
-    - name: Install pytraj
+    - name: Install conda packages
       run: |
-        conda env update --file environment.yml --name base
+        conda env update --file environment.yml --name base        
+    - name: Install cpptraj
+      run: |
         git clone https://github.com/Amber-MD/cpptraj
         cd cpptraj
         export CPPTRAJHOME=`pwd`
         ./configure -shared -openmp gnu
         make libcpptraj
         cd ../
+    - name: Install pytraj
+      run: |        
         python setup.py install
         # - name: Lint with flake8
         #   run: |
