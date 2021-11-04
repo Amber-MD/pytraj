@@ -31,6 +31,12 @@ jobs:
     - name: Install pytraj
       run: |
         conda env update --file environment.yml --name base
+        git clone https://github.com/Amber-MD/cpptraj
+        cd cpptraj
+        export CPPTRAJHOME=`pwd`
+        ./configure -shared -openmp gnu
+        make libcpptraj
+        cd ../
         python setup.py install
         # - name: Lint with flake8
         #   run: |
