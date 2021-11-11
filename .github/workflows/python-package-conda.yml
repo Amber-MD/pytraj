@@ -9,6 +9,14 @@ jobs:
       max-parallel: 5
 
     steps:
+    - name: Install prerequisite packages
+      run: |
+        sudo apt-get install gfortran
+        sudo apt-get install libbz2-dev
+        sudo apt-get install libblas-dev liblapack-dev
+        sudo apt-get install libfftw3-dev
+        sudo apt-get install clang
+        sudo apt-get install cmake-data cmake    
     - uses: actions/checkout@v2
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
