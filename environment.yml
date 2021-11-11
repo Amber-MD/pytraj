@@ -7,3 +7,4 @@ dependencies:
     - cython
     - parmed
     - pytest
+    - mock
