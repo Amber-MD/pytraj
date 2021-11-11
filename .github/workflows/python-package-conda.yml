@@ -44,7 +44,7 @@ jobs:
         git clone https://github.com/Amber-MD/cpptraj
         cd cpptraj
         export CPPTRAJHOME=`pwd`
-        yes | ./configure -shared gnu
+        yes | ./configure -shared -openmp gnu
         make libcpptraj
         cd ../
     - name: Install pytraj
