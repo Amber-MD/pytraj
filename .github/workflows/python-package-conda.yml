@@ -52,4 +52,4 @@ jobs:
         python setup.py install
     - name: Test with pytest
       run: |
-        cd tests && pytest -vs .
+        cd tests && pytest -vs --ignore=test_parallel_pmap --ignore=test_run_mpi.py --ignore=test_energy/test_pmap_sander.py --ignore=test_parallel_mpi --ignore=test_actionlist.py
