@@ -9,6 +9,14 @@ jobs:
       max-parallel: 5
 
     steps:
+    - name: Install prerequisite packages
+      run: |
+        sudo apt-get install gfortran
+        sudo apt-get install libbz2-dev
+        sudo apt-get install libblas-dev liblapack-dev
+        sudo apt-get install libfftw3-dev
+        sudo apt-get install clang
+        sudo apt-get install cmake-data cmake    
     - uses: actions/checkout@v2
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
@@ -20,15 +28,28 @@ jobs:
         echo $CONDA/bin >> $GITHUB_PATH
     - name: Install dependencies
       run: |
-        conda env update --file environment.yml --name base
-    - name: Lint with flake8
+        curl -OL ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-4.6.1.tar.gz
+        tar -zxf netcdf-4.6.1.tar.gz
+        cd netcdf-4.6.1
+        ./configure --disable-netcdf-4 --disable-dap --disable-doxygen --prefix=$HOME
+        make -j2
+        make install
+        cd ..
+        export PATH=$HOME/bin:$PATH
+    - name: Install conda packages
       run: |
-        conda install flake8
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        conda env update --file environment.yml --name base        
+    - name: Install cpptraj
+      run: |
+        git clone https://github.com/Amber-MD/cpptraj
+        cd cpptraj
+        export CPPTRAJHOME=`pwd`
+        yes | ./configure -shared -openmp gnu
+        make libcpptraj
+        cd ../
+    - name: Install pytraj
+      run: |        
+        python setup.py install
     - name: Test with pytest
       run: |
-        conda install pytest
-        pytest
+        export CPPTRAJHOME=`pwd`/cpptraj && cd tests && pytest -vs --ignore=test_parallel_pmap --ignore=test_run_mpi.py --ignore=test_energy/test_pmap_sander.py --ignore=test_parallel_mpi --ignore=test_actionlist.py

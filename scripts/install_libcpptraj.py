@@ -105,7 +105,7 @@ def get_compiler_and_build_flag():
     prefix = sys.prefix
     if has_numpy and find_lib('openblas'):
         # likely having openblas?
-        build_flag_ = ('--with-netcdf={prefix} --with-blas={prefix} '
+        build_flag_ = ('--with-blas={prefix} '
                        '-openblas -noarpack'.format(prefix=prefix))
     elif has_numpy:
         print('has_numpy but can not find openblas')
