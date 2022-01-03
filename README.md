@@ -42,7 +42,7 @@ Supported platforms: Linux, OSX
 - from AMBER suite distribution [http://ambermd.org/](http://ambermd.org/#AmberTools).
 
 - from conda: `conda install -c ambermd pytraj`
-- from AmberTools: `conda install -c conda-forge ambertools`
+- from AmberTools: `conda install -c conda-forge ambertools=21 compilers`
 
 - from pip: `pip install pytraj`
 
