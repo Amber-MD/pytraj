@@ -39,12 +39,13 @@ Install
 -------
 Supported platforms: Linux, OSX
 
+- The best way is to install `AmberTools` via conda: `conda install -c conda-forge ambertools=21 compilers` (https://ambermd.org/GetAmber.php)
+
 - from AMBER suite distribution [http://ambermd.org/](http://ambermd.org/#AmberTools).
 
-- from conda: `conda install -c ambermd pytraj`
-- from AmberTools: `conda install -c conda-forge ambertools=21 compilers`
+- from conda: `conda install -c ambermd pytraj` # Outdated versions, not support python >= 3.9
 
-- from pip: `pip install pytraj`
+- from pip: `pip install pytraj` # Outdated versions, not support python >= 3.9
 
 - from source code:
 
@@ -57,10 +58,11 @@ Supported platforms: Linux, OSX
     # Note: openmp will be turned off in OSX.
     
     # AMBER user: overwrite pytraj in $AMBERHOME
+    # For expert user only
     python setup.py install --prefix=$AMBERHOME
     ```
 
-- getting trouble? : [check our webpage](http://amber-md.github.io/pytraj/latest/installation.html)
+- Getting trouble? : [check our webpage](http://amber-md.github.io/pytraj/latest/installation.html)
 
 
 How to get started?
