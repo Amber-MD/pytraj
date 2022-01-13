@@ -140,7 +140,7 @@ setenv_cc_cxx(cpptraj_info.ambertools_distro, extra_compile_args,
 
 def prepare_env_for_osx():
    # Copied from ParmEd
-   # https://github.com/ParmEd/ParmEd/blob/8ea11835cacbb986d76439f56bb529c83d34aa1f/setup.py#L28
+   # https://github.com/ParmEd/ParmEd/blob/1a1ced1c2573259dc1997decd4521c0a5ca687ed/setup.py
     """ Prepares the environment for OS X building """
     darwin_major_to_osx_map = {
         '11': '10.7',
@@ -151,16 +151,21 @@ def prepare_env_for_osx():
         '16': '10.12',
         '17': '10.13',
         '18': '10.14',
+        '19': '10.15',
+        '20': '11.5',
     }
     os.environ['CXX'] = 'clang++'
     os.environ['CC'] = 'clang'
     darwin_major = os.uname()[2].split('.')[0]
     if darwin_major in darwin_major_to_osx_map:
-        dev_target = darwin_major_to_osx_map[darwin_major]
-        print("Setting MACOSX_DEPLOYMENT_TARGET to %s " % dev_target)
-        os.environ['MACOSX_DEPLOYMENT_TARGET'] = dev_target
+        os.environ['MACOSX_DEPLOYMENT_TARGET'] = darwin_major_to_osx_map[darwin_major]
+    else:
+        import subprocess
+        warnings.warn("darwin_major_to_osx_map needs to be updated! Report this issue if build fails.")
+        swvers = subprocess.run("sw_vers -productVersion".split(), capture_output=True)
+        os.environ["MACOSX_DEPLOYMENT_TARGET"] = ".".join(swvers.stdout.decode("utf-8").strip().split(".")[:2])
 
-
+        
 if sys.platform.startswith('darwin') and is_clang(os.getenv('CXX')):
     prepare_env_for_osx()
     # We don't need this anymore?
