@@ -40,21 +40,22 @@ def test_trajectory_writer__with_statement():
         farray2[0]
 
 
-def test_trajectory_writer_write_PDBFILE():
+def test_trajectory_writer_write_PDBFILE(tmpdir):
     frame0 = farray[0]
     filename="dummy_test_dafd.pdb"
-    with TrajectoryWriter(
-            filename="dummy_test_dafd.pdb", top=farray.top) as trajout:
-        trajout.write(frame0)
-    with open(filename) as fh:
-        assert "" in fh.read()
+    with tmpdir.as_cwd():
+        with TrajectoryWriter(
+                filename="dummy_test_dafd.pdb", top=farray.top) as trajout:
+            trajout.write(frame0)
+        with open(filename) as fh:
+            assert "" in fh.read()
 
 
-def test_trajectory_writer_write_Trajectory():
+def test_trajectory_writer_write_Trajectory(tmpdir):
     """test write Trajectory"""
     farray = pt.load(
         fn("Tc5b.x"), fn("Tc5b.top"), frame_indices=list(range(10)))
-    with tempfolder():
+    with tmpdir.as_cwd():
         pt.write_traj(
             "test_write_output.x", farray, overwrite=True)
         pt.write_traj(
