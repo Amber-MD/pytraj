@@ -318,15 +318,16 @@ class TestSaveToDisk:
             aa_eq(f0.xyz, f0new.xyz)
             aa_eq(f0.xyz, f0new2.xyz)
 
-    def test_fancy_save(self):
+    def test_fancy_save(self, tmpdir):
         traj = pt.iterload(fn('Tc5b.x'), fn('Tc5b.top'))
         output = 'dummy_test_fancy_save_frame1_7.x'
-        traj[1:8].save(output, overwrite=True)
-        fanew = pt.iterload(output, traj.top)
+        with tmpdir.as_cwd():
+            traj[1:8].save(output, overwrite=True)
+            fanew = pt.iterload(output, traj.top)
 
-        for idx, f0 in enumerate(traj[1:8]):
-            f0new = fanew[idx]
-            aa_eq(f0.xyz, f0new.xyz)
+            for idx, f0 in enumerate(traj[1:8]):
+                f0new = fanew[idx]
+                aa_eq(f0.xyz, f0new.xyz)
 
 
 class TestSetitem:

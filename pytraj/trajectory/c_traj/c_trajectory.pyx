@@ -376,7 +376,7 @@ cdef class TrajectoryCpptraj:
                 # assuming that `idxs` is integer
                 idx_1 = <int> get_positive_idx(idxs, self.n_frames)
                 # raise index out of range
-                if idxs != 0 and idx_1 == 0:
+                if idxs != 0 and idx_1 == 0 and self.n_frames > 1:
                     raise ValueError("index is out of range")
 
                 with self:
