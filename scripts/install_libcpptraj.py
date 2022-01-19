@@ -7,6 +7,8 @@ import shutil
 sys.path.append('scripts')
 from check_openmp import get_openmp_flag
 from find_lib import find_lib
+from pathlib import Path
+
 
 # DEFAULT_MAC_BUILD = '-shared -macAccelerate --with-fftw3=/usr/local --with-netcdf=/usr/local -noarpack'
 DEFAULT_MAC_BUILD = '-shared -macAccelerate -noarpack'
@@ -110,14 +112,19 @@ def get_compiler_and_build_flag():
     elif has_numpy:
         print('has_numpy but can not find openblas')
         print('try blas and lapack')
+        print(np.__config__.openblas64__info)
         try:
-            blas_prefix = np.__config__.blas_opt_info['library_dirs'][0].strip(
-                'lib')
-            lapack_prefix = np.__config__.lapack_opt_info['library_dirs'][
-                0].strip('lib')
-            build_flag_ = (
-                '-noarpack --with-blas={blas_prefix} --with-lapack={lapack_prefix}'
-                .format(blas_prefix=blas_prefix, lapack_prefix=lapack_prefix))
+            if hasattr(np.__config__, 'blas_opt_info'):
+                # numpy installed with openblass
+                blas_prefix = np.__config__.blas_opt_info['library_dirs'][0].strip(
+                    'lib')
+                lapack_prefix = np.__config__.lapack_opt_info['library_dirs'][
+                    0].strip('lib')
+                build_flag_ = (
+                    '-noarpack --with-blas={blas_prefix} --with-lapack={lapack_prefix}'
+                    .format(blas_prefix=blas_prefix, lapack_prefix=lapack_prefix))
+            else:
+                build_flag_ = '-noarpack'
         except (KeyError, IndexError):
             build_flag_ = '-noarpack'
     else:
@@ -193,27 +200,6 @@ def parse_args():
         'install_type', default='', nargs='?', help='install_type in amber')
     args = parser.parse_args()
     return args
-
-
-def _install_libcpptraj_win_msys2():
-    PREFIX = '/usr/local/'
-    PREFIX2 = '/mingw64/'
-    # assume you do all the setup
-    command = """
-    sh configure --with-netcdf={PREFIX} \
-                 --with-blas={PREFIX2} \
-                 --with-arpack={PREFIX2} \
-                 --with-readline={PREFIX2} \
-                 -openblas \
-                 -shared \
-                 -windows \
-                 gnu
-    """.format(
-        PREFIX=PREFIX, PREFIX2=PREFIX2).strip()
-    subprocess.check_call(command, shell=True)
-    subprocess.check_call('make libcpptraj -j2', shell=True)
-    # will create libcpptraj.dll.a
-    # shutil.copy('lib/libcpptraj.so', 'lib/cpptraj.lib')
 
 
 if __name__ == '__main__':
