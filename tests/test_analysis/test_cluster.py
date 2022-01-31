@@ -63,7 +63,7 @@ def test_cluster_dbscan():
         traj = pt.iterload(tz2_trajin, tz2_top)
         data = pt.cluster.dbscan(
             traj, mask='@CA', options='epsilon 1.7 minpoints 5')
-        aa_eq(state.data[-2], data.cluster_index)
+        aa_eq(state.data[2], data.cluster_index)
 
 
 def test_cluster_hieragglo():
@@ -81,4 +81,4 @@ def test_cluster_hieragglo():
         traj = pt.iterload(tz2_trajin, tz2_top)
         data = pt.cluster.hieragglo(
             traj, mask='!@H=', options='epsilon 0.8 averagelinkage')
-        aa_eq(state.data[-2], data.cluster_index)
+        aa_eq(state.data[2], data.cluster_index)
