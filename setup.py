@@ -13,6 +13,7 @@
 import os
 import sys
 import shutil
+import warnings
 
 print('sys.argv', sys.argv)
 from setuptools import setup, Extension
