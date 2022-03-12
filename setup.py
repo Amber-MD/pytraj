@@ -154,6 +154,7 @@ def prepare_env_for_osx():
         '18': '10.14',
         '19': '10.15',
         '20': '11.5',
+        '21': '12.2',
     }
     os.environ['CXX'] = 'clang++'
     os.environ['CC'] = 'clang'
