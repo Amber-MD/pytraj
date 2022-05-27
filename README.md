@@ -39,7 +39,7 @@ Install
 -------
 Supported platforms: Linux, OSX
 
-- The best way is to install `AmberTools` via conda: `conda install -c conda-forge ambertools=21 compilers` (https://ambermd.org/GetAmber.php)
+- The best way is to install `AmberTools` via conda: `conda install -c conda-forge ambertools compilers` (https://ambermd.org/GetAmber.php)
 
 - from AMBER suite distribution [http://ambermd.org/](http://ambermd.org/#AmberTools).
 
