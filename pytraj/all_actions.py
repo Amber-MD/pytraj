@@ -133,6 +133,7 @@ __all__ = [
     'ti',
     'lipidscd',
     'xtalsymm',
+    'multipucker',
     'hausdorff',
     'permute_dihedrals',
 ]
@@ -3112,6 +3113,21 @@ def xtalsymm(traj, mask='', options='', ref=None, **kwargs):
     c_dslist._pop(0)
 
     return traj
+
+
+@super_dispatch()
+def multipucker(traj, options='', dtype='dict'):
+    '''
+    
+    Parameters
+    ----------
+    traj : Trajectory-like
+    options : str, cpptraj's options
+        See `pytraj.info("multipucker")` for further information.
+    '''
+    command = options
+    c_dslist, _ = do_action(traj, command, c_action.Action_MultiPucker)
+    return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
 def analyze_modes(mode_type,
