@@ -3116,7 +3116,7 @@ def xtalsymm(traj, mask='', options='', ref=None, **kwargs):
 
 
 @super_dispatch()
-def multipucker(traj, options='', dtype='dict'):
+def multipucker(traj, options='', dtype='dict', top=None, frame_indices=None):
     '''
     
     Parameters
