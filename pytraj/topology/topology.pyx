@@ -542,12 +542,16 @@ cdef class Topology:
 
     def _partial_modify_state_by_mask(self, AtomMask m):
         cdef Topology top = Topology()
-        top.thisptr[0] = deref(self.thisptr.partialModifyStateByMask(m.thisptr[0]))
+        newtop_ptr = self.thisptr.partialModifyStateByMask(m.thisptr[0])
+        top.thisptr[0] = deref(newtop_ptr)
+        del newtop_ptr
         return top
 
     def _modify_state_by_mask(self, AtomMask m):
         cdef Topology top = Topology()
-        top.thisptr[0] = deref(self.thisptr.modifyStateByMask(m.thisptr[0]))
+        newtop_ptr = self.thisptr.modifyStateByMask(m.thisptr[0])
+        top.thisptr[0] = deref(newtop_ptr)
+        del newtop_ptr
         return top
 
     def _get_new_from_mask(self, mask=None):
