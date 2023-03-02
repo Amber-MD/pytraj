@@ -253,7 +253,7 @@ class nupars(object):
         [shift] Base pair step shift.
         [slide] Base pair step slide.
         [rise] Base pair step rise.
-        [title] Base pair step tilt.
+        [tilt] Base pair step tilt.
         [roll] Base pair step roll.
         [twist] Base pair step twist.
         [xdisp] Helical X displacement.
