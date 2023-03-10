@@ -190,7 +190,7 @@ class nupars(object):
         return keylist, arr.T
 
     def keys(self):
-        return list(self._dict)
+        return [k for k in list(self._dict) if k != 'nxyz']
 
     def __dir__(self):
         '''for autocompletion in ipython
