@@ -628,7 +628,7 @@ def read_to_array(fname):
     '''read text from file to numpy array'''
     import numpy as np
     with open(fname, 'r') as fh:
-        arr0 = np.array([[x for x in line.split()] for line in fh.readlines()])
+        arr0 = np.array([[x for x in line.split()] for line in fh.readlines()], dtype=object)
         return np.array(flatten(arr0), dtype='f8')
 
 
