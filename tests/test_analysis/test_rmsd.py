@@ -162,11 +162,11 @@ class TestSimpleRMSD(unittest.TestCase):
             aa_eq(arr[idx], pt.rmsd(traj, mask=m))
             aa_eq(arr[idx], pt.rmsd(traj, mask=traj.top.select(m)))
 
-        mask = ['@CA', '@CB', ':3-18@CA,C', [0, 3, 5]]
+        mask = np.array(['@CA', '@CB', ':3-18@CA,C', [0, 3, 5]], dtype=object)
         with pytest.raises(TypeError):
             pt.rmsd(traj, mask=mask)
 
-        mask_2 = [[0, 3, 6], range(50)]
+        mask_2 = np.array([[0, 3, 6], range(50)], dtype=object)
         aa_eq(pt.rmsd(traj, mask=mask_2)[0], pt.rmsd(traj, mask=mask_2[0]))
         aa_eq(pt.rmsd(traj, mask=mask_2)[1], pt.rmsd(traj, mask=mask_2[1]))
 
