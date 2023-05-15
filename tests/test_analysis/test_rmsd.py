@@ -172,8 +172,10 @@ class TestSimpleRMSD(unittest.TestCase):
 
         ca = pt.select('@CA', traj.top)
         cb = pt.select('@CB', traj.top)
-        aa_eq(pt.rmsd(traj, mask=ca), pt.rmsd(traj, mask=[ca, cb])[0])
-        aa_eq(pt.rmsd(traj, mask=cb), pt.rmsd(traj, mask=[ca, cb])[1])
+        mask_3 = np.array([ca, cb], dtype=object)
+        rmsd_3 = pt.rmsd(traj, mask=mask_3)
+        aa_eq(pt.rmsd(traj, mask=ca), rmsd_3[0])
+        aa_eq(pt.rmsd(traj, mask=cb), rmsd_3[1])
 
     def test_raise_savematrices_if_not_dataset(self):
         traj = self.traj.copy()
