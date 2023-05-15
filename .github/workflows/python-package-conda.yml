@@ -20,9 +20,9 @@ jobs:
         sudo apt-get install libfftw3-dev
         sudo apt-get install clang
         sudo apt-get install cmake-data cmake    
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Set up Python 3.8
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v3
       with:
         python-version: 3.8
     - name: Add conda to system path
@@ -31,10 +31,10 @@ jobs:
         echo $CONDA/bin >> $GITHUB_PATH
     - name: Install dependencies
       run: |
-        curl -OL ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-4.6.1.tar.gz
-        tar -zxf netcdf-4.6.1.tar.gz
-        cd netcdf-4.6.1
-        ./configure --disable-netcdf-4 --disable-dap --disable-doxygen --prefix=$HOME
+        curl -OL https://github.com/Unidata/netcdf-c/archive/refs/tags/v4.9.2.tar.gz
+        tar -zxf v4.9.2.tar.gz 
+        cd netcdf-c-4.9.2
+        ./configure --disable-byterange --disable-libxml2 --disable-netcdf-4 --disable-dap --disable-doxygen --prefix=$HOME
         make -j2
         make install
         cd ..
