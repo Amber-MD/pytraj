@@ -444,8 +444,8 @@ def test_write_velocity_from_scratch():
             for frame in add_velocity(traj):
                 writer.write(frame)
         traj2 = pt.iterload(out_fn, top=traj.top)
-        assert traj2.metadata['has_velocity']
-        assert not traj2.metadata['has_force']
+        assert traj2.crdinfo['has_velocity']
+        assert not traj2.crdinfo['has_force']
         # make sure no segmentation fault
         # issues/1486
         assert traj2[:].n_frames == traj2.n_frames
@@ -469,8 +469,8 @@ def test_write_force_from_scratch():
             for frame in add_force(traj):
                 writer.write(frame)
         traj2 = pt.iterload(out_fn, top=traj.top)
-        assert traj2.metadata['has_force']
-        assert not traj2.metadata['has_velocity']
+        assert traj2.crdinfo['has_force']
+        assert not traj2.crdinfo['has_velocity']
         # issues/1486
         assert traj2[:].n_frames == traj2.n_frames
 
@@ -498,24 +498,24 @@ def test_write_both_force_and_velocity_from_scratch():
             for frame in add_force_and_velocity(traj):
                 writer.write(frame)
         traj2 = pt.iterload(out_fn, top=traj.top)
-        assert traj2.metadata['has_force']
-        assert traj2.metadata['has_velocity']
+        assert traj2.crdinfo['has_force']
+        assert traj2.crdinfo['has_velocity']
 
 
 def test_write_force_and_velocity():
     trajin = cpptraj_test_dir + '/Test_systemVF/systemVF.nc'
     tn = cpptraj_test_dir + '/Test_systemVF/systemVF.parm7'
     traj = pt.iterload(trajin, tn)
-    assert traj.metadata['has_force']
-    assert traj.metadata['has_velocity']
+    assert traj.crdinfo['has_force']
+    assert traj.crdinfo['has_velocity']
 
     with tempfolder():
         fn2 = 'test.nc'
-        traj.save(fn2, overwrite=True, crdinfo=traj.metadata)
+        traj.save(fn2, overwrite=True, crdinfo=traj.crdinfo)
 
         traj2 = pt.iterload(fn2, traj.top)
-        assert traj2.metadata['has_force']
-        assert traj2.metadata['has_velocity']
+        assert traj2.crdinfo['has_force']
+        assert traj2.crdinfo['has_velocity']
 
         forces_traj = np.array([frame.force.copy() for frame in traj])
         forces_traj2 = np.array([frame.force.copy() for frame in traj2])
