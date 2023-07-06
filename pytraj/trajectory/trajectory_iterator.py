@@ -203,12 +203,16 @@ class TrajectoryIterator(TrajectoryCpptraj, SharedTrajectory):
         frame_slice_ = frame_slice if stride is None else (0, -1, stride)
 
         if isinstance(filename, str) and os.path.exists(filename):
+            print("CASE1")
+            print(filename)
             super(TrajectoryIterator, self)._load(filename, top_, frame_slice_)
             self._frame_slice_list.append(frame_slice_)
         elif isinstance(filename,
                         str) and not os.path.exists(filename):
-
+            print("CASE2")
+            print(filename)
             flist = sort_filename_by_number(glob(filename))
+            print(flist)
             if not flist:
                 if "\\" in filename:
                     # filename with white space
