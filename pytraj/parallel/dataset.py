@@ -45,7 +45,7 @@ class PmapDataset(object):
             # val : Tuple[(vecs, mat), n_frames]
             mat = np.sum((val[0][1] * val[1]
                           for val in self.data)) / self.traj.n_frames
-            vecs = np.column_stack(val[0][0] for val in self.data)
+            vecs = np.column_stack([val[0][0] for val in self.data])
             return (vecs, mat)
         elif self.func in [
                 rotation_matrix,

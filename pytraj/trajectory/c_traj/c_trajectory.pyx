@@ -318,9 +318,10 @@ cdef class TrajectoryCpptraj:
             return self.tmpfarray
         else:
             # not is a slice or string or AtomMask
-            if idxs == ():
-                return self
-            elif isinstance(idxs, tuple):
+            #if idxs == ():
+            #    return self
+            #el
+            if isinstance(idxs, tuple):
                 idxs_size = len(idxs)
                 if idxs_size >= 4:
                     raise NotImplementedError("number of elements must me smaller than 4")
