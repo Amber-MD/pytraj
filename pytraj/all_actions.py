@@ -179,10 +179,12 @@ def closest_atom(top=None, frame=None, point=(0, 0, 0), mask=""):
 	Returns
 	-------
 	Index of atom closest to point in xyz coordinate space.
+
 	Notes
 	-----
 	Topology needs to contain atoms that match the atom mask passed in, and frame needs to have
 	xyz coordinates for all atoms. Point should be a tuple of length 3 with format (x, y, z)
+
 	Examples
 	--------
 	>>> import pytraj as pt
