@@ -59,6 +59,7 @@ __all__ = [
     'diffusion',
     'dihedral',
     'distance',
+	'closest_atom',
     'distance_to_point',
     'distance_to_reference',
     'fiximagedbonds',
@@ -156,6 +157,33 @@ def _assert_mutable(trajiter):
         raise ValueError(
             "This analysis does not support immutable object. Use `pytraj.Trajectory`"
         )
+
+def pair_distance(p1, p2):
+    x1, y1, z1 = p1
+    x2, y2, z2 = p2
+    return np.sqrt((x1 - x2)**2 + (y1 - y2)**2 + (z1 - z2)**2)
+
+@register_pmap
+def closest_atom(top=None, frame=None, point=(0, 0, 0), mask=""):
+    if (top is None) or (len(top.atom_indices(mask)) == 0):
+        raise ValueError("Please pass in a topology file with atoms that match the mask in it")
+    if (frame is None) or (len(frame.coordinates) == 0):
+        raise ValueError("Please pass in a valid frame with coordinates to the function")
+    if (type(point) is not tuple):
+        raise ValueError("Point argument with xyz coordinates must be a tuple")
+    if len(point) != 3:
+        raise ValueError("Please pass in a tuple of length 3, for xyz coordinates")
+
+    closest_dist = None
+    closest_idx = None
+    atoms = top.atom_indices(mask)
+    for atm in atoms:
+        coord = frame.atom(atm)
+        if ((closest_dist is None) or (pair_distance(coord, point) < closest_dist)):
+            closest_dist = pair_distance(coord, point)
+            closest_idx = atm
+
+    return closest_idx
 
 
 @register_pmap
